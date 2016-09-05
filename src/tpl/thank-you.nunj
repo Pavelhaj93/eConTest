@@ -1,0 +1,15 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Děkujeme" %}
+
+{% block content %}
+
+	{% call text() %}
+		<p>Vitame vas, pane Novaku,<br>děkujeme, že jste akceptoval naši nabídku a sjednal produkt <strong>zemního plynu OPTIMAL</strong>.</p>
+		<p>V následujících hodinách obdržíte e-mail s odkazem k potvreným smluvním dokumentům.</p>
+		<p>Děkujeme, <br>Vaše Innogy.</p>
+	{% endcall %}
+
+	{% include 'partials/actions.nunj' %}
+
+{% endblock %}

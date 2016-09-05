@@ -1,0 +1,8 @@
+<header class="header">
+	<div class="container">
+		<div class="row">
+			<a class="logo" href="index.html">{{ icon('logo') }}</a>
+			<a class="phone" href="tel:800113355">800 11 33 55</a>
+		</div>
+	</div>
+</header>

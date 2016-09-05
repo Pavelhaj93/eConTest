@@ -1,0 +1,58 @@
+.header {
+	background-color: #000;
+	color: #fff;
+	padding: 15px 0;
+	text-align: center;
+	height: 120px;
+	transition: height .3s;
+	will-change: height;
+
+	@media (max-width: $screen-md-max) {
+		height: 90px;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	.logo {
+		display: inline-block;
+
+		.icon {
+			height: 90px;
+			vertical-align: middle;
+			transition: height .3s;
+			will-change: height;
+
+			@media (max-width: $screen-md-max) {
+				height: 60px;
+			}
+		}
+	}
+
+	.phone {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: $grid-gutter-width / 2;
+		margin: auto;
+		height: 1.25rem;
+
+		@media (max-width: $screen-md-max) {
+			right: 1rem;
+		}
+
+		@media (max-width: $screen-sm-max) {
+			&:before {
+				display: none;
+			}
+		}
+
+	}
+
+	a {
+		color: #fff;
+		display: inline-block;
+	}
+
+}

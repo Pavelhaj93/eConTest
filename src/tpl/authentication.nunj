@@ -1,0 +1,36 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Authentication" %}
+
+{% block content %}
+
+	{% call text() %}
+		<p>Vítáme Vás, pane Nováku,</p>
+		<p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
+		<form id="authentication">
+			<div class="status"></div>
+			<div class="row">
+				<div class="col-md-8 col-lg-6">
+					<div class="input-group">
+						<label for="birth">Darum narození</label>
+						<input id="birth" name="birth" class="input-date" placeholder="napr. 26. 12. 1966" autocomplete="off" value="" required>
+						<a class="ui-datepicker-trigger" href="" tabIndex="-1">{{ icon('calendar') }}</a>
+					</div>
+					<div class="input-group">
+						<label for="additional">Smluvní údaj</label>
+						<input id="additional" name="additional" placeholder="Vložte Vaše zákaznické číslo" autocomplete="off" value="" required>
+					</div>
+				</div>
+			</div>
+			<button type="submit">Potvrdit vložené údaje a zobrazit nabídku</button>
+		</form>
+	{% endcall %}
+
+{% endblock %}
+
+{% block scripts %}
+	<script>var dob = '30.08.2016';</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.cs.min.js"></script>
+{% endblock %}

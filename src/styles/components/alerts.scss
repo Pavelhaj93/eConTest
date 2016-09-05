@@ -1,0 +1,52 @@
+.alert {
+	position: relative;
+	margin-top: 2rem;
+	margin: 1.5em 0;
+	padding: 1em 1.5em;
+	padding-right: 3.5em;
+
+	.close {
+		$size: 10px;
+
+		position: absolute;
+		right: 1rem;
+		top: 0;
+		margin: auto;
+		padding: .5rem;
+
+		background-size: 100% 100%;
+		background: svg-load('../gfx/svg/close.svg', fill=#fff) no-repeat center;
+		bottom: 0;
+		box-sizing: initial;
+		height: $size;
+		transition: transform .3s ease;
+		width: $size;
+
+		&:hover { transform: scale(1.2); }
+	}
+	
+	&.error {
+		background: $color-red;
+		color: #fff;
+	}
+
+	&.warning {
+		$color: $color-orange;
+		$color-text: darken($color, 15%);
+
+		background: transparentize($color, .8);
+		color: $color-text;
+
+		.icon { fill: $color-text; }
+	}
+
+	&.success {
+		$color: $color-green;
+		$color-text: darken($color, 15%);
+
+		background: transparentize($color, .8);
+		color: $color-text;
+
+		.icon { fill: $color-text; }
+	}
+}

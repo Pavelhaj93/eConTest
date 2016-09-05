@@ -1,0 +1,13 @@
+/**
+ * Bootstrap variables customizations
+ */
+
+/* Grid */
+// $grid-columns: 2;
+// $grid-gutter-width: 3vw;
+
+/* Colors */
+$link-color: $color-orange;
+
+// Import bootstrap's own variables
+@import '../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables';
