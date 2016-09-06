@@ -1,0 +1,542 @@
+﻿4656 14:30:48 INFO  HttpModule is being initialized
+4656 14:30:48 INFO  
+4656 14:30:48 INFO  **********************************************************************
+4656 14:30:48 INFO  **********************************************************************
+4656 14:30:48 INFO  Sitecore started
+4656 14:30:48 INFO  Sitecore.NET 8.1 (rev. 160302)
+4656 14:30:48 INFO  
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\antlr3.runtime.dll (Antlr3.Runtime)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\componentart.web.ui.dll ()
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\csquery.dll (CsQuery, CsQuery is a CSS selector engine and jQuery port for .NET 4 and C#)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\customfields.accountselector.dll (AccountSelectorAssembly)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\dotnetopenauth.dll (DotNetOpenAuth, 1c99bf16c5b570cadcf27d0b9ce3d598d06b34ca)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\ecmascript.net.dll (Modified version of the EcmaScript.NET assembly)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\facebook.dll (Facebook C# SDK, Facebook C# SDK)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\facebookapi.dll (FacebookAPI)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\google.apis.authentication.oauth2.dll (OAuth2 Authentication Library)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\google.apis.dll ()
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\google.apis.plus.v1.dll (Google.Apis.Plus.v1)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\hammock.clientprofile.dll (Hammock)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\htmlagilitypack.dll (Html Agility Pack, 1.4.6.0)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\iesi.collections.dll (Iesi.Collections, Enhanced Collections for .NET.  Code was published at http://www.codeproject.com/csharp/sets.asp, 1.0)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\ithit.webdav.server.dll (WebDav Server .Net v2, IT Hit WebDAV Server .Net v2)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.analyzers.dll (Lucene.Net.Contrib.Analyzers)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.core.dll (Lucene.Net.Contrib.Core, Contributions to the Lucene.Net core library)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.fastvectorhighlighter.dll (Lucene.Net.Contrib.FastVectorHighlighter, FastVectorHighlighter for Lucene.Net)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.highlighter.dll (Lucene.Net.Contrib.Highlighter, The Apache Software Foundation Lucene.Net a full-text search engine library, 2.3.2)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.memory.dll (Contrib.Memory)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.queries.dll (Lucene.Net.Contrib.Queries)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.regex.dll (Lucene.Net.Contrib.Regex)
+4656 14:30:48 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.simplefacetedsearch.dll (Lucene.Net.SimpleFacetedSearch, SimpleFacetedSearch for Lucene.Net)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.snowball.dll (Lucene.Net.Contrib.Snowball, The Apache Software Foundation Lucene.Net a full-text search engine library, 2.0)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.contrib.spellchecker.dll (SpellChecker.Net, The Apache Software Foundation Lucene.Net a full-text search engine library, 3.0.3)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\lucene.net.dll (Lucene.Net, The Apache Software Foundation Lucene.Net a full-text search engine library, 3.0.3)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\microsoft.web.infrastructure.dll (Microsoft ASP.Net WebPages)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\mongodb.bson.dll (MongoDB.Bson, Official MongoDB supported BSON library. See http://www.mongodb.org/display/DOCS/CSharp+Language+Center for more details, { version: '1.10.0.62', semver: '1.10.0', commit: '2df664a15859899b9bb0a457e237ec32c7d31e48', commitDate: '2015-01-29 15:41:46' })
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\mongodb.driver.dll (MongoDB.Driver, Official MongoDB supported driver for MongoDB.  See http://www.mongodb.org/display/DOCS/CSharp+Language+Center for more details, { version: '1.10.0.62', semver: '1.10.0', commit: '2df664a15859899b9bb0a457e237ec32c7d31e48', commitDate: '2015-01-29 15:41:46' })
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\mvp.xml.dll (MVP XML Library)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\netbiscuits.onpremise.dll (OnPremise)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\newtonsoft.json.dll (Json.NET, Json.NET is a popular high-performance JSON framework for .NET)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\oauthlinkedin.dll (OAuthLinkedIn)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\protobuf-net.dll (protobuf-net, Protocol Buffers for .NET)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\radeditor.net2.dll (RadEditor, Telerik RadEditor)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.abstractions.dll (Sitecore CMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.aggregation.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.automation.aggregation.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.automation.dll (Sitecore EAS, Sitecore Engagement Automation Suite, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.automation.mongodb.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.core.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.dataaccess.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.dll (Sitecore DMS, Sitecore Digital Marketing System, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.model.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.mongodb.dll (Sitecore DMS, Sitecore Digital Marketing System MongoDB Connector, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.omnichannel.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.outcome.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.processing.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.robotdetection.dll (Sitecore Robot Detection, 1.0.0 rev. 150922)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.analytics.sql.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.apps.loader.dll (Sitecore.Apps.Loader, Sitecore.Apps.Loader, 1.0.0 rev. 150907)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.buckets.client.dll (Sitecore Buckets, The assembly can be used to have Sitecore queries driven via a query, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.buckets.dll (Sitecore Buckets, The assembly can be used to have Sitecore queries driven via search providers, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.ces.devicedetection.dll (Sitecore Device Detection Client, 1.0.0 rev. 150803)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.ces.devicedetection.rules.dll (Sitecore Device Detection Client, 1.0.0 rev. 150803)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.ces.dll (Sitecore IP Geolocation Service Client, 1.3 rev. 150626)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.ces.geoip.dll (Sitecore IP Geolocation Service Client, 1.3 rev. 150626)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.ces.geoip.legacylocation.dll (Sitecore IP Geolocation Service Client, 1.3 rev. 150626)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cintel.client.dll (Sitecore Experience Profile, 1.0.0 rev. 160119)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cintel.dll (Sitecore Experience Profile, 1.0.0 rev. 160119)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.client.dll (Sitecore CMS, Sitecore Client Application, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.client.licenseoptions.dll (Sitecore Speak Applications, 1.3.1 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cloud.contentsearch.dll (Sitecore Cloud ContentSearch, 8.1.0 rev. 151130)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cloud.nexus.dll (Sitecore Cloud Services)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cloud.restclient.dll (Sitecore Cloud Services)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cloud.servicemodel.dll (Sitecore Cloud Services)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.cloud.xdb.dll (Sitecore Cloud Xdb, 8.1.0 rev. 151223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.commerce.dll (Sitecore Commerce Connect, 8.1 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.commerce.experienceprofile.dll (Sitecore Commerce Connect, 8.1 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.analytics.client.dll (Sitecore Buckets, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.analytics.dll (Sitecore Buckets, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.client.dll (Sitecore Buckets, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.dll (Sitecore Buckets, Sitecore CMS Search, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.linq.dll (Sitecore Buckets, Sitecore CMS Search, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.linq.lucene.dll (Sitecore Buckets, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contentsearch.luceneprovider.dll (Sitecore Buckets, Sitecore CMS Search, 1.0.0 rev. 160211)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contenttesting.dll (Sitecore Content Testing, 8.1.2 rev. 160223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contenttesting.intelligence.dll (Sitecore Content Testing, 8.1.2 rev. 160223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contenttesting.model.dll (Sitecore Content Testing, 8.1.2 rev. 160223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.contenttesting.mvc.dll (Sitecore Content Testing, 8.1.2 rev. 160223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.controlpanel.dll (Sitecore Speak Applications, 1.3.1 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceanalytics.client.dll (Sitecore Experience Analytics, 1.2.0 rev. 160301)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceanalytics.dll (Sitecore Experience Analytics, 1.2.0 rev. 160301)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceanalytics.reaggregation.dll (Sitecore Experience Analytics, 1.2.0 rev. 160301)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experiencecontentmanagement.administration.dll (ExperienceContentManagement.Administration, 1.0.0 rev. 151225)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceeditor.dll (Sitecore Experience Editor, 2.0.0 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceeditor.speak.dll (Sitecore Experience Editor, 2.0.0 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceeditor.speak.ribbon.dll (Sitecore Experience Editor, 2.0.0 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceexplorer.business.dll (Sitecore Experience Explorer, 2.0.0 rev. 151030)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.experienceexplorer.web.dll (Sitecore Experience Explorer, 2.0.0 rev. 151030)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.fxm.client.dll (Sitecore Federated Experience Manager, 2.0.0 rev. 151202 )
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.fxm.dll (Sitecore Federated Experience Manager, 2.0.0 rev. 151202 )
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.fxm.service.dll (Sitecore Federated Experience Manager, 2.0.0 rev. 151202 )
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.fxm.speak.dll (Sitecore Federated Experience Manager, 2.0.0 rev. 151202 )
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.itemwebapi.dll (Sitecore Item Web API, 1.2.0 rev. 141016)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.kernel.dll (Sitecore CMS, Sitecore CMS Kernel Library, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.launchpad.dll (Sitecore LaunchPad, 1.0 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.listmanagement.analytics.dll (Sitecore List Manager, 1.1.2 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.listmanagement.client.dll (Sitecore List Manager, 1.1.2 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.listmanagement.contentsearch.dll (Sitecore List Manager, 1.1.2 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.listmanagement.dll (Sitecore List Manager, 1.1.2 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.listmanagement.services.dll (Sitecore List Manager, 1.1.2 rev. 160212)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.logging.client.dll (Sitecore CMS, Lets you insert loggers in your JavaScript, and automatically sends the log messages to a server side component that stores them in your existing server side logs. Interfaces with Sitecore.Logging.
+
+Ideal for logging JavaScript exceptions to the server, including a stack trace. Documentation and examples are at jsnlog.com)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.logging.dll (Sitecore CMS, Sitecore Logging Framework, 8.0 rev. 141020)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.campaigns.client.dll (Sitecore Campaign Manager, 1.1.2 rev. 160215)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.campaigns.services.dll (Sitecore Campaign Manager, 1.1.2 rev. 160215)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.client.dll (Sitecore Marketing Client, 1.0.0 rev. 151030)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.core.dll (Sitecore Marketing Operations API, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.definitions.marketingassets.repositories.dll (Sitecore Marketing Asset Repositories, 1.0.0 rev. 160223)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.dll (Sitecore Marketing Operations API, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.search.dll (Sitecore Marketing Operations, 1.0.0 rev. 150928)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.marketing.taxonomy.dll (Sitecore Marketing Operations API, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.mvc.analytics.dll (Sitecore Mvc Analytics, 1.1.0 rev. 151106)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.mvc.devicesimulator.dll (Sitecore Mvc Device Simulators, 1.0.0 rev. 150909)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.mvc.dll (Sitecore Mvc, 1.0.0 rev. 150625)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.mvc.experienceeditor.dll (Sitecore Mvc Experience Editor, 2.0.0 rev. 151126)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.nexus.dll (Sitecore.Nexus)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.nvelocity.dll (Sitecore CMS, Sitecore Macro Expansion Library, 6.6.0 rev. 120918)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.oracle.dll (Sitecore CMS, Oracle Data Provider for Sitecore, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.pathanalyzer.client.dll (Sitecore Path Analyzer, 1.1.0 rev. 150828)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.pathanalyzer.dll (Sitecore Path Analyzer, 1.1.0 rev. 150828)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.pathanalyzer.services.dll (Sitecore Path Analyzer, 1.1.0 rev. 150828)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.publishing.webdeploy.dll (Sitecore CMS, Sitecore publishing infrastructure based on Web Deployment Tool, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.security.anticsrf.dll (Sitecore AntiCSRF Module, 1.0.0 rev. 150806)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.segmentbuilder.dll (Sitecore Segment Builder, 1.0.0 rev. 150625)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.sequenceanalyzer.dll (Sitecore Path Analyzer, 1.1.0 rev. 150828)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.services.client.dll (Sitecore Services 1.0.0, Sitecore Services, 1.0.0)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.services.core.dll (Sitecore Services 1.0.0, Sitecore Services, 1.0 rev. 141114)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.services.infrastructure.dll (Sitecore Services 1.0.0, Sitecore Services, 1.0 rev. 141114)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.services.infrastructure.sitecore.dll (Sitecore Services 1.0.0, Sitecore Services, 1.0 rev. 141114)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.sessionprovider.dll (Sitecore CMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.sessionprovider.memory.dll (Sitecore CMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.sessionprovider.mongodb.dll (Sitecore CMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.sessionprovider.sql.dll (Sitecore CMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.shell.marketingautomation.dll (Sitecore Engagement Automation Suite, 1.0.0 rev. 151109)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.common.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.domain.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.mvc.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.client.speak.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.configuration.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.domain.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.experienceprofile.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.facebook.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.facebook.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.facebook.client.mvc.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.facebook.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.googleplus.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.googleplus.client.mvc.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.googleplus.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.infrastructure.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.infrastructure.logging.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.installation.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.klout.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.klout.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.linkedin.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.linkedin.client.mvc.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.linkedin.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.networkproviders.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.sitecoreaccess.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.socialmarketer.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.socialmarketer.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.socialmarketer.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.twitter.api.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.twitter.client.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.twitter.client.mvc.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.social.twitter.dll (Social Connected Module, 8.1 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.applications.dll (Sitecore Speak Applications, 1.3.1 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.charting.dll (Sitecore Speak Charting, 1.1.0 rev. 150820)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.client.dll (Sitecore Speak, 2.0.812 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.components.dll (Sitecore Speak Components, 2.0.0 rev. 160128)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.components.guidance.dll (Sitecore Speak Components, 2.0.0 rev. 160128)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.components.web.dll (Sitecore Speak Components, 2.0.0 rev. 160128)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.itemwebapi.dll (Sitecore Speak, 2.0.812 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.mvc.dll (Sitecore Speak, 2.0.812 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.speak.web.dll (Sitecore Speak, 2.0.812 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.update.dll (Sitecore Update Installation Wizard, 1.0.0 rev. 160203)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.web.dll (Sitecore Web, 1.1.0 rev. 151029)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.xdb.configuration.dll (Sitecore DMS, 8.1.0 rev. 160302)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\sitecore.zip.dll (Sitecore CMS, ZIP support for Sitecore, 8.1.0 rev. 150714)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\stimulsoft.base.dll (Stimulsoft Reports, Stimulsoft Base)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\stimulsoft.database.dll (Stimulsoft Reports, Stimulsoft Reports Database Helper)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\stimulsoft.report.dll (Stimulsoft Reports, Stimulsoft Reports Engine)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\stimulsoft.report.web.dll (Stimulsoft Reports.Web, Stimulsoft Reports.Web Viewer)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\stimulsoft.report.webdesign.dll (Stimulsoft Reports Designer.Web, Stimulsoft Reports Designer.Web)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.net.http.dll (Microsoft® .NET Framework, System.Net.Http.dll, 4.6.1055.0)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.net.http.formatting.dll (Microsoft ASP.NET MVC, 5.2.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.net.http.webrequest.dll (Microsoft® .NET Framework, System.Net.Http.WebRequest.dll, 4.0.30319.33440)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.cors.dll (Microsoft ASP.NET MVC, 5.1.0-20110)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.helpers.dll (Microsoft ASP.NET Web Pages, 3.0.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.http.cors.dll (Microsoft ASP.NET MVC, 5.1.0-20110)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.http.dll (Microsoft ASP.NET MVC, 5.2.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.http.webhost.dll (Microsoft ASP.NET MVC, 5.2.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.mvc.dll (Microsoft ASP.NET MVC, System.Web.Mvc.dll, 5.2.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.optimization.dll (System.Web.Optimization)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.razor.dll (Microsoft ASP.NET Web Pages, 3.0.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.webpages.deployment.dll (Microsoft ASP.NET Web Pages, 3.0.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.webpages.dll (Microsoft ASP.NET Web Pages, 3.0.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\system.web.webpages.razor.dll (Microsoft ASP.NET Web Pages, 3.0.3-30128 (0e974218e12a67d4b1f25422119e40cfe6953e46))
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\telerik.web.ui.dll (Telerik.Web.UI, Telerik UI for ASP.NET AJAX)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\telerik.web.ui.skins.dll (Telerik.Web.UI.Skins, Telerik UI for ASP.NET AJAX Ajax Skins)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\tweetsharp.dll (TweetSharp)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\webgrease.dll (WebGrease)
+4656 14:30:49 INFO  c:\inetpub\wwwroot\rwe\econtracting\website\website\bin\yahoo.yui.compressor.dll (YUI Compressor, A .NET port of the Yahoo! YUI Compressor project)
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Operating system Microsoft Windows NT 6.3.9600.0
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Microsoft.NET version 4.0.30319.42000
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  UTC offset: 02:00:00
+4656 14:30:49 INFO  Machine name: WMCL209
+4656 14:30:49 INFO  App pool ID: eContracting
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Process ID: 3876
+4656 14:30:49 INFO  Windows identity used by the process: NT AUTHORITY\NETWORK SERVICE. Impersonation: False
+4656 14:30:49 INFO  Managed pipeline mode: Integrated
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  EventQueues enabled: True
+4656 14:30:49 INFO  Instance Name:WMCL209-eContracting
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Threshold settings
+4656 14:30:49 INFO    Show threshold warnings: False
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Databases
+4656 14:30:49 INFO    core
+4656 14:30:49 INFO    master
+4656 14:30:49 INFO    web
+4656 14:30:49 INFO    filesystem
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Domains
+4656 14:30:49 INFO  Heartbeat - Initializing
+4656 14:30:49 INFO  Heartbeat - Interval set to: 00:00:02
+4656 14:30:49 INFO  Heartbeat - Worker thread started
+4656 14:30:49 INFO  Trying to load XML configuration /App_Config/Security/Domains.config
+4656 14:30:49 INFO    sitecore
+4656 14:30:49 INFO    extranet
+4656 14:30:49 INFO    default
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  xDB is enabled.
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Tracking is enabled.
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  Valid xDB license is present.
+4656 14:30:49 INFO  
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  **********************************************************************
+4656 14:30:49 INFO  Attempting to get ASP.NET process history
+4656 14:30:49 WARN  No process history available
+4656 14:30:49 INFO  Cache created: 'LanguageProvider - Languages' (max size: 100KB, running total: 100KB)
+4656 14:30:49 INFO  Cache created: 'DeviceItemsCache' (max size: 50MB, running total: 50MB)
+4656 14:30:49 INFO  Cache created: 'core[data]' (max size: 100MB, running total: 150MB)
+4656 14:30:49 INFO  Cache created: 'core[items]' (max size: 50MB, running total: 200MB)
+4656 14:30:49 INFO  Cache created: 'core[paths]' (max size: 2MB, running total: 202MB)
+4656 14:30:49 INFO  Cache created: 'core[standardValues]' (max size: 2MB, running total: 204MB)
+4656 14:30:49 INFO  Cache created: 'core[languageFallback]' (max size: 20MB, running total: 224MB)
+4656 14:30:49 INFO  Cache created: 'core[isLanguageFallbackValid]' (max size: 100KB, running total: 225MB)
+4656 14:30:49 INFO  Cache created: 'core[itempaths]' (max size: 50MB, running total: 275MB)
+4656 14:30:49 INFO  Cache created: 'core[blobIDs]' (max size: 500KB, running total: 275MB)
+4656 14:30:49 INFO  Cache created: 'master[data]' (max size: 100MB, running total: 375MB)
+4656 14:30:49 INFO  Cache created: 'master[items]' (max size: 50MB, running total: 425MB)
+4656 14:30:49 INFO  Cache created: 'master[paths]' (max size: 2MB, running total: 428MB)
+4656 14:30:49 INFO  Cache created: 'master[standardValues]' (max size: 2MB, running total: 430MB)
+4656 14:30:49 INFO  Cache created: 'master[languageFallback]' (max size: 20MB, running total: 450MB)
+4656 14:30:49 INFO  Cache created: 'master[isLanguageFallbackValid]' (max size: 100KB, running total: 450MB)
+4656 14:30:49 INFO  Cache created: 'master[itempaths]' (max size: 50MB, running total: 500MB)
+4656 14:30:49 INFO  Cache created: 'master[blobIDs]' (max size: 500KB, running total: 501MB)
+4656 14:30:49 INFO  Cache created: 'web[data]' (max size: 100MB, running total: 601MB)
+4656 14:30:49 INFO  Cache created: 'web[items]' (max size: 50MB, running total: 651MB)
+4656 14:30:49 INFO  Cache created: 'web[paths]' (max size: 2MB, running total: 653MB)
+4656 14:30:49 INFO  Cache created: 'web[standardValues]' (max size: 2MB, running total: 655MB)
+4656 14:30:49 INFO  Cache created: 'web[languageFallback]' (max size: 20MB, running total: 675MB)
+4656 14:30:49 INFO  Cache created: 'web[isLanguageFallbackValid]' (max size: 100KB, running total: 676MB)
+4656 14:30:49 INFO  Cache created: 'web[itempaths]' (max size: 50MB, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'web[blobIDs]' (max size: 500KB, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[data]' (max size: 0 bytes, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[items]' (max size: 0 bytes, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[paths]' (max size: 0 bytes, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[standardValues]' (max size: 0 bytes, running total: 726MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[languageFallback]' (max size: 20MB, running total: 746MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[isLanguageFallbackValid]' (max size: 100KB, running total: 746MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[itempaths]' (max size: 50MB, running total: 796MB)
+4656 14:30:49 INFO  Cache created: 'filesystem[blobIDs]' (max size: 500KB, running total: 797MB)
+ManagedPoolThread #12 14:30:51 INFO  Trying to load XML configuration /App_Config/Security/Domains.config
+Heartbeat 14:30:53 INFO  Cache created: 'SqlDataProvider - Property data(core)' (max size: 500KB, running total: 797MB)
+Heartbeat 14:30:53 INFO  Cache created: 'SqlDataProvider - Property data(master)' (max size: 500KB, running total: 798MB)
+Heartbeat 14:30:53 INFO  Cache created: 'SqlDataProvider - Property data(web)' (max size: 500KB, running total: 798MB)
+4656 14:30:57 INFO  Cache created: 'SqlDataProvider - Prefetch data(core)' (max size: 50MB, running total: 848MB)
+4656 14:30:57 INFO  Cache created: 'ItemCloningRelations' (max size: 50MB, running total: 898MB)
+4656 14:30:57 INFO  Cache created: 'AccessResultCache' (max size: 10MB, running total: 908MB)
+4656 14:30:57 INFO  Loading Dictionary from cache
+4656 14:30:57 INFO  MemoryMonitor initialized. Threshold: 2 GB. Interval: 00:00:05
+4656 14:30:57 INFO  [Analytics]: Started background service for 'maintenanceService'.
+4656 14:30:57 INFO  Cache created: 'taxonomy.campaigngroups' (max size: 20MB, running total: 928MB)
+4656 14:30:57 INFO  Cache created: 'taxonomy.channels' (max size: 20MB, running total: 948MB)
+4656 14:30:57 INFO  Cache created: 'taxonomy.venues' (max size: 20MB, running total: 968MB)
+4656 14:30:57 INFO  Cache created: 'taxonomy.assets' (max size: 20MB, running total: 988MB)
+4656 14:30:57 INFO  Cache created: 'taxonomy.outcomeGroups' (max size: 20MB, running total: 1008MB)
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/aggregator'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/contactProcessing'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/cleanup'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/recovery'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/rebuildAgent'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/historyWorker'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/historyCompletionCheck'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/automationAggregator'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/automationRangeManager'.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'aggregation/automationCleanupService'.
+4656 14:30:57 INFO  [Analytics]: Automation aggregation SubsystemLoader hook initialized.
+4656 14:30:57 INFO  [Analytics]: Started background service for 'processing/taskAgent'.
+4656 14:30:57 INFO  Cache created: 'rules' (max size: 800KB, running total: 1009MB)
+4656 14:30:57 INFO  Cache created: '[FieldReaderCache, Id: defaultFieldReaderMap]' (max size: 5MB, running total: 1014MB)
+4656 14:30:58 INFO  [Analytics]: Started background service for 'pathAnalyzer/newMapAgent'.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'pathAnalyzer/smartMergeAgent'.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'aggregation/pathAnalyzerLiveAgent'.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'aggregation/pathAnalyzerHistoryAgent'.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'pathAnalyzer/trailCleanupAgent'.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'pathAnalyzer/mapRebuildStatusCheckerAgent'.
+4656 14:30:58 INFO  [Path Analyzer](.) Path Analyzer subsystem hook initialized.
+4656 14:30:58 INFO  [Analytics]: Started background service for 'experienceAnalytics/reduce/agent'.
+4656 14:30:58 INFO  [Experience Analytics]: Experience Analytics subsystem initialized.
+4656 14:30:58 INFO  Scheduler - Initializing
+4656 14:30:58 INFO  Cache created: 'UserProfileCache' (max size: 5MB, running total: 1019MB)
+4656 14:30:58 INFO  Cache created: 'clientData' (max size: 25MB, running total: 1044MB)
+4656 14:30:58 INFO  Scheduler - Interval set to: 00:00:05
+4656 14:30:58 INFO  Scheduler - Worker thread started
+4656 14:30:58 INFO  Sitecore.Analytics.Automation.Diagnostics.PerformanceCounters are initialized
+4656 14:30:58 INFO  Sitecore.Analytics.Tracking.Diagnostics.PerformanceCounters are initialized
+4656 14:30:58 INFO  Sitecore.Analytics.Diagnostics.PerformanceCounters are initialized
+4656 14:30:58 INFO  DumpConfigurationFiles: Started
+2824 14:30:58 INFO  DumpConfigurationFiles: Dump folder is C:\inetpub\wwwroot\RWE\eContracting\website\Data\diagnostics\configuration_history\20160906Z.123058Z
+2824 14:30:58 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Website\App_Config has been dumped
+2824 14:30:58 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Website\Web.config has been dumped
+2824 14:30:58 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Website\Global.asax has been dumped
+2824 14:30:58 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Website\sitecore\shell\sitecore.version.xml has been dumped
+2824 14:30:58 INFO  DumpConfigurationFiles: Zipping of the dumped configuration files is enabled
+4656 14:30:59 INFO  Sitecore.Social: The Social MVC area is registered.
+2824 14:30:59 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Data\diagnostics\configuration_history\20160906Z.123058Z.zip has been created
+2824 14:30:59 INFO  DumpConfigurationFiles: C:\inetpub\wwwroot\RWE\eContracting\website\Data\diagnostics\configuration_history\20160906Z.123058Z has been removed
+2824 14:30:59 INFO  DumpConfigurationFiles: Completed
+4656 14:31:01 INFO  Filter (Sitecore.Services.Infrastructure.Web.Http.Filters.AnonymousUserFilter) instance created
+4656 14:31:01 INFO  Filter (Sitecore.Services.Infrastructure.Web.Http.Filters.LoggingExceptionFilter) instance created
+4656 14:31:01 INFO  Filter (Sitecore.Services.Infrastructure.Web.Http.Filters.SecurityPolicyAuthorisationFilter) instance created
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.SequenceAnalyzer.Data.ITreeStorage
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Data.Storage.ITreeDefinitionStorage
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.ITreeDefinitionService
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IMapItemRepository
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IMapStatusService
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IConfiguration
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.SequenceAnalyzer.Configuration.IPruningConfig
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IContactReader
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IWebRequestFactory
+4656 14:31:01 WARN  [Path Analyzer](ApplicationContainer.RegisterType) Failed for Sitecore.PathAnalyzer.Contracts.IWebRequestFactory. Config entry pathAnalyzer/webRequestFactory doesn't exist
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Localization.IResourceManager
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Data.Caching.ITreeCache
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.ITreeProvider
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Data.SitecoreData.IItemRepository
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Contracts.IMapItemDeploymentManager
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterType) Sitecore.PathAnalyzer.Data.Storage.ITreeStorageManager
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterModelsForSerialization) Setting serialization info
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterModelsForSerialization) Type 'Sitecore.PathAnalyzer.Data.Models.ExperienceNode, Sitecore.PathAnalyzer' was registered succesfully.
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterModelsForSerialization) Type 'Sitecore.PathAnalyzer.Data.Models.ExperienceTree, Sitecore.PathAnalyzer' was registered succesfully.
+4656 14:31:01 INFO  [Path Analyzer](ApplicationContainer.RegisterModelsForSerialization) Type 'Sitecore.PathAnalyzer.Data.Models.PageNode, Sitecore.PathAnalyzer' was registered succesfully.
+4656 14:31:01 INFO  [Experience Analytics]: SyncSegmentsProcessor started the syncronization of segments
+4656 14:31:01 INFO  [Experience Analytics]: WebApiInitializer
+9260 14:31:01 INFO  [Experience Analytics]: Segment Deploy started.
+4656 14:31:01 INFO  [Experience Analytics]: Filter (Sitecore.ExperienceAnalytics.Api.Http.Filters.CacheHeaderFilterAttribute) added
+4656 14:31:01 INFO  Sitecore.Social: The Social remote events are initialized.
+8800 14:31:01 INFO  HttpModule is being initialized
+7604 14:31:01 INFO  HttpModule is being initialized
+7604 14:31:02 INFO  Cache created: 'SqlDataProvider - Prefetch data(web)' (max size: 50MB, running total: 1094MB)
+7604 14:31:02 INFO  Cache created: 'ProxyProvider' (max size: 500KB, running total: 1094MB)
+7604 14:31:02 INFO  Cache created: 'shell[html]' (max size: 0 bytes, running total: 1094MB)
+6448 14:31:03 INFO  Scheduler - Adding agents
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.UrlAgent (interval: 00:15:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.TaskDatabaseAgent (interval: 00:10:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CompactClientDataAgent (interval: 04:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupHistory (interval: 04:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupPublishQueue (interval: 04:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupEventQueue (interval: 04:00:00)
+6448 14:31:03 INFO  Scheduler - Skipping inactive agent: Sitecore.Tasks.HtmlCacheClearAgent
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupAuthenticationTicketsAgent (interval: 04:00:00)
+6448 14:31:03 INFO  Scheduler - Skipping inactive agent: Sitecore.Tasks.PublishAgent
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupAgent (interval: 06:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CounterDumpAgent (interval: 01:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CloneNotificationsCleanupAgent (interval: 1.00:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Analytics.Tasks.EmailReportsTask (interval: 01:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.ContentSearch.Tasks.Optimize (interval: 12:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Core_Database_Agent (interval: 00:10:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Master_Database_Agent (interval: 00:10:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.CleanupFDAObsoleteMediaData (interval: 1.00:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Tasks.WebDAVOptionsCleanupAgent (interval: 1.00:00:00)
+6448 14:31:03 INFO  Scheduler - Skipping inactive agent: Sitecore.Social.Client.Tasks.ManagePreExpiredAccounts
+6448 14:31:03 INFO  Scheduler - Skipping inactive agent: Sitecore.Social.Client.Tasks.SynchronizeSocialMediaInfo
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Social.Client.Tasks.PostFlaggedMessages (interval: 01:00:00)
+6448 14:31:03 INFO  Scheduler - Adding agent: Sitecore.Social.Client.Tasks.UpdateMessagesStatistics (interval: 01:00:00)
+6448 14:31:03 INFO  Scheduler - Agents added
+9260 14:31:03 INFO  Cache created: 'SqlDataProvider - Prefetch data(master)' (max size: 100MB, running total: 1194MB)
+9260 14:31:04 INFO  Cache created: 'IsUserInRoleCache' (max size: 5MB, running total: 1199MB)
+9260 14:31:04 INFO  Trying to load XML configuration /App_Config/Security/GlobalRoles.config
+7604 14:31:04 INFO  Cache created: 'shell[registry]' (max size: 15MB, running total: 1214MB)
+7604 14:31:04 INFO  Cache created: 'shell[viewstate]' (max size: 1MB, running total: 1215MB)
+7604 14:31:04 INFO  Cache created: 'shell[xsl]' (max size: 25MB, running total: 1240MB)
+7604 14:31:04 INFO  Cache created: 'shell[filtered items]' (max size: 10MB, running total: 1250MB)
+7604 14:31:04 INFO  Cache created: 'login[html]' (max size: 0 bytes, running total: 1250MB)
+7604 14:31:04 INFO  Cache created: 'login[registry]' (max size: 25MB, running total: 1275MB)
+7604 14:31:04 INFO  Cache created: 'login[viewstate]' (max size: 25MB, running total: 1300MB)
+7604 14:31:04 INFO  Cache created: 'login[xsl]' (max size: 50MB, running total: 1350MB)
+7604 14:31:04 INFO  Cache created: 'login[filtered items]' (max size: 10MB, running total: 1360MB)
+7604 14:31:04 INFO  Cache created: 'admin[html]' (max size: 0 bytes, running total: 1360MB)
+7604 14:31:04 INFO  Cache created: 'admin[registry]' (max size: 25MB, running total: 1385MB)
+7604 14:31:04 INFO  Cache created: 'admin[viewstate]' (max size: 25MB, running total: 1410MB)
+7604 14:31:04 INFO  Cache created: 'admin[xsl]' (max size: 50MB, running total: 1460MB)
+7604 14:31:04 INFO  Cache created: 'admin[filtered items]' (max size: 10MB, running total: 1470MB)
+7604 14:31:04 INFO  Cache created: 'service[html]' (max size: 0 bytes, running total: 1470MB)
+7604 14:31:04 INFO  Cache created: 'service[registry]' (max size: 25MB, running total: 1495MB)
+7604 14:31:04 INFO  Cache created: 'service[viewstate]' (max size: 25MB, running total: 1520MB)
+7604 14:31:04 INFO  Cache created: 'service[xsl]' (max size: 50MB, running total: 1570MB)
+7604 14:31:04 INFO  Cache created: 'service[filtered items]' (max size: 10MB, running total: 1580MB)
+7604 14:31:04 INFO  Cache created: 'system_layouts[html]' (max size: 0 bytes, running total: 1580MB)
+7604 14:31:04 INFO  Cache created: 'system_layouts[registry]' (max size: 25MB, running total: 1605MB)
+7604 14:31:04 INFO  Cache created: 'system_layouts[viewstate]' (max size: 25MB, running total: 1630MB)
+7604 14:31:04 INFO  Cache created: 'system_layouts[xsl]' (max size: 50MB, running total: 1680MB)
+7604 14:31:04 INFO  Cache created: 'system_layouts[filtered items]' (max size: 10MB, running total: 1690MB)
+7604 14:31:04 INFO  Cache created: 'modules_shell[html]' (max size: 0 bytes, running total: 1690MB)
+7604 14:31:04 INFO  Cache created: 'modules_shell[registry]' (max size: 25MB, running total: 1715MB)
+7604 14:31:04 INFO  Cache created: 'modules_shell[viewstate]' (max size: 25MB, running total: 1740MB)
+7604 14:31:04 INFO  Cache created: 'modules_shell[xsl]' (max size: 50MB, running total: 1790MB)
+7604 14:31:04 INFO  Cache created: 'modules_shell[filtered items]' (max size: 10MB, running total: 1800MB)
+7604 14:31:04 INFO  Cache created: 'modules_website[html]' (max size: 25MB, running total: 1825MB)
+7604 14:31:04 INFO  Cache created: 'modules_website[registry]' (max size: 25MB, running total: 1850MB)
+7604 14:31:04 INFO  Cache created: 'modules_website[viewstate]' (max size: 25MB, running total: 1875MB)
+7604 14:31:04 INFO  Cache created: 'modules_website[xsl]' (max size: 50MB, running total: 1925MB)
+7604 14:31:04 INFO  Cache created: 'modules_website[filtered items]' (max size: 10MB, running total: 1935MB)
+7604 14:31:04 INFO  Cache created: 'website[html]' (max size: 50MB, running total: 1985MB)
+7604 14:31:04 INFO  Cache created: 'website[registry]' (max size: 0 bytes, running total: 1985MB)
+7604 14:31:04 INFO  Cache created: 'website[viewstate]' (max size: 0 bytes, running total: 1985MB)
+7604 14:31:04 INFO  Cache created: 'website[xsl]' (max size: 25MB, running total: 2010MB)
+7604 14:31:04 INFO  Cache created: 'website[filtered items]' (max size: 10MB, running total: 2020MB)
+7604 14:31:04 INFO  Cache created: 'website[renderingParameters]' (max size: 10MB, running total: 2030MB)
+7604 14:31:04 INFO  Cache created: 'scheduler[html]' (max size: 0 bytes, running total: 2030MB)
+7604 14:31:04 INFO  Cache created: 'scheduler[registry]' (max size: 25MB, running total: 2055MB)
+7604 14:31:04 INFO  Cache created: 'scheduler[viewstate]' (max size: 25MB, running total: 2080MB)
+7604 14:31:04 INFO  Cache created: 'scheduler[xsl]' (max size: 50MB, running total: 2130MB)
+7604 14:31:04 INFO  Cache created: 'scheduler[filtered items]' (max size: 10MB, running total: 2140MB)
+7604 14:31:04 INFO  Cache created: 'system[html]' (max size: 0 bytes, running total: 2140MB)
+7604 14:31:04 INFO  Cache created: 'system[registry]' (max size: 25MB, running total: 2165MB)
+7604 14:31:04 INFO  Cache created: 'system[viewstate]' (max size: 25MB, running total: 2190MB)
+7604 14:31:04 INFO  Cache created: 'system[xsl]' (max size: 50MB, running total: 2240MB)
+7604 14:31:04 INFO  Cache created: 'system[filtered items]' (max size: 10MB, running total: 2250MB)
+7604 14:31:04 INFO  Cache created: 'publisher[html]' (max size: 0 bytes, running total: 2250MB)
+7604 14:31:04 INFO  Cache created: 'publisher[registry]' (max size: 25MB, running total: 2275MB)
+7604 14:31:04 INFO  Cache created: 'publisher[viewstate]' (max size: 25MB, running total: 2300MB)
+7604 14:31:04 INFO  Cache created: 'publisher[xsl]' (max size: 50MB, running total: 2350MB)
+7604 14:31:04 INFO  Cache created: 'publisher[filtered items]' (max size: 10MB, running total: 2360MB)
+8800 14:31:04 INFO  Cache created: 'Log singles' (max size: 100KB, running total: 2360MB)
+8800 14:31:04 WARN  No session Id managers were found to manage the session Id for the current request. Default asp.net session manager will be used.
+7604 14:31:04 WARN  No session Id managers were found to manage the session Id for the current request. Default asp.net session manager will be used.
+9260 14:31:04 INFO  Cache created: 'ReportDataCache' (max size: 50MB, running total: 2410MB)
+9260 14:31:04 INFO  Cache created: 'ExperienceAnalytics.Segments' (max size: 20MB, running total: 2430MB)
+9260 14:31:04 INFO  [Experience Analytics]: Segment Deploy complete.
+7604 14:31:06 INFO  Cache created: 'WebUtil.QueryStringCache' (max size: 19KB, running total: 2430MB)
+ManagedPoolThread #13 14:31:07 INFO  Trying to load XML configuration /App_Config/Security/GlobalRoles.config
+7604 14:31:09 INFO  Cache created: 'SocialMessagesByContainerCache' (max size: 10MB, running total: 2440MB)
+Heartbeat 14:31:09 INFO  Cache created: '[IDTable]' (max size: 2MB, running total: 2443MB)
+2824 14:31:09 INFO  HttpModule is being initialized
+7604 14:31:09 INFO  HttpModule is being initialized
+9692 14:31:09 INFO  HttpModule is being initialized
+2824 14:31:09 INFO  HttpModule is being initialized
+13248 14:31:12 INFO  Cache created: 'Task Manager - tasks' (max size: 100 bytes, running total: 2443MB)
+10860 14:31:12 INFO  Cache created: 'ReportingStorageProviderProperties.Properties' (max size: 100 bytes, running total: 2443MB)
+12160 14:31:12 INFO  Cache created: 'ExperienceAnalytics.ChannelTaxonomy' (max size: 1MB, running total: 2444MB)
+7856 14:31:13 WARN  [Path Analyzer](.) SqlStorage ConnectionString 'reporting.secondary' cannot be found
+12160 14:31:13 WARN  Authentication on CES Discovery service failed.
+Exception: System.Net.WebException
+Message: The remote server returned an error: (403) Forbidden.
+Source: System
+   at System.Net.HttpWebRequest.GetResponse()
+   at Sitecore.CES.Client.WebClient.ExecuteRequest(String requestUri)
+   at Sitecore.CES.Client.ResourceConnector`1.Request(String endpoint, Object[] parameters)
+   at Sitecore.CES.Discovery.EndpointSource.GetEndpoint(String serviceName)
+
+12160 14:31:13 WARN  No subscription for Device Detection service. Could not load the database.
+12160 14:31:13 WARN  Device detection component is disabled
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[BusinessUnitKey]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[DeviceNameKey]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[Key]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[ItemKey]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[KeywordsKey]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[LanguageKey]' (max size: 97KB, running total: 2444MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[ReferringSiteKey]' (max size: 97KB, running total: 2445MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[Key]' (max size: 97KB, running total: 2445MB)
+7604 14:31:14 INFO  Cache created: 'KeyRegistryCache[SiteNameKey]' (max size: 97KB, running total: 2445MB)
+ManagedPoolThread #0 14:31:15 INFO  Job started: Update device detection DB
+ManagedPoolThread #0 14:31:15 WARN  No subscription for Device Detection service. Could not check for updates.
+ManagedPoolThread #0 14:31:15 INFO  Job ended: Update device detection DB (units processed: )
+12160 14:31:15 INFO  Cache created: 'KeyRegistryCache[AccountKey]' (max size: 97KB, running total: 2445MB)
+12160 14:31:15 INFO  Cache created: 'KeyRegistryCache[ContactKey]' (max size: 97KB, running total: 2445MB)
+9692 14:31:42 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/786FBA3A4573445EA74504E3CA5E48C1/all?&dateGrouping=by-week&&dateFrom=06-06-2016&dateTo=06-09-2016&keyGrouping=collapsed returned messages.
+
+5488 14:31:42 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/7A9A483F195D4F96AD88473CD6854C4F/all?&dateGrouping=by-week&&keyTop=5&keyOrderBy=visits-Asc&dateFrom=06-06-2016&dateTo=06-09-2016&keyGrouping=by-key returned messages.
+
+1416 14:31:44 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/786FBA3A4573445EA74504E3CA5E48C1/all?&dateGrouping=by-auto&&dateFrom=08-06-2016&dateTo=05-09-2016&keyGrouping=collapsed returned messages.
+
+2824 14:31:44 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/7A9A483F195D4F96AD88473CD6854C4F/all?&dateGrouping=collapsed&&keyTop=10&keyOrderBy=value-Desc&dateFrom=08-06-2016&dateTo=05-09-2016&keyGrouping=by-key returned messages.
+
+9692 14:31:44 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/FF9019F71BE743B098F970FD4383BA70/all?&dateGrouping=by-auto&&keyOrderBy=visits-Desc&dateFrom=08-06-2016&dateTo=05-09-2016&keyGrouping=by-key returned messages.
+
+5288 14:31:44 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/06F9D246A66E4C748A6150D5EE812DF4/all?&dateGrouping=collapsed&&keyTop=10&keyOrderBy=valuePerVisit-Desc&dateFrom=08-06-2016&dateTo=05-09-2016&keyGrouping=by-key returned messages.
+
+8800 14:31:44 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/7EF1714E04E6455D9437FE55FFC483FC/all?&dateGrouping=collapsed&&keyTop=10&keyOrderBy=count-Desc&dateFrom=08-06-2016&dateTo=05-09-2016&keyGrouping=by-key returned messages.
+
+5348 14:35:31 INFO  HttpModule is being initialized
+ 352 14:35:31 INFO  HttpModule is being initialized
+8672 14:35:31 INFO  HttpModule is being initialized
+8672 14:35:42 INFO  Cache created: 'LocationsDictionaryCache' (max size: 976KB, running total: 2446MB)
+8672 14:35:42 INFO  Cache created: 'ReferringSitesDictionaryCache' (max size: 976KB, running total: 2447MB)
+8672 14:35:42 INFO  Cache created: 'GeoIpDataDictionaryCache' (max size: 976KB, running total: 2448MB)
+8672 14:35:42 INFO  Cache created: 'UserAgentDictionaryCache' (max size: 976KB, running total: 2449MB)
+8672 14:35:42 INFO  Cache created: 'DeviceDictionaryCache' (max size: 976KB, running total: 2450MB)
+8672 14:35:43 INFO  Cache created: 'ActiveTests' (max size: 512KB, running total: 2450MB)
+10140 14:35:54 INFO  Cache created: 'Theme_Images' (max size: 100KB, running total: 2450MB)
+10140 14:35:54 INFO  Cache created: 'Theme_LanguageIcons' (max size: 100KB, running total: 2450MB)
+10140 14:35:54 INFO  HttpModule is being initialized
+6908 14:35:58 INFO  [Path Analyzer](.) Running trail cleanup agent
+6908 14:35:58 INFO  [Path Analyzer](.) Running trail cleanup on database

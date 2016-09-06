@@ -1,0 +1,50 @@
+﻿4656 14:30:57 INFO  [Index=sitecore_core_index] Initializing SitecoreItemCrawler. DB:core / Root:/sitecore
+4656 14:30:57 INFO  [Index=sitecore_master_index] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore
+4656 14:30:57 INFO  [Index=sitecore_web_index] Initializing SitecoreItemCrawler. DB:web / Root:/sitecore
+4656 14:30:57 INFO  [Index=sitecore_marketing_asset_index_master] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/media library
+4656 14:30:57 INFO  [Index=sitecore_marketing_asset_index_web] Initializing SitecoreItemCrawler. DB:web / Root:/sitecore/media library
+4656 14:30:57 INFO  [Index=sitecore_marketingdefinitions_master] Initializing SitecoreItemCrawler. DB:master / Root:{EC095310-746F-4C1B-A73F-941863564DC2}
+4656 14:30:57 INFO  [Index=sitecore_marketingdefinitions_web] Initializing SitecoreItemCrawler. DB:web / Root:{EC095310-746F-4C1B-A73F-941863564DC2}
+4656 14:30:57 INFO  [Index=sitecore_testing_index] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/system/Marketing Control Panel/Test Lab
+4656 14:30:57 INFO  [Index=sitecore_suggested_test_index] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/content
+4656 14:30:57 INFO  [Index=sitecore_fxm_master_index] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/system/Marketing Control Panel/fxm/
+4656 14:30:57 INFO  [Index=sitecore_fxm_web_index] Initializing SitecoreItemCrawler. DB:web / Root:/sitecore/system/Marketing Control Panel/fxm/
+4656 14:30:57 INFO  [Index=sitecore_list_index] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/system/List Manager/All Lists
+4656 14:30:57 INFO  [Index=social_messages_master] Initializing SitecoreItemCrawler. DB:master / Root:/sitecore/social/Messages
+4656 14:30:57 INFO  [Index=social_messages_web] Initializing SitecoreItemCrawler. DB:web / Root:/sitecore/social/Messages
+4656 14:30:57 INFO  [Index=sitecore_analytics_index] Initializing TimedIndexStrategy with interval '00:01:00'.
+4656 14:30:57 INFO  [Index=sitecore_core_index] Initializing IntervalAsynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_master_index] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_web_index] Initializing OnPublishEndAsynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_marketing_asset_index_master] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_marketing_asset_index_web] Initializing OnPublishEndAsynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_marketingdefinitions_master] Initializing ManualStrategy. Index will have to be rebuilt manually
+4656 14:30:57 INFO  [Index=sitecore_marketingdefinitions_web] Initializing OnPublishEndAsynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_testing_index] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_fxm_master_index] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_fxm_web_index] Initializing OnPublishEndAsynchronousStrategy.
+4656 14:30:57 INFO  [Index=sitecore_list_index] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=social_messages_master] Initializing SynchronousStrategy.
+4656 14:30:57 INFO  [Index=social_messages_web] Initializing OnPublishEndAsynchronousStrategy.
+7040 14:31:12 INFO  [ContactChangeObservable]: Registering
+7040 14:31:12 INFO  [ContactChangeObservable]: Subscribed Observer - Total 1
+7040 14:31:12 INFO  [ContactTagChangeObservable]: Registering
+7040 14:31:12 INFO  [ContactTagChangeObservable]: Subscribed Observer - Total 1
+7040 14:31:12 INFO  [AddressChangeObservable]: Registering
+7040 14:31:12 INFO  [AddressChangeObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [VisitAggregationObservable]: Registering
+12160 14:31:12 INFO  [VisitAggregationObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [VisitPageAggregationObservable]: Registering
+12160 14:31:12 INFO  [VisitPageAggregationObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [VisitPageEventAggregationObservable]: Registering
+12160 14:31:12 INFO  [VisitPageEventAggregationObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [ContactAggregationObservable]: Registering
+12160 14:31:12 INFO  [ContactAggregationObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [ContactTagAggregationObservable]: Registering
+12160 14:31:12 INFO  [ContactTagAggregationObservable]: Subscribed Observer - Total 1
+12160 14:31:12 INFO  [AddressAggregationObservable]: Registering
+12160 14:31:12 INFO  [AddressAggregationObservable]: Subscribed Observer - Total 1
+ManagedPoolThread #4 14:31:59 INFO  Crawler [sitecore_analytics_index]: 1 items to index
+ManagedPoolThread #4 14:31:59 INFO  Crawler [sitecore_analytics_index]: 2 items to index
+ManagedPoolThread #4 14:31:59 INFO  Crawler [sitecore_analytics_index]: 2 items to index
+ManagedPoolThread #4 14:31:59 INFO  Crawler [sitecore_analytics_index]: 1 items to index
