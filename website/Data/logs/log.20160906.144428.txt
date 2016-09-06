@@ -481,3 +481,12 @@ Heartbeat 14:44:45 INFO  Cache created: '[IDTable]' (max size: 2MB, running tota
 10908 14:44:49 INFO  Cache created: 'SocialMessagesByContainerCache' (max size: 10MB, running total: 2443MB)
 2928 14:44:50 INFO  HttpModule is being initialized
 10908 14:44:50 INFO  HttpModule is being initialized
+12944 14:49:33 INFO  [Path Analyzer](.) Running trail cleanup agent
+12944 14:49:33 INFO  [Path Analyzer](.) Running trail cleanup on database
+12944 14:49:33 WARN  [Path Analyzer](.) SqlStorage ConnectionString 'reporting.secondary' cannot be found
+6748 14:50:18 INFO  **************************************************
+6748 14:50:18 WARN  Sitecore shutting down
+6748 14:50:18 WARN  Shutdown message: CONFIG change
+HostingEnvironment initiated shutdown
+CONFIG change
+CONFIG change
