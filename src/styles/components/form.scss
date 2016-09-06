@@ -56,12 +56,12 @@ label {
 
 input {
 	display: block;
+	padding: .65rem 1.5rem .6rem;
 
 	border-radius: $border-radius;
 	border: 1px solid $color-gray-dim;
 	color: $color-gray-dark;
 	line-height: 1.2rem;
-	padding: .65rem 1.5rem .6rem;
 	width: 100%;
 
 	&::-ms-clear { display: none; }

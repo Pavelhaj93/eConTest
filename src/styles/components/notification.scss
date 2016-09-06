@@ -9,12 +9,8 @@
 	.actions {
 		margin-top: 1rem;
 
-		> :first-child {
-			margin-bottom: .75rem;
-		}
+		> :first-child { margin-bottom: .75rem; }
 	}
 
-	.privacy-policy-visible & {
-		display: block;
-	}
+	.privacy-policy-visible & { display: block; }
 }

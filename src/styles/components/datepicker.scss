@@ -417,18 +417,25 @@ $border-radius: 4px;
       font-weight: normal;
       padding: .5rem;
 
-      &:first-child {
-        border-top-left-radius: $border-radius;
-      }
-
-      &:last-child {
-        border-top-right-radius: $border-radius;
-      }
+      
     }
     tr:nth-child(2) {
       background: $color-gray;
       color: #fff;
       text-transform: uppercase;
+      overflow: hidden;
+
+      th {
+        &:first-child {
+          border-top-left-radius: $border-radius;
+          // border-right: 1px solid $color-gray; /* Fix: IE border-radius bug */
+        }
+
+        &:last-child {
+          border-top-right-radius: $border-radius;
+          // border-left: 1px solid $color-gray; /* Fix: IE border-radius bug */
+        }
+      }
     }
   }
 

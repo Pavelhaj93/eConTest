@@ -1,8 +1,10 @@
 export default function Cookie(container) {
+
+    /* Slug to look in the Cookies to determine if already agreed to Privacy Policy */
     const agreeSlug = 'privacy_policy';
+    const hasAgreed = agreedBefore();
 
     const agreeBtn = container.querySelector('.agree');
-    const hasAgreed = agreedBefore();
     if (!hasAgreed) {
         container.classList.add('privacy-policy-visible');
     }
