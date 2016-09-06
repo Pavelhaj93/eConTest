@@ -1,3 +1,14 @@
+/*
+*
+* Alert
+*
+* ARGUMENTS:
+* message (String) - The message to output in the alert box.
+* type (String) - The class of the alert box.
+* container (DOMElement/jQuery) [Optional] - Container to append the message to.
+*
+*/
+
 export default function Alert(message, type = 'warning', container = null) {
 
     /* HTML template */
@@ -11,16 +22,18 @@ export default function Alert(message, type = 'warning', container = null) {
     if (container) {
         container = container instanceof jQuery && $(container);
         container.append(template);
-        // container.children('.alert').hide();
     }
 
     /* Handle alert close */
     $('.alert .close').on('click', (e) => {
-        const link = $(e.target);
         e.preventDefault();
 
+        const link = $(e.target);
         const alertBox = $(e.target).parent('.alert');
-        alertBox.slideUp(250).fadeOut(0);
+
+        alertBox.addClass('closing').slideUp(250).fadeOut(0, () => {
+            alertBox.remove();
+        });
     });
 
     return template;

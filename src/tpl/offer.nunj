@@ -4,12 +4,12 @@
 
 {% block content %}
 
-{% call text() %}
-	<p>Vážený pane Novaku,<br>vítáme Vás na stránce společnosti Innogy. Nabízíme Vám produkt <strong>zemního plynu</strong> ve variantě <strong>OPTIMAL</strong>.</p>
-	<p>Vážíme si Vaší loajality. Na základě vyhodnocení Vaší dlouhodobé spotřeby <strong>zemního plynu</strong> a Vašeho posledního ročního vyúčtování bychom Vám rádi nabídli přechod z Vašeho nynějšího produktu <strong>RELAX</strong> na cenově výhodnější variantu <strong>OPTIMAL</strong>.</p>
-	<p>Pokud naši nabídku akceptujete, seznamte se prosím s poučením a zaškrtněte jej. Následně prosím stiskněte tlačítko Akceptuji.</p>
-	<p>Děkujeme, <br>Vaše Innogy.</p>
-{% endcall %}
+	{% call text() %}
+		<p>Vážený pane Novaku,<br>vítáme Vás na stránce společnosti Innogy. Nabízíme Vám produkt <strong>zemního plynu</strong> ve variantě <strong>OPTIMAL</strong>.</p>
+		<p>Vážíme si Vaší loajality. Na základě vyhodnocení Vaší dlouhodobé spotřeby <strong>zemního plynu</strong> a Vašeho posledního ročního vyúčtování bychom Vám rádi nabídli přechod z Vašeho nynějšího produktu <strong>RELAX</strong> na cenově výhodnější variantu <strong>OPTIMAL</strong>.</p>
+		<p>Pokud naši nabídku akceptujete, seznamte se prosím s poučením a zaškrtněte jej. Následně prosím stiskněte tlačítko Akceptuji.</p>
+		<p>Děkujeme, <br>Vaše Innogy.</p>
+	{% endcall %}
 
 	<div class="row">
 		<div class="col-sm-12 col-md-10 col-md-offset-1">

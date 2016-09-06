@@ -14,8 +14,8 @@
 		margin: auto;
 		padding: .5rem;
 
-		background-size: 100% 100%;
 		background: svg-load('../gfx/svg/close.svg', fill=#fff) no-repeat center;
+		background-size: 100% 100%;
 		bottom: 0;
 		box-sizing: initial;
 		height: $size;
@@ -23,6 +23,12 @@
 		width: $size;
 
 		&:hover { transform: scale(1.2); }
+	}
+
+	&.closing {
+		.close {
+			transform: scale(.5);
+		}
 	}
 	
 	&.error {

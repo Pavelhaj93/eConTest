@@ -1,9 +1,12 @@
-/* Bootstrap */
+/* Variables and constants */
 @import 'variables';
 @import 'animation';
+
+/* Bootstrap */
 @import 'bootstrap/variables';
 @import 'bootstrap/bootstrap';
 
+/* Custom */
 @import 'optimization';
 @import 'breakpoints';
 @import 'typography';
@@ -11,7 +14,7 @@
 /* Components */
 @import 'components/*';
 
-/* General */
+/* Fixed footer */
 html,
 body {
 	min-height: 100%;
