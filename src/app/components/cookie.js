@@ -11,13 +11,10 @@ export default function Cookie(container) {
 
     /* Check if previously agreed */
     const hasAgreed = agreedBefore();
-
-    const agreeBtn = container.querySelector('.agree');
-    if (!hasAgreed) {
-        container.classList.add('privacy-policy-visible');
-    }
+    !hasAgreed && container.classList.add('privacy-policy-visible');
 
     /* Handle click */
+    const agreeBtn = container.querySelector('.agree');
     agreeBtn.addEventListener('click', (e) => {
         e.preventDefault();
 
