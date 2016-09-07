@@ -22,3 +22,8 @@ npm-debug.log
 
 # dist
 /dist
+website/Data/indexes/
+website/Data/viewstate/
+website/Data/logs/
+website/Website/temp/
+website/Data/diagnostics/

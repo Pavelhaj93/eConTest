@@ -891,3 +891,53 @@ Heartbeat 14:15:24 INFO  Health.Counter(w3wp, .NET CLR Loading\Bytes in Loader H
 Heartbeat 14:15:24 INFO  Health.Counter(w3wp, .NET CLR Loading\Current Assemblies): 561
 8952 14:15:27 INFO  [Path Analyzer](.) Running trail cleanup agent
 8952 14:15:27 INFO  [Path Analyzer](.) Running trail cleanup on database
+ManagedPoolThread #11 14:15:28 INFO  Job started: Sitecore.Tasks.TaskDatabaseAgent
+ManagedPoolThread #11 14:15:28 INFO  Processing tasks (count: 0)
+ManagedPoolThread #11 14:15:28 INFO  Job ended: Sitecore.Tasks.TaskDatabaseAgent (units processed: )
+ManagedPoolThread #3 14:15:28 INFO  Job started: Core_Database_Agent
+ManagedPoolThread #3 14:15:28 INFO  Scheduling.DatabaseAgent started. Database: core
+ManagedPoolThread #3 14:15:28 INFO  Examining schedules (count: 0)
+ManagedPoolThread #3 14:15:28 INFO  Job ended: Core_Database_Agent (units processed: )
+ManagedPoolThread #4 14:15:28 INFO  Job started: Master_Database_Agent
+ManagedPoolThread #4 14:15:28 INFO  Scheduling.DatabaseAgent started. Database: master
+ManagedPoolThread #4 14:15:28 INFO  Examining schedules (count: 5)
+ManagedPoolThread #4 14:15:28 INFO  Starting: __Task Schedule
+ManagedPoolThread #4 14:15:28 INFO  Ended: __Task Schedule
+ManagedPoolThread #4 14:15:28 INFO  Not due: Calculate Statistical Relevancy
+ManagedPoolThread #4 14:15:28 INFO  Starting: Rebuild Suggested Tests Index
+ManagedPoolThread #15 14:15:28 INFO  Job started: Index_Update_IndexName=sitecore_suggested_test_index
+ManagedPoolThread #8 14:15:28 INFO  Job started: Index_Update_IndexName=sitecore_master_index
+ManagedPoolThread #4 14:15:28 INFO  Ended: Rebuild Suggested Tests Index
+ManagedPoolThread #4 14:15:28 INFO  Starting: Suspend Corrupted Tests (asynchronously)
+ManagedPoolThread #10 14:15:28 INFO  Job started: ScheduleCommand '{0B3BCF9C-A055-4363-80F5-B86C471F2C4A}'
+ManagedPoolThread #4 14:15:28 INFO  Ended: Suspend Corrupted Tests
+ManagedPoolThread #10 14:15:28 INFO  Job ended: ScheduleCommand '{0B3BCF9C-A055-4363-80F5-B86C471F2C4A}' (units processed: )
+ManagedPoolThread #4 14:15:28 INFO  Starting: Try Finish Test (asynchronously)
+ManagedPoolThread #14 14:15:28 INFO  Job started: ScheduleCommand '{FD32AD12-69E6-41B6-82B8-712D9DA96DDC}'
+ManagedPoolThread #14 14:15:28 INFO  Job ended: ScheduleCommand '{FD32AD12-69E6-41B6-82B8-712D9DA96DDC}' (units processed: )
+ManagedPoolThread #4 14:15:28 INFO  Ended: Try Finish Test
+ManagedPoolThread #4 14:15:28 INFO  Job ended: Master_Database_Agent (units processed: 5)
+ManagedPoolThread #8 14:15:28 INFO  Job ended: Index_Update_IndexName=sitecore_master_index (units processed: )
+ManagedPoolThread #19 14:15:28 INFO  Job started: Index_Update_IndexName=sitecore_master_index
+ManagedPoolThread #19 14:15:28 INFO  Job ended: Index_Update_IndexName=sitecore_master_index (units processed: )
+ManagedPoolThread #19 14:15:28 INFO  Job started: Index_Update_IndexName=sitecore_master_index
+ManagedPoolThread #19 14:15:28 INFO  Job ended: Index_Update_IndexName=sitecore_master_index (units processed: )
+ManagedPoolThread #15 14:15:29 INFO  Job ended: Index_Update_IndexName=sitecore_suggested_test_index (units processed: 3)
+ManagedPoolThread #11 14:15:30 INFO  Starting update of index for the database 'master' (3 pending).
+ManagedPoolThread #11 14:15:31 INFO  Update of index for the database 'master' done.
+1096 14:16:24 INFO  HttpModule is being initialized
+8988 14:16:25 INFO  HttpModule is being initialized
+11468 14:16:25 INFO  HttpModule is being initialized
+1696 14:16:25 INFO  HttpModule is being initialized
+12664 14:16:25 INFO  HttpModule is being initialized
+9796 14:16:49 INFO  AUDIT (sitecore\admin): Login
+6308 14:16:52 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/7A9A483F195D4F96AD88473CD6854C4F/all?&dateGrouping=by-week&&keyTop=5&keyOrderBy=visits-Asc&dateFrom=07-06-2016&dateTo=07-09-2016&keyGrouping=by-key returned messages.
+
+11428 14:16:52 INFO  [Experience Analytics]: Request: http://econtracting/sitecore/api/ao/aggregates/all/786FBA3A4573445EA74504E3CA5E48C1/all?&dateGrouping=by-week&&dateFrom=07-06-2016&dateTo=07-09-2016&keyGrouping=collapsed returned messages.
+
+4888 14:18:06 INFO  **************************************************
+4888 14:18:06 WARN  Sitecore shutting down
+4888 14:18:06 WARN  Shutdown message: CONFIG change
+HostingEnvironment initiated shutdown
+CONFIG change
+CONFIG change
