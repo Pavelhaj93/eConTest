@@ -1,7 +1,15 @@
 export default function Cookie(container) {
-
-    /* Slug to look in the Cookies to determine if already agreed to Privacy Policy */
+    /* Slug to look up in the cookies */
     const agreeSlug = 'privacy_policy';
+
+    /* Check if the customer has previously agreed to Privacy Policy */
+    function agreedBefore() {
+        const cookies = document.cookie.split('; ');
+        const hasAgreed = cookies.filter(entry => entry.includes(agreeSlug))[0];
+        return !!hasAgreed;
+    }
+
+    /* Check if previously agreed */
     const hasAgreed = agreedBefore();
 
     const agreeBtn = container.querySelector('.agree');
@@ -18,10 +26,4 @@ export default function Cookie(container) {
         container.classList.remove('privacy-policy-visible');
     });
 
-    /* Check if the customer has previously agreed to Privacy Policy */
-    function agreedBefore() {
-        const cookies = document.cookie.split('; ');
-        const hasAgreed = cookies.filter(entry => entry.includes(agreeSlug))[0];
-        return !!hasAgreed;
-    }
 }
