@@ -1,0 +1,17 @@
+﻿12000 12:58:16 INFO  [Recovery]: Setting default publish recovery strategy.
+12000 12:58:16 INFO  [Recovery]: Publish Recovery Enabled - False
+12000 12:58:16 INFO  [Recovery]: Publish Recovery Strategy - DatabasePublishRecoveryStrategy
+12000 12:58:16 INFO  Settings.Publishing.AutoScheduleSmartPublish:True
+12000 12:58:16 INFO  Settings.Publishing.CheckSecurity:False
+12000 12:58:16 INFO  Settings.Publishing.CompareRevisions:True
+12000 12:58:16 INFO  Settings.Publishing.DisableDatabaseCaches:False
+12000 12:58:16 INFO  Settings.Publishing.ExecuteInManagedThreadPool:False
+12000 12:58:16 INFO  Settings.Publishing.LogInterval:0
+12000 12:58:16 INFO  Settings.Publishing.MaxDegreeOfParallelism:1
+12000 12:58:16 INFO  Settings.Publishing.PublishDialogPollingInterval:500
+12000 12:58:16 INFO  Settings.Publishing.PublishEmptyItems:False
+12000 12:58:16 INFO  Settings.Publishing.PublishingInstance:WMCL209-eContracting
+12000 12:58:16 INFO  Settings.Publishing.RequireTargetDeleteRightWhenCheckingSecurity:True
+12000 12:58:16 INFO  Settings.Publishing.StatusUpdateInterval:00:00:02
+12000 12:58:16 INFO  Settings.Publishing.ThreadPriority:BelowNormal
+12000 12:58:16 INFO  Settings.Publishing.TimeBeforeStatusExpires:02:00:00
