@@ -2,7 +2,7 @@ import Alert from '../../components/alert';
 import trim from '../../helpers/trim';
 
 export default function Auth(form) {
-    (function ($) {
+    (function($) {
 
         /* Inputs */
         const birth = form.querySelector('input[name="birth"]');
