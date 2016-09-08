@@ -6,28 +6,33 @@
 .list {
 	@extend .unstyled-list;
 	padding: 0;
-	border-bottom: 1px solid #e1dfe0;
+	border-bottom: 1px solid $color-border;
 
 	li {
 		padding: .5rem 0;
 		position: relative;
 	}
 
-	&-static {
-		padding-bottom: .5rem;
-	}
+	// &-static {
+	// 	padding-bottom: .5rem;
+	// }
 
 	.form &-documents {
-		display: none;
-		border-bottom: 1px solid #e1dfe0;
+		border-bottom: 1px solid $color-border;
 	}
 
 	&-documents {
 		padding: .5rem 0;
 		border-bottom: 0;
 
-		max-height: 370px;
+		max-height: 450px;
 		overflow-y: auto;
+
+		li:first-child {
+			border-bottom: 1px solid $color-border;
+			padding: 0 0 1rem;
+			margin-bottom: .5rem;
+		}
 
 		&:last-child {
 			padding-bottom: 0;

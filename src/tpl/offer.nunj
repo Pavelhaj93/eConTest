@@ -17,16 +17,14 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12 col-md-10 col-md-offset-1">
-
-							<ul class="list list-static">
+		{# 					<ul class="list list-static">
 								<li>
 									<input id="customer-rights" type="checkbox" autocomplete="off">
 									<label for="customer-rights">Jsem poučen s <a class="pdf" href="#" target="_blank">Informacemi pro zákaznika - spotřebitele</a></label>
 								</li>
-							</ul>
-
+							</ul> #}
 							<div id="offer" class="form">
-								<ul class="list list-documents">
+								<ul class="list list-documents loading">
 									<a class="check-all" href="">Označit vše</a>
 								</ul>
 								<button type="submit" disabled>Akceptuji</button>
@@ -42,6 +40,10 @@
 	<script>
 		// REMOVE: Documents should come from AJAX response
 		var documents = [
+			{
+				title: 'Podminkami pro uzivatele',
+				url: 'http://google.com'
+			},
 			{
 				title: 'My custom document',
 				url: 'http://google.com'

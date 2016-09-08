@@ -3,20 +3,16 @@ import Message from './message';
 
 export default function AcceptedDocuments(container) {
 
-    // REMOVE: presentation
+    // =================================================
     // printDocumentsList(container, documents, {
     //     checked: true,
     //     disabled: true
     // });
+    // =================================================
 
     /* Request the documents */
     $.ajax({
         url: 'http://google.com',
-
-        /* Add loding progress */
-        beforeSend: () => {
-            container.classList.add('loading');
-        },
 
         /* Receive and print the documents */
         success: (response) => {

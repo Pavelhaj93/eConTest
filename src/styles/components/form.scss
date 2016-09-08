@@ -46,7 +46,8 @@ $border-radius: 35px;
 }
 
 label {
-	display: inline-block;
+	position: relative;
+	display: block;
 	margin: 0 0 .35rem 1.5rem;
 
 	color: $color-gray-light;
@@ -80,7 +81,7 @@ input {
 
 		& + label {
 			margin: 5px 0 0;
-			padding-left: $checkbox-size + 12;
+			padding: 4px 0 0 $checkbox-size + 12;
 
 			&:before {
 				bottom: 0;

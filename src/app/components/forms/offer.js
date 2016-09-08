@@ -6,7 +6,7 @@ export default function FormOffer(form) {
     window.onload = () => {
         let receivedDocuments = false;
         const list = $(form.querySelector('.list'));
-        const additional = document.getElementById('customer-rights');
+        // const additional = document.getElementById('customer-rights');
         const submitBtn = form.querySelector('[type="submit"]');
 
         /* Get the checkboxes dynamically */
@@ -21,10 +21,8 @@ export default function FormOffer(form) {
             list.children('li').remove();
 
             // ======================================================
-            // REMOVE: presentation
             // printDocumentsList(list, documents);
             // receivedDocuments = true;
-            // END REMOVE
             // ======================================================
 
             /* Request the documents */
@@ -32,16 +30,6 @@ export default function FormOffer(form) {
                 type: 'GET',
                 dataType: 'jsonp',
                 url: 'http://google.com',
-
-                beforeSend: () => {
-                    /* Display loading */
-                    list.addClass('loading');
-
-                    /* One second timeout to determine if server is down */
-                    setTimeout(() => {
-                        // WIP
-                    }, 1000);
-                },
 
                 success: (response) => {
                     const documents = response.documents;
@@ -74,7 +62,7 @@ export default function FormOffer(form) {
             });
 
             /* When additional is not checked OR response not received, could not validate */
-            if (!additional.checked || !receivedDocuments) {
+            if (!receivedDocuments) {
                 valid = false;
             }
 
@@ -83,14 +71,13 @@ export default function FormOffer(form) {
         }
 
         /* Handle additional checkbox click */
-        additional.onchange = () => {
-            form.onchange();
+        // additional.onchange = () => {
+        //     form.onchange();
 
-            /* Show the documents list if not visible */
-            if (!list.is(':visible')) {
-                $(list).slideDown(300);
-            }
-        };
+        //     if (!list.is(':visible')) {
+        //         $(list).slideDown(300);
+        //     }
+        // };
 
         /* Handle form change */
         form.onchange = (e) => {
@@ -105,7 +92,6 @@ export default function FormOffer(form) {
             if (receivedDocuments) {
 
                 // ======================================================
-                // REMOVE: example
                 window.location = 'thank-you.html';
                 // ======================================================
             }

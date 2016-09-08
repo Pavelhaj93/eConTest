@@ -16,15 +16,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12 col-md-10 col-md-offset-1">
-
-							<ul class="list list-static">
-								<li>
-									<input id="customer-rights" type="checkbox" checked disabled>
-									<label for="customer-rights">Jsem poučen s <a class="pdf" href="#" target="_blank">Informacemi pro zákaznika - spotřebitele</a></label>
-								</li>
-							</ul>
-
-							<ul id="accepted-documents" class="list list-documents"></ul>
+							<ul id="accepted-documents" class="list list-documents loading"></ul>
 						</div>
 					</div>
 				</div>

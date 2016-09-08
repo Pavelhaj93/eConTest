@@ -15,8 +15,12 @@ export default function printDocumentsList(container, documents) {
             '</li>'
         ].join('');
 
-        /* Append HTML */
-        container.append(item);
+        /* Insert HTML */
+        if (i == 0) {
+            container.prepend(item);
+        } else {
+            container.append(item);
+        }
 
     });
 
