@@ -5,7 +5,7 @@
         <div class="info">
             <p>Vítáme Vás, pane Nováku,</p>
             <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
-            <form id="authentication">
+            <div id="authentication" class="form">
                 <div class="status"></div>
                 <div class="row">
                     <div class="col-md-8 col-lg-6">
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <button type="submit">Potvrdit vložené údaje a zobrazit nabídku</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

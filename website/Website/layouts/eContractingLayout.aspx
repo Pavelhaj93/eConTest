@@ -1,6 +1,7 @@
 ﻿<%@ Page Language="c#" CodePage="65001" AutoEventWireup="true" %>
+
 <%@ OutputCache Location="None" VaryByParam="none" %>
-<%@ Register TagPrefix="rwe" TagName="CookieLaw"  Src="~/layouts/CookieLaw.ascx" %>
+<%@ Register TagPrefix="rwe" TagName="CookieLaw" Src="~/layouts/CookieLaw.ascx" %>
 <!DOCTYPE html>
 <html lang="cs">
 <head>
@@ -73,8 +74,8 @@
             <p><a href="disclaimer.html">Ochrana osobnich údajů</a></p>
         </div>
     </footer>
-    <script src="js/app.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/app.min.js"></script>
     <script>
         var dob = '30.08.2016';
     </script>

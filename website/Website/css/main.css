@@ -2634,21 +2634,21 @@ strong {
 .footer {
   background: #000; }
 
-form#authentication {
+.form#authentication {
   margin-top: 2rem; }
 
-form input,
-form textarea,
-form button {
+.form input,
+.form textarea,
+.form button {
   outline: 0; }
 
-form .input-group {
+.form .input-group {
   position: relative;
   width: 100%; }
-  form .input-group:not(:last-of-type) {
+  .form .input-group:not(:last-of-type) {
     margin-bottom: 1.5rem; }
 
-form button {
+.form button {
   margin-top: 1.5rem;
   padding: .65rem 1.5rem .6rem;
   background: #72c201;
@@ -2658,11 +2658,11 @@ form button {
   color: #fff;
   font-weight: 500;
   transition: background .3s ease; }
-  form button[disabled] {
+  .form button[disabled] {
     background: #cdcdcd;
     cursor: not-allowed; }
   @media (max-width: 799px) {
-    form button {
+    .form button {
       width: 100%; } }
 
 label {
@@ -2941,7 +2941,7 @@ a:active, a:focus {
     position: relative; }
   .list-static {
     padding-bottom: .5rem; }
-  form .list-documents {
+  .form .list-documents {
     display: none;
     border-bottom: 1px solid #e1dfe0; }
   .list-documents {
