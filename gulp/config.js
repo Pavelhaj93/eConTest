@@ -1,5 +1,5 @@
 export default {
-    port: 5001,
+    port: 1234,
     title: 'Gulp Dev Stack',
     paths: {
         gulpfile: './gulpfile.babel.js',
