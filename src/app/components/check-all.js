@@ -1,5 +1,5 @@
 export default function CheckAll(container) {
-    const form = container.closest('form');
+    const form = container.closest('.form');
 
     /* Handle click */
     container.onclick = (e) => {

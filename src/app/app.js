@@ -15,7 +15,7 @@ window.app = {
         init(Cookie, document.body);
         init(FormAuth, document.getElementById('authentication'));
         init(FormOffer, document.getElementById('offer'));
-        factory(CheckAll, document.querySelectorAll('form .check-all'));
+        factory(CheckAll, document.querySelectorAll('.form .check-all'));
         init(DateInput, document.querySelector('.input-date'));
         init(AcceptedDocuments, document.getElementById('accepted-documents'));
         init(Copyright, document.getElementById('copyright'));

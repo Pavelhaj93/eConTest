@@ -25,12 +25,12 @@
 								</li>
 							</ul>
 
-							<form id="offer">
+							<div id="offer" class="form">
 								<ul class="list list-documents">
 									<a class="check-all" href="">Označit vše</a>
 								</ul>
 								<button type="submit" disabled>Akceptuji</button>
-							</form>
+							</div>
 
 						</div>
 					</div>

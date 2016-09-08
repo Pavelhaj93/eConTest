@@ -98,7 +98,7 @@ export default function FormOffer(form) {
         };
 
         /* Handle form submit */
-        form.onsubmit = (e) => {
+        submitBtn.onclick = (e) => {
             e.preventDefault();
 
             /* Safety for manual removal of "disabled" attribute */
