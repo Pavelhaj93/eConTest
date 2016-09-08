@@ -52,7 +52,6 @@
     <div class="main">
         <div class="container">
             <form method="post" runat="server" id="mainform">
-                Insert your controls here.
                 <sc:placeholder key="main" runat="server" />
             </form>
         </div>
