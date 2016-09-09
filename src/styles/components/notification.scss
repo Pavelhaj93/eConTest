@@ -9,7 +9,11 @@
 	.actions {
 		margin-top: 1rem;
 
-		> :first-child { margin-bottom: .75rem; }
+		a {
+			&:not(:last-of-type) {
+				margin-right: .5rem;
+			}
+		}
 	}
 
 	.privacy-policy-visible & { display: block; }
