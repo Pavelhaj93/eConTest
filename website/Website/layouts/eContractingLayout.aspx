@@ -1,4 +1,4 @@
-﻿<%@ Page Language="c#" CodePage="65001" AutoEventWireup="true" %>
+﻿<%@ Page Language="c#" CodePage="65001" AutoEventWireup="true" CodeFile="eContractingLayout.aspx.cs" Inherits="website_Website_layouts_eContractingLayout" %>
 
 <%@ OutputCache Location="None" VaryByParam="none" %>
 <%@ Register TagPrefix="rwe" TagName="CookieLaw" Src="~/layouts/CookieLaw.ascx" %>
@@ -42,11 +42,14 @@
     <header class="header">
         <div class="container">
             <div class="row">
-                <a class="logo" href="index.html">
+                <a class="logo" runat="server" id="imageLink" target="_blank">
                     <svg class="icon" preserveAspectRatio="none">
                         <use xlink:href="gfx/icon/svg.svg#logo" />
                     </svg>
-                </a><a class="phone" href="tel:800113355">800 11 33 55</a>
+                </a>
+                <a class="phone" runat="server" id="phoneLink">
+                    <asp:Literal runat="server" ID="phoneLinkText" />
+                </a>
             </div>
         </div>
     </header>
@@ -61,17 +64,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <p>© <span id="copyright">2016</span> Innogy. Všechna práva vyhrazena.</p>
+                    <p>
+                        <asp:Literal runat="server" ID="copyRightText" />
+                    </p>
                 </div>
                 <div class="col-sm-6 text-right">
-                    <div class="contact-info"><a class="email" href="mailto:info@innogy.cz">info@innogy.cz</a> <a class="phone" href="tel:800113355">800 11 33 55</a> </div>
+                    <div class="contact-info">
+                        <a class="email" runat="server" id="emailLink">
+                            <asp:Literal runat="server" ID="emailText" />
+                        </a>
+                        <a class="phone" runat="server" id="phoneLinkLower">
+                            <asp:Literal runat="server" ID="phoneLinkTextLower" />
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <footer class="footer">
         <div class="container">
-            <p><a href="disclaimer.html">Ochrana osobnich údajů</a></p>
+            <p>
+                <a runat="server" id="disclaimerLinkUrl" target="_blank">
+                    <asp:Literal runat="server" ID="disclaimerText" />
+                </a>
+            </p>
         </div>
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
