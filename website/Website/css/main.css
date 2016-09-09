@@ -2666,7 +2666,8 @@ strong {
       width: 100%; } }
 
 label {
-  display: inline-block;
+  position: relative;
+  display: block;
   margin: 0 0 .35rem 1.5rem;
   color: #9b9a98;
   cursor: pointer;
@@ -2696,7 +2697,7 @@ input {
     /* Checked */ }
     input[type="checkbox"] + label {
       margin: 5px 0 0;
-      padding-left: 38px; }
+      padding: 4px 0 0 38px; }
       input[type="checkbox"] + label:before {
         bottom: 0;
         display: inline-block;
@@ -2939,16 +2940,17 @@ a:active, a:focus {
   .list li {
     padding: .5rem 0;
     position: relative; }
-  .list-static {
-    padding-bottom: .5rem; }
   .form .list-documents {
-    display: none;
     border-bottom: 1px solid #e1dfe0; }
   .list-documents {
     padding: .5rem 0;
     border-bottom: 0;
-    max-height: 370px;
+    max-height: 450px;
     overflow-y: auto; }
+    .list-documents li:first-child {
+      border-bottom: 1px solid #e1dfe0;
+      padding: 0 0 1rem;
+      margin-bottom: .5rem; }
     .list-documents:last-child {
       padding-bottom: 0; }
     .list-documents:not(.error) {
@@ -3000,8 +3002,8 @@ a:active, a:focus {
   line-height: 1.2rem; }
   #notification .actions {
     margin-top: 1rem; }
-    #notification .actions > :first-child {
-      margin-bottom: .75rem; }
+    #notification .actions a:not(:last-of-type) {
+      margin-right: .5rem; }
   .privacy-policy-visible #notification {
     display: block; }
 

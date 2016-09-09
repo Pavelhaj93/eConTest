@@ -6,17 +6,13 @@
             <asp:Literal runat="server" ID="mainText" />
         </p>
         <div class="actions">
-            <p>
-                <a runat="server" id="PersonalDataLink" class="external" target="_blank">
-                    <asp:Literal runat="server" ID="PersonalDataText" />
-                </a>
-            </p>
+            <a runat="server" id="PersonalDataLink" class="external" target="_blank">
+                <asp:Literal runat="server" ID="PersonalDataText" />
+            </a>
 
-            <p>
-                <a class="button agree" href="">
-                    <asp:Literal runat="server" ID="AgreeButton" />
-                </a>
-            </p>
+            <a class="button agree" href="">
+                <asp:Literal runat="server" ID="AgreeButton" />
+            </a>
         </div>
     </div>
 </div>
