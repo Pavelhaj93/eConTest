@@ -50,7 +50,7 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
         {
             case "internal":
                 // Use LinkMananger for internal links, if link is not empty
-                return lf.TargetItem != null ? Sitecore.Links.LinkManager.GetItemUrl(lf.TargetItem) : string.Empty;
+                return lf.TargetItem != null ? Sitecore.Links.LinkManager.GetItemUrl(lf.TargetItem).Replace("/en/", "/") : string.Empty;
             case "media":
                 // Use MediaManager for media links, if link is not empty
                 return lf.TargetItem != null ? Sitecore.Resources.Media.MediaManager.GetMediaUrl(lf.TargetItem) : string.Empty;

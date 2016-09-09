@@ -7,6 +7,9 @@ public partial class website_Website_WebControls_Disclaimer : System.Web.UI.User
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        this.headerTxt.Text = Sitecore.Context.Item["Header"];
+        this.mainTxt.Text = Sitecore.Context.Item["MainText"];
+
         Sitecore.Data.Fields.LinkField linkField1 =  Sitecore.Context.Item.Fields["Link1"];
 
         if (linkField1 != null)
