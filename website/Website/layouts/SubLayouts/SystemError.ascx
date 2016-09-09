@@ -3,13 +3,10 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
-            <h1>Nedostupnost aplikace eContracting</h1>
-            <p>Vážený pane Novaku,</p>
-            <p>omlouváme se Vám, ale aplikaci eContracting se nepodařilo spustit. Příčinou může být právě probíhající plánovaná odstávka aplikace od <strong>20. 6. 2016 12:30</strong> do <strong>20. 6. 2016 15:30</strong>.</p>
-            <p>V případě potřeby využijte naši zákaznickou linku uvedenou v pravém horním rohy stránky.</p>
-            <p>Děkujeme,
-                <br>
-                Vaše Innogy.</p>
+            <h1>
+                <asp:Literal runat="server" ID="HeaderLtr" />
+            </h1>
+            <asp:Literal runat="server" ID="mainTxtLtr" />
         </div>
     </div>
 </div>

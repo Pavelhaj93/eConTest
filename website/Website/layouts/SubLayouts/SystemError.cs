@@ -9,6 +9,9 @@ public partial class website_Website_WebControls_SystemError : System.Web.UI.Use
     {
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 
+        this.HeaderLtr.Text = Sitecore.Context.Item["Header"];
+        this.mainTxtLtr.Text = Sitecore.Context.Item["MainText"];
+
         if (linkField1 != null)
         {
             this.firstLinkA.Attributes.Add("href", linkField1.Url);

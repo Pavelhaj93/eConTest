@@ -3,16 +3,7 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
-            <p>
-                Vážený pane Nováku,<br>
-                naše obchodní nabídka pozbyla platnosti <strong>28. dubna 2016</strong>.
-            </p>
-            <p>Pokud byste se rád dozvěděl detaily Vaši nabídky, prosím kontaktujte nás na telefonu <a href="tel:800113355">800 11 33 55</a>.</p>
-            <p>
-                Děkujeme,
-                <br>
-                Vaše Innogy.
-            </p>
+            <asp:Literal runat="server" ID="MainTxt" />
         </div>
     </div>
 </div>
