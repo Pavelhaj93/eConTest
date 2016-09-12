@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Security.Authentication;
+using System.Web;
 
 namespace rweClient
 {
@@ -12,11 +14,19 @@ namespace rweClient
 
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
+            var userName = rweHelpers.ReadConfig("CacheUserName");
+            var password = rweHelpers.ReadConfig("CachePassword");
+
+            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
+            {
+                throw new InvalidCredentialException("Wrong credentials for cache!");
+            }
+
             CredentialCache credentialCache = new CredentialCache();
             credentialCache.Add(
                 new Uri(api.Url),
                 "Basic",
-                new NetworkCredential("EEM_SOLMAN", "EEM_SOL2019")
+                new NetworkCredential(userName, password)
             );
 
             api.Credentials = credentialCache;
@@ -35,7 +45,8 @@ namespace rweClient
                 {
                     foreach (var f in result.ET_FILES)
                     {
-                        File.WriteAllBytes(f.FILENAME, f.FILECONTENT);
+                        File.WriteAllBytes(HttpContext.Current.Request.MapPath("~/PDF/" + f.FILENAME), 
+                            f.FILECONTENT);
                     }
                 }
             }

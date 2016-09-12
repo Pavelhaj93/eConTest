@@ -12,6 +12,9 @@ public partial class website_Website_WebControls_ThankYou : System.Web.UI.UserCo
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        RweClient client = new RweClient();
+        client.TryCall();
+
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 
         if (linkField1 != null)
