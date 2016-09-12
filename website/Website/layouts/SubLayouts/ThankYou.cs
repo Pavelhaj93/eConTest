@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+using rweClient;
+
 /// <summary>
 /// Summary description for ThankYou
 /// </summary>

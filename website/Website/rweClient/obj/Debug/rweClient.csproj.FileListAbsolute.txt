@@ -1,0 +1,4 @@
+C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\rweClient.dll
+C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\rweClient.pdb
+C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\obj\Debug\rweClient.dll
+C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\obj\Debug\rweClient.pdb
