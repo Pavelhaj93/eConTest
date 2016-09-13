@@ -6,7 +6,7 @@ using rweClient;
 using rweClient.SerializationClasses;
 using System.Globalization;
 
-public partial class website_Website_WebControls_Authentication : BaseRweControl
+public partial class website_Website_WebControls_Authentication : System.Web.UI.UserControl
 {
     public String DateOfBirth { get; set; }
 
@@ -46,101 +46,5 @@ public partial class website_Website_WebControls_Authentication : BaseRweControl
         }
 
         this.DataBind();
-    }
-}
-
-public class AuthenticationDataItem
-{
-    public String ItemType { get; set; }
-    public String ItemValue { get; set; }
-}
-
-public class AuthenticationDataSessionStorage
-{
-    private readonly String SessionKey = "AuthDataSession";
-
-    public AuthenticationDataSessionStorage(rweClient.SerializationClasses.Offer offer)
-    {
-        if ((offer == null) || (offer.Body == null))
-        {
-            throw new OfferIsNullException("Offer is null by Session init");
-        }
-
-        if (!this.IsDataActive())
-        {
-            Random rnd = new Random();
-            int value = rnd.Next(1, 4);
-
-            AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
-
-            switch (value)
-            {
-                case 1:
-                    authenticationDataItem.ItemType = "PARTNER";
-                    authenticationDataItem.ItemValue = offer.Body.PARTNER;
-                    break;
-
-                case 2:
-                    authenticationDataItem.ItemType = "PSC_MS";
-                    authenticationDataItem.ItemValue = offer.Body.PscMistaSpotreby;
-                    break;
-
-                case 3:
-                    authenticationDataItem.ItemType = "PSC_ADDR";
-                    authenticationDataItem.ItemValue = offer.Body.PscTrvaleBydliste;
-                    break;
-
-                case 4:
-                    authenticationDataItem.ItemType = "ACCOUNT_NUMBER";
-                    authenticationDataItem.ItemValue = offer.Body.ACCOUNT_NUMBER;
-                    break;
-                default:
-                    break;
-            }
-            HttpContext.Current.Session[SessionKey] = authenticationDataItem;
-        }
-    }
-
-    public AuthenticationDataSessionStorage() { }
-
-    public AuthenticationDataItem GetData()
-    {
-        if (HttpContext.Current.Session[SessionKey] != null)
-        {
-            var data = HttpContext.Current.Session[SessionKey] as AuthenticationDataItem;
-            return data;
-        }
-
-        return null;
-    }
-
-    public Boolean IsDataActive()
-    {
-        return HttpContext.Current.Session[SessionKey] != null;
-    }
-
-    public void ClearSession()
-    {
-        HttpContext.Current.Session[SessionKey] = null;
-    }
-}
-
-public abstract class BaseRweControl : System.Web.UI.UserControl
-{
-    protected AuthenticationDataSessionStorage authenticationDataSessionStorage { get; set; }
-
-    protected void IsUserInSession()
-    {
-        if (authenticationDataSessionStorage == null)
-        {
-            authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-        }
-
-        if (authenticationDataSessionStorage.IsDataActive())
-        {
-            return;
-        }
-
-        Response.Redirect("http://www.microsoft.com");
     }
 }

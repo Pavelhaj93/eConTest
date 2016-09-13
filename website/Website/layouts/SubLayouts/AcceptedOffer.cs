@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using rweClient;
 
-public partial class website_Website_WebControls_AcceptedOffer : BaseRweControl
+public partial class website_Website_WebControls_AcceptedOffer : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        base.IsUserInSession();
+        RweUtils utils = new RweUtils();
+        utils.IsUserInSession();
 
         var item = Sitecore.Context.Item;
 

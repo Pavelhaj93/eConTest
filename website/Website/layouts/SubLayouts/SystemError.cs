@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using rweClient;
 
-public partial class website_Website_WebControls_SystemError : BaseRweControl
+public partial class website_Website_WebControls_SystemError : System.Web.UI.UserControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        base.IsUserInSession();
+        RweUtils utils = new RweUtils();
+        utils.IsUserInSession();
 
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 
@@ -16,7 +18,7 @@ public partial class website_Website_WebControls_SystemError : BaseRweControl
 
         if (linkField1 != null)
         {
-            this.firstLinkA.Attributes.Add("href", linkField1.Url);
+            this.firstLinkA.Attributes.Add("href", rweHelpers.GetPath(linkField1));
             this.firstLinkText.Text = linkField1.Text;
         }
 
@@ -24,7 +26,7 @@ public partial class website_Website_WebControls_SystemError : BaseRweControl
 
         if (linkField2 != null)
         {
-            this.secondLinkA.Attributes.Add("href", linkField2.Url);
+            this.secondLinkA.Attributes.Add("href", rweHelpers.GetPath(linkField2));
             this.secondLinkText.Text = linkField2.Text;
         }
 
@@ -32,7 +34,7 @@ public partial class website_Website_WebControls_SystemError : BaseRweControl
 
         if (linkField3 != null)
         {
-            this.thirdLinkA.Attributes.Add("href", linkField3.Url);
+            this.thirdLinkA.Attributes.Add("href", rweHelpers.GetPath(linkField3));
             this.thirdLinkText.Text = linkField3.Text;
         }
     }

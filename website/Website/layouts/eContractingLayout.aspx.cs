@@ -4,9 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using rweClient;
 
 public partial class website_Website_layouts_eContractingLayout : System.Web.UI.Page
 {
+    public static string SessionExpiredLink { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         Sitecore.Data.Database context = Sitecore.Context.Database;
@@ -19,7 +22,7 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
 
             if (linkField1 != null)
             {
-                this.imageLink.Attributes.Add("href", GetPath(linkField1));
+                this.imageLink.Attributes.Add("href", rweHelpers.GetPath(linkField1));
             }
 
             this.phoneLink.Attributes.Add("href", "tel:" + item["PhoneNumberLink"] ?? String.Empty);
@@ -38,32 +41,17 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
 
             if (disclaimerLink != null)
             {
-                this.disclaimerLinkUrl.Attributes.Add("href", GetPath(disclaimerLink));
+                this.disclaimerLinkUrl.Attributes.Add("href", rweHelpers.GetPath(disclaimerLink));
                 this.disclaimerText.Text = disclaimerLink.Text;
             }
-        }
-    }
 
-    private string GetPath(Sitecore.Data.Fields.LinkField lf)
-    {
-        switch (lf.LinkType.ToLower())
-        {
-            case "internal":
-                // Use LinkMananger for internal links, if link is not empty
-                return lf.TargetItem != null ? Sitecore.Links.LinkManager.GetItemUrl(lf.TargetItem).Replace("/en/", "/") : string.Empty;
-            case "media":
-                // Use MediaManager for media links, if link is not empty
-                return lf.TargetItem != null ? Sitecore.Resources.Media.MediaManager.GetMediaUrl(lf.TargetItem) : string.Empty;
-            case "external":
-                return lf.Url;
-            case "anchor":
-                return !string.IsNullOrEmpty(lf.Anchor) ? "#" + lf.Anchor : string.Empty;
-            case "mailto":
-                return lf.Url;
-            case "javascript":
-                return lf.Url;
-            default:
-                return lf.Url;
+            //session expired
+            Sitecore.Data.Fields.LinkField sessionExpiredLink = item.Fields["SessionExpired"];
+
+            if (sessionExpiredLink != null && String.IsNullOrEmpty(RweUtils.RedirectSessionExpired))
+            {
+                RweUtils.RedirectSessionExpired = rweHelpers.GetPath(sessionExpiredLink);
+            }
         }
     }
 }
