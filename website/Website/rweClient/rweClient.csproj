@@ -45,10 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="CustomExceptions.cs" />
     <Compile Include="CustomExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rweHelpers.cs" />
     <Compile Include="RWE_Proxy.cs" />
+    <Compile Include="SerializationClasses\Offer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

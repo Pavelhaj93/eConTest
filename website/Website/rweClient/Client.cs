@@ -1,14 +1,18 @@
-﻿using System;
+﻿using rweClient.SerializationClasses;
+using System;
 using System.IO;
 using System.Net;
 using System.Security.Authentication;
 using System.Web;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.Linq;
 
 namespace rweClient
 {
     public class RweClient
     {
-        public void TryCall()
+        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
@@ -33,22 +37,14 @@ namespace rweClient
 
             ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
 
-            inputPar.IV_CCHKEY = "00145EE9475D1ED59CCDD59CA4BF0EB0";
-            inputPar.IV_CCHTYPE = "NABIDKA_PDF";
+            inputPar.IV_CCHKEY = guid;
+            inputPar.IV_CCHTYPE = type;
             inputPar.IV_GEFILE = "X";
 
             try
             {
                 ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
-
-                if (result.ThereAreFiles())
-                {
-                    foreach (var f in result.ET_FILES)
-                    {
-                        File.WriteAllBytes(HttpContext.Current.Request.MapPath("~/PDF/" + f.FILENAME), 
-                            f.FILECONTENT);
-                    }
-                }
+                return result;
             }
             catch (WebException wex)
             {
@@ -57,9 +53,51 @@ namespace rweClient
                     throw;
                 }
 
-                var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
-                throw new Exception(exceptionResponse, wex);
+                try
+                {
+                    var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
+                    throw new Exception(exceptionResponse, wex);
+                }
+                catch
+                {
+                    throw;
+                }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void GeneratePDF()
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse("00145EE9475D1ED59CCDD59CA4BF0EB0", "NABIDKA_PDF");
+
+            if (result.ThereAreFiles())
+            {
+                foreach (var f in result.ET_FILES)
+                {
+                    File.WriteAllBytes(HttpContext.Current.Request.MapPath("~/PDF/" + f.FILENAME),
+                        f.FILECONTENT);
+                }
+            }
+        }
+
+        public Offer GenerateXml(string guid)
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
+
+            if (result.ThereAreFiles())
+            {
+                using (var stream = new MemoryStream(result.ET_FILES.First().FILECONTENT, false))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(Offer));
+                    Offer offer = (Offer)serializer.Deserialize(stream);
+                    return offer;
+                }
+            }
+
+            return null;
         }
     }
 }
