@@ -6,12 +6,14 @@ using rweClient;
 using rweClient.SerializationClasses;
 using System.Globalization;
 
-public partial class website_Website_WebControls_Authentication: System.Web.UI.UserControl
+public partial class website_Website_WebControls_Authentication : BaseRweControl
 {
     public String DateOfBirth { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        // base.IsUserInSession();  ??
+
         RweClient client = new RweClient();
 
         var offer = client.GenerateXml("00145EE9475D1ED59CCDD59CA4BF0EB0");
@@ -99,6 +101,8 @@ public class AuthenticationDataSessionStorage
         }
     }
 
+    public AuthenticationDataSessionStorage() { }
+
     public AuthenticationDataItem GetData()
     {
         if (HttpContext.Current.Session[SessionKey] != null)
@@ -118,5 +122,25 @@ public class AuthenticationDataSessionStorage
     public void ClearSession()
     {
         HttpContext.Current.Session[SessionKey] = null;
+    }
+}
+
+public abstract class BaseRweControl : System.Web.UI.UserControl
+{
+    protected AuthenticationDataSessionStorage authenticationDataSessionStorage { get; set; }
+
+    protected void IsUserInSession()
+    {
+        if (authenticationDataSessionStorage == null)
+        {
+            authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+        }
+
+        if (authenticationDataSessionStorage.IsDataActive())
+        {
+            return;
+        }
+
+        Response.Redirect("http://www.microsoft.com");
     }
 }

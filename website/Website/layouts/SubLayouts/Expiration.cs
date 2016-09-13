@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-public partial class website_Website_WebControls_Expiration : System.Web.UI.UserControl
+public partial class website_Website_WebControls_Expiration : BaseRweControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        base.IsUserInSession();
+
         this.MainTxt.Text = Sitecore.Context.Item["MainText"];
 
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];

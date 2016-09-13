@@ -8,10 +8,12 @@ using rweClient;
 /// <summary>
 /// Summary description for ThankYou
 /// </summary>
-public partial class website_Website_WebControls_ThankYou : System.Web.UI.UserControl
+public partial class website_Website_WebControls_ThankYou : BaseRweControl
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        base.IsUserInSession();
+
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 
         if (linkField1 != null)
