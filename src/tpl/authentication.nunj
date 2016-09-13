@@ -29,7 +29,11 @@
 {% endblock %}
 
 {% block scripts %}
-	<script>var dob = '30.08.2016';</script>
+	<script>
+		/* Values from BACK-END */
+		var dob = '30.08.2016';
+		var additional = '0000';
+	</script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.cs.min.js"></script>

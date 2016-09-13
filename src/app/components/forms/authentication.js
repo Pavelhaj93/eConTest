@@ -6,11 +6,12 @@ export default function Auth(form) {
 
         /* Inputs */
         const birth = form.querySelector('input[name="birth"]');
-        const additional = form.querySelector('input[name="additional"]');
+        const additionalInput = form.querySelector('input[name="additional"]');
         const submitBtn = form.querySelector('button[type="submit"]');
 
         /* Status form */
         const status = $(form.querySelector('.status'));
+        let failPropmts = 0;
 
         /* Shallow validation: Check only for the empty fields */
         function validate() {
@@ -44,14 +45,18 @@ export default function Auth(form) {
             /* Empty status box */
             $(status).empty();
 
+            /* Redirect on 3 failed prompts */
+            (failPropmts == 3) && (window.location = 'http://google.cz');
+
             /* Validate the form for missed fields */
             const validated = validate();
 
             if (validated) {
                 /* Validate customer's birth date */
                 const validBirth = (trim(birth.value) == trim(dob));
+                const validAdditional = (trim(additionalInput.value) == trim(additional));
 
-                if (validBirth) {
+                if (validBirth && validAdditional) {
                     console.warn('SEND REQUEST');
 
                     /* Validation request */
@@ -60,7 +65,7 @@ export default function Auth(form) {
                         dataType: 'jsonp',
                         url: 'http://google.com',
                         data: {
-                            additional: additional.value
+                            additional: additionalInput.value
                         },
                         
                         /* When success, redirect to the Offer page */
@@ -83,6 +88,7 @@ export default function Auth(form) {
                 } else {
                     /* ERROR: Invalid data */
                     invalidMessage();
+                    failPropmts++;
                 }
             } else {
                 /* ERROR: Missing required fields */
