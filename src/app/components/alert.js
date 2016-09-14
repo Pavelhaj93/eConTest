@@ -8,6 +8,7 @@
 * container (DOMElement/jQuery) [Optional] - Container to append the message to.
 *
 */
+export const alertTypes = ['error', 'warning', 'success'];
 
 export default function Alert(message, type = 'warning', container = null) {
     /* Convert Array messages to String */

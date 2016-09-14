@@ -1,4 +1,5 @@
 import Alert from '../../components/alert';
+import { alertTypes } from '../../components/alert';
 import { messages } from '../messages';
 import url from 'url';
 import trim from '../../helpers/trim';
@@ -11,11 +12,16 @@ export default function Auth(form) {
 
             if (queryMessage) {
                 Object.keys(queryMessage).forEach((messageType) => {
-                    const messageSlug = queryMessage[messageType];
 
-                    if (messages.hasOwnProperty(messageSlug)) {
-                        Alert(messages[messageSlug], messageType, status);
+                    /* Forbid output of unknown message types */
+                    if (alertTypes.includes(messageType)){
+                        const messageSlug = queryMessage[messageType];
+
+                        if (messages.hasOwnProperty(messageSlug)) {
+                            Alert(messages[messageSlug], messageType, status);
+                        }
                     }
+
                 });
             }
         });
