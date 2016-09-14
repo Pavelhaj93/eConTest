@@ -90,11 +90,14 @@ export default function Auth(form) {
                 //         /* Redirect to System error page */
                 //     }
                 // });
+
+                return true;
             } else {
                 /* ERROR: Missing required fields */
                 Alert(messages.requiredFields, 'error', status);
             }
 
+            return false;
         };
 
     })(jQuery);
