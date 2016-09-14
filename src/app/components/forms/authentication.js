@@ -27,7 +27,7 @@ export default function Auth(form) {
         });
 
         /* Form inputs and status box */
-        const submitBtn = form.querySelector('.submit-button');
+        const submitBtn = form.querySelector('.button-submit');
         const status = $(form.querySelector('.status'));
 
         /* Shallow validation: Check only for the empty fields */
