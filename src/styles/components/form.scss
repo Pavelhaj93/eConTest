@@ -21,7 +21,8 @@ $border-radius: 35px;
 		}
 	}
 
-	button {
+	button,
+	.button {
 		margin-top: 1.5rem;
 		padding: .65rem 1.5rem .6rem;
 
@@ -32,10 +33,15 @@ $border-radius: 35px;
 		color: #fff;
 		font-weight: 500;
 		transition: background .3s ease;
+		width: auto;
 
 		&[disabled] {
 			background: $color-gray-dim;
 			cursor: not-allowed;
+		}
+
+		&:hover {
+			background: darken($color-green, 5%);
 		}
 
 		@media (max-width: $screen-md-max) {

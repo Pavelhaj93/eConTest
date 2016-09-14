@@ -22,7 +22,7 @@
 					</div>
 				</div>
 			</div>
-			<button type="submit">Potvrdit vložené údaje a zobrazit nabídku</button>
+			<input class="button submit-button" type="submit" value="Potvrdit vložené údaje a zobrazit nabídku">
 		</div>
 	{% endcall %}
 
