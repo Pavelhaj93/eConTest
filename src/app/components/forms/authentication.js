@@ -7,8 +7,6 @@ import trim from '../../helpers/trim';
 export default function Auth(form) {
     (function($) {
 
-        console.warn('Auth: Form loaded');
-
         window.addEventListener('load', () => {
             const queryMessage = url.parse(window.location.href, true).query;
 
@@ -28,12 +26,8 @@ export default function Auth(form) {
             }
         });
 
-        /* Inputs */
-        const birth = form.querySelector('input[name="birth"]');
-        const additionalInput = form.querySelector('input[name="additional"]');
+        /* Form inputs and status box */
         const submitBtn = form.querySelector('button[type="submit"]');
-
-        /* Status form */
         const status = $(form.querySelector('.status'));
 
         /* Shallow validation: Check only for the empty fields */
@@ -56,11 +50,6 @@ export default function Auth(form) {
             return result;
         }
 
-        /* Print invalid date error */
-        function invalidMessage() {
-            return Alert(messages.validationError, 'error', status);
-        }
-
         /* Handle submit */
         submitBtn.onclick = (e) => {
             e.preventDefault();
@@ -74,47 +63,34 @@ export default function Auth(form) {
             const validated = validate();
 
             if (validated) {
-                console.warn('submitBtn: Validation: success');
+                console.warn('SEND REQUEST');
 
-                /* Validate customer's birth date */
-                const validBirth = (trim(birth.value) == trim(dob));
-                const validAdditional = (trim(additionalInput.value) == trim(additional));
+                /* Validation request */
+                // $.ajax({
+                //     type: '',
+                //     dataType: 'jsonp',
+                //     url: 'http://google.com',
+                //     data: {
+                //         additional: additionalInput.value
+                //     },
+                    
+                //     /* When success, redirect to the Offer page */
+                //     success: (response) => {
+                //         if (response.success) {
+                //             console.warn('REDIRECT TO: Offer');
+                //         } else {
+                //             /* Display validation error message */
+                //             invalidMessage();
+                //         }
+                //         console.log(response);
+                //     },
 
-                if (validBirth && validAdditional) {
-                    console.warn('SEND REQUEST');
-
-                    /* Validation request */
-                    // $.ajax({
-                    //     type: '',
-                    //     dataType: 'jsonp',
-                    //     url: 'http://google.com',
-                    //     data: {
-                    //         additional: additionalInput.value
-                    //     },
-                        
-                    //     /* When success, redirect to the Offer page */
-                    //     success: (response) => {
-                    //         if (response.success) {
-                    //             console.warn('REDIRECT TO: Offer');
-                    //         } else {
-                    //             /* Display validation error message */
-                    //             invalidMessage();
-                    //         }
-                    //         console.log(response);
-                    //     },
-
-                    //     /* ERROR: No response from the server */
-                    //     error: (e) => {
-                    //         /* Redirect to System error page */
-                    //     }
-                    // });
-
-                } else {
-                    /* ERROR: Invalid data */
-                    invalidMessage();
-                }
+                //     /* ERROR: No response from the server */
+                //     error: (e) => {
+                //         /* Redirect to System error page */
+                //     }
+                // });
             } else {
-                console.warn('submitBtn: Validation: error');
                 /* ERROR: Missing required fields */
                 Alert(messages.requiredFields, 'error', status);
             }
