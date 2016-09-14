@@ -11,6 +11,7 @@ namespace rweClient
     {
         public String ItemType { get; set; }
         public String ItemValue { get; set; }
+        public String ItemFriendlyName { get; set; }
     }
 
     public class AuthenticationDataSessionStorage
@@ -36,21 +37,25 @@ namespace rweClient
                     case 1:
                         authenticationDataItem.ItemType = "PARTNER";
                         authenticationDataItem.ItemValue = offer.Body.PARTNER;
+                        authenticationDataItem.ItemFriendlyName = "Číslo OP";
                         break;
 
                     case 2:
                         authenticationDataItem.ItemType = "PSC_MS";
                         authenticationDataItem.ItemValue = offer.Body.PscMistaSpotreby;
+                        authenticationDataItem.ItemFriendlyName = "PSČ Místa spotřeby";
                         break;
 
                     case 3:
                         authenticationDataItem.ItemType = "PSC_ADDR";
                         authenticationDataItem.ItemValue = offer.Body.PscTrvaleBydliste;
+                        authenticationDataItem.ItemFriendlyName = "PSČ trvalého bydliště";
                         break;
 
                     case 4:
                         authenticationDataItem.ItemType = "ACCOUNT_NUMBER";
                         authenticationDataItem.ItemValue = offer.Body.ACCOUNT_NUMBER;
+                        authenticationDataItem.ItemFriendlyName = "číslo bankovního účtu včetně kódu banky za lomítkem";
                         break;
                     default:
                         break;

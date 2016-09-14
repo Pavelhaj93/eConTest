@@ -17,7 +17,7 @@
                             <label for="birth">
                                 <asp:Literal runat="server" ID="firstTxt" />
                             </label>
-                            <input id="birth" name="birth" class="input-date" placeholder="napr. 26. 12. 1966" autocomplete="off" value="" required>
+                            <asp:TextBox runat="server" ID="birth" ClientIDMode="Static" CssClass="input-date" autocomplete="off" required />
                             <a class="ui-datepicker-trigger" href="" tabindex="-1">
                                 <svg class="icon" preserveAspectRatio="none">
                                     <use xlink:href="gfx/icon/svg.svg#calendar" />
@@ -28,11 +28,12 @@
                             <label for="additional">
                                 <asp:Literal runat="server" ID="secondTxt" />
                             </label>
-                            <input id="additional" name="additional" placeholder="Vložte Vaše zákaznické číslo" autocomplete="off" value="" required>
+                            <asp:TextBox runat="server" ID="additional" ClientIDMode="Static" name="additional"
+                                autocomplete="off" required />
                         </div>
                     </div>
                 </div>
-                <button type="submit">
+                <button type="submit" runat="server" id="mainBtn" onserverclick="mainBtn_ServerClick">
                     <asp:Literal runat="server" ID="buttonText" />
                 </button>
             </div>

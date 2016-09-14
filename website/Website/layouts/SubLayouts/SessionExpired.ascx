@@ -4,9 +4,9 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
             <h1>
-                Session Expired!
+               <asp:Literal runat="server" ID="headerText" />
             </h1>
-            Session Expired!
+            <asp:Literal runat="server" ID="mainText" />
         </div>
     </div>
 </div>

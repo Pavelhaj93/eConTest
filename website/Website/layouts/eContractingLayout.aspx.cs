@@ -45,12 +45,15 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
                 this.disclaimerText.Text = disclaimerLink.Text;
             }
 
-            //session expired
-            Sitecore.Data.Fields.LinkField sessionExpiredLink = item.Fields["SessionExpired"];
-
-            if (sessionExpiredLink != null && String.IsNullOrEmpty(RweUtils.RedirectSessionExpired))
+            if (String.IsNullOrEmpty(RweUtils.RedirectSessionExpired))
             {
-                RweUtils.RedirectSessionExpired = rweHelpers.GetPath(sessionExpiredLink);
+                //session expired
+                Sitecore.Data.Fields.LinkField sessionExpiredLink = item.Fields["SessionExpired"];
+
+                if (sessionExpiredLink != null)
+                {
+                    RweUtils.RedirectSessionExpired = rweHelpers.GetPath(sessionExpiredLink);
+                }
             }
         }
     }

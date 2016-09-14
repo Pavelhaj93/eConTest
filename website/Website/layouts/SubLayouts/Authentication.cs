@@ -35,7 +35,11 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         }
 
         AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
-
+        var authenticationData = authenticationDataSessionStorage.GetData();
+        
+        this.additional.Attributes["placeholder"] = "Vložte Vaše " + authenticationData.ItemFriendlyName;
+        this.birth.Attributes["placeholder"] = "napr. 26. 12. 1966";
+        
         var item = Sitecore.Context.Item;
 
         if (item != null)
@@ -46,5 +50,9 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         }
 
         this.DataBind();
+    }
+    protected void mainBtn_ServerClick(object sender, EventArgs e)
+    {
+
     }
 }
