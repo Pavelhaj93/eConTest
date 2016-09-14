@@ -7,6 +7,8 @@ import trim from '../../helpers/trim';
 export default function Auth(form) {
     (function($) {
 
+        console.warn('Auth: Form loaded');
+
         window.addEventListener('load', () => {
             const queryMessage = url.parse(window.location.href, true).query;
 
@@ -63,6 +65,8 @@ export default function Auth(form) {
         submitBtn.onclick = (e) => {
             e.preventDefault();
 
+            console.warn('submitBtn: CLICKED');
+
             /* Empty status box */
             $(status).empty();
 
@@ -70,6 +74,8 @@ export default function Auth(form) {
             const validated = validate();
 
             if (validated) {
+                console.warn('submitBtn: Validation: success');
+
                 /* Validate customer's birth date */
                 const validBirth = (trim(birth.value) == trim(dob));
                 const validAdditional = (trim(additionalInput.value) == trim(additional));
@@ -108,6 +114,7 @@ export default function Auth(form) {
                     invalidMessage();
                 }
             } else {
+                console.warn('submitBtn: Validation: error');
                 /* ERROR: Missing required fields */
                 Alert(messages.requiredFields, 'error', status);
             }
