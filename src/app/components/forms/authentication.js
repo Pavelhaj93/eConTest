@@ -60,7 +60,7 @@ export default function Auth(form) {
         }
 
         /* Handle submit */
-        submitBtn.addEventListener('click', (e) => {
+        submitBtn.onclick = (e) => {
             e.preventDefault();
 
             /* Empty status box */
@@ -112,7 +112,7 @@ export default function Auth(form) {
                 Alert(messages.requiredFields, 'error', status);
             }
 
-        });
+        };
 
     })(jQuery);
 }
