@@ -14,7 +14,8 @@
 		margin: auto;
 		padding: .5rem;
 
-		background: svg-load('../gfx/svg/close.svg', fill=#fff) no-repeat center;
+		background-repeat: no-repeat;
+		background-position: center;
 		background-size: 100% 100%;
 		bottom: 0;
 		box-sizing: initial;
@@ -34,25 +35,31 @@
 	&.error {
 		background: $color-red;
 		color: #fff;
+
+		.close { background-image: svg-load('../gfx/svg/close.svg', fill=#fff); }
 	}
 
 	&.warning {
 		$color: $color-orange;
 		$color-text: darken($color, 15%);
+		$color-close: transparentize($color-text, .65);
 
 		background: transparentize($color, .8);
 		color: $color-text;
 
-		.icon { fill: $color-text; }
+		.close { background-image: svg-load('../gfx/svg/close.svg', fill=$color-close); }
 	}
 
 	&.success {
 		$color: $color-green;
 		$color-text: darken($color, 15%);
+		$color-close: transparentize($color-text, .65);
 
 		background: transparentize($color, .8);
 		color: $color-text;
 
-		.icon { fill: $color-text; }
+		.close { background-image: svg-load('../gfx/svg/close.svg', fill=$color-close); }
 	}
+
+	h3, h4 { margin-top: 0; }
 }

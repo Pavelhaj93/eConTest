@@ -6,8 +6,8 @@ import Cookie from './components/cookie';
 import FormAuth from './components/forms/authentication';
 import DateInput from './components/datepicker';
 import FormOffer from './components/forms/offer';
-import AcceptedDocuments from './components/accepted-documents';
 import CheckAll from './components/check-all';
+import AcceptedDocuments from './components/accepted-documents';
 import Copyright from './components/copyright';
 
 window.app = {

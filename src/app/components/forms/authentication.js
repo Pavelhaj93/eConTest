@@ -1,8 +1,24 @@
 import Alert from '../../components/alert';
+import { messages } from '../messages';
+import url from 'url';
 import trim from '../../helpers/trim';
 
 export default function Auth(form) {
     (function($) {
+
+        window.addEventListener('load', () => {
+            const queryMessage = url.parse(window.location.href, true).query;
+
+            if (queryMessage) {
+                Object.keys(queryMessage).forEach((messageType) => {
+                    const messageSlug = queryMessage[messageType];
+
+                    if (messages.hasOwnProperty(messageSlug)) {
+                        Alert(messages[messageSlug], messageType, status);
+                    }
+                });
+            }
+        });
 
         /* Inputs */
         const birth = form.querySelector('input[name="birth"]');
@@ -34,7 +50,7 @@ export default function Auth(form) {
 
         /* Print invalid date error */
         function invalidMessage() {
-            return Alert('Ověření Vašich údajů se nezdařilo. Zadejte prosím správné údaje. V případě potíží se prosím obraťte na naši zákaznickou podporu.', 'error', status);
+            return Alert(messages.validationError, 'error', status);
         }
 
         /* Handle submit */
@@ -87,7 +103,7 @@ export default function Auth(form) {
                 }
             } else {
                 /* ERROR: Missing required fields */
-                Alert('Prosím , vyplňte všechna požadovaná pole.', 'error', status);
+                Alert(messages.requiredFields, 'error', status);
             }
 
         });

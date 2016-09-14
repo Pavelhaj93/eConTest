@@ -10,6 +10,8 @@
 */
 
 export default function Alert(message, type = 'warning', container = null) {
+    /* Convert Array messages to String */
+    (message instanceof Array) && (message = message.join(''));
 
     /* HTML template */
     const template = [
