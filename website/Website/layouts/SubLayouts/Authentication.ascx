@@ -29,9 +29,7 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" runat="server" id="mainBtn" onserverclick="mainBtn_ServerClick">
-                    <asp:Literal runat="server" ID="buttonText" />
-                </button>
+                <asp:Button runat="server" CssClass="button button-submit" ID="mainBtn" OnClick ="mainBtn_ServerClick" Text="sdsdsd" />
             </div>
         </div>
     </div>

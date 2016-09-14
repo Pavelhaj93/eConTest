@@ -7,5 +7,6 @@ public partial class website_Website_WebControls_UserBlocked : System.Web.UI.Use
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        HttpContext.Current.Session["NumberOfLogons"] = 0;
     }
 }

@@ -63,7 +63,7 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
 
                 if (blockedUserLink != null)
                 {
-                    RweUtils.RedirectUserHasBeenBlocked = rweHelpers.GetPath(sessionExpiredLink);
+                    RweUtils.RedirectUserHasBeenBlocked = rweHelpers.GetPath(blockedUserLink);
                 }
             }
         }

@@ -12,35 +12,44 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
     {
         // base.IsUserInSession();  ??
 
-        RweClient client = new RweClient();
-
-        var offer = client.GenerateXml("00145EE9475D1ED59CCDD59CA4BF0EB0");
-
-        if ((offer == null) || (offer.Body == null) || String.IsNullOrEmpty(offer.Body.BIRTHDT))
+        if (!Page.IsPostBack)
         {
-            throw new OfferIsNullException("Offer not found");
+
+            RweClient client = new RweClient();
+
+            var offer = client.GenerateXml("00145EE9475D1ED59CCDD59CA4BF0EB0");
+
+            if ((offer == null) || (offer.Body == null) || String.IsNullOrEmpty(offer.Body.BIRTHDT))
+            {
+                throw new OfferIsNullException("Offer not found");
+            }
+
+            AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
+            var authenticationData = authenticationDataSessionStorage.GetData();
+
+            this.additional.Attributes["placeholder"] = "Vložte Vaše " + authenticationData.ItemFriendlyName;
+            this.birth.Attributes["placeholder"] = "napr. 26. 12. 1966";
+
+            var item = Sitecore.Context.Item;
+
+            if (item != null)
+            {
+                this.firstTxt.Text = item["DateOfBirth"] ?? String.Empty;
+                this.secondTxt.Text = item["ContractData"] ?? String.Empty;
+                this.mainBtn.Text = item["ButtonText"] ?? String.Empty;
+            }
+
+            this.DataBind();
         }
-
-        AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
-        var authenticationData = authenticationDataSessionStorage.GetData();
-        
-        this.additional.Attributes["placeholder"] = "Vložte Vaše " + authenticationData.ItemFriendlyName;
-        this.birth.Attributes["placeholder"] = "napr. 26. 12. 1966";
-        
-        var item = Sitecore.Context.Item;
-
-        if (item != null)
-        {
-            this.firstTxt.Text = item["DateOfBirth"] ?? String.Empty;
-            this.secondTxt.Text = item["ContractData"] ?? String.Empty;
-            this.buttonText.Text = item["ButtonText"] ?? String.Empty;
-        }
-
-        this.DataBind();
     }
 
     protected void mainBtn_ServerClick(object sender, EventArgs e)
     {
+        if (String.IsNullOrEmpty(this.birth.Text) || String.IsNullOrEmpty(additional.Text))
+        {
+            return;
+        }
+
         var dobValue = this.birth.Text.Trim().Replace(" ", String.Empty).ToLower();
         var additionalValue = additional.Text.Trim().Replace(" ", String.Empty).ToLower();
 
@@ -60,7 +69,18 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
             var numberOfLogons = (int)HttpContext.Current.Session["NumberOfLogons"];
             HttpContext.Current.Session["NumberOfLogons"] = ++numberOfLogons;
 
-            Response.Redirect(Request.RawUrl + "/?error=validationError");  //error same page
+            string url = Request.RawUrl;
+
+            if (Request.RawUrl.Contains("?error=validationError"))
+            {
+                url = Request.RawUrl;
+            }
+            else
+            {
+                url = Request.RawUrl + "?error=validationError";
+            }
+
+            Response.Redirect(url);  //error same page
         }
         else if (numberOfLogonsBefore >= 3)
         {
