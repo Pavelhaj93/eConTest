@@ -11,7 +11,6 @@ export default function Auth(form) {
 
         /* Status form */
         const status = $(form.querySelector('.status'));
-        let failPropmts = 0;
 
         /* Shallow validation: Check only for the empty fields */
         function validate() {
@@ -45,9 +44,6 @@ export default function Auth(form) {
             /* Empty status box */
             $(status).empty();
 
-            /* Redirect on 3 failed prompts */
-            (failPropmts == 3) && (window.location = 'http://google.cz');
-
             /* Validate the form for missed fields */
             const validated = validate();
 
@@ -60,35 +56,34 @@ export default function Auth(form) {
                     console.warn('SEND REQUEST');
 
                     /* Validation request */
-                    $.ajax({
-                        type: '',
-                        dataType: 'jsonp',
-                        url: 'http://google.com',
-                        data: {
-                            additional: additionalInput.value
-                        },
+                    // $.ajax({
+                    //     type: '',
+                    //     dataType: 'jsonp',
+                    //     url: 'http://google.com',
+                    //     data: {
+                    //         additional: additionalInput.value
+                    //     },
                         
-                        /* When success, redirect to the Offer page */
-                        success: (response) => {
-                            if (response.success) {
-                                console.warn('REDIRECT TO: Offer');
-                            } else {
-                                /* Display validation error message */
-                                invalidMessage();
-                            }
-                            console.log(response);
-                        },
+                    //     /* When success, redirect to the Offer page */
+                    //     success: (response) => {
+                    //         if (response.success) {
+                    //             console.warn('REDIRECT TO: Offer');
+                    //         } else {
+                    //             /* Display validation error message */
+                    //             invalidMessage();
+                    //         }
+                    //         console.log(response);
+                    //     },
 
-                        /* ERROR: No response from the server */
-                        error: (e) => {
-                            /* Redirect to System error page */
-                        }
-                    });
+                    //     /* ERROR: No response from the server */
+                    //     error: (e) => {
+                    //         /* Redirect to System error page */
+                    //     }
+                    // });
 
                 } else {
                     /* ERROR: Invalid data */
                     invalidMessage();
-                    failPropmts++;
                 }
             } else {
                 /* ERROR: Missing required fields */
