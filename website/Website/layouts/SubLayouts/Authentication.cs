@@ -8,8 +8,6 @@ using System.Globalization;
 
 public partial class website_Website_WebControls_Authentication : System.Web.UI.UserControl
 {
-    public String DateOfBirth { get; set; }
-
     protected void Page_Load(object sender, EventArgs e)
     {
         // base.IsUserInSession();  ??
@@ -21,17 +19,6 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         if ((offer == null) || (offer.Body == null) || String.IsNullOrEmpty(offer.Body.BIRTHDT))
         {
             throw new OfferIsNullException("Offer not found");
-        }
-
-        DateTime outputDateTimeValue;
-
-        if (DateTime.TryParseExact(offer.Body.BIRTHDT, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTimeValue))
-        {
-            this.DateOfBirth = outputDateTimeValue.ToString("dd.MM.yyy");
-        }
-        else
-        {
-            throw new DateOfBirthWrongFormatException(String.Format("Wrong format: {0}", offer.Body.BIRTHDT));
         }
 
         AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
@@ -51,8 +38,38 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
 
         this.DataBind();
     }
+
     protected void mainBtn_ServerClick(object sender, EventArgs e)
     {
+        var dobValue = this.birth.Text.Trim().Replace(" ", String.Empty).ToLower();
+        var additionalValue = additional.Text.Trim().Replace(" ", String.Empty).ToLower();
 
+        AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+        var authenticationData = authenticationDataSessionStorage.GetData();
+
+        if (HttpContext.Current.Session["NumberOfLogons"] == null)
+        {
+            HttpContext.Current.Session["NumberOfLogons"] = 0;
+        }
+
+        var numberOfLogonsBefore = (int)HttpContext.Current.Session["NumberOfLogons"];
+
+        if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) ||
+            (additionalValue != authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower())))
+        {
+            var numberOfLogons = (int)HttpContext.Current.Session["NumberOfLogons"];
+            HttpContext.Current.Session["NumberOfLogons"] = ++numberOfLogons;
+
+            Response.Redirect(Request.RawUrl + "/?error=validationError");  //error same page
+        }
+        else if (numberOfLogonsBefore >= 3)
+        {
+            Response.Redirect(RweUtils.RedirectUserHasBeenBlocked); //block for 30 min page
+        }
+        else
+        {
+            HttpContext.Current.Session["NumberOfLogons"] = 0;
+            Response.Redirect("http://www.seznam.cz");
+        }
     }
 }

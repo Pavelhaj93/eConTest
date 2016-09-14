@@ -55,6 +55,17 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
                     RweUtils.RedirectSessionExpired = rweHelpers.GetPath(sessionExpiredLink);
                 }
             }
+
+            if (String.IsNullOrEmpty(RweUtils.RedirectUserHasBeenBlocked))
+            {
+                //user Blocked
+                Sitecore.Data.Fields.LinkField blockedUserLink = item.Fields["UserBlocked"];
+
+                if (blockedUserLink != null)
+                {
+                    RweUtils.RedirectUserHasBeenBlocked = rweHelpers.GetPath(sessionExpiredLink);
+                }
+            }
         }
     }
 }

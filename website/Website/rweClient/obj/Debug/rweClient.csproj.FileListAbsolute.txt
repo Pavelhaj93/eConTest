@@ -20,3 +20,4 @@ C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\Newtonso
 C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\Lucene.Net.xml
 C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\HtmlAgilityPack.xml
 C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\bin\Debug\Telerik.Web.UI.xml
+C:\inetpub\wwwroot\RWE\eContracting\website\Website\rweClient\obj\Debug\rweClient.csprojResolveAssemblyReference.cache

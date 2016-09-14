@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace rweClient
         public String ItemType { get; set; }
         public String ItemValue { get; set; }
         public String ItemFriendlyName { get; set; }
+        public String DateOfBirth { get; set; }
     }
 
     public class AuthenticationDataSessionStorage
@@ -31,6 +33,16 @@ namespace rweClient
                 int value = rnd.Next(1, 4);
 
                 AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
+
+                DateTime outputDateTimeValue;
+                if (DateTime.TryParseExact(offer.Body.BIRTHDT, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTimeValue))
+                {
+                    authenticationDataItem.DateOfBirth = outputDateTimeValue.ToString("dd.MM.yyy");
+                }
+                else
+                {
+                    throw new DateOfBirthWrongFormatException(String.Format("Wrong format: {0}", offer.Body.BIRTHDT));
+                }
 
                 switch (value)
                 {
@@ -93,6 +105,7 @@ namespace rweClient
         public AuthenticationDataSessionStorage authenticationDataSessionStorage { get; set; }
 
         public static String RedirectSessionExpired { get; set; }
+        public static String RedirectUserHasBeenBlocked { get; set; }
 
         public void IsUserInSession()
         {
