@@ -60,7 +60,7 @@ export default function Auth(form) {
             /* Validate the form for missed fields */
             const validated = validate();
 
-            if (!validate) {
+            if (!validated) {
                 /* ERROR: Missing required fields */
                 Alert(messages.requiredFields, 'error', status);
             }
