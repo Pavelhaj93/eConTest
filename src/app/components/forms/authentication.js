@@ -51,9 +51,7 @@ export default function Auth(form) {
         }
 
         /* Handle submit */
-        submitBtn.onclick = (e) => {
-            e.preventDefault();
-
+        submitBtn.onclick = () => {
             console.warn('submitBtn: CLICKED');
 
             /* Empty status box */
@@ -62,42 +60,12 @@ export default function Auth(form) {
             /* Validate the form for missed fields */
             const validated = validate();
 
-            if (validated) {
-                console.warn('SEND REQUEST');
-
-                /* Validation request */
-                // $.ajax({
-                //     type: '',
-                //     dataType: 'jsonp',
-                //     url: 'http://google.com',
-                //     data: {
-                //         additional: additionalInput.value
-                //     },
-                    
-                //     /* When success, redirect to the Offer page */
-                //     success: (response) => {
-                //         if (response.success) {
-                //             console.warn('REDIRECT TO: Offer');
-                //         } else {
-                //             /* Display validation error message */
-                //             invalidMessage();
-                //         }
-                //         console.log(response);
-                //     },
-
-                //     /* ERROR: No response from the server */
-                //     error: (e) => {
-                //         /* Redirect to System error page */
-                //     }
-                // });
-
-                return true;
-            } else {
+            if (!validate) {
                 /* ERROR: Missing required fields */
                 Alert(messages.requiredFields, 'error', status);
             }
 
-            return false;
+            return validated;
         };
 
     })(jQuery);
