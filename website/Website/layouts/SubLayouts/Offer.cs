@@ -14,19 +14,23 @@ public partial class website_Website_WebControls_Offer : System.Web.UI.UserContr
         {
             RweUtils utils = new RweUtils();
             utils.IsUserInSession();
+
+            AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+            var data = authenticationDataSessionStorage.GetData();
+
+            var mainTextField = Sitecore.Context.Item.Fields["MainText"];
+
+            if (mainTextField != null && !String.IsNullOrEmpty(mainTextField.Value))
+            {
+                this.mainText.Text = mainTextField.Value.Replace("{0}", data.LastName);
+            }
         }
-
-        AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-        var data = authenticationDataSessionStorage.GetData();
-
-        var mainTextField = Sitecore.Context.Item.Fields["MainText"];
-
-        if (mainTextField != null && !String.IsNullOrEmpty(mainTextField.Value))
+        else
         {
-            this.mainText.Text = mainTextField.Value.Replace("{0}", data.LastName);
+            var mainTextField = Sitecore.Context.Item.Fields["MainText"];
+            this.mainText.Text = mainTextField.Value;
         }
 
-        this.PanelDox.ClientId = data.Identifier;
         this.DataBind();
     }
 }
