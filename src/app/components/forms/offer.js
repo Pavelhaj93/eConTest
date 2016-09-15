@@ -28,7 +28,7 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function (success = true) {
+        window.documentsReceived = function(success = true) {
             list.removeClass('loading');
 
             if (success) {
@@ -57,7 +57,7 @@ export default function FormOffer(form) {
             }
 
             return success;
-        }
+        };
         // documentsReceived();
 
         /* Determine whether all checkboxes are checked */
