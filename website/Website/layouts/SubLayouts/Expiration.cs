@@ -8,8 +8,11 @@ public partial class website_Website_WebControls_Expiration : System.Web.UI.User
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RweUtils utils = new RweUtils();
-        utils.IsUserInSession();
+        if (Sitecore.Context.PageMode.IsNormal)
+        {
+            RweUtils utils = new RweUtils();
+            utils.IsUserInSession();
+        }
 
         this.MainTxt.Text = Sitecore.Context.Item["MainText"];
 

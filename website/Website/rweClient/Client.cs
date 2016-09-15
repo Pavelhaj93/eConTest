@@ -7,9 +7,16 @@ using System.Web;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace rweClient
 {
+    public class FileToBeDownloaded
+    {
+        public string FileNumber {get;set;}
+        public List<Byte> FileContent {get;set;}
+    }
+
     public class RweClient
     {
         private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
@@ -69,18 +76,25 @@ namespace rweClient
             }
         }
 
-        public void GeneratePDF()
+        public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            ZCCH_CACHE_GETResponse result = GetResponse("00145EE9475D1ED59CCDD59CA4BF0EB0", "NABIDKA_PDF");
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_PDF");
+
+            List<FileToBeDownloaded> fileResults = new List<FileToBeDownloaded>();
 
             if (result.ThereAreFiles())
             {
                 foreach (var f in result.ET_FILES)
                 {
-                    File.WriteAllBytes(HttpContext.Current.Request.MapPath("~/PDF/" + f.FILENAME),
-                        f.FILECONTENT);
+                    FileToBeDownloaded tempItem = new FileToBeDownloaded();
+                    tempItem.FileNumber = f.FILEINDX;
+                    tempItem.FileContent = f.FILECONTENT.ToList();
+                    fileResults.Add(tempItem);
                 }
+
+                return fileResults;
             }
+            return null;
         }
 
         public Offer GenerateXml(string guid)

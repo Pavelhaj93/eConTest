@@ -11,18 +11,17 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
     protected void Page_Load(object sender, EventArgs e)
     {
         // base.IsUserInSession();  ??
-
-        if (!Page.IsPostBack)
+        if (!Page.IsPostBack || !AuthenticationDataSessionStorage.IsDataActiveStatic())
         {
-
             RweClient client = new RweClient();
-
-            var offer = client.GenerateXml("00145EE9475D1ED59CCDD59CA4BF0EB0");
+            var offer = client.GenerateXml("005056BF704B1EE69C893F8B337F3D59");
 
             if ((offer == null) || (offer.Body == null) || String.IsNullOrEmpty(offer.Body.BIRTHDT))
             {
                 throw new OfferIsNullException("Offer not found");
             }
+
+            this.nameLit.Text = offer.Body.NAME_LAST;
 
             AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
             var authenticationData = authenticationDataSessionStorage.GetData();
@@ -89,7 +88,17 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         else
         {
             HttpContext.Current.Session["NumberOfLogons"] = 0;
-            Response.Redirect("http://www.seznam.cz");
+            
+            var item = Sitecore.Context.Item;
+            if (item != null)
+            {
+                Sitecore.Data.Fields.LinkField nextPageLink = item.Fields["NextPageLink"];
+
+                if (nextPageLink != null)
+                {
+                    Response.Redirect(rweHelpers.GetPath(nextPageLink));
+                }
+            }
         }
     }
 }

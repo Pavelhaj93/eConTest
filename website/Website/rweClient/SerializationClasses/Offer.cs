@@ -31,6 +31,9 @@ namespace rweClient.SerializationClasses
         [XmlElement("CONTSTART")]
         public string DatumUcinnostiDodatku { get; set; }
 
+        [XmlElement("DATE_TO")]
+        public string DATE_TO { get; set; }
+
         [XmlElement("STATUS")]
         public string STATUS { get; set; }
 

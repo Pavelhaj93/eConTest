@@ -8,8 +8,11 @@ public partial class website_Website_WebControls_AcceptedOffer : System.Web.UI.U
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RweUtils utils = new RweUtils();
-        utils.IsUserInSession();
+        if (Sitecore.Context.PageMode.IsNormal)
+        {
+            RweUtils utils = new RweUtils();
+            utils.IsUserInSession();
+        }
 
         var item = Sitecore.Context.Item;
 

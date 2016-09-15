@@ -8,8 +8,11 @@ public partial class website_Website_WebControls_ThankYou : System.Web.UI.UserCo
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RweUtils utils = new RweUtils();
-        utils.IsUserInSession();
+        if (Sitecore.Context.PageMode.IsNormal)
+        {
+            RweUtils utils = new RweUtils();
+            utils.IsUserInSession();
+        }
 
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 

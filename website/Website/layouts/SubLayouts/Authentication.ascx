@@ -3,7 +3,8 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
-            <p>Vítáme Vás, pane Nováku,</p>
+            <p>Vítáme Vás, pane
+                <asp:Literal runat="server" ID="nameLit" /></p>
             <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
             <div id="authentication" class="form">
                 <div class="status"></div>
@@ -29,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <asp:Button runat="server" CssClass="button button-submit" ID="mainBtn" OnClick ="mainBtn_ServerClick" Text="sdsdsd" />
+                <asp:Button runat="server" CssClass="button button-submit" ID="mainBtn" OnClick="mainBtn_ServerClick" Text="sdsdsd" />
             </div>
         </div>
     </div>

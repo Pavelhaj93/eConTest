@@ -8,8 +8,11 @@ public partial class website_Website_WebControls_Disclaimer : System.Web.UI.User
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        RweUtils utils = new RweUtils();
-        utils.IsUserInSession();
+        if (Sitecore.Context.PageMode.IsNormal)
+        {
+            RweUtils utils = new RweUtils();
+            utils.IsUserInSession();
+        }
 
         this.headerTxt.Text = Sitecore.Context.Item["Header"];
         this.mainTxt.Text = Sitecore.Context.Item["MainText"];

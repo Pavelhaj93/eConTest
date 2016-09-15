@@ -91,10 +91,10 @@
             </p>
         </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/locales/bootstrap-datepicker.cs.min.js"></script>
+    <script src="../vendor/jquery-3.1.0.min.js"></script>
+    <script src="js/app.min.js"></script>
+    <script src="../vendor/bootstrap-datepicker.cs.min.js"></script>
+    <script src="../vendor/bootstrap-datepicker-1.6.4.min.js"></script>
     <script>
         app.start(
         {});
