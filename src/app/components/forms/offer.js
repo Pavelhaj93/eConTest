@@ -55,7 +55,7 @@ export default function FormOffer(form) {
                 Message(list, 'appUnavailable');
             }
         }
-        documentsReceived();
+        // documentsReceived();
 
         /* Determine whether all checkboxes are checked */
         function validateForm() {
