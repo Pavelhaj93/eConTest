@@ -4,55 +4,61 @@ import Message from '../message';
 export default function FormOffer(form) {
 
     window.onload = () => {
-        let receivedDocuments = false;
+        const classUnagreed = 'unaccepted-first';
         const list = $(form.querySelector('.list'));
-        // const additional = document.getElementById('customer-rights');
         const submitBtn = form.querySelector('[type="submit"]');
+
+        /* Determines whether the documents have been received */
+        let isReady = false;
 
         /* Get the checkboxes dynamically */
         function getCheckboxes() {
-            return Array.from(form.querySelectorAll('input[type="checkbox"]'));
+            return Array.from(form.querySelectorAll('[type="checkbox"]'));
         }
 
         /* Render documents list ("documents" - from BACK-END) */
-        function renderDocuments() {
+        function waitResponse() {
+
+            /* Reset customerAgreement */
+            list.addClass(classUnagreed);
 
             /* Clear the list */
             list.children('li').remove();
-
-            // ======================================================
-            // printDocumentsList(list, documents);
-            // receivedDocuments = true;
-            // ======================================================
-
-            /* Request the documents */
-            $.ajax({
-                type: 'GET',
-                dataType: 'jsonp',
-                url: 'http://google.com',
-
-                success: (response) => {
-                    const documents = response.documents;
-                    receivedDocuments = documents.length > 0;
-
-                    receivedDocuments && printDocumentsList(list, documents);
-                },
-
-                /* UNCOMMENT: For normal behavior */
-                error: () => {
-                    list.addClass('error');
-                    Message(list, 'appUnavailable');
-                },
-
-                complete: () => {
-                    list.removeClass('loading');
-                }
-            });
         }
-        renderDocuments();
+        waitResponse();
+
+        /* When the documents has passed */
+        function documentsReceived(success = true) {
+            list.removeClass('loading');
+
+            if (success) {
+                /* Establish, that the documents are ready */
+                isReady = true;
+
+                /* Prepare the list & print the documents */
+                printDocumentsList(list, documents);
+
+                /* Show other list items by clicking on customerAgreement */
+                const customerAgreement = list.children('li:first-child').children('input[type="checkbox"]');
+
+                /* Handle customerAgreement click */
+                customerAgreement.on('change', () => {
+                    const agreed = !list.hasClass(classUnagreed);
+
+                    if (!agreed) {
+                        /* Reveal the documents */
+                        list.removeClass(classUnagreed);
+                    }
+                });
+            } else {
+                list.removeClass(classUnagreed).addClass('error');
+                Message(list, 'appUnavailable');
+            }
+        }
+        documentsReceived();
 
         /* Determine whether all checkboxes are checked */
-        function validate() {
+        function validateForm() {
             let valid = true;
             const checkboxes = getCheckboxes();
 
@@ -61,43 +67,28 @@ export default function FormOffer(form) {
                 !checkbox.checked && (valid = false);
             });
 
-            /* When additional is not checked OR response not received, could not validate */
-            if (!receivedDocuments) {
-                valid = false;
-            }
+            /* Form cannot be submitted until documents are ready */
+            if (!isReady) { valid = false; }
 
             submitBtn.disabled = !valid;
             return valid;
         }
 
-        /* Handle additional checkbox click */
-        // additional.onchange = () => {
-        //     form.onchange();
-
-        //     if (!list.is(':visible')) {
-        //         $(list).slideDown(300);
-        //     }
-        // };
-
         /* Handle form change */
-        form.onchange = (e) => {
-            validate();
+        form.onchange = () => {
+            validateForm();
         };
 
         /* Handle form submit */
-        submitBtn.onclick = (e) => {
-            e.preventDefault();
+        submitBtn.onclick = () => {
 
             /* Safety for manual removal of "disabled" attribute */
-            if (receivedDocuments) {
-
-                // ======================================================
+            if (isReady) {
                 window.location = 'thank-you.html';
-                // ======================================================
             }
         };
 
         /* Validate on window load for History back */
-        validate();
+        validateForm();
     };
 }

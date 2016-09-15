@@ -7,15 +7,12 @@
 	@extend .unstyled-list;
 	padding: 0;
 	border-bottom: 1px solid $color-border;
+	transition: max-height .25s ease;
 
 	li {
 		padding: .5rem 0;
 		position: relative;
 	}
-
-	// &-static {
-	// 	padding-bottom: .5rem;
-	// }
 
 	.form &-documents {
 		border-bottom: 1px solid $color-border;
@@ -39,7 +36,20 @@
 		}
 
 		&:not(.error) {
-			min-height: 300px;
+			min-height: 100px;
+		}
+
+		&.unaccepted-first {
+			max-height: 100px;
+			min-height: auto;
+
+			li:not(:first-child),
+			.check-all { display: none; }
+
+			li:first-child {
+				border-bottom: 0;
+				padding-bottom: 0;
+			}
 		}
 	}
 
@@ -47,17 +57,15 @@
 		text-align: center;
 		padding: 0 4rem 1rem;
 
-		.check-all {
-			display: none;
-		}
+		.check-all { display: none; }
 
-		p {
-			color: $color-gray-light;
-		}
+		p { color: $color-gray-light; }
 	}
 
-	&#accepted-documents.error {
-		padding-top: .5rem;
+	&#accepted-documents.error { padding-top: .5rem; }
+
+	&.loading {
+		min-height: 100px;
 	}
 }
 
