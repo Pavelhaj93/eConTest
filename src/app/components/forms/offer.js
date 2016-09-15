@@ -28,7 +28,7 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        function documentsReceived(success = true) {
+        window.documentsReceived = function (success = true) {
             list.removeClass('loading');
 
             if (success) {
@@ -51,9 +51,12 @@ export default function FormOffer(form) {
                     }
                 });
             } else {
+                list.empty();
                 list.removeClass(classUnagreed).addClass('error');
                 Message(list, 'appUnavailable');
             }
+
+            return success;
         }
         // documentsReceived();
 
