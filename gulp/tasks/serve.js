@@ -28,6 +28,7 @@ gulp.task('serve', ['prepare'], () => {
         watch(src.tpl.all, ['tpl']);
         watch(src.icon.entry, ['icon']);
         watch(src.app.all, ['lint:app']);
+        watch(src.app.vendor, ['js:vendor']);
         watch(gulpfile, ['lint:gulpfile']);
     }
 });

@@ -19,6 +19,8 @@ export default {
                 base: './src/app',
                 entry: './src/app/app.js',
                 all: './src/app/**/*.js',
+                vendor: './src/app/vendor/**/*.js',
+                vendorDest: './src/js/vendor',
                 dest: './src/js'
             },
             tpl: {
@@ -36,6 +38,7 @@ export default {
             base: './dist',
             css: './dist/css',
             js: './dist/js',
+            vendorJS: './dist/js/vendor',
             icon: './dist/gfx/icon',
             html: './dist/*.html'
         }

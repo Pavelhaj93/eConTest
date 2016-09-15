@@ -52,8 +52,6 @@ export default function Auth(form) {
 
         /* Handle submit */
         submitBtn.onclick = () => {
-            console.warn('submitBtn: CLICKED');
-
             /* Empty status box */
             $(status).empty();
 

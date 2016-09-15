@@ -27,6 +27,7 @@ function bundle() {
         transform: isDev ? transforms : [...transforms, uglifyify]
     };
     const bundler = isDev ? watchify(browserify(Object.assign({}, watchify.args, opts))) : browserify(opts);
+
     function rebundle() {
         return bundler.bundle()
             .on('error', e => gutil.log(gutil.colors.red(e.name) + e.message.substr(e.message.indexOf(': ') + 1)))
@@ -40,9 +41,16 @@ function bundle() {
             .pipe(gulpif(!isDev, rename(names.js.min)))
             .pipe(gulpif(!isDev, gulp.dest(dist.js)));
     };
+
     bundler
         .on('update', rebundle)
         .on('log', gutil.log);
     return rebundle();
 };
-gulp.task('js', ['lint'], bundle);
+
+gulp.task('js:vendor', () => {
+    return gulp.src(src.app.vendor)
+        .pipe(gulp.dest(isDev ? src.app.vendorDest : dist.vendorJS));
+});
+
+gulp.task('js', ['lint', 'js:vendor'], bundle);

@@ -16,11 +16,13 @@ const lint = (globs) => {
             'no-multiple-empty-lines': 0
         }
     } : {};
+
     return gulp.src(globs)
         .pipe(eslint(opts))
         .pipe(eslint.format())
         .pipe(gulpif(!isDev, eslint.failOnError()));
 };
-gulp.task('lint:app', () => lint(src.app.all));
+
+gulp.task('lint:app', () => lint([src.app.all, '!' + src.app.vendor]));
 gulp.task('lint:gulpfile', () => lint(gulpfile));
 gulp.task('lint', ['lint:gulpfile', 'lint:app']);
