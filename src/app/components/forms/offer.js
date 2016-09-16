@@ -28,10 +28,10 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function(success = true) {
+        window.documentsReceived = function(documents = {}) {
             list.removeClass('loading');
 
-            if (success) {
+            if (Object.keys(documents).length) {
                 /* Establish, that the documents are ready */
                 isReady = true;
 
