@@ -9,8 +9,19 @@ using System.Collections.Generic;
 using System.Web.UI;
 using rweClient;
 
+public class FileItem
+{
+    [Newtonsoft.Json.JsonProperty("title")]
+    public String Title { get; set; }
+
+    [Newtonsoft.Json.JsonProperty("url")]
+    public String Url { get; set; }
+}
+
 public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.UserControl
 {
+    public String FilesJson { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Sitecore.Context.PageMode.IsNormal)
@@ -22,10 +33,24 @@ public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.User
 
             RweClient client = new RweClient();
             var files = client.GeneratePDFFiles(data.Identifier);
+
+            List<FileItem> filesList = new System.Collections.Generic.List<FileItem>();
+
+            foreach (var f in files)
+            {
+                FileItem fi = new FileItem();
+                fi.Title = "xxx";
+                fi.Url = "xxxx";
+                filesList.Add(fi);
+            }
+
+            this.FilesJson = Newtonsoft.Json.JsonConvert.SerializeObject(filesList);
+            this.DataBind();
             HttpContext.Current.Session["docsReady"] = "1";
             HttpContext.Current.Session["UserFiles"] = files;
         }
     }
+
     protected void justLink_Click(object sender, EventArgs e)
     {
         if (Sitecore.Context.PageMode.IsNormal)

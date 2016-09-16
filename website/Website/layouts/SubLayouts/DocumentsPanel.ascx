@@ -22,19 +22,16 @@
         return true;
     }
     CheckIfReady();
+
+    function ddd(par) {
+       
+        //document.getElementById('xxx').click();
+    }
+
 </script>
 
 <script>
-    var documents = [
-        {
-            title: "one",
-            url:"http://www.seznam.cz"
-        },
-        {
-            title: "two",
-            url: "http://www.seznam.cz"
-        }
-    ];
+    var documents = <%# this.FilesJson %>;
 </script>
 
 <div class="row">
