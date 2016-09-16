@@ -9,7 +9,7 @@ export default function FormOffer(form) {
         const submitBtn = form.querySelector('[type="submit"]');
 
         /* Determines whether the documents have been received */
-        let isReady = false;
+        let gotDocuments = false;
 
         /* Get the checkboxes dynamically */
         function getCheckboxes() {
@@ -28,12 +28,13 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function(documents = {}) {
+        window.documentsReceived = function(documents = []) {
+            gotDocuments = (documents.length > 0) && true;
             list.removeClass('loading');
 
-            if (Object.keys(documents).length) {
+            if (gotDocuments) {
                 /* Establish, that the documents are ready */
-                isReady = true;
+                gotDocuments = true;
 
                 /* Prepare the list & print the documents */
                 printDocumentsList(list, documents);
@@ -44,8 +45,9 @@ export default function FormOffer(form) {
                 /* Handle customerAgreement click */
                 customerAgreement.on('change', () => {
                     const agreed = !list.hasClass(classUnagreed);
+                    const onlyChild = (list.children('li').length == 1);
 
-                    if (!agreed) {
+                    if (!agreed && !onlyChild) {
                         /* Reveal the documents */
                         list.removeClass(classUnagreed);
                     }
@@ -57,9 +59,9 @@ export default function FormOffer(form) {
                 Message(list, 'appUnavailable');
             }
 
-            return success;
+            return gotDocuments;
         };
-        // documentsReceived();
+        // documentsReceived([{s: 2}]);
 
         /* Determine whether all checkboxes are checked */
         function validateForm() {
@@ -72,7 +74,7 @@ export default function FormOffer(form) {
             });
 
             /* Form cannot be submitted until documents are ready */
-            if (!isReady) { valid = false; }
+            if (!gotDocuments) { valid = false; }
 
             submitBtn.disabled = !valid;
             return valid;
@@ -87,7 +89,7 @@ export default function FormOffer(form) {
         submitBtn.onclick = () => {
 
             /* Safety for manual removal of "disabled" attribute */
-            if (isReady) {
+            if (gotDocuments) {
                 window.location = 'thank-you.html';
             }
         };
