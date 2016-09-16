@@ -8,12 +8,15 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace rweClient
 {
     public class FileToBeDownloaded
     {
+        public string Index { get; set; }
         public string FileNumber {get;set;}
+        public string FileName { get; set; }
         public List<Byte> FileContent {get;set;}
     }
 
@@ -84,9 +87,13 @@ namespace rweClient
 
             if (result.ThereAreFiles())
             {
+                int index = 0;
+
                 foreach (var f in result.ET_FILES)
                 {
                     FileToBeDownloaded tempItem = new FileToBeDownloaded();
+                    tempItem.Index = (++index).ToString();
+                    tempItem.FileName = f.FILENAME;
                     tempItem.FileNumber = f.FILEINDX;
                     tempItem.FileContent = f.FILECONTENT.ToList();
                     fileResults.Add(tempItem);

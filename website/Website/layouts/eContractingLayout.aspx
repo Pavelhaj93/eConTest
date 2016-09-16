@@ -36,6 +36,7 @@
     <meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5" />
     <%--   <link href="/default.css" rel="stylesheet" />--%>
     <link rel="stylesheet" href="css/main.min.css">
+    <script src="../vendor/jquery-3.1.0.min.js"></script>
     <sc:visitoridentification runat="server" />
 </head>
 <body>
@@ -91,7 +92,6 @@
             </p>
         </div>
     </footer>
-    <script src="../vendor/jquery-3.1.0.min.js"></script>
     <script src="js/app.min.js"></script>
     <script src="../vendor/bootstrap-datepicker.cs.min.js"></script>
     <script src="../vendor/bootstrap-datepicker-1.6.4.min.js"></script>
