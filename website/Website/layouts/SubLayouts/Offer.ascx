@@ -10,4 +10,4 @@
 </div>
 
 
-<pan:docPanel runat="server" id="PanelDox" /> 
+<pan:docPanel runat="server" id="PanelDox" IsButtonVisible="true" /> 

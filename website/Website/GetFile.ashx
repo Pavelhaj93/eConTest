@@ -22,7 +22,7 @@ public class GetFile : IHttpHandler, System.Web.SessionState.IRequiresSessionSta
                      if(thisFile != null)
                      {
                          context.Response.Clear();
-                         MemoryStream ms = new MemoryStream(files.ElementAt(1).FileContent.ToArray());
+                         MemoryStream ms = new MemoryStream(thisFile.FileContent.ToArray());
                          context.Response.ContentType = "application/pdf";
                          context.Response.AddHeader("content-disposition", "attachment;filename=" + thisFile.FileName);
                          context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
@@ -33,9 +33,6 @@ public class GetFile : IHttpHandler, System.Web.SessionState.IRequiresSessionSta
                  }
             }
         }
-
-        //context.Response.ContentType = "text/plain";
-        //context.Response.Write("Hello World");
     }
  
     public bool IsReusable {

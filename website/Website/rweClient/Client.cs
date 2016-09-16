@@ -1,14 +1,11 @@
 ﻿using rweClient.SerializationClasses;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Authentication;
-using System.Web;
-using System.Xml.Linq;
 using System.Xml.Serialization;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace rweClient
 {

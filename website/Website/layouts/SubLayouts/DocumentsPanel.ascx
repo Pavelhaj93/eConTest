@@ -35,7 +35,7 @@
                             <ul class="list list-documents loading">
                                 <a class="check-all" href="">Označit vše</a>
                             </ul>
-                            <button type="submit" disabled>Akceptuji</button>
+                            <asp:Button runat="server" CssClass="button button-submit" ID="mainBtn" OnClick="btnNext_Click" Text="Akceptuji" />
                         </div>
                     </div>
                 </div>

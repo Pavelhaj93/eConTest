@@ -10,18 +10,11 @@ using System.Web.UI;
 using System.Web.Services;
 using rweClient;
 
-public class FileItem
-{
-    [Newtonsoft.Json.JsonProperty("title")]
-    public String Title { get; set; }
-
-    [Newtonsoft.Json.JsonProperty("url")]
-    public String Url { get; set; }
-}
-
 public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.UserControl
 {
     public String ClientId { get; set; }
+
+    public Boolean IsButtonVisible { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -30,7 +23,18 @@ public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.User
             AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
             var data = authenticationDataSessionStorage.GetData();
             this.ClientId = data.Identifier;
+            this.mainBtn.Visible = IsButtonVisible;
             this.DataBind();
+        }
+    }
+
+    protected void btnNext_Click(object sender, EventArgs e)
+    {
+        Sitecore.Data.Fields.LinkField nextPageUrl = Sitecore.Context.Item.Fields["NextPageUrl"];
+
+        if (nextPageUrl != null)
+        {
+            Response.Redirect(rweHelpers.GetPath(nextPageUrl), true);
         }
     }
 }
