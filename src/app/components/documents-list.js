@@ -2,9 +2,9 @@ export default function printDocumentsList(container, documents) {
     !(container instanceof jQuery) && (container = $(container));
 
     /* DEMO: Method is overwritten on server */
-    window.handleClick = function(e, key) {
-        e.preventDefault();
-    };
+    // window.handleClick = function(e, key) {
+    //     e.preventDefault();
+    // };
     /* END DEMO */
 
     /* Loop through each document */
@@ -27,10 +27,8 @@ export default function printDocumentsList(container, documents) {
             container.append(item);
         }
 
-        const link = container.children('li:last-of-type').find('a');
-        console.log(link);
-
         /* Attach click event */
+        const link = container.children('li:last-of-type').find('a');
         link.on('click', (e) => {
             handleClick(e, key);
         });
