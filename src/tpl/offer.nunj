@@ -38,32 +38,14 @@
 	</div>
 
 	<script>
-		// REMOVE: Documents should come from AJAX response
+		// Documents come from BACK-END
 		var documents = [
-			{
-				title: 'Podminkami pro uzivatele',
-				url: 'http://google.com'
-			},
-			{
-				title: 'My custom document',
-				url: 'http://google.com'
-			},
-			{
-				title: 'Dodatkem ke smlouve',
-				url: 'http://google.com'
-			},
-			{
-				title: 'Ceníkem produktu',
-				url: 'http://youtube.com'
-			},
-			{
-				title: 'Ceníkem služeb',
-				url: 'http://vimeo.com'
-			},
-			{
-				title: 'Obchodními podmínkami',
-				url: 'http://envato.com'
-			}
+			{ title: 'Podminkami pro uzivatele' },
+			{ title: 'My custom document' },
+			{ title: 'Dodatkem ke smlouve' },
+			{ title: 'Ceníkem produktu' },
+			{ title: 'Ceníkem služeb' },
+			{ title: 'Obchodními podmínkami' }
 		];
 	</script>
 

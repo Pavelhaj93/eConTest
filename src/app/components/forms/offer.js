@@ -51,6 +51,7 @@ export default function FormOffer(form) {
                     }
                 });
             } else {
+                /* Output error on success = false */
                 list.empty();
                 list.removeClass(classUnagreed).addClass('error');
                 Message(list, 'appUnavailable');
