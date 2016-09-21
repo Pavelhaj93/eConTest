@@ -14,7 +14,7 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         if (!Page.IsPostBack || !AuthenticationDataSessionStorage.IsDataActiveStatic())
         {
             RweClient client = new RweClient();
-            var offer = client.GenerateXml("005056BF704B1EE69C893F8B337F3D59");
+            var offer = client.GenerateXml("005056BF704B1EE69C893F8B337F3D61");
 
             if ((offer == null) || (offer.Body == null) || String.IsNullOrEmpty(offer.Body.BIRTHDT))
             {

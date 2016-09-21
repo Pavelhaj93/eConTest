@@ -12,9 +12,9 @@ namespace rweClient
     public class FileToBeDownloaded
     {
         public string Index { get; set; }
-        public string FileNumber {get;set;}
+        public string FileNumber { get; set; }
         public string FileName { get; set; }
-        public List<Byte> FileContent {get;set;}
+        public List<Byte> FileContent { get; set; }
     }
 
     public class RweClient
@@ -82,11 +82,11 @@ namespace rweClient
 
             List<FileToBeDownloaded> fileResults = new List<FileToBeDownloaded>();
 
-            if (result.ThereAreFiles())
+            if (result.ThereAreFiles() && result.ET_FILES.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
             {
                 int index = 0;
 
-                foreach (var f in result.ET_FILES)
+                foreach (var f in result.ET_FILES.OrderBy(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL))
                 {
                     FileToBeDownloaded tempItem = new FileToBeDownloaded();
                     tempItem.Index = (++index).ToString();

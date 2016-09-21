@@ -25,130 +25,111 @@ using System.Xml.Serialization;
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Web.Services.WebServiceBindingAttribute(Name = "ZCCH_CACHE_API", Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClientProtocol
-{
-
+[System.Web.Services.WebServiceBindingAttribute(Name="ZCCH_CACHE_API", Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClientProtocol {
+    
     private System.Threading.SendOrPostCallback ZCCH_CACHE_PUTOperationCompleted;
-
+    
     private System.Threading.SendOrPostCallback ZCCH_CACHE_GETOperationCompleted;
-
+    
     /// <remarks/>
-    public ZCCH_CACHE_API()
-    {
+    public ZCCH_CACHE_API() {
         this.Url = "https://r4289p1.rwe-services.cz:8080/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_c" +
             "ache_api/zcch_cache_api";
     }
-
+    
     /// <remarks/>
     public event ZCCH_CACHE_PUTCompletedEventHandler ZCCH_CACHE_PUTCompleted;
-
+    
     /// <remarks/>
     public event ZCCH_CACHE_GETCompletedEventHandler ZCCH_CACHE_GETCompleted;
-
+    
     /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_PUTRequest", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_PUTResponse", Namespace = "urn:sap-com:document:sap:rfc:functions")]
-    public ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUT([System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_PUT", Namespace = "urn:sap-com:document:sap:rfc:functions")] ZCCH_CACHE_PUT ZCCH_CACHE_PUT1)
-    {
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_PUTRequest", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+    [return: System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_PUTResponse", Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUT([System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_PUT", Namespace="urn:sap-com:document:sap:rfc:functions")] ZCCH_CACHE_PUT ZCCH_CACHE_PUT1) {
         object[] results = this.Invoke("ZCCH_CACHE_PUT", new object[] {
                     ZCCH_CACHE_PUT1});
         return ((ZCCH_CACHE_PUTResponse)(results[0]));
     }
-
+    
     /// <remarks/>
-    public System.IAsyncResult BeginZCCH_CACHE_PUT(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1, System.AsyncCallback callback, object asyncState)
-    {
+    public System.IAsyncResult BeginZCCH_CACHE_PUT(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1, System.AsyncCallback callback, object asyncState) {
         return this.BeginInvoke("ZCCH_CACHE_PUT", new object[] {
                     ZCCH_CACHE_PUT1}, callback, asyncState);
     }
-
+    
     /// <remarks/>
-    public ZCCH_CACHE_PUTResponse EndZCCH_CACHE_PUT(System.IAsyncResult asyncResult)
-    {
+    public ZCCH_CACHE_PUTResponse EndZCCH_CACHE_PUT(System.IAsyncResult asyncResult) {
         object[] results = this.EndInvoke(asyncResult);
         return ((ZCCH_CACHE_PUTResponse)(results[0]));
     }
-
+    
     /// <remarks/>
-    public void ZCCH_CACHE_PUTAsync(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1)
-    {
+    public void ZCCH_CACHE_PUTAsync(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1) {
         this.ZCCH_CACHE_PUTAsync(ZCCH_CACHE_PUT1, null);
     }
-
+    
     /// <remarks/>
-    public void ZCCH_CACHE_PUTAsync(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1, object userState)
-    {
-        if ((this.ZCCH_CACHE_PUTOperationCompleted == null))
-        {
+    public void ZCCH_CACHE_PUTAsync(ZCCH_CACHE_PUT ZCCH_CACHE_PUT1, object userState) {
+        if ((this.ZCCH_CACHE_PUTOperationCompleted == null)) {
             this.ZCCH_CACHE_PUTOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZCCH_CACHE_PUTOperationCompleted);
         }
         this.InvokeAsync("ZCCH_CACHE_PUT", new object[] {
                     ZCCH_CACHE_PUT1}, this.ZCCH_CACHE_PUTOperationCompleted, userState);
     }
-
-    private void OnZCCH_CACHE_PUTOperationCompleted(object arg)
-    {
-        if ((this.ZCCH_CACHE_PUTCompleted != null))
-        {
+    
+    private void OnZCCH_CACHE_PUTOperationCompleted(object arg) {
+        if ((this.ZCCH_CACHE_PUTCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.ZCCH_CACHE_PUTCompleted(this, new ZCCH_CACHE_PUTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
-
+    
     /// <remarks/>
-    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_GETResponse", Namespace = "urn:sap-com:document:sap:rfc:functions")]
-    public ZCCH_CACHE_GETResponse ZCCH_CACHE_GET([System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_GET", Namespace = "urn:sap-com:document:sap:rfc:functions")] ZCCH_CACHE_GET ZCCH_CACHE_GET1)
-    {
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+    [return: System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_GETResponse", Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public ZCCH_CACHE_GETResponse ZCCH_CACHE_GET([System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_GET", Namespace="urn:sap-com:document:sap:rfc:functions")] ZCCH_CACHE_GET ZCCH_CACHE_GET1) {
         object[] results = this.Invoke("ZCCH_CACHE_GET", new object[] {
                     ZCCH_CACHE_GET1});
         return ((ZCCH_CACHE_GETResponse)(results[0]));
     }
-
+    
     /// <remarks/>
-    public System.IAsyncResult BeginZCCH_CACHE_GET(ZCCH_CACHE_GET ZCCH_CACHE_GET1, System.AsyncCallback callback, object asyncState)
-    {
+    public System.IAsyncResult BeginZCCH_CACHE_GET(ZCCH_CACHE_GET ZCCH_CACHE_GET1, System.AsyncCallback callback, object asyncState) {
         return this.BeginInvoke("ZCCH_CACHE_GET", new object[] {
                     ZCCH_CACHE_GET1}, callback, asyncState);
     }
-
+    
     /// <remarks/>
-    public ZCCH_CACHE_GETResponse EndZCCH_CACHE_GET(System.IAsyncResult asyncResult)
-    {
+    public ZCCH_CACHE_GETResponse EndZCCH_CACHE_GET(System.IAsyncResult asyncResult) {
         object[] results = this.EndInvoke(asyncResult);
         return ((ZCCH_CACHE_GETResponse)(results[0]));
     }
-
+    
     /// <remarks/>
-    public void ZCCH_CACHE_GETAsync(ZCCH_CACHE_GET ZCCH_CACHE_GET1)
-    {
+    public void ZCCH_CACHE_GETAsync(ZCCH_CACHE_GET ZCCH_CACHE_GET1) {
         this.ZCCH_CACHE_GETAsync(ZCCH_CACHE_GET1, null);
     }
-
+    
     /// <remarks/>
-    public void ZCCH_CACHE_GETAsync(ZCCH_CACHE_GET ZCCH_CACHE_GET1, object userState)
-    {
-        if ((this.ZCCH_CACHE_GETOperationCompleted == null))
-        {
+    public void ZCCH_CACHE_GETAsync(ZCCH_CACHE_GET ZCCH_CACHE_GET1, object userState) {
+        if ((this.ZCCH_CACHE_GETOperationCompleted == null)) {
             this.ZCCH_CACHE_GETOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZCCH_CACHE_GETOperationCompleted);
         }
         this.InvokeAsync("ZCCH_CACHE_GET", new object[] {
                     ZCCH_CACHE_GET1}, this.ZCCH_CACHE_GETOperationCompleted, userState);
     }
-
-    private void OnZCCH_CACHE_GETOperationCompleted(object arg)
-    {
-        if ((this.ZCCH_CACHE_GETCompleted != null))
-        {
+    
+    private void OnZCCH_CACHE_GETOperationCompleted(object arg) {
+        if ((this.ZCCH_CACHE_GETCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.ZCCH_CACHE_GETCompleted(this, new ZCCH_CACHE_GETCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
-
+    
     /// <remarks/>
-    public new void CancelAsync(object userState)
-    {
+    public new void CancelAsync(object userState) {
         base.CancelAsync(userState);
     }
 }
@@ -158,72 +139,59 @@ public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClie
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_CACHE_PUT
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_PUT {
+    
     private ZCCH_ST_ATTRIB[] iT_ATTRIBField;
-
+    
     private ZCCH_ST_FILE[] iT_FILESField;
-
+    
     private string iV_CCHKEYField;
-
+    
     private string iV_CCHTYPEField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_ATTRIB[] IT_ATTRIB
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_ATTRIB[] IT_ATTRIB {
+        get {
             return this.iT_ATTRIBField;
         }
-        set
-        {
+        set {
             this.iT_ATTRIBField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_FILE[] IT_FILES
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_FILE[] IT_FILES {
+        get {
             return this.iT_FILESField;
         }
-        set
-        {
+        set {
             this.iT_FILESField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string IV_CCHKEY
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHKEY {
+        get {
             return this.iV_CCHKEYField;
         }
-        set
-        {
+        set {
             this.iV_CCHKEYField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string IV_CCHTYPE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHTYPE {
+        get {
             return this.iV_CCHTYPEField;
         }
-        set
-        {
+        set {
             this.iV_CCHTYPEField = value;
         }
     }
@@ -234,54 +202,44 @@ public partial class ZCCH_CACHE_PUT
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_ST_ATTRIB
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_ST_ATTRIB {
+    
     private string aTTRIDField;
-
+    
     private string aTTRINDXField;
-
+    
     private string aTTRVALField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string ATTRID
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string ATTRID {
+        get {
             return this.aTTRIDField;
         }
-        set
-        {
+        set {
             this.aTTRIDField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string ATTRINDX
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string ATTRINDX {
+        get {
             return this.aTTRINDXField;
         }
-        set
-        {
+        set {
             this.aTTRINDXField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string ATTRVAL
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string ATTRVAL {
+        get {
             return this.aTTRVALField;
         }
-        set
-        {
+        set {
             this.aTTRVALField = value;
         }
     }
@@ -292,230 +250,187 @@ public partial class ZCCH_ST_ATTRIB
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class BAPIRET2
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class BAPIRET2 {
+    
     private string tYPEField;
-
+    
     private string idField;
-
+    
     private string nUMBERField;
-
+    
     private string mESSAGEField;
-
+    
     private string lOG_NOField;
-
+    
     private string lOG_MSG_NOField;
-
+    
     private string mESSAGE_V1Field;
-
+    
     private string mESSAGE_V2Field;
-
+    
     private string mESSAGE_V3Field;
-
+    
     private string mESSAGE_V4Field;
-
+    
     private string pARAMETERField;
-
+    
     private int rOWField;
-
+    
     private string fIELDField;
-
+    
     private string sYSTEMField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string TYPE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string TYPE {
+        get {
             return this.tYPEField;
         }
-        set
-        {
+        set {
             this.tYPEField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string ID
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string ID {
+        get {
             return this.idField;
         }
-        set
-        {
+        set {
             this.idField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string NUMBER
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string NUMBER {
+        get {
             return this.nUMBERField;
         }
-        set
-        {
+        set {
             this.nUMBERField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MESSAGE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MESSAGE {
+        get {
             return this.mESSAGEField;
         }
-        set
-        {
+        set {
             this.mESSAGEField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string LOG_NO
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string LOG_NO {
+        get {
             return this.lOG_NOField;
         }
-        set
-        {
+        set {
             this.lOG_NOField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string LOG_MSG_NO
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string LOG_MSG_NO {
+        get {
             return this.lOG_MSG_NOField;
         }
-        set
-        {
+        set {
             this.lOG_MSG_NOField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MESSAGE_V1
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MESSAGE_V1 {
+        get {
             return this.mESSAGE_V1Field;
         }
-        set
-        {
+        set {
             this.mESSAGE_V1Field = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MESSAGE_V2
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MESSAGE_V2 {
+        get {
             return this.mESSAGE_V2Field;
         }
-        set
-        {
+        set {
             this.mESSAGE_V2Field = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MESSAGE_V3
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MESSAGE_V3 {
+        get {
             return this.mESSAGE_V3Field;
         }
-        set
-        {
+        set {
             this.mESSAGE_V3Field = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MESSAGE_V4
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MESSAGE_V4 {
+        get {
             return this.mESSAGE_V4Field;
         }
-        set
-        {
+        set {
             this.mESSAGE_V4Field = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string PARAMETER
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string PARAMETER {
+        get {
             return this.pARAMETERField;
         }
-        set
-        {
+        set {
             this.pARAMETERField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public int ROW
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public int ROW {
+        get {
             return this.rOWField;
         }
-        set
-        {
+        set {
             this.rOWField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string FIELD
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string FIELD {
+        get {
             return this.fIELDField;
         }
-        set
-        {
+        set {
             this.fIELDField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string SYSTEM
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string SYSTEM {
+        get {
             return this.sYSTEMField;
         }
-        set
-        {
+        set {
             this.sYSTEMField = value;
         }
     }
@@ -526,71 +441,72 @@ public partial class BAPIRET2
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_ST_FILE
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_ST_FILE {
+    
     private string fILEINDXField;
-
+    
     private string fILENAMEField;
-
+    
     private string mIMETYPEField;
-
+    
     private byte[] fILECONTENTField;
-
+    
+    private ZCCH_ST_ATTRIB[] aTTRIBField;
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string FILEINDX
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string FILEINDX {
+        get {
             return this.fILEINDXField;
         }
-        set
-        {
+        set {
             this.fILEINDXField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string FILENAME
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string FILENAME {
+        get {
             return this.fILENAMEField;
         }
-        set
-        {
+        set {
             this.fILENAMEField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string MIMETYPE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string MIMETYPE {
+        get {
             return this.mIMETYPEField;
         }
-        set
-        {
+        set {
             this.mIMETYPEField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, DataType = "base64Binary")]
-    public byte[] FILECONTENT
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="base64Binary")]
+    public byte[] FILECONTENT {
+        get {
             return this.fILECONTENTField;
         }
-        set
-        {
+        set {
             this.fILECONTENTField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_ATTRIB[] ATTRIB {
+        get {
+            return this.aTTRIBField;
+        }
+        set {
+            this.aTTRIBField = value;
         }
     }
 }
@@ -600,73 +516,60 @@ public partial class ZCCH_ST_FILE
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_CACHE_PUTResponse
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_PUTResponse {
+    
     private ZCCH_ST_ATTRIB[] eT_ATTRIBField;
-
+    
     private ZCCH_ST_FILE[] eT_FILESField;
-
+    
     private BAPIRET2[] eT_RETURNField;
-
+    
     private int eV_RETCODEField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_ATTRIB[] ET_ATTRIB
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_ATTRIB[] ET_ATTRIB {
+        get {
             return this.eT_ATTRIBField;
         }
-        set
-        {
+        set {
             this.eT_ATTRIBField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_FILE[] ET_FILES
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_FILE[] ET_FILES {
+        get {
             return this.eT_FILESField;
         }
-        set
-        {
+        set {
             this.eT_FILESField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public BAPIRET2[] ET_RETURN
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public BAPIRET2[] ET_RETURN {
+        get {
             return this.eT_RETURNField;
         }
-        set
-        {
+        set {
             this.eT_RETURNField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public int EV_RETCODE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public int EV_RETCODE {
+        get {
             return this.eV_RETCODEField;
         }
-        set
-        {
+        set {
             this.eV_RETCODEField = value;
         }
     }
@@ -677,54 +580,44 @@ public partial class ZCCH_CACHE_PUTResponse
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_CACHE_GET
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_GET {
+    
     private string iV_CCHKEYField;
-
+    
     private string iV_CCHTYPEField;
-
+    
     private string iV_GEFILEField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string IV_CCHKEY
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHKEY {
+        get {
             return this.iV_CCHKEYField;
         }
-        set
-        {
+        set {
             this.iV_CCHKEYField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string IV_CCHTYPE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHTYPE {
+        get {
             return this.iV_CCHTYPEField;
         }
-        set
-        {
+        set {
             this.iV_CCHTYPEField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public string IV_GEFILE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_GEFILE {
+        get {
             return this.iV_GEFILEField;
         }
-        set
-        {
+        set {
             this.iV_GEFILEField = value;
         }
     }
@@ -735,73 +628,60 @@ public partial class ZCCH_CACHE_GET
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:sap-com:document:sap:rfc:functions")]
-public partial class ZCCH_CACHE_GETResponse
-{
-
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_GETResponse {
+    
     private ZCCH_ST_ATTRIB[] eT_ATTRIBField;
-
+    
     private ZCCH_ST_FILE[] eT_FILESField;
-
+    
     private BAPIRET2[] eT_RETURNField;
-
+    
     private int eV_RETCODEField;
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_ATTRIB[] ET_ATTRIB
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_ATTRIB[] ET_ATTRIB {
+        get {
             return this.eT_ATTRIBField;
         }
-        set
-        {
+        set {
             this.eT_ATTRIBField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public ZCCH_ST_FILE[] ET_FILES
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public ZCCH_ST_FILE[] ET_FILES {
+        get {
             return this.eT_FILESField;
         }
-        set
-        {
+        set {
             this.eT_FILESField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = false)]
-    public BAPIRET2[] ET_RETURN
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public BAPIRET2[] ET_RETURN {
+        get {
             return this.eT_RETURNField;
         }
-        set
-        {
+        set {
             this.eT_RETURNField = value;
         }
     }
-
+    
     /// <remarks/>
-    [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-    public int EV_RETCODE
-    {
-        get
-        {
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public int EV_RETCODE {
+        get {
             return this.eV_RETCODEField;
         }
-        set
-        {
+        set {
             this.eV_RETCODEField = value;
         }
     }
@@ -815,22 +695,18 @@ public delegate void ZCCH_CACHE_PUTCompletedEventHandler(object sender, ZCCH_CAC
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class ZCCH_CACHE_PUTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
-{
-
+public partial class ZCCH_CACHE_PUTCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
     private object[] results;
-
-    internal ZCCH_CACHE_PUTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
-        base(exception, cancelled, userState)
-    {
+    
+    internal ZCCH_CACHE_PUTCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
         this.results = results;
     }
-
+    
     /// <remarks/>
-    public ZCCH_CACHE_PUTResponse Result
-    {
-        get
-        {
+    public ZCCH_CACHE_PUTResponse Result {
+        get {
             this.RaiseExceptionIfNecessary();
             return ((ZCCH_CACHE_PUTResponse)(this.results[0]));
         }
@@ -845,22 +721,18 @@ public delegate void ZCCH_CACHE_GETCompletedEventHandler(object sender, ZCCH_CAC
 [System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
-public partial class ZCCH_CACHE_GETCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
-{
-
+public partial class ZCCH_CACHE_GETCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
     private object[] results;
-
-    internal ZCCH_CACHE_GETCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) :
-        base(exception, cancelled, userState)
-    {
+    
+    internal ZCCH_CACHE_GETCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
         this.results = results;
     }
-
+    
     /// <remarks/>
-    public ZCCH_CACHE_GETResponse Result
-    {
-        get
-        {
+    public ZCCH_CACHE_GETResponse Result {
+        get {
             this.RaiseExceptionIfNecessary();
             return ((ZCCH_CACHE_GETResponse)(this.results[0]));
         }
