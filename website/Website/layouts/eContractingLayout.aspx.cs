@@ -66,6 +66,28 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
                     RweUtils.RedirectUserHasBeenBlocked = rweHelpers.GetPath(blockedUserLink);
                 }
             }
+
+            if (String.IsNullOrEmpty(RweUtils.AcceptedOfferRedirect))
+            {
+                //offer accepted
+                Sitecore.Data.Fields.LinkField acceptedOfferLink = item.Fields["AcceptedOffer"];
+
+                if (acceptedOfferLink != null)
+                {
+                    RweUtils.AcceptedOfferRedirect = rweHelpers.GetPath(acceptedOfferLink);
+                }
+            }
+
+            if (String.IsNullOrEmpty(RweUtils.WrongUrlRedirect))
+            {
+                //wrong Url
+                Sitecore.Data.Fields.LinkField wrongUrlLink = item.Fields["WrongUrl"];
+
+                if (wrongUrlLink != null)
+                {
+                    RweUtils.WrongUrlRedirect = rweHelpers.GetPath(wrongUrlLink);
+                }
+            }
         }
     }
 }

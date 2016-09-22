@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Xml.Serialization;
+using System.Xml;
 
 namespace rweClient
 {
@@ -62,22 +63,26 @@ namespace rweClient
             {
                 if (wex.Response == null)
                 {
-                    throw;
+                    //throw;
+                    return null;
                 }
 
                 try
                 {
                     var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
-                    throw new Exception(exceptionResponse, wex);
+                    //throw new Exception(exceptionResponse, wex);
+                    return null;
                 }
                 catch
                 {
-                    throw;
+                    //throw;
+                    return null;
                 }
             }
             catch (Exception)
             {
-                throw;
+                //throw;
+                return null;
             }
         }
 
@@ -116,6 +121,8 @@ namespace rweClient
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Offer));
                     Offer offer = (Offer)serializer.Deserialize(stream);
+                    offer.IsAccepted = result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL);
                     return offer;
                 }
             }

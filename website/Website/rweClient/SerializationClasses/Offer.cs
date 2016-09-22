@@ -12,6 +12,9 @@ namespace rweClient.SerializationClasses
 
         [XmlElement("Body")]
         public Body Body { get; set; }
+
+        [XmlIgnore]
+        public Boolean IsAccepted { get; set; }
     }
 
     [Serializable()]
