@@ -30,16 +30,21 @@ public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClie
     
     private System.Threading.SendOrPostCallback ZCCH_CACHE_PUTOperationCompleted;
     
+    private System.Threading.SendOrPostCallback ZCCH_CACHE_STATUS_SETOperationCompleted;
+    
     private System.Threading.SendOrPostCallback ZCCH_CACHE_GETOperationCompleted;
     
     /// <remarks/>
     public ZCCH_CACHE_API() {
-        this.Url = "https://r4289p1.rwe-services.cz:8080/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_c" +
-            "ache_api/zcch_cache_api";
+        this.Url = "http://r4289p1.rwe-services.cz:8000/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_ca" +
+            "che_api/zcch_cache_api";
     }
     
     /// <remarks/>
     public event ZCCH_CACHE_PUTCompletedEventHandler ZCCH_CACHE_PUTCompleted;
+    
+    /// <remarks/>
+    public event ZCCH_CACHE_STATUS_SETCompletedEventHandler ZCCH_CACHE_STATUS_SETCompleted;
     
     /// <remarks/>
     public event ZCCH_CACHE_GETCompletedEventHandler ZCCH_CACHE_GETCompleted;
@@ -83,6 +88,49 @@ public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClie
         if ((this.ZCCH_CACHE_PUTCompleted != null)) {
             System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
             this.ZCCH_CACHE_PUTCompleted(this, new ZCCH_CACHE_PUTCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+        }
+    }
+    
+    /// <remarks/>
+    [System.Web.Services.Protocols.SoapDocumentMethodAttribute("urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_STATUS_SETReques" +
+        "t", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Bare)]
+    [return: System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_STATUS_SETResponse", Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SET([System.Xml.Serialization.XmlElementAttribute("ZCCH_CACHE_STATUS_SET", Namespace="urn:sap-com:document:sap:rfc:functions")] ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET1) {
+        object[] results = this.Invoke("ZCCH_CACHE_STATUS_SET", new object[] {
+                    ZCCH_CACHE_STATUS_SET1});
+        return ((ZCCH_CACHE_STATUS_SETResponse)(results[0]));
+    }
+    
+    /// <remarks/>
+    public System.IAsyncResult BeginZCCH_CACHE_STATUS_SET(ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET1, System.AsyncCallback callback, object asyncState) {
+        return this.BeginInvoke("ZCCH_CACHE_STATUS_SET", new object[] {
+                    ZCCH_CACHE_STATUS_SET1}, callback, asyncState);
+    }
+    
+    /// <remarks/>
+    public ZCCH_CACHE_STATUS_SETResponse EndZCCH_CACHE_STATUS_SET(System.IAsyncResult asyncResult) {
+        object[] results = this.EndInvoke(asyncResult);
+        return ((ZCCH_CACHE_STATUS_SETResponse)(results[0]));
+    }
+    
+    /// <remarks/>
+    public void ZCCH_CACHE_STATUS_SETAsync(ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET1) {
+        this.ZCCH_CACHE_STATUS_SETAsync(ZCCH_CACHE_STATUS_SET1, null);
+    }
+    
+    /// <remarks/>
+    public void ZCCH_CACHE_STATUS_SETAsync(ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET1, object userState) {
+        if ((this.ZCCH_CACHE_STATUS_SETOperationCompleted == null)) {
+            this.ZCCH_CACHE_STATUS_SETOperationCompleted = new System.Threading.SendOrPostCallback(this.OnZCCH_CACHE_STATUS_SETOperationCompleted);
+        }
+        this.InvokeAsync("ZCCH_CACHE_STATUS_SET", new object[] {
+                    ZCCH_CACHE_STATUS_SET1}, this.ZCCH_CACHE_STATUS_SETOperationCompleted, userState);
+    }
+    
+    private void OnZCCH_CACHE_STATUS_SETOperationCompleted(object arg) {
+        if ((this.ZCCH_CACHE_STATUS_SETCompleted != null)) {
+            System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+            this.ZCCH_CACHE_STATUS_SETCompleted(this, new ZCCH_CACHE_STATUS_SETCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
         }
     }
     
@@ -241,6 +289,67 @@ public partial class ZCCH_ST_ATTRIB {
         }
         set {
             this.aTTRVALField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_ST_HEADER {
+    
+    private string cCHTYPEField;
+    
+    private string cCHKEYField;
+    
+    private string cCHSTATField;
+    
+    private string cCHVALTOField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string CCHTYPE {
+        get {
+            return this.cCHTYPEField;
+        }
+        set {
+            this.cCHTYPEField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string CCHKEY {
+        get {
+            return this.cCHKEYField;
+        }
+        set {
+            this.cCHKEYField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string CCHSTAT {
+        get {
+            return this.cCHSTATField;
+        }
+        set {
+            this.cCHSTATField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string CCHVALTO {
+        get {
+            return this.cCHVALTOField;
+        }
+        set {
+            this.cCHVALTOField = value;
         }
     }
 }
@@ -581,6 +690,103 @@ public partial class ZCCH_CACHE_PUTResponse {
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_STATUS_SET {
+    
+    private string iV_CCHKEYField;
+    
+    private string iV_CCHTYPEField;
+    
+    private string iV_STATField;
+    
+    private decimal iV_TIMESTAMPField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHKEY {
+        get {
+            return this.iV_CCHKEYField;
+        }
+        set {
+            this.iV_CCHKEYField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_CCHTYPE {
+        get {
+            return this.iV_CCHTYPEField;
+        }
+        set {
+            this.iV_CCHTYPEField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public string IV_STAT {
+        get {
+            return this.iV_STATField;
+        }
+        set {
+            this.iV_STATField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public decimal IV_TIMESTAMP {
+        get {
+            return this.iV_TIMESTAMPField;
+        }
+        set {
+            this.iV_TIMESTAMPField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+public partial class ZCCH_CACHE_STATUS_SETResponse {
+    
+    private BAPIRET2[] eT_RETURNField;
+    
+    private int eV_RETCODEField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+    public BAPIRET2[] ET_RETURN {
+        get {
+            return this.eT_RETURNField;
+        }
+        set {
+            this.eT_RETURNField = value;
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public int EV_RETCODE {
+        get {
+            return this.eV_RETCODEField;
+        }
+        set {
+            this.eV_RETCODEField = value;
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
+[System.SerializableAttribute()]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
 public partial class ZCCH_CACHE_GET {
     
     private string iV_CCHKEYField;
@@ -631,6 +837,8 @@ public partial class ZCCH_CACHE_GET {
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
 public partial class ZCCH_CACHE_GETResponse {
     
+    private ZCCH_ST_HEADER eS_HEADERField;
+    
     private ZCCH_ST_ATTRIB[] eT_ATTRIBField;
     
     private ZCCH_ST_FILE[] eT_FILESField;
@@ -638,6 +846,17 @@ public partial class ZCCH_CACHE_GETResponse {
     private BAPIRET2[] eT_RETURNField;
     
     private int eV_RETCODEField;
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+    public ZCCH_ST_HEADER ES_HEADER {
+        get {
+            return this.eS_HEADERField;
+        }
+        set {
+            this.eS_HEADERField = value;
+        }
+    }
     
     /// <remarks/>
     [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
@@ -709,6 +928,32 @@ public partial class ZCCH_CACHE_PUTCompletedEventArgs : System.ComponentModel.As
         get {
             this.RaiseExceptionIfNecessary();
             return ((ZCCH_CACHE_PUTResponse)(this.results[0]));
+        }
+    }
+}
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
+public delegate void ZCCH_CACHE_STATUS_SETCompletedEventHandler(object sender, ZCCH_CACHE_STATUS_SETCompletedEventArgs e);
+
+/// <remarks/>
+[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.0.30319.33440")]
+[System.Diagnostics.DebuggerStepThroughAttribute()]
+[System.ComponentModel.DesignerCategoryAttribute("code")]
+public partial class ZCCH_CACHE_STATUS_SETCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    
+    private object[] results;
+    
+    internal ZCCH_CACHE_STATUS_SETCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+            base(exception, cancelled, userState) {
+        this.results = results;
+    }
+    
+    /// <remarks/>
+    public ZCCH_CACHE_STATUS_SETResponse Result {
+        get {
+            this.RaiseExceptionIfNecessary();
+            return ((ZCCH_CACHE_STATUS_SETResponse)(this.results[0]));
         }
     }
 }

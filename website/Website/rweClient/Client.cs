@@ -19,10 +19,9 @@ namespace rweClient
 
     public class RweClient
     {
-        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
+        private ZCCH_CACHE_API InitApi()
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
             var userName = rweHelpers.ReadConfig("CacheUserName");
@@ -41,6 +40,12 @@ namespace rweClient
             );
 
             api.Credentials = credentialCache;
+            return api;
+        }
+
+        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
+        {
+            var api = InitApi();
 
             ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
 
@@ -116,6 +121,32 @@ namespace rweClient
             }
 
             return null;
+        }
+
+        public bool AcceptOffer(string guid)
+        {
+            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Decimal outValue = 1M;
+
+            if (Decimal.TryParse(timestampString, out outValue))
+            {
+                var api = InitApi();
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "5";
+                status.IV_TIMESTAMP = outValue;
+                var response = api.ZCCH_CACHE_STATUS_SET(status);
+
+                if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                {
+                    var responseStatus = response.ET_RETURN.First();
+                    return !String.IsNullOrEmpty(responseStatus.MESSAGE);
+                }
+
+                return false;
+            }
+            return false;
         }
     }
 }

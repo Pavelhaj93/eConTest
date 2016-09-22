@@ -6,8 +6,6 @@ using rweClient;
 
 public partial class website_Website_WebControls_Offer : System.Web.UI.UserControl
 {
-    public String ClientId { get; set; }
-
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Sitecore.Context.PageMode.IsNormal)
@@ -17,6 +15,9 @@ public partial class website_Website_WebControls_Offer : System.Web.UI.UserContr
 
             AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
             var data = authenticationDataSessionStorage.GetData();
+
+            RweClient client = new RweClient();
+            var files = client.GeneratePDFFiles(data.Identifier);
 
             var mainTextField = Sitecore.Context.Item.Fields["MainText"];
 
