@@ -35,7 +35,9 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
 
             if (offer.IsAccepted)
             {
-                Response.Redirect(RweUtils.AcceptedOfferRedirect);
+                client.ResetOffer(guid);
+                offer = client.GenerateXml(guid);
+                //Response.Redirect(RweUtils.AcceptedOfferRedirect);
             }
 
             if (offer.Body.OfferIsExpired)
@@ -87,13 +89,13 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
 
             string url = Request.RawUrl;
 
-            if (Request.RawUrl.Contains("?error=validationError"))
+            if (Request.RawUrl.Contains("&error=validationError"))
             {
                 url = Request.RawUrl;
             }
             else
             {
-                url = Request.RawUrl + "?error=validationError";
+                url = Request.RawUrl + "&error=validationError";
             }
 
             Response.Redirect(url);  //error same page
