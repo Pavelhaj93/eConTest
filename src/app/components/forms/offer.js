@@ -28,7 +28,7 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function(documents = []) {
+        window.documentsReceived = function(documents = [], options = { checked: false, disabled: false}) {
             gotDocuments = (documents.length > 0) && true;
             list.removeClass('loading');
 
@@ -37,7 +37,7 @@ export default function FormOffer(form) {
                 gotDocuments = true;
 
                 /* Prepare the list & print the documents */
-                printDocumentsList(list, documents);
+                printDocumentsList(list, documents, options);
 
                 /* Show other list items by clicking on customerAgreement */
                 const customerAgreement = list.children('li:first-child').children('input[type="checkbox"]');

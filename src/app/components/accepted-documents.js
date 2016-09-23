@@ -25,10 +25,10 @@ export default function AcceptedDocuments(container) {
         },
 
         /* Show App Unavailable message */
-        error: () => {
-            container.classList.add('error');
-            Message(container, 'appUnavailable');
-        },
+        // error: () => {
+        //     container.classList.add('error');
+        //     Message(container, 'appUnavailable');
+        // },
 
         /* Remove loading progress */
         complete: () => {
