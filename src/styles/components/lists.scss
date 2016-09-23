@@ -39,7 +39,7 @@
 			min-height: 100px;
 		}
 
-		&.unaccepted-first {
+		&.unaccepted-terms {
 			max-height: 100px;
 			min-height: auto;
 
@@ -51,6 +51,18 @@
 				padding-bottom: 0;
 			}
 		}
+
+		&.agreed {
+			border-bottom: 0;
+		}
+	}
+
+	&.loading,
+	&.error {
+		border-bottom: 0;
+
+		/* Don't show Submit button while loading, we may receive accepted documents */
+		& + [type="submit"] { display: none; }
 	}
 
 	&.error {
@@ -62,11 +74,7 @@
 		p { color: $color-gray-light; }
 	}
 
-	&#accepted-documents.error { padding-top: .5rem; }
-
-	&.loading {
-		min-height: 100px;
-	}
+	&.loading { min-height: 100px; }
 }
 
 .check-all {

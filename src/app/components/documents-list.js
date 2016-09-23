@@ -35,16 +35,17 @@ export default function printDocumentsList(container, documents) {
     });
 
     /* Add custom properties */
-    const options = arguments[2];
+    const options = arguments[arguments.length - 1];
     if (options) {
-        const checked = options.checked || false;
-        const disabled = options.disabled || false;
+        const agreed = options.agreed;
+        const checked = options.checked || agreed;
+        const disabled = options.disabled;
         let input = container.find('input');
 
         /* Checked */
         input.prop('checked', checked);
 
         /* Disabled */
-        disabled && input.prop('disabled', true);
+        (agreed || disabled) && input.prop('disabled', true);
     }
 };

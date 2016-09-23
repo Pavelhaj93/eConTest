@@ -4,7 +4,10 @@ import Message from '../message';
 export default function FormOffer(form) {
 
     window.onload = () => {
-        const classUnagreed = 'unaccepted-first';
+        const classes = {
+            unacceptedTerms: 'unaccepted-terms',
+            agreed: 'agreed'
+        };
         const list = $(form.querySelector('.list'));
         const submitBtn = form.querySelector('[type="submit"]');
 
@@ -18,9 +21,8 @@ export default function FormOffer(form) {
 
         /* Render documents list ("documents" - from BACK-END) */
         function waitResponse() {
-
             /* Reset customerAgreement */
-            list.addClass(classUnagreed);
+            list.addClass(classes.unacceptedTerms);
 
             /* Clear the list */
             list.children('li').remove();
@@ -28,40 +30,61 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function(documents = [], options = { checked: false, disabled: false}) {
-            gotDocuments = (documents.length > 0) && true;
+        window.documentsReceived = function(documents = [],
+            options = {
+                agreed: false,
+                checked: false,
+                disabled: false
+            }) {
+            gotDocuments = (documents.length > 0);
             list.removeClass('loading');
 
             if (gotDocuments) {
-                /* Establish, that the documents are ready */
-                gotDocuments = true;
 
                 /* Prepare the list & print the documents */
                 printDocumentsList(list, documents, options);
 
-                /* Show other list items by clicking on customerAgreement */
-                const customerAgreement = list.children('li:first-child').children('input[type="checkbox"]');
+                if (options.agreed) {
+                    /* Mark list container as agreed (expand) */
+                    list.removeClass(classes.unacceptedTerms).addClass(classes.agreed);
 
-                /* Handle customerAgreement click */
-                customerAgreement.on('change', () => {
-                    const agreed = !list.hasClass(classUnagreed);
-                    const onlyChild = (list.children('li').length == 1);
+                    /* Hide "Check all" and submit button */
+                    list.children('.check-all').remove();
+                    submitBtn.remove();
 
-                    if (!agreed && !onlyChild) {
-                        /* Reveal the documents */
-                        list.removeClass(classUnagreed);
-                    }
-                });
+                } else {
+                    /* Show other list items by clicking on customerAgreement */
+                    const customerAgreement = list.children('li:first-child').children('input[type="checkbox"]');
+
+                    /* Handle customerAgreement click */
+                    customerAgreement.on('change', () => {
+                        const agreed = !list.hasClass(classes.unacceptedTerms);
+                        const onlyChild = (list.children('li').length == 1);
+
+                        if (!agreed && !onlyChild) {
+                            /* Reveal the documents */
+                            list.removeClass(classes.unacceptedTerms);
+                        }
+                    });
+                }
+
             } else {
                 /* Output error on success = false */
                 list.empty();
-                list.removeClass(classUnagreed).addClass('error');
+                list.removeClass(classes.unacceptedTerms).addClass('error');
                 Message(list, 'appUnavailable');
             }
 
             return gotDocuments;
         };
-        // documentsReceived([{s: 2}]);
+
+        // =================================================
+        // documentsReceived([
+        //     {s: 2},
+        //     {s: 2},
+        //     {s: 2},
+        // ], { agreed: false });
+        // =================================================
 
         /* Determine whether all checkboxes are checked */
         function validateForm() {
