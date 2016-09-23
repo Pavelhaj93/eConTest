@@ -7,7 +7,6 @@ import FormAuth from './components/forms/authentication';
 import DateInput from './components/datepicker';
 import FormOffer from './components/forms/offer';
 import CheckAll from './components/check-all';
-import AcceptedDocuments from './components/accepted-documents';
 import Copyright from './components/copyright';
 
 window.app = {
@@ -17,7 +16,6 @@ window.app = {
         init(FormOffer, document.getElementById('offer'));
         factory(CheckAll, document.querySelectorAll('.form .check-all'));
         init(DateInput, document.querySelector('.input-date'));
-        init(AcceptedDocuments, document.getElementById('accepted-documents'));
         init(Copyright, document.getElementById('copyright'));
     }
 };
