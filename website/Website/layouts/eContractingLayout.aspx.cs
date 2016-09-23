@@ -88,6 +88,17 @@ public partial class website_Website_layouts_eContractingLayout : System.Web.UI.
                     RweUtils.WrongUrlRedirect = rweHelpers.GetPath(wrongUrlLink);
                 }
             }
+
+            if (String.IsNullOrEmpty(RweUtils.OfferExpired))
+            {
+                //offer Expired
+                Sitecore.Data.Fields.LinkField offerExpiredLink = item.Fields["OfferExpired"];
+
+                if (offerExpiredLink != null)
+                {
+                    RweUtils.OfferExpired = rweHelpers.GetPath(offerExpiredLink);
+                }
+            }
         }
     }
 }

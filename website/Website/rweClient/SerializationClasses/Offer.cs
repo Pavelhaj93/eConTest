@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace rweClient.SerializationClasses
@@ -36,6 +37,20 @@ namespace rweClient.SerializationClasses
 
         [XmlElement("DATE_TO")]
         public string DATE_TO { get; set; }
+
+        [XmlIgnore]
+        public Boolean OfferIsExpired
+        {
+            get 
+            {
+                DateTime outValue = DateTime.Now.AddDays(-1);
+
+                return DateTime.TryParseExact(DATE_TO, "yyyyMMdd",
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.None,
+                                    out outValue) && (outValue.Date < DateTime.Now.Date);
+            }
+        }
 
         [XmlElement("STATUS")]
         public string STATUS { get; set; }

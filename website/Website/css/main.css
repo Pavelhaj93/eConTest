@@ -2967,15 +2967,22 @@ a:active, a:focus {
       padding-bottom: 0; }
     .list-documents:not(.error) {
       min-height: 100px; }
-    .list-documents.unaccepted-first {
+    .list-documents.unaccepted-terms {
       max-height: 100px;
       min-height: auto; }
-      .list-documents.unaccepted-first li:not(:first-child),
-      .list-documents.unaccepted-first .check-all {
+      .list-documents.unaccepted-terms li:not(:first-child),
+      .list-documents.unaccepted-terms .check-all {
         display: none; }
-      .list-documents.unaccepted-first li:first-child {
+      .list-documents.unaccepted-terms li:first-child {
         border-bottom: 0;
         padding-bottom: 0; }
+    .list-documents.agreed {
+      border-bottom: 0; }
+  .list.loading, .list.error {
+    border-bottom: 0;
+    /* Don't show Submit button while loading, we may receive accepted documents */ }
+    .list.loading + [type="submit"], .list.error + [type="submit"] {
+      display: none; }
   .list.error {
     text-align: center;
     padding: 0 4rem 1rem; }
@@ -2983,8 +2990,6 @@ a:active, a:focus {
       display: none; }
     .list.error p {
       color: #9b9a98; }
-  .list#accepted-documents.error {
-    padding-top: .5rem; }
   .list.loading {
     min-height: 100px; }
 

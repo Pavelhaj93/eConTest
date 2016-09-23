@@ -123,6 +123,7 @@ namespace rweClient
         public static String RedirectUserHasBeenBlocked { get; set; }
         public static String AcceptedOfferRedirect { get; set; }
         public static String WrongUrlRedirect { get; set; }
+        public static String OfferExpired { get; set; }
 
         public void IsUserInSession()
         {

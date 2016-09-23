@@ -13,7 +13,7 @@ using rweClient;
 public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.UserControl
 {
     public String ClientId { get; set; }
-    public Boolean IsButtonVisible { get; set; }
+    public Boolean IsAccepted { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,8 +22,6 @@ public partial class website_Website_layouts_DocumentsPanel : System.Web.UI.User
             AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
             var data = authenticationDataSessionStorage.GetData();
             this.ClientId = data.Identifier;
-
-            this.mainBtn.Visible = IsButtonVisible;
             this.DataBind();
         }
     }

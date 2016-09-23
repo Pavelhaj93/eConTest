@@ -38,6 +38,11 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
                 Response.Redirect(RweUtils.AcceptedOfferRedirect);
             }
 
+            if (offer.Body.OfferIsExpired)
+            {
+                Response.Redirect(RweUtils.OfferExpired);
+            }
+
             this.additional.Attributes["placeholder"] = "Vložte Vaše " + authenticationData.ItemFriendlyName;
             this.birth.Attributes["placeholder"] = "napr. 26. 12. 1966";
 

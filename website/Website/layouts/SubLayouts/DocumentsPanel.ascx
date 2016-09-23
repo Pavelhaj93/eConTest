@@ -11,7 +11,8 @@
                 documentsReceived(false);
             },
             success: function (documents) {
-                documentsReceived(documents);
+                var agreed = <%# this.IsAccepted.ToString().ToLower() %>;
+                documentsReceived(documents, { agreed: agreed });
             },
         });
     }
