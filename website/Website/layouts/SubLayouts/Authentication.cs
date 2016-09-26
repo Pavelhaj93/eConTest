@@ -35,9 +35,9 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
 
             if (offer.IsAccepted)
             {
-                client.ResetOffer(guid);
-                offer = client.GenerateXml(guid);
-                //Response.Redirect(RweUtils.AcceptedOfferRedirect);
+                //client.ResetOffer(guid);
+                //offer = client.GenerateXml(guid);
+                Response.Redirect(RweUtils.AcceptedOfferRedirect);
             }
 
             if (offer.Body.OfferIsExpired)

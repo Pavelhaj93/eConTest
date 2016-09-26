@@ -3,12 +3,7 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
-            <p>Vitame vas, pane Novaku,<br>
-                děkujeme, že jste akceptoval naši nabídku a sjednal produkt <strong>zemního plynu OPTIMAL</strong>.</p>
-            <p>V následujících hodinách obdržíte e-mail s odkazem k potvreným smluvním dokumentům.</p>
-            <p>Děkujeme,
-                <br>
-                Vaše Innogy.</p>
+           <asp:Literal runat="server" ID="mainTxt" />
         </div>
     </div>
 </div>

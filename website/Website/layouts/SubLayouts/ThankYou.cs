@@ -12,6 +12,12 @@ public partial class website_Website_WebControls_ThankYou : System.Web.UI.UserCo
         {
             RweUtils utils = new RweUtils();
             utils.IsUserInSession();
+
+            this.mainTxt.Text = Sitecore.Context.Item["MainText"];
+
+            AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+            var data = authenticationDataSessionStorage.GetData();
+            this.mainTxt.Text = this.mainTxt.Text.Replace("{0}", data.LastName);
         }
 
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];

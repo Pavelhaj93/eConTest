@@ -19,6 +19,13 @@ public partial class website_Website_WebControls_AcceptedOffer : System.Web.UI.U
         if (item != null)
         {
             this.MainText.Text = item["MainText"] ?? String.Empty;
+
+            if (Sitecore.Context.PageMode.IsNormal)
+            {
+                AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+                var data = authenticationDataSessionStorage.GetData();
+                this.MainText.Text = this.MainText.Text.Replace("{0}", data.LastName);
+            }
         }
     }
 }

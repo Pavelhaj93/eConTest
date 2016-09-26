@@ -42,12 +42,6 @@ public partial class website_Website_WebControls_Offer : System.Web.UI.UserContr
                 }
             }
         }
-        else
-        {
-            var mainTextField = Sitecore.Context.Item.Fields["MainText"];
-            this.mainText.Text = mainTextField.Value;
-        }
-
         this.DataBind();
     }
 }

@@ -16,6 +16,14 @@ public partial class website_Website_WebControls_Expiration : System.Web.UI.User
 
         this.MainTxt.Text = Sitecore.Context.Item["MainText"];
 
+        if (Sitecore.Context.PageMode.IsNormal)
+        {
+            AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+            var data = authenticationDataSessionStorage.GetData();
+            this.MainTxt.Text = this.MainTxt.Text.Replace("{0}", data.LastName);
+            this.MainTxt.Text = this.MainTxt.Text.Replace("{1}", data.ExpDateFormatted);
+        }
+
         Sitecore.Data.Fields.LinkField linkField1 = Sitecore.Context.Item.Fields["Link1"];
 
         if (linkField1 != null)

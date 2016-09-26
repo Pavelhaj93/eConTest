@@ -16,6 +16,23 @@ namespace rweClient
         public String DateOfBirth { get; set; }
         public String Identifier { get; set; }
         public String LastName { get; set; }
+        public String ExpDate { get; set; }
+        public DateTime ExpDateConverted
+        {
+            get
+            {
+                DateTime outputDateTimeValue;
+                DateTime.TryParseExact(this.ExpDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTimeValue);
+                return outputDateTimeValue;
+            }
+        }
+        public String ExpDateFormatted
+        {
+            get
+            {
+                return this.ExpDateConverted.ToString("dd.MM.yyy");
+            }
+        }
     }
 
     public class AuthenticationDataSessionStorage
@@ -50,6 +67,7 @@ namespace rweClient
 
                 authenticationDataItem.Identifier = offer.Body.Guid;
                 authenticationDataItem.LastName = offer.Body.NAME_LAST;
+                authenticationDataItem.ExpDate = offer.Body.DATE_TO;
 
                 switch (value)
                 {
