@@ -7,6 +7,7 @@ using System.Net;
 using System.Security.Authentication;
 using System.Xml.Serialization;
 using System.Xml;
+using System.Text;
 
 namespace rweClient
 {
@@ -16,6 +17,12 @@ namespace rweClient
         public string FileNumber { get; set; }
         public string FileName { get; set; }
         public List<Byte> FileContent { get; set; }
+    }
+
+    public class XmlText
+    {
+        public string Index { get; set; }
+        public string Text { get; set; }
     }
 
     public class RweClient
@@ -172,6 +179,30 @@ namespace rweClient
                 status.IV_TIMESTAMP = outValue;
                 var response = api.ZCCH_CACHE_STATUS_SET(status);
             }
+        }
+
+        public List<XmlText> GetTextsXml(string guid)
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_XML");
+
+            if (result.ThereAreFiles())
+            {
+                List<XmlText> fileResults = new List<XmlText>();
+
+                int index = 0;
+
+                foreach (var f in result.ET_FILES)
+                {
+                    XmlText tempItem = new XmlText();
+                    tempItem.Index = (++index).ToString();
+                    tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
+                    fileResults.Add(tempItem);
+                }
+
+                return fileResults;
+            }
+
+            return null;
         }
     }
 }
