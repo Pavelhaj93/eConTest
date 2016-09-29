@@ -106,6 +106,25 @@ public partial class website_Website_WebControls_Authentication : System.Web.UI.
         }
         else
         {
+            if (authenticationData.IsAccountNumber)
+            {
+                if (!rweHelpers.IsAccountNumberValid(authenticationData.ItemValue))
+                {
+                    string url = Request.RawUrl;
+
+                    if (Request.RawUrl.Contains("&error=validationError"))
+                    {
+                        url = Request.RawUrl;
+                    }
+                    else
+                    {
+                        url = Request.RawUrl + "&error=validationError";
+                    }
+
+                    Response.Redirect(url);  //error same page
+                }
+            }
+
             HttpContext.Current.Session["NumberOfLogons"] = 0;
             
             var item = Sitecore.Context.Item;

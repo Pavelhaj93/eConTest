@@ -16,6 +16,7 @@ namespace rweClient
         public String DateOfBirth { get; set; }
         public String Identifier { get; set; }
         public String LastName { get; set; }
+        public Boolean IsAccountNumber { get; set; }
         public String ExpDate { get; set; }
         public DateTime ExpDateConverted
         {
@@ -75,24 +76,28 @@ namespace rweClient
                         authenticationDataItem.ItemType = "PARTNER";
                         authenticationDataItem.ItemValue = offer.Body.PARTNER;
                         authenticationDataItem.ItemFriendlyName = "Číslo OP";
+                        authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 2:
                         authenticationDataItem.ItemType = "PSC_MS";
                         authenticationDataItem.ItemValue = offer.Body.PscMistaSpotreby;
                         authenticationDataItem.ItemFriendlyName = "PSČ Místa spotřeby";
+                        authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 3:
                         authenticationDataItem.ItemType = "PSC_ADDR";
                         authenticationDataItem.ItemValue = offer.Body.PscTrvaleBydliste;
                         authenticationDataItem.ItemFriendlyName = "PSČ trvalého bydliště";
+                        authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 4:
                         authenticationDataItem.ItemType = "ACCOUNT_NUMBER";
                         authenticationDataItem.ItemValue = offer.Body.ACCOUNT_NUMBER;
                         authenticationDataItem.ItemFriendlyName = "číslo bankovního účtu včetně kódu banky za lomítkem";
+                        authenticationDataItem.IsAccountNumber = true;
                         break;
                     default:
                         break;

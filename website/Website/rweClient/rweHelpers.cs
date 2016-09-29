@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace rweClient
 {
@@ -31,6 +33,18 @@ namespace rweClient
                 default:
                     return lf.Url;
             }
+        }
+
+        public static Boolean IsAccountNumberValid(string input)
+        {
+            if (String.IsNullOrEmpty(input))
+            {
+                return false;
+            }
+
+            var account = input.TrimStart('0');
+
+            return account.All(x => Char.IsDigit(x) || (x == '-' || x == '\\'));
         }
     }
 }
