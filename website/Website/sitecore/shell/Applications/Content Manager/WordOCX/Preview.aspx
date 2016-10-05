@@ -1,2 +1,0 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Preview.aspx.cs" Inherits="Sitecore.Shell.Applications.ContentManager.WordOCX.Preview" %>
-<meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
