@@ -1,4 +1,4 @@
-﻿using rweClient.SerializationClasses;
+﻿using Actum.RweClient.SerializationClasses;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Text;
 
-namespace rweClient
+namespace Actum.RweClient
 {
     public class FileToBeDownloaded
     {
@@ -32,8 +32,8 @@ namespace rweClient
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            var userName = rweHelpers.ReadConfig("CacheUserName");
-            var password = rweHelpers.ReadConfig("CachePassword");
+            var userName = RweHelpers.ReadConfig("CacheUserName");
+            var password = RweHelpers.ReadConfig("CachePassword");
 
             if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
             {

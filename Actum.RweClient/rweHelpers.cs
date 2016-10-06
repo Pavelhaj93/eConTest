@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
-using System.Collections.Generic;
+using Sitecore.Links;
+using Sitecore.Resources.Media;
 
-namespace rweClient
+namespace Actum.RweClient
 {
-    public static class rweHelpers
+    public static class RweHelpers
     {
         public static string ReadConfig(string key)
         {
@@ -18,10 +19,10 @@ namespace rweClient
             {
                 case "internal":
                     // Use LinkMananger for internal links, if link is not empty
-                    return lf.TargetItem != null ? Sitecore.Links.LinkManager.GetItemUrl(lf.TargetItem).Replace("/en/", "/") : string.Empty;
+                    return lf.TargetItem != null ? LinkManager.GetItemUrl(lf.TargetItem).Replace("/en/", "/") : string.Empty;
                 case "media":
                     // Use MediaManager for media links, if link is not empty
-                    return lf.TargetItem != null ? Sitecore.Resources.Media.MediaManager.GetMediaUrl(lf.TargetItem) : string.Empty;
+                    return lf.TargetItem != null ? MediaManager.GetMediaUrl(lf.TargetItem) : string.Empty;
                 case "external":
                     return lf.Url;
                 case "anchor":

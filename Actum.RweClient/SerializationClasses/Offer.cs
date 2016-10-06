@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace rweClient.SerializationClasses
+namespace Actum.RweClient.SerializationClasses
 {
     [Serializable()]
     [XmlRoot("Nabidka")]
@@ -41,7 +41,7 @@ namespace rweClient.SerializationClasses
         [XmlIgnore]
         public Boolean OfferIsExpired
         {
-            get 
+            get
             {
                 DateTime outValue = DateTime.Now.AddDays(-1);
 

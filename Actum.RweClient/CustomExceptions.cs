@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rweClient
+namespace Actum.RweClient
 {
     public class OfferIsNullException : Exception
     {

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+using Actum.RweClient.SerializationClasses;
 
-namespace rweClient
+namespace Actum.RweClient
 {
     public class AuthenticationDataItem
     {
@@ -40,7 +37,7 @@ namespace rweClient
     {
         private readonly String SessionKey = "AuthDataSession";
 
-        public AuthenticationDataSessionStorage(rweClient.SerializationClasses.Offer offer)
+        public AuthenticationDataSessionStorage(Offer offer)
         {
             if ((offer == null) || (offer.Body == null))
             {
