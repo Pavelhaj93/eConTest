@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.
 EndProject
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "eContracting.Master", "eContracting.Master\eContracting.Master.scproj", "{FD8253C3-2A7E-4463-8592-BECF3DC50E59}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3703D589-5C25-4F7D-BDE0-C24070AF2B9A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\Nuget.config = .nuget\Nuget.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
