@@ -38,14 +38,32 @@
       <HintPath>..\packages\Glass.Mapper.Sc.4.1.0.64\lib\net45\Glass.Mapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Glass.Mapper.Sc">
+      <HintPath>..\packages\Glass.Mapper.Sc.4.1.0.64\lib\81\Glass.Mapper.Sc.dll</HintPath>
+    </Reference>
+    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.1.160302\lib\NET45\Sitecore.Kernel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlassItems\Pages\CookieLawTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingUserBlockedTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContracting404Template.cs" />
+    <Compile Include="GlassItems\Pages\EContractingAcceptedOfferTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingAuthenticationTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingThankYouTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingSystemErrorTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingSessionExpiredTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingDisclaimerTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingOfferTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingExpirationTemplate.cs" />
+    <Compile Include="GlassItems\Pages\EContractingTemplate.cs" />
+    <Compile Include="GlassItems\Pages\MasterPageTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataObjects\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
