@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actum.RweClient", "Actum.Rw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}"
 EndProject
+Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "eContracting.Master", "eContracting.Master\eContracting.Master.scproj", "{FD8253C3-2A7E-4463-8592-BECF3DC50E59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
