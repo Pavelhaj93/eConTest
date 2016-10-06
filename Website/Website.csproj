@@ -189,6 +189,10 @@
   <ItemGroup>
     <Content Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Config\Include\zeContracting\SiteDefinition.config" />
+    <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
