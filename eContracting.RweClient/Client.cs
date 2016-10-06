@@ -1,15 +1,14 @@
-﻿using Actum.RweClient.SerializationClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Security.Authentication;
-using System.Xml.Serialization;
-using System.Xml;
 using System.Text;
+using System.Xml.Serialization;
+using eContracting.RweClient.SerializationClasses;
 
-namespace Actum.RweClient
+namespace eContracting.RweClient
 {
     public class FileToBeDownloaded
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Web;
-using Actum.RweClient.SerializationClasses;
+using eContracting.RweClient.SerializationClasses;
 
-namespace Actum.RweClient
+namespace eContracting.RweClient
 {
     public class AuthenticationDataItem
     {

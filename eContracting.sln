@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actum.RweClient", "Actum.RweClient\Actum.RweClient.csproj", "{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}"
 EndProject
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "eContracting.Master", "eContracting.Master\eContracting.Master.scproj", "{FD8253C3-2A7E-4463-8592-BECF3DC50E59}"
@@ -14,16 +12,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3703D5
 		.nuget\Nuget.config = .nuget\Nuget.config
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.RweClient", "eContracting.RweClient\eContracting.RweClient.csproj", "{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,6 +30,10 @@ Global
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

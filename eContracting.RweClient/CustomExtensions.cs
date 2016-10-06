@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Actum.RweClient
+namespace eContracting.RweClient
 {
     public static class EnumExtensions
     {

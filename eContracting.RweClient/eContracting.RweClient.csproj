@@ -7,8 +7,8 @@
     <ProjectGuid>{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Actum.RweClient</RootNamespace>
-    <AssemblyName>Actum.RweClient</AssemblyName>
+    <RootNamespace>eContracting.RweClient</RootNamespace>
+    <AssemblyName>eContracting.RweClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

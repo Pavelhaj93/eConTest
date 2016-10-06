@@ -4,7 +4,7 @@ using System.Linq;
 using Sitecore.Links;
 using Sitecore.Resources.Media;
 
-namespace Actum.RweClient
+namespace eContracting.RweClient
 {
     public static class RweHelpers
     {
