@@ -78,395 +78,391 @@
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate\Main section.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate\Main section\ButtonText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate\Main section.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate\Main section\Link.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate\Main section\ButtonText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\CookieLawTemplate\Main section\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate\Main section\Link.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContracting404Template.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\CookieLawTemplate\Main section\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContracting404Template\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContracting404Template.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContracting404Template\Text.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContracting404Template\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContracting404Template\Text\HeaderText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContracting404Template\Text.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContracting404Template\Text\Text.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContracting404Template\Text\HeaderText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAcceptedOfferTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContracting404Template\Text\Text.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAcceptedOfferTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAcceptedOfferTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAcceptedOfferTemplate\Main Text.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAcceptedOfferTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAcceptedOfferTemplate\Main Text\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAcceptedOfferTemplate\Main Text.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAcceptedOfferTemplate\Main Text\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\NextPageSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\NextPageSection\NextPageLink.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\NextPageSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\Text box section.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\NextPageSection\NextPageLink.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\Text box section\ButtonText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\Text box section.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\Text box section\ContractData.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\Text box section\ButtonText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingAuthenticationTemplate\Text box section\DateOfBirth.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\Text box section\ContractData.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\Text box section\DateOfBirth.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\Disclaimer Links.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\Disclaimer Links\Link1.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\Disclaimer Links.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\Disclaimer Links\Link2.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\Disclaimer Links\Link1.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\Disclaimer Links\Link3.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\Disclaimer Links\Link2.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\TextSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\Disclaimer Links\Link3.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\TextSection\Header.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\TextSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingDisclaimerTemplate\TextSection\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\TextSection\Header.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingDisclaimerTemplate\TextSection\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\ExpirationLinks.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\ExpirationLinks\Link1.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\ExpirationLinks.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\ExpirationLinks\Link2.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\ExpirationLinks\Link1.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\ExpirationLinks\Link3.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\ExpirationLinks\Link2.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\TextSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\ExpirationLinks\Link3.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingExpirationTemplate\TextSection\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\TextSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingOfferTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingExpirationTemplate\TextSection\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingOfferTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingOfferTemplate\NextPage section.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingOfferTemplate\NextPage section\NextPageUrl.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\NextPage section.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSessionExpiredTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\NextPage section\NextPageUrl.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSessionExpiredTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSessionExpiredTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSessionExpiredTemplate\Text section.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSessionExpiredTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSessionExpiredTemplate\Text section\Header.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSessionExpiredTemplate\Text section.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSessionExpiredTemplate\Text section\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSessionExpiredTemplate\Text section\Header.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSessionExpiredTemplate\Text section\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\SystemErrorLinks.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\SystemErrorLinks\Link1.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\SystemErrorLinks.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\SystemErrorLinks\Link2.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\SystemErrorLinks\Link1.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\SystemErrorLinks\Link3.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\SystemErrorLinks\Link2.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\TextSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\SystemErrorLinks\Link3.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\TextSection\Header.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\TextSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingSystemErrorTemplate\TextSection\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\TextSection\Header.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingSystemErrorTemplate\TextSection\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingTemplate\Main Section.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingTemplate\Main Section\PageTitle.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingTemplate\Main Section.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingTemplate\Main Section\PageTitle.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\TextSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\TextSection\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\TextSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\ThankYouLinks.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\TextSection\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\ThankYouLinks\Link1.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\ThankYouLinks.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\ThankYouLinks\Link2.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\ThankYouLinks\Link1.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingThankYouTemplate\ThankYouLinks\Link3.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\ThankYouLinks\Link2.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingUserBlockedTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingThankYouTemplate\ThankYouLinks\Link3.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingUserBlockedTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingUserBlockedTemplate.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingUserBlockedTemplate\TextSection.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingUserBlockedTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingUserBlockedTemplate\TextSection\Header.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingUserBlockedTemplate\TextSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\eContractingUserBlockedTemplate\TextSection\MainText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingUserBlockedTemplate\TextSection\Header.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingUserBlockedTemplate\TextSection\MainText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\__Standard Values.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\AcceptedOffer.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\AcceptedOffer\AcceptedOffer.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\CopyrightText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\CopyrightText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\DisclaimerLink.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\DisclaimerLink.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\EmailLink.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\EmailLink.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\EmailText.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\EmailText.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\PhoneNumberFooter.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\PhoneNumberFooter.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\FooterSettings\Footer\PhoneNumberLinkFooter.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Footer\PhoneNumberLinkFooter.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Header.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Header\ImageLink.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links\AcceptedOffer.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Header\PhoneNumber.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links\OfferExpired.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Header\PhoneNumberLink.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links\SessionExpired.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\OfferExpired.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links\UserBlocked.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\OfferExpired\OfferExpired.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\GeneralSettings\Links\WrongUrl.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Session Expired.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\HeaderSettings.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\Session Expired\SessionExpired.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\HeaderSettings\Header.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\UserBlocked.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\HeaderSettings\Header\ImageLink.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\UserBlocked\UserBlocked.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\HeaderSettings\Header\PhoneNumber.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\WrongUrl.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>AlwaysUpdate</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\MasterPageTemplate\WrongUrl\WrongUrl.item">
+    <SitecoreItem Include="sitecore\templates\eContracting\Settings\HeaderSettings\Header\PhoneNumberLink.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
