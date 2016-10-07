@@ -50,10 +50,12 @@
       <HintPath>..\packages\Glass.Mapper.Sc.4.1.0.64\lib\net45\Glass.Mapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Glass.Mapper.Sc">
+    <Reference Include="Glass.Mapper.Sc, Version=4.1.0.64, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Glass.Mapper.Sc.4.1.0.64\lib\81\Glass.Mapper.Sc.dll</HintPath>
     </Reference>
-    <Reference Include="Glass.Mapper.Sc.Mvc">
+    <Reference Include="Glass.Mapper.Sc.Mvc, Version=4.1.0.64, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Glass.Mapper.Sc.4.1.0.64\lib\Mvc52\Glass.Mapper.Sc.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -174,19 +176,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Config\Include\Glass.Mapper.Sc.Start.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Config\Include\Glass.Mapper.Sc.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="App_Config\Include\zeContracting\SiteDefinition.config" />
+    <Content Include="App_Config\Include\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.Start.config" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.config" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>

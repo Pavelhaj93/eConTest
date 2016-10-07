@@ -12,9 +12,9 @@ using Sitecore.Pipelines;
 
 // WebActivator has been removed. If you wish to continue using WebActivator uncomment the line below
 // and delete the Glass.Mapper.Sc.CastleWindsor.config file from the Sitecore Config Include folder.
-// [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(Website.App_Start.GlassMapperSc), "Start")]
+// [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(eContracting.Website.App_Start.GlassMapperSc), "Start")]
 
-namespace Website.App_Start
+namespace eContracting.Website.App_Start
 {
 	public class  GlassMapperSc
 	{
