@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website", "Website\Website.csproj", "{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website", "eContracting.Website\eContracting.Website.csproj", "{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}"
 EndProject
 Project("{CAA73BB0-EF22-4D79-A57E-DF67B3BA9C80}") = "eContracting.Master", "eContracting.Master\eContracting.Master.scproj", "{FD8253C3-2A7E-4463-8592-BECF3DC50E59}"
 EndProject

@@ -7,9 +7,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>fd8253c3-2a7e-4463-8592-becf3dc50e59</ProjectGuid>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <SourceWebPhysicalPath>..\Website</SourceWebPhysicalPath>
-    <SourceWebProject>{f5cdfde6-b465-46f0-a9d8-e69f06416bf8}|Website\Website.csproj</SourceWebProject>
-    <SourceWebVirtualPath>/Website.csproj</SourceWebVirtualPath>
+    <SourceWebPhysicalPath>..\eContracting.Website</SourceWebPhysicalPath>
+    <SourceWebProject>{f5cdfde6-b465-46f0-a9d8-e69f06416bf8}|eContracting.Website\eContracting.Website.csproj</SourceWebProject>
+    <SourceWebVirtualPath>/eContracting.Website.csproj</SourceWebVirtualPath>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <EnableUpdateable>true</EnableUpdateable>
     <UseMerge>true</UseMerge>
@@ -64,9 +64,9 @@
     </AssemblyAttributes>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Website\Website.csproj">
+    <ProjectReference Include="..\eContracting.Website\eContracting.Website.csproj">
       <Project>{f5cdfde6-b465-46f0-a9d8-e69f06416bf8}</Project>
-      <Name>Website</Name>
+      <Name>eContracting.Website</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
