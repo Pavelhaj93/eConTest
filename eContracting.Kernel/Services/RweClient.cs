@@ -6,24 +6,10 @@ using System.Net;
 using System.Security.Authentication;
 using System.Text;
 using System.Xml.Serialization;
-using eContracting.RweClient.SerializationClasses;
+using eContracting.Kernel.Helpers;
 
-namespace eContracting.RweClient
+namespace eContracting.Kernel.Services
 {
-    public class FileToBeDownloaded
-    {
-        public string Index { get; set; }
-        public string FileNumber { get; set; }
-        public string FileName { get; set; }
-        public List<Byte> FileContent { get; set; }
-    }
-
-    public class XmlText
-    {
-        public string Index { get; set; }
-        public string Text { get; set; }
-    }
-
     public class RweClient
     {
         private ZCCH_CACHE_API InitApi()

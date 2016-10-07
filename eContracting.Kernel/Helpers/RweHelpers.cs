@@ -4,7 +4,7 @@ using System.Linq;
 using Sitecore.Links;
 using Sitecore.Resources.Media;
 
-namespace eContracting.RweClient
+namespace eContracting.Kernel.Helpers
 {
     public static class RweHelpers
     {

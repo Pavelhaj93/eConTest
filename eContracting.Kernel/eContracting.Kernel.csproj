@@ -46,8 +46,16 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\DateOfBirthWrongFormatException.cs" />
+    <Compile Include="Exceptions\OfferIsNullException.cs" />
+    <Compile Include="Extensions\ZCCH_CACHE_GETResponseExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="GlassItems\Pages\CookieLawTemplate.cs" />
     <Compile Include="GlassItems\Pages\EContractingUserBlockedTemplate.cs" />
     <Compile Include="GlassItems\Pages\EContracting404Template.cs" />
@@ -61,7 +69,16 @@
     <Compile Include="GlassItems\Pages\EContractingExpirationTemplate.cs" />
     <Compile Include="GlassItems\Pages\EContractingTemplate.cs" />
     <Compile Include="GlassItems\Pages\MasterPageTemplate.cs" />
+    <Compile Include="Helpers\RweHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FileToBeDownloaded.cs" />
+    <Compile Include="Services\Offer.cs" />
+    <Compile Include="Services\RweClient.cs" />
+    <Compile Include="Services\XmlText.cs" />
+    <Compile Include="Services\ZCCH_CACHE_API.cs" />
+    <Compile Include="Utils\AuthenticationDataItem.cs" />
+    <Compile Include="Utils\AuthenticationDataSessionStorage.cs" />
+    <Compile Include="Utils\RweUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

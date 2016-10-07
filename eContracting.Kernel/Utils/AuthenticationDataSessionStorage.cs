@@ -1,38 +1,11 @@
 ﻿using System;
 using System.Globalization;
 using System.Web;
-using eContracting.RweClient.SerializationClasses;
+using eContracting.Kernel.Exceptions;
+using eContracting.Kernel.Services;
 
-namespace eContracting.RweClient
+namespace eContracting.Kernel.Utils
 {
-    public class AuthenticationDataItem
-    {
-        public String ItemType { get; set; }
-        public String ItemValue { get; set; }
-        public String ItemFriendlyName { get; set; }
-        public String DateOfBirth { get; set; }
-        public String Identifier { get; set; }
-        public String LastName { get; set; }
-        public Boolean IsAccountNumber { get; set; }
-        public String ExpDate { get; set; }
-        public DateTime ExpDateConverted
-        {
-            get
-            {
-                DateTime outputDateTimeValue;
-                DateTime.TryParseExact(this.ExpDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTimeValue);
-                return outputDateTimeValue;
-            }
-        }
-        public String ExpDateFormatted
-        {
-            get
-            {
-                return this.ExpDateConverted.ToString("dd.MM.yyy");
-            }
-        }
-    }
-
     public class AuthenticationDataSessionStorage
     {
         private readonly String SessionKey = "AuthDataSession";
@@ -130,32 +103,6 @@ namespace eContracting.RweClient
         public void ClearSession()
         {
             HttpContext.Current.Session[SessionKey] = null;
-        }
-    }
-
-    public class RweUtils
-    {
-        public AuthenticationDataSessionStorage authenticationDataSessionStorage { get; set; }
-
-        public static String RedirectSessionExpired { get; set; }
-        public static String RedirectUserHasBeenBlocked { get; set; }
-        public static String AcceptedOfferRedirect { get; set; }
-        public static String WrongUrlRedirect { get; set; }
-        public static String OfferExpired { get; set; }
-
-        public void IsUserInSession()
-        {
-            if (authenticationDataSessionStorage == null)
-            {
-                authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-            }
-
-            if (authenticationDataSessionStorage.IsDataActive())
-            {
-                return;
-            }
-
-            HttpContext.Current.Response.Redirect(RedirectSessionExpired);
         }
     }
 }

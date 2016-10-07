@@ -44,7 +44,7 @@
     <ValidationSettingsFilePath>.\eContracting.Master_Debug.xml</ValidationSettingsFilePath>
     <SitecoreWebUrl>http://eContracting.local</SitecoreWebUrl>
     <InstallSitecoreConnector>True</InstallSitecoreConnector>
-    <DisableFileDeployment>False</DisableFileDeployment>
+    <DisableFileDeployment>True</DisableFileDeployment>
     <SitecoreDeployFolder>C:\inetpub\econtracting.local</SitecoreDeployFolder>
     <SitecoreAccessGuid>5fc56a0b-8698-40b8-ab60-d3a9a60d3416</SitecoreAccessGuid>
   </PropertyGroup>

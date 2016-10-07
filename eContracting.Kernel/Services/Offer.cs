@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace eContracting.RweClient.SerializationClasses
+namespace eContracting.Kernel.Services
 {
     [Serializable()]
     [XmlRoot("Nabidka")]

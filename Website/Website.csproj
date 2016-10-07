@@ -172,10 +172,6 @@
       <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
       <Name>eContracting.Kernel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\eContracting.RweClient\eContracting.RweClient.csproj">
-      <Project>{853f612f-48d7-47e3-96ab-c9b0dce9af02}</Project>
-      <Name>eContracting.RweClient</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\z.Glass.Mapper.Sc.ViewRender.config.exclude" />

@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3703D5
 		.nuget\Nuget.config = .nuget\Nuget.config
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.RweClient", "eContracting.RweClient\eContracting.RweClient.csproj", "{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Kernel", "eContracting.Kernel\eContracting.Kernel.csproj", "{8E443FE9-7BFB-4417-A625-9785FEC7F358}"
 EndProject
 Global
@@ -32,10 +30,6 @@ Global
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD8253C3-2A7E-4463-8592-BECF3DC50E59}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{853F612F-48D7-47E3-96AB-C9B0DCE9AF02}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Release|Any CPU.ActiveCfg = Release|Any CPU
