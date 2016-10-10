@@ -66,6 +66,14 @@
       <HintPath>..\packages\Sitecore.Logging.NoReferences.8.1.160302\lib\NET45\Sitecore.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Mvc.NoReferences.8.1.160302\lib\NET45\Sitecore.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.Mvc.Analytics, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Mvc.Analytics.NoReferences.8.1.160302\lib\NET45\Sitecore.Mvc.Analytics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.Update, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Update.NoReferences.8.1.160302\lib\NET45\Sitecore.Update.dll</HintPath>
       <Private>True</Private>
@@ -123,9 +131,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <Folder Include="Areas\eContracting\Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="css\main.css" />
@@ -181,6 +188,10 @@
     <Content Include="App_Config\Include\Glass.Mapper.Sc.Start.config" />
     <Content Include="App_Config\Include\Glass.Mapper.Sc.config" />
     <Content Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
+    <Content Include="Areas\eContracting\Views\Shared\eContractingLayout.cshtml" />
+    <Content Include="Areas\eContracting\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
