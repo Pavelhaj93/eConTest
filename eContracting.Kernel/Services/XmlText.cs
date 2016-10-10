@@ -1,5 +1,8 @@
-﻿namespace eContracting.Kernel.Services
+﻿using System;
+
+namespace eContracting.Kernel.Services
 {
+    [Serializable]
     public class XmlText
     {
         public string Index { get; set; }

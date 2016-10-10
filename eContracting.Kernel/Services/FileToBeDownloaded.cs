@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace eContracting.Kernel.Services
 {
+    [Serializable]
     public class FileToBeDownloaded
     {
         public string Index { get; set; }

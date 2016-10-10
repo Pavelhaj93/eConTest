@@ -3,16 +3,17 @@ using System.Globalization;
 
 namespace eContracting.Kernel.Utils
 {
+    [Serializable]
     public class AuthenticationDataItem
     {
-        public String ItemType { get; set; }
-        public String ItemValue { get; set; }
-        public String ItemFriendlyName { get; set; }
-        public String DateOfBirth { get; set; }
-        public String Identifier { get; set; }
-        public String LastName { get; set; }
-        public Boolean IsAccountNumber { get; set; }
-        public String ExpDate { get; set; }
+        public string ItemType { get; set; }
+        public string ItemValue { get; set; }
+        public string ItemFriendlyName { get; set; }
+        public string DateOfBirth { get; set; }
+        public string Identifier { get; set; }
+        public string LastName { get; set; }
+        public bool IsAccountNumber { get; set; }
+        public string ExpDate { get; set; }
         public DateTime ExpDateConverted
         {
             get
@@ -22,7 +23,7 @@ namespace eContracting.Kernel.Utils
                 return outputDateTimeValue;
             }
         }
-        public String ExpDateFormatted
+        public string ExpDateFormatted
         {
             get
             {
