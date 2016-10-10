@@ -1,0 +1,58 @@
+----item----
+version: 1
+id: {463B6026-FAC7-4E4A-9CA1-796170E2A711}
+database: master
+path: /sitecore/layout/Renderings/eContracting/Error404
+parent: {29D7AA96-3D51-4D2C-9ECD-F52D9EE361F2}
+name: Error404
+master: {00000000-0000-0000-0000-000000000000}
+template: {99F8905D-4A87-4EB8-9F8B-A9BEBFB3ADD6}
+templatekey: View rendering
+
+----field----
+field: {51B435BC-F7B9-478A-9C51-52916AF96FF5}
+name: Path
+key: path
+content-length: 21
+
+Views/Error404.cshtml
+----field----
+field: {F869E724-0718-43E4-92A0-D612FE191CFB}
+name: Area
+key: area
+content-length: 12
+
+eContracting
+----version----
+language: en
+version: 1
+revision: 2132a864-6afb-4919-af43-c9b477e4ce76
+
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20161010T141905Z
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+2132a864-6afb-4919-af43-c9b477e4ce76
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20161010T141943Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

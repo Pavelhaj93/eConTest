@@ -1,0 +1,14 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+
+@inherits GlassView<EContracting404Template>
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="info">
+			<h1>@Editable(model=>model.HeaderText)</h1>
+			@Editable(model=>model.Text)
+		</div>
+	</div>
+</div>
