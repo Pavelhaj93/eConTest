@@ -211,6 +211,7 @@
     <Content Include="DoxReady.ashx" />
     <Content Include="GetFile.ashx" />
     <Content Include="Areas\eContracting\Views\Error404.cshtml" />
+    <Content Include="Areas\eContracting\Views\CookieLaw.cshtml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
     <None Include="Web.config" />
     <None Include="Web.Debug.config">

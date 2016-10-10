@@ -56,6 +56,7 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ItemIds.cs" />
     <Compile Include="Exceptions\DateOfBirthWrongFormatException.cs" />
     <Compile Include="Exceptions\OfferIsNullException.cs" />
     <Compile Include="Extensions\ZCCH_CACHE_GETResponseExtensions.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="GlassItems\Pages\EContractingOfferTemplate.cs" />
     <Compile Include="GlassItems\Pages\EContractingExpirationTemplate.cs" />
     <Compile Include="GlassItems\Pages\EContractingTemplate.cs" />
+    <Compile Include="GlassItems\Settings\CookieLawSettings.cs" />
     <Compile Include="GlassItems\Settings\HeaderSettings.cs" />
     <Compile Include="GlassItems\Settings\GeneralSettings.cs" />
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
