@@ -28,7 +28,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying cookie law", ex, this);
-                return new EmptyResult();
+                return View("/Areas/eContracting/Views/SystemError.cshtml");
             }
         }
     }
