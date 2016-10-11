@@ -1,33 +1,26 @@
 ----item----
 version: 1
-id: {4C0854E5-17B8-4F25-B191-1B0A91164C96}
+id: {E2E2A11A-95B6-4AF6-ACBA-C9DF17C9988A}
 database: master
-path: /sitecore/templates/eContracting/Pages/CookieLawTemplate/__Standard Values
+path: /sitecore/templates/eContracting/Settings/CookieLawSettings/Main section
 parent: {725B637D-FA68-4FC4-BA8E-1BCAF62A78DB}
-name: __Standard Values
+name: Main section
 master: {00000000-0000-0000-0000-000000000000}
-template: {725B637D-FA68-4FC4-BA8E-1BCAF62A78DB}
-templatekey: CookieLawTemplate
+template: {E269FBB5-3750-427A-9149-7AA950B49301}
+templatekey: Template section
 
 ----version----
 language: en
 version: 1
-revision: e9cddcf9-4528-409a-b930-8f67cb93fcca
+revision: 0fdb78d0-5e30-48dc-8b03-e65c4eaa9951
 
-----field----
-field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
-name: __Owner
-key: __owner
-content-length: 14
-
-sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20161006T115511Z
+20160909T075130Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -41,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-e9cddcf9-4528-409a-b930-8f67cb93fcca
+0fdb78d0-5e30-48dc-8b03-e65c4eaa9951
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161006T115511Z
+20161006T115859Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

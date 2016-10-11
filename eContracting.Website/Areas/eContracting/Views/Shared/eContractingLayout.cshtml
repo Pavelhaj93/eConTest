@@ -1,4 +1,6 @@
 ﻿@using Sitecore.Mvc.Analytics.Extensions
+@using eContracting.Kernel.Models
+@model LayoutModel
 <!DOCTYPE html>
 
 <html lang="cs">
@@ -6,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, user-scalable=no">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge;" />
-	<title>@Sitecore.Context.Item["PageTitle"]</title>
+	<title>@Sitecore.Context.Item["Page Title"]</title>
 	<link type="image/x-icon" rel="shortcut icon" href="gfx/favicon/blob.png" />
 	<link href="gfx/favicon/57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed" />
 	<link href="gfx/favicon/114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed" />
@@ -38,14 +40,17 @@
 	<header class="header">
 		<div class="container">
 			<div class="row">
-				<a class="logo" runat="server" id="imageLink" target="_blank">
+				<a class="logo" href="@Model.ImageLinkUrl" id="imageLink" target="_blank">
 					<svg class="icon" preserveAspectRatio="none">
 						<use xlink:href="gfx/icon/svg.svg#logo" />
 					</svg>
 				</a>
-				<a class="phone" runat="server" id="phoneLink">
-					<asp:Literal runat="server" ID="phoneLinkText" />
+				@if (!string.IsNullOrEmpty(Model.PhoneLinkUrl))
+				{
+				<a class="phone" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
+					@Model.PhoneLinkUrlText
 				</a>
+				}
 			</div>
 		</div>
 	</header>
@@ -59,17 +64,22 @@
 			<div class="row">
 				<div class="col-sm-6">
 					<p>
-						<asp:Literal runat="server" ID="copyRightText" />
+						@Model.CopyrightText
 					</p>
 				</div>
 				<div class="col-sm-6 text-right">
 					<div class="contact-info">
-						<a class="email" runat="server" id="emailLink">
-							<asp:Literal runat="server" ID="emailText" />
+						@if(!string.IsNullOrEmpty(Model.EmailLink)) {
+						<a class="email" href="mailto:@Model.EmailLink" id="emailLink">
+							@Model.EmailText
 						</a>
-						<a class="phone" runat="server" id="phoneLinkLower">
-							<asp:Literal runat="server" ID="phoneLinkTextLower" />
+						}
+						@if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
+						{
+						<a class="phone" href="tel:@Model.PhoneLinkLowerUrl" id="phoneLinkLower">
+							@Model.PhoneLinkLowerUrlText
 						</a>
+						}
 					</div>
 				</div>
 			</div>
@@ -78,9 +88,12 @@
 	<footer class="footer">
 		<div class="container">
 			<p>
-				<a runat="server" id="disclaimerLinkUrl" target="_blank">
-					<asp:Literal runat="server" ID="disclaimerText" />
+				@if (!string.IsNullOrEmpty(Model.DisclaimerLink))
+				{
+				<a runat="server" href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">
+					@Model.DisclaimerText
 				</a>
+				}
 			</p>
 		</div>
 	</footer>

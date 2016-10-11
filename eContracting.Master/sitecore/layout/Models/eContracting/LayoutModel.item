@@ -1,40 +1,40 @@
 ----item----
 version: 1
-id: {725B637D-FA68-4FC4-BA8E-1BCAF62A78DB}
+id: {CB07B853-5CF3-426B-95F4-B4C989BD1603}
 database: master
-path: /sitecore/templates/eContracting/Pages/CookieLawTemplate
-parent: {D834A7B5-591A-4794-B0AC-84D802AF7895}
-name: CookieLawTemplate
+path: /sitecore/layout/Models/eContracting/LayoutModel
+parent: {7059C0DA-9CFE-42D4-8DFE-1F41AE887CA4}
+name: LayoutModel
 master: {00000000-0000-0000-0000-000000000000}
-template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
-templatekey: Template
+template: {FED6A14F-0D05-4E18-B160-17C0588A2005}
+templatekey: Model
 
 ----field----
-field: {12C33F3F-86C5-43A5-AEB4-5598CEC45116}
-name: __Base template
-key: __base template
-content-length: 38
+field: {EE9E23D2-181D-4172-A929-0E0B8D10313C}
+name: Model Type
+key: model type
+content-length: 59
 
-{1930BBEB-7805-471A-A3BE-4858AC7CF696}
-----field----
-field: {F7D48A55-2158-4F02-9356-756654404F73}
-name: __Standard values
-key: __standard values
-content-length: 38
-
-{4C0854E5-17B8-4F25-B191-1B0A91164C96}
+eContracting.Kernel.Models.LayoutModel, eContracting.Kernel
 ----version----
 language: en
 version: 1
-revision: 83e6ac4f-68d2-4ae4-a161-3176126c3235
+revision: 24a52967-f0fe-4f6e-8070-4805965face3
 
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20160909T075036Z
+20161011T081126Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -48,14 +48,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-83e6ac4f-68d2-4ae4-a161-3176126c3235
+24a52967-f0fe-4f6e-8070-4805965face3
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161007T120512Z
+20161011T081329Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

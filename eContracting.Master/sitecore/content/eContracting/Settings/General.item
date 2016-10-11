@@ -9,6 +9,88 @@ master: {00000000-0000-0000-0000-000000000000}
 template: {0D513A12-13CC-48F1-BD97-58109010109A}
 templatekey: GeneralSettings
 
+----field----
+field: {19EE32EA-C02F-4FD7-B932-F3CB5E4732BB}
+name: AcceptedOffer
+key: acceptedoffer
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{226B8AA5-3DCE-44EF-A63D-10685AEDEA33}" />
+----field----
+field: {7DDE4422-1527-48A3-8455-003A8F127049}
+name: OfferExpired
+key: offerexpired
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{B40F58AC-303B-4ACE-841E-9BA2987D8CE2}" />
+----field----
+field: {DF201A6E-FAB1-46C5-9846-25A1355110BF}
+name: UserBlocked
+key: userblocked
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{C7B3A262-5611-4070-A934-526AF7DC2166}" />
+----field----
+field: {305B5A32-2B42-4D97-8BBE-0FAF875A6755}
+name: SessionExpired
+key: sessionexpired
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{2F8540F4-AB08-461E-921F-C943BBB7CE84}" />
+----field----
+field: {103383F0-AD48-4443-A637-4B5EAC381BCB}
+name: WrongUrl
+key: wrongurl
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{11685D5C-7EA3-4350-AB6B-DB0482D6764C}" />
+----version----
+language: cs-CZ
+version: 1
+revision: 40e93202-a695-4062-bb97-5192b1505f48
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20161011T091222Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+40e93202-a695-4062-bb97-5192b1505f48
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20161011T091710Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
 ----version----
 language: en
 version: 1

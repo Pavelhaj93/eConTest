@@ -1,8 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Settings;
 using Glass.Mapper.Sc;
 using Sitecore.Mvc.Controllers;
+using Log = Sitecore.Diagnostics.Log;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -10,16 +12,24 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     {
         public ActionResult CookieLaw()
         {
-            using (var sitecoreContext = new SitecoreContext())
+            try
             {
-                var cookieLawSettings = sitecoreContext.GetItem<CookieLawSettings>(ItemIds.CookieLawSettings);
-                if (cookieLawSettings != null)
+                using (var sitecoreContext = new SitecoreContext())
                 {
-                    return View("/Areas/eContracting/Views/CookieLaw.cshtml", cookieLawSettings);
+                    var cookieLawSettings = sitecoreContext.GetItem<CookieLawSettings>(ItemIds.CookieLawSettings);
+                    if (cookieLawSettings != null)
+                    {
+                        return View("/Areas/eContracting/Views/CookieLaw.cshtml", cookieLawSettings);
+                    }
                 }
-            }
 
-            return new EmptyResult();
+                return new EmptyResult();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error when displaying cookie law", ex, this);
+                return new EmptyResult();
+            }
         }
     }
 }

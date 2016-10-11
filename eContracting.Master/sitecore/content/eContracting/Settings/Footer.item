@@ -9,6 +9,95 @@ master: {00000000-0000-0000-0000-000000000000}
 template: {5B8D2056-B177-4288-9B89-5E1DF3221197}
 templatekey: FooterSettings
 
+----field----
+field: {A71D5366-770E-4C1D-8C4F-81697F965263}
+name: DisclaimerLink
+key: disclaimerlink
+content-length: 123
+
+<link text="" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
+----version----
+language: cs-CZ
+version: 1
+revision: 98253d24-5307-490a-8607-6943a4c32e5c
+
+----field----
+field: {E5FFCAE6-D61A-4D75-9A7D-C19A0DB9D244}
+name: CopyrightText
+key: copyrighttext
+content-length: 39
+
+© 2016 Innogy. Všechna práva vyhrazena.
+----field----
+field: {B13D9B63-D937-432D-A3BD-0664A3DD4917}
+name: EmailText
+key: emailtext
+content-length: 14
+
+info@innogy.cz
+----field----
+field: {725D122A-6EFD-47AA-BB46-EE53FEAF951A}
+name: EmailLink
+key: emaillink
+content-length: 14
+
+info@innogy.cz
+----field----
+field: {2F76C1C2-E5D1-4A80-8B5F-4E4956E17DE9}
+name: PhoneNumberFooter
+key: phonenumberfooter
+content-length: 12
+
+800 11 33 55
+----field----
+field: {6500F7E4-644A-43EE-8EFA-C14A7E4D1EC9}
+name: PhoneNumberLinkFooter
+key: phonenumberlinkfooter
+content-length: 9
+
+800113355
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20161011T091218Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+98253d24-5307-490a-8607-6943a4c32e5c
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20161011T092712Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
 ----version----
 language: en
 version: 1

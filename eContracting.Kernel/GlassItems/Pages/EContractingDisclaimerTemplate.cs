@@ -1,4 +1,5 @@
-﻿using Glass.Mapper.Sc.Configuration;
+﻿using System;
+using Glass.Mapper.Sc.Configuration;
 using Glass.Mapper.Sc.Configuration.Attributes;
 using Glass.Mapper.Sc.Fields;
 
@@ -7,6 +8,9 @@ namespace eContracting.Kernel.GlassItems.Pages
     [SitecoreType(TemplateId = "{DEAA15B3-B3EE-41BC-AC58-5715BD23DEB6}", AutoMap = true)]
     public class EContractingDisclaimerTemplate : EContractingTemplate
     {
+        [SitecoreId]
+        public virtual Guid ID { get; set; }
+
         [SitecoreField]
         public virtual string Header { get; set; }
 

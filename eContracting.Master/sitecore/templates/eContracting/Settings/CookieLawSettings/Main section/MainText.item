@@ -1,10 +1,10 @@
 ----item----
 version: 1
-id: {7E935A4A-F5C7-4879-816A-E107DEB6372D}
+id: {C80A47F5-E2C7-4ED9-BA80-D8C33D13D8A7}
 database: master
-path: /sitecore/templates/eContracting/Pages/CookieLawTemplate/Main section/ButtonText
+path: /sitecore/templates/eContracting/Settings/CookieLawSettings/Main section/MainText
 parent: {E2E2A11A-95B6-4AF6-ACBA-C9DF17C9988A}
-name: ButtonText
+name: MainText
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
@@ -13,20 +13,20 @@ templatekey: Template field
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
 name: Type
 key: type
-content-length: 16
+content-length: 15
 
-Single-Line Text
+Multi-Line Text
 ----field----
 field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
 name: __Sortorder
 key: __sortorder
 content-length: 3
 
-300
+100
 ----version----
 language: en
 version: 1
-revision: f9e03db3-fbce-4063-ac89-8c56dd8d08f9
+revision: 2a30d358-88ac-4e12-a986-d29956eac502
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -41,7 +41,7 @@ name: __Revision
 key: __revision
 content-length: 36
 
-f9e03db3-fbce-4063-ac89-8c56dd8d08f9
+2a30d358-88ac-4e12-a986-d29956eac502
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
