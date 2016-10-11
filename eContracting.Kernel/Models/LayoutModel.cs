@@ -36,8 +36,8 @@ namespace eContracting.Kernel.Models
 
                 using (var sitecoreContext = new SitecoreContext())
                 {
-                    var headerSettings = sitecoreContext.GetItem<HeaderSettings>(ItemIds.HeaderSettings);
-                    var footerSettings = sitecoreContext.GetItem<FooterSettings>(ItemIds.FooterSettings);
+                    var headerSettings = sitecoreContext.GetItem<HeaderSettings>(ItemPaths.HeaderSettings);
+                    var footerSettings = sitecoreContext.GetItem<FooterSettings>(ItemPaths.FooterSettings);
 
                     if (headerSettings != null)
                     {

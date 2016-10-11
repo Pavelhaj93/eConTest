@@ -16,7 +16,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 using (var sitecoreContext = new SitecoreContext())
                 {
-                    var cookieLawSettings = sitecoreContext.GetItem<CookieLawSettings>(ItemIds.CookieLawSettings);
+                    var cookieLawSettings = sitecoreContext.GetItem<CookieLawSettings>(ItemPaths.CookieLawSettings);
                     if (cookieLawSettings != null)
                     {
                         return View("/Areas/eContracting/Views/CookieLaw.cshtml", cookieLawSettings);
