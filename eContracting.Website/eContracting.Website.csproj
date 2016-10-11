@@ -137,6 +137,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
     <Compile Include="DoxReady.ashx.cs">
       <DependentUpon>DoxReady.ashx</DependentUpon>
@@ -217,6 +218,7 @@
     <Content Include="Areas\eContracting\Views\SystemError.cshtml" />
     <Content Include="Areas\eContracting\Views\SessionExpired.cshtml" />
     <Content Include="Areas\eContracting\Views\UserBlocked.cshtml" />
+    <Content Include="Areas\eContracting\Views\ThankYou.cshtml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
     <None Include="Web.config" />
     <None Include="Web.Debug.config">
