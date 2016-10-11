@@ -10,6 +10,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     {
          public ActionResult UserBlocked()
         {
+            if (Sitecore.Context.PageMode.IsExperienceEditor)
+            {
+                return View("/Areas/eContracting/Views/UserBlocked.cshtml", Context);
+            }
+
             try
             {
                 Session["NumberOfLogons"] = 0;
