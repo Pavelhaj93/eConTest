@@ -152,48 +152,48 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\main.css" />
-    <Content Include="css\main.min.css" />
-    <Content Include="fonts\font-face.css" />
-    <Content Include="fonts\innogy-light.svg" />
-    <Content Include="fonts\innogy-medium.svg" />
-    <Content Include="gfx\favicon\114x114.png" />
-    <Content Include="gfx\favicon\120x120.png" />
-    <Content Include="gfx\favicon\128x128.png" />
-    <Content Include="gfx\favicon\144x144.png" />
-    <Content Include="gfx\favicon\150x150.png" />
-    <Content Include="gfx\favicon\152x152.png" />
-    <Content Include="gfx\favicon\16x16.png" />
-    <Content Include="gfx\favicon\196x196.png" />
-    <Content Include="gfx\favicon\310x150.png" />
-    <Content Include="gfx\favicon\310x310.png" />
-    <Content Include="gfx\favicon\32x32.png" />
-    <Content Include="gfx\favicon\57x57.png" />
-    <Content Include="gfx\favicon\60x60.png" />
-    <Content Include="gfx\favicon\70x70.png" />
-    <Content Include="gfx\favicon\72x72.png" />
-    <Content Include="gfx\favicon\76x76.png" />
-    <Content Include="gfx\favicon\96x96.png" />
-    <Content Include="gfx\favicon\blob.png" />
-    <Content Include="gfx\icon\svg.svg" />
-    <Content Include="js\app.js" />
-    <Content Include="js\app.min.js" />
-    <Content Include="js\bootstrap-datepicker-1.6.4.min.js" />
-    <Content Include="js\bootstrap-datepicker.cs.min.js" />
-    <Content Include="js\jquery-3.1.0.min.js" />
+    <Content Include="Assets\eContracting\css\main.css" />
+    <Content Include="Assets\eContracting\css\main.min.css" />
+    <Content Include="Assets\eContracting\fonts\font-face.css" />
+    <Content Include="Assets\eContracting\fonts\innogy-light.svg" />
+    <Content Include="Assets\eContracting\fonts\innogy-medium.svg" />
+    <Content Include="Assets\eContracting\gfx\favicon\114x114.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\120x120.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\128x128.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\144x144.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\150x150.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\152x152.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\16x16.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\196x196.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\310x150.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\310x310.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\32x32.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\57x57.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\60x60.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\70x70.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\72x72.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\76x76.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\96x96.png" />
+    <Content Include="Assets\eContracting\gfx\favicon\blob.png" />
+    <Content Include="Assets\eContracting\gfx\icon\svg.svg" />
+    <Content Include="Assets\eContracting\js\app.js" />
+    <Content Include="Assets\eContracting\js\app.min.js" />
+    <Content Include="Assets\eContracting\js\bootstrap-datepicker-1.6.4.min.js" />
+    <Content Include="Assets\eContracting\js\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Assets\eContracting\js\jquery-3.1.0.min.js" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\innogy-light.eot" />
-    <Content Include="fonts\innogy-light.ttf" />
-    <Content Include="fonts\innogy-light.woff" />
-    <Content Include="fonts\innogy-light.woff2" />
-    <Content Include="fonts\innogy-medium.eot" />
-    <Content Include="fonts\innogy-medium.ttf" />
-    <Content Include="fonts\innogy-medium.woff" />
-    <Content Include="fonts\innogy-medium.woff2" />
+    <Content Include="Assets\eContracting\fonts\innogy-light.eot" />
+    <Content Include="Assets\eContracting\fonts\innogy-light.ttf" />
+    <Content Include="Assets\eContracting\fonts\innogy-light.woff" />
+    <Content Include="Assets\eContracting\fonts\innogy-light.woff2" />
+    <Content Include="Assets\eContracting\fonts\innogy-medium.eot" />
+    <Content Include="Assets\eContracting\fonts\innogy-medium.ttf" />
+    <Content Include="Assets\eContracting\fonts\innogy-medium.woff" />
+    <Content Include="Assets\eContracting\fonts\innogy-medium.woff2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eContracting.Kernel\eContracting.Kernel.csproj">
