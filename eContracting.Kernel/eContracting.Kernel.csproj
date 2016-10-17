@@ -60,6 +60,8 @@
     <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ConfigHelpers.cs" />
+    <Compile Include="Helpers\PageLinkType.cs" />
     <Compile Include="ItemPaths.cs" />
     <Compile Include="Exceptions\DateOfBirthWrongFormatException.cs" />
     <Compile Include="Exceptions\OfferIsNullException.cs" />
@@ -81,7 +83,7 @@
     <Compile Include="GlassItems\Settings\HeaderSettings.cs" />
     <Compile Include="GlassItems\Settings\GeneralSettings.cs" />
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
-    <Compile Include="Helpers\RweHelpers.cs" />
+    <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Models\LayoutModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileItem.cs" />

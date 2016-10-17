@@ -17,8 +17,9 @@ namespace eContracting.Kernel.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            var userName = RweHelpers.ReadConfig("CacheUserName");
-            var password = RweHelpers.ReadConfig("CachePassword");
+            var userName = SystemHelpers.ReadConfig("eContracring.ServiceUser");
+            var password = SystemHelpers.ReadConfig("eContracting.ServicePassword");
+            api.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
 
             if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
             {
@@ -38,43 +39,45 @@ namespace eContracting.Kernel.Services
 
         private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
         {
-            var api = InitApi();
-
-            ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
-
-            inputPar.IV_CCHKEY = guid;
-            inputPar.IV_CCHTYPE = type;
-            inputPar.IV_GEFILE = "X";
-
-            try
+            using (var api = InitApi())
             {
-                ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
-                return result;
-            }
-            catch (WebException wex)
-            {
-                if (wex.Response == null)
-                {
-                    //throw;
-                    return null;
-                }
+
+                ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
+
+                inputPar.IV_CCHKEY = guid;
+                inputPar.IV_CCHTYPE = type;
+                inputPar.IV_GEFILE = "X";
 
                 try
                 {
-                    var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
-                    //throw new Exception(exceptionResponse, wex);
-                    return null;
+                    ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
+                    return result;
                 }
-                catch
+                catch (WebException wex)
+                {
+                    if (wex.Response == null)
+                    {
+                        //throw;
+                        return null;
+                    }
+
+                    try
+                    {
+                        var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
+                        //throw new Exception(exceptionResponse, wex);
+                        return null;
+                    }
+                    catch
+                    {
+                        //throw;
+                        return null;
+                    }
+                }
+                catch (Exception)
                 {
                     //throw;
                     return null;
                 }
-            }
-            catch (Exception)
-            {
-                //throw;
-                return null;
             }
         }
 
@@ -130,21 +133,23 @@ namespace eContracting.Kernel.Services
 
             if (Decimal.TryParse(timestampString, out outValue))
             {
-                var api = InitApi();
-                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
-                status.IV_CCHKEY = guid;
-                status.IV_CCHTYPE = "NABIDKA";
-                status.IV_STAT = "5";
-                status.IV_TIMESTAMP = outValue;
-                var response = api.ZCCH_CACHE_STATUS_SET(status);
-
-                if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                using (var api = InitApi())
                 {
-                    var responseStatus = response.ET_RETURN.First();
-                    return !String.IsNullOrEmpty(responseStatus.MESSAGE);
-                }
+                    ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                    status.IV_CCHKEY = guid;
+                    status.IV_CCHTYPE = "NABIDKA";
+                    status.IV_STAT = "5";
+                    status.IV_TIMESTAMP = outValue;
+                    var response = api.ZCCH_CACHE_STATUS_SET(status);
 
-                return false;
+                    if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                    {
+                        var responseStatus = response.ET_RETURN.First();
+                        return !String.IsNullOrEmpty(responseStatus.MESSAGE);
+                    }
+
+                    return false;
+                }
             }
             return false;
         }
@@ -156,13 +161,15 @@ namespace eContracting.Kernel.Services
 
             if (Decimal.TryParse(timestampString, out outValue))
             {
-                var api = InitApi();
-                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
-                status.IV_CCHKEY = guid;
-                status.IV_CCHTYPE = "NABIDKA";
-                status.IV_STAT = "1";
-                status.IV_TIMESTAMP = outValue;
-                var response = api.ZCCH_CACHE_STATUS_SET(status);
+                using (var api = InitApi())
+                {
+                    ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                    status.IV_CCHKEY = guid;
+                    status.IV_CCHTYPE = "NABIDKA";
+                    status.IV_STAT = "1";
+                    status.IV_TIMESTAMP = outValue;
+                    var response = api.ZCCH_CACHE_STATUS_SET(status);
+                }
             }
         }
 
