@@ -1,17 +1,13 @@
-﻿namespace eContracting.Kernel.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace eContracting.Kernel.Models
 {
     public class AuthenticationModel
     {
-        public string Name { get; set; }
-
-        public string FirstText { get; set; }
-
-        public string SecondText { get; set; }
-
+        [Required]
         public string BirthDate { get; set; }
 
+        [Required]
         public string Additional { get; set; }
-
-        public string MainText { get; set; }
     }
 }

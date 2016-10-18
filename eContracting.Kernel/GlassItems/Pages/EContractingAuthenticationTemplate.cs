@@ -21,5 +21,11 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link NextPageLink { get; set; }
+
+        [SitecoreField]
+        public virtual string DateOfBirthPlaceholder { get; set; }
+
+        [SitecoreField]
+        public virtual string ContractDataPlaceholder { get; set; }
     }
 }
