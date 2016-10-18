@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
+using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
@@ -19,7 +20,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 RweUtils utils = new RweUtils();
-                utils.IsUserInSession();
+
+                if (!utils.IsUserInSession())
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                }
 
                 AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var data = authenticationDataSessionStorage.GetData();

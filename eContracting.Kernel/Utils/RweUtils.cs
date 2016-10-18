@@ -1,19 +1,10 @@
-﻿using System;
-using System.Web;
-
-namespace eContracting.Kernel.Utils
+﻿namespace eContracting.Kernel.Utils
 {
     public class RweUtils
     {
         public AuthenticationDataSessionStorage authenticationDataSessionStorage { get; set; }
 
-        public static String RedirectSessionExpired { get; set; }
-        public static String RedirectUserHasBeenBlocked { get; set; }
-        public static String AcceptedOfferRedirect { get; set; }
-        public static String WrongUrlRedirect { get; set; }
-        public static String OfferExpired { get; set; }
-
-        public void IsUserInSession()
+        public bool IsUserInSession()
         {
             if (authenticationDataSessionStorage == null)
             {
@@ -22,10 +13,10 @@ namespace eContracting.Kernel.Utils
 
             if (authenticationDataSessionStorage.IsDataActive())
             {
-                return;
+                return true;
             }
 
-            HttpContext.Current.Response.Redirect(RedirectSessionExpired);
+            return false;
         }
     }
 }
