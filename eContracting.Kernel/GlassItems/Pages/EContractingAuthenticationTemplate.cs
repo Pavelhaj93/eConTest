@@ -16,6 +16,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         [SitecoreField]
         public virtual string ButtonText { get; set; }
 
+        [SitecoreField]
+        public virtual string MainText { get; set; }
+
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link NextPageLink { get; set; }
     }

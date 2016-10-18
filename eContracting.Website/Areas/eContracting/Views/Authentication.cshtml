@@ -1,0 +1,40 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Kernel.Models
+@model AuthenticationModel
+
+@using (Html.BeginForm())
+{
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="info">
+			@Model.MainText
+			<div id="authentication" class="form">
+				<div class="status"></div>
+				<div class="row">
+					<div class="col-md-8 col-lg-6">
+						<div class="input-group">
+							<label for="birth">
+								@Model.FirstText
+							</label>
+							@Html.TextBoxFor(model=>model.BirthDate, new { id="birth", name="birth", @class="input-date", autocomplete="off", required="1" })
+							<a class="ui-datepicker-trigger" href="" tabindex="-1">
+								<svg class="icon" preserveAspectRatio="none">
+									<use xlink:href="gfx/icon/svg.svg#calendar" />
+								</svg>
+							</a>
+						</div>
+						<div class="input-group">
+							<label for="additional">
+								@Model.SecondText
+							</label>
+							@Html.TextBoxFor(model => model.Additional, new { id="additional", name="additional", autocomplete="off", required="1" });
+						</div>
+					</div>
+				</div>
+				<input type="submit" class="button button-submit" id="mainBtn" />
+			</div>
+		</div>
+	</div>
+</div>
+}
