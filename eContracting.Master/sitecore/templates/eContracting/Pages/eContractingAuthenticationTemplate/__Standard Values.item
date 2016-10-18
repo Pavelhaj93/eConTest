@@ -9,10 +9,17 @@ master: {00000000-0000-0000-0000-000000000000}
 template: {0EEAE94D-0018-40C8-A537-5B67349985CD}
 templatekey: eContractingAuthenticationTemplate
 
+----field----
+field: {F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}
+name: __Renderings
+key: __renderings
+content-length: 360
+
+<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><p uid="{762891EF-6C3C-4794-9724-0D08DF7AC107}" key="main" md="/sitecore/layout/Placeholder Settings/main" /><r id="{E3A237FE-78F5-449E-BEFA-02BFC5C5FE55}" ph="main" uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" /></d></r>
 ----version----
 language: en
 version: 1
-revision: 72235824-2b6a-498c-9a70-e5ce85d22165
+revision: be068be9-e8b5-456d-a371-9079b5319ba8
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -27,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-72235824-2b6a-498c-9a70-e5ce85d22165
+be068be9-e8b5-456d-a371-9079b5319ba8
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161006T115526Z
+20161018T115736Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

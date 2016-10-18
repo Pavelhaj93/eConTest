@@ -137,6 +137,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\AuthenticationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
