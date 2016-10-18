@@ -10,6 +10,8 @@
 
         WrongUrl,
 
-        OfferExpired
+        OfferExpired,
+
+        ThankYou
     }
 }

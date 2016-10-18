@@ -49,6 +49,8 @@ namespace eContracting.Kernel.Helpers
                     return generalSettings.WrongUrl;
                 case PageLinkType.OfferExpired:
                     return generalSettings.OfferExpired;
+                case PageLinkType.ThankYou:
+                    return generalSettings.ThankYou;
                 default:
                     throw new InvalidOperationException("Invalid page type.");
             }

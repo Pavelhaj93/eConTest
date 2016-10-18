@@ -25,5 +25,8 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link OfferExpired { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link ThankYou { get; set; }
     }
 }
