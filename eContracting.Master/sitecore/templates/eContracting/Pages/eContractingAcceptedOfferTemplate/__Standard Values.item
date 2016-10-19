@@ -9,10 +9,17 @@ master: {00000000-0000-0000-0000-000000000000}
 template: {442E0DAA-1D1B-49D3-B4E8-38B35ABB6AEC}
 templatekey: eContractingAcceptedOfferTemplate
 
+----field----
+field: {F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}
+name: __Renderings
+key: __renderings
+content-length: 360
+
+<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><p uid="{762891EF-6C3C-4794-9724-0D08DF7AC107}" key="main" md="/sitecore/layout/Placeholder Settings/main" /><r id="{FB1DC80F-EFB9-4B10-815D-8AF4130DB14B}" ph="main" uid="{1CAFB7BD-60D5-4AEE-8228-861D0FAD193E}" /></d></r>
 ----version----
 language: en
 version: 1
-revision: d449fdeb-b874-400b-a99c-0e7738c49b4a
+revision: 4ad37e4b-4aa3-4c04-bb9e-82f7b99a3955
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -27,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-d449fdeb-b874-400b-a99c-0e7738c49b4a
+4ad37e4b-4aa3-4c04-bb9e-82f7b99a3955
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161006T115522Z
+20161019T091032Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
