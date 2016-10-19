@@ -5,7 +5,7 @@
     function CheckIfReady() {
         $.ajax({
             type: "POST",
-            url: 'DoxReady.ashx?id=@Model.ClientId',
+            url: '/DoxReady.ashx?id=@Model.ClientId',
             dataType: "json",
             timeout: 30000,
             error: function () {
@@ -22,7 +22,7 @@
 
     window.handleClick = function (e, key) {
         e.preventDefault();
-        $.post("GetFile.ashx?file=" + key, null);
+        $.post("/GetFile.ashx?file=" + key, null);
         window.location.href = "GetFile.ashx?file=" + key;
     }
 </script>
