@@ -14,11 +14,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                if (Sitecore.Context.PageMode.IsExperienceEditor)
-                {
-                    return View("/Areas/eContracting/Views/Expiration.cshtml", Context);
-                }
-
                 RweUtils utils = new RweUtils();
                 if (!utils.IsUserInSession())
                 {
