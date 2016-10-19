@@ -1,4 +1,3 @@
-#region GlassMapperScCustom generated code
 using Glass.Mapper.Configuration;
 using Glass.Mapper.IoC;
 using Glass.Mapper.Maps;
@@ -52,4 +51,3 @@ namespace eContracting.Website.App_Start
         }
     }
 }
-#endregion

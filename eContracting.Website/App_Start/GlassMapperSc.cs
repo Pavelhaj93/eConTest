@@ -1,4 +1,3 @@
-#region GlassMapperSc generated code
 /*************************************
 
 DO NOT CHANGE THIS FILE - UPDATE GlassMapperScCustom.cs
@@ -58,4 +57,3 @@ namespace eContracting.Website.App_Start
         }
 	}
 }
-#endregion
