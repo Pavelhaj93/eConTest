@@ -7,6 +7,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
+using Sitecore.Diagnostics;
 
 namespace eContracting.Kernel.Services
 {
@@ -73,9 +74,9 @@ namespace eContracting.Kernel.Services
                         return null;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    //throw;
+                    Log.Error("Exception occurred when comunicationg with web service", ex, this);
                     return null;
                 }
             }
@@ -114,9 +115,9 @@ namespace eContracting.Kernel.Services
             {
                 using (var stream = new MemoryStream(result.ET_FILES.First().FILECONTENT, false))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(Offer));
+                    XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
                     Offer offer = (Offer)serializer.Deserialize(stream);
-                    offer.IsAccepted = result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+                    offer.OfferInternal.IsAccepted = result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
                         && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
                         && result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => Char.IsDigit(c));
                     return offer;

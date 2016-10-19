@@ -31,18 +31,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var offer = client.GenerateXml(guid);
-                if ((offer == null) || (offer.Body == null) || string.IsNullOrEmpty(offer.Body.BIRTHDT))
+                if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
-                ViewData["MainText"] = string.Format(this.Context.MainText, offer.Body.NAME_LAST);
+                ViewData["MainText"] = string.Format(this.Context.MainText, offer.OfferInternal.Body.NAME_LAST);
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-                if (offer.IsAccepted)
+                if (offer.OfferInternal.IsAccepted)
                 {
                     //client.ResetOffer(guid);
                     //offer = client.GenerateXml(guid);
@@ -50,7 +50,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                if (offer.Body.OfferIsExpired)
+                if (offer.OfferInternal.Body.OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);

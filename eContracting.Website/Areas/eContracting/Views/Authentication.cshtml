@@ -15,7 +15,7 @@
 					<div class="col-md-8 col-lg-6">
 						<div class="input-group">
 							<label for="birth">
-								@ViewData["FirstText"]
+								@Html.Raw(ViewData["FirstText"])
 							</label>
 							@Html.TextBoxFor(model=>model.BirthDate, new { id="birth", name="birth", @class="input-date", autocomplete="off", required="1", placeholder=ViewData["BirthDatePlaceholder"] })
 							<a class="ui-datepicker-trigger" href="" tabindex="-1">
@@ -26,7 +26,7 @@
 						</div>
 						<div class="input-group">
 							<label for="additional">
-								@ViewData["SecondText"]
+								@Html.Raw(ViewData["SecondText"])
 							</label>
 							@Html.TextBoxFor(model => model.Additional, new { id="additional", name="additional", autocomplete="off", required="1", placeholder=ViewData["AdditionalPlaceholder"] })
 						</div>

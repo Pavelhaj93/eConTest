@@ -5,8 +5,15 @@ using System.Xml.Serialization;
 namespace eContracting.Kernel.Services
 {
     [Serializable()]
-    [XmlRoot("Nabidka")]
+    [XmlRoot("abap", Namespace = "http://www.sap.com/abapxml")]
     public class Offer
+    {
+        [XmlElement("Nabidka", Namespace = "")]
+        public OfferInternal OfferInternal { get; set; }
+    }
+
+    [Serializable()]
+    public class OfferInternal
     {
         [XmlElement("Header")]
         public Header Header { get; set; }
