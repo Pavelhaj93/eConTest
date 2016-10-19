@@ -36,7 +36,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        public ActionResult DocumentPanel()
+        public ActionResult DocumentPanel(bool isAccepted)
         {
             try
             {
@@ -45,6 +45,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var data = authenticationDataSessionStorage.GetData();
                 model.ClientId = data.Identifier;
+                model.IsAccepted = isAccepted;
 
                 return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
             }
