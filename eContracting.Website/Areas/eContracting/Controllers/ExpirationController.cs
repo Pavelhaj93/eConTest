@@ -36,7 +36,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying expiration page", ex, this);
-                return View("/Areas/eContracting/Views/SystemError.cshtml");
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
     }

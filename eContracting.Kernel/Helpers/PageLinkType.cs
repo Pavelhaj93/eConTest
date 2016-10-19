@@ -12,6 +12,8 @@
 
         OfferExpired,
 
-        ThankYou
+        ThankYou,
+
+        SystemError
     }
 }

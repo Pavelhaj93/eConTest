@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
+using eContracting.Kernel.Helpers;
 using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
 
@@ -8,7 +9,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 {
     public class UserBlockedController : GlassController<EContractingUserBlockedTemplate>
     {
-         public ActionResult UserBlocked()
+        public ActionResult UserBlocked()
         {
             try
             {
@@ -18,7 +19,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying user blocked page", ex, this);
-                return View("/Areas/eContracting/Views/SystemError.cshtml");
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
     }

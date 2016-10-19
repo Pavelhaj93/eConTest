@@ -32,7 +32,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying cookie law", ex, this);
-                return View("/Areas/eContracting/Views/SystemError.cshtml");
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -52,7 +52,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying document panel.", ex, this);
-                return View("/Areas/eContracting/Views/SystemError.cshtml");
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -68,7 +68,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!offerSent)
                 {
-                    return View("/Areas/eContracting/Views/SystemError.cshtml");
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
                 }
 
                 var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.ThankYou).Url;
@@ -77,7 +77,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when accepting offer.", ex, this);
-                return View("/Areas/eContracting/Views/SystemError.cshtml");
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
     }
