@@ -13,13 +13,13 @@ templatekey: eContractingThankYouTemplate
 field: {F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}
 name: __Renderings
 key: __renderings
-content-length: 360
+content-length: 272
 
-<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><p uid="{762891EF-6C3C-4794-9724-0D08DF7AC107}" key="main" md="/sitecore/layout/Placeholder Settings/main" /><r id="{7B1673D7-C7B6-44D3-9BA4-4154E5D0D77A}" ph="main" uid="{6C0E87E7-35CF-44EB-8D70-81D852E106AB}" /></d></r>
+<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><r ds="" id="{7B1673D7-C7B6-44D3-9BA4-4154E5D0D77A}" par="" ph="eContracting" uid="{6C0E87E7-35CF-44EB-8D70-81D852E106AB}" /></d></r>
 ----version----
 language: en
 version: 1
-revision: 1ff11d7e-2a9b-42ee-a1c6-0af25d6d164f
+revision: 56a73dc4-4c84-414a-a0fa-cd0d58e33170
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -34,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-1ff11d7e-2a9b-42ee-a1c6-0af25d6d164f
+56a73dc4-4c84-414a-a0fa-cd0d58e33170
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161011T134502Z
+20161020T104047Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

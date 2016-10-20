@@ -13,13 +13,13 @@ templatekey: eContractingUserBlockedTemplate
 field: {F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}
 name: __Renderings
 key: __renderings
-content-length: 360
+content-length: 259
 
-<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><p uid="{762891EF-6C3C-4794-9724-0D08DF7AC107}" key="main" md="/sitecore/layout/Placeholder Settings/main" /><r id="{C3A666F0-D044-4585-AC11-7B75BDBB2A57}" ph="main" uid="{EFF67B09-2016-4F91-BB49-8BC4921FD062}" /></d></r>
+<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><r id="{C3A666F0-D044-4585-AC11-7B75BDBB2A57}" ph="eContracting" uid="{2F6B2266-F58C-40FA-BB84-C98E70440C1E}" /></d></r>
 ----version----
 language: en
 version: 1
-revision: 7805de6c-73fe-4af3-b9a4-aa66f91edcf9
+revision: fd747d12-ed08-4b8c-b652-397bc7d48c15
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -34,14 +34,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-7805de6c-73fe-4af3-b9a4-aa66f91edcf9
+fd747d12-ed08-4b8c-b652-397bc7d48c15
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161011T130724Z
+20161020T104115Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
