@@ -37,6 +37,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                ViewData["MainText"] = this.Context.MainText;
+
+                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
+                var authenticationData = authenticationDataSessionStorage.GetData();
+
                 if (offer.OfferInternal.IsAccepted)
                 {
                     //client.ResetOffer(guid);
@@ -50,11 +55,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
-
-                ViewData["MainText"] = this.Context.MainText;
-
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
-                var authenticationData = authenticationDataSessionStorage.GetData();
 
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
