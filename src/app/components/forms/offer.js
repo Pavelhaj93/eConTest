@@ -6,10 +6,11 @@ export default function FormOffer(form) {
     window.onload = () => {
         const classes = {
             unacceptedTerms: 'unaccepted-terms',
-            agreed: 'agreed'
+            agreed: 'agreed',
+            disabledLink: 'button-disabled'
         };
         const list = $(form.querySelector('.list'));
-        const submitBtn = form.querySelector('[type="submit"]');
+        const submitBtn = form.querySelector('.button-submit');
 
         /* Determines whether the documents have been received */
         let gotDocuments = false;
@@ -83,7 +84,7 @@ export default function FormOffer(form) {
         //     {s: 2},
         //     {s: 2},
         //     {s: 2},
-        // ], { agreed: false });
+        // ], { agreed: true });
         // =================================================
 
         /* Determine whether all checkboxes are checked */
@@ -99,7 +100,13 @@ export default function FormOffer(form) {
             /* Form cannot be submitted until documents are ready */
             if (!gotDocuments) { valid = false; }
 
-            submitBtn.disabled = !valid;
+            /* Add/Remove disabled class from the <a> button */
+            if (valid) {
+                submitBtn.classList.remove(classes.disabledLink);
+            } else {
+                submitBtn.classList.add(classes.disabledLink);
+            }
+
             return valid;
         }
 

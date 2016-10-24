@@ -62,7 +62,7 @@
 		border-bottom: 0;
 
 		/* Don't show Submit button while loading, we may receive accepted documents */
-		& + [type="submit"] { display: none; }
+		& + .button-submit { display: none; }
 	}
 
 	&.error {

@@ -27,7 +27,7 @@
 								<ul class="list list-documents loading">
 									<a class="check-all" href="">Označit vše</a>
 								</ul>
-								<input class="button button-submit" type="submit" value="Akceptuji" disabled>
+								<a class="button button-submit button-disabled" href="#">Akceptuji</a>
 							</div>
 
 						</div>
