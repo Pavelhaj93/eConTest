@@ -25,7 +25,7 @@
 							</ul> #}
 							<div id="offer" class="form">
 								<ul class="list list-documents loading">
-									<a class="check-all" href="">Označit vše</a>
+									<a class="check-all" href="#">Označit vše</a>
 								</ul>
 								<a class="button button-submit button-disabled" href="#">Akceptuji</a>
 							</div>

@@ -1,16 +1,17 @@
 export default function CheckAll(container) {
+    container = $(container);
     const form = container.closest('.form');
 
     /* Handle click */
-    container.onclick = (e) => {
+    container.on('click', (e) => {
         e.preventDefault();
         const link = e.target;
 
         /* Get checkboxes on click due to their dynamic nature */
-        const checkboxes = Array.from(form.querySelectorAll('input[type="checkbox"]'));
+        const checkboxes = form.find('input[type="checkbox"]');
 
         /* Check all checkboxes */
-        checkboxes.map((checkbox) => {
+        checkboxes.map((i, checkbox) => {
             checkbox.checked = !link.classList.contains('checked');
         });
         
@@ -18,7 +19,7 @@ export default function CheckAll(container) {
         link.classList.toggle('checked');
 
         /* Update the form's state */
-        form.onchange();
-    };
+        form.change();
+    });
 
 }
