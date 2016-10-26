@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
+using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
@@ -15,6 +16,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 RweUtils utils = new RweUtils();
+                RweClient client = new RweClient();
 
                 if (!utils.IsUserInSession())
                 {
@@ -23,14 +25,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var data = authenticationDataSessionStorage.GetData();
-                try
-                {
-                    Context.MainText = string.Format(Context.MainText, data.LastName);
-                }
-                catch (Exception ex)
-                {
-                    Log.Warn("Error when processing users name pattern in thank you page", this);
-                }
+
+                var text = client.GetTextsXml(data.Identifier);
+                var letterXml = client.GetLetterXml(text);
+                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
+
+                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation);
 
                 return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
             }
