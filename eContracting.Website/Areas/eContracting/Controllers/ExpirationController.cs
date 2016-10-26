@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
+using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
@@ -15,6 +16,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 RweUtils utils = new RweUtils();
+                RweClient client = new RweClient();
+
                 if (!utils.IsUserInSession())
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
@@ -22,14 +25,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var data = authenticationDataSessionStorage.GetData();
-                try
-                {
-                    Context.MainText = string.Format(Context.MainText, data.LastName, data.ExpDateFormatted);
-                }
-                catch (Exception ex)
-                {
-                    Log.Warn("Error when processing users name pattern in expiration page", this);
-                }
+
+                var text = client.GetTextsXml(data.Identifier);
+                var letterXml = client.GetLetterXml(text);
+                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
+                var date = data.ExpDateFormatted;
+
+                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation).Replace("{DATE}", date);
 
                 return View("/Areas/eContracting/Views/Expiration.cshtml", Context);
             }
