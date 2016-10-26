@@ -46,6 +46,10 @@
       <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Castle.Windsor, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Glass.Mapper, Version=4.0.5.54, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Glass.Mapper.Sc.4.0.5.54\lib\net45\Glass.Mapper.dll</HintPath>
       <Private>True</Private>
