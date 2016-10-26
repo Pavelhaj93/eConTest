@@ -30,28 +30,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 RweClient client = new RweClient();
                 var text = client.GetTextsXml(data.Identifier);
-
-                if (text != null && text.Any())
-                {
-                    var tr = new StringReader(text.First().Text);
-                    XDocument doc = XDocument.Load(tr);
-                    var textNode = doc.Descendants("BODY").FirstOrDefault();
-
-                    if (textNode != null)
-                    {
-                        var els = textNode.FirstNode;
-                        if (els != null)
-                        {
-                            var offerSubText = els as XElement;
-                            var mainOfferText = offerSubText.Elements().FirstOrDefault();
-
-                            if (mainOfferText != null)
-                            {
-                                ViewData["MainText"] = mainOfferText.ToString();
-                            }
-                        }
-                    }
-                }
+                var letterXml = client.GetLetterXml(text);
+                ViewData["MainText"] = client.GetAttributeText("BODY", letterXml);
 
                 return View("/Areas/eContracting/Views/Offer.cshtml");
             }
