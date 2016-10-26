@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Text;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
 using Sitecore.Diagnostics;
@@ -174,13 +175,68 @@ namespace eContracting.Kernel.Services
             }
         }
 
-        public List<XmlText> GetTextsXml(string guid)
+        public XmlText GetLetterXml(IEnumerable<XmlText> texts)
+        {
+            return texts.FirstOrDefault();
+        }
+
+        public string GetAttributeText(string tagName, XmlText sourceXml)
+        {
+            if (sourceXml == null)
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                var tr = new StringReader(sourceXml.Text);
+                XDocument doc = XDocument.Load(tr);
+                var textNode = doc.Descendants(tagName).FirstOrDefault();
+
+                if (textNode != null)
+                {
+                    var els = textNode.FirstNode;
+                    if (els != null)
+                    {
+                        if (els is XElement)
+                        {
+                            var offerSubText = els as XElement;
+                            var returningText = offerSubText.Elements().FirstOrDefault();
+
+                            if (returningText != null)
+                            {
+                                return returningText.ToString();
+                            }
+                        }
+                        else if (els is XText)
+                        {
+                            var offerSubText = els as XText;
+                            var returningText = offerSubText.Value;
+
+                            if (returningText != null)
+                            {
+                                return returningText.ToString();
+                            }
+                        }
+                    }
+                }
+
+                return string.Empty;
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
+        public IEnumerable<XmlText> GetTextsXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_XML");
 
+            List<XmlText> fileResults = new List<XmlText>();
+
             if (result.ThereAreFiles())
             {
-                List<XmlText> fileResults = new List<XmlText>();
 
                 int index = 0;
 
@@ -191,11 +247,9 @@ namespace eContracting.Kernel.Services
                     tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
                     fileResults.Add(tempItem);
                 }
-
-                return fileResults;
             }
 
-            return null;
+            return fileResults;
         }
     }
 }
