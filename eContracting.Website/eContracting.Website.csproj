@@ -148,10 +148,10 @@
     <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
-    <Compile Include="DoxReady.ashx.cs">
+    <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
       <DependentUpon>DoxReady.ashx</DependentUpon>
     </Compile>
-    <Compile Include="GetFile.ashx.cs">
+    <Compile Include="Areas\eContracting\Services\GetFile.ashx.cs">
       <DependentUpon>GetFile.ashx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,8 +219,8 @@
     <Content Include="Areas\eContracting\Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="DoxReady.ashx" />
-    <Content Include="GetFile.ashx" />
+    <Content Include="Areas\eContracting\Services\DoxReady.ashx" />
+    <Content Include="Areas\eContracting\Services\GetFile.ashx" />
     <Content Include="Areas\eContracting\Views\Error404.cshtml" />
     <Content Include="Areas\eContracting\Views\CookieLaw.cshtml" />
     <Content Include="Areas\eContracting\Views\Disclaimer.cshtml" />
