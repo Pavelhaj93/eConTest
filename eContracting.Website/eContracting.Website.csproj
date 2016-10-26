@@ -234,6 +234,7 @@
     <Content Include="Areas\eContracting\Views\DocumentPanel.cshtml" />
     <Content Include="Areas\eContracting\Views\Offer.cshtml" />
     <Content Include="Areas\eContracting\Views\AcceptedOffer.cshtml" />
+    <None Include="Properties\PublishProfiles\File system package.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
