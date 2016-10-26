@@ -17,9 +17,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                var dataModel = new AuthenticationModel();
-
                 FillViewData();
+
+                var dataModel = new AuthenticationModel();
 
                 RweClient client = new RweClient();
                 var guid = Request.QueryString["guid"];
@@ -36,8 +36,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
-
-                ViewData["MainText"] = this.Context.MainText;
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
                 var authenticationData = authenticationDataSessionStorage.GetData();
@@ -56,6 +54,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                var text = client.GetTextsXml(authenticationData.Identifier);
+                var letterXml = client.GetLetterXml(text);
+                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
+
+                ViewData["MainText"] = this.Context.MainText.Replace("{SALUTATION}", salutation);
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
@@ -150,7 +153,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
         private void FillViewData()
         {
-            ViewData["MainText"] = this.Context.MainText;
             ViewData["FirstText"] = this.Context.DateOfBirth;
             ViewData["SecondText"] = this.Context.ContractData;
             ViewData["ButtonText"] = this.Context.ButtonText;
