@@ -13,13 +13,13 @@ templatekey: FooterSettings
 field: {A71D5366-770E-4C1D-8C4F-81697F965263}
 name: DisclaimerLink
 key: disclaimerlink
-content-length: 123
+content-length: 145
 
-<link text="" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
+<link text="Ochrana osobních údajů" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
 ----version----
 language: cs-CZ
 version: 1
-revision: 98253d24-5307-490a-8607-6943a4c32e5c
+revision: 176eb49c-0133-4f95-86f6-ab3ccd3ca7eb
 
 ----field----
 field: {E5FFCAE6-D61A-4D75-9A7D-C19A0DB9D244}
@@ -83,14 +83,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-98253d24-5307-490a-8607-6943a4c32e5c
+176eb49c-0133-4f95-86f6-ab3ccd3ca7eb
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161011T092712Z
+20161027T064826Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

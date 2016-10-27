@@ -47,6 +47,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 model.ClientId = data.Identifier;
                 model.IsAccepted = isAccepted;
 
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
+
+                ViewData["IAmInformed"] = generalSettings.IAmInformed;
+                ViewData["IAgree"] = generalSettings.IAgree;
+
                 return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
             }
             catch (Exception ex)

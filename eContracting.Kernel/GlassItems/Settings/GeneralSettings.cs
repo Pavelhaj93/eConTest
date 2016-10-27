@@ -31,5 +31,11 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link SystemError { get; set; }
+
+        [SitecoreField]
+        public virtual string IAmInformed { get; set; }
+
+        [SitecoreField]
+        public virtual string IAgree { get; set; }
     }
 }
