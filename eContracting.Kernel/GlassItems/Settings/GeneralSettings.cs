@@ -40,5 +40,8 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string Accept { get; set; }
+
+        [SitecoreField]
+        public virtual string AppNotAvailable { get; set; }
     }
 }

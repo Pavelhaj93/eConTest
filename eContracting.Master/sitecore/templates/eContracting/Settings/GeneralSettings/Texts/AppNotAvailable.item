@@ -2,8 +2,8 @@
 version: 1
 id: {B3220A2D-C28A-4667-8BAB-1C3D67329592}
 database: master
-path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/Text box section/AppNotAvailable
-parent: {E9E22F83-E5B0-4FA1-A1BB-B4EF9EAAE071}
+path: /sitecore/templates/eContracting/Settings/GeneralSettings/Texts/AppNotAvailable
+parent: {1733BAA6-F589-4A71-B2A0-F0EF6573750F}
 name: AppNotAvailable
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
@@ -26,7 +26,7 @@ content-length: 3
 ----version----
 language: en
 version: 1
-revision: 0acd3fc2-0acf-445a-a254-2cbe8508ec52
+revision: 40585ccc-8519-453b-a39a-8ef68ab45b77
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -41,14 +41,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-0acd3fc2-0acf-445a-a254-2cbe8508ec52
+40585ccc-8519-453b-a39a-8ef68ab45b77
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161027T102432Z
+20161027T120828Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

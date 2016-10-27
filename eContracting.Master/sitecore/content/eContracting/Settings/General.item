@@ -61,7 +61,7 @@ content-length: 123
 ----version----
 language: cs-CZ
 version: 1
-revision: cc759660-660c-49ad-8084-9f959dd97935
+revision: e18ad431-1a85-4998-a67c-aa3dc933013c
 
 ----field----
 field: {F6510992-4FBF-4EC7-95F9-A8D0EBD04582}
@@ -84,6 +84,13 @@ key: accept
 content-length: 9
 
 Akceptuji
+----field----
+field: {B3220A2D-C28A-4667-8BAB-1C3D67329592}
+name: AppNotAvailable
+key: appnotavailable
+content-length: 58
+
+Aplikace nen&iacute; v tuto chv&iacute;li dostupn&aacute;.
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -111,14 +118,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-cc759660-660c-49ad-8084-9f959dd97935
+e18ad431-1a85-4998-a67c-aa3dc933013c
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161027T101648Z
+20161027T120930Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
