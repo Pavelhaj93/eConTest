@@ -40,20 +40,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-                if (offer.OfferInternal.IsAccepted)
-                {
-                    //client.ResetOffer(guid);
-                    //offer = client.GenerateXml(guid);
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
-                    return Redirect(redirectUrl);
-                }
-
-                if (offer.OfferInternal.Body.OfferIsExpired)
-                {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
-                    return Redirect(redirectUrl);
-                }
-
                 var text = client.GetTextsXml(authenticationData.Identifier);
                 var letterXml = client.GetLetterXml(text);
                 var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
@@ -140,6 +126,21 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
 
                     Session["NumberOfLogons"] = 0;
+
+                    RweClient client = new RweClient();
+                    var offer = client.GenerateXml(authenticationData.Identifier);
+
+                    if (offer.OfferInternal.IsAccepted)
+                    {
+                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
+                        return Redirect(redirectUrl);
+                    }
+
+                    if (offer.OfferInternal.Body.OfferIsExpired)
+                    {
+                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
+                        return Redirect(redirectUrl);
+                    }
 
                     return Redirect(Context.NextPageLink.Url);
                 }
