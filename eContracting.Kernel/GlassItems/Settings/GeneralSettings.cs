@@ -37,5 +37,8 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string IAgree { get; set; }
+
+        [SitecoreField]
+        public virtual string Accept { get; set; }
     }
 }

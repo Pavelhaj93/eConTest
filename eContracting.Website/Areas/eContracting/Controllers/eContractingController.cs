@@ -51,6 +51,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 ViewData["IAmInformed"] = generalSettings.IAmInformed;
                 ViewData["IAgree"] = generalSettings.IAgree;
+                ViewData["Accept"] = generalSettings.Accept;
 
                 return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
             }

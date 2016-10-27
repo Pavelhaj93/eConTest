@@ -61,7 +61,7 @@ content-length: 123
 ----version----
 language: cs-CZ
 version: 1
-revision: 7bb585d9-ec80-475e-9b34-8c88e5d45608
+revision: cc759660-660c-49ad-8084-9f959dd97935
 
 ----field----
 field: {F6510992-4FBF-4EC7-95F9-A8D0EBD04582}
@@ -77,6 +77,13 @@ key: iagree
 content-length: 11
 
 Souhlasím s
+----field----
+field: {10317A26-16F3-4CEC-AD36-D7B7C20D6452}
+name: Accept
+key: accept
+content-length: 9
+
+Akceptuji
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -104,14 +111,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-7bb585d9-ec80-475e-9b34-8c88e5d45608
+cc759660-660c-49ad-8084-9f959dd97935
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161027T091729Z
+20161027T101648Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

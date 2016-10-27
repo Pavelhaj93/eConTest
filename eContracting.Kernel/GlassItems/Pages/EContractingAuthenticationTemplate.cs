@@ -27,5 +27,14 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField]
         public virtual string ContractDataPlaceholder { get; set; }
+
+        [SitecoreField]
+        public virtual string ValidationMessage { get; set; }
+        
+        [SitecoreField]
+        public virtual string RequiredFields { get; set; }
+
+        [SitecoreField]
+        public virtual string AppNotAvailable { get; set; }
     }
 }
