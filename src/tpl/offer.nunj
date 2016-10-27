@@ -17,12 +17,6 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12 col-md-10 col-md-offset-1">
-		{# 					<ul class="list list-static">
-								<li>
-									<input id="customer-rights" type="checkbox" autocomplete="off">
-									<label for="customer-rights">Jsem poučen s <a class="pdf" href="#" target="_blank">Informacemi pro zákaznika - spotřebitele</a></label>
-								</li>
-							</ul> #}
 							<div id="offer" class="form">
 								<ul class="list list-documents loading">
 									<a class="check-all" href="#">Označit vše</a>
@@ -38,14 +32,32 @@
 	</div>
 
 	<script>
-		// Documents come from BACK-END
+		/* Documents come from Back-end  */
 		var documents = [
-			{ title: 'Podminkami pro uzivatele' },
-			{ title: 'My custom document' },
-			{ title: 'Dodatkem ke smlouve' },
-			{ title: 'Ceníkem produktu' },
-			{ title: 'Ceníkem služeb' },
-			{ title: 'Obchodními podmínkami' }
+			{
+				label: 'Jsem poučen s',
+				title: 'Podminkami pro uzivatele'
+			},
+			{
+				label: 'Souhlasím s',
+				title: 'My custom document'
+			},
+			{
+				label: 'Souhlasím s',
+				title: 'Dodatkem ke smlouve'
+			},
+			{
+				label: 'Souhlasím s',
+				title: 'Ceníkem produktu'
+			},
+			{
+				label: 'Souhlasím s',
+				title: 'Ceníkem služeb'
+			},
+			{
+				label: 'Souhlasím s',
+				title: 'Obchodními podmínkami'
+			}
 		];
 	</script>
 

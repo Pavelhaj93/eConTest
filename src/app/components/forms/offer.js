@@ -80,11 +80,7 @@ export default function FormOffer(form) {
         };
 
         // =================================================
-        // documentsReceived([
-        //     {s: 2},
-        //     {s: 2},
-        //     {s: 2},
-        // ], { agreed: true });
+        // documentsReceived(documents, { agreed: false });
         // =================================================
 
         /* Determine whether all checkboxes are checked */
