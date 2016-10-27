@@ -1,6 +1,5 @@
 import Alert from '../../components/alert';
 import { alertTypes } from '../../components/alert';
-import { messages } from '../messages';
 import url from 'url';
 import trim from '../../helpers/trim';
 

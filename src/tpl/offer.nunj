@@ -59,6 +59,14 @@
 				title: 'Obchodními podmínkami'
 			}
 		];
+
+		/* Message component messages from Back-end */
+		var messages = {
+			appUnavailable: [
+				'<h3>Nedostupnost aplikace</h3>',
+				'<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>'
+			]
+		}
 	</script>
 
 {% endblock %}

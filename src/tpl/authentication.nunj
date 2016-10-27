@@ -29,6 +29,14 @@
 {% endblock %}
 
 {% block scripts %}
+	{# Localization should go after Datepicker in order to work properly #}
 	<script src="js/vendor/bootstrap-datepicker-1.6.4.min.js"></script>
 	<script src="js/vendor/bootstrap-datepicker.cs.min.js"></script>
+
+	<script>
+		var messages = {
+			requiredFields: ['Prosím , vyplňte všechna požadovaná pole.'],
+			validationError: ['Ověření Vašich údajů se nezdařilo. Zadejte prosím správné údaje. V případě potíží se prosím obraťte na naši zákaznickou podporu.']
+		};
+	</script>
 {% endblock %}

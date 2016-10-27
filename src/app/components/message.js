@@ -11,9 +11,10 @@
 *
 */
 
-import { messages } from './messages';
-
 export default function Message(container, name) {
+    /* Stop when no messages are passed from Back-end */
+    if (!messages) { return; }
+
     !(container instanceof jQuery) && (container = $(container));
 
     /* Get the required message */
