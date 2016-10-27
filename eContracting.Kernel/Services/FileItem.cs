@@ -10,5 +10,8 @@ namespace eContracting.Kernel.Services
 
         [JsonProperty("url")]
         public String Url { get; set; }
+
+        [JsonProperty("label")]
+        public String Label { get; set; }
     }
 }
