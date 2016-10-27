@@ -34,6 +34,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation).Replace("{DATE}", date);
 
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
+                ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
+
                 return View("/Areas/eContracting/Views/AcceptedOffer.cshtml");
             }
             catch (Exception ex)

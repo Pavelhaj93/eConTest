@@ -6,3 +6,13 @@
 	</div>
 </div>
 @Html.Action("DocumentPanel", "eContracting", new { IsAccepted = false })
+
+<script>
+/* Message component messages from Back-end */
+	var messages = {
+		appUnavailable: [
+			'<h3>Nedostupnost aplikace</h3>',
+			'<p>@Html.Raw(ViewData["AppNotAvailable"])</p>'
+		]
+	}
+</script>

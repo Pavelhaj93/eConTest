@@ -1,8 +1,5 @@
 ﻿using System;
-using System.IO;
-using System.Linq;
 using System.Web.Mvc;
-using System.Xml.Linq;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
@@ -32,6 +29,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var text = client.GetTextsXml(data.Identifier);
                 var letterXml = client.GetLetterXml(text);
                 ViewData["MainText"] = client.GetAttributeText("BODY", letterXml);
+
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
+                ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
 
                 return View("/Areas/eContracting/Views/Offer.cshtml");
             }

@@ -158,6 +158,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             ViewData["SecondText"] = this.Context.ContractData;
             ViewData["ButtonText"] = this.Context.ButtonText;
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
+
+            ViewData["RequiredFields"] = this.Context.RequiredFields;
+            ViewData["ValidationMessage"] = this.Context.ValidationMessage;
         }
     }
 }

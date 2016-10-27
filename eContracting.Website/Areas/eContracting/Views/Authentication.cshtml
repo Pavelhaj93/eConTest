@@ -38,3 +38,10 @@
 	</div>
 </div>
 }
+
+<script>
+		var messages = {
+			requiredFields: ['@Html.Raw(ViewData["RequiredFields"])'],
+			validationError: ['@Html.Raw(ViewData["ValidationMessage"])']
+		};
+</script>
