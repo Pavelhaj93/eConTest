@@ -30,9 +30,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var text = client.GetTextsXml(data.Identifier);
                 var letterXml = client.GetLetterXml(text);
                 var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
-                var date = client.GetAttributeText("DATE", letterXml);
+                var date = client.GenerateXml(data.Identifier);
 
-                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation).Replace("{DATE}", date);
+                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation).Replace("{DATE}", date.OfferInternal.AcceptedAt);
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;

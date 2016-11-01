@@ -23,6 +23,9 @@ namespace eContracting.Kernel.Services
 
         [XmlIgnore]
         public Boolean IsAccepted { get; set; }
+
+        [XmlIgnore]
+        public string AcceptedAt { get; set; }
     }
 
     [Serializable()]
