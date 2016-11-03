@@ -67,6 +67,10 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Analytics, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Analytics.NoReferences.8.1.160302\lib\NET45\Sitecore.Analytics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.1.160302\lib\NET45\Sitecore.Kernel.dll</HintPath>
       <Private>True</Private>

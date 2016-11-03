@@ -6,6 +6,7 @@ using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc.Web.Mvc;
+using Sitecore.Analytics;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
@@ -43,6 +44,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var text = client.GetTextsXml(authenticationData.Identifier);
                 var letterXml = client.GetLetterXml(text);
                 var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
+                var email = client.GetAttributeText("CUSTEMAIL", letterXml);
+
+                if (!string.IsNullOrEmpty(email))
+                {
+                    Tracker.Current.Session.Identify(email);
+                }
 
                 ViewData["MainText"] = this.Context.MainText.Replace("{SALUTATION}", salutation);
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
