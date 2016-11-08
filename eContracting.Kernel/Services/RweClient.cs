@@ -132,7 +132,7 @@ namespace eContracting.Kernel.Services
                         if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedAcceptedAt))
                         {
                             var cultureInfo = CultureInfo.CreateSpecificCulture("cs-cz");
-                            offer.OfferInternal.AcceptedAt = parsedAcceptedAt.ToString(cultureInfo.DateTimeFormat.ShortDatePattern);
+                            offer.OfferInternal.AcceptedAt = parsedAcceptedAt.ToString("d.M.yyyy");
                         }
                         else
                         {
