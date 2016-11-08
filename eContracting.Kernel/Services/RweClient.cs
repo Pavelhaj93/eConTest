@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -124,7 +125,19 @@ namespace eContracting.Kernel.Services
 
                     if (offer.OfferInternal.IsAccepted)
                     {
-                        offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+                        DateTime parsedAcceptedAt;
+
+                        var acceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
+
+                        if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedAcceptedAt))
+                        {
+                            var cultureInfo = CultureInfo.CreateSpecificCulture("cs-cz");
+                            offer.OfferInternal.AcceptedAt = parsedAcceptedAt.ToString(cultureInfo.DateTimeFormat.ShortDatePattern);
+                        }
+                        else
+                        {
+                            offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+                        }
                     }
 
                     return offer;
