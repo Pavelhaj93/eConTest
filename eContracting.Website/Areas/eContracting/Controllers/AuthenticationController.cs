@@ -46,10 +46,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
                 var email = client.GetAttributeText("CUSTEMAIL", letterXml);
 
-                if (!string.IsNullOrEmpty(email))
-                {
-                    Tracker.Current.Session.Identify(email);
-                }
+                //if (!string.IsNullOrEmpty(email))
+                //{
+                //    Tracker.Current.Session.Identify(email);
+                //}
 
                 ViewData["MainText"] = this.Context.MainText.Replace("{SALUTATION}", salutation);
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
