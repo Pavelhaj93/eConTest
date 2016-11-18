@@ -44,7 +44,9 @@
 			min-height: auto;
 
 			li:not(:first-child),
-			.check-all { display: none; }
+			.check-all {
+				display: none;
+			}
 
 			li:first-child {
 				border-bottom: 0;
@@ -54,6 +56,14 @@
 
 		&.agreed {
 			border-bottom: 0;
+
+			li:first-child {
+				padding-bottom: .5rem;
+			}
+
+			label {
+				margin-left: .5rem;
+			}
 		}
 	}
 

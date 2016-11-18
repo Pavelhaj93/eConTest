@@ -1,5 +1,11 @@
-export default function printDocumentsList(container, documents) {
+export default function printDocumentsList(container, documents, options) {
     !(container instanceof jQuery) && (container = $(container));
+
+    /* Custom options */
+    const checked = options.checked || false;
+    const disabled = options.disabled || false;
+
+    console.log(options.agreed, checked, disabled);
 
     /* DEMO: Method is overwritten on server */
     // window.handleClick = function(e, key) {
@@ -14,12 +20,19 @@ export default function printDocumentsList(container, documents) {
         const title = doc.title;
         const item = [
             '<li>',
-            `<input id="document-${key}" type="checkbox" autocomplete="off">`,
+            !options.agreed && `
+            <input
+                id="document-${key}"
+                type="checkbox"
+                ${checked && 'checked'}
+                ${disabled && 'disabled'}
+                autocomplete="off">`,
             `<label for="document-${key}">`,
-            `${label} <a class="pdf" href="#" data-key="${key}" title="${title}">${title}</a>`,
+            !options.agreed && `${label} `,
+            `<a class="pdf" href="#" data-key="${key}" title="${title}">${title}</a>`,
             '</label>',
             '</li>'
-        ].join('');
+        ].filter(Boolean).join('');
 
         /* Insert HTML */
         if (i == 0) {
@@ -34,19 +47,4 @@ export default function printDocumentsList(container, documents) {
             handleClick(e, key);
         });
     });
-
-    /* Add custom properties */
-    const options = arguments[arguments.length - 1];
-    if (options) {
-        const agreed = options.agreed;
-        const checked = options.checked || agreed;
-        const disabled = options.disabled;
-        let input = container.find('input');
-
-        /* Checked */
-        input.prop('checked', checked);
-
-        /* Disabled */
-        (agreed || disabled) && input.prop('disabled', true);
-    }
 };
