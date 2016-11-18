@@ -26,7 +26,23 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var data = authenticationDataSessionStorage.GetData();
 
                 RweClient client = new RweClient();
+
+                var offer = client.GenerateXml(data.Identifier);
+
+                if (offer.OfferInternal.IsAccepted)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
+                    return Redirect(redirectUrl);
+                }
+
+                if (offer.OfferInternal.Body.OfferIsExpired)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
+                    return Redirect(redirectUrl);
+                }
+
                 var text = client.GetTextsXml(data.Identifier);
+
                 var letterXml = client.GetLetterXml(text);
                 ViewData["MainText"] = client.GetAttributeText("BODY", letterXml);
 
