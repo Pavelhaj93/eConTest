@@ -30,7 +30,7 @@ namespace eContracting.Website
                             using (var ms = new MemoryStream(thisFile.FileContent.ToArray()))
                             {
                                 context.Response.ContentType = "application/pdf";
-                                context.Response.AddHeader("content-disposition", "attachment;filename=" + thisFile.FileName);
+                                context.Response.AddHeader("Content-Disposition", string.Format("attachment; filename*=UTF-8''{0}", HttpUtility.UrlPathEncode(thisFile.FileName).Replace(",", "%2C")));
                                 context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
                                 context.Response.Buffer = true;
                                 ms.WriteTo(context.Response.OutputStream);

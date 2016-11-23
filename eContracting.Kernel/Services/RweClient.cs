@@ -96,12 +96,30 @@ namespace eContracting.Kernel.Services
 
                 foreach (var f in result.ET_FILES.OrderBy(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL))
                 {
-                    FileToBeDownloaded tempItem = new FileToBeDownloaded();
-                    tempItem.Index = (++index).ToString();
-                    tempItem.FileName = f.FILENAME;
-                    tempItem.FileNumber = f.FILEINDX;
-                    tempItem.FileContent = f.FILECONTENT.ToList();
-                    fileResults.Add(tempItem);
+                    try
+                    {
+                        var customisedFileName = f.FILENAME;
+
+                        if (f.ATTRIB.Any(any => any.ATTRID == "Link_label"))
+                        {
+                            var linkLabel = f.ATTRIB.FirstOrDefault(where => where.ATTRID == "Link_label");
+                            customisedFileName = linkLabel.ATTRVAL;
+
+                            var extension = Path.GetExtension(f.FILENAME);
+                            customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
+                        }
+
+                        FileToBeDownloaded tempItem = new FileToBeDownloaded();
+                        tempItem.Index = (++index).ToString();
+                        tempItem.FileName = customisedFileName;
+                        tempItem.FileNumber = f.FILEINDX;
+                        tempItem.FileContent = f.FILECONTENT.ToList();
+                        fileResults.Add(tempItem);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("Exception occured when parsing file list", ex, this);
+                    }
                 }
 
                 return fileResults;
