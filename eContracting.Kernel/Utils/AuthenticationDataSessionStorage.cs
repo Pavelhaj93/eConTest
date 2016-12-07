@@ -2,6 +2,7 @@
 using System.Web;
 using eContracting.Kernel.Exceptions;
 using eContracting.Kernel.Services;
+using eContracting.Kernel.Helpers;
 
 namespace eContracting.Kernel.Utils
 {
@@ -39,34 +40,36 @@ namespace eContracting.Kernel.Utils
                 authenticationDataItem.Identifier = offer.OfferInternal.Body.Guid;
                 authenticationDataItem.LastName = offer.OfferInternal.Body.NAME_LAST;
                 authenticationDataItem.ExpDate = offer.OfferInternal.Body.DATE_TO;
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
+
 
                 switch (value)
                 {
                     case 1:
                         authenticationDataItem.ItemType = "PARTNER";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PARTNER;
-                        authenticationDataItem.ItemFriendlyName = "Číslo OP";
+                        authenticationDataItem.ItemFriendlyName = generalSettings.IdentityCardNumber;
                         authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 2:
                         authenticationDataItem.ItemType = "PSC_MS";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscMistaSpotreby;
-                        authenticationDataItem.ItemFriendlyName = "PSČ Místa spotřeby";
+                        authenticationDataItem.ItemFriendlyName = generalSettings.UsedPostalCode;
                         authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 3:
                         authenticationDataItem.ItemType = "PSC_ADDR";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscTrvaleBydliste;
-                        authenticationDataItem.ItemFriendlyName = "PSČ trvalého bydliště";
+                        authenticationDataItem.ItemFriendlyName = generalSettings.PermanentResidencePostalCode;
                         authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 4:
                         authenticationDataItem.ItemType = "ACCOUNT_NUMBER";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.ACCOUNT_NUMBER;
-                        authenticationDataItem.ItemFriendlyName = "číslo bankovního účtu včetně kódu banky za lomítkem";
+                        authenticationDataItem.ItemFriendlyName = generalSettings.AccountNumber;
                         authenticationDataItem.IsAccountNumber = true;
                         break;
                     default:

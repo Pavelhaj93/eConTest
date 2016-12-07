@@ -43,5 +43,17 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string AppNotAvailable { get; set; }
+
+        [SitecoreField]
+        public virtual string IdentityCardNumber { get; set; }
+
+        [SitecoreField]
+        public virtual string UsedPostalCode { get; set; }
+
+        [SitecoreField]
+        public virtual string PermanentResidencePostalCode { get; set; }
+
+        [SitecoreField]
+        public virtual string AccountNumber { get; set; }
     }
 }

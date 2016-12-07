@@ -86,7 +86,18 @@ namespace eContracting.Kernel.Services
 
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_PDF");
+            var res = GetResponse(guid, "NABIDKA");
+            bool IsAccepted = res.ET_ATTRIB != null && res.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
+
+            ZCCH_CACHE_GETResponse result = null;
+            if(IsAccepted)
+            {
+                result = GetResponse(guid, "NABIDKA_PRIJ");
+            }
+            else
+            {
+                result = GetResponse(guid, "NABIDKA_PDF");
+            }
 
             List<FileToBeDownloaded> fileResults = new List<FileToBeDownloaded>();
 
@@ -260,7 +271,7 @@ namespace eContracting.Kernel.Services
 
                 return string.Empty;
             }
-            catch (Exception ex)
+            catch
             {
                 return string.Empty;
             }
