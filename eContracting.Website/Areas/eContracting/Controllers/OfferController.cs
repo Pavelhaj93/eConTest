@@ -41,10 +41,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                var text = client.GetTextsXml(data.Identifier);
 
-                var letterXml = client.GetLetterXml(text);
-                ViewData["MainText"] = client.GetAttributeText("BODY", letterXml);
+                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;

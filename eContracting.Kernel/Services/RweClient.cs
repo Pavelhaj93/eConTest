@@ -10,6 +10,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
 using Sitecore.Diagnostics;
+using System.Xml;
 
 namespace eContracting.Kernel.Services
 {
@@ -228,53 +229,20 @@ namespace eContracting.Kernel.Services
             return texts.FirstOrDefault();
         }
 
-        public string GetAttributeText(string tagName, XmlText sourceXml)
+        public Dictionary<string,string> GetAllAtrributes(XmlText sourceXml)
         {
-            if (sourceXml == null)
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(sourceXml.Text);
+
+            var parameters = doc.DocumentElement.SelectSingleNode("parameters").ChildNodes;
+
+            foreach ( XmlNode param in parameters)
             {
-                return string.Empty;
+                result.Add(param.Name, param.InnerXml);
             }
 
-            try
-            {
-                var tr = new StringReader(sourceXml.Text);
-                XDocument doc = XDocument.Load(tr);
-                var textNode = doc.Descendants(tagName).FirstOrDefault();
-
-                if (textNode != null)
-                {
-                    var els = textNode.FirstNode;
-                    if (els != null)
-                    {
-                        if (els is XElement)
-                        {
-                            var offerSubText = els as XElement;
-                            var returningText = offerSubText.Elements().FirstOrDefault();
-
-                            if (returningText != null)
-                            {
-                                return returningText.ToString();
-                            }
-                        }
-                        else if (els is XText)
-                        {
-                            var offerSubText = els as XText;
-                            var returningText = offerSubText.Value;
-
-                            if (returningText != null)
-                            {
-                                return returningText.ToString();
-                            }
-                        }
-                    }
-                }
-
-                return string.Empty;
-            }
-            catch
-            {
-                return string.Empty;
-            }
+            return result;
         }
 
         public IEnumerable<XmlText> GetTextsXml(string guid)

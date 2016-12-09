@@ -17,22 +17,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 RweUtils utils = new RweUtils();
-                RweClient client = new RweClient();
 
                 if (!utils.IsUserInSession())
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetData();
-
-                var text = client.GetTextsXml(data.Identifier);
-                var letterXml = client.GetLetterXml(text);
-                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
-                var date = client.GenerateXml(data.Identifier);
-
-                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation).Replace("{DATE}", date.OfferInternal.AcceptedAt);
+                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;

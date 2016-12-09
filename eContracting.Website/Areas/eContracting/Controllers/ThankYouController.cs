@@ -23,14 +23,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetData();
-
-                var text = client.GetTextsXml(data.Identifier);
-                var letterXml = client.GetLetterXml(text);
-                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
-
-                ViewData["MainText"] = Context.MainText.Replace("{SALUTATION}", salutation);
+                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
 
                 return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
             }

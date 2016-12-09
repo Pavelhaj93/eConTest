@@ -61,7 +61,7 @@ content-length: 123
 ----version----
 language: cs-CZ
 version: 1
-revision: 76c5f57f-f04f-4e40-99bb-5a55620578ff
+revision: 3280af46-4373-436c-9a00-a1ac6211aed4
 
 ----field----
 field: {F6510992-4FBF-4EC7-95F9-A8D0EBD04582}
@@ -95,30 +95,30 @@ Aplikace nen&iacute; v tuto chv&iacute;li dostupn&aacute;.
 field: {1E617D5D-D1A2-40BE-82DC-3FD906262207}
 name: IdentityCardNumber
 key: identitycardnumber
-content-length: 9
+content-length: 18
 
-Číslo OP1
+1 zakaznicke cislo
 ----field----
 field: {1AEA1A18-5959-48B9-BD49-4F36219BF1BC}
 name: UsedPostalCode
 key: usedpostalcode
-content-length: 19
+content-length: 20
 
-PSČ Místa spotřeby1
+2 PSČ Místa spotřeby
 ----field----
 field: {688BAE1F-268C-4AA0-8F04-D58DA3BACC3A}
 name: PermanentResidencePostalCode
 key: permanentresidencepostalcode
-content-length: 22
+content-length: 23
 
-PSČ trvalého bydliště1
+3 PSČ trvalého bydliště
 ----field----
 field: {BF9D01FB-4C20-42B1-9A3A-DF75BBDDF5D3}
 name: AccountNumber
 key: accountnumber
-content-length: 52
+content-length: 53
 
-číslo bankovního účtu včetně kódu banky za lomítkem1
+4 číslo bankovního účtu včetně kódu banky za lomítkem
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -146,14 +146,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-76c5f57f-f04f-4e40-99bb-5a55620578ff
+3280af46-4373-436c-9a00-a1ac6211aed4
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161207T111132Z
+20161207T140149Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

@@ -41,17 +41,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-                var text = client.GetTextsXml(authenticationData.Identifier);
-                var letterXml = client.GetLetterXml(text);
-                var salutation = client.GetAttributeText("CUSTTITLELET", letterXml);
-                var email = client.GetAttributeText("CUSTEMAIL", letterXml);
 
                 //if (!string.IsNullOrEmpty(email))
                 //{
                 //    Tracker.Current.Session.Identify(email);
                 //}
 
-                ViewData["MainText"] = this.Context.MainText.Replace("{SALUTATION}", salutation);
+                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
