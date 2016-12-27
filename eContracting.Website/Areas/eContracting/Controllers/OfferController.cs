@@ -42,7 +42,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
 
-                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                if (maintext == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
+
+                ViewData["MainText"] = maintext;
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;

@@ -30,7 +30,13 @@ namespace eContracting.Kernel.Helpers
             var auth = new AuthenticationDataSessionStorage();
             RweClient client = new RweClient();
             var data = auth.GetData();
-            var date = client.GenerateXml(data.Identifier);
+            var xml = client.GenerateXml(data.Identifier);
+
+            if ((xml == null) || (xml.OfferInternal.Body == null) || string.IsNullOrEmpty(xml.OfferInternal.Body.BIRTHDT))
+            {
+                return null;
+            }
+
 
             var text = client.GetTextsXml(data.Identifier);
             var letterXml = client.GetLetterXml(text);
@@ -39,8 +45,8 @@ namespace eContracting.Kernel.Helpers
             {
                 mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
             }
-            if (date.OfferInternal.AcceptedAt != null)
-                mainRawText = mainRawText.Replace("{DATE}", date.OfferInternal.AcceptedAt);
+            if (xml.OfferInternal.AcceptedAt != null)
+                mainRawText = mainRawText.Replace("{DATE}", xml.OfferInternal.AcceptedAt);
 
             return mainRawText;
         }

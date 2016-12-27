@@ -8,6 +8,7 @@ using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Analytics;
 using Sitecore.Diagnostics;
+using System.Collections.Generic;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -25,16 +26,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 RweClient client = new RweClient();
                 var guid = Request.QueryString["guid"];
 
+                var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                 if (string.IsNullOrEmpty(guid))
                 {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
                 var offer = client.GenerateXml(guid);
                 if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
@@ -47,7 +47,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 //    Tracker.Current.Session.Identify(email);
                 //}
 
-                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                if (maintext == null)
+                {
+                    return Redirect(redirectUrl);
+                }
+
+                ViewData["MainText"] = maintext; 
+
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
@@ -78,17 +85,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-                if (Session["NumberOfLogons"] == null)
-                {
-                    Session["NumberOfLogons"] = 0;
-                }
-
-                var numberOfLogonsBefore = (int)Session["NumberOfLogons"];
+                int numberOfLogonsBefore = 0;
+                this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out numberOfLogonsBefore);
 
                 if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower())))
                 {
-                    var numberOfLogons = (int)Session["NumberOfLogons"];
-                    Session["NumberOfLogons"] = ++numberOfLogons;
+
+                    NumberOfLogons[authenticationData.Identifier] = ++numberOfLogonsBefore;
 
                     string url = Request.RawUrl;
 
@@ -128,7 +131,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         }
                     }
 
-                    Session["NumberOfLogons"] = 0;
 
                     RweClient client = new RweClient();
                     var offer = client.GenerateXml(authenticationData.Identifier);
@@ -164,6 +166,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
             ViewData["RequiredFields"] = this.Context.RequiredFields;
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+        }
+
+        private Dictionary<string,int> NumberOfLogons
+        {
+            get
+            {
+                if(System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
+                {
+                    System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, int>();
+                }
+                return (Dictionary<string, int>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
+            }
         }
     }
 }

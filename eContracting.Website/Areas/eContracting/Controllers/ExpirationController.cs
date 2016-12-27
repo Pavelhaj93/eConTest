@@ -23,7 +23,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                ViewData["MainText"] = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                if (maintext == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
+
+                ViewData["MainText"] = maintext;
+
 
                 return View("/Areas/eContracting/Views/Expiration.cshtml", Context);
             }

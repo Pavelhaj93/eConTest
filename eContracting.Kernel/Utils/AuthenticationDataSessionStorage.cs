@@ -22,7 +22,7 @@ namespace eContracting.Kernel.Utils
             {
 
                 Random rnd = new Random();
-                int value = rnd.Next(1, 4);
+                int value = rnd.Next(1, 5);
 
                 AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
 

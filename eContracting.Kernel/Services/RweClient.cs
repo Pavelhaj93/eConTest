@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
 using Sitecore.Diagnostics;
 using System.Xml;
+using System.Threading;
 
 namespace eContracting.Kernel.Services
 {
@@ -51,39 +52,21 @@ namespace eContracting.Kernel.Services
                 inputPar.IV_CCHKEY = guid;
                 inputPar.IV_CCHTYPE = type;
                 inputPar.IV_GEFILE = "X";
-
                 try
                 {
+                    Log.Info("Calling web service with parameters ", this);
                     ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
+                    Log.Info("Call of web service was seccessfull", this);
                     return result;
-                }
-                catch (WebException wex)
-                {
-                    if (wex.Response == null)
-                    {
-                        //throw;
-                        return null;
-                    }
-
-                    try
-                    {
-                        var exceptionResponse = new StreamReader(wex.Response.GetResponseStream()).ReadToEnd();
-                        //throw new Exception(exceptionResponse, wex);
-                        return null;
-                    }
-                    catch
-                    {
-                        //throw;
-                        return null;
-                    }
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("Exception occurred when comunicationg with web service", ex, this);
+                    Log.Error("An exception occurred during calling web service", ex, this);
                     return null;
                 }
             }
         }
+    
 
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
