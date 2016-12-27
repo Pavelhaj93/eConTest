@@ -52,18 +52,32 @@ namespace eContracting.Kernel.Services
                 inputPar.IV_CCHKEY = guid;
                 inputPar.IV_CCHTYPE = type;
                 inputPar.IV_GEFILE = "X";
-                try
-                {
-                    Log.Info("Calling web service with parameters ", this);
-                    ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
-                    Log.Info("Call of web service was seccessfull", this);
-                    return result;
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("An exception occurred during calling web service", ex, this);
-                    return null;
-                }
+
+                StringBuilder parameters = new StringBuilder();
+                parameters.AppendLine("Calling web service with parameters ");
+                parameters.AppendFormat("IV_CCHKEY = {0}", inputPar.IV_CCHKEY);
+                parameters.AppendLine();
+                parameters.AppendFormat("IV_CCHTYPE = {0}", inputPar.IV_CCHTYPE);
+                parameters.AppendLine();
+                parameters.AppendFormat("IV_GEFILE = ", inputPar.IV_CCHTYPE);
+
+                //for (int callCount = 1; callCount < 4; callCount++)
+                //{
+                    try
+                    {
+                        Log.Info(parameters.ToString(), this);
+                        ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
+                        Log.Info("Call of web service was seccessfull", this);
+                        return result;
+                        //Thread.Sleep(500);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error("An exception occurred during calling web service", ex, this);
+                        return null;
+                    }
+                //}
+                //return null;
             }
         }
     

@@ -85,13 +85,21 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-                int numberOfLogonsBefore = 0;
-                this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out numberOfLogonsBefore);
+                failureData failureData;
+                if(! this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
+                {
+                    failureData = new failureData();
+                    NumberOfLogons.Add(authenticationData.Identifier, failureData);
+                    failureData.FirstFailureTime = DateTime.UtcNow;
+                    failureData.LoginAttemp = 0;
+                }
+                int numberOfLogonsBefore = failureData.LoginAttemp;
+                TimeSpan blokingDuration = DateTime.UtcNow - failureData.FirstFailureTime;
 
                 if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower())))
                 {
 
-                    NumberOfLogons[authenticationData.Identifier] = ++numberOfLogonsBefore;
+                    NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
 
                     string url = Request.RawUrl;
 
@@ -106,7 +114,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     return Redirect(url);
                 }
-                else if (numberOfLogonsBefore >= 3)
+                else if (numberOfLogonsBefore >= 3 && blokingDuration.Minutes<=30)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
@@ -131,6 +139,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         }
                     }
 
+                    NumberOfLogons.Remove(authenticationData.Identifier);
 
                     RweClient client = new RweClient();
                     var offer = client.GenerateXml(authenticationData.Identifier);
@@ -168,16 +177,23 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
         }
 
-        private Dictionary<string,int> NumberOfLogons
+        private Dictionary<string, failureData> NumberOfLogons
         {
             get
             {
                 if(System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
                 {
-                    System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, int>();
+                    System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, failureData>();
                 }
-                return (Dictionary<string, int>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
+                return (Dictionary<string, failureData>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
             }
         }
+    }
+
+    internal class failureData
+    {
+        public int LoginAttemp { get; set; }
+        public DateTime FirstFailureTime { get; set; }
+
     }
 }
