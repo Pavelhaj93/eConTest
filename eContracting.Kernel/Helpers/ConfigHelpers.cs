@@ -14,14 +14,14 @@ namespace eContracting.Kernel.Helpers
             {
                 if (context == null)
                 {
-                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", null);
+                    Log.Error("Error when getting sitecore context in GetGeneralSettings()",Type.DefaultBinder);
                     return null;
                 }
 
                 var generalSetttings = context.GetItem<GeneralSettings>(ItemPaths.GeneralSettings);
                 if (generalSetttings == null)
                 {
-                    Log.Error("Error when getting general sitecore settings for eContracting", null);
+                    Log.Error("Error when getting general sitecore settings for eContracting",Type.DefaultBinder);
                     return null;
                 }
 
