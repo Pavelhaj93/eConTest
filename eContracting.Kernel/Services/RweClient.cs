@@ -68,8 +68,8 @@ namespace eContracting.Kernel.Services
                         Log.Info(parameters.ToString(), this);
                         ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
                         Log.Info("Call of web service was seccessfull", this);
-                        return result;
                         //Thread.Sleep(500);
+                        return result;
                     }
                     catch (Exception ex)
                     {
@@ -88,22 +88,31 @@ namespace eContracting.Kernel.Services
             bool IsAccepted = res.ET_ATTRIB != null && res.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
 
             ZCCH_CACHE_GETResponse result = null;
-            if(IsAccepted)
+            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+
+            if (IsAccepted)
             {
                 result = GetResponse(guid, "NABIDKA_PRIJ");
+                files.AddRange(result.ET_FILES);
+                result = GetResponse(guid, "NABIDKA_PDF");
+                var filenames = result.ET_FILES.Select(file => file.FILENAME);
+                files.RemoveAll(file => filenames.Contains(file.FILENAME));
+                files.AddRange(result.ET_FILES);
+
             }
             else
             {
                 result = GetResponse(guid, "NABIDKA_PDF");
+                files.AddRange(result.ET_FILES);
             }
 
             List<FileToBeDownloaded> fileResults = new List<FileToBeDownloaded>();
 
-            if (result.ThereAreFiles() && result.ET_FILES.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
+            if (files.Count != 0 && files.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
             {
                 int index = 0;
 
-                foreach (var f in result.ET_FILES.OrderBy(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL))
+                foreach (var f in files.OrderBy(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL))
                 {
                     try
                     {
@@ -233,7 +242,8 @@ namespace eContracting.Kernel.Services
             doc.LoadXml(sourceXml.Text);
 
             var parameters = doc.DocumentElement.SelectSingleNode("parameters").ChildNodes;
-
+            if (parameters == null)
+                return result;
             foreach ( XmlNode param in parameters)
             {
                 result.Add(param.Name, param.InnerXml);
