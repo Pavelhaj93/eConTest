@@ -22,7 +22,7 @@ namespace eContracting.Kernel.Utils
             {
 
                 Random rnd = new Random();
-                int value = rnd.Next(1, 5);
+                int value = rnd.Next(1, 4);
 
                 AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
 
@@ -64,13 +64,6 @@ namespace eContracting.Kernel.Utils
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscTrvaleBydliste;
                         authenticationDataItem.ItemFriendlyName = generalSettings.PermanentResidencePostalCode;
                         authenticationDataItem.IsAccountNumber = false;
-                        break;
-
-                    case 4:
-                        authenticationDataItem.ItemType = "ACCOUNT_NUMBER";
-                        authenticationDataItem.ItemValue = offer.OfferInternal.Body.ACCOUNT_NUMBER;
-                        authenticationDataItem.ItemFriendlyName = generalSettings.AccountNumber;
-                        authenticationDataItem.IsAccountNumber = true;
                         break;
                     default:
                         break;
