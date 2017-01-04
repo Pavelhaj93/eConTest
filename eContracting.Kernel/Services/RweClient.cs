@@ -15,6 +15,7 @@ using System.Threading;
 
 namespace eContracting.Kernel.Services
 {
+    delegate T CallServiceMethod<T, P>(P inputParams);
     public class RweClient
     {
         private ZCCH_CACHE_API InitApi()
@@ -42,42 +43,32 @@ namespace eContracting.Kernel.Services
             return api;
         }
 
-        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
+        private ZCCH_CACHE_GETResponse delGetResponse(ZCCH_CACHE_GET inputParam)
         {
+            StringBuilder parameters = new StringBuilder();
+            parameters.AppendLine("Calling web service with parameters ");
+            parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_GEFILE = ", inputParam.IV_CCHTYPE);
+            Log.Info(parameters.ToString(), this);
+
             using (var api = InitApi())
             {
-
-                ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
-
-                inputPar.IV_CCHKEY = guid;
-                inputPar.IV_CCHTYPE = type;
-                inputPar.IV_GEFILE = "X";
-
-                StringBuilder parameters = new StringBuilder();
-                parameters.AppendLine("Calling web service with parameters ");
-                parameters.AppendFormat("IV_CCHKEY = {0}", inputPar.IV_CCHKEY);
-                parameters.AppendLine();
-                parameters.AppendFormat("IV_CCHTYPE = {0}", inputPar.IV_CCHTYPE);
-                parameters.AppendLine();
-                parameters.AppendFormat("IV_GEFILE = ", inputPar.IV_CCHTYPE);
-
-                for (int callCount = 1; callCount <= 15; callCount++)
-                {
-                    try
-                    {
-                        Log.Info(parameters.ToString(), this);
-                        ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
-                        Log.Info("Call of web service was seccessfull", this);
-                        Thread.Sleep(500);
-                        return result;
-                    }
-                    catch (Exception ex)
-                    {
-                        Log.Error("An exception occurred during calling web service", ex, this);
-                    }
-                }
-                return null;
+                ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputParam);
+                return result;
             }
+
+        }
+        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
+        {
+            ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
+            inputPar.IV_CCHKEY = guid;
+            inputPar.IV_CCHTYPE = type;
+            inputPar.IV_GEFILE = "X";
+            CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(delGetResponse);
+            return  CallService(inputPar, del);
         }
     
 
@@ -189,25 +180,64 @@ namespace eContracting.Kernel.Services
 
             if (Decimal.TryParse(timestampString, out outValue))
             {
-                using (var api = InitApi())
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "5";
+                status.IV_TIMESTAMP = outValue;
+
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(delAcceptOffer);
+                var  response = CallService(status, del);
+                var responseStatus = response.ET_RETURN.First();
+                if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
                 {
-                    ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
-                    status.IV_CCHKEY = guid;
-                    status.IV_CCHTYPE = "NABIDKA";
-                    status.IV_STAT = "5";
-                    status.IV_TIMESTAMP = outValue;
-                    var response = api.ZCCH_CACHE_STATUS_SET(status);
-
-                    if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
-                    {
-                        var responseStatus = response.ET_RETURN.First();
-                        return !String.IsNullOrEmpty(responseStatus.MESSAGE);
-                    }
-
-                    return false;
+                    return !String.IsNullOrEmpty(responseStatus.MESSAGE);
                 }
+
+                return !String.IsNullOrEmpty(responseStatus.MESSAGE);
+
             }
             return false;
+        }
+
+        private ZCCH_CACHE_STATUS_SETResponse delAcceptOffer(ZCCH_CACHE_STATUS_SET inputParam)
+        {
+            StringBuilder parameters = new StringBuilder();
+            parameters.AppendLine("Calling web service with parameters ");
+            parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_STAT = ", inputParam.IV_STAT);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_TIMESTAMP = ", inputParam.IV_TIMESTAMP);
+            Log.Info(parameters.ToString(), this);
+
+            using (var api = InitApi())
+            {
+                var response = api.ZCCH_CACHE_STATUS_SET(inputParam);
+                return response;
+            }
+        }
+
+        private T CallService<T, P>(P param, CallServiceMethod<T,P> del)
+        {
+            T result;
+            for (int callCount = 1; callCount <= 15; callCount++)
+            {
+                try
+                {
+                    result =del(param);
+                    Log.Info("Call of web service was seccessfull", this);
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("An exception occurred during calling web service", ex, this);
+                    Thread.Sleep(500);
+                }
+            }
+            return default(T);
         }
 
         public void ResetOffer(string guid)
@@ -217,15 +247,14 @@ namespace eContracting.Kernel.Services
 
             if (Decimal.TryParse(timestampString, out outValue))
             {
-                using (var api = InitApi())
-                {
-                    ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
-                    status.IV_CCHKEY = guid;
-                    status.IV_CCHTYPE = "NABIDKA";
-                    status.IV_STAT = "1";
-                    status.IV_TIMESTAMP = outValue;
-                    var response = api.ZCCH_CACHE_STATUS_SET(status);
-                }
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "1";
+                status.IV_TIMESTAMP = outValue;
+
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(delAcceptOffer);
+                var response = CallService(status, del);
             }
         }
 
