@@ -61,23 +61,22 @@ namespace eContracting.Kernel.Services
                 parameters.AppendLine();
                 parameters.AppendFormat("IV_GEFILE = ", inputPar.IV_CCHTYPE);
 
-                //for (int callCount = 1; callCount < 4; callCount++)
-                //{
+                for (int callCount = 1; callCount <= 15; callCount++)
+                {
                     try
                     {
                         Log.Info(parameters.ToString(), this);
                         ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputPar);
                         Log.Info("Call of web service was seccessfull", this);
-                        //Thread.Sleep(500);
+                        Thread.Sleep(500);
                         return result;
                     }
                     catch (Exception ex)
                     {
                         Log.Error("An exception occurred during calling web service", ex, this);
-                        return null;
                     }
-                //}
-                //return null;
+                }
+                return null;
             }
         }
     
