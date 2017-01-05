@@ -5,6 +5,7 @@ export default function DateInput(container) {
     container.datepicker({
         language: 'cs',
         format: 'dd. mm. yyyy',
+	 endDate: "-1d",
         maxViewMode: 2,
         autoclose: true,
         orientation: 'bottom right'
