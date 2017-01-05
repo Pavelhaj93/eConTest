@@ -38,14 +38,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                if (CheckWhetherUserIsBlocked(guid))
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+
+
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
                 var authenticationData = authenticationDataSessionStorage.GetData();
 
-
-                //if (!string.IsNullOrEmpty(email))
-                //{
-                //    Tracker.Current.Session.Identify(email);
-                //}
 
                 string maintext = SystemHelpers.GenerateMainText(Context.MainText);
                 if (maintext == null)
@@ -64,6 +63,21 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 Log.Error("Error when authenticating user", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
+        }
+
+        private bool CheckWhetherUserIsBlocked(string guid)
+        {
+            failureData failureData;
+            if (this.NumberOfLogons.TryGetValue(guid, out failureData))
+            {
+                TimeSpan blokingDuration = DateTime.UtcNow - failureData.FirstFailureTime;
+                if (failureData.LoginAttemp >= 3 && blokingDuration.Minutes <= 30)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         [HttpPost]
@@ -94,7 +108,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     failureData.LoginAttemp = 0;
                 }
                 int numberOfLogonsBefore = failureData.LoginAttemp;
-                TimeSpan blokingDuration = DateTime.UtcNow - failureData.FirstFailureTime;
 
                 if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower())))
                 {
@@ -114,31 +127,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     return Redirect(url);
                 }
-                else if (numberOfLogonsBefore >= 3 && blokingDuration.Minutes<=30)
-                {
+                if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
-                }
                 else
                 {
-                    if (authenticationData.IsAccountNumber)
-                    {
-                        if (!SystemHelpers.IsAccountNumberValid(authenticationData.ItemValue))
-                        {
-                            string url = Request.RawUrl;
-
-                            if (Request.RawUrl.Contains("&error=validationError"))
-                            {
-                                url = Request.RawUrl;
-                            }
-                            else
-                            {
-                                url = Request.RawUrl + "&error=validationError";
-                            }
-
-                            return Redirect(url);
-                        }
-                    }
-
                     NumberOfLogons.Remove(authenticationData.Identifier);
 
                     RweClient client = new RweClient();

@@ -13,7 +13,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                Session["NumberOfLogons"] = 0;
                 return View("/Areas/eContracting/Views/UserBlocked.cshtml", Context);
             }
             catch (Exception ex)

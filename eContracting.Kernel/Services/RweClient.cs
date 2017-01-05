@@ -43,7 +43,7 @@ namespace eContracting.Kernel.Services
             return api;
         }
 
-        private ZCCH_CACHE_GETResponse delGetResponse(ZCCH_CACHE_GET inputParam)
+        private ZCCH_CACHE_GETResponse GetResponseDel(ZCCH_CACHE_GET inputParam)
         {
             StringBuilder parameters = new StringBuilder();
             parameters.AppendLine("Calling web service with parameters ");
@@ -67,7 +67,7 @@ namespace eContracting.Kernel.Services
             inputPar.IV_CCHKEY = guid;
             inputPar.IV_CCHTYPE = type;
             inputPar.IV_GEFILE = "X";
-            CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(delGetResponse);
+            CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(GetResponseDel);
             return  CallService(inputPar, del);
         }
     
@@ -82,13 +82,12 @@ namespace eContracting.Kernel.Services
 
             if (IsAccepted)
             {
-                result = GetResponse(guid, "NABIDKA_PRIJ");
-                files.AddRange(result.ET_FILES);
                 result = GetResponse(guid, "NABIDKA_PDF");
+                files.AddRange(result.ET_FILES);
+                result = GetResponse(guid, "NABIDKA_PRIJ");
                 var filenames = result.ET_FILES.Select(file => file.FILENAME);
                 files.RemoveAll(file => filenames.Contains(file.FILENAME));
                 files.AddRange(result.ET_FILES);
-
             }
             else
             {
@@ -186,7 +185,7 @@ namespace eContracting.Kernel.Services
                 status.IV_STAT = "5";
                 status.IV_TIMESTAMP = outValue;
 
-                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(delAcceptOffer);
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
                 var  response = CallService(status, del);
                 var responseStatus = response.ET_RETURN.First();
                 if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
@@ -200,7 +199,7 @@ namespace eContracting.Kernel.Services
             return false;
         }
 
-        private ZCCH_CACHE_STATUS_SETResponse delAcceptOffer(ZCCH_CACHE_STATUS_SET inputParam)
+        private ZCCH_CACHE_STATUS_SETResponse AcceptOfferDel(ZCCH_CACHE_STATUS_SET inputParam)
         {
             StringBuilder parameters = new StringBuilder();
             parameters.AppendLine("Calling web service with parameters ");
@@ -253,7 +252,7 @@ namespace eContracting.Kernel.Services
                 status.IV_STAT = "1";
                 status.IV_TIMESTAMP = outValue;
 
-                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(delAcceptOffer);
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
                 var response = CallService(status, del);
             }
         }

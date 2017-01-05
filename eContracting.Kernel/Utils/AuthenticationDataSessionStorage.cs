@@ -49,21 +49,18 @@ namespace eContracting.Kernel.Utils
                         authenticationDataItem.ItemType = "PARTNER";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PARTNER;
                         authenticationDataItem.ItemFriendlyName = generalSettings.IdentityCardNumber;
-                        authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 2:
                         authenticationDataItem.ItemType = "PSC_MS";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscMistaSpotreby;
                         authenticationDataItem.ItemFriendlyName = generalSettings.UsedPostalCode;
-                        authenticationDataItem.IsAccountNumber = false;
                         break;
 
                     case 3:
                         authenticationDataItem.ItemType = "PSC_ADDR";
                         authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscTrvaleBydliste;
                         authenticationDataItem.ItemFriendlyName = generalSettings.PermanentResidencePostalCode;
-                        authenticationDataItem.IsAccountNumber = false;
                         break;
                     default:
                         break;

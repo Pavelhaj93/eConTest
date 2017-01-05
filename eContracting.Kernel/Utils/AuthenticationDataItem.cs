@@ -12,7 +12,6 @@ namespace eContracting.Kernel.Utils
         public string DateOfBirth { get; set; }
         public string Identifier { get; set; }
         public string LastName { get; set; }
-        public bool IsAccountNumber { get; set; }
         public string ExpDate { get; set; }
         public DateTime ExpDateConverted
         {
