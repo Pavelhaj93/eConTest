@@ -9,7 +9,7 @@
             dataType: "json",
             timeout: 30000,
             error: function () {
-                documentsReceived(false);
+                window.location.href = "/404"
             },
             success: function (documents) {
                 var agreed = @Model.IsAccepted.ToString().ToLower();
