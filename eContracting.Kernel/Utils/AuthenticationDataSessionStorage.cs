@@ -26,15 +26,6 @@ namespace eContracting.Kernel.Utils
 
                 AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
 
-                //DateTime outputDateTimeValue;
-                //if (DateTime.TryParseExact(offer.OfferInternal.Body.BIRTHDT, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out outputDateTimeValue))
-                //{
-                //    authenticationDataItem.DateOfBirth = outputDateTimeValue.ToString("dd.MM.yyy");
-                //}
-                //else
-                //{
-                //    throw new DateOfBirthWrongFormatException(String.Format("Wrong format: {0}", offer.OfferInternal.Body.BIRTHDT));
-                //}
 
                 authenticationDataItem.DateOfBirth = offer.OfferInternal.Body.BIRTHDT;
                 authenticationDataItem.Identifier = offer.OfferInternal.Body.Guid;
