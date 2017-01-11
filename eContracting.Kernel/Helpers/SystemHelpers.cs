@@ -42,6 +42,8 @@ namespace eContracting.Kernel.Helpers
             {
                 mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
             }
+            mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
+
             return mainRawText;
         }
     }
