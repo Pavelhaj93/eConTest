@@ -6,13 +6,85 @@ path: /sitecore/content/eContracting/Site
 parent: {36E73C49-9DD1-413C-8A6C-17A9191DE504}
 name: Site
 master: {00000000-0000-0000-0000-000000000000}
-template: {A87A00B1-E6DB-45AB-8B54-636FEC3B5523}
-templatekey: Folder
+template: {F616CC8F-B16F-4E9E-9EB2-6875FDEAE5AA}
+templatekey: eContracting404Template
 
+----version----
+language: cs
+version: 1
+revision: 4e3e7820-cf69-4583-85d8-59f0380e925d
+
+----field----
+field: {8EDDE421-CC67-4ED4-A1F9-8E7FE1D91EB3}
+name: PageTitle
+key: pagetitle
+content-length: 9
+
+Chyba 404
+----field----
+field: {BF8BA64C-F146-42FB-B410-990534CBDE23}
+name: HeaderText
+key: headertext
+content-length: 9
+
+Chyba 404
+----field----
+field: {5F70505D-4F24-4584-8ADE-63C6D1FCD5D2}
+name: Text
+key: text
+content-length: 414
+
+<p>V&aacute;žen&yacute; z&aacute;kazn&iacute;ku,</p>
+<p>omlouv&aacute;me se, ale str&aacute;nku, na kterou směřoval V&aacute;&scaron; požadavek, se nepodařilo naj&iacute;t. Je možn&eacute;, že byla odstraněna, přejmenov&aacute;na nebo je dočasně nedostupn&aacute;.</p>
+<p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+<p>Děkujeme</p>
+<p>Va&scaron;e innogy</p>
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20170109T094952Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+4e3e7820-cf69-4583-85d8-59f0380e925d
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20170111T103237Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
 ----version----
 language: en
 version: 1
-revision: 56e3c65d-ce54-408b-8f6c-9451ef10670f
+revision: 9a038769-263c-4f35-90cd-525d89f2841b
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -34,14 +106,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-56e3c65d-ce54-408b-8f6c-9451ef10670f
+9a038769-263c-4f35-90cd-525d89f2841b
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161007T092337Z
+20170111T102802Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
