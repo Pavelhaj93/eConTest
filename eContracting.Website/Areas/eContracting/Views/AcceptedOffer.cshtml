@@ -6,10 +6,6 @@
 	</div>
 </div>
 @Html.Action("DocumentPanel", "eContracting", new { IsAccepted = true })
-@{
-    new eContracting.Kernel.Utils.AuthenticationDataSessionStorage().ClearSession();
-}
-
 
 <script>
 /* Message component messages from Back-end */
