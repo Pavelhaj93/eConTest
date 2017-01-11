@@ -99,7 +99,6 @@
     <Compile Include="Services\ZCCH_CACHE_API.cs" />
     <Compile Include="Utils\AuthenticationDataItem.cs" />
     <Compile Include="Utils\AuthenticationDataSessionStorage.cs" />
-    <Compile Include="Utils\RweUtils.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

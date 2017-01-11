@@ -2,7 +2,6 @@
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Kernel.Models
 @model AuthenticationModel
-
 @using (Html.BeginForm())
 {
 <div class="row">
@@ -30,10 +29,12 @@
 							</label>
 							@Html.TextBoxFor(model => model.Additional, new { id="additional", name="additional", autocomplete="off", required="1", placeholder=ViewData["AdditionalPlaceholder"] })
 						</div>
+                        @Html.HiddenFor(m=> m.ItemValue)
 					</div>
 				</div>
 				<input type="submit" class="button button-submit" id="mainBtn" value="@ViewData["ButtonText"]" />
 			</div>
+             @Html.HiddenFor(m=> m.UserId)
 		</div>
 	</div>
 </div>

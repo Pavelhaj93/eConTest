@@ -10,83 +10,83 @@ namespace eContracting.Kernel.Utils
     {
         private readonly String SessionKey = "AuthDataSession";
 
-        public AuthenticationDataSessionStorage(Offer offer)
+
+        public AuthenticationDataItem GetUserData(Offer offer, bool generateRandom)
         {
             if ((offer == null) || (offer.OfferInternal.Body == null))
             {
                 throw new OfferIsNullException("Offer is null by Session init");
             }
 
-            var data = this.GetData();
-            if ((data == null) || (data.Identifier != offer.OfferInternal.Body.Guid))
+
+            AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem()
             {
+                DateOfBirth = offer.OfferInternal.Body.BIRTHDT,
+                Identifier = offer.OfferInternal.Body.Guid,
+                LastName = offer.OfferInternal.Body.NAME_LAST,
+                ExpDate = offer.OfferInternal.Body.DATE_TO,
+                IsAccepted = offer.OfferInternal.IsAccepted,
+                OfferIsExpired = offer.OfferInternal.Body.OfferIsExpired,
+            };
 
-                Random rnd = new Random();
-                int value = rnd.Next(1, 4);
-
-                AuthenticationDataItem authenticationDataItem = new AuthenticationDataItem();
-
-
-                authenticationDataItem.DateOfBirth = offer.OfferInternal.Body.BIRTHDT;
-                authenticationDataItem.Identifier = offer.OfferInternal.Body.Guid;
-                authenticationDataItem.LastName = offer.OfferInternal.Body.NAME_LAST;
-                authenticationDataItem.ExpDate = offer.OfferInternal.Body.DATE_TO;
-                var generalSettings = ConfigHelpers.GetGeneralSettings();
-
-
-                switch (value)
-                {
-                    case 1:
-                        authenticationDataItem.ItemType = "PARTNER";
-                        authenticationDataItem.ItemValue = offer.OfferInternal.Body.PARTNER;
-                        authenticationDataItem.ItemFriendlyName = generalSettings.IdentityCardNumber;
-                        break;
-
-                    case 2:
-                        authenticationDataItem.ItemType = "PSC_MS";
-                        authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscMistaSpotreby;
-                        authenticationDataItem.ItemFriendlyName = generalSettings.UsedPostalCode;
-                        break;
-
-                    case 3:
-                        authenticationDataItem.ItemType = "PSC_ADDR";
-                        authenticationDataItem.ItemValue = offer.OfferInternal.Body.PscTrvaleBydliste;
-                        authenticationDataItem.ItemFriendlyName = generalSettings.PermanentResidencePostalCode;
-                        break;
-                    default:
-                        break;
-                }
-                HttpContext.Current.Session[SessionKey] = authenticationDataItem;
-            }
+            if (generateRandom)
+                SetRandomData(authenticationDataItem, offer);
+            
+            return authenticationDataItem;
 
         }
 
-        public AuthenticationDataSessionStorage() { }
 
-        public AuthenticationDataItem GetData()
+        public AuthenticationDataItem GetUserData()
         {
-            if (HttpContext.Current.Session[SessionKey] != null)
-            {
                 var data = HttpContext.Current.Session[SessionKey] as AuthenticationDataItem;
                 return data;
+        }
+
+        public Boolean IsDataActive
+        {
+            get
+            {
+                return this.GetUserData() != null;
             }
-
-            return null;
-        }
-
-        public Boolean IsDataActive()
-        {
-            return HttpContext.Current.Session[SessionKey] != null;
-        }
-
-        public static Boolean IsDataActiveStatic()
-        {
-            return HttpContext.Current.Session["AuthDataSession"] != null;
         }
 
         public void ClearSession()
         {
             HttpContext.Current.Session[SessionKey] = null;
         }
+        public void Login(AuthenticationDataItem data)
+        {
+            HttpContext.Current.Session[SessionKey] = data;
+        }
+
+        private void SetRandomData(AuthenticationDataItem authenticationData, Offer offer)
+        {
+            var generalSettings = ConfigHelpers.GetGeneralSettings();
+            Random rnd = new Random();
+            int value = rnd.Next(1, 4);
+
+            switch (value)
+            {
+                case 1:
+                    authenticationData.ItemValue = offer.OfferInternal.Body.PARTNER;
+                    authenticationData.ItemFriendlyName = generalSettings.IdentityCardNumber;
+                    break;
+
+                case 2:
+                    authenticationData.ItemValue = offer.OfferInternal.Body.PscMistaSpotreby;
+                    authenticationData.ItemFriendlyName = generalSettings.UsedPostalCode;
+                    break;
+
+                case 3:
+                    authenticationData.ItemValue = offer.OfferInternal.Body.PscTrvaleBydliste;
+                    authenticationData.ItemFriendlyName = generalSettings.PermanentResidencePostalCode;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
     }
 }

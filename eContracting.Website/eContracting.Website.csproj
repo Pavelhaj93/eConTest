@@ -146,6 +146,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
     <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
     <Compile Include="Areas\eContracting\Controllers\AuthenticationController.cs" />
@@ -161,6 +162,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

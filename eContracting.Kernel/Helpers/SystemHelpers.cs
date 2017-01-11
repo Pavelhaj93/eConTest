@@ -25,14 +25,11 @@ namespace eContracting.Kernel.Helpers
             return account.All(x => Char.IsDigit(x) || (x == '-' || x == '\\'));
         }
 
-        public static string GenerateMainText(string mainRawText)
+        public static string GenerateMainText(AuthenticationDataItem data,string mainRawText)
         {
-            var auth = new AuthenticationDataSessionStorage();
             RweClient client = new RweClient();
-            var data = auth.GetData();
-            var xml = client.GenerateXml(data.Identifier);
 
-            if ((xml == null) || (xml.OfferInternal.Body == null) || string.IsNullOrEmpty(xml.OfferInternal.Body.BIRTHDT))
+            if (string.IsNullOrEmpty(data.DateOfBirth))
             {
                 return null;
             }
@@ -45,9 +42,6 @@ namespace eContracting.Kernel.Helpers
             {
                 mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
             }
-            if (xml.OfferInternal.AcceptedAt != null)
-                mainRawText = mainRawText.Replace("{DATE}", xml.OfferInternal.AcceptedAt);
-
             return mainRawText;
         }
     }

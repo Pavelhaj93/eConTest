@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
-    public class AuthenticationController : GlassController<EContractingAuthenticationTemplate>
+    public class AuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
         [HttpGet]
         public ActionResult Authentication()
@@ -42,11 +42,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
 
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage(offer);
-                var authenticationData = authenticationDataSessionStorage.GetData();
+                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+                var authenticationData = authenticationDataSessionStorage.GetUserData(offer,true);
+
+                dataModel.ItemValue = authenticationData.ItemValue;
+                dataModel.UserId = authenticationData.Identifier;
 
 
-                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(authenticationData, Context.MainText);
                 if (maintext == null)
                 {
                     return Redirect(redirectUrl);
@@ -64,6 +67,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
+
 
         private bool CheckWhetherUserIsBlocked(string guid)
         {
@@ -89,15 +93,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    // fuj :(
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
 
                 var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
                 var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower();
 
-                AuthenticationDataSessionStorage authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var authenticationData = authenticationDataSessionStorage.GetData();
+                RweClient client = new RweClient();
+                var offer = client.GenerateXml(authenticationModel.UserId);
+                AuthenticationDataSessionStorage ass = new AuthenticationDataSessionStorage();
+                AuthenticationDataItem authenticationData = ass.GetUserData(offer,false);
+                authenticationData.ItemValue = authenticationModel.ItemValue;
 
                 failureData failureData;
                 if(! this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
@@ -132,17 +138,16 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 else
                 {
                     NumberOfLogons.Remove(authenticationData.Identifier);
+                    var aut = new AuthenticationDataSessionStorage();
+                    aut.Login(authenticationData);
 
-                    RweClient client = new RweClient();
-                    var offer = client.GenerateXml(authenticationData.Identifier);
-
-                    if (offer.OfferInternal.IsAccepted)
+                    if (authenticationData.IsAccepted)
                     {
                         var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                         return Redirect(redirectUrl);
                     }
 
-                    if (offer.OfferInternal.Body.OfferIsExpired)
+                    if (authenticationData.OfferIsExpired)
                     {
                         var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                         return Redirect(redirectUrl);
@@ -188,4 +193,5 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public DateTime FirstFailureTime { get; set; }
 
     }
+
 }

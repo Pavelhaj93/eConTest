@@ -13,6 +13,8 @@ namespace eContracting.Kernel.Utils
         public string Identifier { get; set; }
         public string LastName { get; set; }
         public string ExpDate { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool OfferIsExpired { get; set; }
         public DateTime ExpDateConverted
         {
             get

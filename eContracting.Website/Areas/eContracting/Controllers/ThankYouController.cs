@@ -9,21 +9,21 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
-    public class ThankYouController : GlassController<EContractingThankYouTemplate>
+    public class ThankYouController : BaseController<EContractingThankYouTemplate>
     {
         public ActionResult ThankYou()
         {
             try
             {
-                RweUtils utils = new RweUtils();
+                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
                 RweClient client = new RweClient();
 
-                if (!utils.IsUserInSession())
+                if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
                 if (maintext == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

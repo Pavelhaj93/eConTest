@@ -9,40 +9,33 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
-    public class OfferController : GlassController<EContractingOfferTemplate>
+    public class OfferController : BaseController<EContractingOfferTemplate>
     {
         [HttpGet]
         public ActionResult Offer()
         {
             try
             {
-                RweUtils utils = new RweUtils();
-                if (!utils.IsUserInSession())
+                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
+                if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetData();
-
-                RweClient client = new RweClient();
-
-                var offer = client.GenerateXml(data.Identifier);
-
-                if (offer.OfferInternal.IsAccepted)
+                if (ads.GetUserData().IsAccepted)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
-                if (offer.OfferInternal.Body.OfferIsExpired)
+                if (ads.GetUserData().OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
 
 
-                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
                 if (maintext == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

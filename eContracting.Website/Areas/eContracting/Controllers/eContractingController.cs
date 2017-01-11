@@ -43,8 +43,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var model = new DocumentPanelModel();
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetData();
-                model.ClientId = data.Identifier;
+                model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
                 model.IsAccepted = isAccepted;
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
@@ -67,10 +66,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetData();
 
                 RweClient client = new RweClient();
-                var offerSent = client.AcceptOffer(data.Identifier);
+                var offerSent = client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
 
                 if (!offerSent)
                 {

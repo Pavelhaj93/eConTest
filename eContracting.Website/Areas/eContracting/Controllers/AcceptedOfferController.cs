@@ -9,20 +9,20 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
-    public class AcceptedOfferController : GlassController<EContractingAcceptedOfferTemplate>
+    public class AcceptedOfferController : BaseController<EContractingAcceptedOfferTemplate>
     {
         [HttpGet]
         public ActionResult AcceptedOffer()
         {
             try
             {
-                RweUtils utils = new RweUtils();
+                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
 
-                if (!utils.IsUserInSession())
+                if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
-                string maintext = SystemHelpers.GenerateMainText(Context.MainText);
+                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
                 if (maintext == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

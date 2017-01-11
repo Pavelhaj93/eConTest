@@ -9,5 +9,11 @@ namespace eContracting.Kernel.Models
 
         [Required]
         public string Additional { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [Required]
+        public string ItemValue { get; set; }
     }
 }

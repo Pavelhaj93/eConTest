@@ -7,7 +7,7 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
-    public class UserBlockedController : GlassController<EContractingUserBlockedTemplate>
+    public class UserBlockedController : BaseController<EContractingUserBlockedTemplate>
     {
         public ActionResult UserBlocked()
         {
