@@ -48,8 +48,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 dataModel.ItemValue = authenticationData.ItemValue;
                 dataModel.UserId = authenticationData.Identifier;
 
-
-                string maintext = SystemHelpers.GenerateMainText(authenticationData, Context.MainText);
+                string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
+                string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText);
                 if (maintext == null)
                 {
                     return Redirect(redirectUrl);
