@@ -59,6 +59,48 @@
     <DisableFileDeployment>False</DisableFileDeployment>
     <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Test' ">
+    <DebugSymbols>false</DebugSymbols>
+    <RecursiveDeployAction>Ignore</RecursiveDeployAction>
+    <EnableValidations>False</EnableValidations>
+    <ValidationSettingsFilePath>.\eContracting.Master_Release.xml</ValidationSettingsFilePath>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\Econtracting.local\sc81rev160302\Website</SitecoreDeployFolder>
+    <InstallSitecoreConnector>False</InstallSitecoreConnector>
+    <DisableFileDeployment>False</DisableFileDeployment>
+    <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
+    <OutputPath>bin\RWE_Test\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Production' ">
+    <OutputPath>bin\RWE_Production\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Production_CD' ">
+    <OutputPath>bin\RWE_Production_CD\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Test_CD' ">
+    <DebugSymbols>false</DebugSymbols>
+    <RecursiveDeployAction>Ignore</RecursiveDeployAction>
+    <EnableValidations>False</EnableValidations>
+    <ValidationSettingsFilePath>.\eContracting.Master_Release.xml</ValidationSettingsFilePath>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\Econtracting.local\sc81rev160302\Website</SitecoreDeployFolder>
+    <InstallSitecoreConnector>False</InstallSitecoreConnector>
+    <DisableFileDeployment>False</DisableFileDeployment>
+    <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
+    <OutputPath>bin\RWE_Test_CD\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Test_CM' ">
+    <DebugSymbols>false</DebugSymbols>
+    <RecursiveDeployAction>Ignore</RecursiveDeployAction>
+    <EnableValidations>False</EnableValidations>
+    <ValidationSettingsFilePath>.\eContracting.Master_Release.xml</ValidationSettingsFilePath>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\Econtracting.local\sc81rev160302\Website</SitecoreDeployFolder>
+    <InstallSitecoreConnector>False</InstallSitecoreConnector>
+    <DisableFileDeployment>False</DisableFileDeployment>
+    <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
+    <OutputPath>bin\RWE_Test_CM\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Production_CM' ">
+    <OutputPath>bin\RWE_Production_CM\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <AssemblyAttributes Include="AssemblyFileVersion">
       <Value>$(AssemblyFileVersion)</Value>

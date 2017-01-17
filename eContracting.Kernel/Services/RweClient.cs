@@ -101,7 +101,7 @@ namespace eContracting.Kernel.Services
             {
                 int index = 0;
 
-                foreach (var f in files.OrderBy(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL))
+                foreach (var f in files.OrderBy(x => int.Parse(x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL)))
                 {
                     try
                     {
