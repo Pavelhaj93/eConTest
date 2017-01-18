@@ -120,6 +120,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
 
+
                     string url = Request.RawUrl;
 
                     if (Request.RawUrl.Contains("&error=validationError"))

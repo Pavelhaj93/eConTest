@@ -8,14 +8,10 @@ require("regenerator-runtime/runtime");
 
 require("core-js/fn/regexp/escape");
 
-/* eslint max-len: 0 */
-
 if (global._babelPolyfill) {
   throw new Error("only one instance of babel-polyfill is allowed");
 }
 global._babelPolyfill = true;
-
-// Should be removed in the next major release:
 
 var DEFINE_PROPERTY = "defineProperty";
 function define(O, key, value) {
@@ -7709,7 +7705,8 @@ exports.encode = exports.stringify = require('./encode');
 !(function(global) {
   "use strict";
 
-  var hasOwn = Object.prototype.hasOwnProperty;
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
   var undefined; // More compressible than void 0.
   var $Symbol = typeof Symbol === "function" ? Symbol : {};
   var iteratorSymbol = $Symbol.iterator || "@@iterator";
@@ -7733,8 +7730,9 @@ exports.encode = exports.stringify = require('./encode');
   runtime = global.regeneratorRuntime = inModule ? module.exports : {};
 
   function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided, then outerFn.prototype instanceof Generator.
-    var generator = Object.create((outerFn || Generator).prototype);
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
     var context = new Context(tryLocsList || []);
 
     // The ._invoke method unifies the implementations of the .next,
@@ -7780,10 +7778,29 @@ exports.encode = exports.stringify = require('./encode');
   function GeneratorFunction() {}
   function GeneratorFunctionPrototype() {}
 
-  var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype;
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
   GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
   GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] = GeneratorFunction.displayName = "GeneratorFunction";
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
 
   // Helper for defining the .next, .throw, and .return methods of the
   // Iterator interface in terms of a single ._invoke method.
@@ -7820,16 +7837,11 @@ exports.encode = exports.stringify = require('./encode');
 
   // Within the body of any async function, `await x` is transformed to
   // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `value instanceof AwaitArgument` to determine if the yielded value is
-  // meant to be awaited. Some may consider the name of this method too
-  // cutesy, but they are curmudgeons.
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
   runtime.awrap = function(arg) {
-    return new AwaitArgument(arg);
+    return { __await: arg };
   };
-
-  function AwaitArgument(arg) {
-    this.arg = arg;
-  }
 
   function AsyncIterator(generator) {
     function invoke(method, arg, resolve, reject) {
@@ -7839,8 +7851,10 @@ exports.encode = exports.stringify = require('./encode');
       } else {
         var result = record.arg;
         var value = result.value;
-        if (value instanceof AwaitArgument) {
-          return Promise.resolve(value.arg).then(function(value) {
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
             invoke("next", value, resolve, reject);
           }, function(err) {
             invoke("throw", err, resolve, reject);
@@ -7909,6 +7923,7 @@ exports.encode = exports.stringify = require('./encode');
   }
 
   defineIteratorMethods(AsyncIterator.prototype);
+  runtime.AsyncIterator = AsyncIterator;
 
   // Note that simple async functions are implemented on top of
   // AsyncIterator objects; they just return a Promise for the value of
@@ -8068,10 +8083,6 @@ exports.encode = exports.stringify = require('./encode');
   // Define Generator.prototype.{next,throw,return} in terms of the
   // unified ._invoke helper method.
   defineIteratorMethods(Gp);
-
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
 
   Gp[toStringTagSymbol] = "Generator";
 
@@ -8371,7 +8382,7 @@ exports.encode = exports.stringify = require('./encode');
  * @copyright Copyright (c) 2016 IcoMoon.io
  * @license   Licensed under MIT license
  *            See https://github.com/Keyamoon/svgxuse
- * @version   1.1.21
+ * @version   1.1.23
  */
 /*jslint browser: true */
 /*global XDomainRequest, MutationObserver, window */
@@ -8416,21 +8427,27 @@ exports.encode = exports.stringify = require('./encode');
             }
         };
         var createRequest = function (url) {
-            // In IE 9, cross domain requests can only be sent using XDomainRequest.
+            // In IE 9, cross origin requests can only be sent using XDomainRequest.
             // XDomainRequest would fail if CORS headers are not set.
-            // Therefore, XDomainRequest should only be used with cross domain requests.
-            function getHostname(href) {
-                var a = document.createElement('a');
-                a.href = href;
-                return a.hostname;
+            // Therefore, XDomainRequest should only be used with cross origin requests.
+            function getOrigin(loc) {
+                var a;
+                if (loc.protocol !== undefined) {
+                    a = loc;
+                } else {
+                    a = document.createElement('a');
+                    a.href = loc;
+                }
+                return a.protocol.replace(/:/g, '') + a.host;
             }
             var Request;
-            var hname = location.hostname;
-            var hname2;
+            var origin;
+            var origin2;
             if (window.XMLHttpRequest) {
                 Request = new XMLHttpRequest();
-                hname2 = getHostname(url);
-                if (Request.withCredentials === undefined && hname2 !== '' && hname2 !== hname) {
+                origin = getOrigin(location);
+                origin2 = getOrigin(url);
+                if (Request.withCredentials === undefined && origin2 !== '' && origin2 !== origin) {
                     Request = XDomainRequest || undefined;
                 } else {
                     Request = XMLHttpRequest;
@@ -8581,7 +8598,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}require("babel-polyfill"),require("svgxuse");var _init=require("./init"),_init2=_interopRequireDefault(_init),_factory=require("./factory"),_factory2=_interopRequireDefault(_factory),_cookie=require("./components/cookie"),_cookie2=_interopRequireDefault(_cookie),_authentication=require("./components/forms/authentication"),_authentication2=_interopRequireDefault(_authentication),_datepicker=require("./components/datepicker"),_datepicker2=_interopRequireDefault(_datepicker),_offer=require("./components/forms/offer"),_offer2=_interopRequireDefault(_offer),_checkAll=require("./components/check-all"),_checkAll2=_interopRequireDefault(_checkAll),_copyright=require("./components/copyright"),_copyright2=_interopRequireDefault(_copyright);window.app={start:function(e){(0,_init2["default"])(_cookie2["default"],document.body),(0,_init2["default"])(_authentication2["default"],document.getElementById("authentication")),(0,_init2["default"])(_offer2["default"],document.getElementById("offer")),(0,_factory2["default"])(_checkAll2["default"],document.querySelectorAll(".form .check-all")),(0,_init2["default"])(_datepicker2["default"],document.querySelector(".input-date")),(0,_init2["default"])(_copyright2["default"],document.getElementById("copyright"))}};
 
 },{"./components/check-all":306,"./components/cookie":307,"./components/copyright":308,"./components/datepicker":309,"./components/forms/authentication":311,"./components/forms/offer":312,"./factory":314,"./init":316,"babel-polyfill":1,"svgxuse":303}],305:[function(require,module,exports){
-"use strict";function Alert(e){var r=arguments.length<=1||void 0===arguments[1]?"warning":arguments[1],t=arguments.length<=2||void 0===arguments[2]?null:arguments[2];e instanceof Array&&(e=e.join(""));var a=['<div class="alert '+r+'">',e+'<a class="close" href=""></a>',"</div>"].join("");return t&&(t=t instanceof jQuery&&$(t),t.append(a)),$(".alert .close").on("click",function(e){e.preventDefault();var r=($(e.target),$(e.target).parent(".alert"));r.addClass("closing").slideUp(250).fadeOut(0,function(){r.remove()})}),a}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Alert;var alertTypes=exports.alertTypes=["error","warning","success"];
+"use strict";function Alert(e){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"warning",t=arguments.length>2&&void 0!==arguments[2]?arguments[2]:null;e instanceof Array&&(e=e.join(""));var a=['<div class="alert '+r+'">',e+'<a class="close" href=""></a>',"</div>"].join("");return t&&(t=t instanceof jQuery&&$(t),t.append(a)),$(".alert .close").on("click",function(e){e.preventDefault();var r=($(e.target),$(e.target).parent(".alert"));r.addClass("closing").slideUp(250).fadeOut(0,function(){r.remove()})}),a}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Alert;var alertTypes=exports.alertTypes=["error","warning","success"];
 
 },{}],306:[function(require,module,exports){
 "use strict";function CheckAll(e){e=$(e);var c=e.closest(".form");e.on("click",function(e){e.preventDefault();var t=e.target,n=c.find('input[type="checkbox"]');n.map(function(e,c){c.checked=!t.classList.contains("checked")}),t.classList.toggle("checked"),c.change()})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=CheckAll;
@@ -8593,7 +8610,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function Copyright(e){var t=2016,r=[t],o=new Date,i=o.getFullYear();i>t&&r.push(i),e.innerHTML=r.join(" - ")}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Copyright;
 
 },{}],309:[function(require,module,exports){
-    "use strict"; function DateInput(e) { e = $(e), e.datepicker({ language: "cs", format: "dd. mm. yyyy", endDate: "-1d", maxViewMode: 2, autoclose: !0, orientation: "bottom right" }), $(".datepicker-dropdown").appendTo(e.parent("div")); var t = $(".ui-datepicker-trigger"); t.on("click", function (t) { t.preventDefault(), e.datepicker("show") }) } Object.defineProperty(exports, "__esModule", { value: !0 }), exports["default"] = DateInput;
+"use strict";function DateInput(e){e=$(e),e.datepicker({language:"cs",format:"dd. mm. yyyy",endDate:"-1d",maxViewMode:2,autoclose:!0,orientation:"bottom right"}),$(".datepicker-dropdown").appendTo(e.parent("div"));var t=$(".ui-datepicker-trigger");t.on("click",function(t){t.preventDefault(),e.datepicker("show")})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=DateInput;
 
 },{}],310:[function(require,module,exports){
 "use strict";function printDocumentsList(e,n,t){!(e instanceof jQuery)&&(e=$(e));var l=t.checked||!1,a=t.disabled||!1;console.log(t.agreed,l,a),n.map(function(n,i){var o=i+1,c=n.label,d=n.title,r=["<li>",!t.agreed&&'\n            <input\n                id="document-'+o+'"\n                type="checkbox"\n                '+(l&&"checked")+"\n                "+(a&&"disabled")+'\n                autocomplete="off">','<label for="document-'+o+'">',!t.agreed&&c+" ",'<a class="pdf" href="#" data-key="'+o+'" title="'+d+'">'+d+"</a>","</label>","</li>"].filter(Boolean).join("");0==i?e.prepend(r):e.append(r);var s=e.children("li:last-of-type").find("a");s.on("click",function(e){handleClick(e,o)})})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=printDocumentsList;
@@ -8602,7 +8619,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function Auth(e){!function(r){function t(){var r=Array.from(e.querySelectorAll("[required]")),t=!0,u=[];return r.map(function(e){e.classList.remove("invalid"),e.value.trim()||(e.classList.add("invalid"),u.push(e),t=!1)}),t}window.addEventListener("load",function(){var e=_url2["default"].parse(window.location.href,!0).query;e&&Object.keys(e).forEach(function(r){if(_alert.alertTypes.includes(r)){var t=e[r];messages.hasOwnProperty(t)&&(0,_alert2["default"])(messages[t],r,i)}})});var u=e.querySelector(".button-submit"),i=r(e.querySelector(".status"));u.onclick=function(){r(i).empty();var e=t();return e||(0,_alert2["default"])(messages.requiredFields,"error",i),e}}(jQuery)}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Auth;var _alert=require("../../components/alert"),_alert2=_interopRequireDefault(_alert),_url=require("url"),_url2=_interopRequireDefault(_url),_trim=require("../../helpers/trim"),_trim2=_interopRequireDefault(_trim);
 
 },{"../../components/alert":305,"../../helpers/trim":315,"url":2}],312:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e){window.onload=function(){function t(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function n(){a.addClass(s.unacceptedTerms),a.children("li").remove()}function r(){var e=!0,n=t();return n.map(function(t){!t.checked&&(e=!1)}),c||(e=!1),e?i.classList.remove(s.disabledLink):i.classList.add(s.disabledLink),e}var s={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},a=$(e.querySelector(".list")),i=e.querySelector(".button-submit"),c=!1;n(),window.documentsReceived=function(){var e=arguments.length<=0||void 0===arguments[0]?[]:arguments[0],t=arguments.length<=1||void 0===arguments[1]?{agreed:!1,checked:!1,disabled:!1}:arguments[1];if(c=e.length>0,a.removeClass("loading"),c)if((0,_documentsList2["default"])(a,e,t),t.agreed)a.removeClass(s.unacceptedTerms).addClass(s.agreed),a.children(".check-all").remove(),i.remove();else{var n=a.children("li:first-child").children('input[type="checkbox"]');n.on("change",function(){var e=!a.hasClass(s.unacceptedTerms),t=1==a.children("li").length;e||t||a.removeClass(s.unacceptedTerms)})}else a.empty(),a.removeClass(s.unacceptedTerms).addClass("error"),(0,_message2["default"])(a,"appUnavailable");return c},e.onchange=function(){r()},i.onclick=function(){c&&(window.location="thank-you.html")},r()}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e){window.onload=function(){function t(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function n(){a.addClass(s.unacceptedTerms),a.children("li").remove()}function r(){var e=!0,n=t();return n.map(function(t){!t.checked&&(e=!1)}),c||(e=!1),e?i.classList.remove(s.disabledLink):i.classList.add(s.disabledLink),e}var s={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},a=$(e.querySelector(".list")),i=e.querySelector(".button-submit"),c=!1;n(),window.documentsReceived=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{agreed:!1,checked:!1,disabled:!1};if(c=e.length>0,a.removeClass("loading"),c)if((0,_documentsList2["default"])(a,e,t),t.agreed)a.removeClass(s.unacceptedTerms).addClass(s.agreed),a.children(".check-all").remove(),$(i).remove();else{var n=a.children("li:first-child").children('input[type="checkbox"]');n.on("change",function(){var e=!a.hasClass(s.unacceptedTerms),t=1==a.children("li").length;e||t||a.removeClass(s.unacceptedTerms)})}else a.empty(),a.removeClass(s.unacceptedTerms).addClass("error"),(0,_message2["default"])(a,"appUnavailable");return c},e.onchange=function(){r()},i.onclick=function(){c&&(window.location="thank-you.html")},r()}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
 
 },{"../documents-list":310,"../message":313}],313:[function(require,module,exports){
 "use strict";function Message(e,s){if(messages){!(e instanceof jQuery)&&(e=$(e));var a=messages[s].join("");e.append(a)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Message;

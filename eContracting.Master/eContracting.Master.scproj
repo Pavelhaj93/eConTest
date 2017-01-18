@@ -96,7 +96,7 @@
     <InstallSitecoreConnector>False</InstallSitecoreConnector>
     <DisableFileDeployment>False</DisableFileDeployment>
     <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
-    <OutputPath>bin\RWE_Test_CM\</OutputPath>
+    <OutputPath>.\bin\RWE_Test_CM\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Production_CM' ">
     <OutputPath>bin\RWE_Production_CM\</OutputPath>
