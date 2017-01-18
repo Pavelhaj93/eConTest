@@ -12,9 +12,6 @@ export default function FormOffer(form) {
         const list = $(form.querySelector('.list'));
         const submitBtn = form.querySelector('.button-submit');
 
-        console.log('form', form);
-        console.log('submitBtn on init:', submitBtn);
-
         /* Determines whether the documents have been received */
         let gotDocuments = false;
 
@@ -43,29 +40,17 @@ export default function FormOffer(form) {
             gotDocuments = (documents.length > 0);
             list.removeClass('loading');
 
-            console.warn('documentsReceived');
-            console.log(documents, options);
-
             if (gotDocuments) {
-                console.log('got the documents successfully');
-
                 /* Prepare the list & print the documents */
                 printDocumentsList(list, documents, options);
 
                 if (options.agreed) {
-                    console.log('agreed to the documents, printing accepted-offer');
                     /* Mark list container as agreed (expand) */
                     list.removeClass(classes.unacceptedTerms).addClass(classes.agreed);
 
                     /* Hide "Check all" and submit button */
                     list.children('.check-all').remove();
-
-                    console.log('removed all .check-all children');
-                    console.log('submitBtn', submitBtn);
-
-                    submitBtn.remove();
-
-                    console.log('submit btn should be removed');
+                    $(submitBtn).remove();
 
                 } else {
                     /* Show other list items by clicking on customerAgreement */
