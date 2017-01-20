@@ -245,30 +245,6 @@
     <Content Include="Areas\eContracting\Views\DocumentPanel.cshtml" />
     <Content Include="Areas\eContracting\Views\Offer.cshtml" />
     <Content Include="Areas\eContracting\Views\AcceptedOffer.cshtml" />
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.Debug.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.Release.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Production_CD.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Production_CM.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Test_CD.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
-    <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Test_CM.config">
-      <DependentUpon>ApplicationConfiguration.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <None Include="App_Config\Include\zeContracting\SiteDefinition.RWE_Production_CD.config">
       <DependentUpon>SiteDefinition.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

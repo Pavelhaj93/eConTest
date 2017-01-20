@@ -23,8 +23,8 @@ namespace eContracting.Kernel.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            var userName = SystemHelpers.ReadConfig("eContracring.ServiceUser");
-            var password = SystemHelpers.ReadConfig("eContracting.ServicePassword");
+            var userName = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracring.ServiceUser")));
+            var password = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracting.ServicePassword")));
             api.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
 
             if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
