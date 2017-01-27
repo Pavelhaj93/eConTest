@@ -129,6 +129,7 @@
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\DocumentPanelModel.cs" />
     <Compile Include="Models\LayoutModel.cs" />
+    <Compile Include="PipeLines\404ResolverPipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
