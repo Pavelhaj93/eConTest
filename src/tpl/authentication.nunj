@@ -34,7 +34,7 @@
 	<script src="js/vendor/bootstrap-datepicker.cs.min.js"></script>
 
 	<script>
-		window.messages = {
+		var messages = {
 			requiredFields: ['Prosím, vyplňte všechna požadovaná pole.'],
 			validationError: ['Ověření Vašich údajů se nezdařilo. Zadejte prosím správné údaje. V případě potíží se prosím obraťte na naši zákaznickou podporu.']
 		};
