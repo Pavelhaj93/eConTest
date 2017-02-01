@@ -35,7 +35,7 @@
 
 	<script>
 		var messages = {
-			requiredFields: ['Prosím , vyplňte všechna požadovaná pole.'],
+			requiredFields: ['Prosím, vyplňte všechna požadovaná pole.'],
 			validationError: ['Ověření Vašich údajů se nezdařilo. Zadejte prosím správné údaje. V případě potíží se prosím obraťte na naši zákaznickou podporu.']
 		};
 	</script>
