@@ -16,7 +16,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
-                RweClient client = new RweClient();
 
                 if (!ads.IsDataActive)
                 {

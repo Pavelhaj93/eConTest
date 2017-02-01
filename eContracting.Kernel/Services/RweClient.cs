@@ -18,60 +18,7 @@ namespace eContracting.Kernel.Services
     delegate T CallServiceMethod<T, P>(P inputParams);
     public class RweClient
     {
-        private ZCCH_CACHE_API InitApi()
-        {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-            ZCCH_CACHE_API api = new ZCCH_CACHE_API();
-
-            var userName = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracring.ServiceUser")));
-            var password = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracting.ServicePassword")));
-            api.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
-
-            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
-            {
-                throw new InvalidCredentialException("Wrong credentials for cache!");
-            }
-
-            CredentialCache credentialCache = new CredentialCache();
-            credentialCache.Add(
-                new Uri(api.Url),
-                "Basic",
-                new NetworkCredential(userName, password)
-            );
-
-            api.Credentials = credentialCache;
-            return api;
-        }
-
-        private ZCCH_CACHE_GETResponse GetResponseDel(ZCCH_CACHE_GET inputParam)
-        {
-            StringBuilder parameters = new StringBuilder();
-            parameters.AppendLine("Calling web service with parameters ");
-            parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
-            parameters.AppendLine();
-            parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
-            parameters.AppendLine();
-            parameters.AppendFormat("IV_GEFILE = ", inputParam.IV_CCHTYPE);
-            Log.Info(parameters.ToString(), this);
-
-            using (var api = InitApi())
-            {
-                ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputParam);
-                return result;
-            }
-
-        }
-        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
-        {
-            ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
-            inputPar.IV_CCHKEY = guid;
-            inputPar.IV_CCHTYPE = type;
-            inputPar.IV_GEFILE = "X";
-            CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(GetResponseDel);
-            return  CallService(inputPar, del);
-        }
-    
-
+        #region Public methods
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
             var res = GetResponse(guid, "NABIDKA");
@@ -198,6 +145,124 @@ namespace eContracting.Kernel.Services
             return false;
         }
 
+        public void ResetOffer(string guid)
+        {
+            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Decimal outValue = 1M;
+
+            if (Decimal.TryParse(timestampString, out outValue))
+            {
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "1";
+                status.IV_TIMESTAMP = outValue;
+
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
+                var response = CallService(status, del);
+            }
+        }
+
+        public XmlText GetLetterXml(IEnumerable<XmlText> texts)
+        {
+            return texts.FirstOrDefault();
+        }
+
+        public Dictionary<string, string> GetAllAtrributes(XmlText sourceXml)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(sourceXml.Text);
+
+            var parameters = doc.DocumentElement.SelectSingleNode("parameters").ChildNodes;
+            if (parameters == null)
+                return result;
+            foreach (XmlNode param in parameters)
+            {
+                result.Add(param.Name, param.InnerXml);
+            }
+
+            return result;
+        }
+
+        public IEnumerable<XmlText> GetTextsXml(string guid)
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_XML");
+
+            List<XmlText> fileResults = new List<XmlText>();
+
+            if (result.ThereAreFiles())
+            {
+
+                int index = 0;
+
+                foreach (var f in result.ET_FILES)
+                {
+                    XmlText tempItem = new XmlText();
+                    tempItem.Index = (++index).ToString();
+                    tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
+                    fileResults.Add(tempItem);
+                }
+            }
+
+            return fileResults;
+        }
+        #endregion
+
+        #region Private method
+        private ZCCH_CACHE_API InitApi()
+        {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+            ZCCH_CACHE_API api = new ZCCH_CACHE_API();
+
+            var userName = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracring.ServiceUser")));
+            var password = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracting.ServicePassword")));
+            api.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
+
+            if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
+            {
+                throw new InvalidCredentialException("Wrong credentials for cache!");
+            }
+
+            CredentialCache credentialCache = new CredentialCache();
+            credentialCache.Add(
+                new Uri(api.Url),
+                "Basic",
+                new NetworkCredential(userName, password)
+            );
+
+            api.Credentials = credentialCache;
+            return api;
+        }
+
+        private ZCCH_CACHE_GETResponse GetResponseDel(ZCCH_CACHE_GET inputParam)
+        {
+            StringBuilder parameters = new StringBuilder();
+            parameters.AppendLine("Calling web service with parameters ");
+            parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
+            parameters.AppendLine();
+            parameters.AppendFormat("IV_GEFILE = ", inputParam.IV_CCHTYPE);
+            Log.Info(parameters.ToString(), this);
+
+            using (var api = InitApi())
+            {
+                ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputParam);
+                return result;
+            }
+
+        }
+        private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
+        {
+            ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
+            inputPar.IV_CCHKEY = guid;
+            inputPar.IV_CCHTYPE = type;
+            inputPar.IV_GEFILE = "X";
+            CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(GetResponseDel);
+            return CallService(inputPar, del);
+        }
+
         private ZCCH_CACHE_STATUS_SETResponse AcceptOfferDel(ZCCH_CACHE_STATUS_SET inputParam)
         {
             StringBuilder parameters = new StringBuilder();
@@ -238,67 +303,7 @@ namespace eContracting.Kernel.Services
             return default(T);
         }
 
-        public void ResetOffer(string guid)
-        {
-            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
-            Decimal outValue = 1M;
+        #endregion
 
-            if (Decimal.TryParse(timestampString, out outValue))
-            {
-                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
-                status.IV_CCHKEY = guid;
-                status.IV_CCHTYPE = "NABIDKA";
-                status.IV_STAT = "1";
-                status.IV_TIMESTAMP = outValue;
-
-                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var response = CallService(status, del);
-            }
-        }
-
-        public XmlText GetLetterXml(IEnumerable<XmlText> texts)
-        {
-            return texts.FirstOrDefault();
-        }
-
-        public Dictionary<string,string> GetAllAtrributes(XmlText sourceXml)
-        {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(sourceXml.Text);
-
-            var parameters = doc.DocumentElement.SelectSingleNode("parameters").ChildNodes;
-            if (parameters == null)
-                return result;
-            foreach ( XmlNode param in parameters)
-            {
-                result.Add(param.Name, param.InnerXml);
-            }
-
-            return result;
-        }
-
-        public IEnumerable<XmlText> GetTextsXml(string guid)
-        {
-            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_XML");
-
-            List<XmlText> fileResults = new List<XmlText>();
-
-            if (result.ThereAreFiles())
-            {
-
-                int index = 0;
-
-                foreach (var f in result.ET_FILES)
-                {
-                    XmlText tempItem = new XmlText();
-                    tempItem.Index = (++index).ToString();
-                    tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
-                    fileResults.Add(tempItem);
-                }
-            }
-
-            return fileResults;
-        }
     }
 }

@@ -74,7 +74,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             failureData failureData;
             if (this.NumberOfLogons.TryGetValue(guid, out failureData))
             {
-                TimeSpan blokingDuration = DateTime.UtcNow - failureData.FirstFailureTime;
+                TimeSpan blokingDuration = DateTime.UtcNow - failureData.LastFailureTime;
                 if (failureData.LoginAttemp >= 3 && blokingDuration.Minutes <= 30)
                 {
                     return true;
@@ -90,12 +90,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 FillViewData();
-
-                if (!ModelState.IsValid)
-                {
-                    return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
-                }
-
                 var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
                 var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower();
 
@@ -110,7 +104,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     failureData = new failureData();
                     NumberOfLogons.Add(authenticationData.Identifier, failureData);
-                    failureData.FirstFailureTime = DateTime.UtcNow;
+                    failureData.LastFailureTime = DateTime.UtcNow;
                     failureData.LoginAttemp = 0;
                 }
                 int numberOfLogonsBefore = failureData.LoginAttemp;
@@ -119,7 +113,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
 
                     NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
-
+                    NumberOfLogons[authenticationData.Identifier].LastFailureTime = DateTime.UtcNow;
 
                     string url = Request.RawUrl;
 
@@ -134,10 +128,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     return Redirect(url);
                 }
+
                 if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 else
                 {
+                    if (!ModelState.IsValid)
+                    {
+                        return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
+                    }
                     NumberOfLogons.Remove(authenticationData.Identifier);
                     var aut = new AuthenticationDataSessionStorage();
                     aut.Login(authenticationData);
@@ -191,7 +190,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     internal class failureData
     {
         public int LoginAttemp { get; set; }
-        public DateTime FirstFailureTime { get; set; }
+        public DateTime LastFailureTime { get; set; }
 
     }
 
