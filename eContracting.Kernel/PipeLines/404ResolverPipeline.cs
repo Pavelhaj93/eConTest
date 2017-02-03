@@ -10,7 +10,9 @@ namespace eContracting.Kernel.PipeLines
         public override void Process(HttpRequestArgs args)
         {
             Assert.ArgumentNotNull(args, "args");
-
+            //Check whether Site is Econtracting Site or not
+            if (args.StartPath != "/sitecore/content/eContracting/Site")
+                return;
             // Do nothing if the item is actually found
             if (Sitecore.Context.Item != null || Sitecore.Context.Database == null)
                 return;
