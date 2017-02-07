@@ -44,10 +44,7 @@
 	@Html.Sitecore().VisitorIdentification()
 </head>
 <body>
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-	@Html.Action("CookieLaw", "eContracting")
+   	@Html.Action("CookieLaw", "eContracting")
 	<header class="header">
 		<div class="container">
 			<div class="row">
@@ -115,5 +112,8 @@
         app.start(
         {});
 	</script>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
 </body>
 </html>

@@ -45,7 +45,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer,true);
 
-                dataModel.ItemValue = authenticationData.ItemValue;
+                dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
                 dataModel.UserId = authenticationData.Identifier;
 
                 string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
@@ -91,7 +91,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 FillViewData();
                 var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
-                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower();
+                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
                 RweClient client = new RweClient();
                 var offer = client.GenerateXml(authenticationModel.UserId);
@@ -109,7 +109,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
                 int numberOfLogonsBefore = failureData.LoginAttemp;
 
-                if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower())))
+                if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue)))
                 {
 
                     NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;

@@ -1,32 +1,6 @@
 ﻿@using eContracting.Kernel.Models
 @model DocumentPanelModel
 
-<script>
-    function CheckIfReady() {
-        $.ajax({
-            type: "POST",
-            url: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
-            dataType: "json",
-            timeout: 30000,
-            error: function () {
-                window.location.href = "/404"
-            },
-            success: function (documents) {
-                var agreed = @Model.IsAccepted.ToString().ToLower();
-                window.documentsReceived(documents, { agreed: agreed });
-            },
-        });
-    }
-
-    CheckIfReady();
-
-    window.handleClick = function (e, key) {
-        e.preventDefault();
-        $.post("@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key, null);
-        window.location.href = "@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key;
-    }
-</script>
-
 <div class="row">
 	<div class="col-sm-12 col-md-10 col-md-offset-1">
 		<div class="form-background">
@@ -46,4 +20,30 @@
 	</div>
 </div>
 
+<script>
+    function CheckIfReady() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
+            dataType: "json",
+            timeout: 30000,
+            error: function () {
+                window.location.href = "/404"
+            },
+            success: function (documents) {
+                var agreed = @Model.IsAccepted.ToString().ToLower();
+                window.documentsReceived(documents, { agreed: agreed });
+            },
+        });
+    }
 
+    $(document).ready(function () {
+        CheckIfReady();
+    });
+
+    window.handleClick = function (e, key) {
+        e.preventDefault();
+        $.post("@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key, null);
+        window.location.href = "@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key;
+    }
+</script>
