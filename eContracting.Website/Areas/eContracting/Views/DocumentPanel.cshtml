@@ -13,7 +13,7 @@
             },
             success: function (documents) {
                 var agreed = @Model.IsAccepted.ToString().ToLower();
-                documentsReceived(documents, { agreed: agreed });
+                window.documentsReceived(documents, { agreed: agreed });
             },
         });
     }
