@@ -3,7 +3,7 @@ import Message from '../message';
 
 export default function FormOffer(form) {
 
-    window.onload = () => {
+    $(document).ready(function() {
         const classes = {
             unacceptedTerms: 'unaccepted-terms',
             agreed: 'agreed',
@@ -28,6 +28,7 @@ export default function FormOffer(form) {
             /* Clear the list */
             list.children('li').remove();
         }
+
         waitResponse();
 
         /* When the documents has passed */
@@ -121,5 +122,5 @@ export default function FormOffer(form) {
 
         /* Validate on window load for History back */
         validateForm();
-    };
+    });
 }

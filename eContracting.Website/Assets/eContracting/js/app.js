@@ -8379,15 +8379,15 @@ exports.encode = exports.stringify = require('./encode');
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":297}],303:[function(require,module,exports){
 /*!
- * @copyright Copyright (c) 2016 IcoMoon.io
+ * @copyright Copyright (c) 2017 IcoMoon.io
  * @license   Licensed under MIT license
  *            See https://github.com/Keyamoon/svgxuse
- * @version   1.1.23
+ * @version   1.2.1
  */
 /*jslint browser: true */
 /*global XDomainRequest, MutationObserver, window */
 (function () {
-    'use strict';
+    "use strict";
     if (window && window.addEventListener) {
         var cache = Object.create(null); // holds xhr objects to prevent multiple requests
         var checkUseElems;
@@ -8401,8 +8401,8 @@ exports.encode = exports.stringify = require('./encode');
         };
         var observeChanges = function () {
             var observer;
-            window.addEventListener('resize', debouncedCheck, false);
-            window.addEventListener('orientationchange', debouncedCheck, false);
+            window.addEventListener("resize", debouncedCheck, false);
+            window.addEventListener("orientationchange", debouncedCheck, false);
             if (window.MutationObserver) {
                 observer = new MutationObserver(debouncedCheck);
                 observer.observe(document.documentElement, {
@@ -8413,16 +8413,16 @@ exports.encode = exports.stringify = require('./encode');
                 unobserveChanges = function () {
                     try {
                         observer.disconnect();
-                        window.removeEventListener('resize', debouncedCheck, false);
-                        window.removeEventListener('orientationchange', debouncedCheck, false);
+                        window.removeEventListener("resize", debouncedCheck, false);
+                        window.removeEventListener("orientationchange", debouncedCheck, false);
                     } catch (ignore) {}
                 };
             } else {
-                document.documentElement.addEventListener('DOMSubtreeModified', debouncedCheck, false);
+                document.documentElement.addEventListener("DOMSubtreeModified", debouncedCheck, false);
                 unobserveChanges = function () {
-                    document.documentElement.removeEventListener('DOMSubtreeModified', debouncedCheck, false);
-                    window.removeEventListener('resize', debouncedCheck, false);
-                    window.removeEventListener('orientationchange', debouncedCheck, false);
+                    document.documentElement.removeEventListener("DOMSubtreeModified", debouncedCheck, false);
+                    window.removeEventListener("resize", debouncedCheck, false);
+                    window.removeEventListener("orientationchange", debouncedCheck, false);
                 };
             }
         };
@@ -8435,10 +8435,10 @@ exports.encode = exports.stringify = require('./encode');
                 if (loc.protocol !== undefined) {
                     a = loc;
                 } else {
-                    a = document.createElement('a');
+                    a = document.createElement("a");
                     a.href = loc;
                 }
-                return a.protocol.replace(/:/g, '') + a.host;
+                return a.protocol.replace(/:/g, "") + a.host;
             }
             var Request;
             var origin;
@@ -8447,7 +8447,7 @@ exports.encode = exports.stringify = require('./encode');
                 Request = new XMLHttpRequest();
                 origin = getOrigin(location);
                 origin2 = getOrigin(url);
-                if (Request.withCredentials === undefined && origin2 !== '' && origin2 !== origin) {
+                if (Request.withCredentials === undefined && origin2 !== "" && origin2 !== origin) {
                     Request = XDomainRequest || undefined;
                 } else {
                     Request = XMLHttpRequest;
@@ -8455,16 +8455,17 @@ exports.encode = exports.stringify = require('./encode');
             }
             return Request;
         };
-        var xlinkNS = 'http://www.w3.org/1999/xlink';
+        var xlinkNS = "http://www.w3.org/1999/xlink";
         checkUseElems = function () {
             var base;
             var bcr;
-            var fallback = ''; // optional fallback URL in case no base path to SVG file was given and no symbol definition was found.
+            var fallback = ""; // optional fallback URL in case no base path to SVG file was given and no symbol definition was found.
             var hash;
             var href;
             var i;
             var inProgressCount = 0;
             var isHidden;
+            var isXlink = false;
             var Request;
             var url;
             var uses;
@@ -8480,24 +8481,28 @@ exports.encode = exports.stringify = require('./encode');
             function attrUpdateFunc(spec) {
                 return function () {
                     if (cache[spec.base] !== true) {
-                        spec.useEl.setAttributeNS(xlinkNS, 'xlink:href', '#' + spec.hash);
+                        if (spec.isXlink) {
+                            spec.useEl.setAttributeNS(xlinkNS, "xlink:href", "#" + spec.hash);
+                        } else {
+                            spec.useEl.setAttribute("href", "#" + spec.hash);
+                        }
                     }
                 };
             }
             function onloadFunc(xhr) {
                 return function () {
                     var body = document.body;
-                    var x = document.createElement('x');
+                    var x = document.createElement("x");
                     var svg;
                     xhr.onload = null;
                     x.innerHTML = xhr.responseText;
-                    svg = x.getElementsByTagName('svg')[0];
+                    svg = x.getElementsByTagName("svg")[0];
                     if (svg) {
-                        svg.setAttribute('aria-hidden', 'true');
-                        svg.style.position = 'absolute';
+                        svg.setAttribute("aria-hidden", "true");
+                        svg.style.position = "absolute";
                         svg.style.width = 0;
                         svg.style.height = 0;
-                        svg.style.overflow = 'hidden';
+                        svg.style.overflow = "hidden";
                         body.insertBefore(svg, body.firstChild);
                     }
                     observeIfDone();
@@ -8512,7 +8517,7 @@ exports.encode = exports.stringify = require('./encode');
             }
             unobserveChanges(); // stop watching for changes to DOM
             // find all use elements
-            uses = document.getElementsByTagName('use');
+            uses = document.getElementsByTagName("use");
             for (i = 0; i < uses.length; i += 1) {
                 try {
                     bcr = uses[i].getBoundingClientRect();
@@ -8520,9 +8525,15 @@ exports.encode = exports.stringify = require('./encode');
                     // failed to get bounding rectangle of the use element
                     bcr = false;
                 }
-                href = uses[i].getAttributeNS(xlinkNS, 'href');
+                href = uses[i].getAttribute("href");
+                if (!href) {
+                    href = uses[i].getAttributeNS(xlinkNS, "href");
+                    isXlink = true;
+                } else {
+                    isXlink = false;
+                }
                 if (href && href.split) {
-                    url = href.split('#');
+                    url = href.split("#");
                 } else {
                     url = ["", ""];
                 }
@@ -8544,7 +8555,8 @@ exports.encode = exports.stringify = require('./encode');
                             setTimeout(attrUpdateFunc({
                                 useEl: uses[i],
                                 base: base,
-                                hash: hash
+                                hash: hash,
+                                isXlink: isXlink
                             }), 0);
                         }
                         if (xhr === undefined) {
@@ -8555,7 +8567,7 @@ exports.encode = exports.stringify = require('./encode');
                                 xhr.onload = onloadFunc(xhr);
                                 xhr.onerror = onErrorTimeout(xhr);
                                 xhr.ontimeout = onErrorTimeout(xhr);
-                                xhr.open('GET', base);
+                                xhr.open("GET", base);
                                 xhr.send();
                                 inProgressCount += 1;
                             }
@@ -8582,13 +8594,13 @@ exports.encode = exports.stringify = require('./encode');
                     }
                 }
             }
-            uses = '';
+            uses = "";
             inProgressCount += 1;
             observeIfDone();
         };
         // The load event fires when all resources have finished loading, which allows detecting whether SVG use elements are empty.
-        window.addEventListener('load', function winLoad() {
-            window.removeEventListener('load', winLoad, false); // to prevent memory leaks
+        window.addEventListener("load", function winLoad() {
+            window.removeEventListener("load", winLoad, false); // to prevent memory leaks
             tid = setTimeout(checkUseElems, 0);
         }, false);
     }
@@ -8619,7 +8631,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function Auth(e){!function(r){function t(){var r=Array.from(e.querySelectorAll("[required]")),t=!0,u=[];return r.map(function(e){e.classList.remove("invalid"),e.value.trim()||(e.classList.add("invalid"),u.push(e),t=!1)}),t}window.addEventListener("load",function(){var e=_url2["default"].parse(window.location.href,!0).query;e&&Object.keys(e).forEach(function(r){if(_alert.alertTypes.includes(r)){var t=e[r];messages.hasOwnProperty(t)&&(0,_alert2["default"])(messages[t],r,i)}})});var u=e.querySelector(".button-submit"),i=r(e.querySelector(".status"));u.onclick=function(){r(i).empty();var e=t();return e||(0,_alert2["default"])(messages.requiredFields,"error",i),e}}(jQuery)}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Auth;var _alert=require("../../components/alert"),_alert2=_interopRequireDefault(_alert),_url=require("url"),_url2=_interopRequireDefault(_url),_trim=require("../../helpers/trim"),_trim2=_interopRequireDefault(_trim);
 
 },{"../../components/alert":305,"../../helpers/trim":315,"url":2}],312:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e){window.onload=function(){function t(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function n(){a.addClass(s.unacceptedTerms),a.children("li").remove()}function r(){var e=!0,n=t();return n.map(function(t){!t.checked&&(e=!1)}),c||(e=!1),e?i.classList.remove(s.disabledLink):i.classList.add(s.disabledLink),e}var s={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},a=$(e.querySelector(".list")),i=e.querySelector(".button-submit"),c=!1;n(),window.documentsReceived=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{agreed:!1,checked:!1,disabled:!1};if(c=e.length>0,a.removeClass("loading"),c)if((0,_documentsList2["default"])(a,e,t),t.agreed)a.removeClass(s.unacceptedTerms).addClass(s.agreed),a.children(".check-all").remove(),$(i).remove();else{var n=a.children("li:first-child").children('input[type="checkbox"]');n.on("change",function(){var e=!a.hasClass(s.unacceptedTerms),t=1==a.children("li").length;e||t||a.removeClass(s.unacceptedTerms)})}else a.empty(),a.removeClass(s.unacceptedTerms).addClass("error"),(0,_message2["default"])(a,"appUnavailable");return c},e.onchange=function(){r()},i.onclick=function(){c&&(window.location="thank-you.html")},r()}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e){$(document).ready(function(){function t(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function r(){a.addClass(s.unacceptedTerms),a.children("li").remove()}function n(){var e=!0,r=t();return r.map(function(t){!t.checked&&(e=!1)}),i||(e=!1),e?c.classList.remove(s.disabledLink):c.classList.add(s.disabledLink),e}var s={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},a=$(e.querySelector(".list")),c=e.querySelector(".button-submit"),i=!1;r(),window.documentsReceived=function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{agreed:!1,checked:!1,disabled:!1};if(i=e.length>0,a.removeClass("loading"),i)if((0,_documentsList2["default"])(a,e,t),t.agreed)a.removeClass(s.unacceptedTerms).addClass(s.agreed),a.children(".check-all").remove(),$(c).remove();else{var r=a.children("li:first-child").children('input[type="checkbox"]');r.on("change",function(){var e=!a.hasClass(s.unacceptedTerms),t=1==a.children("li").length;e||t||a.removeClass(s.unacceptedTerms)})}else a.empty(),a.removeClass(s.unacceptedTerms).addClass("error"),(0,_message2["default"])(a,"appUnavailable");return i},e.onchange=function(){n()},c.onclick=function(){i&&(window.location="thank-you.html")},n()})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
 
 },{"../documents-list":310,"../message":313}],313:[function(require,module,exports){
 "use strict";function Message(e,s){if(messages){!(e instanceof jQuery)&&(e=$(e));var a=messages[s].join("");e.append(a)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Message;
