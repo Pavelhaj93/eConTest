@@ -67,6 +67,12 @@
 				'<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>'
 			]
 		}
+		
+		var offerPageOptions = {
+			doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
+			isAgreed: true,
+			getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
+		}
 	</script>
 
 {% endblock %}

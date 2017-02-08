@@ -21,7 +21,13 @@
 </div>
 
 <script>
-    function CheckIfReady() {
+    var offerPageOptions = {
+        doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
+        isAgreed: @Model.IsAccepted.ToString().ToLower(),
+        getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
+    }
+
+    @*function CheckIfReady() {
         $.ajax({
             type: "POST",
             url: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
@@ -45,5 +51,5 @@
         e.preventDefault();
         $.post("@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key, null);
         window.location.href = "@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key;
-    }
+    }*@
 </script>

@@ -1,9 +1,9 @@
 import printDocumentsList from '../documents-list';
 import Message from '../message';
 
-export default function FormOffer(form) {
+export default function FormOffer(form, config) {
 
-    $(document).ready(function() {
+    window.onload = () => {
         const classes = {
             unacceptedTerms: 'unaccepted-terms',
             agreed: 'agreed',
@@ -32,7 +32,7 @@ export default function FormOffer(form) {
         waitResponse();
 
         /* When the documents has passed */
-        window.documentsReceived = function(documents = [],
+        function documentsReceived(documents = [],
             options = {
                 agreed: false,
                 checked: false,
@@ -122,5 +122,39 @@ export default function FormOffer(form) {
 
         /* Validate on window load for History back */
         validateForm();
-    });
+
+        /* Moved from DocumentPanel */
+        // ---------------------------
+
+        // var offerPageOptions = {
+        //         doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
+        //         isAgreed: @Model.IsAccepted.ToString().ToLower(),
+        //         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
+        //     }
+
+        function CheckIfReady() {
+            $.ajax({
+                type: 'POST',
+                url: config.doxReadyUrl,
+                dataType: 'json',
+                timeout: 30000,
+                error: function() {
+                    window.location.href = '/404';
+                },
+                success: function(documents) {
+                    var agreed = config.isAgreed;
+                    documentsReceived(documents, { agreed: agreed });
+                },
+            });
+        }
+        
+        CheckIfReady();
+
+        window.handleClick = function(e, key) {
+            e.preventDefault();
+            $.post(config.getFileUrl, null);
+            window.location.href = config.getFileUrl + key;
+        };
+
+    };
 }
