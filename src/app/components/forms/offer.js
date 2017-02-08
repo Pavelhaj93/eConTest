@@ -135,25 +135,27 @@ export default function FormOffer(form, config) {
         function CheckIfReady() {
             $.ajax({
                 type: 'POST',
-                url: config.doxReadyUrl,
+                url: config.offerPage.doxReadyUrl,
                 dataType: 'json',
                 timeout: 30000,
                 error: function() {
                     window.location.href = '/404';
                 },
                 success: function(documents) {
-                    var agreed = config.isAgreed;
+                    var agreed = config.offerPage.isAgreed;
                     documentsReceived(documents, { agreed: agreed });
                 },
             });
         }
         
-        CheckIfReady();
+        if (config.offerPage) {
+            CheckIfReady();
+        }
 
         window.handleClick = function(e, key) {
             e.preventDefault();
-            $.post(config.getFileUrl, null);
-            window.location.href = config.getFileUrl + key;
+            $.post(config.offerPage.getFileUrl, null);
+            window.location.href = config.offerPage.getFileUrl + key;
         };
 
     };

@@ -68,11 +68,7 @@
 			]
 		}
 		
-		var offerPageOptions = {
-			doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
-			isAgreed: true,
-			getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
-		}
+	
 	</script>
 
 {% endblock %}
