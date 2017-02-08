@@ -110,7 +110,7 @@
 	<script src="~/Assets/eContracting/js/bootstrap-datepicker.cs.min.js"></script>
 	<script>
 		var config = {
-			offerPage: offerPageOptions || null
+		    offerPage: typeof offerPageOptions != "undefined" ? offerPageOptions : null
 		};
         app.start(config);
 	</script>
