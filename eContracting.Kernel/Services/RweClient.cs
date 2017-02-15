@@ -6,17 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Text;
-using System.Xml.Linq;
+using System.Threading;
+using System.Xml;
 using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
-using Sitecore.Diagnostics;
-using System.Xml;
-using System.Threading;
-using MongoDB.Driver;
 using eContracting.Kernel.Models;
-using Sitecore.Analytics.Data.DataAccess.MongoDb;
-using MongoDB.Driver.Builders;
 using MongoDB.Bson;
+using MongoDB.Driver.Builders;
+using Sitecore.Analytics.Data.DataAccess.MongoDb;
+using Sitecore.Diagnostics;
 
 namespace eContracting.Kernel.Services
 {
