@@ -98,6 +98,10 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -238,6 +242,7 @@
     <Content Include="Areas\eContracting\Views\Expiration.cshtml" />
     <Content Include="App_Config\Include\zeContracting\ApplicationConfiguration.config">
       <TransformOnBuild>true</TransformOnBuild>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\eContracting\Views\Authentication.cshtml" />
     <Content Include="Areas\eContracting\Views\DocumentPanel.cshtml" />
@@ -258,6 +263,7 @@
     <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Production_CM.config">
       <DependentUpon>ApplicationConfiguration.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Test_CD.config">
       <DependentUpon>ApplicationConfiguration.config</DependentUpon>
@@ -266,6 +272,7 @@
     <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.RWE_Test_CM.config">
       <DependentUpon>ApplicationConfiguration.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App_Config\Include\zeContracting\SiteDefinition.RWE_Production_CD.config">
       <DependentUpon>SiteDefinition.config</DependentUpon>
@@ -274,6 +281,7 @@
     <None Include="App_Config\Include\zeContracting\SiteDefinition.RWE_Production_CM.config">
       <DependentUpon>SiteDefinition.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App_Config\Include\zeContracting\SiteDefinition.RWE_Test_CD.config">
       <DependentUpon>SiteDefinition.config</DependentUpon>
