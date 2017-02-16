@@ -16,11 +16,6 @@ $border-radius: 35px;
 		position: relative;
 		width: 100%;
 
-		input[type=date] {
-			width: 100%;
-			background: #fff;
-		}
-
 		&:not(:last-of-type) {
 			margin-bottom: 1.5rem;
 		}
