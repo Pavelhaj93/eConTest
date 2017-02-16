@@ -2701,6 +2701,13 @@ input {
     color: #9b9a98; }
   input:focus {
     border-color: #9b9a98; }
+  input[type="date"] {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    min-height: 2.556rem;
+    border: 1px solid #cdcdcd;
+    background: #fff; }
   input[type="checkbox"] {
     -webkit-appearance: none;
        -moz-appearance: none;

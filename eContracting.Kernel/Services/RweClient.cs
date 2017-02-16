@@ -6,12 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Text;
-using System.Xml.Linq;
+using System.Threading;
+using System.Xml;
 using System.Xml.Serialization;
 using eContracting.Kernel.Helpers;
+using eContracting.Kernel.Models;
+using MongoDB.Bson;
+using MongoDB.Driver.Builders;
+using Sitecore.Analytics.Data.DataAccess.MongoDb;
 using Sitecore.Diagnostics;
-using System.Xml;
-using System.Threading;
 
 namespace eContracting.Kernel.Services
 {
@@ -81,6 +84,14 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
+        public MongoDbCollection AcceptedOfferCollection
+        {
+            get
+            {
+                return  MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
+            }
+        }
+
         public Offer GenerateXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
@@ -110,7 +121,9 @@ namespace eContracting.Kernel.Services
                             offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
                         }
                     }
+                    var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)guid)));
 
+                    offer.OfferInternal.IsAccepted = ao == null ? offer.OfferInternal.IsAccepted : true;
                     return offer;
                 }
             }
@@ -120,6 +133,12 @@ namespace eContracting.Kernel.Services
 
         public bool AcceptOffer(string guid)
         {
+            AcceptedOffer offer = new AcceptedOffer()
+            {
+                Guid = guid,
+                SentToService = false
+            };
+
             var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
 
@@ -133,16 +152,17 @@ namespace eContracting.Kernel.Services
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
                 var  response = CallService(status, del);
-                var responseStatus = response.ET_RETURN.First();
-                if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                if (response != null)
                 {
-                    return !String.IsNullOrEmpty(responseStatus.MESSAGE);
+                    var responseStatus = response.ET_RETURN.First();
+                    if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                    {
+                        offer.SentToService = true;
+                    }
                 }
-
-                return !String.IsNullOrEmpty(responseStatus.MESSAGE);
-
             }
-            return false;
+            InsertToMongoAcceptedOffer(offer);
+            return offer.SentToService;
         }
 
         public void ResetOffer(string guid)
@@ -207,6 +227,7 @@ namespace eContracting.Kernel.Services
 
             return fileResults;
         }
+
         #endregion
 
         #region Private method
@@ -303,7 +324,22 @@ namespace eContracting.Kernel.Services
             return default(T);
         }
 
+        private void InsertToMongoAcceptedOffer(AcceptedOffer offer)
+        {
+            var offerInDb = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)offer.Guid)));
+            if (offerInDb != null)
+            {
+                offer._id = offerInDb._id;
+            }
+            else
+            {
+                offer._id = AcceptedOfferCollection.Count() + 1;
+            }
+            AcceptedOfferCollection.Save(offer);
+        }
+
         #endregion
+
 
     }
 }

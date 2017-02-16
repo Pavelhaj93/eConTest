@@ -84,6 +84,13 @@ input {
 		border-color: $color-gray-light;
 	}
 
+    &[type="date"] {
+        appearance: none;
+        min-height: 2.556rem;
+        border: 1px solid $color-gray-dim;
+        background: #fff;
+    }
+
 	&[type="checkbox"] {
 		$checkbox-size: 26px;
 

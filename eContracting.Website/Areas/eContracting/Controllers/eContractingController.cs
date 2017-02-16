@@ -68,12 +68,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
 
                 RweClient client = new RweClient();
-                var offerSent = client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
-
-                if (!offerSent)
-                {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
-                }
+                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
 
                 var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.ThankYou).Url;
                 return Redirect(redirectUrl);
