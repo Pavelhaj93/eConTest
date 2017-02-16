@@ -14,6 +14,7 @@ export default function FormOffer(form, config) {
 
         /* Determines whether the documents have been received */
         let gotDocuments = false;
+        let isDocumentsAccepted = false;
 
         /* Get the checkboxes dynamically */
         function getCheckboxes() {
@@ -80,7 +81,7 @@ export default function FormOffer(form, config) {
         };
 
         // =================================================
-        // documentsReceived(documents, { agreed: false });
+        //  documentsReceived(documents, { agreed: false });
         // =================================================
 
         /* Determine whether all checkboxes are checked */
@@ -94,7 +95,9 @@ export default function FormOffer(form, config) {
             });
 
             /* Form cannot be submitted until documents are ready */
-            if (!gotDocuments) { valid = false; }
+            if (!gotDocuments) { 
+                valid = false;
+            }
 
             /* Add/Remove disabled class from the <a> button */
             if (valid) {
@@ -103,6 +106,7 @@ export default function FormOffer(form, config) {
                 submitBtn.classList.add(classes.disabledLink);
             }
 
+            isDocumentsAccepted = valid;
             return valid;
         }
 
@@ -111,17 +115,15 @@ export default function FormOffer(form, config) {
             validateForm();
         };
 
-        /* Handle form submit */
-        submitBtn.onclick = () => {
-
-            /* Safety for manual removal of "disabled" attribute */
-            if (gotDocuments) {
-                window.location = 'thank-you.html';
-            }
-        };
-
         /* Validate on window load for History back */
         validateForm();
+
+        /* Handle submit and validate */
+        submitBtn.onclick = (event) => {
+            if (!isDocumentsAccepted) {
+                event.preventDefault();
+            }
+        };
 
         /* Moved from DocumentPanel */
         // ---------------------------
