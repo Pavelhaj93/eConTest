@@ -13,6 +13,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     {
         public ActionResult ThankYou()
         {
+            string mainText = string.Empty;
             try
             {
                 AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
@@ -22,15 +23,22 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                ViewData["MainText"] = Context.MainText;
+                mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
+                if (mainText == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
 
-                return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
+
             }
             catch (Exception ex)
             {
+                mainText = Context.ServiceUnavailableText;
                 Log.Error("Error when displaying thank you page", ex, this);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
+            ViewData["MainText"] = mainText;
+            return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
         }
     }
 }

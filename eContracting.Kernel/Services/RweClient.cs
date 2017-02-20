@@ -137,7 +137,7 @@ namespace eContracting.Kernel.Services
                     }
                     
 
-                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? offer.OfferInternal.IsAccepted : true;
+                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true: offer.OfferInternal.IsAccepted;
                     return offer;
                 }
             }

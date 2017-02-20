@@ -10,6 +10,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         [SitecoreField]
         public virtual string MainText { get; set; }
 
+        [SitecoreField]
+        public virtual string ServiceUnavailableText { get; set; }
+
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link Link1 { get; set; }
 
