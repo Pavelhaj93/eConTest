@@ -15,6 +15,7 @@ using MongoDB.Bson;
 using MongoDB.Driver.Builders;
 using Sitecore.Analytics.Data.DataAccess.MongoDb;
 using Sitecore.Diagnostics;
+using MongoDB.Driver;
 
 namespace eContracting.Kernel.Services
 {
@@ -84,12 +85,25 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
-        public MongoDbCollection AcceptedOfferCollection
+        private MongoDbCollection AcceptedOfferCollection
         {
             get
             {
                 return  MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
             }
+        }
+
+        public MongoCursor<AcceptedOffer> GetNotSentOffers()
+        {
+            var offersNotsent = AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", (BsonValue)false)));
+            return offersNotsent;
+
+        }
+
+        public bool GuidExistInMongo(string guid)
+        {
+            var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)guid)));
+            return ao != null;
         }
 
         public Offer GenerateXml(string guid)
@@ -121,9 +135,9 @@ namespace eContracting.Kernel.Services
                             offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
                         }
                     }
-                    var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)guid)));
+                    
 
-                    offer.OfferInternal.IsAccepted = ao == null ? offer.OfferInternal.IsAccepted : true;
+                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? offer.OfferInternal.IsAccepted : true;
                     return offer;
                 }
             }

@@ -22,14 +22,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
-                if (maintext == null)
-                {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                    return Redirect(redirectUrl);
-                }
-
-                ViewData["MainText"] = maintext;
+                ViewData["MainText"] = Context.MainText;
 
                 return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
             }

@@ -68,7 +68,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 string guid = authenticationDataSessionStorage.GetUserData().Identifier;
                 RweClient client = new RweClient();
-                if(client.GenerateXml(guid).OfferInternal.IsAccepted)
+                if (client.GuidExistInMongo(guid) || client.GenerateXml(guid).OfferInternal.IsAccepted)
                 {
                     var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     authenticationDataSessionStorage.GetUserData().IsAccepted = true;

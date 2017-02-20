@@ -19,7 +19,7 @@ namespace eContracting.Kernel.Agents
         {
             int failtime = 0;
             RweClient client = new RweClient();
-            var offersNotsent = client.AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", (BsonValue)false)));
+            var offersNotsent = client.GetNotSentOffers();
             foreach (AcceptedOffer offer in offersNotsent.ToList())
             {
 
