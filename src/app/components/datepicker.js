@@ -1,11 +1,34 @@
 import isMobileDevice from '../helpers/is-mobile-device';
 
+const addLeadingZero = value => (`0${value}`).slice(-2);
+
 export default function DateInput(container) {
     container = $(container);
 
+    function handleMobileInputChange(e) {
+        const date = new Date(e.target.value);
+        const day = addLeadingZero(date.getDate());
+        const month = addLeadingZero(date.getMonth() + 1);
+        const year = date.getFullYear();
+        const finalDate = `${day}. ${month}. ${year}`;
+
+        container.val(finalDate);
+    }
+
     /* For mobile device display native datepicker, otherwise datepicker component */
     if (isMobileDevice()) {
-        container.attr('type', 'date');
+        const dateInput = container.clone();
+        const id = container.attr('id');
+        const name = container.attr('name');
+        container.hide();
+
+        dateInput
+            .on('change', handleMobileInputChange)
+            .attr('type', 'date')
+            .attr('id', `${id}-mobile`)
+            .attr('name', `${name}-mobile`)
+            .insertAfter(container);
+
         container.parent().find('.ui-datepicker-trigger').hide();
         return;
     }
