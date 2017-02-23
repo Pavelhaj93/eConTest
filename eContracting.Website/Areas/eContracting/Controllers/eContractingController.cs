@@ -68,14 +68,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 string guid = authenticationDataSessionStorage.GetUserData().Identifier;
                 RweClient client = new RweClient();
-                if (client.GuidExistInMongo(guid) || client.GenerateXml(guid).OfferInternal.IsAccepted)
+                if (client.GuidExistInMongo(guid))
                 {
                     var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     authenticationDataSessionStorage.GetUserData().IsAccepted = true;
                     return Redirect(acceptOfferUrl);
                 }
 
-                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
+                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);  
                 authenticationDataSessionStorage.GetUserData().IsAccepted = true;
 
 
