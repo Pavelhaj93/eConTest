@@ -95,7 +95,7 @@ export default function FormOffer(form, config) {
             });
 
             /* Form cannot be submitted until documents are ready */
-            if (!gotDocuments) { 
+            if (!gotDocuments) {
                 valid = false;
             }
 
@@ -149,14 +149,13 @@ export default function FormOffer(form, config) {
                 },
             });
         }
-        
+
         if (config.offerPage) {
             CheckIfReady();
         }
 
         window.handleClick = function(e, key) {
             e.preventDefault();
-            $.post(config.offerPage.getFileUrl, null);
             window.location.href = config.offerPage.getFileUrl + key;
         };
 
