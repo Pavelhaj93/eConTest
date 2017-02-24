@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace eContracting.Kernel.Models
 {
     public class AcceptedOffer
     {
+        [BsonId]
         public long _id{get;set;}
         /// <summary>
         /// Customer Guid
