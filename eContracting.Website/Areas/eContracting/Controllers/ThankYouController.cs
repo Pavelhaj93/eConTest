@@ -29,7 +29,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
-                Session.Remove("UserFiles");
+                RweClient client = new RweClient();
+                client.RemoveFllesFromMongo();
             }
             catch (Exception ex)
             {

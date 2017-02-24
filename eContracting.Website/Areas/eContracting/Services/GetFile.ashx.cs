@@ -15,15 +15,16 @@ namespace eContracting.Website
 
         public void ProcessRequest(HttpContext context)
         {
-            if (context.Session["UserFiles"] != null)
+            RweClient client = new RweClient();
+            var userFiles = client.GetFilesFromDb();
+            if (userFiles != null)
             {
-                var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
-                if (files != null)
+                if (userFiles != null)
                 {
                     var file = context.Request.QueryString["file"];
                     if (file != null)
                     {
-                        var thisFile = files.FirstOrDefault(xx => xx.Index == file);
+                        var thisFile = userFiles.FirstOrDefault(xx => xx.Index == file);
                         if (thisFile != null)
                         {
                             context.Response.Clear();
