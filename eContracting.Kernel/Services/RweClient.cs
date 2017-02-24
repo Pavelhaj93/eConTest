@@ -213,7 +213,7 @@ namespace eContracting.Kernel.Services
                     }
                 }
             }
-            AcceptedOfferCollection.Save(offer);
+            InsertToMongoAcceptedOffer(offer);
             return offer.SentToService;
         }
 
@@ -375,6 +375,21 @@ namespace eContracting.Kernel.Services
             }
             return default(T);
         }
+
+        private void InsertToMongoAcceptedOffer(AcceptedOffer offer)
+        {
+            var offerInDb = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)offer.Guid)));
+            if (offerInDb != null)
+            {
+                offer._id = offerInDb._id;
+            }
+            else
+            {
+                offer._id = AcceptedOfferCollection.Count() + 1;
+            }
+            AcceptedOfferCollection.Save(offer);
+        }
+
         #endregion
 
 
