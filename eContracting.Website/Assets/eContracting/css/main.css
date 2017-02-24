@@ -2705,9 +2705,14 @@ input {
     -webkit-appearance: none;
        -moz-appearance: none;
             appearance: none;
-    min-height: 2.556rem;
+    height: 2.556rem;
     border: 1px solid #cdcdcd;
     background: #fff; }
+  input[type="date"]:before {
+    color: #cdcdcd;
+    content: attr(placeholder); }
+  input[type="date"].full:before {
+    content: "" !important; }
   input[type="checkbox"] {
     -webkit-appearance: none;
        -moz-appearance: none;

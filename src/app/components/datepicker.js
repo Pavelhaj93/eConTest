@@ -1,6 +1,7 @@
 import isMobileDevice from '../helpers/is-mobile-device';
 
 const addLeadingZero = value => (`0${value}`).slice(-2);
+const datePickerFullClass = 'full';
 
 export default function DateInput(container) {
     container = $(container);
@@ -30,6 +31,12 @@ export default function DateInput(container) {
             .insertAfter(container);
 
         container.parent().find('.ui-datepicker-trigger').hide();
+
+        /* Placeholder workaround for input type date */
+        dateInput.on('input', function(){
+            dateInput.toggleClass(`${datePickerFullClass}`, dateInput.val().length > 0);
+        });
+
         return;
     }
 

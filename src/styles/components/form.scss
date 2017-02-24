@@ -81,10 +81,19 @@ input {
 
     &[type="date"] {
         appearance: none;
-        min-height: 2.556rem;
+        height: 2.556rem;
         border: 1px solid $color-gray-dim;
         background: #fff;
     }
+	
+	&[type="date"]:before{
+		color: $color-gray-dim;
+		content:attr(placeholder);
+	}
+
+	&[type="date"].full:before {
+		content:""!important;
+	}
 
 	&[type="checkbox"] {
 		$checkbox-size: 26px;
