@@ -16,6 +16,7 @@ using MongoDB.Driver.Builders;
 using Sitecore.Analytics.Data.DataAccess.MongoDb;
 using Sitecore.Diagnostics;
 using MongoDB.Driver;
+using eContracting.Kernel.Utils;
 
 namespace eContracting.Kernel.Services
 {
@@ -67,11 +68,14 @@ namespace eContracting.Kernel.Services
                             customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
                         }
 
-                        FileToBeDownloaded tempItem = new FileToBeDownloaded();
-                        tempItem.Index = (++index).ToString();
-                        tempItem.FileName = customisedFileName;
-                        tempItem.FileNumber = f.FILEINDX;
-                        tempItem.FileContent = f.FILECONTENT.ToList();
+                        FileToBeDownloaded tempItem = new FileToBeDownloaded()
+                        {
+                            Index = (++index).ToString(),
+                            FileName = customisedFileName,
+                            FileNumber = f.FILEINDX,
+                            FileContent = f.FILECONTENT.ToList(),
+                            Guid = guid
+                        };
                         fileResults.Add(tempItem);
                     }
                     catch (Exception ex)
@@ -85,6 +89,35 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
+        public void RemoveFllesFromMongo()
+        {
+            AuthenticationDataSessionStorage storage = new AuthenticationDataSessionStorage();
+            FilesInSessionCollection.Remove(Query.And(Query.EQ("Guid", (BsonValue)storage.GetUserData().Identifier)));
+        }
+
+        public void StoreFilesInDb(List<FileToBeDownloaded> files)
+        {
+            AuthenticationDataSessionStorage storage = new AuthenticationDataSessionStorage();
+            FilesInSessionCollection.Remove(Query.And(Query.EQ("Guid", (BsonValue)storage.GetUserData().Identifier)));
+            foreach (var file in files)
+            {
+                FilesInSessionCollection.Save(file);
+            }
+        }
+
+        public FileToBeDownloaded GetFilesFromDb(int fileIndex)
+        {
+            AuthenticationDataSessionStorage storage = new AuthenticationDataSessionStorage();
+            List<IMongoQuery> query = new List<IMongoQuery>();
+
+            query.Add(Query.EQ("Guid", (BsonValue)storage.GetUserData().Identifier));
+            query.Add(Query.EQ("Index", (BsonValue)fileIndex.ToString()));
+            var ret = FilesInSessionCollection.FindOneAs<FileToBeDownloaded>(Query.And(query));
+            return ret;
+        }
+
+
+
         private MongoDbCollection AcceptedOfferCollection
         {
             get
@@ -92,6 +125,15 @@ namespace eContracting.Kernel.Services
                 return  MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
             }
         }
+
+        private MongoDbCollection FilesInSessionCollection
+        {
+            get
+            {
+                return MongoDbDriver.FromConnectionString("OfferDB")["FilesInSession"];
+            }
+        }
+
 
         public MongoCursor<AcceptedOffer> GetNotSentOffers()
         {
