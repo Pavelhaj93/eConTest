@@ -105,11 +105,15 @@ namespace eContracting.Kernel.Services
             }
         }
 
-        public List<FileToBeDownloaded> GetFilesFromDb()
+        public FileToBeDownloaded GetFilesFromDb(int fileIndex)
         {
             AuthenticationDataSessionStorage storage = new AuthenticationDataSessionStorage();
-            var ret = FilesInSessionCollection.FindAs<FileToBeDownloaded>(Query.And(Query.EQ("Guid", (BsonValue)storage.GetUserData().Identifier)));
-            return ret.ToList();
+            List<IMongoQuery> query = new List<IMongoQuery>();
+
+            query.Add(Query.EQ("Guid", (BsonValue)storage.GetUserData().Identifier));
+            query.Add(Query.EQ("Index", (BsonValue)fileIndex.ToString()));
+            var ret = FilesInSessionCollection.FindOneAs<FileToBeDownloaded>(Query.And(query));
+            return ret;
         }
 
 

@@ -16,28 +16,22 @@ namespace eContracting.Website
         public void ProcessRequest(HttpContext context)
         {
             RweClient client = new RweClient();
-            var userFiles = client.GetFilesFromDb();
-            if (userFiles != null)
+            var file = context.Request.QueryString["file"];
+            int fileIndex;
+            if (int.TryParse(file,out fileIndex))
             {
-                if (userFiles != null)
+                var thisFile = client.GetFilesFromDb(fileIndex);
+                if (thisFile != null)
                 {
-                    var file = context.Request.QueryString["file"];
-                    if (file != null)
+                    context.Response.Clear();
+                    using (var ms = new MemoryStream(thisFile.FileContent.ToArray()))
                     {
-                        var thisFile = userFiles.FirstOrDefault(xx => xx.Index == file);
-                        if (thisFile != null)
-                        {
-                            context.Response.Clear();
-                            using (var ms = new MemoryStream(thisFile.FileContent.ToArray()))
-                            {
-                                context.Response.ContentType = "application/pdf";
-                                context.Response.AddHeader("Content-Disposition", string.Format("attachment; filename*=UTF-8''{0}", HttpUtility.UrlPathEncode(thisFile.FileName).Replace(",", "%2C")));
-                                context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
-                                context.Response.Buffer = true;
-                                ms.WriteTo(context.Response.OutputStream);
-                                context.Response.End();
-                            }
-                        }
+                        context.Response.ContentType = "application/pdf";
+                        context.Response.AddHeader("Content-Disposition", string.Format("attachment; filename*=UTF-8''{0}", HttpUtility.UrlPathEncode(thisFile.FileName).Replace(",", "%2C")));
+                        context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
+                        context.Response.Buffer = true;
+                        ms.WriteTo(context.Response.OutputStream);
+                        context.Response.End();
                     }
                 }
             }
