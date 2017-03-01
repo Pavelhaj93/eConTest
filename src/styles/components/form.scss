@@ -85,14 +85,14 @@ input {
         border: 1px solid $color-gray-dim;
         background: #fff;
     }
-	
-	&[type="date"]:before{
-		color: $color-gray-dim;
-		content:attr(placeholder);
+
+	&[type="date"]:before {
+		color: $color-gray-light;
+		content: attr(placeholder);
 	}
 
 	&[type="date"].full:before {
-		content:""!important;
+		content: "";
 	}
 
 	&[type="checkbox"] {

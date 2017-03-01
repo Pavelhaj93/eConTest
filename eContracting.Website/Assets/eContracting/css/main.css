@@ -2709,10 +2709,10 @@ input {
     border: 1px solid #cdcdcd;
     background: #fff; }
   input[type="date"]:before {
-    color: #cdcdcd;
+    color: #9b9a98;
     content: attr(placeholder); }
   input[type="date"].full:before {
-    content: "" !important; }
+    content: ""; }
   input[type="checkbox"] {
     -webkit-appearance: none;
        -moz-appearance: none;
