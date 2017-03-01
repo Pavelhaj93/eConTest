@@ -7,10 +7,13 @@ export default function DateInput(container) {
     container = $(container);
 
     function handleMobileInputChange(e) {
-        const date = new Date(e.target.value);
-        const day = addLeadingZero(date.getDate());
-        const month = addLeadingZero(date.getMonth() + 1);
-        const year = date.getFullYear();
+        const { value } = e.target;
+        if (!value) return;
+
+        const date = value.split('-');
+        const day = date[2];
+        const month = date[1];
+        const year = date[0];
         const finalDate = `${day}. ${month}. ${year}`;
 
         container.val(finalDate);
