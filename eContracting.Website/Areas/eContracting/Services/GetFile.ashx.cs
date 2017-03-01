@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Services;
+using System;
+using Sitecore.Diagnostics;
+using System.Text;
 
 namespace eContracting.Website
 {
@@ -15,9 +18,12 @@ namespace eContracting.Website
 
         public void ProcessRequest(HttpContext context)
         {
+            DateTime functionbeginTime = DateTime.UtcNow;
             if (context.Session["UserFiles"] != null)
             {
+                DateTime sessionBeginTime = DateTime.UtcNow;
                 var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
+                DateTime sessionEndTime = DateTime.UtcNow;
                 if (files != null)
                 {
                     var file = context.Request.QueryString["file"];
@@ -34,11 +40,26 @@ namespace eContracting.Website
                                 context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
                                 context.Response.Buffer = true;
                                 ms.WriteTo(context.Response.OutputStream);
-                                context.Response.End();
                             }
                         }
                     }
                 }
+                DateTime functionEndTime = DateTime.UtcNow;
+                var totalDownload = functionEndTime.Subtract(functionbeginTime).Seconds;
+                if (totalDownload > 3)
+                {
+                    StringBuilder builder = new StringBuilder();
+                    builder.AppendFormat("File download takes longer than 3 seconds");
+                    builder.AppendLine();
+                    builder.AppendFormat("total download : {0} seconds", totalDownload);
+                    builder.AppendLine();
+                    builder.AppendFormat("Get data from session took : {0} seconds", sessionEndTime.Subtract(sessionBeginTime).Seconds);
+                    builder.AppendLine();
+                    builder.AppendFormat("Write file to response took : {0} seconds", functionEndTime.Subtract(sessionEndTime).Seconds);
+
+                    Log.Warn(builder.ToString(), this);
+                }
+
             }
         }
 
