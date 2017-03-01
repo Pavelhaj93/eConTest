@@ -21,8 +21,7 @@ namespace eContracting.Website
             {
                 RweClient client = new RweClient();
                 var files = client.GeneratePDFFiles(clientId);
-
-                client.StoreFilesInDb(files);
+                context.Session["UserFiles"] = files;
                 context.Response.ContentType = "application/json";
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
