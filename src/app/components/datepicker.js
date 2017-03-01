@@ -8,9 +8,9 @@ export default function DateInput(container) {
 
     function handleMobileInputChange(e) {
         const date = new Date(e.target.value);
-        const day = addLeadingZero(date.getDate());
-        const month = addLeadingZero(date.getMonth() + 1);
-        const year = date.getFullYear();
+        const day = addLeadingZero(date.getUTCDate());
+        const month = addLeadingZero(date.getUTCMonth() + 1);
+        const year = date.getUTCFullYear();
         const finalDate = `${day}. ${month}. ${year}`;
 
         container.val(finalDate);
