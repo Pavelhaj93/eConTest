@@ -46,7 +46,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer,true);
 
                 dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
-                dataModel.UserId = authenticationData.Identifier;
 
                 string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
                 string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText);
@@ -94,7 +93,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var additionalValue = authenticationModel.Additional.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
                 RweClient client = new RweClient();
-                var offer = client.GenerateXml(authenticationModel.UserId);
+                var offer = client.GenerateXml(Request.QueryString["guid"]);
                 AuthenticationDataSessionStorage ass = new AuthenticationDataSessionStorage();
                 AuthenticationDataItem authenticationData = ass.GetUserData(offer,false);
                 authenticationData.ItemValue = authenticationModel.ItemValue;
