@@ -7,12 +7,14 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-12 col-md-10 col-md-offset-1">
-						<div id="offer" class="form">
+                        @using (Html.BeginForm("Accept", "eContracting",FormMethod.Post, new { id = "offer", @class = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
 							<ul class="list list-documents loading">
 								<a class="check-all" href="#">Označit vše</a>
 							</ul>
-							@Html.ActionLink(ViewData["Accept"].ToString(), "Accept", "eContracting", new { @class = "button button-submit" })
-						</div>
+                            <input type="submit" class="button button-submit" value="@ViewData["Accept"]"/>
+                        }
 					</div>
 				</div>
 			</div>
