@@ -61,6 +61,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Accept()
         {
