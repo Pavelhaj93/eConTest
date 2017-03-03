@@ -2786,7 +2786,7 @@ input {
   background-color: #000;
   color: #fff;
   text-align: center;
-  height: 120px;
+  min-height: 120px;
   transition: height .3s;
   will-change: height; }
   @media (max-width: 799px) {
@@ -3056,7 +3056,8 @@ a:active, a:focus {
 html,
 body {
   min-height: 100%;
-  min-height: 100vh; }
+  min-height: 100vh;
+  height: 100vh; }
 
 body {
   background: #fff;
