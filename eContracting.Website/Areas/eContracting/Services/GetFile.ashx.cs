@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Services;
-using System;
-using Sitecore.Diagnostics;
-using System.Text;
 
 namespace eContracting.Website
 {
@@ -18,12 +16,12 @@ namespace eContracting.Website
 
         public void ProcessRequest(HttpContext context)
         {
-            DateTime functionbeginTime = DateTime.UtcNow;
+            // DateTime functionbeginTime = DateTime.UtcNow;
             if (context.Session["UserFiles"] != null)
             {
-                DateTime sessionBeginTime = DateTime.UtcNow;
+                // DateTime sessionBeginTime = DateTime.UtcNow;
                 var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
-                DateTime sessionEndTime = DateTime.UtcNow;
+                // DateTime sessionEndTime = DateTime.UtcNow;
                 if (files != null)
                 {
                     var file = context.Request.QueryString["file"];
@@ -45,20 +43,20 @@ namespace eContracting.Website
                     }
                 }
                 DateTime functionEndTime = DateTime.UtcNow;
-                var totalDownload = functionEndTime.Subtract(functionbeginTime).Seconds;
-                if (totalDownload > 3)
-                {
-                    StringBuilder builder = new StringBuilder();
-                    builder.AppendFormat("File download takes longer than 3 seconds");
-                    builder.AppendLine();
-                    builder.AppendFormat("total download : {0} seconds", totalDownload);
-                    builder.AppendLine();
-                    builder.AppendFormat("Get data from session took : {0} seconds", sessionEndTime.Subtract(sessionBeginTime).Seconds);
-                    builder.AppendLine();
-                    builder.AppendFormat("Write file to response took : {0} seconds", functionEndTime.Subtract(sessionEndTime).Seconds);
+                // var totalDownload = functionEndTime.Subtract(functionbeginTime).Seconds;
+                // if (totalDownload > 3)
+                // {
+                // StringBuilder builder = new StringBuilder();
+                // builder.AppendFormat("File download takes longer than 3 seconds");
+                // builder.AppendLine();
+                // builder.AppendFormat("total download : {0} seconds", totalDownload);
+                // builder.AppendLine();
+                // builder.AppendFormat("Get data from session took : {0} seconds", sessionEndTime.Subtract(sessionBeginTime).Seconds);
+                // builder.AppendLine();
+                // builder.AppendFormat("Write file to response took : {0} seconds", functionEndTime.Subtract(sessionEndTime).Seconds);
 
-                    Log.Warn(builder.ToString(), this);
-                }
+                // Log.Warn(builder.ToString(), this);
+                // }
 
             }
         }
