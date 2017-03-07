@@ -7958,90 +7958,34 @@ exports.encode = exports.stringify = require('./encode');
         return doneResult();
       }
 
+      context.method = method;
+      context.arg = arg;
+
       while (true) {
         var delegate = context.delegate;
         if (delegate) {
-          if (method === "return" ||
-              (method === "throw" && delegate.iterator[method] === undefined)) {
-            // A return or throw (when the delegate iterator has no throw
-            // method) always terminates the yield* loop.
-            context.delegate = null;
-
-            // If the delegate iterator has a return method, give it a
-            // chance to clean up.
-            var returnMethod = delegate.iterator["return"];
-            if (returnMethod) {
-              var record = tryCatch(returnMethod, delegate.iterator, arg);
-              if (record.type === "throw") {
-                // If the return method threw an exception, let that
-                // exception prevail over the original return or throw.
-                method = "throw";
-                arg = record.arg;
-                continue;
-              }
-            }
-
-            if (method === "return") {
-              // Continue with the outer return, now that the delegate
-              // iterator has been terminated.
-              continue;
-            }
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
           }
-
-          var record = tryCatch(
-            delegate.iterator[method],
-            delegate.iterator,
-            arg
-          );
-
-          if (record.type === "throw") {
-            context.delegate = null;
-
-            // Like returning generator.throw(uncaught), but without the
-            // overhead of an extra function call.
-            method = "throw";
-            arg = record.arg;
-            continue;
-          }
-
-          // Delegate generator ran and handled its own exceptions so
-          // regardless of what the method was, we continue as if it is
-          // "next" with an undefined arg.
-          method = "next";
-          arg = undefined;
-
-          var info = record.arg;
-          if (info.done) {
-            context[delegate.resultName] = info.value;
-            context.next = delegate.nextLoc;
-          } else {
-            state = GenStateSuspendedYield;
-            return info;
-          }
-
-          context.delegate = null;
         }
 
-        if (method === "next") {
+        if (context.method === "next") {
           // Setting context._sent for legacy support of Babel's
           // function.sent implementation.
-          context.sent = context._sent = arg;
+          context.sent = context._sent = context.arg;
 
-        } else if (method === "throw") {
+        } else if (context.method === "throw") {
           if (state === GenStateSuspendedStart) {
             state = GenStateCompleted;
-            throw arg;
+            throw context.arg;
           }
 
-          if (context.dispatchException(arg)) {
-            // If the dispatched exception was caught by a catch block,
-            // then let that catch block handle the exception normally.
-            method = "next";
-            arg = undefined;
-          }
+          context.dispatchException(context.arg);
 
-        } else if (method === "return") {
-          context.abrupt("return", arg);
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
         }
 
         state = GenStateExecuting;
@@ -8054,30 +7998,106 @@ exports.encode = exports.stringify = require('./encode');
             ? GenStateCompleted
             : GenStateSuspendedYield;
 
-          var info = {
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
             value: record.arg,
             done: context.done
           };
 
-          if (record.arg === ContinueSentinel) {
-            if (context.delegate && method === "next") {
-              // Deliberately forget the last sent value so that we don't
-              // accidentally pass it on to the delegate.
-              arg = undefined;
-            }
-          } else {
-            return info;
-          }
-
         } else if (record.type === "throw") {
           state = GenStateCompleted;
           // Dispatch the exception by looping back around to the
-          // context.dispatchException(arg) call above.
-          method = "throw";
-          arg = record.arg;
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
         }
       }
     };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
   }
 
   // Define Generator.prototype.{next,throw,return} in terms of the
@@ -8200,6 +8220,9 @@ exports.encode = exports.stringify = require('./encode');
       this.done = false;
       this.delegate = null;
 
+      this.method = "next";
+      this.arg = undefined;
+
       this.tryEntries.forEach(resetTryEntry);
 
       if (!skipTempReset) {
@@ -8236,7 +8259,15 @@ exports.encode = exports.stringify = require('./encode');
         record.type = "throw";
         record.arg = exception;
         context.next = loc;
-        return !!caught;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
       }
 
       for (var i = this.tryEntries.length - 1; i >= 0; --i) {
@@ -8304,12 +8335,12 @@ exports.encode = exports.stringify = require('./encode');
       record.arg = arg;
 
       if (finallyEntry) {
+        this.method = "next";
         this.next = finallyEntry.finallyLoc;
-      } else {
-        this.complete(record);
+        return ContinueSentinel;
       }
 
-      return ContinueSentinel;
+      return this.complete(record);
     },
 
     complete: function(record, afterLoc) {
@@ -8321,11 +8352,14 @@ exports.encode = exports.stringify = require('./encode');
           record.type === "continue") {
         this.next = record.arg;
       } else if (record.type === "return") {
-        this.rval = record.arg;
+        this.rval = this.arg = record.arg;
+        this.method = "return";
         this.next = "end";
       } else if (record.type === "normal" && afterLoc) {
         this.next = afterLoc;
       }
+
+      return ContinueSentinel;
     },
 
     finish: function(finallyLoc) {
@@ -8364,6 +8398,12 @@ exports.encode = exports.stringify = require('./encode');
         nextLoc: nextLoc
       };
 
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
       return ContinueSentinel;
     }
   };
@@ -8382,7 +8422,7 @@ exports.encode = exports.stringify = require('./encode');
  * @copyright Copyright (c) 2017 IcoMoon.io
  * @license   Licensed under MIT license
  *            See https://github.com/Keyamoon/svgxuse
- * @version   1.2.1
+ * @version   1.2.2
  */
 /*jslint browser: true */
 /*global XDomainRequest, MutationObserver, window */
@@ -8586,11 +8626,12 @@ exports.encode = exports.stringify = require('./encode');
                             cache[base] = true;
                         }
                     } else if (base.length && cache[base]) {
-                        attrUpdateFunc({
+                        setTimeout(attrUpdateFunc({
                             useEl: uses[i],
                             base: base,
-                            hash: hash
-                        })();
+                            hash: hash,
+                            isXlink: isXlink
+                        }), 0);
                     }
                 }
             }
@@ -8631,7 +8672,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function Auth(e){!function(r){function t(){var r=Array.from(e.querySelectorAll("[required]")),t=!0,u=[];return r.map(function(e){e.classList.remove("invalid"),e.value.trim()||(e.classList.add("invalid"),u.push(e),t=!1)}),t}window.addEventListener("load",function(){var e=_url2["default"].parse(window.location.href,!0).query;e&&Object.keys(e).forEach(function(r){if(_alert.alertTypes.includes(r)){var t=e[r];messages.hasOwnProperty(t)&&(0,_alert2["default"])(messages[t],r,i)}})});var u=e.querySelector(".button-submit"),i=r(e.querySelector(".status"));u.onclick=function(){r(i).empty();var e=t();return e||(0,_alert2["default"])(messages.requiredFields,"error",i),e}}(jQuery)}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Auth;var _alert=require("../../components/alert"),_alert2=_interopRequireDefault(_alert),_url=require("url"),_url2=_interopRequireDefault(_url),_trim=require("../../helpers/trim"),_trim2=_interopRequireDefault(_trim);
 
 },{"../../components/alert":305,"../../helpers/trim":316,"url":2}],312:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e,r){window.onload=function(){function t(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function n(){c.addClass(i.unacceptedTerms),c.children("li").remove()}function a(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{agreed:!1,checked:!1,disabled:!1};if(l=e.length>0,c.removeClass("loading"),l)if((0,_documentsList2["default"])(c,e,r),r.agreed)c.removeClass(i.unacceptedTerms).addClass(i.agreed),c.children(".check-all").remove(),$(d).remove();else{var t=c.children("li:first-child").children('input[type="checkbox"]');t.on("change",function(){var e=!c.hasClass(i.unacceptedTerms),r=1==c.children("li").length;e||r||c.removeClass(i.unacceptedTerms)})}else c.empty(),c.removeClass(i.unacceptedTerms).addClass("error"),(0,_message2["default"])(c,"appUnavailable");return l}function o(){var e=!0,r=t();return r.map(function(r){!r.checked&&(e=!1)}),l||(e=!1),e?d.classList.remove(i.disabledLink):d.classList.add(i.disabledLink),u=e,e}function s(){$.ajax({type:"POST",url:r.offerPage.doxReadyUrl,dataType:"json",timeout:3e4,error:function(){window.location.href="/404"},success:function(e){var t=r.offerPage.isAgreed;a(e,{agreed:t})}})}var i={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},c=$(e.querySelector(".list")),d=e.querySelector(".button-submit"),l=!1,u=!1;n(),e.onchange=function(){o()},o(),d.onclick=function(e){u||e.preventDefault()},r.offerPage&&s(),window.handleClick=function(e,t){e.preventDefault(),window.location.href=r.offerPage.getFileUrl+t}}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function FormOffer(e,r){window.onload=function(){function a(){return Array.from(e.querySelectorAll('[type="checkbox"]'))}function t(){l.addClass(i.unacceptedTerms),l.children("li").remove()}function n(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{agreed:!1,checked:!1,disabled:!1};if(c=e.length>0,l.removeClass("loading"),c)if((0,_documentsList2["default"])(l,e,r),r.agreed)l.removeClass(i.unacceptedTerms).addClass(i.agreed),l.children(".check-all").remove(),$(d).remove();else{var a=l.children("li:first-child").children('input[type="checkbox"]');a.on("change",function(){var e=!l.hasClass(i.unacceptedTerms),r=1==l.children("li").length;e||r||l.removeClass(i.unacceptedTerms)})}else l.empty(),l.removeClass(i.unacceptedTerms).addClass("error"),(0,_message2["default"])(l,"appUnavailable");return c}function s(){var e=!0,r=a();return r.map(function(r){!r.checked&&(e=!1)}),c||(e=!1),e?d.classList.remove(i.disabledLink):d.classList.add(i.disabledLink),u=e,e}function o(){$.ajax({type:"POST",url:r.offerPage.doxReadyUrl,dataType:"json",timeout:1e4,error:function(e,r){"timeout"===r?(l.empty(),l.removeClass("loading").addClass("error"),(0,_message2["default"])(l,"appUnavailable")):window.location.href="/404"},success:function(e){var a=r.offerPage.isAgreed;n(e,{agreed:a})}})}var i={unacceptedTerms:"unaccepted-terms",agreed:"agreed",disabledLink:"button-disabled"},l=$(e.querySelector(".list")),d=e.querySelector(".button-submit"),c=!1,u=!1;t(),e.onchange=function(){s()},s(),d.onclick=function(e){u||e.preventDefault()},r.offerPage&&o(),window.handleClick=function(e,a){e.preventDefault(),window.location.href=r.offerPage.getFileUrl+a}}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=FormOffer;var _documentsList=require("../documents-list"),_documentsList2=_interopRequireDefault(_documentsList),_message=require("../message"),_message2=_interopRequireDefault(_message);
 
 },{"../documents-list":310,"../message":313}],313:[function(require,module,exports){
 "use strict";function Message(e,s){if(messages){!(e instanceof jQuery)&&(e=$(e));var a=messages[s].join("");e.append(a)}}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Message;

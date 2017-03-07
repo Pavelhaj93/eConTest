@@ -139,14 +139,20 @@ export default function FormOffer(form, config) {
                 type: 'POST',
                 url: config.offerPage.doxReadyUrl,
                 dataType: 'json',
-                timeout: 30000,
-                error: function() {
-                    window.location.href = '/404';
+                timeout: 10000,
+                error: function(xhr, textStatus) {
+                    if (textStatus === 'timeout') {
+                        list.empty();
+                        list.removeClass('loading').addClass('error');
+                        Message(list, 'appUnavailable');
+                    } else {
+                        window.location.href = '/404';
+                    }
                 },
                 success: function(documents) {
                     var agreed = config.offerPage.isAgreed;
                     documentsReceived(documents, { agreed: agreed });
-                },
+                }
             });
         }
 
