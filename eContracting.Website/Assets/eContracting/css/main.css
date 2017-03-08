@@ -2595,6 +2595,9 @@ strong {
 
 .pre-footer,
 .footer {
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
   padding: .7rem 0;
   font-size: .7rem; }
   @media (max-width: 799px) {
@@ -2782,6 +2785,9 @@ input {
   margin-bottom: .5rem; }
 
 .header {
+  -webkit-flex: none;
+      -ms-flex: none;
+          flex: none;
   padding: 15px 0;
   background-color: #000;
   color: #fff;
@@ -3055,18 +3061,16 @@ a:active, a:focus {
 /* Fixed footer */
 html,
 body {
-  min-height: 100%;
-  min-height: 100vh;
-  height: 100vh; }
+  height: 100%; }
 
 body {
-  background: #fff;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
       -ms-flex-direction: column;
-          flex-direction: column; }
+          flex-direction: column;
+  background: #fff; }
 
 .main {
   background: #fff;
