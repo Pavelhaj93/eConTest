@@ -3,6 +3,10 @@ import Message from '../message';
 
 export default function FormOffer(form, config) {
 
+    if (!window.dataLayer) {
+        window.dataLayer = [];
+    };
+
     window.onload = () => {
         const classes = {
             unacceptedTerms: 'unaccepted-terms',
@@ -122,6 +126,17 @@ export default function FormOffer(form, config) {
         submitBtn.onclick = (event) => {
             if (!isDocumentsAccepted) {
                 event.preventDefault();
+            } else {
+                dataLayer.push({
+                    event: 'gaEvent',
+                    gaEventData: {
+                        eCat: 'eContracting',
+                        eAct: 'Offer accepted'
+                    },
+                    eventCallback: function() {
+                        dataLayer.push({ gaEventData: undefined });
+                    }
+                });
             }
         };
 
@@ -164,6 +179,5 @@ export default function FormOffer(form, config) {
             e.preventDefault();
             window.location.href = config.offerPage.getFileUrl + key;
         };
-
     };
 }

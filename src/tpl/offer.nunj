@@ -17,13 +17,14 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12 col-md-10 col-md-offset-1">
-							<div id="offer" class="form">
+                            <form action="" class="form" id="offer" method="post">
 								<ul class="list list-documents loading">
 									<a class="check-all" href="#">Označit vše</a>
 								</ul>
-								<a class="button button-submit button-disabled" href="#">Akceptuji</a>
-							</div>
-
+								<button type="submit" class="button button-submit button-disabled" href="#">
+                                    Akceptuji
+                                </button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -67,8 +68,8 @@
 				'<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>'
 			]
 		}
-		
-	
+
+
 	</script>
 
 {% endblock %}
