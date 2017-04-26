@@ -12,4 +12,14 @@
 
 	{% include 'partials/actions.nunj' %}
 
+    <script>
+        // Disable going back after submission
+        function push() {
+            history.pushState(null, document.title, location.href);
+        }
+
+        push();
+        window.addEventListener('popstate', push);
+    </script>
+
 {% endblock %}
