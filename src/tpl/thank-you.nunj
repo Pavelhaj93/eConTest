@@ -12,13 +12,20 @@
 
 	{% include 'partials/actions.nunj' %}
 
+  {# <p class="text-center">
+    <br><br>
+    <img src="http://satyr.io/800x200?text=Bullshit&delay=3000" />
+  </p> #}
+
     <script>
         // Disable going back after submission
         function push() {
             history.pushState(null, document.title, location.href);
         }
 
-        push();
+        var i = 100;
+        while (i-- > 0) push();
+
         window.addEventListener('popstate', push);
     </script>
 
