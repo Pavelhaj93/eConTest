@@ -2,15 +2,20 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
-using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// Controller for accepted offer.
+    /// </summary>
     public class AcceptedOfferController : BaseController<EContractingAcceptedOfferTemplate>
     {
+        /// <summary>
+        /// Handler for AcceptedOffer action.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         [HttpGet]
         public ActionResult AcceptedOffer()
         {

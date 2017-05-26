@@ -2,15 +2,20 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
-using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// Thank you page.
+    /// </summary>
     public class ThankYouController : BaseController<EContractingThankYouTemplate>
     {
+        /// <summary>
+        /// Thank you page.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         public ActionResult ThankYou()
         {
             string mainText = string.Empty;

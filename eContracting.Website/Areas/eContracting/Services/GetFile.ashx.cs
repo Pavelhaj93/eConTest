@@ -13,7 +13,10 @@ namespace eContracting.Website
     /// </summary>
     public class GetFile : IHttpHandler, IRequiresSessionState
     {
-
+        /// <summary>
+        /// Request processing.
+        /// </summary>
+        /// <param name="context">Request context.</param>
         public void ProcessRequest(HttpContext context)
         {
             // DateTime functionbeginTime = DateTime.UtcNow;
@@ -61,6 +64,9 @@ namespace eContracting.Website
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
+        /// </summary>
         public bool IsReusable
         {
             get

@@ -2,15 +2,20 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
-using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// Expiration related controllers.
+    /// </summary>
     public class ExpirationController : BaseController<EContractingExpirationTemplate>
     {
+        /// <summary>
+        /// Expiration page.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         public ActionResult Expiration()
         {
             try
