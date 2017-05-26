@@ -1,19 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
-using Glass.Mapper.Sc.Web.Mvc;
-using Sitecore.Analytics;
 using Sitecore.Diagnostics;
-using System.Collections.Generic;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// Handles authentication process for user.
+    /// </summary>
     public class AuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
+        /// <summary>
+        /// Authentication GET action.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         [HttpGet]
         public ActionResult Authentication()
         {
@@ -43,7 +48,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var authenticationData = authenticationDataSessionStorage.GetUserData(offer,true);
+                var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
                 dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
@@ -54,7 +59,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                ViewData["MainText"] = maintext; 
+                ViewData["MainText"] = maintext;
 
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
@@ -67,7 +72,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Checks whether user is not blocked.
+        /// </summary>
+        /// <param name="guid">GUID of offer we are checking.</param>
+        /// <returns>A value indicating whether user is blocked or not.</returns>
         private bool CheckWhetherUserIsBlocked(string guid)
         {
             failureData failureData;
@@ -83,6 +92,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return false;
         }
 
+        /// <summary>
+        /// Processes user's authentication.
+        /// </summary>
+        /// <param name="authenticationModel">Authentication model.</param>
+        /// <returns>Instance result.</returns>
         [HttpPost]
         public ActionResult Authentication(AuthenticationModel authenticationModel)
         {
@@ -95,11 +109,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 RweClient client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
                 AuthenticationDataSessionStorage ass = new AuthenticationDataSessionStorage();
-                AuthenticationDataItem authenticationData = ass.GetUserData(offer,false);
+                AuthenticationDataItem authenticationData = ass.GetUserData(offer, false);
                 authenticationData.ItemValue = authenticationModel.ItemValue;
 
                 failureData failureData;
-                if(! this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
+                if (!this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
                 {
                     failureData = new failureData();
                     NumberOfLogons.Add(authenticationData.Identifier, failureData);
@@ -177,7 +191,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             get
             {
-                if(System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
+                if (System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
                 {
                     System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, failureData>();
                 }

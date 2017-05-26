@@ -13,6 +13,10 @@ namespace eContracting.Website
     /// </summary>
     public class DoxReady : IHttpHandler, IRequiresSessionState
     {
+        /// <summary>
+        /// Request processing.
+        /// </summary>
+        /// <param name="context">Request context.</param>
         public void ProcessRequest(HttpContext context)
         {
             var clientId = context.Request.QueryString["id"];
@@ -50,6 +54,9 @@ namespace eContracting.Website
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether another request can use the System.Web.IHttpHandler instance.
+        /// </summary>
         public bool IsReusable
         {
             get

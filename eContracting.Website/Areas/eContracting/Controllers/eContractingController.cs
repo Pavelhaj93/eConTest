@@ -12,8 +12,15 @@ using Log = Sitecore.Diagnostics.Log;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// Controller used for basic steps and operations.
+    /// </summary>
     public class eContractingController : SitecoreController
     {
+        /// <summary>
+        /// Cookie law action.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         public ActionResult CookieLaw()
         {
             try
@@ -36,6 +43,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
+        /// <summary>
+        /// Rendering of document panel.
+        /// </summary>
+        /// <param name="isAccepted">Flag indicating whether offer is already accepted or not.</param>
+        /// <returns>Instance result.</returns>
         public ActionResult DocumentPanel(bool isAccepted)
         {
             try
@@ -61,6 +73,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
+        /// <summary>
+        /// Accepts offer.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Accept()
@@ -77,7 +93,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(acceptOfferUrl);
                 }
 
-                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);  
+                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
                 authenticationDataSessionStorage.GetUserData().IsAccepted = true;
 
 

@@ -2,13 +2,19 @@
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
-using Glass.Mapper.Sc.Web.Mvc;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
+    /// <summary>
+    /// User blocked functionalities.
+    /// </summary>
     public class UserBlockedController : BaseController<EContractingUserBlockedTemplate>
     {
+        /// <summary>
+        /// User blocked page.
+        /// </summary>
+        /// <returns>Instance result.</returns>
         public ActionResult UserBlocked()
         {
             try
