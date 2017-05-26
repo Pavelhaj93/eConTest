@@ -1,13 +1,24 @@
-﻿using System;
-using eContracting.Kernel.GlassItems.Settings;
-using Glass.Mapper.Sc;
-using Glass.Mapper.Sc.Fields;
-using Log = Sitecore.Diagnostics.Log;
+﻿// <copyright file="AcceptOfferJob.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.Helpers
 {
+    using System;
+    using eContracting.Kernel.GlassItems.Settings;
+    using Glass.Mapper.Sc;
+    using Glass.Mapper.Sc.Fields;
+    using Log = Sitecore.Diagnostics.Log;
+
+    /// <summary>
+    /// Implementation of the configurtation helpers.
+    /// </summary>
     public static class ConfigHelpers
     {
+        /// <summary>
+        /// Gets the general settings.
+        /// </summary>
+        /// <returns></returns>
         public static GeneralSettings GetGeneralSettings()
         {
             using (var context = new SitecoreContext())
@@ -29,6 +40,11 @@ namespace eContracting.Kernel.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets the page link.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public static Link GetPageLink(PageLinkType type)
         {
             var generalSettings = GetGeneralSettings();
