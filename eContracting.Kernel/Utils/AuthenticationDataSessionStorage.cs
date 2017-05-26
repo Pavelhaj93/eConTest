@@ -1,16 +1,27 @@
-﻿using System;
-using System.Web;
-using eContracting.Kernel.Exceptions;
-using eContracting.Kernel.Services;
-using eContracting.Kernel.Helpers;
-
-namespace eContracting.Kernel.Utils
+﻿namespace eContracting.Kernel.Utils
 {
+    using System;
+    using System.Web;
+    using eContracting.Kernel.Exceptions;
+    using eContracting.Kernel.Services;
+    using eContracting.Kernel.Helpers;
+
+    /// <summary>
+    /// Implementaiton of storage for authentication session data.
+    /// </summary>
     public class AuthenticationDataSessionStorage
     {
+        /// <summary>
+        /// Gets session key.
+        /// </summary>
         private readonly String SessionKey = "AuthDataSession";
 
-
+        /// <summary>
+        /// Get the user data.
+        /// </summary>
+        /// <param name="offer">Offer</param>
+        /// <param name="generateRandom">Flag if random seed shoudl be set.</param>
+        /// <returns>Returns <see cref="AuthenticationDataItem"/>.</returns>
         public AuthenticationDataItem GetUserData(Offer offer, bool generateRandom)
         {
             if ((offer == null) || (offer.OfferInternal.Body == null))
@@ -36,13 +47,19 @@ namespace eContracting.Kernel.Utils
 
         }
 
-
+        /// <summary>
+        /// Gets user data.
+        /// </summary>
+        /// <returns>Returns user data.</returns>
         public AuthenticationDataItem GetUserData()
         {
                 var data = HttpContext.Current.Session[SessionKey] as AuthenticationDataItem;
                 return data;
         }
 
+        /// <summary>
+        /// Gets if data are presented.
+        /// </summary>
         public Boolean IsDataActive
         {
             get
@@ -51,15 +68,28 @@ namespace eContracting.Kernel.Utils
             }
         }
 
+        /// <summary>
+        /// Clears session data.
+        /// </summary>
         public void ClearSession()
         {
             HttpContext.Current.Session[SessionKey] = null;
         }
+
+        /// <summary>
+        /// Stores data into the session.
+        /// </summary>
+        /// <param name="data">User authentication data.</param>
         public void Login(AuthenticationDataItem data)
         {
             HttpContext.Current.Session[SessionKey] = data;
         }
 
+        /// <summary>
+        /// Sets the random data.
+        /// </summary>
+        /// <param name="authenticationData">Authentication data.</param>
+        /// <param name="offer">Offer</param>
         private void SetRandomData(AuthenticationDataItem authenticationData, Offer offer)
         {
             var generalSettings = ConfigHelpers.GetGeneralSettings();

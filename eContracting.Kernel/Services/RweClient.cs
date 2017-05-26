@@ -1,28 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Authentication;
-using System.Text;
-using System.Threading;
-using System.Xml;
-using System.Xml.Serialization;
-using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Models;
-using MongoDB.Bson;
-using MongoDB.Driver.Builders;
-using Sitecore.Analytics.Data.DataAccess.MongoDb;
-using Sitecore.Diagnostics;
-using MongoDB.Driver;
+﻿// <copyright file="RweClient.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Linq;
+    using System.Net;
+    using System.Security.Authentication;
+    using System.Text;
+    using System.Threading;
+    using System.Xml;
+    using System.Xml.Serialization;
+    using eContracting.Kernel.Helpers;
+    using eContracting.Kernel.Models;
+    using MongoDB.Bson;
+    using MongoDB.Driver.Builders;
+    using Sitecore.Analytics.Data.DataAccess.MongoDb;
+    using Sitecore.Diagnostics;
+    using MongoDB.Driver;
+
     delegate T CallServiceMethod<T, P>(P inputParams);
+
+    /// <summary>
+    /// Implementation of SAP client.
+    /// </summary>
     public class RweClient
     {
         #region Public methods
+        /// <summary>
+        /// Generates pdf files on server.
+        /// </summary>
+        /// <param name="guid">Uuid of the fiels to generate.</param>
+        /// <returns>Rerurn list of urls of files for download.</returns>
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
             var res = GetResponse(guid, "NABIDKA");
@@ -85,6 +98,9 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
+        /// <summary>
+        /// Gets mongo db collection of accepted offers.
+        /// </summary>
         private MongoDbCollection AcceptedOfferCollection
         {
             get
@@ -93,6 +109,10 @@ namespace eContracting.Kernel.Services
             }
         }
 
+        /// <summary>
+        /// Gets qcursor to pending offers in mongo db cache.
+        /// </summary>
+        /// <returns></returns>
         public MongoCursor<AcceptedOffer> GetNotSentOffers()
         {
             var offersNotsent = AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", (BsonValue)false)));
@@ -100,12 +120,22 @@ namespace eContracting.Kernel.Services
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
         public bool GuidExistInMongo(string guid)
         {
             var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)guid)));
             return ao != null;
         }
 
+        /// <summary>
+        /// Generates xml for offer.
+        /// </summary>
+        /// <param name="guid">Uuid of offer.</param>
+        /// <returns></returns>
         public Offer GenerateXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
@@ -145,6 +175,11 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
+        /// <summary>
+        /// Implementation of accept offer process.
+        /// </summary>
+        /// <param name="guid">Uuid of offer.</param>
+        /// <returns>Returns true if offer was succesfully sent to the SAP.</returns>
         public bool AcceptOffer(string guid)
         {
             AcceptedOffer offer = new AcceptedOffer()
@@ -179,6 +214,10 @@ namespace eContracting.Kernel.Services
             return offer.SentToService;
         }
 
+        /// <summary>
+        /// Resets the offer.
+        /// </summary>
+        /// <param name="guid"></param>
         public void ResetOffer(string guid)
         {
             var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
@@ -197,11 +236,21 @@ namespace eContracting.Kernel.Services
             }
         }
 
+        /// <summary>
+        /// Gets cxmlfor letter.
+        /// </summary>
+        /// <param name="texts">Enumeration of texts.</param>
+        /// <returns>Retruns first text or nul lif there is no text available.</returns>
         public XmlText GetLetterXml(IEnumerable<XmlText> texts)
         {
             return texts.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Gets all attribtues for xml document.
+        /// </summary>
+        /// <param name="sourceXml"></param>
+        /// <returns></returns>
         public Dictionary<string, string> GetAllAtrributes(XmlText sourceXml)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -219,6 +268,11 @@ namespace eContracting.Kernel.Services
             return result;
         }
 
+        /// <summary>
+        /// Gets all xml texts.
+        /// </summary>
+        /// <param name="guid">Uuid of offer.</param>
+        /// <returns></returns>
         public IEnumerable<XmlText> GetTextsXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA_XML");

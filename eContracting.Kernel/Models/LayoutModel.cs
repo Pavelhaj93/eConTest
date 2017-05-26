@@ -1,11 +1,15 @@
-﻿using System;
-using eContracting.Kernel.GlassItems.Settings;
-using Glass.Mapper.Sc;
-using Sitecore.Mvc.Presentation;
-using Log = Sitecore.Diagnostics.Log;
+﻿// <copyright file="LayoutModel.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.Models
 {
+    using System;
+    using eContracting.Kernel.GlassItems.Settings;
+    using Glass.Mapper.Sc;
+    using Sitecore.Mvc.Presentation;
+    using Log = Sitecore.Diagnostics.Log;
+
     public class LayoutModel : RenderingModel
     {
         public string ImageLinkUrl { get; set; }

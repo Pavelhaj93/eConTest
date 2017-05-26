@@ -1,4 +1,4 @@
-﻿// <copyright file="AcceptOfferJob.cs" company="Actum">
+﻿// <copyright file="EContractingThankYouTemplate.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 

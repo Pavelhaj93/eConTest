@@ -1,7 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿// <copyright file="AuthenticationModel.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class AuthenticationModel
     {
         [Required]

@@ -1,10 +1,14 @@
-﻿using Sitecore.Data;
-using Sitecore.Data.Items;
-using Sitecore.Diagnostics;
-using Sitecore.Pipelines.HttpRequest;
+﻿// <copyright file="ItemNotFoundPipeline.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.PipeLines
 {
+    using Sitecore.Data;
+    using Sitecore.Data.Items;
+    using Sitecore.Diagnostics;
+    using Sitecore.Pipelines.HttpRequest;
+
     public class ItemNotFoundPipeline : HttpRequestProcessor
     {
         public override void Process(HttpRequestArgs args)

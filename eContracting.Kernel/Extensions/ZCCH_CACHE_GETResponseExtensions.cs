@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// <copyright file="ZCCH_CACHE_GETResponseExtensions.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
+
+using System.Collections.Generic;
 
 /// <summary>
 /// Extensions for SAP proxy.

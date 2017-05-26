@@ -1,7 +1,14 @@
-﻿using System;
+﻿// <copyright file="AuthenticationDataItem.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel
 {
+    using System;
+
+    /// <summary>
+    /// class containing item paths.
+    /// </summary>
     public static class ItemPaths
     {
         public const string CookieLawSettings = "/sitecore/Content/eContracting/Settings/CookieLaw";
