@@ -1,4 +1,8 @@
-﻿using Glass.Mapper.Sc.Configuration.Attributes;
+﻿// <copyright file="AcceptOfferJob.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
+
+using Glass.Mapper.Sc.Configuration.Attributes;
 
 namespace eContracting.Kernel.GlassItems.Pages
 {

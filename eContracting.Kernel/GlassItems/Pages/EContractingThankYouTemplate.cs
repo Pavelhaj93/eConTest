@@ -1,9 +1,13 @@
-﻿using Glass.Mapper.Sc.Configuration;
-using Glass.Mapper.Sc.Configuration.Attributes;
-using Glass.Mapper.Sc.Fields;
+﻿// <copyright file="AcceptOfferJob.cs" company="Actum">
+// Copyright © 2016 Respective owners
+// </copyright>
 
 namespace eContracting.Kernel.GlassItems.Pages
 {
+    using Glass.Mapper.Sc.Configuration;
+    using Glass.Mapper.Sc.Configuration.Attributes;
+    using Glass.Mapper.Sc.Fields;
+
     [SitecoreType(TemplateId = "{0A936432-A755-423D-8A8A-9D24DD0BCF72}", AutoMap = true)]
     public class EContractingThankYouTemplate : EContractingTemplate
     {
