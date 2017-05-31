@@ -46,8 +46,8 @@
         history.pushState(null, document.title, location.href);
     }
 
-    var i = 100;
-    while (i-- > 0) push();
+    var i = 0;
+    while (i++ < 10) push();
 
     window.addEventListener('popstate', push);
 </script>
