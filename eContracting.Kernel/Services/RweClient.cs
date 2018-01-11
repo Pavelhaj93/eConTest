@@ -165,8 +165,17 @@ namespace eContracting.Kernel.Services
                             offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
                         }
                     }
-                    
 
+                    offer.OfferInternal.HasGDPR =
+                        result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
+                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
+
+                    if (offer.OfferInternal.HasGDPR)
+                    {
+                        offer.OfferInternal.GDPRKey = result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
+                    }
+
+                    offer.OfferInternal.State = result.ES_HEADER.CCHSTAT;
                     offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true: offer.OfferInternal.IsAccepted;
                     return offer;
                 }
@@ -212,6 +221,50 @@ namespace eContracting.Kernel.Services
             }
             InsertToMongoAcceptedOffer(offer);
             return offer.SentToService;
+        }
+
+        /// <summary>
+        /// Change the state of the offer to read.
+        /// </summary>
+        /// <param name="guid"></param>
+        public void ReadOffer(string guid)
+        {
+            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Decimal outValue = 1M;
+
+            if (Decimal.TryParse(timestampString, out outValue))
+            {
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "4";
+                status.IV_TIMESTAMP = outValue;
+
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
+                var response = CallService(status, del);
+            }
+        }
+
+        /// <summary>
+        /// Change the state of the offer to signed.
+        /// </summary>
+        /// <param name="guid"></param>
+        public void SignOffer(string guid)
+        {
+            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            Decimal outValue = 1M;
+
+            if (Decimal.TryParse(timestampString, out outValue))
+            {
+                ZCCH_CACHE_STATUS_SET status = new ZCCH_CACHE_STATUS_SET();
+                status.IV_CCHKEY = guid;
+                status.IV_CCHTYPE = "NABIDKA";
+                status.IV_STAT = "6";
+                status.IV_TIMESTAMP = outValue;
+
+                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
+                var response = CallService(status, del);
+            }
         }
 
         /// <summary>

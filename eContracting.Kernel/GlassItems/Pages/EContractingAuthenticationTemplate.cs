@@ -41,5 +41,14 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField]
         public virtual string RequiredFields { get; set; }
+
+        [SitecoreField]
+        public virtual string GDPRUrl { get; set; }
+
+        [SitecoreField]
+        public virtual string AesEncryptKey { get; set; }
+
+        [SitecoreField]
+        public virtual string AesEncryptVector { get; set; }
     }
 }

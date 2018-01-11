@@ -51,6 +51,24 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlIgnore]
         public string AcceptedAt { get; set; }
+
+        /// <summary>
+        /// Gets or sets information if offer has GDPR.
+        /// </summary>
+        [XmlIgnore]
+        public bool HasGDPR { get; set; }
+
+        /// <summary>
+        /// Gets or sets GDPRKey.
+        /// </summary>
+        [XmlIgnore]
+        public string GDPRKey { get; set; }
+    
+        /// <summary>
+        /// Gets or sets State.
+        /// </summary>
+        [XmlIgnore]
+        public string State { get; set; }
     }
 
     /// <summary>

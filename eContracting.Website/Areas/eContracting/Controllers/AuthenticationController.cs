@@ -1,5 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
@@ -43,6 +46,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                {
+                    client.ReadOffer(guid);
+                }
+
                 if (CheckWhetherUserIsBlocked(guid))
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
 
@@ -62,6 +70,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 ViewData["MainText"] = maintext;
 
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
+
+                if (offer.OfferInternal.HasGDPR)
+                {
+                    var GDPRGuid = AesEncrypt(offer.OfferInternal.GDPRKey, Context.AesEncryptKey, Context.AesEncryptVector);
+
+                    ViewData["GDPRGuid"] = GDPRGuid;
+                    ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
+                }
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
@@ -197,6 +213,32 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
                 return (Dictionary<string, failureData>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
             }
+        }
+
+        public static string AesEncrypt(string input, string key, string vector)
+        {
+            byte[] encrypted;
+            using (var rijAlg = new RijndaelManaged())
+            {
+                rijAlg.Key = Encoding.UTF8.GetBytes(key);
+                rijAlg.IV = Encoding.UTF8.GetBytes(vector);
+
+                var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
+
+                using (var msEncrypt = new MemoryStream())
+                {
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(input);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(encrypted);
         }
     }
 

@@ -1,7 +1,22 @@
-﻿@using Glass.Mapper.Sc.Web.Mvc
+@using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Kernel.Models
 @model AuthenticationModel
+
+<script>
+    $().ready(function() {
+        CheckGDPR();
+    });
+
+    function CheckGDPR() {
+        var url = "@Html.Raw(ViewData["GDPRUrl"])";
+
+        if (url) {
+            window.open(url);
+        }
+    }
+</script>
+
 @using (Html.BeginForm())
 {
 <div class="row">

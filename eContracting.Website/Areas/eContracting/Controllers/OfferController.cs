@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
+using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Sitecore.Diagnostics;
 
@@ -46,6 +47,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
+
+                string guid = ads.GetUserData().Identifier;
+                RweClient client = new RweClient();
+                client.SignOffer(guid);
 
                 ViewData["MainText"] = maintext;
 
