@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,50 +51,42 @@
       <HintPath>..\packages\Castle.Windsor.3.3.0\lib\net45\Castle.Windsor.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Glass.Mapper, Version=4.0.5.54, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Glass.Mapper.Sc.4.0.5.54\lib\net45\Glass.Mapper.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Glass.Mapper, Version=4.4.0.199, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glass.Mapper.Sc.Core.4.4.0.199\lib\net45\Glass.Mapper.dll</HintPath>
     </Reference>
-    <Reference Include="Glass.Mapper.Sc, Version=4.0.5.54, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Glass.Mapper.Sc, Version=4.4.0.199, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glass.Mapper.Sc.4.0.5.54\lib\81\Glass.Mapper.Sc.dll</HintPath>
+      <HintPath>..\packages\Glass.Mapper.Sc.Core.4.4.0.199\lib\100\Glass.Mapper.Sc.dll</HintPath>
     </Reference>
-    <Reference Include="Glass.Mapper.Sc.Mvc, Version=4.0.5.54, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Glass.Mapper.Sc.Mvc, Version=4.4.0.199, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glass.Mapper.Sc.4.0.5.54\lib\Mvc52\Glass.Mapper.Sc.Mvc.dll</HintPath>
+      <HintPath>..\packages\Glass.Mapper.Sc.Core.4.4.0.199\lib\Mvc52\Glass.Mapper.Sc.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Sitecore.Analytics, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Analytics.NoReferences.8.1.160302\lib\NET45\Sitecore.Analytics.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Analytics, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Analytics.NoReferences.8.2.171121\lib\NET452\Sitecore.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Kernel, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.1.160302\lib\NET45\Sitecore.Kernel.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Kernel, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Kernel.NoReferences.8.2.171121\lib\NET452\Sitecore.Kernel.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Logging, Version=1.2.0.30715, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Logging.NoReferences.8.1.160302\lib\NET45\Sitecore.Logging.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Logging, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Logging.NoReferences.8.2.171121\lib\NET452\Sitecore.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Mvc.NoReferences.8.1.160302\lib\NET45\Sitecore.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Mvc.NoReferences.8.2.171121\lib\NET452\Sitecore.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Mvc.Analytics, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Mvc.Analytics.NoReferences.8.1.160302\lib\NET45\Sitecore.Mvc.Analytics.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Mvc.Analytics, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Mvc.Analytics.NoReferences.8.2.171121\lib\NET452\Sitecore.Mvc.Analytics.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Update, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Update.NoReferences.8.1.160302\lib\NET45\Sitecore.Update.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Update, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Update.NoReferences.8.2.171121\lib\NET452\Sitecore.Update.dll</HintPath>
     </Reference>
-    <Reference Include="Sitecore.Zip, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Sitecore.Zip.NoReferences.8.1.160302\lib\NET45\Sitecore.Zip.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Sitecore.Zip, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Zip.NoReferences.8.2.171121\lib\NET452\Sitecore.Zip.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -248,6 +241,10 @@
     <Content Include="Areas\eContracting\Views\DocumentPanel.cshtml" />
     <Content Include="Areas\eContracting\Views\Offer.cshtml" />
     <Content Include="Areas\eContracting\Views\AcceptedOffer.cshtml" />
+    <Content Include="App_Config\Include\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.Start.config" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.config" />
+    <Content Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
     <None Include="App_Config\Include\zeContracting\ApplicationConfiguration.Debug.config">
       <DependentUpon>ApplicationConfiguration.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

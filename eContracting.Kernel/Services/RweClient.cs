@@ -1,4 +1,4 @@
-﻿// <copyright file="RweClient.cs" company="Actum">
+// <copyright file="RweClient.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 
@@ -115,7 +115,7 @@ namespace eContracting.Kernel.Services
         /// <returns></returns>
         public MongoCursor<AcceptedOffer> GetNotSentOffers()
         {
-            var offersNotsent = AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", (BsonValue)false)));
+            var offersNotsent = AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", false)));
             return offersNotsent;
 
         }
@@ -127,7 +127,7 @@ namespace eContracting.Kernel.Services
         /// <returns></returns>
         public bool GuidExistInMongo(string guid)
         {
-            var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)guid)));
+            var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", guid)));
             return ao != null;
         }
 
