@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
@@ -39,6 +42,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
+                
 
 
                 string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
@@ -51,6 +55,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 string guid = ads.GetUserData().Identifier;
                 RweClient client = new RweClient();
                 client.SignOffer(guid);
+                var offer = client.GenerateXml(guid);
+                if (offer.OfferInternal.HasGDPR)
+                {
+                    var GDPRGuid = AesEncrypt(offer.OfferInternal.GDPRKey, Context.AesEncryptKey, Context.AesEncryptVector);
+
+                    ViewData["GDPRGuid"] = GDPRGuid;
+                    ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
+                }
 
                 ViewData["MainText"] = maintext;
 
@@ -64,6 +76,32 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 Log.Error("Error when displaying offer.", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
+        }
+        
+        public static string AesEncrypt(string input, string key, string vector)
+        {
+            byte[] encrypted;
+            using (var rijAlg = new RijndaelManaged())
+            {
+                rijAlg.Key = Encoding.UTF8.GetBytes(key);
+                rijAlg.IV = Encoding.UTF8.GetBytes(vector);
+
+                var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
+
+                using (var msEncrypt = new MemoryStream())
+                {
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(input);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(encrypted);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿// <copyright file="EContractingOfferTemplate.cs" company="Actum">
+// <copyright file="EContractingOfferTemplate.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 
@@ -11,5 +11,14 @@ namespace eContracting.Kernel.GlassItems.Pages
     {
         [SitecoreField]
         public virtual string MainText { get; set; }
+
+        [SitecoreField]
+        public virtual string GDPRUrl { get; set; }
+
+        [SitecoreField]
+        public virtual string AesEncryptKey { get; set; }
+
+        [SitecoreField]
+        public virtual string AesEncryptVector { get; set; }
     }
 }

@@ -2,13 +2,13 @@
 version: 1
 id: {676D7E2C-BB90-4E6A-8580-13BA88544653}
 database: master
-path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/GDPR/AesEncryptKey
+path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/GDPR/AesEncryptKey
 parent: {27C6B3B2-9C60-4A37-8988-1E200829F738}
 name: AesEncryptKey
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
-created: 20180111T085701:636512578218370000
+created: 20180111T085701Z
 
 ----field----
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}

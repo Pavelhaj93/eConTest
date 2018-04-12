@@ -2,13 +2,13 @@
 version: 1
 id: {B02C924C-767F-4DE0-B6A1-F49E2B557300}
 database: master
-path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/GDPR/GDPRUrl
+path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/GDPR/GDPRUrl
 parent: {27C6B3B2-9C60-4A37-8988-1E200829F738}
 name: GDPRUrl
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
-created: 20180111T085701:636512578217770000
+created: 20180111T085701Z
 
 ----field----
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}

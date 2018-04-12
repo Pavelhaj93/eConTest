@@ -45,8 +45,9 @@
     <SitecoreWebUrl>http://eContracting.local</SitecoreWebUrl>
     <InstallSitecoreConnector>True</InstallSitecoreConnector>
     <DisableFileDeployment>True</DisableFileDeployment>
-    <SitecoreDeployFolder>C:\inetpub\wwwroot\Econtracting.local\sc81rev160302\Website</SitecoreDeployFolder>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\RWEeContracting\Website</SitecoreDeployFolder>
     <SitecoreAccessGuid>5fc56a0b-8698-40b8-ab60-d3a9a60d3416</SitecoreAccessGuid>
+    <LightningDeployMode>False</LightningDeployMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugSymbols>false</DebugSymbols>
@@ -54,10 +55,12 @@
     <RecursiveDeployAction>Ignore</RecursiveDeployAction>
     <EnableValidations>False</EnableValidations>
     <ValidationSettingsFilePath>.\eContracting.Master_Release.xml</ValidationSettingsFilePath>
-    <SitecoreDeployFolder>C:\inetpub\wwwroot\Econtracting.local\sc81rev160302\Website</SitecoreDeployFolder>
-    <InstallSitecoreConnector>False</InstallSitecoreConnector>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\RWEeContracting\Website</SitecoreDeployFolder>
+    <InstallSitecoreConnector>True</InstallSitecoreConnector>
     <DisableFileDeployment>False</DisableFileDeployment>
     <SitecoreWebUrl>http://econtracting.local/</SitecoreWebUrl>
+    <LightningDeployMode>False</LightningDeployMode>
+    <SitecoreAccessGuid>4c59f1ca-fc3f-4b73-a977-8ffe8cbbaac1</SitecoreAccessGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Test' ">
     <DebugSymbols>false</DebugSymbols>
@@ -99,7 +102,11 @@
     <OutputPath>.\bin\RWE_Test_CM\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'RWE_Production_CM' ">
-    <OutputPath>bin\RWE_Production_CM\</OutputPath>
+    <OutputPath>.\bin\RWE_Production_CM\</OutputPath>
+    <InstallSitecoreConnector>False</InstallSitecoreConnector>
+    <RecursiveDeployAction>Ignore</RecursiveDeployAction>
+    <DisableFileDeployment>False</DisableFileDeployment>
+    <LightningDeployMode>False</LightningDeployMode>
   </PropertyGroup>
   <ItemGroup>
     <AssemblyAttributes Include="AssemblyFileVersion">
@@ -292,22 +299,6 @@
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
     </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\GDPR.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>DeployOnce</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\GDPR\AesEncryptKey.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>DeployOnce</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\GDPR\AesEncryptVector.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>DeployOnce</ItemDeployment>
-    </SitecoreItem>
-    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\GDPR\GDPRUrl.item">
-      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
-      <ItemDeployment>DeployOnce</ItemDeployment>
-    </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingAuthenticationTemplate\NextPageSection.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
@@ -431,6 +422,22 @@
     <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\__Standard Values.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
       <ItemDeployment>AlwaysUpdate</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\GDPR.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>DeployOnce</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\GDPR\AesEncryptKey.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>DeployOnce</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\GDPR\AesEncryptVector.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>DeployOnce</ItemDeployment>
+    </SitecoreItem>
+    <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\GDPR\GDPRUrl.item">
+      <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>
+      <ItemDeployment>DeployOnce</ItemDeployment>
     </SitecoreItem>
     <SitecoreItem Include="sitecore\templates\eContracting\Pages\eContractingOfferTemplate\Text.item">
       <ChildItemSynchronization>KeepAllChildrenSynchronized</ChildItemSynchronization>

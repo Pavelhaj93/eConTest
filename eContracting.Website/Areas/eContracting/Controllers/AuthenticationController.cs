@@ -70,15 +70,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 ViewData["MainText"] = maintext;
 
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
-
-                if (offer.OfferInternal.HasGDPR)
-                {
-                    var GDPRGuid = AesEncrypt(offer.OfferInternal.GDPRKey, Context.AesEncryptKey, Context.AesEncryptVector);
-
-                    ViewData["GDPRGuid"] = GDPRGuid;
-                    ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
-                }
-
+                
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
             catch (Exception ex)

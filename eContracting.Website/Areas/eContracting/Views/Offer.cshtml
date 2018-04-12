@@ -1,4 +1,18 @@
-﻿<div class="row">
+<script>
+    $().ready(function() {
+        CheckGDPR();
+    });
+
+    function CheckGDPR() {
+        var url = "@Html.Raw(ViewData["GDPRUrl"])";
+
+        if (url) {
+            window.open(url);
+        }
+    }
+</script>
+
+<div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="info">
 			@Html.Raw(ViewData["MainText"])
