@@ -6,14 +6,14 @@ namespace eContracting.Kernel.PipeLines
 {
     using Sitecore.Data;
     using Sitecore.Data.Items;
-    using Sitecore.Diagnostics;
+    //using Sitecore.Diagnostics;
     using Sitecore.Pipelines.HttpRequest;
 
     public class ItemNotFoundPipeline : HttpRequestProcessor
     {
         public override void Process(HttpRequestArgs args)
         {
-            Assert.ArgumentNotNull(args, "args");
+            //Assert.ArgumentNotNull(args, "args");
             //Check whether Site is Econtracting Site or not
             if (args.StartPath != "/sitecore/content/eContracting/Site")
                 return;

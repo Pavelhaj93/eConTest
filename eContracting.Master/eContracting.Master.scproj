@@ -31,21 +31,21 @@
     <OutputPath>.\bin\Debug\</OutputPath>
     <RecursiveDeployAction>Ignore</RecursiveDeployAction>
     <PackageName>eContracting.Master</PackageName>
-    <PackageAuthor />
-    <PackagePublisher />
+    <PackageAuthor>ACTUM s.r.o.</PackageAuthor>
+    <PackagePublisher>Milan Svajda</PackagePublisher>
     <PackageVersion />
     <PackageReadme />
     <SitecoreAssemblyPath />
     <GeneratePackage>True</GeneratePackage>
     <SeperateFilesAndItems>False</SeperateFilesAndItems>
-    <PackageExcludeCode>True</PackageExcludeCode>
+    <PackageExcludeCode>False</PackageExcludeCode>
     <AddDateTimeToPackageName>False</AddDateTimeToPackageName>
     <EnableValidations>False</EnableValidations>
     <ValidationSettingsFilePath>.\eContracting.Master_Debug.xml</ValidationSettingsFilePath>
     <SitecoreWebUrl>http://eContracting.local</SitecoreWebUrl>
     <InstallSitecoreConnector>True</InstallSitecoreConnector>
     <DisableFileDeployment>True</DisableFileDeployment>
-    <SitecoreDeployFolder>C:\inetpub\wwwroot\RWEeContracting\Website</SitecoreDeployFolder>
+    <SitecoreDeployFolder>C:\inetpub\wwwroot\CZ-eContracting\Website</SitecoreDeployFolder>
     <SitecoreAccessGuid>5fc56a0b-8698-40b8-ab60-d3a9a60d3416</SitecoreAccessGuid>
     <LightningDeployMode>False</LightningDeployMode>
   </PropertyGroup>

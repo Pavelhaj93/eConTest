@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Settings;
@@ -85,7 +86,24 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 string guid = authenticationDataSessionStorage.GetUserData().Identifier;
+
                 RweClient client = new RweClient();
+
+                var documentsId = new List<string>();
+                var offersNotsent = client.GetNotSentOffers();
+
+                foreach (AcceptedOffer offer in offersNotsent)
+                {
+                    documentsId.Add(offer.Guid);
+                }
+
+                // New acceptance logger
+                if(documentsId.Count > 0)
+                {
+                    var service = new Rwe.Sc.AcceptanceLogger.Service.LoggerService();
+                    service.LogAcceptance(guid, documentsId, "NABIDKA", DateTime.Now);
+                }
+
                 if (client.GuidExistInMongo(guid))
                 {
                     var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
@@ -95,7 +113,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
                 authenticationDataSessionStorage.GetUserData().IsAccepted = true;
-
 
                 var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.ThankYou).Url;
                 return Redirect(redirectUrl);
