@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Models;
+using eContracting.Kernel.GlassItems.Content.Modal_window;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc;
@@ -53,7 +53,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                var model = new DocumentPanelModel();
+                var model = new MW01DataSource();
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
@@ -92,7 +92,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var documentsId = new List<string>();
                 var offersNotsent = client.GetNotSentOffers();
 
-                foreach (AcceptedOffer offer in offersNotsent)
+                foreach (var offer in offersNotsent)
                 {
                     documentsId.Add(offer.Guid);
                 }

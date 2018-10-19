@@ -1,25 +1,60 @@
-﻿@using eContracting.Kernel.Models
-@model DocumentPanelModel
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Content.Modal_window
+@using eContracting.Kernel.GlassItems.RenderingParameters.Modal_window
+@using eContracting.Kernel.Models
+
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<MW01DataSource>
 
 <div class="row">
-	<div class="col-sm-12 col-md-10 col-md-offset-1">
-		<div class="form-background">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-12 col-md-10 col-md-offset-1">
-                        @using (Html.BeginForm("Accept", "eContracting",FormMethod.Post, new { id = "offer", @class = "form" }))
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+        <div class="form-background">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-10 col-md-offset-1">
+                        @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = "form" }))
                         {
                             @Html.AntiForgeryToken()
-							<ul class="list list-documents loading">
-								<a class="check-all" href="#">Označit vše</a>
-							</ul>
-                            <input type="submit" class="button button-submit" value="@ViewData["Accept"]"/>
+                            <ul class="list list-documents loading">
+                                <a class="check-all" href="#">Označit vše</a>
+                            </ul>
+                            <input type="submit" class="button button-submit" onclick="ShowConfirmYesNo()" value="@ViewData["Accept"]" />
                         }
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalConfirmYesNo" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="lblTitleConfirmYesNo" class="modal-title">@Model.Title</h4>
+            </div>
+            <div class="modal-body">
+                <p id="lblMsgConfirmYesNo">@Model.Text</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnYesConfirmYesNo"
+                        type="button" class="btn btn-primary">
+                    @Model.Accept_Text
+                </button>
+                <button id="btnNoConfirmYesNo"
+                        type="button" class="btn btn-default">
+                    @Model.Cancel_Text
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -27,6 +62,46 @@
         doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
+    }
+
+    function ShowConfirmYesNo() {
+        AsyncConfirmYesNo(
+            @Model.Title,
+            @Model.Text,
+            MyYesFunction,
+            MyNoFunction
+        );
+    }
+
+    function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+        var $confirm = $("#modalConfirmYesNo");
+        $confirm.modal('show');
+        $("#lblTitleConfirmYesNo").html(title);
+        $("#lblMsgConfirmYesNo").html(msg);
+        $("#btnYesConfirmYesNo").off('click').click(function () {
+            yesFn();
+            $confirm.modal("hide");
+        });
+        $("#btnNoConfirmYesNo").off('click').click(function () {
+            noFn();
+            $confirm.modal("hide");
+        });
+    }
+
+    function MyYesFunction() {
+        $.ajax({
+            type: 'post',
+            url: 'Accept',
+            data: "accepted",
+            processData: false,
+            contentType: false,
+            success: function (e) {
+                $('#modalConfirmYesNo').modal('hide');
+            }
+        });
+    }
+    function MyNoFunction() {
+        $('#modalConfirmYesNo').modal('hide');
     }
 
     @*function CheckIfReady() {

@@ -1,4 +1,4 @@
-﻿// <copyright file="GeneralSettings.cs" company="Actum">
+// <copyright file="GeneralSettings.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 

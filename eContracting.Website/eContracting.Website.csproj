@@ -174,6 +174,13 @@
     <Compile Include="Areas\eContracting\Services\GetFile.ashx.cs">
       <DependentUpon>GetFile.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.designer.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +188,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx" />
     <Content Include="Assets\eContracting\css\main.css" />
     <Content Include="Assets\eContracting\css\main.min.css" />
     <Content Include="Assets\eContracting\fonts\font-face.css" />
@@ -210,9 +218,16 @@
     <Content Include="Assets\eContracting\js\bootstrap-datepicker-1.6.4.min.js" />
     <Content Include="Assets\eContracting\js\bootstrap-datepicker.cs.min.js" />
     <Content Include="Assets\eContracting\js\jquery-3.1.0.min.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\eContracting\fonts\innogy-light.eot" />
@@ -307,10 +322,20 @@
       <IsTransformFile>True</IsTransformFile>
     </None>
     <Content Include="App_Config\Include\ZzzRweConfiguration\AcceptanceLogger.config" />
+    <Content Include="Areas\eContracting\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\eContracting\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\eContracting\Views\Content\ModalWindows\MW01.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\File system package.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.config">
       <SubType>Designer</SubType>
     </None>
