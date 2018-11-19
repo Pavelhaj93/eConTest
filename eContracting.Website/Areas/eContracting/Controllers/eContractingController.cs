@@ -10,6 +10,7 @@ using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc;
 using Sitecore.Mvc.Controllers;
 using Log = Sitecore.Diagnostics.Log;
+using Sitecore.Mvc.Presentation;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -53,19 +54,38 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                var model = new MW01DataSource();
+                using (var sitecoreContext = new SitecoreContext())
+                {
+                    MW01DataSource model = new MW01DataSource();
+                    var datasource = RenderingContext.Current.Rendering.Item;
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
-                model.IsAccepted = isAccepted;
+                    if (datasource != null)
+                    {
+                        model = sitecoreContext.Cast<MW01DataSource>(datasource);
 
-                var generalSettings = ConfigHelpers.GetGeneralSettings();
+                        if (!string.IsNullOrWhiteSpace(model.Title))
+                        {
+                            model.Title = model.Title.Replace("'", "\\'");
+                        }
 
-                ViewData["IAmInformed"] = generalSettings.IAmInformed;
-                ViewData["IAgree"] = generalSettings.IAgree;
-                ViewData["Accept"] = generalSettings.Accept;
+                        if (!string.IsNullOrWhiteSpace(model.Text))
+                        {
+                            model.Text = model.Text.Replace("'", "\\'");
+                        }
+                    }
 
-                return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
+                    var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+                    model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
+                    model.IsAccepted = isAccepted;
+
+                    var generalSettings = ConfigHelpers.GetGeneralSettings();
+
+                    ViewData["IAmInformed"] = generalSettings.IAmInformed;
+                    ViewData["IAgree"] = generalSettings.IAgree;
+                    ViewData["Accept"] = generalSettings.Accept;
+
+                    return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
+                }
             }
             catch (Exception ex)
             {

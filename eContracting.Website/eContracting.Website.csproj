@@ -322,7 +322,6 @@
       <IsTransformFile>True</IsTransformFile>
     </None>
     <Content Include="App_Config\Include\ZzzRweConfiguration\AcceptanceLogger.config" />
-    <Content Include="Areas\eContracting\Views\_ViewStart.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\eContracting\Views\Content\ModalWindows\MW01.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
