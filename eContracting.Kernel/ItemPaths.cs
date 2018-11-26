@@ -1,4 +1,4 @@
-﻿// <copyright file="AuthenticationDataItem.cs" company="Actum">
+// <copyright file="AuthenticationDataItem.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 
@@ -18,5 +18,7 @@ namespace eContracting.Kernel
         public const string GeneralSettings = "/sitecore/Content/eContracting/Settings/General";
 
         public const string HeaderSettings = "/sitecore/Content/eContracting/Settings/Header";
+
+        public const string ModalWindowSettings = "/sitecore/content/eContracting/Settings/Modal Window";
     }
 }

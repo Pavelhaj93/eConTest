@@ -52,16 +52,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <returns>Instance result.</returns>
         public ActionResult DocumentPanel(bool isAccepted)
         {
+            //// {CE5332E3-21B0-419D-BE64-FAD155123E42}
             try
             {
                 using (var sitecoreContext = new SitecoreContext())
                 {
                     MW01DataSource model = new MW01DataSource();
-                    var datasource = RenderingContext.Current.Rendering.Item;
+                    var datasource = sitecoreContext.GetItem<MW01DataSource>(ItemPaths.ModalWindowSettings);
 
                     if (datasource != null)
                     {
-                        model = sitecoreContext.Cast<MW01DataSource>(datasource);
+                        model = datasource;
 
                         if (!string.IsNullOrWhiteSpace(model.Title))
                         {
