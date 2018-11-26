@@ -25,6 +25,9 @@ namespace eContracting.Kernel.GlassItems.Content.Modal_window
         public virtual string Tooltip { get; set; }
 
         [SitecoreField]
+        public virtual string SelectAll_Text { get; set; }
+
+        [SitecoreField]
         public virtual string Accept_Text { get; set; }
 
         [SitecoreField]

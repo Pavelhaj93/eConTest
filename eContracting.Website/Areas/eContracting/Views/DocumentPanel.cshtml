@@ -18,7 +18,7 @@
                         {
                             @Html.AntiForgeryToken()
                             <ul class="list list-documents loading">
-                                <a class="check-all" href="#">Označit vše</a>
+                                <a class="check-all" href="#">@Model.SelectAll_Text</a>
                             </ul>
                             <input type="submit" class="button button-submit" onclick="ShowConfirmYesNo()" value="@ViewData["Accept"]" />
                         }
