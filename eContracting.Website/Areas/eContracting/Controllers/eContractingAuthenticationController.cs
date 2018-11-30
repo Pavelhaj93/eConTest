@@ -16,7 +16,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class AuthenticationController : BaseController<EContractingAuthenticationTemplate>
+    public class eContractingAuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
         /// <summary>
         /// Authentication GET action.

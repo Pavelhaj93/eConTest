@@ -80,7 +80,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     model.IsAccepted = isAccepted;
 
                     var generalSettings = ConfigHelpers.GetGeneralSettings();
-
+                    ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];
                     ViewData["IAmInformed"] = generalSettings.IAmInformed;
                     ViewData["IAgree"] = generalSettings.IAgree;
                     ViewData["Accept"] = generalSettings.Accept;

@@ -164,7 +164,7 @@
     <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
     <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\AuthenticationController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\eContractingAuthenticationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
