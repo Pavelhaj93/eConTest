@@ -300,6 +300,7 @@
       <IsTransformFile>True</IsTransformFile>
       <SubType>Designer</SubType>
     </None>
+    <Content Include="App_Config\Include\zeContracting\Pipelines.config" />
     <None Include="App_Config\Include\zeContracting\SiteDefinition.RWE_Production_CD.config">
       <DependentUpon>SiteDefinition.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>

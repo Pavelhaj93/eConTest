@@ -40,6 +40,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                if (this.CheckWhetherUserIsBlocked(guid))
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+                }
+
                 var offer = client.GenerateXml(guid);
                 if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
@@ -50,10 +55,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     client.ReadOffer(guid);
                 }
-
-                if (CheckWhetherUserIsBlocked(guid))
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
-
 
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
@@ -87,17 +88,19 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <returns>A value indicating whether user is blocked or not.</returns>
         private bool CheckWhetherUserIsBlocked(string guid)
         {
-            failureData failureData;
-            if (this.NumberOfLogons.TryGetValue(guid, out failureData))
-            {
-                TimeSpan blokingDuration = DateTime.UtcNow - failureData.LastFailureTime;
-                if (failureData.LoginAttemp >= 3 && blokingDuration.Minutes <= 30)
-                {
-                    return true;
-                }
-            }
+            LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient();
+            return !loginsCheckerClient.CanLogin(guid);
+            //failureData failureData;
+            //if (this.NumberOfLogons.TryGetValue(guid, out failureData))
+            //{
+            //    TimeSpan blokingDuration = DateTime.UtcNow - failureData.LastFailureTime;
+            //    if (failureData.LoginAttemp >= 3 && blokingDuration.Minutes <= 30)
+            //    {
+            //        return true;
+            //    }
+            //}
 
-            return false;
+            //return false;
         }
 
         /// <summary>
@@ -106,35 +109,48 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <param name="authenticationModel">Authentication model.</param>
         /// <returns>Instance result.</returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Authentication(AuthenticationModel authenticationModel)
         {
             try
             {
+                string guid = Request.QueryString["guid"];
+
+                LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient();
+
+                if (this.CheckWhetherUserIsBlocked(guid))
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+                }
+
                 FillViewData();
                 var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
                 var additionalValue = authenticationModel.Additional.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
                 RweClient client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
+
                 AuthenticationDataSessionStorage ass = new AuthenticationDataSessionStorage();
                 AuthenticationDataItem authenticationData = ass.GetUserData(offer, false);
                 authenticationData.ItemValue = authenticationModel.ItemValue;
 
-                failureData failureData;
-                if (!this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
-                {
-                    failureData = new failureData();
-                    NumberOfLogons.Add(authenticationData.Identifier, failureData);
-                    failureData.LastFailureTime = DateTime.UtcNow;
-                    failureData.LoginAttemp = 0;
-                }
-                int numberOfLogonsBefore = failureData.LoginAttemp;
+                //failureData failureData;
+                //if (!this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
+                //{
+                //    failureData = new failureData();
+                //    NumberOfLogons.Add(authenticationData.Identifier, failureData);
+                //    failureData.LastFailureTime = DateTime.UtcNow;
+                //    failureData.LoginAttemp = 0;
+                //}
+                //int numberOfLogonsBefore = failureData.LoginAttemp;
 
-                if ((numberOfLogonsBefore < 3) && ((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue)))
+                if (/*(numberOfLogonsBefore < 3) && */((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue)))
                 {
 
-                    NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
-                    NumberOfLogons[authenticationData.Identifier].LastFailureTime = DateTime.UtcNow;
+                    //NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
+                    //NumberOfLogons[authenticationData.Identifier].LastFailureTime = DateTime.UtcNow;
+
+                    loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
 
                     string url = Request.RawUrl;
 
@@ -150,15 +166,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(url);
                 }
 
-                if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
-                else
-                {
+                //if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
+                //    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+                //else
+                //{
                     if (!ModelState.IsValid)
                     {
                         return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                     }
-                    NumberOfLogons.Remove(authenticationData.Identifier);
+                    //NumberOfLogons.Remove(authenticationData.Identifier);
                     var aut = new AuthenticationDataSessionStorage();
                     aut.Login(authenticationData);
 
@@ -175,7 +191,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
 
                     return Redirect(Context.NextPageLink.Url);
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -195,17 +211,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
         }
 
-        private Dictionary<string, failureData> NumberOfLogons
-        {
-            get
-            {
-                if (System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
-                {
-                    System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, failureData>();
-                }
-                return (Dictionary<string, failureData>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
-            }
-        }
+        //private Dictionary<string, failureData> NumberOfLogons
+        //{
+        //    get
+        //    {
+        //        if (System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
+        //        {
+        //            System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, failureData>();
+        //        }
+        //        return (Dictionary<string, failureData>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
+        //    }
+        //}
 
         public static string AesEncrypt(string input, string key, string vector)
         {
@@ -234,11 +250,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         }
     }
 
-    internal class failureData
-    {
-        public int LoginAttemp { get; set; }
-        public DateTime LastFailureTime { get; set; }
+    //internal class failureData
+    //{
+    //    public int LoginAttemp { get; set; }
+    //    public DateTime LastFailureTime { get; set; }
 
-    }
+    //}
 
 }
