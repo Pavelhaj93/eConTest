@@ -27,6 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAP", "SAP", "{1A225118-EBA
 		howto.md = howto.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B40BA044-AF31-4AC5-858D-6A8721FACBF0}"
+	ProjectSection(SolutionItems) = preProject
+		libs\Rwe.Sc.AcceptanceLogger.dll = libs\Rwe.Sc.AcceptanceLogger.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

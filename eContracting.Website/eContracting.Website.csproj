@@ -81,7 +81,8 @@
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="Rwe.Sc.AcceptanceLogger, Version=1.0.1.14119, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rwe.Sc.AcceptanceLogger.1.0.1.14119\lib\net452\Rwe.Sc.AcceptanceLogger.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\libs\Rwe.Sc.AcceptanceLogger.dll</HintPath>
     </Reference>
     <Reference Include="Sitecore.Analytics, Version=10.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Analytics.NoReferences.8.2.171121\lib\NET452\Sitecore.Analytics.dll</HintPath>
