@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using eContracting.Kernel.Models;
 using MongoDB.Driver;
@@ -14,8 +15,11 @@ namespace eContracting.Kernel.Services
 {
     public class LoginsCheckerClient
     {
-        protected int MaxFailedAttemps { get; set; }
-        protected TimeSpan DelayAfterFailedAttemps { get; set; }
+        protected readonly int MaxFailedAttemps;
+
+        protected readonly TimeSpan DelayAfterFailedAttemps;
+
+        protected readonly IMongoCollection<FailedLoginInfoModel> Collection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
@@ -31,10 +35,22 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
         /// <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
-        public LoginsCheckerClient(int maxFailedAttempts, TimeSpan delayAfterFailedAttempts)
+        public LoginsCheckerClient(int maxFailedAttempts, TimeSpan delayAfterFailedAttempts) : this(maxFailedAttempts, delayAfterFailedAttempts, GetLoginsCollection())
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
+        /// </summary>
+        /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
+        /// <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
+        /// <param name="collection">The collection.</param>
+        /// <exception cref="ArgumentNullException">collection</exception>
+        public LoginsCheckerClient(int maxFailedAttempts, TimeSpan delayAfterFailedAttempts, IMongoCollection<FailedLoginInfoModel> collection)
         {
             this.MaxFailedAttemps = maxFailedAttempts;
             this.DelayAfterFailedAttemps = delayAfterFailedAttempts;
+            this.Collection = collection ?? throw new ArgumentNullException(nameof(collection));
         }
 
         /// <summary>
@@ -53,14 +69,7 @@ namespace eContracting.Kernel.Services
                 FilterDefinitionBuilder<FailedLoginInfoModel> builder = Builders<FailedLoginInfoModel>.Filter;
                 FilterDefinition<FailedLoginInfoModel> filter = builder.Eq(x => x.Guid, guid);
 
-                IMongoCollection<FailedLoginInfoModel> collection = this.GetLoginsCollection();
-                IFindFluent<FailedLoginInfoModel, FailedLoginInfoModel> find = collection.Find(filter);
-
-                if (find.Count() == 0)
-                {
-                    Log.Debug("User '" + guid + "' can log-in (nothing found)", this);
-                    return true;
-                }
+                IAsyncCursor<FailedLoginInfoModel> find = this.Collection.FindSync(filter);
 
                 var result = find.FirstOrDefault();
 
@@ -80,14 +89,14 @@ namespace eContracting.Kernel.Services
 
                 // if logins for 'guid' exceeded number of failed attempts and last time was before 'DelayAfterFailedAttemps',
                 // use can login and his data must be updated (reset values)
-                if (result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) < DateTime.Now)
+                if (result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) < DateTime.UtcNow)
                 {
                     try
                     {
                         FilterDefinitionBuilder<FailedLoginInfoModel> deleteBuilder = Builders<FailedLoginInfoModel>.Filter;
                         FilterDefinition<FailedLoginInfoModel> deleteFilter = deleteBuilder.Eq(x => x.Id, result.Id);
 
-                        collection.DeleteOne(deleteFilter);
+                        this.Collection.DeleteOne(deleteFilter);
 
                         //var update = Builders<LoginGuidInfo>.Update
                         //    .PullAll(x => x.FailedAttemptsInfo, result.FailedAttemptsInfo)
@@ -107,7 +116,7 @@ namespace eContracting.Kernel.Services
                 }
                 else
                 {
-                    TimeSpan difference = result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) - DateTime.Now;
+                    TimeSpan difference = result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) - DateTime.UtcNow;
 
                     Log.Debug("User '" + guid + "' cannot log-in (had max failed login attempts and waiting time not expired yet - " + difference.ToString("c") + ")", this);
                     return false;
@@ -134,7 +143,7 @@ namespace eContracting.Kernel.Services
 
                 FailedLoginInfoDetailModel infoRecord = new FailedLoginInfoDetailModel()
                 {
-                    Timestamp = DateTime.Now,
+                    Timestamp = DateTime.UtcNow,
                     SessionId = sessionId,
                     BrowserInfo = browserInfo
                 };
@@ -142,8 +151,7 @@ namespace eContracting.Kernel.Services
                 FilterDefinitionBuilder<FailedLoginInfoModel> builder = Builders<FailedLoginInfoModel>.Filter;
                 FilterDefinition<FailedLoginInfoModel> filter = builder.Eq(x => x.Guid, guid);
 
-                IMongoCollection<FailedLoginInfoModel> collection = this.GetLoginsCollection();
-                IFindFluent<FailedLoginInfoModel, FailedLoginInfoModel> result = collection.Find(filter);
+                IAsyncCursor<FailedLoginInfoModel> result = this.Collection.FindSync(filter);
 
                 FailedLoginInfoModel model = result.FirstOrDefault();
 
@@ -151,11 +159,11 @@ namespace eContracting.Kernel.Services
                 {
                     FailedLoginInfoModel m = new FailedLoginInfoModel();
                     m.Guid = guid;
-                    m.LastFailedAttemptTimestamp = DateTime.Now;
+                    m.LastFailedAttemptTimestamp = DateTime.UtcNow;
                     m.FailedAttempts = 1;
                     m.FailedAttemptsInfo = new List<FailedLoginInfoDetailModel>() { infoRecord };
 
-                    collection.InsertOne(m);
+                    this.Collection.InsertOne(m);
 
                     Log.Debug("New failed attempt record created for user '" + guid + "'", this);
                 }
@@ -166,10 +174,10 @@ namespace eContracting.Kernel.Services
 
                     UpdateDefinition<FailedLoginInfoModel> update = Builders<FailedLoginInfoModel>.Update
                         .Set(x => x.FailedAttempts, model.FailedAttempts + 1)
-                        .Set(x => x.LastFailedAttemptTimestamp, DateTime.Now)
+                        .Set(x => x.LastFailedAttemptTimestamp, DateTime.UtcNow)
                         .AddToSet(x => x.FailedAttemptsInfo, infoRecord);
 
-                    collection.UpdateOne(updateFilter, update);
+                    this.Collection.UpdateOne(updateFilter, update);
 
                     Log.Debug("New failed attempt record added for user '" + guid + "'", this);
                 }
@@ -184,7 +192,7 @@ namespace eContracting.Kernel.Services
         /// Gets the MongoDB collection for failed logins.
         /// </summary>
         /// <returns>Instance of <see cref="IMongoCollection{LoginGuidInfo}"/></returns>
-        protected IMongoCollection<FailedLoginInfoModel> GetLoginsCollection()
+        protected static IMongoCollection<FailedLoginInfoModel> GetLoginsCollection()
         {
             ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["OfferDB"];
             string connectionStringValue = connectionStringSettings.ConnectionString;
