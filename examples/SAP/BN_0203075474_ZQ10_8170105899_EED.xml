@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<form>
+    <header>
+        <form_id>CRM003E</form_id>
+        <verze_alc>02</verze_alc>
+        <template>EED</template>
+        <template_source/>
+        <kod_priloze/>
+    </header>
+    <parameters>
+        <CUSTNUMB>9510278918</CUSTNUMB>
+        <CUSTNAME>Stanislav Fanta</CUSTNAME>
+        <CUSTNAME2/>
+        <CUSTTITLELET>Vážený pane Fanto</CUSTTITLELET>
+        <CUSTSTREET>Poříčská</CUSTSTREET>
+        <CUSTSTRNUMBER>16</CUSTSTRNUMBER>
+        <CUSTPOSTALCODE>295 01</CUSTPOSTALCODE>
+        <CUSTCITY>Mnichovo Hradiště</CUSTCITY>
+        <CUSTCITYPART>Mnichovo Hradiště</CUSTCITYPART>
+        <CUSTADDRESS>Poříčská 16, 295 01 Mnichovo Hradiště</CUSTADDRESS>
+        <CUSTADDRESS1>Poříčská 16</CUSTADDRESS1>
+        <CUSTADDRESS2>295 01 Mnichovo Hradiště</CUSTADDRESS2>
+        <CUSTBIRTHDATE>08.10.1956</CUSTBIRTHDATE>
+        <CUSTBDATEIC>08.10.1956</CUSTBDATEIC>
+        <CUSTIC/>
+        <CUSTDIC/>
+        <CUSTRC/>
+        <CUSTLOG24/>
+        <CUSTSTAV24/>
+        <CUSTPROXY/>
+        <CUSTREGISTER/>
+        <CUSTPERSNAME>Stanislav Fanta</CUSTPERSNAME>
+        <CUSTPERSSTREET>Poříčská</CUSTPERSSTREET>
+        <CUSTPERSSTRNUMBER>16</CUSTPERSSTRNUMBER>
+        <CUSTPERSPOSTALCODE>295 01</CUSTPERSPOSTALCODE>
+        <CUSTPERSCITY>Mnichovo Hradiště</CUSTPERSCITY>
+        <CUSTPERSIC/>
+        <CUSTPERSCARDID/>
+        <CUSTCOMPNAME/>
+        <CUSTCOMPSTREET/>
+        <CUSTCOMPSTRNUMBER/>
+        <CUSTCOMPPOSTALCODE/>
+        <CUSTCOMPCITY/>
+        <CUSTCOMPIC/>
+        <CUSTTEL1>724 143 056</CUSTTEL1>
+        <CUSTTEL2/>
+        <CUSTEMAIL>stanislav.fanta@centrum.cz</CUSTEMAIL>
+        <CUSTEINVOICE/>
+        <CUSTCATEGORY>DOM</CUSTCATEGORY>
+        <CUSTTYPE>H</CUSTTYPE>
+        <CUSTCOUNTRY/>
+        <CUSTTELCOUR/>
+        <PREMNUMBER>9300144406</PREMNUMBER>
+        <PREMNUMBER_E>9300144406</PREMNUMBER_E>
+        <PREMNUMBER_G/>
+        <PREMSTREET>Poříčská</PREMSTREET>
+        <PREMSTRNUMBER>16</PREMSTRNUMBER>
+        <PREMPOSTALCODE>295 01</PREMPOSTALCODE>
+        <PREMCITY>Mnichovo Hradiště</PREMCITY>
+        <PREMCITYPART>Mnichovo Hradiště</PREMCITYPART>
+        <PREMEAN>859182400607028266</PREMEAN>
+        <PREMEIC/>
+        <PREMADR>Poříčská 16, 295 01 Mnichovo Hradiště</PREMADR>
+        <PREMADDRESS>Poříčská 16, 295 01 Mnichovo Hradiště</PREMADDRESS>
+        <PREMADDRESS1>Poříčská 16</PREMADDRESS1>
+        <PREMADDRESS2>295 01 Mnichovo Hradiště</PREMADDRESS2>
+        <PREMADDRESS3>Mnichovo Hradiště, Poříčská 16, 295 01</PREMADDRESS3>
+        <PREMFLOOR>01 #01</PREMFLOOR>
+        <PREMFLAT/>
+        <PREMTEL/>
+        <PREMADDRESS3_E>Mnichovo Hradiště, Poříčská 16, 295 01</PREMADDRESS3_E>
+        <PREMADDRESS3_G/>
+        <PREMEXT>859182400607028266</PREMEXT>
+        <PREMLABEL>EAN</PREMLABEL>
+        <PREMSPECIFY/>
+        <PREMVBSAR>0003</PREMVBSAR>
+        <PREMVBSARTTXT>Rodinný dům</PREMVBSARTTXT>
+        <PREMKUPC>2263</PREMKUPC>
+        <PREMKU_PC>parc.2263</PREMKU_PC>
+        <PREMLOC_CB_R>1</PREMLOC_CB_R>
+        <PREMLOC_CB_B/>
+        <PREMLOC_CB_P/>
+        <PREMKU>Mnichovo Hradiště</PREMKU>
+        <SALES_ID>ENE</SALES_ID>
+        <SALESNAME>innogy Energie, s.r.o.</SALESNAME>
+        <SALESSTREET>Limuzská</SALESSTREET>
+        <SALESSTRNUMBER>3135/12</SALESSTRNUMBER>
+        <SALESPOSTALCODE>108 00</SALESPOSTALCODE>
+        <SALESCITY>Praha 10</SALESCITY>
+        <SALESADDRESSF>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10</SALESADDRESSF>
+        <SALESADDRESS>Limuzská 3135/12, 108 00 Praha 10</SALESADDRESS>
+        <SALESADDRESS1>Limuzská 3135/12</SALESADDRESS1>
+        <SALESADDRESS2>108 00 Praha 10</SALESADDRESS2>
+        <SALESREGISTER>Městský soud v Praze, sp.zn. C 220583</SALESREGISTER>
+        <SALESREGISTER1>Městský soud v Praze</SALESREGISTER1>
+        <SALESREGISTER2>sp.zn. C 220583</SALESREGISTER2>
+        <SALESIC>49903209</SALESIC>
+        <SALESDIC>CZ49903209</SALESDIC>
+        <SALESACCOUNTNO>17231083/0300</SALESACCOUNTNO>
+        <SUPPL1>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10</SUPPL1>
+        <SUPPLIC>49903209</SUPPLIC>
+        <SUPPLDIC>CZ49903209</SUPPLDIC>
+        <REGISTER1>Městský soud v Praze, sp.zn. C 220583</REGISTER1>
+        <LICENCENO>141012631</LICENCENO>
+        <SALESALL>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10, IČ: 49903209, DIČ: CZ49903209, zápis v OR: MěS v Praze, sp.zn.: C 220583</SALESALL>
+        <SALESCODE/>
+        <SALES_POM>(v dokumentu jako „innogy”)</SALES_POM>
+        <SALES_PART_I>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10,</SALES_PART_I>
+        <SALES_PART_II>IČ: 49903209, DIČ: CZ49903209, zápis v OR: MěS v Praze, sp.zn.: C 220583</SALES_PART_II>
+        <CONTACTNAME/>
+        <CONTACTBDATE/>
+        <CORNAME>Stanislav Fanta</CORNAME>
+        <CORADDRESS1>Poříčská 16</CORADDRESS1>
+        <CORADDRESS2>295 01 Mnichovo Hradiště</CORADDRESS2>
+        <CORADDRESSALL>Poříčská 16, 295 01 Mnichovo Hradiště</CORADDRESSALL>
+        <CORSTREET>Poříčská</CORSTREET>
+        <CORSTRNUMBER>16</CORSTRNUMBER>
+        <CORSTREETNUM>16</CORSTREETNUM>
+        <CORPOSTALCODE>295 01</CORPOSTALCODE>
+        <CORCITYCODE>295 01</CORCITYCODE>
+        <CORCITY>Mnichovo Hradiště</CORCITY>
+        <CORCITYPART>Mnichovo Hradiště</CORCITYPART>
+        <CB_COR_CUST>1</CB_COR_CUST>
+        <CB_COR_PREM/>
+        <CB_COR_OTHER/>
+        <CORDATECOUR/>
+        <CORADDRESS1COUR>Poříčská 16</CORADDRESS1COUR>
+        <CORADDRESS2COUR>295 01 Mnichovo Hradiště</CORADDRESS2COUR>
+        <CORCOMPANYCOUR/>
+        <CONTRACTDATE>28.11.2018</CONTRACTDATE>
+        <CONTRNUMBER>8170105899</CONTRNUMBER>
+        <PRODCODE>E_OPTIMAL7/16</PRODCODE>
+        <PRODGROUP>elektřina Optimal</PRODGROUP>
+        <PREVPRODGROUP>elektřina Relax+</PREVPRODGROUP>
+        <PRICELISTVALIDITY/>
+        <CB_CUSTCAT_H>1</CB_CUSTCAT_H>
+        <CB_CUSTCAT_B/>
+        <CB_REASON_N>1</CB_REASON_N>
+        <CB_REASON_T/>
+        <CB_REASON_C/>
+        <REASON/>
+        <PREVSUPPL/>
+        <CONTRACT_START>12.01.2020</CONTRACT_START>
+        <CONTRACT_START_DAY>12</CONTRACT_START_DAY>
+        <CONTRACT_START_MONTH>01</CONTRACT_START_MONTH>
+        <CONTRACT_START_YEAR>20</CONTRACT_START_YEAR>
+        <CONTRACT_REQ_END/>
+        <CONTRACT_REQ_METER/>
+        <CONTRACT_START_INDIK/>
+        <PRICELISTTEXT>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    <b>PŘEDMĚT DODATKU -</b> Předmětem tohoto Dodatku je změna produktové řady a/nebo produktu charakterizovaná zejména změnou v určení ceny<br/>a změnou doby trvání Smlouvy. Ostatní tímto Dodatkem nedotčená ustanovení dříve uzavřené Smlouvy o sdružených službách dodávky elektřiny zůstávají nadále v platnosti a účinnosti.<br/><br/><b>DODÁVKA ELEKTŘINY -</b> Dodávka elektřiny se uskutečňuje v souladu<br/>s Obchodními podmínkami sdružených služeb dodávky elektřiny č. 12/2018 (&quot;OP&quot;) vydanými innogy a zveřejněnými na innogy.cz, Ceníkem a Ceníkem služeb, které jsou nedílnou součástí Smlouvy ve znění Dodatku, a dále, jde-li o zákazníka-spotřebitele, v souladu s přiloženými Informacemi k návrhu Smlouvy/Dodatku. Zákazník podpisem stvrzuje, že se s uvedenými dokumenty seznámil, porozuměl jim a bez výhrad je akceptuje. innogy je oprávněna OP, jakož i shora uvedené dokumenty, měnit, a to na základě důvodů v nich uvedených. Vyrozumění o navrhované změně smluvních podmínek může být realizováno písemně zasláním listiny, e-mailu, sms, příp. oznámením na webu innogy.cz, v zákaznické aplikaci či ústně/telefonicky. Pokud by se OP či jejich ustanovení staly neplatnými nebo neúčinnými, aplikují se předchozí platné OP dle Smlouvy. Smlouva se podřizuje<br/>z. č. 89/2012 Sb.<br/><br/><b>UZAVŘENÍ DODATKU A TRVÁNÍ SMLOUVY -</b> Dodatek je uzavřen na základě písemné podepsané nabídky doručené nebo předložené Zákazníkovi ze strany innogy (&quot;Nabídka&quot;). Lhůta pro přijetí Nabídky a doručení podepsaného Dodatku končí dnem uvedeným níže, Dodatky doručené počínaje dnem následujícím po uplynutí této lhůty nebudou akceptovány<br/>a považují se za neuzavřené. V takovém případě Smluvní strany sjednávají, že pokud innogy ve lhůtě 30 dnů ode dne pozdního doručení Dodatku prokazatelně sdělí Zákazníkovi, že jej akceptuje, považuje se Dodatek za uzavřený. Dodatek nabývá platnosti dnem doručení podepsaného Dodatku do innogy, a není-li pro určitá ustanovení stanoveno jinak, plné účinnosti k datu účinnosti uvedenému níže, přičemž innogy je oprávněna toto datum sdělením zaslaným Zákazníkovi z důvodů uvedených v OP jed nostranně a přiměřeně změnit. Plné účinnosti Dodatku k datu předpokládané nebo změněné účinnosti nebrání, bude-li skutečná dodávka z důvodů na straně Zákazníka<br/>k takovému dni zmařena. V takovém případě nastává dočasná nemožnost plnění na straně innogy až do případného odstoupení ze strany innogy nebo ukončení Smlouvy dohodou. Dodatek lze uzavřít též elektronicky, a to (i) zachycením el. akceptace Zákazníka v el. systému innogy dle § 562 odst. 2<br/>z. č. 89/2012 Sb. využívajícího internet (&quot;systém&quot;), (ii) prostým el. podpisem ve formě el. zachycení linií vlastnoručního podpisu Zákazníka (bez biometriky) na el. verzi Dodatku snímacím zařízením provozovaným innogy, (iii) doručením Zákazníkem akceptovaného Dodatku v běžném el. formátu na info@innogy.cz s jeho kvalifikovaným el. podpisem nebo prostým el. podpisem vytvořeným pomocí skenu či digitální fotografie věrně zachycující el. obraz listinné podoby Dodatku opatřeného vlastnoručním podpisem Zákazníka a současně faksimiliemi podpisů za innogy, nebo (iv) jinak dle instrukcí innogy doručených Zákazníkovi. V takovém případě tam, kde se<br/>v Dodatku hovoří o &quot;podpisu&quot; a &quot;doručení&quot;, mají tyto pojmy rovněž význam &quot;elektronický podpis&quot;, &quot;elektronické doručení&quot; či &quot;akceptace v systému&quot;<br/>(nahrazující jak podpis, tak i doručení). Platností tohoto Dodatku nejsou až do doby jeho účinnosti dotčeny práva a závazky vyplývající ze stávající Smlouvy (vč. příp. dodatku) vyjma ustanovení o ukončení Smlouvy/dodatku na dobu určitou ve sjednaném termínu a ustanovení o prolongaci doby trvání Smlouvy/dodatku na dobu určitou, která se pro Zákazníky se Smlouvou na dobu určitou dnem platnosti tohoto Dodatku ruší. Smlouva je uzavřena na dobu určitou 30 měsíců (&quot;Základní doba&quot;) ode dne účinnosti Dodatku. Do této doby se započítává rovněž doba, kdy innogy dočasně ztratí možnost do odběrného místa (&quot;OM&quot;) Zákazníka dodávat, a následně dojde k obnovení této možnosti. Smlouvu uzavřenou na dobu určitou nelze předčasně vypovědět, nestanoví-li zákon jinak. Vůči tomuto Dodatku rovněž nelze uplatnit právo na výpověď Smlouvy dle § 11a odst. 3 energetického zákona. Zákazník je oprávněn písemně odstoupit od Smlouvy v případě podstatného porušení povinností<br/>z ní vyplývajících ze strany innogy či v případě nesouhlasu s navrhovanou změnou smluvních podmínek. Podrobnosti (vč. lhůt a situací, v nichž právo na odstoupení nevzniká) stanoví OP a energetický zákon. V případě, že kterákoli ze Smluvních stran písemně neoznámí druhé Smluvní straně nejpozději 40 dnů před uplynutím doby trvání Smlouvy, že trvá na ukončení Smlouvy<br/>v aktuálně platném termínu jejího ukončení, prodlužuje se marným uplynutím této lhůty doba trvání Smlouvy bez dalšího vždy o 24 měsíců (&quot;Prolongace&quot;) navazujících na Základní dobu nebo Prolongaci počínaje následujícím dnem po jejich uplynutí, a to i opakovaně.<br/><br/><b>CENOVÉ PODMÍNKY -</b> Cena za dodávku silové elektřiny je stanovena<br/>v Ceníku níže uvedené produktové řady (&quot;Ceník&quot;) a cena služeb v Ceníku služeb (&quot;Ceník služeb&quot;), které jsou zveřejněny na webu innogy jako platné pro nabídky innogy v rámci níže uvedené produktové řady v den podpisu tohoto Dodatku za innogy. V případě, že produktová řada má určeny ceny dle distribučních zón, platí vždy Ceník a Ceník služeb pro tu distribuční zónu, kde se nachází OM Zákazníka. Cena za dodávku silové elektřiny určená tímto Ceníkem je pro každé ze tří desetiměsíčních období Základní doby trvání Smlouvy odlišná. Ceny za dodávku silové elektřiny určené tímto Ceníkem jsou platné a účinné pro smluvní vztah mezi Zákazníkem a innogy po dobu 30 měsíců ode dne účinnosti Dodatku (včetně), přičemž pro každé desetiměsíční období Základní doby jsou cenami neměnnými. Cena za službu distribuční soustavy a ostatní regulované služby je stanovena cenovým rozhodnutím ERÚ pro příslušné období a distribuční zónu, v níž se nachází OM Zákazníka. Cena za dodávku silové elektřiny bude v případě Prolongace stanovena<br/>v ceníku produktové řady elektřina Garance 24, který bude platný<br/>v kalendářním měsíci předcházejícím kalendářní měsíc, jenž předchází kalendářní měsíc, do něhož spadá poslední den příslušného období trvání Smlouvy, přičemž tento ceník bude zveřejněn nejpozději 50 dní před takovým posledním dnem na webu innogy. Po dobu souběžné účinnosti Smlouvy/dodatku na předchozí produkt a platnosti tohoto dosud neúčinného Dodatku pro totéž OM se aplikuje cena dle takové Smlouvy/dodatku.<br/><br/><b>OSTATNÍ UJEDNÁNÍ -</b> Zákazník je povinen bez zbytečného odkladu poskytnout innogy součinnost nezbytnou k zahájení dodávky na základě uzavřené Smlouvy, zejména nečinit právní ani jiná jednání bránící v plnění takového jejího závazku (vč. provedení změny dodavatele), vyjma těch,<br/>k nimž je oprávněn dle zákona. V případě porušení této povinnosti je Zákazník povinen zaplatit innogy pokutu, a to ve výši 1 000 Kč pro kat. Domácnost<br/>a 5 000 Kč pro kat. Podnikatel. Stejnou pokutu je povinen uhradit Zákazník, který uvede innogy v omyl tím, že ukončí Smlouvu dohodou a v rozporu<br/>s deklarovaným důvodem pro její sjednání bude ve stejném OM pokračovat<br/>v odběru u jiného dodavatele. V případě, že Zákazník učiní bez souhlasu innogy jakýkoli právně relevantní projev vůle (bez ohledu na to, zda byl či nebyl určen a/nebo doručen innogy, zda se tak stalo opožděně, či zda trpěl vadami, a na to, jak a kým je Smlouva/dodávka následně ukončena) směřující k předčasnému ukončení Smlouvy sjednané na dobu určitou a/nebo vedoucí<br/>k ukončení dodávky od innogy (v roli subjektu zúčtování u operátora trhu) probíhající na základě takové Smlouvy (za takový projev vůle se považuje<br/>i plná moc ke změně dodavatele či opožděně doručené oznámení o ukončení Smlouvy na dobu určitou ve sjednaném termínu; za takový projev vůle se naopak nepovažuje pouhý návrh na předčasné ukončení Smlouvy dohodou) a/nebo Zákazník opakovaně (tzn. dva a vícekrát) poruší kteroukoli platební povinnost vyplývající ze Smlouvy (bez ohledu na to, zda jde o tutéž či různé povinnosti a zda následně z důvodu neoprávněného odběru dle § 51 odst. 1 písm. b) energetického zákona dojde k přerušení dodávky a odstoupení od Smlouvy ze strany innogy) a/nebo Zákazník způsobí svým jednáním nemožnost dodávky, je innogy oprávněna účtovat Zákazníkovi pokutu zahrnující též případnou náhradu škody vzniklé innogy neodebráním pro Zákazníka nasmlouvané elektřiny ve výši 400 Kč pro kat. Domácnost<br/>a 2 000 Kč pro kat. Podnikatel, a to za každý kalendářní měsíc i jeho část následující po dni ukončení dodávky od innogy do konce doby trvání Smlouvy (vč. příp. Prolongace). V případě Zákazníka s distribuční sazbou D01d nebo C01d dle Ceníku innogy se částky pokut uvedené v předchozí větě snižují<br/>o polovinu. Zákazník je povinen zaplatit innogy pokutu ve výši 100 Kč za každý jednotlivý případ prodlení s jakoukoli platbou dle této Smlouvy přesahující 10 dní. Zákazník je povinen vyúčtovanou pokutu uhradit ve lhůtě platné pro splatnost vyúčtování dle OP. Jde-li o pokutu za předčasné ukončení Smlouvy/dodávky v rozporu se smluvními podmínkami, Zákazník se účinně zprostí povinnosti její úhrady, pokud takový jeho projev vůle směřující k předčasnému ukončení Smlouvy odvolá či vezme zpět a odstraní jeho nepříznivé následky vůči innogy. Není-li shora stanoveno jinak, má innogy vedle práva na pokutu vyplývající z porušení povinnosti Zákazníka též právo na náhradu škody a úrok z prodlení vyplývající z porušení téže povinnosti. Případným odstoupením od Smlouvy nezaniká právo innogy na pokutu vzniklou porušením povinnosti Zákazníkem před takovým odstoupením. Ustanovení &quot;Ostatních ujednání&quot; nabývají účinnosti dnem platnosti Dodatku.<br/><br/><b>PROHLÁŠENÍ ZÁKAZNÍKA -</b> Zákazník prohlašuje, že ke dni účinnosti tohoto Dodatku nemá, resp. nebude mít pro stejné OM uzavřenu či podepsánu jinou smlouvu/dodatek na dodávku elektřiny od innogy  na dobu určitou. V případě, že se toto prohlášení ukáže ve lhůtě 30 dnů ode dne doručení tohoto Dodatku Zákazníkem do innogy nepravdivým, Dodatek se bez dalšího od počátku ruší, přičemž Zákazník bere na vědomí, že o této skutečnosti nemusí být ze strany innogy informován. To neplatí, pokud innogy ve lhůtě 30 dnů ode dne doručení tohoto Dodatku Zákazníkem prokazatelně sdělí Zákazníkovi, že jej akceptuje a považuje za platně uzavřený. Tento Dodatek nahrazuje veškeré předchozí případné smlouvy a dodatky (vyjma shora uvedených na produkty na dobu určitou) upravující dodávky elektřiny pro stejné OM, pokud byly mezi Zákazníkem a innogy uzavřeny. Podpisem tohoto Dodatku Zákazník zároveň bere v plném rozsahu zpět výpověď, příp. odstoupení od Smlouvy, pokud byla/-o dříve podána/-o, s čímž innogy souhlasí.<br/>
+                </p>
+            </body>
+        </PRICELISTTEXT>
+        <CB_PROXY1/>
+        <CB_PROXY2/>
+        <CB_PROXY3/>
+        <SALESSIGN1>Ing. Roman Budinský</SALESSIGN1>
+        <SALESROLE1>předseda představenstva</SALESROLE1>
+        <SALESSIGN2>Ing. David Konvalina</SALESSIGN2>
+        <SALESROLE2>člen představenstva</SALESROLE2>
+        <CB_BBP_SIPO>1</CB_BBP_SIPO>
+        <CB_BBP_PAYM_ORD/>
+        <CB_BBP_COLL/>
+        <CB_BBP_A/>
+        <SIPO>1321814226</SIPO>
+        <BANKCCOUNTCODE/>
+        <BANKACCOUNT/>
+        <BANKCODE/>
+        <BANKACCOUNT_FIRST/>
+        <BANKACCOUNT_SECOND/>
+        <BBP_START_AMOUNT>1094,30</BBP_START_AMOUNT>
+        <CB_BBP_PER_M>1</CB_BBP_PER_M>
+        <CB_BBP_PER_Q/>
+        <CB_INV_B>1</CB_INV_B>
+        <CB_INV_ACCOUNT/>
+        <OUTACCNO/>
+        <OUTACCBANK/>
+        <CB_INV_A>1</CB_INV_A>
+        <CB_INV_COLL/>
+        <INCACCNO/>
+        <INCACCBANK/>
+        <CONTRVALIDFROM>12.01.2020</CONTRVALIDFROM>
+        <CONTRVALID_M_DAY>11.01.2020</CONTRVALID_M_DAY>
+        <OFFERVALIDTO>12.06.2019</OFFERVALIDTO>
+        <PRICELIST>elektřina Relax+</PRICELIST>
+        <PRICELISTVALIDFROM>01.01.2017</PRICELISTVALIDFROM>
+        <PRICELISTVALIDTO>11.01.2020</PRICELISTVALIDTO>
+        <EYC>0,000</EYC>
+        <EYCK/>
+        <BBP_PER>měsíčně</BBP_PER>
+        <ORDER_NUM/>
+        <PROMO_CODE/>
+        <BANKCCOUNTCODE_SALES/>
+        <CONTSTART_ZSJ/>
+        <PRICELISTVALIDFROM_M>01.11.2018</PRICELISTVALIDFROM_M>
+        <USE_PREM>R01</USE_PREM>
+        <CB_R_TZD/>
+        <CB_I_TZD/>
+        <CB_N_TZD/>
+        <VOP_VER>07/2017</VOP_VER>
+        <WHERE_6P>Ostravě</WHERE_6P>
+        <WHERE>Ostrava</WHERE>
+        <DATE>28.11.2018</DATE>
+        <USERNAME>Mgr. Tereza Malčíková</USERNAME>
+        <CSSECTION>CRM Sales &amp; Marketing Team</CSSECTION>
+        <CUSTCENTER>Zákaznické centrum skupiny RWE</CUSTCENTER>
+        <CSADDRESS/>
+        <WHERE_CUST/>
+        <WHERE_SAL>Ostrava</WHERE_SAL>
+        <DATE_CUST/>
+        <DATE_SAL>28.11.2018</DATE_SAL>
+        <METPROD>elektroměru</METPROD>
+        <barcode>*331060000000002993*</barcode>
+        <DOC_ID_BARCODE>331060000000002993</DOC_ID_BARCODE>
+        <COMMODITY>E</COMMODITY>
+        <COMMODITY_DESCRIPTION>elektřiny</COMMODITY_DESCRIPTION>
+        <COMMODITY_DESCRIPTION_I>elektrické energie</COMMODITY_DESCRIPTION_I>
+        <COMMODITY_DESCRIPTION_II>ELEKTŘINY</COMMODITY_DESCRIPTION_II>
+        <COMMODITY_DESCRIPTION_III>elektřiny</COMMODITY_DESCRIPTION_III>
+        <COMMODITY_DESCRIPTION_IV/>
+        <COMMODITY_DESCRIPTION_V/>
+        <COMMODITY_DESCRIPTION_VI/>
+        <COMMODITY_DESCRIPTION_VII/>
+        <LOGO/>
+        <TEMPL_DESCRIPTION>Kampaňový econtractingový dodatek EE</TEMPL_DESCRIPTION>
+        <TEMPL_CODE>EED</TEMPL_CODE>
+        <PODPIS2/>
+        <PODPIS1/>
+        <PODPIS/>
+        <KOD_RWE>EE_DOD2_CRM_170101_ECONTRACT</KOD_RWE>
+        <OPPORTUNITY/>
+        <OPT_NUMB/>
+        <OPT_CP_REASON/>
+        <OPT_FINCHANNEL/>
+        <OPT_LABEL/>
+        <CB_COM_P/>
+        <CB_COM_E>1</CB_COM_E>
+        <ORDER_CREATE/>
+        <OBOR/>
+        <ITEM_TYPE/>
+        <GEMETPRODNUM/>
+        <METPRODNUM/>
+        <METQUANTH/>
+        <METQUANTL/>
+        <GMETPRODNUM/>
+        <GMETQUAN/>
+        <GMETLOC/>
+        <XXMETQUAN/>
+        <CB_GMETLOC_OUT/>
+        <CB_GMETLOC_IN/>
+        <METQUAN/>
+        <METQUANTDATE/>
+        <CB_PREM_PH1/>
+        <CB_PREM_PH3>1</CB_PREM_PH3>
+        <CIRBRAKER>25</CIRBRAKER>
+        <EYCH>0,000</EYCH>
+        <EYCL>0,000</EYCL>
+        <CB_PR_H_STAND>1</CB_PR_H_STAND>
+        <CB_PR_H_AKU8/>
+        <CB_PR_H_AKU16/>
+        <CB_PR_H_PRIM/>
+        <CB_PR_H_TEPC/>
+        <CB_PR_H_VIK/>
+        <CB_DR_H_D01D/>
+        <CB_DR_H_D02D>1</CB_DR_H_D02D>
+        <CB_DR_H_D25D/>
+        <CB_DR_H_D26D/>
+        <CB_DR_H_D27D/>
+        <CB_DR_H_D35D/>
+        <CB_DR_H_D45D/>
+        <CB_DR_H_D55D/>
+        <CB_DR_H_D56D/>
+        <CB_DR_H_D57D/>
+        <CB_DR_H_D61D/>
+        <CB_PR_B_STAND/>
+        <CB_PR_B_AKU8/>
+        <CB_PR_B_AKU16/>
+        <CB_PR_B_PRIM/>
+        <CB_PR_B_TEPC/>
+        <CB_PR_B_VEROSV/>
+        <CB_DR_B_C01D/>
+        <CB_DR_B_C02D/>
+        <CB_DR_B_C03D/>
+        <CB_DR_B_C25D/>
+        <CB_DR_B_C26D/>
+        <CB_DR_B_C27D/>
+        <CB_DR_B_C35D/>
+        <CB_DR_B_C45D/>
+        <CB_DR_B_C46D/>
+        <CB_DR_B_C55D/>
+        <CB_DR_B_C56D/>
+        <CB_DR_B_C62D/>
+        <E_PREF_TEXT/>
+        <CB_BEZ_TZD_E/>
+        <NEW_LC/>
+        <MODEL_SPOTREBA/>
+        <BONUS/>
+        <POKLES_CENY_I/>
+        <POKLES_CENY_II/>
+        <ZCONTQUOTPLN/>
+        <DAT_VYSTAV/>
+        <CEL_BONUS/>
+        <VYS_BONUS/>
+        <POKLES_CENY_III/>
+        <POKLES_CENY_IV/>
+        <POKLES_CENY_V/>
+        <CONTSIGNON/>
+        <TELEFON/>
+        <C_FIELD_1/>
+        <C_FIELD_2/>
+        <C_FIELD_3/>
+        <C_FIELD_4/>
+        <C_FIELD_5/>
+        <C_FIELD_6/>
+        <C_FIELD_7/>
+        <C_FIELD_8/>
+        <C_FIELD_9/>
+        <C_FIELD_10/>
+        <C_FIELD_11/>
+        <C_FIELD_12/>
+        <C_FIELD_13/>
+        <C_FIELD_14/>
+        <C_FIELD_15/>
+        <C_FIELD_16/>
+        <C_FIELD_17/>
+        <C_FIELD_18/>
+        <C_FIELD_19/>
+        <C_FIELD_20/>
+        <C_FIELD_21/>
+        <C_FIELD_22/>
+        <C_FIELD_23/>
+        <C_FIELD_24/>
+        <C_FIELD_25/>
+        <C_FIELD_26/>
+        <C_FIELD_27/>
+        <C_FIELD_28/>
+        <C_FIELD_29/>
+        <C_FIELD_30/>
+        <C_VOUCH_EXTRA_VALUE/>
+        <C_VOUCH_TOTAL_VALUE/>
+        <C_VOUCH_INITIAL_VALUE/>
+        <COMPLGOODSI>Pronájem LED</COMPLGOODSI>
+        <COMPLGOODSII/>
+        <ADD_BARCODE>00</ADD_BARCODE>
+    </parameters>
+</form>
