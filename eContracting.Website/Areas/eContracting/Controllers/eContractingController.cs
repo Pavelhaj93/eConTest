@@ -118,6 +118,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     documentsId.Add(offer.Guid);
                 }
 
+                Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
+
                 // New acceptance logger
                 if(documentsId.Count > 0)
                 {
