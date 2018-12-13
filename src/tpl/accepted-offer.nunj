@@ -1,0 +1,110 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Accepted Offer" %}
+
+{% block content %}
+
+	{% call text() %}
+		<p>Vážený pane Novaku,<br>vítáme Vás na stránce společnosti Innogy. Nabízíme Vám produkt <strong>zemního plynu</strong> ve variantě <strong>OPTIMAL</strong>.</p>
+		<p>Vážíme si Vaší loajality. Na základě vyhodnocení Vaší dlouhodobé spotřeby <strong>zemního plynu</strong> a Vašeho posledního ročního vyúčtování bychom Vám rádi nabídli přechod z Vašeho nynějšího produktu <strong>RELAX</strong> na cenově výhodnější variantu <strong>OPTIMAL</strong>.</p>
+		<p>Pokud naši nabídku akceptujete, seznamte se prosím s poučením a zaškrtněte jej. Následně prosím stiskněte tlačítko Akceptuji.</p>
+		<p>Děkujeme, <br>Vaše Innogy.</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmYesNo">
+            Show modal
+        </button>
+	{% endcall %}
+
+	<div class="row">
+		<div class="col-sm-12 col-md-10 col-md-offset-1">
+			<div class="form-background">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12 col-md-10 col-md-offset-1">
+                            <form action="" class="form" id="offer" method="post">
+								<ul class="list list-documents loading">
+									<a class="check-all" href="#">Označit vše</a>
+								</ul>
+								<button type="submit" class="button button-submit button-disabled" href="#" onclick="AsyncConfirmYesNo">
+                                    Akceptuji
+                                </button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div id="modalConfirmYesNo" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"
+                        class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 id="lblTitleConfirmYesNo" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div id="lblMsgConfirmYesNo"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="btnYesConfirmYesNo"
+                        type="button" class="btn btn-primary" data-dismiss="modal">
+                    Accept
+                </button>
+                <button id="btnNoConfirmYesNo"
+                        type="button" class="btn btn-default" data-dismiss="modal">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script>
+    var offerPageOptions = {
+        doxReadyUrl: '/Areas/eContracting/Services/DoxReady.ashx?id=02D67988E24D1EE8B9FE10518425440F',
+        isAgreed: true,
+        getFileUrl: '/Areass/eContracting/Services/GetFile.ashx?file=',
+    }
+
+    function ShowConfirmYesNo() {
+        AsyncConfirmYesNo(
+            'Title Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            '<p>Nulla <a href="#">nisl odio</a>, bibendum a <strong>tortor </strong>sit amet, pretium convallis eros.In publishing and graphic design, lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation, such as web pages, typography, and graphical layout. It is a form of "greeking". Even though using often arouses curiosity due to its resemblance to classical Latin, it is not intended to have meaning. Where text is visible in a document, people tend to focus on the textual content rather than upon overall presentation, so publishers use lorem ipsum when displaying a typeface or design in order to direct the focus to presentation. Also approximates a typical distribution of letters in English.</p>',
+            MyYesFunction,
+            MyNoFunction
+        );
+    }
+
+    function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+        var $confirm = $("#modalConfirmYesNo");
+        var $form = document.getElementById("offer");
+        $confirm.modal('show');
+        $("#lblTitleConfirmYesNo").html(title);
+        $("#lblMsgConfirmYesNo").html(msg);
+        $("#btnYesConfirmYesNo").off('click').click(function () {
+            yesFn();
+            $form.submit();
+            $confirm.modal("hide");
+        });
+        $("#btnNoConfirmYesNo").off('click').click(function () {
+            noFn();
+            $confirm.modal("hide");
+        });
+    }
+
+    function MyYesFunction() {
+
+    }
+    function MyNoFunction() {
+        $('#modalConfirmYesNo').modal('hide');
+    }
+
+    ShowConfirmYesNo();
+</script>
+
+{% endblock %}
