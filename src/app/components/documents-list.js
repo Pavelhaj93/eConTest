@@ -18,12 +18,15 @@ export default function printDocumentsList(container, documents, options) {
         const key = i + 1;
         const label = doc.label;
         const title = doc.title;
+        const value = doc.id;
         const item = [
             '<li>',
             !options.agreed && `
             <input
                 id="document-${key}"
                 type="checkbox"
+                name="documents"
+                value="${value}"
                 ${checked && 'checked'}
                 ${disabled && 'disabled'}
                 autocomplete="off">`,
