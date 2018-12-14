@@ -120,12 +120,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
+                client.LogAcceptance(guid, documentsId, DateTime.Now);
+
                 // New acceptance logger
-                if(documentsId.Count > 0)
-                {
-                    var service = new Rwe.Sc.AcceptanceLogger.Service.LoggerService();
-                    service.LogAcceptance(guid, documentsId, "NABIDKA", DateTime.Now);
-                }
+                //if(documentsId.Count > 0)
+                //{
+                //    var service = new Rwe.Sc.AcceptanceLogger.Service.LoggerService();
+                //    service.LogAcceptance(guid, documentsId, "NABIDKA", DateTime.Now);
+                //}
 
                 if (client.GuidExistInMongo(guid))
                 {

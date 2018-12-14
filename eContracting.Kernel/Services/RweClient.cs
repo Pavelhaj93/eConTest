@@ -22,6 +22,8 @@ namespace eContracting.Kernel.Services
     using Sitecore.Analytics.Data.DataAccess.MongoDb;
     using Sitecore.Diagnostics;
     using MongoDB.Driver;
+    using System.Web;
+    using Rwe.Sc.AcceptanceLogger.Repositories;
 
     delegate T CallServiceMethod<T, P>(P inputParams);
 
@@ -41,31 +43,33 @@ namespace eContracting.Kernel.Services
             var res = GetResponse(guid, "NABIDKA");
             bool IsAccepted = res.ET_ATTRIB != null && res.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
 
-            ZCCH_CACHE_GETResponse result = null;
-            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+            //ZCCH_CACHE_GETResponse result = null;
+            //List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
 
-            if (IsAccepted)
-            {
-                result = GetResponse(guid, "NABIDKA_PDF");
-                files.AddRange(result.ET_FILES);
-                result = GetResponse(guid, "NABIDKA_PRIJ");
-                var filenames = result.ET_FILES.Select(file => file.FILENAME);
-                files.RemoveAll(file => filenames.Contains(file.FILENAME));
-                files.AddRange(result.ET_FILES);
-            }
-            else
-            {
-                result = GetResponse(guid, "NABIDKA_PDF");
-                files.AddRange(result.ET_FILES);
-            }
+            //if (IsAccepted)
+            //{
+            //    result = GetResponse(guid, "NABIDKA_PDF");
+            //    files.AddRange(result.ET_FILES);
+            //    result = GetResponse(guid, "NABIDKA_PRIJ");
+            //    var filenames = result.ET_FILES.Select(file => file.FILENAME);
+            //    files.RemoveAll(file => filenames.Contains(file.FILENAME));
+            //    files.AddRange(result.ET_FILES);
+            //}
+            //else
+            //{
+            //    result = GetResponse(guid, "NABIDKA_PDF");
+            //    files.AddRange(result.ET_FILES);
+            //}
+
+            ZCCH_ST_FILE[] files = this.GetFiles(guid, IsAccepted);
 
             List<FileToBeDownloaded> fileResults = new List<FileToBeDownloaded>();
 
-            if (files.Count != 0 && files.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
+            if (files.Length != 0 && files.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
             {
                 int index = 0;
 
-                foreach (var f in files.OrderBy(x => int.Parse(x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL)))
+                foreach (ZCCH_ST_FILE f in files.OrderBy(x => int.Parse(x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL)))
                 {
                     try
                     {
@@ -96,6 +100,33 @@ namespace eContracting.Kernel.Services
                 return fileResults;
             }
             return null;
+        }
+
+        public ZCCH_ST_FILE[] GetFiles(string guid, bool IsAccepted)
+        {
+            ZCCH_CACHE_GETResponse result = null;
+            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+
+            if (IsAccepted)
+            {
+                result = GetResponse(guid, "NABIDKA_PDF");
+                files.AddRange(result.ET_FILES);
+                result = GetResponse(guid, "NABIDKA_PRIJ");
+                var filenames = result.ET_FILES.Select(file => file.FILENAME);
+                files.RemoveAll(file => filenames.Contains(file.FILENAME));
+                files.AddRange(result.ET_FILES);
+            }
+            else
+            {
+                result = GetResponse(guid, "NABIDKA_PDF");
+
+                if (result?.ET_FILES?.Any() ?? false)
+                {
+                    files.AddRange(result.ET_FILES);
+                }
+            }
+
+            return files.ToArray();
         }
 
         /// <summary>
@@ -221,6 +252,88 @@ namespace eContracting.Kernel.Services
             }
             InsertToMongoAcceptedOffer(offer);
             return offer.SentToService;
+        }
+
+        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when)
+        {
+            StringBuilder startingLog = new StringBuilder();
+            startingLog.AppendLine("[LogAcceptance] Initializing...");
+            startingLog.AppendLine($" - Guid: {guid}");
+            startingLog.AppendLine($" - documentIds: {string.Join(", ", documentIds)}");
+            startingLog.AppendLine($" - when: {when.ToString("yyyy-MM-dd HH:mm:ss")}");
+            Log.Debug(startingLog.ToString(), this);
+
+            string timestampString = when.ToString("yyyyMMddHHmmss");
+
+            Decimal outValue = 1M;
+            Decimal.TryParse(timestampString, out outValue);
+
+            List<ZCCH_ST_ATTRIB> attributes = new List<ZCCH_ST_ATTRIB>();
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "ACCEPTED_AT",
+                ATTRVAL = outValue.ToString()
+            });
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "IP_ADDRESS",
+                ATTRVAL = GetIpAddress()
+            });
+
+            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+
+            Log.Debug("[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
+            var responsePdfFiles = this.GetFiles(guid, false);
+            //ZCCH_CACHE_GETResponse responsePdfFiles = GetResponse(guid, "NABIDKA_PDF");
+
+            Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
+
+            foreach (ZCCH_ST_FILE file in responsePdfFiles)
+            {
+                if (file != null)
+                {
+                    file.FILECONTENT = new byte[] { };
+                    files.Add(file);
+
+                    Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                }
+            }
+
+            ZCCH_CACHE_PUT cachePut = new ZCCH_CACHE_PUT();
+            cachePut.IV_CCHKEY = guid;
+            cachePut.IV_CCHTYPE = "NABIDKA_PRIJ";
+            cachePut.IT_ATTRIB = attributes.ToArray();
+            cachePut.IT_FILES = files.ToArray();
+
+            CallServiceMethod<ZCCH_CACHE_PUTResponse, ZCCH_CACHE_PUT> del = new CallServiceMethod<ZCCH_CACHE_PUTResponse, ZCCH_CACHE_PUT>((inputParam) =>
+            {
+                StringBuilder parameters = new StringBuilder();
+                parameters.AppendLine("[LogAcceptance] Calling web service with parameter:");
+                parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
+                parameters.AppendLine();
+                parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
+                parameters.AppendLine();
+                parameters.AppendFormat("IT_ATTRIB = ", string.Join(", ", inputParam.IT_ATTRIB.Select(x => x.ToString())));
+                parameters.AppendLine();
+                parameters.AppendFormat("IT_FILES = ", string.Join(", ", inputParam.IT_FILES.Select(x => x.ToString())));
+                Log.Info(parameters.ToString(), this);
+
+                using (var api = this.InitApi())
+                {
+                    return api.ZCCH_CACHE_PUT(inputParam);
+                }
+            });
+
+            ZCCH_CACHE_PUTResponse response = CallService(cachePut, del);
+
+            if (response != null)
+            {
+                Log.Debug($"[LogAcceptance] Response: EV_RETCODE = {response.EV_RETCODE}");
+            }
+            else
+            {
+                Log.Debug($"[LogAcceptance] Response is null");
+            }
         }
 
         /// <summary>
@@ -350,6 +463,12 @@ namespace eContracting.Kernel.Services
         }
 
         #endregion
+
+        public static string GetIpAddress()
+        {
+            string text = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            return string.IsNullOrEmpty(text) ? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] : text.Split(',')[0];
+        }
 
         #region Private method
         private ZCCH_CACHE_API InitApi()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Web;
 using System.Web.SessionState;
@@ -36,9 +36,10 @@ namespace eContracting.Website
 
                     bool alreadyHaveFirst = false;
 
-                    foreach (var f in files)
+                    foreach (FileToBeDownloaded f in files)
                     {
                         FileItem fi = new FileItem();
+                        fi.Number = f.FileNumber;
                         fi.Title = f.FileName;
                         fi.Label = alreadyHaveFirst ? generalSettings.IAmInformed : generalSettings.IAgree;
                         filesList.Add(fi);

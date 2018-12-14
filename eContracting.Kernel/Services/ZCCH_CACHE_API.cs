@@ -292,6 +292,11 @@ public partial class ZCCH_ST_ATTRIB {
             this.aTTRVALField = value;
         }
     }
+
+    public override string ToString()
+    {
+        return $"ATTRID = '{this.ATTRID}', ATTRVAL = '{this.ATTRVAL}'";
+    }
 }
 
 /// <remarks/>
@@ -618,6 +623,11 @@ public partial class ZCCH_ST_FILE {
         set {
             this.aTTRIBField = value;
         }
+    }
+
+    public override string ToString()
+    {
+        return $"FILENAME = {this.FILENAME}";
     }
 }
 

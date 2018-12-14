@@ -96,6 +96,9 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rwe.Sc.AcceptanceLogger">
+      <HintPath>..\libs\Rwe.Sc.AcceptanceLogger.dll</HintPath>
+    </Reference>
     <Reference Include="Sitecore.Analytics.MongoDB, Version=10.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Analytics.MongoDB.NoReferences.8.2.171121\lib\NET452\Sitecore.Analytics.MongoDB.dll</HintPath>
     </Reference>
