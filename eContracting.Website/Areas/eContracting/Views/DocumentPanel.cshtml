@@ -20,7 +20,7 @@
                             <ul class="list list-documents loading">
                                 <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                             </ul>
-                            <input type="submit" class="button button-submit" onclick="ShowConfirmYesNo()" value="@ViewData["Accept"]" />
+                            <input type="submit" class="button button-submit" onclick="ShowConfirmYesNo(event);" value="@ViewData["Accept"]" />
                         }
                     </div>
                 </div>
@@ -62,44 +62,27 @@
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
     }
 
-    function ShowConfirmYesNo() {
+    function ShowConfirmYesNo(event) {
+        event.preventDefault();
         AsyncConfirmYesNo(
             '@Model.Title',
-            '@Model.Text',
-            MyYesFunction,
-            MyNoFunction
+            '@Model.Text'
         );
     }
 
-    function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+    function AsyncConfirmYesNo(title, msg) {
         var $confirm = $("#modalConfirmYesNo");
+        var $form = $("#offer");
         $confirm.modal('show');
         $("#lblTitleConfirmYesNo").html(title);
         $("#lblMsgConfirmYesNo").html(msg);
         $("#btnYesConfirmYesNo").off('click').click(function () {
-            yesFn();
+            $form.submit();
             $confirm.modal("hide");
         });
         $("#btnNoConfirmYesNo").off('click').click(function () {
-            noFn();
             $confirm.modal("hide");
         });
-    }
-
-    function MyYesFunction() {
-        $.ajax({
-            type: 'post',
-            url: 'Accept',
-            data: "accepted",
-            processData: false,
-            contentType: false,
-            success: function (e) {
-                $('#modalConfirmYesNo').modal('hide');
-            }
-        });
-    }
-    function MyNoFunction() {
-        $('#modalConfirmYesNo').modal('hide');
     }
 
     @*function CheckIfReady() {

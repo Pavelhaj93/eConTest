@@ -309,13 +309,13 @@ namespace eContracting.Kernel.Services
             {
                 StringBuilder parameters = new StringBuilder();
                 parameters.AppendLine("[LogAcceptance] Calling web service with parameter:");
-                parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
+                parameters.AppendFormat(" - IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
                 parameters.AppendLine();
-                parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
+                parameters.AppendFormat(" - IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
                 parameters.AppendLine();
-                parameters.AppendFormat("IT_ATTRIB = ", string.Join(", ", inputParam.IT_ATTRIB.Select(x => x.ToString())));
+                parameters.AppendFormat(" - IT_ATTRIB = ", string.Join(", ", inputParam.IT_ATTRIB.Select(x => x.ToString())));
                 parameters.AppendLine();
-                parameters.AppendFormat("IT_FILES = ", string.Join(", ", inputParam.IT_FILES.Select(x => x.ToString())));
+                parameters.AppendFormat(" - IT_FILES = ", string.Join(", ", inputParam.IT_FILES.Select(x => x.ToString())));
                 Log.Info(parameters.ToString(), this);
 
                 using (var api = this.InitApi())

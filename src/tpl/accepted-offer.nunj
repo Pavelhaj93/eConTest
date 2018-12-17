@@ -74,34 +74,23 @@
     function ShowConfirmYesNo() {
         AsyncConfirmYesNo(
             'Title Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            '<p>Nulla <a href="#">nisl odio</a>, bibendum a <strong>tortor </strong>sit amet, pretium convallis eros.In publishing and graphic design, lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation, such as web pages, typography, and graphical layout. It is a form of "greeking". Even though using often arouses curiosity due to its resemblance to classical Latin, it is not intended to have meaning. Where text is visible in a document, people tend to focus on the textual content rather than upon overall presentation, so publishers use lorem ipsum when displaying a typeface or design in order to direct the focus to presentation. Also approximates a typical distribution of letters in English.</p>',
-            MyYesFunction,
-            MyNoFunction
+            '<p>Nulla <a href="#">nisl odio</a>, bibendum a <strong>tortor </strong>sit amet, pretium convallis eros.In publishing and graphic design, lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation, such as web pages, typography, and graphical layout. It is a form of "greeking". Even though using often arouses curiosity due to its resemblance to classical Latin, it is not intended to have meaning. Where text is visible in a document, people tend to focus on the textual content rather than upon overall presentation, so publishers use lorem ipsum when displaying a typeface or design in order to direct the focus to presentation. Also approximates a typical distribution of letters in English.</p>'
         );
     }
 
-    function AsyncConfirmYesNo(title, msg, yesFn, noFn) {
+    function AsyncConfirmYesNo(title, msg) {
         var $confirm = $("#modalConfirmYesNo");
         var $form = document.getElementById("offer");
         $confirm.modal('show');
         $("#lblTitleConfirmYesNo").html(title);
         $("#lblMsgConfirmYesNo").html(msg);
         $("#btnYesConfirmYesNo").off('click').click(function () {
-            yesFn();
             $form.submit();
             $confirm.modal("hide");
         });
         $("#btnNoConfirmYesNo").off('click').click(function () {
-            noFn();
             $confirm.modal("hide");
         });
-    }
-
-    function MyYesFunction() {
-
-    }
-    function MyNoFunction() {
-        $('#modalConfirmYesNo').modal('hide');
     }
 
     ShowConfirmYesNo();
