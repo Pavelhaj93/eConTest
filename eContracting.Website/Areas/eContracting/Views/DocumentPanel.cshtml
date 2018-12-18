@@ -20,7 +20,7 @@
                             <ul class="list list-documents loading">
                                 <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                             </ul>
-                            <button type="button" class="button button-submit" onclick="ShowConfirmYesNo(event);">@ViewData["Accept"]</button>
+                            <button type="button" class="button button-submit">@ViewData["Accept"]</button>
                         }
                     </div>
                 </div>
@@ -56,25 +56,41 @@
 </div>
 
 <script>
+    $("#offer").ready(function () {
+        $("#offer .button-submit").click(function (event) {
+            event.preventDefault();
+            var $confirm = $("#modalConfirmYesNo");
+            var $form = $("#offer");
+            $confirm.modal('show');
+            $("#btnYesConfirmYesNo").off('click').click(function () {
+                $form.submit();
+                $confirm.modal("hide");
+            });
+            $("#btnNoConfirmYesNo").off('click').click(function () {
+                $confirm.modal("hide");
+            });
+        });
+    });
+
     var offerPageOptions = {
         doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
     }
 
-    function ShowConfirmYesNo(event) {
-        event.preventDefault();
-        var $confirm = $("#modalConfirmYesNo");
-        var $form = $("#offer");
-        $confirm.modal('show');
-        $("#btnYesConfirmYesNo").off('click').click(function () {
-            $form.submit();
-            $confirm.modal("hide");
-        });
-        $("#btnNoConfirmYesNo").off('click').click(function () {
-            $confirm.modal("hide");
-        });
-    }
+    //function ShowConfirmYesNo(event) {
+    //    event.preventDefault();
+    //    var $confirm = $("#modalConfirmYesNo");
+    //    var $form = $("#offer");
+    //    $confirm.modal('show');
+    //    $("#btnYesConfirmYesNo").off('click').click(function () {
+    //        $form.submit();
+    //        $confirm.modal("hide");
+    //    });
+    //    $("#btnNoConfirmYesNo").off('click').click(function () {
+    //        $confirm.modal("hide");
+    //    });
+    //}
 
     @*function CheckIfReady() {
         $.ajax({
