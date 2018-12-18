@@ -69,10 +69,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                             model.Title = model.Title.Replace("'", "\\'");
                         }
 
-                        if (!string.IsNullOrWhiteSpace(model.Text))
-                        {
-                            model.Text = model.Text.Replace("'", "\\'");
-                        }
+                        //if (!string.IsNullOrWhiteSpace(model.Text))
+                        //{
+                        //    model.Text = model.Text.Replace("'", "\\'");
+                        //}
                     }
 
                     var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();

@@ -15,7 +15,7 @@ namespace eContracting.Kernel.GlassItems.Content.Modal_window
         [SitecoreId]
         public virtual Guid ID { get; set; }
 
-        [SitecoreField]
+        [SitecoreField(FieldType = SitecoreFieldType.RichText)]
         public virtual string Text { get; set; }
 
         [SitecoreField]

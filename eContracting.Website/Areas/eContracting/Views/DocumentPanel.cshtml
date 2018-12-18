@@ -20,7 +20,7 @@
                             <ul class="list list-documents loading">
                                 <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                             </ul>
-                            <input type="submit" class="button button-submit" onclick="ShowConfirmYesNo(event);" value="@ViewData["Accept"]" />
+                            <button type="button" class="button button-submit" onclick="ShowConfirmYesNo(event);">@ViewData["Accept"]</button>
                         }
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                 <h4 id="lblTitleConfirmYesNo" class="modal-title">@Model.Title</h4>
             </div>
             <div class="modal-body">
-                <p id="lblMsgConfirmYesNo">@Model.Text</p>
+                <div id="lblMsgConfirmYesNo">@Model.Text</div>
             </div>
             <div class="modal-footer">
                 <button id="btnYesConfirmYesNo"
@@ -64,18 +64,9 @@
 
     function ShowConfirmYesNo(event) {
         event.preventDefault();
-        AsyncConfirmYesNo(
-            '@Model.Title',
-            '@Model.Text'
-        );
-    }
-
-    function AsyncConfirmYesNo(title, msg) {
         var $confirm = $("#modalConfirmYesNo");
         var $form = $("#offer");
         $confirm.modal('show');
-        $("#lblTitleConfirmYesNo").html(title);
-        $("#lblMsgConfirmYesNo").html(msg);
         $("#btnYesConfirmYesNo").off('click').click(function () {
             $form.submit();
             $confirm.modal("hide");
