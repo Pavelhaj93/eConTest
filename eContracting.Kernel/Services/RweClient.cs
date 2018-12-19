@@ -519,7 +519,7 @@ namespace eContracting.Kernel.Services
             ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();
             inputPar.IV_CCHKEY = guid;
             inputPar.IV_CCHTYPE = type;
-            inputPar.IV_GEFILE = "X";
+            inputPar.IV_GEFILE = "B";
             CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(GetResponseDel);
             return CallService(inputPar, del);
         }

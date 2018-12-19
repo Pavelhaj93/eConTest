@@ -2,8 +2,9 @@
 @using eContracting.Kernel.GlassItems.Content.Modal_window
 @using eContracting.Kernel.GlassItems.RenderingParameters.Modal_window
 @using eContracting.Kernel.Models
+@using Sitecore.Data.Items
 
-@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<MW01DataSource>
+@model MW01DataSource
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -36,19 +37,19 @@
                         class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 id="lblTitleConfirmYesNo" class="modal-title">@Model.Title</h4>
+                <h4 id="lblTitleConfirmYesNo" class="modal-title">@Html.Sitecore().Field("Title", Model.Item)</h4>
             </div>
             <div class="modal-body">
-                <div id="lblMsgConfirmYesNo">@Model.Text</div>
+                <div id="lblMsgConfirmYesNo">@Html.Sitecore().Field("Text", Model.Item)</div>
             </div>
             <div class="modal-footer">
                 <button id="btnYesConfirmYesNo"
                         type="button" class="btn btn-primary">
-                    @Model.Accept_Text
+                    @Html.Sitecore().Field("Accept_Text", Model.Item)
                 </button>
                 <button id="btnNoConfirmYesNo"
                         type="button" class="btn btn-default">
-                    @Model.Cancel_Text
+                    @Html.Sitecore().Field("Cancel_Text", Model.Item)
                 </button>
             </div>
         </div>
@@ -56,6 +57,12 @@
 </div>
 
 <script>
+    var offerPageOptions = {
+        doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
+        isAgreed: @Model.IsAccepted.ToString().ToLower(),
+        getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
+    }
+
     $("#offer").ready(function () {
         $("#offer .button-submit").click(function (event) {
             event.preventDefault();
@@ -71,50 +78,4 @@
             });
         });
     });
-
-    var offerPageOptions = {
-        doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
-        isAgreed: @Model.IsAccepted.ToString().ToLower(),
-        getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
-    }
-
-    //function ShowConfirmYesNo(event) {
-    //    event.preventDefault();
-    //    var $confirm = $("#modalConfirmYesNo");
-    //    var $form = $("#offer");
-    //    $confirm.modal('show');
-    //    $("#btnYesConfirmYesNo").off('click').click(function () {
-    //        $form.submit();
-    //        $confirm.modal("hide");
-    //    });
-    //    $("#btnNoConfirmYesNo").off('click').click(function () {
-    //        $confirm.modal("hide");
-    //    });
-    //}
-
-    @*function CheckIfReady() {
-        $.ajax({
-            type: "POST",
-            url: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
-            dataType: "json",
-            timeout: 30000,
-            error: function () {
-                window.location.href = "/404"
-            },
-            success: function (documents) {
-                var agreed = @Model.IsAccepted.ToString().ToLower();
-                window.documentsReceived(documents, { agreed: agreed });
-            },
-        });
-    }
-
-    $(document).ready(function () {
-        CheckIfReady();
-    });
-
-    window.handleClick = function (e, key) {
-        e.preventDefault();
-        $.post("@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key, null);
-        window.location.href = "@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")" + key;
-    }*@
 </script>

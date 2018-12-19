@@ -58,23 +58,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 using (var sitecoreContext = new SitecoreContext())
                 {
                     MW01DataSource model = new MW01DataSource();
-                    var datasource = sitecoreContext.GetItem<MW01DataSource>(ItemPaths.ModalWindowSettings);
-
-                    if (datasource != null)
-                    {
-                        model = datasource;
-
-                        if (!string.IsNullOrWhiteSpace(model.Title))
-                        {
-                            model.Title = model.Title.Replace("'", "\\'");
-                        }
-
-                        //if (!string.IsNullOrWhiteSpace(model.Text))
-                        //{
-                        //    model.Text = model.Text.Replace("'", "\\'");
-                        //}
-                    }
-
+                    model.Item = Sitecore.Context.Database.GetItem(ItemPaths.ModalWindowSettings);
+                    
                     var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                     model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
                     model.IsAccepted = isAccepted;
