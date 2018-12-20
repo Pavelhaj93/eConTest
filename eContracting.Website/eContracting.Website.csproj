@@ -192,6 +192,7 @@
     <Content Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx" />
     <Content Include="Assets\eContracting\css\main.css" />
     <Content Include="Assets\eContracting\css\main.min.css" />
+    <Content Include="Assets\eContracting\css\popup.css" />
     <Content Include="Assets\eContracting\fonts\font-face.css" />
     <Content Include="Assets\eContracting\fonts\innogy-light.svg" />
     <Content Include="Assets\eContracting\fonts\innogy-medium.svg" />
