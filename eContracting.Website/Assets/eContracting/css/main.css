@@ -3191,6 +3191,15 @@ a:active, a:focus {
   left: 0;
   bottom: 0; }
 
+.modal-title {
+  font-weight: 600; }
+
+.modal-body {
+  font-size: 0.9rem; }
+
+.modal-footer > .btn {
+  font-weight: 600; }
+
 #notification {
   display: none;
   padding: 1rem 0;
