@@ -75,9 +75,9 @@ namespace eContracting.Kernel.Services
                     {
                         var customisedFileName = f.FILENAME;
 
-                        if (f.ATTRIB.Any(any => any.ATTRID == "Link_label"))
+                        if (f.ATTRIB.Any(any => any.ATTRID == "LINK_LABEL"))
                         {
-                            var linkLabel = f.ATTRIB.FirstOrDefault(where => where.ATTRID == "Link_label");
+                            var linkLabel = f.ATTRIB.FirstOrDefault(where => where.ATTRID == "LINK_LABEL");
                             customisedFileName = linkLabel.ATTRVAL;
 
                             var extension = Path.GetExtension(f.FILENAME);

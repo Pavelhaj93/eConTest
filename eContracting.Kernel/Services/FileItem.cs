@@ -25,7 +25,7 @@ namespace eContracting.Kernel.Services
         /// Gets or sets title.
         /// </summary>
         /// <value>
-        /// Value of ZCCH_ST_FILE.FILENAME or "Link_label" from ZCCH_ST_FILE.ATTRIB[].ATTRID
+        /// Value of ZCCH_ST_FILE.FILENAME or "LINK_LABEL" from ZCCH_ST_FILE.ATTRIB[].ATTRID
         /// </value>
         [JsonProperty("title")]
         public string Title { get; set; }
