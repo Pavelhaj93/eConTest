@@ -36,11 +36,15 @@ public partial class ZCCH_CACHE_API : System.Web.Services.Protocols.SoapHttpClie
     private System.Threading.SendOrPostCallback ZCCH_CACHE_GETOperationCompleted;
     
     /// <remarks/>
-    public ZCCH_CACHE_API() {
-        //this.Url = "http://r4289p1.rwe-services.cz:8000/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-        this.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
+    public ZCCH_CACHE_API():this(SystemHelpers.ReadConfig("eContracting.ServiceUrl"))
+    {
     }
-    
+
+    public ZCCH_CACHE_API(string url)
+    {
+        this.Url = url;
+    }
+
     /// <remarks/>
     public event ZCCH_CACHE_PUTCompletedEventHandler ZCCH_CACHE_PUTCompleted;
     

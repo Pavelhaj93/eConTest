@@ -24,6 +24,7 @@ namespace eContracting.Kernel.Services
     using MongoDB.Driver;
     using System.Web;
     using Rwe.Sc.AcceptanceLogger.Repositories;
+    using eContracting.Kernel.GlassItems;
 
     delegate T CallServiceMethod<T, P>(P inputParams);
 
@@ -476,9 +477,10 @@ namespace eContracting.Kernel.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            var userName = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracring.ServiceUser")));
-            var password = Encoding.UTF8.GetString(Convert.FromBase64String(SystemHelpers.ReadConfig("eContracting.ServicePassword")));
-            api.Url = SystemHelpers.ReadConfig("eContracting.ServiceUrl");
+            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
+            var userName = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServiceUser));
+            var password = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServicePassword));
+            api.Url = siteSettings.ServiceUrl;
 
             if (String.IsNullOrEmpty(userName) || String.IsNullOrEmpty(password))
             {

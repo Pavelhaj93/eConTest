@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
@@ -88,7 +89,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <returns>A value indicating whether user is blocked or not.</returns>
         private bool CheckWhetherUserIsBlocked(string guid)
         {
-            LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient();
+            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
+
+            LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
             return !loginsCheckerClient.CanLogin(guid);
             //failureData failureData;
             //if (this.NumberOfLogons.TryGetValue(guid, out failureData))
@@ -116,7 +119,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 string guid = Request.QueryString["guid"];
 
-                LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient();
+                SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
+                LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
 
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {

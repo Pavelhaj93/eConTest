@@ -1,4 +1,4 @@
-﻿// <copyright file="SystemHelpers.cs" company="Actum">
+// <copyright file="SystemHelpers.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 

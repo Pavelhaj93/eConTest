@@ -1,10 +1,11 @@
-﻿// <copyright file="ConfigHelpers.cs" company="Actum">
+// <copyright file="ConfigHelpers.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 
 namespace eContracting.Kernel.Helpers
 {
     using System;
+    using eContracting.Kernel.GlassItems;
     using eContracting.Kernel.GlassItems.Settings;
     using Glass.Mapper.Sc;
     using Glass.Mapper.Sc.Fields;
@@ -72,6 +73,44 @@ namespace eContracting.Kernel.Helpers
                 default:
                     throw new InvalidOperationException("Invalid page type.");
             }
+        }
+
+        /// <summary>
+        /// Gets site root item '/sitecore/content/eContracting'.
+        /// <para>
+        ///     If any of value for 'ServiceUrl', 'ServiceUser', 'ServicePassword' or 'DelayAfterFailedAttempts' is empty,
+        ///     it tries to take value from Sitecore configuration settings as fallback.
+        /// </para>
+        /// </summary>
+        /// <returns>
+        ///  Instance of <see cref="SiteRootModel"/> with values from Sitecore or from Sitecore configuration settings.
+        /// </returns>
+        public static SiteRootModel GetSiteSettings()
+        {
+            SitecoreContext context = new SitecoreContext();
+            var model = context.GetRootItem<SiteRootModel>();
+
+            if (string.IsNullOrWhiteSpace(model.ServiceUrl))
+            {
+                model.ServiceUrl = Sitecore.Configuration.Settings.GetAppSetting("eContracting.ServiceUrl");
+            }
+
+            if (string.IsNullOrWhiteSpace(model.ServiceUser))
+            {
+                model.ServiceUser = Sitecore.Configuration.Settings.GetAppSetting("eContracting.ServiceUser");
+            }
+
+            if (string.IsNullOrWhiteSpace(model.ServicePassword))
+            {
+                model.ServicePassword = Sitecore.Configuration.Settings.GetAppSetting("eContracting.ServicePassword");
+            }
+
+            if (string.IsNullOrWhiteSpace(model.DelayAfterFailedAttempts))
+            {
+                model.DelayAfterFailedAttempts = Sitecore.Configuration.Settings.GetAppSetting("eContracting.DelayAfterFailedAttempts");
+            }
+
+            return model;
         }
     }
 }

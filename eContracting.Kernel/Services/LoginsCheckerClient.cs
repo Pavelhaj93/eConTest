@@ -15,20 +15,20 @@ namespace eContracting.Kernel.Services
 {
     public class LoginsCheckerClient
     {
+        /// <summary>
+        /// The maximum failed attemps
+        /// </summary>
         protected readonly int MaxFailedAttemps;
 
+        /// <summary>
+        /// The delay after failed attemps
+        /// </summary>
         protected readonly TimeSpan DelayAfterFailedAttemps;
 
-        protected readonly IMongoCollection<FailedLoginInfoModel> Collection;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
+        /// The collection
         /// </summary>
-        public LoginsCheckerClient() : this(
-            Settings.GetIntSetting("eContracting.MaxFailedAttempts", 3),
-            Settings.GetTimeSpanSetting("eContracting.DelayAfterFailedAttempts", new TimeSpan(0,30,0)))
-        {
-        }
+        protected readonly IMongoCollection<FailedLoginInfoModel> Collection;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
