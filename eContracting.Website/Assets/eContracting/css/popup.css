@@ -1,7 +1,7 @@
 .modal .btn {
     display: inline-block;
     margin-bottom: 0;
-    font-weight: 400;
+    font-weight: 600;
     text-align: center;
     vertical-align: middle;
     -ms-touch-action: manipulation;
@@ -23,7 +23,6 @@
     line-height: 1.48;
     border-radius: 20px;
     text-transform: uppercase;
-    font-weight: 500;
 }
 
     .modal .btn.active.focus, .modal .btn.active:focus, .modal .btn.focus, .modal .btn:active.focus, .modal .btn:active:focus, .modal .btn:focus {
@@ -298,7 +297,7 @@
 .modal-title {
     margin: 0;
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 600;
     color: inherit;
     line-height: 1.48
 }
