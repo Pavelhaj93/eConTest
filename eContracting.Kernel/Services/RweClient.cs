@@ -110,9 +110,8 @@ namespace eContracting.Kernel.Services
 
             if (IsAccepted)
             {
-                result = GetResponse(guid, "NABIDKA_PDF");
+                result = GetResponse(guid, "NABIDKA_ARCH");
                 files.AddRange(result.ET_FILES);
-                result = GetResponse(guid, "NABIDKA_PRIJ");
                 var filenames = result.ET_FILES.Select(file => file.FILENAME);
                 files.RemoveAll(file => filenames.Contains(file.FILENAME));
                 files.AddRange(result.ET_FILES);
