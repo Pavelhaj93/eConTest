@@ -60,6 +60,7 @@ namespace eContracting.Kernel.Helpers
             var parameters = client.GetAllAtrributes(letterXml);
             foreach (var item in parameters)
             {
+                //mainRawText = mainRawText.Replace("{" + item.Key + "}", item.Value);
                 mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
             }
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);

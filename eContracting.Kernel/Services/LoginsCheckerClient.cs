@@ -98,6 +98,8 @@ namespace eContracting.Kernel.Services
 
                         this.Collection.DeleteOne(deleteFilter);
 
+                        Log.Debug("Failed login attempts were deleted for user '" + guid + "'");
+
                         //var update = Builders<LoginGuidInfo>.Update
                         //    .PullAll(x => x.FailedAttemptsInfo, result.FailedAttemptsInfo)
                         //    .Set(x => x.FailedAttempts, 0)
