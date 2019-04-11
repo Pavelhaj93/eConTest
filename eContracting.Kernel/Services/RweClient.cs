@@ -228,7 +228,7 @@ namespace eContracting.Kernel.Services
                 SentToService = false
             };
 
-            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
 
             if (Decimal.TryParse(timestampString, out outValue))
@@ -342,7 +342,7 @@ namespace eContracting.Kernel.Services
         /// <param name="guid"></param>
         public void ReadOffer(string guid)
         {
-            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
 
             if (Decimal.TryParse(timestampString, out outValue))
@@ -364,7 +364,7 @@ namespace eContracting.Kernel.Services
         /// <param name="guid"></param>
         public void SignOffer(string guid)
         {
-            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
 
             if (Decimal.TryParse(timestampString, out outValue))
@@ -386,7 +386,7 @@ namespace eContracting.Kernel.Services
         /// <param name="guid"></param>
         public void ResetOffer(string guid)
         {
-            var timestampString = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
 
             if (Decimal.TryParse(timestampString, out outValue))

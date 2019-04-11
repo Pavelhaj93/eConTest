@@ -105,7 +105,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
-                client.LogAcceptance(guid, documentsId, DateTime.Now);
+                client.LogAcceptance(guid, documentsId, DateTime.UtcNow);
 
                 // New acceptance logger
                 //if(documentsId.Count > 0)
