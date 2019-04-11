@@ -1,0 +1,437 @@
+<?xml version="1.0"?><form>
+<header>
+<form_id>CRM008E</form_id>
+<verze_alc>02</verze_alc>
+<template>EPD</template>
+<template_source/>
+<kod_priloze/>
+</header>
+<parameters>
+<CUSTNUMB>9610862078</CUSTNUMB>
+<CUSTNAME>Danuše Rieglová</CUSTNAME>
+<CUSTNAME2/>
+<CUSTTITLELET>Vážená paní Rieglová</CUSTTITLELET>
+<CUSTSTREET>Ivana Sekaniny</CUSTSTREET>
+<CUSTSTRNUMBER>1805 / 1</CUSTSTRNUMBER>
+<CUSTPOSTALCODE>708 00</CUSTPOSTALCODE>
+<CUSTCITY>Poruba</CUSTCITY>
+<CUSTCITYPART>Poruba</CUSTCITYPART>
+<CUSTADDRESS>Ivana Sekaniny 1805 / 1, 708 00 Poruba</CUSTADDRESS>
+<CUSTADDRESS1>Ivana Sekaniny 1805 / 1</CUSTADDRESS1>
+<CUSTADDRESS2>708 00 Poruba</CUSTADDRESS2>
+<CUSTBIRTHDATE>19.04.1964</CUSTBIRTHDATE>
+<CUSTBDATEIC>19.04.1964</CUSTBDATEIC>
+<CUSTIC/>
+<CUSTDIC/>
+<CUSTRC/>
+<CUSTLOG24/>
+<CUSTSTAV24/>
+<CUSTPROXY/>
+<CUSTREGISTER/>
+<CUSTPERSNAME>Danuše Rieglová</CUSTPERSNAME>
+<CUSTPERSSTREET>Ivana Sekaniny</CUSTPERSSTREET>
+<CUSTPERSSTRNUMBER>1805 / 1</CUSTPERSSTRNUMBER>
+<CUSTPERSPOSTALCODE>708 00</CUSTPERSPOSTALCODE>
+<CUSTPERSCITY>Poruba</CUSTPERSCITY>
+<CUSTPERSIC/>
+<CUSTPERSCARDID/>
+<CUSTCOMPNAME/>
+<CUSTCOMPSTREET/>
+<CUSTCOMPSTRNUMBER/>
+<CUSTCOMPPOSTALCODE/>
+<CUSTCOMPCITY/>
+<CUSTCOMPIC/>
+<CUSTTEL1>730 814 493</CUSTTEL1>
+<CUSTTEL2/>
+<CUSTEMAIL>Tereza.Malcikova@innogy.com</CUSTEMAIL>
+<CUSTEINVOICE/>
+<CUSTCATEGORY>MOO</CUSTCATEGORY>
+<CUSTTYPE>H</CUSTTYPE>
+<CUSTCOUNTRY/>
+<CUSTTELCOUR/>
+<PREMNUMBER>9300945669</PREMNUMBER>
+<PREMNUMBER_E/>
+<PREMNUMBER_G>9300945669</PREMNUMBER_G>
+<PREMSTREET>Ivana Sekaniny</PREMSTREET>
+<PREMSTRNUMBER>1805 / 1</PREMSTRNUMBER>
+<PREMPOSTALCODE>708 00</PREMPOSTALCODE>
+<PREMCITY>Poruba</PREMCITY>
+<PREMCITYPART>Poruba</PREMCITYPART>
+<PREMEAN/>
+<PREMEIC>27ZG700Z0427073X</PREMEIC>
+<PREMADR>Ivana Sekaniny 1805 / 1, 708 00 Poruba</PREMADR>
+<PREMADDRESS>Ivana Sekaniny 1805 / 1, 708 00 Poruba</PREMADDRESS>
+<PREMADDRESS1>Ivana Sekaniny 1805 / 1</PREMADDRESS1>
+<PREMADDRESS2>708 00 Poruba</PREMADDRESS2>
+<PREMADDRESS3>Poruba, Ivana Sekaniny 1805 / 1, 708 00</PREMADDRESS3>
+<PREMFLOOR>9</PREMFLOOR>
+<PREMFLAT>57</PREMFLAT>
+<PREMTEL/>
+<PREMADDRESS3_E/>
+<PREMADDRESS3_G>Poruba, Ivana Sekaniny 1805 / 1, 708 00</PREMADDRESS3_G>
+<PREMEXT>27ZG700Z0427073X</PREMEXT>
+<PREMLABEL>EIC</PREMLABEL>
+<PREMSPECIFY/>
+<PREMVBSAR>0003</PREMVBSAR>
+<PREMVBSARTTXT>Rodinný dům</PREMVBSARTTXT>
+<PREMKUPC>3634 / 1</PREMKUPC>
+<PREMKU_PC>parc.3634 / 1</PREMKU_PC>
+<PREMLOC_CB_R>1</PREMLOC_CB_R>
+<PREMLOC_CB_B/>
+<PREMLOC_CB_P/>
+<PREMKU>Poruba</PREMKU>
+<CONTACTNAME/>
+<CONTACTBDATE/>
+<CORNAME>Danuše Rieglová</CORNAME>
+<CORADDRESS1>Ivana Sekaniny 1805 / 1</CORADDRESS1>
+<CORADDRESS2>708 00 Poruba</CORADDRESS2>
+<CORADDRESSALL>Ivana Sekaniny 1805 / 1, 708 00 Poruba</CORADDRESSALL>
+<CORSTREET>Ivana Sekaniny</CORSTREET>
+<CORSTRNUMBER>1805 / 1</CORSTRNUMBER>
+<CORSTREETNUM>1805 / 1</CORSTREETNUM>
+<CORPOSTALCODE>708 00</CORPOSTALCODE>
+<CORCITYCODE>708 00</CORCITYCODE>
+<CORCITY>Poruba</CORCITY>
+<CORCITYPART>Poruba</CORCITYPART>
+<CB_COR_CUST>1</CB_COR_CUST>
+<CB_COR_PREM/>
+<CB_COR_OTHER/>
+<CORDATECOUR/>
+<CORADDRESS1COUR>Ivana Sekaniny 1805 / 1</CORADDRESS1COUR>
+<CORADDRESS2COUR>708 00 Poruba</CORADDRESS2COUR>
+<CORCOMPANYCOUR/>
+<CONTRACTDATE>21.02.2019</CONTRACTDATE>
+<CONTRNUMBER>1001143839</CONTRNUMBER>
+<PRODCODE>G_STANDARD</PRODCODE>
+<PRODGROUP>plyn Standard</PRODGROUP>
+<PREVPRODGROUP>plyn Optimal</PREVPRODGROUP>
+<PRICELISTVALIDITY/>
+<CB_CUSTCAT_H>1</CB_CUSTCAT_H>
+<CB_CUSTCAT_B/>
+<CB_REASON_N>1</CB_REASON_N>
+<CB_REASON_T/>
+<CB_REASON_C/>
+<REASON/>
+<PREVSUPPL/>
+<CONTRACT_START>10.12.2021</CONTRACT_START>
+<CONTRACT_START_DAY>10</CONTRACT_START_DAY>
+<CONTRACT_START_MONTH>12</CONTRACT_START_MONTH>
+<CONTRACT_START_YEAR>21</CONTRACT_START_YEAR>
+<CONTRACT_REQ_END/>
+<CONTRACT_REQ_METER/>
+<CONTRACT_START_INDIK/>
+<PRICELISTTEXT><body xmlns="http://www.w3.org/1999/xhtml">
+<p style="margin-top:0pt;margin-bottom:0pt">
+<b>PŘEDMĚT DODATKU -</b> Předmětem tohoto Dodatku je změna produktové řady a/nebo produktu charakterizovaná zejména změnou v určení ceny<br/>a změnou doby trvání Smlouvy. Ostatní tímto Dodatkem nedotčená ustanovení dříve uzavřené Smlouvy o sdružených službách dodávky plynu zůstávají nadále v platnosti a účinnosti.<br/><br/><b>DODÁVKA PLYNU -</b> Dodávka plynu se uskutečňuje v souladu s Obchodními podmínkami sdružených služeb dodávky plynu č. 12/2018 (&quot;OP&quot;) vydanými innogy a zveřejněnými na innogy.cz, Ceníkem a Ceníkem služeb, které jsou nedílnou součástí Smlouvy ve znění Dodatku, a dále, jde-li o zákazníka-spotřebitele, v souladu s přiloženými Informacemi k návrhu Smlouvy/Dodatku. Zákazník podpisem stvrzuje, že se s uvedenými dokumenty seznámil, porozuměl jim a bez výhrad je akceptuje. innogy je oprávněna OP, jakož<br/>i shora uvedené dokumenty, měnit, a to na základě důvodů v nich uvedených. Vyrozumění o navrhované změně smluvních podmínek může být realizováno písemně zasláním listiny, e-mailu, sms, příp. oznámením na webu innogy.cz, v zákaznické aplikaci či ústně/telefonicky. Pokud by se OP či jejich ustanovení staly neplatnými nebo neúčinnými, aplikují se předchozí platné OP dle Smlouvy. Smlouva se podřizuje z. č. 89/2012 Sb.<br/><br/><b>UZAVŘENÍ DODATKU A TRVÁNÍ SMLOUVY -</b> Dodatek je uzavřen na základě písemné podepsané nabídky doručené nebo předložené Zákazníkovi ze strany innogy (&quot;Nabídka&quot;). Lhůta pro přijetí Nabídky a doručení podepsaného Dodatku končí dnem uvedeným níže, Dodatky doručené počínaje dnem následujícím po uplynutí této lhůty nebudou akceptovány<br/>a považují se za neuzavřené. V takovém případě Smluvní strany sjednávají, že pokud innogy ve lhůtě 30 dnů ode dne pozdního doručení Dodatku prokazatelně sdělí Zákazníkovi, že jej akceptuje, považuje se Dodatek za uzavřený. Dodatek nabývá platnosti dnem doručení podepsaného Dodatku do innogy, a není-li pro určitá ustanovení stanoveno jinak, plné účinnosti k datu účinnosti uvedenému níže, přičemž innogy je oprávněna toto datum sdělením zaslaným Zákazníkovi z důvodů uvedených v OP jednostranně a přiměřeně změnit. Plné účinnosti Dodatku k datu předpokládané nebo změněné účinnosti nebrání, bude-li skutečná dodávka z důvodů na straně Zákazníka<br/>k takovému dni zmařena. V takovém případě nastává dočasná nemožnost plnění na straně innogy až do případného odstoupení ze strany innogy nebo ukončení Smlouvy dohodou. Dodatek lze uzavřít též elektronicky, a to (i) zachycením el. akceptace Zákazníka v el. systému innogy dle § 562 odst. 2 zák. č. 89/2012 Sb., využívajícího internet (&quot;systém&quot;), (ii) prostým el. podpisem ve formě el. zachycení linií vlastnoručního podpisu Zákazníka (bez biometriky) na el. verzi Dodatku snímacím zařízením provozovaným innogy, (iii) doručením Zákazníkem akceptovaného Dodatku v běžném el. formátu na info@innogy.cz s jeho kvalifikovaným el. podpisem nebo prostým el. podpisem vytvořeným pomocí skenu či digitální fotografie věrně zachycující el. obraz listinné podoby Dodatku opatřeného vlastnoručním podpisem Zákazníka a současně faksimiliemi podpisů za innogy, nebo (iv) jinak dle instrukcí innogy doručených Zákazníkovi. V takovém případě tam, kde se<br/>v Dodatku hovoří o &quot;podpisu&quot; a &quot;doručení&quot;, mají tyto pojmy rovněž význam &quot;elektronický podpis&quot;, &quot;elektronické doručení&quot; či &quot;akceptace v systému&quot;<br/>(nahrazující jak podpis, tak i doručení). Smlouva je uzavřena na dobu neurčitou ode dne účinnosti Dodatku.<br/><br/><b>CENOVÉ PODMÍNKY -</b> Cena za odebraný plyn a ostatní služby dodávky je stanovena v Ceníku níže uvedené produktové řady (&quot;Ceník&quot;) a cena služeb<br/>v Ceníku služeb (&quot;Ceník služeb&quot;), přičemž pro smluvní vztah platí Ceník<br/>a Ceník služeb, které jsou zveřejněny na webu innogy jako platné a účinné pro příslušné období. innogy je oprávněna ceny určené těmito ceníky měnit<br/>v souladu s OP, a to od okamžiku platnosti Smlouvy. V případě, že produktová řada má určeny ceny dle distribučních zón, platí vždy Ceník<br/>a Ceník služeb pro tu distribuční zónu, kde se nachází OM Zákazníka. Cena za službu distribuční soustavy a ostatní regulované služby je stanovena cenovým rozhodnutím ERÚ pro příslušné období a distribuční zónu, v níž se nachází OM Zákazníka. Po dobu souběžné účinnosti Smlouvy/dodatku na předchozí produkt a platnosti tohoto dosud neúčinného Dodatku pro totéž OM se aplikuje cena dle takové Smlouvy/dodatku.<br/><br/><b>OSTATNÍ UJEDNÁNÍ -</b> Zákazník je povinen bez zbytečného odkladu poskytnout innogy součinnost nezbytnou k zahájení dodávky na základě uzavřené Smlouvy, zejména nečinit právní ani jiná jednání bránící v plnění takového jejího závazku (vč. provedení změny dodavatele), vyjma těch,<br/>k nimž je oprávněn dle zákona. V případě porušení této povinnosti je Zákazník povinen zaplatit innogy pokutu, a to ve výši 1 000 Kč pro kat. Domácnost<br/>a 5 000 Kč pro kat. Podnikatel. Stejnou pokutu je povinen uhradit Zákazník, který uvede innogy v omyl tím, že ukončí Smlouvu dohodou a v rozporu<br/>s deklarovaným důvodem pro její sjednání bude ve stejném OM pokračovat v odběru u jiného dodavatele. V případě, že Zákazník učiní bez souhlasu innogy jakýkoli právně relevantní projev vůle (bez ohledu na to, zda byl či nebyl určen a/nebo doručen innogy, zda se tak stalo opožděně, či zda trpěl vadami, a na to, jak a kým je Smlouva/dodávka následně ukončena) směřující<br/>k předčasnému ukončení Smlouvy a/nebo vedoucí k ukončení dodávky od innogy (v roli subjektu zúčtování u operátora trhu) probíhající na základě takové Smlouvy nerespektujícímu sjednanou výpovědní dobu (vč. plné moci ke změně dodavatele; za takový projev vůle se nepovažuje pouhý návrh na předčasné ukončení Smlouvy dohodou) a/nebo Zákazník opakovaně (tzn. dva a vícekrát) poruší kteroukoli platební povinnost vyplývající ze Smlouvy<br/>(bez ohledu na to, zda jde o tutéž či různé povinnosti a zda následně dojde<br/>k jednostrannému ukončení Smlouvy ze strany innogy) a/nebo Zákazník způsobí svým jednáním nemožnost dodávky, je innogy oprávněna účtovat Zákazníkovi pokutu zahrnující též případnou náhradu škody vzniklé innogy neodebráním pro Zákazníka nasmlouvaného množství plynu ve výši 1 000 Kč pro kat. Domácnost a 5 000 Kč pro kat. Podnikatel. V případě Zákazníka zařazeného do nejnižšího pásma ročního odběru dle Ceníku innogy se částky pokut uvedené v předchozí větě snižují o polovinu.  Zákazník je povinen zaplatit innogy pokutu ve výši 100 Kč za každý jednotlivý případ prodlení<br/>s jakoukoli platbou dle této Smlouvy přesahující 10 dní. Zákazník je povinen vyúčtovanou pokutu uhradit ve lhůtě platné pro splatnost vyúčtování dle OP. Jde-li o pokutu za předčasné ukončení Smlouvy/dodávky v rozporu se smluvními podmínkami, Zákazník se účinně zprostí povinnosti její úhrady, pokud takový jeho projev vůle směřující k předčasnému ukončení Smlouvy odvolá či vezme zpět a odstraní jeho nepříznivé následky vůči innogy. Není-li shora stanoveno jinak, má innogy vedle práva na pokutu vyplývající<br/>z porušení povinnosti Zákazníka též právo na náhradu škody a úrok<br/>z prodlení vyplývající z porušení téže povinnosti. Případným odstoupením od Smlouvy nezaniká právo innogy na pokutu vzniklou porušením povinnosti Zákazníkem před takovým odstoupením. Ustanovení &quot;Ostatních ujednání&quot; nabývají účinnosti dnem platnosti Dodatku.<br/><br/><b>PROHLÁŠENÍ ZÁKAZNÍKA -</b> Zákazník prohlašuje, že ke dni účinnosti to hoto Dodatku nemá, resp. nebude mít pro stejné OM uzavřenu či podepsánu jinou smlouvu/dodatek na dobu určitou na dodávku plynu od innogy ani takovou smlouvu/dodatek dříve nepodepsal. V případě, že se toto prohlášení ukáže ve lhůtě 30 dnů ode dne doručení tohoto Dodatku do innogy jako nepravdivé, Dodatek se bez dalšího od počátku ruší, přičemž Zákazník bere na vědomí, že o této skutečnosti nemusí být ze strany innogy informován. To neplatí, pokud innogy ve lhůtě 30 dnů ode dne doručení tohoto Dodatku písemně sdělí Zákazníkovi, že jej akceptuje a považuje za platně uzavřený. Tento Dodatek nahrazuje veškeré předchozí případné smlouvy a dodatky (vyjma shora uvedených na produkty na dobu určitou) upravující dodávky plynu pro stejné OM, pokud byly mezi Zákazníkem a innogy uzavřeny. Podpisem tohoto Dodatku Zákazník zároveň bere v plném rozsahu zpět výpověď, příp. odstoupení od Smlouvy, pokud byla/-o jím nebo jeho zmocněncem dříve podána/-o, s čímž současně innogy vyslovuje souhlas.<br/></p>
+</body>
+</PRICELISTTEXT>
+<CB_PROXY1/>
+<CB_PROXY2/>
+<CB_PROXY3/>
+<SALESSIGN1>Ing. Roman Budinský</SALESSIGN1>
+<SALESROLE1>předseda představenstva</SALESROLE1>
+<SALESSIGN2>Ing. David Konvalina</SALESSIGN2>
+<SALESROLE2>člen představenstva</SALESROLE2>
+<CB_BBP_SIPO>1</CB_BBP_SIPO>
+<CB_BBP_PAYM_ORD/>
+<CB_BBP_COLL/>
+<CB_BBP_A/>
+<SIPO>8013279941</SIPO>
+<BANKCCOUNTCODE/>
+<BANKACCOUNT/>
+<BANKCODE/>
+<BANKACCOUNT_FIRST/>
+<BANKACCOUNT_SECOND/>
+<BBP_START_AMOUNT>170,00</BBP_START_AMOUNT>
+<CB_BBP_PER_M>1</CB_BBP_PER_M>
+<CB_BBP_PER_Q/>
+<CB_INV_B>1</CB_INV_B>
+<CB_INV_ACCOUNT/>
+<OUTACCNO/>
+<OUTACCBANK/>
+<CB_INV_A>1</CB_INV_A>
+<CB_INV_COLL/>
+<INCACCNO/>
+<INCACCBANK/>
+<CONTRVALIDFROM>10.12.2021</CONTRVALIDFROM>
+<CONTRVALID_M_DAY>09.12.2021</CONTRVALID_M_DAY>
+<OFFERVALIDTO>21.02.2019</OFFERVALIDTO>
+<PRICELIST>plyn Optimal</PRICELIST>
+<PRICELISTVALIDFROM>01.12.2018</PRICELISTVALIDFROM>
+<PRICELISTVALIDTO>09.12.2021</PRICELISTVALIDTO>
+<EYC>531,000</EYC>
+<EYCK/>
+<BBP_PER>měsíčně</BBP_PER>
+<ORDER_NUM/>
+<PROMO_CODE/>
+<BANKCCOUNTCODE_SALES/>
+<CONTSTART_ZSJ/>
+<PRICELISTVALIDFROM_M>01.02.2019</PRICELISTVALIDFROM_M>
+<USE_PREM>R01</USE_PREM>
+<CB_R_TZD/>
+<CB_I_TZD/>
+<CB_N_TZD/>
+<VOP_VER>07/2017</VOP_VER>
+<GEMETPRODNUM>11148650</GEMETPRODNUM>
+<METPRODNUM/>
+<METQUANTH/>
+<METQUANTL/>
+<GMETPRODNUM>11148650</GMETPRODNUM>
+<GMETQUAN>24 m3</GMETQUAN>
+<GMETLOC>vnitřní</GMETLOC>
+<XXMETQUAN>24 m3</XXMETQUAN>
+<CB_GMETLOC_OUT/>
+<CB_GMETLOC_IN>1</CB_GMETLOC_IN>
+<METQUAN>: 24</METQUAN>
+<METQUANTDATE>21.02.2019</METQUANTDATE>
+<WHERE_6P>Ostravě</WHERE_6P>
+<WHERE>Ostrava</WHERE>
+<DATE>21.02.2019</DATE>
+<USERNAME>Ing. Miloš Řezanina</USERNAME>
+<CSSECTION>CRM Sales &amp; Marketing Team</CSSECTION>
+<CUSTCENTER>Zákaznické centrum skupiny RWE</CUSTCENTER>
+<CSADDRESS/>
+<WHERE_CUST/>
+<WHERE_SAL>Ostrava</WHERE_SAL>
+<DATE_CUST/>
+<DATE_SAL>21.02.2019</DATE_SAL>
+<SALES_ID>ENE</SALES_ID>
+<SALESNAME>innogy Energie, s.r.o.</SALESNAME>
+<SALESSTREET>Limuzská</SALESSTREET>
+<SALESSTRNUMBER>3135/12</SALESSTRNUMBER>
+<SALESPOSTALCODE>108 00</SALESPOSTALCODE>
+<SALESCITY>Praha 10</SALESCITY>
+<SALESADDRESSF>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10</SALESADDRESSF>
+<SALESADDRESS>Limuzská 3135/12, 108 00 Praha 10</SALESADDRESS>
+<SALESADDRESS1>Limuzská 3135/12</SALESADDRESS1>
+<SALESADDRESS2>108 00 Praha 10</SALESADDRESS2>
+<SALESREGISTER>Městský soud v Praze, sp.zn. C 220583</SALESREGISTER>
+<SALESREGISTER1>Městský soud v Praze</SALESREGISTER1>
+<SALESREGISTER2>sp.zn. C 220583</SALESREGISTER2>
+<SALESIC>49903209</SALESIC>
+<SALESDIC>CZ49903209</SALESDIC>
+<SALESACCOUNTNO>17231083/0300</SALESACCOUNTNO>
+<SUPPL1>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10</SUPPL1>
+<SUPPLIC>49903209</SUPPLIC>
+<SUPPLDIC>CZ49903209</SUPPLDIC>
+<REGISTER1>Městský soud v Praze, sp.zn. C 220583</REGISTER1>
+<LICENCENO>240404240</LICENCENO>
+<SALESALL>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10, IČ: 49903209, DIČ: CZ49903209, zápis v OR: MěS v Praze, sp.zn.: C 220583</SALESALL>
+<SALESCODE/>
+<SALES_POM>(v dokumentu jako „innogy”)</SALES_POM>
+<SALES_PART_I>innogy Energie, s.r.o., Limuzská 3135/12, 108 00 Praha 10,</SALES_PART_I>
+<SALES_PART_II>IČ: 49903209, DIČ: CZ49903209, zápis v OR: MěS v Praze, sp.zn.: C 220583</SALES_PART_II>
+<METPROD>plynoměru</METPROD>
+<barcode>*341060000027650292*</barcode>
+<DOC_ID_BARCODE>341060000027650292</DOC_ID_BARCODE>
+<COMMODITY>P</COMMODITY>
+<COMMODITY_DESCRIPTION>plynu</COMMODITY_DESCRIPTION>
+<COMMODITY_DESCRIPTION_I>zemního plynu</COMMODITY_DESCRIPTION_I>
+<COMMODITY_DESCRIPTION_II>PLYNU</COMMODITY_DESCRIPTION_II>
+<COMMODITY_DESCRIPTION_III>zemního plynu</COMMODITY_DESCRIPTION_III>
+<COMMODITY_DESCRIPTION_IV/>
+<COMMODITY_DESCRIPTION_V/>
+<COMMODITY_DESCRIPTION_VI/>
+<COMMODITY_DESCRIPTION_VII/>
+<LOGO/>
+<TEMPL_DESCRIPTION>Kampaňový econtractingový dodatek ZP</TEMPL_DESCRIPTION>
+<TEMPL_CODE>EPD</TEMPL_CODE>
+<PODPIS2/>
+<PODPIS1/>
+<PODPIS/>
+<KOD_RWE>ZP_DOD2_CRM_181201_ECONTRACT</KOD_RWE>
+<OPPORTUNITY/>
+<OPT_NUMB/>
+<OPT_CP_REASON/>
+<OPT_FINCHANNEL/>
+<OPT_LABEL/>
+<CB_COM_P>1</CB_COM_P>
+<CB_COM_E/>
+<ORDER_CREATE/>
+<OBOR/>
+<ITEM_TYPE/>
+<PREMUSAGE>R011111000</PREMUSAGE>
+<CB_TIME_PD>1</CB_TIME_PD>
+<CB_TIME_SO>1</CB_TIME_SO>
+<CB_TIME_NE>1</CB_TIME_NE>
+<CB_CHAR_VAR>1</CB_CHAR_VAR>
+<CB_CHAR_TUV/>
+<CB_CHAR_OTOP/>
+<CB_CHAR_TECH/>
+<G_PREF_TEXT/>
+<CB_BEZ_TZD_G/>
+<MONTH1_1/>
+<MONTH1_2/>
+<MONTH1_3/>
+<MONTH1_4/>
+<MONTH1_5/>
+<MONTH1_6/>
+<MONTH1_7/>
+<MONTH1_8/>
+<MONTH1_9/>
+<MONTH1_10/>
+<MONTH1_11/>
+<MONTH1_12/>
+<MONTH1_13/>
+<MONTH1_14/>
+<MONTH1_15/>
+<MONTH1_16/>
+<MONTH1_17/>
+<MONTH1_18/>
+<MONTH1_19/>
+<MONTH1_20/>
+<MONTH1_21/>
+<MONTH1_22/>
+<MONTH1_23/>
+<MONTH1_24/>
+<MONTH1_25/>
+<MONTH1_26/>
+<MONTH1_27/>
+<MONTH1_28/>
+<MONTH1_29/>
+<MONTH1_30/>
+<MONTH1_31/>
+<MONTH2_1/>
+<MONTH2_2/>
+<MONTH2_3/>
+<MONTH2_4/>
+<MONTH2_5/>
+<MONTH2_6/>
+<MONTH2_7/>
+<MONTH2_8/>
+<MONTH2_9/>
+<MONTH2_10/>
+<MONTH2_11/>
+<MONTH2_12/>
+<MONTH2_13/>
+<MONTH2_14/>
+<MONTH2_15/>
+<MONTH2_16/>
+<MONTH2_17/>
+<MONTH2_18/>
+<MONTH2_19/>
+<MONTH2_20/>
+<MONTH2_21/>
+<MONTH2_22/>
+<MONTH2_23/>
+<MONTH2_24/>
+<MONTH2_25/>
+<MONTH2_26/>
+<MONTH2_27/>
+<MONTH2_28/>
+<MONTH2_29/>
+<MONTH2_30/>
+<MONTH2_31/>
+<MONTH3_1/>
+<MONTH3_2/>
+<MONTH3_3/>
+<MONTH3_4/>
+<MONTH3_5/>
+<MONTH3_6/>
+<MONTH3_7/>
+<MONTH3_8/>
+<MONTH3_9/>
+<MONTH3_10/>
+<MONTH3_11/>
+<MONTH3_12/>
+<MONTH3_13/>
+<MONTH3_14/>
+<MONTH3_15/>
+<MONTH3_16/>
+<MONTH3_17/>
+<MONTH3_18/>
+<MONTH3_19/>
+<MONTH3_20/>
+<MONTH3_21/>
+<MONTH3_22/>
+<MONTH3_23/>
+<MONTH3_24/>
+<MONTH3_25/>
+<MONTH3_26/>
+<MONTH3_27/>
+<MONTH3_28/>
+<MONTH3_29/>
+<MONTH4_1/>
+<MONTH4_2/>
+<MONTH4_3/>
+<MONTH4_4/>
+<MONTH4_5/>
+<MONTH4_6/>
+<MONTH4_7/>
+<MONTH4_8/>
+<MONTH4_9/>
+<MONTH4_10/>
+<MONTH4_11/>
+<MONTH4_12/>
+<MONTH4_13/>
+<MONTH4_14/>
+<MONTH4_15/>
+<MONTH4_16/>
+<MONTH4_17/>
+<MONTH4_18/>
+<MONTH4_19/>
+<MONTH4_20/>
+<MONTH4_21/>
+<MONTH4_22/>
+<MONTH4_23/>
+<MONTH4_24/>
+<MONTH4_25/>
+<MONTH4_26/>
+<MONTH4_27/>
+<MONTH4_28/>
+<MONTH4_29/>
+<MONTH4_30/>
+<MONTH4_31/>
+<AREA/>
+<NEW_LC/>
+<MODEL_SPOTREBA/>
+<BONUS/>
+<POKLES_CENY_I/>
+<POKLES_CENY_II/>
+<ZCONTQUOTPLN/>
+<DAT_VYSTAV/>
+<CEL_BONUS/>
+<VYS_BONUS/>
+<POKLES_CENY_III/>
+<POKLES_CENY_IV/>
+<POKLES_CENY_V/>
+<CONTSIGNON/>
+<TELEFON/>
+<C_FIELD_1/>
+<C_FIELD_2/>
+<C_FIELD_3/>
+<C_FIELD_4/>
+<C_FIELD_5/>
+<C_FIELD_6/>
+<C_FIELD_7/>
+<C_FIELD_8/>
+<C_FIELD_9/>
+<C_FIELD_10/>
+<C_FIELD_11/>
+<C_FIELD_12/>
+<C_FIELD_13/>
+<C_FIELD_14/>
+<C_FIELD_15/>
+<C_FIELD_16/>
+<C_FIELD_17/>
+<C_FIELD_18/>
+<C_FIELD_19/>
+<C_FIELD_20/>
+<C_FIELD_21/>
+<C_FIELD_22/>
+<C_FIELD_23/>
+<C_FIELD_24/>
+<C_FIELD_25/>
+<C_FIELD_26/>
+<C_FIELD_27/>
+<C_FIELD_28/>
+<C_FIELD_29/>
+<C_FIELD_30/>
+<C_VOUCH_EXTRA_VALUE/>
+<C_VOUCH_TOTAL_VALUE/>
+<C_VOUCH_INITIAL_VALUE/>
+<COMPLGOODSI/>
+<COMPLGOODSII/>
+<ADD_BARCODE>00</ADD_BARCODE>
+</parameters>
+</form>
