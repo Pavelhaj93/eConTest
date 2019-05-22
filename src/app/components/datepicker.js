@@ -20,28 +20,31 @@ export default function DateInput(container) {
     }
 
     /* For mobile device display native datepicker, otherwise datepicker component */
-    if (isMobileDevice()) {
-        const dateInput = container.clone();
-        const id = container.attr('id');
-        const name = container.attr('name');
-        container.hide();
 
-        dateInput
-            .on('change', handleMobileInputChange)
-            .attr('type', 'date')
-            .attr('id', `${id}-mobile`)
-            .attr('name', `${name}-mobile`)
-            .insertAfter(container);
+    // Disable the functionality due client's request. Keep it commented for the possible future.
+    //
+    // if (isMobileDevice()) {
+    //     const dateInput = container.clone();
+    //     const id = container.attr('id');
+    //     const name = container.attr('name');
+    //     container.hide();
 
-        container.parent().find('.ui-datepicker-trigger').hide();
+    //     dateInput
+    //         .on('change', handleMobileInputChange)
+    //         .attr('type', 'date')
+    //         .attr('id', `${id}-mobile`)
+    //         .attr('name', `${name}-mobile`)
+    //         .insertAfter(container);
 
-        /* Placeholder workaround for input type date */
-        dateInput.on('input', function(){
-            dateInput.toggleClass(`${datePickerFullClass}`, dateInput.val().length > 0);
-        });
+    //     container.parent().find('.ui-datepicker-trigger').hide();
 
-        return;
-    }
+    //     /* Placeholder workaround for input type date */
+    //     dateInput.on('input', function(){
+    //         dateInput.toggleClass(`${datePickerFullClass}`, dateInput.val().length > 0);
+    //     });
+
+    //     return;
+    // }
 
     /* Initiate on the intput's container for proper absolute/relative relation */
     container.datepicker({

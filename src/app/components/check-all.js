@@ -14,7 +14,7 @@ export default function CheckAll(container) {
         checkboxes.map((i, checkbox) => {
             checkbox.checked = !link.classList.contains('checked');
         });
-        
+
         /* Toggle the checked state */
         link.classList.toggle('checked');
 
