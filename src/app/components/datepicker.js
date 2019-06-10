@@ -5,6 +5,12 @@ const datePickerFullClass = 'full';
 
 export default function DateInput(container) {
     container = $(container);
+    let isActive = false;
+
+    // Bug: jQuery datepicker not hiding on iOS when clicked outside
+    // Fix: Add a dummy click listener to catch the click event
+    // https://stackoverflow.com/questions/28006056/jquery-datepicker-not-hiding-on-ios-when-clicked-on-background
+    document.querySelector('.main').addEventListener('click', () => {});
 
     function handleMobileInputChange(e) {
         const { value } = e.target;
