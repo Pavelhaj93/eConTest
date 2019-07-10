@@ -1360,7 +1360,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 };
 
 },{"./_an-instance":8,"./_export":35,"./_fails":37,"./_for-of":41,"./_global":43,"./_inherit-if-required":48,"./_is-object":54,"./_iter-detect":59,"./_meta":68,"./_redefine":94,"./_redefine-all":93,"./_set-to-string-tag":103}],25:[function(require,module,exports){
-var core = module.exports = { version: '2.6.8' };
+var core = module.exports = { version: '2.6.9' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 },{}],26:[function(require,module,exports){
@@ -9642,7 +9642,7 @@ exports.encode = exports.stringify = require('./encode');
 "use strict";function Copyright(e){var t=2016,r=[t],o=new Date,i=o.getFullYear();i>t&&r.push(i),e.innerHTML=r.join(" - ")}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=Copyright;
 
 },{}],343:[function(require,module,exports){
-"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function DateInput(e){e=$(e);document.querySelector(".main").addEventListener("click",function(){}),e.datepicker({language:"cs",format:"dd. mm. yyyy",endDate:"-1d",maxViewMode:2,autoclose:!0,orientation:"bottom right"}),$(".datepicker-dropdown").appendTo(e.parent("div"));var t=$(".ui-datepicker-trigger");t.on("click",function(t){t.preventDefault(),e.datepicker("show")})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=DateInput;var _isMobileDevice=require("../helpers/is-mobile-device"),_isMobileDevice2=_interopRequireDefault(_isMobileDevice),addLeadingZero=function(e){return("0"+e).slice(-2)},datePickerFullClass="full";
+"use strict";function _interopRequireDefault(e){return e&&e.__esModule?e:{"default":e}}function DateInput(e){e=$(e);document.querySelector(".main").addEventListener("click",function(){});var i={language:"cs",format:"dd. mm. yyyy",endDate:"-1d",maxViewMode:2,autoclose:!0,orientation:"bottom right"};(0,_isMobileDevice2["default"])()&&(i.showOnFocus=!1),e.datepicker(i),$(".datepicker-dropdown").appendTo(e.parent("div"));var t=$(".ui-datepicker-trigger");t.on("click",function(i){i.preventDefault(),e.datepicker("show")})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=DateInput;var _isMobileDevice=require("../helpers/is-mobile-device"),_isMobileDevice2=_interopRequireDefault(_isMobileDevice),addLeadingZero=function(e){return("0"+e).slice(-2)},datePickerFullClass="full";
 
 },{"../helpers/is-mobile-device":349}],344:[function(require,module,exports){
 "use strict";function printDocumentsList(e,n,t){!(e instanceof jQuery)&&(e=$(e));var a=t.checked||!1,l=t.disabled||!1;console.log(t.agreed,a,l),n.map(function(n,i){var o=i+1,c=n.label,d=n.title,r=n.id,s=["<li>",!t.agreed&&'\n            <input\n                id="document-'+o+'"\n                type="checkbox"\n                name="documents"\n                value="'+r+'"\n                '+(a&&"checked")+"\n                "+(l&&"disabled")+'\n                autocomplete="off">','<label for="document-'+o+'">',!t.agreed&&c+" ",'<a class="pdf" href="#" data-key="'+o+'" title="'+d+'">'+d+"</a>","</label>","</li>"].filter(Boolean).join("");0==i?e.prepend(s):e.append(s);var u=e.children("li:last-of-type").find("a");u.on("click",function(e){handleClick(e,o)})})}Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=printDocumentsList;
