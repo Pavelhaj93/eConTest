@@ -12,22 +12,23 @@ export default function DateInput(container) {
     // https://stackoverflow.com/questions/28006056/jquery-datepicker-not-hiding-on-ios-when-clicked-on-background
     document.querySelector('.main').addEventListener('click', () => {});
 
-    function handleMobileInputChange(e) {
-        const { value } = e.target;
-        if (!value) return;
-
-        const date = value.split('-');
-        const day = date[2];
-        const month = date[1];
-        const year = date[0];
-        const finalDate = `${day}. ${month}. ${year}`;
-
-        container.val(finalDate);
-    }
-
     /* For mobile device display native datepicker, otherwise datepicker component */
 
     // Disable the functionality due client's request. Keep it commented for the possible future.
+
+    // function handleMobileInputChange(e) {
+    //     const { value } = e.target;
+    //     if (!value) return;
+
+    //     const date = value.split('-');
+    //     const day = date[2];
+    //     const month = date[1];
+    //     const year = date[0];
+    //     const finalDate = `${day}. ${month}. ${year}`;
+
+    //     container.val(finalDate);
+    // }
+
     //
     // if (isMobileDevice()) {
     //     const dateInput = container.clone();
@@ -52,15 +53,22 @@ export default function DateInput(container) {
     //     return;
     // }
 
-    /* Initiate on the intput's container for proper absolute/relative relation */
-    container.datepicker({
+    /* Default options for datepicker component */
+    const datepickerOptions = {
         language: 'cs',
         format: 'dd. mm. yyyy',
         endDate: '-1d',
         maxViewMode: 2,
         autoclose: true,
-        orientation: 'bottom right'
-    });
+        orientation: 'bottom right',
+    };
+
+    if (isMobileDevice()) {
+        datepickerOptions.showOnFocus = false;
+    }
+
+    /* Initiate on the intput's container for proper absolute/relative relation */
+    container.datepicker(datepickerOptions);
 
     /* Manually append calendar component to the input's container */
     $('.datepicker-dropdown').appendTo(container.parent('div'));
