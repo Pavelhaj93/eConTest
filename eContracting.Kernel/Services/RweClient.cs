@@ -424,11 +424,22 @@ namespace eContracting.Kernel.Services
             doc.LoadXml(sourceXml.Text);
 
             var parameters = doc.DocumentElement.SelectSingleNode("parameters").ChildNodes;
+
             if (parameters == null)
+            {
                 return result;
+            }
+
             foreach (XmlNode param in parameters)
             {
-                result.Add(param.Name, param.InnerXml);
+                if (result.ContainsKey(param.Name))
+                {
+                    Log.Error("XML contains duplicate node '<parameters><" + param.Name + ">'. Already indexed value: '" + result[param.Name] + "', current value: '" + param.InnerXml + "'", this);
+                }
+                else
+                {
+                    result.Add(param.Name, param.InnerXml);
+                }
             }
 
             return result;
