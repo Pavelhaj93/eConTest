@@ -59,8 +59,8 @@ namespace eContracting.Kernel.Helpers
 
 
             IEnumerable<XmlText> text = client.GetTextsXml(data.Identifier);
-            XmlText letterXml = client.GetLetterXml(text);
-            Dictionary<string, string> parameters = client.GetAllAtrributes(letterXml);
+            //XmlText letterXml = client.GetLetterXml(text);
+            Dictionary<string, string> parameters = client.GetAllAttributes(text);
 
             try
             {

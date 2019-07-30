@@ -412,12 +412,44 @@ namespace eContracting.Kernel.Services
             return texts.FirstOrDefault();
         }
 
+        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+
+            foreach (XmlText source in sources)
+            {
+                if (source.Attributes.ContainsKey("TEMPLATE"))
+                {
+                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD")
+                    {
+                        //Log.Debug("File used to get paramaters: " + source.NA)
+                        var parameters = this.GetAllAttributes(source);
+
+                        foreach (var param in parameters)
+                        {
+                            if (result.ContainsKey(param.Key))
+                            {
+                                Log.Debug("Overwriting parameter '" + param.Key + "' with value '" + result[param.Key] + "' to new value '" + param.Value + "'", this);
+                                result[param.Key] = param.Value;
+                            }
+                            else
+                            {
+                                result.Add(param.Key, param.Value);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Gets all attribtues for xml document.
         /// </summary>
         /// <param name="sourceXml"></param>
         /// <returns></returns>
-        public Dictionary<string, string> GetAllAtrributes(XmlText sourceXml)
+        public Dictionary<string, string> GetAllAttributes(XmlText sourceXml)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
             XmlDocument doc = new XmlDocument();
@@ -463,10 +495,19 @@ namespace eContracting.Kernel.Services
                 foreach (var f in result.ET_FILES)
                 {
                     Log.Debug("NABIDKA_XML response (" + guid + "): Contains ST_FILE - " + f.FILENAME);
-
                     XmlText tempItem = new XmlText();
+                    tempItem.Name = f.FILENAME;
                     tempItem.Index = (++index).ToString();
                     tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
+
+                    if (f.ATTRIB != null)
+                    {
+                        foreach (var attr in f.ATTRIB)
+                        {
+                            tempItem.Attributes.Add(attr.ATTRID, attr.ATTRVAL);
+                        }
+                    }
+
                     fileResults.Add(tempItem);
                 }
             }
