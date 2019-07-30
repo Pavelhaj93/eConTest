@@ -462,11 +462,17 @@ namespace eContracting.Kernel.Services
 
                 foreach (var f in result.ET_FILES)
                 {
+                    Log.Debug("NABIDKA_XML response (" + guid + "): Contains ST_FILE - " + f.FILENAME);
+
                     XmlText tempItem = new XmlText();
                     tempItem.Index = (++index).ToString();
                     tempItem.Text = Encoding.UTF8.GetString(f.FILECONTENT);
                     fileResults.Add(tempItem);
                 }
+            }
+            else
+            {
+                Log.Debug("NABIDKA_XML response (" + guid + "): No files (ET_FILES) found");
             }
 
             return fileResults;
