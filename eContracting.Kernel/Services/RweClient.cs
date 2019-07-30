@@ -458,7 +458,6 @@ namespace eContracting.Kernel.Services
 
             if (result.ThereAreFiles())
             {
-
                 int index = 0;
 
                 foreach (var f in result.ET_FILES)

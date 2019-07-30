@@ -9,6 +9,9 @@ namespace eContracting.Kernel.Helpers
     using Sitecore.Configuration;
     using eContracting.Kernel.Utils;
     using eContracting.Kernel.Services;
+    using System.Collections.Generic;
+    using Sitecore.Diagnostics;
+    using System.Text;
 
     public static class SystemHelpers
     {
@@ -55,14 +58,30 @@ namespace eContracting.Kernel.Helpers
             }
 
 
-            var text = client.GetTextsXml(data.Identifier);
-            var letterXml = client.GetLetterXml(text);
-            var parameters = client.GetAllAtrributes(letterXml);
+            IEnumerable<XmlText> text = client.GetTextsXml(data.Identifier);
+            XmlText letterXml = client.GetLetterXml(text);
+            Dictionary<string, string> parameters = client.GetAllAtrributes(letterXml);
+
+            try
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                stringBuilder.AppendLine("Retrieved parameters for '" + data.Identifier + "':");
+                stringBuilder.AppendLine("-----------------------------------------------------");
+                stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
+                stringBuilder.AppendLine("-----------------------------------------------------");
+                Log.Info(stringBuilder.ToString(), typeof(SystemHelpers));
+            }
+            catch (Exception ex)
+            {
+                Log.Warn("Cannot serialize parameters", ex, typeof(SystemHelpers));
+            }
+
             foreach (var item in parameters)
             {
                 //mainRawText = mainRawText.Replace("{" + item.Key + "}", item.Value);
                 mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
             }
+
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
 
             return mainRawText;
