@@ -72,7 +72,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
 
-                return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
+                return View("/Areas/eContracting/Views/Welcome.cshtml", dataModel);
             }
             catch (Exception ex)
             {

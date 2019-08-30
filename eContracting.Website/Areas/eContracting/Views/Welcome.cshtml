@@ -1,0 +1,63 @@
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Kernel.Models
+@model AuthenticationModel
+
+<script>
+    $().ready(function() {
+        CheckGDPR();
+    });
+
+    function CheckGDPR() {
+        var url = "@Html.Raw(ViewData["GDPRUrl"])";
+
+        if (url) {
+            window.open(url);
+        }
+    }
+</script>
+
+@using (Html.BeginForm())
+{
+<div class="row">
+    @Html.AntiForgeryToken()
+    <div class="col-md-8 col-md-offset-2">
+        <div class="info">
+            @Html.Raw(ViewData["MainText"])
+            <div id="authentication" class="form">
+                <div class="status"></div>
+                <div class="row">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="input-group">
+                            <label for="birth">
+                                @Html.Raw(ViewData["FirstText"])
+                            </label>
+                            @Html.TextBoxFor(model => model.BirthDate, new { id = "birth", name = "birth", @class = "input-date", autocomplete = "off", required = "1", placeholder = ViewData["BirthDatePlaceholder"] })
+                            <a class="ui-datepicker-trigger" href="" tabindex="-1">
+                                <svg class="icon" preserveAspectRatio="none">
+                                    <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#calendar" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="input-group">
+                            <label for="additional">
+                                @Html.Raw(ViewData["SecondText"])
+                            </label>
+                            @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
+                        </div>
+                        @Html.HiddenFor(m => m.ItemValue)
+                    </div>
+                </div>
+                <input type="submit" class="button button-submit" id="mainBtn" value="@ViewData["ButtonText"]" />
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<script>
+		var messages = {
+			requiredFields: ['@Html.Raw(ViewData["RequiredFields"])'],
+			validationError: ['@Html.Raw(ViewData["ValidationMessage"])']
+		};
+</script>
