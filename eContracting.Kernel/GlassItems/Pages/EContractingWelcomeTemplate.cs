@@ -8,8 +8,8 @@ namespace eContracting.Kernel.GlassItems.Pages
     using Glass.Mapper.Sc.Configuration.Attributes;
     using Glass.Mapper.Sc.Fields;
 
-    [SitecoreType(TemplateId = "{0EEAE94D-0018-40C8-A537-5B67349985CD}", AutoMap = true)]
-    public class EContractingAuthenticationTemplate : EContractingTemplate
+    [SitecoreType(TemplateId = "{FE43834B-E938-4CA5-9ABB-283149FD26D3}", AutoMap = true)]
+    public class EContractingWelcomeTemplate : EContractingTemplate
     {
         [SitecoreField]
         public virtual string DateOfBirth { get; set; }
@@ -26,14 +26,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         [SitecoreField]
         public virtual string NotAcceptedOfferText { get; set; }
 
+
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link NextPageLink { get; set; }
-
-        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
-        public virtual Link WelcomePageLink { get; set; }
-
-        [SitecoreField]
-        public virtual bool WelcomePageEnabled { get; set; }
 
         [SitecoreField]
         public virtual string DateOfBirthPlaceholder { get; set; }

@@ -124,6 +124,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="GlassItems\Content\Modal_window\MW01DataSource.cs" />
+    <Compile Include="GlassItems\Pages\EContractingWelcomeTemplate.cs" />
     <Compile Include="GlassItems\RenderingParameters\Modal_window\MW01RenderingParameters.cs" />
     <Compile Include="Helpers\ConfigHelpers.cs" />
     <Compile Include="Helpers\PageLinkType.cs" />
