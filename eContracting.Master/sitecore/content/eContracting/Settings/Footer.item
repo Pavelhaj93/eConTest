@@ -8,18 +8,19 @@ name: Footer
 master: {00000000-0000-0000-0000-000000000000}
 template: {5B8D2056-B177-4288-9B89-5E1DF3221197}
 templatekey: FooterSettings
+created: 20161011T091218Z
 
 ----field----
 field: {A71D5366-770E-4C1D-8C4F-81697F965263}
 name: DisclaimerLink
 key: disclaimerlink
-content-length: 145
+content-length: 165
 
-<link text="Ochrana osobních údajů" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
+<link text="Pravidla užití webu a ochrana osobních údajů" linktype="external" url="https://www.innogy.cz/sluzby/ochrana-osobnich-udaju/" anchor="" target="_blank" />
 ----version----
 language: cs
 version: 1
-revision: 176eb49c-0133-4f95-86f6-ab3ccd3ca7eb
+revision: 6f389a01-8fbf-4fdf-898e-f75cee212899
 
 ----field----
 field: {E5FFCAE6-D61A-4D75-9A7D-C19A0DB9D244}
@@ -27,7 +28,7 @@ name: CopyrightText
 key: copyrighttext
 content-length: 39
 
-© 2016 Innogy. Všechna práva vyhrazena.
+© 2017 Innogy. Všechna práva vyhrazena.
 ----field----
 field: {B13D9B63-D937-432D-A3BD-0664A3DD4917}
 name: EmailText
@@ -83,18 +84,18 @@ name: __Revision
 key: __revision
 content-length: 36
 
-176eb49c-0133-4f95-86f6-ab3ccd3ca7eb
+6f389a01-8fbf-4fdf-898e-f75cee212899
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161027T064826Z
+20170904T124903Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
 key: __updated by
-content-length: 14
+content-length: 18
 
-sitecore\admin
+sitecore\rwe_admin

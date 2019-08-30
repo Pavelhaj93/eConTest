@@ -8,18 +8,19 @@ name: Header
 master: {00000000-0000-0000-0000-000000000000}
 template: {1913027B-30FC-4380-B717-119E3007E027}
 templatekey: HeaderSettings
+created: 20161011T091225Z
 
 ----field----
 field: {5C2FB071-4234-4670-82DD-524FB9D6A580}
 name: ImageLink
 key: imagelink
-content-length: 92
+content-length: 96
 
-<link text="microsoft" linktype="external" url="http://microsoft.com" anchor="" target="" />
+<link text="innogy" linktype="external" url="http://www.innogy.cz/" anchor="" target="_blank" />
 ----version----
 language: cs
 version: 1
-revision: 52c6bd77-64da-4c23-a6ca-5602fe4f43d0
+revision: dd6f495c-f005-4ee5-8d7f-370816f1a58d
 
 ----field----
 field: {E4A5EEC5-0CA4-416C-AEE9-B50CA395D29E}
@@ -62,18 +63,18 @@ name: __Revision
 key: __revision
 content-length: 36
 
-52c6bd77-64da-4c23-a6ca-5602fe4f43d0
+dd6f495c-f005-4ee5-8d7f-370816f1a58d
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161011T091233Z
+20170125T105448Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
 key: __updated by
-content-length: 14
+content-length: 18
 
-sitecore\admin
+sitecore\rwe_admin

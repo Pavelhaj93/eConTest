@@ -8,18 +8,19 @@ name: CookieLaw
 master: {00000000-0000-0000-0000-000000000000}
 template: {725B637D-FA68-4FC4-BA8E-1BCAF62A78DB}
 templatekey: CookieLawSettings
+created: 20161010T094204Z
 
 ----field----
 field: {C3834DA7-E36F-48D6-841E-340DF6E83867}
 name: Link
 key: link
-content-length: 111
+content-length: 145
 
-<link text="Ochrana osobních údajů" linktype="external" url="http://microsoft.com" anchor="" target="_blank" />
+<link text="Ochrana osobních údajů" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
 ----version----
 language: cs
 version: 1
-revision: 73f03dd5-d7d4-4f4c-bdac-a67947f44f91
+revision: 32dcb500-4bfc-42b0-a483-8c939a846125
 
 ----field----
 field: {C80A47F5-E2C7-4ED9-BA80-D8C33D13D8A7}
@@ -62,18 +63,18 @@ name: __Revision
 key: __revision
 content-length: 36
 
-73f03dd5-d7d4-4f4c-bdac-a67947f44f91
+32dcb500-4bfc-42b0-a483-8c939a846125
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20161010T151001Z
+20170125T094920Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
 key: __updated by
-content-length: 14
+content-length: 18
 
-sitecore\admin
+sitecore\rwe_admin
