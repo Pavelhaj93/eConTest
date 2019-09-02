@@ -1,4 +1,4 @@
-﻿// <copyright file="PageLinkType.cs" company="Actum">
+// <copyright file="PageLinkType.cs" company="Actum">
 // Copyright © 2016 Respective owners
 // </copyright>
 
@@ -42,6 +42,11 @@ namespace eContracting.Kernel.Helpers
         /// <summary>
         /// System error link.
         /// </summary>
-        SystemError
+        SystemError,
+
+        /// <summary>
+        /// Welcome page.
+        /// </summary>
+        Welcome
     }
 }

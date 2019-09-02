@@ -1,14 +1,14 @@
 ----item----
 version: 1
-id: {E5779EAC-157A-4A6C-8A22-55DA0BC8B170}
+id: {89FF4DDE-5B2D-4725-A4B1-B2BD272167C5}
 database: master
-path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/WelcomePageSection/WelcomePageLink
-parent: {DC730406-058C-4D6E-B231-E5F4C0D40CEC}
-name: WelcomePageLink
+path: /sitecore/templates/eContracting/Resources/GeneralSettings/Links/Welcome
+parent: {9BACE174-D16A-4A15-BEAC-0B986C159332}
+name: Welcome
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
-created: 20190830T123852Z
+created: 20190902T093309Z
 
 ----field----
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
@@ -30,11 +30,11 @@ name: __Sortorder
 key: __sortorder
 content-length: 3
 
-200
+400
 ----version----
 language: en
 version: 1
-revision: c1d36fa8-d6c2-48dc-9961-afbe7ccf10d1
+revision: e45219c8-2f33-4740-afed-b98bb394bebc
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -42,21 +42,21 @@ name: __Created
 key: __created
 content-length: 16
 
-20190830T123852Z
+20190902T093309Z
 ----field----
 field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
 name: __Revision
 key: __revision
 content-length: 36
 
-c1d36fa8-d6c2-48dc-9961-afbe7ccf10d1
+e45219c8-2f33-4740-afed-b98bb394bebc
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190830T124244Z
+20190902T093309Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

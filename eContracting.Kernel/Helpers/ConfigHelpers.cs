@@ -26,14 +26,14 @@ namespace eContracting.Kernel.Helpers
             {
                 if (context == null)
                 {
-                    Log.Error("Error when getting sitecore context in GetGeneralSettings()",Type.DefaultBinder);
+                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", Type.DefaultBinder);
                     return null;
                 }
 
                 var generalSetttings = context.GetItem<GeneralSettings>(ItemPaths.GeneralSettings);
                 if (generalSetttings == null)
                 {
-                    Log.Error("Error when getting general sitecore settings for eContracting",Type.DefaultBinder);
+                    Log.Error("Error when getting general sitecore settings for eContracting", Type.DefaultBinder);
                     return null;
                 }
 
@@ -70,6 +70,8 @@ namespace eContracting.Kernel.Helpers
                     return generalSettings.ThankYou;
                 case PageLinkType.SystemError:
                     return generalSettings.SystemError;
+                case PageLinkType.Welcome:
+                    return generalSettings.Welcome;
                 default:
                     throw new InvalidOperationException("Invalid page type.");
             }

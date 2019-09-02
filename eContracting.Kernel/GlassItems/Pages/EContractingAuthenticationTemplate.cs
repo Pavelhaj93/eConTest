@@ -29,9 +29,6 @@ namespace eContracting.Kernel.GlassItems.Pages
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link NextPageLink { get; set; }
 
-        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
-        public virtual Link WelcomePageLink { get; set; }
-
         [SitecoreField]
         public virtual bool WelcomePageEnabled { get; set; }
 

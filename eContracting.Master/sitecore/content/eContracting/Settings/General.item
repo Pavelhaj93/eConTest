@@ -8,7 +8,7 @@ name: General
 master: {00000000-0000-0000-0000-000000000000}
 template: {0D513A12-13CC-48F1-BD97-58109010109A}
 templatekey: GeneralSettings
-created: 20181010T083534Z
+created: 20161011T091222Z
 
 ----field----
 field: {19EE32EA-C02F-4FD7-B932-F3CB5E4732BB}
@@ -59,6 +59,13 @@ key: systemerror
 content-length: 123
 
 <link text="" linktype="internal" class="" title="" target="" querystring="" id="{2AFF6469-1F2E-4525-8F85-B638DFB60DF6}" />
+----field----
+field: {89FF4DDE-5B2D-4725-A4B1-B2BD272167C5}
+name: Welcome
+key: welcome
+content-length: 133
+
+<link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{121F7848-7A1D-49D1-BFFE-6145CDD15281}" />
 ----version----
 language: cs
 version: 1
@@ -165,7 +172,7 @@ sitecore\admin
 ----version----
 language: en
 version: 1
-revision: 12dcadf7-a1fb-4c5c-90ed-0b893f3a8a48
+revision: e2c17e06-4df2-4f97-b30e-22a14f917d01
 
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
@@ -194,14 +201,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-12dcadf7-a1fb-4c5c-90ed-0b893f3a8a48
+e2c17e06-4df2-4f97-b30e-22a14f917d01
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20181010T110023Z
+20190902T093331Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
