@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -28,17 +27,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                FillViewData();
-
-                var dataModel = new AuthenticationModel();
-
-                RweClient client = new RweClient();
                 var guid = Request.QueryString["guid"];
 
-                var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                 if (string.IsNullOrEmpty(guid))
                 {
-                    return Redirect(redirectUrl);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (this.CheckWhetherUserIsBlocked(guid))
@@ -46,10 +39,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
+                RweClient client = new RweClient();
                 var offer = client.GenerateXml(guid);
+
                 if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
-                    return Redirect(redirectUrl);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
@@ -60,19 +55,28 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
+                if (this.DataSource.WelcomePageEnabled && authenticationData.IsAccepted)
+                {
+                    var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
+                    return Redirect(welcomeRedirectUrl);
+                }
+
+                var dataModel = new AuthenticationModel();
                 dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
                 string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
                 string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText);
+
                 if (maintext == null)
                 {
-                    return Redirect(redirectUrl);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                ViewData["MainText"] = maintext;
+                FillViewData();
 
+                ViewData["MainText"] = maintext;
                 ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
-                
+
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
             catch (Exception ex)
@@ -174,27 +178,27 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 //    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 //else
                 //{
-                    if (!ModelState.IsValid)
-                    {
-                        return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
-                    }
-                    //NumberOfLogons.Remove(authenticationData.Identifier);
-                    var aut = new AuthenticationDataSessionStorage();
-                    aut.Login(authenticationData);
+                if (!ModelState.IsValid)
+                {
+                    return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
+                }
+                //NumberOfLogons.Remove(authenticationData.Identifier);
+                var aut = new AuthenticationDataSessionStorage();
+                aut.Login(authenticationData);
 
-                    if (authenticationData.IsAccepted)
-                    {
-                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
-                        return Redirect(redirectUrl);
-                    }
+                if (authenticationData.IsAccepted)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
+                    return Redirect(redirectUrl);
+                }
 
-                    if (authenticationData.OfferIsExpired)
-                    {
-                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
-                        return Redirect(redirectUrl);
-                    }
+                if (authenticationData.OfferIsExpired)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
+                    return Redirect(redirectUrl);
+                }
 
-                    return Redirect(Context.NextPageLink.Url);
+                return Redirect(Context.NextPageLink.Url);
                 //}
             }
             catch (Exception ex)
