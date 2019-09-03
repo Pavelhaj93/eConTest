@@ -151,6 +151,7 @@
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
     <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Models\AcceptedOffer.cs" />
+    <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\DocumentPanelModel.cs" />
     <Compile Include="Models\LayoutModel.cs" />
