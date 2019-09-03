@@ -55,7 +55,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
-                if (this.DataSource.WelcomePageEnabled && authenticationData.IsAccepted)
+                if (this.Context.WelcomePageEnabled && !authenticationData.IsAccepted)
                 {
                     var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                     return Redirect(welcomeRedirectUrl);

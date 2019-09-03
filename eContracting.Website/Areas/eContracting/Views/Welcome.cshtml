@@ -1,7 +1,15 @@
-@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Kernel.Models
 @model WelcomeModel
 
-<div class="row">
-</div>
+@using (Html.BeginForm("WelcomeSubmit", "Welcome", new { guid= Model.Guid }))
+{
+    <div class="row">
+        @Html.AntiForgeryToken()
+        <div class="col-md-8 col-md-offset-2">
+            <div class="info">
+                @Html.Sitecore().Placeholder("eContractingWelcomePH")
+            </div>
+            <input type="submit" class="button button-submit" id="mainBtn" value="Blbeèek" />
+        </div>
+    </div>
+}

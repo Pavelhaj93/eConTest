@@ -163,6 +163,7 @@
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\RichTextController.cs" />
     <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
     <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
@@ -331,6 +332,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\eContracting\Views\Welcome.cshtml" />
+    <Content Include="Areas\eContracting\Views\Content\RichText.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\File system package.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />

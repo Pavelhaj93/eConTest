@@ -1,0 +1,59 @@
+----item----
+version: 1
+id: {2C8EF141-B047-437C-B3DB-B44B208E3ACA}
+database: master
+path: /sitecore/templates/eContracting/Resources/RichTextContainer/__Standard Values
+parent: {74BA662D-7BC4-483E-9B06-BD91FE61DF9E}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {74BA662D-7BC4-483E-9B06-BD91FE61DF9E}
+templatekey: RichTextContainer
+created: 20190903T135118Z
+
+----field----
+field: {1172F251-DAD4-4EFB-A329-0C63500E4F1E}
+name: __Masters
+key: __masters
+content-length: 38
+
+{C7134F38-1CD2-4BF8-A756-C4374A2493B6}
+----version----
+language: en
+version: 1
+revision: e5a0d7e8-0778-4c97-946d-d1e8f2ebdeb9
+
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20190903T135118Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+e5a0d7e8-0778-4c97-946d-d1e8f2ebdeb9
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20190903T135146Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
