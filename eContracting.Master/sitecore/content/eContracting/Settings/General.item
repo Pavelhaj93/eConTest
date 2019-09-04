@@ -66,10 +66,17 @@ key: welcome
 content-length: 133
 
 <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{121F7848-7A1D-49D1-BFFE-6145CDD15281}" />
+----field----
+field: {44F488B5-AF11-43FC-8831-ADD7532C8C1B}
+name: Login
+key: login
+content-length: 133
+
+<link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{078C32B5-BD6C-455B-9308-C56FC9F1A1C2}" />
 ----version----
 language: cs
 version: 1
-revision: 3a181381-d50b-4198-a22b-40581c4de979
+revision: 22ee0d42-326b-4f9b-92c4-68f85c2b34e8
 
 ----field----
 field: {F6510992-4FBF-4EC7-95F9-A8D0EBD04582}
@@ -154,14 +161,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-3a181381-d50b-4198-a22b-40581c4de979
+22ee0d42-326b-4f9b-92c4-68f85c2b34e8
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20181010T110408Z
+20190904T123012Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

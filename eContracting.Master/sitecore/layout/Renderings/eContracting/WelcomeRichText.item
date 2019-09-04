@@ -2,9 +2,9 @@
 version: 1
 id: {52DCA5B9-7364-4431-AD0C-DE887759CBFF}
 database: master
-path: /sitecore/layout/Renderings/eContracting/RichText
+path: /sitecore/layout/Renderings/eContracting/WelcomeRichText
 parent: {29D7AA96-3D51-4D2C-9ECD-F52D9EE361F2}
-name: RichText
+name: WelcomeRichText
 master: {00000000-0000-0000-0000-000000000000}
 template: {2A3E91A0-7987-44B5-AB34-35C2D9DE83B9}
 templatekey: Controller rendering
@@ -14,9 +14,9 @@ created: 20190903T132248Z
 field: {E64AD073-DFCC-4D20-8C0B-FE5AA6226CD7}
 name: Controller
 key: controller
-content-length: 92
+content-length: 99
 
-eContracting.Website.Areas.eContracting.Controllers.RichTextController, eContracting.Website
+eContracting.Website.Areas.eContracting.Controllers.WelcomeRichTextController, eContracting.Website
 ----field----
 field: {DED9E431-3604-4921-A4B3-A6EC7636A5B6}
 name: Controller Action
@@ -28,20 +28,20 @@ RichText
 field: {B5B27AF1-25EF-405C-87CE-369B3A004016}
 name: Datasource Location
 key: datasource location
-content-length: 45
+content-length: 52
 
-/sitecore/content/eContracting/Data/RichTexts
+/sitecore/content/eContracting/Data/WelcomeRichTexts
 ----field----
 field: {1A7C85E5-DC0B-490D-9187-BB1DBCB4C72F}
 name: Datasource Template
 key: datasource template
-content-length: 59
+content-length: 66
 
-/sitecore/templates/eContracting/Content/RichTextDatasource
+/sitecore/templates/eContracting/Content/WelcomeRichTextDatasource
 ----version----
 language: en
 version: 1
-revision: ab111737-8507-4531-b3d6-1e1d2aecd261
+revision: b08b48d5-5ae0-4d60-b9c5-24845ed2cbec
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -56,14 +56,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-ab111737-8507-4531-b3d6-1e1d2aecd261
+b08b48d5-5ae0-4d60-b9c5-24845ed2cbec
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190903T135359Z
+20190904T100807Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

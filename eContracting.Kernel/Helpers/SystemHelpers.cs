@@ -5,13 +5,13 @@
 namespace eContracting.Kernel.Helpers
 {
     using System;
-    using System.Linq;
-    using Sitecore.Configuration;
-    using eContracting.Kernel.Utils;
-    using eContracting.Kernel.Services;
     using System.Collections.Generic;
-    using Sitecore.Diagnostics;
+    using System.Linq;
     using System.Text;
+    using eContracting.Kernel.Services;
+    using eContracting.Kernel.Utils;
+    using Sitecore.Configuration;
+    using Sitecore.Diagnostics;
 
     public static class SystemHelpers
     {
@@ -43,24 +43,48 @@ namespace eContracting.Kernel.Helpers
         }
 
         /// <summary>
+        /// Gets a collection of parameters which can be used for string replacmement.
+        /// </summary>
+        /// <returns>Collection of parameters.</returns>
+        public static IDictionary<string, string> GetParameters(string guid)
+        {
+            var client = new RweClient();
+            var text = client.GetTextsXml(guid);
+            var parameters = client.GetAllAttributes(text);
+
+            return parameters;
+        }
+
+        /// <summary>
+        /// Replaces offer parameters in text.
+        /// </summary>
+        /// <param name="textToBeProcessed">Text to be processed.</param>
+        /// <param name="parameters">Parameters to be used as values.</param>
+        /// <returns>Replaced text.</returns>
+        public static string ReplaceParameters(string textToBeProcessed, IDictionary<string, string> parameters)
+        {
+            foreach (var item in parameters)
+            {
+                textToBeProcessed = textToBeProcessed.Replace(string.Format("{{{0}}}", item.Key), item.Value);
+            }
+
+            return textToBeProcessed;
+        }
+
+        /// <summary>
         /// Generates the main text.
         /// </summary>
         /// <param name="data">Authentication data.</param>
         /// <param name="mainRawText">Raw text to modify.</param>
         /// <returns>Returns modified text.</returns>
-        public static string GenerateMainText(AuthenticationDataItem data,string mainRawText)
+        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText)
         {
-            RweClient client = new RweClient();
-
             if (string.IsNullOrEmpty(data.DateOfBirth))
             {
                 return null;
             }
 
-
-            IEnumerable<XmlText> text = client.GetTextsXml(data.Identifier);
-            //XmlText letterXml = client.GetLetterXml(text);
-            Dictionary<string, string> parameters = client.GetAllAttributes(text);
+            var parameters = GetParameters(data.Identifier);
 
             try
             {
@@ -76,12 +100,9 @@ namespace eContracting.Kernel.Helpers
                 Log.Warn("Cannot serialize parameters", ex, typeof(SystemHelpers));
             }
 
-            foreach (var item in parameters)
-            {
-                //mainRawText = mainRawText.Replace("{" + item.Key + "}", item.Value);
-                mainRawText = mainRawText.Replace(string.Format("{{{0}}}", item.Key), item.Value);
-            }
+            mainRawText = ReplaceParameters(mainRawText, parameters);
 
+            // some specific
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
 
             return mainRawText;

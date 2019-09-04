@@ -18,6 +18,67 @@ content-length: 272
 
 <r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><r ds="" id="{C136FE53-4515-4435-A089-A1147FF3B30C}" par="" ph="eContracting" uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" /></d></r>
 ----version----
+language: cs
+version: 1
+revision: d66016ee-bdce-4e97-8f90-10f9016bf3f3
+
+----field----
+field: {8EDDE421-CC67-4ED4-A1F9-8E7FE1D91EB3}
+name: PageTitle
+key: pagetitle
+content-length: 7
+
+Nabídka
+----field----
+field: {693E5F62-E882-4E9B-AAAC-26503BEA1D5E}
+name: ButtonText
+key: buttontext
+content-length: 10
+
+Pokračovat
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20190904T083400Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+d66016ee-bdce-4e97-8f90-10f9016bf3f3
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20190904T083414Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
+----version----
 language: en
 version: 1
 revision: 5d2b0df7-f2d8-4b3c-a296-4d415ea7b6a9

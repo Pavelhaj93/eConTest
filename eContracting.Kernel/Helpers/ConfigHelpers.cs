@@ -72,6 +72,8 @@ namespace eContracting.Kernel.Helpers
                     return generalSettings.SystemError;
                 case PageLinkType.Welcome:
                     return generalSettings.Welcome;
+                case PageLinkType.Login:
+                    return generalSettings.Login;
                 default:
                     throw new InvalidOperationException("Invalid page type.");
             }

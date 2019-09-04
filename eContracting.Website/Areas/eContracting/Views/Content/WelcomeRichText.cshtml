@@ -1,0 +1,12 @@
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.Models
+@inherits GlassView<WelcomeRichTextModel>
+
+@if (Sitecore.Context.PageMode.IsNormal)
+{
+    @Html.Raw(Model.ReplacedText)
+}
+else
+{
+@Editable(model => model.Datasource.Text)
+}

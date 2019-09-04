@@ -2,9 +2,9 @@
 version: 1
 id: {C7134F38-1CD2-4BF8-A756-C4374A2493B6}
 database: master
-path: /sitecore/templates/eContracting/Content/RichTextDatasource
+path: /sitecore/templates/eContracting/Content/WelcomeRichTextDatasource
 parent: {9C9DE6CB-54B4-4F8D-A1B7-9E97BC7A76D6}
-name: RichTextDatasource
+name: WelcomeRichTextDatasource
 master: {00000000-0000-0000-0000-000000000000}
 template: {AB86861A-6030-46C5-B394-E8F99E8B87DB}
 templatekey: Template
@@ -20,7 +20,7 @@ content-length: 38
 ----version----
 language: en
 version: 1
-revision: 56e9110e-2b69-47a3-a6c9-3c0f39f9859e
+revision: 2dc81f01-483e-4066-94e7-01d8df8f885c
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -42,14 +42,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-56e9110e-2b69-47a3-a6c9-3c0f39f9859e
+2dc81f01-483e-4066-94e7-01d8df8f885c
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190903T132730Z
+20190904T100807Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

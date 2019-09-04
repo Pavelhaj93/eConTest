@@ -124,7 +124,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="GlassItems\Content\Modal_window\MW01DataSource.cs" />
-    <Compile Include="GlassItems\Content\EContractingRichTextDatasource.cs" />
+    <Compile Include="GlassItems\Content\EContractingWelcomeRichTextDatasource.cs" />
     <Compile Include="GlassItems\Pages\EContractingWelcomeTemplate.cs" />
     <Compile Include="GlassItems\RenderingParameters\Modal_window\MW01RenderingParameters.cs" />
     <Compile Include="Helpers\ConfigHelpers.cs" />
@@ -152,7 +152,7 @@
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
     <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Models\AcceptedOffer.cs" />
-    <Compile Include="Models\RichTextModel.cs" />
+    <Compile Include="Models\WelcomeRichTextModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />
     <Compile Include="Models\DocumentPanelModel.cs" />

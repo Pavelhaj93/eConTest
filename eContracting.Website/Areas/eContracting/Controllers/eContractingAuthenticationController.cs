@@ -28,6 +28,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var guid = Request.QueryString["guid"];
+                var fromWelcome = Request.QueryString["fromWelcome"];
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -47,15 +48,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
-                {
-                    client.ReadOffer(guid);
-                }
-
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
-                if (this.Context.WelcomePageEnabled && !authenticationData.IsAccepted)
+                if (this.Context.WelcomePageEnabled && !authenticationData.IsAccepted && fromWelcome != "1")
                 {
                     var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                     return Redirect(welcomeRedirectUrl);
@@ -84,30 +80,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 Log.Error("Error when authenticating user", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
-        }
-
-        /// <summary>
-        /// Checks whether user is not blocked.
-        /// </summary>
-        /// <param name="guid">GUID of offer we are checking.</param>
-        /// <returns>A value indicating whether user is blocked or not.</returns>
-        private bool CheckWhetherUserIsBlocked(string guid)
-        {
-            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
-
-            LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
-            return !loginsCheckerClient.CanLogin(guid);
-            //failureData failureData;
-            //if (this.NumberOfLogons.TryGetValue(guid, out failureData))
-            //{
-            //    TimeSpan blokingDuration = DateTime.UtcNow - failureData.LastFailureTime;
-            //    if (failureData.LoginAttemp >= 3 && blokingDuration.Minutes <= 30)
-            //    {
-            //        return true;
-            //    }
-            //}
-
-            //return false;
         }
 
         /// <summary>

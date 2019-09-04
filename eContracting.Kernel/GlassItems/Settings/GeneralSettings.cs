@@ -39,6 +39,9 @@ namespace eContracting.Kernel.GlassItems.Settings
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link Welcome { get; set; }
 
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link Login { get; set; }
+
         [SitecoreField]
         public virtual string IAmInformed { get; set; }
 

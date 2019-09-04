@@ -47,6 +47,11 @@ namespace eContracting.Kernel.Helpers
         /// <summary>
         /// Welcome page.
         /// </summary>
-        Welcome
+        Welcome,
+
+        /// <summary>
+        /// Login page.
+        /// </summary>
+        Login
     }
 }
