@@ -42,7 +42,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
-                
+
 
 
                 string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
@@ -77,7 +77,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
-        
+
         public static string AesEncrypt(string input, string key, string vector)
         {
             byte[] encrypted;
