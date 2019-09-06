@@ -13,18 +13,17 @@ namespace eContracting.Kernel.Services
     using System.Security.Authentication;
     using System.Text;
     using System.Threading;
+    using System.Web;
     using System.Xml;
     using System.Xml.Serialization;
+    using eContracting.Kernel.GlassItems;
     using eContracting.Kernel.Helpers;
     using eContracting.Kernel.Models;
     using MongoDB.Bson;
+    using MongoDB.Driver;
     using MongoDB.Driver.Builders;
     using Sitecore.Analytics.Data.DataAccess.MongoDb;
     using Sitecore.Diagnostics;
-    using MongoDB.Driver;
-    using System.Web;
-    using Rwe.Sc.AcceptanceLogger.Repositories;
-    using eContracting.Kernel.GlassItems;
 
     delegate T CallServiceMethod<T, P>(P inputParams);
 
@@ -136,7 +135,7 @@ namespace eContracting.Kernel.Services
         {
             get
             {
-                return  MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
+                return MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
             }
         }
 
@@ -173,6 +172,8 @@ namespace eContracting.Kernel.Services
 
             if (result.ThereAreFiles())
             {
+                var file = Encoding.UTF8.GetString(result.ET_FILES.First().FILECONTENT);
+
                 using (var stream = new MemoryStream(result.ET_FILES.First().FILECONTENT, false))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
@@ -207,7 +208,7 @@ namespace eContracting.Kernel.Services
                     }
 
                     offer.OfferInternal.State = result.ES_HEADER.CCHSTAT;
-                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true: offer.OfferInternal.IsAccepted;
+                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true : offer.OfferInternal.IsAccepted;
                     return offer;
                 }
             }
@@ -240,7 +241,7 @@ namespace eContracting.Kernel.Services
                 status.IV_TIMESTAMP = outValue;
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var  response = CallService(status, del);
+                var response = CallService(status, del);
                 if (response != null)
                 {
                     var responseStatus = response.ET_RETURN.First();
@@ -420,7 +421,7 @@ namespace eContracting.Kernel.Services
             {
                 if (source.Attributes.ContainsKey("TEMPLATE"))
                 {
-                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD")
+                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD" || source.Attributes["TEMPLATE"] == "AD1")
                     {
                         //Log.Debug("File used to get paramaters: " + source.NA)
                         var parameters = this.GetAllAttributes(source);
@@ -602,14 +603,14 @@ namespace eContracting.Kernel.Services
             }
         }
 
-        private T CallService<T, P>(P param, CallServiceMethod<T,P> del)
+        private T CallService<T, P>(P param, CallServiceMethod<T, P> del)
         {
             T result;
             for (int callCount = 1; callCount <= 15; callCount++)
             {
                 try
                 {
-                    result =del(param);
+                    result = del(param);
                     Log.Info("Call of web service was seccessfull", this);
                     return result;
                 }

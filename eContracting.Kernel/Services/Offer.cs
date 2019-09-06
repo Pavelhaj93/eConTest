@@ -63,7 +63,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlIgnore]
         public string GDPRKey { get; set; }
-    
+
         /// <summary>
         /// Gets or sets State.
         /// </summary>
@@ -77,6 +77,22 @@ namespace eContracting.Kernel.Services
     [Serializable()]
     public class Header
     {
+    }
+
+    [Serializable()]
+    public class Template
+    {
+        [XmlElement("IDATTACH")]
+        public string IdAttach { get; set; }
+
+        [XmlElement("DESCRIPTION")]
+        public string Description { get; set; }
+
+        [XmlElement("ADDINFO")]
+        public string AddInfo { get; set; }
+
+        [XmlElement("SIGN_REQ")]
+        public string SignReq { get; set; }
     }
 
     /// <summary>
@@ -180,6 +196,9 @@ namespace eContracting.Kernel.Services
         [XmlElement("PHONE")]
         public string PHONE { get; set; }
 
+        [XmlElement("BUS_PROCESS")]
+        public string BusProcess { get; set; }
+
         /// <summary>
         /// Gets or sets EXT_UI from SAP.
         /// </summary>
@@ -221,5 +240,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlElement("ACCOUNT_NUMBER")]
         public string ACCOUNT_NUMBER { get; set; }
+
+        public Template[] Attachments { get; set; }
     }
 }
