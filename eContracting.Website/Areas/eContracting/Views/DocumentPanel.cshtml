@@ -53,6 +53,7 @@
     var offerPageOptions = {
         doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
+        isRetention: @Model.IsRetention.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")'
     }
 

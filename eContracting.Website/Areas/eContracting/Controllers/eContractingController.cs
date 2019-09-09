@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using eContracting.Kernel;
+using eContracting.Kernel.GlassItems.Content.Modal_window;
 using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.GlassItems.Content.Modal_window;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc;
 using Sitecore.Mvc.Controllers;
 using Log = Sitecore.Diagnostics.Log;
-using Sitecore.Mvc.Presentation;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -59,10 +58,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     MW01DataSource model = new MW01DataSource();
                     model.Item = Sitecore.Context.Database.GetItem(ItemPaths.ModalWindowSettings);
-                    
+
                     var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                    model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
+                    var authenticationDataItem = authenticationDataSessionStorage.GetUserData();
+
+                    model.ClientId = authenticationDataItem.Identifier;
                     model.IsAccepted = isAccepted;
+                    model.IsRetention = authenticationDataItem.IsRetention;
 
                     var generalSettings = ConfigHelpers.GetGeneralSettings();
                     ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];

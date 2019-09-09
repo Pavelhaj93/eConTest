@@ -51,6 +51,11 @@ namespace eContracting.Kernel.Utils
         public bool IsAccepted { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether offer is retention type.
+        /// </summary>
+        public bool IsRetention { get; set; }
+
+        /// <summary>
         /// Gets or sets expiration flag for offer.
         /// </summary>
         public bool OfferIsExpired { get; set; }
