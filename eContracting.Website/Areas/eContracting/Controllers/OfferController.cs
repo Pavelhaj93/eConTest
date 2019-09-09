@@ -57,12 +57,21 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
+                ViewData["MainText"] = mainText;
 
-                string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
-                if (voucherText == null)
+                if (ads.GetUserData().IsRetention)
                 {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                    return Redirect(redirectUrl);
+                    string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
+                    if (voucherText == null)
+                    {
+                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                        return Redirect(redirectUrl);
+                    }
+                    ViewData["VoucherText"] = voucherText;
+                }
+                else
+                {
+                    ViewData["VoucherText"] = null;
                 }
 
                 if (offer.OfferInternal.HasGDPR)
@@ -73,8 +82,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
                 }
 
-                ViewData["MainText"] = mainText;
-                ViewData["VoucherText"] = voucherText;
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;

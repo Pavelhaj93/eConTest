@@ -19,6 +19,8 @@
         </div>
     </div>
 </div>
+@if (ViewData["VoucherText"] != null)
+{
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
@@ -26,6 +28,8 @@
         </div>
     </div>
 </div>
+}
+
 @Html.Action("DocumentPanel", "eContracting", new { IsAccepted = false })
 
 <script>
