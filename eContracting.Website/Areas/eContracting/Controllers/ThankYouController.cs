@@ -28,7 +28,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
+                mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText, string.Empty);
                 if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

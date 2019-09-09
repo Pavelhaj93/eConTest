@@ -61,7 +61,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
 
                 string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
-                string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText);
+                string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText, string.Empty);
 
                 if (maintext == null)
                 {

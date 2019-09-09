@@ -413,7 +413,7 @@ namespace eContracting.Kernel.Services
             return texts.FirstOrDefault();
         }
 
-        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources)
+        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, string additionalInfoDocument)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
@@ -421,7 +421,7 @@ namespace eContracting.Kernel.Services
             {
                 if (source.Attributes.ContainsKey("TEMPLATE"))
                 {
-                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD" || source.Attributes["TEMPLATE"] == "AD1")
+                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD" || source.Attributes["TEMPLATE"] == additionalInfoDocument)
                     {
                         //Log.Debug("File used to get paramaters: " + source.NA)
                         var parameters = this.GetAllAttributes(source);

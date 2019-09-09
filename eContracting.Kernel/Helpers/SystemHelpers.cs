@@ -46,11 +46,11 @@ namespace eContracting.Kernel.Helpers
         /// Gets a collection of parameters which can be used for string replacmement.
         /// </summary>
         /// <returns>Collection of parameters.</returns>
-        public static IDictionary<string, string> GetParameters(string guid)
+        public static IDictionary<string, string> GetParameters(string guid, string additionalInfoDocument)
         {
             var client = new RweClient();
             var text = client.GetTextsXml(guid);
-            var parameters = client.GetAllAttributes(text);
+            var parameters = client.GetAllAttributes(text, additionalInfoDocument);
 
             return parameters;
         }
@@ -76,15 +76,32 @@ namespace eContracting.Kernel.Helpers
         /// </summary>
         /// <param name="data">Authentication data.</param>
         /// <param name="mainRawText">Raw text to modify.</param>
+        /// <param name="additionalInfoDocument">Code name of the document with additional info.</param>
         /// <returns>Returns modified text.</returns>
-        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText)
+        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText, string additionalInfoDocument)
         {
             if (string.IsNullOrEmpty(data.DateOfBirth))
             {
                 return null;
             }
 
-            var parameters = GetParameters(data.Identifier);
+            var parameters = GetParameters(data.Identifier, additionalInfoDocument);
+
+            return GenerateMainText(data, parameters, mainRawText);
+        }
+
+        /// <summary>
+        /// Generates the main text.
+        /// </summary>
+        /// <param name="data">Authentication data.</param>
+        /// <param name="mainRawText">Raw text to modify.</param>
+        /// <returns>Returns modified text.</returns>
+        public static string GenerateMainText(AuthenticationDataItem data, IDictionary<string, string> parameters, string mainRawText)
+        {
+            if (string.IsNullOrEmpty(data.DateOfBirth))
+            {
+                return null;
+            }
 
             try
             {
@@ -106,6 +123,34 @@ namespace eContracting.Kernel.Helpers
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
 
             return mainRawText;
+        }
+
+        /// <summary>
+        /// Get the code of attachment related to additional info.
+        /// </summary>
+        /// <param name="offer">Instance of offer.</param>
+        /// <returns>Code of additional info document, or empty string.</returns>
+        public static string GetCodeOfAdditionalInfoDocument(Offer offer)
+        {
+            if (offer == null)
+            {
+                return string.Empty;
+            }
+
+            foreach (var attachment in offer.OfferInternal.Body.Attachments)
+            {
+                if (attachment.AddInfo == null)
+                {
+                    continue;
+                }
+
+                if (attachment.AddInfo.ToLower() == "x")
+                {
+                    return attachment.IdAttach;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

@@ -42,20 +42,29 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
+                string guid = ads.GetUserData().Identifier;
 
+                RweClient client = new RweClient();
+                client.SignOffer(guid);
 
+                var offer = client.GenerateXml(guid);
 
-                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
-                if (maintext == null)
+                var parameters = SystemHelpers.GetParameters(ads.GetUserData().Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
+
+                string mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainText);
+                if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
-                string guid = ads.GetUserData().Identifier;
-                RweClient client = new RweClient();
-                client.SignOffer(guid);
-                var offer = client.GenerateXml(guid);
+                string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
+                if (voucherText == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
+
                 if (offer.OfferInternal.HasGDPR)
                 {
                     var GDPRGuid = AesEncrypt(offer.OfferInternal.GDPRKey, Context.AesEncryptKey, Context.AesEncryptVector);
@@ -64,7 +73,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
                 }
 
-                ViewData["MainText"] = maintext;
+                ViewData["MainText"] = mainText;
+                ViewData["VoucherText"] = voucherText;
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
