@@ -137,6 +137,11 @@ namespace eContracting.Kernel.Helpers
                 return string.Empty;
             }
 
+            if (offer.OfferInternal.Body.Attachments == null)
+            {
+                return string.Empty;
+            }
+
             foreach (var attachment in offer.OfferInternal.Body.Attachments)
             {
                 if (attachment.AddInfo == null)
