@@ -28,6 +28,9 @@ namespace eContracting.Kernel.Services
         /// </summary>
         public string FileName { get; set; }
 
+        ///Gets or sets a value indicating whether signing is required.
+        public string SignRequired { get; set; }
+
         /// <summary>
         /// Gets or sets file content.
         /// </summary>

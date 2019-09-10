@@ -41,6 +41,7 @@ namespace eContracting.Website
                         FileItem fi = new FileItem();
                         fi.Number = f.FileNumber;
                         fi.Title = f.FileName;
+                        fi.SignRequired = f.SignRequired;
                         fi.Label = alreadyHaveFirst ? generalSettings.IAmInformed : generalSettings.IAgree;
                         filesList.Add(fi);
                         alreadyHaveFirst = true;

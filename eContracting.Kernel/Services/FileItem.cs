@@ -4,7 +4,6 @@
 
 namespace eContracting.Kernel.Services
 {
-    using System;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -41,5 +40,10 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [JsonProperty("label")]
         public string Label { get; set; }
+
+        [JsonProperty("sign")]
+
+        ///Gets or sets a value indicating whether signing is required.
+        public string SignRequired { get; set; }
     }
 }

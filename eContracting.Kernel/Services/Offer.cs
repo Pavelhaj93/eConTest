@@ -142,6 +142,15 @@ namespace eContracting.Kernel.Services
             }
         }
 
+        [XmlIgnore]
+        public bool OfferIsRetention
+        {
+            get
+            {
+                return this.BusProcess == "01";
+            }
+        }
+
         /// <summary>
         /// Gets or sets STATUS from SAP.
         /// </summary>

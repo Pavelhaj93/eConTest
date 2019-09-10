@@ -37,7 +37,7 @@
                 LastName = offer.OfferInternal.Body.NAME_LAST,
                 ExpDate = offer.OfferInternal.Body.DATE_TO,
                 IsAccepted = offer.OfferInternal.IsAccepted,
-                IsRetention = offer.OfferInternal.Body.BusProcess == "01",
+                IsRetention = offer.OfferInternal.Body.OfferIsRetention,
                 OfferIsExpired = offer.OfferInternal.Body.OfferIsExpired,
             };
 

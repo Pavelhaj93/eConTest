@@ -40,8 +40,10 @@ namespace eContracting.Kernel.Services
         /// <returns>Rerurn list of urls of files for download.</returns>
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            var res = GetResponse(guid, "NABIDKA");
-            bool IsAccepted = res.ET_ATTRIB != null && res.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
+            var responseObject = GetResponse(guid, "NABIDKA");
+            var offer = GenerateXml(guid, responseObject);
+
+            bool IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
 
             //ZCCH_CACHE_GETResponse result = null;
             //List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
@@ -74,6 +76,7 @@ namespace eContracting.Kernel.Services
                     try
                     {
                         var customisedFileName = f.FILENAME;
+                        var associatedAttachment = null as Template;
 
                         if (f.ATTRIB.Any(any => any.ATTRID == "LINK_LABEL"))
                         {
@@ -84,10 +87,32 @@ namespace eContracting.Kernel.Services
                             customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
                         }
 
+                        var signRequired = "false";
+                        if (offer.OfferInternal.Body.OfferIsRetention)
+                        {
+                            if (offer.OfferInternal.Body.Attachments != null)
+                            {
+                                var fileTemplate = f.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
+                                if (fileTemplate != null)
+                                {
+                                    var correspondingAttachment = offer.OfferInternal.Body.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
+
+                                    if (correspondingAttachment != null)
+                                    {
+                                        if (correspondingAttachment.SignReq.ToLower() == "x")
+                                        {
+                                            signRequired = "true";
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         FileToBeDownloaded tempItem = new FileToBeDownloaded();
                         tempItem.Index = (++index).ToString();
                         tempItem.FileName = customisedFileName;
                         tempItem.FileNumber = f.FILEINDX;
+                        tempItem.SignRequired = signRequired;
                         tempItem.FileContent = f.FILECONTENT.ToList();
                         fileResults.Add(tempItem);
                     }
@@ -165,28 +190,27 @@ namespace eContracting.Kernel.Services
         /// Generates xml for offer.
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
+        /// <param name="responseObject">Already got response object.</param>
         /// <returns></returns>
-        public Offer GenerateXml(string guid)
+        public Offer GenerateXml(string guid, ZCCH_CACHE_GETResponse responseObject)
         {
-            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
-
-            if (result.ThereAreFiles())
+            if (responseObject.ThereAreFiles())
             {
-                var file = Encoding.UTF8.GetString(result.ET_FILES.First().FILECONTENT);
+                var file = Encoding.UTF8.GetString(responseObject.ET_FILES.First().FILECONTENT);
 
-                using (var stream = new MemoryStream(result.ET_FILES.First().FILECONTENT, false))
+                using (var stream = new MemoryStream(responseObject.ET_FILES.First().FILECONTENT, false))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
                     Offer offer = (Offer)serializer.Deserialize(stream);
-                    offer.OfferInternal.IsAccepted = result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
-                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
-                        && result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => Char.IsDigit(c));
+                    offer.OfferInternal.IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+                        && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
+                        && responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => Char.IsDigit(c));
 
                     if (offer.OfferInternal.IsAccepted)
                     {
                         DateTime parsedAcceptedAt;
 
-                        var acceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
+                        var acceptedAt = responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
 
                         if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedAcceptedAt))
                         {
@@ -194,26 +218,41 @@ namespace eContracting.Kernel.Services
                         }
                         else
                         {
-                            offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+                            offer.OfferInternal.AcceptedAt = responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
                         }
                     }
 
                     offer.OfferInternal.HasGDPR =
-                        result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
-                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
+                        responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
+                        && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
 
                     if (offer.OfferInternal.HasGDPR)
                     {
-                        offer.OfferInternal.GDPRKey = result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
+                        offer.OfferInternal.GDPRKey = responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
                     }
 
-                    offer.OfferInternal.State = result.ES_HEADER.CCHSTAT;
+                    offer.OfferInternal.State = responseObject.ES_HEADER.CCHSTAT;
                     offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true : offer.OfferInternal.IsAccepted;
+
                     return offer;
                 }
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Generates xml for offer.
+        /// </summary>
+        /// <param name="guid">Uuid of offer.</param>
+        /// <returns></returns>
+        public Offer GenerateXml(string guid)
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
+
+            var offer = GenerateXml(guid, result);
+
+            return offer;
         }
 
         /// <summary>
