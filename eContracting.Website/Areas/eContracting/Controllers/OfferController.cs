@@ -51,7 +51,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var parameters = SystemHelpers.GetParameters(ads.GetUserData().Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
 
-                string mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainText);
+                var mainText = string.Empty;
+
+                if (ads.GetUserData().IsRetention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainTextRetention);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainText);
+                }
+
                 if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

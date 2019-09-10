@@ -11,5 +11,8 @@ namespace eContracting.Kernel.GlassItems.Pages
     {
         [SitecoreField]
         public virtual string MainText { get; set; }
+
+        [SitecoreField]
+        public virtual string MainTextRetention { get; set; }
     }
 }
