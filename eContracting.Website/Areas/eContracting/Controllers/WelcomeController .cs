@@ -23,35 +23,45 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                var guid = Request.QueryString["guid"];
-                if (string.IsNullOrEmpty(guid))
+                if (Sitecore.Context.PageMode.IsNormal)
                 {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
-                }
+                    var guid = Request.QueryString["guid"];
+                    if (string.IsNullOrEmpty(guid))
+                    {
+                        return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                    }
 
-                if (this.CheckWhetherUserIsBlocked(guid))
+                    if (this.CheckWhetherUserIsBlocked(guid))
+                    {
+                        return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+                    }
+
+                    var client = new RweClient();
+                    var offer = client.GenerateXml(guid);
+
+                    if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
+                    {
+                        return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                    }
+
+                    var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+                    var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
+
+                    var processingParameters = SystemHelpers.GetParameters(guid);
+                    this.HttpContext.Items["WelcomeData"] = processingParameters;
+
+                    var dataModel = new WelcomeModel() { Guid = guid };
+                    FillViewData(dataModel);
+
+                    return View("/Areas/eContracting/Views/Welcome.cshtml", this.Context);
+                }
+                else
                 {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
+                    var dataModel = new WelcomeModel() { Guid = string.Empty };
+                    FillViewData(dataModel);
+
+                    return View("/Areas/eContracting/Views/Welcome.cshtml", this.Context);
                 }
-
-                var client = new RweClient();
-                var offer = client.GenerateXml(guid);
-
-                if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
-                {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
-                }
-
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
-
-                var processingParameters = SystemHelpers.GetParameters(guid);
-                this.HttpContext.Items["WelcomeData"] = processingParameters;
-
-                var dataModel = new WelcomeModel() { Guid = guid };
-                FillViewData(dataModel);
-
-                return View("/Areas/eContracting/Views/Welcome.cshtml", dataModel);
             }
             catch (Exception ex)
             {

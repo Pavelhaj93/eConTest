@@ -1,9 +1,26 @@
 @using eContracting.Kernel.Models
-@model WelcomeModel
+@using eContracting.Kernel.GlassItems.Pages
+@model EContractingWelcomeTemplate
 
-@using (Html.BeginForm("WelcomeSubmit", "Welcome", new { guid = Model.Guid }))
+@if (Sitecore.Context.PageMode.IsNormal)
 {
-    @Html.AntiForgeryToken()
+    using (Html.BeginForm("WelcomeSubmit", "Welcome", new { guid = Request.QueryString["guid"] }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="info">
+                    @Html.Sitecore().Placeholder("eContractingWelcomePH")
+                    <div class="form">
+                        <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="info">

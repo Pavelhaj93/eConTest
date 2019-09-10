@@ -19,17 +19,26 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             var dataSource = this.DataSource;
 
-            var processingParameters = this.HttpContext.Items["WelcomeData"] as IDictionary<string, string>;
-            if (processingParameters == null)
+            if (Sitecore.Context.PageMode.IsNormal)
             {
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                var processingParameters = this.HttpContext.Items["WelcomeData"] as IDictionary<string, string>;
+                if (processingParameters == null)
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                }
+
+                var replacedText = SystemHelpers.ReplaceParameters(dataSource.Text, processingParameters);
+
+                var richTextModel = new WelcomeRichTextModel() { Datasource = dataSource, ReplacedText = replacedText };
+
+                return View("/Areas/eContracting/Views/Content/WelcomeRichText.cshtml", richTextModel);
             }
+            else
+            {
+                var richTextModel = new WelcomeRichTextModel() { Datasource = dataSource, ReplacedText = dataSource.Text };
 
-            var replacedText = SystemHelpers.ReplaceParameters(dataSource.Text, processingParameters);
-
-            var richTextModel = new WelcomeRichTextModel() { Datasource = dataSource, ReplacedText = replacedText };
-
-            return View("/Areas/eContracting/Views/Content/WelcomeRichText.cshtml", richTextModel);
+                return View("/Areas/eContracting/Views/Content/WelcomeRichText.cshtml", richTextModel);
+            }
         }
     }
 }
