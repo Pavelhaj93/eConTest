@@ -152,6 +152,7 @@
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
     <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Models\AcceptedOffer.cs" />
+    <Compile Include="Models\PdfFile.cs" />
     <Compile Include="Models\WelcomeRichTextModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />
@@ -162,11 +163,13 @@
     <Compile Include="GlassItems\SiteRootModel.cs" />
     <Compile Include="PipeLines\404ResolverPipeline.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CRM_SIGN_STAMP_MERGE.cs" />
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
     <Compile Include="Services\LoginsCheckerClient.cs" />
     <Compile Include="Services\Offer.cs" />
     <Compile Include="Services\RweClient.cs" />
+    <Compile Include="Services\SigningClient.cs" />
     <Compile Include="Services\XmlText.cs" />
     <Compile Include="Services\ZCCH_CACHE_API.cs" />
     <Compile Include="Utils\AuthenticationDataItem.cs" />

@@ -177,6 +177,9 @@
     <Compile Include="Areas\eContracting\Services\GetFile.ashx.cs">
       <DependentUpon>GetFile.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Areas\eContracting\Services\SignFile.ashx.cs">
+      <DependentUpon>SignFile.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -333,6 +336,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Areas\eContracting\Views\Welcome.cshtml" />
     <Content Include="Areas\eContracting\Views\Content\WelcomeRichText.cshtml" />
+    <Content Include="Areas\eContracting\Services\SignFile.ashx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\File system package.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />

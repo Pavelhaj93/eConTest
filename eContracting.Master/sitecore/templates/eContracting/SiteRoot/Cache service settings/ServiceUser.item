@@ -1,14 +1,14 @@
 ----item----
 version: 1
-id: {F775B8E0-0758-44D4-887B-1132368272BB}
+id: {B8D59BD6-D6AF-421F-A43F-B30E84614F9A}
 database: master
-path: /sitecore/templates/eContracting/SiteRoot/Site Settings/ServiceUrl
+path: /sitecore/templates/eContracting/SiteRoot/Cache service settings/ServiceUser
 parent: {EC0D45AB-CC5C-4094-906C-2C6B2CBF8C50}
-name: ServiceUrl
+name: ServiceUser
 master: {00000000-0000-0000-0000-000000000000}
 template: {455A3E98-A627-4B40-8035-E683A0331AC7}
 templatekey: Template field
-created: 20190108T115933Z
+created: 20190108T115950Z
 
 ----field----
 field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
@@ -28,28 +28,28 @@ content-length: 1
 field: {B118496A-0F78-4A27-B55F-0A6C4B0B0FE1}
 name: Default value
 key: default value
-content-length: 105
+content-length: 16
 
-http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api
+UkZDX1NJVEVDT1JF
 ----field----
 field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
 name: __Sortorder
 key: __sortorder
 content-length: 3
 
-100
+200
 ----version----
 language: cs
 version: 1
-revision: 2f45cd31-fb5c-442f-8dc8-b8823f3dab29
+revision: fda3fe2e-352c-4a91-8f01-d7c50c93e713
 
 ----field----
 field: {9541E67D-CE8C-4225-803D-33F7F29F09EF}
 name: __Short description
 key: __short description
-content-length: 47
+content-length: 44
 
-adresa vzdálené služby SAP pro volání CACHE_API
+jméno uživatele pro připojení k 'ServiceUrl'
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -63,7 +63,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20190108T120208Z
+20190108T120340Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -77,14 +77,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-2f45cd31-fb5c-442f-8dc8-b8823f3dab29
+fda3fe2e-352c-4a91-8f01-d7c50c93e713
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190108T120231Z
+20190108T120342Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
@@ -95,36 +95,36 @@ sitecore\admin
 ----version----
 language: en
 version: 1
-revision: 9c7b4b09-b6d2-4b9d-9bfc-2ae6b92343b1
+revision: f3c194d3-d7ce-406a-87c2-5201d8226c89
 
 ----field----
 field: {9541E67D-CE8C-4225-803D-33F7F29F09EF}
 name: __Short description
 key: __short description
-content-length: 52
+content-length: 43
 
-the address to remote SAP service for CACHE_API call
+name of user for connection to 'ServiceUrl'
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20190108T115933Z
+20190108T115950Z
 ----field----
 field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
 name: __Revision
 key: __revision
 content-length: 36
 
-9c7b4b09-b6d2-4b9d-9bfc-2ae6b92343b1
+f3c194d3-d7ce-406a-87c2-5201d8226c89
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190108T120613Z
+20190911T125248Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
