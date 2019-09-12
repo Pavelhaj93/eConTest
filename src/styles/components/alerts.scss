@@ -1,9 +1,11 @@
 .alert {
+	$side-padding-small: 1.5em;
+	$side-padding-large: 3.5em;
+
 	position: relative;
 	margin-top: 2rem;
 	margin: 1.5em 0;
-	padding: 1em 1.5em;
-	padding-right: 3.5em;
+	padding: 1em $side-padding-large 1em $side-padding-small;
 
 	.close {
 		$size: 10px;
@@ -33,7 +35,7 @@
 	}
 
 	&.with-icon {
-		padding-left: 3.5em;
+		padding-left: $side-padding-large;
 
 		&:before {
 			content: '';
@@ -43,6 +45,19 @@
 			left: 1em;
 			z-index: 1;
 			transform: translateY(-50%);
+		}
+
+		@media (max-width: $screen-sm-max) {
+			padding-left: $side-padding-small;
+			padding-right: $side-padding-small;
+
+			&:before {
+				position: relative;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				margin-bottom: 1em;
+			}
 		}
 	}
 
