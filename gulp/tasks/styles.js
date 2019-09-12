@@ -35,7 +35,7 @@ gulp.task('styles', () => {
     return gulp.src(src.styles.entry)
         .pipe(cssGlobbing({ extensions: ['.css', '.scss'] }))
         .pipe(sourcemaps.init())
-        .pipe(sass().on('error', sass.logError))
+        .pipe(sass({ includePaths: ['./node_modules/'] }).on('error', sass.logError))
         .pipe(postcss(postcssPlugins.dev))
         .pipe(gulpif(isDev, sourcemaps.write()))
         .pipe(gulp.dest(isDev ? src.styles.dest : dist.css))
