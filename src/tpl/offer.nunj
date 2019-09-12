@@ -9,6 +9,9 @@
 		<p>Vážíme si Vaší loajality. Na základě vyhodnocení Vaší dlouhodobé spotřeby <strong>zemního plynu</strong> a Vašeho posledního ročního vyúčtování bychom Vám rádi nabídli přechod z Vašeho nynějšího produktu <strong>RELAX</strong> na cenově výhodnější variantu <strong>OPTIMAL</strong>.</p>
 		<p>Pokud naši nabídku akceptujete, seznamte se prosím s poučením a zaškrtněte jej. Následně prosím stiskněte tlačítko Akceptuji.</p>
 		<p>Děkujeme, <br>Vaše Innogy.</p>
+		<div class="alert info with-icon" role="alert">
+			<p>Podpisem smlouvy získáte 1x voucher do Sportisima v hodnotě 1000 Kč, který obdržíte emailem.</p>
+		</div>
 	{% endcall %}
 
 	<div class="row">

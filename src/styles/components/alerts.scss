@@ -31,7 +31,21 @@
 			transform: scale(.5);
 		}
 	}
-	
+
+	&.with-icon {
+		padding-left: 3.5em;
+
+		&:before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 1em;
+			z-index: 1;
+			transform: translateY(-50%);
+		}
+	}
+
 	&.error {
 		background: $color-red;
 		color: #fff;
@@ -59,6 +73,18 @@
 		color: $color-text;
 
 		.close { background-image: svg-load('../gfx/svg/close.svg', fill=$color-close); }
+	}
+
+	&.info {
+		background: $color-gray-dimmer;
+
+		&.with-icon {
+			&:before {
+				width: 36px;
+				height: 36px;
+				background-image: svg-load('../gfx/svg/bubble-info.svg', fill=$color-gray);
+			}
+		}
 	}
 
 	h3, h4 { margin-top: 0; }

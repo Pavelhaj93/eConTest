@@ -24,7 +24,9 @@
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
-            @Html.Raw(ViewData["VoucherText"])
+            <div class="alert info with-icon" role="alert">
+                <p>@Html.Raw(ViewData["VoucherText"])</p>
+            </div>
         </div>
     </div>
 </div>
