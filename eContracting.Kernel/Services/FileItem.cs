@@ -41,9 +41,8 @@ namespace eContracting.Kernel.Services
         [JsonProperty("label")]
         public string Label { get; set; }
 
-        [JsonProperty("sign")]
-
         ///Gets or sets a value indicating whether signing is required.
-        public string SignRequired { get; set; }
+        [JsonProperty("sign")]
+        public bool SignRequired { get; set; }
     }
 }

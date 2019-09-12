@@ -87,7 +87,7 @@ namespace eContracting.Kernel.Services
                             customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
                         }
 
-                        var signRequired = "false";
+                        var signRequired = false;
                         var fileType = string.Empty;
 
                         if (offer.OfferInternal.Body.OfferIsRetention)
@@ -103,7 +103,7 @@ namespace eContracting.Kernel.Services
                                     {
                                         if (correspondingAttachment.SignReq.ToLower() == "x")
                                         {
-                                            signRequired = "true";
+                                            signRequired = true;
                                             fileType = correspondingAttachment.IdAttach;
                                         }
                                     }
