@@ -37,9 +37,12 @@
 	&.with-icon {
 		padding-left: $side-padding-large;
 
-		&:before {
-			content: '';
+		.icon {
+			$size: 36px;
+
 			display: block;
+			width: $size;
+			height: $size;
 			position: absolute;
 			top: 50%;
 			left: 1em;
@@ -51,7 +54,7 @@
 			padding-left: $side-padding-small;
 			padding-right: $side-padding-small;
 
-			&:before {
+			.icon {
 				position: relative;
 				top: 0;
 				left: 50%;
@@ -92,14 +95,6 @@
 
 	&.info {
 		background: $color-gray-dimmer;
-
-		&.with-icon {
-			&:before {
-				width: 36px;
-				height: 36px;
-				background-image: svg-load('../gfx/svg/bubble-info.svg', fill=$color-gray);
-			}
-		}
 	}
 
 	h3, h4 { margin-top: 0; }
