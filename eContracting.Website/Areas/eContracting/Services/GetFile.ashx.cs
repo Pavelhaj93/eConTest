@@ -30,7 +30,22 @@ namespace eContracting.Website
                     var file = context.Request.QueryString["file"];
                     if (file != null)
                     {
-                        var thisFile = files.FirstOrDefault(xx => xx.Index == file);
+                        var thisFile = null as FileToBeDownloaded;
+
+                        var availableFiles = files.Where(xx => xx.Index == file);
+                        if (availableFiles.Count() > 1)
+                        {
+                            thisFile = availableFiles.FirstOrDefault(xx => xx.SignedVersion == true);
+                            if (thisFile == null)
+                            {
+                                thisFile = availableFiles.FirstOrDefault();
+                            }
+                        }
+                        else
+                        {
+                            thisFile = availableFiles.FirstOrDefault();
+                        }
+
                         if (thisFile != null)
                         {
                             context.Response.Clear();

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
+using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Services
 {
@@ -15,18 +17,40 @@ namespace eContracting.Website.Areas.eContracting.Services
     {
         public void ProcessRequest(HttpContext context)
         {
-            if (context.Session["UserFiles"] != null)
+            try
             {
-                var pdfFile = this.GetPDfFile(context);
-                var signFile = this.GetSignFile(context);
-
-                if (pdfFile == null || signFile == null)
+                if (context.Session["UserFiles"] != null)
                 {
-                    return;
-                }
+                    var pdfFile = this.GetPDfFile(context);
+                    var signFile = this.GetSignFile(context);
 
-                var signingClient = new SigningClient();
-                var signingResult = signingClient.SendDocumentsForMerge(pdfFile.Content, signFile, pdfFile.FileType);
+                    if (pdfFile == null || signFile == null)
+                    {
+                        return;
+                    }
+
+                    var signingClient = new SigningClient();
+                    var signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
+                    this.AddOrReplaceSignedFile(context, signingResult);
+
+                    context.Response.ContentType = "application/json";
+
+                    if (signingResult == null)
+                    {
+                        context.Response.TrySkipIisCustomErrors = true;
+                        context.Response.StatusCode = 404;
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 200;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Error occured during signing.", ex, this);
+                context.Response.TrySkipIisCustomErrors = true;
+                context.Response.StatusCode = 404;
             }
         }
 
@@ -53,9 +77,23 @@ namespace eContracting.Website.Areas.eContracting.Services
             return signFile;
         }
 
-        private PdfFile GetPDfFile(HttpContext context)
+        private void AddOrReplaceSignedFile(HttpContext context, FileToBeDownloaded signingResult)
         {
-            var pdfFileId = context.Request["pdfFileId"];
+            var pdfFileId = context.Request["file"];
+
+            var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
+
+            var existingSignedFile = files.FirstOrDefault(xx => xx.Index == pdfFileId && xx.SignedVersion == true);
+            if (existingSignedFile != null)
+            {
+                files.Remove(existingSignedFile);
+            }
+            files.Add(signingResult);
+        }
+
+        private FileToBeDownloaded GetPDfFile(HttpContext context)
+        {
+            var pdfFileId = context.Request["file"];
 
             var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
             if (files == null)
@@ -63,13 +101,28 @@ namespace eContracting.Website.Areas.eContracting.Services
                 return null;
             }
 
-            var pdfFile = files.FirstOrDefault(file => file.Index == pdfFileId);
-            if (pdfFile == null)
+            var file = null as FileToBeDownloaded;
+            var availableFiles = files.Where(xx => xx.Index == pdfFileId);
+
+            if (availableFiles.Count() > 1)
+            {
+                file = availableFiles.FirstOrDefault(xx => xx.SignedVersion == true);
+                if (file == null)
+                {
+                    file = availableFiles.FirstOrDefault();
+                }
+            }
+            else
+            {
+                file = availableFiles.FirstOrDefault();
+            }
+
+            if (file == null)
             {
                 return null;
             }
 
-            return new PdfFile() { Content = pdfFile.FileContent.ToArray(), FileType = pdfFile.FileType };
+            return file;
         }
 
         public bool IsReusable

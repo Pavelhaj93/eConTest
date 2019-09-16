@@ -118,6 +118,7 @@ namespace eContracting.Kernel.Services
                         tempItem.FileType = fileType;
                         tempItem.SignRequired = signRequired;
                         tempItem.FileContent = f.FILECONTENT.ToList();
+                        tempItem.SignedVersion = false;
                         fileResults.Add(tempItem);
                     }
                     catch (Exception ex)

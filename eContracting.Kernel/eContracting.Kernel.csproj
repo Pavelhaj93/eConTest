@@ -152,7 +152,6 @@
     <Compile Include="GlassItems\Settings\FooterSettings.cs" />
     <Compile Include="Helpers\SystemHelpers.cs" />
     <Compile Include="Models\AcceptedOffer.cs" />
-    <Compile Include="Models\PdfFile.cs" />
     <Compile Include="Models\WelcomeRichTextModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />

@@ -5,6 +5,7 @@ using System.Text;
 using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.Helpers;
 using Sitecore.Diagnostics;
+using System.Linq;
 
 namespace eContracting.Kernel.Services
 {
@@ -13,26 +14,27 @@ namespace eContracting.Kernel.Services
     /// </summary>
     public class SigningClient
     {
-        public byte[] SendDocumentsForMerge(byte[] pdfFile, byte[] signFile, string attachmentType)
+        public FileToBeDownloaded SendDocumentsForMerge(FileToBeDownloaded pdfFile, byte[] signFile)
         {
             using (var api = this.InitApi())
             {
                 var invokeParameters = new invoke();
 
-                var inputPDFBlob = new BLOB() { binaryData = pdfFile, contentType = "applicaton/pdf", };
+                var inputPDFBlob = new BLOB() { binaryData = pdfFile.FileContent.ToArray(), contentType = "applicaton/pdf", };
                 var inputSignBlob = new BLOB() { binaryData = signFile, contentType = "image/png" };
 
                 invokeParameters.inputPDF = inputPDFBlob;
                 invokeParameters.inputPNGSign = inputSignBlob;
-                invokeParameters.overlay = attachmentType;
+                invokeParameters.overlay = pdfFile.FileType;
 
                 var signingResult = api.invoke(invokeParameters);
                 if (signingResult.errCode != 0)
                 {
-                    Log.Error("Error occured during sending document for signing. Error message is "  + signingResult.errMsg, this);
+                    Log.Error("Error occured during sending document for signing. Error message is " + signingResult.errMsg, this);
+                    return null;
                 }
 
-                return signingResult.outputPDF.binaryData;
+                return new FileToBeDownloaded() { FileContent = signingResult.outputPDF.binaryData.ToList(), FileName = pdfFile.FileName, FileNumber = pdfFile.FileNumber, FileType = pdfFile.FileType, Index = pdfFile.Index, SignRequired = pdfFile.SignRequired, SignedVersion = true };
             }
         }
 

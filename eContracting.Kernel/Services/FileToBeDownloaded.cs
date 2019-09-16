@@ -37,6 +37,11 @@ namespace eContracting.Kernel.Services
         public bool SignRequired { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether this version of document is signed.
+        /// </summary>
+        public bool SignedVersion { get; set; }
+
+        /// <summary>
         /// Gets or sets file content.
         /// </summary>
         public List<Byte> FileContent { get; set; }
