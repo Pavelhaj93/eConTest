@@ -1,5 +1,6 @@
-export default function printDocumentsList(container, documents, options) {
+export default function printDocumentsList(container, docsToBeSignedContainer, documents, options) {
     !(container instanceof jQuery) && (container = $(container));
+    !(docsToBeSignedContainer instanceof jQuery) && (docsToBeSignedContainer = $(docsToBeSignedContainer));
 
     /* Custom options */
     const checked = options.checked || false;
@@ -21,7 +22,7 @@ export default function printDocumentsList(container, documents, options) {
         const value = doc.id;
         const item = [
             '<li>',
-            !options.agreed && `
+            (!options.agreed && !doc.sign) && `
             <input
                 id="document-${key}"
                 type="checkbox"
@@ -38,14 +39,29 @@ export default function printDocumentsList(container, documents, options) {
         ].filter(Boolean).join('');
 
         /* Insert HTML */
-        if (i == 0) {
-            container.prepend(item);
-        } else {
-            container.append(item);
+        if (options.isRetention) { // check if offer is retention
+            if (doc.sign) {
+                docsToBeSignedContainer.append(item); // documents to be signed
+                window.documentsToBeSigned.push({
+                    key: key,
+                    signed: options.agreed,
+                });
+            } else {
+                container.append(item); // other documents
+            }
+        } else { // default offer
+            if (i == 0) {
+                container.prepend(item);
+            } else {
+                container.append(item);
+            }
         }
 
+        // specify where to find newly added item
+        const list = doc.sign ? docsToBeSignedContainer : container;
+        const link = list.children('li:last-of-type').find('a');
+
         /* Attach click event */
-        const link = container.children('li:last-of-type').find('a');
         link.on('click', (e) => {
             handleClick(e, key);
         });

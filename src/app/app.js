@@ -8,6 +8,7 @@ import DateInput from './components/datepicker';
 import FormOffer from './components/forms/offer';
 import CheckAll from './components/check-all';
 import Copyright from './components/copyright';
+import SignatureModal from './components/forms/signature-modal';
 
 window.app = {
     start(config) {
@@ -17,5 +18,6 @@ window.app = {
         factory(CheckAll, document.querySelectorAll('.form .check-all'));
         init(DateInput, document.querySelector('.input-date'));
         init(Copyright, document.getElementById('copyright'));
+        init(SignatureModal, document.querySelector('.js-signature-btn'), config);
     }
 };

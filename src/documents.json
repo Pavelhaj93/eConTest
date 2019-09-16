@@ -1,26 +1,65 @@
 [
     {
-        "label": "Jsem poučen s",
-        "title": "Podminkami pro uzivatele"
+        "id": "009",
+        "title": "Informace pro zákazníka – spotřebitele.pdf",
+        "url": null,
+        "label": "Souhlasím s",
+        "sign": false
     },
     {
-        "label": "Souhlasím s",
-        "title": "My custom document"
+        "id": "004",
+        "title": "Dodatek.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
     },
     {
-        "label": "Souhlasím s",
-        "title": "Dodatkem ke smlouve"
+        "id": "003",
+        "title": "Plná moc (Lastcall).pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": true
     },
     {
-        "label": "Souhlasím s",
-        "title": "Ceníkem produktu"
+        "id": "001",
+        "title": "Ceník.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
     },
     {
-        "label": "Souhlasím s",
-        "title": "Ceníkem služeb"
+        "id": "002",
+        "title": "Ceník služeb.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
     },
     {
-        "label": "Souhlasím s",
-        "title": "Obchodními podmínkami"
+        "id": "007",
+        "title": "Obchodní podmínky.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
+    },
+    {
+        "id": "006",
+        "title": "DS - Smlouva innogy Karta.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
+    },
+    {
+        "id": "008",
+        "title": "Potvrzení o přiznání individuální slevy.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
+    },
+    {
+        "id": "005",
+        "title": "Dodatečné info k dárkům a odměnám - web.pdf",
+        "url": null,
+        "label": "Jsem poučen o",
+        "sign": false
     }
 ]

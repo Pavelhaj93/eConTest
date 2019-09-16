@@ -25,6 +25,10 @@
 		max-height: 450px;
 		overflow-y: auto;
 
+		.step & {
+			border-bottom: 0;
+		}
+
 		li:first-child {
 			border-bottom: 1px solid $color-border;
 			padding: 0 0 1rem;
@@ -64,6 +68,25 @@
 			label {
 				margin-left: .5rem;
 			}
+		}
+	}
+
+	&-documents-to-be-signed {
+		&:not(.error) {
+			min-height: 0;
+		}
+
+		.form & {
+			border-bottom: 0;
+		}
+
+		li:first-child {
+			border-bottom: 0;
+			padding-bottom: 0;
+		}
+
+		label {
+			margin-left: 0;
 		}
 	}
 
