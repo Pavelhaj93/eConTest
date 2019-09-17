@@ -29,8 +29,6 @@ namespace eContracting.Website.Areas.eContracting.Services
 
                     var signingClient = new SigningClient();
                     var signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
-                    this.AddOrReplaceSignedFile(context, signingResult);
-
                     context.Response.ContentType = "application/json";
 
                     if (signingResult == null)
@@ -40,6 +38,7 @@ namespace eContracting.Website.Areas.eContracting.Services
                     }
                     else
                     {
+                        this.AddOrReplaceSignedFile(context, signingResult);
                         context.Response.StatusCode = 200;
                     }
                 }
