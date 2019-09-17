@@ -5,6 +5,7 @@ export default function SignatureModal(el, config) {
         const $signature = $modal.find('.js-signature');
         const $clearBtn = $modal.find('.js-signature-clear-btn');
         const $saveBtn = $modal.find('.js-signature-save-btn');
+        let iframeLoaded = false;
 
         // open modal handler
         el.addEventListener('click', function(event) {
@@ -36,7 +37,7 @@ export default function SignatureModal(el, config) {
                 // get PNG as base 64
                 const signatureData = $signature.jSignature('getData', 'image')[1];
 
-                // id of document that is being signed
+                // id of document that is going to signed
                 const document = window.documentsToBeSigned[0];
 
                 $.ajax({
@@ -63,13 +64,24 @@ export default function SignatureModal(el, config) {
 
         // modal events
         $modal
+            .on('show.bs.modal', function() {
+                if (!iframeLoaded) {
+                    const document = window.documentsToBeSigned[0];
+
+                    if (document) {
+                        $modal.find('.modal-body').prepend(`<iframe src="${config.offerPage.getFileUrl + document.key}" frameborder="0" />`);
+                    }
+                }
+            })
             .on('shown.bs.modal', function() {
                 if ($.fn.jSignature) {
-                    // jSignature inicialization
+                    // jSignature initialization
                     $signature.jSignature();
                 } else {
                     console.error('jSignature failed to initialize => the plugin is missing.');
                 }
+
+                iframeLoaded = true;
             })
             .on('hidden.bs.modal', function() {
                 if ($.fn.jSignature) {
