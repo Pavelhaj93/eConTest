@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
@@ -55,25 +54,13 @@ namespace eContracting.Website.Areas.eContracting.Services
 
         private byte[] GetSignFile(HttpContext context)
         {
-            var postedFiles = context.Request.Files;
-            if (postedFiles == null)
+            var postedSignature = context.Request.Form["signature"];
+            if (string.IsNullOrEmpty(postedSignature))
             {
                 return null;
             }
 
-            var postedSignFile = postedFiles.OfType<HttpPostedFile>().FirstOrDefault();
-            if (postedSignFile == null)
-            {
-                return null;
-            }
-
-            var signFile = string.Empty;
-            using (var signFileReader = new StreamReader(postedSignFile.InputStream))
-            {
-                signFile = signFileReader.ReadToEnd();
-            }
-
-            return Convert.FromBase64String(signFile);
+            return Convert.FromBase64String(postedSignature);
         }
 
         private void AddOrReplaceSignedFile(HttpContext context, FileToBeDownloaded signingResult)

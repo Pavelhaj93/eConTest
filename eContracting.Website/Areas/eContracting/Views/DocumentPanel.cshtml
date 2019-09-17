@@ -7,9 +7,10 @@
 @model MW01DataSource
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="~/Assets/eContracting/js/bootstrap.min.js"></script>
 <link href="~/Assets/eContracting/css/popup.css" rel="stylesheet" />
-@if (@Model.IsRetention) {
+@if (Model.IsRetention)
+{
     <script src="~/Assets/eContracting/js/vendor/jSignature.min.js"></script>
 }
 <div class="row">
@@ -18,18 +19,21 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 col-md-10 col-md-offset-1">
-                        @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = "form" }))
+                        @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = Model.IsRetention ? "form loading" : "form" }))
                         {
                             @Html.AntiForgeryToken()
-                            @if (!@Model.IsRetention) {
+                            if (!Model.IsRetention)
+                            {
                                 <ul class="list list-documents loading">
                                     <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                                 </ul>
-                            } else {
+                            }
+                            else
+                            {
                                 <div class="steps">
                                     <div class="step">
                                         <div class="step__heading">
-                                            <h3>Smlouva a p≈ôidru≈æen√© dokumenty</h3>
+                                            <h3>Smlouva a p¯idruûenÈ dokumenty</h3>
                                             <span class="step__icon" aria-hidden="true">
                                                 <svg class="icon" preserveAspectRatio="none">
                                                     <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#number-one-circle"></use>
@@ -42,12 +46,12 @@
                                             </span>
                                         </div>
                                         <ul class="list list-documents js-list-general-documents">
-                                            <a class="check-all" href="#">Oznaƒçit v≈°e</a>
+                                            <a class="check-all" href="#">OznaËit vöe</a>
                                         </ul>
                                     </div>
                                     <div class="step">
                                         <div class="step__heading">
-                                            <h3>Pln√° moc pro p≈ôeveden√≠ energi√≠</h3>
+                                            <h3>Pln· moc pro p¯evedenÌ energiÌ</h3>
                                             <span class="step__icon" aria-hidden="true">
                                                 <svg class="icon" preserveAspectRatio="none">
                                                     <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#number-two-circle"></use>
@@ -59,16 +63,17 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                        <p class="text-muted">Plnou moc pot≈ôebujeme pro p≈ôeveden√≠ energi√≠ od souƒçasn√© spoleƒçnosti k n√°m.</p>
+                                        <p class="text-muted">Plnou moc pot¯ebujeme pro p¯evedenÌ energiÌ od souËasnÈ spoleËnosti k n·m.</p>
                                         <ul class="list list-documents list-documents-to-be-signed"></ul>
                                         <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
-                                        <p class="small text-muted mt-1">Podep√≠≈°ete snadno my≈°i p≈ô√≠mo v poƒç√≠taƒçi nebo prstem v tabletu.</p>
+                                        <p class="small text-muted mt-1">PodepÌöete snadno myöi p¯Ìmo v poËÌtaËi nebo prstem v tabletu.</p>
                                     </div>
                                 </div>
                             }
                             <div class="submit-zone">
-                                @if (@Model.IsRetention) {
-                                    <p>Stisknut√≠m tlaƒç√≠tka Akceptuji potvrd√≠te souhlas s uzav≈ôen√≠m smlouvy.</p>
+                                @if (Model.IsRetention)
+                                {
+                                    <p>StisknutÌm tlaËÌtka Akceptuji potvrdÌte souhlas s uzav¯enÌm smlouvy.</p>
                                 }
                                 <button type="button" class="button button-submit">@ViewData["Accept"]</button>
                             </div>
@@ -99,7 +104,8 @@
     </div>
 </div>
 
-@if (@Model.IsRetention) {
+@if (@Model.IsRetention)
+{
     <div id="modalSign" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -110,9 +116,9 @@
                     <h4 class="modal-title">Podepsat dokument</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Podepi≈°te se pros√≠m n√≠≈æe:</p>
+                    <p>Podepiöte se prosÌm nÌûe:</p>
                     <div id="signature" class="signature js-signature"></div>
-                    <p class="small text-muted mt-1">Podep√≠≈°ete snadno my≈°i p≈ô√≠mo v poƒç√≠taƒçi nebo prstem v tabletu.</p>
+                    <p class="small text-muted mt-1">PodepÌöete snadno myöi p¯Ìmo v poËÌtaËi nebo prstem v tabletu.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary js-signature-save-btn">Potvrdit</button>
@@ -129,6 +135,7 @@
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
         isRetention: @Model.IsRetention.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")',
+        getFileForSignUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?nosave=1&file=")',
         signFileUrl: '@Url.Content("~/Areas/eContracting/Services/SignFile.ashx?file=")'
     }
 

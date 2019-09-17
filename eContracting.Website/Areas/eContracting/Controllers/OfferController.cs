@@ -72,11 +72,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (ads.GetUserData().IsRetention)
                 {
                     string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
-                    if (voucherText == null)
-                    {
-                        var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                        return Redirect(redirectUrl);
-                    }
                     ViewData["VoucherText"] = voucherText;
                 }
                 else

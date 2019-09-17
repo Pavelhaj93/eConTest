@@ -28,6 +28,8 @@ namespace eContracting.Website
                 if (files != null)
                 {
                     var file = context.Request.QueryString["file"];
+                    var noSave = context.Request.QueryString["nosave"];
+
                     if (file != null)
                     {
                         var thisFile = null as FileToBeDownloaded;
@@ -52,7 +54,10 @@ namespace eContracting.Website
                             using (var ms = new MemoryStream(thisFile.FileContent.ToArray()))
                             {
                                 context.Response.ContentType = "application/pdf";
-                                context.Response.AddHeader("Content-Disposition", string.Format("attachment; filename*=UTF-8''{0}", HttpUtility.UrlPathEncode(thisFile.FileName).Replace(",", "%2C")));
+                                if (noSave != "1")
+                                {
+                                    context.Response.AddHeader("Content-Disposition", string.Format("attachment; filename*=UTF-8''{0}", HttpUtility.UrlPathEncode(thisFile.FileName).Replace(",", "%2C")));
+                                }
                                 context.Response.AddHeader("Content-Length", thisFile.FileContent.Count.ToString());
                                 context.Response.Buffer = true;
                                 ms.WriteTo(context.Response.OutputStream);
