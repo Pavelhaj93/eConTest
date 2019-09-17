@@ -70,7 +70,7 @@ export default function SignatureModal(el, config) {
                     const document = window.documentsToBeSigned[0];
 
                     if (document) {
-                        $modal.find('.modal-body').prepend(`<iframe src="${config.offerPage.getFileUrl + document.key}" frameborder="0" />`);
+                        $modal.find('.modal-body').prepend(`<iframe src="${config.offerPage.getFileForSignUrl + document.key}" frameborder="0" />`);
                     }
                 }
             })

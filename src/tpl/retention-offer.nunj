@@ -94,6 +94,7 @@
             isAgreed: false,
             isRetention: true,
             getFileUrl: '/Areas/eContracting/Services/GetFile.ashx?file=',
+            getFileForSignUrl: '/Areas/eContracting/Services/GetFile.ashx?nosave=1&file=',
             signFileUrl: '/Areas/eContracting/Services/SignFile.ashx?file=',
         }
 
