@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
-using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using Sitecore.Diagnostics;
 
@@ -68,13 +67,13 @@ namespace eContracting.Website.Areas.eContracting.Services
                 return null;
             }
 
-            var signFile = null as byte[];
-            using (var signFileReader = new BinaryReader(postedSignFile.InputStream))
+            var signFile = string.Empty;
+            using (var signFileReader = new StreamReader(postedSignFile.InputStream))
             {
-                signFile = signFileReader.ReadBytes(postedSignFile.ContentLength);
+                signFile = signFileReader.ReadToEnd();
             }
 
-            return signFile;
+            return Convert.FromBase64String(signFile);
         }
 
         private void AddOrReplaceSignedFile(HttpContext context, FileToBeDownloaded signingResult)
