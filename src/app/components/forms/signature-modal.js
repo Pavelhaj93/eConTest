@@ -31,7 +31,8 @@ export default function SignatureModal(el, config) {
         $saveBtn.click(function(event) {
             event.preventDefault();
 
-            if ($.fn.jSignature) {
+            // check if user "draw" something in canvas
+            if ($.fn.jSignature && $signature.jSignature('isModified')) {
                 $modal.find('.modal-content').addClass('loading');
 
                 // get PNG as base 64

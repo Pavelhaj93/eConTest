@@ -65,6 +65,12 @@ export default function FormOffer(form, config) {
                 /* Prepare the list & print the documents */
                 printDocumentsList(list, listDocsToBeSigned, documents, options);
 
+                // check if at least one document need to be signed
+                // if not => delete the step
+                if (steps.length && listDocsToBeSigned && !listDocsToBeSigned.children('li').length) {
+                    steps[1].parentNode.removeChild(steps[1]);
+                }
+
                 if (options.agreed) {
                     /* Mark list container as agreed (expand) */
                     list.removeClass(classes.unacceptedTerms).addClass(classes.agreed);
@@ -127,7 +133,11 @@ export default function FormOffer(form, config) {
             }
 
             // check if all documents have already been signed
-            const validDocuments = validateDocuments();
+            // or skip this step if there are no documents to be signed
+            let validDocuments = true;
+            if (listDocsToBeSigned.children('li').length) {
+                validDocuments = validateDocuments();
+            }
 
             /* Add/Remove disabled class from the <a> button */
             if (validForm && validDocuments) {
