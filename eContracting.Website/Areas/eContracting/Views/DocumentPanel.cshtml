@@ -9,6 +9,9 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <link href="~/Assets/eContracting/css/popup.css" rel="stylesheet" />
+@if (@Model.IsRetention) {
+    <script src="~/Assets/eContracting/js/vendor/jSignature.min.js"></script>
+}
 <div class="row">
     <div class="col-sm-12 col-md-10 col-md-offset-1">
         <div class="form-background">
@@ -18,10 +21,57 @@
                         @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = "form" }))
                         {
                             @Html.AntiForgeryToken()
-                            <ul class="list list-documents loading">
-                                <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
-                            </ul>
-                            <button type="button" class="button button-submit">@ViewData["Accept"]</button>
+                            @if (!@Model.IsRetention) {
+                                <ul class="list list-documents loading">
+                                    <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
+                                </ul>
+                            } else {
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step__heading">
+                                            <h3>Smlouva a přidružené dokumenty</h3>
+                                            <span class="step__icon" aria-hidden="true">
+                                                <svg class="icon" preserveAspectRatio="none">
+                                                    <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#number-one-circle"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="step__icon" aria-hidden="true">
+                                                <svg class="icon" preserveAspectRatio="none">
+                                                    <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#check-circle"></use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <ul class="list list-documents js-list-general-documents">
+                                            <a class="check-all" href="#">Označit vše</a>
+                                        </ul>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step__heading">
+                                            <h3>Plná moc pro převedení energií</h3>
+                                            <span class="step__icon" aria-hidden="true">
+                                                <svg class="icon" preserveAspectRatio="none">
+                                                    <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#number-two-circle"></use>
+                                                </svg>
+                                            </span>
+                                            <span class="step__icon" aria-hidden="true">
+                                                <svg class="icon" preserveAspectRatio="none">
+                                                    <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#check-circle"></use>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <p class="text-muted">Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.</p>
+                                        <ul class="list list-documents list-documents-to-be-signed"></ul>
+                                        <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
+                                        <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
+                                    </div>
+                                </div>
+                            }
+                            <div class="submit-zone">
+                                @if (@Model.IsRetention) {
+                                    <p>Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.</p>
+                                }
+                                <button type="button" class="button button-submit">@ViewData["Accept"]</button>
+                            </div>
                         }
                     </div>
                 </div>
@@ -48,6 +98,30 @@
         </div>
     </div>
 </div>
+
+@if (@Model.IsRetention) {
+    <div id="modalSign" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&#215;</span>
+                    </button>
+                    <h4 class="modal-title">Podepsat dokument</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Podepište se prosím níže:</p>
+                    <div id="signature" class="signature js-signature"></div>
+                    <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary js-signature-save-btn">Potvrdit</button>
+                    <button type="button" class="btn btn-default js-signature-clear-btn">Smazat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <script>
     var offerPageOptions = {

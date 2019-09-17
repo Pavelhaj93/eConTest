@@ -77,7 +77,7 @@ export default function FormOffer(form, config) {
 
                     /* Hide "Check all" and submit button */
                     list.children('.check-all').remove();
-                    $(submitZone).remove();
+                    $(submitZone).add($(submitBtn)).remove();
 
                     // mark all steps as finished
                     $([...steps]).addClass('step--finished');

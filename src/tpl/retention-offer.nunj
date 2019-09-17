@@ -1,6 +1,6 @@
 {% extends "layouts/default.nunj" %}
 
-{% set title = "Nabídka" %}
+{% set title = "Retenční nabídka" %}
 
 {% block content %}
 
