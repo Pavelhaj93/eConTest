@@ -37,6 +37,11 @@ namespace eContracting.Kernel.Services
         public bool SignRequired { get; set; }
 
         /// <summary>
+        /// Gets or sets a template alc id.
+        /// </summary>
+        public string TemplAlcId { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether this version of document is signed.
         /// </summary>
         public bool SignedVersion { get; set; }

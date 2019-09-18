@@ -93,6 +93,9 @@ namespace eContracting.Kernel.Services
 
         [XmlElement("SIGN_REQ")]
         public string SignReq { get; set; }
+
+        [XmlElement("TEMPL_ALC_ID")]
+        public string TemplAlcId { get; set; }
     }
 
     /// <summary>

@@ -25,7 +25,7 @@ namespace eContracting.Kernel.Services
 
                 invokeParameters.inputPDF = inputPDFBlob;
                 invokeParameters.inputPNGSign = inputSignBlob;
-                invokeParameters.overlay = pdfFile.FileType;
+                invokeParameters.overlay = pdfFile.TemplAlcId;
 
                 var signingResult = api.invoke(invokeParameters);
                 if (signingResult.errCode != 0)

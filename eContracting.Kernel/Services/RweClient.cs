@@ -89,6 +89,7 @@ namespace eContracting.Kernel.Services
 
                         var signRequired = false;
                         var fileType = string.Empty;
+                        var templAlcId = string.Empty;
 
                         if (offer.OfferInternal.Body.OfferIsRetention)
                         {
@@ -104,6 +105,7 @@ namespace eContracting.Kernel.Services
                                         if (correspondingAttachment.SignReq.ToLower() == "x")
                                         {
                                             signRequired = true;
+                                            templAlcId = correspondingAttachment.TemplAlcId;
                                             fileType = correspondingAttachment.IdAttach;
                                         }
                                     }
@@ -116,6 +118,7 @@ namespace eContracting.Kernel.Services
                         tempItem.FileName = customisedFileName;
                         tempItem.FileNumber = f.FILEINDX;
                         tempItem.FileType = fileType;
+                        tempItem.TemplAlcId = templAlcId;
                         tempItem.SignRequired = signRequired;
                         tempItem.FileContent = f.FILECONTENT.ToList();
                         tempItem.SignedVersion = false;
