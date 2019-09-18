@@ -15,6 +15,10 @@
 }
 <div class="row">
     <div class="col-sm-12 col-md-10 col-md-offset-1">
+        @if (Model.IsRetention)
+        {
+            <h2>Dokumenty k elektronické akceptaci</h2>
+        }
         <div class="form-background">
             <div class="container-fluid">
                 <div class="row">
@@ -46,7 +50,7 @@
                                             </span>
                                         </div>
                                         <ul class="list list-documents js-list-general-documents">
-                                            <a class="check-all" href="#">Oznaèit vše</a>
+                                            <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                                         </ul>
                                     </div>
                                     <div class="step">
@@ -63,20 +67,28 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                        <p class="text-muted">Plnou moc potøebujeme pro pøevedení energií od souèasné spoleènosti k nám.</p>
+                                        @if (!Model.isAgreed)
+                                        {
+                                            <p class="text-muted">Plnou moc potøebujeme pro pøevedení energií od souèasné spoleènosti k nám.</p>
+                                        }
                                         <ul class="list list-documents list-documents-to-be-signed"></ul>
-                                        <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
-                                        <p class="small text-muted mt-1">Podepíšete snadno myši pøímo v poèítaèi nebo prstem v tabletu.</p>
+                                        @if (!Model.isAgreed)
+                                        {
+                                            <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
+                                            <p class="small text-muted mt-1">Podepíšete snadno myši pøímo v poèítaèi nebo prstem v tabletu.</p>
+                                        }
                                     </div>
                                 </div>
                             }
-                            <div class="submit-zone">
-                                @if (Model.IsRetention)
-                                {
+                            @if (Model.IsRetention)
+                            {
+                                <div class="submit-zone">
                                     <p>Stisknutím tlaèítka Akceptuji potvrdíte souhlas s uzavøením smlouvy.</p>
-                                }
+                                    <button type="button" class="button button-submit">@ViewData["Accept"]</button>
+                                </div>
+                            } else {
                                 <button type="button" class="button button-submit">@ViewData["Accept"]</button>
-                            </div>
+                            }
                         }
                     </div>
                 </div>

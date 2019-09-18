@@ -1,3 +1,5 @@
+import Message from '../message';
+
 export default function SignatureModal(el, config) {
     (function($) {
         const target = $(el).data('target');
@@ -6,6 +8,7 @@ export default function SignatureModal(el, config) {
         const $clearBtn = $modal.find('.js-signature-clear-btn');
         const $saveBtn = $modal.find('.js-signature-save-btn');
         let iframeLoaded = false;
+        let errorMesssageVisible = false;
 
         // open modal handler
         el.addEventListener('click', function(event) {
@@ -51,14 +54,21 @@ export default function SignatureModal(el, config) {
                     documentsToBeSigned[0].signed = true;
                     $modal.modal('hide');
 
-                    // change label of trigger element
+                    // change label and class of trigger element
                     el.innerHTML = 'Upravit podpis';
+                    el.classList.remove('btn-primary');
+                    el.classList.add('btn-default');
 
                     // trigger custom event
                     $(el).closest('form').trigger('retention.document.signed');
                 }).fail(function() {
                     $modal.find('.modal-content').removeClass('loading');
-                    console.log('error');
+
+                    // handle error state
+                    if (!errorMesssageVisible) {
+                        Message($modal.find('.modal-body'), 'signFileError', true);
+                        errorMesssageVisible = true;
+                    }
                 });
             }
         });

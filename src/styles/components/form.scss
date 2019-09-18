@@ -21,8 +21,8 @@ $border-radius: 35px;
 		}
 	}
 
-	button,
-	.button {
+	button:not(.btn-default),
+	.button:not(.btn-default) {
 		margin-top: 1.5rem;
 		padding: .65rem 1.5rem .6rem;
 
@@ -45,6 +45,12 @@ $border-radius: 35px;
 			background: darken($color-green, 5%);
 		}
 
+		@media (max-width: $screen-md-max) {
+			width: 100%;
+		}
+	}
+
+	.btn-default {
 		@media (max-width: $screen-md-max) {
 			width: 100%;
 		}
@@ -193,4 +199,10 @@ input {
 	button {
 		margin-bottom: .5rem;
 	}
+}
+
+.submit-zone {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid $color-border;
 }

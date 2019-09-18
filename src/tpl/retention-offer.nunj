@@ -54,13 +54,13 @@
                                         <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
                                     </div>
                                 </div>
+                                <div class="submit-zone">
+                                    <p>Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.</p>
+                                    <button type="submit" class="button button-submit button-disabled">Akceptuji</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="submit-zone">
-                    <p>Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.</p>
-                    <button type="submit" class="button button-submit button-disabled">Akceptuji</button>
                 </div>
             </form>
         </div>
@@ -123,7 +123,8 @@
 
         /* Message component messages from Back-end */
         var messages = {
-            appUnavailable: ['<h3>Nedostupnost aplikace</h3>', '<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>']
+            appUnavailable: ['<h3>Nedostupnost aplikace</h3>', '<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>'],
+            signFileError: ['<div class="alert error mt-0 mb-0" role="alert"><p>Podpis se nepodařilo uložit. Zkuste to prosím znovu.</p></div>']
         }
 
     </script>

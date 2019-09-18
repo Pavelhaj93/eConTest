@@ -2251,6 +2251,9 @@ strong {
 .mt-3 {
   margin-top: 1rem; }
 
+.mb-0 {
+  margin-bottom: 0 !important; }
+
 /* Components */
 .alert {
   position: relative;
@@ -2825,8 +2828,8 @@ strong {
   .form .input-group:not(:last-of-type) {
     margin-bottom: 1.5rem; }
 
-.form button,
-.form .button {
+.form button:not(.btn-default),
+.form .button:not(.btn-default) {
   margin-top: 1.5rem;
   padding: .65rem 1.5rem .6rem;
   background: #72c201;
@@ -2837,18 +2840,22 @@ strong {
   font-weight: 500;
   transition: background .3s ease;
   width: auto; }
-  .form button.button-disabled,
-  .form .button.button-disabled {
+  .form button:not(.btn-default).button-disabled,
+  .form .button:not(.btn-default).button-disabled {
     background: #cdcdcd;
     cursor: not-allowed;
     pointer-events: none; }
-  .form button:not(.button-disabled):hover,
-  .form .button:not(.button-disabled):hover {
+  .form button:not(.btn-default):not(.button-disabled):hover,
+  .form .button:not(.btn-default):not(.button-disabled):hover {
     background: #63a901; }
   @media (max-width: 799px) {
-    .form button,
-    .form .button {
+    .form button:not(.btn-default),
+    .form .button:not(.btn-default) {
       width: 100%; } }
+
+@media (max-width: 799px) {
+  .form .btn-default {
+    width: 100%; } }
 
 label {
   position: relative;
@@ -2952,6 +2959,11 @@ input {
 
 #offer button {
   margin-bottom: .5rem; }
+
+.submit-zone {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e1dfe0; }
 
 .header {
   -webkit-flex: none;
