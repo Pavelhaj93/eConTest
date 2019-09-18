@@ -67,12 +67,12 @@
                                                 </svg>
                                             </span>
                                         </div>
-                                        @if (!Model.isAgreed)
+                                        @if (!Model.IsAccepted)
                                         {
                                             <p class="text-muted">Plnou moc potøebujeme pro pøevedení energií od souèasné spoleènosti k nám.</p>
                                         }
                                         <ul class="list list-documents list-documents-to-be-signed"></ul>
-                                        @if (!Model.isAgreed)
+                                        @if (!Model.IsAccepted)
                                         {
                                             <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
                                             <p class="small text-muted mt-1">Podepíšete snadno myši pøímo v poèítaèi nebo prstem v tabletu.</p>
