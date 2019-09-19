@@ -118,18 +118,21 @@ export default function FormOffer(form, config) {
         // =================================================
 
         /* Determine whether all checkboxes are checked + all necessary documents have been signed */
-        function validateForm() {
+        function validateForm(skipCheckboxesValidation = false) {
             let validForm = true;
-            const checkboxes = getCheckboxes();
 
-            /* Determine when any of the required checkboxes are unchecked */
-            checkboxes.map((checkbox) => {
-                !checkbox.checked && (validForm = false);
-            });
+            if (!skipCheckboxesValidation) {
+                const checkboxes = getCheckboxes();
 
-            /* Form cannot be submitted until documents are ready */
-            if (!gotDocuments) {
-                validForm = false;
+                /* Determine when any of the required checkboxes are unchecked */
+                checkboxes.map((checkbox) => {
+                    !checkbox.checked && (validForm = false);
+                });
+
+                /* Form cannot be submitted until documents are ready */
+                if (!gotDocuments) {
+                    validForm = false;
+                }
             }
 
             // check if all documents have already been signed
@@ -205,7 +208,9 @@ export default function FormOffer(form, config) {
                 steps[1].classList.add(classes.finishedStep);
             }
 
-            validateForm();
+            const skipCheckboxesValidation = true;
+
+            validateForm(skipCheckboxesValidation);
         });
 
         /* Validate on window load for History back */

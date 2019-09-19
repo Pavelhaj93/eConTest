@@ -29,6 +29,12 @@
         <script src="js/app.min.js"></script>
     {% endif %}
     {% block scripts %}{% endblock %}
-    <script>app.start({});</script>
+    <script>app.start({
+      offerPage: {
+        doxReadyUrl: '/documents.json',
+        isAgreed: false,
+        isRetention: true
+      }
+    });</script>
 </body>
 </html>
