@@ -1,0 +1,139 @@
+{% extends "layouts/default.nunj" %}
+
+{% set title = "Retenční nabídka" %}
+
+{% block content %}
+
+    {% call text() %}
+    <p>Vážený pane Novaku,<br>vítáme Vás na stránce společnosti Innogy. Nabízíme Vám produkt <strong>zemního plynu</strong> ve variantě <strong>OPTIMAL</strong>.</p>
+    <p>Vážíme si Vaší loajality. Na základě vyhodnocení Vaší dlouhodobé spotřeby <strong>zemního plynu</strong> a Vašeho posledního ročního vyúčtování bychom Vám rádi nabídli přechod z Vašeho nynějšího produktu <strong>RELAX</strong> na cenově výhodnější variantu <strong>OPTIMAL</strong>.</p>
+    <p>Pokud naši nabídku akceptujete, seznamte se prosím s poučením a zaškrtněte jej. Následně prosím stiskněte tlačítko Akceptuji.</p>
+    <p>Děkujeme, <br>Vaše Innogy.</p>
+    <div class="alert info with-icon" role="alert">
+        {{ icon('bubble-info', 'alert__icon') }}
+        <p>Podpisem smlouvy získáte 1x voucher do Sportisima v hodnotě 1000 Kč, který obdržíte emailem.</p>
+    </div>
+    {% endcall %}
+
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <form action="" class="form loading" id="offer" method="post">
+                <h2>Dokumenty k elektronické akceptaci</h2>
+                <div class="form-background">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                                <div class="steps">
+                                    <div class="step">
+                                        <div class="step__heading">
+                                            <h3>Smlouva a přidružené dokumenty</h3>
+                                            <span class="step__icon" aria-hidden="true">
+                                                {{ icon('number-one-circle') }}
+                                            </span>
+                                            <span class="step__icon" aria-hidden="true">
+                                                {{ icon('check-circle') }}
+                                            </span>
+                                        </div>
+                                        <ul class="list list-documents js-list-general-documents">
+                                            <a class="check-all" href="#">Označit vše</a>
+                                        </ul>
+                                    </div>
+                                    <div class="step">
+                                        <div class="step__heading">
+                                            <h3>Plná moc pro převedení energií</h3>
+                                            <span class="step__icon" aria-hidden="true">
+                                                {{ icon('number-two-circle') }}
+                                            </span>
+                                            <span class="step__icon" aria-hidden="true">
+                                                {{ icon('check-circle') }}
+                                            </span>
+                                        </div>
+                                        <p class="text-muted">Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.</p>
+                                        <ul class="list list-documents list-documents-to-be-signed"></ul>
+                                        <button type="button" class="btn btn-primary mt-0 js-signature-btn" data-target="#modalSign">Podepsat</button>
+                                        <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
+                                    </div>
+                                </div>
+                                <div class="submit-zone">
+                                    <p>Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.</p>
+                                    <button type="submit" class="button button-submit button-disabled">Akceptuji</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modalSign" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&#215;</span>
+                    </button>
+                    <h4 class="modal-title">Podepsat dokument</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Podepište se prosím níže:</p>
+                    <div id="signature" class="signature js-signature"></div>
+                    <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary js-signature-save-btn">Potvrdit</button>
+                    <button type="button" class="btn btn-default js-signature-clear-btn">Smazat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var offerPageOptions = {
+            doxReadyUrl: '/Areas/eContracting/Services/DoxReady.ashx?id=02D67988E24D1EE8B9FE10518425440F',
+            isAgreed: false,
+            isRetention: true,
+            getFileUrl: '/Areas/eContracting/Services/GetFile.ashx?file=',
+            getFileForSignUrl: '/Areas/eContracting/Services/GetFile.ashx?nosave=1&file=',
+            signFileUrl: '/Areas/eContracting/Services/SignFile.ashx?file=',
+        }
+
+        /* Documents come from Back-end */
+        var documents = [
+            {
+                label: 'Jsem poučen s',
+                title: 'Podminkami pro uzivatele'
+            }, {
+                label: 'Souhlasím s',
+                title: 'My custom document'
+            }, {
+                label: 'Souhlasím s',
+                title: 'Dodatkem ke smlouve'
+            }, {
+                label: 'Souhlasím s',
+                title: 'Ceníkem produktu'
+            }, {
+                label: 'Souhlasím s',
+                title: 'Ceníkem služeb'
+            }, {
+                label: 'Souhlasím s',
+                title: 'Obchodními podmínkami'
+            }
+        ];
+
+        /* Message component messages from Back-end */
+        var messages = {
+            appUnavailable: ['<h3>Nedostupnost aplikace</h3>', '<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>'],
+            signFileError: ['<div class="alert error mt-0" role="alert"><p>Podpis se nepodařilo uložit. Zkuste to prosím znovu.</p></div>']
+        }
+
+    </script>
+
+{% endblock %}
+
+{% block scripts %}
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/jSignature.min.js"></script>
+
+{% endblock %}
