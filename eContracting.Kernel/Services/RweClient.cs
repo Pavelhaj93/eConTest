@@ -291,7 +291,6 @@ namespace eContracting.Kernel.Services
                 var response = CallService(status, del);
                 if (response != null)
                 {
-                    var responseStatus = response.ET_RETURN.First();
                     if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
                     {
                         offer.SentToService = true;
