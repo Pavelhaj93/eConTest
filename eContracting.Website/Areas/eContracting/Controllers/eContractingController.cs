@@ -72,6 +72,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["IAgree"] = generalSettings.IAgree;
                     ViewData["Accept"] = generalSettings.Accept;
 
+                    ViewData["DocumentToSign"] = generalSettings.DocumentToSign;
+                    ViewData["Step1Heading"] = generalSettings.Step1Heading;
+                    ViewData["Step2Heading"] = generalSettings.Step2Heading;
+                    ViewData["WhySignIsRequired"] = generalSettings.WhySignIsRequired;
+                    ViewData["SignButton"] = generalSettings.SignButton;
+                    ViewData["HowToSign"] = generalSettings.HowToSign;
+                    ViewData["HowToAccept"] = generalSettings.HowToAccept;
+                    ViewData["SignDocument"] = generalSettings.SignDocument;
+                    ViewData["SignRequest"] = generalSettings.SignRequest;
+                    ViewData["SignConfirm"] = generalSettings.SignConfirm;
+                    ViewData["SignDelete"] = generalSettings.SignDelete;
+
                     return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
                 }
             }

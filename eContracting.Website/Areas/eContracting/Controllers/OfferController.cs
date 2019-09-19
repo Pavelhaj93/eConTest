@@ -90,6 +90,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
+                ViewData["SignFailure"] = generalSettings.SignFailure;
 
                 return View("/Areas/eContracting/Views/Offer.cshtml");
             }

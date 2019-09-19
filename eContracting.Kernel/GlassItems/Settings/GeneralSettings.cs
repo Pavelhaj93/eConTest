@@ -65,5 +65,41 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string AccountNumber { get; set; }
+
+        [SitecoreField]
+        public virtual string SignFailure { get; set; }
+
+        [SitecoreField]
+        public virtual string DocumentToSign { get; set; }
+
+        [SitecoreField]
+        public virtual string Step1Heading { get; set; }
+
+        [SitecoreField]
+        public virtual string Step2Heading { get; set; }
+
+        [SitecoreField]
+        public virtual string WhySignIsRequired { get; set; }
+
+        [SitecoreField]
+        public virtual string SignButton { get; set; }
+
+        [SitecoreField]
+        public virtual string HowToSign { get; set; }
+
+        [SitecoreField]
+        public virtual string HowToAccept { get; set; }
+
+        [SitecoreField]
+        public virtual string SignDocument { get; set; }
+
+        [SitecoreField]
+        public virtual string SignRequest { get; set; }
+
+        [SitecoreField]
+        public virtual string SignConfirm { get; set; }
+
+        [SitecoreField]
+        public virtual string SignDelete { get; set; }
     }
 }

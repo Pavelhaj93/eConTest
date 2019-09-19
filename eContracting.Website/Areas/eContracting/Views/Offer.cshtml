@@ -39,11 +39,11 @@
 
 <script>
 /* Message component messages from Back-end */
-	var messages = {
-		appUnavailable: [
-			'<h3>Nedostupnost aplikace</h3>',
-			'<p>@Html.Raw(ViewData["AppNotAvailable"])</p>'
-		],
-		signFileError: ['<div class="alert error mt-0" role="alert"><p>Podpis se nepodaøilo uložit. Zkuste to prosím znovu.</p></div>']
-	}
+    var messages = {
+        appUnavailable: [
+            '<h3>Nedostupnost aplikace</h3>',
+            '<p>@Html.Raw(ViewData["AppNotAvailable"])</p>'
+        ],
+        signFileError: ['<div class="alert error mt-0" role="alert"><p>@Html.Raw(ViewData["SignFailure"])</p></div>']
+    }
 </script>
