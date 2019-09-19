@@ -48,6 +48,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
+                if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                {
+                    client.ReadOffer(guid);
+                }
+
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
