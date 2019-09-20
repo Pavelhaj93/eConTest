@@ -48,7 +48,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
                 {
                     client.ReadOffer(guid);
                 }
