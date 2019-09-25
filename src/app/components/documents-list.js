@@ -6,7 +6,7 @@ export default function printDocumentsList(container, docsToBeSignedContainer, d
     const checked = options.checked || false;
     const disabled = options.disabled || false;
 
-    console.log(options.agreed, checked, disabled);
+    // console.log(options.agreed, checked, disabled);
 
     /* DEMO: Method is overwritten on server */
     // window.handleClick = function(e, key) {

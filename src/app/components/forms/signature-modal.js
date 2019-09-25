@@ -49,25 +49,27 @@ export default function SignatureModal(el, config) {
                     url: config.offerPage.signFileUrl + document.key,
                     data: {
                         signature: signatureData
-                    }
-                }).done(function() {
-                    documentsToBeSigned[0].signed = true;
-                    $modal.modal('hide');
+                    },
+                    success: function() {
+                        documentsToBeSigned[0].signed = true;
+                        $modal.modal('hide');
 
-                    // change label and class of trigger element
-                    el.innerHTML = 'Upravit podpis';
-                    el.classList.remove('btn-primary');
-                    el.classList.add('btn-default');
+                        // change label and class of trigger element
+                        el.innerHTML = 'Upravit podpis';
+                        el.classList.remove('btn-primary');
+                        el.classList.add('btn-default');
 
-                    // trigger custom event
-                    $(el).closest('form').trigger('retention.document.signed');
-                }).fail(function() {
-                    $modal.find('.modal-content').removeClass('loading');
+                        // trigger custom event
+                        $(el).closest('form').trigger('retention.document.signed');
+                    },
+                    error: function() {
+                        $modal.find('.modal-content').removeClass('loading');
 
-                    // handle error state
-                    if (!errorMesssageVisible) {
-                        Message($modal.find('.modal-body'), 'signFileError', true);
-                        errorMesssageVisible = true;
+                        // handle error state
+                        if (!errorMesssageVisible) {
+                            Message($modal.find('.modal-body'), 'signFileError', true);
+                            errorMesssageVisible = true;
+                        }
                     }
                 });
             }
