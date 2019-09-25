@@ -291,10 +291,18 @@ namespace eContracting.Kernel.Services
                 var response = CallService(status, del);
                 if (response != null)
                 {
-                    if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                    if (response.EV_RETCODE == 0)
                     {
                         offer.SentToService = true;
                     }
+                    else
+                    {
+                        Log.Error(string.Format("Call to the web service during Accepting returned result {0}.", response.EV_RETCODE), this);
+                    }
+                }
+                else
+                {
+                    Log.Error("Call to the web service during Accepting returned null result.", this);
                 }
             }
             InsertToMongoAcceptedOffer(offer);
