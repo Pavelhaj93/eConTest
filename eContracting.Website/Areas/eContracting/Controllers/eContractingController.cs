@@ -105,7 +105,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                string guid = authenticationDataSessionStorage.GetUserData().Identifier;
+
+                var guid = authenticationDataSessionStorage.GetUserData().Identifier;
+                var isRetention = authenticationDataSessionStorage.GetUserData().IsRetention;
 
                 RweClient client = new RweClient();
 
@@ -119,7 +121,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
-                client.LogAcceptance(guid, documentsId, DateTime.UtcNow);
+                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, isRetention);
 
                 // New acceptance logger
                 //if(documentsId.Count > 0)

@@ -309,7 +309,7 @@ namespace eContracting.Kernel.Services
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when)
+        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, bool isRetention)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine("[LogAcceptance] Initializing...");
@@ -338,22 +338,66 @@ namespace eContracting.Kernel.Services
             List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
 
             Log.Debug("[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
+
             var responsePdfFiles = this.GetFiles(guid, false);
+            var localFiles = context.Session["UserFiles"] as List<FileToBeDownloaded>;
+
             //ZCCH_CACHE_GETResponse responsePdfFiles = GetResponse(guid, "NABIDKA_PDF");
 
             Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
-            foreach (ZCCH_ST_FILE file in responsePdfFiles)
+            if (isRetention)
             {
-                if (file != null)
-                {
-                    file.FILECONTENT = new byte[] { };
-                    files.Add(file);
+                var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
 
-                    Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                foreach (var file in responsePdfFiles)
+                {
+                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.Index == file.FILEINDX && signedFile.FileName == file.FILENAME);
+                    if (existingSignedVariant != null)
+                    {
+                        file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
+
+                        var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                        var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                        var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+
+                        if (arccIdAttribute != null)
+                        {
+                            arccIdAttribute.ATTRVAL = string.Empty;
+                        }
+
+                        if (arcDocAttribute != null)
+                        {
+                            arcDocAttribute.ATTRVAL = string.Empty;
+                        }
+
+                        if (arcArchIdAttribute != null)
+                        {
+                            arcArchIdAttribute.ATTRVAL = string.Empty;
+                        }
+                    }
+                    else
+                    {
+                        file.FILECONTENT = new byte[] { };
+                        files.Add(file);
+
+                        Log.Debug($"[LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                    }
                 }
             }
+            else
+            {
+                foreach (ZCCH_ST_FILE file in responsePdfFiles)
+                {
+                    if (file != null)
+                    {
+                        file.FILECONTENT = new byte[] { };
+                        files.Add(file);
 
+                        Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                    }
+                }
+            }
             ZCCH_CACHE_PUT cachePut = new ZCCH_CACHE_PUT();
             cachePut.IV_CCHKEY = guid;
             cachePut.IV_CCHTYPE = "NABIDKA_PRIJ";
