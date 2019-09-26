@@ -32,7 +32,6 @@ namespace eContracting.Website
                 if (files != null)
                 {
                     var file = context.Request.QueryString["file"];
-                    var noSave = context.Request.QueryString["nosave"];
 
                     if (file != null)
                     {
@@ -64,6 +63,7 @@ namespace eContracting.Website
                                 context.Response.Cache.SetExpires(DateTime.Now.AddMinutes(1));
                                 context.Response.Cache.SetCacheability(HttpCacheability.NoCache);
                                 context.Response.Cache.SetValidUntilExpires(true);
+                                context.Response.ContentType = "image/png";
                                 context.Response.AddHeader("Content-Disposition", $"inline; filename={pdfFile.FileName}.png");
                                 context.Response.AddHeader("Content-Length", imageArray.Length.ToString());
                                 context.Response.Buffer = true;
@@ -84,16 +84,16 @@ namespace eContracting.Website
         {
             try
             {
-                var imageList = new List<Image>();
+                var pdfImages = new List<Image>();
                 using (var document = PdfiumViewer.PdfDocument.Load(pdfStream))
                 {
                     for (var i = 0; i < document.PageCount; i++)
                     {
                         var image = document.Render(i, 600, 600, false);
-                        imageList.Add(image);
+                        pdfImages.Add(image);
                     }
                 }
-                var bitmap = CombineBitmap(imageList);
+                var bitmap = CombineBitmap(pdfImages);
                 bitmap.Save(imageStream, ImageFormat.Png);
             }
             catch (Exception e)
@@ -108,7 +108,7 @@ namespace eContracting.Website
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        private static Bitmap CombineBitmap(IEnumerable<Image> files)
+        private Bitmap CombineBitmap(IEnumerable<Image> files)
         {
             //read all images into memory
             var images = new List<Bitmap>();
