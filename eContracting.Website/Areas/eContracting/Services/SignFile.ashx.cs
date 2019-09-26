@@ -29,7 +29,6 @@ namespace eContracting.Website.Areas.eContracting.Services
 
                     var signingClient = new SigningClient();
                     var signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
-                    context.Response.ContentType = "application/json";
 
                     if (signingResult == null)
                     {
