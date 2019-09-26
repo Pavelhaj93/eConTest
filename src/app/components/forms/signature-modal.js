@@ -44,13 +44,17 @@ export default function SignatureModal(el, config) {
                 // id of document that is going to signed
                 const document = window.documentsToBeSigned[0];
 
+                console.log(`Sending request to ${config.offerPage.signFileUrl + document.key}`);
+
                 $.ajax({
                     type: 'POST',
                     url: config.offerPage.signFileUrl + document.key,
                     data: {
                         signature: signatureData
                     },
-                    success: function() {
+                    success: function(data, textStatus, jqXHR) {
+                        console.log('success callback');
+                        console.log(jqXHR);
                         documentsToBeSigned[0].signed = true;
                         $modal.modal('hide');
 
@@ -62,7 +66,9 @@ export default function SignatureModal(el, config) {
                         // trigger custom event
                         $(el).closest('form').trigger('retention.document.signed');
                     },
-                    error: function() {
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('error callback');
+                        console.log(jqXHR);
                         $modal.find('.modal-content').removeClass('loading');
 
                         // handle error state
