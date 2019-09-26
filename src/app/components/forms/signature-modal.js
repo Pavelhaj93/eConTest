@@ -44,38 +44,30 @@ export default function SignatureModal(el, config) {
                 // id of document that is going to signed
                 const document = window.documentsToBeSigned[0];
 
-                console.log(`Sending request to ${config.offerPage.signFileUrl + document.key}`);
-
                 $.ajax({
                     type: 'POST',
                     url: config.offerPage.signFileUrl + document.key,
                     data: {
                         signature: signatureData
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log('success callback');
-                        console.log(jqXHR);
-                        documentsToBeSigned[0].signed = true;
-                        $modal.modal('hide');
+                    }
+                }).done(function() {
+                    documentsToBeSigned[0].signed = true;
+                    $modal.modal('hide');
 
-                        // change label and class of trigger element
-                        el.innerHTML = 'Upravit podpis';
-                        el.classList.remove('btn-primary');
-                        el.classList.add('btn-default');
+                    // change label and class of trigger element
+                    el.innerHTML = 'Upravit podpis';
+                    el.classList.remove('btn-primary');
+                    el.classList.add('btn-default');
 
-                        // trigger custom event
-                        $(el).closest('form').trigger('retention.document.signed');
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log('error callback');
-                        console.log(jqXHR);
-                        $modal.find('.modal-content').removeClass('loading');
+                    // trigger custom event
+                    $(el).closest('form').trigger('retention.document.signed');
+                }).fail(function() {
+                    $modal.find('.modal-content').removeClass('loading');
 
-                        // handle error state
-                        if (!errorMesssageVisible) {
-                            Message($modal.find('.modal-body'), 'signFileError', true);
-                            errorMesssageVisible = true;
-                        }
+                    // handle error state
+                    if (!errorMesssageVisible) {
+                        Message($modal.find('.modal-body'), 'signFileError', true);
+                        errorMesssageVisible = true;
                     }
                 });
             }
