@@ -74,6 +74,9 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
     <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
       <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
@@ -173,6 +176,9 @@
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
     <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
       <DependentUpon>DoxReady.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\eContracting\Services\GetFileImage.ashx.cs">
+      <DependentUpon>GetFileImage.ashx</DependentUpon>
     </Compile>
     <Compile Include="Areas\eContracting\Services\GetFile.ashx.cs">
       <DependentUpon>GetFile.ashx</DependentUpon>
@@ -338,6 +344,7 @@
     <Content Include="Areas\eContracting\Views\Welcome.cshtml" />
     <Content Include="Areas\eContracting\Views\Content\WelcomeRichText.cshtml" />
     <Content Include="Areas\eContracting\Services\SignFile.ashx" />
+    <Content Include="Areas\eContracting\Services\GetFileImage.ashx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\File system package.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />

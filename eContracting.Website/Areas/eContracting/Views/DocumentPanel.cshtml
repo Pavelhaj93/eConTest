@@ -149,7 +149,7 @@
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
         isRetention: @Model.IsRetention.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")',
-        getFileForSignUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?nosave=1&file=")',
+        getFileForSignUrl: '@Url.Content("~/Areas/eContracting/Services/GetFileImage.ashx?file=")',
         signFileUrl: '@Url.Content("~/Areas/eContracting/Services/SignFile.ashx?file=")'
     }
 
