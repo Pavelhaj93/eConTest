@@ -76,6 +76,7 @@
                     <h4 class="modal-title">Podepsat dokument</h4>
                 </div>
                 <div class="modal-body">
+                    <div class="document-wrapper"></div>
                     <p>Podepište se prosím níže:</p>
                     <div id="signature" class="signature js-signature"></div>
                     <p class="small text-muted mt-1">Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.</p>
