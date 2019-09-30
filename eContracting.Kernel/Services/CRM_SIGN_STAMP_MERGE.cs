@@ -15,9 +15,8 @@ using eContracting.Kernel.Helpers;
 // 
 
 
-/// <remarks/>
-// CODEGEN: Nepožadovaný element rozšíření WSDL Policy z oboru názvů http://schemas.xmlsoap.org/ws/2004/09/policy nebyl zpracován.
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+     /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Web.Services.WebServiceBindingAttribute(Name = "CRM_SIGN_STAMP_MERGE", Namespace = "urn:sap-com:sprx:ep:cust:Z")]
@@ -26,14 +25,56 @@ public partial class CRM_SIGN_STAMP_MERGE : System.Web.Services.Protocols.SoapHt
 
     private System.Threading.SendOrPostCallback invokeOperationCompleted;
 
-    /// <remarks/>
+    private bool useDefaultCredentialsSetExplicitly;
+
     public CRM_SIGN_STAMP_MERGE() : this(SystemHelpers.ReadConfig("eContracting.SigningServiceUrl"))
     {
     }
 
+    /// <remarks/>
     public CRM_SIGN_STAMP_MERGE(string url)
     {
         this.Url = url;
+        if ((this.IsLocalFileSystemWebService(this.Url) == true))
+        {
+            this.UseDefaultCredentials = true;
+            this.useDefaultCredentialsSetExplicitly = false;
+        }
+        else
+        {
+            this.useDefaultCredentialsSetExplicitly = true;
+        }
+    }
+
+    public new string Url
+    {
+        get
+        {
+            return base.Url;
+        }
+        set
+        {
+            if ((((this.IsLocalFileSystemWebService(base.Url) == true)
+                        && (this.useDefaultCredentialsSetExplicitly == false))
+                        && (this.IsLocalFileSystemWebService(value) == false)))
+            {
+                base.UseDefaultCredentials = false;
+            }
+            base.Url = value;
+        }
+    }
+
+    public new bool UseDefaultCredentials
+    {
+        get
+        {
+            return base.UseDefaultCredentials;
+        }
+        set
+        {
+            base.UseDefaultCredentials = value;
+            this.useDefaultCredentialsSetExplicitly = true;
+        }
     }
 
     /// <remarks/>
@@ -45,21 +86,7 @@ public partial class CRM_SIGN_STAMP_MERGE : System.Web.Services.Protocols.SoapHt
     public invokeResponse invoke([System.Xml.Serialization.XmlElementAttribute("invoke", Namespace = "http://adobe.com/idp/services")] invoke invoke1)
     {
         object[] results = this.Invoke("invoke", new object[] {
-                    invoke1});
-        return ((invokeResponse)(results[0]));
-    }
-
-    /// <remarks/>
-    public System.IAsyncResult Begininvoke(invoke invoke1, System.AsyncCallback callback, object asyncState)
-    {
-        return this.BeginInvoke("invoke", new object[] {
-                    invoke1}, callback, asyncState);
-    }
-
-    /// <remarks/>
-    public invokeResponse Endinvoke(System.IAsyncResult asyncResult)
-    {
-        object[] results = this.EndInvoke(asyncResult);
+                        invoke1});
         return ((invokeResponse)(results[0]));
     }
 
@@ -77,7 +104,7 @@ public partial class CRM_SIGN_STAMP_MERGE : System.Web.Services.Protocols.SoapHt
             this.invokeOperationCompleted = new System.Threading.SendOrPostCallback(this.OninvokeOperationCompleted);
         }
         this.InvokeAsync("invoke", new object[] {
-                    invoke1}, this.invokeOperationCompleted, userState);
+                        invoke1}, this.invokeOperationCompleted, userState);
     }
 
     private void OninvokeOperationCompleted(object arg)
@@ -94,10 +121,26 @@ public partial class CRM_SIGN_STAMP_MERGE : System.Web.Services.Protocols.SoapHt
     {
         base.CancelAsync(userState);
     }
+
+    private bool IsLocalFileSystemWebService(string url)
+    {
+        if (((url == null)
+                    || (url == string.Empty)))
+        {
+            return false;
+        }
+        System.Uri wsUri = new System.Uri(url);
+        if (((wsUri.Port >= 1024)
+                    && (string.Compare(wsUri.Host, "localHost", System.StringComparison.OrdinalIgnoreCase) == 0)))
+        {
+            return true;
+        }
+        return false;
+    }
 }
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -152,7 +195,7 @@ public partial class invoke
 }
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -271,7 +314,7 @@ public partial class BLOB
 }
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -313,7 +356,7 @@ public partial class MyMapOf_xsd_string_To_xsd_anyType_Item
 }
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
 [System.SerializableAttribute()]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -368,11 +411,11 @@ public partial class invokeResponse
 }
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
 public delegate void invokeCompletedEventHandler(object sender, invokeCompletedEventArgs e);
 
 /// <remarks/>
-[System.CodeDom.Compiler.GeneratedCodeAttribute("wsdl", "4.7.3081.0")]
+[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 public partial class invokeCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs
@@ -396,3 +439,5 @@ public partial class invokeCompletedEventArgs : System.ComponentModel.AsyncCompl
         }
     }
 }
+
+#pragma warning restore 1591
