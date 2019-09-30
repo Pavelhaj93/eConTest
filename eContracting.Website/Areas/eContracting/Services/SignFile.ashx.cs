@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Services;
 using Sitecore.Diagnostics;
+using System.Text;
 
 namespace eContracting.Website.Areas.eContracting.Services
 {
@@ -58,7 +59,8 @@ namespace eContracting.Website.Areas.eContracting.Services
                 return null;
             }
 
-            return Convert.FromBase64String(postedSignature);
+            var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
+            return Convert.FromBase64String(base64);
         }
 
         private void AddOrReplaceSignedFile(HttpContext context, FileToBeDownloaded signingResult)

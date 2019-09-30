@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Security.Authentication;
 using System.Text;
 using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.Helpers;
 using Sitecore.Diagnostics;
-using System.Linq;
 
 namespace eContracting.Kernel.Services
 {
@@ -20,7 +20,7 @@ namespace eContracting.Kernel.Services
             {
                 var invokeParameters = new invoke();
 
-                var inputPDFBlob = new BLOB() { binaryData = pdfFile.FileContent.ToArray(), contentType = "applicaton/pdf", };
+                var inputPDFBlob = new BLOB() { binaryData = pdfFile.FileContent.ToArray(), contentType = "application/pdf", };
                 var inputSignBlob = new BLOB() { binaryData = signFile, contentType = "image/png" };
 
                 invokeParameters.inputPDF = inputPDFBlob;
@@ -45,6 +45,9 @@ namespace eContracting.Kernel.Services
         private CRM_SIGN_STAMP_MERGE InitApi()
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
+
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+
             CRM_SIGN_STAMP_MERGE api = new CRM_SIGN_STAMP_MERGE();
 
             SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();

@@ -352,7 +352,7 @@ namespace eContracting.Kernel.Services
 
                 foreach (var file in responsePdfFiles)
                 {
-                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.Index == file.FILEINDX && signedFile.FileName == file.FILENAME);
+                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
                     if (existingSignedVariant != null)
                     {
                         file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
