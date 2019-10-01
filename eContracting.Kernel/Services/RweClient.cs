@@ -375,6 +375,8 @@ namespace eContracting.Kernel.Services
                         {
                             arcArchIdAttribute.ATTRVAL = string.Empty;
                         }
+
+                        files.Add(file);
                     }
                     else
                     {
