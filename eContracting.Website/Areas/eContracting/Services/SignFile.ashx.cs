@@ -92,7 +92,7 @@ namespace eContracting.Website.Areas.eContracting.Services
 
             if (availableFiles.Count() > 1)
             {
-                file = availableFiles.FirstOrDefault(xx => xx.SignedVersion == true);
+                file = availableFiles.FirstOrDefault(xx => xx.SignedVersion == false);
                 if (file == null)
                 {
                     file = availableFiles.FirstOrDefault();
