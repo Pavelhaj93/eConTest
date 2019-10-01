@@ -76,9 +76,11 @@ export default function SignatureModal(el, config) {
         $modal
             .on('show.bs.modal', function() {
                 const document = window.documentsToBeSigned[0];
+                const time = new Date().getTime();
+                const documentUrl = `${config.offerPage.getFileForSignUrl + document.key}&t=${time}`;
 
                 if (document) {
-                    $modal.find('.modal-body .document-wrapper').prepend(`<img src="${config.offerPage.getFileForSignUrl + document.key}" alt="" />`);
+                    $modal.find('.modal-body .document-wrapper').prepend(`<img src="${documentUrl}" alt="" />`);
                 }
             })
             .on('shown.bs.modal', function() {
