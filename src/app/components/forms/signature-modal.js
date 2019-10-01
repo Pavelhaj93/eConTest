@@ -78,7 +78,7 @@ export default function SignatureModal(el, config) {
                 const document = window.documentsToBeSigned[0];
 
                 if (document) {
-                    $modal.find('.modal-body .document-wrapper').prepend(`<img src="${config.offerPage.getFileForSignUrl}" alt="" />`);
+                    $modal.find('.modal-body .document-wrapper').prepend(`<img src="${config.offerPage.getFileForSignUrl + document.key}" alt="" />`);
                 }
             })
             .on('shown.bs.modal', function() {
