@@ -34,7 +34,7 @@ namespace eContracting.Kernel.Services
                     return null;
                 }
 
-                return new FileToBeDownloaded() { FileContent = signingResult.outputPDF.binaryData.ToList(), FileName = pdfFile.FileName, FileNumber = pdfFile.FileNumber, FileType = pdfFile.FileType, Index = pdfFile.Index, SignRequired = pdfFile.SignRequired, SignedVersion = true };
+                return new FileToBeDownloaded() { FileContent = signingResult.outputPDF.binaryData.ToList(), FileName = pdfFile.FileName, FileNumber = pdfFile.FileNumber, FileType = pdfFile.FileType, Index = pdfFile.Index, SignRequired = pdfFile.SignRequired, SignedVersion = true, TemplAlcId = pdfFile.TemplAlcId };
             }
         }
 
