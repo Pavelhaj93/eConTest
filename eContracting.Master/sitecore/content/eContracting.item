@@ -14,9 +14,9 @@ created: 20161006T094331Z
 field: {8E7C5C79-E73A-46FC-83EA-D707F81206BF}
 name: SigningServiceUrl
 key: signingserviceurl
-content-length: 115
+content-length: 124
 
-https://nsqbe.innogy.cz:8110/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge
+http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge
 ----field----
 field: {339F656C-0B5C-401E-AACF-486C3A565C1C}
 name: SigningServiceUser
@@ -31,6 +31,13 @@ key: signingservicepassword
 content-length: 12
 
 QWRIYjI0Nyo=
+----field----
+field: {E7B7F556-18DD-406B-BF79-E11894C4699A}
+name: DelayAfterFailedAttempts
+key: delayafterfailedattempts
+content-length: 0
+
+
 ----field----
 field: {DEC8D2D5-E3CF-48B6-A653-8E69E2716641}
 name: __Security
@@ -88,7 +95,7 @@ sitecore\admin
 ----version----
 language: en
 version: 1
-revision: 294b79e9-0d4b-47cd-ab55-751595bff71f
+revision: d2d22a8a-553a-4577-ac1e-b49a99091bea
 
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
@@ -110,14 +117,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-294b79e9-0d4b-47cd-ab55-751595bff71f
+d2d22a8a-553a-4577-ac1e-b49a99091bea
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190108T115217Z
+20190918T132652Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
