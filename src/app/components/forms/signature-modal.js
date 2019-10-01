@@ -7,7 +7,6 @@ export default function SignatureModal(el, config) {
         const $signature = $modal.find('.js-signature');
         const $clearBtn = $modal.find('.js-signature-clear-btn');
         const $saveBtn = $modal.find('.js-signature-save-btn');
-        let documentImageLoaded = false;
         let errorMesssageVisible = false;
 
         // open modal handler
@@ -76,12 +75,10 @@ export default function SignatureModal(el, config) {
         // modal events
         $modal
             .on('show.bs.modal', function() {
-                if (!documentImageLoaded) {
-                    const document = window.documentsToBeSigned[0];
+                const document = window.documentsToBeSigned[0];
 
-                    if (document) {
-                        $modal.find('.modal-body .document-wrapper').prepend(`<img src="${config.offerPage.getFileForSignUrl + document.key}" alt="" />`);
-                    }
+                if (document) {
+                    $modal.find('.modal-body .document-wrapper').prepend(`<img src="${config.offerPage.getFileForSignUrl}" alt="" />`);
                 }
             })
             .on('shown.bs.modal', function() {
@@ -91,8 +88,6 @@ export default function SignatureModal(el, config) {
                 } else {
                     console.error('jSignature failed to initialize => the plugin is missing.');
                 }
-
-                documentImageLoaded = true;
             })
             .on('hidden.bs.modal', function() {
                 if ($.fn.jSignature) {
@@ -102,6 +97,9 @@ export default function SignatureModal(el, config) {
 
                 // remove previously added class
                 $modal.find('.modal-content').removeClass('loading');
+
+                // remove previously added image => if modal is opened again, request new image
+                $modal.find('.modal-body .document-wrapper img').remove();
             });
     })(jQuery);
 }
