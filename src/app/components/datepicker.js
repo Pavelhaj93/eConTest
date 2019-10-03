@@ -65,6 +65,11 @@ export default function DateInput(container) {
 
     if (isMobileDevice()) {
         datepickerOptions.showOnFocus = false;
+
+        /* On mobile devices we need to update datepickers's value to match the given date format. */
+        container.on('blur', () => {
+            container.datepicker('update', container.val());
+        });
     }
 
     /* Initiate on the intput's container for proper absolute/relative relation */
