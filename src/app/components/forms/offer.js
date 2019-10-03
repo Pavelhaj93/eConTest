@@ -140,6 +140,13 @@ export default function FormOffer(form, config) {
             let validDocuments = true;
             if (listDocsToBeSigned.children('li').length) {
                 validDocuments = validateDocuments();
+
+                // if there are some documents to be signed (and they are already signed) =>
+                // => make the form valid if none of checkboxes is checked
+                const allUnchecked = areAllUnchecked();
+                if (validDocuments && allUnchecked) {
+                    validForm = true;
+                }
             }
 
             /* Add/Remove disabled class from the <a> button */
@@ -151,6 +158,19 @@ export default function FormOffer(form, config) {
 
             isDocumentsAccepted = validForm;
             return (validForm && validDocuments);
+        }
+
+        function areAllUnchecked() {
+            let allUnchecked = true;
+            const checkboxes = getCheckboxes();
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    allUnchecked = false;
+                }
+            });
+
+            return allUnchecked;
         }
 
         // check if all checkboxes are checked within first step
