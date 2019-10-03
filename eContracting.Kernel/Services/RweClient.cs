@@ -309,7 +309,7 @@ namespace eContracting.Kernel.Services
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, bool isRetention)
+        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, bool isRetention, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine("[LogAcceptance] Initializing...");
@@ -380,10 +380,13 @@ namespace eContracting.Kernel.Services
                     }
                     else
                     {
-                        file.FILECONTENT = new byte[] { };
-                        files.Add(file);
+                        if (acceptedDocuments.Contains(file.FILEINDX))
+                        {
+                            file.FILECONTENT = new byte[] { };
+                            files.Add(file);
 
-                        Log.Debug($"[LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                            Log.Debug($"[LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                        }
                     }
                 }
             }

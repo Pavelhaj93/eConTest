@@ -111,6 +111,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 RweClient client = new RweClient();
 
+                var documentList = new List<string>();
+
+                if (!string.IsNullOrEmpty(this.HttpContext.Request.Form["documents"]))
+                {
+                    documentList.AddRange(this.HttpContext.Request.Form["documents"].Split(','));
+                }
+
                 var documentsId = new List<string>();
                 var offersNotsent = client.GetNotSentOffers();
 
@@ -121,7 +128,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
-                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, isRetention);
+                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, isRetention, documentList);
 
                 // New acceptance logger
                 //if(documentsId.Count > 0)
