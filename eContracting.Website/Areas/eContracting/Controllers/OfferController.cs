@@ -69,7 +69,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
                 ViewData["MainText"] = mainText;
 
-                if (ads.GetUserData().IsRetention)
+                if (ads.GetUserData().IsRetention && ads.GetUserData().HasVoucher)
                 {
                     string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
                     ViewData["VoucherText"] = voucherText;

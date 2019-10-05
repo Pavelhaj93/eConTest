@@ -73,6 +73,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["Accept"] = generalSettings.Accept;
 
                     ViewData["DocumentToSign"] = generalSettings.DocumentToSign;
+                    ViewData["DocumentToSignAccepted"] = generalSettings.DocumentToSignAccepted;
                     ViewData["Step1Heading"] = generalSettings.Step1Heading;
                     ViewData["Step2Heading"] = generalSettings.Step2Heading;
                     ViewData["WhySignIsRequired"] = generalSettings.WhySignIsRequired;

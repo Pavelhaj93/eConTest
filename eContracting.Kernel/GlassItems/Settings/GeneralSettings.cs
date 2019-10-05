@@ -73,6 +73,9 @@ namespace eContracting.Kernel.GlassItems.Settings
         public virtual string DocumentToSign { get; set; }
 
         [SitecoreField]
+        public virtual string DocumentToSignAccepted { get; set; }
+
+        [SitecoreField]
         public virtual string Step1Heading { get; set; }
 
         [SitecoreField]

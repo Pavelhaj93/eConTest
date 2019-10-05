@@ -13,7 +13,7 @@ created: 20190919T110532Z
 ----version----
 language: cs
 version: 1
-revision: 4e1432d9-5caf-44db-a853-743cb13df3e4
+revision: b1354df7-201d-44a6-8590-adb4776c0f7b
 
 ----field----
 field: {C5B9C9D5-0D8D-42C9-95F5-EE306469BE39}
@@ -29,6 +29,13 @@ key: documenttosign
 content-length: 34
 
 Dokumenty k elektronické akceptaci
+----field----
+field: {7B05BFA2-C40A-49DD-8B6D-16ADB90E5D0B}
+name: DocumentToSignAccepted
+key: documenttosignaccepted
+content-length: 21
+
+Akceptované dokumenty
 ----field----
 field: {45B5A800-C07B-4127-B2B5-4CCD165CF84A}
 name: Step1Heading
@@ -126,14 +133,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-4e1432d9-5caf-44db-a853-743cb13df3e4
+b1354df7-201d-44a6-8590-adb4776c0f7b
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20190919T110720Z
+20191005T151347Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

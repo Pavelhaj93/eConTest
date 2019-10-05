@@ -56,6 +56,11 @@ namespace eContracting.Kernel.Utils
         public bool IsRetention { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether offer contains offers (document is without AD1)
+        /// </summary>
+        public bool HasVoucher { get; set; }
+
+        /// <summary>
         /// Gets or sets expiration flag for offer.
         /// </summary>
         public bool OfferIsExpired { get; set; }

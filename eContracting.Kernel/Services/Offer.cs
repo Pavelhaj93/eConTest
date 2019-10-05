@@ -6,6 +6,7 @@ namespace eContracting.Kernel.Services
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -151,6 +152,20 @@ namespace eContracting.Kernel.Services
             get
             {
                 return this.BusProcess == "01";
+            }
+        }
+
+        [XmlIgnore]
+        public bool OfferHasVoucher
+        {
+            get
+            {
+                if (this.Attachments == null || this.Attachments.Length == 0)
+                {
+                    return false;
+                }
+
+                return this.Attachments.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
             }
         }
 

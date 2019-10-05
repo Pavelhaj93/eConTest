@@ -17,7 +17,14 @@
     <div class="col-sm-12 col-md-10 col-md-offset-1">
         @if (Model.IsRetention)
         {
-            <h2>@ViewData["DocumentToSign"]</h2>
+            if (Model.IsAccepted)
+            {
+                <h2>@ViewData["DocumentToSignAccepted"]</h2>
+            }
+            else
+            {
+                <h2>@ViewData["DocumentToSign"]</h2>
+            }
         }
         <div class="form-background">
             <div class="container-fluid">
