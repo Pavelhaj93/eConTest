@@ -8,6 +8,7 @@ namespace eContracting.Kernel.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using eContracting.Kernel.GlassItems.Settings;
     using eContracting.Kernel.Services;
     using eContracting.Kernel.Utils;
     using Sitecore.Configuration;
@@ -105,7 +106,7 @@ namespace eContracting.Kernel.Helpers
 
             try
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                var stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("Retrieved parameters for '" + data.Identifier + "':");
                 stringBuilder.AppendLine("-----------------------------------------------------");
                 stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
@@ -117,12 +118,60 @@ namespace eContracting.Kernel.Helpers
                 Log.Warn("Cannot serialize parameters", ex, typeof(SystemHelpers));
             }
 
+            var defaultParams = GetDefaultParameters(ConfigHelpers.GetGeneralSettings());
+            parameters = CheckParameters(parameters, defaultParams);
+
             mainRawText = ReplaceParameters(mainRawText, parameters);
 
             // some specific
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
 
             return mainRawText;
+        }
+
+        private static IDictionary<string, string> GetDefaultParameters(GeneralSettings generalSettings)
+        {
+            var res = new Dictionary<string, string>();
+
+            if (generalSettings == null)
+            {
+                Log.Warn("General settings can not be null", typeof(SystemHelpers));
+                return res;
+            }
+
+            if (!string.IsNullOrEmpty(generalSettings.DefaultSalutation))
+            {
+                res.Add("CUSTTITLELET", generalSettings.DefaultSalutation);
+            }
+
+            return res;
+        }
+
+        private static IDictionary<string, string> CheckParameters(IDictionary<string,string> parameters, IDictionary<string,string> defaultParameters)
+        {
+            if (defaultParameters == null || !defaultParameters.Any())
+            {
+                return parameters;
+            }
+
+            foreach (var defaultParam in defaultParameters)
+            {
+                if (parameters.ContainsKey(defaultParam.Key))
+                {
+                    var paramValue = parameters[defaultParam.Key];
+
+                    if (string.IsNullOrEmpty(paramValue))
+                    {
+                        parameters[defaultParam.Key] = defaultParam.Value;
+                    }
+                }
+                else
+                {
+                    parameters.Add(defaultParam);
+                }
+            }
+
+            return parameters;
         }
 
         /// <summary>

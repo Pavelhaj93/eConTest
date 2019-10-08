@@ -13,8 +13,15 @@ created: 20190919T110532Z
 ----version----
 language: cs
 version: 1
-revision: b1354df7-201d-44a6-8590-adb4776c0f7b
+revision: 3f79c84f-6231-42fe-b64c-6b012493d808
 
+----field----
+field: {12557C63-3AF7-420D-A401-8B3E53751E08}
+name: DefaultSalutation
+key: defaultsalutation
+content-length: 24
+
+Vážený pane, vážená paní
 ----field----
 field: {C5B9C9D5-0D8D-42C9-95F5-EE306469BE39}
 name: SignFailure
@@ -133,14 +140,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-b1354df7-201d-44a6-8590-adb4776c0f7b
+3f79c84f-6231-42fe-b64c-6b012493d808
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20191005T151347Z
+20191008T081033Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

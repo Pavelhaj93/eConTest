@@ -67,6 +67,9 @@ namespace eContracting.Kernel.GlassItems.Settings
         public virtual string AccountNumber { get; set; }
 
         [SitecoreField]
+        public virtual string DefaultSalutation { get; set; }
+
+        [SitecoreField]
         public virtual string SignFailure { get; set; }
 
         [SitecoreField]
