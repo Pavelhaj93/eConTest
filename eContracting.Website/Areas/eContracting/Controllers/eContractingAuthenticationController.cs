@@ -28,7 +28,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var guid = Request.QueryString["guid"];
-                var fromWelcome = Request.QueryString["fromWelcome"];
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -40,7 +39,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-                RweClient client = new RweClient();
+                var client = new RweClient();
                 var offer = client.GenerateXml(guid);
 
                 if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
@@ -56,27 +55,35 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
-                if (this.Context.WelcomePageEnabled && !authenticationData.IsAccepted && fromWelcome != "1")
+                if (Request.QueryString["fromWelcome"] != "1" && !authenticationData.IsAccepted)
                 {
-                    var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
-                    return Redirect(welcomeRedirectUrl);
+                    if (!authenticationData.IsRetention && this.Context.WelcomePageEnabled)
+                    {
+                        var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
+                        return Redirect(welcomeRedirectUrl);
+                    }
+
+                    if (authenticationData.IsRetention && this.Context.WelcomePageEnabledRetention)
+                    {
+                        var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
+                        return Redirect(welcomeRedirectUrl);
+                    }
                 }
 
-                var dataModel = new AuthenticationModel();
-                dataModel.ItemValue = authenticationData.ItemValue.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
+                var dataModel = new AuthenticationModel
+                {
+                    ItemValue = authenticationData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString()
+                };
 
-                string contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
-                string maintext = SystemHelpers.GenerateMainText(authenticationData, contentText, string.Empty);
+                var contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
+                var maintext = SystemHelpers.GenerateMainText(authenticationData, contentText, string.Empty);
 
                 if (maintext == null)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData();
-
-                ViewData["MainText"] = maintext;
-                ViewData["AdditionalPlaceholder"] = string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName);
+                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName));
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
@@ -98,10 +105,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             try
             {
-                string guid = Request.QueryString["guid"];
-
-                SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
-                LoginsCheckerClient loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
+                var guid = Request.QueryString["guid"];
+                var siteSettings = ConfigHelpers.GetSiteSettings();
+                var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
 
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
@@ -109,14 +115,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 FillViewData();
+
                 var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
-                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", String.Empty).ToLower().GetHashCode().ToString();
-
-                RweClient client = new RweClient();
+                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                var client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
-
-                AuthenticationDataSessionStorage ass = new AuthenticationDataSessionStorage();
-                AuthenticationDataItem authenticationData = ass.GetUserData(offer, false);
+                var ass = new AuthenticationDataSessionStorage();
+                var authenticationData = ass.GetUserData(offer, false);
                 authenticationData.ItemValue = authenticationModel.ItemValue;
 
                 //failureData failureData;
@@ -185,15 +190,24 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        private void FillViewData()
+        private void FillViewData(string mainText = null, string additionalPlaceholder = null)
         {
             ViewData["FirstText"] = this.Context.DateOfBirth;
             ViewData["SecondText"] = this.Context.ContractData;
             ViewData["ButtonText"] = this.Context.ButtonText;
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
-
             ViewData["RequiredFields"] = this.Context.RequiredFields;
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+
+            if (!string.IsNullOrEmpty(mainText))
+            {
+                ViewData["MainText"] = mainText;
+            }
+
+            if (!string.IsNullOrEmpty(additionalPlaceholder))
+            {
+                ViewData["AdditionalPlaceholder"] = additionalPlaceholder;
+            }
         }
 
         //private Dictionary<string, failureData> NumberOfLogons

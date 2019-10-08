@@ -33,6 +33,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         public virtual bool WelcomePageEnabled { get; set; }
 
         [SitecoreField]
+        public virtual bool WelcomePageEnabledRetention { get; set; }
+
+        [SitecoreField]
         public virtual string DateOfBirthPlaceholder { get; set; }
 
         [SitecoreField]
