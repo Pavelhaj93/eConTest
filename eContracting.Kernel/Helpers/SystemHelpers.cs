@@ -31,7 +31,7 @@ namespace eContracting.Kernel.Helpers
         /// </summary>
         /// <param name="input">Account number.</param>
         /// <returns>Returns true if account is valid, otherwise retruns false.</returns>
-        public static Boolean IsAccountNumberValid(string input)
+        public static bool IsAccountNumberValid(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -45,6 +45,8 @@ namespace eContracting.Kernel.Helpers
 
         /// <summary>
         /// Gets a collection of parameters which can be used for string replacmement.
+        /// Default parameters are applied before return. 
+        /// This is the only entry point for getting parameters all over the project, so defaults are applied if necessary. 
         /// </summary>
         /// <returns>Collection of parameters.</returns>
         public static IDictionary<string, string> GetParameters(string guid, string additionalInfoDocument)
@@ -53,7 +55,7 @@ namespace eContracting.Kernel.Helpers
             var text = client.GetTextsXml(guid);
             var parameters = client.GetAllAttributes(text, additionalInfoDocument);
 
-            return parameters;
+            return ApplyDefaultParams(parameters, GetDefaultParameters(ConfigHelpers.GetGeneralSettings()));
         }
 
         /// <summary>
@@ -118,9 +120,6 @@ namespace eContracting.Kernel.Helpers
                 Log.Warn("Cannot serialize parameters", ex, typeof(SystemHelpers));
             }
 
-            var defaultParams = GetDefaultParameters(ConfigHelpers.GetGeneralSettings());
-            parameters = CheckParameters(parameters, defaultParams);
-
             mainRawText = ReplaceParameters(mainRawText, parameters);
 
             // some specific
@@ -147,11 +146,14 @@ namespace eContracting.Kernel.Helpers
             return res;
         }
 
-        private static IDictionary<string, string> CheckParameters(IDictionary<string,string> parameters, IDictionary<string,string> defaultParameters)
+        private static IDictionary<string, string> ApplyDefaultParams(IDictionary<string,string> parameters, IDictionary<string,string> defaultParameters)
         {
-            if (defaultParameters == null || !defaultParameters.Any())
+            ////If we have null or empty collection of parameters -> we dont have material to work with
+            ////So, we are about to return only default parameters
+            ////In case, default params are also null -> empty collection is returned 
+            if (parameters == null || !parameters.Any())
             {
-                return parameters;
+                return defaultParameters ?? new Dictionary<string, string>();
             }
 
             foreach (var defaultParam in defaultParameters)
