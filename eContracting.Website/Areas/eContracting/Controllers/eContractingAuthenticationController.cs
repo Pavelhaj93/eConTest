@@ -3,7 +3,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
-using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
@@ -47,11 +46,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
-                {
-                    client.ReadOffer(guid);
-                }
-
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
@@ -62,11 +56,25 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
+                    else
+                    {
+                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                        {
+                            client.ReadOffer(guid);
+                        }
+                    }
 
                     if (authenticationData.IsRetention && this.Context.WelcomePageEnabledRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
+                    }
+                    else
+                    {
+                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                        {
+                            client.ReadOffer(guid);
+                        }
                     }
                 }
 
