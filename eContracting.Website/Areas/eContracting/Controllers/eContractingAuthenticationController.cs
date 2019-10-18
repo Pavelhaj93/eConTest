@@ -51,20 +51,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (Request.QueryString["fromWelcome"] != "1" && !authenticationData.IsAccepted)
                 {
-                    if (!authenticationData.IsRetention && this.Context.WelcomePageEnabled)
+                    if (this.Context.WelcomePageEnabled && !authenticationData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
-                    else
-                    {
-                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
-                        {
-                            client.ReadOffer(guid);
-                        }
-                    }
-
-                    if (authenticationData.IsRetention && this.Context.WelcomePageEnabledRetention)
+                    else if (this.Context.WelcomePageEnabledRetention && authenticationData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
