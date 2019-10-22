@@ -20,5 +20,7 @@ namespace eContracting.Kernel
         public const string HeaderSettings = "/sitecore/Content/eContracting/Settings/Header";
 
         public const string ModalWindowSettings = "/sitecore/content/eContracting/Settings/Modal Window";
+
+        public const string AuthenticationSettings = "/sitecore/content/eContracting/Settings/Authentication";
     }
 }

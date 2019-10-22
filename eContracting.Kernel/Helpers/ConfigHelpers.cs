@@ -5,8 +5,10 @@
 namespace eContracting.Kernel.Helpers
 {
     using System;
+    using System.Linq;
     using eContracting.Kernel.GlassItems;
     using eContracting.Kernel.GlassItems.Settings;
+    using eContracting.Kernel.Models;
     using Glass.Mapper.Sc;
     using Glass.Mapper.Sc.Fields;
     using Log = Sitecore.Diagnostics.Log;
@@ -16,6 +18,37 @@ namespace eContracting.Kernel.Helpers
     /// </summary>
     public static class ConfigHelpers
     {
+        /// <summary>
+        /// Gets the general settings.
+        /// </summary>
+        /// <returns></returns>
+        public static AuthenticationSettingsModel GetAuthenticationSettings()
+        {
+            using (var context = new SitecoreContext())
+            {
+                if (context == null)
+                {
+                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", Type.DefaultBinder);
+                    return null;
+                }
+
+                var authSetttings = context.GetItem<AuthenticationSettings>(ItemPaths.AuthenticationSettings);
+                
+                if (authSetttings == null)
+                {
+                    Log.Error("Error when getting general sitecore settings for eContracting", Type.DefaultBinder);
+                    return null;
+                }
+
+                var authsettingsModel = new AuthenticationSettingsModel()
+                {
+                    authFields = authSetttings.AuthenticationSettingItems.ToDictionary(a => a.AuthenticationFieldName, a => a.UserFriendlyFieldName)
+                };
+
+                return authsettingsModel;
+            }
+        }
+
         /// <summary>
         /// Gets the general settings.
         /// </summary>

@@ -46,5 +46,11 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField]
         public virtual string RequiredFields { get; set; }
+
+        [SitecoreField]
+        public virtual bool UserChoiceAuthenticationEnabled { get; set; }
+
+        [SitecoreField]
+        public virtual bool UserChoiceAuthenticationEnabledRetention { get; set; }
     }
 }

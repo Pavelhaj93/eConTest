@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
@@ -47,43 +49,58 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
+                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var userData = authHelper.GetUserData();
+
+
                 if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
                 {
                     client.ReadOffer(guid);
                 }
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
+                //var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
+                //var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
-                if (Request.QueryString["fromWelcome"] != "1" && !authenticationData.IsAccepted)
+                if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    if (!authenticationData.IsRetention && this.Context.WelcomePageEnabled)
+                    if (!userData.IsRetention && this.Context.WelcomePageEnabled)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
 
-                    if (authenticationData.IsRetention && this.Context.WelcomePageEnabledRetention)
+                    if (userData.IsRetention && this.Context.WelcomePageEnabledRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
                 }
 
-                var dataModel = new AuthenticationModel
-                {
-                    ItemValue = authenticationData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString()
-                };
+                var dataModel = new AuthenticationModel();
 
-                var contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
-                var maintext = SystemHelpers.GenerateMainText(authenticationData, contentText, string.Empty);
+                if (authHelper.IsUserChoice)
+                {
+                    //// New code goes here
+                    dataModel.IsUserChoice = true;
+                    var items = authHelper.GetAvailableAuthenticationFields();
+                    dataModel.AvailableFields = new SelectList(items.Select(pair => new SelectListItem { Value = pair.Key, Text = pair.Value }));
+                }
+                else
+                {
+                    dataModel.ItemValue = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                    dataModel.IsUserChoice = false;
+                }
+
+                var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
+                var maintext = SystemHelpers.GenerateMainText(userData, contentText, string.Empty);
 
                 if (maintext == null)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName));
+                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName));
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }

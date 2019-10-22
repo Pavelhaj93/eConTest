@@ -1,0 +1,66 @@
+----item----
+version: 1
+id: {CEF514AC-259A-4693-8951-B28B886F4B31}
+database: master
+path: /sitecore/content/eContracting/Settings/Authentication
+parent: {3ED34764-1F4A-4BF7-BE8B-16034F07F5E8}
+name: Authentication
+master: {00000000-0000-0000-0000-000000000000}
+template: {5AF8CBA5-E046-4C7C-8504-C2DD52158E8C}
+templatekey: AuthenticationSettings
+created: 20191021T103123Z
+
+----version----
+language: cs
+version: 1
+revision: 4368a823-1789-4237-b9e2-2f55274c1796
+
+----field----
+field: {0FCD7E2A-74CC-44BE-B1E7-58CCDDEE2318}
+name: AuthenticationSettingItems
+key: authenticationsettingitems
+content-length: 233
+
+{D2A06953-BD26-43C3-8CF8-B838F135F2D9}|{07F863F9-F677-4733-96EA-9F7022C87F1C}|{F40DCF35-C064-4582-B32B-D1CF728C67A8}|{C5032128-8D96-4070-86CB-C2EE0976E471}|{80288746-D5B8-45CD-B152-2164C223C841}|{A7DC2EEC-47DE-46ED-88B9-D9CF694A21D0}
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20191021T103123Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+4368a823-1789-4237-b9e2-2f55274c1796
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20191021T133711Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin

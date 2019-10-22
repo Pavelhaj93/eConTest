@@ -14,6 +14,7 @@
                 <div class="status"></div>
                 <div class="row">
                     <div class="col-md-8 col-lg-6">
+                        <!-- Birth day is mandatory -->
                         <div class="input-group">
                             <label for="birth">
                                 @Html.Raw(ViewData["FirstText"])
@@ -25,13 +26,29 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="input-group">
-                            <label for="additional">
-                                @Html.Raw(ViewData["SecondText"])
+
+                        <!-- UserChoice or RandomChoice-->
+                        <label for="some">
+                            @Html.Raw("Some shit labela")
+                        </label>
+                        @if (Model.IsUserChoice)
+                        {
+                            @Html.DropDownListFor(model => model.SelectedKey, Model.AvailableFields)
+                            <label for="some">
+                                @Html.Raw("Write your shit here labela")
                             </label>
-                            @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
-                        </div>
-                        @Html.HiddenFor(m => m.ItemValue)
+                            @Html.TextBoxFor(model => model.SelectedValue, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
+                        }
+                        else
+                        {
+                            <div class="input-group">
+                                <label for="additional">
+                                    @Html.Raw(ViewData["SecondText"])
+                                </label>
+                                @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
+                            </div>
+                            @Html.HiddenFor(m => m.ItemValue)
+                        }
                     </div>
                 </div>
                 <input type="submit" class="button button-submit" id="mainBtn" value="@ViewData["ButtonText"]" />
