@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 
 namespace eContracting.Kernel.Utils
@@ -18,7 +19,7 @@ namespace eContracting.Kernel.Utils
 
         public abstract AuthenticationDataItem GetUserData();
 
-        public abstract Dictionary<string,string> GetAvailableAuthenticationFields();
+        public abstract IEnumerable<AuthenticationSettingsItemModel> GetAvailableAuthenticationFields();
 
         public abstract string GetRealAdditionalValue(string key);
 

@@ -16,27 +16,27 @@ namespace eContracting.Kernel.Utils
             this.settings = settings;
         }
 
-        public override Dictionary<string,string> GetAvailableAuthenticationFields()
+        public override IEnumerable<AuthenticationSettingsItemModel> GetAvailableAuthenticationFields()
         {
             var res = new Dictionary<string, string>();
 
-            if (this.settings == null || this.settings.authFields == null || !this.settings.authFields.Any())
+            if (this.settings == null || this.settings.AuthFields == null || !this.settings.AuthFields.Any())
             {
                 throw new InvalidOperationException("Settings can not be null");
             }
 
-            return this.ValidateItemsAgainstOffer(this.offer, settings.authFields);
+            return this.ValidateItemsAgainstOffer(this.offer, settings.AuthFields);
         }
 
-        private Dictionary<string, string> ValidateItemsAgainstOffer(Offer offer, Dictionary<string, string> items)
+        private IEnumerable<AuthenticationSettingsItemModel> ValidateItemsAgainstOffer(Offer offer, IEnumerable<AuthenticationSettingsItemModel> items)
         {
-            var validItems = new Dictionary<string, string>();
+            var validItems = new List<AuthenticationSettingsItemModel>();
 
             foreach (var item in items)
             {
-                var tmp = this.GetRealAdditionalValue(item.Key);
+                var tmp = this.GetRealAdditionalValue(item.AuthenticationDFieldName);
                 if (tmp == null) continue;
-                validItems.Add(item.Key, item.Value);
+                validItems.Add(item);
             }
 
             return validItems;

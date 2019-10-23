@@ -42,7 +42,12 @@ namespace eContracting.Kernel.Helpers
 
                 var authsettingsModel = new AuthenticationSettingsModel()
                 {
-                    authFields = authSetttings.AuthenticationSettingItems.ToDictionary(a => a.AuthenticationFieldName, a => a.UserFriendlyFieldName)
+                    AuthFields = authSetttings.AuthenticationSettingItems.Select(a => new AuthenticationSettingsItemModel
+                    {
+                        UserFriendlyName = a.UserFriendlyFieldName,
+                        AuthenticationDFieldName = a.AuthenticationFieldName,
+                        Hint = a.Hint
+                    }).ToList()
                 };
 
                 return authsettingsModel;

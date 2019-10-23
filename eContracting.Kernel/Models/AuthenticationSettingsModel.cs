@@ -8,6 +8,6 @@ namespace eContracting.Kernel.Models
 {
     public class AuthenticationSettingsModel
     {
-        public Dictionary<string,string> authFields { get; set; }
+        public IEnumerable<AuthenticationSettingsItemModel> AuthFields { get; set; }
     }
 }

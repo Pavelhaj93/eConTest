@@ -22,5 +22,8 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string AuthenticationFieldName { get; set; }
+
+        [SitecoreField]
+        public virtual string Hint { get; set; }
     }
 }

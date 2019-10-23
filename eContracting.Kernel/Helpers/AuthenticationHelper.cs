@@ -61,7 +61,7 @@ namespace eContracting.Kernel.Helpers
             this.authSession.Login(data);
         }
 
-        public Dictionary<string, string> GetAvailableAuthenticationFields()
+        public IEnumerable<AuthenticationSettingsItemModel> GetAvailableAuthenticationFields()
         {
             return this.authProcessor.GetAvailableAuthenticationFields();
         }

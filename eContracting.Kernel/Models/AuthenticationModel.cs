@@ -19,13 +19,10 @@ namespace eContracting.Kernel.Models
         [Required]
         public string ItemValue { get; set; }
 
-        [Required]
         public bool IsUserChoice { get; set; }
 
-        [Required]
-        public SelectList AvailableFields { get;set;}
+        public IEnumerable<AuthenticationSelectListItem> AvailableFields { get;set;}
 
-        [Required]
         public string SelectedKey { get; set; }
     }
 }

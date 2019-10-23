@@ -81,10 +81,20 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (authHelper.IsUserChoice)
                 {
-                    //// New code goes here
                     dataModel.IsUserChoice = true;
-                    var items = authHelper.GetAvailableAuthenticationFields();
-                    dataModel.AvailableFields = new SelectList(items.Select(pair => new SelectListItem { Value = pair.Key, Text = pair.Value }));
+                    var items = new List<AuthenticationSelectListItem>();
+                    var available = authHelper.GetAvailableAuthenticationFields();
+                    foreach (var item in available)
+                    {
+                        items.Add(new AuthenticationSelectListItem {DataHelpValue = item.Hint, Value = item.AuthenticationDFieldName, Text = item.UserFriendlyName });
+                    }
+
+                    dataModel.AvailableFields = items;
+                    //// New code goes here
+                    //dataModel.IsUserChoice = true;
+                    //var items = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("default", string.Empty) };
+                    //items.AddRange(authHelper.GetAvailableAuthenticationFields());
+                    //dataModel.AvailableFields = new SelectList(items.Select(pair => new SelectListItem { Value = pair.Key, Text = pair.Value }));
                 }
                 else
                 {
@@ -142,17 +152,19 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
 
                 var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
-                var additionalRealValue = authHelper.IsUserChoice ? authHelper.GetRealAdditionalValue(authenticationModel.Additional) : authenticationModel.ItemValue;     ////Value from offer hashed
+                var additionalRealValue = authHelper.IsUserChoice ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) : authenticationModel.ItemValue;     ////Value from offer hashed
 
+                var validFormat = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue)) && (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
+                var validData = (dateOfBirthUserValue == dateOfBirthRealValue) && (additionalUserValue == additionalRealValue);
                 ////userData.ItemValue = authenticationModel.ItemValue;
 
                 ////if ((dateOfBirthUserValue != dateOfBirthRealValue) || (additionalUserValue != userData.ItemValue))
-                if ((dateOfBirthUserValue != dateOfBirthRealValue) || (additionalUserValue != additionalRealValue))
+                if (!validFormat || !validData)
                 {
                     var siteSettings = ConfigHelpers.GetSiteSettings();
                     var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
                     loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
-                    var url = Request.RawUrl.Contains("&error=validationError")? Request.RawUrl : Request.RawUrl + "&error=validationError";
+                    var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
 
                     return Redirect(url);
                 }
@@ -162,7 +174,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
 
-                var aut = new AuthenticationDataSessionStorage();
+                var aut = new AuthenticationDataSessionStorage();   ////why???
                 aut.Login(userData);
 
                 if (userData.IsAccepted)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 
 namespace eContracting.Kernel.Utils
@@ -15,7 +16,7 @@ namespace eContracting.Kernel.Utils
             this.offer = offer;
         }
 
-        public override Dictionary<string, string> GetAvailableAuthenticationFields()
+        public override IEnumerable<AuthenticationSettingsItemModel> GetAvailableAuthenticationFields()
         {
             throw new InvalidOperationException("Not available in randome authentication method");
         }
