@@ -10,6 +10,8 @@ import CheckAll from './components/check-all';
 import Copyright from './components/copyright';
 import SignatureModal from './components/forms/signature-modal';
 import Tooltip from './components/tooltip';
+import SelectWithTooltip from './components/select-with-tooltip';
+import SetFocusAfterChange from './components/focus-after-change';
 
 window.app = {
     start(config) {
@@ -21,5 +23,7 @@ window.app = {
         init(Copyright, document.getElementById('copyright'));
         init(SignatureModal, document.querySelector('.js-signature-btn'), config);
         factory(Tooltip, document.querySelectorAll('[data-toggle="tooltip"]'));
+        factory(SelectWithTooltip, document.querySelectorAll('.js-select-with-tooltip'));
+        factory(SetFocusAfterChange, document.querySelectorAll('.js-focus-after-change'));
     }
 };

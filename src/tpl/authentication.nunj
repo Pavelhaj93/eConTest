@@ -19,13 +19,12 @@
 					<div class="input-group">
 						<label for="some">Vyberte si druhý smluvní údaj pro přihlášení</label>
 						<div class="input-group-tooltip">
-							<select name="some" id="some">
-								<option value=""></option>
-								<option value="">Zákaznické číslo</option>
-								<option value="">Číslo smlouvy</option>
-								<option value="">EAN/EIC</option>
+							<select name="some" id="some" class="js-select-with-tooltip js-focus-after-change" data-target="additional">
+								<option value="" data-help="Zákaznické číslo je číslo, které je prostě číslo.">Zákaznické číslo</option>
+								<option value="" data-help="Číslo smlouvy je údaje, který najdete...">Číslo smlouvy</option>
+								<option value="" data-help="Tento údaj naleznete na faktuře.">EAN/EIC</option>
 							</select>
-							<span class="tooltip-icon" data-toggle="tooltip" data-placement="top" title="Zákaznické číslo je číslo, které je prostě číslo.">
+							<span class="tooltip-icon js-tooltip">
 								{{ icon('question-mark') }}
 							</span>
 						</div>

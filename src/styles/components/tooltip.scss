@@ -1,4 +1,5 @@
-$icon-size: 45px;
+$icon-size: 40px;
+$icon-size-small: ($icon-size / 1.5);
 
 .tooltip-icon {
 	display: inline-block;
@@ -7,10 +8,15 @@ $icon-size: 45px;
 
 	svg {
 		display: block;
-		width: $icon-size;
-		height: $icon-size;
+		width: $icon-size-small;
+		height: $icon-size-small;
 		fill: $color-orange;
 		pointer-events: none;
+
+		@media (min-width: 768px) {
+			width: $icon-size;
+			height: $icon-size;
+		}
 	}
 }
 
