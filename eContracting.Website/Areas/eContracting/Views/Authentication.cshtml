@@ -39,23 +39,24 @@
                                     <option data-help="@option.DataHelpValue" value="@option.Value">@option.Text</option>
                                 }
                             </select>
-                                <label for="some">
-                                    @Html.Raw("Write your shit here labela")
+                            <label for="some">
+                                @Html.Raw("Write your shit here labela")
+                            </label>
+                            @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
+                            @Html.HiddenFor(m => m.ItemValue, new { @Value = "NotAvailable" })
+                        }
+                        else
+                        {
+                            <div class="input-group">
+                                <label for="additional">
+                                    @Html.Raw(ViewData["SecondText"])
                                 </label>
-                                @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
-                                @Html.HiddenFor(m => m.ItemValue)
-                                }
-                                else
-                                {
-                                <div class="input-group">
-                                    <label for="additional">
-                                        @Html.Raw(ViewData["SecondText"])
-                                    </label>
-                                    @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
-                                </div>
-                                @Html.HiddenFor(m => m.ItemValue)
-                                }
-</div>
+                                @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
+                            </div>
+                            @Html.HiddenFor(m => m.ItemValue)
+                            @Html.HiddenFor(m => m.SelectedKey, new { @Value = "NotAvailable"})
+                        }
+                    </div>
                 </div>
                 <input type="submit" class="button button-submit" id="mainBtn" value="@ViewData["ButtonText"]" />
             </div>

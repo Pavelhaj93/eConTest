@@ -90,11 +90,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
 
                     dataModel.AvailableFields = items;
-                    //// New code goes here
-                    //dataModel.IsUserChoice = true;
-                    //var items = new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("default", string.Empty) };
-                    //items.AddRange(authHelper.GetAvailableAuthenticationFields());
-                    //dataModel.AvailableFields = new SelectList(items.Select(pair => new SelectListItem { Value = pair.Key, Text = pair.Value }));
                 }
                 else
                 {

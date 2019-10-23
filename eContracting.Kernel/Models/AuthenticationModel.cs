@@ -23,6 +23,7 @@ namespace eContracting.Kernel.Models
 
         public IEnumerable<AuthenticationSelectListItem> AvailableFields { get;set;}
 
+        [Required]
         public string SelectedKey { get; set; }
     }
 }
