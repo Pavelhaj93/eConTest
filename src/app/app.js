@@ -9,6 +9,7 @@ import FormOffer from './components/forms/offer';
 import CheckAll from './components/check-all';
 import Copyright from './components/copyright';
 import SignatureModal from './components/forms/signature-modal';
+import Tooltip from './components/tooltip';
 
 window.app = {
     start(config) {
@@ -19,5 +20,6 @@ window.app = {
         init(DateInput, document.querySelector('.input-date'));
         init(Copyright, document.getElementById('copyright'));
         init(SignatureModal, document.querySelector('.js-signature-btn'), config);
+        factory(Tooltip, document.querySelectorAll('[data-toggle="tooltip"]'));
     }
 };
