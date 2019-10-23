@@ -56,9 +56,20 @@ namespace eContracting.Kernel.Helpers
             return this.authProcessor.GetUserData();
         }
 
+        public void Login(AuthenticationDataItem data)
+        {
+            this.authSession.Login(data);
+        }
+
         public Dictionary<string, string> GetAvailableAuthenticationFields()
         {
             return this.authProcessor.GetAvailableAuthenticationFields();
+        }
+
+        public string GetRealAdditionalValue(string key)
+        {
+            var tmp =  this.authProcessor.GetRealAdditionalValue(key);
+            return tmp == null ? tmp : tmp.Trim().Replace(" ", string.Empty).ToLower();
         }
     }
 }

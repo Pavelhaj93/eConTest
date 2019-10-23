@@ -27,8 +27,5 @@ namespace eContracting.Kernel.Models
 
         [Required]
         public string SelectedKey { get; set; }
-
-        [Required]
-        public string SelectedValue { get; set; }
     }
 }

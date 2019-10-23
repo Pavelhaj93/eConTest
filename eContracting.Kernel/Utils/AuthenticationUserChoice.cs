@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 
@@ -37,36 +34,39 @@ namespace eContracting.Kernel.Utils
 
             foreach (var item in items)
             {
-                if (item.Key == "identificationnumber")
-                {
-                    if (!string.IsNullOrEmpty(offer.OfferInternal.Body.OrganizationNumber))
-                    {
-                        validItems.Add(item.Key, item.Value);
-                    }
-                }
-
-                if (item.Key == "birthdate")
-                {
-                    if (!string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
-                    {
-                        validItems.Add(item.Key, item.Value);
-                    }
-                }
-
-                if (item.Key == "eanoreic")
-                {
-                    if (!string.IsNullOrEmpty(offer.OfferInternal.Body.EanOrAndEic))
-                    {
-                        validItems.Add(item.Key, item.Value);
-                    }
-                }
+                var tmp = this.GetRealAdditionalValue(item.Key);
+                if (tmp == null) continue;
+                validItems.Add(item.Key, item.Value);
             }
+
             return validItems;
         }
 
         public override AuthenticationDataItem GetUserData()
         {
             return base.sessionStorage.GetUserData(this.offer, false);
+        }
+
+        public override string GetRealAdditionalValue(string key)
+        {
+            if (string.IsNullOrEmpty(key)) return null;
+
+            if (key == "postalcode")
+            {
+                return this.offer.OfferInternal.Body.PscMistaSpotreby;
+            }
+
+            if (key == "permanentresidencepostalcode")
+            {
+                return this.offer.OfferInternal.Body.PscTrvaleBydliste;
+            }
+
+            if (key == "identitycardnumber")
+            {
+                return this.offer.OfferInternal.Body.PARTNER;
+            }
+
+            return null;
         }
     }
 }

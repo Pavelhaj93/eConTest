@@ -20,5 +20,7 @@ namespace eContracting.Kernel.Utils
 
         public abstract Dictionary<string,string> GetAvailableAuthenticationFields();
 
+        public abstract string GetRealAdditionalValue(string key);
+
     }
 }

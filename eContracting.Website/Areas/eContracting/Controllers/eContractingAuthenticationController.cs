@@ -123,8 +123,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var guid = Request.QueryString["guid"];
-                var siteSettings = ConfigHelpers.GetSiteSettings();
-                var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
 
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
@@ -133,72 +131,53 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 FillViewData();
 
-                var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
-                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
                 var client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
-                var ass = new AuthenticationDataSessionStorage();
-                var authenticationData = ass.GetUserData(offer, false);
-                authenticationData.ItemValue = authenticationModel.ItemValue;
 
-                //failureData failureData;
-                //if (!this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
-                //{
-                //    failureData = new failureData();
-                //    NumberOfLogons.Add(authenticationData.Identifier, failureData);
-                //    failureData.LastFailureTime = DateTime.UtcNow;
-                //    failureData.LoginAttemp = 0;
-                //}
-                //int numberOfLogonsBefore = failureData.LoginAttemp;
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
+                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var userData = authHelper.GetUserData();
 
-                if (/*(numberOfLogonsBefore < 3) && */((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue)))
+                var dateOfBirthRealValue = userData.DateOfBirth.Trim().Replace(" ", string.Empty).ToLower();                    ////Value from offer
+                var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
+
+                var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
+                var additionalRealValue = authHelper.IsUserChoice ? authHelper.GetRealAdditionalValue(authenticationModel.Additional) : authenticationModel.ItemValue;     ////Value from offer hashed
+
+                ////userData.ItemValue = authenticationModel.ItemValue;
+
+                ////if ((dateOfBirthUserValue != dateOfBirthRealValue) || (additionalUserValue != userData.ItemValue))
+                if ((dateOfBirthUserValue != dateOfBirthRealValue) || (additionalUserValue != additionalRealValue))
                 {
-
-                    //NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
-                    //NumberOfLogons[authenticationData.Identifier].LastFailureTime = DateTime.UtcNow;
-
+                    var siteSettings = ConfigHelpers.GetSiteSettings();
+                    var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
                     loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
-
-                    string url = Request.RawUrl;
-
-                    if (Request.RawUrl.Contains("&error=validationError"))
-                    {
-                        url = Request.RawUrl;
-                    }
-                    else
-                    {
-                        url = Request.RawUrl + "&error=validationError";
-                    }
+                    var url = Request.RawUrl.Contains("&error=validationError")? Request.RawUrl : Request.RawUrl + "&error=validationError";
 
                     return Redirect(url);
                 }
 
-                //if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
-                //    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
-                //else
-                //{
                 if (!ModelState.IsValid)
                 {
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
-                //NumberOfLogons.Remove(authenticationData.Identifier);
-                var aut = new AuthenticationDataSessionStorage();
-                aut.Login(authenticationData);
 
-                if (authenticationData.IsAccepted)
+                var aut = new AuthenticationDataSessionStorage();
+                aut.Login(userData);
+
+                if (userData.IsAccepted)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
-                if (authenticationData.OfferIsExpired)
+                if (userData.OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
 
                 return Redirect(Context.NextPageLink.Url);
-                //}
             }
             catch (Exception ex)
             {

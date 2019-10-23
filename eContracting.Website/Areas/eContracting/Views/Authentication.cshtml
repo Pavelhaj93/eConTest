@@ -28,16 +28,17 @@
                         </div>
 
                         <!-- UserChoice or RandomChoice-->
-                        <label for="some">
-                            @Html.Raw("Some shit labela")
-                        </label>
                         @if (Model.IsUserChoice)
                         {
-                            @Html.DropDownListFor(model => model.SelectedKey, Model.AvailableFields)
+                            <label for="some">
+                                @Html.Raw("Some shit labela")
+                            </label>
+                            @Html.DropDownListFor(model => model.SelectedKey, new SelectList(Model.AvailableFields.Items, "Value", "Text"))
                             <label for="some">
                                 @Html.Raw("Write your shit here labela")
                             </label>
-                            @Html.TextBoxFor(model => model.SelectedValue, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
+                            @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
+                            @Html.HiddenFor(m => m.ItemValue)
                         }
                         else
                         {

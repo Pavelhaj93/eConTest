@@ -20,6 +20,11 @@ namespace eContracting.Kernel.Utils
             throw new InvalidOperationException("Not available in randome authentication method");
         }
 
+        public override string GetRealAdditionalValue(string key)
+        {
+            throw new NotImplementedException();
+        }
+
         public override AuthenticationDataItem GetUserData()
         {
             return base.sessionStorage.GetUserData(this.offer, true);
