@@ -16,7 +16,6 @@
                 <div class="status"></div>
                 <div class="row">
                     <div class="col-md-8 col-lg-6">
-                        <!-- Birth day is mandatory -->
                         <div class="input-group">
                             <label for="birth">
                                 @Html.Raw(ViewData["FirstText"])
@@ -28,8 +27,6 @@
                                 </svg>
                             </a>
                         </div>
-
-                        <!-- UserChoice or RandomChoice-->
                         @if (Model.IsUserChoice)
                         {
                             <div class="input-group">
