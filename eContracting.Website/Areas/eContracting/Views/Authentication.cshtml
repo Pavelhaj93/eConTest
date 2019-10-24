@@ -51,9 +51,6 @@
                                 </div>
                             </div>
                             <div class="input-group">
-                                <label for="additional" class="sr-only">
-                                    @Html.Raw("Write your shit here labela")
-                                </label>
                                 @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
                             </div>
                             @Html.HiddenFor(m => m.ItemValue, new { @Value = "NotAvailable" })
