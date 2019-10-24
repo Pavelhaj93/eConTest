@@ -63,12 +63,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    if (this.Context.WelcomePageEnabled && !authenticationData.IsRetention)
+                    if (this.Context.WelcomePageEnabled && !userData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
-                    else if (this.Context.WelcomePageEnabledRetention && authenticationData.IsRetention)
+                    else if (this.Context.WelcomePageEnabledRetention && userData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
