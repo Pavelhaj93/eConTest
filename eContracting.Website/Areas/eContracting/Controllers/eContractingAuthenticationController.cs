@@ -19,6 +19,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     /// </summary>
     public class eContractingAuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
+        private const string salt = "228357";
         /// <summary>
         /// Authentication GET action.
         /// </summary>
@@ -52,14 +53,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
                 var userData = authHelper.GetUserData();
 
-
                 if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
                 {
                     client.ReadOffer(guid);
                 }
-
-                //var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                //var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
@@ -98,7 +95,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
                 else
                 {
-                    dataModel.ItemValue = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                    dataModel.ItemValue = string.Format("{0}{1}", value, salt);     ////hash + salt
                     dataModel.IsUserChoice = false;
                 }
 
@@ -152,13 +150,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
 
                 var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
-                var additionalRealValue = authHelper.IsUserChoice ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) : authenticationModel.ItemValue;     ////Value from offer hashed
+                var additionalRealValue = authHelper.IsUserChoice 
+                    ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) 
+                    : authenticationModel.ItemValue.Replace(salt, string.Empty);     ////Value from offer hashed - salt
 
                 var validFormat = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue)) && (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
                 var validData = (dateOfBirthUserValue == dateOfBirthRealValue) && (additionalUserValue == additionalRealValue);
-                ////userData.ItemValue = authenticationModel.ItemValue;
 
-                ////if ((dateOfBirthUserValue != dateOfBirthRealValue) || (additionalUserValue != userData.ItemValue))
                 if (!validFormat || !validData)
                 {
                     var siteSettings = ConfigHelpers.GetSiteSettings();
