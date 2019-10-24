@@ -20,7 +20,7 @@ permanentresidencepostalcode
 ----version----
 language: cs
 version: 1
-revision: 26e740e7-ce0c-4d8e-b2f7-db03d567384b
+revision: d2c2ae35-d9c2-4bba-8ec4-abf7614379d6
 
 ----field----
 field: {B1E763A4-91EF-400B-BC18-40BCA5DECCB8}
@@ -29,6 +29,13 @@ key: userfriendlyfieldname
 content-length: 21
 
 PSČ trvalého bydliště
+----field----
+field: {5A750A1B-5913-4EE0-88BD-262BECE9711D}
+name: Hint
+key: hint
+content-length: 26
+
+PSČ trvalého bydliště hint
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -56,14 +63,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-26e740e7-ce0c-4d8e-b2f7-db03d567384b
+d2c2ae35-d9c2-4bba-8ec4-abf7614379d6
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20191023T104811Z
+20191023T124703Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

@@ -201,6 +201,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
             ViewData["RequiredFields"] = this.Context.RequiredFields;
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+            ViewData["SecondContractPropertyLabel"] = this.Context.ContractSecondPropertyLabel;
 
             if (!string.IsNullOrEmpty(mainText))
             {
