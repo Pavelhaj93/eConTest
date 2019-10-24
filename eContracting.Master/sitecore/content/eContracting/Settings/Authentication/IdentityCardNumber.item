@@ -20,7 +20,7 @@ identitycardnumber
 ----version----
 language: cs
 version: 1
-revision: 13d6c65c-d1c0-41cf-9611-585d97031304
+revision: 37e2c518-3ae5-4e31-a69b-d9df2da11fd1
 
 ----field----
 field: {B1E763A4-91EF-400B-BC18-40BCA5DECCB8}
@@ -28,14 +28,14 @@ name: UserFriendlyFieldName
 key: userfriendlyfieldname
 content-length: 16
 
-Zakaznicke cislo
+Zákaznické číslo
 ----field----
 field: {5A750A1B-5913-4EE0-88BD-262BECE9711D}
 name: Hint
 key: hint
 content-length: 21
 
-Zakaznicke cislo hint
+Zákaznické číslo Hint
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -63,14 +63,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-13d6c65c-d1c0-41cf-9611-585d97031304
+37e2c518-3ae5-4e31-a69b-d9df2da11fd1
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20191023T124651Z
+20191024T092731Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
