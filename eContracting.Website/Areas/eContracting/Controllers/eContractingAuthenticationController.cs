@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
-using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
@@ -64,16 +63,22 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    if (!userData.IsRetention && this.Context.WelcomePageEnabled)
+                    if (this.Context.WelcomePageEnabled && !authenticationData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
-
-                    if (userData.IsRetention && this.Context.WelcomePageEnabledRetention)
+                    else if (this.Context.WelcomePageEnabledRetention && authenticationData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
+                    }
+                    else
+                    {
+                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                        {
+                            client.ReadOffer(guid);
+                        }
                     }
                 }
 

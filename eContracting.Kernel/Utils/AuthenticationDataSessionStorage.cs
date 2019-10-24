@@ -39,7 +39,7 @@
                 IsAccepted = offer.OfferInternal.IsAccepted,
                 IsRetention = offer.OfferInternal.Body.OfferIsRetention,
                 HasVoucher = offer.OfferInternal.Body.OfferHasVoucher,
-                OfferIsExpired = offer.OfferInternal.Body.OfferIsExpired,
+                OfferIsExpired = offer.OfferInternal.State == "9" || offer.OfferInternal.Body.OfferIsExpired,
             };
 
             if (generateRandom)
