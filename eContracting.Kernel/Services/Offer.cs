@@ -6,6 +6,7 @@ namespace eContracting.Kernel.Services
 {
     using System;
     using System.Globalization;
+    using System.Linq;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -63,7 +64,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlIgnore]
         public string GDPRKey { get; set; }
-    
+
         /// <summary>
         /// Gets or sets State.
         /// </summary>
@@ -77,6 +78,25 @@ namespace eContracting.Kernel.Services
     [Serializable()]
     public class Header
     {
+    }
+
+    [Serializable()]
+    public class Template
+    {
+        [XmlElement("IDATTACH")]
+        public string IdAttach { get; set; }
+
+        [XmlElement("DESCRIPTION")]
+        public string Description { get; set; }
+
+        [XmlElement("ADDINFO")]
+        public string AddInfo { get; set; }
+
+        [XmlElement("SIGN_REQ")]
+        public string SignReq { get; set; }
+
+        [XmlElement("TEMPL_ALC_ID")]
+        public string TemplAlcId { get; set; }
     }
 
     /// <summary>
@@ -123,6 +143,29 @@ namespace eContracting.Kernel.Services
                                     CultureInfo.InvariantCulture,
                                     DateTimeStyles.None,
                                     out outValue) && (outValue.Date < DateTime.Now.Date);
+            }
+        }
+
+        [XmlIgnore]
+        public bool OfferIsRetention
+        {
+            get
+            {
+                return this.BusProcess == "01";
+            }
+        }
+
+        [XmlIgnore]
+        public bool OfferHasVoucher
+        {
+            get
+            {
+                if (this.Attachments == null || this.Attachments.Length == 0)
+                {
+                    return false;
+                }
+
+                return this.Attachments.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
             }
         }
 
@@ -180,6 +223,9 @@ namespace eContracting.Kernel.Services
         [XmlElement("PHONE")]
         public string PHONE { get; set; }
 
+        [XmlElement("BUS_PROCESS")]
+        public string BusProcess { get; set; }
+
         /// <summary>
         /// Gets or sets EXT_UI from SAP.
         /// </summary>
@@ -221,5 +267,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlElement("ACCOUNT_NUMBER")]
         public string ACCOUNT_NUMBER { get; set; }
+
+        public Template[] Attachments { get; set; }
     }
 }

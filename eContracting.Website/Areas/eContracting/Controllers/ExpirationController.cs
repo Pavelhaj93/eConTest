@@ -27,14 +27,23 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
-                if (maintext == null)
+                var mainText = string.Empty;
+                if (ads.GetUserData().IsRetention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainTextRetention, string.Empty);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText, string.Empty);
+                }
+
+                if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
-                ViewData["MainText"] = maintext;
+                ViewData["MainText"] = mainText;
 
 
                 return View("/Areas/eContracting/Views/Expiration.cshtml", Context);

@@ -15,6 +15,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         public virtual string MainText { get; set; }
 
         [SitecoreField]
+        public virtual string MainTextRetention { get; set; }
+
+        [SitecoreField]
         public virtual string ServiceUnavailableText { get; set; }
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]

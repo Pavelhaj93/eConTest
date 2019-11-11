@@ -1,0 +1,29 @@
+$icon-size: 40px;
+$icon-size-small: ($icon-size / 1.5);
+
+.tooltip-icon {
+	display: inline-block;
+	line-height: 0;
+	cursor: help;
+
+	svg {
+		display: block;
+		width: $icon-size-small;
+		height: $icon-size-small;
+		fill: $color-orange;
+		pointer-events: none;
+
+		@media (min-width: 768px) {
+			width: $icon-size;
+			height: $icon-size;
+		}
+	}
+}
+
+.tooltip-inner {
+	font-family: $font-main;
+	font-size: 0.8rem;
+	padding: 0.25rem 0.6rem;
+	min-width: 180px;
+	border-radius: 0;
+}

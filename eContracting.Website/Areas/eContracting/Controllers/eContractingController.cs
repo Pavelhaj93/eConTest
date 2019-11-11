@@ -2,15 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using eContracting.Kernel;
+using eContracting.Kernel.GlassItems.Content.Modal_window;
 using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Kernel.Helpers;
-using eContracting.Kernel.GlassItems.Content.Modal_window;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using Glass.Mapper.Sc;
 using Sitecore.Mvc.Controllers;
 using Log = Sitecore.Diagnostics.Log;
-using Sitecore.Mvc.Presentation;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -59,16 +58,32 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     MW01DataSource model = new MW01DataSource();
                     model.Item = Sitecore.Context.Database.GetItem(ItemPaths.ModalWindowSettings);
-                    
+
                     var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                    model.ClientId = authenticationDataSessionStorage.GetUserData().Identifier;
+                    var authenticationDataItem = authenticationDataSessionStorage.GetUserData();
+
+                    model.ClientId = authenticationDataItem.Identifier;
                     model.IsAccepted = isAccepted;
+                    model.IsRetention = authenticationDataItem.IsRetention;
 
                     var generalSettings = ConfigHelpers.GetGeneralSettings();
                     ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];
                     ViewData["IAmInformed"] = generalSettings.IAmInformed;
                     ViewData["IAgree"] = generalSettings.IAgree;
                     ViewData["Accept"] = generalSettings.Accept;
+
+                    ViewData["DocumentToSign"] = generalSettings.DocumentToSign;
+                    ViewData["DocumentToSignAccepted"] = generalSettings.DocumentToSignAccepted;
+                    ViewData["Step1Heading"] = generalSettings.Step1Heading;
+                    ViewData["Step2Heading"] = generalSettings.Step2Heading;
+                    ViewData["WhySignIsRequired"] = generalSettings.WhySignIsRequired;
+                    ViewData["SignButton"] = generalSettings.SignButton;
+                    ViewData["HowToSign"] = generalSettings.HowToSign;
+                    ViewData["HowToAccept"] = generalSettings.HowToAccept;
+                    ViewData["SignDocument"] = generalSettings.SignDocument;
+                    ViewData["SignRequest"] = generalSettings.SignRequest;
+                    ViewData["SignConfirm"] = generalSettings.SignConfirm;
+                    ViewData["SignDelete"] = generalSettings.SignDelete;
 
                     return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
                 }
@@ -91,9 +106,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                string guid = authenticationDataSessionStorage.GetUserData().Identifier;
+
+                var guid = authenticationDataSessionStorage.GetUserData().Identifier;
+                var isRetention = authenticationDataSessionStorage.GetUserData().IsRetention;
 
                 RweClient client = new RweClient();
+
+                var documentList = new List<string>();
+
+                if (!string.IsNullOrEmpty(this.HttpContext.Request.Form["documents"]))
+                {
+                    documentList.AddRange(this.HttpContext.Request.Form["documents"].Split(','));
+                }
 
                 var documentsId = new List<string>();
                 var offersNotsent = client.GetNotSentOffers();
@@ -105,7 +129,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
-                client.LogAcceptance(guid, documentsId, DateTime.UtcNow);
+                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, isRetention, documentList);
 
                 // New acceptance logger
                 //if(documentsId.Count > 0)

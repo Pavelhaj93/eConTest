@@ -9,5 +9,7 @@ namespace eContracting.Kernel.Models
         public string ClientId { get; set; }
 
         public bool IsAccepted { get; set; }
+
+        public bool IsRetention { get; set; }
     }
 }

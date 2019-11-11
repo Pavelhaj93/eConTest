@@ -3,6 +3,8 @@
 @using eContracting.Kernel.Models
 @model AuthenticationModel
 
+<script src="~/Assets/eContracting/js/bootstrap.min.js"></script>
+
 @using (Html.BeginForm())
 {
 <div class="row">
@@ -25,13 +27,42 @@
                                 </svg>
                             </a>
                         </div>
-                        <div class="input-group">
-                            <label for="additional">
-                                @Html.Raw(ViewData["SecondText"])
-                            </label>
-                            @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
-                        </div>
-                        @Html.HiddenFor(m => m.ItemValue)
+                        @if (Model.IsUserChoice)
+                        {
+                            <div class="input-group">
+                                <label for="SelectedKey">
+                                    @Html.Raw(ViewData["SecondContractPropertyLabel"])
+                                </label>
+                                <div class="input-group-tooltip">
+                                    <select id="SelectedKey" name="SelectedKey" class="js-select-with-tooltip js-focus-after-change" data-target="additional">
+                                        @foreach (var option in Model.AvailableFields)
+                                        {
+                                            <option data-help="@option.DataHelpValue" value="@option.Value">@option.Text</option>
+                                        }
+                                    </select>
+                                    <span class="tooltip-icon js-tooltip">
+                                        <svg class="icon" preserveAspectRatio="none">
+                                            <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#question-mark" />
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1" })
+                            </div>
+                            @Html.HiddenFor(m => m.ItemValue, new { @Value = "NotAvailable" })
+                        }
+                        else
+                        {
+                            <div class="input-group">
+                                <label for="additional">
+                                    @Html.Raw(ViewData["SecondText"])
+                                </label>
+                                @Html.TextBoxFor(model => model.Additional, new { id = "additional", name = "additional", autocomplete = "off", required = "1", placeholder = ViewData["AdditionalPlaceholder"] })
+                            </div>
+                            @Html.HiddenFor(m => m.ItemValue)
+                            @Html.HiddenFor(m => m.SelectedKey, new { @Value = "NotAvailable"})
+                        }
                     </div>
                 </div>
                 <input type="submit" class="button button-submit" id="mainBtn" value="@ViewData["ButtonText"]" />
@@ -42,8 +73,8 @@
 }
 
 <script>
-		var messages = {
-			requiredFields: ['@Html.Raw(ViewData["RequiredFields"])'],
-			validationError: ['@Html.Raw(ViewData["ValidationMessage"])']
-		};
+    var messages = {
+      requiredFields: ['@Html.Raw(ViewData["RequiredFields"])'],
+      validationError: ['@Html.Raw(ViewData["ValidationMessage"])']
+    };
 </script>

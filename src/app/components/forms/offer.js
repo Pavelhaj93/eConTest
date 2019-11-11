@@ -7,14 +7,24 @@ export default function FormOffer(form, config) {
         window.dataLayer = [];
     };
 
+    // create a global array with all documents to be signed
+    if (!window.documentsToBeSigned) {
+        window.documentsToBeSigned = [];
+    }
+
     window.onload = () => {
         const classes = {
             unacceptedTerms: 'unaccepted-terms',
             agreed: 'agreed',
-            disabledLink: 'button-disabled'
+            disabledLink: 'button-disabled',
+            finishedStep: 'step--finished',
+            activeStep: 'step--active',
         };
-        const list = $(form.querySelector('.list'));
+        const list = $(form.querySelector('.list-documents'));
+        const listDocsToBeSigned = $(form.querySelector('.list-documents-to-be-signed'));
         const submitBtn = form.querySelector('.button-submit');
+        const submitZone = form.querySelector('.submit-zone');
+        const steps = [...form.querySelectorAll('.step')];
 
         /* Determines whether the documents have been received */
         let gotDocuments = false;
@@ -27,8 +37,10 @@ export default function FormOffer(form, config) {
 
         /* Render documents list ("documents" - from BACK-END) */
         function waitResponse() {
-            /* Reset customerAgreement */
-            list.addClass(classes.unacceptedTerms);
+            /* Reset customerAgreement only for non-retention offer */
+            if (config.offerPage && !config.offerPage.isRetention) {
+                list.addClass(classes.unacceptedTerms);
+            }
 
             /* Clear the list */
             list.children('li').remove();
@@ -41,14 +53,33 @@ export default function FormOffer(form, config) {
             options = {
                 agreed: false,
                 checked: false,
-                disabled: false
+                disabled: false,
+                isRetention: false,
             }) {
             gotDocuments = (documents.length > 0);
-            list.removeClass('loading');
+            let container = options.isRetention ? form : list;
+
+            $(container).removeClass('loading');
 
             if (gotDocuments) {
                 /* Prepare the list & print the documents */
-                printDocumentsList(list, documents, options);
+                printDocumentsList(list, listDocsToBeSigned, documents, options);
+
+                // check if at least one document need to be signed
+                // if not => delete the step
+                if (steps.length && listDocsToBeSigned && !listDocsToBeSigned.children('li').length) {
+                    steps[1].parentNode.removeChild(steps[1]);
+                }
+
+                // check if there is at least one document to be checked
+                // if not => delete the first step and switch the icon
+                if (steps.length && list && !list.children('li').length) {
+                    steps[0].parentNode.removeChild(steps[0]);
+                    steps.shift(); // remove the first step from array
+                    const icon = $(steps[0].querySelector('.step__icon use'));
+                    const newXlinkHref = icon.attr('xlink:href').replace(/#(.*)/i, '#number-one-circle');
+                    icon.attr('xlink:href', newXlinkHref);
+                }
 
                 if (options.agreed) {
                     /* Mark list container as agreed (expand) */
@@ -56,7 +87,10 @@ export default function FormOffer(form, config) {
 
                     /* Hide "Check all" and submit button */
                     list.children('.check-all').remove();
-                    $(submitBtn).remove();
+                    $(submitZone).add($(submitBtn)).remove();
+
+                    // mark all steps as finished
+                    $([...steps]).addClass('step--finished');
 
                 } else {
                     /* Show other list items by clicking on customerAgreement */
@@ -72,12 +106,17 @@ export default function FormOffer(form, config) {
                             list.removeClass(classes.unacceptedTerms);
                         }
                     });
+
+                    // mark first step as active
+                    if (steps.length) {
+                        steps[0].classList.add(classes.activeStep);
+                    }
                 }
 
             } else {
                 /* Output error on success = false */
                 list.empty();
-                list.removeClass(classes.unacceptedTerms).addClass('error');
+                container.removeClass(classes.unacceptedTerms).addClass('error');
                 Message(list, 'appUnavailable');
             }
 
@@ -88,36 +127,125 @@ export default function FormOffer(form, config) {
         //  documentsReceived(documents, { agreed: false });
         // =================================================
 
-        /* Determine whether all checkboxes are checked */
-        function validateForm() {
-            let valid = true;
-            const checkboxes = getCheckboxes();
+        /* Determine whether all checkboxes are checked + all necessary documents have been signed */
+        function validateForm(skipCheckboxesValidation = false) {
+            let validForm = true;
 
-            /* Determine when any of the required checkboxes are unchecked */
-            checkboxes.map((checkbox) => {
-                !checkbox.checked && (valid = false);
-            });
+            if (!skipCheckboxesValidation) {
+                const checkboxes = getCheckboxes();
 
-            /* Form cannot be submitted until documents are ready */
-            if (!gotDocuments) {
-                valid = false;
+                /* Determine when any of the required checkboxes are unchecked */
+                checkboxes.map((checkbox) => {
+                    !checkbox.checked && (validForm = false);
+                });
+
+                /* Form cannot be submitted until documents are ready */
+                if (!gotDocuments) {
+                    validForm = false;
+                }
+            }
+
+            // check if all documents have already been signed
+            // or skip this step if there are no documents to be signed
+            let validDocuments = true;
+            if (listDocsToBeSigned.children('li').length) {
+                validDocuments = validateDocuments();
+
+                // if there are some documents to be signed (and they are already signed) =>
+                // => make the form valid if none of checkboxes is checked
+                const allUnchecked = areAllUnchecked();
+                if (validDocuments && allUnchecked) {
+                    validForm = true;
+                }
             }
 
             /* Add/Remove disabled class from the <a> button */
-            if (valid) {
+            if (validForm && validDocuments) {
                 submitBtn.classList.remove(classes.disabledLink);
             } else {
                 submitBtn.classList.add(classes.disabledLink);
             }
 
-            isDocumentsAccepted = valid;
+            isDocumentsAccepted = validForm;
+            return (validForm && validDocuments);
+        }
+
+        function areAllUnchecked() {
+            let allUnchecked = true;
+            const checkboxes = getCheckboxes();
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    allUnchecked = false;
+                }
+            });
+
+            return allUnchecked;
+        }
+
+        // check if all checkboxes are checked within first step
+        function validateStep(step) {
+            let valid = true;
+            const checkboxes = [...step.querySelectorAll('[type="checkbox"]')];
+
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.checked) {
+                    valid = false;
+                }
+            });
+
+            if (valid) {
+                step.classList.add(classes.finishedStep);
+            } else {
+                step.classList.remove(classes.finishedStep);
+            }
+
             return valid;
+        }
+
+        function validateDocuments() {
+            let allSigned = true;
+
+            if (documentsToBeSigned.length) {
+                documentsToBeSigned.forEach(document => {
+                    !document.signed && (allSigned = false);
+                });
+            } else {
+                allSigned = false;
+            }
+
+            return allSigned;
         }
 
         /* Handle form change */
         form.onchange = () => {
+            if (steps.length) {
+                if (validateStep(steps[0])) {
+                    steps[1].classList.add(classes.activeStep);
+                } else {
+                    steps[1].classList.remove(classes.activeStep);
+                }
+            }
+
             validateForm();
         };
+
+        // if some document have been signed => revalidate form
+        $(form).on('retention.document.signed', () => {
+            const allSigned = validateDocuments();
+
+            if (allSigned && steps.length) {
+                if (steps.length === 1) {
+                    steps[0].classList.add(classes.finishedStep);
+                } else {
+                    steps[1].classList.add(classes.finishedStep);
+                }
+            }
+
+            const skipCheckboxesValidation = true;
+
+            validateForm(skipCheckboxesValidation);
+        });
 
         /* Validate on window load for History back */
         validateForm();
@@ -157,8 +285,9 @@ export default function FormOffer(form, config) {
                 timeout: 10000,
                 error: function(xhr, textStatus) {
                     if (textStatus === 'timeout') {
+                        let container = config.offerPage && config.offerPage.isRetention ? form : list;
                         list.empty();
-                        list.removeClass('loading').addClass('error');
+                        $(container).removeClass('loading').addClass('error');
                         Message(list, 'appUnavailable');
                     } else {
                         window.location.href = '/404';
@@ -166,7 +295,8 @@ export default function FormOffer(form, config) {
                 },
                 success: function(documents) {
                     var agreed = config.offerPage.isAgreed;
-                    documentsReceived(documents, { agreed: agreed });
+                    var isRetention = config.offerPage.isRetention;
+                    documentsReceived(documents, { agreed: agreed, isRetention: isRetention });
                 }
             });
         }

@@ -42,20 +42,43 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
+                string guid = ads.GetUserData().Identifier;
 
+                RweClient client = new RweClient();
+                client.SignOffer(guid);
 
+                var offer = client.GenerateXml(guid);
 
-                string maintext = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
-                if (maintext == null)
+                var parameters = SystemHelpers.GetParameters(ads.GetUserData().Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
+
+                var mainText = string.Empty;
+
+                if (ads.GetUserData().IsRetention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainTextRetention);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainText);
+                }
+
+                if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
+                ViewData["MainText"] = mainText;
 
-                string guid = ads.GetUserData().Identifier;
-                RweClient client = new RweClient();
-                client.SignOffer(guid);
-                var offer = client.GenerateXml(guid);
+                if (ads.GetUserData().IsRetention && ads.GetUserData().HasVoucher)
+                {
+                    string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
+                    ViewData["VoucherText"] = voucherText;
+                }
+                else
+                {
+                    ViewData["VoucherText"] = null;
+                }
+
                 if (offer.OfferInternal.HasGDPR)
                 {
                     var GDPRGuid = AesEncrypt(offer.OfferInternal.GDPRKey, Context.AesEncryptKey, Context.AesEncryptVector);
@@ -64,10 +87,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["GDPRUrl"] = Context.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
                 }
 
-                ViewData["MainText"] = maintext;
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
+                ViewData["SignFailure"] = generalSettings.SignFailure;
 
                 return View("/Areas/eContracting/Views/Offer.cshtml");
             }

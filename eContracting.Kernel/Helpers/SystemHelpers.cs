@@ -8,6 +8,7 @@ namespace eContracting.Kernel.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using eContracting.Kernel.GlassItems.Settings;
     using eContracting.Kernel.Services;
     using eContracting.Kernel.Utils;
     using Sitecore.Configuration;
@@ -30,7 +31,7 @@ namespace eContracting.Kernel.Helpers
         /// </summary>
         /// <param name="input">Account number.</param>
         /// <returns>Returns true if account is valid, otherwise retruns false.</returns>
-        public static Boolean IsAccountNumberValid(string input)
+        public static bool IsAccountNumberValid(string input)
         {
             if (string.IsNullOrEmpty(input))
             {
@@ -44,15 +45,17 @@ namespace eContracting.Kernel.Helpers
 
         /// <summary>
         /// Gets a collection of parameters which can be used for string replacmement.
+        /// Default parameters are applied before return. 
+        /// This is the only entry point for getting parameters all over the project, so defaults are applied if necessary. 
         /// </summary>
         /// <returns>Collection of parameters.</returns>
-        public static IDictionary<string, string> GetParameters(string guid)
+        public static IDictionary<string, string> GetParameters(string guid, string additionalInfoDocument)
         {
             var client = new RweClient();
             var text = client.GetTextsXml(guid);
-            var parameters = client.GetAllAttributes(text);
+            var parameters = client.GetAllAttributes(text, additionalInfoDocument);
 
-            return parameters;
+            return ApplyDefaultParams(parameters, GetDefaultParameters(ConfigHelpers.GetGeneralSettings()));
         }
 
         /// <summary>
@@ -76,19 +79,36 @@ namespace eContracting.Kernel.Helpers
         /// </summary>
         /// <param name="data">Authentication data.</param>
         /// <param name="mainRawText">Raw text to modify.</param>
+        /// <param name="additionalInfoDocument">Code name of the document with additional info.</param>
         /// <returns>Returns modified text.</returns>
-        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText)
+        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText, string additionalInfoDocument)
         {
             if (string.IsNullOrEmpty(data.DateOfBirth))
             {
                 return null;
             }
 
-            var parameters = GetParameters(data.Identifier);
+            var parameters = GetParameters(data.Identifier, additionalInfoDocument);
+
+            return GenerateMainText(data, parameters, mainRawText);
+        }
+
+        /// <summary>
+        /// Generates the main text.
+        /// </summary>
+        /// <param name="data">Authentication data.</param>
+        /// <param name="mainRawText">Raw text to modify.</param>
+        /// <returns>Returns modified text.</returns>
+        public static string GenerateMainText(AuthenticationDataItem data, IDictionary<string, string> parameters, string mainRawText)
+        {
+            if (string.IsNullOrEmpty(data.DateOfBirth))
+            {
+                return null;
+            }
 
             try
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                var stringBuilder = new StringBuilder();
                 stringBuilder.AppendLine("Retrieved parameters for '" + data.Identifier + "':");
                 stringBuilder.AppendLine("-----------------------------------------------------");
                 stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
@@ -106,6 +126,87 @@ namespace eContracting.Kernel.Helpers
             mainRawText = mainRawText.Replace("{DATE_TO}", data.ExpDateFormatted);
 
             return mainRawText;
+        }
+
+        private static IDictionary<string, string> GetDefaultParameters(GeneralSettings generalSettings)
+        {
+            var res = new Dictionary<string, string>();
+
+            if (generalSettings == null)
+            {
+                Log.Warn("General settings can not be null", typeof(SystemHelpers));
+                return res;
+            }
+
+            if (!string.IsNullOrEmpty(generalSettings.DefaultSalutation))
+            {
+                res.Add("CUSTTITLELET", generalSettings.DefaultSalutation);
+            }
+
+            return res;
+        }
+
+        private static IDictionary<string, string> ApplyDefaultParams(IDictionary<string,string> parameters, IDictionary<string,string> defaultParameters)
+        {
+            ////If we have null or empty collection of parameters -> we dont have material to work with
+            ////So, we are about to return only default parameters
+            ////In case, default params are also null -> empty collection is returned 
+            if (parameters == null || !parameters.Any())
+            {
+                return defaultParameters ?? new Dictionary<string, string>();
+            }
+
+            foreach (var defaultParam in defaultParameters)
+            {
+                if (parameters.ContainsKey(defaultParam.Key))
+                {
+                    var paramValue = parameters[defaultParam.Key];
+
+                    if (string.IsNullOrEmpty(paramValue))
+                    {
+                        parameters[defaultParam.Key] = defaultParam.Value;
+                    }
+                }
+                else
+                {
+                    parameters.Add(defaultParam);
+                }
+            }
+
+            return parameters;
+        }
+
+        /// <summary>
+        /// Get the code of attachment related to additional info.
+        /// </summary>
+        /// <param name="offer">Instance of offer.</param>
+        /// <returns>Code of additional info document, or empty string.</returns>
+        public static string GetCodeOfAdditionalInfoDocument(Offer offer)
+        {
+            if (offer == null)
+            {
+                return string.Empty;
+            }
+
+            if (offer.OfferInternal.Body.Attachments == null)
+            {
+                return string.Empty;
+            }
+
+            foreach (var attachment in offer.OfferInternal.Body.Attachments)
+            {
+                if (attachment.AddInfo == null)
+                {
+                    continue;
+                }
+
+                if (attachment.AddInfo.ToLower() == "x")
+                {
+                    return attachment.IdAttach;
+                }
+            }
+
+            return string.Empty;
         }
     }
 }

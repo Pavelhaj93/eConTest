@@ -1,9 +1,5 @@
-using Glass.Mapper.Sc.Configuration.Attributes;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Glass.Mapper.Sc.Configuration.Attributes;
 
 namespace eContracting.Kernel.GlassItems
 {
@@ -21,6 +17,15 @@ namespace eContracting.Kernel.GlassItems
 
         [SitecoreField]
         public string ServicePassword { get; set; }
+
+        [SitecoreField]
+        public string SigningServiceUrl { get; set; }
+
+        [SitecoreField]
+        public string SigningServiceUser { get; set; }
+
+        [SitecoreField]
+        public string SigningServicePassword { get; set; }
 
         [SitecoreField]
         public int MaxFailedAttempts { get; set; }

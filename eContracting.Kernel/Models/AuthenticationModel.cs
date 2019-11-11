@@ -4,7 +4,9 @@
 
 namespace eContracting.Kernel.Models
 {
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
 
     public class AuthenticationModel
     {
@@ -16,5 +18,12 @@ namespace eContracting.Kernel.Models
 
         [Required]
         public string ItemValue { get; set; }
+
+        public bool IsUserChoice { get; set; }
+
+        public IEnumerable<AuthenticationSelectListItem> AvailableFields { get;set;}
+
+        [Required]
+        public string SelectedKey { get; set; }
     }
 }

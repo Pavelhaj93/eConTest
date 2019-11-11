@@ -24,9 +24,27 @@ namespace eContracting.Kernel.Services
         public string FileNumber { get; set; }
 
         /// <summary>
+        /// Gets or sets a file type.
+        /// </summary>
+        public string FileType { get; set; }
+
+        /// <summary>
         /// Gets or sets file name.
         /// </summary>
         public string FileName { get; set; }
+
+        ///Gets or sets a value indicating whether signing is required.
+        public bool SignRequired { get; set; }
+
+        /// <summary>
+        /// Gets or sets a template alc id.
+        /// </summary>
+        public string TemplAlcId { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this version of document is signed.
+        /// </summary>
+        public bool SignedVersion { get; set; }
 
         /// <summary>
         /// Gets or sets file content.

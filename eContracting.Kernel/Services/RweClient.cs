@@ -40,8 +40,10 @@ namespace eContracting.Kernel.Services
         /// <returns>Rerurn list of urls of files for download.</returns>
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            var res = GetResponse(guid, "NABIDKA");
-            bool IsAccepted = res.ET_ATTRIB != null && res.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
+            var responseObject = GetResponse(guid, "NABIDKA");
+            var offer = GenerateXml(guid, responseObject);
+
+            bool IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
 
             //ZCCH_CACHE_GETResponse result = null;
             //List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
@@ -74,6 +76,7 @@ namespace eContracting.Kernel.Services
                     try
                     {
                         var customisedFileName = f.FILENAME;
+                        var associatedAttachment = null as Template;
 
                         if (f.ATTRIB.Any(any => any.ATTRID == "LINK_LABEL"))
                         {
@@ -84,11 +87,41 @@ namespace eContracting.Kernel.Services
                             customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
                         }
 
+                        var signRequired = false;
+                        var fileType = string.Empty;
+                        var templAlcId = string.Empty;
+
+                        if (offer.OfferInternal.Body.OfferIsRetention)
+                        {
+                            if (offer.OfferInternal.Body.Attachments != null)
+                            {
+                                var fileTemplate = f.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
+                                if (fileTemplate != null)
+                                {
+                                    var correspondingAttachment = offer.OfferInternal.Body.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
+
+                                    if (correspondingAttachment != null)
+                                    {
+                                        if (correspondingAttachment.SignReq.ToLower() == "x")
+                                        {
+                                            signRequired = true;
+                                            templAlcId = correspondingAttachment.TemplAlcId;
+                                            fileType = correspondingAttachment.IdAttach;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         FileToBeDownloaded tempItem = new FileToBeDownloaded();
                         tempItem.Index = (++index).ToString();
                         tempItem.FileName = customisedFileName;
                         tempItem.FileNumber = f.FILEINDX;
+                        tempItem.FileType = fileType;
+                        tempItem.TemplAlcId = templAlcId;
+                        tempItem.SignRequired = signRequired;
                         tempItem.FileContent = f.FILECONTENT.ToList();
+                        tempItem.SignedVersion = false;
                         fileResults.Add(tempItem);
                     }
                     catch (Exception ex)
@@ -165,26 +198,27 @@ namespace eContracting.Kernel.Services
         /// Generates xml for offer.
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
+        /// <param name="responseObject">Already got response object.</param>
         /// <returns></returns>
-        public Offer GenerateXml(string guid)
+        public Offer GenerateXml(string guid, ZCCH_CACHE_GETResponse responseObject)
         {
-            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
-
-            if (result.ThereAreFiles())
+            if (responseObject.ThereAreFiles())
             {
-                using (var stream = new MemoryStream(result.ET_FILES.First().FILECONTENT, false))
+                var file = Encoding.UTF8.GetString(responseObject.ET_FILES.First().FILECONTENT);
+
+                using (var stream = new MemoryStream(responseObject.ET_FILES.First().FILECONTENT, false))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
                     Offer offer = (Offer)serializer.Deserialize(stream);
-                    offer.OfferInternal.IsAccepted = result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
-                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
-                        && result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => Char.IsDigit(c));
+                    offer.OfferInternal.IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+                        && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
+                        && responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => Char.IsDigit(c));
 
                     if (offer.OfferInternal.IsAccepted)
                     {
                         DateTime parsedAcceptedAt;
 
-                        var acceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
+                        var acceptedAt = responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
 
                         if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out parsedAcceptedAt))
                         {
@@ -192,26 +226,41 @@ namespace eContracting.Kernel.Services
                         }
                         else
                         {
-                            offer.OfferInternal.AcceptedAt = result.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+                            offer.OfferInternal.AcceptedAt = responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
                         }
                     }
 
                     offer.OfferInternal.HasGDPR =
-                        result.ET_ATTRIB != null && result.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
-                        && !String.IsNullOrEmpty(result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
+                        responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
+                        && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
 
                     if (offer.OfferInternal.HasGDPR)
                     {
-                        offer.OfferInternal.GDPRKey = result.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
+                        offer.OfferInternal.GDPRKey = responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
                     }
 
-                    offer.OfferInternal.State = result.ES_HEADER.CCHSTAT;
+                    offer.OfferInternal.State = responseObject.ES_HEADER.CCHSTAT;
                     offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true : offer.OfferInternal.IsAccepted;
+
                     return offer;
                 }
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Generates xml for offer.
+        /// </summary>
+        /// <param name="guid">Uuid of offer.</param>
+        /// <returns></returns>
+        public Offer GenerateXml(string guid)
+        {
+            ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
+
+            var offer = GenerateXml(guid, result);
+
+            return offer;
         }
 
         /// <summary>
@@ -242,17 +291,25 @@ namespace eContracting.Kernel.Services
                 var response = CallService(status, del);
                 if (response != null)
                 {
-                    if (response != null && response.ET_RETURN != null && response.ET_RETURN.Any())
+                    if (response.EV_RETCODE == 0)
                     {
                         offer.SentToService = true;
                     }
+                    else
+                    {
+                        Log.Error(string.Format("Call to the web service during Accepting returned result {0}.", response.EV_RETCODE), this);
+                    }
+                }
+                else
+                {
+                    Log.Error("Call to the web service during Accepting returned null result.", this);
                 }
             }
             InsertToMongoAcceptedOffer(offer);
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when)
+        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, bool isRetention, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine("[LogAcceptance] Initializing...");
@@ -281,22 +338,71 @@ namespace eContracting.Kernel.Services
             List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
 
             Log.Debug("[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
+
             var responsePdfFiles = this.GetFiles(guid, false);
+            var localFiles = context.Session["UserFiles"] as List<FileToBeDownloaded>;
+
             //ZCCH_CACHE_GETResponse responsePdfFiles = GetResponse(guid, "NABIDKA_PDF");
 
             Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
-            foreach (ZCCH_ST_FILE file in responsePdfFiles)
+            if (isRetention)
             {
-                if (file != null)
-                {
-                    file.FILECONTENT = new byte[] { };
-                    files.Add(file);
+                var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
 
-                    Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                foreach (var file in responsePdfFiles)
+                {
+                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
+                    if (existingSignedVariant != null)
+                    {
+                        file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
+
+                        var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                        var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                        var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+
+                        if (arccIdAttribute != null)
+                        {
+                            arccIdAttribute.ATTRVAL = string.Empty;
+                        }
+
+                        if (arcDocAttribute != null)
+                        {
+                            arcDocAttribute.ATTRVAL = string.Empty;
+                        }
+
+                        if (arcArchIdAttribute != null)
+                        {
+                            arcArchIdAttribute.ATTRVAL = string.Empty;
+                        }
+
+                        files.Add(file);
+                    }
+                    else
+                    {
+                        if (acceptedDocuments.Contains(file.FILEINDX))
+                        {
+                            file.FILECONTENT = new byte[] { };
+                            files.Add(file);
+
+                            Log.Debug($"[LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                        }
+                    }
                 }
             }
+            else
+            {
+                foreach (ZCCH_ST_FILE file in responsePdfFiles)
+                {
+                    if (file != null)
+                    {
+                        file.FILECONTENT = new byte[] { };
+                        files.Add(file);
 
+                        Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                    }
+                }
+            }
             ZCCH_CACHE_PUT cachePut = new ZCCH_CACHE_PUT();
             cachePut.IV_CCHKEY = guid;
             cachePut.IV_CCHTYPE = "NABIDKA_PRIJ";
@@ -410,7 +516,7 @@ namespace eContracting.Kernel.Services
             return texts.FirstOrDefault();
         }
 
-        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources)
+        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, string additionalInfoDocument)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
@@ -418,7 +524,7 @@ namespace eContracting.Kernel.Services
             {
                 if (source.Attributes.ContainsKey("TEMPLATE"))
                 {
-                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD")
+                    if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD" || source.Attributes["TEMPLATE"] == additionalInfoDocument)
                     {
                         //Log.Debug("File used to get paramaters: " + source.NA)
                         var parameters = this.GetAllAttributes(source);

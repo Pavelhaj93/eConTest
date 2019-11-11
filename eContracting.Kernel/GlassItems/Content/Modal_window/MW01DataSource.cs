@@ -4,7 +4,6 @@
 
 namespace eContracting.Kernel.GlassItems.Content.Modal_window
 {
-    using System;
     using Glass.Mapper.Sc.Configuration;
     using Glass.Mapper.Sc.Configuration.Attributes;
     using Glass.Mapper.Sc.Fields;
@@ -24,5 +23,7 @@ namespace eContracting.Kernel.GlassItems.Content.Modal_window
         public string ClientId { get; set; }
 
         public bool IsAccepted { get; set; }
+
+        public bool IsRetention { get; set; }
     }
 }

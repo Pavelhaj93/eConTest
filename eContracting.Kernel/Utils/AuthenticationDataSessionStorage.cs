@@ -3,8 +3,8 @@
     using System;
     using System.Web;
     using eContracting.Kernel.Exceptions;
-    using eContracting.Kernel.Services;
     using eContracting.Kernel.Helpers;
+    using eContracting.Kernel.Services;
 
     /// <summary>
     /// Implementaiton of storage for authentication session data.
@@ -37,12 +37,14 @@
                 LastName = offer.OfferInternal.Body.NAME_LAST,
                 ExpDate = offer.OfferInternal.Body.DATE_TO,
                 IsAccepted = offer.OfferInternal.IsAccepted,
-                OfferIsExpired = offer.OfferInternal.Body.OfferIsExpired,
+                IsRetention = offer.OfferInternal.Body.OfferIsRetention,
+                HasVoucher = offer.OfferInternal.Body.OfferHasVoucher,
+                OfferIsExpired = offer.OfferInternal.State == "9" || offer.OfferInternal.Body.OfferIsExpired,
             };
 
             if (generateRandom)
                 SetRandomData(authenticationDataItem, offer);
-            
+
             return authenticationDataItem;
 
         }
@@ -53,8 +55,8 @@
         /// <returns>Returns user data.</returns>
         public AuthenticationDataItem GetUserData()
         {
-                var data = HttpContext.Current.Session[SessionKey] as AuthenticationDataItem;
-                return data;
+            var data = HttpContext.Current.Session[SessionKey] as AuthenticationDataItem;
+            return data;
         }
 
         /// <summary>

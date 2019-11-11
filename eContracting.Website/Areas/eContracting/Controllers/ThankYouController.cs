@@ -21,14 +21,23 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             string mainText = string.Empty;
             try
             {
-                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
+                var ads = new AuthenticationDataSessionStorage();
 
                 if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText);
+                if (ads.GetUserData().IsRetention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainTextRetention, string.Empty);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText, string.Empty);
+                }
+
+
                 if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;

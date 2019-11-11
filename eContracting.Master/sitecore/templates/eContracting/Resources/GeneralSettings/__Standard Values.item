@@ -1,0 +1,204 @@
+----item----
+version: 1
+id: {B1BB22C1-95A9-4EB1-B70F-E4E6DDC79019}
+database: master
+path: /sitecore/templates/eContracting/Resources/GeneralSettings/__Standard Values
+parent: {0D513A12-13CC-48F1-BD97-58109010109A}
+name: __Standard Values
+master: {00000000-0000-0000-0000-000000000000}
+template: {0D513A12-13CC-48F1-BD97-58109010109A}
+templatekey: GeneralSettings
+created: 20190919T110532Z
+
+----version----
+language: cs
+version: 1
+revision: 3f79c84f-6231-42fe-b64c-6b012493d808
+
+----field----
+field: {12557C63-3AF7-420D-A401-8B3E53751E08}
+name: DefaultSalutation
+key: defaultsalutation
+content-length: 24
+
+Vážený pane, vážená paní
+----field----
+field: {C5B9C9D5-0D8D-42C9-95F5-EE306469BE39}
+name: SignFailure
+key: signfailure
+content-length: 52
+
+Podpis se nepodařilo uložit. Zkuste to prosím znovu.
+----field----
+field: {946FAD6B-32F2-41E6-B900-829A0977B079}
+name: DocumentToSign
+key: documenttosign
+content-length: 34
+
+Dokumenty k elektronické akceptaci
+----field----
+field: {7B05BFA2-C40A-49DD-8B6D-16ADB90E5D0B}
+name: DocumentToSignAccepted
+key: documenttosignaccepted
+content-length: 21
+
+Akceptované dokumenty
+----field----
+field: {45B5A800-C07B-4127-B2B5-4CCD165CF84A}
+name: Step1Heading
+key: step1heading
+content-length: 30
+
+Smlouva a přidružené dokumenty
+----field----
+field: {57CC2ED1-C91F-4656-B424-169111A4F50C}
+name: Step2Heading
+key: step2heading
+content-length: 30
+
+Plná moc pro převedení energií
+----field----
+field: {E945BAEF-9C2B-4B69-B43D-9266A4503A33}
+name: WhySignIsRequired
+key: whysignisrequired
+content-length: 74
+
+Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
+----field----
+field: {2990D048-E7D9-4C5E-93E5-045D65136F69}
+name: SignButton
+key: signbutton
+content-length: 8
+
+Podepsat
+----field----
+field: {6DA17FA8-689C-461E-9172-B78DB80A176B}
+name: HowToSign
+key: howtosign
+content-length: 62
+
+Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
+----field----
+field: {7A3A4A95-C855-47CE-BE06-927451F479E6}
+name: HowToAccept
+key: howtoaccept
+content-length: 68
+
+Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.
+----field----
+field: {3F0C40C3-C1C5-432A-B221-72D439DDFA2C}
+name: SignDocument
+key: signdocument
+content-length: 17
+
+Podepsat dokument
+----field----
+field: {5E18D55D-1DC8-4883-A38A-52DBDBA5EF4A}
+name: SignRequest
+key: signrequest
+content-length: 25
+
+Podepište se prosím níže:
+----field----
+field: {81298357-66B1-46E1-8011-A6B998617709}
+name: SignConfirm
+key: signconfirm
+content-length: 8
+
+Potvrdit
+----field----
+field: {D5DA7FDA-6152-4225-9C61-B05777C1700A}
+name: SignDelete
+key: signdelete
+content-length: 6
+
+Smazat
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20190919T110540Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+3f79c84f-6231-42fe-b64c-6b012493d808
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20191008T081033Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
+----version----
+language: en
+version: 1
+revision: 8f972dad-b008-4613-b682-2592472a48e4
+
+----field----
+field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
+name: __Owner
+key: __owner
+content-length: 14
+
+sitecore\admin
+----field----
+field: {25BED78C-4957-4165-998A-CA1B52F67497}
+name: __Created
+key: __created
+content-length: 16
+
+20190919T110532Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
+----field----
+field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
+name: __Revision
+key: __revision
+content-length: 36
+
+8f972dad-b008-4613-b682-2592472a48e4
+----field----
+field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
+name: __Updated
+key: __updated
+content-length: 16
+
+20190919T110532Z
+----field----
+field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
+name: __Updated by
+key: __updated by
+content-length: 14
+
+sitecore\admin
