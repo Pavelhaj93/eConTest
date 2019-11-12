@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
-using eContracting.Kernel.GlassItems;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
@@ -18,6 +19,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     /// </summary>
     public class eContractingAuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
+        private const string salt = "228357";
         /// <summary>
         /// Authentication GET action.
         /// </summary>
@@ -47,43 +49,66 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
+                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var userData = authHelper.GetUserData();
+
                 if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
                 {
                     client.ReadOffer(guid);
                 }
 
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
-
-                if (Request.QueryString["fromWelcome"] != "1" && !authenticationData.IsAccepted)
+                if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    if (!authenticationData.IsRetention && this.Context.WelcomePageEnabled)
+                    if (this.Context.WelcomePageEnabled && !userData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
-
-                    if (authenticationData.IsRetention && this.Context.WelcomePageEnabledRetention)
+                    else if (this.Context.WelcomePageEnabledRetention && userData.IsRetention)
                     {
                         var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
+                    }
+                    else
+                    {
+                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                        {
+                            client.ReadOffer(guid);
+                        }
                     }
                 }
 
-                var dataModel = new AuthenticationModel
-                {
-                    ItemValue = authenticationData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString()
-                };
+                var dataModel = new AuthenticationModel();
 
-                var contentText = authenticationData.IsAccepted ? Context.AcceptedOfferText : Context.NotAcceptedOfferText;
-                var maintext = SystemHelpers.GenerateMainText(authenticationData, contentText, string.Empty);
+                if (authHelper.IsUserChoice)
+                {
+                    dataModel.IsUserChoice = true;
+                    var items = new List<AuthenticationSelectListItem>();
+                    var available = authHelper.GetAvailableAuthenticationFields();
+                    foreach (var item in available)
+                    {
+                        items.Add(new AuthenticationSelectListItem {DataHelpValue = item.Hint, Value = item.AuthenticationDFieldName, Text = item.UserFriendlyName });
+                    }
+
+                    dataModel.AvailableFields = items;
+                }
+                else
+                {
+                    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                    dataModel.ItemValue = string.Format("{0}{1}", value, salt);     ////hash + salt
+                    dataModel.IsUserChoice = false;
+                }
+
+                var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
+                var maintext = SystemHelpers.GenerateMainText(userData, contentText, string.Empty);
 
                 if (maintext == null)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, authenticationData.ItemFriendlyName));
+                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName));
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
@@ -106,8 +131,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var guid = Request.QueryString["guid"];
-                var siteSettings = ConfigHelpers.GetSiteSettings();
-                var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
 
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
@@ -116,72 +139,55 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 FillViewData();
 
-                var dobValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();
-                var additionalValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
                 var client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
-                var ass = new AuthenticationDataSessionStorage();
-                var authenticationData = ass.GetUserData(offer, false);
-                authenticationData.ItemValue = authenticationModel.ItemValue;
 
-                //failureData failureData;
-                //if (!this.NumberOfLogons.TryGetValue(authenticationData.Identifier, out failureData))
-                //{
-                //    failureData = new failureData();
-                //    NumberOfLogons.Add(authenticationData.Identifier, failureData);
-                //    failureData.LastFailureTime = DateTime.UtcNow;
-                //    failureData.LoginAttemp = 0;
-                //}
-                //int numberOfLogonsBefore = failureData.LoginAttemp;
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
+                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var userData = authHelper.GetUserData();
 
-                if (/*(numberOfLogonsBefore < 3) && */((dobValue != authenticationData.DateOfBirth.Trim().Replace(" ", String.Empty).ToLower()) || (additionalValue != authenticationData.ItemValue)))
+                var dateOfBirthRealValue = userData.DateOfBirth.Trim().Replace(" ", string.Empty).ToLower();                    ////Value from offer
+                var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
+
+                var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
+                var additionalRealValue = authHelper.IsUserChoice 
+                    ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) 
+                    : authenticationModel.ItemValue.Replace(salt, string.Empty);     ////Value from offer hashed - salt
+
+                var validFormat = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue)) && (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
+                var validData = (dateOfBirthUserValue == dateOfBirthRealValue) && (additionalUserValue == additionalRealValue);
+
+                if (!validFormat || !validData)
                 {
-
-                    //NumberOfLogons[authenticationData.Identifier].LoginAttemp = ++numberOfLogonsBefore;
-                    //NumberOfLogons[authenticationData.Identifier].LastFailureTime = DateTime.UtcNow;
-
+                    var siteSettings = ConfigHelpers.GetSiteSettings();
+                    var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
                     loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
-
-                    string url = Request.RawUrl;
-
-                    if (Request.RawUrl.Contains("&error=validationError"))
-                    {
-                        url = Request.RawUrl;
-                    }
-                    else
-                    {
-                        url = Request.RawUrl + "&error=validationError";
-                    }
+                    var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
 
                     return Redirect(url);
                 }
 
-                //if (CheckWhetherUserIsBlocked(authenticationData.Identifier))
-                //    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
-                //else
-                //{
                 if (!ModelState.IsValid)
                 {
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
-                //NumberOfLogons.Remove(authenticationData.Identifier);
-                var aut = new AuthenticationDataSessionStorage();
-                aut.Login(authenticationData);
 
-                if (authenticationData.IsAccepted)
+                var aut = new AuthenticationDataSessionStorage();   ////why???
+                aut.Login(userData);
+
+                if (userData.IsAccepted)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
-                if (authenticationData.OfferIsExpired)
+                if (userData.OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
 
                 return Redirect(Context.NextPageLink.Url);
-                //}
             }
             catch (Exception ex)
             {
@@ -198,6 +204,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
             ViewData["RequiredFields"] = this.Context.RequiredFields;
             ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+            ViewData["SecondContractPropertyLabel"] = this.Context.ContractSecondPropertyLabel;
 
             if (!string.IsNullOrEmpty(mainText))
             {

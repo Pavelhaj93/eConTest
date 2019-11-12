@@ -1,34 +1,41 @@
 ----item----
 version: 1
-id: {EF46ECEE-A9F6-4B2E-81E3-E790601A68BB}
+id: {0FCD7E2A-74CC-44BE-B1E7-58CCDDEE2318}
 database: master
-path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/__Standard Values
-parent: {0EEAE94D-0018-40C8-A537-5B67349985CD}
-name: __Standard Values
+path: /sitecore/templates/eContracting/Resources/AuthenticationSettings/Data/AuthenticationSettingItems
+parent: {1989E836-2672-4E4A-A9BF-D34C93BA9AD0}
+name: AuthenticationSettingItems
 master: {00000000-0000-0000-0000-000000000000}
-template: {0EEAE94D-0018-40C8-A537-5B67349985CD}
-templatekey: eContractingAuthenticationTemplate
-created: 20161006T115526Z
+template: {455A3E98-A627-4B40-8035-E683A0331AC7}
+templatekey: Template field
+created: 20191021T102921Z
 
 ----field----
-field: {F1A1FE9E-A60C-4DDB-A3A0-BB5B29FE732E}
-name: __Renderings
-key: __renderings
-content-length: 272
+field: {AB162CC0-DC80-4ABF-8871-998EE5D7BA32}
+name: Type
+key: type
+content-length: 9
 
-<r xmlns:xsd="http://www.w3.org/2001/XMLSchema" ><d id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}" l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}"><r ds="" id="{E3A237FE-78F5-449E-BEFA-02BFC5C5FE55}" par="" ph="eContracting" uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" /></d></r>
+Multilist
+----field----
+field: {1EB8AE32-E190-44A6-968D-ED904C794EBF}
+name: Source
+key: source
+content-length: 9
+
+query:./*
+----field----
+field: {BA3F86A2-4A1C-4D78-B63D-91C2779C1B5E}
+name: __Sortorder
+key: __sortorder
+content-length: 3
+
+100
 ----version----
 language: cs
 version: 1
-revision: 91161dff-8e7f-47ea-99e8-fc66381f00cb
+revision: 11b75bb7-3932-4e78-8934-c73defa721d2
 
-----field----
-field: {998C5BAF-5B8C-417E-918B-14E1B330FF06}
-name: ContractSecondPropertyLabel
-key: contractsecondpropertylabel
-content-length: 44
-
-Vyberte si druhý smluvní údaj pro přihlášení
 ----field----
 field: {52807595-0F8F-4B20-8D2A-CB71D28C6103}
 name: __Owner
@@ -42,7 +49,7 @@ name: __Created
 key: __created
 content-length: 16
 
-20191024T102731Z
+20191021T102921Z
 ----field----
 field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
 name: __Created by
@@ -56,14 +63,14 @@ name: __Revision
 key: __revision
 content-length: 36
 
-91161dff-8e7f-47ea-99e8-fc66381f00cb
+11b75bb7-3932-4e78-8934-c73defa721d2
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20191024T102751Z
+20191021T121246Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by
@@ -74,36 +81,36 @@ sitecore\admin
 ----version----
 language: en
 version: 1
-revision: f3abd598-b8ec-4740-b5a5-9f843b541967
+revision: 1ef7ec32-ca23-4216-9462-6987608fcae7
 
-----field----
-field: {998C5BAF-5B8C-417E-918B-14E1B330FF06}
-name: ContractSecondPropertyLabel
-key: contractsecondpropertylabel
-content-length: 44
-
-Vyberte si druhý smluvní údaj pro přihlášení
 ----field----
 field: {25BED78C-4957-4165-998A-CA1B52F67497}
 name: __Created
 key: __created
 content-length: 16
 
-20161006T115526Z
+20191021T103854Z
+----field----
+field: {5DD74568-4D4B-44C1-B513-0AF5F4CDA34F}
+name: __Created by
+key: __created by
+content-length: 14
+
+sitecore\admin
 ----field----
 field: {8CDC337E-A112-42FB-BBB4-4143751E123F}
 name: __Revision
 key: __revision
 content-length: 36
 
-f3abd598-b8ec-4740-b5a5-9f843b541967
+1ef7ec32-ca23-4216-9462-6987608fcae7
 ----field----
 field: {D9CF14B1-FA16-4BA6-9288-E8A174D4D522}
 name: __Updated
 key: __updated
 content-length: 16
 
-20191024T091804Z
+20191021T103854Z
 ----field----
 field: {BADD9CF9-53E0-4D0C-BCC0-2D784C282F6A}
 name: __Updated by

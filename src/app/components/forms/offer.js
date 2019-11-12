@@ -71,6 +71,16 @@ export default function FormOffer(form, config) {
                     steps[1].parentNode.removeChild(steps[1]);
                 }
 
+                // check if there is at least one document to be checked
+                // if not => delete the first step and switch the icon
+                if (steps.length && list && !list.children('li').length) {
+                    steps[0].parentNode.removeChild(steps[0]);
+                    steps.shift(); // remove the first step from array
+                    const icon = $(steps[0].querySelector('.step__icon use'));
+                    const newXlinkHref = icon.attr('xlink:href').replace(/#(.*)/i, '#number-one-circle');
+                    icon.attr('xlink:href', newXlinkHref);
+                }
+
                 if (options.agreed) {
                     /* Mark list container as agreed (expand) */
                     list.removeClass(classes.unacceptedTerms).addClass(classes.agreed);
@@ -225,7 +235,11 @@ export default function FormOffer(form, config) {
             const allSigned = validateDocuments();
 
             if (allSigned && steps.length) {
-                steps[1].classList.add(classes.finishedStep);
+                if (steps.length === 1) {
+                    steps[0].classList.add(classes.finishedStep);
+                } else {
+                    steps[1].classList.add(classes.finishedStep);
+                }
             }
 
             const skipCheckboxesValidation = true;
