@@ -1,0 +1,7 @@
+<!-- UPDATE THIS FILE WITH PROPER VALUES AND PATHS AND PLACE IT INTO App_Config\Include\Project\zDevelopment\ FOLDER (NEEDS TO BE CREATED) -->
+<configuration xmlns:patch="http://www.sitecore.net/xmlconfig/" >
+  <sitecore>
+    <sc.variable name="unicornRootFolder" value="c:/Temp/" />
+    <!-- should point to the solution root and unicorn subfoloder - for example c:/Users/Tomas/Git/eContracting/Unicorn -->
+  </sitecore>
+</configuration>
