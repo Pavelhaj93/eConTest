@@ -1,0 +1,42 @@
+﻿---
+ID: "fd2bab8d-a344-4952-a9b1-8dede5e7e2f7"
+Parent: "4c0920fa-8ffa-4e7e-87f5-f61706969ff2"
+Template: "0a936432-a755-423d-8a8a-9d24dd0bcf72"
+Path: /sitecore/content/eContracting/Site/ThankYou
+DB: master
+SharedFields:
+- ID: "41378749-8bbd-451d-8ee9-28bef230b149"
+  Hint: Link2
+  Value: |
+    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
+- ID: "af3b7c14-65b7-44a4-9946-75d4aa558e06"
+  Hint: Link1
+  Value: |
+    <link text="Spravujte svůj účet online na innogy24.cz" linktype="external" url="https://www.innogy24.cz/prihlaseni/index" anchor="" target="_blank" />
+- ID: "dbb3e854-dd1b-43d7-9e70-03b37503e924"
+  Hint: Link3
+  Value: |
+    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161228T134801Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\actum_zverev
+    - ID: "a40b64bb-6a6b-434f-85ea-df6ac93ebc32"
+      Hint: MainText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
+        <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
+        <ul>
+            <li>potvrzen&iacute; o přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě</li>
+            <li>webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak m&aacute;te kdykoliv k dispozici.</li>
+        </ul>
+        <p>Va&scaron;e innogy</p>

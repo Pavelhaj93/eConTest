@@ -1,0 +1,25 @@
+﻿---
+ID: "cef514ac-259a-4693-8951-b28b886f4b31"
+Parent: "3ed34764-1f4a-4bf7-be8b-16034f07f5e8"
+Template: "5af8cba5-e046-4c7c-8504-c2dd52158e8c"
+Path: /sitecore/content/eContracting/Settings/Authentication
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "0fcd7e2a-74cc-44be-b1e7-58ccddee2318"
+      Hint: AuthenticationSettingItems
+      Type: Multilist
+      Value: |
+        {7770F3AB-B1E2-43D2-9985-DB81BC7D95F6}
+        {CB712D8B-EC67-41BE-97AB-5FD2D6D83E60}
+        {9E8EA661-2F99-4630-9358-EA3EBC7761BB}
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20191021T103123Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

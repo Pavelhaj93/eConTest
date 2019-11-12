@@ -1,0 +1,29 @@
+﻿---
+ID: "6c372dea-89af-4cc2-96eb-3c4d3146aad9"
+Parent: "3ed34764-1f4a-4bf7-be8b-16034f07f5e8"
+Template: "725b637d-fa68-4fc4-ba8e-1bcaf62a78db"
+Path: /sitecore/content/eContracting/Settings/CookieLaw
+DB: master
+SharedFields:
+- ID: "c3834da7-e36f-48d6-841e-340df6e83867"
+  Hint: Link
+  Value: |
+    <link text="Ochrana osobních údajů" linktype="internal" class="" title="" target="" querystring="" id="{04D94DE1-E540-445D-80AC-E7B6EE98AEB3}" />
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161010T094204Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "7e935a4a-f5c7-4879-816a-e107deb6372d"
+      Hint: ButtonText
+      Value: "V pořádku!"
+    - ID: "c80a47f5-e2c7-4ed9-ba80-d8c33d13d8a7"
+      Hint: MainText
+      Value: Používáme soubory cookies pro přizpůsobení obsahu webu a sledování návštěvnosti. Data o používání webu sdílíme s našimi partnery pro cílení reklamy a analýzu návštěvnosti

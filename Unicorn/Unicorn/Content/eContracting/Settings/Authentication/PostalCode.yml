@@ -1,0 +1,28 @@
+﻿---
+ID: "9e8ea661-2f99-4630-9358-ea3ebc7761bb"
+Parent: "cef514ac-259a-4693-8951-b28b886f4b31"
+Template: "b6add33b-95b2-4e42-ac88-facb932d83b2"
+Path: /sitecore/content/eContracting/Settings/Authentication/PostalCode
+DB: master
+SharedFields:
+- ID: "8b50515d-88e2-4ded-850b-abbc58be30e9"
+  Hint: AuthenticationFieldName
+  Value: postalcode
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20191021T122323Z
+    - ID: "5a750a1b-5913-4ee0-88bd-262bece9711d"
+      Hint: Hint
+      Value: PSČ Místa spotřeby hint
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "b1e763a4-91ef-400b-bc18-40bca5deccb8"
+      Hint: UserFriendlyFieldName
+      Value: PSČ Místa spotřeby

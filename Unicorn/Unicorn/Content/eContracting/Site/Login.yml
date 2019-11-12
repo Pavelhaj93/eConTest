@@ -1,0 +1,76 @@
+﻿---
+ID: "078c32b5-bd6c-455b-9308-c56fc9f1a1c2"
+Parent: "4c0920fa-8ffa-4e7e-87f5-f61706969ff2"
+Template: "0eeae94d-0018-40c8-a537-5b67349985cd"
+Path: /sitecore/content/eContracting/Site/Login
+DB: master
+SharedFields:
+- ID: "129d6e29-5f0e-4fbf-8266-7151cb6fb1f8"
+  Hint: UserChoiceAuthenticationEnabled
+  Type: Checkbox
+  Value: 0
+- ID: "26c55404-5af7-42d1-8f15-f43449a03310"
+  Hint: NextPageLink
+  Value: |
+    <link id="{3491F8F9-1FA6-473C-8CC5-2E56F745A594}" querystring="" target="" text="Offer" url="/eContracting/Site/Offer" title="" class="" linktype="internal" />
+- ID: "2e43eefd-f930-4d03-af50-9c45aec427b4"
+  Hint: UserChoiceAuthenticationEnabledRetention
+  Type: Checkbox
+  Value: 0
+- ID: "91c9a089-141a-435b-9cbe-5a82d97cad2d"
+  Hint: WelcomePageEnabledRetention
+  Type: Checkbox
+  Value: 1
+- ID: "b8566d04-5c20-45f1-b6ff-208c20c19c72"
+  Hint: WelcomePageEnabled
+  Type: Checkbox
+  Value: 1
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161228T134800Z
+    - ID: "39814255-c542-4020-b236-0b79393a6565"
+      Hint: AcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme Vám za uzavření dodatku k Vaší smlouvě. Pro ověření Vaší totožnosti a zobrazení smluvních dokumentů, které jste elektronicky akceptoval/a, prosím, zadejte následující údaje:</p>
+    - ID: "59526334-4282-4231-b7ef-11c42f3998e9"
+      Hint: ContractDataPlaceholder
+      Value: "{0}"
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\actum_zverev
+    - ID: "8a112f96-eb98-43ad-a6e5-e63c035a43fa"
+      Hint: ButtonText
+      Value: "Potvrdit vložené údaje a zobrazit nabídku!"
+    - ID: "8edde421-cc67-4ed4-a1f9-8e7fe1d91eb3"
+      Hint: PageTitle
+      Value: Ověření totožnosti
+    - ID: "91f9d7b6-b0b8-40c2-88fd-d5ada146ac4d"
+      Hint: DateOfBirthPlaceholder
+      Value: např. 26. 12. 1966
+    - ID: "998c5baf-5b8c-417e-918b-14e1b330ff06"
+      Hint: ContractSecondPropertyLabel
+      Value: Vyberte si druhý smluvní údaj pro přihlášení
+    - ID: "b8c24948-65d3-40ee-9d5a-110415f5c426"
+      Hint: RequiredFields
+      Value: Pros&iacute;m , vyplňte v&scaron;echna požadovan&aacute; pole.
+    - ID: "c5bc29d2-43b0-41f0-a2f5-0116d87af26a"
+      Hint: DateOfBirth
+      Value: Datum narození
+    - ID: "d606c428-7f5b-492c-85da-78c09cfd7eff"
+      Hint: ValidationMessage
+      Value: Ověřen&iacute; Va&scaron;ich &uacute;dajů se nezdařilo. Zadejte, pros&iacute;m, spr&aacute;vn&eacute; &uacute;daje. V př&iacute;padě pot&iacute;ž&iacute; se, pros&iacute;m, obraťte na na&scaron;i z&aacute;kaznickou linku 800 11 33 55.
+    - ID: "dab3f80f-6997-4e10-8e1a-aba389995045"
+      Hint: NotAcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
+    - ID: "e661640d-4530-46d9-b14a-581742b51f0d"
+      Hint: ContractData
+      Value: Smluvní údaj

@@ -1,0 +1,29 @@
+﻿---
+ID: "3ed34764-1f4a-4bf7-be8b-16034f07f5e8"
+Parent: "36e73c49-9dd1-413c-8a6c-17a9191de504"
+Template: "c7f62760-88c3-421b-a673-ccc8e3e715e0"
+Path: /sitecore/content/eContracting/Settings
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20190108T130736Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161007T092343Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

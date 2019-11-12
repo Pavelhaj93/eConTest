@@ -1,0 +1,33 @@
+﻿---
+ID: "44654db1-264d-4738-bc85-e6e5ccfd06d3"
+Parent: "3ed34764-1f4a-4bf7-be8b-16034f07f5e8"
+Template: "bb581370-8db5-4962-aaf3-63ef6a2ae990"
+Path: /sitecore/content/eContracting/Settings/Modal Window
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "12342a5a-cf77-4564-94c2-680c4ad5b9e0"
+      Hint: Text
+      Value: <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer velit metus, faucibus et nibh eu, laoreet eleifend ex. Donec ultrices purus at lorem finibus, sed sodales tellus blandit. Cras cursus luctus commodo. Integer sed ex convallis, commodo neque sed, mattis dolor. Vestibulum ornare sem eros, et venenatis urna condimentum vitae. Quisque interdum velit turpis. Phasellus eros eros, egestas laoreet fringilla quis, pretium quis odio. Integer tortor massa, facilisis vitae fringilla ac, mattis non augue. Duis sed tellus eu lacus ultrices condimentum. Suspendisse potenti. Integer porttitor eros sed aliquet cursus. In sed iaculis mi. Curabitur urna massa, rutrum sed cursus eget, tincidunt sit amet mauris. Nulla nisl odio, bibendum a tortor sit amet, pretium convallis eros.</p>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20181126T081746Z
+    - ID: "3130b063-abe5-49ac-a385-41a3175ccd2a"
+      Hint: Tooltip
+      Value: Tooltip Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    - ID: "4e5f1fb4-f1e9-4b42-9f41-bd69dedc5876"
+      Hint: Accept_Text
+      Value: Accept text Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "d812bb2e-925b-4fea-b4d8-afe55cf3d613"
+      Hint: Title
+      Value: Title Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    - ID: "fb87153a-471e-4ec4-9b71-548911022626"
+      Hint: Cancel_Text
+      Value: Cancel text Lorem ipsum dolor sit amet, consectetur adipiscing elit.
