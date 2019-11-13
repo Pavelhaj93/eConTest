@@ -1,0 +1,48 @@
+﻿---
+ID: "382e8d56-996e-42e3-8bb9-dbfc5eb990b6"
+Parent: "fe43834b-e938-4ca5-9abb-283149fd26d3"
+Template: "fe43834b-e938-4ca5-9abb-283149fd26d3"
+Path: /sitecore/templates/eContracting/Pages/eContractingWelcomeTemplate/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{C136FE53-4515-4435-A089-A1147FF3B30C}"
+          par=""
+          ph="eContracting"
+          uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20190904T083400Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "693e5f62-e882-4e9b-aaac-26503bea1d5e"
+      Hint: ButtonText
+      Value: Pokračovat
+    - ID: "8edde421-cc67-4ed4-a1f9-8e7fe1d91eb3"
+      Hint: PageTitle
+      Value: Nabídka
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115526Z

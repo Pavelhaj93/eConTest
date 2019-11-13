@@ -1,0 +1,31 @@
+﻿---
+ID: "5f688b8c-1630-4c86-bf35-a5940c77f227"
+Parent: "0a936432-a755-423d-8a8a-9d24dd0bcf72"
+Template: "0a936432-a755-423d-8a8a-9d24dd0bcf72"
+Path: /sitecore/templates/eContracting/Pages/eContractingThankYouTemplate/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{7B1673D7-C7B6-44D3-9BA4-4154E5D0D77A}"
+          par=""
+          ph="eContracting"
+          uid="{6C0E87E7-35CF-44EB-8D70-81D852E106AB}" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115617Z

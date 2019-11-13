@@ -1,0 +1,22 @@
+﻿---
+ID: "31c3b8fe-1a68-4be7-b169-e7bad8172fc5"
+Parent: "73e66408-ca8a-494f-9d0d-150853bb19ed"
+Template: "5c547d4e-7111-4995-95b0-6b561751bf2e"
+Path: /sitecore/layout/Placeholder Settings/eContracting/eContractingWelcomePH
+DB: master
+SharedFields:
+- ID: "7256bdab-1fd2-49dd-b205-cb4873d2917c"
+  Hint: Placeholder Key
+  Value: eContractingWelcomePH
+- ID: "e391b526-d0c5-439d-803e-17512eae6222"
+  Hint: Allowed Controls
+  Type: TreelistEx
+  Value: "{52DCA5B9-7364-4431-AD0C-DE887759CBFF}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20190903T132008Z

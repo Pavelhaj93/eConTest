@@ -1,0 +1,18 @@
+﻿---
+ID: "ee1f2d8c-8ad3-4ef9-bae9-56723991d87a"
+Parent: "9c9de6cb-54b4-4f8d-a1b7-9e97bc7a76d6"
+Template: "0437fee2-44c9-46a6-abe9-28858d9fee8c"
+Path: /sitecore/templates/eContracting/Content/Modal windows
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20181016T084620Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

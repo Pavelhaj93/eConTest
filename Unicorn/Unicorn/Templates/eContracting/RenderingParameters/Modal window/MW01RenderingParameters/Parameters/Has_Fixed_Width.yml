@@ -1,0 +1,21 @@
+﻿---
+ID: "26b5bb23-8df3-4ea3-8483-919b0d4d038c"
+Parent: "4bef4f2d-5d02-4e0b-ab6e-828c147f0d79"
+Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
+Path: /sitecore/templates/eContracting/RenderingParameters/Modal window/MW01RenderingParameters/Parameters/Has_Fixed_Width
+DB: master
+SharedFields:
+- ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
+  Hint: Type
+  Value: Checkbox
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20181016T090040Z

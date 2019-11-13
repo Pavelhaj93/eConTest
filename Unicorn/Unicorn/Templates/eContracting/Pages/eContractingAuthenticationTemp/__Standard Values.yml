@@ -1,0 +1,34 @@
+﻿---
+ID: "ef46ecee-a9f6-4b2e-81e3-e790601a68bb"
+Parent: "0eeae94d-0018-40c8-a537-5b67349985cd"
+Template: "0eeae94d-0018-40c8-a537-5b67349985cd"
+Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{E3A237FE-78F5-449E-BEFA-02BFC5C5FE55}"
+          par=""
+          ph="eContracting"
+          uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115526Z
+    - ID: "998c5baf-5b8c-417e-918b-14e1b330ff06"
+      Hint: ContractSecondPropertyLabel
+      Value: Vyberte si druhý smluvní údaj pro přihlášení

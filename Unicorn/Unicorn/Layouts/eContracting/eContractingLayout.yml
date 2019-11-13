@@ -1,0 +1,25 @@
+﻿---
+ID: "6bcf6e0c-75fe-4749-aca3-9e8aa5b4b3c9"
+Parent: "b83711ab-8d84-4747-ae44-5bac68d40876"
+Template: "3a45a723-64ee-4919-9d41-02fd40fd1466"
+Path: /sitecore/layout/Layouts/eContracting/eContractingLayout
+DB: master
+SharedFields:
+- ID: "a036b2bc-ba04-44f6-a75f-bae6cd242abf"
+  Hint: Path
+  Value: /Areas/eContracting/Views/Shared/eContractingLayout.cshtml
+- ID: "e9cc5a73-3c8a-4d7d-92ac-3b88c18a996a"
+  Hint: Model
+  Value: /sitecore/layout/Models/eContracting/LayoutModel
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161010T092816Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
