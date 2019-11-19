@@ -6,7 +6,6 @@ namespace eContracting.Kernel.Models
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.Web.Mvc;
 
     public class AuthenticationModel
     {
