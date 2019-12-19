@@ -52,8 +52,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                     var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
-                var processingParameters = SystemHelpers.GetParameters(guid, string.Empty);
-                this.HttpContext.Items["WelcomeData"] = processingParameters;
+                    this.Context.OfferType = authenticationData.OfferType;
+
+                    var processingParameters = SystemHelpers.GetParameters(guid, string.Empty);
+                    this.HttpContext.Items["WelcomeData"] = processingParameters;
 
                     var dataModel = new WelcomeModel() { Guid = guid };
                     FillViewData(dataModel);
@@ -62,6 +64,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
                 else
                 {
+                    //TODO: Remove after check
                     var dataModel = new WelcomeModel() { Guid = string.Empty };
                     FillViewData(dataModel);
 

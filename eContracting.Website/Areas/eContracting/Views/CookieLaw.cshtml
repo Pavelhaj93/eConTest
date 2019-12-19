@@ -11,12 +11,17 @@
 		<div class="actions">
 			@if (Model.Link != null)
 			{
-			<a id="PersonalDataLink" href="@Model.Link.Url" class="external" target="_blank">
-				@Editable(model=>model.Link.Text)
-			</a>
-			}
+				if (Sitecore.Context.PageMode.IsNormal)
+				{
+					<a id="PersonalDataLink" href="@Model.Link.Url" class="external" target="_blank">@Model.Link.Text</a>
+                }
+                else
+                {
+					@Editable(model => model.Link)
+                }
+            }
 			<a class="button agree" href="">
-				@Editable(model=>model.ButtonText)
+				@Editable(model => model.ButtonText)
 			</a>
 		</div>
 	</div>

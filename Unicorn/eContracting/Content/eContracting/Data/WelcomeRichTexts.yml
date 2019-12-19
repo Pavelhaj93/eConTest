@@ -5,6 +5,17 @@ Template: "74ba662d-7bc4-483e-9b06-bd91fe61df9e"
 Path: /sitecore/content/eContracting/Data/WelcomeRichTexts
 DB: master
 Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20191217T122859Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
 - Language: en
   Versions:
   - Version: 1

@@ -5,10 +5,14 @@ Template: "0eeae94d-0018-40c8-a537-5b67349985cd"
 Path: /sitecore/content/eContracting/Site/Login
 DB: master
 SharedFields:
+- ID: "0fc82636-47ca-4766-bd02-a9e23c499379"
+  Hint: UserChoiceAuthenticationEnabledAcquisition
+  Type: Checkbox
+  Value: 1
 - ID: "129d6e29-5f0e-4fbf-8266-7151cb6fb1f8"
   Hint: UserChoiceAuthenticationEnabled
   Type: Checkbox
-  Value: 0
+  Value: 1
 - ID: "26c55404-5af7-42d1-8f15-f43449a03310"
   Hint: NextPageLink
   Value: |
@@ -16,7 +20,7 @@ SharedFields:
 - ID: "2e43eefd-f930-4d03-af50-9c45aec427b4"
   Hint: UserChoiceAuthenticationEnabledRetention
   Type: Checkbox
-  Value: 0
+  Value: 1
 - ID: "91c9a089-141a-435b-9cbe-5a82d97cad2d"
   Hint: WelcomePageEnabledRetention
   Type: Checkbox

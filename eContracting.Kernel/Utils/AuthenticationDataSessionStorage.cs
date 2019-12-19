@@ -38,6 +38,7 @@
                 ExpDate = offer.OfferInternal.Body.DATE_TO,
                 IsAccepted = offer.OfferInternal.IsAccepted,
                 IsRetention = offer.OfferInternal.Body.OfferIsRetention,
+                IsAcquisition = offer.OfferInternal.Body.OfferIsAquisition,
                 HasVoucher = offer.OfferInternal.Body.OfferHasVoucher,
                 OfferIsExpired = offer.OfferInternal.State == "9" || offer.OfferInternal.Body.OfferIsExpired,
             };

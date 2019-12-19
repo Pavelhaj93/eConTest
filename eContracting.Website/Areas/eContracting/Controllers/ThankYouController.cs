@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Utils;
@@ -22,19 +23,24 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var ads = new AuthenticationDataSessionStorage();
+                var data = ads.GetUserData();
 
                 if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                if (ads.GetUserData().IsRetention)
+                if (data.OfferType == OfferTypes.Retention)
                 {
-                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainTextRetention, string.Empty);
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextRetention, string.Empty);
+                }
+                else if (data.OfferType == OfferTypes.Acquisition)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextAcquisition, string.Empty);
                 }
                 else
                 {
-                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), Context.MainText, string.Empty);
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainText, string.Empty);
                 }
 
 

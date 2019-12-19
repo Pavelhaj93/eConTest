@@ -2,7 +2,7 @@
 ID: "f603e242-2299-4635-a0e1-00b3714dcdfa"
 Parent: "a6c647da-83af-496b-afb5-cc5e943d99b9"
 Template: "c7134f38-1cd2-4bf8-a756-c4374a2493b6"
-Path: /sitecore/content/eContracting/Data/WelcomeRichTexts/test1
+Path: /sitecore/content/eContracting/Data/WelcomeRichTexts/Welcome Default
 DB: master
 Languages:
 - Language: cs

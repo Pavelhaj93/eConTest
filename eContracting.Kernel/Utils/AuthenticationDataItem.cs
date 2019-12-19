@@ -50,10 +50,34 @@ namespace eContracting.Kernel.Utils
         /// </summary>
         public bool IsAccepted { get; set; }
 
+        public OfferTypes OfferType
+        {
+            get
+            {
+                if (this.IsRetention)
+                {
+                    return OfferTypes.Retention;
+                }
+                else if (this.IsAcquisition)
+                {
+                    return OfferTypes.Acquisition;
+                }
+                else
+                {
+                    return OfferTypes.Default;
+                }
+            }
+        }
+
         /// <summary>
         /// Gets or sets a value indicating whether offer is retention type.
         /// </summary>
-        public bool IsRetention { get; set; }
+        public bool IsRetention { protected get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is acquisition.
+        /// </summary>
+        public bool IsAcquisition { protected get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether offer contains offers (document is without AD1)

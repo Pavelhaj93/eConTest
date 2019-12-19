@@ -10,5 +10,8 @@ namespace eContracting.Kernel.GlassItems.Pages
     public class EContractingWelcomeTemplate : EContractingTemplate
     {
         public virtual string ButtonText { get; set; }
+
+        [SitecoreIgnore]
+        public OfferTypes OfferType { get; set; }
     }
 }

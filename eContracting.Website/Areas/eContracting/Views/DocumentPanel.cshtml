@@ -33,7 +33,7 @@
                         @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = Model.IsRetention ? "form loading" : "form" }))
                         {
                             @Html.AntiForgeryToken()
-                            if (!Model.IsRetention)
+                            if (!Model.IsRetention && !Model.IsAcquisition)
                             {
                                 <ul class="list list-documents loading">
                                     <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
@@ -87,7 +87,7 @@
                                     </div>
                                 </div>
                             }
-                            if (Model.IsRetention)
+                            if (Model.IsRetention || Model.IsAcquisition)
                             {
                                 <div class="submit-zone">
                                     <p>@ViewData["HowToAccept"]</p>

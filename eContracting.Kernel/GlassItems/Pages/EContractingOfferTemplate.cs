@@ -16,6 +16,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         public virtual string MainTextRetention { get; set; }
 
         [SitecoreField]
+        public virtual string MainTextAcquisition { get; set; }
+
+        [SitecoreField]
         public virtual string VoucherText { get; set; }
 
         [SitecoreField]

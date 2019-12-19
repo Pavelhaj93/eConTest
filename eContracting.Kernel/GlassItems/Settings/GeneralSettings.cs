@@ -5,6 +5,8 @@
 namespace eContracting.Kernel.GlassItems.Settings
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Glass.Mapper.Sc.Configuration;
     using Glass.Mapper.Sc.Configuration.Attributes;
     using Glass.Mapper.Sc.Fields;
@@ -72,40 +74,26 @@ namespace eContracting.Kernel.GlassItems.Settings
         [SitecoreField]
         public virtual string SignFailure { get; set; }
 
-        [SitecoreField]
-        public virtual string DocumentToSign { get; set; }
+        [SitecoreChildren]
+        public virtual IEnumerable<GeneralTextsSettings> Texts { get; set; }
 
-        [SitecoreField]
-        public virtual string DocumentToSignAccepted { get; set; }
+        public GeneralTextsSettings GetTexts(OfferTypes offerType)
+        {
+            var name = Enum.GetName(typeof(OfferTypes), offerType);
+            return this.Texts.FirstOrDefault(x => x.Name == name);
+        }
 
-        [SitecoreField]
-        public virtual string Step1Heading { get; set; }
+        public string GetSignInFailure(OfferTypes offerType)
+        {
+            var value = this.SignFailure;
+            var texts = this.GetTexts(offerType);
 
-        [SitecoreField]
-        public virtual string Step2Heading { get; set; }
+            if (texts != null)
+            {
+                value = texts.SignFailure;
+            }
 
-        [SitecoreField]
-        public virtual string WhySignIsRequired { get; set; }
-
-        [SitecoreField]
-        public virtual string SignButton { get; set; }
-
-        [SitecoreField]
-        public virtual string HowToSign { get; set; }
-
-        [SitecoreField]
-        public virtual string HowToAccept { get; set; }
-
-        [SitecoreField]
-        public virtual string SignDocument { get; set; }
-
-        [SitecoreField]
-        public virtual string SignRequest { get; set; }
-
-        [SitecoreField]
-        public virtual string SignConfirm { get; set; }
-
-        [SitecoreField]
-        public virtual string SignDelete { get; set; }
+            return value;
+        }
     }
 }

@@ -5,6 +5,9 @@ Template: "0a936432-a755-423d-8a8a-9d24dd0bcf72"
 Path: /sitecore/templates/eContracting/Pages/eContractingThankYouTemplate/__Standard Values
 DB: master
 SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout

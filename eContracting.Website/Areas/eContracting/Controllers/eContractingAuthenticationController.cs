@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
@@ -50,7 +51,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var authSettings = ConfigHelpers.GetAuthenticationSettings();
-                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var authHelper = new AuthenticationHelper(
+                    offer,
+                    new AuthenticationDataSessionStorage(),
+                    this.Context.UserChoiceAuthenticationEnabled,
+                    this.Context.UserChoiceAuthenticationEnabledRetention,
+                    this.Context.UserChoiceAuthenticationEnabledAcquisition,
+                    authSettings);
                 var userData = authHelper.GetUserData();
 
                 if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
@@ -60,14 +67,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    if (this.Context.WelcomePageEnabled && !userData.IsRetention)
+                    var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
+
+                    if (this.Context.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
                     {
-                        var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
                         return Redirect(welcomeRedirectUrl);
                     }
-                    else if (this.Context.WelcomePageEnabledRetention && userData.IsRetention)
+                    else if (this.Context.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
                     {
-                        var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
+                        return Redirect(welcomeRedirectUrl);
+                    }
+                    else if (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition)
+                    {
                         return Redirect(welcomeRedirectUrl);
                     }
                     else
@@ -143,7 +154,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
 
                 var authSettings = ConfigHelpers.GetAuthenticationSettings();
-                var authHelper = new AuthenticationHelper(offer, new AuthenticationDataSessionStorage(), this.Context.UserChoiceAuthenticationEnabled, this.Context.UserChoiceAuthenticationEnabledRetention, authSettings);
+                var authHelper = new AuthenticationHelper(
+                    offer,
+                    new AuthenticationDataSessionStorage(),
+                    this.Context.UserChoiceAuthenticationEnabled,
+                    this.Context.UserChoiceAuthenticationEnabledRetention,
+                    this.Context.UserChoiceAuthenticationEnabledAcquisition,
+                    authSettings);
                 var userData = authHelper.GetUserData();
 
                 var dateOfBirthRealValue = userData.DateOfBirth.Trim().Replace(" ", string.Empty).ToLower();                    ////Value from offer

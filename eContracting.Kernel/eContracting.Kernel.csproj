@@ -89,6 +89,7 @@
     <Compile Include="GlassItems\Pages\EContractingWelcomeTemplate.cs" />
     <Compile Include="GlassItems\RenderingParameters\Modal_window\MW01RenderingParameters.cs" />
     <Compile Include="GlassItems\Settings\AuthenticationDataContainer.cs" />
+    <Compile Include="GlassItems\Settings\GeneralTextsSettings.cs" />
     <Compile Include="Helpers\AuthenticationHelper.cs" />
     <Compile Include="Helpers\ConfigHelpers.cs" />
     <Compile Include="Helpers\PageLinkType.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Models\FailedLoginInfoModel.cs" />
     <Compile Include="Models\FailedLoginInfoDetailModel.cs" />
     <Compile Include="GlassItems\SiteRootModel.cs" />
+    <Compile Include="OfferTypes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CRM_SIGN_STAMP_MERGE.cs" />
     <Compile Include="Services\FileItem.cs" />

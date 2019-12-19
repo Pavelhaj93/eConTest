@@ -18,21 +18,21 @@ Languages:
           <d
             id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
             <r
-              uid="{9EC75A0C-666C-4862-A3D9-E962736C4910}"
+              uid="{4ACF64F1-B161-4CB1-98A1-AAE257189AB7}"
               p:before="*"
-              s:ds="{A994E6D6-AF2D-476B-B186-66ABEA9D5CB7}"
+              s:ds="{C35BFBCC-DC19-4089-86BF-84F388C557EF}"
               s:id="{52DCA5B9-7364-4431-AD0C-DE887759CBFF}"
-              s:ph="/eContracting/eContractingWelcomePH" />
+              s:ph="/eContracting/eContractingWelcomeAcquisitionPH" />
+            <r
+              uid="{A0C581F7-531F-49F8-989B-EC99635DA84B}"
+              p:after="r[@uid='{4ACF64F1-B161-4CB1-98A1-AAE257189AB7}']"
+              s:ds="{0761EC02-4BD9-4EFC-A6FB-DC5623315165}"
+              s:id="{52DCA5B9-7364-4431-AD0C-DE887759CBFF}"
+              s:ph="/eContracting/eContractingWelcomeRetentionPH" />
             <r
               uid="{1ADEFF2D-C38C-4E7C-BCEF-930F307CCCE0}"
-              p:after="r[@uid='{9EC75A0C-666C-4862-A3D9-E962736C4910}']"
+              p:after="r[@uid='{A0C581F7-531F-49F8-989B-EC99635DA84B}']"
               s:ds="{F603E242-2299-4635-A0E1-00B3714DCDFA}"
-              s:id="{52DCA5B9-7364-4431-AD0C-DE887759CBFF}"
-              s:ph="/eContracting/eContractingWelcomePH" />
-            <r
-              uid="{9078EAE6-7369-434F-9CA9-673F719C96B5}"
-              p:after="r[@uid='{1ADEFF2D-C38C-4E7C-BCEF-930F307CCCE0}']"
-              s:ds="{D7A77F89-1CC0-4A48-8E4E-BC1F713238D2}"
               s:id="{52DCA5B9-7364-4431-AD0C-DE887759CBFF}"
               s:ph="/eContracting/eContractingWelcomePH" />
           </d>

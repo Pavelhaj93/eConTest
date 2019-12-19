@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Content.Modal_window;
@@ -64,7 +65,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     model.ClientId = authenticationDataItem.Identifier;
                     model.IsAccepted = isAccepted;
-                    model.IsRetention = authenticationDataItem.IsRetention;
+                    model.IsRetention = authenticationDataItem.OfferType == OfferTypes.Retention;
+                    model.IsAcquisition = authenticationDataItem.OfferType == OfferTypes.Acquisition;
 
                     var generalSettings = ConfigHelpers.GetGeneralSettings();
                     ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];
@@ -72,18 +74,36 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["IAgree"] = generalSettings.IAgree;
                     ViewData["Accept"] = generalSettings.Accept;
 
-                    ViewData["DocumentToSign"] = generalSettings.DocumentToSign;
-                    ViewData["DocumentToSignAccepted"] = generalSettings.DocumentToSignAccepted;
-                    ViewData["Step1Heading"] = generalSettings.Step1Heading;
-                    ViewData["Step2Heading"] = generalSettings.Step2Heading;
-                    ViewData["WhySignIsRequired"] = generalSettings.WhySignIsRequired;
-                    ViewData["SignButton"] = generalSettings.SignButton;
-                    ViewData["HowToSign"] = generalSettings.HowToSign;
-                    ViewData["HowToAccept"] = generalSettings.HowToAccept;
-                    ViewData["SignDocument"] = generalSettings.SignDocument;
-                    ViewData["SignRequest"] = generalSettings.SignRequest;
-                    ViewData["SignConfirm"] = generalSettings.SignConfirm;
-                    ViewData["SignDelete"] = generalSettings.SignDelete;
+                    GeneralTextsSettings texts = null;
+
+                    if (model.IsRetention)
+                    {
+                        texts = generalSettings.GetTexts(OfferTypes.Retention);
+                    }
+                    else if (model.IsAcquisition)
+                    {
+                        texts = generalSettings.GetTexts(OfferTypes.Acquisition);
+                    }
+                    else
+                    {
+                        //TODO: Should we have default texts?
+                    }
+
+                    if (texts != null)
+                    {
+                        ViewData["DocumentToSign"] = texts.DocumentToSign;
+                        ViewData["DocumentToSignAccepted"] = texts.DocumentToSignAccepted;
+                        ViewData["Step1Heading"] = texts.Step1Heading;
+                        ViewData["Step2Heading"] = texts.Step2Heading;
+                        ViewData["WhySignIsRequired"] = texts.WhySignIsRequired;
+                        ViewData["SignButton"] = texts.SignButton;
+                        ViewData["HowToSign"] = texts.HowToSign;
+                        ViewData["HowToAccept"] = texts.HowToAccept;
+                        ViewData["SignDocument"] = texts.SignDocument;
+                        ViewData["SignRequest"] = texts.SignRequest;
+                        ViewData["SignConfirm"] = texts.SignConfirm;
+                        ViewData["SignDelete"] = texts.SignDelete;
+                    }
 
                     return View("/Areas/eContracting/Views/DocumentPanel.cshtml", model);
                 }
@@ -106,9 +126,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-
-                var guid = authenticationDataSessionStorage.GetUserData().Identifier;
-                var isRetention = authenticationDataSessionStorage.GetUserData().IsRetention;
+                var data = authenticationDataSessionStorage.GetUserData();
+                var guid = data.Identifier;
+                var offerType = data.OfferType;
 
                 RweClient client = new RweClient();
 
@@ -129,7 +149,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
 
-                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, isRetention, documentList);
+                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, offerType, documentList);
 
                 // New acceptance logger
                 //if(documentsId.Count > 0)
@@ -141,12 +161,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (client.GuidExistInMongo(guid))
                 {
                     var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
-                    authenticationDataSessionStorage.GetUserData().IsAccepted = true;
+                    data.IsAccepted = true;
                     return Redirect(acceptOfferUrl);
                 }
 
-                client.AcceptOffer(authenticationDataSessionStorage.GetUserData().Identifier);
-                authenticationDataSessionStorage.GetUserData().IsAccepted = true;
+                client.AcceptOffer(data.Identifier);
+                data.IsAccepted = true;
 
                 var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.ThankYou).Url;
                 return Redirect(redirectUrl);

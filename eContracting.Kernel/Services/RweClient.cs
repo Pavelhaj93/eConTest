@@ -309,7 +309,7 @@ namespace eContracting.Kernel.Services
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, bool isRetention, IEnumerable<string> acceptedDocuments)
+        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine("[LogAcceptance] Initializing...");
@@ -346,7 +346,7 @@ namespace eContracting.Kernel.Services
 
             Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
-            if (isRetention)
+            if (offerType == OfferTypes.Retention)
             {
                 var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
 
@@ -389,6 +389,10 @@ namespace eContracting.Kernel.Services
                         }
                     }
                 }
+            }
+            else if (offerType == OfferTypes.Acquisition)
+            {
+                //TODO: Add logic for acquisition
             }
             else
             {

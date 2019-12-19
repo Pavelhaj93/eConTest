@@ -1,3 +1,4 @@
+@using eContracting.Kernel
 @using eContracting.Kernel.Models
 @using eContracting.Kernel.GlassItems.Pages
 @model EContractingWelcomeTemplate
@@ -10,7 +11,18 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="info">
-                    @Html.Sitecore().Placeholder("eContractingWelcomePH")
+                    @if (Model.OfferType == OfferTypes.Retention)
+                    {
+                        @Html.Sitecore().Placeholder("eContractingWelcomeRetentionPH")
+                    }
+                    else if (Model.OfferType == OfferTypes.Acquisition)
+                    {
+                        @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionPH")
+                    }
+                    else
+                    {
+                        @Html.Sitecore().Placeholder("eContractingWelcomePH")
+                    }
                     <div class="form">
                         <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
                     </div>
@@ -24,7 +36,12 @@ else
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="info">
+                <p><strong>Výchozí texty:</strong></p>
                 @Html.Sitecore().Placeholder("eContractingWelcomePH")
+                <p><strong>Texty pro retence:</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionPH")
+                <p><strong>Texty pro akvizice:</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionPH")
                 <div class="form">
                     <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
                 </div>

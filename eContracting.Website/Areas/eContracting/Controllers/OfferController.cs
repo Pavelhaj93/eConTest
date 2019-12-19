@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web.Mvc;
+using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Pages;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
@@ -26,40 +27,47 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             try
             {
                 AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
+                var data = ads.GetUserData();
+
                 if (!ads.IsDataActive)
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                if (ads.GetUserData().IsAccepted)
+                if (data.IsAccepted)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
-                if (ads.GetUserData().OfferIsExpired)
+                if (data.OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
-                string guid = ads.GetUserData().Identifier;
+
+                string guid = data.Identifier;
 
                 RweClient client = new RweClient();
                 client.SignOffer(guid);
 
                 var offer = client.GenerateXml(guid);
 
-                var parameters = SystemHelpers.GetParameters(ads.GetUserData().Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
+                var parameters = SystemHelpers.GetParameters(data.Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
 
                 var mainText = string.Empty;
 
-                if (ads.GetUserData().IsRetention)
+                if (data.OfferType == OfferTypes.Retention)
                 {
-                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainTextRetention);
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainTextRetention);
+                }
+                else if (data.OfferType == OfferTypes.Acquisition)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainTextAcquisition);
                 }
                 else
                 {
-                    mainText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.MainText);
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainText);
                 }
 
                 if (mainText == null)
@@ -67,11 +75,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
+
                 ViewData["MainText"] = mainText;
 
-                if (ads.GetUserData().IsRetention && ads.GetUserData().HasVoucher)
+                if (data.OfferType != OfferTypes.Default && data.HasVoucher)
                 {
-                    string voucherText = SystemHelpers.GenerateMainText(ads.GetUserData(), parameters, Context.VoucherText);
+                    string voucherText = SystemHelpers.GenerateMainText(data, parameters, Context.VoucherText);
                     ViewData["VoucherText"] = voucherText;
                 }
                 else
@@ -90,7 +99,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
-                ViewData["SignFailure"] = generalSettings.SignFailure;
+                ViewData["SignFailure"] = generalSettings.GetSignInFailure(data.OfferType);
 
                 return View("/Areas/eContracting/Views/Offer.cshtml");
             }

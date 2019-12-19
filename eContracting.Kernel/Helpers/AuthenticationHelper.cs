@@ -13,37 +13,36 @@ namespace eContracting.Kernel.Helpers
 
         public bool IsUserChoice { get; set; }
 
-        public AuthenticationHelper(Offer offer, AuthenticationDataSessionStorage authSessionStorage, bool userChoiceAuthNormal, bool userChoiceAuthRetention, AuthenticationSettingsModel settings)
+        public AuthenticationHelper(Offer offer, AuthenticationDataSessionStorage authSessionStorage, bool userChoiceAuthNormal, bool userChoiceAuthRetention, bool userChoiceAuthAcquisition, AuthenticationSettingsModel settings)
         {
             this.authSession = authSessionStorage;
 
             if (offer == null) throw new NullReferenceException("Offer can not be null");
 
+            bool withSettings = false;
+
             if (offer.OfferInternal.Body.OfferIsRetention)
             {
-                if (userChoiceAuthRetention)
-                {
-                    this.authProcessor = new AuthenticationUserChoice(authSessionStorage, offer, settings);
-                    this.IsUserChoice = true;
-                }
-                else
-                {
-                    this.authProcessor = new AuthenticationRandomChoice(authSessionStorage, offer);
-                    this.IsUserChoice = false;
-                }
+                withSettings = userChoiceAuthRetention;
+            }
+            else if (offer.OfferInternal.Body.OfferIsAquisition)
+            {
+                withSettings = userChoiceAuthAcquisition;
             }
             else
             {
-                if (userChoiceAuthNormal)
-                {
-                    this.authProcessor = new AuthenticationUserChoice(authSessionStorage, offer, settings);
-                    this.IsUserChoice = true;
-                }
-                else
-                {
-                    this.authProcessor = new AuthenticationRandomChoice(authSessionStorage, offer);
-                    this.IsUserChoice = false;
-                }
+                withSettings = userChoiceAuthNormal;
+            }
+
+            if (withSettings)
+            {
+                this.authProcessor = new AuthenticationUserChoice(authSessionStorage, offer, settings);
+                this.IsUserChoice = true;
+            }
+            else
+            {
+                this.authProcessor = new AuthenticationRandomChoice(authSessionStorage, offer);
+                this.IsUserChoice = false;
             }
         }
 

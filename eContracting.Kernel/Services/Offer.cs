@@ -156,6 +156,35 @@ namespace eContracting.Kernel.Services
         }
 
         [XmlIgnore]
+        public bool OfferIsAquisition
+        {
+            get
+            {
+                return this.BusProcess == "02";
+            }
+        }
+
+        [XmlIgnore]
+        public OfferTypes OfferType
+        {
+            get
+            {
+                if (this.OfferIsRetention)
+                {
+                    return OfferTypes.Retention;
+                }
+                else if (this.OfferIsAquisition)
+                {
+                    return OfferTypes.Acquisition;
+                }
+                else
+                {
+                    return OfferTypes.Default;
+                }
+            }
+        }
+
+        [XmlIgnore]
         public bool OfferHasVoucher
         {
             get

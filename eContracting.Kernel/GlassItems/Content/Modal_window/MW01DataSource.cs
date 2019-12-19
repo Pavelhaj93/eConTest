@@ -25,5 +25,7 @@ namespace eContracting.Kernel.GlassItems.Content.Modal_window
         public bool IsAccepted { get; set; }
 
         public bool IsRetention { get; set; }
+
+        public bool IsAcquisition { get; set; }
     }
 }
