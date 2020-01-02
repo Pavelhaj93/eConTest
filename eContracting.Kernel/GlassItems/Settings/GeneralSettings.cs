@@ -74,7 +74,7 @@ namespace eContracting.Kernel.GlassItems.Settings
         [SitecoreField]
         public virtual string SignFailure { get; set; }
 
-        [SitecoreChildren]
+        [SitecoreChildren(IsLazy = false)]
         public virtual IEnumerable<GeneralTextsSettings> Texts { get; set; }
 
         public GeneralTextsSettings GetTexts(OfferTypes offerType)
