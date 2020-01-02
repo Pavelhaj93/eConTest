@@ -41,7 +41,18 @@ namespace eContracting.Kernel.Services
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
             var responseObject = GetResponse(guid, "NABIDKA");
+
+            if (responseObject == null)
+            {
+                return null;
+            }
+
             var offer = GenerateXml(guid, responseObject);
+
+            if (offer == null)
+            {
+                return null;
+            }
 
             bool IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
 
@@ -390,9 +401,44 @@ namespace eContracting.Kernel.Services
                     }
                 }
             }
+            // all files must be signed
             else if (offerType == OfferTypes.Acquisition)
             {
                 //TODO: Add logic for acquisition
+                var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
+
+                foreach (var file in responsePdfFiles)
+                {
+                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
+
+                    if (existingSignedVariant == null)
+                    {
+                        throw new ApplicationException("File '" + file.FILENAME + "' is not signed");
+                    }
+
+                    file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
+
+                    var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                    var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                    var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+
+                    if (arccIdAttribute != null)
+                    {
+                        arccIdAttribute.ATTRVAL = string.Empty;
+                    }
+
+                    if (arcDocAttribute != null)
+                    {
+                        arcDocAttribute.ATTRVAL = string.Empty;
+                    }
+
+                    if (arcArchIdAttribute != null)
+                    {
+                        arcArchIdAttribute.ATTRVAL = string.Empty;
+                    }
+
+                    files.Add(file);
+                }
             }
             else
             {
@@ -407,6 +453,7 @@ namespace eContracting.Kernel.Services
                     }
                 }
             }
+
             ZCCH_CACHE_PUT cachePut = new ZCCH_CACHE_PUT();
             cachePut.IV_CCHKEY = guid;
             cachePut.IV_CCHTYPE = "NABIDKA_PRIJ";

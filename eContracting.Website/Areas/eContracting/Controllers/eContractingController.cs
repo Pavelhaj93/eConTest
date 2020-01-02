@@ -86,7 +86,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
                     else
                     {
-                        //TODO: Should we have default texts?
+                        texts = generalSettings.GetTexts(OfferTypes.Default);
                     }
 
                     if (texts != null)
