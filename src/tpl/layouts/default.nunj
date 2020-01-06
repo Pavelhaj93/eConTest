@@ -33,7 +33,8 @@
       offerPage: {
         doxReadyUrl: '/documents.json',
         isAgreed: false,
-        isRetention: true,
+        isRetention: false,
+        isAcquisition: true,
         getFileForSignUrl: '/document-to-be-signed.png'
       }
     });</script>

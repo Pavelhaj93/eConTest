@@ -39,7 +39,7 @@ export default function printDocumentsList(container, docsToBeSignedContainer, d
         ].filter(Boolean).join('');
 
         /* Insert HTML */
-        if (options.isRetention) { // check if offer is retention
+        if (options.isRetention || options.isAcquisition) { // check if offer is retention or acquisition
             if (doc.sign) {
                 docsToBeSignedContainer.append(item); // documents to be signed
                 window.documentsToBeSigned.push({

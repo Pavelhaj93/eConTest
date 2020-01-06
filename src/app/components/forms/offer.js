@@ -37,8 +37,8 @@ export default function FormOffer(form, config) {
 
         /* Render documents list ("documents" - from BACK-END) */
         function waitResponse() {
-            /* Reset customerAgreement only for non-retention offer */
-            if (config.offerPage && !config.offerPage.isRetention) {
+            /* Reset customerAgreement only for non-retention & non-acquisition offer */
+            if (config.offerPage && (!config.offerPage.isRetention && !config.offerPage.isAcquisition)) {
                 list.addClass(classes.unacceptedTerms);
             }
 
@@ -55,9 +55,10 @@ export default function FormOffer(form, config) {
                 checked: false,
                 disabled: false,
                 isRetention: false,
+                isAcquisition: false,
             }) {
             gotDocuments = (documents.length > 0);
-            let container = options.isRetention ? form : list;
+            let container = options.isRetention || options.isAcquisition ? form : list;
 
             $(container).removeClass('loading');
 
@@ -152,9 +153,10 @@ export default function FormOffer(form, config) {
                 validDocuments = validateDocuments();
 
                 // if there are some documents to be signed (and they are already signed) =>
-                // => make the form valid if none of checkboxes is checked
+                // => check if offer is an acquisition => all checkboxes must be checked
+                // => otherwise make the form valid if none of checkboxes is checked
                 const allUnchecked = areAllUnchecked();
-                if (validDocuments && allUnchecked) {
+                if (validDocuments && allUnchecked && !config.offerPage.isAcquisition) {
                     validForm = true;
                 }
             }
@@ -242,7 +244,12 @@ export default function FormOffer(form, config) {
                 }
             }
 
-            const skipCheckboxesValidation = true;
+            let skipCheckboxesValidation = true;
+
+            // acquisition offer needs to have all documents checked
+            if (config.offerPage.isAcquisition) {
+                skipCheckboxesValidation = false;
+            }
 
             validateForm(skipCheckboxesValidation);
         });
@@ -285,7 +292,12 @@ export default function FormOffer(form, config) {
                 timeout: 10000,
                 error: function(xhr, textStatus) {
                     if (textStatus === 'timeout') {
-                        let container = config.offerPage && config.offerPage.isRetention ? form : list;
+                        let container =
+                          config.offerPage &&
+                          (config.offerPage.isRetention ||
+                            config.offerPage.isAcquisition)
+                            ? form
+                            : list;
                         list.empty();
                         $(container).removeClass('loading').addClass('error');
                         Message(list, 'appUnavailable');
@@ -296,7 +308,12 @@ export default function FormOffer(form, config) {
                 success: function(documents) {
                     var agreed = config.offerPage.isAgreed;
                     var isRetention = config.offerPage.isRetention;
-                    documentsReceived(documents, { agreed: agreed, isRetention: isRetention });
+                    var isAcquisition = config.offerPage.isAcquisition;
+                    documentsReceived(documents, {
+                        agreed: agreed,
+                        isRetention: isRetention,
+                        isAcquisition: isAcquisition
+                    });
                 }
             });
         }
