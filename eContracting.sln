@@ -32,6 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAP", "SAP", "{1A225118-EBA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B40BA044-AF31-4AC5-858D-6A8721FACBF0}"
 	ProjectSection(SolutionItems) = preProject
+		libs\pdfium.dll = libs\pdfium.dll
 		libs\Rwe.Sc.AcceptanceLogger.dll = libs\Rwe.Sc.AcceptanceLogger.dll
 	EndProjectSection
 EndProject

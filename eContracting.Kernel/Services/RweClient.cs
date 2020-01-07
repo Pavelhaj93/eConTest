@@ -102,7 +102,7 @@ namespace eContracting.Kernel.Services
                         var fileType = string.Empty;
                         var templAlcId = string.Empty;
 
-                        if (offer.OfferInternal.Body.OfferIsRetention)
+                        if (offer.OfferInternal.Body.OfferType != OfferTypes.Default)
                         {
                             if (offer.OfferInternal.Body.Attachments != null)
                             {
@@ -357,13 +357,23 @@ namespace eContracting.Kernel.Services
 
             Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
-            if (offerType == OfferTypes.Retention)
+            if (offerType != OfferTypes.Default)
             {
                 var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
+                int signedFilesCount = signedFiles.Count();
+
+                //TODO: Verify if signed file is realy necessary
+                if (offerType == OfferTypes.Acquisition && signedFilesCount == 0)
+                {
+                    throw new ApplicationException("Not signed file found. Acquisition requires at least one signed file.");
+                }
+
+                int signedFilesChecked = 0;
 
                 foreach (var file in responsePdfFiles)
                 {
                     var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
+
                     if (existingSignedVariant != null)
                     {
                         file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
@@ -388,6 +398,8 @@ namespace eContracting.Kernel.Services
                         }
 
                         files.Add(file);
+
+                        signedFilesChecked++;
                     }
                     else
                     {
@@ -400,44 +412,10 @@ namespace eContracting.Kernel.Services
                         }
                     }
                 }
-            }
-            // all files must be signed
-            else if (offerType == OfferTypes.Acquisition)
-            {
-                //TODO: Add logic for acquisition
-                var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
 
-                foreach (var file in responsePdfFiles)
+                if (signedFilesCount != signedFilesChecked)
                 {
-                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
-
-                    if (existingSignedVariant == null)
-                    {
-                        throw new ApplicationException("File '" + file.FILENAME + "' is not signed");
-                    }
-
-                    file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
-
-                    var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
-                    var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
-                    var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
-
-                    if (arccIdAttribute != null)
-                    {
-                        arccIdAttribute.ATTRVAL = string.Empty;
-                    }
-
-                    if (arcDocAttribute != null)
-                    {
-                        arcDocAttribute.ATTRVAL = string.Empty;
-                    }
-
-                    if (arcArchIdAttribute != null)
-                    {
-                        arcArchIdAttribute.ATTRVAL = string.Empty;
-                    }
-
-                    files.Add(file);
+                    throw new ApplicationException("Number of loaded signed files ("+ signedFilesCount + ") and number of processed signed files ("+ signedFilesChecked + ") is not the same!");
                 }
             }
             else
@@ -725,7 +703,6 @@ namespace eContracting.Kernel.Services
                 ZCCH_CACHE_GETResponse result = api.ZCCH_CACHE_GET(inputParam);
                 return result;
             }
-
         }
         private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
         {

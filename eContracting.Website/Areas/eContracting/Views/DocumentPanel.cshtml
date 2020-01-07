@@ -6,10 +6,14 @@
 
 @model MW01DataSource
 
+@{
+    bool isDefault = !Model.IsRetention && !Model.IsAcquisition;
+}
+
 <!-- Latest compiled and minified JavaScript -->
 <script src="~/Assets/eContracting/js/bootstrap.min.js"></script>
 <link href="~/Assets/eContracting/css/popup.css" rel="stylesheet" />
-@if (Model.IsRetention)
+@if (!isDefault)
 {
     <script src="~/Assets/eContracting/js/vendor/jSignature.min.js"></script>
 }
@@ -30,10 +34,10 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 col-md-10 col-md-offset-1">
-                        @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = Model.IsRetention ? "form loading" : "form" }))
+                        @using (Html.BeginForm("Accept", "eContracting", FormMethod.Post, new { id = "offer", @class = !isDefault ? "form loading" : "form" }))
                         {
                             @Html.AntiForgeryToken()
-                            if (!Model.IsRetention && !Model.IsAcquisition)
+                            if (isDefault)
                             {
                                 <ul class="list list-documents loading">
                                     <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
@@ -125,7 +129,7 @@
     </div>
 </div>
 
-@if (Model.IsRetention)
+@if (!isDefault)
 {
     <div id="modalSign" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -156,6 +160,7 @@
         doxReadyUrl: '@Url.Content("~/Areas/eContracting/Services/DoxReady.ashx?id")=@Model.ClientId',
         isAgreed: @Model.IsAccepted.ToString().ToLower(),
         isRetention: @Model.IsRetention.ToString().ToLower(),
+        isAcquisition: @Model.IsAcquisition.ToString().ToLower(),
         getFileUrl: '@Url.Content("~/Areas/eContracting/Services/GetFile.ashx?file=")',
         getFileForSignUrl: '@Url.Content("~/Areas/eContracting/Services/GetFileImage.ashx?file=")',
         signFileUrl: '@Url.Content("~/Areas/eContracting/Services/SignFile.ashx?file=")'

@@ -6,6 +6,7 @@ using System.Web.SessionState;
 using eContracting.Kernel.Services;
 using Sitecore.Diagnostics;
 using System.Text;
+using System.Net;
 
 namespace eContracting.Website.Areas.eContracting.Services
 {
@@ -25,29 +26,43 @@ namespace eContracting.Website.Areas.eContracting.Services
 
                     if (pdfFile == null || signFile == null)
                     {
+                        context.Response.Write("No file found for signature");
+                        context.Response.TrySkipIisCustomErrors = true;
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         return;
                     }
 
                     var signingClient = new SigningClient();
-                    var signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
+                    FileToBeDownloaded signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
 
                     if (signingResult == null)
                     {
+                        context.Response.Write("Document not signed");
                         context.Response.TrySkipIisCustomErrors = true;
-                        context.Response.StatusCode = 404;
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        return;
                     }
                     else
                     {
                         this.AddOrReplaceSignedFile(context, signingResult);
-                        context.Response.StatusCode = 200;
+                        context.Response.StatusCode = (int)HttpStatusCode.OK;
+                        return;
                     }
+                }
+                else
+                {
+                    context.Response.Write("No files found");
+                    context.Response.TrySkipIisCustomErrors = true;
+                    context.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                    return;
                 }
             }
             catch (Exception ex)
             {
                 Log.Error("Error occured during signing.", ex, this);
+                context.Response.Write(ex.Message);
                 context.Response.TrySkipIisCustomErrors = true;
-                context.Response.StatusCode = 404;
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             }
         }
 
