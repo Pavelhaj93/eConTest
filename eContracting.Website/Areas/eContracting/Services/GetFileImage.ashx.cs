@@ -98,7 +98,7 @@ namespace eContracting.Website
             }
             catch (Exception e)
             {
-                Log.Error("Unable to generate image from PDF", e);
+                Log.Error("Unable to generate image from PDF", e, this);
             }
         }
 
