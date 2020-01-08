@@ -362,12 +362,6 @@ namespace eContracting.Kernel.Services
                 var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
                 int signedFilesCount = signedFiles.Count();
 
-                //TODO: Verify if signed file is realy necessary
-                if (offerType == OfferTypes.Acquisition && signedFilesCount == 0)
-                {
-                    throw new ApplicationException("Not signed file found. Acquisition requires at least one signed file.");
-                }
-
                 int signedFilesChecked = 0;
 
                 foreach (var file in responsePdfFiles)
