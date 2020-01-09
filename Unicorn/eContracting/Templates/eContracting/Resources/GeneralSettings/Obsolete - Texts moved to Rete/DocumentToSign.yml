@@ -1,20 +1,16 @@
 ﻿---
-ID: "2e43eefd-f930-4d03-af50-9c45aec427b4"
-Parent: "16f48455-5508-4d4f-b389-fd0f6dfc392f"
+ID: "946fad6b-32f2-41e6-b900-829a0977b079"
+Parent: "e320fc31-d67a-4da5-910f-6b66d3bc34b3"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/AuthenticationSection/UserChoiceAuthenticationEnabledRetention
+Path: "/sitecore/templates/eContracting/Resources/GeneralSettings/Obsolete - Texts moved to Retention item below/DocumentToSign"
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
   Hint: Type
-  Value: Checkbox
+  Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 200
-- ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
-  Hint: Shared
-  Type: Checkbox
-  Value: 1
 Languages:
 - Language: cs
   Versions:
@@ -22,7 +18,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191218T121803Z
+      Value: 20200107T135239Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -33,4 +29,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191022T072757Z
+      Value: 20190919T110528Z
