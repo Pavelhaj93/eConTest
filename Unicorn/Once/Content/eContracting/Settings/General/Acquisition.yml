@@ -11,47 +11,47 @@ Languages:
     Fields:
     - ID: "020b7e79-2812-4421-86d4-f26604db2d6a"
       Hint: DocumentToSignAccepted
-      Value: Akceptované dokumenty
+      Value: ACQ Akceptované dokumenty
     - ID: "04d367f8-6857-46a5-b5f8-dc13f12bc177"
       Hint: Step1Heading
-      Value: Smlouva a přidružené dokumenty
+      Value: ACQ Smlouva a přidružené dokumenty
     - ID: "23940b12-262f-4b2e-b11a-b6828b44a5b6"
       Hint: DocumentToSign
-      Value: Dokumenty k elektronické akceptaci
+      Value: ACQ Dokumenty k elektronické akceptaci
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20161011T091222Z
     - ID: "3a0fd3d7-081b-4cef-8804-e8daef8f76ca"
       Hint: SignButton
-      Value: Podepsat
+      Value: ACQ Podepsat
     - ID: "3dfb4bff-f89d-4a29-9546-24d3c4b9a195"
       Hint: SignDocument
-      Value: Podepsat dokument
+      Value: ACQ Podepsat dokument
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "61af88ab-fc74-47f6-bd33-5fd2834b2b50"
       Hint: HowToSign
-      Value: Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
+      Value: ACQ Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
     - ID: "66d49cef-9c5d-419b-abee-d38757623b36"
       Hint: SignDelete
-      Value: Smazat
+      Value: ACQ Smazat
     - ID: "773986da-fe8c-4e28-aaac-5da614cfffc9"
       Hint: SignRequest
-      Value: "Podepište se prosím níže:"
+      Value: "ACQ Podepište se prosím níže:"
     - ID: "7def9fc5-a03e-4066-9518-0baf023195b0"
       Hint: SignConfirm
-      Value: Potvrdit
+      Value: ACQ Potvrdit
     - ID: "86682c5a-1cd6-4e03-8a50-4618fc0a88f8"
       Hint: Step2Heading
-      Value: Plná moc pro převedení energií
+      Value: ACQ Plná moc pro převedení energií
     - ID: "cfe032bf-0e21-4827-bb45-5bfe351e7309"
       Hint: WhySignIsRequired
-      Value: Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
+      Value: ACQ Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
     - ID: "dcaef3e3-a60d-4042-91fa-82af6a1c9dab"
       Hint: SignFailure
-      Value: Podpis se nepodařilo uložit. Zkuste to prosím znovu.
+      Value: ACQ Podpis se nepodařilo uložit. Zkuste to prosím znovu.
     - ID: "f5a10a7e-86c9-456a-acef-89e00a80e864"
       Hint: HowToAccept
-      Value: Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.
+      Value: ACQ Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.

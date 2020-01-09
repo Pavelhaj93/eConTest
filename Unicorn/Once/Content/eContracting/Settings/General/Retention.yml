@@ -4,35 +4,6 @@ Parent: "a830a901-e4d4-44d6-ac5e-3ec90ce76113"
 Template: "19121365-fdb3-4cd1-b1e0-ada958669d0d"
 Path: /sitecore/content/eContracting/Settings/General/Retention
 DB: master
-SharedFields:
-- ID: "103383f0-ad48-4443-a637-4b5eac381bcb"
-  Hint: WrongUrl
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{11685D5C-7EA3-4350-AB6B-DB0482D6764C}" />
-- ID: "19ee32ea-c02f-4fd7-b932-f3cb5e4732bb"
-  Hint: AcceptedOffer
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{226B8AA5-3DCE-44EF-A63D-10685AEDEA33}" />
-- ID: "305b5a32-2b42-4d97-8bbe-0faf875a6755"
-  Hint: SessionExpired
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{2F8540F4-AB08-461E-921F-C943BBB7CE84}" />
-- ID: "75b84133-e085-4be2-97ad-15a0da6eafc7"
-  Hint: SystemError
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{2AFF6469-1F2E-4525-8F85-B638DFB60DF6}" />
-- ID: "7dde4422-1527-48a3-8455-003a8f127049"
-  Hint: OfferExpired
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{B40F58AC-303B-4ACE-841E-9BA2987D8CE2}" />
-- ID: "bdc4d086-e60b-44fa-adc1-8cca409d0088"
-  Hint: ThankYou
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{FD2BAB8D-A344-4952-A9B1-8DEDE5E7E2F7}" />
-- ID: "df201a6e-fab1-46c5-9846-25a1355110bf"
-  Hint: UserBlocked
-  Value: |
-    <link text="" linktype="internal" class="" title="" target="" querystring="" id="{C7B3A262-5611-4070-A934-526AF7DC2166}" />
 Languages:
 - Language: cs
   Versions:
@@ -40,71 +11,47 @@ Languages:
     Fields:
     - ID: "020b7e79-2812-4421-86d4-f26604db2d6a"
       Hint: DocumentToSignAccepted
-      Value: Akceptované dokumenty
+      Value: RET Akceptované dokumenty
     - ID: "04d367f8-6857-46a5-b5f8-dc13f12bc177"
       Hint: Step1Heading
-      Value: Smlouva a přidružené dokumenty
-    - ID: "10317a26-16f3-4cec-ad36-d7b7c20d6452"
-      Hint: Accept
-      Value: Akceptuji
-    - ID: "1aea1a18-5959-48b9-bd49-4f36219bf1bc"
-      Hint: UsedPostalCode
-      Value: PSČ Místa spotřeby
-    - ID: "1e617d5d-d1a2-40be-82dc-3fd906262207"
-      Hint: IdentityCardNumber
-      Value: zákaznické číslo
+      Value: RET Smlouva a přidružené dokumenty
     - ID: "23940b12-262f-4b2e-b11a-b6828b44a5b6"
       Hint: DocumentToSign
-      Value: Dokumenty k elektronické akceptaci
+      Value: RET Dokumenty k elektronické akceptaci
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20161011T091222Z
     - ID: "3a0fd3d7-081b-4cef-8804-e8daef8f76ca"
       Hint: SignButton
-      Value: Podepsat
+      Value: RET Podepsat
     - ID: "3dfb4bff-f89d-4a29-9546-24d3c4b9a195"
       Hint: SignDocument
-      Value: Podepsat dokument
+      Value: RET Podepsat dokument
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "61af88ab-fc74-47f6-bd33-5fd2834b2b50"
       Hint: HowToSign
-      Value: Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
+      Value: RET Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
     - ID: "66d49cef-9c5d-419b-abee-d38757623b36"
       Hint: SignDelete
-      Value: Smazat
-    - ID: "688bae1f-268c-4aa0-8f04-d58da3bacc3a"
-      Hint: PermanentResidencePostalCode
-      Value: PSČ trvalého bydliště
+      Value: RET Smazat
     - ID: "773986da-fe8c-4e28-aaac-5da614cfffc9"
       Hint: SignRequest
-      Value: "Podepište se prosím níže:"
+      Value: "RET Podepište se prosím níže:"
     - ID: "7def9fc5-a03e-4066-9518-0baf023195b0"
       Hint: SignConfirm
-      Value: Potvrdit
-    - ID: "7e4dab11-7f9f-4dbd-a695-10db41b608c1"
-      Hint: IAgree
-      Value: Souhlasím s
+      Value: RET Potvrdit
     - ID: "86682c5a-1cd6-4e03-8a50-4618fc0a88f8"
       Hint: Step2Heading
-      Value: Plná moc pro převedení energií
-    - ID: "b3220a2d-c28a-4667-8bab-1c3d67329592"
-      Hint: AppNotAvailable
-      Value: Aplikace nen&iacute; v tuto chv&iacute;li dostupn&aacute;.
-    - ID: "bf9d01fb-4c20-42b1-9a3a-df75bbddf5d3"
-      Hint: AccountNumber
-      Value: číslo bankovního účtu včetně kódu banky za lomítkem
+      Value: RET Plná moc pro převedení energií
     - ID: "cfe032bf-0e21-4827-bb45-5bfe351e7309"
       Hint: WhySignIsRequired
-      Value: Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
+      Value: RET Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
     - ID: "dcaef3e3-a60d-4042-91fa-82af6a1c9dab"
       Hint: SignFailure
-      Value: Podpis se nepodařilo uložit. Zkuste to prosím znovu.
+      Value: RET Podpis se nepodařilo uložit. Zkuste to prosím znovu.
     - ID: "f5a10a7e-86c9-456a-acef-89e00a80e864"
       Hint: HowToAccept
-      Value: Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.
-    - ID: "f6510992-4fbf-4ec7-95f9-a8d0ebd04582"
-      Hint: IAmInformed
-      Value: Jsem poučen o
+      Value: RET Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.

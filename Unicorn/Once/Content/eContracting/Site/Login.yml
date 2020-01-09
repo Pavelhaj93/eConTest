@@ -17,16 +17,12 @@ SharedFields:
   Hint: NextPageLink
   Value: |
     <link id="{3491F8F9-1FA6-473C-8CC5-2E56F745A594}" querystring="" target="" text="Offer" url="/eContracting/Site/Offer" title="" class="" linktype="internal" />
+- ID: "292ce110-6fbc-4944-9074-816bf1dded60"
+  Hint: WelcomePageEnabledAcquisition
+  Type: Checkbox
+  Value: 0
 - ID: "2e43eefd-f930-4d03-af50-9c45aec427b4"
   Hint: UserChoiceAuthenticationEnabledRetention
-  Type: Checkbox
-  Value: 1
-- ID: "91c9a089-141a-435b-9cbe-5a82d97cad2d"
-  Hint: WelcomePageEnabledRetention
-  Type: Checkbox
-  Value: 1
-- ID: "b8566d04-5c20-45f1-b6ff-208c20c19c72"
-  Hint: WelcomePageEnabled
   Type: Checkbox
   Value: 1
 Languages:
@@ -58,9 +54,6 @@ Languages:
     - ID: "91f9d7b6-b0b8-40c2-88fd-d5ada146ac4d"
       Hint: DateOfBirthPlaceholder
       Value: např. 26. 12. 1966
-    - ID: "998c5baf-5b8c-417e-918b-14e1b330ff06"
-      Hint: ContractSecondPropertyLabel
-      Value: Vyberte si druhý smluvní údaj pro přihlášení
     - ID: "b8c24948-65d3-40ee-9d5a-110415f5c426"
       Hint: RequiredFields
       Value: Pros&iacute;m , vyplňte v&scaron;echna požadovan&aacute; pole.

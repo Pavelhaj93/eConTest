@@ -15,14 +15,21 @@ Languages:
     - ID: "3927d924-70fc-46e1-9b8a-76c9bbb67499"
       Hint: MainTextRetention
       Value: |
-        <p>{CUSTTITLELET}, (retention version)</p>
+        <h3>RETENTION</h3>
+        <p>{CUSTTITLELET},</p>
         <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
         <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
         <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
         <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
-    - ID: "4d4bf4ca-c594-4c3f-a5d5-b766f9972a81"
-      Hint: SelectAll_Text
-      Value: Vybrat vše
+    - ID: "56b78aee-8090-44fe-ae96-7c2384373fb5"
+      Hint: MainTextAcquisition
+      Value: |
+        <h3>ACQUISITION</h3>
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -33,6 +40,7 @@ Languages:
     - ID: "76412c60-08a3-40d7-b92c-ee387988203c"
       Hint: MainText
       Value: |
+        <h3>DEFAULT</h3>
         <p>{CUSTTITLELET},</p>
         <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
         <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
@@ -47,6 +55,3 @@ Languages:
     - ID: "b2a1f5b0-8646-4227-883e-576cd4a5f72e"
       Hint: AesEncryptVector
       Value: l0W0jlqCwVQrWLSa
-    - ID: "d4c4044a-c31d-4ae9-bf7c-100b9019d35d"
-      Hint: VoucherText
-      Value: "Podpisem smlouvy z&iacute;sk&aacute;te {GIFT_NOW_NAME}."

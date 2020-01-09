@@ -25,7 +25,8 @@ Languages:
     - ID: "179cf417-6897-4533-accf-404c05dee83c"
       Hint: MainTextRetention
       Value: |
-        <p>{CUSTTITLELET}, (retention version)</p>
+        <h3>RETENTION</h3>
+        <p>{CUSTTITLELET},</p>
         <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti {DATE_TO} </p>
         <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
         <p>Va&scaron;e innogy</p>
@@ -39,6 +40,7 @@ Languages:
     - ID: "7dee0b70-c1e4-46ab-b535-9fa0baf2d88b"
       Hint: MainText
       Value: |
+        <h3>DEFAULT</h3>
         <p>{CUSTTITLELET},</p>
         <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti {DATE_TO} </p>
         <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
@@ -46,3 +48,11 @@ Languages:
     - ID: "8edde421-cc67-4ed4-a1f9-8e7fe1d91eb3"
       Hint: PageTitle
       Value: Vypršená nabídka
+    - ID: "a4f35583-d690-49ae-b98e-2206309cd7ad"
+      Hint: MainTextAcquisition
+      Value: |
+        <h3>ACQUISITION</h3>
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti {DATE_TO} </p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>

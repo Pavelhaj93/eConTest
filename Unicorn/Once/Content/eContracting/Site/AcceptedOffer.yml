@@ -15,7 +15,8 @@ Languages:
     - ID: "2aa97647-ae2f-457e-90ce-bf3da08a7626"
       Hint: MainTextRetention
       Value: |
-        <p>{CUSTTITLELET}, (retention version)</p>
+        <h3>RETENTION</h3>
+        <p>{CUSTTITLELET},</p>
         <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
         <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>
         <p>N&iacute;že najdete smluvn&iacute; dokumenty, kter&eacute; jste elektronicky akceptoval/a.</p>
@@ -26,12 +27,24 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\actum_zverev
+    - ID: "87d93130-32f1-407a-8a59-8fd49b133104"
+      Hint: MainTextAcquisition
+      Value: |
+        <h3>ACQUISITION</h3>
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
+        <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>
+        <p>N&iacute;že najdete smluvn&iacute; dokumenty, kter&eacute; jste elektronicky akceptoval/a.</p>
+        <p>Dokumenty zde budete m&iacute;t př&iacute;stupn&eacute; po dobu trv&aacute;n&iacute; platnosti smlouvy.</p>
+        <p>V př&iacute;padě dotazů n&aacute;s nev&aacute;hejte kontaktovat na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "8edde421-cc67-4ed4-a1f9-8e7fe1d91eb3"
       Hint: PageTitle
       Value: Akceptovaná nabídka
     - ID: "dfd106ba-c5ec-4f03-ae9c-69c5a1a2b4aa"
       Hint: MainText
       Value: |
+        <h3>DEFAULT</h3>
         <p>{CUSTTITLELET},</p>
         <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
         <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>

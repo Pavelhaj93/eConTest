@@ -32,6 +32,31 @@ Languages:
     - ID: "a40b64bb-6a6b-434f-85ea-df6ac93ebc32"
       Hint: MainText
       Value: |
+        <h3>DEFAULT</h3>
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
+        <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
+        <ul>
+            <li>potvrzen&iacute; o přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě</li>
+            <li>webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak m&aacute;te kdykoliv k dispozici.</li>
+        </ul>
+        <p>Va&scaron;e innogy</p>
+    - ID: "cb15dd47-a944-425e-998a-4a633ab36182"
+      Hint: MainTextRetention
+      Value: |
+        <h3>RETENTION</h3>
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
+        <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
+        <ul>
+            <li>potvrzen&iacute; o přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě</li>
+            <li>webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak m&aacute;te kdykoliv k dispozici.</li>
+        </ul>
+        <p>Va&scaron;e innogy</p>
+    - ID: "d0af4916-6383-4674-93d1-a489314a8f48"
+      Hint: MainTextAcquisition
+      Value: |
+        <h3>ACQUISITION</h3>
         <p>{CUSTTITLELET},</p>
         <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
         <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>

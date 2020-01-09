@@ -18,9 +18,6 @@ SharedFields:
   Hint: __Security
   Value: |
     ar|sitecore\innogy Econtracting ChiefEditor|pe|+item:rename|+item:write|+item:create|+item:delete|pd|+item:rename|+item:write|+item:create|+item:delete|
-- ID: "e7b7f556-18dd-406b-bf79-e11894c4699a"
-  Hint: DelayAfterFailedAttempts
-  Value: 
 Languages:
 - Language: cs
   Versions:

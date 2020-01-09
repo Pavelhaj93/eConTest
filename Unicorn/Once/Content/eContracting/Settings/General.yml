@@ -51,40 +51,68 @@ Languages:
       Value: Akceptuji
     - ID: "1aea1a18-5959-48b9-bd49-4f36219bf1bc"
       Hint: UsedPostalCode
-      Value: 2 PSČ Místa spotřeby
+      Value: PSČ Místa spotřeby
     - ID: "1e617d5d-d1a2-40be-82dc-3fd906262207"
       Hint: IdentityCardNumber
-      Value: 1 zakaznicke cislo
+      Value: zákaznické číslo
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20161011T091222Z
+    - ID: "2990d048-e7d9-4c5e-93e5-045d65136f69"
+      Hint: SignButton
+      Value: DEF Podepsat
+    - ID: "3f0c40c3-c1c5-432a-b221-72d439ddfa2c"
+      Hint: SignDocument
+      Value: DEF Podepsat dokument
+    - ID: "45b5a800-c07b-4127-b2b5-4ccd165cf84a"
+      Hint: Step1Heading
+      Value: DEF Smlouva a přidružené dokumenty
+    - ID: "57cc2ed1-c91f-4656-b424-169111a4f50c"
+      Hint: Step2Heading
+      Value: DEF Plná moc pro převedení energií
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "5e18d55d-1dc8-4883-a38a-52dbdba5ef4a"
+      Hint: SignRequest
+      Value: "DEF Podepište se prosím níže:"
     - ID: "688bae1f-268c-4aa0-8f04-d58da3bacc3a"
       Hint: PermanentResidencePostalCode
-      Value: 3 PSČ trvalého bydliště
+      Value: PSČ trvalého bydliště
+    - ID: "6da17fa8-689c-461e-9172-b78db80a176b"
+      Hint: HowToSign
+      Value: DEF Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.
+    - ID: "7a3a4a95-c855-47ce-be06-927451f479e6"
+      Hint: HowToAccept
+      Value: DEF Stisknutím tlačítka Akceptuji potvrdíte souhlas s uzavřením smlouvy.
+    - ID: "7b05bfa2-c40a-49dd-8b6d-16adb90e5d0b"
+      Hint: DocumentToSignAccepted
+      Value: DEF Akceptované dokumenty
     - ID: "7e4dab11-7f9f-4dbd-a695-10db41b608c1"
       Hint: IAgree
       Value: Souhlasím s
+    - ID: "81298357-66b1-46e1-8011-a6b998617709"
+      Hint: SignConfirm
+      Value: DEF Potvrdit
+    - ID: "946fad6b-32f2-41e6-b900-829a0977b079"
+      Hint: DocumentToSign
+      Value: DEF Dokumenty k elektronické akceptaci
     - ID: "b3220a2d-c28a-4667-8bab-1c3d67329592"
       Hint: AppNotAvailable
       Value: Aplikace nen&iacute; v tuto chv&iacute;li dostupn&aacute;.
     - ID: "bf9d01fb-4c20-42b1-9a3a-df75bbddf5d3"
       Hint: AccountNumber
-      Value: 4 číslo bankovního účtu včetně kódu banky za lomítkem
+      Value: číslo bankovního účtu včetně kódu banky za lomítkem
+    - ID: "c5b9c9d5-0d8d-42c9-95f5-ee306469be39"
+      Hint: SignFailure
+      Value: DEF Podpis se nepodařilo uložit. Zkuste to prosím znovu.
+    - ID: "d5da7fda-6152-4225-9c61-b05777c1700a"
+      Hint: SignDelete
+      Value: DEF Smazat
+    - ID: "e945baef-9c2b-4b69-b43d-9266a4503a33"
+      Hint: WhySignIsRequired
+      Value: DEF Plnou moc potřebujeme pro převedení energií od současné společnosti k nám.
     - ID: "f6510992-4fbf-4ec7-95f9-a8d0ebd04582"
       Hint: IAmInformed
       Value: Jsem poučen o
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20181010T110023Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
