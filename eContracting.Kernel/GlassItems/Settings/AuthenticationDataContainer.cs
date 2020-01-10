@@ -10,7 +10,7 @@ namespace eContracting.Kernel.GlassItems.Settings
     [SitecoreType(TemplateId = "{5AF8CBA5-E046-4C7C-8504-C2DD52158E8C}", AutoMap = true)]
     public class AuthenticationSettings
     {
-        [SitecoreField]
+        [SitecoreChildren]
         public virtual IEnumerable<AuthenticationSettingItem> AuthenticationSettingItems { get; set; }
     }
 
@@ -25,5 +25,14 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual string Hint { get; set; }
+
+        [SitecoreField]
+        public virtual bool EnableForDefault { get; set; }
+
+        [SitecoreField]
+        public virtual bool EnableForRetention { get; set; }
+
+        [SitecoreField]
+        public virtual bool EnableForAcquisition { get; set; }
     }
 }

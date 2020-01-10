@@ -11,5 +11,8 @@ namespace eContracting.Kernel.Models
         public string UserFriendlyName { get; set; }
         public string AuthenticationDFieldName { get; set; }
         public string Hint { get; set; }
+        public bool EnableForDefault { get; set; }
+        public bool EnableForRetention { get; set; }
+        public bool EnableForAcquisition { get; set; }
     }
 }

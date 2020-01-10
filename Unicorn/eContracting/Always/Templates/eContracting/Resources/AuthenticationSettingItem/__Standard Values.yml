@@ -1,0 +1,34 @@
+﻿---
+ID: "44434a5f-99be-4d2e-a759-7357169fc18a"
+Parent: "b6add33b-95b2-4e42-ac88-facb932d83b2"
+Template: "b6add33b-95b2-4e42-ac88-facb932d83b2"
+Path: /sitecore/templates/eContracting/Resources/AuthenticationSettingItem/__Standard Values
+DB: master
+SharedFields:
+- ID: "1f4b08f0-d8a7-4687-869c-e196d3b602c5"
+  Hint: EnableForRetention
+  Type: Checkbox
+  Value: 1
+- ID: "73179680-7fe4-4d8a-adf1-9c0d811c3900"
+  Hint: EnableForAcquisition
+  Type: Checkbox
+  Value: 1
+- ID: "86f343d7-dc52-43f7-8a68-bb61e3ca5df2"
+  Hint: EnableForDefault
+  Type: Checkbox
+  Value: 1
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 50
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200110T100202Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

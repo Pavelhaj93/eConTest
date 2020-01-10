@@ -31,12 +31,18 @@ namespace eContracting.Kernel.Utils
         private IEnumerable<AuthenticationSettingsItemModel> ValidateItemsAgainstOffer(Offer offer, IEnumerable<AuthenticationSettingsItemModel> items)
         {
             var validItems = new List<AuthenticationSettingsItemModel>();
+            var offerType = offer.OfferInternal.Body.OfferType;
 
             foreach (var item in items)
             {
-                var tmp = this.GetRealAdditionalValue(item.AuthenticationDFieldName);
-                if (tmp == null) continue;
-                validItems.Add(item);
+                if (offerType == OfferTypes.Default && item.EnableForDefault
+                    || offerType == OfferTypes.Retention && item.EnableForRetention
+                    || offerType == OfferTypes.Acquisition && item.EnableForAcquisition)
+                {
+                    var tmp = this.GetRealAdditionalValue(item.AuthenticationDFieldName);
+                    if (tmp == null) continue;
+                    validItems.Add(item);
+                }
             }
 
             return validItems;

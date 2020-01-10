@@ -23,3 +23,9 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "c81ca1c4-2c06-4c07-bd12-b811768fbceb"
+      Hint: AuthenticationSettingItemsAcquisition
+      Type: Multilist
+      Value: |
+        {CB712D8B-EC67-41BE-97AB-5FD2D6D83E60}
+        {9E8EA661-2F99-4630-9358-EA3EBC7761BB}

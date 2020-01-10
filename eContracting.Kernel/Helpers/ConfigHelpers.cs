@@ -46,7 +46,10 @@ namespace eContracting.Kernel.Helpers
                     {
                         UserFriendlyName = a.UserFriendlyFieldName,
                         AuthenticationDFieldName = a.AuthenticationFieldName,
-                        Hint = a.Hint
+                        Hint = a.Hint,
+                        EnableForDefault = a.EnableForDefault,
+                        EnableForRetention = a.EnableForRetention,
+                        EnableForAcquisition = a.EnableForAcquisition
                     }).ToList()
                 };
 

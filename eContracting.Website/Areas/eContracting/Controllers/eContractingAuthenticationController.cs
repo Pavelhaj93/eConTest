@@ -43,7 +43,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var client = new RweClient();
-                var offer = client.GenerateXml(guid);
+                Offer offer = client.GenerateXml(guid);
 
                 if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
@@ -58,7 +58,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     this.Context.UserChoiceAuthenticationEnabledRetention,
                     this.Context.UserChoiceAuthenticationEnabledAcquisition,
                     authSettings);
-                var userData = authHelper.GetUserData();
+                AuthenticationDataItem userData = authHelper.GetUserData();
 
                 if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
                 {
@@ -97,9 +97,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     dataModel.IsUserChoice = true;
                     var items = new List<AuthenticationSelectListItem>();
                     var available = authHelper.GetAvailableAuthenticationFields();
-                    foreach (var item in available)
+
+                    foreach (AuthenticationSettingsItemModel item in available)
                     {
-                        items.Add(new AuthenticationSelectListItem {DataHelpValue = item.Hint, Value = item.AuthenticationDFieldName, Text = item.UserFriendlyName });
+                        var authOptionModel = new AuthenticationSelectListItem();
+                        authOptionModel.DataHelpValue = item.Hint;
+                        authOptionModel.Value = item.AuthenticationDFieldName;
+                        authOptionModel.Text = item.UserFriendlyName;
+
+                        items.Add(authOptionModel);
                     }
 
                     dataModel.AvailableFields = items;
