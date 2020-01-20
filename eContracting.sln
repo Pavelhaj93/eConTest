@@ -40,6 +40,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Kernel.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website.Tests", "eContracting.Website.Tests\eContracting.Website.Tests.csproj", "{065644DA-6066-45C1-A040-172024550583}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{705180D5-694C-4CC6-A845-D8CB48A3D8D6}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-CA64-4601-AD61-0188E9BF5F9D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Guids.md = docs\Guids.md
+		docs\TEMPLATE_Attributes.md = docs\TEMPLATE_Attributes.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +79,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1A225118-EBA8-4BE0-BD04-DE6BBC8B53BA} = {FCE383FF-8571-4051-95F9-6293F4F54522}
+		{2C8EC859-CA64-4601-AD61-0188E9BF5F9D} = {705180D5-694C-4CC6-A845-D8CB48A3D8D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}

@@ -539,6 +539,7 @@ namespace eContracting.Kernel.Services
             return texts.FirstOrDefault();
         }
 
+        [Obsolete("Use GetAllAttributes(IEnumerable<XmlText> sources, IEnumerable<string> templateValues) instead.", false)]
         public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, string additionalInfoDocument)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -563,6 +564,51 @@ namespace eContracting.Kernel.Services
                             {
                                 result.Add(param.Key, param.Value);
                             }
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets all attributes from <paramref name="sources"/> which attribute "TEMPLATE" has value in <paramref name="templateValues"/>, for example "EED", "EPD" ...
+        /// </summary>
+        /// <param name="sources">The sources.</param>
+        /// <param name="templateValues">The template values, for example ["EED", "EPD"].</param>
+        /// <returns>Dictionary with parameters from <paramref name="sources"/> or empty dictionary.</returns>
+        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, IEnumerable<RweClientLoadTemplateModel> templateValues)
+        {
+            var result = new Dictionary<string, string>();
+
+            foreach (XmlText source in sources)
+            {
+                if (source.Attributes.ContainsKey("TEMPLATE"))
+                {
+                    var matchFound = templateValues.FirstOrDefault(x => x.Identifier == source.Attributes["TEMPLATE"]);
+
+                    if (matchFound != null)
+                    {
+                        Log.Debug("Source found by TEMPLATE attribute: " + matchFound.Identifier);
+                        var parameters = this.GetAllAttributes(source);
+
+                        foreach (var param in parameters)
+                        {
+                            if (result.ContainsKey(param.Key))
+                            {
+                                Log.Debug("Overwriting parameter '" + param.Key + "' with value '" + result[param.Key] + "' to new value '" + param.Value + "'", this);
+                                result[param.Key] = param.Value;
+                            }
+                            else
+                            {
+                                result.Add(param.Key, param.Value);
+                            }
+                        }
+
+                        if (matchFound.StopWhenFound)
+                        {
+                            break;
                         }
                     }
                 }

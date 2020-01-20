@@ -119,6 +119,7 @@
     <Compile Include="Models\AuthenticationSelectListItem.cs" />
     <Compile Include="Models\AuthenticationSettingsItenModel.cs" />
     <Compile Include="Models\AuthenticationSettingsModel.cs" />
+    <Compile Include="Models\RweClientLoadTemplateModel.cs" />
     <Compile Include="Models\WelcomeRichTextModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
     <Compile Include="Models\AuthenticationModel.cs" />

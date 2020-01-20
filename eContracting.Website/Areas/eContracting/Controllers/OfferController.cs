@@ -53,7 +53,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var offer = client.GenerateXml(guid);
 
-                var parameters = SystemHelpers.GetParameters(data.Identifier, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
+                var parameters = SystemHelpers.GetParameters(data.Identifier, data.OfferType, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
 
                 var mainText = string.Empty;
 

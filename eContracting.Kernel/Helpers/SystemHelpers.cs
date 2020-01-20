@@ -9,6 +9,7 @@ namespace eContracting.Kernel.Helpers
     using System.Linq;
     using System.Text;
     using eContracting.Kernel.GlassItems.Settings;
+    using eContracting.Kernel.Models;
     using eContracting.Kernel.Services;
     using eContracting.Kernel.Utils;
     using Sitecore.Configuration;
@@ -49,11 +50,28 @@ namespace eContracting.Kernel.Helpers
         /// This is the only entry point for getting parameters all over the project, so defaults are applied if necessary. 
         /// </summary>
         /// <returns>Collection of parameters.</returns>
-        public static IDictionary<string, string> GetParameters(string guid, string additionalInfoDocument)
+        public static IDictionary<string, string> GetParameters(string guid, OfferTypes offerType, string additionalInfoDocument)
         {
             var client = new RweClient();
             var text = client.GetTextsXml(guid);
-            var parameters = client.GetAllAttributes(text, additionalInfoDocument);
+
+            List<RweClientLoadTemplateModel> templateValues = new List<RweClientLoadTemplateModel>();
+
+            templateValues.Add(new RweClientLoadTemplateModel("EED"));
+            templateValues.Add(new RweClientLoadTemplateModel("EPD"));
+
+            if (!string.IsNullOrEmpty(additionalInfoDocument))
+            {
+                templateValues.Add(new RweClientLoadTemplateModel(additionalInfoDocument));
+            }
+
+            if (offerType == OfferTypes.Acquisition)
+            {
+                templateValues.Add(new RweClientLoadTemplateModel("EES", true));
+                templateValues.Add(new RweClientLoadTemplateModel("EPS", true));
+            }
+
+            var parameters = client.GetAllAttributes(text, templateValues);
 
             return ApplyDefaultParams(parameters, GetDefaultParameters(ConfigHelpers.GetGeneralSettings()));
         }
@@ -88,7 +106,7 @@ namespace eContracting.Kernel.Helpers
                 return null;
             }
 
-            var parameters = GetParameters(data.Identifier, additionalInfoDocument);
+            var parameters = GetParameters(data.Identifier, data.OfferType, additionalInfoDocument);
 
             return GenerateMainText(data, parameters, mainRawText);
         }
