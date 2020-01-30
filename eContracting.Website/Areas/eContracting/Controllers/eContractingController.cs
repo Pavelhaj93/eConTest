@@ -141,32 +141,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     documentList.AddRange(this.HttpContext.Request.Form["documents"].Split(','));
                 }
 
-                var documentsId = new List<string>();
-                var offersNotsent = client.GetNotSentOffers();
-
-                foreach (var offer in offersNotsent)
-                {
-                    documentsId.Add(offer.Guid);
-                }
-
-                Log.Debug($"[{guid}] Accepted document IDs: " + string.Join(", ", documentsId), this);
-
-                client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, offerType, documentList);
-
-                // New acceptance logger
-                //if(documentsId.Count > 0)
-                //{
-                //    var service = new Rwe.Sc.AcceptanceLogger.Service.LoggerService();
-                //    service.LogAcceptance(guid, documentsId, "NABIDKA", DateTime.Now);
-                //}
-
-                if (client.GuidExistInMongo(guid)) //TODO: MongoDB
-                {
-                    var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
-                    data.IsAccepted = true;
-                    Log.Info($"[{guid}] Offer accepted", this);
-                    return Redirect(acceptOfferUrl);
-                }
+                client.LogAcceptance(guid, DateTime.UtcNow, this.HttpContext, offerType, documentList);
 
                 client.AcceptOffer(data.Identifier);
                 data.IsAccepted = true;

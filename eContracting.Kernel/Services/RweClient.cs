@@ -19,9 +19,6 @@ namespace eContracting.Kernel.Services
     using eContracting.Kernel.GlassItems;
     using eContracting.Kernel.Helpers;
     using eContracting.Kernel.Models;
-    using MongoDB.Bson;
-    using MongoDB.Driver;
-    using MongoDB.Driver.Builders;
     using Sitecore.Analytics.Data.DataAccess.MongoDb;
     using Sitecore.Diagnostics;
 
@@ -171,40 +168,7 @@ namespace eContracting.Kernel.Services
 
             return files.ToArray();
         }
-
-        /// <summary>
-        /// Gets mongo db collection of accepted offers.
-        /// </summary>
-        private MongoDbCollection AcceptedOfferCollection
-        {
-            get
-            {
-                return MongoDbDriver.FromConnectionString("OfferDB")["AcceptedOffer"];
-            }
-        }
-
-        /// <summary>
-        /// Gets qcursor to pending offers in mongo db cache.
-        /// </summary>
-        /// <returns></returns>
-        public MongoCursor<AcceptedOffer> GetNotSentOffers()
-        {
-            var offersNotsent = AcceptedOfferCollection.FindAs<AcceptedOffer>(Query.And(Query.EQ("SentToService", false)));
-            return offersNotsent;
-
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="guid"></param>
-        /// <returns></returns>
-        public bool GuidExistInMongo(string guid)
-        {
-            var ao = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", guid)));
-            return ao != null;
-        }
-
+        
         /// <summary>
         /// Generates xml for offer.
         /// </summary>
@@ -251,7 +215,7 @@ namespace eContracting.Kernel.Services
                     }
 
                     offer.OfferInternal.State = responseObject.ES_HEADER.CCHSTAT;
-                    offer.OfferInternal.IsAccepted = GuidExistInMongo(guid) ? true : offer.OfferInternal.IsAccepted;
+                    offer.OfferInternal.IsAccepted = offer.OfferInternal.IsAccepted;
 
                     return offer;
                 }
@@ -327,16 +291,15 @@ namespace eContracting.Kernel.Services
                     Log.Error($"[{guid}] Call to the web service during Accepting returned null result.", this);
                 }
             }
-            InsertToMongoAcceptedOffer(offer);
+
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
+        public void LogAcceptance(string guid, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine($"[{guid}][LogAcceptance] Initializing...");
             startingLog.AppendLine($" - Guid: {guid}");
-            startingLog.AppendLine($" - documentIds: {string.Join(", ", documentIds)}");
             startingLog.AppendLine($" - when: {when.ToString("yyyy-MM-dd HH:mm:ss")}");
             Log.Debug(startingLog.ToString(), this);
 
@@ -864,20 +827,6 @@ namespace eContracting.Kernel.Services
                 }
             }
             return default(T);
-        }
-
-        private void InsertToMongoAcceptedOffer(AcceptedOffer offer)
-        {
-            var offerInDb = AcceptedOfferCollection.FindOneAs<AcceptedOffer>(Query.And(Query.EQ("Guid", (BsonValue)offer.Guid)));
-            if (offerInDb != null)
-            {
-                offer._id = offerInDb._id;
-            }
-            else
-            {
-                offer._id = AcceptedOfferCollection.Count() + 1;
-            }
-            AcceptedOfferCollection.Save(offer);
         }
 
         #endregion
