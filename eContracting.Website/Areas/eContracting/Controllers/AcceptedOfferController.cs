@@ -20,9 +20,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [HttpGet]
         public ActionResult AcceptedOffer()
         {
+            string guid = string.Empty;
             try
             {
-                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
+                var ads = new AuthenticationDataSessionStorage();
 
                 if (!ads.IsDataActive)
                 {
@@ -31,6 +32,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var mainText = string.Empty;
                 var data = ads.GetUserData();
+                guid = data.Identifier;
 
                 if (data.OfferType == OfferTypes.Retention)
                 {
@@ -61,7 +63,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when displaying accepted offer.", ex, this);
+                Log.Error($"[{guid}] Error when displaying accepted offer.", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }

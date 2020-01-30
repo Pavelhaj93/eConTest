@@ -73,7 +73,7 @@ namespace eContracting.Kernel.Models
             }
             catch (Exception ex)
             {
-                Log.Error("Error when preparing layout model.", ex, this);
+                Log.Error("Preparing layout model failed", ex, this);
             }
         }
     }

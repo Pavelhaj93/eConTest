@@ -28,9 +28,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [HttpGet]
         public ActionResult Authentication()
         {
+            var guid = string.Empty;
+
             try
             {
-                var guid = Request.QueryString["guid"];
+                guid = Request.QueryString["guid"];
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -45,8 +47,21 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var client = new RweClient();
                 Offer offer = client.GenerateXml(guid);
 
-                if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
+                if (offer == null)
                 {
+                    Log.Warn($"[{guid}] No offer found", this);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                }
+
+                if (offer.OfferInternal.Body == null)
+                {
+                    Log.Warn($"[{guid}] Offer is empty", this);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                }
+
+                if (string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
+                {
+                    Log.Warn($"[{guid}] Attribute BIRTHDT is offer is empty", this);
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
@@ -65,20 +80,25 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     client.ReadOffer(guid);
                 }
 
+                Log.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType), this);
+
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
                     var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
-
+                    
                     if (this.Context.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
                     {
+                        Log.Debug($"[{guid}] Redirecting to welcome page", this);
                         return Redirect(welcomeRedirectUrl);
                     }
                     else if (this.Context.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
                     {
+                        Log.Debug($"[{guid}] Redirecting to welcome page", this);
                         return Redirect(welcomeRedirectUrl);
                     }
                     else if (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition)
                     {
+                        Log.Debug($"[{guid}] Redirecting to welcome page", this);
                         return Redirect(welcomeRedirectUrl);
                     }
                     else
@@ -131,7 +151,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when authenticating user", ex, this);
+                Log.Error($"[{guid}] Authenticating failed", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
@@ -145,12 +165,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Authentication(AuthenticationModel authenticationModel)
         {
+            var guid = Request.QueryString.Get("guid");
+
             try
             {
-                var guid = Request.QueryString["guid"];
-
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
+                    Log.Info($"[{guid}] Temporary blocked", this);
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
@@ -182,6 +203,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!validFormat || !validData)
                 {
+                    Log.Debug($"[{guid}] Login for not valid", this);
+
                     var siteSettings = ConfigHelpers.GetSiteSettings();
                     var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
                     loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
@@ -192,21 +215,26 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!ModelState.IsValid)
                 {
+                    Log.Debug($"[{guid}] Invalid log-in data", this);
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
 
-                var aut = new AuthenticationDataSessionStorage();   ////why???
+                var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
                 aut.Login(userData);
+
+                Log.Info($"[{guid}] Successfully logged in", this);
 
                 if (userData.IsAccepted)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
+                    Log.Info($"[{guid}] Offer already accepted", this);
                     return Redirect(redirectUrl);
                 }
 
                 if (userData.OfferIsExpired)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
+                    Log.Info($"[{guid}] Offer expired", this);
                     return Redirect(redirectUrl);
                 }
 
@@ -214,7 +242,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when authenticating user", ex, this);
+                Log.Fatal($"[{guid}] Authentication process failed", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }

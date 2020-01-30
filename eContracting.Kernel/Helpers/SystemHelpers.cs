@@ -71,7 +71,7 @@ namespace eContracting.Kernel.Helpers
                 templateValues.Add(new RweClientLoadTemplateModel("EPS", true));
             }
 
-            var parameters = client.GetAllAttributes(text, templateValues);
+            var parameters = client.GetAllAttributes(guid, text, templateValues);
 
             return ApplyDefaultParams(parameters, GetDefaultParameters(ConfigHelpers.GetGeneralSettings()));
         }
@@ -131,11 +131,11 @@ namespace eContracting.Kernel.Helpers
                 stringBuilder.AppendLine("-----------------------------------------------------");
                 stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
                 stringBuilder.AppendLine("-----------------------------------------------------");
-                Log.Info(stringBuilder.ToString(), typeof(SystemHelpers));
+                Log.Debug(stringBuilder.ToString(), typeof(SystemHelpers));
             }
             catch (Exception ex)
             {
-                Log.Warn("Cannot serialize parameters", ex, typeof(SystemHelpers));
+                Log.Error("Cannot serialize parameters", ex, typeof(SystemHelpers));
             }
 
             mainRawText = ReplaceParameters(mainRawText, parameters);
@@ -152,7 +152,7 @@ namespace eContracting.Kernel.Helpers
 
             if (generalSettings == null)
             {
-                Log.Warn("General settings can not be null", typeof(SystemHelpers));
+                Log.Warn("General settings cannot be null", typeof(SystemHelpers));
                 return res;
             }
 

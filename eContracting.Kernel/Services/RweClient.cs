@@ -137,7 +137,7 @@ namespace eContracting.Kernel.Services
                     }
                     catch (Exception ex)
                     {
-                        Log.Error("Exception occured when parsing file list", ex, this);
+                        Log.Error($"[{guid}] Exception occured when parsing file list", ex, this);
                     }
                 }
 
@@ -299,7 +299,18 @@ namespace eContracting.Kernel.Services
                 status.IV_TIMESTAMP = outValue;
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var response = CallService(status, del);
+
+                ZCCH_CACHE_STATUS_SETResponse response = null;
+
+                try
+                {
+                    response = this.CallService(status, del);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal($"[{guid}] Request ZCCH_CACHE_STATUS_SET failed.", ex, this);
+                }
+
                 if (response != null)
                 {
                     if (response.EV_RETCODE == 0)
@@ -308,12 +319,12 @@ namespace eContracting.Kernel.Services
                     }
                     else
                     {
-                        Log.Error(string.Format("Call to the web service during Accepting returned result {0}.", response.EV_RETCODE), this);
+                        Log.Error($"[{guid}] Call to the web service during Accepting returned result {response.EV_RETCODE}.", this);
                     }
                 }
                 else
                 {
-                    Log.Error("Call to the web service during Accepting returned null result.", this);
+                    Log.Error($"[{guid}] Call to the web service during Accepting returned null result.", this);
                 }
             }
             InsertToMongoAcceptedOffer(offer);
@@ -323,7 +334,7 @@ namespace eContracting.Kernel.Services
         public void LogAcceptance(string guid, IEnumerable<string> documentIds, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
-            startingLog.AppendLine("[LogAcceptance] Initializing...");
+            startingLog.AppendLine($"[{guid}][LogAcceptance] Initializing...");
             startingLog.AppendLine($" - Guid: {guid}");
             startingLog.AppendLine($" - documentIds: {string.Join(", ", documentIds)}");
             startingLog.AppendLine($" - when: {when.ToString("yyyy-MM-dd HH:mm:ss")}");
@@ -348,14 +359,14 @@ namespace eContracting.Kernel.Services
 
             List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
 
-            Log.Debug("[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
+            Log.Debug($"[{guid}][LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
 
             var responsePdfFiles = this.GetFiles(guid, false);
             var localFiles = context.Session["UserFiles"] as List<FileToBeDownloaded>;
 
             //ZCCH_CACHE_GETResponse responsePdfFiles = GetResponse(guid, "NABIDKA_PDF");
 
-            Log.Debug($"[LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
+            Log.Debug($"[{guid}][LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
             if (offerType != OfferTypes.Default)
             {
@@ -402,7 +413,7 @@ namespace eContracting.Kernel.Services
                             file.FILECONTENT = new byte[] { };
                             files.Add(file);
 
-                            Log.Debug($"[LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                            Log.Debug($"[{guid}][LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
                         }
                     }
                 }
@@ -421,7 +432,7 @@ namespace eContracting.Kernel.Services
                         file.FILECONTENT = new byte[] { };
                         files.Add(file);
 
-                        Log.Debug($"[LogAcceptance] PDF file received: '{file.FILENAME}'", this);
+                        Log.Debug($"[{guid}][LogAcceptance] PDF file received: '{file.FILENAME}'", this);
                     }
                 }
             }
@@ -435,7 +446,7 @@ namespace eContracting.Kernel.Services
             CallServiceMethod<ZCCH_CACHE_PUTResponse, ZCCH_CACHE_PUT> del = new CallServiceMethod<ZCCH_CACHE_PUTResponse, ZCCH_CACHE_PUT>((inputParam) =>
             {
                 StringBuilder parameters = new StringBuilder();
-                parameters.AppendLine("[LogAcceptance] Calling web service with parameter:");
+                parameters.AppendLine($"[{guid}][LogAcceptance] Calling web service with parameter:");
                 parameters.AppendFormat(" - IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
                 parameters.AppendLine();
                 parameters.AppendFormat(" - IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
@@ -451,15 +462,24 @@ namespace eContracting.Kernel.Services
                 }
             });
 
-            ZCCH_CACHE_PUTResponse response = CallService(cachePut, del);
+            ZCCH_CACHE_PUTResponse response = null;
+
+            try
+            {
+                response = this.CallService(cachePut, del);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal($"[{guid}][LogAcceptance] Request ZCCH_CACHE_PUT failed.", ex, this);
+            }
 
             if (response != null)
             {
-                Log.Debug($"[LogAcceptance] Response: EV_RETCODE = {response.EV_RETCODE}");
+                Log.Info($"[{guid}][LogAcceptance] Response: EV_RETCODE = {response.EV_RETCODE}", this);
             }
             else
             {
-                Log.Debug($"[LogAcceptance] Response is null");
+                Log.Debug($"[{guid}][LogAcceptance] Response is null", this);
             }
         }
 
@@ -481,7 +501,15 @@ namespace eContracting.Kernel.Services
                 status.IV_TIMESTAMP = outValue;
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var response = CallService(status, del);
+
+                try
+                {
+                    ZCCH_CACHE_STATUS_SETResponse response = this.CallService(status, del);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal($"[{guid}] Request ZCCH_CACHE_STATUS_SET failed", ex, this);
+                }
             }
         }
 
@@ -502,8 +530,15 @@ namespace eContracting.Kernel.Services
                 status.IV_STAT = "6";
                 status.IV_TIMESTAMP = outValue;
 
-                CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var response = CallService(status, del);
+                try
+                {
+                    CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
+                    ZCCH_CACHE_STATUS_SETResponse response = this.CallService(status, del);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal($"[{guid}] Request ZCCH_CACHE_STATUS_SET failed", ex, this);
+                }
             }
         }
 
@@ -525,7 +560,15 @@ namespace eContracting.Kernel.Services
                 status.IV_TIMESTAMP = outValue;
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-                var response = CallService(status, del);
+
+                try
+                {
+                    ZCCH_CACHE_STATUS_SETResponse response = this.CallService(status, del);
+                }
+                catch (Exception ex)
+                {
+                    Log.Fatal($"[{guid}] Request ZCCH_CACHE_STATUS_SET failed", ex, this);
+                }
             }
         }
 
@@ -540,7 +583,7 @@ namespace eContracting.Kernel.Services
         }
 
         [Obsolete("Use GetAllAttributes(IEnumerable<XmlText> sources, IEnumerable<string> templateValues) instead.", false)]
-        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, string additionalInfoDocument)
+        public Dictionary<string, string> GetAllAttributes(string guid, IEnumerable<XmlText> sources, string additionalInfoDocument)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
 
@@ -551,14 +594,20 @@ namespace eContracting.Kernel.Services
                     if (source.Attributes["TEMPLATE"] == "EED" || source.Attributes["TEMPLATE"] == "EPD" || source.Attributes["TEMPLATE"] == additionalInfoDocument)
                     {
                         //Log.Debug("File used to get paramaters: " + source.NA)
-                        var parameters = this.GetAllAttributes(source);
+                        var parameters = this.GetAllAttributes(guid, source);
 
                         foreach (var param in parameters)
                         {
                             if (result.ContainsKey(param.Key))
                             {
-                                Log.Debug("Overwriting parameter '" + param.Key + "' with value '" + result[param.Key] + "' to new value '" + param.Value + "'", this);
-                                result[param.Key] = param.Value;
+                                var existingValue = result[param.Key];
+                                var newValue = param.Value;
+
+                                if (existingValue != newValue)
+                                {
+                                    Log.Debug($"[{guid}] Overwriting parameter '{param.Key}' with value '{existingValue}' to new value '{newValue}'", this);
+                                    result[param.Key] = param.Value;
+                                }
                             }
                             else
                             {
@@ -575,10 +624,11 @@ namespace eContracting.Kernel.Services
         /// <summary>
         /// Gets all attributes from <paramref name="sources"/> which attribute "TEMPLATE" has value in <paramref name="templateValues"/>, for example "EED", "EPD" ...
         /// </summary>
+        /// <param name="guid">The guid (just for logging).</param>
         /// <param name="sources">The sources.</param>
         /// <param name="templateValues">The template values, for example ["EED", "EPD"].</param>
         /// <returns>Dictionary with parameters from <paramref name="sources"/> or empty dictionary.</returns>
-        public Dictionary<string, string> GetAllAttributes(IEnumerable<XmlText> sources, IEnumerable<RweClientLoadTemplateModel> templateValues)
+        public Dictionary<string, string> GetAllAttributes(string guid, IEnumerable<XmlText> sources, IEnumerable<RweClientLoadTemplateModel> templateValues)
         {
             var result = new Dictionary<string, string>();
 
@@ -590,15 +640,21 @@ namespace eContracting.Kernel.Services
 
                     if (matchFound != null)
                     {
-                        Log.Debug("Source found by TEMPLATE attribute: " + matchFound.Identifier);
-                        var parameters = this.GetAllAttributes(source);
+                        Log.Debug($"[{guid}] Source found by TEMPLATE attribute: " + matchFound.Identifier, this);
+                        var parameters = this.GetAllAttributes(guid, source);
 
                         foreach (var param in parameters)
                         {
                             if (result.ContainsKey(param.Key))
                             {
-                                Log.Debug("Overwriting parameter '" + param.Key + "' with value '" + result[param.Key] + "' to new value '" + param.Value + "'", this);
-                                result[param.Key] = param.Value;
+                                var currentValue = result[param.Key];
+                                var newValue = param.Value;
+
+                                if (currentValue != newValue)
+                                {
+                                    Log.Debug($"[{guid}] Overwriting parameter '{param.Key}' with value '{result[param.Key]}' to new value '{param.Value}'", this);
+                                    result[param.Key] = param.Value;
+                                }
                             }
                             else
                             {
@@ -622,7 +678,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="sourceXml"></param>
         /// <returns></returns>
-        public Dictionary<string, string> GetAllAttributes(XmlText sourceXml)
+        public Dictionary<string, string> GetAllAttributes(string guid, XmlText sourceXml)
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
             XmlDocument doc = new XmlDocument();
@@ -639,7 +695,13 @@ namespace eContracting.Kernel.Services
             {
                 if (result.ContainsKey(param.Name))
                 {
-                    Log.Error("XML contains duplicate node '<parameters><" + param.Name + ">'. Already indexed value: '" + result[param.Name] + "', current value: '" + param.InnerXml + "'", this);
+                    var indexedValue = result[param.Name];
+                    var currentValue = param.InnerXml;
+
+                    if (indexedValue != currentValue)
+                    {
+                        Log.Warn($"[{guid}] XML contains duplicate node '<parameters><{param.Name}>'. Already indexed value: '{indexedValue}', current value: '{currentValue}'", this);
+                    }
                 }
                 else
                 {
@@ -667,7 +729,7 @@ namespace eContracting.Kernel.Services
 
                 foreach (var f in result.ET_FILES)
                 {
-                    Log.Debug("NABIDKA_XML response (" + guid + "): Contains ST_FILE - " + f.FILENAME);
+                    Log.Debug($"[{guid}] NABIDKA_XML response: Contains ST_FILE - {f.FILENAME}", this);
                     XmlText tempItem = new XmlText();
                     tempItem.Name = f.FILENAME;
                     tempItem.Index = (++index).ToString();
@@ -686,7 +748,7 @@ namespace eContracting.Kernel.Services
             }
             else
             {
-                Log.Debug("NABIDKA_XML response (" + guid + "): No files (ET_FILES) found");
+                Log.Debug($"[{guid}] NABIDKA_XML response: No files (ET_FILES) found", this);
             }
 
             return fileResults;
@@ -730,13 +792,13 @@ namespace eContracting.Kernel.Services
         private ZCCH_CACHE_GETResponse GetResponseDel(ZCCH_CACHE_GET inputParam)
         {
             StringBuilder parameters = new StringBuilder();
-            parameters.AppendLine("Calling web service with parameters ");
+            parameters.AppendLine($"[{inputParam.IV_CCHKEY}] Calling web service with parameters ");
             parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
             parameters.AppendLine();
             parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
             parameters.AppendLine();
             parameters.AppendFormat("IV_GEFILE = ", inputParam.IV_CCHTYPE);
-            Log.Info(parameters.ToString(), this);
+            Log.Debug(parameters.ToString(), this);
 
             using (var api = InitApi())
             {
@@ -750,14 +812,25 @@ namespace eContracting.Kernel.Services
             inputPar.IV_CCHKEY = guid;
             inputPar.IV_CCHTYPE = type;
             inputPar.IV_GEFILE = "B";
+
             CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET> del = new CallServiceMethod<ZCCH_CACHE_GETResponse, ZCCH_CACHE_GET>(GetResponseDel);
-            return CallService(inputPar, del);
+
+            try
+            {
+                return this.CallService(inputPar, del);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal($"[{guid}] Request ZCCH_CACHE_GET failed", ex, this);
+            }
+
+            return default(ZCCH_CACHE_GETResponse);
         }
 
         private ZCCH_CACHE_STATUS_SETResponse AcceptOfferDel(ZCCH_CACHE_STATUS_SET inputParam)
         {
             StringBuilder parameters = new StringBuilder();
-            parameters.AppendLine("Calling web service with parameters ");
+            parameters.AppendLine($"[{inputParam.IV_CCHKEY}] Calling web service with parameters ");
             parameters.AppendFormat("IV_CCHKEY = {0}", inputParam.IV_CCHKEY);
             parameters.AppendLine();
             parameters.AppendFormat("IV_CCHTYPE = {0}", inputParam.IV_CCHTYPE);
@@ -782,13 +855,12 @@ namespace eContracting.Kernel.Services
                 try
                 {
                     result = del(param);
-                    Log.Info("Call of web service was seccessfull", this);
                     return result;
                 }
                 catch (Exception ex)
                 {
-                    Log.Error("An exception occurred during calling web service", ex, this);
                     Thread.Sleep(500);
+                    throw;
                 }
             }
             return default(T);

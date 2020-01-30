@@ -28,7 +28,7 @@ namespace eContracting.Kernel.Helpers
             {
                 if (context == null)
                 {
-                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", Type.DefaultBinder);
+                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", typeof(ConfigHelpers));
                     return null;
                 }
 
@@ -36,7 +36,7 @@ namespace eContracting.Kernel.Helpers
                 
                 if (authSetttings == null)
                 {
-                    Log.Error("Error when getting general sitecore settings for eContracting", Type.DefaultBinder);
+                    Log.Error("Error when getting general sitecore settings for eContracting", typeof(ConfigHelpers));
                     return null;
                 }
 
@@ -67,14 +67,14 @@ namespace eContracting.Kernel.Helpers
             {
                 if (context == null)
                 {
-                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", Type.DefaultBinder);
+                    Log.Error("Error when getting sitecore context in GetGeneralSettings()", typeof(ConfigHelpers));
                     return null;
                 }
 
                 var generalSetttings = context.GetItem<GeneralSettings>(ItemPaths.GeneralSettings);
                 if (generalSetttings == null)
                 {
-                    Log.Error("Error when getting general sitecore settings for eContracting", Type.DefaultBinder);
+                    Log.Error("Error when getting general sitecore settings for eContracting", typeof(ConfigHelpers));
                     return null;
                 }
 

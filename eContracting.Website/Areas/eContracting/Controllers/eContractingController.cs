@@ -123,14 +123,16 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Accept()
         {
+            string guid = string.Empty;
+
             try
             {
                 var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
                 var data = authenticationDataSessionStorage.GetUserData();
-                var guid = data.Identifier;
+                guid = data.Identifier;
                 var offerType = data.OfferType;
 
-                RweClient client = new RweClient();
+                var client = new RweClient();
 
                 var documentList = new List<string>();
 
@@ -147,7 +149,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     documentsId.Add(offer.Guid);
                 }
 
-                Log.Debug("Accepted document IDs: " + string.Join(", ", documentsId), this);
+                Log.Debug($"[{guid}] Accepted document IDs: " + string.Join(", ", documentsId), this);
 
                 client.LogAcceptance(guid, documentsId, DateTime.UtcNow, this.HttpContext, offerType, documentList);
 
@@ -158,22 +160,25 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 //    service.LogAcceptance(guid, documentsId, "NABIDKA", DateTime.Now);
                 //}
 
-                if (client.GuidExistInMongo(guid))
+                if (client.GuidExistInMongo(guid)) //TODO: MongoDB
                 {
                     var acceptOfferUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     data.IsAccepted = true;
+                    Log.Info($"[{guid}] Offer accepted", this);
                     return Redirect(acceptOfferUrl);
                 }
 
                 client.AcceptOffer(data.Identifier);
                 data.IsAccepted = true;
 
+                Log.Info($"[{guid}] Offer accepted", this);
+
                 var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.ThankYou).Url;
                 return Redirect(redirectUrl);
             }
             catch (Exception ex)
             {
-                Log.Error("Error when accepting offer.", ex, this);
+                Log.Fatal($"[{guid}] Error when accepting offer.", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }

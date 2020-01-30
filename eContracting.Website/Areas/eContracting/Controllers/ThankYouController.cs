@@ -20,6 +20,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult ThankYou()
         {
             string mainText = string.Empty;
+            string guid = string.Empty;
+
             try
             {
                 var ads = new AuthenticationDataSessionStorage();
@@ -29,6 +31,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
+
+                guid = data.Identifier;
 
                 if (data.OfferType == OfferTypes.Retention)
                 {
@@ -54,7 +58,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 mainText = Context.ServiceUnavailableText;
-                Log.Error("Error when displaying thank you page", ex, this);
+                Log.Error($"[{guid}] Error when displaying thank you page", ex, this);
             }
             ViewData["MainText"] = mainText;
             return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);

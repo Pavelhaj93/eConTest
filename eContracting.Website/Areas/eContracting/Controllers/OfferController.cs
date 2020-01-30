@@ -24,29 +24,33 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [HttpGet]
         public ActionResult Offer()
         {
+            string guid = string.Empty;
+
             try
             {
                 AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
                 var data = ads.GetUserData();
+                guid = data.Identifier;
 
                 if (!ads.IsDataActive)
                 {
+                    Log.Debug($"[{guid}] Session expired", this);
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
                 if (data.IsAccepted)
                 {
+                    Log.Debug($"[{guid}] Offer already accepted", this);
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
                 if (data.OfferIsExpired)
                 {
+                    Log.Debug($"[{guid}] Offer expired", this);
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
-
-                string guid = data.Identifier;
 
                 RweClient client = new RweClient();
                 client.SignOffer(guid);
@@ -105,7 +109,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when displaying offer.", ex, this);
+                Log.Error($"[{guid}] Error when displaying offer.", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }

@@ -5,6 +5,7 @@ using System.Web.SessionState;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
 using Newtonsoft.Json;
+using Sitecore.Diagnostics;
 
 namespace eContracting.Website
 {
@@ -51,6 +52,7 @@ namespace eContracting.Website
                 }
                 else
                 {
+                    Log.Fatal($"[{clientId}] No files found", this);
                     throw new Exception("No files found");
                 }
             }

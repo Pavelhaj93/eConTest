@@ -21,11 +21,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         [HttpGet]
         public ActionResult Welcome()
         {
+            var guid = string.Empty;
+
             try
             {
                 if (Sitecore.Context.PageMode.IsNormal)
                 {
-                    var guid = Request.QueryString["guid"];
+                    guid = Request.QueryString["guid"];
+
                     if (string.IsNullOrEmpty(guid))
                     {
                         return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
@@ -73,7 +76,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when displaying welcome user page", ex, this);
+                Log.Error($"[{guid}] Error when displaying welcome user page", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }

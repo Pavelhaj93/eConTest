@@ -76,14 +76,14 @@ namespace eContracting.Kernel.Services
                 // just to be sure
                 if (result == null)
                 {
-                    Log.Debug("User '" + guid + "' can log-in (no result)", this);
+                    Log.Info($"[{guid}] Can log-in (no result)", this);
                     return true;
                 }
 
                 // If number of failed logins if less then 'MaxFailedAttemps', user still can try to log-in
                 if (result.FailedAttempts < this.MaxFailedAttemps)
                 {
-                    Log.Debug("User '" + guid + "' can log-in (number of failed attempts: " + result.FailedAttempts + ")", this);
+                    Log.Info($"[{guid}] Can log-in (number of failed attempts: {result.FailedAttempts})", this);
                     return true;
                 }
 
@@ -98,7 +98,7 @@ namespace eContracting.Kernel.Services
 
                         this.Collection.DeleteOne(deleteFilter);
 
-                        Log.Debug("Failed login attempts were deleted for user '" + guid + "'");
+                        Log.Info($"[{guid}] Failed log-in attempts were deleted due to expiration", this);
 
                         //var update = Builders<LoginGuidInfo>.Update
                         //    .PullAll(x => x.FailedAttemptsInfo, result.FailedAttemptsInfo)
@@ -109,10 +109,10 @@ namespace eContracting.Kernel.Services
                     }
                     catch (Exception ex)
                     {
-                        Log.Fatal("Cannot clear information about failed logins for user '" + guid + "'. Records can grow up to infinity! Please fix!", ex, this);
+                        Log.Fatal($"[{guid}] Cannot clear information about failed log-ins. Records can grow up to infinity! Please fix!", ex, this);
                     }
 
-                    Log.Debug("User '" + guid + "' can log-in (had max failed login attempts but waiting time expired)", this);
+                    Log.Info($"[{guid}] Can log-in (had max failed log-in attempts but waiting for time to expire)", this);
 
                     return true;
                 }
@@ -120,13 +120,13 @@ namespace eContracting.Kernel.Services
                 {
                     TimeSpan difference = result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) - DateTime.UtcNow;
 
-                    Log.Debug("User '" + guid + "' cannot log-in (had max failed login attempts and waiting time not expired yet - " + difference.ToString("c") + ")", this);
+                    Log.Info($"[{guid}] Cannot log-in (max failed log-in attempts ({this.MaxFailedAttemps}) reached and waiting time not expired yet - {difference.ToString("c")})", this);
                     return false;
                 }
             }
             catch (Exception exception)
             {
-                Log.Error("Cannot validate if user '" + guid + "' had failed login attempts. We must allow him to log-in.", exception, this);
+                Log.Error($"[{guid}] Cannot validate if had failed log-in attempts. We must allow him to log-in.", exception, this);
                 return true;
             }
         }
@@ -167,26 +167,27 @@ namespace eContracting.Kernel.Services
 
                     this.Collection.InsertOne(m);
 
-                    Log.Debug("New failed attempt record created for user '" + guid + "'", this);
+                    Log.Info($"[{guid}] Failed log-in attempt increased to 1", this);
                 }
                 else
                 {
+                    int value = model.FailedAttempts + 1;
                     FilterDefinitionBuilder<FailedLoginInfoModel> updateBuilder = Builders<FailedLoginInfoModel>.Filter;
                     FilterDefinition<FailedLoginInfoModel> updateFilter = updateBuilder.Eq(x => x.Id, model.Id);
 
                     UpdateDefinition<FailedLoginInfoModel> update = Builders<FailedLoginInfoModel>.Update
-                        .Set(x => x.FailedAttempts, model.FailedAttempts + 1)
+                        .Set(x => x.FailedAttempts, value)
                         .Set(x => x.LastFailedAttemptTimestamp, DateTime.UtcNow)
                         .AddToSet(x => x.FailedAttemptsInfo, infoRecord);
 
                     this.Collection.UpdateOne(updateFilter, update);
 
-                    Log.Debug("New failed attempt record added for user '" + guid + "'", this);
+                    Log.Info($"[{guid}] Failed log-in attempt increased to {value}", this);
                 }
             }
             catch (Exception ex)
             {
-                Log.Error("Cannot update failed login attempt for user '" + guid + "'", ex, this);
+                Log.Error($"[{guid}] Cannot update failed log-in attempts", ex, this);
             }
         }
 

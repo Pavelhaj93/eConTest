@@ -19,6 +19,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <returns>Instance result.</returns>
         public ActionResult Expiration()
         {
+            string guid = string.Empty;
+
             try
             {
                 AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
@@ -29,6 +31,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var data = ads.GetUserData();
+                guid = data.Identifier;
                 var mainText = string.Empty;
 
                 if (data.OfferType == OfferTypes.Retention)
@@ -57,7 +60,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
             catch (Exception ex)
             {
-                Log.Error("Error when displaying expiration page", ex, this);
+                Log.Error($"[{guid}] Error when displaying expiration page", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
