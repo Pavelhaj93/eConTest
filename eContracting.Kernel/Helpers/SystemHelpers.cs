@@ -124,19 +124,20 @@ namespace eContracting.Kernel.Helpers
                 return null;
             }
 
-            try
-            {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.AppendLine("Retrieved parameters for '" + data.Identifier + "':");
-                stringBuilder.AppendLine("-----------------------------------------------------");
-                stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
-                stringBuilder.AppendLine("-----------------------------------------------------");
-                Log.Debug(stringBuilder.ToString(), typeof(SystemHelpers));
-            }
-            catch (Exception ex)
-            {
-                Log.Error("Cannot serialize parameters", ex, typeof(SystemHelpers));
-            }
+            //TODO: Uncomment if you have issues with variables to main text.
+            //try
+            //{
+            //    var stringBuilder = new StringBuilder();
+            //    stringBuilder.AppendLine("Retrieved parameters for '" + data.Identifier + "':");
+            //    stringBuilder.AppendLine("-----------------------------------------------------");
+            //    stringBuilder.AppendLine(Newtonsoft.Json.JsonConvert.SerializeObject(parameters, Newtonsoft.Json.Formatting.Indented));
+            //    stringBuilder.AppendLine("-----------------------------------------------------");
+            //    Log.Debug(stringBuilder.ToString(), typeof(SystemHelpers));
+            //}
+            //catch (Exception ex)
+            //{
+            //    Log.Error("Cannot serialize parameters", ex, typeof(SystemHelpers));
+            //}
 
             mainRawText = ReplaceParameters(mainRawText, parameters);
 
