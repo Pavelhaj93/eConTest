@@ -4,6 +4,13 @@ Please do not shared these data externaly.
 
 ## For default
 
+### 02D67988E24D1EEA90EBF920DD47D096
+
+- BIRTHDT = "04.04.1952"
+- PARTNER = "9511753831"
+- PscMistaSpotreby = "678 01"
+- PscTrvaleBydliste = "678 01"
+
 ### 023CAA2B23421EDA88BBB5B23CFB8387 (expired)
 
 - BIRTHDT = "17.11.1976"
@@ -13,6 +20,13 @@ Please do not shared these data externaly.
 
 ## For retentions
 
+### 02D67988E24D1EDA90F2AE343FC86701
+
+- BIRTHDT = "21.02.1954"
+- PARTNER = "9510838554"
+- PscMistaSpotreby = "500 12"
+- PscTrvaleBydliste = "500 12"
+
 ### 023CAA2B23421EDA88BC2A0FD2AC853E (expired)
 
 - BIRTHDT = "17.11.1976"
@@ -21,6 +35,13 @@ Please do not shared these data externaly.
 - PscTrvaleBydliste = "250 73"
 
 ## For acquisition
+
+### 02D67988E24D1EDA90F30E4FFB1E07E4
+
+- BIRTHDT = "10.01.1994"
+- PARTNER = "9610607817"
+- PscMistaSpotreby = "785 01"
+- PscTrvaleBydliste = "785 01"
 
 ### 023CAA2B23421ED9B88705E8BA85C9F5 (accepted)
 
@@ -52,30 +73,9 @@ With EES
 - PscMistaSpotreby = "466 01"
 - PscTrvaleBydliste = "250 73"
 
-### 023CAA2B23421EDA88D29F08F6D17D14 (accepted)
-
-- BIRTHDT = "17.11.1976"
-- PARTNER = "9513112908"
-- PscMistaSpotreby = "379 01"
-- PscTrvaleBydliste = "250 73"
-
-### 023CAA2B23421EDA88CC69C0ED7124FF (accepted)
-
-- BIRTHDT = "17.11.1976"
-- PARTNER = "9513112908"
-- PscMistaSpotreby = "379 01"
-- PscTrvaleBydliste = "250 73"
-
 ### 023CAA2B23421EDA88D2907442BBBCC6 (expired)
 
 - BIRTHDT = "17.11.1976"
 - PARTNER = "9513112908"
 - PscMistaSpotreby = "379 01"
-- PscTrvaleBydliste = "250 73"
-
-### 023CAA2B23421EDA88BBB5B23CFB8387 (expired)
-
-- BIRTHDT = "17.11.1976"
-- PARTNER = "9513112908"
-- PscMistaSpotreby = "466 01"
 - PscTrvaleBydliste = "250 73"

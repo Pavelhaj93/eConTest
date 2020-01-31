@@ -192,18 +192,46 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var dateOfBirthRealValue = userData.DateOfBirth.Trim().Replace(" ", string.Empty).ToLower();                    ////Value from offer
                 var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
-
                 var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
+
+                Log.Debug($"[{guid}] Selected type of authentication: {authenticationModel.SelectedKey}", this);
+
                 var additionalRealValue = authHelper.IsUserChoice 
                     ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) 
                     : authenticationModel.ItemValue.Replace(salt, string.Empty);     ////Value from offer hashed - salt
 
-                var validFormat = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue)) && (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
-                var validData = (dateOfBirthUserValue == dateOfBirthRealValue) && (additionalUserValue == additionalRealValue);
+                var validFormatDateOfBirth = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue));
+                var validFormatAdditinalValue = (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
+
+                var validFormat = validFormatDateOfBirth && validFormatAdditinalValue;
+                var validDateOfBirth = (dateOfBirthUserValue == dateOfBirthRealValue);
+                var validAdditionalValue = (additionalUserValue == additionalRealValue);
+
+                var validData = validDateOfBirth && validAdditionalValue;
 
                 if (!validFormat || !validData)
                 {
-                    Log.Debug($"[{guid}] Login for not valid", this);
+                    Log.Info($"[{guid}] Log-in failed", this);
+
+                    if (!validFormatDateOfBirth)
+                    {
+                        Log.Info($"[{guid}] Invalid format of date of birth", this);
+                    }
+
+                    if (!validAdditionalValue)
+                    {
+                        Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
+                    }
+
+                    if (!validDateOfBirth)
+                    {
+                        Log.Info($"[{guid}] Date of birth doesn't match", this);
+                    }
+
+                    if (!validAdditionalValue)
+                    {
+                        Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
+                    }
 
                     var siteSettings = ConfigHelpers.GetSiteSettings();
                     var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
@@ -222,7 +250,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
                 aut.Login(userData);
 
-                Log.Info($"[{guid}] Successfully logged in", this);
+                Log.Info($"[{guid}] Successfully log-ged in", this);
 
                 if (userData.IsAccepted)
                 {
