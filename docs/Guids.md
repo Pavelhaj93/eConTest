@@ -4,7 +4,7 @@ Please do not shared these data externaly.
 
 ## For default
 
-### 02D67988E24D1EEA90EBF920DD47D096
+### 02D67988E24D1EEA90EBF920DD47D096 (accepted)
 
 - BIRTHDT = "04.04.1952"
 - PARTNER = "9511753831"
