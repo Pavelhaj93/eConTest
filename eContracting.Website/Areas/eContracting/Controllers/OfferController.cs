@@ -28,15 +28,16 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
             try
             {
-                AuthenticationDataSessionStorage ads = new AuthenticationDataSessionStorage();
-                var data = ads.GetUserData();
-                guid = data.Identifier;
+                var ads = new AuthenticationDataSessionStorage();
 
                 if (!ads.IsDataActive)
                 {
                     Log.Debug($"[{guid}] Session expired", this);
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
+
+                var data = ads.GetUserData();
+                guid = data.Identifier;
 
                 if (data.IsAccepted)
                 {
