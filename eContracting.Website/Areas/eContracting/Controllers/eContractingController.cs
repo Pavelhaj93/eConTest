@@ -127,8 +127,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
             try
             {
-                var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                var data = authenticationDataSessionStorage.GetUserData();
+                var ads = new AuthenticationDataSessionStorage();
+
+                if (!ads.IsDataActive)
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                }
+
+                var data = ads.GetUserData();
+
                 guid = data.Identifier;
                 var offerType = data.OfferType;
 
