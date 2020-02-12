@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -11,7 +12,9 @@ using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
+using Sitecore.Collections;
 using Sitecore.Diagnostics;
+using Sitecore.Web;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
 {
@@ -84,20 +87,27 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
-                    var welcomeRedirectUrl = ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url + "?guid=" + guid;
-                    
-                    if (this.Context.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
+                    if (
+                        (this.Context.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
+                        || (this.Context.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
+                        || (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition))
                     {
-                        Log.Debug($"[{guid}] Redirecting to welcome page", this);
-                        return Redirect(welcomeRedirectUrl);
-                    }
-                    else if (this.Context.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
-                    {
-                        Log.Debug($"[{guid}] Redirecting to welcome page", this);
-                        return Redirect(welcomeRedirectUrl);
-                    }
-                    else if (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition)
-                    {
+                        UriBuilder welcomeUri = new UriBuilder(ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url);
+                        var query = new SafeDictionary<string>();
+                        query["guid"] = guid;
+
+                        /// keep GA information
+                        if (this.Request.QueryString.AllKeys.Contains("utm_source"))
+                        {
+                            query["utm_source"] = this.Request.QueryString.Get("utm_source");
+                            query["utm_medium"] = this.Request.QueryString.Get("utm_medium");
+                            query["utm_campaign"] = this.Request.QueryString.Get("utm_campaign");
+                        }
+
+                        welcomeUri.Query = WebUtil.BuildQueryString(query, false);
+
+                        var welcomeRedirectUrl = welcomeUri.Uri.ToString();
+
                         Log.Debug($"[{guid}] Redirecting to welcome page", this);
                         return Redirect(welcomeRedirectUrl);
                     }
