@@ -1733,7 +1733,6 @@ select[multiple].input-lg {
   line-height: 1.42857;
   border-radius: 4px;
   -webkit-user-select: none;
-  -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
@@ -2481,7 +2480,6 @@ strong {
   margin: 0;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
       -ms-user-select: none;
           user-select: none; }
 
@@ -3286,9 +3284,7 @@ a:active, a:focus {
     border-bottom: 1px solid #e1dfe0; }
   .list-documents {
     padding: .5rem 0;
-    border-bottom: 0;
-    max-height: 450px;
-    overflow-y: auto; }
+    border-bottom: 0; }
     .step .list-documents {
       border-bottom: 0; }
     .list-documents li:first-child {
