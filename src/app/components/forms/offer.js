@@ -129,21 +129,19 @@ export default function FormOffer(form, config) {
         // =================================================
 
         /* Determine whether all checkboxes are checked + all necessary documents have been signed */
-        function validateForm(skipCheckboxesValidation = false) {
+        function validateForm() {
             let validForm = true;
 
-            if (!skipCheckboxesValidation) {
-                const checkboxes = getCheckboxes();
+            const checkboxes = getCheckboxes();
 
-                /* Determine when any of the required checkboxes are unchecked */
-                checkboxes.map((checkbox) => {
-                    !checkbox.checked && (validForm = false);
-                });
+            /* Determine when any of the required checkboxes are unchecked */
+            checkboxes.map((checkbox) => {
+                !checkbox.checked && (validForm = false);
+            });
 
-                /* Form cannot be submitted until documents are ready */
-                if (!gotDocuments) {
-                    validForm = false;
-                }
+            /* Form cannot be submitted until documents are ready */
+            if (!gotDocuments) {
+                validForm = false;
             }
 
             // check if all documents have already been signed
@@ -153,19 +151,24 @@ export default function FormOffer(form, config) {
                 validDocuments = validateDocuments();
 
                 // if there are some documents to be signed (and they are already signed) =>
-                // => check if offer is an acquisition => all checkboxes must be checked
-                // => otherwise make the form valid if none of checkboxes is checked
+                // => check if offer is an acquisition => form is valid only if all checkboxes are checked
+                // => otherwise make the form valid if none or all of checkboxes is checked
                 const allUnchecked = areAllUnchecked();
-                if (validDocuments && allUnchecked && !config.offerPage.isAcquisition) {
-                    validForm = true;
+
+                if (config.offerPage.isAcquisition) { // acquisition offer
+                    validForm = validDocuments && validForm;
+                } else { // retention offer
+                    validForm = validDocuments && (allUnchecked || validForm);
                 }
             }
 
             /* Add/Remove disabled class from the <a> button */
             if (validForm && validDocuments) {
                 submitBtn.classList.remove(classes.disabledLink);
+                submitBtn.removeAttribute('disabled');
             } else {
                 submitBtn.classList.add(classes.disabledLink);
+                submitBtn.setAttribute('disabled', 'disabled');
             }
 
             isDocumentsAccepted = validForm;
@@ -244,14 +247,7 @@ export default function FormOffer(form, config) {
                 }
             }
 
-            let skipCheckboxesValidation = true;
-
-            // acquisition offer needs to have all documents checked
-            if (config.offerPage.isAcquisition) {
-                skipCheckboxesValidation = false;
-            }
-
-            validateForm(skipCheckboxesValidation);
+            validateForm();
         });
 
         /* Validate on window load for History back */
