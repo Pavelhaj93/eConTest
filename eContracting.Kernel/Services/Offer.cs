@@ -54,6 +54,12 @@ namespace eContracting.Kernel.Services
         public string AcceptedAt { get; set; }
 
         /// <summary>
+        /// Gets or sets CREATED_AT value.
+        /// </summary>
+        [XmlIgnore]
+        public string CreatedAt { get; set; }
+
+        /// <summary>
         /// Gets or sets information if offer has GDPR.
         /// </summary>
         [XmlIgnore]
@@ -110,6 +116,12 @@ namespace eContracting.Kernel.Services
         /// </summary>
         [XmlElement("GUID")]
         public string Guid { get; set; }
+
+        /// <summary>
+        /// Gets or sets CAMPAIGN value.
+        /// </summary>
+        [XmlIgnore]
+        public string Campaign { get; set; }
 
         /// <summary>
         /// Gets or sets ISU_CONTRACT from SAP.

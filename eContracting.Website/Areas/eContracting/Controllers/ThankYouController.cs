@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Pages;
+using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Utils;
+using Glass.Mapper.Sc;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website.Areas.eContracting.Controllers
@@ -19,8 +22,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// <returns>Instance result.</returns>
         public ActionResult ThankYou()
         {
-            string mainText = string.Empty;
-            string guid = string.Empty;
+            var mainText = string.Empty;
+            var guid = string.Empty;
 
             try
             {
@@ -29,39 +32,83 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!ads.IsDataActive)
                 {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                    return this.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
                 guid = data.Identifier;
-
-                if (data.OfferType == OfferTypes.Retention)
-                {
-                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextRetention, string.Empty);
-                }
-                else if (data.OfferType == OfferTypes.Acquisition)
-                {
-                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextAcquisition, string.Empty);
-                }
-                else
-                {
-                    mainText = SystemHelpers.GenerateMainText(data, Context.MainText, string.Empty);
-                }
-
+                mainText = this.GetMainText(data);
 
                 if (mainText == null)
                 {
                     var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                    return Redirect(redirectUrl);
+                    return this.Redirect(redirectUrl);
                 }
-                Session.Remove("UserFiles");
+
+                this.Session.Remove("UserFiles");
+                var scriptParameters = this.GetScriptParameters(data);
+
+                if (scriptParameters == null || scriptParameters.Length != 3 || scriptParameters.Any(a => string.IsNullOrEmpty(a)))
+                {
+                    throw new Exception("Can not get script parameters.");
+                }
+
+                this.ViewData["eCat"] = scriptParameters[0];
+                this.ViewData["eAct"] = scriptParameters[1];
+                this.ViewData["eLab"] = scriptParameters[2];
             }
             catch (Exception ex)
             {
-                mainText = Context.ServiceUnavailableText;
-                Log.Error($"[{guid}] Error when displaying thank you page", ex, this);
+                mainText = this.Context.ServiceUnavailableText;
+                Sitecore.Diagnostics.Log.Error($"[{guid}] Error when displaying thank you page", ex, this);
             }
-            ViewData["MainText"] = mainText;
-            return View("/Areas/eContracting/Views/ThankYou.cshtml", Context);
+
+            this.ViewData["MainText"] = mainText;
+
+            return this.View("/Areas/eContracting/Views/ThankYou.cshtml", this.Context);
+        }
+
+        /// <summary>
+        /// Gets maintext value.
+        /// </summary>
+        /// <param name="data">Authentication data.</param>
+        /// <returns>Maintext value.</returns>
+        private string GetMainText(AuthenticationDataItem data)
+        {
+            if (data.OfferType == OfferTypes.Retention)
+            {
+                return SystemHelpers.GenerateMainText(data, this.Context.MainTextRetention, string.Empty);
+            }
+
+            if (data.OfferType == OfferTypes.Acquisition)
+            {
+                return SystemHelpers.GenerateMainText(data, this.Context.MainTextAcquisition, string.Empty);
+            }
+
+            return SystemHelpers.GenerateMainText(data, this.Context.MainText, string.Empty);
+        }
+
+        private string[] GetScriptParameters(AuthenticationDataItem data)
+        {
+            var eCat = string.Empty;
+            var eAct = string.Empty;
+            var eLab = string.Empty;
+
+            try
+            {
+                var settings = this.SitecoreContext.GetItem<ThankYouPageSettings>(ItemPaths.ThankYouPageSettings);
+                var commodity = CommodityHelper.CommodityTypeByExtUi(data.Commodity) == CommodityTypes.Electricity ? settings.ElectricityLabel : settings.GasLabel;
+                var type = data.IsIndi ? settings.IndividualLabel : settings.CampaignLabel;
+                var code = data.IsIndi ? data.CreatedAt : data.Campaign;
+                eCat = string.Format(settings.CatText, type);
+                eAct = string.Format(settings.ActText, type, commodity);
+                eLab = string.Format(settings.LabText, eAct, code);
+            }
+            catch (Exception ex)
+            {
+                Sitecore.Diagnostics.Log.Error($"[{data.Identifier}] Can not process Google script parameters", ex, this);
+            }
+
+            return new string[] { eCat, eAct, eLab };
         }
     }
 }

@@ -209,6 +209,28 @@ namespace eContracting.Kernel.Services
                         responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
                         && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
 
+
+                    if (responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "CREATED_AT") && !string.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL))
+                    {
+                        DateTime createdAt;
+
+                        var created = responseObject.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL;
+
+                        if (DateTime.TryParseExact(created, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out createdAt))
+                        {
+                            offer.OfferInternal.CreatedAt = createdAt.ToString("d.M.yyyy");
+                        }
+                        else
+                        {
+                            offer.OfferInternal.CreatedAt = created;
+                        }
+                    }
+
+                    if (responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "CAMPAIGN") && !string.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL))
+                    {
+                        offer.OfferInternal.Body.Campaign = responseObject.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL;
+                    }
+
                     if (offer.OfferInternal.HasGDPR)
                     {
                         offer.OfferInternal.GDPRKey = responseObject.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;

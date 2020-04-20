@@ -16,6 +16,26 @@ namespace eContracting.Kernel.Utils
         public string ItemType { get; set; }
 
         /// <summary>
+        /// Gets or sets Campaign value.
+        /// </summary>
+        public string Campaign { get; set; }
+
+        /// <summary>
+        /// Gets or sets commodity value.
+        /// </summary>
+        public string Commodity { get; set; }
+
+        /// <summary>
+        /// Gets or sets creation timestamp.
+        /// </summary>
+        public string CreatedAt { get; set; }
+
+        /// <summary>
+        /// If offer type is INDI.
+        /// </summary>
+        public bool IsIndi { get; set; }
+
+        /// <summary>
         /// Gets or sets item value.
         /// </summary>
         public string ItemValue { get; set; }

@@ -41,6 +41,10 @@
                 IsAcquisition = offer.OfferInternal.Body.OfferIsAquisition,
                 HasVoucher = offer.OfferInternal.Body.OfferHasVoucher,
                 OfferIsExpired = offer.OfferInternal.State == "9" || offer.OfferInternal.Body.OfferIsExpired,
+                Commodity = offer.OfferInternal.Body.EanOrAndEic,
+                Campaign = offer.OfferInternal.Body.Campaign,
+                CreatedAt = offer.OfferInternal.CreatedAt,
+                IsIndi = string.IsNullOrEmpty(offer.OfferInternal.Body.Campaign)
             };
 
             if (generateRandom)
@@ -119,7 +123,5 @@
                     break;
             }
         }
-
-
     }
 }

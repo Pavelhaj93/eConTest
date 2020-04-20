@@ -83,13 +83,16 @@
   <ItemGroup>
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
+    <Compile Include="CommodityTypes.cs" />
     <Compile Include="GlassItems\Content\Modal_window\MW01DataSource.cs" />
     <Compile Include="GlassItems\Content\EContractingWelcomeRichTextDatasource.cs" />
     <Compile Include="GlassItems\Pages\EContractingWelcomeTemplate.cs" />
     <Compile Include="GlassItems\RenderingParameters\Modal_window\MW01RenderingParameters.cs" />
     <Compile Include="GlassItems\Settings\AuthenticationDataContainer.cs" />
     <Compile Include="GlassItems\Settings\GeneralTextsSettings.cs" />
+    <Compile Include="GlassItems\Settings\ThankYouPageSettings.cs" />
     <Compile Include="Helpers\AuthenticationHelper.cs" />
+    <Compile Include="Helpers\CommodityHelper.cs" />
     <Compile Include="Helpers\ConfigHelpers.cs" />
     <Compile Include="Helpers\PageLinkType.cs" />
     <Compile Include="ItemPaths.cs" />

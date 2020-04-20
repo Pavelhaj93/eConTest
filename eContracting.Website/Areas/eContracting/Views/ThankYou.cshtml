@@ -51,3 +51,16 @@
 
     window.addEventListener('popstate', push);
 </script>
+
+<script>
+    dataLayer.push(
+        {
+		'event':'gaEvent',
+            'gaEventData':
+            {
+				'eCat':'@Html.Raw(ViewData["eCat"])',
+				'eAct':'@Html.Raw(ViewData["eAct"])',
+				'eLab':'@Html.Raw(ViewData["eLab"])'
+			}
+        });
+</script>
