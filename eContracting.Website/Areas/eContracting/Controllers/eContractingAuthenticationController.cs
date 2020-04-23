@@ -148,7 +148,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
-                var maintext = SystemHelpers.GenerateMainText(userData, contentText, string.Empty);
+                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
+                var maintext = textHelper.GetMainText(userData, contentText);
 
                 if (maintext == null)
                 {
@@ -306,18 +307,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        //private Dictionary<string, failureData> NumberOfLogons
-        //{
-        //    get
-        //    {
-        //        if (System.Web.HttpContext.Current.Application["NumberOfLogons"] == null)
-        //        {
-        //            System.Web.HttpContext.Current.Application["NumberOfLogons"] = new Dictionary<string, failureData>();
-        //        }
-        //        return (Dictionary<string, failureData>)System.Web.HttpContext.Current.Application["NumberOfLogons"];
-        //    }
-        //}
-
         public static string AesEncrypt(string input, string key, string vector)
         {
             byte[] encrypted;
@@ -344,12 +333,4 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return Convert.ToBase64String(encrypted);
         }
     }
-
-    //internal class failureData
-    //{
-    //    public int LoginAttemp { get; set; }
-    //    public DateTime LastFailureTime { get; set; }
-
-    //}
-
 }

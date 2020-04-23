@@ -4,6 +4,7 @@
 
 namespace eContracting.Kernel.GlassItems.Pages
 {
+    using eContracting.Kernel.Abstract;
     using Glass.Mapper.Sc.Configuration;
     using Glass.Mapper.Sc.Configuration.Attributes;
     using Glass.Mapper.Sc.Fields;
