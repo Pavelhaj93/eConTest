@@ -32,10 +32,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult Authentication()
         {
             var guid = string.Empty;
+            var errorString = string.Empty;
 
             try
             {
                 guid = Request.QueryString["guid"];
+                var msg = Request.QueryString["error"];
+
+                if (!string.IsNullOrEmpty(msg) && msg=="validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
+                {
+                    errorString = (string)this.Session["ErrorMessage"];
+                    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
+                }
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -156,7 +164,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName));
+                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName), errorString);
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
@@ -244,6 +252,13 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
                     }
 
+                    var specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
+
+                    if (!string.IsNullOrEmpty(specificValidationMessage))
+                    {
+                        this.Session["ErrorMessage"] = specificValidationMessage;
+                    }
+
                     var siteSettings = ConfigHelpers.GetSiteSettings();
                     var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
                     loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
@@ -286,14 +301,26 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        private void FillViewData(string mainText = null, string additionalPlaceholder = null)
+        private string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key)
+        {
+            var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.AuthenticationDFieldName == key);
+
+            if (settingsItem != null)
+            {
+                return settingsItem.ValidationMessage;
+            }
+
+            return null;
+        }
+
+        private void FillViewData(string mainText = null, string additionalPlaceholder = null, string validationMessage = null)
         {
             ViewData["FirstText"] = this.Context.DateOfBirth;
             ViewData["SecondText"] = this.Context.ContractData;
             ViewData["ButtonText"] = this.Context.ButtonText;
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
             ViewData["RequiredFields"] = this.Context.RequiredFields;
-            ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+            ViewData["ValidationMessage"] = !string.IsNullOrEmpty(validationMessage) ? validationMessage : this.Context.ValidationMessage;
             ViewData["SecondContractPropertyLabel"] = this.Context.ContractSecondPropertyLabel;
 
             if (!string.IsNullOrEmpty(mainText))

@@ -14,5 +14,6 @@ namespace eContracting.Kernel.Models
         public bool EnableForDefault { get; set; }
         public bool EnableForRetention { get; set; }
         public bool EnableForAcquisition { get; set; }
+        public string ValidationMessage { get; set; }
     }
 }

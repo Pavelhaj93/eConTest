@@ -49,7 +49,8 @@ namespace eContracting.Kernel.Helpers
                         Hint = a.Hint,
                         EnableForDefault = a.EnableForDefault,
                         EnableForRetention = a.EnableForRetention,
-                        EnableForAcquisition = a.EnableForAcquisition
+                        EnableForAcquisition = a.EnableForAcquisition,
+                        ValidationMessage = a.ValidationMessage
                     }).ToList()
                 };
 
