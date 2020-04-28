@@ -124,6 +124,7 @@
     <Compile Include="Models\AuthenticationSelectListItem.cs" />
     <Compile Include="Models\AuthenticationSettingsItenModel.cs" />
     <Compile Include="Models\AuthenticationSettingsModel.cs" />
+    <Compile Include="Models\OfferLoginReportModel.cs" />
     <Compile Include="Models\RweClientLoadTemplateModel.cs" />
     <Compile Include="Models\WelcomeRichTextModel.cs" />
     <Compile Include="Models\WelcomeModel.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
     <Compile Include="Services\LoginsCheckerClient.cs" />
+    <Compile Include="Services\MongoService.cs" />
     <Compile Include="Services\Offer.cs" />
     <Compile Include="Services\RweClient.cs" />
     <Compile Include="Services\SigningClient.cs" />
