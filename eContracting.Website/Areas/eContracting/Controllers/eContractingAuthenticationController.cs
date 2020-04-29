@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -185,6 +185,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult Authentication(AuthenticationModel authenticationModel)
         {
             var guid = Request.QueryString.Get("guid");
+            var reportDateOfBirth = false;
+            var reportAdditionalValue = false;
 
             try
             {
@@ -227,6 +229,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var validAdditionalValue = (additionalUserValue == additionalRealValue);
 
                 var validData = validDateOfBirth && validAdditionalValue;
+                var loginReportService = new MongoOfferLoginReportService();
+                var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
+                var offerTypeIdentifier = userData.IsIndi ? 
+                    $"{reportTime}-{offer.OfferInternal.CreatedAt}" : 
+                    $"{offer.OfferInternal.Body.Campaign}-CAMPAIGN";
 
                 if (!validFormat || !validData)
                 {
@@ -235,24 +242,29 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     if (!validFormatDateOfBirth)
                     {
                         Log.Info($"[{guid}] Invalid format of date of birth", this);
+                        reportDateOfBirth = true;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
+                        reportAdditionalValue = true;
                     }
 
                     if (!validDateOfBirth)
                     {
                         Log.Info($"[{guid}] Date of birth doesn't match", this);
+                        reportDateOfBirth = true;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
+                        reportAdditionalValue = true;
                     }
 
                     var specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
                     if (!string.IsNullOrEmpty(specificValidationMessage))
                     {
@@ -270,8 +282,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (!ModelState.IsValid)
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
+
+                this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
                 var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
                 aut.Login(userData);
@@ -298,6 +313,40 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 Log.Fatal($"[{guid}] Authentication process failed", ex, this);
                 return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+            }
+        }
+
+        private void ReportLogin(MongoOfferLoginReportService service, string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        {
+            if (generalError)
+            {
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
+                return;
+            }
+
+            if (wrongAdditionalValue)
+            {
+                if (additionalValueKey == "identitycardnumber")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
+                    return;
+                }
+
+                if (additionalValueKey == "permanentresidencepostalcode")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
+                    return;
+                }
+
+                if (additionalValueKey == "postalcode")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
+                    return;
+                }
+            }
+            else
+            {
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
             }
         }
 

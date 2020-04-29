@@ -140,7 +140,7 @@
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
     <Compile Include="Services\LoginsCheckerClient.cs" />
-    <Compile Include="Services\MongoService.cs" />
+    <Compile Include="Services\MongoOfferLoginReportService.cs" />
     <Compile Include="Services\Offer.cs" />
     <Compile Include="Services\RweClient.cs" />
     <Compile Include="Services\SigningClient.cs" />

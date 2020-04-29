@@ -22,9 +22,9 @@ namespace eContracting.Kernel.Models
         /// <summary>
         /// Gets or sets login time.
         /// </summary>
-        [BsonElement("login_time")]
+        [BsonElement("last_login_time")]
         [BsonRequired]
-        public string LoginTime { get; set; }
+        public string LastLoginTime { get; set; }
 
         /// <summary>
         /// Gets or sets unique identifier.
@@ -64,11 +64,16 @@ namespace eContracting.Kernel.Models
         [BsonElement("wrong_identity_card_number_count")]
         public int WrongIdentityCardNumberCount { get; set; }
 
+        /// <summary>
+        /// Gets or sets number general errors.
+        /// </summary>
+        [BsonElement("general_error_count")]
+        public int GeneralErrorCount { get; set; }
 
         /// <summary>
         /// Gets or sets number of success attenpts.
         /// </summary>
-        [BsonElement("success_attempt")]
-        public int SuccessAttempt { get; set; }
+        [BsonElement("success_attempt_count")]
+        public int SuccessAttemptCount { get; set; }
     }
 }
