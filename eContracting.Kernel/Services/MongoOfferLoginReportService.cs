@@ -13,9 +13,9 @@ namespace eContracting.Kernel.Services
         private const string OfferLoginCollectionName = "OfferLoginReport";
         private const string ConnectionStringItem = "OfferDB";
 
-        public MongoClient MongoClient { get; private set; }
-        public IMongoDatabase MongoDatabase { get; private set; }
-        public IMongoCollection<OfferLoginReportModel> OfferLoginReportCollection { get; private set; }
+        private MongoClient MongoClient { get; set; }
+        private IMongoDatabase MongoDatabase { get; set; }
+        private IMongoCollection<OfferLoginReportModel> OfferLoginReportCollection { get; set; }
 
         public MongoOfferLoginReportService()
         {
