@@ -69,7 +69,6 @@ namespace eContracting.Kernel.Services
             {
                 Log.Error($"[{newModel.Guid}] Failed to Inserted new log-in attempt: {ex.Message}", this);
             }
-
         }
 
         private void UpdateLoginReportItem(OfferLoginReportModel model, OfferLoginReportModel current)
