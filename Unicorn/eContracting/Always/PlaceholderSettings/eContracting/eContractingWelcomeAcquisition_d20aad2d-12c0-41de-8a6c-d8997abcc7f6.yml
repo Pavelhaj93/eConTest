@@ -1,13 +1,13 @@
 ﻿---
-ID: "f19987f6-9a26-4bc3-9839-614a3f811939"
+ID: "d20aad2d-12c0-41de-8a6c-d8997abcc7f6"
 Parent: "73e66408-ca8a-494f-9d0d-150853bb19ed"
 Template: "5c547d4e-7111-4995-95b0-6b561751bf2e"
-Path: /sitecore/layout/Placeholder Settings/eContracting/eContractingWelcomeAcquisitionIndividualPH
+Path: /sitecore/layout/Placeholder Settings/eContracting/eContractingWelcomeAcquisitionCampaignPH
 DB: master
 SharedFields:
 - ID: "7256bdab-1fd2-49dd-b205-cb4873d2917c"
   Hint: Placeholder Key
-  Value: eContractingWelcomeAcquisitionIndividualPH
+  Value: eContractingWelcomeAcquisitionCampaignPH
 - ID: "e391b526-d0c5-439d-803e-17512eae6222"
   Hint: Allowed Controls
   Type: TreelistEx

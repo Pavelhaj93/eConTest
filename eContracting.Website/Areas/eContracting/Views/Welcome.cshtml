@@ -13,15 +13,36 @@
                 <div class="info">
                     @if (Model.OfferType == OfferTypes.Retention)
                     {
-                        @Html.Sitecore().Placeholder("eContractingWelcomeRetentionPH")
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeRetentionIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeRetentionCampaignPH")
+                        }
                     }
                     else if (Model.OfferType == OfferTypes.Acquisition)
                     {
-                        @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionPH")
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionCampaignPH")
+                        }
                     }
                     else
                     {
-                        @Html.Sitecore().Placeholder("eContractingWelcomePH")
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeCampaignPH")
+                        }
                     }
                     <div class="form">
                         <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
@@ -36,12 +57,18 @@ else
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="info">
-                <p><strong>Výchozí texty:</strong></p>
-                @Html.Sitecore().Placeholder("eContractingWelcomePH")
-                <p><strong>Texty pro retence:</strong></p>
-                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionPH")
-                <p><strong>Texty pro akvizice:</strong></p>
-                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionPH")
+                <p><strong>Výchozí text(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeIndividualPH")
+                <p><strong>Výchozí text(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeCampaignPH")
+                <p><strong>Text pro retence(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionIndividualPH")
+                <p><strong>Text pro retence(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionCampaignPH")
+                <p><strong>Text pro akvizice(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionIndividualPH")
+                <p><strong>Text pro akvizice(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionCampaignPH")
                 <div class="form">
                     <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
                 </div>
