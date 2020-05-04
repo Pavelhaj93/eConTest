@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -32,10 +32,18 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult Authentication()
         {
             var guid = string.Empty;
+            var errorString = string.Empty;
 
             try
             {
                 guid = Request.QueryString["guid"];
+                var msg = Request.QueryString["error"];
+
+                if (!string.IsNullOrEmpty(msg) && msg=="validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
+                {
+                    errorString = (string)this.Session["ErrorMessage"];
+                    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
+                }
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -156,7 +164,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName));
+                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName), errorString);
 
                 return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
             }
@@ -177,6 +185,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult Authentication(AuthenticationModel authenticationModel)
         {
             var guid = Request.QueryString.Get("guid");
+            var reportDateOfBirth = false;
+            var reportAdditionalValue = false;
 
             try
             {
@@ -219,6 +229,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var validAdditionalValue = (additionalUserValue == additionalRealValue);
 
                 var validData = validDateOfBirth && validAdditionalValue;
+                var loginReportService = new MongoOfferLoginReportService();
+                var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
+                var offerTypeIdentifier = userData.IsIndi ?
+                    $"{offer.OfferInternal.CreatedAt}" : 
+                    $"{offer.OfferInternal.Body.Campaign}";
 
                 if (!validFormat || !validData)
                 {
@@ -227,21 +242,33 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     if (!validFormatDateOfBirth)
                     {
                         Log.Info($"[{guid}] Invalid format of date of birth", this);
+                        reportDateOfBirth = true;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
+                        reportAdditionalValue = true;
                     }
 
                     if (!validDateOfBirth)
                     {
                         Log.Info($"[{guid}] Date of birth doesn't match", this);
+                        reportDateOfBirth = true;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
+                        reportAdditionalValue = true;
+                    }
+
+                    var specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+
+                    if (!string.IsNullOrEmpty(specificValidationMessage))
+                    {
+                        this.Session["ErrorMessage"] = specificValidationMessage;
                     }
 
                     var siteSettings = ConfigHelpers.GetSiteSettings();
@@ -255,8 +282,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (!ModelState.IsValid)
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
                     return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
                 }
+
+                this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
                 var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
                 aut.Login(userData);
@@ -286,14 +316,60 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        private void FillViewData(string mainText = null, string additionalPlaceholder = null)
+        private void ReportLogin(MongoOfferLoginReportService service, string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        {
+            if (generalError)
+            {
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
+                return;
+            }
+
+            if (wrongAdditionalValue)
+            {
+                if (additionalValueKey == "identitycardnumber")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
+                    return;
+                }
+
+                if (additionalValueKey == "permanentresidencepostalcode")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
+                    return;
+                }
+
+                if (additionalValueKey == "postalcode")
+                {
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
+                    return;
+                }
+            }
+            else
+            {
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
+            }
+        }
+
+        private string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key)
+        {
+            var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.AuthenticationDFieldName == key);
+
+            if (settingsItem != null)
+            {
+                return settingsItem.ValidationMessage;
+            }
+
+            return null;
+        }
+
+        private void FillViewData(string mainText = null, string additionalPlaceholder = null, string validationMessage = null)
         {
             ViewData["FirstText"] = this.Context.DateOfBirth;
             ViewData["SecondText"] = this.Context.ContractData;
             ViewData["ButtonText"] = this.Context.ButtonText;
             ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
             ViewData["RequiredFields"] = this.Context.RequiredFields;
-            ViewData["ValidationMessage"] = this.Context.ValidationMessage;
+            ViewData["ValidationMessage"] = !string.IsNullOrEmpty(validationMessage) ? validationMessage : this.Context.ValidationMessage;
             ViewData["SecondContractPropertyLabel"] = this.Context.ContractSecondPropertyLabel;
 
             if (!string.IsNullOrEmpty(mainText))

@@ -5,6 +5,18 @@ Template: "b6add33b-95b2-4e42-ac88-facb932d83b2"
 Path: /sitecore/content/eContracting/Settings/Authentication/PermanentResidencePostalCode
 DB: master
 SharedFields:
+- ID: "1f4b08f0-d8a7-4687-869c-e196d3b602c5"
+  Hint: EnableForRetention
+  Type: Checkbox
+  Value: 0
+- ID: "73179680-7fe4-4d8a-adf1-9c0d811c3900"
+  Hint: EnableForAcquisition
+  Type: Checkbox
+  Value: 0
+- ID: "86f343d7-dc52-43f7-8a68-bb61e3ca5df2"
+  Hint: EnableForDefault
+  Type: Checkbox
+  Value: 0
 - ID: "8b50515d-88e2-4ded-850b-abbc58be30e9"
   Hint: AuthenticationFieldName
   Value: permanentresidencepostalcode
@@ -13,6 +25,9 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "0a98eff4-cc43-456a-adda-bb63656d37da"
+      Hint: ValidationMessage
+      Value: 
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20191021T122323Z
