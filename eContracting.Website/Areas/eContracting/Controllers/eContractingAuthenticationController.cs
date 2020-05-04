@@ -231,9 +231,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var validData = validDateOfBirth && validAdditionalValue;
                 var loginReportService = new MongoOfferLoginReportService();
                 var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
-                var offerTypeIdentifier = userData.IsIndi ? 
-                    $"{reportTime}-{offer.OfferInternal.CreatedAt}" : 
-                    $"{offer.OfferInternal.Body.Campaign}-CAMPAIGN";
+                var offerTypeIdentifier = userData.IsIndi ?
+                    $"{offer.OfferInternal.CreatedAt}" : 
+                    $"{offer.OfferInternal.Body.Campaign}";
 
                 if (!validFormat || !validData)
                 {

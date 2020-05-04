@@ -127,7 +127,7 @@ namespace eContracting.Kernel.Services
 
         private OfferLoginReportModel GetOfferLoginReportModel(bool birthdayDate, bool wrongPostalCode, bool wrongResidencePostalCode, bool wrongIdentityCardNumber, bool generalError)
         {
-            var list = new List<bool> { birthdayDate, wrongPostalCode, wrongResidencePostalCode, wrongIdentityCardNumber };
+            var list = new List<bool> { birthdayDate, wrongPostalCode, wrongResidencePostalCode, wrongIdentityCardNumber, generalError };
             var res = new OfferLoginReportModel
             {
                 WrongBirthdayDateCount = birthdayDate ? 1 : 0,

@@ -15,7 +15,7 @@ namespace eContracting.Kernel.Models
         /// <summary>
         /// Gets or sets session identifier.
         /// </summary>
-        [BsonElement("sessionId")]
+        [BsonElement("session_id")]
         [BsonRequired]
         public string SessionId { get; set; }
 
