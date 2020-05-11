@@ -39,22 +39,15 @@ export default function printDocumentsList(container, docsToBeSignedContainer, d
         ].filter(Boolean).join('');
 
         /* Insert HTML */
-        if (options.isRetention || options.isAcquisition) { // check if offer is retention or acquisition
-            if (doc.sign) {
-                docsToBeSignedContainer.append(item); // documents to be signed
-                window.documentsToBeSigned.push({
-                    key: key,
-                    signed: options.agreed,
-                });
-            } else {
-                container.append(item); // other documents
-            }
-        } else { // default offer
-            if (i == 0) {
-                container.prepend(item);
-            } else {
-                container.append(item);
-            }
+    
+        if (doc.sign) {
+            docsToBeSignedContainer.append(item); // documents to be signed
+            window.documentsToBeSigned.push({
+                key: key,
+                signed: options.agreed,
+            });
+        } else {
+            container.append(item); // other documents
         }
 
         // specify where to find newly added item
