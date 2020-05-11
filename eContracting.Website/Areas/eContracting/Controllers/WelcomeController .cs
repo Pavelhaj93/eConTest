@@ -56,8 +56,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
 
                     this.Context.OfferType = authenticationData.OfferType;
+                    this.Context.IsIndividual = authenticationData.IsIndi;
 
-                    var processingParameters = SystemHelpers.GetParameters(guid, authenticationData.OfferType, string.Empty);
+                     var processingParameters = SystemHelpers.GetParameters(guid, authenticationData.OfferType, string.Empty);
                     this.HttpContext.Items["WelcomeData"] = processingParameters;
 
                     var dataModel = new WelcomeModel() { Guid = guid };

@@ -1,8 +1,8 @@
 ﻿---
-ID: "bee64f75-a4ca-44cb-8d56-d60108c60303"
-Parent: "68c25580-cab7-436b-b6cb-ffa11b85db59"
+ID: "185ff4f7-54b0-4871-bbda-dfeb3d430a26"
+Parent: "1616c415-991c-4705-8b5b-6156e40b8d0b"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/Text/VoucherText
+Path: /sitecore/templates/eContracting/Pages/eContractingThankYouTemplate/TextSection/MainTextAcquisitionCampaign
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -18,4 +18,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20200421T111956Z
+      Value: 20200422T075630Z

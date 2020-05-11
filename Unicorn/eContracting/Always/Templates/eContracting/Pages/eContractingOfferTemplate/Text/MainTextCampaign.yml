@@ -1,8 +1,8 @@
 ﻿---
-ID: "56b78aee-8090-44fe-ae96-7c2384373fb5"
+ID: "119129bb-7396-463a-a225-8f1cc0c7e706"
 Parent: "68c25580-cab7-436b-b6cb-ffa11b85db59"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/Text/MainTextAcquisition
+Path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/Text/MainTextCampaign
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,16 +10,12 @@ SharedFields:
   Value: Rich Text
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 138
+  Value: 300
 Languages:
-- Language: cs
+- Language: en
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191217T123132Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
+      Value: 20200422T074337Z

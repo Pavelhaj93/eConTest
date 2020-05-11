@@ -1,8 +1,8 @@
 ﻿---
-ID: "bee64f75-a4ca-44cb-8d56-d60108c60303"
+ID: "30a610c9-4449-4187-8626-733445fe4bf3"
 Parent: "68c25580-cab7-436b-b6cb-ffa11b85db59"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/Text/VoucherText
+Path: /sitecore/templates/eContracting/Pages/eContractingOfferTemplate/Text/MainTextRetentionCampaign
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,7 @@ SharedFields:
   Value: Rich Text
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 500
+  Value: 400
 Languages:
 - Language: en
   Versions:
@@ -18,4 +18,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20200421T111956Z
+      Value: 20200422T074415Z
