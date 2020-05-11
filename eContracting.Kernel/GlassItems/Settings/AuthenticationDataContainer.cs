@@ -34,8 +34,5 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual bool EnableForAcquisition { get; set; }
-
-        [SitecoreField]
-        public virtual string ValidationMessage { get; set; }
     }
 }

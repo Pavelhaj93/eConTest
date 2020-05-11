@@ -13,8 +13,5 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreIgnore]
         public OfferTypes OfferType { get; set; }
-
-        [SitecoreIgnore]
-        public bool IsIndividual { get; set; }
     }
 }

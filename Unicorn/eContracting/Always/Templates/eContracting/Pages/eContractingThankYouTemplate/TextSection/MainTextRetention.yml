@@ -1,8 +1,8 @@
 ﻿---
-ID: "4786faa1-938e-4d9e-80d9-f4e8bee53ebb"
-Parent: "ebe27779-c382-4f00-9b97-180f905170bd"
+ID: "cb15dd47-a944-425e-998a-4a633ab36182"
+Parent: "1616c415-991c-4705-8b5b-6156e40b8d0b"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingAcceptedOfferTemplate/Main Text/MainTextRetentionCampaign
+Path: /sitecore/templates/eContracting/Pages/eContractingThankYouTemplate/TextSection/MainTextRetention
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,7 @@ SharedFields:
   Value: Rich Text
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 400
+  Value: 150
 Languages:
 - Language: cs
   Versions:
@@ -18,7 +18,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20200422T090116Z
+      Value: 20191217T132936Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -29,4 +29,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20200422T073931Z
+      Value: 20191017T092353Z

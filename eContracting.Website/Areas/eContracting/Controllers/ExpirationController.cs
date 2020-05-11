@@ -32,8 +32,20 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 var data = ads.GetUserData();
                 guid = data.Identifier;
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                var mainText = textHelper.GetMainText(this.Context, data);
+                var mainText = string.Empty;
+
+                if (data.OfferType == OfferTypes.Retention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextRetention, string.Empty);
+                }
+                else if (data.OfferType == OfferTypes.Acquisition)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextAcquisition, string.Empty);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainText, string.Empty);
+                }
 
                 if (mainText == null)
                 {
@@ -42,6 +54,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 ViewData["MainText"] = mainText;
+
 
                 return View("/Areas/eContracting/Views/Expiration.cshtml", Context);
             }

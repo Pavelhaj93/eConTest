@@ -21,7 +21,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         public ActionResult AcceptedOffer()
         {
             string guid = string.Empty;
-
             try
             {
                 var ads = new AuthenticationDataSessionStorage();
@@ -31,10 +30,22 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
+                var mainText = string.Empty;
                 var data = ads.GetUserData();
                 guid = data.Identifier;
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                var mainText = textHelper.GetMainText(this.Context, data);
+
+                if (data.OfferType == OfferTypes.Retention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextRetention, string.Empty);
+                }
+                else if (data.OfferType == OfferTypes.Acquisition)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainTextAcquisition, string.Empty);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, Context.MainText, string.Empty);
+                }
 
                 if (mainText == null)
                 {

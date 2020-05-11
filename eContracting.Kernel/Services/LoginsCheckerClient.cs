@@ -31,11 +31,6 @@ namespace eContracting.Kernel.Services
         protected readonly IMongoCollection<FailedLoginInfoModel> Collection;
 
         /// <summary>
-        /// The collection
-        /// </summary>
-        protected readonly IMongoCollection<OfferLoginReportModel> OfferLoginCollection;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
         /// </summary>
         /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
@@ -71,9 +66,11 @@ namespace eContracting.Kernel.Services
             {
                 guid = this.NormalizeGuid(guid);
 
-                var builder = Builders<FailedLoginInfoModel>.Filter;
-                var filter = builder.Eq(x => x.Guid, guid);
-                var find = this.Collection.FindSync(filter);
+                FilterDefinitionBuilder<FailedLoginInfoModel> builder = Builders<FailedLoginInfoModel>.Filter;
+                FilterDefinition<FailedLoginInfoModel> filter = builder.Eq(x => x.Guid, guid);
+
+                IAsyncCursor<FailedLoginInfoModel> find = this.Collection.FindSync(filter);
+
                 var result = find.FirstOrDefault();
 
                 // just to be sure
@@ -146,27 +143,27 @@ namespace eContracting.Kernel.Services
             {
                 guid = this.NormalizeGuid(guid);
 
-                var infoRecord = new FailedLoginInfoDetailModel()
+                FailedLoginInfoDetailModel infoRecord = new FailedLoginInfoDetailModel()
                 {
                     Timestamp = DateTime.UtcNow,
                     SessionId = sessionId,
                     BrowserInfo = browserInfo
                 };
 
-                var builder = Builders<FailedLoginInfoModel>.Filter;
-                var filter = builder.Eq(x => x.Guid, guid);
-                var result = this.Collection.FindSync(filter);
-                var model = result.FirstOrDefault();
+                FilterDefinitionBuilder<FailedLoginInfoModel> builder = Builders<FailedLoginInfoModel>.Filter;
+                FilterDefinition<FailedLoginInfoModel> filter = builder.Eq(x => x.Guid, guid);
+
+                IAsyncCursor<FailedLoginInfoModel> result = this.Collection.FindSync(filter);
+
+                FailedLoginInfoModel model = result.FirstOrDefault();
 
                 if (model == null)
                 {
-                    var m = new FailedLoginInfoModel
-                    {
-                        Guid = guid,
-                        LastFailedAttemptTimestamp = DateTime.UtcNow,
-                        FailedAttempts = 1,
-                        FailedAttemptsInfo = new List<FailedLoginInfoDetailModel>() { infoRecord }
-                    };
+                    FailedLoginInfoModel m = new FailedLoginInfoModel();
+                    m.Guid = guid;
+                    m.LastFailedAttemptTimestamp = DateTime.UtcNow;
+                    m.FailedAttempts = 1;
+                    m.FailedAttemptsInfo = new List<FailedLoginInfoDetailModel>() { infoRecord };
 
                     this.Collection.InsertOne(m);
 
@@ -174,10 +171,11 @@ namespace eContracting.Kernel.Services
                 }
                 else
                 {
-                    var value = model.FailedAttempts + 1;
-                    var updateBuilder = Builders<FailedLoginInfoModel>.Filter;
-                    var updateFilter = updateBuilder.Eq(x => x.Id, model.Id);
-                    var update = Builders<FailedLoginInfoModel>.Update
+                    int value = model.FailedAttempts + 1;
+                    FilterDefinitionBuilder<FailedLoginInfoModel> updateBuilder = Builders<FailedLoginInfoModel>.Filter;
+                    FilterDefinition<FailedLoginInfoModel> updateFilter = updateBuilder.Eq(x => x.Id, model.Id);
+
+                    UpdateDefinition<FailedLoginInfoModel> update = Builders<FailedLoginInfoModel>.Update
                         .Set(x => x.FailedAttempts, value)
                         .Set(x => x.LastFailedAttemptTimestamp, DateTime.UtcNow)
                         .AddToSet(x => x.FailedAttemptsInfo, infoRecord);
@@ -199,14 +197,13 @@ namespace eContracting.Kernel.Services
         /// <returns>Instance of <see cref="IMongoCollection{LoginGuidInfo}"/></returns>
         protected static IMongoCollection<FailedLoginInfoModel> GetLoginsCollection()
         {
-            var connectionStringSettings = ConfigurationManager.ConnectionStrings["OfferDB"];
-            var connectionStringValue = connectionStringSettings.ConnectionString;
-            var mongoUrl = new MongoUrl(connectionStringValue);
-            var mongoSettings = MongoClientSettings.FromUrl(mongoUrl);
-            var client = new MongoClient(mongoSettings);
-            var database = client.GetDatabase(mongoUrl.DatabaseName);
-            var collection = database.GetCollection<FailedLoginInfoModel>("FailedLoginAttempts");
-
+            ConnectionStringSettings connectionStringSettings = ConfigurationManager.ConnectionStrings["OfferDB"];
+            string connectionStringValue = connectionStringSettings.ConnectionString;
+            MongoUrl mongoUrl = new MongoUrl(connectionStringValue);
+            MongoClientSettings mongoSettings = MongoClientSettings.FromUrl(mongoUrl);
+            MongoClient client = new MongoClient(mongoSettings);
+            IMongoDatabase database = client.GetDatabase(mongoUrl.DatabaseName);
+            IMongoCollection<FailedLoginInfoModel> collection = database.GetCollection<FailedLoginInfoModel>("FailedLoginAttempts");
             return collection;
         }
 

@@ -616,7 +616,6 @@ namespace eContracting.Kernel.Services
         public Dictionary<string, string> GetAllAttributes(string guid, IEnumerable<XmlText> sources, IEnumerable<RweClientLoadTemplateModel> templateValues)
         {
             var result = new Dictionary<string, string>();
-            var enableOverwrite = true;
 
             foreach (XmlText source in sources)
             {
@@ -628,30 +627,29 @@ namespace eContracting.Kernel.Services
                     {
                         Log.Debug($"[{guid}] Source found by TEMPLATE attribute: " + matchFound.Identifier, this);
                         var parameters = this.GetAllAttributes(guid, source);
-                        var overwriteCandidates = parameters.Where(a => result.ContainsKey(a.Key));
 
-                        if (enableOverwrite)
+                        foreach (var param in parameters)
                         {
-                            foreach (var attr in overwriteCandidates)
+                            if (result.ContainsKey(param.Key))
                             {
-                                if (result[attr.Key] != attr.Value)
+                                var currentValue = result[param.Key];
+                                var newValue = param.Value;
+
+                                if (currentValue != newValue)
                                 {
-                                    Log.Debug($"[{guid}] Overwriting parameter '{attr.Key}' with value '{result[attr.Key]}' to new value '{attr.Value}'", this);
-                                    result[attr.Key] = attr.Value;
+                                    Log.Debug($"[{guid}] Overwriting parameter '{param.Key}' with value '{result[param.Key]}' to new value '{param.Value}'", this);
+                                    result[param.Key] = param.Value;
                                 }
                             }
-
-                            ////Check if overwrite has to be disabled.
-                            ////There is no way to enable it again, once it is disabled.
-                            if (matchFound.StopWhenFound)
+                            else
                             {
-                                enableOverwrite = false;
+                                result.Add(param.Key, param.Value);
                             }
                         }
 
-                        foreach (var newAttr in parameters.Except(overwriteCandidates))
+                        if (matchFound.StopWhenFound)
                         {
-                            result.Add(newAttr.Key, newAttr.Value);
+                            break;
                         }
                     }
                 }

@@ -36,8 +36,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 guid = data.Identifier;
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                mainText = textHelper.GetMainText(this.Context, data);
+                mainText = this.GetMainText(data);
 
                 if (mainText == null)
                 {
@@ -66,6 +65,26 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             this.ViewData["MainText"] = mainText;
 
             return this.View("/Areas/eContracting/Views/ThankYou.cshtml", this.Context);
+        }
+
+        /// <summary>
+        /// Gets maintext value.
+        /// </summary>
+        /// <param name="data">Authentication data.</param>
+        /// <returns>Maintext value.</returns>
+        private string GetMainText(AuthenticationDataItem data)
+        {
+            if (data.OfferType == OfferTypes.Retention)
+            {
+                return SystemHelpers.GenerateMainText(data, this.Context.MainTextRetention, string.Empty);
+            }
+
+            if (data.OfferType == OfferTypes.Acquisition)
+            {
+                return SystemHelpers.GenerateMainText(data, this.Context.MainTextAcquisition, string.Empty);
+            }
+
+            return SystemHelpers.GenerateMainText(data, this.Context.MainText, string.Empty);
         }
 
         private string[] GetScriptParameters(AuthenticationDataItem data)

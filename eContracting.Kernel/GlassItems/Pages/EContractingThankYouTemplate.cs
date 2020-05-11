@@ -4,31 +4,21 @@
 
 namespace eContracting.Kernel.GlassItems.Pages
 {
-    using eContracting.Kernel.Abstract;
     using Glass.Mapper.Sc.Configuration;
     using Glass.Mapper.Sc.Configuration.Attributes;
     using Glass.Mapper.Sc.Fields;
 
     [SitecoreType(TemplateId = "{0A936432-A755-423D-8A8A-9D24DD0BCF72}", AutoMap = true)]
-    public class EContractingThankYouTemplate : EContractingTemplate, IMainText
+    public class EContractingThankYouTemplate : EContractingTemplate
     {
         [SitecoreField]
-        public virtual string MainTextIndividual { get; set; }
+        public virtual string MainText { get; set; }
 
         [SitecoreField]
-        public virtual string MainTextRetentionIndividual { get; set; }
+        public virtual string MainTextRetention { get; set; }
 
         [SitecoreField]
-        public virtual string MainTextAcquisitionIndividual { get; set; }
-
-        [SitecoreField]
-        public virtual string MainTextCampaign { get; set; }
-
-        [SitecoreField]
-        public virtual string MainTextRetentionCampaign { get; set; }
-
-        [SitecoreField]
-        public virtual string MainTextAcquisitionCampaign { get; set; }
+        public virtual string MainTextAcquisition { get; set; }
 
         [SitecoreField]
         public virtual string ServiceUnavailableText { get; set; }

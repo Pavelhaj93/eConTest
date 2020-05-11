@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -58,9 +57,23 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 client.SignOffer(guid);
 
                 var offer = client.GenerateXml(guid);
+
                 var parameters = SystemHelpers.GetParameters(data.Identifier, data.OfferType, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer));
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText, parameters);
-                var mainText = textHelper.GetMainText(this.Context, data);
+
+                var mainText = string.Empty;
+
+                if (data.OfferType == OfferTypes.Retention)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainTextRetention);
+                }
+                else if (data.OfferType == OfferTypes.Acquisition)
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainTextAcquisition);
+                }
+                else
+                {
+                    mainText = SystemHelpers.GenerateMainText(data, parameters, Context.MainText);
+                }
 
                 if (mainText == null)
                 {
@@ -68,8 +81,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                this.ViewData["MainText"] = mainText;
-                this.ViewData["VoucherText"] = textHelper.GetVoucherText(this.Context, data);
+                ViewData["MainText"] = mainText;
+
+                if (data.OfferType != OfferTypes.Default && data.HasVoucher)
+                {
+                    string voucherText = SystemHelpers.GenerateMainText(data, parameters, Context.VoucherText);
+                    ViewData["VoucherText"] = voucherText;
+                }
+                else
+                {
+                    ViewData["VoucherText"] = null;
+                }
 
                 if (offer.OfferInternal.HasGDPR)
                 {

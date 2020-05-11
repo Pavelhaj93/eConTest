@@ -37,6 +37,11 @@ export default function FormOffer(form, config) {
 
         /* Render documents list ("documents" - from BACK-END) */
         function waitResponse() {
+            /* Reset customerAgreement only for non-retention & non-acquisition offer */
+            if (config.offerPage && (!config.offerPage.isRetention && !config.offerPage.isAcquisition)) {
+                list.addClass(classes.unacceptedTerms);
+            }
+
             /* Clear the list */
             list.children('li').remove();
         }
