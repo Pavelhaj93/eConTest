@@ -49,6 +49,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         public virtual string ValidationMessage { get; set; }
 
         [SitecoreField]
+        public virtual string DateOfBirthValidationMessage { get; set; }
+
+        [SitecoreField]
         public virtual string RequiredFields { get; set; }
 
         [SitecoreField]

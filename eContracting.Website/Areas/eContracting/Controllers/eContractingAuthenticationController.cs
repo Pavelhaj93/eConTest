@@ -238,37 +238,46 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (!validFormat || !validData)
                 {
                     Log.Info($"[{guid}] Log-in failed", this);
+                    var dateOfBirthValidationMessage = string.Empty;
+                    var specificValidationMessage = string.Empty;
 
                     if (!validFormatDateOfBirth)
                     {
                         Log.Info($"[{guid}] Invalid format of date of birth", this);
                         reportDateOfBirth = true;
+                        dateOfBirthValidationMessage = this.Context.DateOfBirthValidationMessage;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
                         reportAdditionalValue = true;
+                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
                     }
 
                     if (!validDateOfBirth)
                     {
                         Log.Info($"[{guid}] Date of birth doesn't match", this);
                         reportDateOfBirth = true;
+                        dateOfBirthValidationMessage = this.Context.DateOfBirthValidationMessage;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
                         reportAdditionalValue = true;
+                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
                     }
 
-                    var specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
                     this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
-                    if (!string.IsNullOrEmpty(specificValidationMessage))
+                    var validationMessage = string.Format("{0} {1}",
+                        reportDateOfBirth ? dateOfBirthValidationMessage : string.Empty,
+                        reportAdditionalValue ? specificValidationMessage : string.Empty).Trim();
+
+                    if (!string.IsNullOrEmpty(validationMessage))
                     {
-                        this.Session["ErrorMessage"] = specificValidationMessage;
+                        this.Session["ErrorMessage"] = validationMessage;
                     }
 
                     var siteSettings = ConfigHelpers.GetSiteSettings();
