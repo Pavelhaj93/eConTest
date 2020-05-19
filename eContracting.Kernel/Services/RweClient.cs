@@ -138,9 +138,62 @@ namespace eContracting.Kernel.Services
                     }
                 }
 
+                this.LogFiles(fileResults, guid, IsAccepted);
                 return fileResults;
             }
+
+            this.LogFiles(null, guid, IsAccepted);
             return null;
+        }
+
+        private void LogFiles(List<FileToBeDownloaded> files, string guid, bool IsAccepted)
+        {
+            var template = "[{0}] Offer:[{1}]{2} Generated PDF files(Documents to download):{3}{4}";
+            var accept = IsAccepted ? "Accepted" : "Not Accepted";
+
+            if (files == null || !files.Any())
+            {
+                var noFiles = string.Format(template, guid, accept, Environment.NewLine, "[No files generated]", Environment.NewLine);
+                Log.Debug(noFiles, this);
+                return;
+            }
+
+            var builder = new StringBuilder();
+            var counter = 1;
+
+            foreach (var file in files)
+            {
+                var line = string.Format("[{0}] Sign Required:[{1}] {2} {3}", counter++, file.SignRequired ? "Yes" : "No", file.FileName, Environment.NewLine);
+                builder.Append(line);
+            }
+
+            var tmp = string.Format(template, guid, accept, Environment.NewLine, Environment.NewLine, builder.ToString());
+            Log.Debug(tmp, this);
+        }
+
+        private void LogFiles(List<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
+        {
+            var template = "[{0}] Offer:[{1}] Response Type:[{2}]{3} Received files:{4}{5}";
+            var accept = IsAccepted ? "Accepted" : "Not Accepted";
+
+            if (files == null || !files.Any()) 
+            {
+                var noFiles = string.Format(template, guid, accept, responseType, Environment.NewLine, "No files received", Environment.NewLine);
+                Log.Debug(noFiles, this);
+                return;
+            }
+
+            var builder = new StringBuilder();
+            var counter = 1;
+
+            foreach (var file in files)
+            {
+                var line = string.Format("[{0}] {1}{2}", counter++, file.FILENAME, Environment.NewLine);
+                builder.Append(line);
+            }
+
+            var res = string.Format(template, guid, accept, responseType, Environment.NewLine, Environment.NewLine, builder.ToString());
+            Log.Debug(res, this);
         }
 
         public ZCCH_ST_FILE[] GetFiles(string guid, bool IsAccepted)
@@ -155,6 +208,7 @@ namespace eContracting.Kernel.Services
                 var filenames = result.ET_FILES.Select(file => file.FILENAME);
                 files.RemoveAll(file => filenames.Contains(file.FILENAME));
                 files.AddRange(result.ET_FILES);
+                this.LogFiles(files, guid, IsAccepted, "NABIDKA_ARCH");
             }
             else
             {
@@ -164,8 +218,10 @@ namespace eContracting.Kernel.Services
                 {
                     files.AddRange(result.ET_FILES);
                 }
-            }
 
+                this.LogFiles(files, guid, IsAccepted, "NABIDKA_PDF");
+            }
+            
             return files.ToArray();
         }
         
@@ -285,11 +341,12 @@ namespace eContracting.Kernel.Services
                 status.IV_TIMESTAMP = outValue;
 
                 CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
-
                 ZCCH_CACHE_STATUS_SETResponse response = null;
+                Log.Debug(string.Format("[{0}] Calling service to set offer status to 'Accepted'.", guid), this);
 
                 try
                 {
+                    
                     response = this.CallService(status, del);
                 }
                 catch (Exception ex)
@@ -342,63 +399,60 @@ namespace eContracting.Kernel.Services
                 ATTRVAL = GetIpAddress()
             });
 
-            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+            var files = new List<ZCCH_ST_FILE>();
 
             Log.Debug($"[{guid}][LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...", this);
 
             var responsePdfFiles = this.GetFiles(guid, false);
             var localFiles = context.Session["UserFiles"] as List<FileToBeDownloaded>;
 
-            //ZCCH_CACHE_GETResponse responsePdfFiles = GetResponse(guid, "NABIDKA_PDF");
 
             Log.Debug($"[{guid}][LogAcceptance] {responsePdfFiles.Length} PDF files received", this);
 
             if (offerType != OfferTypes.Default)
             {
-                var signedFiles = localFiles.Where(localFile => localFile.SignedVersion);
-                int signedFilesCount = signedFiles.Count();
+                var signedLocalFiles = localFiles.Where(localFile => localFile.SignedVersion);
+                var signedFilesCount = signedLocalFiles.Count();
+                Log.Debug($"[{guid}][LogAcceptance] Signed files count:{signedFilesCount}", this);
 
-                int signedFilesChecked = 0;
-
-                foreach (var file in responsePdfFiles)
+                if (signedFilesCount > 0)
                 {
-                    var existingSignedVariant = signedFiles.FirstOrDefault(signedFile => signedFile.FileNumber == file.FILEINDX);
+                    var signedFilesCounter = 1;
+                    var signedNames = signedLocalFiles.Select(a => string.Format("[{0}] Number:[{1}] Name:[{2}] Type:[{3}]", signedFilesCounter++, a.FileNumber, a.FileName, a.FileType));
+                    var signedNamesLogEntry = string.Format("[{0}][LogAcceptance] Signed files:{1}{2}", guid, Environment.NewLine, string.Join(Environment.NewLine, signedNames));
+                    Log.Debug(signedNamesLogEntry, this);
+                }
+                
+                var signedFilesChecked = 0;
 
-                    if (existingSignedVariant != null)
+                foreach (var responseFile in responsePdfFiles)
+                {
+                    var existingLocalSignedVariant = signedLocalFiles.FirstOrDefault(signedLocalFile => signedLocalFile.FileNumber == responseFile.FILEINDX);
+
+                    if (existingLocalSignedVariant != null)
                     {
-                        file.FILECONTENT = existingSignedVariant.FileContent.ToArray();
+                        responseFile.FILECONTENT = existingLocalSignedVariant.FileContent.ToArray();
 
-                        var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
-                        var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
-                        var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+                        var arccIdAttribute = responseFile.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                        var arcDocAttribute = responseFile.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                        var arcArchIdAttribute = responseFile.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
 
-                        if (arccIdAttribute != null)
-                        {
-                            arccIdAttribute.ATTRVAL = string.Empty;
-                        }
+                        arccIdAttribute.ATTRVAL = arccIdAttribute != null ? string.Empty : arccIdAttribute.ATTRVAL;
+                        arcDocAttribute.ATTRVAL = arcDocAttribute != null ? string.Empty : arcDocAttribute.ATTRVAL;
+                        arcArchIdAttribute.ATTRVAL = arcArchIdAttribute != null ? string.Empty : arcArchIdAttribute.ATTRVAL;
 
-                        if (arcDocAttribute != null)
-                        {
-                            arcDocAttribute.ATTRVAL = string.Empty;
-                        }
-
-                        if (arcArchIdAttribute != null)
-                        {
-                            arcArchIdAttribute.ATTRVAL = string.Empty;
-                        }
-
-                        files.Add(file);
-
+                        files.Add(responseFile);
                         signedFilesChecked++;
+                        Log.Debug($"[{guid}][LogAcceptance] File checked:{responseFile.FILENAME}", this);
                     }
                     else
                     {
-                        if (acceptedDocuments.Contains(file.FILEINDX))
+                        if (acceptedDocuments.Contains(responseFile.FILEINDX))
                         {
-                            file.FILECONTENT = new byte[] { };
-                            files.Add(file);
+                            responseFile.FILECONTENT = new byte[] { };
+                            files.Add(responseFile);
 
-                            Log.Debug($"[{guid}][LogAcceptance] PDF file received (untouched): '{file.FILENAME}'", this);
+                            Log.Debug($"[{guid}][LogAcceptance] PDF file received (untouched): '{responseFile.FILENAME}'", this);
                         }
                     }
                 }
@@ -448,6 +502,15 @@ namespace eContracting.Kernel.Services
             });
 
             ZCCH_CACHE_PUTResponse response = null;
+            var filesCount = cachePut.IT_FILES.Length;
+            Log.Debug(string.Format("[{0}][LogAcceptance] Number of files to be pushed to ZCCH_CACHE_PUT:{1}", guid, filesCount), this);
+
+            if (filesCount > 0)
+            {
+                var counter = 1;
+                var filesToBePushed = cachePut.IT_FILES.Select(a => string.Format("[{0}] {1}", counter++, a.FILENAME));
+                Log.Debug(string.Format(" Files to be pushed:{0}{1}", Environment.NewLine, string.Join(Environment.NewLine, filesToBePushed)), this);
+            }
 
             try
             {
@@ -517,6 +580,7 @@ namespace eContracting.Kernel.Services
 
                 try
                 {
+                    Log.Debug(string.Format("[{0}] Calling Sign Service.", guid), this);
                     CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET> del = new CallServiceMethod<ZCCH_CACHE_STATUS_SETResponse, ZCCH_CACHE_STATUS_SET>(AcceptOfferDel);
                     ZCCH_CACHE_STATUS_SETResponse response = this.CallService(status, del);
                 }

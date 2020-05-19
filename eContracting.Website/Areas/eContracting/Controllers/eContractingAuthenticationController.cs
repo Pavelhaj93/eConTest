@@ -86,7 +86,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     authSettings);
                 AuthenticationDataItem userData = authHelper.GetUserData();
 
-                if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3"))
+                if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "3"))
                 {
                     client.ReadOffer(guid);
                 }
@@ -121,7 +121,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
                     else
                     {
-                        if (offer.OfferInternal.State == "1" || offer.OfferInternal.State == "3")
+                        if (offer.OfferInternal.State == "3")
                         {
                             client.ReadOffer(guid);
                         }
@@ -240,6 +240,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     Log.Info($"[{guid}] Log-in failed", this);
                     var dateOfBirthValidationMessage = string.Empty;
                     var specificValidationMessage = string.Empty;
+                    var validationMessage = this.Context.ValidationMessage;
 
                     if (!validFormatDateOfBirth)
                     {
@@ -271,10 +272,16 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
-                    var validationMessage = string.Format("{0} {1}",
-                        reportDateOfBirth ? dateOfBirthValidationMessage : string.Empty,
-                        reportAdditionalValue ? specificValidationMessage : string.Empty).Trim();
+                    if (reportDateOfBirth && !reportAdditionalValue)
+                    {
+                        validationMessage = dateOfBirthValidationMessage;
+                    }
 
+                    if (!reportDateOfBirth && reportAdditionalValue)
+                    {
+                        validationMessage = specificValidationMessage;
+                    }
+                    
                     if (!string.IsNullOrEmpty(validationMessage))
                     {
                         this.Session["ErrorMessage"] = validationMessage;
