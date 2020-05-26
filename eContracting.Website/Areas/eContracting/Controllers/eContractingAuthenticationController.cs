@@ -58,9 +58,15 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var client = new RweClient();
                 Offer offer = client.GenerateXml(guid);
 
-                if (offer == null)
+                if (offer == null || offer.OfferInternal == null)
                 {
                     Log.Warn($"[{guid}] No offer found", this);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
+                }
+
+                if (offer.OfferInternal.State == "1")
+                {
+                    Log.Warn($"[{guid}] Offer with state [1] will be ignored", this);
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
