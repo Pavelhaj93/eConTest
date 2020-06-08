@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.SessionState;
+using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
 
 namespace eContracting.Website
@@ -19,12 +19,10 @@ namespace eContracting.Website
         /// <param name="context">Request context.</param>
         public void ProcessRequest(HttpContext context)
         {
-            // DateTime functionbeginTime = DateTime.UtcNow;
             if (context.Session["UserFiles"] != null)
             {
-                // DateTime sessionBeginTime = DateTime.UtcNow;
                 var files = context.Session["UserFiles"] as List<FileToBeDownloaded>;
-                // DateTime sessionEndTime = DateTime.UtcNow;
+
                 if (files != null)
                 {
                     var file = context.Request.QueryString["file"];
@@ -32,11 +30,12 @@ namespace eContracting.Website
                     if (file != null)
                     {
                         var thisFile = null as FileToBeDownloaded;
-
                         var availableFiles = files.Where(xx => xx.Index == file);
+
                         if (availableFiles.Count() > 1)
                         {
                             thisFile = availableFiles.FirstOrDefault(xx => xx.SignedVersion == true);
+
                             if (thisFile == null)
                             {
                                 thisFile = availableFiles.FirstOrDefault();
@@ -47,9 +46,10 @@ namespace eContracting.Website
                             thisFile = availableFiles.FirstOrDefault();
                         }
 
-                        if (thisFile != null)
+                        if (thisFile != null || thisFile.FileContent.Count > 0)
                         {
                             context.Response.Clear();
+
                             using (var ms = new MemoryStream(thisFile.FileContent.ToArray()))
                             {
                                 context.Response.ContentType = "application/pdf";
@@ -59,25 +59,33 @@ namespace eContracting.Website
                                 ms.WriteTo(context.Response.OutputStream);
                             }
                         }
+                        else
+                        {
+                            this.SetNotFoundResponse(context);
+                        }
+                    }
+                    else
+                    {
+                        this.SetNotFoundResponse(context);
                     }
                 }
-                DateTime functionEndTime = DateTime.UtcNow;
-                // var totalDownload = functionEndTime.Subtract(functionbeginTime).Seconds;
-                // if (totalDownload > 3)
-                // {
-                // StringBuilder builder = new StringBuilder();
-                // builder.AppendFormat("File download takes longer than 3 seconds");
-                // builder.AppendLine();
-                // builder.AppendFormat("total download : {0} seconds", totalDownload);
-                // builder.AppendLine();
-                // builder.AppendFormat("Get data from session took : {0} seconds", sessionEndTime.Subtract(sessionBeginTime).Seconds);
-                // builder.AppendLine();
-                // builder.AppendFormat("Write file to response took : {0} seconds", functionEndTime.Subtract(sessionEndTime).Seconds);
-
-                // Log.Warn(builder.ToString(), this);
-                // }
-
+                else
+                {
+                    this.SetNotFoundResponse(context);
+                }
             }
+            else
+            {
+                this.SetNotFoundResponse(context);
+            }
+        }
+
+        private void SetNotFoundResponse(HttpContext context)
+        {
+            context.Response.Clear();
+            context.Response.Status = "404 Not Found";
+            context.Response.StatusCode = 404;
+            context.Response.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
         }
 
         /// <summary>
