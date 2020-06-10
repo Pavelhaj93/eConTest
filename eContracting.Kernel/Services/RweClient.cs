@@ -374,7 +374,16 @@ namespace eContracting.Kernel.Services
             return offer.SentToService;
         }
 
-        public void LogAcceptance(string guid, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
+        /// <summary>
+        /// Tries to accept offer. Returns false, if some error occured and offer should not be accepted.
+        /// </summary>
+        /// <param name="guid">ID of the offer.</param>
+        /// <param name="when">Date of acceptance.</param>
+        /// <param name="context">Http context.</param>
+        /// <param name="offerType">Offer type.</param>
+        /// <param name="acceptedDocuments">Collection of accepted documents.</param>
+        /// <returns>True if offer should be accepted. False if error occured.</returns>
+        public bool LogAcceptance(string guid, DateTime when, HttpContextBase context, OfferTypes offerType, IEnumerable<string> acceptedDocuments)
         {
             StringBuilder startingLog = new StringBuilder();
             startingLog.AppendLine($"[{guid}][LogAcceptance] Initializing...");
@@ -524,10 +533,20 @@ namespace eContracting.Kernel.Services
             if (response != null)
             {
                 Log.Info($"[{guid}][LogAcceptance] Response: EV_RETCODE = {response.EV_RETCODE}", this);
+                if (response.EV_RETCODE == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             else
             {
                 Log.Debug($"[{guid}][LogAcceptance] Response is null", this);
+                return false;
             }
         }
 

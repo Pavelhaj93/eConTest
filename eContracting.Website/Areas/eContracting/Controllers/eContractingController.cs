@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Content.Modal_window;
@@ -148,7 +147,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     documentList.AddRange(this.HttpContext.Request.Form["documents"].Split(','));
                 }
 
-                client.LogAcceptance(guid, DateTime.UtcNow, this.HttpContext, offerType, documentList);
+                var shouldAcceptOffer = client.LogAcceptance(guid, DateTime.UtcNow, this.HttpContext, offerType, documentList);
+                if (!shouldAcceptOffer)
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                }
 
                 client.AcceptOffer(data.Identifier);
                 data.IsAccepted = true;
