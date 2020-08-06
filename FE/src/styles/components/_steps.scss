@@ -1,0 +1,76 @@
+$left-padding: 2.5em;
+$icon-size: 30px;
+
+.steps {
+  padding-left: $left-padding;
+}
+
+.step {
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    width: 1px;
+    height: calc(100% - #{$icon-size} - #{$line-height-base});
+    border-left: 1px dotted $color-gray-light;
+    position: absolute;
+    bottom: 0;
+    left: -#{($left-padding / 2)};
+  }
+
+  &__icon {
+    display: block;
+    line-height: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: calc(50% - 2px);
+    left: -#{($left-padding / 2)};
+    transform: translate(-50%, -50%);
+
+    .icon {
+      width: $icon-size;
+      height: $icon-size;
+      fill: $color-gray-light;
+      transition: fill 0.2s ease;
+
+      // @media (min-width: $screen-md-min) and (max-width: $screen-lg-max) {
+      @include media-breakpoint-between(md, lg) {
+        width: ($icon-size * 1.2);
+        height: ($icon-size * 1.2);
+      }
+    }
+
+    &:nth-of-type(2) {
+      display: none;
+    }
+  }
+
+  &__heading {
+    position: relative;
+  }
+
+  &--active {
+    .step__icon {
+      .icon {
+        fill: $color-gray;
+      }
+    }
+  }
+
+  &--finished {
+    .step__icon {
+      .icon {
+        fill: $color-green;
+      }
+
+      &:nth-of-type(1) {
+        display: none;
+      }
+      &:nth-of-type(2) {
+        display: block;
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+.unstyled-list {
+  margin: 0;
+  list-style: none;
+}
+
+.list {
+  @extend .unstyled-list;
+  padding: 0;
+  border-bottom: 1px solid $color-border;
+  transition: max-height 0.25s ease;
+
+  li {
+    padding: 0.5rem 0;
+    position: relative;
+  }
+
+  .form &-documents {
+    border-bottom: 1px solid $color-border;
+  }
+
+  &-documents {
+    padding: 0.5rem 0;
+    border-bottom: 0;
+
+    .step & {
+      border-bottom: 0;
+    }
+
+    li:first-child {
+      border-bottom: 1px solid $color-border;
+      padding: 0 0 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    &:not(.error) {
+      min-height: 100px;
+    }
+
+    &.unaccepted-terms {
+      max-height: 100px;
+      min-height: auto;
+
+      li:not(:first-child),
+      .check-all {
+        display: none;
+      }
+
+      li:first-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+    }
+
+    &.agreed {
+      border-bottom: 0;
+
+      li:first-child {
+        padding-bottom: 0.5rem;
+      }
+
+      label {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+
+  &-documents-to-be-signed {
+    &:not(.error) {
+      min-height: 0;
+    }
+
+    .form & {
+      border-bottom: 0;
+    }
+
+    li:first-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    label {
+      margin-left: 0;
+    }
+  }
+
+  &.loading,
+  &.error {
+    border-bottom: 0;
+
+    /* Don't show Submit button while loading, we may receive accepted documents */
+    & + .button-submit {
+      display: none;
+    }
+  }
+
+  &.error {
+    text-align: center;
+    padding: 0 4rem 1rem;
+
+    .check-all {
+      display: none;
+    }
+
+    p {
+      color: $color-gray-light;
+    }
+  }
+
+  &.loading {
+    min-height: 100px;
+  }
+}
+
+.check-all {
+  display: inline-block;
+  margin: 0.5rem 0 0;
+}

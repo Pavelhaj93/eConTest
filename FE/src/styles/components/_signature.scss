@@ -1,0 +1,9 @@
+.signature {
+  color: #000;
+  border: 1px dotted $color-gray;
+  background-color: #fff;
+
+  canvas {
+    cursor: crosshair;
+  }
+}
