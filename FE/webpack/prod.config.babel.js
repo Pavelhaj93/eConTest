@@ -6,7 +6,7 @@ import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
 
-const productionPolyfillsPath = '/Assets/D2D/js/polyfills.js'
+const productionPolyfillsPath = '/Assets/eContracting/js/polyfills.js'
 
 // We need to modify path to polyfills in generated application bundle.
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -79,8 +79,9 @@ export default merge(baseConfig, {
         },
       ],
     }),
-    // new WebpackShellPlugin({
-    //   onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
-    // }),
+    // copy build files to assets directory for BE
+    new WebpackShellPlugin({
+      onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
+    }),
   ].concat(replacePathToPollyfills()),
 })
