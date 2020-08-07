@@ -3,6 +3,7 @@ import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import TimeFixPlugin from 'time-fix-plugin'
 import PolyfillInjectorPlugin from 'webpack-polyfill-injector'
+import SpriteLoaderPlugin from 'svg-sprite-loader/plugin'
 import webpack from 'webpack'
 import path from 'path'
 import fs from 'fs'
@@ -40,11 +41,11 @@ export default {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@hooks': path.resolve(__dirname, 'src/hooks'),
-      '@types': path.resolve(__dirname, 'src/types'),
-      '@utils': path.resolve(__dirname, 'src/utils'),
-      '@icons': path.resolve(__dirname, 'src/icons/svg'),
+      '@components': path.resolve(__dirname, '../src/app/components'),
+      '@hooks': path.resolve(__dirname, '../src/app/hooks'),
+      '@types': path.resolve(__dirname, '../src/app/types'),
+      '@utils': path.resolve(__dirname, '../src/app/utils'),
+      '@icons': path.resolve(__dirname, '../src/icons/svg'),
     },
   },
 
@@ -53,12 +54,33 @@ export default {
       {
         test: /\.(j|t)sx?$/,
         loader: 'awesome-typescript-loader',
-        exclude: [/node_modules/, /public/],
+        exclude: [/node_modules/, /build/],
       },
       {
         test: /\.handlebars$/,
         loader: 'handlebars-loader',
-        exclude: [/node_modules/, /public/],
+        exclude: [/node_modules/, /build/],
+      },
+      {
+        test: /\.woff2?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        options: {
+          extract: true,
+          spriteFilename: 'svg.svg',
+          outputPath: 'gfx/icon/'
+        },
       },
     ],
   },
@@ -85,6 +107,10 @@ export default {
       ],
       singleFile: true,
       filename: 'js/polyfills.js',
+    }),
+
+    new SpriteLoaderPlugin({
+      plainSprite: true,
     }),
   ].concat(generateHtmlFiles('../src/tpl')),
 }

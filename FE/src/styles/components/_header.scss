@@ -8,8 +8,7 @@
   transition: height 0.3s;
   will-change: height;
 
-  // @media (max-width: $screen-md-max) {
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     height: 90px;
   }
 
@@ -26,8 +25,7 @@
       transition: height 0.3s;
       will-change: height;
 
-      // @media (max-width: $screen-md-max) {
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(sm) {
         height: 60px;
       }
     }
@@ -41,13 +39,11 @@
     margin: auto;
     height: 1.25rem;
 
-    // @media (max-width: $screen-md-max) {
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(sm) {
       right: 1rem;
     }
 
-    // @media (max-width: $screen-sm-max) {
-		@include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(xs) {
       &:before {
         display: none;
       }

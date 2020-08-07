@@ -23,7 +23,15 @@ export default merge(baseConfig, {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              url: false, // do no resolve references to fonts, background images, etc.
+              url: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              plugins: loader => [require('postcss-inline-svg')()], // encode svg references as base64
             },
           },
           {

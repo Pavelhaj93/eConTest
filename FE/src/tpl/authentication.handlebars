@@ -1,12 +1,15 @@
 {{> partials/html-header}}
+{{> partials/header}}
 
-<body>
-  <div class="main">
-    <div class="container">
-      <h2>Authentication template</h2>
-      <div id="app"></div>
+<div class="main">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <h2>Authentication template</h2>
+        {{> partials/app}}
+      </div>
     </div>
   </div>
-</body>
+</div>
 
-</html>
+{{> partials/footer}}

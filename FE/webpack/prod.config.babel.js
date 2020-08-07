@@ -1,5 +1,6 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import WebpackShellPlugin from 'webpack-shell-plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 import ReplaceInFilePlugin from 'replace-in-file-webpack-plugin'
 import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
@@ -41,7 +42,15 @@ export default merge(baseConfig, {
           {
             loader: 'css-loader',
             options: {
-              url: false, // do no resolve references to fonts, background images, etc.Î
+              url: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              // eslint-disable-next-line @typescript-eslint/no-var-requires
+              plugins: loader => [require('postcss-inline-svg')()],
             },
           },
           {
@@ -60,6 +69,16 @@ export default merge(baseConfig, {
   },
 
   plugins: [
+    // copy favicon images to build directory
+    new CopyPlugin({
+      patterns: [
+        {
+          from: './favicon/**/*',
+          to: './gfx/',
+          context: './src/icons/',
+        },
+      ],
+    }),
     // new WebpackShellPlugin({
     //   onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
     // }),

@@ -4,11 +4,13 @@
   padding: 0.7rem 0;
   font-size: 0.7rem;
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     text-align: center;
 
     [class^='col-'] {
       width: 100%;
+      flex-basis: 100%;
+      max-width: none;
     }
   }
 }
@@ -39,13 +41,13 @@
   }
 
   .phone:before {
-    background-image: svg-load('../gfx/svg/phone.svg', fill=$color-gray-light);
+    background-image: svg-load('../icons/svg/phone.svg', fill=$color-gray-light);
   }
   .email:before {
-    background-image: svg-load('../gfx/svg/email.svg', fill=$color-gray-light);
+    background-image: svg-load('../icons/svg/email.svg', fill=$color-gray-light);
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(sm) {
     $spacing: 1rem;
     background: #000;
 
@@ -55,7 +57,7 @@
     }
 
     div {
-      text-align: inherit;
+      text-align: inherit !important;
     }
 
     div:not(:last-child) {

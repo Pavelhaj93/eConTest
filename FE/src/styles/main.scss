@@ -1,3 +1,6 @@
+// Custom variables
+@import 'base/variables';
+
 // Bootstrap
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
@@ -35,12 +38,17 @@
 @import 'bootstrap/scss/utilities';
 @import 'bootstrap/scss/print';
 
-// Custom
+// Custom mixins
+@import 'utils/mixins';
+
+// Custom core
 @import 'base/variables';
 @import 'base/optimization';
 @import 'base/animation';
 @import 'base/typography';
+@import 'base/layout';
 
+// Custom components
 @import 'components/alerts';
 @import 'components/datepicker';
 @import 'components/footer';

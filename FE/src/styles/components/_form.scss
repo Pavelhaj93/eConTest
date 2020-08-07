@@ -177,7 +177,7 @@ input {
         }
 
         &:after {
-          background: $color-orange svg-load('../gfx/svg/check.svg') center no-repeat;
+          background: $color-orange svg-load('../icons/svg/check.svg') center no-repeat;
           border-color: darken($color-orange, 10%);
           opacity: 1;
         }
@@ -229,7 +229,7 @@ input {
 select {
   @extend %form-element;
   appearance: none;
-  background: svg-load('../gfx/svg/chevron-down.svg', fill=$color-orange) no-repeat right 1.3rem
+  background: svg-load('../icons/svg/chevron-down.svg', fill=$color-orange) no-repeat right 1.3rem
     center/28px 14px;
 
   // Hides the default caret in IE11

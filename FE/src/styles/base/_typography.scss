@@ -1,0 +1,81 @@
+/* Custom fonts */
+@include font-face($font-main, innogy-light, normal, normal);
+@include font-face($font-main, innogy-medium, $font-weight-medium, normal);
+
+html {
+  font-size: $font-size-base;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.25rem; // 20px
+  }
+  @include media-breakpoint-up(md) {
+    font-size: 1.375rem; // 22px
+  }
+}
+
+body {
+  color: $color-gray;
+  font-family: $font-main, $font-fallback;
+  line-height: 1.5rem;
+  font-size: inherit;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  color: $color-gray-dark;
+  font-weight: bold;
+  font-size: 1.7rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 2.5rem;
+  }
+}
+
+h2 {
+  color: $color-gray-dark;
+  font-size: 1.3rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.9rem;
+  }
+  @include media-breakpoint-up(xl) {
+    font-size: 2.1rem;
+  }
+}
+
+h3 {
+  // @media (max-width: $screen-sm-max) {
+  //   font-size: 1.15rem;
+  // }
+  // @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+  //   font-size: 1.9rem;
+  // }
+  // @media (min-width: $screen-lg-min) {
+  //   font-size: 1.2rem;
+  // }
+  font-size: 1.15rem;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 1.9rem;
+  }
+  @include media-breakpoint-up(md) {
+    font-size: 1.2rem;
+  }
+}
+
+p {
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+strong {
+  color: $color-gray-dark;
+}

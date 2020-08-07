@@ -1,0 +1,12 @@
+{{!--
+  What exactly does the following script do?
+
+  1) Make a XHR request to SVG sprite URL (read from data attribute on body element).
+  2) As soon as the response is returned:
+    a) it creates an empty <div>
+    b) put the text content of the response inside the <div>
+    c) make the <div> hidden and insert it as a first child of body
+
+  This allows to reference icons from SVG sprite even in IE11.
+--}}
+<script>!function(){var e=new XMLHttpRequest;e.open("GET",document.body.dataset.sprite,!0),e.send(),e.onload=(function(){var t=document.createElement("div");t.style.display="none",t.innerHTML=e.responseText,document.body.insertBefore(t,document.body.childNodes[0])})}();</script>

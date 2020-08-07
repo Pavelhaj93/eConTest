@@ -1,0 +1,16 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.main {
+  background: #fff;
+  flex: 1 0 auto;
+  padding: 3rem 0;
+}

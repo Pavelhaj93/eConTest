@@ -1,4 +1,4 @@
-/* Colors */
+// Colors
 $color-green: #72c201;
 $color-orange: #f59b00;
 $color-green-blue: #019ba5;
@@ -12,6 +12,17 @@ $color-gray-dimmer: #f8f8f8;
 
 $color-border: #e1dfe0;
 
-/* Fonts */
+// Fonts
 $font-main: Innogy;
 $font-fallback: Arial, Helvetica, sans-serif;
+$custom-font-path: '../fonts/';
+$font-weight-medium: 600;
+
+// Bootstrap variables
+$link-color: $color-orange;
+
+$tooltip-bg: $color-orange;
+$tooltip-color: #fff;
+$tooltip-opacity: 1;
+
+$font-size-base: 1.125rem; // 18px
