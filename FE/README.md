@@ -31,6 +31,7 @@ Once the build is complete, all the genereted files are automatically copied to 
 ### Want to add a new icon to SVG sprite?
 
 1. Place the SVG file inside `src/icons/svg/` directory.
-2. Import the new SVG icon at the beginning of `src/app/app.tsx`.
+2. Run `yarn svg`.
+3. Use it as a component e.g. `<Icon name="arrow-right" width="10" height="20" color="orange" />`
 
 After build, the icon will be automatically part of SVG sprite.

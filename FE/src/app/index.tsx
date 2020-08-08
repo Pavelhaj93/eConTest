@@ -1,7 +1,3 @@
-// following svg imports will be extracted into svg sprite during build time
-import '@icons/logo.svg'
-import '@icons/bubble-info.svg'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 
