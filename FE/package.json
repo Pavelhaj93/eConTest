@@ -13,11 +13,6 @@
     "lint": "eslint ./src --ext=js,ts,tsx",
     "svg": "svg-icon-generate --svgDir ./src/icons/svg --destination ./src/app/components/Icon/index.tsx --template ./src/tpl/svg/icon-template.nunj"
   },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn lint"
-    }
-  },
   "dependencies": {
     "bootstrap": "^4.5.1",
     "react": "^16.13.1",
