@@ -12,17 +12,49 @@ $color-gray-dimmer: #f8f8f8;
 
 $color-border: #e1dfe0;
 
+$transition-duration: 0.2s;
+
 // Fonts
 $font-main: Innogy;
 $font-fallback: Arial, Helvetica, sans-serif;
 $custom-font-path: '../fonts/';
 $font-weight-medium: 600;
+$font-size-base: 1.125rem; // 18px
 
 // Bootstrap variables
+$primary: $color-green;
 $link-color: $color-orange;
 
 $tooltip-bg: $color-orange;
 $tooltip-color: #fff;
 $tooltip-opacity: 1;
 
-$font-size-base: 1.125rem; // 18px
+$paragraph-margin-bottom: 10px;
+
+$input-color: $color-gray-dark;
+$input-placeholder-color: $color-gray-light;
+$input-border-color: $color-gray-dim;
+$input-focus-border-color: $color-orange;
+$input-border-radius: 35px;
+$input-focus-box-shadow: none;
+$input-padding-x: 1.5rem;
+$input-padding-y: 0.65rem;
+$input-font-size: inherit;
+
+$form-control-line-height: 1.2rem;
+$form-group-margin-bottom: 1.5rem;
+$label-margin-bottom: 8px;
+$label-padding-y: $label-margin-bottom;
+
+$btn-padding-x: 1.5rem;
+$btn-padding-x: 0.3rem;
+$btn-disabled-opacity: 1;
+$btn-font-size: inherit;
+$btn-line-height: $form-control-line-height;
+
+// React datepicker variables
+$datepicker__font-family: inherit;
+$datepicker__text-color: $color-gray;
+$datepicker__border-radius: 5px;
+$datepicker__header-color: #fff;
+$datepicker__selected-color: transparent;

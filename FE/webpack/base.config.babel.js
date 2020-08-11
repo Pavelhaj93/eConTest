@@ -46,6 +46,8 @@ export default {
       '@types': path.resolve(__dirname, '../src/app/types'),
       '@utils': path.resolve(__dirname, '../src/app/utils'),
       '@icons': path.resolve(__dirname, '../src/icons/svg'),
+      '@views': path.resolve(__dirname, '../src/app/views'),
+      '@theme': path.resolve(__dirname, '../src/app/theme'),
     },
   },
 

@@ -23,7 +23,9 @@
       "@components": ["src/app/components"],
       "@hooks": ["src/app/hooks"],
       "@types": ["src/app/types"],
-      "@utils": ["src/app/utils"]
+      "@utils": ["src/app/utils"],
+      "@views": ["src/app/views"],
+      "@theme": ["src/app/theme"]
     }
   },
   "include": ["./src/app", "custom.d.ts"],

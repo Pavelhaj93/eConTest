@@ -5,8 +5,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2">
-        <h2>Authentication template</h2>
-        {{> partials/app}}
+        <div class="info">
+          <p>Vítáme Vás, pane Nováku,</p>
+          <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
+          {{> partials/app}}
+        </div>
       </div>
     </div>
   </div>
@@ -14,11 +17,24 @@
 
 <script>
   var appConfig = {
+    view: 'Authentication',
     doxReadyUrl: '/documents.json',
     isAgreed: false,
     isRetention: false,
     isAcquisition: true,
-    labels: {}
+    formAction: '/login',
+    labels: {
+      requiredFields: 'Prosím, vyplňte všechna požadovaná pole.',
+      birthDate: '1. Datum narození',
+      birthDatePlaceholder: 'např. 26. 12. 1966',
+      verificationMethod: '2. Vyberte způsob ověření',
+      zip: 'PSČ trvalého bydliště',
+      zipPlaceholder: '155 00',
+      customerNumber: 'Zákaznické číslo',
+      customerNumberPlaceholder: '99828738',
+      submitBtn: 'Potvrdit údaje a zobrazit nabídku',
+      ariaOpenCalendar: 'Otevřít kalendář',
+    }
   };
 </script>
 
