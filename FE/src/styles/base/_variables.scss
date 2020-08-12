@@ -32,7 +32,7 @@ $tooltip-opacity: 1;
 $paragraph-margin-bottom: 10px;
 
 $input-color: $color-gray-dark;
-$input-placeholder-color: $color-gray-light;
+$input-placeholder-color: darken($color-gray-light, 10%);
 $input-border-color: $color-gray-dim;
 $input-focus-border-color: $color-orange;
 $input-border-radius: 35px;

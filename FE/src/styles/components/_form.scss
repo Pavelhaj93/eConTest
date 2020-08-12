@@ -65,6 +65,10 @@ label {
   display: block;
   font-weight: normal;
   margin-left: 1.5rem;
+
+  &:not(.custom-control-label) {
+    color: $color-gray-light;
+  }
 }
 
 .form-control {
