@@ -24,6 +24,7 @@ $font-size-base: 1.125rem; // 18px
 // Bootstrap variables
 $primary: $color-green;
 $link-color: $color-orange;
+$red: $color-red;
 
 $tooltip-bg: $color-orange;
 $tooltip-color: #fff;
@@ -51,6 +52,9 @@ $btn-padding-x: 0.3rem;
 $btn-disabled-opacity: 1;
 $btn-font-size: inherit;
 $btn-line-height: $form-control-line-height;
+
+$alert-border-radius: 0;
+$alert-border-width: 0;
 
 // React datepicker variables
 $datepicker__font-family: inherit;

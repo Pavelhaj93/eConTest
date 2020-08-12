@@ -1,7 +1,7 @@
 import { useCallback, useState, ChangeEvent, FormEvent } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const useForm = <T>(initialValues: T, onSubmitCallback: (values: T) => void) => {
+export const useForm = <T>(initialValues: T, onSubmitCallback?: (values: T) => void) => {
   const [values, setValues] = useState<T>(initialValues)
 
   const handleInputChange = useCallback(
@@ -16,7 +16,7 @@ export const useForm = <T>(initialValues: T, onSubmitCallback: (values: T) => vo
 
   const handleFormSubmit = (event: FormEvent) => {
     event.preventDefault()
-    onSubmitCallback(values)
+    onSubmitCallback && onSubmitCallback(values)
   }
 
   return {

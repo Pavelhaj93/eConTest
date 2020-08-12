@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react'
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 import { FormControl, Button } from 'react-bootstrap'
 import { cs } from 'date-fns/locale'
+import classNames from 'classnames'
 import { isMobileDevice } from '@utils'
 import { Icon } from '@components'
 import { colors } from '@theme'
@@ -11,6 +12,7 @@ type DatepickerProps = {
   name?: string
   /* Label for calendar icon/button. */
   ariaLabelOpen?: string
+  isInvalid?: boolean
 }
 
 export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
@@ -18,6 +20,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
   name,
   placeholderText,
   ariaLabelOpen,
+  isInvalid,
   ...rest
 }) => {
   const CustomDatepickerInput = forwardRef(
@@ -28,7 +31,10 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
           <FormControl
             ref={ref}
             {...rest}
-            className="react-datepicker__input"
+            className={classNames({
+              'react-datepicker__input': true,
+              invalid: isInvalid,
+            })}
             placeholder={placeholderText}
             onFocus={!isMobileDevice() ? onClick : () => {}}
           />

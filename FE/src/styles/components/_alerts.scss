@@ -66,42 +66,26 @@
     }
   }
 
-  &.error {
-    background: $color-red;
-    color: #fff;
-
-    .close {
-      background-image: svg-load('../icons/svg/close.svg', fill=#fff);
-    }
+  &-danger {
+    @include alert-variant($color-red, $color-red, #fff);
   }
 
-  &.warning {
-    $color: $color-orange;
-    $color-text: darken($color, 15%);
-    $color-close: transparentize($color-text, 0.65);
-
-    background: transparentize($color, 0.8);
-    color: $color-text;
-
-    .close {
-      background-image: svg-load('../icons/svg/close.svg', fill=$color-close);
-    }
+  &-warning {
+    $color: darken($color-orange, 15%);
+    $color-bg: transparentize($color-orange, 0.8);
+    $color-border: $color-bg;
+    @include alert-variant($color-bg, $color-border, $color);
   }
 
-  &.success {
-    $color: $color-green;
-    $color-text: darken($color, 15%);
-    $color-close: transparentize($color-text, 0.65);
-
-    background: transparentize($color, 0.8);
-    color: $color-text;
-
-    .close {
-      background-image: svg-load('../icons/svg/close.svg', fill=$color-close);
-    }
+  &-success {
+    $color: darken($color-green, 15%);
+    $color-bg: transparentize($color-green, 0.8);
+    $color-border: $color-bg;
+    @include alert-variant($color-bg, $color-border, $color);
   }
 
-  &.info {
+  &.info,
+  &-info {
     background: $color-gray-dimmer;
   }
 

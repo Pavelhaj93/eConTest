@@ -53,7 +53,9 @@
   }
 
   &__day {
-    &--keyboard-selected,
+    &--keyboard-selected {
+      color: $datepicker__text-color;
+    }
     &--selected {
       color: $color-orange;
       background-color: $datepicker__selected-color;

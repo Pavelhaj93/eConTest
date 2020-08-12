@@ -60,11 +60,13 @@ select {
   }
 }
 
-label {
+label,
+.like-label {
   position: relative;
   display: block;
   font-weight: normal;
-  margin-left: 1.5rem;
+  margin-left: map-get($spacers, 4);
+  margin-bottom: $label-margin-bottom;
 
   &:not(.custom-control-label) {
     color: $color-gray-light;
@@ -271,6 +273,41 @@ select {
     // Hides the default caret in IE11
     &::-ms-expand {
       display: none;
+    }
+  }
+}
+
+.form-control-tooltip-wrapper {
+  $icon-size: 30px;
+
+  @include media-breakpoint-down(sm) {
+    position: relative;
+
+    .form-control {
+      margin-right: 1rem;
+      padding-right: calc(#{$input-padding-x} + #{$icon-size});
+    }
+
+    .tooltip-icon-wrapper {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      z-index: 1;
+      transform: translateY(-50%);
+    }
+
+    .icon-tooltip {
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+    display: flex;
+    align-items: center;
+
+    .form-control {
+      margin-right: 1rem;
     }
   }
 }
