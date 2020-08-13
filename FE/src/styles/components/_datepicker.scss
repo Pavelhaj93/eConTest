@@ -122,6 +122,7 @@
   &__year-select {
     appearance: none;
     padding: 0 1.25rem 0 0.5rem;
+    border: $input-border-width solid $input-border-color;
     border-radius: $input-border-radius;
     background: #fff svg-load('../icons/svg/chevron-down.svg', fill=$color-orange) no-repeat right
       0.5rem center/14px 7px;

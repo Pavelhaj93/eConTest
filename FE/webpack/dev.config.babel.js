@@ -30,8 +30,10 @@ export default merge(baseConfig, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
+              // 1. encode svg references as base64
+              // 2. add browser prefixes
               // eslint-disable-next-line @typescript-eslint/no-var-requires
-              plugins: loader => [require('postcss-inline-svg')()], // encode svg references as base64
+              plugins: loader => [require('postcss-inline-svg')(), require('autoprefixer')()],
             },
           },
           {
