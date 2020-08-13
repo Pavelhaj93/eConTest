@@ -14,7 +14,7 @@
     "svg": "svg-icon-generate --svgDir ./src/icons/svg --destination ./src/app/components/Icon/index.tsx --template ./src/tpl/svg/icon-template.nunj"
   },
   "dependencies": {
-    "bootstrap": "^4.5.1",
+    "bootstrap": "^4.5.2",
     "classnames": "^2.2.6",
     "date-fns": "^2.15.0",
     "react": "^16.13.1",
@@ -33,8 +33,8 @@
     "@types/react-bootstrap": "^1.0.1",
     "@types/react-datepicker": "^3.1.1",
     "@types/react-dom": "^16.9.8",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^3.9.0",
+    "@typescript-eslint/parser": "^3.9.0",
     "awesome-typescript-loader": "^5.2.1",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
@@ -50,7 +50,7 @@
     "handlebars-loader": "^1.7.1",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
-    "mini-css-extract-plugin": "^0.9.0",
+    "mini-css-extract-plugin": "^0.10.0",
     "ncp": "^2.0.0",
     "node-sass": "^4.14.1",
     "postcss-loader": "^3.0.0",
