@@ -150,6 +150,9 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
               dropdownMode="select"
               ariaLabelOpen={labels.ariaOpenCalendar}
               isInvalid={!date && wasValidated}
+              nextMonthButtonLabel={labels.ariaNextMonth}
+              previousMonthButtonLabel={labels.ariaPreviousMonth}
+              chooseDayAriaLabelPrefix={labels.ariaChooseDay}
             />
           </Form.Group>
         </Col>
@@ -181,10 +184,11 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
                 {matches => {
                   // use different type of component/animation on mobile and desktop
                   const ShowHideComponent = matches ? Collapse : Fade
+                  const isVisible = selectedMethod === name
 
                   return (
                     <ShowHideComponent
-                      in={selectedMethod === name}
+                      in={isVisible}
                       className="mb-2 mb-md-0"
                       onEntered={() => methodInputRefs[name].current?.focus()}
                     >
@@ -200,12 +204,17 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
                             onChange={handleInputChange}
                             className={classNames({
                               invalid:
-                                selectedMethod === name &&
+                                isVisible &&
                                 !isFieldValid(values[id as keyof FormValues], expression) &&
                                 wasValidated,
                             })}
+                            tabIndex={isVisible ? 0 : -1}
                           />
-                          {helpText && <Tooltip id="zipHelpText">{helpText}</Tooltip>}
+                          {helpText && (
+                            <Tooltip id="zipHelpText" visible={isVisible}>
+                              {helpText}
+                            </Tooltip>
+                          )}
                         </FormControlTooltipWrapper>
                       </Form.Group>
                     </ShowHideComponent>

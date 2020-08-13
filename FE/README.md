@@ -4,7 +4,7 @@ Based on combination of React, Bootstrap v4.x, React Bootstrap and Typescript ‚ù
 
 ## Setup
 
-1. Install [Node.js](https://nodejs.org).
+1. Install [Node.js](https://nodejs.org) (v12.14.1 or higher).
 2. Install [Yarn](https://yarnpkg.com).
 
 ## Installation
