@@ -271,6 +271,7 @@ input {
 }
 
 select {
+  cursor: pointer;
   &.form-control {
     @extend %form-element;
     appearance: none;

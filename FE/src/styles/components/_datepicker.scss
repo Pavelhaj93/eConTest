@@ -108,7 +108,7 @@
     right: 1rem;
     z-index: 1;
     transform: translateY(-50%);
-    
+
     &:focus {
       box-shadow: none;
       opacity: 0.7;
@@ -117,5 +117,22 @@
 
   &__input {
     padding-right: calc(#{$input-padding-x} + 30px); // calendar icon width
+  }
+
+  &__year-select {
+    appearance: none;
+    padding: 0 1.25rem 0 0.5rem;
+    border-radius: $input-border-radius;
+    background: #fff svg-load('../icons/svg/chevron-down.svg', fill=$color-orange) no-repeat right
+      0.5rem center/14px 7px;
+
+    // Hides the default caret in IE11
+    &::-ms-expand {
+      display: none;
+    }
+  }
+
+  &__header__dropdown--select {
+    padding-bottom: 8px;
   }
 }
