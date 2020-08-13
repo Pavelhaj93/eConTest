@@ -1,8 +1,11 @@
 %form-element {
   /* Validation */
   &.invalid {
-    border-color: $color-red;
-    box-shadow: inset 0 0 0 1px $color-red;
+    &,
+    &:focus {
+      border-color: $color-red;
+      box-shadow: inset 0 0 0 1px $color-red;
+    }
   }
 }
 
@@ -76,6 +79,10 @@ label,
 .form-control {
   height: auto;
   line-height: $form-control-line-height;
+
+  // &.invalid {
+  //   box-shadow: none;
+  // }
 }
 
 .form-check {

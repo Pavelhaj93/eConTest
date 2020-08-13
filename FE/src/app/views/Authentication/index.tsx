@@ -20,8 +20,15 @@ import { useForm } from '@hooks'
 type VerificationMethod = {
   label: string
   id: string
+  name: string
   placeholder?: string
   helpText?: string
+  expression: RegExp
+}
+
+type FormValues = {
+  zip: string
+  customerNumber: string
 }
 
 const initialValues = {
@@ -35,24 +42,25 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null)
   const [wasValidated, setValidated] = useState(false)
 
-  const { values, handleInputChange } = useForm<{
-    zip: string
-    customerNumber: string
-  }>(initialValues)
+  const { values, handleInputChange } = useForm<FormValues>(initialValues)
 
   const verificationMethods: VerificationMethod[] = useMemo(() => {
     return [
       {
         id: 'zip',
+        name: 'zipMethod',
         label: labels.zip as string,
         placeholder: labels.zipPlaceholder,
         helpText: labels.zipHelpText,
+        expression: /^\d{5}$/,
       },
       {
         id: 'customerNumber',
+        name: 'customerNumberMethod',
         label: labels.customerNumber as string,
         placeholder: labels.customerNumberPlaceholder,
         helpText: labels.customerNumberHelpText,
+        expression: /^\d{10}$/,
       },
     ]
   }, [labels])
@@ -61,10 +69,9 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
   const methodInputRefs: {
     [key: string]: RefObject<HTMLInputElement>
   } = verificationMethods.reduce((acc, method) => {
-    const methodId = `${method.id}Method`
     return {
       ...acc,
-      [methodId]: createRef<HTMLInputElement>(),
+      [method.name]: createRef<HTMLInputElement>(),
     }
   }, {})
 
@@ -84,7 +91,41 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
     [isFormValid],
   )
 
-  useEffect(() => {}, [values])
+  /**
+   * Validate field value by provided regular expression.
+   */
+  const isFieldValid = useCallback((value: string, expression: RegExp): boolean => {
+    const re = new RegExp(expression)
+    return re.test(value)
+  }, [])
+
+  // 1. if verification method is changed, mark the form as invalid
+  useEffect(() => {
+    setFormValid(false)
+  }, [selectedMethod])
+
+  // 2. when some method value is changed, check whether form can be marked as valid
+  useEffect(() => {
+    const method = verificationMethods.find(method => method.name === selectedMethod)
+
+    if (!method) {
+      return
+    }
+
+    // value for the selected method
+    const value = values[method.id as keyof FormValues]
+
+    // if
+    // 1. method value is valid
+    // 2. method is selected
+    // 3. date is filled
+    // then form is good to go
+    if (isFieldValid(value, method.expression) && selectedMethod && date) {
+      setFormValid(true)
+    } else {
+      setFormValid(false)
+    }
+  }, [values, date, selectedMethod])
 
   return (
     <Form noValidate className="mt-4" action={formAction} method="post" onSubmit={handleSubmit}>
@@ -124,17 +165,16 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
           {labels.verificationMethod}
         </div>
         {/* render verification methods */}
-        {verificationMethods.map(({ id, label, placeholder, helpText }, idx) => {
-          const methodId = `${id}Method`
-
+        {verificationMethods.map(({ id, name, label, placeholder, helpText, expression }, idx) => {
           return (
             <div className="d-md-flex align-items-md-center" key={`${id}-${idx}`}>
               <Form.Check
                 type="radio"
                 label={label}
                 name="verificationMethod"
-                id={methodId}
+                id={name}
                 onChange={handleChangeMethod}
+                value={id}
                 custom
               />
               <Media query={{ maxWidth: breakpoints.mdMax }}>
@@ -144,9 +184,9 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
 
                   return (
                     <ShowHideComponent
-                      in={selectedMethod === methodId}
+                      in={selectedMethod === name}
                       className="mb-2 mb-md-0"
-                      onEntered={() => methodInputRefs[methodId].current?.focus()}
+                      onEntered={() => methodInputRefs[name].current?.focus()}
                     >
                       <Form.Group controlId={id} className="mb-0 ml-4 ml-md-3">
                         <FormControlTooltipWrapper>
@@ -156,12 +196,12 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
                             pattern="[0-9]*"
                             name={id}
                             {...(placeholder ? { placeholder } : {})}
-                            ref={methodInputRefs[methodId]}
+                            ref={methodInputRefs[name]}
                             onChange={handleInputChange}
                             className={classNames({
                               invalid:
-                                selectedMethod === methodId &&
-                                !values[id as keyof typeof initialValues] &&
+                                selectedMethod === name &&
+                                !isFieldValid(values[id as keyof FormValues], expression) &&
                                 wasValidated,
                             })}
                           />
