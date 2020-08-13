@@ -80,7 +80,7 @@ export default {
         loader: 'svg-sprite-loader',
         options: {
           extract: true,
-          spriteFilename: 'svg.svg',
+          spriteFilename: 'sprite.svg',
           outputPath: 'gfx/icon/'
         },
       },
