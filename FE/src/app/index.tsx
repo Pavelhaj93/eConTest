@@ -1,3 +1,4 @@
+import 'what-input'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { View as ViewType } from '@types'
