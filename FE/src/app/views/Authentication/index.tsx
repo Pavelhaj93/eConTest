@@ -211,7 +211,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
                             tabIndex={isVisible ? 0 : -1}
                           />
                           {helpText && (
-                            <Tooltip id="zipHelpText" visible={isVisible}>
+                            <Tooltip id={`${id}HelpText`} visible={isVisible}>
                               {helpText}
                             </Tooltip>
                           )}

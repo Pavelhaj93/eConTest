@@ -19,6 +19,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
 }) => (
   <OverlayTrigger placement={placement} overlay={<BSTooltip id={id}>{children}</BSTooltip>}>
     <span className="tooltip-icon-wrapper" tabIndex={visible ? 0 : -1}>
+      <span className="sr-only">{children}</span>
       <Icon name="question-mark" size={40} color={colors.orange} className="icon-tooltip" />
     </span>
   </OverlayTrigger>
