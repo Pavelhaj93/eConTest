@@ -74,17 +74,23 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
       return true
     }
 
-    console.log(expression)
     const re = new RegExp(expression)
     return re.test(value)
   }, [])
 
-  // 1. if verification method is changed, mark the form as invalid
+  // 1. if we have one choice only, set it as selected when mounted
+  useEffect(() => {
+    if (choices.length === 1) {
+      setSelectedChoice(choices[0].key)
+    }
+  }, [])
+
+  // 2. if choice is changed, mark the form as invalid
   useEffect(() => {
     setFormValid(false)
   }, [selectedChoice])
 
-  // 2. when some choice value is changed, check whether form can be marked as valid
+  // 3. when some choice value is changed, check whether form can be marked as valid
   useEffect(() => {
     const choice = choices.find(choice => choice.key === selectedChoice)
 
@@ -111,7 +117,11 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
     <Form noValidate className="mt-4" action={formAction} method="post" onSubmit={handleSubmit}>
       {(wasValidated || labels.validationError) && (
         <Alert variant="danger">
-          {wasValidated ? labels.requiredFields : labels.validationError}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: wasValidated ? labels.requiredFields : labels.validationError,
+            }}
+          />
         </Alert>
       )}
 
@@ -143,77 +153,109 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
       </Row>
 
       <Form.Group>
-        <div
-          className={classNames({
-            'like-label': true,
-            'text-danger': !selectedChoice && wasValidated,
-          })}
-        >
-          {labels.verificationMethod}
-        </div>
-        {/* render choices */}
-        {choices.map(({ key, label, placeholder, helpText, regex }, idx) => {
-          return (
-            <div className="d-md-flex align-items-md-center" key={`${key}-${idx}`}>
-              <Form.Check
-                type="radio"
-                label={label}
-                name="SelectedKey"
-                id={key}
-                onChange={handleChangeChoice}
-                value={key}
-                custom
-              />
-              <Media query={{ maxWidth: breakpoints.mdMax }}>
-                {matches => {
-                  // use different type of component/animation on mobile and desktop
-                  const ShowHideComponent = matches ? Collapse : Fade
-                  const isVisible = selectedChoice === key
+        {choices.length > 1 && (
+          <div
+            className={classNames({
+              'like-label': true,
+              'text-danger': !selectedChoice && wasValidated,
+            })}
+          >
+            {labels.verificationMethod}
+          </div>
+        )}
+        {/* render multiple choices */}
+        {choices.length > 1 ? (
+          choices.map(({ key, label, placeholder, helpText, regex }, idx) => {
+            return (
+              <div className="d-md-flex align-items-md-center" key={`${key}-${idx}`}>
+                <Form.Check
+                  type="radio"
+                  label={label}
+                  name="SelectedKey"
+                  id={key}
+                  onChange={handleChangeChoice}
+                  value={key}
+                  custom
+                />
+                <Media query={{ maxWidth: breakpoints.mdMax }}>
+                  {matches => {
+                    // use different type of component/animation on mobile and desktop
+                    const ShowHideComponent = matches ? Collapse : Fade
+                    const isVisible = selectedChoice === key
 
-                  return (
-                    <ShowHideComponent
-                      in={isVisible}
-                      className="mb-2 mb-md-0"
-                      onEntered={() => choiceInputRefs[key].current?.focus()}
-                    >
-                      <Form.Group controlId={`Additional${idx}`} className="mb-0 ml-4 ml-md-3">
-                        <FormControlTooltipWrapper>
-                          <Form.Label srOnly>{label}</Form.Label>
-                          <FormControl
-                            inputMode="numeric"
-                            pattern="[0-9]*"
-                            name="Additional"
-                            {...(placeholder ? { placeholder } : {})}
-                            ref={choiceInputRefs[key]}
-                            // use custom "id" instead of the one on input element
-                            onChange={event =>
-                              handleInputChange(
-                                event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-                                key,
-                              )
-                            }
-                            className={classNames({
-                              invalid:
-                                isVisible &&
-                                !isFieldValid(values[key], regex ?? '') &&
-                                wasValidated,
-                            })}
-                            tabIndex={isVisible ? 0 : -1}
-                          />
-                          {helpText && (
-                            <Tooltip id={`${key}HelpText`} visible={isVisible}>
-                              {helpText}
-                            </Tooltip>
-                          )}
-                        </FormControlTooltipWrapper>
-                      </Form.Group>
-                    </ShowHideComponent>
+                    return (
+                      <ShowHideComponent
+                        in={isVisible}
+                        className="mb-2 mb-md-0"
+                        onEntered={() => choiceInputRefs[key].current?.focus()}
+                      >
+                        <Form.Group controlId={`Additional${idx}`} className="mb-0 ml-4 ml-md-3">
+                          <FormControlTooltipWrapper>
+                            <Form.Label srOnly>{label}</Form.Label>
+                            <FormControl
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              name="Additional"
+                              {...(placeholder ? { placeholder } : {})}
+                              ref={choiceInputRefs[key]}
+                              // use custom "id" instead of the one on input element
+                              onChange={event =>
+                                handleInputChange(
+                                  event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+                                  key,
+                                )
+                              }
+                              className={classNames({
+                                invalid:
+                                  isVisible &&
+                                  !isFieldValid(values[key], regex ?? '') &&
+                                  wasValidated,
+                              })}
+                              tabIndex={isVisible ? 0 : -1}
+                            />
+                            {helpText && (
+                              <Tooltip id={`${key}HelpText`} visible={isVisible}>
+                                {helpText}
+                              </Tooltip>
+                            )}
+                          </FormControlTooltipWrapper>
+                        </Form.Group>
+                      </ShowHideComponent>
+                    )
+                  }}
+                </Media>
+              </div>
+            )
+          })
+        ) : (
+          // render single choice
+          <>
+            <Form.Label htmlFor={choices[0].key}>{choices[0].label}</Form.Label>
+            <FormControlTooltipWrapper>
+              <FormControl
+                inputMode="numeric"
+                pattern="[0-9]*"
+                id={choices[0].key}
+                name={choices[0].key}
+                {...(choices[0].placeholder ? { placeholder: choices[0].placeholder } : {})}
+                // use custom "id" instead of the one on input element
+                onChange={event =>
+                  handleInputChange(
+                    event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+                    choices[0].key,
                   )
-                }}
-              </Media>
-            </div>
-          )
-        })}
+                }
+                className={classNames({
+                  invalid:
+                    !isFieldValid(values[choices[0].key], choices[0].regex ?? '') && wasValidated,
+                })}
+              />
+              {choices[0].helpText && (
+                <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
+              )}
+            </FormControlTooltipWrapper>
+          </>
+        )}
       </Form.Group>
 
       <Button
