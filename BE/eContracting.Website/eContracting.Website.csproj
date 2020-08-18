@@ -273,6 +273,18 @@
     <Content Include="App_Config\Include\zeContracting\Logging.config" />
     <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
+    <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
+      <DependentUpon>Unicorn.eContracting.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Prod.config">
+      <DependentUpon>Unicorn.eContracting.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Stage.config">
+      <DependentUpon>Unicorn.eContracting.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -315,6 +327,7 @@
     <Content Include="Areas\eContracting\Views\AcceptedOffer.cshtml" />
     <Content Include="App_Config\Include\zeContracting\Unicorn.eContracting.config">
       <SubType>Designer</SubType>
+      <TransformOnBuild>true</TransformOnBuild>
     </Content>
     <Content Include="App_Config\Include\Rainbow.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.zSharedSecret.config.example" />
