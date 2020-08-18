@@ -390,7 +390,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 return settingsItem.ValidationMessage;
             }
 
-            return null;
+            return this.Context.ValidationMessage;
         }
 
         private LoginViewModel GetViewModel(AuthenticationDataItem userData, string validationMessage = null)

@@ -30,7 +30,7 @@ Languages:
     Fields:
     - ID: "0a98eff4-cc43-456a-adda-bb63656d37da"
       Hint: ValidationMessage
-      Value: 
+      Value: PSČ trvalého bydliště není správně vyplněné
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20191021T122323Z
