@@ -45,7 +45,8 @@
     <link rel="stylesheet" href="/assets/eContracting/css/econtracting.min.css" />
     @Html.Sitecore().VisitorIdentification()
 </head>
-<body data-sprite="~/Assets/eContracting/gfx/icon/sprite.svg">
+<body data-sprite="/assets/eContracting/gfx/icon/sprite.svg">
+    <script>!function () { var e = new XMLHttpRequest; e.open("GET", document.body.dataset.sprite, !0), e.send(), e.onload = (function () { var t = document.createElement("div"); t.style.display = "none", t.innerHTML = e.responseText, document.body.insertBefore(t, document.body.childNodes[0]) }) }();</script>
     @Html.Action("CookieLaw", "eContracting")
     @Html.Partial("/Areas/eContracting/Views/Shared/Header.cshtml", Model)
     <div class="main">
@@ -54,7 +55,7 @@
         </div>
     </div>
     @Html.Partial("/Areas/eContracting/Views/Shared/Footer.cshtml", Model)
-    <script src="~/Assets/eContracting/js/econtracting.bundle.js"></script>
+    <script src="/assets/eContracting/js/econtracting.bundle.js"></script>
     <script>
         var config = {
             offerPage: typeof offerPageOptions != "undefined" ? offerPageOptions : null
