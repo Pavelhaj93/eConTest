@@ -129,7 +129,11 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
 
   return (
     <Form noValidate className="mt-4" action={formAction} method="post" onSubmit={handleSubmit}>
-      {wasValidated && <Alert variant="danger">{labels.requiredFields}</Alert>}
+      {(wasValidated || labels.validationError) && (
+        <Alert variant="danger">
+          {wasValidated ? labels.requiredFields : labels.validationError}
+        </Alert>
+      )}
 
       <Row>
         <Col xs={12} md={8} lg={6}>
