@@ -2,11 +2,11 @@ import React, {
   useState,
   useCallback,
   ChangeEvent,
-  useMemo,
   createRef,
   RefObject,
   FormEvent,
   useEffect,
+  useMemo,
 } from 'react'
 import { Row, Col, Form, Button, FormControl, Collapse, Fade, Alert } from 'react-bootstrap'
 import { subDays } from 'date-fns'
@@ -17,67 +17,41 @@ import { Datepicker, FormControlTooltipWrapper, Tooltip } from '@components'
 import { breakpoints } from '@theme'
 import { useForm } from '@hooks'
 
-type VerificationMethod = {
-  label: string
-  id: string
-  name: string
-  placeholder?: string
-  helpText?: string
-  expression: RegExp
-}
-
 type FormValues = {
-  zip: string
-  customerNumber: string
+  [key: string]: string
 }
 
-const initialValues = {
-  zip: '',
-  customerNumber: '',
-}
-
-export const Authentication: React.FC<View> = ({ labels, formAction }) => {
+export const Authentication: React.FC<View> = ({ labels, formAction, choices }) => {
   const [isFormValid, setFormValid] = useState(false)
   const [date, setDate] = useState<Date | null>(null)
-  const [selectedMethod, setSelectedMethod] = useState<string | null>(null)
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [wasValidated, setValidated] = useState(false)
 
+  const initialValues = useMemo(
+    () =>
+      choices.reduce((acc, choice) => {
+        return {
+          ...acc,
+          [choice.key]: '',
+        }
+      }, {}),
+    [choices],
+  )
   const { values, handleInputChange } = useForm<FormValues>(initialValues)
 
-  const verificationMethods: VerificationMethod[] = useMemo(() => {
-    return [
-      {
-        id: 'zip',
-        name: 'zipMethod',
-        label: labels.zip as string,
-        placeholder: labels.zipPlaceholder,
-        helpText: labels.zipHelpText,
-        expression: /^\d{5}$/,
-      },
-      {
-        id: 'customerNumber',
-        name: 'customerNumberMethod',
-        label: labels.customerNumber as string,
-        placeholder: labels.customerNumberPlaceholder,
-        helpText: labels.customerNumberHelpText,
-        expression: /^\d{10}$/,
-      },
-    ]
-  }, [labels])
-
-  // create refs for each method's input
-  const methodInputRefs: {
+  // create refs for each choice's input
+  const choiceInputRefs: {
     [key: string]: RefObject<HTMLInputElement>
-  } = verificationMethods.reduce((acc, method) => {
+  } = choices.reduce((acc, choice) => {
     return {
       ...acc,
-      [method.name]: createRef<HTMLInputElement>(),
+      [choice.key]: createRef<HTMLInputElement>(),
     }
   }, {})
 
-  const handleChangeMethod = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeChoice = useCallback((event: ChangeEvent<HTMLInputElement>) => {
     event.persist()
-    setSelectedMethod(event.target.id)
+    setSelectedChoice(event.target.value)
   }, [])
 
   const handleSubmit = useCallback(
@@ -94,7 +68,13 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
   /**
    * Validate field value by provided regular expression.
    */
-  const isFieldValid = useCallback((value: string, expression: RegExp): boolean => {
+  const isFieldValid = useCallback((value: string, expression: RegExp | string): boolean => {
+    // if expression is an empty string => do not validate
+    if (!expression) {
+      return true
+    }
+
+    console.log(expression)
     const re = new RegExp(expression)
     return re.test(value)
   }, [])
@@ -102,30 +82,30 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
   // 1. if verification method is changed, mark the form as invalid
   useEffect(() => {
     setFormValid(false)
-  }, [selectedMethod])
+  }, [selectedChoice])
 
-  // 2. when some method value is changed, check whether form can be marked as valid
+  // 2. when some choice value is changed, check whether form can be marked as valid
   useEffect(() => {
-    const method = verificationMethods.find(method => method.name === selectedMethod)
+    const choice = choices.find(choice => choice.key === selectedChoice)
 
-    if (!method) {
+    if (!choice) {
       return
     }
 
-    // value for the selected method
-    const value = values[method.id as keyof FormValues]
+    // value for the selected choice
+    const value = values[choice.key]
 
     // if
-    // 1. method value is valid
-    // 2. method is selected
+    // 1. choice value is valid
+    // 2. choice is selected
     // 3. date is filled
     // then form is good to go
-    if (isFieldValid(value, method.expression) && selectedMethod && date) {
+    if (isFieldValid(value, choice.regex ?? '') && selectedChoice && date) {
       setFormValid(true)
     } else {
       setFormValid(false)
     }
-  }, [values, date, selectedMethod])
+  }, [values, date, selectedChoice])
 
   return (
     <Form noValidate className="mt-4" action={formAction} method="post" onSubmit={handleSubmit}>
@@ -166,56 +146,62 @@ export const Authentication: React.FC<View> = ({ labels, formAction }) => {
         <div
           className={classNames({
             'like-label': true,
-            'text-danger': !selectedMethod && wasValidated,
+            'text-danger': !selectedChoice && wasValidated,
           })}
         >
           {labels.verificationMethod}
         </div>
-        {/* render verification methods */}
-        {verificationMethods.map(({ id, name, label, placeholder, helpText, expression }, idx) => {
+        {/* render choices */}
+        {choices.map(({ key, label, placeholder, helpText, regex }, idx) => {
           return (
-            <div className="d-md-flex align-items-md-center" key={`${id}-${idx}`}>
+            <div className="d-md-flex align-items-md-center" key={`${key}-${idx}`}>
               <Form.Check
                 type="radio"
                 label={label}
-                name="verificationMethod"
-                id={name}
-                onChange={handleChangeMethod}
-                value={id}
+                name="SelectedKey"
+                id={key}
+                onChange={handleChangeChoice}
+                value={key}
                 custom
               />
               <Media query={{ maxWidth: breakpoints.mdMax }}>
                 {matches => {
                   // use different type of component/animation on mobile and desktop
                   const ShowHideComponent = matches ? Collapse : Fade
-                  const isVisible = selectedMethod === name
+                  const isVisible = selectedChoice === key
 
                   return (
                     <ShowHideComponent
                       in={isVisible}
                       className="mb-2 mb-md-0"
-                      onEntered={() => methodInputRefs[name].current?.focus()}
+                      onEntered={() => choiceInputRefs[key].current?.focus()}
                     >
-                      <Form.Group controlId={id} className="mb-0 ml-4 ml-md-3">
+                      <Form.Group controlId={`Additional${idx}`} className="mb-0 ml-4 ml-md-3">
                         <FormControlTooltipWrapper>
                           <Form.Label srOnly>{label}</Form.Label>
                           <FormControl
                             inputMode="numeric"
                             pattern="[0-9]*"
-                            name={id}
+                            name="Additional"
                             {...(placeholder ? { placeholder } : {})}
-                            ref={methodInputRefs[name]}
-                            onChange={handleInputChange}
+                            ref={choiceInputRefs[key]}
+                            // use custom "id" instead of the one on input element
+                            onChange={event =>
+                              handleInputChange(
+                                event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+                                key,
+                              )
+                            }
                             className={classNames({
                               invalid:
                                 isVisible &&
-                                !isFieldValid(values[id as keyof FormValues], expression) &&
+                                !isFieldValid(values[key], regex ?? '') &&
                                 wasValidated,
                             })}
                             tabIndex={isVisible ? 0 : -1}
                           />
                           {helpText && (
-                            <Tooltip id={`${id}HelpText`} visible={isVisible}>
+                            <Tooltip id={`${key}HelpText`} visible={isVisible}>
                               {helpText}
                             </Tooltip>
                           )}

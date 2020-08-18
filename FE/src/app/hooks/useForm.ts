@@ -5,10 +5,10 @@ export const useForm = <T>(initialValues: T, onSubmitCallback?: (values: T) => v
   const [values, setValues] = useState<T>(initialValues)
 
   const handleInputChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, id?: string) => {
       setValues({
         ...values,
-        [event.target.id]: event.target.value,
+        [id ? id : event.target.id]: event.target.value,
       })
     },
     [values],
