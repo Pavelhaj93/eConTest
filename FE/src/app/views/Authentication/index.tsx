@@ -254,33 +254,35 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
           })
         ) : (
           // render single choice
-          <>
-            <Form.Label htmlFor={choices[0].key}>{choices[0].label}</Form.Label>
-            <FormControlTooltipWrapper>
-              <FormControl
-                inputMode="numeric"
-                pattern="[0-9]*"
-                id={choices[0].key}
-                name={choices[0].key}
-                {...(choices[0].placeholder ? { placeholder: choices[0].placeholder } : {})}
-                // use custom "id" instead of the one on input element
-                onChange={event =>
-                  handleInputChange(
-                    event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-                    choices[0].key,
-                  )
-                }
-                className={classNames({
-                  invalid:
-                    !isFieldValid(values[choices[0].key], choices[0].regex ?? '') && wasValidated,
-                })}
-              />
-              {choices[0].helpText && (
-                <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
-              )}
-            </FormControlTooltipWrapper>
-            <input value="NotAvailable" id="SelectedKey" name="SelectedKey" type="hidden" />
-          </>
+          <Row>
+            <Col xs={12} md={8} lg={6}>
+              <Form.Label htmlFor={choices[0].key}>{choices[0].label}</Form.Label>
+              <FormControlTooltipWrapper>
+                <FormControl
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  id={choices[0].key}
+                  name={choices[0].key}
+                  {...(choices[0].placeholder ? { placeholder: choices[0].placeholder } : {})}
+                  // use custom "id" instead of the one on input element
+                  onChange={event =>
+                    handleInputChange(
+                      event as ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+                      choices[0].key,
+                    )
+                  }
+                  className={classNames({
+                    invalid:
+                      !isFieldValid(values[choices[0].key], choices[0].regex ?? '') && wasValidated,
+                  })}
+                />
+                {choices[0].helpText && (
+                  <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
+                )}
+              </FormControlTooltipWrapper>
+              <input value="NotAvailable" id="SelectedKey" name="SelectedKey" type="hidden" />
+            </Col>
+          </Row>
         )}
       </Form.Group>
 
@@ -292,7 +294,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
         {labels.submitBtn}
       </Button>
 
-      {itemValue && <input value={itemValue} id="ItemValue" name="ItemValue" type="hidden" />}
+      <input value={itemValue ?? 'NotAvailable'} id="ItemValue" name="ItemValue" type="hidden" />
     </Form>
   )
 }
