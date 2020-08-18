@@ -405,7 +405,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             viewModel.Labels["ariaNextMonth"] = this.Context.CalendarNextMonth;
             viewModel.Labels["ariaPreviousMonth"] = this.Context.CalendarPreviousMonth;
             viewModel.Labels["ariaChooseDay"] = this.Context.CalendarSelectDay;
-            viewModel.Labels["validationError"] = !string.IsNullOrEmpty(validationMessage) ? validationMessage : this.Context.ValidationMessage;
+            viewModel.Labels["validationError"] = validationMessage;
 
             return viewModel;
         }
