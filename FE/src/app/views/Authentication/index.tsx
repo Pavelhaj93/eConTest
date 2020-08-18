@@ -7,6 +7,7 @@ import React, {
   FormEvent,
   useEffect,
   useMemo,
+  useRef,
 } from 'react'
 import { Row, Col, Form, Button, FormControl, Collapse, Fade, Alert } from 'react-bootstrap'
 import { subDays } from 'date-fns'
@@ -26,6 +27,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
   const [date, setDate] = useState<Date | null>(null)
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
   const [wasValidated, setValidated] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const initialValues = useMemo(
     () =>
@@ -78,10 +80,16 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
     return re.test(value)
   }, [])
 
-  // 1. if we have one choice only, set it as selected when mounted
+  // 0. if we have one choice only, set it as selected when mounted
+  // 1. append generated token into login form
   useEffect(() => {
     if (choices.length === 1) {
       setSelectedChoice(choices[0].key)
+    }
+
+    const tokenInput = document.querySelector('#token input')
+    if (tokenInput && formRef.current) {
+      formRef.current.appendChild(tokenInput)
     }
   }, [])
 
@@ -114,7 +122,14 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
   }, [values, date, selectedChoice])
 
   return (
-    <Form noValidate className="mt-4" action={formAction} method="post" onSubmit={handleSubmit}>
+    <Form
+      noValidate
+      className="mt-4"
+      action={formAction}
+      method="post"
+      onSubmit={handleSubmit}
+      ref={formRef}
+    >
       {(wasValidated || labels.validationError) && (
         <Alert variant="danger">
           <div
