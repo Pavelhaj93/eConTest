@@ -235,6 +235,8 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
                                   wasValidated,
                               })}
                               tabIndex={isVisible ? 0 : -1}
+                              // do not send multiple "Additional" fields
+                              disabled={key !== selectedChoice}
                             />
                             {helpText && (
                               <Tooltip id={`${key}HelpText`} visible={isVisible}>
