@@ -8,9 +8,9 @@ import path from 'path'
 
 const productionPolyfillsPath = '/Assets/eContracting/js/polyfills.js'
 
-// We need to modify path to polyfills in generated application bundle.
+// We need to modify path to polyfills and fonts in generated files.
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const replacePathToPollyfills = () => {
+const replaceProductionPaths = () => {
   return [0].map(() => {
     return new ReplaceInFilePlugin([
       {
@@ -20,6 +20,16 @@ const replacePathToPollyfills = () => {
           {
             search: /src="\/js\/polyfills\.js"/g,
             replace: `src="${productionPolyfillsPath}"`,
+          },
+        ],
+      },
+      {
+        dir: './build/css/',
+        test: /\.css$/,
+        rules: [
+          {
+            search: /url\(\/fonts\//g,
+            replace: 'url(../fonts/',
           },
         ],
       },
@@ -83,5 +93,5 @@ export default merge(baseConfig, {
     new WebpackShellPlugin({
       onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
     }),
-  ].concat(replacePathToPollyfills()),
+  ].concat(replaceProductionPaths()),
 })
