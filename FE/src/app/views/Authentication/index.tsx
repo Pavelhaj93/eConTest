@@ -22,7 +22,7 @@ type FormValues = {
   [key: string]: string
 }
 
-export const Authentication: React.FC<View> = ({ labels, formAction, choices }) => {
+export const Authentication: React.FC<View> = ({ labels, formAction, choices, itemValue }) => {
   const [isFormValid, setFormValid] = useState(false)
   const [date, setDate] = useState<Date | null>(null)
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
@@ -88,9 +88,17 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
     }
 
     const tokenInput = document.querySelector('#token input')
-    if (tokenInput && formRef.current) {
-      formRef.current.appendChild(tokenInput)
+    if (tokenInput) {
+      formRef.current?.appendChild(tokenInput)
     }
+
+    // not a nice hack to unselected checked radio when using browser back button
+    setTimeout(() => {
+      const checkedRadio = formRef.current?.querySelector('input:checked') as HTMLInputElement
+      if (checkedRadio) {
+        checkedRadio.checked = false
+      }
+    }, 1)
   }, [])
 
   // 2. if choice is changed, mark the form as invalid
@@ -269,6 +277,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                 <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
               )}
             </FormControlTooltipWrapper>
+            <input value="NotAvailable" id="SelectedKey" name="SelectedKey" type="hidden" />
           </>
         )}
       </Form.Group>
@@ -280,6 +289,8 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
       >
         {labels.submitBtn}
       </Button>
+
+      {itemValue && <input value={itemValue} id="ItemValue" name="ItemValue" type="hidden" />}
     </Form>
   )
 }
