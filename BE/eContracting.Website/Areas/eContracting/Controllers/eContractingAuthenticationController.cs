@@ -136,6 +136,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var choices = new List<LoginChoiceViewModel>();
+                string hiddenValue = null;
 
                 if (authHelper.IsUserChoice)
                 {
@@ -160,6 +161,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     choice.Placeholder = this.TryToGetPlaceholder(authSettings, userData.ItemFriendlyName);
                     choice.ValidationRegex = "^.{1,}$"; // any non empty value
                     choices.Add(choice);
+
+                    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                    hiddenValue = string.Format("{0}{1}", value, salt);     ////hash + salt
                 }
 
                 var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
@@ -172,6 +176,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 }
 
                 var viewModel = GetViewModel(userData, errorString);
+                viewModel.HiddenValue = hiddenValue;
                 viewModel.Choices = choices;
 
                 ViewData["MainText"] = maintext;
@@ -308,8 +313,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
                     this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
-                    var viewModel = GetViewModel(userData);
-                    return View("/Areas/eContracting/Views/Authentication.cshtml", viewModel);
+                    var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
+                    return Redirect(url);
                 }
 
                 this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);

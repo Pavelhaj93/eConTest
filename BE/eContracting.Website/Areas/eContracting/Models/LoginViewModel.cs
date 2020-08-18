@@ -24,6 +24,9 @@ namespace eContracting.Website.Areas.eContracting.Models
         [JsonProperty("formAction")]
         public string FormAction { get; set; }
 
+        [JsonProperty("itemValue")]
+        public string HiddenValue { get; set; }
+
         [JsonProperty("choices")]
         public List<LoginChoiceViewModel> Choices { get; set; }
 
