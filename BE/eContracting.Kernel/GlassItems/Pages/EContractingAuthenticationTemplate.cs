@@ -13,10 +13,43 @@ namespace eContracting.Kernel.GlassItems.Pages
     public class EContractingAuthenticationTemplate : EContractingTemplate
     {
         [SitecoreField]
-        public virtual string DateOfBirth { get; set; }
+        public virtual string BirthDateLabel { get; set; }
 
         [SitecoreField]
-        public virtual string ContractData { get; set; }
+        public virtual string BirthDatePlaceholder { get; set; }
+
+        [SitecoreField]
+        public virtual string VerificationMethodLabel { get; set; }
+
+        [SitecoreField]
+        public virtual string ZipCodeLabel { get; set; }
+        
+        [SitecoreField]
+        public virtual string ZipCodePlaceholder { get; set; }
+
+        [SitecoreField]
+        public virtual string ZipCodeHelpText { get; set; }
+
+        [SitecoreField]
+        public virtual string CustomerNumberLabel { get; set; }
+
+        [SitecoreField]
+        public virtual string CustomerNumberPlaceholder { get; set; }
+
+        [SitecoreField]
+        public virtual string CustomerNumberHelpText { get; set; }
+
+        [SitecoreField]
+        public virtual string CalendarOpen { get; set; }
+
+        [SitecoreField]
+        public virtual string CalendarNextMonth { get; set; }
+
+        [SitecoreField]
+        public virtual string CalendarPreviousMonth { get; set; }
+
+        [SitecoreField]
+        public virtual string CalendarSelectDay { get; set; }
 
         [SitecoreField]
         public virtual string ButtonText { get; set; }
@@ -38,9 +71,6 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField]
         public virtual bool WelcomePageEnabledAcquisition { get; set; }
-
-        [SitecoreField]
-        public virtual string DateOfBirthPlaceholder { get; set; }
 
         [SitecoreField]
         public virtual string ContractDataPlaceholder { get; set; }

@@ -2,7 +2,7 @@
 ID: "e9e22f83-e5b0-4fa1-a1bb-b4ef9eaae071"
 Parent: "0eeae94d-0018-40c8-a537-5b67349985cd"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/Text box section
+Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/Form
 DB: master
 Languages:
 - Language: cs

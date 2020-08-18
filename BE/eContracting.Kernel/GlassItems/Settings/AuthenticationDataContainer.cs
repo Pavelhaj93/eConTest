@@ -18,13 +18,16 @@ namespace eContracting.Kernel.GlassItems.Settings
     public class AuthenticationSettingItem
     {
         [SitecoreField]
-        public virtual string UserFriendlyFieldName { get; set; }
+        public virtual string Label { get; set; }
 
         [SitecoreField]
-        public virtual string AuthenticationFieldName { get; set; }
+        public virtual string Key { get; set; }
 
         [SitecoreField]
-        public virtual string Hint { get; set; }
+        public virtual string HelpText { get; set; }
+
+        [SitecoreField]
+        public virtual string Placeholder { get; set; }
 
         [SitecoreField]
         public virtual bool EnableForDefault { get; set; }
@@ -34,6 +37,9 @@ namespace eContracting.Kernel.GlassItems.Settings
 
         [SitecoreField]
         public virtual bool EnableForAcquisition { get; set; }
+
+        [SitecoreField]
+        public virtual string ValidationRegex { get; set; }
 
         [SitecoreField]
         public virtual string ValidationMessage { get; set; }

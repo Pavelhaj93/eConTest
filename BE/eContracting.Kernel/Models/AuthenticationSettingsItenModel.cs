@@ -8,12 +8,14 @@ namespace eContracting.Kernel.Models
 {
     public class AuthenticationSettingsItemModel
     {
-        public string UserFriendlyName { get; set; }
-        public string AuthenticationDFieldName { get; set; }
-        public string Hint { get; set; }
+        public string Label { get; set; }
+        public string Key { get; set; }
+        public string HelpText { get; set; }
+        public string Placeholder { get; set; }
         public bool EnableForDefault { get; set; }
         public bool EnableForRetention { get; set; }
         public bool EnableForAcquisition { get; set; }
+        public string ValidationRegex { get; set; }
         public string ValidationMessage { get; set; }
     }
 }

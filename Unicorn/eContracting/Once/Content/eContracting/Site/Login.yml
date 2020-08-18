@@ -24,7 +24,7 @@ SharedFields:
 - ID: "2e43eefd-f930-4d03-af50-9c45aec427b4"
   Hint: UserChoiceAuthenticationEnabledRetention
   Type: Checkbox
-  Value: 1
+  Value: 0
 Languages:
 - Language: cs
   Versions:

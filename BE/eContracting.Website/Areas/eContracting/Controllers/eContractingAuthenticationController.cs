@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,6 +12,7 @@ using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
+using eContracting.Website.Areas.eContracting.Models;
 using Sitecore.Collections;
 using Sitecore.Diagnostics;
 using Sitecore.Web;
@@ -134,31 +135,31 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     }
                 }
 
-                var dataModel = new AuthenticationModel();
+                var choices = new List<LoginChoiceViewModel>();
 
                 if (authHelper.IsUserChoice)
                 {
-                    dataModel.IsUserChoice = true;
-                    var items = new List<AuthenticationSelectListItem>();
                     var available = authHelper.GetAvailableAuthenticationFields();
 
                     foreach (AuthenticationSettingsItemModel item in available)
                     {
-                        var authOptionModel = new AuthenticationSelectListItem();
-                        authOptionModel.DataHelpValue = item.Hint;
-                        authOptionModel.Value = item.AuthenticationDFieldName;
-                        authOptionModel.Text = item.UserFriendlyName;
-
-                        items.Add(authOptionModel);
+                        var choice = new LoginChoiceViewModel();
+                        choice.HelpText = item.HelpText;
+                        choice.Key = item.Key;
+                        choice.Label = item.Label;
+                        choice.Placeholder = item.Placeholder;
+                        choice.ValidationRegex = item.ValidationRegex;
+                        choices.Add(choice);
                     }
-
-                    dataModel.AvailableFields = items;
                 }
                 else
                 {
-                    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
-                    dataModel.ItemValue = string.Format("{0}{1}", value, salt);     ////hash + salt
-                    dataModel.IsUserChoice = false;
+                    var choice = new LoginChoiceViewModel();
+                    choice.Key = "additional";
+                    choice.Label = userData.ItemFriendlyName;
+                    choice.Placeholder = this.TryToGetPlaceholder(authSettings, userData.ItemFriendlyName);
+                    choice.ValidationRegex = "^.{1,}$"; // any non empty value
+                    choices.Add(choice);
                 }
 
                 var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
@@ -170,9 +171,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                FillViewData(maintext, string.Format(this.Context.ContractDataPlaceholder, userData.ItemFriendlyName), errorString);
+                var viewModel = GetViewModel(userData, errorString);
+                viewModel.Choices = choices;
 
-                return View("/Areas/eContracting/Views/Authentication.cshtml", dataModel);
+                ViewData["MainText"] = maintext;
+
+                return View("/Areas/eContracting/Views/Authentication.cshtml", viewModel);
             }
             catch (Exception ex)
             {
@@ -202,7 +206,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-                FillViewData();
 
                 var client = new RweClient();
                 var offer = client.GenerateXml(Request.QueryString["guid"]);
@@ -305,7 +308,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
                     this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
-                    return View("/Areas/eContracting/Views/Authentication.cshtml", authenticationModel);
+                    var viewModel = GetViewModel(userData);
+                    return View("/Areas/eContracting/Views/Authentication.cshtml", viewModel);
                 }
 
                 this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
@@ -374,7 +378,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
         private string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key)
         {
-            var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.AuthenticationDFieldName == key);
+            var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.Key == key);
 
             if (settingsItem != null)
             {
@@ -384,51 +388,54 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return null;
         }
 
-        private void FillViewData(string mainText = null, string additionalPlaceholder = null, string validationMessage = null)
+        private LoginViewModel GetViewModel(AuthenticationDataItem userData, string validationMessage = null)
         {
-            ViewData["FirstText"] = this.Context.DateOfBirth;
-            ViewData["SecondText"] = this.Context.ContractData;
-            ViewData["ButtonText"] = this.Context.ButtonText;
-            ViewData["BirthDatePlaceholder"] = this.Context.DateOfBirthPlaceholder;
-            ViewData["RequiredFields"] = this.Context.RequiredFields;
-            ViewData["ValidationMessage"] = !string.IsNullOrEmpty(validationMessage) ? validationMessage : this.Context.ValidationMessage;
-            ViewData["SecondContractPropertyLabel"] = this.Context.ContractSecondPropertyLabel;
+            var viewModel = new LoginViewModel();
+            viewModel.IsRetention = userData.OfferType == OfferTypes.Retention;
+            viewModel.IsAcquisition = userData.OfferType == OfferTypes.Acquisition;
+            viewModel.FormAction = this.Request.RawUrl;
 
-            if (!string.IsNullOrEmpty(mainText))
-            {
-                ViewData["MainText"] = mainText;
-            }
+            viewModel.Labels = new Dictionary<string, string>();
+            viewModel.Labels["requiredFields"] = this.Context.RequiredFields;
+            viewModel.Labels["birthDate"] = this.Context.BirthDateLabel;
+            viewModel.Labels["birthDatePlaceholder"] = this.Context.BirthDatePlaceholder;
+            viewModel.Labels["verificationMethod"] = this.Context.VerificationMethodLabel;
+            viewModel.Labels["submitBtn"] = this.Context.ButtonText;
+            viewModel.Labels["ariaOpenCalendar"] = this.Context.CalendarOpen;
+            viewModel.Labels["ariaNextMonth"] = this.Context.CalendarNextMonth;
+            viewModel.Labels["ariaPreviousMonth"] = this.Context.CalendarPreviousMonth;
+            viewModel.Labels["ariaChooseDay"] = this.Context.CalendarSelectDay;
+            viewModel.Labels["validationError"] = !string.IsNullOrEmpty(validationMessage) ? validationMessage : this.Context.ValidationMessage;
 
-            if (!string.IsNullOrEmpty(additionalPlaceholder))
-            {
-                ViewData["AdditionalPlaceholder"] = additionalPlaceholder;
-            }
+            return viewModel;
         }
 
-        public static string AesEncrypt(string input, string key, string vector)
+        private string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
         {
-            byte[] encrypted;
-            using (var rijAlg = new RijndaelManaged())
+            try
             {
-                rijAlg.Key = Encoding.UTF8.GetBytes(key);
-                rijAlg.IV = Encoding.UTF8.GetBytes(vector);
-
-                var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
-
-                using (var msEncrypt = new MemoryStream())
+                if (displayName.ToLowerInvariant().Contains("psč"))
                 {
-                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    var match = settings.AuthFields.FirstOrDefault(x => x.Label.ToLowerInvariant().Contains("psč"));
+
+                    if (match != null)
                     {
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(input);
-                        }
-                        encrypted = msEncrypt.ToArray();
+                        return match.Placeholder;
+                    }
+                }
+                else if (displayName.ToLowerInvariant().Contains("číslo"))
+                {
+                    var match = settings.AuthFields.FirstOrDefault(x => x.Label.ToLowerInvariant().Contains("číslo"));
+
+                    if (match != null)
+                    {
+                        return match.Placeholder;
                     }
                 }
             }
+            catch { }
 
-            return Convert.ToBase64String(encrypted);
+            return displayName;
         }
     }
 }

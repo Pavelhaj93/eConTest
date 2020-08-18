@@ -1,8 +1,8 @@
 ﻿---
-ID: "b1e763a4-91ef-400b-bc18-40bca5deccb8"
-Parent: "29a54824-cb8d-4354-964e-335885cba42a"
+ID: "c5bc29d2-43b0-41f0-a2f5-0116d87af26a"
+Parent: "e9e22f83-e5b0-4fa1-a1bb-b4ef9eaae071"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Resources/AuthenticationSettingItem/Data/UserFriendlyFieldName
+Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/Form/BirthDateLabel
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,7 @@ SharedFields:
   Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 200
+  Value: 100
 Languages:
 - Language: cs
   Versions:
@@ -18,7 +18,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191021T103324Z
+      Value: 20191218T121802Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -29,8 +29,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191023T124632Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
+      Value: 20160909T112032Z

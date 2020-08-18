@@ -1,0 +1,41 @@
+﻿@using eContracting.Kernel.Models
+@model LayoutModel
+<div class="pre-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <p>
+                    @Model.CopyrightText
+                </p>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div class="contact-info">
+                    @if (!string.IsNullOrEmpty(Model.EmailLink))
+                    {
+                        <a class="email" href="mailto:@Model.EmailLink" id="emailLink">
+                            @Model.EmailText
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
+                    {
+                        <a class="phone" href="tel:@Model.PhoneLinkLowerUrl" id="phoneLinkLower">
+                            @Model.PhoneLinkLowerUrlText
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p>
+            @if (!string.IsNullOrEmpty(Model.DisclaimerLink))
+            {
+                <a href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">
+                    @Model.DisclaimerText
+                </a>
+            }
+        </p>
+    </div>
+</footer>

@@ -1,40 +1,68 @@
-﻿<!DOCTYPE html>
-<html>
+﻿@using Sitecore.Mvc.Analytics.Extensions
+@using eContracting.Kernel.Models
+@model LayoutModel
+<!DOCTYPE html>
+
+<html lang="cs">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <title>@Sitecore.Context.Item["PageTitle"]</title>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KTXKW8');
+    </script>
+
+    <link type="image/x-icon" rel="shortcut icon" href="~/Assets/eContracting/gfx/favicon/blob.png" />
+    <link href="~/Assets/eContracting/gfx/favicon/57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/72x72.png" sizes="72x72" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/144x144.png" sizes="144x144" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/60x60.png" sizes="60x60" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/120x120.png" sizes="120x120" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/76x76.png" sizes="76x76" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/152x152.png" sizes="152x152" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/196x196.png" sizes="196x196" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/96x96.png" sizes="96x96" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/32x32.png" sizes="32x32" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/16x16.png" sizes="16x16" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/128x128.png" sizes="128x128" type="image/png" rel="icon" />
+    <meta content="Innogy" name="application-name" />
+    <meta content="#FFFFFF" name="msapplication-TileColor" />
+    <meta content="~/Assets/eContracting/gfx/favicon/144x144.png" name="msapplication-TileImage" />
+    <meta content="~/Assets/eContracting/gfx/favicon/70x70.png" name="msapplication-square70x70logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/150x150.png" name="msapplication-square150x150logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/310x150.png" name="msapplication-wide310x150logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/310x310.png" name="msapplication-square310x310logo" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/assets/eContracting/css/econtracting.min.css" />
+    @Html.Sitecore().VisitorIdentification()
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body data-sprite="~/Assets/eContracting/gfx/icon/sprite.svg">
+    @Html.Action("CookieLaw", "eContracting")
+    @Html.Partial("/Areas/eContracting/Views/Shared/Header.cshtml", Model)
+    <div class="main">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
-            </div>
+            @Html.Sitecore().Placeholder("eContracting")
         </div>
     </div>
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    @Html.Partial("/Areas/eContracting/Views/Shared/Footer.cshtml", Model)
+    <script src="~/Assets/eContracting/js/econtracting.bundle.js"></script>
+    <script>
+        var config = {
+            offerPage: typeof offerPageOptions != "undefined" ? offerPageOptions : null
+        };
+        app.start(config);
+    </script>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
 </body>
 </html>

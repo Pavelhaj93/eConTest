@@ -1,8 +1,8 @@
 ﻿---
-ID: "59526334-4282-4231-b7ef-11c42f3998e9"
-Parent: "e9e22f83-e5b0-4fa1-a1bb-b4ef9eaae071"
+ID: "8b50515d-88e2-4ded-850b-abbc58be30e9"
+Parent: "29a54824-cb8d-4354-964e-335885cba42a"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting/Pages/eContractingAuthenticationTemplate/Text box section/ContractDataPlaceholder
+Path: /sitecore/templates/eContracting/Resources/AuthenticationSettingItem/Data/Key
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,11 @@ SharedFields:
   Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 600
+  Value: 300
+- ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
+  Hint: Shared
+  Type: Checkbox
+  Value: 1
 Languages:
 - Language: cs
   Versions:
@@ -18,7 +22,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191218T121802Z
+      Value: 20191021T121726Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -29,4 +33,8 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20161018T132808Z
+      Value: 20191023T124632Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

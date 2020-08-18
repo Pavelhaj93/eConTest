@@ -44,13 +44,15 @@ namespace eContracting.Kernel.Helpers
                 {
                     AuthFields = authSetttings.AuthenticationSettingItems.Select(a => new AuthenticationSettingsItemModel
                     {
-                        UserFriendlyName = a.UserFriendlyFieldName,
-                        AuthenticationDFieldName = a.AuthenticationFieldName,
-                        Hint = a.Hint,
+                        Label = a.Label,
+                        Key = a.Key,
+                        HelpText = a.HelpText,
+                        Placeholder = a.Placeholder,
                         EnableForDefault = a.EnableForDefault,
                         EnableForRetention = a.EnableForRetention,
                         EnableForAcquisition = a.EnableForAcquisition,
-                        ValidationMessage = a.ValidationMessage
+                        ValidationMessage = a.ValidationMessage,
+                        ValidationRegex = a.ValidationRegex
                     }).ToList()
                 };
 

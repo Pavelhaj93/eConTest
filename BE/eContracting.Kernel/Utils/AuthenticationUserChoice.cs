@@ -39,7 +39,7 @@ namespace eContracting.Kernel.Utils
                     || offerType == OfferTypes.Retention && item.EnableForRetention
                     || offerType == OfferTypes.Acquisition && item.EnableForAcquisition)
                 {
-                    var tmp = this.GetRealAdditionalValue(item.AuthenticationDFieldName);
+                    var tmp = this.GetRealAdditionalValue(item.Key);
                     if (tmp == null) continue;
                     validItems.Add(item);
                 }
