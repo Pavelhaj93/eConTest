@@ -9,7 +9,7 @@ const JS_SRC_DIR = `${BUILD_SRC_DIR}/js`
 const FONTS_SRC_DIR = `${BUILD_SRC_DIR}/fonts`
 const GFX_SRC_DIR = `${BUILD_SRC_DIR}/gfx`
 
-const DEST_DIR = '../eContracting.Website/Assets/eContracting'
+const DEST_DIR = '../BE/eContracting.Website/Assets/eContracting'
 const STYLES_DEST_DIR = `${DEST_DIR}/css`
 const JS_DEST_DIR = `${DEST_DIR}/js`
 const FONTS_DEST_DIR = `${DEST_DIR}/fonts`
