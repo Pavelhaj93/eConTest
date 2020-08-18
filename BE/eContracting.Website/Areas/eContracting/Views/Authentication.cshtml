@@ -3,7 +3,7 @@
 @using eContracting.Website.Areas.eContracting.Models
 @model LoginViewModel
 <div class="row">
-    @Html.AntiForgeryToken()
+    <div id="token">@Html.AntiForgeryToken()</div>
     <div class="col-md-8 col-md-offset-2">
         <div class="info">
             @Html.Raw(ViewData["MainText"])
