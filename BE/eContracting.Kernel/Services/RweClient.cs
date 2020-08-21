@@ -27,7 +27,7 @@ namespace eContracting.Kernel.Services
     /// <summary>
     /// Implementation of SAP client.
     /// </summary>
-    public class RweClient
+    public class RweClient : IRweClient
     {
         #region Public methods
         /// <summary>
@@ -176,7 +176,7 @@ namespace eContracting.Kernel.Services
             var template = "[{0}] Offer:[{1}] Response Type:[{2}]{3} Received files:{4}{5}";
             var accept = IsAccepted ? "Accepted" : "Not Accepted";
 
-            if (files == null || !files.Any()) 
+            if (files == null || !files.Any())
             {
                 var noFiles = string.Format(template, guid, accept, responseType, Environment.NewLine, "No files received", Environment.NewLine);
                 Log.Debug(noFiles, this);
@@ -221,10 +221,10 @@ namespace eContracting.Kernel.Services
 
                 this.LogFiles(files, guid, IsAccepted, "NABIDKA_PDF");
             }
-            
+
             return files.ToArray();
         }
-        
+
         /// <summary>
         /// Generates xml for offer.
         /// </summary>
@@ -346,7 +346,7 @@ namespace eContracting.Kernel.Services
 
                 try
                 {
-                    
+
                     response = this.CallService(status, del);
                 }
                 catch (Exception ex)
@@ -431,7 +431,7 @@ namespace eContracting.Kernel.Services
                     var signedNamesLogEntry = string.Format("[{0}][LogAcceptance] Signed files:{1}{2}", guid, Environment.NewLine, string.Join(Environment.NewLine, signedNames));
                     Log.Debug(signedNamesLogEntry, this);
                 }
-                
+
                 var signedFilesChecked = 0;
 
                 foreach (var responseFile in responsePdfFiles)
@@ -468,7 +468,7 @@ namespace eContracting.Kernel.Services
 
                 if (signedFilesCount != signedFilesChecked)
                 {
-                    throw new ApplicationException("Number of loaded signed files ("+ signedFilesCount + ") and number of processed signed files ("+ signedFilesChecked + ") is not the same!");
+                    throw new ApplicationException("Number of loaded signed files (" + signedFilesCount + ") and number of processed signed files (" + signedFilesChecked + ") is not the same!");
                 }
             }
             else
@@ -541,7 +541,7 @@ namespace eContracting.Kernel.Services
                 {
                     return false;
                 }
-                
+
             }
             else
             {
@@ -876,6 +876,7 @@ namespace eContracting.Kernel.Services
                 return result;
             }
         }
+
         private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
         {
             ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();

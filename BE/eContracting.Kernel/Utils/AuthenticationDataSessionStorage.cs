@@ -9,7 +9,7 @@
     /// <summary>
     /// Implementaiton of storage for authentication session data.
     /// </summary>
-    public class AuthenticationDataSessionStorage
+    public class AuthenticationDataSessionStorage : IAuthenticationDataSessionStorage
     {
         /// <summary>
         /// Gets session key.

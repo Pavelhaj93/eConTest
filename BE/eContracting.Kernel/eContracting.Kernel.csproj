@@ -85,6 +85,7 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="CommodityTypes.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="GlassItems\Content\Modal_window\MW01DataSource.cs" />
     <Compile Include="GlassItems\Content\EContractingWelcomeRichTextDatasource.cs" />
     <Compile Include="GlassItems\Pages\EContractingWelcomeTemplate.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Services\CRM_SIGN_STAMP_MERGE.cs" />
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
+    <Compile Include="Services\IRweClient.cs" />
     <Compile Include="Services\LoginsCheckerClient.cs" />
     <Compile Include="Services\MongoOfferLoginReportService.cs" />
     <Compile Include="Services\Offer.cs" />
@@ -145,11 +147,13 @@
     <Compile Include="Services\SigningClient.cs" />
     <Compile Include="Services\XmlText.cs" />
     <Compile Include="Services\ZCCH_CACHE_API.cs" />
+    <Compile Include="StringUtils.cs" />
     <Compile Include="Utils\AuthenticationDataItem.cs" />
     <Compile Include="Utils\AuthenticationDataSessionStorage.cs" />
     <Compile Include="Utils\AuthenticationRandomChoice.cs" />
     <Compile Include="Utils\AuthenticationUserChoice.cs" />
     <Compile Include="Utils\AuthenticationMethod.cs" />
+    <Compile Include="Utils\IAuthenticationDataSessionStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
