@@ -83,7 +83,37 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         // ExpirationController
         public ActionResult Expiration()
         {
-            return new EmptyResult();
+            string guid = string.Empty;
+
+            try
+            {
+                var datasource = this.GetDataSourceItem<EContractingExpirationTemplate>();
+
+                if (!this.DataSessionStorage.IsDataActive)
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                }
+
+                var data = this.DataSessionStorage.GetUserData();
+                guid = data.Identifier;
+                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
+                var mainText = textHelper.GetMainText(datasource, data);
+
+                if (mainText == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
+
+                ViewData["MainText"] = mainText;
+
+                return View("/Areas/eContracting/Views/Expiration.cshtml", datasource);
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[{guid}] Error when displaying expiration page", ex, this);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+            }
         }
 
         // OfferController

@@ -41,6 +41,11 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200818T094403Z
+    - ID: "39814255-c542-4020-b236-0b79393a6565"
+      Hint: AcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme V&aacute;m za akceptaci dokumentů. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a zobrazen&iacute; smluvn&iacute;ch dokumentů, kter&eacute; byly elektronicky akceptov&aacute;ny, pros&iacute;m, zadejte n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
     - ID: "4cf2ae09-7e92-441e-9f6b-d448b83cf1b7"
       Hint: VerificationMethod
       Value: Vyberte způsob ověření
@@ -63,12 +68,26 @@ Languages:
     - ID: "a3b73ecd-34cc-47eb-8a77-7e5173e7e1f0"
       Hint: CustomerNumberHelpText
       Value: Jedná se o číslo uvedené na Vaší smlouvě
+    - ID: "b8c24948-65d3-40ee-9d5a-110415f5c426"
+      Hint: RequiredFields
+      Value: Vyplňte pros&iacute;m v&scaron;echna požadovan&aacute; pole.
     - ID: "c5bc29d2-43b0-41f0-a2f5-0116d87af26a"
       Hint: BirthDateLabel
       Value: Datum narození
+    - ID: "d606c428-7f5b-492c-85da-78c09cfd7eff"
+      Hint: ValidationMessage
+      Value: Ověřen&iacute; Va&scaron;ich &uacute;dajů se nezdařilo. Zadejte, pros&iacute;m, spr&aacute;vn&eacute; &uacute;daje. V př&iacute;padě pot&iacute;ž&iacute; se, pros&iacute;m, obraťte na na&scaron;i z&aacute;kaznickou linku 800 11 33 55.
+    - ID: "dab3f80f-6997-4e10-8e1a-aba389995045"
+      Hint: NotAcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
     - ID: "dbeadb02-72dc-4cea-b973-957d422a0a29"
       Hint: ZipCodeHelpText
       Value: Vyplňte pouze čísla
+    - ID: "dddd7cb7-0807-4492-b416-6cd27a2023e3"
+      Hint: BirthDateValidationMessage
+      Value: Zadáno chybné datum narození.
     - ID: "e101cb3d-80e5-48fc-bad3-9863506454e6"
       Hint: ZipCodePlaceholder
       Value: 15500
