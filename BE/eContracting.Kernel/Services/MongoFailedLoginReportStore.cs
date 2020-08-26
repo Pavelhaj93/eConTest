@@ -13,18 +13,8 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Kernel.Services
 {
-    public class LoginsCheckerClient
+    public class MongoFailedLoginReportStore : IFailedLoginReportStore
     {
-        /// <summary>
-        /// The maximum failed attemps
-        /// </summary>
-        protected readonly int MaxFailedAttemps;
-
-        /// <summary>
-        /// The delay after failed attemps
-        /// </summary>
-        protected readonly TimeSpan DelayAfterFailedAttemps;
-
         /// <summary>
         /// The collection
         /// </summary>
@@ -36,25 +26,21 @@ namespace eContracting.Kernel.Services
         protected readonly IMongoCollection<OfferLoginReportModel> OfferLoginCollection;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
+        /// Initializes a new instance of the <see cref="MongoFailedLoginReportStore"/> class.
         /// </summary>
-        /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
-        /// <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
-        public LoginsCheckerClient(int maxFailedAttempts, TimeSpan delayAfterFailedAttempts) : this(maxFailedAttempts, delayAfterFailedAttempts, GetLoginsCollection())
+        public MongoFailedLoginReportStore() : this(GetLoginsCollection())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LoginsCheckerClient"/> class.
+        /// Initializes a new instance of the <see cref="MongoFailedLoginReportStore"/> class.
         /// </summary>
         /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
         /// <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
         /// <param name="collection">The collection.</param>
         /// <exception cref="ArgumentNullException">collection</exception>
-        public LoginsCheckerClient(int maxFailedAttempts, TimeSpan delayAfterFailedAttempts, IMongoCollection<FailedLoginInfoModel> collection)
+        public MongoFailedLoginReportStore(IMongoCollection<FailedLoginInfoModel> collection)
         {
-            this.MaxFailedAttemps = maxFailedAttempts;
-            this.DelayAfterFailedAttemps = delayAfterFailedAttempts;
             this.Collection = collection ?? throw new ArgumentNullException(nameof(collection));
         }
 
@@ -65,7 +51,7 @@ namespace eContracting.Kernel.Services
         /// <returns>
         ///   <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
         /// </returns>
-        public bool CanLogin(string guid)
+        public bool CanLogin(string guid, int maxFailedAttempts, TimeSpan delayAfterFailedAttempts)
         {
             try
             {
@@ -84,7 +70,7 @@ namespace eContracting.Kernel.Services
                 }
 
                 // If number of failed logins if less then 'MaxFailedAttemps', user still can try to log-in
-                if (result.FailedAttempts < this.MaxFailedAttemps)
+                if (result.FailedAttempts < maxFailedAttempts)
                 {
                     Log.Info($"[{guid}] Can log-in (number of failed attempts: {result.FailedAttempts})", this);
                     return true;
@@ -92,7 +78,7 @@ namespace eContracting.Kernel.Services
 
                 // if logins for 'guid' exceeded number of failed attempts and last time was before 'DelayAfterFailedAttemps',
                 // use can login and his data must be updated (reset values)
-                if (result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) < DateTime.UtcNow)
+                if (result.LastFailedAttemptTimestamp.Add(delayAfterFailedAttempts) < DateTime.UtcNow)
                 {
                     try
                     {
@@ -121,9 +107,9 @@ namespace eContracting.Kernel.Services
                 }
                 else
                 {
-                    TimeSpan difference = result.LastFailedAttemptTimestamp.Add(this.DelayAfterFailedAttemps) - DateTime.UtcNow;
+                    TimeSpan difference = result.LastFailedAttemptTimestamp.Add(delayAfterFailedAttempts) - DateTime.UtcNow;
 
-                    Log.Info($"[{guid}] Cannot log-in (max failed log-in attempts ({this.MaxFailedAttemps}) reached and waiting time not expired yet - {difference.ToString("c")})", this);
+                    Log.Info($"[{guid}] Cannot log-in (max failed log-in attempts ({maxFailedAttempts}) reached and waiting time not expired yet - {difference.ToString("c")})", this);
                     return false;
                 }
             }

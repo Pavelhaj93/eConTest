@@ -8,7 +8,7 @@ using Sitecore.Diagnostics;
 
 namespace eContracting.Kernel.Services
 {
-    public class MongoOfferLoginReportService
+    public class MongoLoginReportStore : ILoginReportStore
     {
         private const string OfferLoginCollectionName = "OfferLoginReport";
         private const string ConnectionStringItem = "OfferDB";
@@ -17,7 +17,7 @@ namespace eContracting.Kernel.Services
         private IMongoDatabase MongoDatabase { get; set; }
         private IMongoCollection<OfferLoginReportModel> OfferLoginReportCollection { get; set; }
 
-        public MongoOfferLoginReportService()
+        public MongoLoginReportStore()
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[ConnectionStringItem];
             var connectionStringValue = connectionStringSettings.ConnectionString;
@@ -28,7 +28,7 @@ namespace eContracting.Kernel.Services
             this.OfferLoginReportCollection = this.MongoDatabase.GetCollection<OfferLoginReportModel>(OfferLoginCollectionName);
         }
 
-        public void AddOfferLoginAttempt(string sessionId, string timestamp, string guid, string type, bool birthdayDate = false, bool wrongPostalCode = false , bool WrongResidencePostalCode = false, bool WrongIdentityCardNumber = false, bool generalError = false)
+        public void AddOfferLoginAttempt(string sessionId, string timestamp, string guid, string type, bool birthdayDate = false, bool wrongPostalCode = false, bool WrongResidencePostalCode = false, bool WrongIdentityCardNumber = false, bool generalError = false)
         {
             try
             {

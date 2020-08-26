@@ -15,6 +15,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// User blocked page.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [Obsolete("Use 'eContracting2Controller.UserBlocked' instead")]
         public ActionResult UserBlocked()
         {
             try

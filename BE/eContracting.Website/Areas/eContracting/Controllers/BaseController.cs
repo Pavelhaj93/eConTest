@@ -18,9 +18,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         protected bool CheckWhetherUserIsBlocked(string guid)
         {
             var siteSettings = ConfigHelpers.GetSiteSettings();
-            var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
+            var loginsCheckerClient = new MongoFailedLoginReportStore();
 
-            return !loginsCheckerClient.CanLogin(guid);
+            return !loginsCheckerClient.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
         }
     }
 }

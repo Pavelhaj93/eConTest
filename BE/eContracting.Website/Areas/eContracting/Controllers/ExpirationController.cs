@@ -17,6 +17,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Expiration page.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [Obsolete("Use 'eContracting2Controller.Expiration' instead")]
         public ActionResult Expiration()
         {
             string guid = string.Empty;

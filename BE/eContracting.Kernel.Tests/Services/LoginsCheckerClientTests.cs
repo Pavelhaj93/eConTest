@@ -31,7 +31,7 @@ namespace eContracting.Kernel.Tests.Services
             Mock<IMongoCollection<FailedLoginInfoModel>> collection = new Mock<IMongoCollection<FailedLoginInfoModel>>();
             collection.Setup(x => x.FindSync(filter, (FindOptions<FailedLoginInfoModel, FailedLoginInfoModel>)null, CancellationToken.None)).Returns(iAsyncCursor.Object);
 
-            LoginsCheckerClient client = new LoginsCheckerClient(3, new TimeSpan(0, 10, 0), collection.Object);
+            MongoFailedLoginReportStore client = new MongoFailedLoginReportStore(collection.Object);
             client.AddFailedAttempt(guid, sessionId, browserInfo);
 
             Thread.Sleep(new TimeSpan(0, 0, 1));
@@ -44,7 +44,7 @@ namespace eContracting.Kernel.Tests.Services
 
             Thread.Sleep(new TimeSpan(0, 0, 1));
 
-            return client.CanLogin(guid);
+            return client.CanLogin(guid, 3, new TimeSpan(0, 10, 0));
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace eContracting.Kernel.Tests.Services
             string sessionId = "SessionId=" + Guid.NewGuid().ToString("N");
             string browserInfo = "NUnit test adapter";
 
-            LoginsCheckerClient client = new LoginsCheckerClient(3, new TimeSpan(0, 10, 0));
+            MongoFailedLoginReportStore client = new MongoFailedLoginReportStore();
             client.AddFailedAttempt(guid, sessionId, browserInfo);
 
             Thread.Sleep(new TimeSpan(0, 0, 1));
@@ -71,7 +71,7 @@ namespace eContracting.Kernel.Tests.Services
 
             Thread.Sleep(new TimeSpan(0, 0, 1));
 
-            return client.CanLogin(guid);
+            return client.CanLogin(guid, 3, new TimeSpan(0, 10, 0));
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace eContracting.Kernel.Tests.Services
             string sessionId = "SessionId=" + Guid.NewGuid().ToString("N");
             string browserInfo = "NUnit test adapter";
 
-            LoginsCheckerClient client = new LoginsCheckerClient(3, new TimeSpan(0, 0, 1));
+            MongoFailedLoginReportStore client = new MongoFailedLoginReportStore();
             client.AddFailedAttempt(guid, sessionId, browserInfo);
 
             Thread.Sleep(new TimeSpan(0, 0, 1));
@@ -97,7 +97,7 @@ namespace eContracting.Kernel.Tests.Services
 
             Thread.Sleep(new TimeSpan(0, 0, 3));
 
-            return client.CanLogin(guid);
+            return client.CanLogin(guid, 3, new TimeSpan(0, 0, 1));
         }
     }
 }

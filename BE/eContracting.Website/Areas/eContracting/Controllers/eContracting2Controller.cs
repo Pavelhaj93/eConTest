@@ -66,10 +66,41 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         }
 
         // AcceptedOfferController
-        [HttpGet]
         public ActionResult AcceptedOffer()
         {
-            throw new NotImplementedException();
+            string guid = string.Empty;
+
+            try
+            {
+                if (!this.DataSessionStorage.IsDataActive)
+                {
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                }
+                var datasource = this.GetDataSourceItem<EContractingAcceptedOfferTemplate>();
+                var data = this.DataSessionStorage.GetUserData();
+                guid = data.Identifier;
+                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
+                var mainText = textHelper.GetMainText(datasource, data);
+
+                if (mainText == null)
+                {
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    return Redirect(redirectUrl);
+                }
+
+                ViewData["MainText"] = mainText;
+
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
+                ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
+                ViewData["SignFailure"] = generalSettings.SignFailure;
+
+                return View("/Areas/eContracting/Views/AcceptedOffer.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[{guid}] Error when displaying accepted offer.", ex, this);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+            }
         }
 
         // eContractingController

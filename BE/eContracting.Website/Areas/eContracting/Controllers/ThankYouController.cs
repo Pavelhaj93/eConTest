@@ -20,6 +20,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Thank you page.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [Obsolete("Use 'eContracting2Controller.ThankYou' instead")]
         public ActionResult ThankYou()
         {
             var mainText = string.Empty;
@@ -68,6 +69,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return this.View("/Areas/eContracting/Views/ThankYou.cshtml", this.Context);
         }
 
+        [Obsolete("Use 'eContracting2Controller.GetScriptParameters' instead")]
         private string[] GetScriptParameters(AuthenticationDataItem data)
         {
             var eCat = string.Empty;

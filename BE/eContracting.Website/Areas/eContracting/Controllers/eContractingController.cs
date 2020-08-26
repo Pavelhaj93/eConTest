@@ -22,6 +22,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Cookie law action.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [Obsolete("Use 'eContracting2Controller.CookieLaw' instead")]
         public ActionResult CookieLaw()
         {
             try
@@ -49,6 +50,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <param name="isAccepted">Flag indicating whether offer is already accepted or not.</param>
         /// <returns>Instance result.</returns>
+        [Obsolete("Needs to be refactored")]
         public ActionResult DocumentPanel(bool isAccepted)
         {
             //// {CE5332E3-21B0-419D-BE64-FAD155123E42}

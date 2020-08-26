@@ -139,9 +139,11 @@
     <Compile Include="Services\CRM_SIGN_STAMP_MERGE.cs" />
     <Compile Include="Services\FileItem.cs" />
     <Compile Include="Services\FileToBeDownloaded.cs" />
+    <Compile Include="Services\IFailedLoginReportStore.cs" />
+    <Compile Include="Services\ILoginReportStore.cs" />
     <Compile Include="Services\IRweClient.cs" />
-    <Compile Include="Services\LoginsCheckerClient.cs" />
-    <Compile Include="Services\MongoOfferLoginReportService.cs" />
+    <Compile Include="Services\MongoFailedLoginReportStore.cs" />
+    <Compile Include="Services\MongoLoginReportStore.cs" />
     <Compile Include="Services\Offer.cs" />
     <Compile Include="Services\RweClient.cs" />
     <Compile Include="Services\SigningClient.cs" />

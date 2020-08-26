@@ -14,7 +14,9 @@ using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using eContracting.Website.Areas.eContracting.Models;
 using Glass.Mapper.Sc.Web.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Sitecore.Collections;
+using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
 using Sitecore.Web;
 
@@ -26,6 +28,27 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     public class eContractingAuthenticationController : GlassController
     {
         private const string salt = "228357";
+        protected readonly IRweClient Client;
+        protected readonly ILoginReportStore LoginReportService;
+        protected readonly IFailedLoginReportStore FailedLoginsStore;
+        protected readonly IAuthenticationDataSessionStorage DataSessionStorage;
+
+        public eContractingAuthenticationController()
+        {
+            this.Client = ServiceLocator.ServiceProvider.GetRequiredService<IRweClient>();
+            this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
+            this.FailedLoginsStore = ServiceLocator.ServiceProvider.GetRequiredService<IFailedLoginReportStore>();
+            this.DataSessionStorage = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationDataSessionStorage>();
+        }
+
+        public eContractingAuthenticationController(IRweClient client, ILoginReportStore loginReportService, IFailedLoginReportStore loginsCheckerClient, IAuthenticationDataSessionStorage dataSessionStorage)
+        {
+            this.Client = client ?? throw new ArgumentNullException(nameof(client));
+            this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
+            this.FailedLoginsStore = loginsCheckerClient ?? throw new ArgumentNullException(nameof(loginsCheckerClient));
+            this.DataSessionStorage = dataSessionStorage ?? throw new ArgumentNullException(nameof(client));
+        }
+
         /// <summary>
         /// Authentication GET action.
         /// </summary>
@@ -39,8 +62,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
             try
             {
-                guid = Request.QueryString["guid"];
-                var msg = Request.QueryString["error"];
+                guid = this.Request.QueryString["guid"];
+                var msg = this.Request.QueryString["error"];
 
                 if (!string.IsNullOrEmpty(msg) && msg=="validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
                 {
@@ -58,8 +81,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-                var client = new RweClient();
-                Offer offer = client.GenerateXml(guid);
+                Offer offer = this.Client.GenerateXml(guid);
 
                 if (offer == null || offer.OfferInternal == null)
                 {
@@ -97,7 +119,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (!datasource.WelcomePageEnabled && (offer.OfferInternal.State == "3"))
                 {
-                    client.ReadOffer(guid);
+                    this.Client.ReadOffer(guid);
                 }
 
                 Log.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType), this);
@@ -132,7 +154,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     {
                         if (offer.OfferInternal.State == "3")
                         {
-                            client.ReadOffer(guid);
+                            this.Client.ReadOffer(guid);
                         }
                     }
                 }
@@ -214,9 +236,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-
-                var client = new RweClient();
-                var offer = client.GenerateXml(Request.QueryString["guid"]);
+                var offer = this.Client.GenerateXml(Request.QueryString["guid"]);
 
                 var authSettings = ConfigHelpers.GetAuthenticationSettings();
                 var authHelper = new AuthenticationHelper(
@@ -246,7 +266,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var validAdditionalValue = (additionalUserValue == additionalRealValue);
 
                 var validData = validDateOfBirth && validAdditionalValue;
-                var loginReportService = new MongoOfferLoginReportService();
+
                 var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
                 var offerTypeIdentifier = userData.IsIndi ?
                     $"{offer.OfferInternal.CreatedAt}" : 
@@ -287,7 +307,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey, datasource.ValidationMessage);
                     }
 
-                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+                    this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
                     if (reportDateOfBirth && !reportAdditionalValue)
                     {
@@ -304,9 +324,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         this.Session["ErrorMessage"] = validationMessage;
                     }
 
-                    var siteSettings = ConfigHelpers.GetSiteSettings();
-                    var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
-                    loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
+                    this.FailedLoginsStore.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
                     var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
 
                     return Redirect(url);
@@ -315,15 +333,14 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (!ModelState.IsValid)
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
-                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
+                    this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
                     var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
                     return Redirect(url);
                 }
 
-                this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+                this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
-                var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
-                aut.Login(userData);
+                this.DataSessionStorage.Login(userData);
 
                 Log.Info($"[{guid}] Successfully log-ged in", this);
 
@@ -376,8 +393,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                     }
 
-                    var client = new RweClient();
-                    var offer = client.GenerateXml(guid);
+                    var offer = this.Client.GenerateXml(guid);
 
                     if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                     {
@@ -386,11 +402,10 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     if (offer.OfferInternal.State == "3")
                     {
-                        client.ReadOffer(guid);
+                        this.Client.ReadOffer(guid);
                     }
 
-                    var authenticationDataSessionStorage = new AuthenticationDataSessionStorage();
-                    var authenticationData = authenticationDataSessionStorage.GetUserData(offer, true);
+                    var authenticationData = this.DataSessionStorage.GetUserData(offer, true);
 
                     datasource.OfferType = authenticationData.OfferType;
                     datasource.IsIndividual = authenticationData.IsIndi;
@@ -426,11 +441,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return Redirect(ConfigHelpers.GetPageLink(PageLinkType.Login).Url + "?fromWelcome=1&guid=" + guid);
         }
 
-        private void ReportLogin(MongoOfferLoginReportService service, string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        private void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
         {
             if (generalError)
             {
-                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
+                this.LoginReportService.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
                 return;
             }
 
@@ -438,25 +453,25 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 if (additionalValueKey == "identitycardnumber")
                 {
-                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
+                    this.LoginReportService.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
                     return;
                 }
 
                 if (additionalValueKey == "permanentresidencepostalcode")
                 {
-                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
+                    this.LoginReportService.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
                     return;
                 }
 
                 if (additionalValueKey == "postalcode")
                 {
-                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
+                    this.LoginReportService.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
                     return;
                 }
             }
             else
             {
-                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
+                this.LoginReportService.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
             }
         }
 
@@ -530,9 +545,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         protected bool CheckWhetherUserIsBlocked(string guid)
         {
             var siteSettings = ConfigHelpers.GetSiteSettings();
-            var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
-
-            return !loginsCheckerClient.CanLogin(guid);
+            return !this.FailedLoginsStore.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
         }
     }
 }
