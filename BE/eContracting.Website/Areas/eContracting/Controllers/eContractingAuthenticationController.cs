@@ -263,7 +263,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     {
                         Log.Info($"[{guid}] Invalid format of date of birth", this);
                         reportDateOfBirth = true;
-                        dateOfBirthValidationMessage = datasource.DateOfBirthValidationMessage;
+                        dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
                     }
 
                     if (!validAdditionalValue)
@@ -277,7 +277,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     {
                         Log.Info($"[{guid}] Date of birth doesn't match", this);
                         reportDateOfBirth = true;
-                        dateOfBirthValidationMessage = datasource.DateOfBirthValidationMessage;
+                        dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
                     }
 
                     if (!validAdditionalValue)
