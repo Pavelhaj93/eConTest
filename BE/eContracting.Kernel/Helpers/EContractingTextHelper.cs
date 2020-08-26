@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using eContracting.Kernel.Abstract;
+using eContracting.Kernel.GlassItems.Settings;
+using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 
 namespace eContracting.Kernel.Helpers
@@ -8,7 +10,7 @@ namespace eContracting.Kernel.Helpers
     public class EContractingTextHelper
     {
         public Func<AuthenticationDataItem, IDictionary<string, string>, string, string> CallBackTextCreatorWithParameters { get; private set; }
-        public Func<AuthenticationDataItem, string, string, string> CallBackTextCreatorNoParameters { get; private set; }
+        public Func<IRweClient, AuthenticationDataItem, string, string, GeneralSettings, string> CallBackTextCreatorNoParameters { get; private set; }
         public IDictionary<string, string> Parameters { get; private set; }
 
         public EContractingTextHelper(Func<AuthenticationDataItem, IDictionary<string, string>, string, string> callBack, IDictionary<string,string> parameters)
@@ -17,12 +19,12 @@ namespace eContracting.Kernel.Helpers
             this.Parameters = parameters;
         }
 
-        public EContractingTextHelper(Func<AuthenticationDataItem, string, string, string> callBack)
+        public EContractingTextHelper(Func<IRweClient, AuthenticationDataItem, string, string, GeneralSettings, string> callBack)
         {
             this.CallBackTextCreatorNoParameters = callBack;
         }
 
-        public string GetVoucherText(IVoucherText context, AuthenticationDataItem data)
+        public string GetVoucherText(IVoucherText context, AuthenticationDataItem data, GeneralSettings generalSettings)
         {
             if (!data.HasVoucher)
             {
@@ -47,17 +49,17 @@ namespace eContracting.Kernel.Helpers
             return null;
         }
 
-        public string GetMainText(AuthenticationDataItem data, string contentText)
+        public string GetMainText(IRweClient client, AuthenticationDataItem data, string contentText, GeneralSettings generalSettings)
         {
             if (!string.IsNullOrEmpty(contentText))
             {
-                return this.CallBackTextCreatorNoParameters(data, contentText, string.Empty);
+                return this.CallBackTextCreatorNoParameters(client, data, contentText, string.Empty, generalSettings);
             }
 
             return null;
         }
 
-        public string GetMainText(IMainText context, AuthenticationDataItem data)
+        public string GetMainText(IRweClient client, IMainText context, AuthenticationDataItem data, GeneralSettings generalSettings)
         {
             string text = null;
 
@@ -77,7 +79,7 @@ namespace eContracting.Kernel.Helpers
             }
 
             return this.Parameters==null ?
-                this.CallBackTextCreatorNoParameters(data, text, string.Empty) : 
+                this.CallBackTextCreatorNoParameters(client, data, text, string.Empty, generalSettings) : 
                 this.CallBackTextCreatorWithParameters(data, this.Parameters, text);
         }
     }

@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Sitecore.DependencyInjection;
 
 namespace eContracting.Website
 {
@@ -13,6 +15,13 @@ namespace eContracting.Website
     /// </summary>
     public class GetFile : IHttpHandler, IRequiresSessionState
     {
+        protected readonly ISettingsReaderService SettingsReaderService;
+
+        public GetFile()
+        {
+            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+        }
+
         /// <summary>
         /// Request processing.
         /// </summary>
@@ -85,7 +94,7 @@ namespace eContracting.Website
             context.Response.Clear();
             context.Response.Status = "404 Not Found";
             context.Response.StatusCode = 404;
-            context.Response.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+            context.Response.Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.SessionExpired).Url);
         }
 
         /// <summary>

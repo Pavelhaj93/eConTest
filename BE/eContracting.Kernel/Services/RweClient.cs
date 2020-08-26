@@ -29,6 +29,13 @@ namespace eContracting.Kernel.Services
     /// </summary>
     public class RweClient : IRweClient
     {
+        protected readonly ISettingsReaderService SettingsReaderService;
+
+        public RweClient(ISettingsReaderService settingsReaderService)
+        {
+            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
+        }
+
         #region Public methods
         /// <summary>
         /// Generates pdf files on server.
@@ -838,7 +845,7 @@ namespace eContracting.Kernel.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
+            SiteRootModel siteSettings = this.SettingsReaderService.GetSiteSettings();
             var userName = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServiceUser));
             var password = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServicePassword));
             api.Url = siteSettings.ServiceUrl;

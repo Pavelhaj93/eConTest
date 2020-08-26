@@ -10,7 +10,7 @@ namespace eContracting.Kernel.Utils
     {
         private readonly Offer offer;
         private readonly AuthenticationSettingsModel settings;
-        public AuthenticationUserChoice(AuthenticationDataSessionStorage authSessionStorage, Offer offer, AuthenticationSettingsModel settings) : base(authSessionStorage)
+        public AuthenticationUserChoice(IAuthenticationDataSessionStorage authSessionStorage, Offer offer, AuthenticationSettingsModel settings) : base(authSessionStorage)
         {
             this.offer = offer;
             this.settings = settings;

@@ -19,7 +19,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <returns>Instance result.</returns>
         [HttpGet]
-        [Obsolete("Use 'eContracting2Controller.Welcome' instead")]
+        [Obsolete("Use 'eContractingAuthenticationController.Welcome' instead")]
         public ActionResult Welcome()
         {
             var guid = string.Empty;
@@ -84,7 +84,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         }
 
         [HttpPost]
-        [Obsolete("Use 'eContracting2Controller.Welcome' instead")]
+        [Obsolete("Use 'eContractingAuthenticationController.Welcome' instead")]
         public ActionResult WelcomeSubmit(string guid)
         {
             return Redirect(ConfigHelpers.GetPageLink(PageLinkType.Login).Url + "?fromWelcome=1&guid=" + guid);

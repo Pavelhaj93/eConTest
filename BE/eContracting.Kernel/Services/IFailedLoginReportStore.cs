@@ -13,7 +13,7 @@ namespace eContracting.Kernel.Services
         /// <param name="guid">The unique identifier.</param>
         /// <param name="sessionId">The session identifier.</param>
         /// <param name="browserInfo">The browser information.</param>
-        void AddFailedAttempt(string guid, string sessionId, string browserInfo);
+        //void AddFailedAttempt(string guid, string sessionId, string browserInfo);
 
         /// <summary>
         /// Determines whether <paramref name="guid"/> can login.
@@ -24,6 +24,6 @@ namespace eContracting.Kernel.Services
         /// <returns>
         ///   <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
         /// </returns>
-        bool CanLogin(string guid, int maxFailedAttempts, TimeSpan delayAfterFailedAttempts);
+        //bool CanLogin(string guid, int maxFailedAttempts, TimeSpan delayAfterFailedAttempts);
     }
 }

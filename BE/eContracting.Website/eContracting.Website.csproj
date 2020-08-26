@@ -192,18 +192,9 @@
   <ItemGroup>
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
-    <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContracting2ApiController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\eContracting2Controller.cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeRichTextController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
-    <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingAuthenticationController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
     <Compile Include="Areas\eContracting\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
@@ -220,6 +211,7 @@
     </Compile>
     <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.designer.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
@@ -287,6 +279,7 @@
     <Content Include="App_Config\Include\zeContracting\Logging.config" />
     <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
+    <Content Include="App_Config\Include\zeContracting\Services.config" />
     <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>

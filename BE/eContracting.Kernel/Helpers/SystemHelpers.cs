@@ -49,10 +49,13 @@ namespace eContracting.Kernel.Helpers
         /// Default parameters are applied before return. 
         /// This is the only entry point for getting parameters all over the project, so defaults are applied if necessary. 
         /// </summary>
-        /// <returns>Collection of parameters.</returns>
-        public static IDictionary<string, string> GetParameters(string guid, OfferTypes offerType, string additionalInfoDocument)
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="offerType">Type of the offer.</param>
+        /// <param name="additionalInfoDocument">The additional information document.</param>
+        /// <param name="generalSettings">The general settings.</param>
+        /// <returns></returns>
+        public static IDictionary<string, string> GetParameters(IRweClient client, string guid, OfferTypes offerType, string additionalInfoDocument, GeneralSettings generalSettings)
         {
-            var client = new RweClient();
             var text = client.GetTextsXml(guid);
 
             List<RweClientLoadTemplateModel> templateValues = new List<RweClientLoadTemplateModel>();
@@ -73,7 +76,7 @@ namespace eContracting.Kernel.Helpers
 
             var parameters = client.GetAllAttributes(guid, text, templateValues);
 
-            return ApplyDefaultParams(parameters, GetDefaultParameters(ConfigHelpers.GetGeneralSettings()));
+            return ApplyDefaultParams(parameters, GetDefaultParameters(generalSettings));
         }
 
         /// <summary>
@@ -98,15 +101,16 @@ namespace eContracting.Kernel.Helpers
         /// <param name="data">Authentication data.</param>
         /// <param name="mainRawText">Raw text to modify.</param>
         /// <param name="additionalInfoDocument">Code name of the document with additional info.</param>
+        /// <param name="generalSettings">The general settings.</param>
         /// <returns>Returns modified text.</returns>
-        public static string GenerateMainText(AuthenticationDataItem data, string mainRawText, string additionalInfoDocument)
+        public static string GenerateMainText(IRweClient client, AuthenticationDataItem data, string mainRawText, string additionalInfoDocument, GeneralSettings generalSettings)
         {
             if (string.IsNullOrEmpty(data.DateOfBirth))
             {
                 return null;
             }
 
-            var parameters = GetParameters(data.Identifier, data.OfferType, additionalInfoDocument);
+            var parameters = GetParameters(client, data.Identifier, data.OfferType, additionalInfoDocument, generalSettings);
 
             return GenerateMainText(data, parameters, mainRawText);
         }

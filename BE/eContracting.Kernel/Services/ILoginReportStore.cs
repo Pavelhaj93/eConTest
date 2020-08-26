@@ -1,4 +1,6 @@
-﻿namespace eContracting.Kernel.Services
+﻿using System;
+
+namespace eContracting.Kernel.Services
 {
     /// <summary>
     /// Stores information about login attemps.
@@ -17,6 +19,25 @@
         /// <param name="WrongResidencePostalCode">if set to <c>true</c> [wrong residence postal code].</param>
         /// <param name="WrongIdentityCardNumber">if set to <c>true</c> [wrong identity card number].</param>
         /// <param name="generalError">if set to <c>true</c> [general error].</param>
-        void AddOfferLoginAttempt(string sessionId, string timestamp, string guid, string type, bool birthdayDate = false, bool wrongPostalCode = false, bool WrongResidencePostalCode = false, bool WrongIdentityCardNumber = false, bool generalError = false);
+        void AddLoginAttempt(string sessionId, string timestamp, string guid, string type, bool birthdayDate = false, bool wrongPostalCode = false, bool WrongResidencePostalCode = false, bool WrongIdentityCardNumber = false, bool generalError = false);
+
+        /// <summary>
+        /// Adds the failed login attempt.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <param name="browserInfo">The browser information.</param>
+        void AddFailedAttempt(string guid, string sessionId, string browserInfo);
+
+        /// <summary>
+        /// Determines whether <paramref name="guid"/> can login.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
+        /// <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
+        /// <returns>
+        ///   <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
+        /// </returns>
+        bool CanLogin(string guid, int maxFailedAttempts, TimeSpan delayAfterFailedAttempts);
     }
 }

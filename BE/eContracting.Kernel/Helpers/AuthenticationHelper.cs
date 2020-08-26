@@ -9,13 +9,13 @@ namespace eContracting.Kernel.Helpers
     public class AuthenticationHelper
     {
         private readonly AuthenticationMethod authProcessor;
-        private readonly AuthenticationDataSessionStorage authSession;
+        private readonly IAuthenticationDataSessionStorage DataSessionStorage;
 
         public bool IsUserChoice { get; set; }
 
-        public AuthenticationHelper(Offer offer, AuthenticationDataSessionStorage authSessionStorage, bool userChoiceAuthNormal, bool userChoiceAuthRetention, bool userChoiceAuthAcquisition, AuthenticationSettingsModel settings)
+        public AuthenticationHelper(Offer offer, IAuthenticationDataSessionStorage authSessionStorage, bool userChoiceAuthNormal, bool userChoiceAuthRetention, bool userChoiceAuthAcquisition, AuthenticationSettingsModel settings)
         {
-            this.authSession = authSessionStorage;
+            this.DataSessionStorage = authSessionStorage;
 
             if (offer == null) throw new NullReferenceException("Offer can not be null");
 
@@ -53,7 +53,7 @@ namespace eContracting.Kernel.Helpers
 
         public void Login(AuthenticationDataItem data)
         {
-            this.authSession.Login(data);
+            this.DataSessionStorage.Login(data);
         }
 
         public IEnumerable<AuthenticationSettingsItemModel> GetAvailableAuthenticationFields()

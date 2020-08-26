@@ -4,7 +4,9 @@ using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
 
 namespace eContracting.Website
@@ -14,6 +16,14 @@ namespace eContracting.Website
     /// </summary>
     public class DoxReady : IHttpHandler, IRequiresSessionState
     {
+        protected readonly IRweClient Client;
+        protected readonly ISettingsReaderService SettingsReaderService;
+        public DoxReady()
+        {
+            this.Client = ServiceLocator.ServiceProvider.GetRequiredService<IRweClient>();
+            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+        }
+
         /// <summary>
         /// Request processing.
         /// </summary>
@@ -24,12 +34,10 @@ namespace eContracting.Website
 
             if (clientId != null)
             {
-                RweClient client = new RweClient();
-                var files = client.GeneratePDFFiles(clientId);
+                var files = this.Client.GeneratePDFFiles(clientId);
                 context.Session["UserFiles"] = files;
                 context.Response.ContentType = "application/json";
-
-                var generalSettings = ConfigHelpers.GetGeneralSettings();
+                var generalSettings = this.SettingsReaderService.GetGeneralSettings();
 
                 if (files != null)
                 {
