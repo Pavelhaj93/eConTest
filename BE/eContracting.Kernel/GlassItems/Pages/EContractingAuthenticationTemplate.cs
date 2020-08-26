@@ -19,6 +19,9 @@ namespace eContracting.Kernel.GlassItems.Pages
         public virtual string BirthDatePlaceholder { get; set; }
 
         [SitecoreField]
+        public virtual string BirthDateValidationMessage { get; set; }
+
+        [SitecoreField]
         public virtual string VerificationMethodLabel { get; set; }
 
         [SitecoreField]
@@ -77,9 +80,6 @@ namespace eContracting.Kernel.GlassItems.Pages
 
         [SitecoreField]
         public virtual string ValidationMessage { get; set; }
-
-        [SitecoreField]
-        public virtual string DateOfBirthValidationMessage { get; set; }
 
         [SitecoreField]
         public virtual string RequiredFields { get; set; }
