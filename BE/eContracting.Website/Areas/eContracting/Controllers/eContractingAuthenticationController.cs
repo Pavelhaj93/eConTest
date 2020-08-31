@@ -33,6 +33,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationDataSessionStorage DataSessionStorage;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
+        /// </summary>
         public eContractingAuthenticationController()
         {
             this.Client = ServiceLocator.ServiceProvider.GetRequiredService<IRweClient>();
@@ -41,6 +44,22 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             this.DataSessionStorage = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationDataSessionStorage>();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
+        /// </summary>
+        /// <param name="client">The client.</param>
+        /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <param name="loginReportService">The login report service.</param>
+        /// <param name="dataSessionStorage">The data session storage.</param>
+        /// <exception cref="ArgumentNullException">
+        /// client
+        /// or
+        /// settingsReaderService
+        /// or
+        /// loginReportService
+        /// or
+        /// client
+        /// </exception>
         public eContractingAuthenticationController(IRweClient client, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, IAuthenticationDataSessionStorage dataSessionStorage)
         {
             this.Client = client ?? throw new ArgumentNullException(nameof(client));
@@ -53,7 +72,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Authentication GET action.
         /// </summary>
         /// <returns>Instance result.</returns>
-        [HttpGet]
         public ActionResult Authentication()
         {
             var guid = string.Empty;
@@ -371,7 +389,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Authentication GET action.
         /// </summary>
         /// <returns>Instance result.</returns>
-        [HttpGet]
         public ActionResult Welcome()
         {
             var guid = string.Empty;
