@@ -42,13 +42,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{705180D5-694C-4CC6-A845-D8CB48A3D8D6}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-CA64-4601-AD61-0188E9BF5F9D}"
 	ProjectSection(SolutionItems) = preProject
-		docs\Guids.md = docs\Guids.md
-		docs\TEMPLATE_Attributes.md = docs\TEMPLATE_Attributes.md
+		..\docs\Build_and_Deploy.md = ..\docs\Build_and_Deploy.md
+		..\docs\Guids.md = ..\docs\Guids.md
+		..\docs\TEMPLATE_Attributes.md = ..\docs\TEMPLATE_Attributes.md
 	EndProjectSection
 EndProject
 Global
