@@ -30,7 +30,7 @@ namespace eContracting.Kernel.Services
         void AddFailedAttempt(string guid, string sessionId, string browserInfo);
 
         /// <summary>
-        /// Determines whether <paramref name="guid"/> can login.
+        /// Determines whether <paramref name="guid"/> can log-in.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <param name="maxFailedAttempts">The maximum failed attempts.</param>
