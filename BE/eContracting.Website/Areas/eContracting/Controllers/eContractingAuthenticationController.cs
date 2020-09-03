@@ -72,6 +72,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Authentication GET action.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [HttpGet]
         public ActionResult Authentication()
         {
             var guid = string.Empty;
@@ -389,6 +390,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Authentication GET action.
         /// </summary>
         /// <returns>Instance result.</returns>
+        [HttpGet]
         public ActionResult Welcome()
         {
             var guid = string.Empty;

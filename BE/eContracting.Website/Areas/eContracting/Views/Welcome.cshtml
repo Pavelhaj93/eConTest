@@ -5,8 +5,9 @@
 
 @if (Sitecore.Context.PageMode.IsNormal)
 {
-    using (Html.BeginForm("WelcomeSubmit", "Welcome", new { guid = Request.QueryString["guid"] }))
+    using (Html.BeginForm("WelcomeSubmit", "eContractingAuthentication", new { guid = Request.QueryString["guid"] }))
     {
+        <form action="/WelcomeSubmit"></form>
         @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
