@@ -34,6 +34,7 @@
                                                 {{ icon('check-circle') }}
                                             </span>
                                         </div>
+                                        <p class="text-muted">Dodatek a přidružené dokumenty si přečtěte a potvrďte zatrhnutím.</p>
                                         <ul class="list list-documents js-list-general-documents">
                                             <a class="check-all" href="#">Označit vše</a>
                                         </ul>

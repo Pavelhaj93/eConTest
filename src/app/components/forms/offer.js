@@ -145,16 +145,8 @@ export default function FormOffer(form, config) {
             if (listDocsToBeSigned.children('li').length) {
                 validDocuments = validateDocuments();
 
-                // if there are some documents to be signed (and they are already signed) =>
-                // => check if offer is an acquisition => form is valid only if all checkboxes are checked
-                // => otherwise make the form valid if none or all of checkboxes is checked
-                const allUnchecked = areAllUnchecked();
-
-                if (config.offerPage.isAcquisition) { // acquisition offer
-                    validForm = validDocuments && validForm;
-                } else { // retention offer
-                    validForm = validDocuments && (allUnchecked || validForm);
-                }
+                // acquisition + rentention offer => form is valid only if all checkboxes are checked
+                validForm = validDocuments && validForm;
             }
 
             /* Add/Remove disabled class from the <a> button */
@@ -168,19 +160,6 @@ export default function FormOffer(form, config) {
 
             isDocumentsAccepted = validForm;
             return (validForm && validDocuments);
-        }
-
-        function areAllUnchecked() {
-            let allUnchecked = true;
-            const checkboxes = getCheckboxes();
-
-            checkboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    allUnchecked = false;
-                }
-            });
-
-            return allUnchecked;
         }
 
         // check if all checkboxes are checked within first step
