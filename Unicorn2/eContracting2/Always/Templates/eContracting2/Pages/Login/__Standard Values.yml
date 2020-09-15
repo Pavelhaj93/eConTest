@@ -1,0 +1,91 @@
+﻿---
+ID: "1b7a52a4-82f2-49ff-bd51-733f19b87ca0"
+Parent: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
+Template: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
+Path: /sitecore/templates/eContracting2/Pages/Login/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 500
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{772D75F9-CE2A-4D4C-B452-533FC32E9329}">
+        <r
+          ds=""
+          id="{E3A237FE-78F5-449E-BEFA-02BFC5C5FE55}"
+          par=""
+          ph="eContracting"
+          uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "03047546-9d8d-44e8-9f51-623bb86cfd24"
+      Hint: VerificationMethodLabel
+      Value: Vyberte způsob ověření
+    - ID: "088b75ed-cffd-46df-8f94-6a19de7cb292"
+      Hint: BirthDateLabel
+      Value: Datum narození
+    - ID: "09e5f8e2-f7b8-4a74-ad09-a16fc95123cc"
+      Hint: ValidationMessage
+      Value: Ověřen&iacute; Va&scaron;ich &uacute;dajů se nezdařilo. Zadejte, pros&iacute;m, spr&aacute;vn&eacute; &uacute;daje. V př&iacute;padě pot&iacute;ž&iacute; se, pros&iacute;m, obraťte na na&scaron;i z&aacute;kaznickou linku 800 11 33 55.
+    - ID: "17eccf1c-7206-4211-a367-309c2c3f09c6"
+      Hint: CalendarSelectDay
+      Value: Vybrat
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200818T094403Z
+    - ID: "26908a98-0ab1-47bd-a38a-db6b282dd9c5"
+      Hint: BirthDatePlaceholder
+      Value: např. 26. 12. 1966
+    - ID: "31a8a6a1-820d-44c9-842d-6052c4fdc69e"
+      Hint: CalendarOpen
+      Value: Otevřít kalendář
+    - ID: "35e1dac4-5051-4200-a3f2-d33b4dd43095"
+      Hint: RequiredFields
+      Value: Vyplňte pros&iacute;m v&scaron;echna požadovan&aacute; pole.
+    - ID: "450560cf-4b56-4824-8df0-e6041ec6f072"
+      Hint: BirthDateValidationMessage
+      Value: Zadáno chybné datum narození.
+    - ID: "4c6a3388-f488-4e84-83e6-71184cd7cf8c"
+      Hint: CalendarNextMonth
+      Value: Další měsíc
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "6305a328-3ac5-4e35-b716-94ddc3a26340"
+      Hint: ButtonText
+      Value: Potvrdit údaje a zobrazit nabídku
+    - ID: "9643c067-b188-45b7-9576-a310dd01f87f"
+      Hint: NotAcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
+    - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
+      Hint: AcceptedOfferText
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>děkujeme V&aacute;m za akceptaci dokumentů. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a zobrazen&iacute; smluvn&iacute;ch dokumentů, kter&eacute; byly elektronicky akceptov&aacute;ny, pros&iacute;m, zadejte n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
+    - ID: "e973d772-5286-40ec-b678-2c13dea139e9"
+      Hint: CalendarPreviousMonth
+      Value: Předchozí měsíc
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115526Z
+    - ID: "4c12e372-0803-479c-8ae4-16cfa9be1f5c"
+      Hint: ContractSecondPropertyLabel
+      Value: Vyberte si druhý smluvní údaj pro přihlášení

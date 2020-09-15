@@ -313,6 +313,10 @@
       <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
       <Name>eContracting.Kernel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
+      <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
+      <Name>eContracting.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\zeContracting\SiteDefinition.config">

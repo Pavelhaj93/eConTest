@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheApiService.cs" />
     <Compile Include="Connected Services\SAP\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

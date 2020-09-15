@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services", "eContracting.Services\eContracting.Services.csproj", "{F532A851-C440-4513-B563-3EB1C3972FFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services.Tests", "eContracting.Services.Tests\eContracting.Services.Tests.csproj", "{5F2940E2-BB44-4E64-925F-E84C57823339}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{F532A851-C440-4513-B563-3EB1C3972FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F2940E2-BB44-4E64-925F-E84C57823339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F2940E2-BB44-4E64-925F-E84C57823339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F2940E2-BB44-4E64-925F-E84C57823339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F2940E2-BB44-4E64-925F-E84C57823339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

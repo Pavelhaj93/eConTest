@@ -13,7 +13,7 @@ namespace eContracting.Services.SAP {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", ConfigurationName="SAP.ZCCH_CACHE_API")]
-    public interface ZCCH_CACHE_API {
+    internal interface ZCCH_CACHE_API {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -637,7 +637,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_GETRequest {
+    internal partial class ZCCH_CACHE_GETRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_GET ZCCH_CACHE_GET;
@@ -653,7 +653,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_GETResponse1 {
+    internal partial class ZCCH_CACHE_GETResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_GETResponse ZCCH_CACHE_GETResponse;
@@ -790,7 +790,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_DELRequest {
+    internal partial class ZCCH_CACHE_DELRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_DEL ZCCH_CACHE_DEL;
@@ -806,7 +806,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_DELResponse1 {
+    internal partial class ZCCH_CACHE_DELResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_DELResponse ZCCH_CACHE_DELResponse;
@@ -957,7 +957,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_STATUS_SETRequest {
+    internal partial class ZCCH_CACHE_STATUS_SETRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET;
@@ -973,7 +973,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_STATUS_SETResponse1 {
+    internal partial class ZCCH_CACHE_STATUS_SETResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SETResponse;
@@ -1156,7 +1156,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_PUTRequest {
+    internal partial class ZCCH_CACHE_PUTRequest {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_PUT ZCCH_CACHE_PUT;
@@ -1172,7 +1172,7 @@ namespace eContracting.Services.SAP {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_PUTResponse1 {
+    internal partial class ZCCH_CACHE_PUTResponse1 {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
         public eContracting.Services.SAP.ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUTResponse;
@@ -1186,12 +1186,12 @@ namespace eContracting.Services.SAP {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ZCCH_CACHE_APIChannel : eContracting.Services.SAP.ZCCH_CACHE_API, System.ServiceModel.IClientChannel {
+    internal interface ZCCH_CACHE_APIChannel : eContracting.Services.SAP.ZCCH_CACHE_API, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ZCCH_CACHE_APIClient : System.ServiceModel.ClientBase<eContracting.Services.SAP.ZCCH_CACHE_API>, eContracting.Services.SAP.ZCCH_CACHE_API {
+    internal partial class ZCCH_CACHE_APIClient : System.ServiceModel.ClientBase<eContracting.Services.SAP.ZCCH_CACHE_API>, eContracting.Services.SAP.ZCCH_CACHE_API {
         
         public ZCCH_CACHE_APIClient() {
         }

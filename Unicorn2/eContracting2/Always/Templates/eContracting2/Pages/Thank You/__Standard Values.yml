@@ -1,0 +1,63 @@
+﻿---
+ID: "1e99a256-c63e-43f2-a71a-de28f22a0e46"
+Parent: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Path: /sitecore/templates/eContracting2/Pages/Thank You/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{7B1673D7-C7B6-44D3-9BA4-4154E5D0D77A}"
+          par=""
+          ph="eContracting"
+          uid="{6C0E87E7-35CF-44EB-8D70-81D852E106AB}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200422T090319Z
+    - ID: "2e01c1cc-1503-416b-9af1-92d13203b308"
+      Hint: MainTextCampaign
+      Value: MainTextCampaign
+    - ID: "556ae203-2ba4-4a18-8c13-56fd8cdd064f"
+      Hint: MainTextAcquisitionCampaign
+      Value: MainTextAcquisitionCampaign
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "614a795d-c9a7-481a-9836-3973a88e50d6"
+      Hint: MainTextRetentionIndividual
+      Value: MainTextRetentionIndividual
+    - ID: "82450bff-44c1-4c77-bfc0-d249bbc32c5b"
+      Hint: MainTextRetentionCampaign
+      Value: MainTextRetentionCampaign
+    - ID: "bbc02ea3-ee53-42d2-b6fd-b27600ae8b70"
+      Hint: MainTextAcquisitionIndividual
+      Value: MainTextAcquisitionIndividual
+    - ID: "fcb5fbe0-50a4-4225-9394-cc9da570d7ff"
+      Hint: MainTextIndividual
+      Value: MainTextIndividual
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115617Z

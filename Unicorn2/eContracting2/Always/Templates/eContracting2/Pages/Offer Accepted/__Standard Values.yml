@@ -1,0 +1,90 @@
+﻿---
+ID: "3930704b-3708-4f82-b53c-49713731d3bb"
+Parent: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
+Template: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
+Path: /sitecore/templates/eContracting2/Pages/Offer Accepted/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{FB1DC80F-EFB9-4B10-815D-8AF4130DB14B}"
+          par=""
+          ph="eContracting"
+          uid="{1CAFB7BD-60D5-4AEE-8228-861D0FAD193E}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200422T090019Z
+    - ID: "4662f458-306a-44a1-8891-517d3a9de0ad"
+      Hint: MainTextAcquisitionIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "71656c7a-f358-4f5d-ab8b-f324602fbebe"
+      Hint: MainTextIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "82407ff1-7c77-4bdf-b597-92aa411df1c2"
+      Hint: MainTextRetentionIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "c0ee36de-e5b4-4516-a2aa-a2d60c84104a"
+      Hint: MainTextAcquisitionCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "d717d4a9-073b-4a23-9bf7-e9750574ab88"
+      Hint: MainTextRetentionCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "eacaf8c3-ea16-4726-9328-66ab20b5fe69"
+      Hint: MainTextCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
+        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
+        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115522Z

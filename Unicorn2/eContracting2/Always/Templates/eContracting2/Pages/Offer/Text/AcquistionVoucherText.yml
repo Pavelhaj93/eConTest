@@ -1,0 +1,21 @@
+﻿---
+ID: "a44a73c3-ad9d-4e6d-833e-ce4e6512c61d"
+Parent: "6b9fb766-549d-48a2-8112-d2197ed10e91"
+Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
+Path: /sitecore/templates/eContracting2/Pages/Offer/Text/AcquistionVoucherText
+DB: master
+SharedFields:
+- ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
+  Hint: Type
+  Value: Rich Text
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 700
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200421T111956Z

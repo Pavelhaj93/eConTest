@@ -1,0 +1,22 @@
+﻿---
+ID: "c4225c5d-d6fe-49aa-b899-3883fc5ecbef"
+Parent: "1ce3b36c-9b0c-4eb5-a996-bfcb4eaa5287"
+Template: "c3b037a0-46e5-4b67-ac7a-a144b962a56f"
+Path: /sitecore/layout/Placeholder Settings/eContracting2
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: office/32x32/edit.png
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200915T150531Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

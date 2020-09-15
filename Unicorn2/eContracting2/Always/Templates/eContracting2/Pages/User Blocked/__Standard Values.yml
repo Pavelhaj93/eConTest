@@ -1,0 +1,29 @@
+﻿---
+ID: "847cd829-2e85-4a6f-9ccb-85198db30c96"
+Parent: "e4f4a320-3072-4e2d-a13c-eaee2fd09d5a"
+Template: "e4f4a320-3072-4e2d-a13c-eaee2fd09d5a"
+Path: /sitecore/templates/eContracting2/Pages/User Blocked/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          id="{C3A666F0-D044-4585-AC11-7B75BDBB2A57}"
+          ph="eContracting"
+          uid="{2F6B2266-F58C-40FA-BB84-C98E70440C1E}" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115622Z

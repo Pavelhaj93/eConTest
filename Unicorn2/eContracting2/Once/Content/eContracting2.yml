@@ -1,0 +1,46 @@
+﻿---
+ID: "5036f11d-8068-43de-a827-aad2a0cef217"
+Parent: "0de95ae4-41ab-4d01-9eb0-67441b7c2450"
+Template: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
+Path: /sitecore/content/eContracting2
+DB: master
+SharedFields:
+- ID: "70b910ee-71e5-4436-b1cd-c9184374adf3"
+  Hint: SigningServiceUrl
+  Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 650
+- ID: "de0feae9-4be9-4021-bdef-f7aa348f77b4"
+  Hint: SigningServiceUser
+  Value: UkZDX1NJVEVDT1JF
+- ID: "e5e0efe2-5e3d-493b-9010-6b7172a2c00c"
+  Hint: SigningServicePassword
+  Value: QWRIYjI0Nyo=
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200908T080200Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: eContracting (new)
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200908T082601Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

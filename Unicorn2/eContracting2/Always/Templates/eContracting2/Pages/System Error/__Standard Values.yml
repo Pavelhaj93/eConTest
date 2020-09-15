@@ -1,0 +1,31 @@
+﻿---
+ID: "cd8ca855-a636-476e-9232-e051ca980e08"
+Parent: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
+Template: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
+Path: /sitecore/templates/eContracting2/Pages/System Error/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        <r
+          ds=""
+          id="{13779731-457A-49FF-9ED0-D4034B148253}"
+          par=""
+          ph="eContracting"
+          uid="{61236BFB-204B-4E94-8F65-F35F095E8F98}" />
+      </d>
+    </r>
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20161006T115601Z
