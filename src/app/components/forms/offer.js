@@ -259,7 +259,7 @@ export default function FormOffer(form, config) {
                 type: 'POST',
                 url: config.offerPage.doxReadyUrl,
                 dataType: 'json',
-                timeout: 10000,
+                timeout: 15000,
                 error: function(xhr, textStatus) {
                     if (textStatus === 'timeout') {
                         let container =
