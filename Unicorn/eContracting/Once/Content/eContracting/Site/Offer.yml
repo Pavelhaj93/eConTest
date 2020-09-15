@@ -21,6 +21,9 @@ Languages:
         <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
         <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
         <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+    - ID: "4d4bf4ca-c594-4c3f-a5d5-b766f9972a81"
+      Hint: SelectAll_Text
+      Value: Označit vše
     - ID: "56b78aee-8090-44fe-ae96-7c2384373fb5"
       Hint: MainTextAcquisition
       Value: |

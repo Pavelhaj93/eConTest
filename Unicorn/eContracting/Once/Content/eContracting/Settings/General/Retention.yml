@@ -15,6 +15,9 @@ Languages:
     - ID: "04d367f8-6857-46a5-b5f8-dc13f12bc177"
       Hint: Step1Heading
       Value: RET Smlouva a přidružené dokumenty
+    - ID: "187e3543-82f9-4c7a-9131-d9b800a297c8"
+      Hint: Step1SubHeading
+      Value: RET Dodatek a přidružené dokumenty si přečtěte a potvrďte zatrhnutím
     - ID: "23940b12-262f-4b2e-b11a-b6828b44a5b6"
       Hint: DocumentToSign
       Value: RET Dokumenty k elektronické akceptaci

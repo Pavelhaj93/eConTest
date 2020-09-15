@@ -93,6 +93,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         ViewData["DocumentToSign"] = texts.DocumentToSign;
                         ViewData["DocumentToSignAccepted"] = texts.DocumentToSignAccepted;
                         ViewData["Step1Heading"] = texts.Step1Heading;
+
+                        if (!string.IsNullOrEmpty(texts.Step1SubHeading))
+                        {
+                            ViewData["Step1SubHeading"] = texts.Step1SubHeading;
+                        }
+
                         ViewData["Step2Heading"] = texts.Step2Heading;
                         ViewData["WhySignIsRequired"] = texts.WhySignIsRequired;
                         ViewData["SignButton"] = texts.SignButton;

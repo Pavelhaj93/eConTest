@@ -31,6 +31,9 @@ namespace eContracting.Kernel.GlassItems.Settings
         public virtual string Step1Heading { get; set; }
 
         [SitecoreField]
+        public virtual string Step1SubHeading { get; set; }
+
+        [SitecoreField]
         public virtual string Step2Heading { get; set; }
 
         [SitecoreField]

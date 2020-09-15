@@ -60,6 +60,10 @@
                                                 </svg>
                                             </span>
                                         </div>
+                                        @if (ViewData.ContainsKey("Step1SubHeading"))
+                                        {
+                                            <p class="text-muted">@ViewData["Step1SubHeading"]</p>
+                                        }
                                         <ul class="list list-documents js-list-general-documents">
                                             <a class="check-all" href="#">@ViewData["SelectAll_Text"]</a>
                                         </ul>

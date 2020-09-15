@@ -25,6 +25,14 @@ SharedFields:
   Hint: UserChoiceAuthenticationEnabledRetention
   Type: Checkbox
   Value: 0
+- ID: "91c9a089-141a-435b-9cbe-5a82d97cad2d"
+  Hint: WelcomePageEnabledRetention
+  Type: Checkbox
+  Value: 0
+- ID: "b8566d04-5c20-45f1-b6ff-208c20c19c72"
+  Hint: WelcomePageEnabled
+  Type: Checkbox
+  Value: 0
 Languages:
 - Language: cs
   Versions:
