@@ -454,13 +454,17 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
+        /// <summary>
+        /// Submits welcome page and redirect visitor back to login page.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
         [HttpPost]
         public ActionResult WelcomeSubmit(string guid)
         {
             return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.Login).Url + "?fromWelcome=1&guid=" + guid);
         }
 
-        private void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        protected internal void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
         {
             if (generalError)
             {
@@ -494,7 +498,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        private string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key, string defaultMessage)
+        protected internal string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key, string defaultMessage)
         {
             var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.Key == key);
 
@@ -506,7 +510,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return defaultMessage;
         }
 
-        private LoginViewModel GetViewModel(EContractingAuthenticationTemplate datasource, AuthenticationDataItem userData, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(EContractingAuthenticationTemplate datasource, AuthenticationDataItem userData, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
             viewModel.IsRetention = userData.OfferType == OfferTypes.Retention;
@@ -528,7 +532,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             return viewModel;
         }
 
-        private string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
+        protected internal string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
         {
             try
             {
@@ -561,7 +565,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <param name="guid">GUID of offer we are checking.</param>
         /// <returns>A value indicating whether user is blocked or not.</returns>
-        protected bool CheckWhetherUserIsBlocked(string guid)
+        protected internal bool CheckWhetherUserIsBlocked(string guid)
         {
             var siteSettings = this.SettingsReaderService.GetSiteSettings();
             return !this.LoginReportService.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
