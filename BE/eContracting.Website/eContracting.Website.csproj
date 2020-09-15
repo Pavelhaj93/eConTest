@@ -273,6 +273,7 @@
     <Content Include="App_Config\Include\zeContracting\Logging.config" />
     <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
+    <Content Include="App_Config\Include\zeContracting\Services.config" />
     <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
