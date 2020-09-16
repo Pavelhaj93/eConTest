@@ -1,18 +1,16 @@
-﻿// <copyright file="FileToBeDownloaded.cs" company="Actum">
-// Copyright © 2016 Respective owners
-// </copyright>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace eContracting.Kernel.Services
+namespace eContracting.Models
 {
     /// <summary>
-    /// Implementation of file to be donloaded model.
+    /// Represents file from 'ZCCH_CACHE_API'
     /// </summary>
     [Serializable]
-    [Obsolete("User 'AttachmentModel' instead")]
-    public class FileToBeDownloaded
+    public class AttachmentModel
     {
         /// <summary>
         /// Gets or set index.
@@ -54,5 +52,4 @@ namespace eContracting.Kernel.Services
         /// </summary>
         public List<Byte> FileContent { get; set; }
     }
-
 }
