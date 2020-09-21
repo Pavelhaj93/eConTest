@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eContracting.Models
+namespace eContracting.Services.Models.Responses
 {
     public class OfferModel
     {

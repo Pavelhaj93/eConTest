@@ -6,7 +6,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eContracting.Models
+namespace eContracting.Services
 {
     public class CacheApiServiceOptions
     {

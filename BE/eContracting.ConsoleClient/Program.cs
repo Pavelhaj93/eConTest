@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using eContracting.Models;
 using eContracting.Services;
 
 namespace eContracting.ConsoleClient

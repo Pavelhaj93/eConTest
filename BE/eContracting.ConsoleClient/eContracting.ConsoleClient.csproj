@@ -50,10 +50,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\eContracting.Models\eContracting.Models.csproj">
-      <Project>{458488eb-c011-411d-8329-242eb047b677}</Project>
-      <Name>eContracting.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
       <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
       <Name>eContracting.Services</Name>
