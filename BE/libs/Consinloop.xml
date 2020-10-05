@@ -1,0 +1,1168 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Consinloop</name>
+    </assembly>
+    <members>
+        <member name="T:Consinloop.Abstractions.IAction">
+            <summary>
+            Represents the action for a <see cref="T:Consinloop.Abstractions.ICommand"/>
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IAction.Key">
+            <summary>
+            Gets unique key in a command scope.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IAction.Description">
+            <summary>
+            Gets name of the action.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IAction.Index">
+            <summary>
+            Gets the index in row of all actions.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Abstractions.IArgument">
+            <summary>
+            Represents an argument for a <see cref="T:Consinloop.Abstractions.ICommand"/> or an <see cref="T:Consinloop.Abstractions.IAction"/>.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IArgument.Key">
+            <summary>
+            Gets the name.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IArgument.DisplayName">
+            <summary>
+            Gets name what is displayed when requesting the argument.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IArgument.Description">
+            <summary>
+            Gets the description.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Abstractions.IArgumentsParser">
+            <summary>
+            Represents parser for arguments comming from command line.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IArgumentsParser.ParseArguments(System.String)">
+            <summary>
+            Gets parsed arguments from <paramref name="input"/> string.
+            </summary>
+            <param name="input">The input representing arguments.</param>
+            <returns>Instance of <see cref="T:Consinloop.Arguments"/>.</returns>
+        </member>
+        <member name="M:Consinloop.Abstractions.IArgumentsParser.ParseArguments(System.String[])">
+            <summary>
+            Gets parsed arguments from array of string.
+            </summary>
+            <param name="args">The arguments.</param>
+            <returns>Instance of <see cref="T:Consinloop.Arguments"/>.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.ICommand">
+            <summary>
+            Represents interface for a command.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.ICommand.Key">
+            <summary>
+            Gets unique key of this command. Key must be unique across all commands.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.ICommand.AliasKey">
+            <summary>
+            Gets unique alias key of this command. Key must be unique across all commands.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.ICommand.Description">
+            <summary>
+            Gets the description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.ICommand.Actions">
+            <summary>
+            Gets array of available actions for this command.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Abstractions.ICommandExecutor">
+            <summary>
+            Run a command with arguments.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.ICommandExecutor.ExecuteAsync(Consinloop.Arguments,System.IServiceProvider,System.Threading.CancellationToken)">
+            <summary>
+            Executes a command from <paramref name="serviceProvider"/> by given <paramref name="arguments"/>.
+            </summary>
+            <remarks>Services from <paramref name="serviceProvider"/> are in a scope.</remarks>
+            <param name="arguments">The arguments.</param>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>State of execution result. Exceptions are not catched.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IConsole">
+            <summary>
+            Represents wrapper over a console.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.ReadKey">
+            <summary>
+            Reads the key.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Read">
+            <summary>
+            Reads next character from the input.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.ReadArguments">
+            <summary>
+            Reads the line as <see cref="T:Consinloop.Arguments"/>.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.ReadLine">
+            <summary>
+            Reads the line.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.ReadLine(System.String)">
+            <summary>
+            Write <paramref name="input"/> into stream and then waiting for user input.
+            <para>
+                It's shortcut for
+                <code>
+                this.Write("Set value: ");
+                var value = this.ReadLine();
+                </code>
+            </para>
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.EnsureNewLine">
+            <summary>
+            Writes the break line if previous input was inline type.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Prefill(System.String)">
+            <summary>
+            Prefills the specified input and move curson before <paramref name="input"/> value.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Write(System.String)">
+            <summary>
+            Writes the specified input.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Write(System.String,Consinloop.ConsoleInputTypes)">
+            <summary>
+            Writes the specified input as specific <paramref name="type"/>.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Write(System.String,System.ConsoleColor)">
+            <summary>
+            Writes the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.Write(System.String,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Writes the specified input.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="color">The color.</param>
+            <param name="bgColor">The background color.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLine">
+            <summary>
+            Writes empty line.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLine(System.String)">
+            <summary>
+            Writes line with <paramref name="input"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLine(System.String,Consinloop.ConsoleInputTypes)">
+            <summary>
+            Writes the line as specific <paramref name="type"/>.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="type">The type.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLine(System.String,System.ConsoleColor)">
+            <summary>
+            Writes line with <paramref name="input"/>.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLine(System.String,System.ConsoleColor,System.ConsoleColor)">
+            <summary>
+            Writes line with <paramref name="input"/>.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="color">The color.</param>
+            <param name="bgColor">The background color.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteSuccess(System.String)">
+            <summary>
+            Writes success with <paramref name="input"/> inline as type <see cref="F:Consinloop.ConsoleInputTypes.Success"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLineSuccess(System.String)">
+            <summary>
+            Writes success with <paramref name="input"/> as type <see cref="F:Consinloop.ConsoleInputTypes.Success"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteWarning(System.String)">
+            <summary>
+            Writes warning with <paramref name="input"/> inline as type <see cref="F:Consinloop.ConsoleInputTypes.Warning"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLineWarning(System.String)">
+            <summary>
+            Writes warning with <paramref name="input"/> as type <see cref="F:Consinloop.ConsoleInputTypes.Warning"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteError(System.String)">
+            <summary>
+            Writes error with <paramref name="input"/> inline as type <see cref="F:Consinloop.ConsoleInputTypes.Error"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="M:Consinloop.Abstractions.IConsole.WriteLineError(System.String)">
+            <summary>
+            Writes error with <paramref name="input"/> as type <see cref="F:Consinloop.ConsoleInputTypes.Error"/>.
+            </summary>
+            <param name="input">The input.</param>
+        </member>
+        <member name="T:Consinloop.Abstractions.IContextData">
+            <summary>
+            Represents data available in whole session (across all commands and actions).
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IContextData.Cache">
+            <summary>
+            Gets data cache.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IContextData.GetCache``1(System.String)">
+            <summary>
+            Gets data from cache by <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data stored in <see cref="P:Consinloop.Abstractions.IContextData.Cache"/>.</typeparam>
+            <param name="key">The key in <see cref="P:Consinloop.Abstractions.IContextData.Cache"/>.</param>
+            <returns>If found, cast value from cache to <typeparamref name="T"/>. This can fail if it's another type.
+            <para>If not found, returns null.</para>
+            </returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IExecutor">
+            <summary>
+            Represents main class which executes commands and actions.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IExecutor.ExecutionTime">
+            <summary>
+            Gets the execution time.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IExecutor.WaitingTime">
+            <summary>
+            Gets the waiting time.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IExecutor.CommandsExecutedCount">
+            <summary>
+            Gets count of executed commands,
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IExecutor.ActionsExecutedCount">
+            <summary>
+            Gets count for exexuted actions.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IExecutor.ExecuteAsync(System.IServiceProvider,System.String[])">
+            <summary>
+            Executes the loop.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="startupArgs">The startup arguments.</param>
+            <returns>The <see cref="T:Consinloop.Abstractions.IResult"/>.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IHelpDescriptor">
+            <summary>
+            Generates <see cref="T:Consinloop.Help.HelpDescription"/> from commands.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IHelpDescriptor.GetHelpDescription(System.Collections.Generic.IEnumerable{Consinloop.Abstractions.ICommand})">
+            <summary>
+            Creates <see cref="T:Consinloop.Help.HelpDescription"/> from given <paramref name="commands"/>.
+            </summary>
+            <param name="commands">The commands.</param>
+            <returns>Commans and actions description.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IRegisterAction`1">
+            <summary>
+            Create chain to register action under <typeparamref name="TAction"/> type.
+            </summary>
+            <typeparam name="TAction">The type of the action.</typeparam>
+        </member>
+        <member name="M:Consinloop.Abstractions.IRegisterAction`1.Register``1">
+            <summary>
+            Register action to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> as <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
+            </summary>
+            <typeparam name="TImplementation">The implementation <typeparamref name="TAction"/>.</typeparam>
+            <returns>This instance.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IRegisterForCommand">
+            <summary>
+            Register actions under specific type.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Abstractions.IRegisterForCommand.Actions``1">
+            <summary>
+            Registers the actions by <typeparamref name="TAction"/> type.
+            </summary>
+            <typeparam name="TAction">The type of the action.</typeparam>
+            <returns>Instance to register an action.</returns>
+        </member>
+        <member name="T:Consinloop.Abstractions.IResult">
+            <summary>
+            The result.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IResult.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+        </member>
+        <member name="F:Consinloop.Abstractions.ReturnCodes.Continue">
+            <summary>
+            Continue in other execution operations.
+            </summary>
+        </member>
+        <member name="F:Consinloop.Abstractions.ReturnCodes.FinishApp">
+            <summary>
+            Finish the application, close it.
+            </summary>
+        </member>
+        <member name="F:Consinloop.Abstractions.ReturnCodes.Stop">
+            <summary>
+            The stop current execution.
+            </summary>
+        </member>
+        <member name="F:Consinloop.Abstractions.ReturnCodes.FatalError">
+            <summary>
+            The fatal error
+            </summary>
+        </member>
+        <member name="T:Consinloop.Argument">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.Argument.Key">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.Argument.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.Argument.DisplayName">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.Argument.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Argument"/> class.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:Consinloop.Argument.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Argument"/> class.
+            </summary>
+            <param name="key">The name.</param>
+            <param name="description">The description.</param>
+        </member>
+        <member name="M:Consinloop.Argument.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Argument"/> class.
+            </summary>
+            <param name="key">The name.</param>
+            <param name="description">The description.</param>
+            <param name="displayName">The display name.</param>
+        </member>
+        <member name="T:Consinloop.Arguments">
+            <summary>
+            Represents arguments writen in command line.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Arguments.Command">
+            <summary>
+            Gets the command name from command line arguments.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Arguments.Action">
+            <summary>
+            Gets the action name from command line arguments.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Arguments.HelpRequired">
+            <summary>
+            Gets a value indicating whether needs to print help or not.
+            </summary>
+            <value>
+              Default is <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Consinloop.Arguments.AdditionalArgumentsKeyValue">
+            <summary>
+            Gets the parameters additional parameters from command line arguments.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Arguments.Count">
+            <summary>
+            Gets count of all arguments.
+            </summary>
+        </member>
+        <member name="T:Consinloop.ArgumentsParser">
+            <summary>
+            Represents parser for arguments comming from command line.
+            </summary>
+            <seealso cref="T:Consinloop.Abstractions.IArgumentsParser" />
+        </member>
+        <member name="F:Consinloop.ArgumentsParser.Configuration">
+            <summary>
+            The configuration for this parser.
+            </summary>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.#ctor(Microsoft.Extensions.Options.IOptions{Consinloop.ConsinloopOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ArgumentsParser"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.ParseArguments(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.ParseArguments(System.String[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.ParserArgs(System.String)">
+            <summary>
+            Parsers <paramref name="input"/> into string array.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>Array of arguments.</returns>
+            <exception cref="T:System.InvalidProgramException">
+            Invalid argument. Cannot parse arguments ({input})
+            or
+            Invalid input parameter. Unclosed string with \" ({input})
+            </exception>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.GetEndQuute(System.Int32,System.String)">
+            <summary>
+            Finds the end quute in <paramref name="input"/>.
+            </summary>
+            <param name="pos">The position.</param>
+            <param name="input">The input.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Consinloop.ArgumentsParser.GetArguments(System.String[])">
+            <summary>
+            Gets instance of <see cref="T:Consinloop.Arguments"/> from input <paramref name="args"/>.
+            </summary>
+            <param name="args">The arguments.</param>
+        </member>
+        <member name="T:Consinloop.Attributes.ArgumentAttribute">
+            <summary>
+            Represent argument in a method with <see cref="T:Consinloop.Attributes.ExecuteAttribute"/>.
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="P:Consinloop.Attributes.ArgumentAttribute.Key">
+            <summary>
+            Gets or sets the name for the argument. It overwrites name of variable defined in a method.
+            </summary>
+            <value>
+            The key.
+            </value>
+        </member>
+        <member name="P:Consinloop.Attributes.ArgumentAttribute.Alias">
+            <summary>
+            Gets or sets the alias for the argument. Default name is name of a variable.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Attributes.ArgumentAttribute.DisplayName">
+            <summary>
+            Gets or sets name how it will be displayed in help print.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Attributes.ArgumentAttribute.Description">
+            <summary>
+            Gets or sets additional description for help print.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Attributes.ArgumentAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Attributes.ArgumentAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Attributes.ArgumentAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Attributes.ArgumentAttribute"/> class.
+            </summary>
+            <param name="name">The name.</param>
+        </member>
+        <member name="T:Consinloop.Attributes.ExecuteAttribute">
+            <summary>
+            Marker for a method which will be executed to run command or action.
+            </summary>
+            <seealso cref="T:System.Attribute" />
+        </member>
+        <member name="M:Consinloop.Attributes.ExecuteAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Attributes.ExecuteAttribute"/> class.
+            </summary>
+        </member>
+        <member name="T:Consinloop.BaseAction">
+            <summary>
+            Represents the action with predefined constructor with <see cref="T:Consinloop.Abstractions.IConsole"/>.
+            </summary>
+            <seealso cref="T:Consinloop.Abstractions.IAction" />
+        </member>
+        <member name="P:Consinloop.BaseAction.Key">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseAction.AliasKey">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseAction.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseAction.Index">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseAction.Arguments">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.BaseAction.Console">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.BaseAction.#ctor(Consinloop.Abstractions.IConsole)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.BaseAction"/> class.
+            </summary>
+            <param name="console">The streamer.</param>
+        </member>
+        <member name="T:Consinloop.BaseCommand">
+            <summary>
+            Represents base class for a command.
+            </summary>
+            <seealso cref="T:Consinloop.Abstractions.ICommand" />
+        </member>
+        <member name="P:Consinloop.BaseCommand.Key">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseCommand.AliasKey">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseCommand.Description">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.BaseCommand.Actions">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.BaseCommand.Console">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.BaseCommand.#ctor(System.Collections.Generic.IEnumerable{Consinloop.Abstractions.IAction},Consinloop.Abstractions.IConsole)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.BaseCommand"/> class.
+            </summary>
+            <param name="actions">The actions.</param>
+            <param name="streamer">The streamer.</param>
+        </member>
+        <member name="T:Consinloop.CommandExecutor">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.CommandExecutor.Configuration">
+            <summary>
+            The configuration.
+            </summary>
+        </member>
+        <member name="F:Consinloop.CommandExecutor.Console">
+            <summary>
+            The console.
+            </summary>
+        </member>
+        <member name="M:Consinloop.CommandExecutor.#ctor(Microsoft.Extensions.Options.IOptions{Consinloop.ConsinloopOptions},Consinloop.Abstractions.IConsole)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.CommandExecutor"/> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="console">The console.</param>
+        </member>
+        <member name="M:Consinloop.CommandExecutor.ExecuteAsync(Consinloop.Arguments,System.IServiceProvider,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.CommandExecutor.RunExecuteMethod(System.Type,System.Object,Consinloop.Arguments,System.IServiceProvider,System.Threading.CancellationToken)">
+            <summary>
+            Collect parameters for a method (<paramref name="type"/>) and executes it on <paramref name="source"/> object by reflection.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="source">The source.</param>
+            <param name="arguments">The arguments.</param>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns><see cref="F:Consinloop.CommandExecutorState.OK"/>.</returns>
+        </member>
+        <member name="M:Consinloop.CommandExecutor.GetParameterValue(System.Collections.Generic.Dictionary{System.String,System.String},System.Reflection.ParameterInfo,System.String)">
+            <summary>
+            Gets the parameter value.
+            </summary>
+            <param name="arguments">The arguments.</param>
+            <param name="parameterInfo">The parameter information.</param>
+            <param name="key">The key.</param>
+            <returns>Value from <paramref name="arguments"/> or value from command line.</returns>
+        </member>
+        <member name="M:Consinloop.CommandExecutor.GetConvertedValue(System.String,System.Type)">
+            <summary>
+            Converts string <paramref name="value"/> into <paramref name="expectedType"/>.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="expectedType">The expected type.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Consinloop.CommandExecutorState">
+            <summary>
+            Return state from <see cref="T:Consinloop.CommandExecutor"/>.
+            </summary>
+        </member>
+        <member name="F:Consinloop.CommandExecutorState.OK">
+            <summary>
+            Succeded.
+            </summary>
+        </member>
+        <member name="F:Consinloop.CommandExecutorState.COMMAND_NOT_FOUND">
+            <summary>
+            Command not found.
+            </summary>
+        </member>
+        <member name="F:Consinloop.CommandExecutorState.ACTION_NOT_FOUND">
+            <summary>
+            Action not found.
+            </summary>
+        </member>
+        <member name="F:Consinloop.CommandExecutorState.EXIT">
+            <summary>
+            Exit the application.
+            </summary>
+        </member>
+        <member name="T:Consinloop.ConsinloopContext">
+            <inheritdoc/>
+            <seealso cref="T:Consinloop.Abstractions.IContextData" />
+        </member>
+        <member name="P:Consinloop.ConsinloopContext.Cache">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ConsinloopContext.GetCache``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ConsinloopContext.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Consinloop.ConsinloopExecutor">
+            <inheritdoc/>
+            <seealso cref="T:Consinloop.Abstractions.IExecutor" />
+        </member>
+        <member name="F:Consinloop.ConsinloopExecutor.Console">
+            <summary>
+            The streamer.
+            </summary>
+        </member>
+        <member name="F:Consinloop.ConsinloopExecutor.ArgumentParser">
+            <summary>
+            The argument parser.
+            </summary>
+        </member>
+        <member name="F:Consinloop.ConsinloopExecutor.CommandExecutor">
+            <summary>
+            The command executor.
+            </summary>
+        </member>
+        <member name="F:Consinloop.ConsinloopExecutor.Options">
+            <summary>
+            The options.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsinloopExecutor.MakeLoop">
+            <summary>
+            Gets or sets if make loop (with do / while) or not. This setting is here only for unit testing.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsinloopExecutor.ExecutionTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.ConsinloopExecutor.WaitingTime">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.ConsinloopExecutor.CommandsExecutedCount">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.ConsinloopExecutor.ActionsExecutedCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ConsinloopExecutor.#ctor(Consinloop.Abstractions.IConsole,Consinloop.Abstractions.IArgumentsParser,Consinloop.Abstractions.ICommandExecutor,Microsoft.Extensions.Options.IOptions{Consinloop.ConsinloopOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ConsinloopExecutor"/> class.
+            </summary>
+            <param name="console">The console.</param>
+            <param name="argsParser">The arguments parser.</param>
+            <param name="commandExecutor">The command executor.</param>
+            <param name="configuration">The configuration.</param>
+        </member>
+        <member name="M:Consinloop.ConsinloopExecutor.ExecuteAsync(System.IServiceProvider,System.String[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ConsinloopExecutor.ExecuteAsync(System.IServiceProvider,Consinloop.Arguments,System.Threading.CancellationToken)">
+            <summary>
+            Executes the arguments.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <param name="arguments">The arguments.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Consinloop.ConsinloopExecutor.GetAllCommands(System.IServiceProvider)">
+            <summary>
+            Gets all commands from <paramref name="serviceProvider"/>.
+            </summary>
+            <param name="serviceProvider">The service provider.</param>
+            <returns>Array of <see cref="T:Consinloop.Abstractions.ICommand"/>.</returns>
+        </member>
+        <member name="P:Consinloop.ConsinloopOptions.CloseWhenError">
+            <summary>
+            Gets or sets a value indicating whether finish loop execution when error occured.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsinloopOptions.MakeLoop">
+            <summary>
+            Gets or sets if make loop (with do / while) or not. This setting is here only for unit testing.
+            </summary>
+        </member>
+        <member name="T:Consinloop.ConsinloopResult">
+            <inheritdoc/>
+        </member>
+        <member name="P:Consinloop.ConsinloopResult.Value">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.ConsinloopResult.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ConsinloopResult"/> class.
+            </summary>
+        </member>
+        <member name="M:Consinloop.ConsinloopResult.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ConsinloopResult"/> class.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="T:Consinloop.ConsinloopRunner">
+            <summary>
+            Executes the Consinloop.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="F:Consinloop.ConsinloopRunner.StartupArguments">
+            <summary>
+            The arguments.
+            </summary>
+        </member>
+        <member name="F:Consinloop.ConsinloopRunner.Services">
+            <summary>
+            The services.
+            </summary>
+        </member>
+        <member name="F:Consinloop.ConsinloopRunner.ConfigureServicesAction">
+            <summary>
+            The configure services action.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsinloopRunner.CancellationTokenSource">
+            <summary>
+            Gets or sets the cancellation token source.
+            </summary>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.#ctor(System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ConsinloopRunner"/> class.
+            </summary>
+            <param name="startupArgs">The startup arguments.</param>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.#ctor(System.String[],Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.ConsinloopRunner"/> class.
+            </summary>
+            <param name="startupArgs">The startup arguments.</param>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.ConfigureServices(System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <summary>
+            Register types in <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for additional dependencies.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.RegisterCommand``1">
+            <summary>
+            Registers the command.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <returns>Instance to register actions.</returns>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.Run">
+            <summary>
+            Run it.
+            </summary>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Console">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.Console.#ctor(Microsoft.Extensions.Options.IOptions{Consinloop.ConsoleOptions},Consinloop.Abstractions.IArgumentsParser,Consinloop.Abstractions.IContextData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Console"/> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="argumentsParser">The arguments parser.</param>
+            <param name="contextData">The context data.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Consinloop.Console.ReadKey">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Read">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.ReadArguments">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.ReadLine">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.ReadLine(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.EnsureNewLine">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Prefill(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Write(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Write(System.String,Consinloop.ConsoleInputTypes)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Write(System.String,System.ConsoleColor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.Write(System.String,System.ConsoleColor,System.ConsoleColor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLine">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLine(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLine(System.String,Consinloop.ConsoleInputTypes)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLine(System.String,System.ConsoleColor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLine(System.String,System.ConsoleColor,System.ConsoleColor)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteSuccess(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLineSuccess(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteError(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLineError(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteWarning(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.WriteLineWarning(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Consinloop.Console.BuildMessage(System.String,System.Boolean)">
+            <summary>
+            Builds the message.
+            </summary>
+            <param name="input">The input.</param>
+            <param name="inline">If <paramref name="input"/> is inline or line.</param>
+            <returns>Formatted <paramref name="input"/>.</returns>
+        </member>
+        <member name="T:Consinloop.ConsoleInputTypes">
+            <summary>
+            Input message types.
+            </summary>
+        </member>
+        <member name="T:Consinloop.ConsoleOptions">
+            <summary>
+            Represents options for <see cref="T:Consinloop.Abstractions.IConsole"/>.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background for normal text.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.ForegroundColor">
+            <summary>
+            Gets or sets the color of the foreground for normal text.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.ErrorBackgroundColor">
+            <summary>
+            Gets or sets the color of the error background.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.ErrorForegroundColor">
+            <summary>
+            Gets or sets the color of the error foreground.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.WarningBackgroundColor">
+            <summary>
+            Gets or sets the color of the warning background.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.WarningForegroundColor">
+            <summary>
+            Gets or sets the color of the warning foregground.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.SuccessBackgroundColor">
+            <summary>
+            Gets or sets the color of the success background.
+            </summary>
+        </member>
+        <member name="P:Consinloop.ConsoleOptions.SuccessForegroundColor">
+            <summary>
+            Gets or sets the color of the success foreground.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Help.ActionDescription">
+            <summary>
+            Command action description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.ActionDescription.Key">
+            <summary>
+            Gets or sets the key.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.ActionDescription.Alias">
+            <summary>
+            Gets or sets the alias key.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.ActionDescription.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.ActionDescription.Executes">
+            <summary>
+            Gets the execute methods.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.CommandDescription.Key">
+            <summary>
+            Gets or sets the key.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.CommandDescription.Alias">
+            <summary>
+            Gets or sets the alias.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.CommandDescription.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.CommandDescription.Executes">
+            <summary>
+            Gets the execute methods for this command.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.CommandDescription.Actions">
+            <summary>
+            Gets the actions.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Help.ExecuteMethodDescription">
+            <summary>
+            Execute method description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.ExecuteMethodDescription.Arguments">
+            <summary>
+            Gets the arguments for this execute method.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Help.HelpDescription">
+            <summary>
+            Represents root description model with list of commands.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.HelpDescription.Commands">
+            <summary>
+            Gets or sets the commands.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.Key">
+            <summary>
+            Gets or sets the key.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.Alias">
+            <summary>
+            Gets or sets the alias key.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.Type">
+            <summary>
+            Gets or sets argument type. Default 'string'.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.Description">
+            <summary>
+            Gets or sets the description.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.Required">
+            <summary>
+            Gets or sets a value indicating whether this argument is required.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Help.MethodArgumentDescription.DefaultValue">
+            <summary>
+            Gets or sets default value for this argument.
+            </summary>
+        </member>
+        <member name="T:Consinloop.Internal.CommandsHelpDescriptor">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.Internal.CommandsHelpDescriptor.Configuration">
+            <summary>
+            The configuration.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.#ctor(Microsoft.Extensions.Options.IOptions{Consinloop.ConsinloopOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Internal.CommandsHelpDescriptor"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.GetHelpDescription(System.Collections.Generic.IEnumerable{Consinloop.Abstractions.ICommand})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.GetParamDashName(System.String)">
+            <summary>
+            Gets the name of the parameter dash.
+            </summary>
+            <param name="paramName">Name of the parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.GetCommandDescription(Consinloop.Abstractions.ICommand)">
+            <summary>
+            Gets the command description if any execute method was found.
+            </summary>
+            <param name="command">The command.</param>
+            <returns>The description or null.</returns>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.GetExecuteMethodDescription(System.Reflection.MethodInfo[])">
+            <summary>
+            Gets the execute method description.
+            </summary>
+            <param name="methods">The methods.</param>
+            <returns>List of execute methods.</returns>
+        </member>
+        <member name="M:Consinloop.Internal.CommandsHelpDescriptor.GetParameterType(System.String)">
+            <summary>
+            Gets the type of the parameter.
+            </summary>
+            <param name="fullName">The full name.</param>
+            <returns>Value from <see cref="P:Consinloop.ConsinloopOptions.TypAliases"/> or <paramref name="fullName"/>.</returns>
+        </member>
+        <member name="M:Consinloop.Internal.HelpPrinter.#ctor(Consinloop.Abstractions.IHelpDescriptor,Consinloop.Abstractions.IConsole,Microsoft.Extensions.Options.IOptions{Consinloop.ConsinloopOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Internal.HelpPrinter"/> class.
+            </summary>
+            <param name="parser">The parser.</param>
+            <param name="console">The console.</param>
+            <param name="options">The options.</param>
+        </member>
+        <member name="T:Consinloop.Internal.RegisterAction`1">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.Internal.RegisterAction`1.Services">
+            <summary>
+            The service collection.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Internal.RegisterAction`1.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Internal.RegisterAction`1"/> class.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Consinloop.Internal.RegisterAction`1.Register``1">
+            <inheritdoc/>
+        </member>
+        <member name="T:Consinloop.Internal.RegisterForCommand">
+            <inheritdoc/>
+        </member>
+        <member name="F:Consinloop.Internal.RegisterForCommand.Services">
+            <summary>
+            The service collection.
+            </summary>
+        </member>
+        <member name="M:Consinloop.Internal.RegisterForCommand.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Consinloop.Internal.RegisterForCommand"/> class.
+            </summary>
+            <param name="services">The services.</param>
+        </member>
+        <member name="M:Consinloop.Internal.RegisterForCommand.Actions``1">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

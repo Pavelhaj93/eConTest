@@ -204,6 +204,7 @@ namespace eContracting.Kernel.Helpers
         /// </summary>
         /// <param name="offer">Instance of offer.</param>
         /// <returns>Code of additional info document, or empty string.</returns>
+        [Obsolete("Use 'OfferModel.GetCodeOfAdditionalInfoDocument' instead")]
         public static string GetCodeOfAdditionalInfoDocument(Offer offer)
         {
             if (offer == null)

@@ -5,16 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace eContracting.Services.Models.Responses
+namespace eContracting.Models
 {
-    [Serializable()]
+    [Serializable]
     [XmlRoot("abap", Namespace = "http://www.sap.com/abapxml")]
-    public class DocumentWrapperModel
+    public class OfferXmlModel
     {
         /// <summary>
-        /// Gets or sets internal offer.
+        /// Gets or sets inner content.
         /// </summary>
         [XmlElement("Nabidka", Namespace = "")]
-        public DocumentModel OfferInternal { get; set; } //TODO: Rename to 'Document'
+        public OfferContentXmlModel Content { get; set; }
     }
 }

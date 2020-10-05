@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eContracting.Services.Models
+namespace eContracting.Models
 {
     /// <summary>
     /// Represents file from 'ZCCH_CACHE_API'

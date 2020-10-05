@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using eContracting.Models;
 
-namespace eContracting.Services.Models.Responses
+namespace eContracting.Models
 {
     [Serializable]
-    public class DocumentBodyModel
+    public class OfferBodyXmlModel
     {
         /// <summary>
         /// Gets or sets uuid.
@@ -44,7 +46,7 @@ namespace eContracting.Services.Models.Responses
         /// Gets the flag if offer expired.
         /// </summary>
         [XmlIgnore]
-        public Boolean OfferIsExpired
+        public bool OfferIsExpired
         {
             get
             {
@@ -208,6 +210,6 @@ namespace eContracting.Services.Models.Responses
         [XmlElement("ACCOUNT_NUMBER")]
         public string ACCOUNT_NUMBER { get; set; }
 
-        public Template[] Attachments { get; set; }
+        public DocumentFileModel[] Attachments { get; set; }
     }
 }

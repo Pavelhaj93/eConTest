@@ -44,14 +44,14 @@ namespace eContracting.Kernel.Services
         /// <returns>Rerurn list of urls of files for download.</returns>
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            var responseObject = GetResponse(guid, "NABIDKA");
+            ZCCH_CACHE_GETResponse responseObject = this.GetResponse(guid, "NABIDKA");
 
             if (responseObject == null)
             {
                 return null;
             }
 
-            var offer = GenerateXml(guid, responseObject);
+            Offer offer = this.GenerateXml(guid, responseObject);
 
             if (offer == null)
             {
@@ -153,6 +153,7 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
+        [Obsolete("Use 'Extensions.LogFiles' instead")]
         private void LogFiles(List<FileToBeDownloaded> files, string guid, bool IsAccepted)
         {
             var template = "[{0}] Offer:[{1}]{2} Generated PDF files(Documents to download):{3}{4}";
@@ -178,6 +179,7 @@ namespace eContracting.Kernel.Services
             Log.Debug(tmp, this);
         }
 
+        [Obsolete("Use 'Extensions.LogFiles' instead")]
         private void LogFiles(List<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
         {
             var template = "[{0}] Offer:[{1}] Response Type:[{2}]{3} Received files:{4}{5}";
@@ -203,6 +205,7 @@ namespace eContracting.Kernel.Services
             Log.Debug(res, this);
         }
 
+        [Obsolete("Use 'CacheApiService.GetFiles' instead")]
         public ZCCH_ST_FILE[] GetFiles(string guid, bool IsAccepted)
         {
             ZCCH_CACHE_GETResponse result = null;
@@ -238,6 +241,7 @@ namespace eContracting.Kernel.Services
         /// <param name="guid">Uuid of offer.</param>
         /// <param name="responseObject">Already got response object.</param>
         /// <returns></returns>
+        [Obsolete("Use 'CacheApiService.GetOffer' instead")]
         public Offer GenerateXml(string guid, ZCCH_CACHE_GETResponse responseObject)
         {
             if (responseObject.ThereAreFiles())
@@ -246,7 +250,7 @@ namespace eContracting.Kernel.Services
 
                 using (var stream = new MemoryStream(responseObject.ET_FILES.First().FILECONTENT, false))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
+                    var serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
                     Offer offer = (Offer)serializer.Deserialize(stream);
                     offer.OfferInternal.IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
                         && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
@@ -314,6 +318,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
         /// <returns></returns>
+        [Obsolete("Use 'CacheApiService' instead")]
         public Offer GenerateXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
@@ -328,6 +333,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
         /// <returns>Returns true if offer was succesfully sent to the SAP.</returns>
+        [Obsolete("Use 'CacheApiService.SetStatus' instead")]
         public bool AcceptOffer(string guid)
         {
             AcceptedOffer offer = new AcceptedOffer()

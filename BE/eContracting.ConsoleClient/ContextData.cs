@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eContracting.Services.Models.Responses
+namespace eContracting.ConsoleClient
 {
-    public class OfferModel
+    public class ContextData
     {
+        public string Guid { get; set; }
     }
 }

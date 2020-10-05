@@ -8,10 +8,11 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>eContracting.ConsoleClient</RootNamespace>
     <AssemblyName>eContracting.ConsoleClient</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Consinloop">
+      <HintPath>..\libs\Consinloop.dll</HintPath>
+    </Reference>
+    <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="ContextData.cs" />
+    <Compile Include="GlobalConfiguration.cs" />
+    <Compile Include="OfferActions\BaseOfferAction.cs" />
+    <Compile Include="OfferActions\GetOfferAction.cs" />
+    <Compile Include="OfferActions\IOfferAction.cs" />
+    <Compile Include="OfferCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -50,10 +62,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
+      <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
+      <Name>eContracting.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
       <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
       <Name>eContracting.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>3.1.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <Version>3.1.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Options">
+      <Version>3.1.8</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

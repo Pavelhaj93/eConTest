@@ -1,34 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using eContracting.Models;
 using eContracting.Services.SAP;
 
 namespace eContracting.Services.Models
 {
     public class ResponseCacheGetModel
     {
-        protected readonly ZCCH_CACHE_GETResponse Response;
-
-        /// <summary>
-        /// Determines whether the offer is accepted.
-        /// </summary>
-        public bool IsAccepted
-        {
-            get
-            {
-                return this.Response.ET_ATTRIB != null && this.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT");
-            }
-        }
-
-        public bool IsRetention
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public readonly ZCCH_CACHE_GETResponse Response;
 
         public bool HasFiles
         {
@@ -37,6 +22,8 @@ namespace eContracting.Services.Models
                 return this.Response.ET_FILES.Length > 0;
             }
         }
+
+        public AttachmentModel[] Attachments { get; set; }
 
         public ResponseCacheGetModel(ZCCH_CACHE_GETResponse response)
         {
