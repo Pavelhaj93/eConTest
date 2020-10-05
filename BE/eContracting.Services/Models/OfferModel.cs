@@ -56,6 +56,38 @@ namespace eContracting.Services.Models
             }
         }
 
+        public string Birthday
+        {
+            get
+            {
+                return this.Xml.Content.Body.BIRTHDT;
+            }
+        }
+
+        public string PartnerNumber
+        {
+            get
+            {
+                return this.Xml.Content.Body.PARTNER;
+            }
+        }
+
+        public string PostNumberConsumption
+        {
+            get
+            {
+                return this.Xml.Content.Body.PscMistaSpotreby;
+            }
+        }
+
+        public string PostNumber
+        {
+            get
+            {
+                return this.Xml.Content.Body.PscTrvaleBydliste;
+            }
+        }
+
         public bool OfferIsExpired
         {
             get
@@ -77,7 +109,7 @@ namespace eContracting.Services.Models
             }
         }
 
-        public bool OfferIsAquisition
+        public bool OfferIsAcquisition
         {
             get
             {
@@ -93,7 +125,7 @@ namespace eContracting.Services.Models
                 {
                     return OfferTypes.Retention;
                 }
-                else if (this.OfferIsAquisition)
+                else if (this.OfferIsAcquisition)
                 {
                     return OfferTypes.Acquisition;
                 }
