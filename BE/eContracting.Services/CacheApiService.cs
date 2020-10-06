@@ -15,18 +15,29 @@ using eContracting.Services.SAP;
 namespace eContracting.Services
 {
     /// <summary>
-    /// Wrapper over <see cref="ZCCH_CACHE_API"/>.
+    /// Service wrapper over generated <see cref="ZCCH_CACHE_API"/>.
     /// </summary>
     public class CacheApiService
     {
-        public readonly CacheApiServiceOptions Options;
-
-        private readonly ZCCH_CACHE_APIClient Api;
-        protected readonly OfferParserService OfferParser;
-        protected readonly ILogger Logger;
         public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
+        public readonly CacheApiServiceOptions Options;
+        protected readonly OfferParserService OfferParser;
+        protected readonly OfferAttachmentParserService AttachmentParser;
+        protected readonly ILogger Logger;
+        private readonly ZCCH_CACHE_APIClient Api;
 
-        public CacheApiService(CacheApiServiceOptions options, OfferParserService offerParser, ILogger logger)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheApiService"/> class.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        /// <param name="offerParser">The offer parser.</param>
+        /// <param name="logger">The logger.</param>
+        /// <exception cref="ArgumentNullException">
+        /// offerParser
+        /// or
+        /// logger
+        /// </exception>
+        public CacheApiService(CacheApiServiceOptions options, OfferParserService offerParser, OfferAttachmentParserService attachmentParser, ILogger logger)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             this.Options = options;
@@ -44,12 +55,19 @@ namespace eContracting.Services
             this.Api.ClientCredentials.UserName.Password = this.Options.Password;
 
             this.OfferParser = offerParser ?? throw new ArgumentNullException(nameof(offerParser));
+            this.AttachmentParser = attachmentParser ?? throw new ArgumentNullException(nameof(attachmentParser));
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async Task<OfferModel> GetOffer(string guid, string type)
+        /// <summary>
+        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/>.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <returns></returns>
+        public async Task<OfferModel> GetOfferAsync(string guid, string type)
         {
-            var response = await this.GetResponse(guid, type);
+            var response = await this.GetResponseAsync(guid, type);
 
             if (response == null)
             {
@@ -59,14 +77,47 @@ namespace eContracting.Services
             return this.OfferParser.GenerateOffer(response);
         }
 
+        public async Task<OfferTextModel[]> GetXmlAsync(string guid)
+        {
+            var response = await this.GetResponseAsync(guid, "NABIDKA_XML");
+
+            var list = new List<OfferTextModel>();
+
+            if (response.HasFiles)
+            {
+                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
+                {
+                    var file = response.Response.ET_FILES[i];
+                    this.Logger.Debug($"[{guid}] NABIDKA_XML response: Contains ST_FILE - {file.FILENAME}");
+                    var index = i.ToString();
+                    var name = file.FILENAME;
+                    var text = Encoding.UTF8.GetString(file.FILECONTENT);
+
+                    var item = new OfferTextModel(index: index, name: name, text: text);
+
+                    if (file.ATTRIB != null)
+                    {
+                        foreach (var attr in file.ATTRIB)
+                        {
+                            item.Attributes.Add(attr.ATTRID, attr.ATTRVAL);
+                        }
+                    }
+
+                    list.Add(item);
+                }
+            }
+
+            return list.ToArray();
+        }
+
         /// <summary>
         /// Gets the files asynchronous.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <returns>Files in array or null</returns>
-        public async Task<AttachmentModel[]> GetPdfFilesForOfferAsync(string guid)
+        public async Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid)
         {
-            var result = await this.GetResponse(guid, "NABIDKA");
+            var result = await this.GetResponseAsync(guid, "NABIDKA");
 
             if (result == null)
             {
@@ -77,9 +128,9 @@ namespace eContracting.Services
 
             bool isAccepted = offer.IsAccepted;
 
-            ZCCH_ST_FILE[] files = await this.GetFiles(guid, isAccepted);
+            ZCCH_ST_FILE[] files = await this.GetFilesAsync(guid, isAccepted);
 
-            List<AttachmentModel> fileResults = new List<AttachmentModel>();
+            var fileResults = new List<OfferAttachmentXmlModel>();
 
             if (files.Length != 0 && files.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
             {
@@ -89,53 +140,8 @@ namespace eContracting.Services
                 {
                     try
                     {
-                        var customisedFileName = f.FILENAME;
-
-                        if (f.ATTRIB.Any(any => any.ATTRID == "LINK_LABEL"))
-                        {
-                            var linkLabel = f.ATTRIB.FirstOrDefault(where => where.ATTRID == "LINK_LABEL");
-                            customisedFileName = linkLabel.ATTRVAL;
-
-                            var extension = Path.GetExtension(f.FILENAME);
-                            customisedFileName = string.Format("{0}{1}", customisedFileName, extension);
-                        }
-
-                        var signRequired = false;
-                        var fileType = string.Empty;
-                        var templAlcId = string.Empty;
-
-                        if (offer.OfferType != OfferTypes.Default)
-                        {
-                            if (offer.Attachments != null)
-                            {
-                                var fileTemplate = f.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
-                                if (fileTemplate != null)
-                                {
-                                    var correspondingAttachment = offer.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
-
-                                    if (correspondingAttachment != null)
-                                    {
-                                        if (correspondingAttachment.SignReq.ToLower() == "x")
-                                        {
-                                            signRequired = true;
-                                            templAlcId = correspondingAttachment.TemplAlcId;
-                                            fileType = correspondingAttachment.IdAttach;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        var tempItem = new AttachmentModel();
-                        tempItem.Index = (++index).ToString();
-                        tempItem.FileName = customisedFileName;
-                        tempItem.FileNumber = f.FILEINDX;
-                        tempItem.FileType = fileType;
-                        tempItem.TemplAlcId = templAlcId;
-                        tempItem.SignRequired = signRequired;
-                        tempItem.FileContent = f.FILECONTENT.ToArray();
-                        tempItem.SignedVersion = false;
-                        fileResults.Add(tempItem);
+                        var fileModel = this.AttachmentParser.Parse(f, index, offer);
+                        fileResults.Add(fileModel);
                     }
                     catch (Exception ex)
                     {
@@ -151,42 +157,19 @@ namespace eContracting.Services
             return null;
         }
 
-        public async Task<ZCCH_ST_FILE[]> GetFiles(string guid, bool isAccepted)
-        {
-            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
-
-            if (isAccepted)
-            {
-                var result = await this.GetResponse(guid, "NABIDKA_ARCH");
-                files.AddRange(result.Response.ET_FILES);
-                var filenames = result.Response.ET_FILES.Select(file => file.FILENAME);
-                files.RemoveAll(file => filenames.Contains(file.FILENAME));
-                files.AddRange(result.Response.ET_FILES);
-                //TODO: this.LogFiles(files, guid, isAccepted, "NABIDKA_ARCH");
-            }
-            else
-            {
-                var result = await this.GetResponse(guid, "NABIDKA_PDF");
-
-                if (result.Response?.ET_FILES?.Any() ?? false)
-                {
-                    files.AddRange(result.Response.ET_FILES);
-                }
-
-                //TODO: this.LogFiles(files, guid, isAccepted, "NABIDKA_PDF");
-            }
-
-            return files.ToArray();
-        }
-
-        public async Task<bool> AcceptOffer(string guid)
+        /// <summary>
+        /// Accepts offer of <paramref name="guid"/> owner.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <returns>True if it was accepted or false.</returns>
+        public async Task<bool> AcceptOfferAsync(string guid)
         {
             var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             decimal outValue = 1M;
 
             if (decimal.TryParse(timestampString, out outValue))
             {
-                bool result = await this.SetStatus(guid, "NABIDKA", outValue);
+                bool result = await this.SetStatusAsync(guid, "NABIDKA", outValue);
                 return result;
             }
             else
@@ -197,7 +180,14 @@ namespace eContracting.Services
             return false;
         }
 
-        protected internal async Task<ResponseCacheGetModel> GetResponse(string guid, string type, string fileType = "B")
+        /// <summary>
+        /// Gets data.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="fileType">Type of the file.</param>
+        /// <returns>Instance of <see cref="ResponseCacheGetModel"/> or an exception.</returns>
+        public async Task<ResponseCacheGetModel> GetResponseAsync(string guid, string type, string fileType = "B")
         {
             var model = new ZCCH_CACHE_GET();
             model.IV_CCHKEY = guid;
@@ -214,7 +204,14 @@ namespace eContracting.Services
             return new ResponseCacheGetModel(result);
         }
 
-        protected internal async Task<bool> SetStatus(string guid, string type, decimal timestamp)
+        /// <summary>
+        /// Sets the status with <see cref="ZCCH_CACHE_STATUS_SET"/> object.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <param name="type">A type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="timestamp">Decimal representation of a timestamp.</param>
+        /// <returns>True if it was successfully set or false.</returns>
+        public async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp)
         {
             var model = new ZCCH_CACHE_STATUS_SET();
             model.IV_CCHKEY = guid;
@@ -246,6 +243,40 @@ namespace eContracting.Services
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Gets the files asynchronous.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+        /// <returns></returns>
+        protected internal async Task<ZCCH_ST_FILE[]> GetFilesAsync(string guid, bool isAccepted)
+        {
+            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+
+            if (isAccepted)
+            {
+                var result = await this.GetResponseAsync(guid, "NABIDKA_ARCH");
+                files.AddRange(result.Response.ET_FILES);
+                var filenames = result.Response.ET_FILES.Select(file => file.FILENAME);
+                files.RemoveAll(file => filenames.Contains(file.FILENAME));
+                files.AddRange(result.Response.ET_FILES);
+                this.Logger.LogFiles(files, guid, isAccepted, "NABIDKA_ARCH");
+            }
+            else
+            {
+                var result = await this.GetResponseAsync(guid, "NABIDKA_PDF");
+
+                if (result.Response?.ET_FILES?.Any() ?? false)
+                {
+                    files.AddRange(result.Response.ET_FILES);
+                }
+
+                this.Logger.LogFiles(files, guid, isAccepted, "NABIDKA_PDF");
+            }
+
+            return files.ToArray();
         }
     }
 }

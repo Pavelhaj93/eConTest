@@ -48,13 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\GetXmlCommand.cs" />
+    <Compile Include="Commands\GetFilesCommand.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ContextData.cs" />
     <Compile Include="GlobalConfiguration.cs" />
-    <Compile Include="OfferActions\BaseOfferAction.cs" />
-    <Compile Include="OfferActions\GetOfferAction.cs" />
-    <Compile Include="OfferActions\IOfferAction.cs" />
-    <Compile Include="OfferCommand.cs" />
+    <Compile Include="Commands\GetOfferCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

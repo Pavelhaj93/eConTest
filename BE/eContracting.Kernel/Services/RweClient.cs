@@ -27,6 +27,7 @@ namespace eContracting.Kernel.Services
     /// <summary>
     /// Implementation of SAP client.
     /// </summary>
+    [Obsolete("Use 'CacheApiService' instead")]
     public class RweClient : IRweClient
     {
         protected readonly ISettingsReaderService SettingsReaderService;
@@ -42,6 +43,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="guid">Uuid of the fiels to generate.</param>
         /// <returns>Rerurn list of urls of files for download.</returns>
+        [Obsolete("Use 'CacheApiService.GetFilesAsync' instead")]
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
             ZCCH_CACHE_GETResponse responseObject = this.GetResponse(guid, "NABIDKA");

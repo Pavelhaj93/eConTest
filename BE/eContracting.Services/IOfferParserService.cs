@@ -3,7 +3,7 @@
 namespace eContracting.Services
 {
     /// <summary>
-    /// Parse <see cref="OfferModel"/> from <see cref="ResponseCacheGetModel"/>.
+    /// Represents parser from <see cref="OfferModel"/> to <see cref="ResponseCacheGetModel"/> object.
     /// </summary>
     public interface IOfferParserService
     {

@@ -9,6 +9,7 @@ using eContracting.Kernel.Models;
 
 namespace eContracting.Kernel.Services
 {
+    [Obsolete("Use 'CacheApiService' instead")]
     public interface IRweClient
     {
         bool AcceptOffer(string guid);

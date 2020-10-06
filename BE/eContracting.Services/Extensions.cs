@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Services.Models;
 using eContracting.Services.SAP;
 
 namespace eContracting.Services
@@ -20,58 +21,68 @@ namespace eContracting.Services
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_GET model, TimeSpan time)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append($"[{model.IV_CCHKEY}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
+            stringBuilder.Append($"[{model.IV_CCHKEY}] [{model.IV_CCHTYPE}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
             logger.Debug(stringBuilder.ToString());
         }
 
-        public static void LogFiles(this ILogger logger, IEnumerable<AttachmentModel> files, string guid, bool IsAccepted)
+        public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentXmlModel> files, string guid, bool IsAccepted)
         {
-            var template = "[{0}] Offer:[{1}]{2} Generated PDF files(Documents to download):{3}{4}";
-            var accept = IsAccepted ? "Accepted" : "Not Accepted";
+            var accept = IsAccepted ? "accepted" : "not accepted";
+
+            var builder = new StringBuilder();
+            builder.Append($"[{guid}] ");
+            builder.Append($"Offer is {accept}");
+            builder.AppendLine();
 
             if (files == null || !files.Any())
             {
-                var noFiles = string.Format(template, guid, accept, Environment.NewLine, "[No files generated]", Environment.NewLine);
-                logger.Debug(noFiles);
+                builder.AppendLine("0 files received");
+                logger.Debug(builder.ToString());
                 return;
             }
 
-            var builder = new StringBuilder();
+            builder.AppendLine($"{files.Count()} files received:");
             var counter = 1;
+            int totalSize = 0;
 
             foreach (var file in files)
             {
-                var line = string.Format("[{0}] Sign Required:[{1}] {2} {3}", counter++, file.SignRequired ? "Yes" : "No", file.FileName, Environment.NewLine);
-                builder.Append(line);
+                builder.AppendLine($"[{counter}] Sign required [{file.SignRequired}]: {file.FileName} ({file.SizeLabel})");
+                counter++;
+                totalSize += file.Size;
             }
 
-            var tmp = string.Format(template, guid, accept, Environment.NewLine, Environment.NewLine, builder.ToString());
-            logger.Debug(tmp);
+            builder.AppendLine("Total file size: " + Utils.GerReadableFileSize(totalSize));
+            logger.Debug(builder.ToString());
         }
 
         public static void LogFiles(this ILogger logger, IEnumerable<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
         {
-            var template = "[{0}] Offer:[{1}] Response Type:[{2}]{3} Received files:{4}{5}";
-            var accept = IsAccepted ? "Accepted" : "Not Accepted";
+            var accept = IsAccepted ? "accepted" : "not accepted";
+
+            var builder = new StringBuilder();
+            builder.Append($"[{guid}] ");
+            builder.Append($"[{responseType}] ");
+            builder.Append($"Offer is {accept}");
+            builder.AppendLine();
 
             if (files == null || !files.Any())
             {
-                var noFiles = string.Format(template, guid, accept, responseType, Environment.NewLine, "No files received", Environment.NewLine);
-                logger.Debug(noFiles);
+                builder.AppendLine("0 files received");
+                logger.Debug(builder.ToString());
                 return;
             }
 
-            var builder = new StringBuilder();
+            builder.AppendLine($"{files.Count()} files received:");
             var counter = 1;
 
             foreach (var file in files)
             {
-                var line = string.Format("[{0}] {1}{2}", counter++, file.FILENAME, Environment.NewLine);
-                builder.Append(line);
+                builder.AppendLine($"[{counter}] {file.FILENAME}");
+                counter++;
             }
 
-            var res = string.Format(template, guid, accept, responseType, Environment.NewLine, Environment.NewLine, builder.ToString());
-            logger.Debug(res);
+            logger.Debug(builder.ToString());
         }
     }
 }

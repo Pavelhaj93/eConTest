@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Consinloop;
-using eContracting.ConsoleClient.OfferActions;
+using eContracting.ConsoleClient.Commands;
 using eContracting.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,12 +19,13 @@ namespace eContracting.ConsoleClient
                     services.AddOptions<GlobalConfiguration>();
                     services.AddSingleton<ContextData>();
                     services.AddScoped<OfferParserService>();
+                    services.AddScoped<OfferAttachmentParserService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                 });
 
-                consinloop.RegisterCommand<OfferCommand>()
-                    .Actions<IOfferAction>()
-                        .Register<GetOfferAction>();
+                consinloop.RegisterCommand<GetOfferCommand>();
+                consinloop.RegisterCommand<GetXmlCommand>();
+                consinloop.RegisterCommand<GetFilesCommand>();
 
                 await consinloop.Run();
             }
