@@ -18,7 +18,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <returns>Instance result.</returns>
         [HttpGet]
-        [Obsolete("Use 'eContracting2Controller.AcceptedOffer' instead")]
         public ActionResult AcceptedOffer()
         {
             string guid = string.Empty;

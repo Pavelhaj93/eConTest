@@ -11,7 +11,7 @@ namespace eContracting.Kernel.Utils
     public class AuthenticationRandomChoice : AuthenticationMethod
     {
         private readonly Offer offer;
-        public AuthenticationRandomChoice(IAuthenticationDataSessionStorage authSessionStorage, Offer offer) : base(authSessionStorage)
+        public AuthenticationRandomChoice(AuthenticationDataSessionStorage authSessionStorage, Offer offer) : base(authSessionStorage)
         {
             this.offer = offer;
         }

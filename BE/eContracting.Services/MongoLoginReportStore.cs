@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using eContracting.Abstractions.Models;
+using eContracting.Models;
 using MongoDB.Driver;
 
 namespace eContracting.Services

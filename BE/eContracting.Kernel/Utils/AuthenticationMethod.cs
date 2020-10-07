@@ -10,9 +10,9 @@ namespace eContracting.Kernel.Utils
 {
     public abstract class AuthenticationMethod
     {
-        protected readonly IAuthenticationDataSessionStorage sessionStorage;
+        protected readonly AuthenticationDataSessionStorage sessionStorage;
 
-        protected AuthenticationMethod(IAuthenticationDataSessionStorage authSessionStorage)
+        protected AuthenticationMethod(AuthenticationDataSessionStorage authSessionStorage)
         {
             this.sessionStorage = authSessionStorage;
         }

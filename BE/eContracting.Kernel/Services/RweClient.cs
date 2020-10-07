@@ -27,33 +27,24 @@ namespace eContracting.Kernel.Services
     /// <summary>
     /// Implementation of SAP client.
     /// </summary>
-    [Obsolete("Use 'CacheApiService' instead")]
-    public class RweClient : IRweClient
+    public class RweClient
     {
-        protected readonly ISettingsReaderService SettingsReaderService;
-
-        public RweClient(ISettingsReaderService settingsReaderService)
-        {
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-        }
-
         #region Public methods
         /// <summary>
         /// Generates pdf files on server.
         /// </summary>
         /// <param name="guid">Uuid of the fiels to generate.</param>
         /// <returns>Rerurn list of urls of files for download.</returns>
-        [Obsolete("Use 'CacheApiService.GetFilesAsync' instead")]
         public List<FileToBeDownloaded> GeneratePDFFiles(string guid)
         {
-            ZCCH_CACHE_GETResponse responseObject = this.GetResponse(guid, "NABIDKA");
+            var responseObject = GetResponse(guid, "NABIDKA");
 
             if (responseObject == null)
             {
                 return null;
             }
 
-            Offer offer = this.GenerateXml(guid, responseObject);
+            var offer = GenerateXml(guid, responseObject);
 
             if (offer == null)
             {
@@ -155,7 +146,6 @@ namespace eContracting.Kernel.Services
             return null;
         }
 
-        [Obsolete("Use 'Extensions.LogFiles' instead")]
         private void LogFiles(List<FileToBeDownloaded> files, string guid, bool IsAccepted)
         {
             var template = "[{0}] Offer:[{1}]{2} Generated PDF files(Documents to download):{3}{4}";
@@ -181,13 +171,12 @@ namespace eContracting.Kernel.Services
             Log.Debug(tmp, this);
         }
 
-        [Obsolete("Use 'Extensions.LogFiles' instead")]
         private void LogFiles(List<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
         {
             var template = "[{0}] Offer:[{1}] Response Type:[{2}]{3} Received files:{4}{5}";
             var accept = IsAccepted ? "Accepted" : "Not Accepted";
 
-            if (files == null || !files.Any())
+            if (files == null || !files.Any()) 
             {
                 var noFiles = string.Format(template, guid, accept, responseType, Environment.NewLine, "No files received", Environment.NewLine);
                 Log.Debug(noFiles, this);
@@ -207,7 +196,6 @@ namespace eContracting.Kernel.Services
             Log.Debug(res, this);
         }
 
-        [Obsolete("Use 'CacheApiService.GetFiles' instead")]
         public ZCCH_ST_FILE[] GetFiles(string guid, bool IsAccepted)
         {
             ZCCH_CACHE_GETResponse result = null;
@@ -233,17 +221,16 @@ namespace eContracting.Kernel.Services
 
                 this.LogFiles(files, guid, IsAccepted, "NABIDKA_PDF");
             }
-
+            
             return files.ToArray();
         }
-
+        
         /// <summary>
         /// Generates xml for offer.
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
         /// <param name="responseObject">Already got response object.</param>
         /// <returns></returns>
-        [Obsolete("Use 'CacheApiService.GetOffer' instead")]
         public Offer GenerateXml(string guid, ZCCH_CACHE_GETResponse responseObject)
         {
             if (responseObject.ThereAreFiles())
@@ -252,7 +239,7 @@ namespace eContracting.Kernel.Services
 
                 using (var stream = new MemoryStream(responseObject.ET_FILES.First().FILECONTENT, false))
                 {
-                    var serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
+                    XmlSerializer serializer = new XmlSerializer(typeof(Offer), "http://www.sap.com/abapxml");
                     Offer offer = (Offer)serializer.Deserialize(stream);
                     offer.OfferInternal.IsAccepted = responseObject.ET_ATTRIB != null && responseObject.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
                         && !String.IsNullOrEmpty(responseObject.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
@@ -320,7 +307,6 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
         /// <returns></returns>
-        [Obsolete("Use 'CacheApiService' instead")]
         public Offer GenerateXml(string guid)
         {
             ZCCH_CACHE_GETResponse result = GetResponse(guid, "NABIDKA");
@@ -335,7 +321,6 @@ namespace eContracting.Kernel.Services
         /// </summary>
         /// <param name="guid">Uuid of offer.</param>
         /// <returns>Returns true if offer was succesfully sent to the SAP.</returns>
-        [Obsolete("Use 'CacheApiService.SetStatus' instead")]
         public bool AcceptOffer(string guid)
         {
             AcceptedOffer offer = new AcceptedOffer()
@@ -361,7 +346,7 @@ namespace eContracting.Kernel.Services
 
                 try
                 {
-
+                    
                     response = this.CallService(status, del);
                 }
                 catch (Exception ex)
@@ -446,7 +431,7 @@ namespace eContracting.Kernel.Services
                     var signedNamesLogEntry = string.Format("[{0}][LogAcceptance] Signed files:{1}{2}", guid, Environment.NewLine, string.Join(Environment.NewLine, signedNames));
                     Log.Debug(signedNamesLogEntry, this);
                 }
-
+                
                 var signedFilesChecked = 0;
 
                 foreach (var responseFile in responsePdfFiles)
@@ -483,7 +468,7 @@ namespace eContracting.Kernel.Services
 
                 if (signedFilesCount != signedFilesChecked)
                 {
-                    throw new ApplicationException("Number of loaded signed files (" + signedFilesCount + ") and number of processed signed files (" + signedFilesChecked + ") is not the same!");
+                    throw new ApplicationException("Number of loaded signed files ("+ signedFilesCount + ") and number of processed signed files ("+ signedFilesChecked + ") is not the same!");
                 }
             }
             else
@@ -556,7 +541,7 @@ namespace eContracting.Kernel.Services
                 {
                     return false;
                 }
-
+                
             }
             else
             {
@@ -853,7 +838,7 @@ namespace eContracting.Kernel.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             ZCCH_CACHE_API api = new ZCCH_CACHE_API();
 
-            SiteRootModel siteSettings = this.SettingsReaderService.GetSiteSettings();
+            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
             var userName = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServiceUser));
             var password = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.ServicePassword));
             api.Url = siteSettings.ServiceUrl;
@@ -891,7 +876,6 @@ namespace eContracting.Kernel.Services
                 return result;
             }
         }
-
         private ZCCH_CACHE_GETResponse GetResponse(string guid, string type)
         {
             ZCCH_CACHE_GET inputPar = new ZCCH_CACHE_GET();

@@ -23,7 +23,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <returns>Instance result.</returns>
         [HttpGet]
-        [Obsolete("Use 'eContracting2Controller.Offer' instead")]
         public ActionResult Offer()
         {
             string guid = string.Empty;
@@ -94,7 +93,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             }
         }
 
-        [Obsolete("Use 'StringUtils.AesEncrypt' instead")]
         public static string AesEncrypt(string input, string key, string vector)
         {
             byte[] encrypted;

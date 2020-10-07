@@ -13,10 +13,7 @@ using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using eContracting.Website.Areas.eContracting.Models;
-using Glass.Mapper.Sc.Web.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Sitecore.Collections;
-using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
 using Sitecore.Web;
 
@@ -25,49 +22,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class eContractingAuthenticationController : GlassController
+    public class eContractingAuthenticationController : BaseController<EContractingAuthenticationTemplate>
     {
         private const string salt = "228357";
-        protected readonly IRweClient Client;
-        protected readonly ILoginReportStore LoginReportService;
-        protected readonly ISettingsReaderService SettingsReaderService;
-        protected readonly IAuthenticationDataSessionStorage DataSessionStorage;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
-        /// </summary>
-        public eContractingAuthenticationController()
-        {
-            this.Client = ServiceLocator.ServiceProvider.GetRequiredService<IRweClient>();
-            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-            this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
-            this.DataSessionStorage = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationDataSessionStorage>();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
-        /// </summary>
-        /// <param name="client">The client.</param>
-        /// <param name="settingsReaderService">The settings reader service.</param>
-        /// <param name="loginReportService">The login report service.</param>
-        /// <param name="dataSessionStorage">The data session storage.</param>
-        /// <exception cref="ArgumentNullException">
-        /// client
-        /// or
-        /// settingsReaderService
-        /// or
-        /// loginReportService
-        /// or
-        /// client
-        /// </exception>
-        public eContractingAuthenticationController(IRweClient client, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, IAuthenticationDataSessionStorage dataSessionStorage)
-        {
-            this.Client = client ?? throw new ArgumentNullException(nameof(client));
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-            this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
-            this.DataSessionStorage = dataSessionStorage ?? throw new ArgumentNullException(nameof(client));
-        }
-
         /// <summary>
         /// Authentication GET action.
         /// </summary>
@@ -77,12 +34,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         {
             var guid = string.Empty;
             var errorString = string.Empty;
-            var datasource = this.GetLayoutItem<EContractingAuthenticationTemplate>();
 
             try
             {
-                guid = this.Request.QueryString["guid"];
-                var msg = this.Request.QueryString["error"];
+                guid = Request.QueryString["guid"];
+                var msg = Request.QueryString["error"];
 
                 if (!string.IsNullOrEmpty(msg) && msg=="validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
                 {
@@ -92,53 +48,54 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                 if (string.IsNullOrEmpty(guid))
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.UserBlocked).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-                Offer offer = this.Client.GenerateXml(guid);
+                var client = new RweClient();
+                Offer offer = client.GenerateXml(guid);
 
                 if (offer == null || offer.OfferInternal == null)
                 {
                     Log.Warn($"[{guid}] No offer found", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (offer.OfferInternal.State == "1")
                 {
                     Log.Warn($"[{guid}] Offer with state [1] will be ignored", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (offer.OfferInternal.Body == null)
                 {
                     Log.Warn($"[{guid}] Offer is empty", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 if (string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
                 {
                     Log.Warn($"[{guid}] Attribute BIRTHDT is offer is empty", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                var authSettings = this.SettingsReaderService.GetAuthenticationSettings();
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
                 var authHelper = new AuthenticationHelper(
                     offer,
-                    this.DataSessionStorage,
-                    datasource.UserChoiceAuthenticationEnabled,
-                    datasource.UserChoiceAuthenticationEnabledRetention,
-                    datasource.UserChoiceAuthenticationEnabledAcquisition,
+                    new AuthenticationDataSessionStorage(),
+                    this.Context.UserChoiceAuthenticationEnabled,
+                    this.Context.UserChoiceAuthenticationEnabledRetention,
+                    this.Context.UserChoiceAuthenticationEnabledAcquisition,
                     authSettings);
                 AuthenticationDataItem userData = authHelper.GetUserData();
 
-                if (!datasource.WelcomePageEnabled && (offer.OfferInternal.State == "3"))
+                if (!this.Context.WelcomePageEnabled && (offer.OfferInternal.State == "3"))
                 {
-                    this.Client.ReadOffer(guid);
+                    client.ReadOffer(guid);
                 }
 
                 Log.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType), this);
@@ -146,11 +103,11 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
                     if (
-                        (datasource.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
-                        || (datasource.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
-                        || (datasource.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition))
+                        (this.Context.WelcomePageEnabled && userData.OfferType == Kernel.OfferTypes.Default)
+                        || (this.Context.WelcomePageEnabledRetention && userData.OfferType == Kernel.OfferTypes.Retention)
+                        || (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == Kernel.OfferTypes.Acquisition))
                     {
-                        UriBuilder welcomeUri = new UriBuilder(this.SettingsReaderService.GetPageLink(PageLinkType.Welcome).Url);
+                        UriBuilder welcomeUri = new UriBuilder(ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url);
                         var query = new SafeDictionary<string>();
                         query["guid"] = guid;
 
@@ -173,7 +130,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     {
                         if (offer.OfferInternal.State == "3")
                         {
-                            this.Client.ReadOffer(guid);
+                            client.ReadOffer(guid);
                         }
                     }
                 }
@@ -209,16 +166,16 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     hiddenValue = string.Format("{0}{1}", value, salt);     ////hash + salt
                 }
 
-                var contentText = userData.IsAccepted ? datasource.AcceptedOfferText : datasource.NotAcceptedOfferText;
+                var contentText = userData.IsAccepted ? this.Context.AcceptedOfferText : this.Context.NotAcceptedOfferText;
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                var maintext = textHelper.GetMainText(this.Client, userData, contentText, this.SettingsReaderService.GetGeneralSettings());
+                var maintext = textHelper.GetMainText(userData, contentText);
 
                 if (maintext == null)
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
-                var viewModel = GetViewModel(datasource, userData, errorString);
+                var viewModel = GetViewModel(userData, errorString);
                 viewModel.HiddenValue = hiddenValue;
                 viewModel.Choices = choices;
 
@@ -229,7 +186,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch (Exception ex)
             {
                 Log.Error($"[{guid}] Authenticating failed", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -245,25 +202,26 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             var guid = Request.QueryString.Get("guid");
             var reportDateOfBirth = false;
             var reportAdditionalValue = false;
-            var datasource = this.GetLayoutItem<EContractingAuthenticationTemplate>();
 
             try
             {
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
                     Log.Info($"[{guid}] Temporary blocked", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.UserBlocked).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.UserBlocked).Url);
                 }
 
-                var offer = this.Client.GenerateXml(Request.QueryString["guid"]);
 
-                var authSettings = this.SettingsReaderService.GetAuthenticationSettings();
+                var client = new RweClient();
+                var offer = client.GenerateXml(Request.QueryString["guid"]);
+
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
                 var authHelper = new AuthenticationHelper(
                     offer,
-                    this.DataSessionStorage,
-                    datasource.UserChoiceAuthenticationEnabled,
-                    datasource.UserChoiceAuthenticationEnabledRetention,
-                    datasource.UserChoiceAuthenticationEnabledAcquisition,
+                    new AuthenticationDataSessionStorage(),
+                    this.Context.UserChoiceAuthenticationEnabled,
+                    this.Context.UserChoiceAuthenticationEnabledRetention,
+                    this.Context.UserChoiceAuthenticationEnabledAcquisition,
                     authSettings);
                 var userData = authHelper.GetUserData();
 
@@ -285,7 +243,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 var validAdditionalValue = (additionalUserValue == additionalRealValue);
 
                 var validData = validDateOfBirth && validAdditionalValue;
-
+                var loginReportService = new MongoOfferLoginReportService();
                 var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
                 var offerTypeIdentifier = userData.IsIndi ?
                     $"{offer.OfferInternal.CreatedAt}" : 
@@ -296,37 +254,37 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     Log.Info($"[{guid}] Log-in failed", this);
                     var dateOfBirthValidationMessage = string.Empty;
                     var specificValidationMessage = string.Empty;
-                    var validationMessage = datasource.ValidationMessage;
+                    var validationMessage = this.Context.ValidationMessage;
 
                     if (!validFormatDateOfBirth)
                     {
                         Log.Info($"[{guid}] Invalid format of date of birth", this);
                         reportDateOfBirth = true;
-                        dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
+                        dateOfBirthValidationMessage = this.Context.BirthDateValidationMessage;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
                         reportAdditionalValue = true;
-                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey, datasource.ValidationMessage);
+                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
                     }
 
                     if (!validDateOfBirth)
                     {
                         Log.Info($"[{guid}] Date of birth doesn't match", this);
                         reportDateOfBirth = true;
-                        dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
+                        dateOfBirthValidationMessage = this.Context.BirthDateValidationMessage;
                     }
 
                     if (!validAdditionalValue)
                     {
                         Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
                         reportAdditionalValue = true;
-                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey, datasource.ValidationMessage);
+                        specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey);
                     }
 
-                    this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
                     if (reportDateOfBirth && !reportAdditionalValue)
                     {
@@ -343,7 +301,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                         this.Session["ErrorMessage"] = validationMessage;
                     }
 
-                    this.LoginReportService.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
+                    var siteSettings = ConfigHelpers.GetSiteSettings();
+                    var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
+                    loginsCheckerClient.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
                     var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
 
                     return Redirect(url);
@@ -352,123 +312,46 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (!ModelState.IsValid)
                 {
                     Log.Debug($"[{guid}] Invalid log-in data", this);
-                    this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
+                    this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier, generalError:true);
                     var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
                     return Redirect(url);
                 }
 
-                this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+                this.ReportLogin(loginReportService, reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
 
-                this.DataSessionStorage.Login(userData);
+                var aut = new AuthenticationDataSessionStorage();   ////why??? - good question!
+                aut.Login(userData);
 
                 Log.Info($"[{guid}] Successfully log-ged in", this);
 
                 if (userData.IsAccepted)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkType.AcceptedOffer).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     Log.Info($"[{guid}] Offer already accepted", this);
                     return Redirect(redirectUrl);
                 }
 
                 if (userData.OfferIsExpired)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkType.OfferExpired).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     Log.Info($"[{guid}] Offer expired", this);
                     return Redirect(redirectUrl);
                 }
 
-                return Redirect(datasource.NextPageLink.Url);
+                return Redirect(Context.NextPageLink.Url);
             }
             catch (Exception ex)
             {
                 Log.Fatal($"[{guid}] Authentication process failed", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
-        /// <summary>
-        /// Authentication GET action.
-        /// </summary>
-        /// <returns>Instance result.</returns>
-        [HttpGet]
-        public ActionResult Welcome()
-        {
-            var guid = string.Empty;
-            var datasource = this.GetLayoutItem<EContractingWelcomeTemplate>();
-
-            try
-            {
-                if (Sitecore.Context.PageMode.IsNormal)
-                {
-                    guid = Request.QueryString["guid"];
-
-                    if (string.IsNullOrEmpty(guid))
-                    {
-                        return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
-                    }
-
-                    if (this.CheckWhetherUserIsBlocked(guid))
-                    {
-                        return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.UserBlocked).Url);
-                    }
-
-                    var offer = this.Client.GenerateXml(guid);
-
-                    if ((offer == null) || (offer.OfferInternal.Body == null) || string.IsNullOrEmpty(offer.OfferInternal.Body.BIRTHDT))
-                    {
-                        return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.WrongUrl).Url);
-                    }
-
-                    if (offer.OfferInternal.State == "3")
-                    {
-                        this.Client.ReadOffer(guid);
-                    }
-
-                    var authenticationData = this.DataSessionStorage.GetUserData(offer, true);
-
-                    datasource.OfferType = authenticationData.OfferType;
-                    datasource.IsIndividual = authenticationData.IsIndi;
-
-                    var processingParameters = SystemHelpers.GetParameters(this.Client, guid, authenticationData.OfferType, string.Empty, this.SettingsReaderService.GetGeneralSettings());
-                    this.HttpContext.Items["WelcomeData"] = processingParameters;
-
-                    var dataModel = new WelcomeModel() { Guid = guid };
-
-                    dataModel.ButtonText = datasource.ButtonText;
-
-                    return View("/Areas/eContracting/Views/Welcome.cshtml", datasource);
-                }
-                else
-                {
-                    //TODO: Remove after check
-                    var dataModel = new WelcomeModel() { Guid = string.Empty };
-                    dataModel.ButtonText = datasource.ButtonText;
-
-                    return View("/Areas/eContracting/Views/Welcome.cshtml", datasource);
-                }
-            }
-            catch (Exception ex)
-            {
-                Log.Error($"[{guid}] Error when displaying welcome user page", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.SystemError).Url);
-            }
-        }
-
-        /// <summary>
-        /// Submits welcome page and redirect visitor back to login page.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        [HttpPost]
-        public ActionResult WelcomeSubmit(string guid)
-        {
-            return Redirect(this.SettingsReaderService.GetPageLink(PageLinkType.Login).Url + "?fromWelcome=1&guid=" + guid);
-        }
-
-        protected internal void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        private void ReportLogin(MongoOfferLoginReportService service, string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
         {
             if (generalError)
             {
-                this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
                 return;
             }
 
@@ -476,29 +359,29 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             {
                 if (additionalValueKey == "identitycardnumber")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
                     return;
                 }
 
                 if (additionalValueKey == "permanentresidencepostalcode")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
                     return;
                 }
 
                 if (additionalValueKey == "postalcode")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
+                    service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
                     return;
                 }
             }
             else
             {
-                this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
+                service.AddOfferLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
             }
         }
 
-        protected internal string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key, string defaultMessage)
+        private string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key)
         {
             var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.Key == key);
 
@@ -507,32 +390,32 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 return settingsItem.ValidationMessage;
             }
 
-            return defaultMessage;
+            return this.Context.ValidationMessage;
         }
 
-        protected internal LoginViewModel GetViewModel(EContractingAuthenticationTemplate datasource, AuthenticationDataItem userData, string validationMessage = null)
+        private LoginViewModel GetViewModel(AuthenticationDataItem userData, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
-            viewModel.IsRetention = userData.OfferType == OfferTypes.Retention;
-            viewModel.IsAcquisition = userData.OfferType == OfferTypes.Acquisition;
+            viewModel.IsRetention = userData.OfferType == Kernel.OfferTypes.Retention;
+            viewModel.IsAcquisition = userData.OfferType == Kernel.OfferTypes.Acquisition;
             viewModel.FormAction = this.Request.RawUrl;
 
             viewModel.Labels = new Dictionary<string, string>();
-            viewModel.Labels["requiredFields"] = datasource.RequiredFields;
-            viewModel.Labels["birthDate"] = datasource.BirthDateLabel;
-            viewModel.Labels["birthDatePlaceholder"] = datasource.BirthDatePlaceholder;
-            viewModel.Labels["verificationMethod"] = datasource.VerificationMethodLabel;
-            viewModel.Labels["submitBtn"] = datasource.ButtonText;
-            viewModel.Labels["ariaOpenCalendar"] = datasource.CalendarOpen;
-            viewModel.Labels["ariaNextMonth"] = datasource.CalendarNextMonth;
-            viewModel.Labels["ariaPreviousMonth"] = datasource.CalendarPreviousMonth;
-            viewModel.Labels["ariaChooseDay"] = datasource.CalendarSelectDay;
+            viewModel.Labels["requiredFields"] = this.Context.RequiredFields;
+            viewModel.Labels["birthDate"] = this.Context.BirthDateLabel;
+            viewModel.Labels["birthDatePlaceholder"] = this.Context.BirthDatePlaceholder;
+            viewModel.Labels["verificationMethod"] = this.Context.VerificationMethodLabel;
+            viewModel.Labels["submitBtn"] = this.Context.ButtonText;
+            viewModel.Labels["ariaOpenCalendar"] = this.Context.CalendarOpen;
+            viewModel.Labels["ariaNextMonth"] = this.Context.CalendarNextMonth;
+            viewModel.Labels["ariaPreviousMonth"] = this.Context.CalendarPreviousMonth;
+            viewModel.Labels["ariaChooseDay"] = this.Context.CalendarSelectDay;
             viewModel.Labels["validationError"] = validationMessage;
 
             return viewModel;
         }
 
-        protected internal string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
+        private string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
         {
             try
             {
@@ -558,17 +441,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
             catch { }
 
             return displayName;
-        }
-
-        /// <summary>
-        /// Checks whether user is not blocked.
-        /// </summary>
-        /// <param name="guid">GUID of offer we are checking.</param>
-        /// <returns>A value indicating whether user is blocked or not.</returns>
-        protected internal bool CheckWhetherUserIsBlocked(string guid)
-        {
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            return !this.LoginReportService.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
         }
     }
 }

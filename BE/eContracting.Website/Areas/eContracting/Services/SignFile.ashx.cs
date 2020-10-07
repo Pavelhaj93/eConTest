@@ -7,8 +7,6 @@ using eContracting.Kernel.Services;
 using Sitecore.Diagnostics;
 using System.Text;
 using System.Net;
-using Sitecore.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace eContracting.Website.Areas.eContracting.Services
 {
@@ -17,13 +15,6 @@ namespace eContracting.Website.Areas.eContracting.Services
     /// </summary>
     public class SignFile : IHttpHandler, IRequiresSessionState
     {
-        protected readonly ISettingsReaderService SettingsReaderService;
-
-        public SignFile()
-        {
-            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-        }
-
         public void ProcessRequest(HttpContext context)
         {
             try
@@ -41,7 +32,7 @@ namespace eContracting.Website.Areas.eContracting.Services
                         return;
                     }
 
-                    var signingClient = new SigningClient(this.SettingsReaderService);
+                    var signingClient = new SigningClient();
                     FileToBeDownloaded signingResult = signingClient.SendDocumentsForMerge(pdfFile, signFile);
 
                     if (signingResult == null)

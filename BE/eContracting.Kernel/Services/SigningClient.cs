@@ -14,13 +14,6 @@ namespace eContracting.Kernel.Services
     /// </summary>
     public class SigningClient
     {
-        protected readonly ISettingsReaderService SettingsReaderService;
-
-        public SigningClient(ISettingsReaderService settingsReaderService)
-        {
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-        }
-
         public FileToBeDownloaded SendDocumentsForMerge(FileToBeDownloaded pdfFile, byte[] signFile)
         {
             using (var api = this.InitApi())
@@ -57,7 +50,7 @@ namespace eContracting.Kernel.Services
 
             CRM_SIGN_STAMP_MERGE api = new CRM_SIGN_STAMP_MERGE();
 
-            SiteRootModel siteSettings = this.SettingsReaderService.GetSiteSettings();
+            SiteRootModel siteSettings = ConfigHelpers.GetSiteSettings();
             var userName = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.SigningServiceUser));
             var password = Encoding.UTF8.GetString(Convert.FromBase64String(siteSettings.SigningServicePassword));
 

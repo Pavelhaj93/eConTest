@@ -16,7 +16,7 @@ namespace eContracting.Website.Areas.eContracting.Controllers
     /// <summary>
     /// Controller used for basic steps and operations.
     /// </summary>
-    public class eContractingController : SitecoreController
+    public class eContractingController_Obsolete : SitecoreController
     {
         /// <summary>
         /// Cookie law action.

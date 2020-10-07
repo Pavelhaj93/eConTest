@@ -11,7 +11,6 @@ namespace eContracting.Kernel.Services
     /// Implementation of file to be donloaded model.
     /// </summary>
     [Serializable]
-    [Obsolete("User 'AttachmentModel' instead")]
     public class FileToBeDownloaded
     {
         /// <summary>
@@ -34,9 +33,7 @@ namespace eContracting.Kernel.Services
         /// </summary>
         public string FileName { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether signing is required.
-        /// </summary>
+        ///Gets or sets a value indicating whether signing is required.
         public bool SignRequired { get; set; }
 
         /// <summary>

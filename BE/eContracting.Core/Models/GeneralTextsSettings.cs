@@ -2,7 +2,7 @@
 // Copyright © 2016 Respective owners
 // </copyright>
 
-namespace eContracting.Kernel.GlassItems.Settings
+namespace eContracting
 {
     using System;
     using Glass.Mapper.Sc.Configuration;

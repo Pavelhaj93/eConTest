@@ -9,18 +9,12 @@
     /// <summary>
     /// Implementaiton of storage for authentication session data.
     /// </summary>
-    public class AuthenticationDataSessionStorage : IAuthenticationDataSessionStorage
+    public class AuthenticationDataSessionStorage
     {
         /// <summary>
         /// Gets session key.
         /// </summary>
         private readonly String SessionKey = "AuthDataSession";
-        protected readonly ISettingsReaderService SettingsReaderService;
-
-        public AuthenticationDataSessionStorage(ISettingsReaderService settingsReaderService)
-        {
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-        }
 
         /// <summary>
         /// Get the user data.
@@ -105,7 +99,7 @@
         /// <param name="offer">Offer</param>
         private void SetRandomData(AuthenticationDataItem authenticationData, Offer offer)
         {
-            var generalSettings = this.SettingsReaderService.GetGeneralSettings();
+            var generalSettings = ConfigHelpers.GetGeneralSettings();
             Random rnd = new Random();
             int value = rnd.Next(1, 4);
 

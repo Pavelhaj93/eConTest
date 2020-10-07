@@ -1,5 +1,4 @@
-﻿using System;
-using eContracting.Kernel.Helpers;
+﻿using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Services;
 using Glass.Mapper.Sc.Web.Mvc;
 
@@ -16,14 +15,12 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// </summary>
         /// <param name="guid">GUID of offer we are checking.</param>
         /// <returns>A value indicating whether user is blocked or not.</returns>
-        [Obsolete]
         protected bool CheckWhetherUserIsBlocked(string guid)
         {
-            //var siteSettings = ConfigHelpers.GetSiteSettings();
-            //var loginsCheckerClient = new MongoFailedLoginReportStore();
+            var siteSettings = ConfigHelpers.GetSiteSettings();
+            var loginsCheckerClient = new LoginsCheckerClient(siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
 
-            //return !loginsCheckerClient.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
-            return true;
+            return !loginsCheckerClient.CanLogin(guid);
         }
     }
 }

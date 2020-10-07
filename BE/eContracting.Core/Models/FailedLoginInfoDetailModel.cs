@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace eContracting.Abstractions.Models
+namespace eContracting.Models
 {
     /// <summary>
     /// Represents detail about failed login

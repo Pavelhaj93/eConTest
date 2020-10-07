@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace eContracting.Abstractions.Models
+namespace eContracting.Models
 {
     /// <summary>
     /// Represent login failed information base on <see cref="FailedLoginInfoModel.Guid"/>

@@ -128,10 +128,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\eContracting.Abstractions\eContracting.Abstractions.csproj">
-      <Project>{a4321440-8f69-4514-b473-3830f3e7646d}</Project>
-      <Name>eContracting.Abstractions</Name>
-    </ProjectReference>
     <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
       <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
       <Name>eContracting.Core</Name>

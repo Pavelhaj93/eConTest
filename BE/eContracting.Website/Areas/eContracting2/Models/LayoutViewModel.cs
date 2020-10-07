@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Castle.Core.Logging;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Settings;
 using Glass.Mapper.Sc;
+using Microsoft.Extensions.DependencyInjection;
+using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
 using Sitecore.Mvc.Presentation;
 
@@ -73,7 +76,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
             catch (Exception ex)
             {
-                Log.Error("Preparing layout model failed", ex, this);
+                var logger = ServiceLocator.ServiceProvider.GetService<ILogger>();
+                logger?.Error("Preparing layout model failed", ex);
             }
         }
     }

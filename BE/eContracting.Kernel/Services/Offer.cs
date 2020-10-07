@@ -14,7 +14,6 @@ namespace eContracting.Kernel.Services
     /// </summary>
     [Serializable()]
     [XmlRoot("abap", Namespace = "http://www.sap.com/abapxml")]
-    [Obsolete("Use 'OfferXmlModel' instead")]
     public class Offer
     {
         /// <summary>

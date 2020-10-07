@@ -203,9 +203,22 @@
   <ItemGroup>
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
-    <Compile Include="Areas\eContracting\Controllers\eContracting2ApiController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContractingAuthenticationController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContractingController.cs" />
+    <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingAuthenticationController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
+    <Compile Include="Areas\eContracting\Controllers\WelcomeRichTextController.cs" />
     <Compile Include="Areas\eContracting\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
@@ -230,6 +243,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\eContracting2\Views\Base\" />
     <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -303,12 +317,38 @@
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
     </None>
+    <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\MW01.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\WelcomeRichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Error404.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Expiration.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\SessionExpired.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\eContractingLayout.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
+    <Content Include="Areas\eContracting2\Views\SystemError.cshtml" />
+    <Content Include="Areas\eContracting2\Views\ThankYou.cshtml" />
+    <Content Include="Areas\eContracting2\Views\UserBlocked.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Scripts\modernizr-2.6.2.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
+      <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
+      <Name>eContracting.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eContracting.Kernel\eContracting.Kernel.csproj">
       <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
       <Name>eContracting.Kernel</Name>

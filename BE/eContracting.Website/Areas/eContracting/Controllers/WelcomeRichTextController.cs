@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using eContracting.Kernel.GlassItems.Content;
@@ -16,7 +15,6 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         /// Base action of RichText component.
         /// </summary>
         /// <returns>Instance result.</returns>
-        [Obsolete("Use 'eContracting2Controller.RichText' instead")]
         public ActionResult RichText()
         {
             var dataSource = this.DataSource;

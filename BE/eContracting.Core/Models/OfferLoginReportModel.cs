@@ -1,7 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace eContracting.Abstractions.Models
+namespace eContracting.Models
 {
     public class OfferLoginReportModel
     {
