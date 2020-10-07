@@ -256,12 +256,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (this.CheckWhetherUserIsBlocked(guid))
                 {
                     Log.Info($"[{guid}] Temporary blocked", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.UserBlocked).Url);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.UserBlocked).Url);
                 }
 
                 var offer = this.ApiService.GenerateXml(Request.QueryString["guid"]);
 
-                var authSettings = this.SettingsReaderService.GetAuthenticationSettings();
+                var authSettings = ConfigHelpers.GetAuthenticationSettings();
                 var authHelper = new AuthenticationHelper(
                     offer,
                     this.DataSessionStorage,
@@ -369,14 +369,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (userData.IsAccepted)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.AcceptedOffer).Url;
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer).Url;
                     Log.Info($"[{guid}] Offer already accepted", this);
                     return Redirect(redirectUrl);
                 }
 
                 if (userData.OfferIsExpired)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.OfferExpired).Url;
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired).Url;
                     Log.Info($"[{guid}] Offer expired", this);
                     return Redirect(redirectUrl);
                 }
@@ -386,7 +386,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Fatal($"[{guid}] Authentication process failed", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError).Url);
             }
         }
 
@@ -465,7 +465,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpPost]
         public ActionResult WelcomeSubmit(string guid)
         {
-            return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.Login).Url + "?fromWelcome=1&guid=" + guid);
+            return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.Login).Url + "?fromWelcome=1&guid=" + guid);
         }
 
         protected internal void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)

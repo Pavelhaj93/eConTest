@@ -50,7 +50,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (!this.DataSessionStorage.IsDataActive)
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SessionExpired).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
                 var datasource = this.GetLayoutItem<EContractingAcceptedOfferTemplate>();
                 var data = this.DataSessionStorage.GetUserData();
@@ -60,7 +60,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (mainText == null)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
@@ -75,7 +75,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error($"[{guid}] Error when displaying accepted offer.", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -98,7 +98,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (!this.DataSessionStorage.IsDataActive)
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SessionExpired).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
                 var data = this.DataSessionStorage.GetUserData();
@@ -108,7 +108,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (mainText == null)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
@@ -119,7 +119,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error($"[{guid}] Error when displaying expiration page", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -133,7 +133,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (!this.DataSessionStorage.IsDataActive)
                 {
                     Log.Debug($"[{guid}] Session expired", this);
-                    return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SessionExpired).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
                 var data = this.DataSessionStorage.GetUserData();
@@ -142,14 +142,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (data.IsAccepted)
                 {
                     Log.Debug($"[{guid}] Offer already accepted", this);
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.AcceptedOffer).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.AcceptedOffer).Url;
                     return Redirect(redirectUrl);
                 }
 
                 if (data.OfferIsExpired)
                 {
                     Log.Debug($"[{guid}] Offer expired", this);
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.OfferExpired).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.OfferExpired).Url;
                     return Redirect(redirectUrl);
                 }
 
@@ -163,7 +163,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (mainText == null)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return Redirect(redirectUrl);
                 }
 
@@ -179,7 +179,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
 
-                var generalSettings = this.SettingsReaderService.GetGeneralSettings();
+                var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
                 ViewData["SignFailure"] = generalSettings.GetSignInFailure(data.OfferType);
 
@@ -188,7 +188,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error($"[{guid}] Error when displaying offer.", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -204,7 +204,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (processingParameters == null)
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
                 }
 
                 var replacedText = SystemHelpers.ReplaceParameters(dataSource.Text, processingParameters);
@@ -232,7 +232,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (!this.DataSessionStorage.IsDataActive)
                 {
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SessionExpired).Url);
+                    return this.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
                 guid = data.Identifier;
@@ -241,7 +241,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (mainText == null)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url;
+                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
                     return this.Redirect(redirectUrl);
                 }
 
@@ -279,7 +279,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying user blocked page", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -302,7 +302,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying cookie law", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
@@ -325,7 +325,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     model.IsRetention = authenticationDataItem.OfferType == Kernel.OfferTypes.Retention;
                     model.IsAcquisition = authenticationDataItem.OfferType == Kernel.OfferTypes.Acquisition;
 
-                    var generalSettings = this.SettingsReaderService.GetGeneralSettings();
+                    var generalSettings = ConfigHelpers.GetGeneralSettings();
                     ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];
                     ViewData["IAmInformed"] = generalSettings.IAmInformed;
                     ViewData["IAgree"] = generalSettings.IAgree;
@@ -368,7 +368,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 Log.Error("Error when displaying document panel.", ex, this);
-                return Redirect(this.SettingsReaderService.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
         }
 
