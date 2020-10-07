@@ -5,6 +5,18 @@ Template: "220b964c-ea21-4672-92f1-58cce932bd33"
 Path: /sitecore/templates/eContracting2/Pages/Offer Expired/__Standard Values
 DB: master
 SharedFields:
+- ID: "0d2f7497-f4d4-4bb4-acae-beed1f15e3ca"
+  Hint: Link3
+  Value: |
+    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
+- ID: "7460ab88-08e8-4a3f-b76a-909f9e6bc4e3"
+  Hint: Link2
+  Value: |
+    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
+- ID: "b33b1033-6659-42be-a7ca-a8053a2cb1f3"
+  Hint: Link1
+  Value: |
+    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -26,29 +38,56 @@ Languages:
     Fields:
     - ID: "0c8d3fba-f21b-4a10-a43f-c5df37aa6e99"
       Hint: MainTextRetentionCampaign
-      Value: MainTextRetentionCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv&nbsp;<a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090159Z
     - ID: "4c9659ca-5937-4ae4-b0f8-dea08b98cc4e"
       Hint: MainTextAcquisitionCampaign
-      Value: MainTextAcquisitionCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv&nbsp;<a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "81910fac-09a8-4f48-8538-de0419774d65"
       Hint: MainTextRetentionIndividual
-      Value: MainTextRetentionIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "93064506-a6dc-4dfc-8710-c0beaafc91c6"
       Hint: MainTextCampaign
-      Value: MainTextCampaign
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv&nbsp;<a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Nabídka pozbyla platnost
     - ID: "a9587976-989e-4bde-894b-22c630378ee5"
       Hint: MainTextIndividual
-      Value: MainTextIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "b133c797-ae2e-41d3-bfa2-b16ece4c477a"
       Hint: MainTextAcquisitionIndividual
-      Value: MainTextAcquisitionIndividual
+      Value: |
+        <p>{CUSTTITLELET},</p>
+        <p>na&scaron;e nab&iacute;dka již bohužel pozbyla platnosti.</p>
+        <p>M&aacute;te-li z&aacute;jem o individu&aacute;ln&iacute; nab&iacute;dku, kontaktujte n&aacute;s, pros&iacute;m, na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv&nbsp;<a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
+        <p>Va&scaron;e innogy</p>
 - Language: en
   Versions:
   - Version: 1

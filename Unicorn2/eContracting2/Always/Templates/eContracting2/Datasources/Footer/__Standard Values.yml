@@ -1,0 +1,41 @@
+﻿---
+ID: "9643e913-be22-458e-9e23-ff443439caff"
+Parent: "1c38e7d9-42d9-4c95-9800-89e0069037ba"
+Template: "1c38e7d9-42d9-4c95-9800-89e0069037ba"
+Path: /sitecore/templates/eContracting2/Datasources/Footer/__Standard Values
+DB: master
+SharedFields:
+- ID: "1e1a00bf-8e3a-4796-a5db-88bdcfece79a"
+  Hint: DisclaimerLink
+  Value: |
+    <link text="Pravidla užití webu a ochrana osobních údajů" linktype="external" url="https://www.innogy.cz/sluzby/ochrana-osobnich-udaju/" anchor="" target="_blank" />
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1c0be800-6773-4b49-82fe-1f2e27c3feb3"
+      Hint: CopyrightText
+      Value: © 2021 innogy. Všechna práva vyhrazena.
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T135824Z
+    - ID: "4c6d627a-ee09-4f7c-a19c-08bd41761ead"
+      Hint: EmailText
+      Value: info@innogy.cz
+    - ID: "4c7974c3-2b98-44e5-9e8e-5d89f6cdaec2"
+      Hint: EmailLink
+      Value: info@innogy.cz
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "831599e9-e5c1-452f-be25-655aeb8ad18a"
+      Hint: PhoneNumberLinkFooter
+      Value: 800113355
+    - ID: "95ae4851-7dd2-487d-b626-ef85efe4fbc6"
+      Hint: PhoneNumberFooter
+      Value: 800 11 33 55

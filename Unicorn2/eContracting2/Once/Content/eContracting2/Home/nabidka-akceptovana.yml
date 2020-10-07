@@ -4,6 +4,10 @@ Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
 Path: "/sitecore/content/eContracting2/Home/nabidka-akceptovana"
 DB: master
+SharedFields:
+- ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
+  Hint: Step
+  Value: "{04C12E95-ACB4-4514-860D-C7EA9E1C0B37}"
 Languages:
 - Language: cs
   Versions:

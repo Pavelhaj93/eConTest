@@ -5,6 +5,17 @@ Template: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
 Path: /sitecore/templates/eContracting2/Pages/Login/__Standard Values
 DB: master
 SharedFields:
+- ID: "78bd6f65-7c1c-4877-a068-d3dd7120aa87"
+  Hint: UserChoiceAuthenticationEnabled
+  Type: Checkbox
+  Value: 1
+- ID: "937e800f-c799-4092-9b24-02ee947ffffe"
+  Hint: UserChoiceAuthenticationEnabledRetention
+  Type: Checkbox
+  Value: 1
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 500
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -19,6 +30,10 @@ SharedFields:
           uid="{C71EEDE7-9D64-4543-984F-8AB6C2D3EE5B}" />
       </d>
     </r>
+- ID: "f5fce8e0-0930-4d43-8f90-c06da4ececed"
+  Hint: UserChoiceAuthenticationEnabledAcquisition
+  Type: Checkbox
+  Value: 1
 Languages:
 - Language: cs
   Versions:
@@ -69,6 +84,9 @@ Languages:
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Ověření totožnosti
+    - ID: "d9f6f47a-2a3b-4a0b-994d-bc3a638403f5"
+      Hint: ContractDataPlaceholder
+      Value: "{0}"
     - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
       Hint: AcceptedOfferText
       Value: |

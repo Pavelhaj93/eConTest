@@ -24,13 +24,27 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "1cabf0db-f63a-4ab6-a6f8-17acb1492af5"
+      Hint: MainText
+      Value: |
+        <p>V&aacute;žen&yacute; pane,</p>
+        <p>omlouv&aacute;me se V&aacute;m, ale session vypr&scaron;ela. Klikněte na link v emailu je&scaron;tě jednou.</p>
+        <p>V př&iacute;padě potřeby využijte na&scaron;i z&aacute;kaznickou linku uvedenou v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125211Z
+    - ID: "44015e77-8698-483c-8bfa-82d18f8d2196"
+      Hint: Header
+      Value: Vypršení session
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Vypršení session
 - Language: en
   Versions:
   - Version: 1

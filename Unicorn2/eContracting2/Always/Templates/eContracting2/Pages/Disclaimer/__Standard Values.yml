@@ -5,6 +5,18 @@ Template: "aea91936-870e-40df-b18a-0e949c0ad3d6"
 Path: /sitecore/templates/eContracting2/Pages/Disclaimer/__Standard Values
 DB: master
 SharedFields:
+- ID: "108756e5-d125-49dc-8449-1a0b2b60d2c9"
+  Hint: Link1
+  Value: |
+    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
+- ID: "39c8d58d-f125-4df8-87f2-07e5e24d4ee8"
+  Hint: Link2
+  Value: |
+    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
+- ID: "c156095d-2210-4c15-9c3c-d45bbee64944"
+  Hint: Link3
+  Value: |
+    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -31,6 +43,23 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "81429110-3920-478f-92cc-63a153a78bc9"
+      Hint: Header
+      Value: Ochrana osobních údajů
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Ochrana osobních údajů
+    - ID: "fd5de510-b3da-4ae3-89c5-d32df166f719"
+      Hint: MainText
+      Value: |
+        <div tabindex="0" id="ClickableArea" style="width: 0px; height: 0px;">&nbsp;</div>
+        <div id="ContentWrapper">
+        <h2>Souhlas se zpracovan&iacute;m osobn&iacute;ch &uacute;dajů</h2>
+        <p> Za&scaron;krtnut&iacute;m př&iacute;slu&scaron;n&eacute;ho pol&iacute;čka a n&aacute;sledn&yacute;m odesl&aacute;n&iacute;m souvisej&iacute;c&iacute;ho formul&aacute;ře uživatel uděluje souhlas ve smyslu z&aacute;kona č. 101/2000 Sb., o ochraně osobn&iacute;ch &uacute;dajů, společnostem skupiny innogy, a to innogy Česk&aacute; republika a.s., IČ 24275051, se s&iacute;dlem Limuzsk&aacute; 3135/12, PSČ 100 98, Praha 10 &ndash; Stra&scaron;nice a innogy Energie, s.r.o., IČ 49903209, se s&iacute;dlem Limuzsk&aacute; 3135/12, PSČ 108 00, Praha 10 &ndash; Stra&scaron;nice, d&aacute;le jen &bdquo;spr&aacute;vce&ldquo;, se zpracov&aacute;n&iacute;m jeho e-mailov&eacute; adresy, jm&eacute;na, př&iacute;jmen&iacute; a telefonn&iacute;ho č&iacute;sla v&yacute;hradně pro marketingov&eacute; &uacute;čely spr&aacute;vce, tj. nab&iacute;zen&iacute; v&yacute;robků a služeb, včetně zas&iacute;l&aacute;n&iacute; informac&iacute; o poř&aacute;dan&yacute;ch akc&iacute;ch, v&yacute;robc&iacute;ch a jin&yacute;ch aktivit&aacute;ch, jakož i zas&iacute;l&aacute;n&iacute; obchodn&iacute;ch sdělen&iacute; prostřednictv&iacute;m elektronick&yacute;ch prostředků dle z&aacute;kona č. 480/2004 Sb., a to na dobu 10 let. Tento souhlas plat&iacute; rovněž pro spr&aacute;vcem pověřen&eacute; zpracovatele, za předpokladu, že budou splněny podm&iacute;nky &sect; 5 odst. 6 z&aacute;kona č. 101/2000 Sb., o ochraně osobn&iacute;ch &uacute;dajů. Uživatel bere na vědom&iacute;, že m&aacute; pr&aacute;va dle &sect; 11, 21 z&aacute;k. č. 101/2000 Sb., tj. zejm&eacute;na že poskytnut&iacute; &uacute;dajů je dobrovoln&eacute;, že svůj souhlas může bezplatně kdykoliv na adrese spr&aacute;vce odvolat, že m&aacute; pr&aacute;vo př&iacute;stupu k osobn&iacute;m &uacute;dajům a pr&aacute;vo na opravu těchto osobn&iacute;ch &uacute;dajů, blokov&aacute;n&iacute; nespr&aacute;vn&yacute;ch osobn&iacute;ch &uacute;dajů, jejich likvidaci atd. </p>
+        <h2>Cookie a session</h2>
+        <p> Plnohodnotn&eacute; použit&iacute; web str&aacute;nek nen&iacute; podm&iacute;něno registrac&iacute;. Abychom každ&eacute;mu uživateli web str&aacute;nek dok&aacute;zali vždy zobrazit spr&aacute;vn&yacute; obsah, automaticky zakl&aacute;d&aacute;me pro každ&eacute;ho uživatele tzv. session. Pro potřeby spr&aacute;vy session může webov&aacute; str&aacute;nka uchov&aacute;vat na Va&scaron;em poč&iacute;tači soubory cookies. Session a cookie použ&iacute;v&aacute;me v&yacute;hradně pro uchov&aacute;n&iacute; informace o průchodu webem a pro spr&aacute;vn&eacute; zobrazen&iacute; obsahu každ&eacute;mu uživateli, přičemž session i cookie jsou zcela anonymn&iacute; a neobsahuj&iacute; ž&aacute;dn&aacute; osobn&iacute; data. </p>
+        <p>Soubory cookies můžete smazat nebo zak&aacute;zat změnou nastaven&iacute; na va&scaron;em poč&iacute;tači, může t&iacute;m ale doj&iacute;t k omezen&iacute; funkc&iacute; webu www.innogy.cz/online-servis.</p>
+        </div>
 - Language: en
   Versions:
   - Version: 1

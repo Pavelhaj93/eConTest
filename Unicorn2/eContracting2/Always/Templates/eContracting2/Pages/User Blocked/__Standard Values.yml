@@ -24,6 +24,9 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "1554213a-29a2-4438-ac4b-589d951439a0"
+      Hint: Header
+      Value: Uživatel byl zablokován
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125245Z
@@ -31,6 +34,18 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Zablokovaný uživatel
+    - ID: "cc065759-7f97-48ee-bcab-0f1a671b776d"
+      Hint: MainText
+      Value: |
+        <p style="color: #000000;">V&aacute;žen&yacute; pane/pan&iacute;,</p>
+        <p style="color: #000000;"> chybn&eacute; přihl&aacute;&scaron;en&iacute; způsobilo dočasn&eacute; zablokov&aacute;n&iacute; &uacute;čtu.</p>
+        <p style="color: #000000;">Přihl&aacute;&scaron;en&iacute;  můžete zopakovat za 30 min, kdy dojde k odblokov&aacute;n&iacute; &uacute;čtu.</p>
+        <p style="color: #000000;">Děkujeme</p>
+        <p style="color: #000000;">Va&scaron;e innogy</p>
+        <div>&nbsp;</div>
 - Language: en
   Versions:
   - Version: 1

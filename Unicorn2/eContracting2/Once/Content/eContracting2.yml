@@ -5,18 +5,54 @@ Template: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
 Path: /sitecore/content/eContracting2
 DB: master
 SharedFields:
+- ID: "1889400c-b059-4fc1-ac59-698ff0155faf"
+  Hint: SystemError
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{7FDF07BC-0AC8-42BD-B1C4-75A0824E9066}" />
 - ID: "70b910ee-71e5-4436-b1cd-c9184374adf3"
   Hint: SigningServiceUrl
   Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
+- ID: "85599138-47ff-40d3-bc4c-c6c64b046035"
+  Hint: WrongUrl
+  Value: |
+    <link id="{B02E9CFF-C2C8-467B-8933-7A81BCC0474F}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Home/chyba" linktype="internal" />
+- ID: "aaa8605d-9cde-46ca-88a4-73e1c27a4999"
+  Hint: ThankYou
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{41AC7DC2-D649-46EC-883F-80B0162E6D7A}" />
+- ID: "b72f6e9b-87ab-4f83-a72c-cf504534f85c"
+  Hint: ExpiredOffer
+  Value: |
+    <link id="{5DF0DA00-9F06-44C2-9D6A-2ADABA74E23E}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Home/nabidka-vyprsela" linktype="internal" />
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 650
+- ID: "c2220b46-f80a-4a9b-969a-954d3f292e73"
+  Hint: AcceptedOffer
+  Value: |
+    <link id="{E2A4B198-E69B-4C32-AD37-787FF751F847}" querystring="" target="" text="" anchor="" url="/eContracting2/Home/nabidka-akceptovana" title="" class="" linktype="internal" />
+- ID: "c5d6fe4f-5355-48de-872e-9c8451413c71"
+  Hint: SessionExpired
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{9E36D4B7-BACF-4566-A191-815D473A47D3}" />
+- ID: "d815fdbd-50bd-453a-8a6d-02d4afb72d56"
+  Hint: UserBlocked
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{F69361B4-294D-4F38-9E17-6DA10371E5DE}" />
 - ID: "de0feae9-4be9-4021-bdef-f7aa348f77b4"
   Hint: SigningServiceUser
   Value: UkZDX1NJVEVDT1JF
 - ID: "e5e0efe2-5e3d-493b-9010-6b7172a2c00c"
   Hint: SigningServicePassword
   Value: QWRIYjI0Nyo=
+- ID: "f91f0879-6520-40d3-b160-2f4a5fe00c9f"
+  Hint: Offer
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{6E4D72FD-7E93-4C5B-9358-F82CF45033C7}" />
+- ID: "fbd2c254-5b96-4a5a-8d46-fd517964acc7"
+  Hint: Login
+  Value: |
+    <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{0E37FD03-1F17-4B51-ADDA-3CC16CCB6354}" />
 Languages:
 - Language: cs
   Versions:

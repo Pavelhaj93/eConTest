@@ -1,0 +1,49 @@
+﻿---
+ID: "88731234-ba61-4504-8947-13acf14ba3a7"
+Parent: "dbd73867-bb6f-48ea-a80a-d8d1b161cb21"
+Template: "dbd73867-bb6f-48ea-a80a-d8d1b161cb21"
+Path: /sitecore/templates/eContracting2/Datasources/GeneralTexts/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T155319Z
+    - ID: "3178be00-f0b9-40e3-b98d-62750a6f2cbc"
+      Hint: AppNotAvailable
+      Value: Aplikace nen&iacute; v tuto chv&iacute;li dostupn&aacute;.
+    - ID: "3f89424d-cc74-4de6-a822-de393f81da2f"
+      Hint: IdentityCardNumber
+      Value: zákaznické číslo
+    - ID: "4293cbd2-4bb3-4e02-ba18-1310e6ca17a6"
+      Hint: IAgree
+      Value: Souhlasím s
+    - ID: "46f48437-b49d-4737-bb5f-0c068b5ffbd6"
+      Hint: AccountNumber
+      Value: číslo bankovního účtu včetně kódu banky za lomítkem
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "935f0a8e-69c7-4a00-a2c6-f9eafbe88ef4"
+      Hint: DefaultSalutation
+      Value: Vážený pane, vážená paní
+    - ID: "c5c4f2ef-d4ff-462c-baf7-f6e39a667e1e"
+      Hint: Accept
+      Value: Akceptuji
+    - ID: "c7d394d4-4f6d-4442-bbeb-ec1829b54e6e"
+      Hint: UsedPostalCode
+      Value: PSČ Místa spotřeby
+    - ID: "ca7bb9ce-2422-4f82-81d0-226c019229d5"
+      Hint: PermanentResidencePostalCode
+      Value: PSČ trvalého bydliště
+    - ID: "f0709b88-ebe6-4736-ad3a-2f76f073b90e"
+      Hint: IAmInformed
+      Value: Jsem poučen o

@@ -1,0 +1,14 @@
+﻿---
+ID: "fedc5ecd-cb1b-46fe-838a-859c9bf683fd"
+Parent: "e190dd34-f8cb-4df1-8e00-906df9e6fd13"
+Template: "b7aa8d70-22cb-47b8-87b4-f070810d168d"
+Path: /sitecore/content/eContracting2/Datasources/Header
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T140202Z

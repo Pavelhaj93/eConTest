@@ -5,6 +5,9 @@ Template: "456d5421-a2de-42b4-97e6-a42fc243bf10"
 Path: /sitecore/templates/eContracting2/Pages/Offer/__Standard Values
 DB: master
 SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 650
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -27,67 +30,97 @@ Languages:
     - ID: "060d6406-b519-442f-9913-ec7118f6072b"
       Hint: MainTextRetentionCampaign
       Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
+        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>
+        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
+    - ID: "0dcae80e-05f3-4a1b-92f2-dd14251e2cb1"
+      Hint: GDPRUrl
+      Value: "https://test-optin.innogy.cz/auth"
     - ID: "1d0d678a-7393-43c8-b786-9220be7ec78f"
       Hint: MainTextAcquisitionCampaign
       Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
+        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro zah&aacute;jen&iacute; dod&aacute;vky od innogy.</p>
+        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200421T112121Z
+    - ID: "4542333b-3ec7-4e59-aa7d-a8b62d2ba2e5"
+      Hint: AesEncryptVector
+      Value: l0W0jlqCwVQrWLSa
+    - ID: "59fa2d18-799f-482d-88e3-c37a37e76444"
+      Hint: AesEncryptKey
+      Value: oEdvEcn24ofUe3gjXpFHYCd22ygalbXw
+    - ID: "5a976224-c2d7-491d-836f-39820e290aee"
+      Hint: SelectAll_Text
+      Value: Označit vše
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "63b4f770-3576-4dd2-9007-ece3c1d0b2ce"
       Hint: VoucherText
-      Value: "Podpisem smlouvy z&iacute;sk&aacute;te {GIFT_NOW_NAME}."
+      Value: |
+        <p>Rozhodnut&iacute;m zůstat u innogy z&iacute;sk&aacute;v&aacute;te:</p>
+        <p>{REWARD_NOW_COUNT} x {REWARD_NOW_NAME}</p>
+        <p>{REWARD_NEXT_SIGN_COUNT} x {REWARD_NEXT_SIGN_NAME}</p>
+        <p>{REWARD_NEXT_TZD_COUNT} x {REWARD_NEXT_TZD_NAME}</p>
+        <p>{GIFT_NOW_COUNT} x {GIFT_NOW_NAME}</p>
+        <p>{GIFT_NEXT_SIGN_COUNT} x {GIFT_NEXT_SIGN_NAME}</p>
+        <p>{GIFT_NEXT_TZD_COUNT} x {GIFT_NEXT_TZD_NAME}</p>
     - ID: "7c3c09e7-21cc-4812-8ce2-d8a1dd500872"
       Hint: MainTextCampaign
       Value: |
         <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.&nbsp;</p>
+        <p>N&iacute;že naleznete potřebn&eacute; dokumenty k nab&iacute;dce pro odběrn&eacute; m&iacute;sto:</p>
+        <p><strong>{PREMADR}</strong></p>
+        <p><strong>{PREMLABEL}: {PREMEAN}{PREMEIC}</strong></p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte v&scaron;echny dokumenty, zatržen&iacute;m dokumentů potvrd&iacute;te přečten&iacute; a kliknete na tlač&iacute;tko Akceptuj.</p>
+        <p>Posl&eacute;ze v&scaron;echny dokumenty budou odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.
+        </p>
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Nabídka
     - ID: "a44a73c3-ad9d-4e6d-833e-ce4e6512c61d"
       Hint: AcquistionVoucherText
-      Value: "Podpisem smlouvy z&iacute;sk&aacute;te {GIFT_NOW_NAME}."
+      Value: |
+        <p><span style="color: #000000;">Rozhodnut&iacute;m zah&aacute;jit dod&aacute;vku energi&iacute; u innogy z&iacute;sk&aacute;te:&nbsp;</span></p>
+        <p><span style="color: #000000;">{REWARD_NOW_COUNT} x {REWARD_NOW_NAME}</span></p>
+        <p><span style="color: #000000;">{REWARD_NEXT_SIGN_COUNT} x {REWARD_NEXT_SIGN_NAME}</span></p>
+        <p><span style="color: #000000;">{REWARD_NEXT_TZD_COUNT} x {REWARD_NEXT_TZD_NAME}</span></p>
+        <p><span style="color: #000000;">{GIFT_NOW_COUNT} x {GIFT_NOW_NAME}</span></p>
+        <p><span style="color: #000000;">{GIFT_NEXT_SIGN_COUNT} x {GIFT_NEXT_SIGN_NAME}</span></p>
+        <p><span style="color: #000000;">{GIFT_NEXT_TZD_COUNT} x {GIFT_NEXT_TZD_NAME}</span></p>
+        <p><span style="color: #000000;">Tento d&aacute;rek V&aacute;m bude zasl&aacute;n korespondenčně na zas&iacute;lac&iacute; adresu.</span></p>
     - ID: "b9653e38-ac49-41f8-af0b-05153843f6ac"
       Hint: MainTextIndividual
       Value: |
         <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.&nbsp;</p>
+        <p>N&iacute;že naleznete potřebn&eacute; dokumenty k nab&iacute;dce pro odběrn&eacute; m&iacute;sto:</p>
+        <p><strong>{PREMADR}</strong></p>
+        <p><strong>{PREMLABEL}: {PREMEAN}{PREMEIC}</strong></p>
+        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte v&scaron;echny dokumenty, zatržen&iacute;m dokumentů potvrd&iacute;te přečten&iacute; a kliknete na tlač&iacute;tko Akceptuj.</p>
+        <p>Posl&eacute;ze v&scaron;echny dokumenty budou odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.
+        </p>
     - ID: "c18260e9-e843-4a82-9e17-ab59cdb29c1c"
       Hint: RetentionVoucherText
-      Value: "Podpisem smlouvy z&iacute;sk&aacute;te {GIFT_NOW_NAME}."
+      Value: |
+        <p>Rozhodnut&iacute;m zůstat u innogy z&iacute;sk&aacute;v&aacute;te: </p>
+        <p>{REWARD_NEXT_TZD_COUNT} x {REWARD_NEXT_TZD_NAME}, kterou obdrž&iacute;te po&scaron;tou.</p>
     - ID: "d38e0859-6b63-4d48-b042-0d5d895dda51"
       Hint: MainTextRetentionIndividual
       Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
+        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>
+        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
     - ID: "e939843c-4e9f-437f-b4be-c1d57f00bbaa"
       Hint: MainTextAcquisitionIndividual
       Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumentaci k nab&iacute;zen&eacute;mu produktu.</p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte a zatrhněte Poučen&iacute;. Pot&eacute; se V&aacute;m zobraz&iacute; dal&scaron;&iacute; dokumenty, jejichž přečten&iacute; potvrďte takt&eacute;ž zatržen&iacute;m u každ&eacute;ho z nich.</p>
-        <p>Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrďte souhlas s uzavřen&iacute;m dodatku.</p>
+        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
+        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro zah&aacute;jen&iacute; dod&aacute;vky od innogy.</p>
+        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
 - Language: en
   Versions:
   - Version: 1

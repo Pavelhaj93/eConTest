@@ -27,10 +27,24 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125300Z
+    - ID: "265db6e1-685e-4a4c-a53a-ca46ff79927a"
+      Hint: Text
+      Value: |
+        <p>V&aacute;žen&yacute; z&aacute;kazn&iacute;ku,</p>
+        <p>omlouv&aacute;me se, ale str&aacute;nku, na kterou směřoval V&aacute;&scaron; požadavek, se nepodařilo naj&iacute;t. Je možn&eacute;, že byla odstraněna, přejmenov&aacute;na nebo je dočasně nedostupn&aacute;.</p>
+        <p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Chyba 404
+    - ID: "b5ce6c10-4542-404f-8957-ceb8370d8347"
+      Hint: HeaderText
+      Value: Chyba 404
 - Language: en
   Versions:
   - Version: 1
@@ -38,3 +52,17 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20161006T115517Z
+    - ID: "265db6e1-685e-4a4c-a53a-ca46ff79927a"
+      Hint: Text
+      Value: |
+        <p>V&aacute;žen&yacute; z&aacute;kazn&iacute;ku,</p>
+        <p>omlouv&aacute;me se, ale str&aacute;nku, na kterou směřoval V&aacute;&scaron; požadavek, se nepodařilo naj&iacute;t. Je možn&eacute;, že byla odstraněna, přejmenov&aacute;na nebo je dočasně nedostupn&aacute;.</p>
+        <p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Chyba 404
+    - ID: "b5ce6c10-4542-404f-8957-ceb8370d8347"
+      Hint: HeaderText
+      Value: Chyba 404

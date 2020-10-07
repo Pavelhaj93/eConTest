@@ -5,6 +5,18 @@ Template: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
 Path: /sitecore/templates/eContracting2/Pages/System Error/__Standard Values
 DB: master
 SharedFields:
+- ID: "08246a48-6e9f-40b8-8141-a541d9ea2cfc"
+  Hint: Link2
+  Value: |
+    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
+- ID: "2bd70caf-2380-4fb2-8cc8-99dcf235de80"
+  Hint: Link3
+  Value: |
+    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
+- ID: "5054f116-3d64-48b4-9ef7-9779751e7a77"
+  Hint: Link1
+  Value: |
+    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -24,6 +36,13 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "2584ccaf-0a7e-4624-972c-6b78de1655ca"
+      Hint: MainText
+      Value: |
+        <p>Omlouv&aacute;me se V&aacute;m, ale aplikaci eContracting se nepodařilo spustit. Př&iacute;činou může b&yacute;t pr&aacute;vě prob&iacute;haj&iacute;c&iacute; odst&aacute;vka aplikace.</p>
+        <p>V př&iacute;padě potřeby využijte na&scaron;i z&aacute;kaznickou linku uvedenou v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125222Z
@@ -31,6 +50,12 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Aplikace eContracting je nedostupná
+    - ID: "f2051388-4338-4933-bbd8-38134af70d8f"
+      Hint: Header
+      Value: Aplikace eContracting je nedostupná
 - Language: en
   Versions:
   - Version: 1
