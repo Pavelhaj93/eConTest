@@ -5,9 +5,6 @@ Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
 Path: /sitecore/templates/eContracting2/Pages/Thank You/__Standard Values
 DB: master
 SharedFields:
-- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
-  Hint: __Sortorder
-  Value: 300
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -15,13 +12,11 @@ SharedFields:
     <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <d
         id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
         <r
-          ds=""
-          id="{7B1673D7-C7B6-44D3-9BA4-4154E5D0D77A}"
-          par=""
-          ph="eContracting"
-          uid="{6C0E87E7-35CF-44EB-8D70-81D852E106AB}" />
+          id="{5E67F4C6-DAFB-469B-B6D5-7E5C4837E96B}"
+          ph="eContracting2"
+          uid="{65A69648-C6E0-4FD4-90C4-E10CDEA94C83}" />
       </d>
     </r>
 Languages:

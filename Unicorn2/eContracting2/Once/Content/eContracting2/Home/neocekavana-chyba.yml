@@ -1,0 +1,14 @@
+﻿---
+ID: "b02e9cff-c2c8-467b-8933-7a81bcc0474f"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "6ccfef10-7a13-47f8-aaf3-237085b9c556"
+Path: "/sitecore/content/eContracting2/Home/neocekavana-chyba"
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125340Z

@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
-  Value: applications/32x32/window_dialog.png
+  Value: "apps/32x32/magic-cube.png"
 - ID: "1a7c85e5-dc0b-490d-9187-bb1dbcb4c72f"
   Hint: Datasource Template
   Value: /sitecore/templates/eContracting/Content/WelcomeRichTextDatasource
@@ -19,7 +19,7 @@ SharedFields:
   Value: RichText
 - ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
   Hint: Controller
-  Value: eContracting.Website.Areas.eContracting.Controllers.eContractingController, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting2.Controllers.eContractingController, eContracting.Website
 Languages:
 - Language: en
   Versions:

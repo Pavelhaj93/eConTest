@@ -1,0 +1,14 @@
+﻿---
+ID: "41ac7dc2-d649-46ec-883f-80b0162e6d7a"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Path: /sitecore/content/eContracting2/Home/dekujeme
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125510Z

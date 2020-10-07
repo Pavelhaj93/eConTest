@@ -5,9 +5,6 @@ Template: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
 Path: /sitecore/templates/eContracting2/Pages/Login/__Standard Values
 DB: master
 SharedFields:
-- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
-  Hint: __Sortorder
-  Value: 500
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -15,13 +12,11 @@ SharedFields:
     <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <d
         id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{772D75F9-CE2A-4D4C-B452-533FC32E9329}">
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
         <r
-          ds=""
-          id="{E3A237FE-78F5-449E-BEFA-02BFC5C5FE55}"
-          par=""
-          ph="eContracting"
-          uid="{25E56EA6-4C83-41CA-B8A8-5B084A0A7195}" />
+          id="{98B94438-C0B0-44A3-A32C-9078E992D049}"
+          ph="eContracting2"
+          uid="{C71EEDE7-9D64-4543-984F-8AB6C2D3EE5B}" />
       </d>
     </r>
 Languages:
@@ -71,6 +66,9 @@ Languages:
       Value: |
         <p>{CUSTTITLELET},</p>
         <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Ověření totožnosti
     - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
       Hint: AcceptedOfferText
       Value: |

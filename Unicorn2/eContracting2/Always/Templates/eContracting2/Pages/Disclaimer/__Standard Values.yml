@@ -12,16 +12,25 @@ SharedFields:
     <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <d
         id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
         <r
-          ds=""
-          id="{FFA61907-3E1F-4E87-A1B0-3214DA3A8FA3}"
-          par=""
-          ph="eContracting"
-          uid="{5584B968-5A7B-4D53-AC59-AFE9A58A7B81}" />
+          id="{43E8A867-8481-4FFC-AE4A-4230DD7ADFE7}"
+          ph="eContracting2"
+          uid="{806A21BC-26CC-4AC4-B0DF-8728D1E0F2C6}" />
       </d>
     </r>
 Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125255Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
 - Language: en
   Versions:
   - Version: 1

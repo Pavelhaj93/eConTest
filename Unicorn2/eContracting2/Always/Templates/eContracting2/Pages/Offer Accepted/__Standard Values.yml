@@ -12,13 +12,11 @@ SharedFields:
     <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <d
         id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{6BCF6E0C-75FE-4749-ACA3-9E8AA5B4B3C9}">
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
         <r
-          ds=""
-          id="{FB1DC80F-EFB9-4B10-815D-8AF4130DB14B}"
-          par=""
-          ph="eContracting"
-          uid="{1CAFB7BD-60D5-4AEE-8228-861D0FAD193E}" />
+          id="{CA680F6B-DA24-44F2-B667-FA33E75DE4C4}"
+          ph="eContracting2"
+          uid="{715EBDD4-0F70-4297-B177-DDC88766372E}" />
       </d>
     </r>
 Languages:

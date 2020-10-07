@@ -1,0 +1,14 @@
+﻿---
+ID: "5df0da00-9f06-44c2-9d6a-2adaba74e23e"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "220b964c-ea21-4672-92f1-58cce932bd33"
+Path: "/sitecore/content/eContracting2/Home/nabidka-vyexpirovala"
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T124958Z

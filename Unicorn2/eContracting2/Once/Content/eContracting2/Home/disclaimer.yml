@@ -1,0 +1,14 @@
+﻿---
+ID: "3d108b52-e560-468d-ba3b-407c5b4a38f9"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "aea91936-870e-40df-b18a-0e949c0ad3d6"
+Path: /sitecore/content/eContracting2/Home/disclaimer
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125608Z

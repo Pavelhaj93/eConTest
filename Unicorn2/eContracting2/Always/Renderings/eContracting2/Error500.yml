@@ -2,15 +2,15 @@
 ID: "07ab0b85-a327-477f-84d3-47d5cc518a2f"
 Parent: "bb16035b-634e-44b2-8dd0-e2834affa775"
 Template: "99f8905d-4a87-4eb8-9f8b-a9bebfb3add6"
-Path: /sitecore/layout/Renderings/eContracting2/SystemError
+Path: /sitecore/layout/Renderings/eContracting2/Error500
 DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
-  Value: applications/32x32/window_dialog.png
+  Value: "Apps/32x32/Magic-cube.png"
 - ID: "51b435bc-f7b9-478a-9c51-52916af96ff5"
   Hint: Path
-  Value: /Areas/eContracting/Views/SystemError.cshtml
+  Value: /Areas/eContracting2/Views/SystemError.cshtml
 Languages:
 - Language: en
   Versions:
