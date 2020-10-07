@@ -55,28 +55,6 @@ namespace eContracting.Services.Models
 
         public List<OfferFileAttribute> Attributes { get; } = new List<OfferFileAttribute>();
 
-        /// <summary>
-        /// Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
-        /// </summary>
-        public string Group
-        {
-            get
-            {
-                return this.Attributes.FirstOrDefault(x => x.Key == "GROUP")?.Value;
-            }
-        }
-
-        /// <summary>
-        /// Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
-        /// </summary>
-        public string Template
-        {
-            get
-            {
-                return this.Attributes.FirstOrDefault(x => x.Key == "TEMPLATE")?.Value;
-            }
-        }
-
         public int Size
         {
             get
@@ -91,6 +69,63 @@ namespace eContracting.Services.Models
             {
                 return Utils.GerReadableFileSize(this.Size);
             }
+        }
+
+        /// <summary>
+        /// Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
+        /// </summary>
+        public string Template
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == "TEMPLATE")?.Value;
+            }
+        }
+
+        /// <summary>
+        /// Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
+        /// </summary>
+        public string Group
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == "GROUP")?.Value;
+            }
+        }
+
+        public bool IsAttrGroupOblig
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.GROUP_OBLIG); }
+        }
+
+        public bool IsAttrObligatory
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.OBLIGATORY); }
+        }
+
+        public bool IsAttrPrinted
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.PRINTED); }
+        }
+
+        public bool IsAttrSignReq
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.SIGN_REQ); }
+        }
+
+        public bool IsAttrTmstReq
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.TMST_REQ); }
+        }
+
+        public bool IsAttrAddinfo
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.ADDINFO); }
+        }
+
+        public bool IsAttrMainDoc
+        {
+            get { return this.HasAttribute(Constants.FileAttributes.MAIN_DOC); }
         }
 
         public OfferAttachmentXmlModel()

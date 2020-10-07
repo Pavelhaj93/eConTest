@@ -32,8 +32,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.4.4\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthenticationDataStorageService.cs" />
+    <Compile Include="AuthenticationService.cs" />
+    <Compile Include="AuthenticationTypesService.cs" />
     <Compile Include="CacheApiService.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\SAP\Reference.cs">
@@ -52,8 +71,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="IAuthenticationTypesService.cs" />
+    <Compile Include="ILoginReportStore.cs" />
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferParserService.cs" />
+    <Compile Include="Models\AuthenticationTypeModel.cs" />
     <Compile Include="Models\OfferAttachmentXmlModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />
     <Compile Include="Models\OfferContentXmlModel.cs" />
@@ -63,6 +85,7 @@
     <Compile Include="Models\OfferTextModel.cs" />
     <Compile Include="Models\OfferXmlModel.cs" />
     <Compile Include="Models\ResponseCacheGetModel.cs" />
+    <Compile Include="MongoLoginReportStore.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />
     <Compile Include="OfferParserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +110,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\SAP\zcch_cache_api.wsdl" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\SAP\" />
@@ -104,6 +128,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eContracting.Abstractions\eContracting.Abstractions.csproj">
+      <Project>{a4321440-8f69-4514-b473-3830f3e7646d}</Project>
+      <Name>eContracting.Abstractions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
       <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
       <Name>eContracting.Core</Name>

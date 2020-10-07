@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.ConsoleClient"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Core", "eContracting.Core\eContracting.Core.csproj", "{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Abstractions", "eContracting.Abstractions\eContracting.Abstractions.csproj", "{A4321440-8F69-4514-B473-3830F3E7646D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4321440-8F69-4514-B473-3830F3E7646D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4321440-8F69-4514-B473-3830F3E7646D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4321440-8F69-4514-B473-3830F3E7646D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4321440-8F69-4514-B473-3830F3E7646D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

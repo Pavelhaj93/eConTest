@@ -67,7 +67,7 @@ namespace eContracting.Services
         /// <returns></returns>
         public async Task<OfferModel> GetOfferAsync(string guid, string type)
         {
-            var response = await this.GetResponseAsync(guid, type);
+            ResponseCacheGetModel response = await this.GetResponseAsync(guid, type);
 
             if (response == null)
             {
