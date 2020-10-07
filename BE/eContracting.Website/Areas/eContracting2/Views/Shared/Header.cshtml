@@ -1,0 +1,20 @@
+﻿@using eContracting.Kernel.Models
+@model LayoutModel
+
+<header class="header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <a class="logo" href="@Model.ImageLinkUrl" id="imageLink" target="_blank">
+                <svg class="icon" preserveAspectRatio="none">
+                    <use xlink:href="#logo" />
+                </svg>
+            </a>
+            @if (!string.IsNullOrEmpty(Model.PhoneLinkUrl))
+            {
+                <a class="phone" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
+                    @Model.PhoneLinkUrlText
+                </a>
+            }
+        </div>
+    </div>
+</header>

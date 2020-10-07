@@ -1,0 +1,66 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+
+@inherits GlassView<EContractingThankYouTemplate>
+
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<div class="info">
+			@Html.Raw(ViewData["MainText"])
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="actions wide">
+		@if (Model.Link1 != null)
+		{
+			<a runat="server" href="@Model.Link1.Url" target="_blank">
+				<p>
+					@Model.Link1.Text
+				</p>
+			</a>
+		}
+		@if (Model.Link2 != null)
+		{
+			<a runat="server" href="@Model.Link2.Url" target="_blank">
+				<p>
+					@Model.Link2.Text
+				</p>
+			</a>
+		}
+		@if (Model.Link3 != null)
+		{
+			<a runat="server" href="@Model.Link3.Url" target="_blank">
+				<p>
+					@Model.Link3.Text
+				</p>
+			</a>
+		}
+	</div>
+</div>
+
+<script>
+    // Disable going back after submission
+    function push() {
+        history.pushState(null, document.title, location.href);
+    }
+
+    var i = 0;
+    while (i++ < 10) push();
+
+    window.addEventListener('popstate', push);
+</script>
+
+<script>
+    dataLayer.push(
+        {
+		'event':'gaEvent',
+            'gaEventData':
+            {
+				'eCat':'@Html.Raw(ViewData["eCat"])',
+				'eAct':'@Html.Raw(ViewData["eAct"])',
+				'eLab':'@Html.Raw(ViewData["eLab"])'
+			}
+        });
+</script>

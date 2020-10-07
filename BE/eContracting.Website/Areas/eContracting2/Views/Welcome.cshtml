@@ -1,0 +1,79 @@
+@using eContracting.Kernel
+@using eContracting.Kernel.Models
+@using eContracting.Kernel.GlassItems.Pages
+@model EContractingWelcomeTemplate
+
+@if (Sitecore.Context.PageMode.IsNormal)
+{
+    using (Html.BeginForm("WelcomeSubmit", "eContractingAuthentication", new { guid = Request.QueryString["guid"] }))
+    {
+        <form action="/WelcomeSubmit"></form>
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="info">
+                    @if (Model.OfferType == OfferTypes.Retention)
+                    {
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeRetentionIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeRetentionCampaignPH")
+                        }
+                    }
+                    else if (Model.OfferType == OfferTypes.Acquisition)
+                    {
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionCampaignPH")
+                        }
+                    }
+                    else
+                    {
+                        if (Model.IsIndividual)
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeIndividualPH")
+                        }
+                        else
+                        {
+                            @Html.Sitecore().Placeholder("eContractingWelcomeCampaignPH")
+                        }
+                    }
+                    <div class="form">
+                        <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="info">
+                <p><strong>Výchozí text(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeIndividualPH")
+                <p><strong>Výchozí text(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeCampaignPH")
+                <p><strong>Text pro retence(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionIndividualPH")
+                <p><strong>Text pro retence(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeRetentionCampaignPH")
+                <p><strong>Text pro akvizice(Individual):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionIndividualPH")
+                <p><strong>Text pro akvizice(Campaign):</strong></p>
+                @Html.Sitecore().Placeholder("eContractingWelcomeAcquisitionCampaignPH")
+                <div class="form">
+                    <input type="submit" class="button button-submit" id="mainBtn" value="@Model.ButtonText" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

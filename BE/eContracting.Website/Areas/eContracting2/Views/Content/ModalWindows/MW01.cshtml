@@ -1,0 +1,125 @@
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Content.Modal_window
+@using eContracting.Kernel.GlassItems.RenderingParameters.Modal_window
+@using eContracting.Kernel.Models
+
+@inherits Glass.Mapper.Sc.Web.Mvc.GlassView<MW01DataSource>
+
+@{
+    var hasFixedWidth = false;
+    var initialyOpened = false;
+    bool centeredContent = false;
+
+    var parameters = GetContextItem<MW01DataSource>();
+    if (parameters != null)
+    {
+        hasFixedWidth = parameters.Has_Fixed_Width;
+        initialyOpened = parameters.Initially_Opened;
+        centeredContent = parameters.Centered_Content;
+    }
+
+    var itemIdString = Model.ID.ToString();
+
+    var config = "{}";
+
+    config = string.Format("{{\"open\": {{\"timeout\": {0}, \"with\": \"{1}\" }}}}", 0, itemIdString);
+
+}
+
+    var buttonAdditionalParams = new Dictionary<string, string>
+{
+{ "aria-controls", itemIdString },
+{ "data-modal-content", itemIdString }
+};
+}
+
+@if (Sitecore.Context.PageMode.IsExperienceEditor)
+{
+    <div data-tpl="modal-content" id="modal-content-1" class="modal-edit-mode">
+        @Html.Sitecore().DynamicPlaceholder("MW01_PH")
+        @if (openMethod == "Button")
+        {
+            <div>
+                @Html.ActionButton(Model, parameters, Editable(Model, x => x.Text), buttonAdditionalParams)
+            </div>
+        }
+        else if (openMethod == "ChatButton")
+        {
+            <div>
+                <a href="" class="btn-kko-chat ng-scope" btattached="true">
+                    <i class="icon icon_support color-icon-2"></i><br>
+                    @Editable(model => model.Text)
+                </a>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <script>
+        function TrackModalWindow() {
+            var value = '@(string.IsNullOrEmpty(Model.Text) ? Model.Name : Model.Text)';
+            dataLayer.push({
+                event: [{
+                    eventInfo: {
+                        eventAction: 'layer_show',
+                        eventLabel: value
+                    }
+                }]
+            });
+        }
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+        var callback = function (mutationsList) {
+            for(var mutation of mutationsList) {
+
+                if (mutation.type == 'attributes' &&
+                    mutation.attributeName == 'class' &&
+                    mutation.target.className != "hidden" &&
+                    mutation.target.className.indexOf("close") == -1) {
+
+                    TrackModalWindow();
+
+                    break;
+                }
+            }
+        };
+
+        var observer = new MutationObserver(callback);
+
+        var modalWindow = document.querySelector("[data-Modal-Id='@(Model.Id)']");
+
+        observer.observe(modalWindow, {
+            attributes: true //configure it to listen to attribute changes
+        })
+
+    }, false);
+
+    </script>
+
+    if (openMethod == "Button")
+    {
+        @Html.ActionButton(Model, parameters, new HtmlString(Model.Text), buttonAdditionalParams);
+    }
+    else if (openMethod == "ChatButton")
+    {
+        <a href="" class="btn-kko-chat ng-scope" btattached="true" aria-controls="@itemIdString" data-modal-content="@itemIdString" target="_self">
+            <i class="icon icon_support color-icon-2"></i><br>
+            @Model.Text
+        </a>
+    }
+
+    <div data-tpl="modal-content" id="@itemIdString">
+        @Html.Sitecore().DynamicPlaceholder("MW01_PH")
+    </div>
+
+    <div data-tpl="modal" data-module="modal" data-module-config='@config' class="hidden @(hasFixedWidth ? "modal--fixed-width" : null)" aria-expanded="false" aria-hidden="aria-hidden" data-modal-id="@itemIdString">
+        <div class="modal-overlay"></div>
+        <div class="modal-content" @Html.Raw(centeredContent ? "style='text-align:center;'" : "")>
+            <button type="button" title="@Model.Close_Text (Esc)" data-trigger="modal-close" class="close">@Model.Close_Text</button>
+            <div class="modal-inner"></div>
+        </div>
+        <div class="modal-preloader"></div>
+    </div>
+}
