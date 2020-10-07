@@ -13,7 +13,6 @@ namespace eContracting.ConsoleClient.Commands
 {
     class GetOfferCommand : BaseCommand
     {
-        public override string Key { get; protected set; } = "nabidka";
         readonly ContextData Context;
         readonly OfferParserService OfferParser;
         readonly OfferAttachmentParserService AttachmentParser;
@@ -25,7 +24,7 @@ namespace eContracting.ConsoleClient.Commands
             ILogger logger,
             IOptions<GlobalConfiguration> options,
             IConsole console,
-            ContextData contextData) : base(Enumerable.Empty<IAction>(), console)
+            ContextData contextData) : base("nabidka", console)
         {
             this.OfferParser = offerParser;
             this.AttachmentParser = attachmentParser;

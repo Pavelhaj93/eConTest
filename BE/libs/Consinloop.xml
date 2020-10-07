@@ -4,29 +4,9 @@
         <name>Consinloop</name>
     </assembly>
     <members>
-        <member name="T:Consinloop.Abstractions.IAction">
-            <summary>
-            Represents the action for a <see cref="T:Consinloop.Abstractions.ICommand"/>
-            </summary>
-        </member>
-        <member name="P:Consinloop.Abstractions.IAction.Key">
-            <summary>
-            Gets unique key in a command scope.
-            </summary>
-        </member>
-        <member name="P:Consinloop.Abstractions.IAction.Description">
-            <summary>
-            Gets name of the action.
-            </summary>
-        </member>
-        <member name="P:Consinloop.Abstractions.IAction.Index">
-            <summary>
-            Gets the index in row of all actions.
-            </summary>
-        </member>
         <member name="T:Consinloop.Abstractions.IArgument">
             <summary>
-            Represents an argument for a <see cref="T:Consinloop.Abstractions.ICommand"/> or an <see cref="T:Consinloop.Abstractions.IAction"/>.
+            Represents an argument for a <see cref="T:Consinloop.Abstractions.ICommand"/> or an <see cref="!:IAction"/>.
             </summary>
         </member>
         <member name="P:Consinloop.Abstractions.IArgument.Key">
@@ -81,11 +61,6 @@
         <member name="P:Consinloop.Abstractions.ICommand.Description">
             <summary>
             Gets the description.
-            </summary>
-        </member>
-        <member name="P:Consinloop.Abstractions.ICommand.Actions">
-            <summary>
-            Gets array of available actions for this command.
             </summary>
         </member>
         <member name="T:Consinloop.Abstractions.ICommandExecutor">
@@ -315,31 +290,6 @@
             <param name="commands">The commands.</param>
             <returns>Commans and actions description.</returns>
         </member>
-        <member name="T:Consinloop.Abstractions.IRegisterAction`1">
-            <summary>
-            Create chain to register action under <typeparamref name="TAction"/> type.
-            </summary>
-            <typeparam name="TAction">The type of the action.</typeparam>
-        </member>
-        <member name="M:Consinloop.Abstractions.IRegisterAction`1.Register``1">
-            <summary>
-            Register action to <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> as <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
-            </summary>
-            <typeparam name="TImplementation">The implementation <typeparamref name="TAction"/>.</typeparam>
-            <returns>This instance.</returns>
-        </member>
-        <member name="T:Consinloop.Abstractions.IRegisterForCommand">
-            <summary>
-            Register actions under specific type.
-            </summary>
-        </member>
-        <member name="M:Consinloop.Abstractions.IRegisterForCommand.Actions``1">
-            <summary>
-            Registers the actions by <typeparamref name="TAction"/> type.
-            </summary>
-            <typeparam name="TAction">The type of the action.</typeparam>
-            <returns>Instance to register an action.</returns>
-        </member>
         <member name="T:Consinloop.Abstractions.IResult">
             <summary>
             The result.
@@ -348,6 +298,11 @@
         <member name="P:Consinloop.Abstractions.IResult.Value">
             <summary>
             Gets or sets the value.
+            </summary>
+        </member>
+        <member name="P:Consinloop.Abstractions.IResult.FinishApp">
+            <summary>
+            Gets or sets a value indicating whether the Consinloop app will finish its live.
             </summary>
         </member>
         <member name="F:Consinloop.Abstractions.ReturnCodes.Continue">
@@ -411,11 +366,6 @@
         <member name="P:Consinloop.Arguments.Command">
             <summary>
             Gets the command name from command line arguments.
-            </summary>
-        </member>
-        <member name="P:Consinloop.Arguments.Action">
-            <summary>
-            Gets the action name from command line arguments.
             </summary>
         </member>
         <member name="P:Consinloop.Arguments.HelpRequired">
@@ -536,36 +486,6 @@
             Initializes a new instance of the <see cref="T:Consinloop.Attributes.ExecuteAttribute"/> class.
             </summary>
         </member>
-        <member name="T:Consinloop.BaseAction">
-            <summary>
-            Represents the action with predefined constructor with <see cref="T:Consinloop.Abstractions.IConsole"/>.
-            </summary>
-            <seealso cref="T:Consinloop.Abstractions.IAction" />
-        </member>
-        <member name="P:Consinloop.BaseAction.Key">
-            <inheritdoc/>
-        </member>
-        <member name="P:Consinloop.BaseAction.AliasKey">
-            <inheritdoc/>
-        </member>
-        <member name="P:Consinloop.BaseAction.Description">
-            <inheritdoc/>
-        </member>
-        <member name="P:Consinloop.BaseAction.Index">
-            <inheritdoc/>
-        </member>
-        <member name="P:Consinloop.BaseAction.Arguments">
-            <inheritdoc/>
-        </member>
-        <member name="F:Consinloop.BaseAction.Console">
-            <inheritdoc/>
-        </member>
-        <member name="M:Consinloop.BaseAction.#ctor(Consinloop.Abstractions.IConsole)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Consinloop.BaseAction"/> class.
-            </summary>
-            <param name="console">The streamer.</param>
-        </member>
         <member name="T:Consinloop.BaseCommand">
             <summary>
             Represents base class for a command.
@@ -581,18 +501,15 @@
         <member name="P:Consinloop.BaseCommand.Description">
             <inheritdoc/>
         </member>
-        <member name="P:Consinloop.BaseCommand.Actions">
-            <inheritdoc/>
-        </member>
         <member name="F:Consinloop.BaseCommand.Console">
             <inheritdoc/>
         </member>
-        <member name="M:Consinloop.BaseCommand.#ctor(System.Collections.Generic.IEnumerable{Consinloop.Abstractions.IAction},Consinloop.Abstractions.IConsole)">
+        <member name="M:Consinloop.BaseCommand.#ctor(System.String,Consinloop.Abstractions.IConsole)">
             <summary>
             Initializes a new instance of the <see cref="T:Consinloop.BaseCommand"/> class.
             </summary>
-            <param name="actions">The actions.</param>
-            <param name="streamer">The streamer.</param>
+            <param name="key">The key.</param>
+            <param name="console">The console.</param>
         </member>
         <member name="T:Consinloop.CommandExecutor">
             <inheritdoc/>
@@ -663,11 +580,6 @@
         <member name="F:Consinloop.CommandExecutorState.ACTION_NOT_FOUND">
             <summary>
             Action not found.
-            </summary>
-        </member>
-        <member name="F:Consinloop.CommandExecutorState.EXIT">
-            <summary>
-            Exit the application.
             </summary>
         </member>
         <member name="T:Consinloop.ConsinloopContext">
@@ -768,6 +680,9 @@
         <member name="P:Consinloop.ConsinloopResult.Value">
             <inheritdoc/>
         </member>
+        <member name="P:Consinloop.ConsinloopResult.FinishApp">
+            <inheritdoc/>
+        </member>
         <member name="M:Consinloop.ConsinloopResult.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Consinloop.ConsinloopResult"/> class.
@@ -824,12 +739,23 @@
             </summary>
             <param name="action">The action.</param>
         </member>
-        <member name="M:Consinloop.ConsinloopRunner.RegisterCommand``1">
+        <member name="M:Consinloop.ConsinloopRunner.AddTransientCommand``1">
             <summary>
-            Registers the command.
+            Adds <see cref="T:Consinloop.Abstractions.ICommand"/> in <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/> lifetime.
             </summary>
             <typeparam name="TCommand">The type of the command.</typeparam>
-            <returns>Instance to register actions.</returns>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.AddScopedCommand``1">
+            <summary>
+            Adds <see cref="T:Consinloop.Abstractions.ICommand"/> in <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/> lifetime.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+        </member>
+        <member name="M:Consinloop.ConsinloopRunner.AddSingletonCommand``1">
+            <summary>
+            Adds <see cref="T:Consinloop.Abstractions.ICommand"/> in <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/> lifetime.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
         </member>
         <member name="M:Consinloop.ConsinloopRunner.Run">
             <summary>
@@ -1129,40 +1055,6 @@
             <param name="parser">The parser.</param>
             <param name="console">The console.</param>
             <param name="options">The options.</param>
-        </member>
-        <member name="T:Consinloop.Internal.RegisterAction`1">
-            <inheritdoc/>
-        </member>
-        <member name="F:Consinloop.Internal.RegisterAction`1.Services">
-            <summary>
-            The service collection.
-            </summary>
-        </member>
-        <member name="M:Consinloop.Internal.RegisterAction`1.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Consinloop.Internal.RegisterAction`1"/> class.
-            </summary>
-            <param name="services">The services.</param>
-        </member>
-        <member name="M:Consinloop.Internal.RegisterAction`1.Register``1">
-            <inheritdoc/>
-        </member>
-        <member name="T:Consinloop.Internal.RegisterForCommand">
-            <inheritdoc/>
-        </member>
-        <member name="F:Consinloop.Internal.RegisterForCommand.Services">
-            <summary>
-            The service collection.
-            </summary>
-        </member>
-        <member name="M:Consinloop.Internal.RegisterForCommand.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Consinloop.Internal.RegisterForCommand"/> class.
-            </summary>
-            <param name="services">The services.</param>
-        </member>
-        <member name="M:Consinloop.Internal.RegisterForCommand.Actions``1">
-            <inheritdoc/>
         </member>
     </members>
 </doc>

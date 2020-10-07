@@ -21,12 +21,10 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<OfferParserService>();
                     services.AddScoped<OfferAttachmentParserService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
+                    services.AddScopedCommand<GetOfferCommand>();
+                    services.AddScopedCommand<GetXmlCommand>();
+                    services.AddScopedCommand<GetFilesCommand>();
                 });
-
-                consinloop.RegisterCommand<GetOfferCommand>();
-                consinloop.RegisterCommand<GetXmlCommand>();
-                consinloop.RegisterCommand<GetFilesCommand>();
-
                 await consinloop.Run();
             }
         }
