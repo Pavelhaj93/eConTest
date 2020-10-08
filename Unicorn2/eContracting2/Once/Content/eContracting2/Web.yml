@@ -2,7 +2,7 @@
 ID: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Parent: "5036f11d-8068-43de-a827-aad2a0cef217"
 Template: "652f8e4f-5a5b-484b-9552-7e1a8650644c"
-Path: /sitecore/content/eContracting2/Home
+Path: /sitecore/content/eContracting2/Web
 DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"

@@ -1,8 +1,8 @@
 ﻿---
-ID: "41ac7dc2-d649-46ec-883f-80b0162e6d7a"
+ID: "3d108b52-e560-468d-ba3b-407c5b4a38f9"
 Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
-Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
-Path: /sitecore/content/eContracting2/Home/dekujeme
+Template: "aea91936-870e-40df-b18a-0e949c0ad3d6"
+Path: /sitecore/content/eContracting2/Web/disclaimer
 DB: master
 Languages:
 - Language: cs
@@ -11,4 +11,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T125510Z
+      Value: 20201007T125608Z

@@ -21,20 +21,20 @@ using Log = Sitecore.Diagnostics.Log;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
-    public class eContractingController : GlassController
+    public class eContracting2Controller : GlassController
     {
         protected readonly RweClient Client;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationDataSessionStorage DataSessionStorage;
 
-        public eContractingController()
+        public eContracting2Controller()
         {
             this.Client = ServiceLocator.ServiceProvider.GetRequiredService<RweClient>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.DataSessionStorage = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationDataSessionStorage>();
         }
 
-        public eContractingController(RweClient client, ISettingsReaderService settingsReaderService, IAuthenticationDataSessionStorage dataSessionStorage)
+        public eContracting2Controller(RweClient client, ISettingsReaderService settingsReaderService, IAuthenticationDataSessionStorage dataSessionStorage)
         {
             this.Client = client ?? throw new ArgumentNullException(nameof(client));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));

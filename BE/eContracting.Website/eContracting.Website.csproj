@@ -204,11 +204,17 @@
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
-    <Compile Include="Areas\eContracting2\Controllers\eContractingAuthenticationController.cs" />
-    <Compile Include="Areas\eContracting2\Controllers\eContractingController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContractingAuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.designer.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
@@ -233,13 +239,6 @@
     <Compile Include="Areas\eContracting\Services\SignFile.ashx.cs">
       <DependentUpon>SignFile.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.designer.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,7 +247,29 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx" />
+    <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx" />
+    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\MW01.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\WelcomeRichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Error404.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Expiration.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\SessionExpired.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\eContractingLayout.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\eContracting2\Views\SystemError.cshtml" />
+    <Content Include="Areas\eContracting2\Views\ThankYou.cshtml" />
+    <Content Include="Areas\eContracting2\Views\UserBlocked.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
     <Content Include="Assets\eContracting\css\econtracting.min.css" />
     <Content Include="Assets\eContracting\css\main.css" />
     <Content Include="Assets\eContracting\css\main.min.css" />
@@ -317,28 +338,6 @@
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
     </None>
-    <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Login.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\MW01.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Content\WelcomeRichText.cshtml" />
-    <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Error404.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Expiration.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Offer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\SessionExpired.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Shared\eContractingLayout.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
-    <Content Include="Areas\eContracting2\Views\SystemError.cshtml" />
-    <Content Include="Areas\eContracting2\Views\ThankYou.cshtml" />
-    <Content Include="Areas\eContracting2\Views\UserBlocked.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

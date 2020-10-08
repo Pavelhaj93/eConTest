@@ -27,7 +27,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class eContractingAuthenticationController : GlassController
+    public class eContractingAuthController : GlassController
     {
         private const string salt = "228357";
         protected readonly RweClient ApiService;
@@ -37,9 +37,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly AuthenticationDataSessionStorage DataSessionStorage;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
+        /// Initializes a new instance of the <see cref="eContractingAuthController"/> class.
         /// </summary>
-        public eContractingAuthenticationController()
+        public eContractingAuthController()
         {
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<RweClient>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
@@ -48,7 +48,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthenticationController"/> class.
+        /// Initializes a new instance of the <see cref="eContractingAuthController"/> class.
         /// </summary>
         /// <param name="apiService">The API service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
@@ -63,7 +63,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// or
         /// client
         /// </exception>
-        public eContractingAuthenticationController(RweClient apiService, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, AuthenticationDataSessionStorage dataSessionStorage)
+        public eContractingAuthController(RweClient apiService, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, AuthenticationDataSessionStorage dataSessionStorage)
         {
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));

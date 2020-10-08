@@ -2,12 +2,12 @@
 ID: "0e37fd03-1f17-4b51-adda-3cc16ccb6354"
 Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
-Path: /sitecore/content/eContracting2/Home/login
+Path: /sitecore/content/eContracting2/Web/login
 DB: master
 SharedFields:
 - ID: "71db3433-fadb-4c30-9f84-2997055050ac"
   Hint: NextPage
-  Value: /sitecore/content/eContracting2/Home/nabidka
+  Value: /sitecore/content/eContracting2/Web/nabidka
 - ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
   Hint: Step
   Value: "{3AF1D736-2C11-4133-9CF9-420E97BBE0D8}"
@@ -19,3 +19,14 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T111925Z
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201008T082642Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

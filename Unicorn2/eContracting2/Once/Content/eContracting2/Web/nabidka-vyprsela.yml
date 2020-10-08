@@ -1,8 +1,8 @@
 ﻿---
-ID: "7fdf07bc-0ac8-42bd-b1c4-75a0824e9066"
+ID: "5df0da00-9f06-44c2-9d6a-2adaba74e23e"
 Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
-Template: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
-Path: "/sitecore/content/eContracting2/Home/systemova-chyba"
+Template: "220b964c-ea21-4672-92f1-58cce932bd33"
+Path: "/sitecore/content/eContracting2/Web/nabidka-vyprsela"
 DB: master
 Languages:
 - Language: cs
@@ -11,4 +11,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T125355Z
+      Value: 20201007T124958Z

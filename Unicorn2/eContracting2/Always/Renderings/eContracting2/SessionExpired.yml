@@ -13,7 +13,7 @@ SharedFields:
   Value: SessionExpired
 - ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
   Hint: Controller
-  Value: eContracting.Website.Areas.eContracting2.Controllers.eContractingController, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting2.Controllers.eContracting2Controller, eContracting.Website
 Languages:
 - Language: en
   Versions:
