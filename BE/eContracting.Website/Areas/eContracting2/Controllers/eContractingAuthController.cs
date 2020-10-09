@@ -106,52 +106,53 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetFailReturns(canLogin, guid);
                 }
 
-                var authTypes = this.AuthTypesService.GetTypes(offer);
-
-                var authSettings = ConfigHelpers.GetAuthenticationSettings();
-                var authHelper = new AuthenticationHelper(
-                    offer,
-                    new AuthenticationDataSessionStorage(),
-                    datasource.UserChoiceAuthenticationEnabled,
-                    datasource.UserChoiceAuthenticationEnabledRetention,
-                    datasource.UserChoiceAuthenticationEnabledAcquisition,
-                    authSettings);
-                AuthenticationDataItem userData = authHelper.GetUserData();
-
                 if (offer.State == "3")
                 {
-                    client.ReadOffer(guid);
+                    var res = this.ApiService.ReadOfferAsync(guid).Result;
                 }
 
-                this.Logger.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType));
+                var authTypes = this.AuthTypesService.GetTypes(offer);
 
-                var choices = new List<LoginChoiceViewModel>();
-                string hiddenValue = null;
+                //var authSettings = ConfigHelpers.GetAuthenticationSettings();
+                //var authHelper = new AuthenticationHelper(
+                //    offer,
+                //    new AuthenticationDataSessionStorage(),
+                //    datasource.UserChoiceAuthenticationEnabled,
+                //    datasource.UserChoiceAuthenticationEnabledRetention,
+                //    datasource.UserChoiceAuthenticationEnabledAcquisition,
+                //    authSettings);
+                //AuthenticationDataItem userData = authHelper.GetUserData();
 
-                if (authHelper.IsUserChoice)
-                {
-                    var available = authHelper.GetAvailableAuthenticationFields();
 
-                    foreach (AuthenticationSettingsItemModel item in available)
-                    {
-                        var choice = new LoginChoiceViewModel(item);
-                        choices.Add(choice);
-                    }
-                }
-                else
-                {
-                    var choice = new LoginChoiceViewModel();
-                    choice.Key = "additional";
-                    choice.Label = userData.ItemFriendlyName;
-                    choice.Placeholder = this.TryToGetPlaceholder(authSettings, userData.ItemFriendlyName);
-                    choice.ValidationRegex = "^.{1,}$"; // any non empty value
-                    choices.Add(choice);
+                //this.Logger.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType));
 
-                    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
-                    hiddenValue = string.Format("{0}{1}", value, salt);     ////hash + salt
-                }
+                var choices = new List<LoginChoiceViewModel>(authTypes.Select(x => new LoginChoiceViewModel(x)));
+                //string hiddenValue = null;
 
-                var contentText = userData.IsAccepted ? datasource.AcceptedOfferText : datasource.NotAcceptedOfferText;
+                //if (authHelper.IsUserChoice)
+                //{
+                //    var available = authHelper.GetAvailableAuthenticationFields();
+
+                //    foreach (AuthenticationSettingsItemModel item in available)
+                //    {
+                //        var choice = new LoginChoiceViewModel(item);
+                //        choices.Add(choice);
+                //    }
+                //}
+                //else
+                //{
+                //    var choice = new LoginChoiceViewModel();
+                //    choice.Key = "additional";
+                //    choice.Label = userData.ItemFriendlyName;
+                //    choice.Placeholder = this.TryToGetPlaceholder(authSettings, userData.ItemFriendlyName);
+                //    choice.ValidationRegex = "^.{1,}$"; // any non empty value
+                //    choices.Add(choice);
+
+                //    var value = userData.ItemValue.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();
+                //    hiddenValue = string.Format("{0}{1}", value, salt);     ////hash + salt
+                //}
+
+                var contentText = offer.IsAccepted ? datasource.AcceptedOfferText : datasource.NotAcceptedOfferText;
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
                 var maintext = textHelper.GetMainText(userData, contentText);
 

@@ -59,12 +59,7 @@ namespace eContracting.Services
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        /// <summary>
-        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/>.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public async Task<OfferModel> GetOfferAsync(string guid, string type)
         {
             ResponseCacheGetModel response = await this.GetResponseAsync(guid, type);
@@ -77,6 +72,7 @@ namespace eContracting.Services
             return this.OfferParser.GenerateOffer(response);
         }
 
+        /// <inheritdoc/>
         public async Task<OfferTextModel[]> GetXmlAsync(string guid)
         {
             var response = await this.GetResponseAsync(guid, "NABIDKA_XML");
@@ -110,11 +106,7 @@ namespace eContracting.Services
             return list.ToArray();
         }
 
-        /// <summary>
-        /// Gets the files asynchronous.
-        /// </summary>
-        /// <param name="guid">The unique identifier.</param>
-        /// <returns>Files in array or null</returns>
+        /// <inheritdoc/>
         public async Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid)
         {
             var result = await this.GetResponseAsync(guid, "NABIDKA");
@@ -157,27 +149,16 @@ namespace eContracting.Services
             return null;
         }
 
-        /// <summary>
-        /// Accepts offer of <paramref name="guid"/> owner.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <returns>True if it was accepted or false.</returns>
+        /// <inheritdoc/>
         public async Task<bool> AcceptOfferAsync(string guid)
         {
-            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
-            decimal outValue = 1M;
+            return await this.SetStatusAsync(guid, "NABIDKA", "5");
+        }
 
-            if (decimal.TryParse(timestampString, out outValue))
-            {
-                bool result = await this.SetStatusAsync(guid, "NABIDKA", outValue);
-                return result;
-            }
-            else
-            {
-                this.Logger.Fatal($"Cannot parse timestamp to decimal ({timestampString})");
-            }
-
-            return false;
+        /// <inheritdoc/>
+        public async Task<bool> ReadOfferAsync(string guid)
+        {
+            return await this.SetStatusAsync(guid, "NABIDKA", "4");
         }
 
         /// <summary>
@@ -204,19 +185,38 @@ namespace eContracting.Services
             return new ResponseCacheGetModel(result);
         }
 
+        protected internal async Task<bool> SetStatusAsync(string guid, string type, string status)
+        {
+            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+            decimal outValue = 1M;
+
+            if (decimal.TryParse(timestampString, out outValue))
+            {
+                bool result = await this.SetStatusAsync(guid, type, outValue, status);
+                return result;
+            }
+            else
+            {
+                this.Logger.Fatal($"Cannot parse timestamp to decimal ({timestampString})");
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Sets the status with <see cref="ZCCH_CACHE_STATUS_SET"/> object.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">A type from <see cref="AvailableRequestTypes"/> collection.</param>
         /// <param name="timestamp">Decimal representation of a timestamp.</param>
+        /// <param name="status">Value for <see cref="ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
         /// <returns>True if it was successfully set or false.</returns>
-        protected internal async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp)
+        protected internal async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp, string status)
         {
             var model = new ZCCH_CACHE_STATUS_SET();
             model.IV_CCHKEY = guid;
             model.IV_CCHTYPE = type;
-            model.IV_STAT = "5";
+            model.IV_STAT = status;
             model.IV_TIMESTAMP = timestamp;
 
             var request = new ZCCH_CACHE_STATUS_SETRequest(model);

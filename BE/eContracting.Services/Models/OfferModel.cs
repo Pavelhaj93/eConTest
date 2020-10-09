@@ -96,6 +96,14 @@ namespace eContracting.Services.Models
             }
         }
 
+        public string ProcessType
+        {
+            get
+            {
+                return string.Empty;
+            }
+        }
+
         public bool OfferIsExpired
         {
             get
@@ -109,6 +117,7 @@ namespace eContracting.Services.Models
             }
         }
 
+        [Obsolete]
         public bool OfferIsRetention
         {
             get
@@ -117,6 +126,7 @@ namespace eContracting.Services.Models
             }
         }
 
+        [Obsolete]
         public bool OfferIsAcquisition
         {
             get
@@ -125,6 +135,7 @@ namespace eContracting.Services.Models
             }
         }
 
+        [Obsolete]
         public OfferTypes OfferType
         {
             get
