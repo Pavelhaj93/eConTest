@@ -1,31 +1,31 @@
 ﻿---
-ID: "9be71c02-abfe-4e99-83c8-c9dd8a3053c3"
+ID: "552ca02f-13b6-4567-a111-9815a33f540a"
 Parent: "6c9d6b0b-920f-4e55-b456-a7df4487161b"
 Template: "1cf3e1f2-7c49-4ed6-9cb1-fa9ef95a73dc"
-Path: /sitecore/content/eContracting2/Settings/Logins/id_number
+Path: /sitecore/content/eContracting2/Settings/LoginTypes/zip_pr
 DB: master
 SharedFields:
 - ID: "15be14a3-f358-4015-a596-e60f9bf6acef"
   Hint: Key
-  Value: identitycardnumber
+  Value: permanentresidencepostalcode
 Languages:
 - Language: cs
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Klientske cislo
+    Value: PSC trvaleho bydliste
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T135557Z
+      Value: 20201007T135241Z
     - ID: "40b8d06c-c0df-44f7-9c2d-1b8586224a44"
       Hint: Label
-      Value: Zákaznické číslo
+      Value: PSČ trvalého bydliště
     - ID: "43787638-31d8-455f-af0f-6ce40ea2cd38"
       Hint: ValidationMessage
-      Value: Zákaznické číslo není správně vyplněné
+      Value: PSČ trvalého bydliště není správně vyplněné
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -33,10 +33,10 @@ Languages:
     - ID: "610731cd-5780-424c-a3bb-cb8c6642cd7a"
       Hint: ValidationRegex
       Value: |
-        ^\d{10}$
+        ^[0-9]{3}([\s]{0,1}[0-9]{2})$
     - ID: "7ec6871a-a38b-4ade-840d-20828298c57d"
       Hint: HelpText
-      Value: Vaše číslo smlouvy
+      Value: PSČ trvalého bydliště hint
     - ID: "a6de5ad7-e9b7-4a76-b070-a5d80eb82324"
       Hint: Placeholder
-      Value: 123456789
+      Value: 12345

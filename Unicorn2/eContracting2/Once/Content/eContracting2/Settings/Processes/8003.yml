@@ -1,0 +1,27 @@
+﻿---
+ID: "b8869935-ba0f-4ac6-80a4-23611a6ad632"
+Parent: "9049d175-fd49-49e6-8753-91bbcea11ea1"
+Template: "20ec5c2e-616e-493a-892d-c0c1e23721e9"
+Path: /sitecore/content/eContracting2/Settings/Processes/8003
+DB: master
+SharedFields:
+- ID: "a8256bbb-6d8c-4032-bb4b-27fcf55c0ae8"
+  Hint: Types
+  Type: Multilist
+  Value: |
+    {C2CE964B-8F81-41E6-A15E-39DF476C8663}
+    {B3689828-7E41-47BB-9F13-136F333160AF}
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 500
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1894efda-30dc-49d2-800f-a97e37c68b49"
+      Hint: Title
+      Value: 8003
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201008T113347Z

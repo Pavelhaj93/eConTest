@@ -1,0 +1,31 @@
+﻿---
+ID: "0013f727-10ee-4361-88ef-d10a226b6d4a"
+Parent: "9049d175-fd49-49e6-8753-91bbcea11ea1"
+Template: "20ec5c2e-616e-493a-892d-c0c1e23721e9"
+Path: /sitecore/content/eContracting2/Settings/Processes/BNR
+DB: master
+SharedFields:
+- ID: "a8256bbb-6d8c-4032-bb4b-27fcf55c0ae8"
+  Hint: Types
+  Type: Multilist
+  Value: |
+    {06AE5032-D567-4B06-861B-C76D02CC861E}
+    {664625FF-12E6-464D-B2ED-A30D5E6FFFDB}
+    {EF9A28EF-1598-4C0A-9615-1720F64E16F7}
+    {CB1E5088-4AEC-49F5-BC3B-9124B0D532D4}
+    {EBADDD19-1DBA-4480-B3C9-7F68ED8D0AEC}
+    {611E692A-6A54-4EBC-8F9D-57C146B350E7}
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 600
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1894efda-30dc-49d2-800f-a97e37c68b49"
+      Hint: Title
+      Value: BNR
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201008T113413Z

@@ -1,31 +1,31 @@
 ﻿---
-ID: "552ca02f-13b6-4567-a111-9815a33f540a"
+ID: "49a2c1ea-b663-4397-a9fa-d48df957b898"
 Parent: "6c9d6b0b-920f-4e55-b456-a7df4487161b"
 Template: "1cf3e1f2-7c49-4ed6-9cb1-fa9ef95a73dc"
-Path: /sitecore/content/eContracting2/Settings/Logins/zip_pr
+Path: /sitecore/content/eContracting2/Settings/LoginTypes/zip_sp
 DB: master
 SharedFields:
 - ID: "15be14a3-f358-4015-a596-e60f9bf6acef"
   Hint: Key
-  Value: permanentresidencepostalcode
+  Value: postalcode
 Languages:
 - Language: cs
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: PSC trvaleho bydliste
+    Value: PSC mista spotreby
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T135241Z
+      Value: 20201007T135144Z
     - ID: "40b8d06c-c0df-44f7-9c2d-1b8586224a44"
       Hint: Label
-      Value: PSČ trvalého bydliště
+      Value: PSČ Místa spotřeby
     - ID: "43787638-31d8-455f-af0f-6ce40ea2cd38"
       Hint: ValidationMessage
-      Value: PSČ trvalého bydliště není správně vyplněné
+      Value: PSČ místa spotřeby není správně vyplněné
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -36,7 +36,7 @@ Languages:
         ^[0-9]{3}([\s]{0,1}[0-9]{2})$
     - ID: "7ec6871a-a38b-4ade-840d-20828298c57d"
       Hint: HelpText
-      Value: PSČ trvalého bydliště hint
+      Value: PSČ Místa spotřeby hint
     - ID: "a6de5ad7-e9b7-4a76-b070-a5d80eb82324"
       Hint: Placeholder
       Value: 12345

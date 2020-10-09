@@ -1,18 +1,18 @@
 ﻿---
-ID: "9049d175-fd49-49e6-8753-91bbcea11ea1"
+ID: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
 Parent: "aff533bb-2e46-4963-8929-f18d1618084d"
-Template: "709f373b-c774-4fa7-8d78-1ff080c4dcf0"
-Path: /sitecore/content/eContracting2/Settings/Processes
+Template: "b22bf7c9-322b-4e40-9dc6-d416acb20566"
+Path: /sitecore/content/eContracting2/Settings/ProcessTypes
 DB: master
 Languages:
 - Language: cs
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Procesy
+    Value: Typy procesu
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T121528Z
+      Value: 20201008T112922Z

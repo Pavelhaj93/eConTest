@@ -1,0 +1,17 @@
+﻿---
+ID: "611e692a-6a54-4ebc-8f9d-57c146b350e7"
+Parent: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
+Template: "cd3f44a2-6a63-4631-980c-8ab0bfe2a33f"
+Path: /sitecore/content/eContracting2/Settings/ProcessTypes/pojisteni
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201008T113113Z
+    - ID: "aa001007-385f-4365-a220-ceeca389714c"
+      Hint: Title
+      Value: pojištění
