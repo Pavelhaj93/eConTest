@@ -24,6 +24,7 @@ namespace eContracting.Services
         protected readonly IMongoDatabase MongoDatabase;
 
         protected readonly ILogger Logger;
+        protected readonly ISettingsReaderService Settings;
 
         /// <summary>
         /// Collection of all login attempts.
@@ -38,9 +39,10 @@ namespace eContracting.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoLoginReportStore"/> class.
         /// </summary>
-        public MongoLoginReportStore(ILogger logger)
+        public MongoLoginReportStore(ILogger logger, ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger;
+            this.Settings = settingsReaderService;
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[ConnectionStringItem];
             var connectionStringValue = connectionStringSettings.ConnectionString;
             var mongoUrl = new MongoUrl(connectionStringValue);
@@ -78,6 +80,12 @@ namespace eContracting.Services
             {
                 this.Logger.Error($"[{guid}] Cannot update failed log-in attempts", ex);
             }
+        }
+
+        public bool CanLogin(string guid)
+        {
+            var siteSettings = this.Settings.GetSiteSettings();
+            return this.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
         }
 
         /// <inheritdoc/>

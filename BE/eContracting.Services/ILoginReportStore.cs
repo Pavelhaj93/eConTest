@@ -39,5 +39,11 @@ namespace eContracting.Services
         ///   <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
         /// </returns>
         bool CanLogin(string guid, int maxFailedAttempts, TimeSpan delayAfterFailedAttempts);
+
+        /// <summary>
+        /// Determines whether <paramref name="guid"/> can log-in.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        bool CanLogin(string guid);
     }
 }

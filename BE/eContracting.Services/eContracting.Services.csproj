@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
-    <Compile Include="AuthenticationTypesService.cs" />
     <Compile Include="CacheApiService.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\SAP\Reference.cs">
@@ -81,11 +80,14 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="IAuthenticationService.cs" />
     <Compile Include="IAuthenticationTypesService.cs" />
+    <Compile Include="IApiService.cs" />
     <Compile Include="ILoginReportStore.cs" />
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferParserService.cs" />
     <Compile Include="ISettingsReaderService.cs" />
+    <Compile Include="Models\AuthLoginStates.cs" />
     <Compile Include="Models\OfferAttachmentXmlModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />
     <Compile Include="Models\OfferContentXmlModel.cs" />

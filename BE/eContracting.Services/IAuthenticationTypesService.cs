@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Services.Models;
 
 namespace eContracting.Services
 {
@@ -13,6 +14,6 @@ namespace eContracting.Services
         /// Gets all available authentication method types.
         /// </summary>
         /// <returns></returns>
-        IEnumerable<AuthenticationTypeModel> GetTypes();
+        IEnumerable<AuthenticationTypeModel> GetTypes(OfferModel offer);
     }
 }

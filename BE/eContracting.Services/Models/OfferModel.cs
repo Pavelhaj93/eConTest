@@ -88,6 +88,14 @@ namespace eContracting.Services.Models
             }
         }
 
+        public string Process
+        {
+            get
+            {
+                return this.Xml.Content.Body.BusProcess;
+            }
+        }
+
         public bool OfferIsExpired
         {
             get

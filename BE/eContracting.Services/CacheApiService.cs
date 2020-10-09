@@ -17,7 +17,7 @@ namespace eContracting.Services
     /// <summary>
     /// Service wrapper over generated <see cref="ZCCH_CACHE_API"/>.
     /// </summary>
-    public class CacheApiService
+    public class CacheApiService : IApiService
     {
         public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
         public readonly CacheApiServiceOptions Options;
@@ -187,7 +187,7 @@ namespace eContracting.Services
         /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
         /// <param name="fileType">Type of the file.</param>
         /// <returns>Instance of <see cref="ResponseCacheGetModel"/> or an exception.</returns>
-        public async Task<ResponseCacheGetModel> GetResponseAsync(string guid, string type, string fileType = "B")
+        protected internal async Task<ResponseCacheGetModel> GetResponseAsync(string guid, string type, string fileType = "B")
         {
             var model = new ZCCH_CACHE_GET();
             model.IV_CCHKEY = guid;
@@ -211,7 +211,7 @@ namespace eContracting.Services
         /// <param name="type">A type from <see cref="AvailableRequestTypes"/> collection.</param>
         /// <param name="timestamp">Decimal representation of a timestamp.</param>
         /// <returns>True if it was successfully set or false.</returns>
-        public async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp)
+        protected internal async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp)
         {
             var model = new ZCCH_CACHE_STATUS_SET();
             model.IV_CCHKEY = guid;
@@ -234,7 +234,7 @@ namespace eContracting.Services
                 {
                     return true;
                 }
-                
+
                 this.Logger.Error($"[{guid}] Call to the web service during Accepting returned result {response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE}.");
             }
             else

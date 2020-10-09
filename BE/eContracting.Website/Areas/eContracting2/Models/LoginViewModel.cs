@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
+using eContracting.Kernel.Models;
 using Newtonsoft.Json;
 
 namespace eContracting.Website.Areas.eContracting2.Models
@@ -54,5 +55,18 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         [JsonProperty("regex")]
         public string ValidationRegex { get; set; }
+
+        public LoginChoiceViewModel()
+        {
+        }
+
+        public LoginChoiceViewModel(AuthenticationSettingsItemModel model)
+        {
+            this.HelpText = model.HelpText;
+            this.Key = model.Key;
+            this.Label = model.Label;
+            this.Placeholder = model.Placeholder;
+            this.ValidationRegex = model.ValidationRegex;
+        }
     }
 }
