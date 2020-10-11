@@ -214,6 +214,7 @@
     <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.designer.cs">
       <DependentUpon>Modal.aspx</DependentUpon>

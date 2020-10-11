@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
-using eContracting.Kernel.Models;
+using eContracting.Models;
 using Newtonsoft.Json;
 
 namespace eContracting.Website.Areas.eContracting2.Models
@@ -60,7 +60,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
         }
 
-        public LoginChoiceViewModel(AuthenticationSettingsItemModel model)
+        public LoginChoiceViewModel(AuthenticationTypeModel model)
         {
             this.HelpText = model.HelpText;
             this.Key = model.Key;

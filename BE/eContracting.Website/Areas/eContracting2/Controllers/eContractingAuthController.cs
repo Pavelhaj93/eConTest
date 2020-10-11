@@ -34,7 +34,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IApiService ApiService;
         protected readonly ILogger Logger;
         protected readonly IAuthenticationService AuthService;
-        protected readonly IAuthenticationTypesService AuthTypesService;
         protected readonly ILoginReportStore LoginReportService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly AuthenticationDataSessionStorage DataSessionStorage;
@@ -45,7 +44,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContractingAuthController()
         {
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
-            this.AuthTypesService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationTypesService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
             this.DataSessionStorage = ServiceLocator.ServiceProvider.GetRequiredService<AuthenticationDataSessionStorage>();
@@ -67,10 +65,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// or
         /// client
         /// </exception>
-        public eContractingAuthController(IApiService apiService, IAuthenticationTypesService authTypesService, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, AuthenticationDataSessionStorage dataSessionStorage)
+        public eContractingAuthController(IApiService apiService, ISettingsReaderService settingsReaderService, ILoginReportStore loginReportService, AuthenticationDataSessionStorage dataSessionStorage)
         {
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
-            this.AuthTypesService = authTypesService ?? throw new ArgumentNullException(nameof(authTypesService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.DataSessionStorage = dataSessionStorage ?? throw new ArgumentNullException(nameof(dataSessionStorage));
@@ -111,7 +108,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     var res = this.ApiService.ReadOfferAsync(guid).Result;
                 }
 
-                var authTypes = this.AuthTypesService.GetTypes(offer);
+                var authTypes = this.AuthService.GetTypes(offer.Process, offer.ProcessType);
 
                 //var authSettings = ConfigHelpers.GetAuthenticationSettings();
                 //var authHelper = new AuthenticationHelper(
@@ -122,7 +119,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    datasource.UserChoiceAuthenticationEnabledAcquisition,
                 //    authSettings);
                 //AuthenticationDataItem userData = authHelper.GetUserData();
-
 
                 //this.Logger.Debug($"[{guid}] Offer type is " + Enum.GetName(typeof(OfferTypes), userData.OfferType));
 
@@ -155,6 +151,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var contentText = offer.IsAccepted ? datasource.AcceptedOfferText : datasource.NotAcceptedOfferText;
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
                 var maintext = textHelper.GetMainText(userData, contentText);
+                //this.SettingsReaderService.GetMainText(offer);
 
                 if (maintext == null)
                 {
