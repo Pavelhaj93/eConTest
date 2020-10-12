@@ -1,0 +1,40 @@
+﻿---
+ID: "ae7292fb-e6de-4cd7-a375-45af7175cef8"
+Parent: "2a7fd6a5-eafd-4614-b0ef-17be36c41260"
+Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Path: /sitecore/content/eContracting2/Definitions/Akvizice SBN
+DB: master
+SharedFields:
+- ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
+  Hint: Process
+  Value: "{AFB19A60-FB64-4416-A1B1-5F30D24EC2F7}"
+- ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+  Hint: MainTextOfferExpired
+  Value: "{829C582D-2F00-4491-BD70-EE199BAF3905}"
+- ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
+  Hint: ProcessType
+  Value: "{B3689828-7E41-47BB-9F13-136F333160AF}"
+- ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+  Hint: MainTextOffer
+  Value: "{DE91B120-3063-4A00-BC39-DBF7B652059E}"
+- ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+  Hint: MainTextOfferAccepted
+  Value: "{D553F3FF-CDFB-4194-A21E-4DADBA625252}"
+- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+  Hint: MainTextLogin
+  Value: "{7E199858-C151-422D-B331-F3F2DD8BDB1B}"
+- ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+  Hint: MainTextThankYour
+  Value: "{D9580251-F9FA-4BE9-A570-E48BF672FB31}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T121642Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

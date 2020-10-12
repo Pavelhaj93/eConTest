@@ -1,0 +1,40 @@
+﻿---
+ID: "7740f268-7ed2-49cd-b10f-f311d2311bd8"
+Parent: "2a7fd6a5-eafd-4614-b0ef-17be36c41260"
+Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Path: /sitecore/content/eContracting2/Definitions/BNR SPS
+DB: master
+SharedFields:
+- ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
+  Hint: Process
+  Value: "{0013F727-10EE-4361-88EF-D10A226B6D4A}"
+- ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+  Hint: MainTextOfferExpired
+  Value: "{CF393B4C-A952-4DF9-8034-77A3B2DC6583}"
+- ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
+  Hint: ProcessType
+  Value: "{EBADDD19-1DBA-4480-B3C9-7F68ED8D0AEC}"
+- ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+  Hint: MainTextOffer
+  Value: "{6AD8C81C-BA18-4B5A-9442-F41F2F27D291}"
+- ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+  Hint: MainTextOfferAccepted
+  Value: "{2F8A465B-C8AB-40DE-8148-2C20060D3EF0}"
+- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+  Hint: MainTextLogin
+  Value: "{07F6E2CA-D8A7-4FD3-A502-6D5200B879D5}"
+- ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+  Hint: MainTextThankYour
+  Value: "{7F851A26-0095-457B-A370-4A3626740D01}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T122625Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

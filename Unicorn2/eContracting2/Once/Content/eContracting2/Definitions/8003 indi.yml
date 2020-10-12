@@ -1,0 +1,40 @@
+﻿---
+ID: "c4dc83ad-8419-4bb7-a159-66e59f2adbf3"
+Parent: "2a7fd6a5-eafd-4614-b0ef-17be36c41260"
+Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Path: /sitecore/content/eContracting2/Definitions/8003 indi
+DB: master
+SharedFields:
+- ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
+  Hint: Process
+  Value: "{B8869935-BA0F-4AC6-80A4-23611A6AD632}"
+- ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+  Hint: MainTextOfferExpired
+  Value: "{3C45EF1B-2CDC-4358-B907-7BE80DDC26CF}"
+- ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
+  Hint: ProcessType
+  Value: "{C2CE964B-8F81-41E6-A15E-39DF476C8663}"
+- ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+  Hint: MainTextOffer
+  Value: "{D2F41E9E-09C2-4857-BBBC-997D38BC53F9}"
+- ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+  Hint: MainTextOfferAccepted
+  Value: "{4F02EF5B-9260-4235-830D-B27CE2F3A9FF}"
+- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+  Hint: MainTextLogin
+  Value: "{71C505F8-5050-4F36-87BF-203CF57ECCFE}"
+- ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+  Hint: MainTextThankYour
+  Value: "{CB4DB83F-C3DC-4D32-AE40-F6AC84BB6852}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T121717Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

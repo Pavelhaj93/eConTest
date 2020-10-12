@@ -4,6 +4,10 @@ Parent: "e190dd34-f8cb-4df1-8e00-906df9e6fd13"
 Template: "1574def5-0fac-4f4b-9e71-ce057b47e6ff"
 Path: /sitecore/content/eContracting2/Datasources/Steps
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
 Languages:
 - Language: cs
   Versions:

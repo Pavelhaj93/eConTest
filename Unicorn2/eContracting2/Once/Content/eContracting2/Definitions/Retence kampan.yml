@@ -1,0 +1,40 @@
+﻿---
+ID: "8fae1f26-d163-4ba2-9878-5f9a9eb72187"
+Parent: "2a7fd6a5-eafd-4614-b0ef-17be36c41260"
+Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Path: /sitecore/content/eContracting2/Definitions/Retence kampan
+DB: master
+SharedFields:
+- ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
+  Hint: Process
+  Value: "{C59CABA7-B4B1-4586-A55E-FAC2BFD343D1}"
+- ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+  Hint: MainTextOfferExpired
+  Value: "{4A78DBAA-B818-46BE-8C6D-DCE8964A0860}"
+- ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
+  Hint: ProcessType
+  Value: "{0A0C26AC-88DF-42E9-A59E-DA057C3457F6}"
+- ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+  Hint: MainTextOffer
+  Value: "{B7E24F22-E8A6-4BA6-A375-12425D0BFAA8}"
+- ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+  Hint: MainTextOfferAccepted
+  Value: "{7A854AA8-D9EE-4D82-9DB6-F31C73E7669A}"
+- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+  Hint: MainTextLogin
+  Value: "{CE0F79B7-AD81-43D8-97E7-1ABC44F14690}"
+- ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+  Hint: MainTextThankYour
+  Value: "{29A156D6-E0AB-4F00-9AAC-7720C2586D30}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T121043Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

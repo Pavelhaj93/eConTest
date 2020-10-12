@@ -4,6 +4,10 @@ Parent: "e190dd34-f8cb-4df1-8e00-906df9e6fd13"
 Template: "b7aa8d70-22cb-47b8-87b4-f070810d168d"
 Path: /sitecore/content/eContracting2/Datasources/Header
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
 Languages:
 - Language: cs
   Versions:
