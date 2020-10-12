@@ -1,0 +1,28 @@
+﻿---
+ID: "99fd57f5-b17d-4d6a-a364-effc71c08d54"
+Parent: "9a212c47-cb9b-4bda-a075-0e1873f3bffe"
+Template: "0574008b-75be-4c2d-8583-451a67d33e0b"
+Path: /sitecore/content/eContracting2/Datasources/Content/Login/Refix kampan
+DB: master
+SharedFields:
+- ID: "131e3ad0-f6bc-48fb-9fad-2b459bad5ef1"
+  Hint: ProcessType
+  Value: "{0A0C26AC-88DF-42E9-A59E-DA057C3457F6}"
+- ID: "bf80ad20-8fe9-40ea-9584-feeb9086beee"
+  Hint: Process
+  Value: "{9FB9BC18-55AA-4FC6-B592-BF9FDA2A0D7E}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T083856Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "70299500-6547-4dcf-a5f8-981d926fb58c"
+      Hint: Text
+      Value: "<p>REFIX - CAMP: Proin sed erat fermentum, congue tellus et, faucibus elit. Aliquam gravida lobortis tristique. Curabitur eu consequat urna. In placerat ligula elementum purus placerat, sed viverra orci tempor. Morbi ornare tortor sapien, eu semper eros condimentum ac. Nulla ultricies sapien non luctus pellentesque. Nullam sit amet justo non nisl egestas egestas ut at felis. Suspendisse a erat sollicitudin, blandit nunc quis, hendrerit turpis. Vivamus sed malesuada eros. Sed lectus risus, ultrices id nisi id, egestas porta libero. Aliquam eget arcu ac libero cursus porta.</p>"

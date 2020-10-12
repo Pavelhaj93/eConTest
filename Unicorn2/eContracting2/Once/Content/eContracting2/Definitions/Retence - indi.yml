@@ -1,0 +1,28 @@
+﻿---
+ID: "a74c800f-a55f-4509-8a3e-240501e50812"
+Parent: "2a7fd6a5-eafd-4614-b0ef-17be36c41260"
+Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Path: "/sitecore/content/eContracting2/Definitions/Retence - indi"
+DB: master
+SharedFields:
+- ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
+  Hint: Process
+  Value: "{9FB9BC18-55AA-4FC6-B592-BF9FDA2A0D7E}"
+- ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
+  Hint: ProcessType
+  Value: "{C2CE964B-8F81-41E6-A15E-39DF476C8663}"
+- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+  Hint: MainTextLogin
+  Value: "{B86949DC-E8D5-49E1-95AF-6B9612819C3D}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T090258Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

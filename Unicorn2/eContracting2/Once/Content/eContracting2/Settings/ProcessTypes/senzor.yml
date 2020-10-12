@@ -4,6 +4,10 @@ Parent: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
 Template: "cd3f44a2-6a63-4631-980c-8ab0bfe2a33f"
 Path: /sitecore/content/eContracting2/Settings/ProcessTypes/senzor
 DB: master
+SharedFields:
+- ID: "34fe2998-8246-4824-a681-8d9122f2f6f7"
+  Hint: Code
+  Value: SENZ
 Languages:
 - Language: cs
   Versions:

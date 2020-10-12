@@ -2,7 +2,7 @@
 ID: "a8256bbb-6d8c-4032-bb4b-27fcf55c0ae8"
 Parent: "22fae20d-68aa-41aa-9a8c-f6977825591b"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Settings/Process/Process/Types
+Path: /sitecore/templates/eContracting2/Settings/Process/Process/ProcessTypes
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
@@ -20,6 +20,10 @@ SharedFields:
   Value: 1
 Languages:
 - Language: cs
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: 
   Versions:
   - Version: 1
     Fields:
@@ -31,6 +35,10 @@ Languages:
       Value: |
         sitecore\admin
 - Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Typ procesu
   Versions:
   - Version: 1
     Fields:

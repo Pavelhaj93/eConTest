@@ -1,0 +1,18 @@
+﻿---
+ID: "356e04df-87e2-4755-933d-381b04f3289b"
+Parent: "b9b48c83-1724-43b5-8200-9cde955d6835"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/eContracting2/Definitions/Combination/Setup
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T090120Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

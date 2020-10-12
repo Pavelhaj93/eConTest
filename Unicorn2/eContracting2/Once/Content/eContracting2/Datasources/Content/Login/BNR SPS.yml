@@ -1,0 +1,21 @@
+﻿---
+ID: "07f6e2ca-d8a7-4fd3-a502-6d5200b879d5"
+Parent: "9a212c47-cb9b-4bda-a075-0e1873f3bffe"
+Template: "0574008b-75be-4c2d-8583-451a67d33e0b"
+Path: /sitecore/content/eContracting2/Datasources/Content/Login/BNR SPS
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T093258Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "70299500-6547-4dcf-a5f8-981d926fb58c"
+      Hint: Text
+      Value: "<p>BNR - SPS:&nbsp;Nulla commodo lobortis eros, eu egestas sem. Sed tincidunt congue ornare. Phasellus faucibus urna in odio eleifend euismod. Curabitur at faucibus dolor. Cras posuere consectetur nibh eget rhoncus. Nunc ut posuere massa, at commodo ipsum. Aenean aliquam orci mauris, at lacinia tellus lacinia in. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In hendrerit in lacus in consequat. Cras facilisis vel nulla vel lacinia. Suspendisse ac arcu sed lacus dictum volutpat. Fusce tempor laoreet ultrices.</p>"

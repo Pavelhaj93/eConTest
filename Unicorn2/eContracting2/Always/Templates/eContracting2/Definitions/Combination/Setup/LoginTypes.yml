@@ -1,8 +1,8 @@
 ﻿---
-ID: "5eaa4383-896c-4315-930f-fdda6971e003"
-Parent: "22fae20d-68aa-41aa-9a8c-f6977825591b"
+ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
+Parent: "356e04df-87e2-4755-933d-381b04f3289b"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Settings/Process/Process/Login Types
+Path: /sitecore/templates/eContracting2/Definitions/Combination/Setup/LoginTypes
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
@@ -19,25 +19,10 @@ SharedFields:
   Type: Checkbox
   Value: 1
 Languages:
-- Language: cs
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20201008T122250Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
 - Language: en
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201012T084431Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
+      Value: 20201012T090121Z

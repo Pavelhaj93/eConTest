@@ -5,6 +5,9 @@ Template: "20ec5c2e-616e-493a-892d-c0c1e23721e9"
 Path: /sitecore/content/eContracting2/Settings/Processes/8003
 DB: master
 SharedFields:
+- ID: "2975573d-f84c-4ce8-9546-45a35ecb1580"
+  Hint: Code
+  Value: 03
 - ID: "a8256bbb-6d8c-4032-bb4b-27fcf55c0ae8"
   Hint: Types
   Type: Multilist
