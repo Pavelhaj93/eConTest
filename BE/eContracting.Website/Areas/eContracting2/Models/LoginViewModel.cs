@@ -17,9 +17,11 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public bool IsAgreed { get; set; }
 
         [JsonProperty("isRetention")]
+        [Obsolete]
         public bool IsRetention { get; set; }
 
         [JsonProperty("isAcquisition")]
+        [Obsolete]
         public bool IsAcquisition { get; set; }
 
         [JsonProperty("formAction")]
@@ -29,44 +31,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string HiddenValue { get; set; }
 
         [JsonProperty("choices")]
-        public List<LoginChoiceViewModel> Choices { get; set; }
+        public IEnumerable<LoginChoiceViewModel> Choices { get; set; }
 
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
 
         public LoginViewModel() : base("Authentication")
         {
-        }
-    }
-
-    public class LoginChoiceViewModel
-    {
-        [JsonProperty("label")]
-        public string Label { get; set; }
-
-        [JsonProperty("key")]
-        public string Key { get; set; }
-
-        [JsonProperty("helpText")]
-        public string HelpText { get; set; }
-
-        [JsonProperty("placeholder")]
-        public string Placeholder { get; set; }
-
-        [JsonProperty("regex")]
-        public string ValidationRegex { get; set; }
-
-        public LoginChoiceViewModel()
-        {
-        }
-
-        public LoginChoiceViewModel(AuthenticationTypeModel model)
-        {
-            this.HelpText = model.HelpText;
-            this.Key = model.Key;
-            this.Label = model.Label;
-            this.Placeholder = model.Placeholder;
-            this.ValidationRegex = model.ValidationRegex;
         }
     }
 }

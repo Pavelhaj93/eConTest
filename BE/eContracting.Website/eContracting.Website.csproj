@@ -211,6 +211,8 @@
     <Compile Include="Areas\eContracting2\Controllers\eContractingAuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginChoiceViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginSubmitViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
@@ -342,6 +344,7 @@
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
     </None>
+    <Content Include="Areas\eContracting2\Views\RichText.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

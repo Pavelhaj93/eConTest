@@ -14,13 +14,15 @@ namespace eContracting.Services
         /// Gets all available authentication method types.
         /// </summary>
         [Obsolete]
-        IEnumerable<AuthenticationTypeModel> GetTypes(OfferModel offer);
+        IEnumerable<LoginTypeModel> GetTypes(OfferModel offer);
 
         /// <summary>
         /// Gets all available authentication method types.
         /// </summary>
         /// <param name="process">The process.</param>
         /// <param name="processType">Type of the process.</param>
-        IEnumerable<AuthenticationTypeModel> GetTypes(string process, string processType);
+        IEnumerable<LoginTypeModel> GetTypes(string process, string processType);
+
+        AuthResultModel Login(OfferModel offer, string birthDay, string key, string value);
     }
 }

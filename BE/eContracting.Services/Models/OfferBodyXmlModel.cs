@@ -168,6 +168,9 @@ namespace eContracting.Services.Models
         [XmlElement("BUS_PROCESS")]
         public string BusProcess { get; set; }
 
+        [XmlElement("BUS_TYPE")]
+        public string BusProcessType { get; set; }
+
         /// <summary>
         /// Gets or sets EXT_UI from SAP.
         /// </summary>

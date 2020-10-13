@@ -13,7 +13,7 @@ namespace eContracting.Services
         /// <summary>
         /// Gets all available authentication method types.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>One or more types.</returns>
         IEnumerable<AuthenticationTypeModel> GetTypes(OfferModel offer);
     }
 }

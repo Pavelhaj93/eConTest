@@ -32,12 +32,26 @@ namespace eContracting.Services
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
+
+                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
+                {
+                    offerXml.Content.Body.BusProcess = "00";
+                }
+
+                var campaign = this.GetCampaign(response);
+
+                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcessType))
+                {
+                    offerXml.Content.Body.BusProcessType = string.IsNullOrEmpty(campaign) ? "INDI" : "CAMPAIGN";
+                }
+
                 var offer = new OfferModel(offerXml);
+                offer.Guid = response.Response.ES_HEADER.CCHKEY;
                 offer.IsAccepted = this.GetIsAccepted(response);
                 offer.AcceptedAt = this.GetAcceptedAt(response);
                 offer.HasGDPR = this.GetHasGdpr(response);
                 offer.CreatedAt = this.GetCreatedAt(response);
-                offer.Campaign = this.GetCampaign(response);
+                offer.Campaign = campaign;
                 offer.GDPRKey = this.GetGdprKey(response);
                 offer.State = this.GetState(response);
                 return offer;

@@ -6,14 +6,28 @@ namespace eContracting.Services
     public interface IApiService
     {
         /// <summary>
-        /// Accepts offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/>.
+        /// Accepts offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was accepted or false.</returns>
         Task<bool> AcceptOfferAsync(string guid);
 
         /// <summary>
-        /// Reads offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/>.
+        /// Accepts offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> synchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <returns>True if it was accepted or false.</returns>
+        bool AcceptOffer(string guid);
+
+        /// <summary>
+        /// Reads offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> synchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <returns>True if it was set or false.</returns>
+        bool ReadOffer(string guid);
+
+        /// <summary>
+        /// Reads offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was set or false.</returns>
@@ -27,15 +41,37 @@ namespace eContracting.Services
         Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid);
 
         /// <summary>
-        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/>.
+        /// Gets the files synchronous.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <returns>Files in array or null</returns>
+        OfferAttachmentXmlModel[] GetAttachments(string guid);
+
+        /// <summary>
+        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
-        /// <returns></returns>
+        /// <returns>The offer.</returns>
+        OfferModel GetOffer(string guid, string type);
+
+        /// <summary>
+        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <returns>The offer.</returns>
         Task<OfferModel> GetOfferAsync(string guid, string type);
 
         /// <summary>
-        /// Gets texts for offer <paramref name="guid"/>.
+        /// Gets texts for offer <paramref name="guid"/> synchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <returns>Array of texts.</returns>
+        OfferTextModel[] GetXml(string guid);
+
+        /// <summary>
+        /// Gets texts for offer <paramref name="guid"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>Array of texts.</returns>

@@ -12,6 +12,7 @@ using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
 using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
+using eContracting.Models;
 using eContracting.Services;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web.Mvc;
@@ -195,28 +196,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         // WelcomeRichTextController
         public ActionResult RichText()
         {
-            var dataSource = this.GetLayoutItem<EContractingWelcomeRichTextDatasource>();
-            WelcomeRichTextModel viewModel;
-
-            if (Sitecore.Context.PageMode.IsNormal)
-            {
-                var processingParameters = this.HttpContext.Items["WelcomeData"] as IDictionary<string, string>;
-
-                if (processingParameters == null)
-                {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url);
-                }
-
-                var replacedText = SystemHelpers.ReplaceParameters(dataSource.Text, processingParameters);
-
-                viewModel = new WelcomeRichTextModel() { Datasource = dataSource, ReplacedText = replacedText };
-            }
-            else
-            {
-                viewModel = new WelcomeRichTextModel() { Datasource = dataSource, ReplacedText = dataSource.Text };
-            }
-
-            return View("/Areas/eContracting2/Views/Content/WelcomeRichText.cshtml", viewModel);
+            var dataSource = this.GetLayoutItem<RichTextModel>();
+            return View("/Areas/eContracting2/Views/RichText.cshtml", dataSource);
         }
 
         // ThankYouController

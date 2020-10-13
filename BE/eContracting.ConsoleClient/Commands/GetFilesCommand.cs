@@ -11,32 +11,25 @@ namespace eContracting.ConsoleClient.Commands
     class GetFilesCommand : BaseCommand
     {
         readonly ContextData Context;
-        readonly OfferParserService OfferParser;
-        readonly OfferAttachmentParserService AttachmentParser;
-        readonly IOptions<GlobalConfiguration> Options;
+        readonly IApiService ApiService;
         readonly ILogger Logger;
 
-        public GetFilesCommand(OfferParserService offerParser,
-            OfferAttachmentParserService attachmentParser,
+        public GetFilesCommand(
+            IApiService apiService,
             ILogger logger,
-            IOptions<GlobalConfiguration> options,
             IConsole console,
             ContextData contextData) : base("files", console)
         {
-            this.OfferParser = offerParser;
-            this.AttachmentParser = attachmentParser;
+            this.ApiService = apiService;
             this.Logger = logger;
-            this.Options = options;
             this.Context = contextData;
         }
 
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            var options = new CacheApiServiceOptions(this.Options.Value.ServiceUser, this.Options.Value.ServicePassword, this.Options.Value.ServiceUrl);
             this.Logger.Suspend(true);
-            var service = new CacheApiService(options, this.OfferParser, this.AttachmentParser, this.Logger);
-            var files = await service.GetAttachmentsAsync(guid);
+            var files = await this.ApiService.GetAttachmentsAsync(guid);
             this.Logger.Suspend(false);
 
             var table = new LogTable();

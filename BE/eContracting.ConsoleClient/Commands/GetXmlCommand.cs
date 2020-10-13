@@ -11,31 +11,24 @@ namespace eContracting.ConsoleClient.Commands
     class GetXmlCommand : BaseCommand
     {
         readonly ContextData Context;
-        readonly OfferParserService OfferParser;
-        readonly OfferAttachmentParserService AttachmentParser;
-        readonly IOptions<GlobalConfiguration> Options;
+        readonly IApiService ApiService;
         readonly ILogger Logger;
 
-        public GetXmlCommand(OfferParserService offerParser,
-            OfferAttachmentParserService attachmentParser,
+        public GetXmlCommand(
+            IApiService apiService,
             ILogger logger,
-            IOptions<GlobalConfiguration> options,
             IConsole console,
             ContextData contextData) : base("xml", console)
         {
-            this.OfferParser = offerParser;
-            this.AttachmentParser = attachmentParser;
+            this.ApiService = apiService;
             this.Logger = logger;
-            this.Options = options;
             this.Context = contextData;
         }
 
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            var options = new CacheApiServiceOptions(this.Options.Value.ServiceUser, this.Options.Value.ServicePassword, this.Options.Value.ServiceUrl);
-            var service = new CacheApiService(options, this.OfferParser, this.AttachmentParser, this.Logger);
-            var xmls = await service.GetXmlAsync(guid);
+            var xmls = await this.ApiService.GetXmlAsync(guid);
 
             foreach (var xml in xmls)
             {

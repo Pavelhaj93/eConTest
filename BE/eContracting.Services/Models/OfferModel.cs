@@ -10,8 +10,13 @@ namespace eContracting.Services.Models
 {
     public class OfferModel
     {
-
         public readonly OfferXmlModel Xml;
+
+        /// <summary>
+        /// Gets or sets the unique GUID of this offer.
+        /// </summary>
+        //TODO: Implement it (found in XML where it is)
+        public string Guid { get;set; }
 
         /// <summary>
         /// Gets or sets flag if offer is accepted.
@@ -42,6 +47,14 @@ namespace eContracting.Services.Models
         /// Gets or sets CAMPAIGN value.
         /// </summary>
         public string Campaign { get; set; }
+
+        public bool IsCampaign
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.Campaign);
+            }
+        }
 
         /// <summary>
         /// Gets or sets State.
@@ -100,7 +113,7 @@ namespace eContracting.Services.Models
         {
             get
             {
-                return string.Empty;
+                return this.Xml.Content.Body.BusProcessType;
             }
         }
 

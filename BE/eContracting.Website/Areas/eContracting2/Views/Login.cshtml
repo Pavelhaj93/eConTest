@@ -1,4 +1,5 @@
-﻿@using Glass.Mapper.Sc.Web.Mvc
+﻿@using System.Linq 
+@using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
 @model LoginViewModel
@@ -10,6 +11,23 @@
         </div>
         <div id="app"></div>
     </div>
+    <form action="@Request.RawUrl" method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <th>Datum narození:</th>
+                    <td>@Html.TextBox("birthdate")</td>
+                </tr>
+                @foreach (var choice in Model.Choices)
+                {
+                    <tr>
+                        <th>@choice.Label:</th>
+                        <td>@Html.RadioButton("value", choice.Key)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
 </div>
 
 <script>

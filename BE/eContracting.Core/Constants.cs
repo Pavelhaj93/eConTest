@@ -19,5 +19,13 @@ namespace eContracting
             public const string ADDINFO = "ADDINFO";
             public const string MAIN_DOC = "MAIN_DOC";
         }
+
+        public static class SitecorePaths
+        {
+            public const string LOGIN_TYPES = "/sitecore/content/eContracting2/Settings/LoginTypes";
+            public const string PROCESSES = "/sitecore/content/eContracting2/Settings/Processes";
+            public const string PROCESS_TYPES = "/sitecore/content/eContracting2/Settings/ProcessTypes";
+            public const string DEFINITIONS = "/sitecore/content/eContracting2/Definitions";
+        }
     }
 }

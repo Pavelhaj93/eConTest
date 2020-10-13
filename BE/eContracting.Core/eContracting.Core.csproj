@@ -59,13 +59,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="LogTable.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
+    <Compile Include="Models\AuthResultModel.cs" />
+    <Compile Include="Models\BaseSitecoreModel.cs" />
+    <Compile Include="Models\DefinitionCombinationModel.cs" />
     <Compile Include="Models\FailedLoginInfoDetailModel.cs" />
     <Compile Include="Models\FailedLoginInfoModel.cs" />
+    <Compile Include="Models\FolderItemModel.cs" />
     <Compile Include="Models\GeneralTextsSettings.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
+    <Compile Include="Models\ProcessModel.cs" />
+    <Compile Include="Models\ProcessTypeModel.cs" />
+    <Compile Include="Models\RichTextModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
     <Compile Include="OfferTypes.cs" />
     <Compile Include="PageLinkType.cs" />

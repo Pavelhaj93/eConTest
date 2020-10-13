@@ -18,8 +18,10 @@ namespace eContracting.ConsoleClient
                 {
                     services.AddOptions<GlobalConfiguration>();
                     services.AddSingleton<ContextData>();
-                    services.AddScoped<OfferParserService>();
-                    services.AddScoped<OfferAttachmentParserService>();
+                    services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
+                    services.AddScoped<IOfferParserService, OfferParserService>();
+                    services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
+                    services.AddScoped<IApiService, CacheApiService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetXmlCommand>();

@@ -7,6 +7,7 @@ using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services.Models;
@@ -20,27 +21,26 @@ namespace eContracting.Services
     public class CacheApiService : IApiService
     {
         public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
-        public readonly CacheApiServiceOptions Options;
-        protected readonly OfferParserService OfferParser;
-        protected readonly OfferAttachmentParserService AttachmentParser;
         protected readonly ILogger Logger;
+        protected readonly ISettingsReaderService SettingsReaderService;
+        protected readonly IOfferParserService OfferParser;
+        protected readonly IOfferAttachmentParserService AttachmentParser;
         private readonly ZCCH_CACHE_APIClient Api;
+        //private readonly TaskFactory _taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CacheApiService"/> class.
-        /// </summary>
-        /// <param name="options">The options.</param>
-        /// <param name="offerParser">The offer parser.</param>
-        /// <param name="logger">The logger.</param>
-        /// <exception cref="ArgumentNullException">
-        /// offerParser
-        /// or
-        /// logger
-        /// </exception>
-        public CacheApiService(CacheApiServiceOptions options, OfferParserService offerParser, OfferAttachmentParserService attachmentParser, ILogger logger)
+        public CacheApiService(
+            ILogger logger,
+            ISettingsReaderService settingsReaderService,
+            IOfferParserService offerParser,
+            IOfferAttachmentParserService offerAttachmentParser)
         {
+            this.Logger = logger;
+            this.SettingsReaderService = settingsReaderService;
+            this.OfferParser = offerParser;
+            this.AttachmentParser = offerAttachmentParser;
+
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-            this.Options = options;
+            var options = this.SettingsReaderService.GetApiServiceOptions();
 
             var binding = new BasicHttpBinding();
             binding.Name = nameof(ZCCH_CACHE_APIClient);
@@ -48,21 +48,47 @@ namespace eContracting.Services
             binding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
-            var endpoint = new EndpointAddress(this.Options.Url);
+            var endpoint = new EndpointAddress(options.Url);
 
             this.Api = new ZCCH_CACHE_APIClient(binding, endpoint);
-            this.Api.ClientCredentials.UserName.UserName = this.Options.User;
-            this.Api.ClientCredentials.UserName.Password = this.Options.Password;
+            this.Api.ClientCredentials.UserName.UserName = options.User;
+            this.Api.ClientCredentials.UserName.Password = options.Password;
+        }
 
-            this.OfferParser = offerParser ?? throw new ArgumentNullException(nameof(offerParser));
-            this.AttachmentParser = attachmentParser ?? throw new ArgumentNullException(nameof(attachmentParser));
-            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        /// <inheritdoc/>
+        public bool AcceptOffer(string guid)
+        {
+            var task = Task.Run(() => this.AcceptOfferAsync(guid));
+            task.Wait();
+            var result = task.Result;
+            //var result = this.AcceptOfferAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
+            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
+            //var result = Task.Run(() => task).Result;
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> AcceptOfferAsync(string guid)
+        {
+            return await this.SetStatusAsync(guid, "NABIDKA", "5");
+        }
+
+        /// <inheritdoc/>
+        public OfferModel GetOffer(string guid, string type)
+        {
+            var task = Task.Run(() => this.GetOfferAsync(guid, type));
+            task.Wait();
+            var result = task.Result;
+            //var result = this.GetOfferAsync(guid, type).ConfigureAwait(false).GetAwaiter().GetResult();
+            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
+            //var result = Task.Run(() => task).Result;
+            return result;
         }
 
         /// <inheritdoc/>
         public async Task<OfferModel> GetOfferAsync(string guid, string type)
         {
-            ResponseCacheGetModel response = await this.GetResponseAsync(guid, type);
+            var response = await this.GetResponseAsync(guid, type);
 
             if (response == null)
             {
@@ -70,6 +96,18 @@ namespace eContracting.Services
             }
 
             return this.OfferParser.GenerateOffer(response);
+        }
+
+        /// <inheritdoc/>
+        public OfferTextModel[] GetXml(string guid)
+        {
+            var task = Task.Run(() => this.GetXmlAsync(guid));
+            task.Wait();
+            var result = task.Result;
+            //var result = this.GetXmlAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
+            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
+            //var result = Task.Run(() => task).Result;
+            return result;
         }
 
         /// <inheritdoc/>
@@ -104,6 +142,18 @@ namespace eContracting.Services
             }
 
             return list.ToArray();
+        }
+
+        /// <inheritdoc/>
+        public OfferAttachmentXmlModel[] GetAttachments(string guid)
+        {
+            var task = Task.Run(() => this.GetAttachmentsAsync(guid));
+            task.Wait();
+            var result = task.Result;
+            //var result = this.GetAttachmentsAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
+            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
+            //var result = Task.Run(() => task).Result;
+            return result;
         }
 
         /// <inheritdoc/>
@@ -150,9 +200,15 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AcceptOfferAsync(string guid)
+        public bool ReadOffer(string guid)
         {
-            return await this.SetStatusAsync(guid, "NABIDKA", "5");
+            var task = Task.Run(() => this.ReadOfferAsync(guid));
+            task.Wait();
+            var result = task.Result;
+            //var result = this.ReadOfferAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
+            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
+            //var result = Task.Run(() => task).Result;
+            return result;
         }
 
         /// <inheritdoc/>
@@ -278,5 +334,9 @@ namespace eContracting.Services
 
             return files.ToArray();
         }
+
+        
+
+        
     }
 }

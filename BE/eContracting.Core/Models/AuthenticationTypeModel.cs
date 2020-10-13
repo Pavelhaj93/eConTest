@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace eContracting.Models
 {
+    [Obsolete]
     public class AuthenticationTypeModel
     {
         public string Label { get; set; }
