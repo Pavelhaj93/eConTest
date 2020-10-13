@@ -4,6 +4,10 @@ Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "6ccfef10-7a13-47f8-aaf3-237085b9c556"
 Path: /sitecore/content/eContracting2/Web/chyba
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 1000
 Languages:
 - Language: cs
   Versions:

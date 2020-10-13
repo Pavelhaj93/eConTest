@@ -4,6 +4,10 @@ Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "220b964c-ea21-4672-92f1-58cce932bd33"
 Path: "/sitecore/content/eContracting2/Web/nabidka-vyprsela"
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 275
 Languages:
 - Language: cs
   Versions:

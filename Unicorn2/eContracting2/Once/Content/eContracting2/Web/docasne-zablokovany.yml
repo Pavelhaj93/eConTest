@@ -4,6 +4,10 @@ Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "e4f4a320-3072-4e2d-a13c-eaee2fd09d5a"
 Path: "/sitecore/content/eContracting2/Web/docasne-zablokovany"
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 600
 Languages:
 - Language: cs
   Versions:

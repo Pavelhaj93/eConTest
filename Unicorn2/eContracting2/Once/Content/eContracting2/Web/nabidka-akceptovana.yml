@@ -8,6 +8,9 @@ SharedFields:
 - ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
   Hint: Step
   Value: "{04C12E95-ACB4-4514-860D-C7EA9E1C0B37}"
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 250
 Languages:
 - Language: cs
   Versions:

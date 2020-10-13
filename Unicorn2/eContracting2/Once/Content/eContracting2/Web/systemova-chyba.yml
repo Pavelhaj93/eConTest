@@ -4,6 +4,10 @@ Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
 Path: "/sitecore/content/eContracting2/Web/systemova-chyba"
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 900
 Languages:
 - Language: cs
   Versions:

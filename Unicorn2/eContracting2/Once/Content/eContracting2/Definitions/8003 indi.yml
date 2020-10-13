@@ -14,6 +14,9 @@ SharedFields:
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
   Value: "{C2CE964B-8F81-41E6-A15E-39DF476C8663}"
+- ID: "5fb9c684-4353-4677-b32d-7e7a06fe7076"
+  Hint: MainTextLoginAccepted
+  Value: "{71C505F8-5050-4F36-87BF-203CF57ECCFE}"
 - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
   Hint: MainTextOffer
   Value: "{D2F41E9E-09C2-4857-BBBC-997D38BC53F9}"

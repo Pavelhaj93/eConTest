@@ -2,7 +2,7 @@
 ID: "9be71c02-abfe-4e99-83c8-c9dd8a3053c3"
 Parent: "6c9d6b0b-920f-4e55-b456-a7df4487161b"
 Template: "1cf3e1f2-7c49-4ed6-9cb1-fa9ef95a73dc"
-Path: /sitecore/content/eContracting2/Settings/LoginTypes/id_number
+Path: /sitecore/content/eContracting2/Settings/LoginTypes/op
 DB: master
 SharedFields:
 - ID: "15be14a3-f358-4015-a596-e60f9bf6acef"
