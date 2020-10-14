@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace eContracting.Services.Models
 {
-    public enum AuthLoginStates
+    public enum LoginStates
     {
         INVALID_GUID,
         USER_BLOCKED,

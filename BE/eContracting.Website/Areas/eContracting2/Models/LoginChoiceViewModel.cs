@@ -12,9 +12,6 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("label")]
         public string Label { get; set; }
 
-        [JsonProperty("id")]
-        public string Id { get; set; }
-
         /// <summary>
         /// Gets or sets the key.
         /// </summary>
@@ -34,11 +31,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
         }
 
-        public LoginChoiceViewModel(LoginTypeModel model)
+        public LoginChoiceViewModel(LoginTypeModel model, string key)
         {
             this.HelpText = model.HelpText;
-            this.Id = model.ComputeId;
-            this.Key = model.Key;
+            this.Key = key;
             this.Label = model.Label;
             this.Placeholder = model.Placeholder;
             this.ValidationRegex = model.ValidationRegex;

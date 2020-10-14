@@ -10,22 +10,11 @@ namespace eContracting.Models
     [SitecoreType(TemplateId = "{1CF3E1F2-7C49-4ED6-9CB1-FA9EF95A73DC}", AutoMap = true)]
     public class LoginTypeModel : BaseSitecoreModel
     {
-        /// <summary>
-        /// Gets computed unique id base on <see cref="BaseSitecoreModel.ID"/>. This is used only for login page.
-        /// </summary>
-        [SitecoreIgnore]
-        public string ComputeId
-        {
-            get
-            {
-                return Utils.GetMd5(this.ID.ToString());
-            }
-        }
-
         [SitecoreField]
         public virtual string Label { get; set; }
 
         [SitecoreIgnore]
+        [Obsolete]
         public virtual string Key { get; set; }
 
         [SitecoreField]

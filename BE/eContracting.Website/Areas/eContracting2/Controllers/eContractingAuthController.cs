@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -19,6 +21,7 @@ using eContracting.Services.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore;
 using Sitecore.Collections;
 using Sitecore.DependencyInjection;
 using Sitecore.Diagnostics;
@@ -110,8 +113,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var offer = this.ApiService.GetOffer(guid, "NABIDKA");
                 var canLogin = this.CanLogin(guid, offer);
 
-                if (canLogin != AuthLoginStates.OK)
+                if (canLogin != LoginStates.OK)
                 {
+                    //TODO: this.ReportLogin()
                     return this.GetFailReturns(canLogin, guid);
                 }
 
@@ -123,12 +127,35 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer));
                 var viewModel = this.GetViewModel(datasource, choices, errorString);
+                viewModel.Birthdate = offer.Birthday;
+                viewModel.BussProcess = offer.Process;
+                viewModel.BussProcessType = offer.ProcessType;
+                viewModel.Partner = offer.PartnerNumber;
+                viewModel.Zip1 = offer.PostNumber;
+                viewModel.Zip2 = offer.PostNumberConsumption;
+                //TODO: this.ReportLogin()
                 return View("/Areas/eContracting2/Views/Login.cshtml", viewModel);
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException is EndpointNotFoundException)
+                {
+                    this.Logger.Error($"[{guid}] Connection to CACHE failed ({Constants.ErrorCodes.AUTH1_CACHE})", ex);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE);
+                }
+
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_CACHE2})", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2);
+            }
+            catch (ApplicationException ex)
+            {
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
             }
             catch (Exception ex)
             {
-                Log.Error($"[{guid}] Authenticating failed", ex, this);
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.SystemError).Url);
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_UNKNOWN);
             }
         }
 
@@ -148,141 +175,55 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                if (!this.ModelState.IsValid)
-                {
-                    Log.Debug($"[{guid}] Invalid log-in data", this);
-                    //TODO: this.ReportLogin(reportDateOfBirth, reportAdditionalValue, authenticationModel.Key, guid, offerTypeIdentifier, generalError: true);
-                    var url = Request.RawUrl.Contains("&error=validationError") ? this.Request.RawUrl : this.Request.RawUrl + "&error=validationError";
-                    return Redirect(url);
-                }
+                //if (!this.ModelState.IsValid)
+                //{
+                //    Log.Debug($"[{guid}] Invalid log-in data", this);
+                //    //TODO: this.ReportLogin(reportDateOfBirth, reportAdditionalValue, authenticationModel.Key, guid, offerTypeIdentifier, generalError: true);
+                //    var url = Request.RawUrl.Contains("&error=validationError") ? this.Request.RawUrl : this.Request.RawUrl + "&error=validationError";
+                //    return Redirect(url);
+                //}
 
                 var offer = this.ApiService.GetOffer(guid, "NABIDKA");
                 var canLogin = this.CanLogin(guid, offer);
 
-                if (canLogin != AuthLoginStates.OK)
+                if (canLogin != LoginStates.OK)
                 {
                     return this.GetFailReturns(canLogin, guid);
                 }
 
-                var result = this.AuthService.Login(offer, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
-                
-                //var authSettings = ConfigHelpers.GetAuthenticationSettings();
-                //var authHelper = new AuthenticationHelper(
-                //    offer,
-                //    this.DataSessionStorage,
-                //    datasource.UserChoiceAuthenticationEnabled,
-                //    datasource.UserChoiceAuthenticationEnabledRetention,
-                //    datasource.UserChoiceAuthenticationEnabledAcquisition,
-                //    authSettings);
-                //var userData = authHelper.GetUserData();
+                var result = this.AuthService.GetLoginState(offer, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
 
-                //var dateOfBirthRealValue = userData.DateOfBirth.Trim().Replace(" ", string.Empty).ToLower();                    ////Value from offer
-                //var dateOfBirthUserValue = authenticationModel.BirthDate.Trim().Replace(" ", string.Empty).ToLower();           ////Value from user
-                //var additionalUserValue = authenticationModel.Additional.Trim().Replace(" ", string.Empty).ToLower().GetHashCode().ToString();      ////Value from user hashed
-
-                //Log.Debug($"[{guid}] Selected type of authentication: {authenticationModel.SelectedKey}", this);
-
-                //var additionalRealValue = authHelper.IsUserChoice 
-                //    ? authHelper.GetRealAdditionalValue(authenticationModel.SelectedKey) 
-                //    : authenticationModel.ItemValue.Replace(salt, string.Empty);     ////Value from offer hashed - salt
-
-                //var validFormatDateOfBirth = (!string.IsNullOrEmpty(dateOfBirthRealValue)) && (!string.IsNullOrEmpty(dateOfBirthUserValue));
-                //var validFormatAdditinalValue = (!string.IsNullOrEmpty(additionalUserValue)) && (!string.IsNullOrEmpty(additionalRealValue));
-
-                //var validFormat = validFormatDateOfBirth && validFormatAdditinalValue;
-                //var validDateOfBirth = (dateOfBirthUserValue == dateOfBirthRealValue);
-                //var validAdditionalValue = (additionalUserValue == additionalRealValue);
-
-                //var validData = validDateOfBirth && validAdditionalValue;
-
-                //var reportTime = DateTime.UtcNow.ToString("d.M.yyyy hh:mm:ss");
-                //var offerTypeIdentifier = userData.IsIndi ?
-                //    $"{offer.OfferInternal.CreatedAt}" : 
-                //    $"{offer.OfferInternal.Body.Campaign}";
-
-                if (!result.Succeeded)
+                if (result != AuthResultState.SUCCEEDED)
                 {
-                    Log.Info($"[{guid}] Log-in failed", this);
-                    //var dateOfBirthValidationMessage = string.Empty;
-                    //var specificValidationMessage = string.Empty;
-                    //var validationMessage = datasource.ValidationMessage;
-
-                    //if (!validFormatDateOfBirth)
-                    //{
-                    //    Log.Info($"[{guid}] Invalid format of date of birth", this);
-                    //    reportDateOfBirth = true;
-                    //    dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
-                    //}
-
-                    //if (!validAdditionalValue)
-                    //{
-                    //    Log.Info($"[{guid}] Invalid format of additional value ({authenticationModel.SelectedKey})", this);
-                    //    reportAdditionalValue = true;
-                    //    specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey, datasource.ValidationMessage);
-                    //}
-
-                    //if (!validDateOfBirth)
-                    //{
-                    //    Log.Info($"[{guid}] Date of birth doesn't match", this);
-                    //    reportDateOfBirth = true;
-                    //    dateOfBirthValidationMessage = datasource.BirthDateValidationMessage;
-                    //}
-
-                    //if (!validAdditionalValue)
-                    //{
-                    //    Log.Info($"[{guid}] Additional value ({authenticationModel.SelectedKey}) doesn't match", this);
-                    //    reportAdditionalValue = true;
-                    //    specificValidationMessage = this.GetFieldSpecificValidationMessage(authSettings, authenticationModel.SelectedKey, datasource.ValidationMessage);
-                    //}
-
-                    //this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
-
-                    //if (reportDateOfBirth && !reportAdditionalValue)
-                    //{
-                    //    validationMessage = dateOfBirthValidationMessage;
-                    //}
-
-                    //if (!reportDateOfBirth && reportAdditionalValue)
-                    //{
-                    //    validationMessage = specificValidationMessage;
-                    //}
-                    
-                    //if (!string.IsNullOrEmpty(validationMessage))
-                    //{
-                    //    this.Session["ErrorMessage"] = validationMessage;
-                    //}
-
-                    this.LoginReportService.AddFailedAttempt(guid, this.Session.SessionID, Request.Browser.Browser);
-                    var url = Request.RawUrl.Contains("&error=validationError") ? Request.RawUrl : Request.RawUrl + "&error=validationError";
-
-                    return Redirect(url);
+                    this.Logger.Info($"[{guid}] Log-in failed");
+                    //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
+                    //TODO: this.LoginReportService.AddFailedAttempt(guid, this.Session.SessionID, this.Request.Browser.Browser);
+                    return this.GetLoginFailReturns(result, guid);
                 }
 
-                //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
-
-                //this.DataSessionStorage.Login(userData);
+                //TODO: this.DataSessionStorage.Login(userData);
 
                 Log.Info($"[{guid}] Successfully log-ged in", this);
 
                 if (offer.IsAccepted)
                 {
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer);
-                    Log.Info($"[{guid}] Offer already accepted", this);
+                    this.Logger.Info($"[{guid}] Offer already accepted");
                     return Redirect(redirectUrl);
                 }
 
                 if (offer.OfferIsExpired)
                 {
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired);
-                    Log.Info($"[{guid}] Offer expired", this);
-                    return Redirect(redirectUrl);
+                    this.Logger.Info($"[{guid}] Offer expired");
+                    return this.Redirect(redirectUrl);
                 }
 
-                return Redirect(datasource.NextPageLink.Url);
+                return this.Redirect(datasource.NextPageLink.Url);
             }
             catch (Exception ex)
             {
-                Log.Fatal($"[{guid}] Authentication process failed", ex, this);
+                this.Logger.Fatal($"[{guid}] Authentication process failed", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError));
             }
         }
@@ -397,84 +338,126 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return !this.LoginReportService.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
         }
 
-        protected AuthLoginStates CanLogin(string guid, OfferModel offer)
+        protected LoginStates CanLogin(string guid, OfferModel offer)
         {
             if (string.IsNullOrEmpty(guid))
             {
-                return AuthLoginStates.INVALID_GUID;
+                return LoginStates.INVALID_GUID;
             }
 
             if (!this.LoginReportService.CanLogin(guid))
             {
-                return AuthLoginStates.USER_BLOCKED;
+                return LoginStates.USER_BLOCKED;
             }
 
             if (offer?.Xml == null)
             {
-                return AuthLoginStates.NO_OFFER;
+                return LoginStates.NO_OFFER;
             }
 
             if (offer.State == "1")
             {
-                return AuthLoginStates.OFFER_STATE_1;
+                return LoginStates.OFFER_STATE_1;
             }
 
             if (offer.Xml.Content == null)
             {
-                return AuthLoginStates.EMPTY_OFFER;
+                return LoginStates.EMPTY_OFFER;
             }
 
             if (string.IsNullOrEmpty(offer.Birthday))
             {
-                return AuthLoginStates.MISSING_BIRTHDAY;
+                return LoginStates.MISSING_BIRTHDAY;
             }
 
-            return AuthLoginStates.OK;
+            return LoginStates.OK;
         }
 
-        protected ActionResult GetFailReturns(AuthLoginStates canLogin, string guid)
+        protected ActionResult GetFailReturns(LoginStates canLogin, string guid)
         {
-            if (canLogin == AuthLoginStates.INVALID_GUID)
+            if (canLogin == LoginStates.INVALID_GUID)
             {
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 
-            if (canLogin == AuthLoginStates.USER_BLOCKED)
+            if (canLogin == LoginStates.USER_BLOCKED)
             {
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.UserBlocked).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.UserBlocked));
             }
 
-            if (canLogin == AuthLoginStates.NO_OFFER)
+            if (canLogin == LoginStates.NO_OFFER)
             {
                 this.Logger.Warn($"[{guid}] No offer found");
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 
-            if (canLogin == AuthLoginStates.OFFER_STATE_1)
+            if (canLogin == LoginStates.OFFER_STATE_1)
             {
                 this.Logger.Warn($"[{guid}] Offer with state [1] will be ignored");
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 
-            if (canLogin == AuthLoginStates.EMPTY_OFFER)
+            if (canLogin == LoginStates.EMPTY_OFFER)
             {
                 Log.Warn($"[{guid}] Offer is empty", this);
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 
-            if (canLogin == AuthLoginStates.MISSING_BIRTHDAY)
+            if (canLogin == LoginStates.MISSING_BIRTHDAY)
             {
                 this.Logger.Warn($"[{guid}] Attribute BIRTHDT is offer is empty");
-                return Redirect(ConfigHelpers.GetPageLink(Kernel.Helpers.PageLinkType.WrongUrl).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 
             return new EmptyResult();
         }
+
+        protected ActionResult GetLoginFailReturns(AuthResultState state, string guid)
+        {
+            if (state == AuthResultState.INVALID_BIRTHDATE)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
+                return Redirect(url);
+            }
+
+            if (state == AuthResultState.INVALID_PARTNER)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_PARTNER);
+                return Redirect(url);
+            }
+
+            if (state == AuthResultState.INVALID_ZIP1)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP1);
+                return Redirect(url);
+            }
+
+            if (state == AuthResultState.INVALID_ZIP2)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP2);
+                return Redirect(url);
+            }
+
+            if (state == AuthResultState.KEY_MISMATCH)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_MISMATCH);
+                return Redirect(url);
+            }
+
+            if (state == AuthResultState.KEY_VALUE_MISMATCH)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_VALUE_MISMATCH);
+                return Redirect(url);
+            }
+
+            var url1 = Utils.SetQuery(this.Request.Url, "error", "v00");
+            return Redirect(url1);
+        }
         
         protected LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
         {
-            var login = new LoginChoiceViewModel(model);
-            login.Key = Utils.GetMd5(model.ComputeId + offer.Guid);
+            string key = this.AuthService.GetUniqueKey(model, offer);
+            var login = new LoginChoiceViewModel(model, key);
             return login;
         }
     }

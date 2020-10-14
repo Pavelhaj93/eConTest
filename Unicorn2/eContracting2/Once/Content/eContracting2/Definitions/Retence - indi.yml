@@ -14,6 +14,13 @@ SharedFields:
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
   Value: "{C2CE964B-8F81-41E6-A15E-39DF476C8663}"
+- ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
+  Hint: LoginTypes
+  Type: Checklist
+  Value: |
+    {9BE71C02-ABFE-4E99-83C8-C9DD8A3053C3}
+    {552CA02F-13B6-4567-A111-9815A33F540A}
+    {49A2C1EA-B663-4397-A9FA-D48DF957B898}
 - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
   Hint: MainTextOffer
   Value: "{FD1AA3CC-FDF5-483C-8382-198390CE15D0}"

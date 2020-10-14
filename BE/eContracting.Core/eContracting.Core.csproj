@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>eContracting.Core.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,7 +64,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="LogTable.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
-    <Compile Include="Models\AuthResultModel.cs" />
+    <Compile Include="Models\AuthResultState.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
     <Compile Include="Models\DefinitionCombinationModel.cs" />
     <Compile Include="Models\FailedLoginInfoDetailModel.cs" />

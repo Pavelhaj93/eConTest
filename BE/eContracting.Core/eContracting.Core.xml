@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eContracting.Core</name>
+    </assembly>
+    <members>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_UNKNOWN">
+            <summary>
+            The authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE">
+            <summary>
+            Call to CACHE during authentication process.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE2">
+            <summary>
+            Call to CACHE during authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_APP">
+            <summary>
+            The authentication process - application exception.
+            </summary>
+        </member>
+        <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
+            <summary>
+            Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
+            </summary>
+            <typeparam name="T">Sitecore item model type.</typeparam>
+            <param name="service">The service.</param>
+            <param name="path">The path.</param>
+            <returns>List of found children or empty list.</returns>
+        </member>
+        <member name="T:eContracting.Models.FailedLoginInfoDetailModel">
+            <summary>
+            Represents detail about failed login
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoDetailModel.Timestamp">
+            <summary>
+            Gets or sets when it happend.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoDetailModel.SessionId">
+            <summary>
+            Gets or sets session ID.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoDetailModel.BrowserInfo">
+            <summary>
+            Gets or sets the browser information.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.FailedLoginInfoModel">
+            <summary>
+            Represent login failed information base on <see cref="P:eContracting.Models.FailedLoginInfoModel.Guid"/>
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoModel.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoModel.Guid">
+            <summary>
+            Gets or sets the user unique identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoModel.FailedAttempts">
+            <summary>
+            Gets or sets number of failed attempts.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoModel.LastFailedAttemptTimestamp">
+            <summary>
+            Gets or sets the last failed attempt timestamp.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.FailedLoginInfoModel.FailedAttemptsInfo">
+            <summary>
+            Gets or sets the failed attempts historical information.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.Id">
+            <summary>
+            Gets or sets the identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.SessionId">
+            <summary>
+            Gets or sets session identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.LastLoginTime">
+            <summary>
+            Gets or sets login time.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.Guid">
+            <summary>
+            Gets or sets unique identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.OfferTypeIdentifier">
+            <summary>
+            Gets or sets offer type and identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.WrongBirthdayDateCount">
+            <summary>
+            Gets or sets number of wrong birthday dates.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.WrongPostalCodeCount">
+            <summary>
+            Gets or sets number of wrong postal codes.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.WrongResidencePostalCodeCount">
+            <summary>
+            Gets or sets number of wrong residence postal codes.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.WrongIdentityCardNumberCount">
+            <summary>
+            Gets or sets number of wrong identity cards.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.GeneralErrorCount">
+            <summary>
+            Gets or sets number general errors.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferLoginReportModel.SuccessAttemptCount">
+            <summary>
+            Gets or sets number of success attenpts.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttemptsTimeSpan">
+            <summary>
+            Gets the delay after failed attempts as <see cref="T:System.TimeSpan"/>
+            </summary>
+            <value>
+            Parsed value from <see cref="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
+            </value>
+        </member>
+        <member name="M:eContracting.Models.SiteSettingsModel.GetTexts(eContracting.OfferTypes)">
+            <summary>
+            Gets texts by value name of <paramref name="offerType"/> from <see cref="P:eContracting.Models.SiteSettingsModel.Texts"/> collection or null if not found.
+            </summary>
+            <param name="offerType">Type of the offer.</param>
+            <returns>Instance of <see cref="T:eContracting.GeneralTextsSettings"/> or null when not found.</returns>
+        </member>
+        <member name="T:eContracting.PageLinkTypes">
+            <summary>
+            Enumeration of page link types defined on <c>/sitecore/content/eContracting2</c>.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.SessionExpired">
+            <summary>
+            Expired session.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.UserBlocked">
+            <summary>
+            User is blocked.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.AcceptedOffer">
+            <summary>
+            Offer is accepted.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.WrongUrl">
+            <summary>
+            Wrong url.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.OfferExpired">
+            <summary>
+            Offer expired.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.ThankYou">
+            <summary>
+            Thank you link.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.SystemError">
+            <summary>
+            System error link.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.Welcome">
+            <summary>
+            Welcome page.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.Login">
+            <summary>
+            Login page.
+            </summary>
+        </member>
+        <member name="M:eContracting.Utils.GerReadableFileSize(System.Int32)">
+            <summary>
+            Gers readable size.
+            </summary>
+            <seealso cref="!:https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
+            <param name="size">The size.</param>
+        </member>
+        <member name="T:eContracting.ILogger">
+            <summary>
+            Represents abstration layer for logger.
+            </summary>
+        </member>
+    </members>
+</doc>

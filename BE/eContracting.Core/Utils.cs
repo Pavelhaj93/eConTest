@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using Sitecore.Web;
 
 namespace eContracting
 {
@@ -65,8 +67,34 @@ namespace eContracting
             {
                 var inputBytes = Encoding.UTF8.GetBytes(input);
                 var hash = md5.ComputeHash(inputBytes);
-                return Encoding.UTF8.GetString(hash);
+
+                var sb = new StringBuilder();
+                
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sb.Append(hash[i].ToString("X2"));
+                }
+
+                return sb.ToString();
             }
+        }
+
+        public static string SetQuery(Uri url, string key, string value)
+        {
+            var uriBuilder = new UriBuilder(url);
+            var query = WebUtil.ParseQueryString(uriBuilder.Query);
+            query[key] = value;
+            uriBuilder.Query = WebUtil.BuildQueryString(query, false);
+            return uriBuilder.Uri.ToString();
+        }
+
+        public static string SetQuery(string url, string key, string value)
+        {
+            var uriBuilder = new UriBuilder(url);
+            var query = WebUtil.ParseQueryString(uriBuilder.Query);
+            query[key] = value;
+            uriBuilder.Query = WebUtil.BuildQueryString(query, false);
+            return uriBuilder.Uri.ToString();
         }
     }
 }

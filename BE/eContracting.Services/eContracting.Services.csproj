@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>eContracting.Services.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -89,7 +90,7 @@
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferParserService.cs" />
     <Compile Include="ISettingsReaderService.cs" />
-    <Compile Include="Models\AuthLoginStates.cs" />
+    <Compile Include="Models\LoginStates.cs" />
     <Compile Include="Models\OfferAttachmentXmlModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />
     <Compile Include="Models\OfferContentXmlModel.cs" />
