@@ -33,7 +33,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class eContractingAuthController : GlassController
+    public class eContracting2AuthController : GlassController
     {
         [Obsolete]
         private const string salt = "228357";
@@ -44,9 +44,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthController"/> class.
+        /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
         /// </summary>
-        public eContractingAuthController()
+        public eContracting2AuthController()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
@@ -56,7 +56,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="eContractingAuthController"/> class.
+        /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="apiService">The API service.</param>
@@ -74,7 +74,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// or
         /// loginReportService
         /// </exception>
-        public eContractingAuthController(
+        public eContracting2AuthController(
             ILogger logger,
             IApiService apiService,
             IAuthenticationService authService,
@@ -93,7 +93,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <returns>Instance result.</returns>
         [HttpGet]
-        public ActionResult Authentication()
+        public ActionResult Login()
         {
             var guid = string.Empty;
             var errorString = string.Empty;
@@ -116,7 +116,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (canLogin != LoginStates.OK)
                 {
                     //TODO: this.ReportLogin()
-                    return this.GetFailReturns(canLogin, guid);
+                    return this.GetLoginFailReturns(canLogin, guid);
                 }
 
                 if (offer.State == "3")
@@ -166,7 +166,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns>Instance result.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Authentication(LoginSubmitViewModel authenticationModel)
+        public ActionResult Login(LoginSubmitViewModel authenticationModel)
         {
             var guid = Request.QueryString.Get("guid");
             var reportDateOfBirth = false;
@@ -188,7 +188,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (canLogin != LoginStates.OK)
                 {
-                    return this.GetFailReturns(canLogin, guid);
+                    return this.GetLoginFailReturns(canLogin, guid);
                 }
 
                 var result = this.AuthService.GetLoginState(offer, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
@@ -267,18 +267,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal string GetFieldSpecificValidationMessage(AuthenticationSettingsModel authSettings, string key, string defaultMessage)
-        {
-            var settingsItem = authSettings.AuthFields.FirstOrDefault(a => a.Key == key);
-
-            if (settingsItem != null)
-            {
-                return settingsItem.ValidationMessage;
-            }
-
-            return defaultMessage;
-        }
-
         protected internal LoginViewModel GetViewModel(EContractingAuthenticationTemplate datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
@@ -326,18 +314,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return displayName;
         }
 
-        /// <summary>
-        /// Checks whether user is not blocked.
-        /// </summary>
-        /// <param name="guid">GUID of offer we are checking.</param>
-        /// <returns>A value indicating whether user is blocked or not.</returns>
-        [Obsolete]
-        protected internal bool CheckWhetherUserIsBlocked(string guid)
-        {
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            return !this.LoginReportService.CanLogin(guid, siteSettings.MaxFailedAttempts, siteSettings.DelayAfterFailedAttemptsTimeSpan);
-        }
-
         protected LoginStates CanLogin(string guid, OfferModel offer)
         {
             if (string.IsNullOrEmpty(guid))
@@ -373,7 +349,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return LoginStates.OK;
         }
 
-        protected ActionResult GetFailReturns(LoginStates canLogin, string guid)
+        protected ActionResult GetLoginFailReturns(LoginStates canLogin, string guid)
         {
             if (canLogin == LoginStates.INVALID_GUID)
             {

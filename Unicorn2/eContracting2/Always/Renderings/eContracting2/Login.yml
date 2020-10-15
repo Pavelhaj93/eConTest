@@ -10,10 +10,10 @@ SharedFields:
   Value: "apps/32x32/magic-cube.png"
 - ID: "ded9e431-3604-4921-a4b3-a6ec7636a5b6"
   Hint: Controller Action
-  Value: Authentication
+  Value: Login
 - ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
   Hint: Controller
-  Value: eContracting.Website.Areas.eContracting2.Controllers.eContractingAuthController, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting2.Controllers.eContracting2AuthController, eContracting.Website
 Languages:
 - Language: en
   Versions:

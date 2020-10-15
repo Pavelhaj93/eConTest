@@ -209,7 +209,7 @@
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
-    <Compile Include="Areas\eContracting2\Controllers\eContractingAuthController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LoginChoiceViewModel.cs" />
