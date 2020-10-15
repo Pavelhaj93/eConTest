@@ -4,17 +4,48 @@
         <name>eContracting.Services</name>
     </assembly>
     <members>
-        <member name="M:eContracting.Services.AuthenticationService.GetTypes(eContracting.Services.Models.OfferModel)">
+        <member name="T:eContracting.Services.AuthenticationService">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetTypes(System.String,System.String)">
-            <inheritdoc/>
+        <member name="F:eContracting.Services.AuthenticationService.SettingsReader">
+            <summary>
+            The settings reader.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.AuthenticationService.AuthenticationProvider">
+            <summary>
+            The authentication provider.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.Services.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.AuthenticationService"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+            <exception cref="T:System.ArgumentNullException">settingsReader</exception>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Services.Models.OfferModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Services.Models.OfferModel,System.String,System.String,System.String)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Services.Models.AuthDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.IsLoggedIn">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.GetCurrentUser">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.GetMatched(eContracting.Services.Models.OfferModel,System.String)">
+            <summary>
+            Find <see cref="T:eContracting.Models.LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="key">The key.</param>
+            <returns>Login type or null.</returns>
         </member>
         <member name="T:eContracting.Services.CacheApiService">
             <summary>
@@ -51,6 +82,12 @@
         <member name="M:eContracting.Services.CacheApiService.ReadOfferAsync(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.CacheApiService.SignOffer(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheApiService.SignOfferAsync(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.CacheApiService.GetResponseAsync(System.String,System.String,System.String)">
             <summary>
             Gets data.
@@ -60,9 +97,18 @@
             <param name="fileType">Type of the file.</param>
             <returns>Instance of <see cref="T:eContracting.Services.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
+        <member name="M:eContracting.Services.CacheApiService.SetStatusAsync(System.String,System.String,System.String)">
+            <summary>
+            Sets the <paramref name="status"/> asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="type">The type.</param>
+            <param name="status">The status.</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.Services.CacheApiService.SetStatusAsync(System.String,System.String,System.Decimal,System.String)">
             <summary>
-            Sets the status with <see cref="T:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET"/> object.
+            Sets the <paramref name="status"/> asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <param name="type">A type from <see cref="F:eContracting.Services.CacheApiService.AvailableRequestTypes"/> collection.</param>
@@ -282,17 +328,35 @@
         <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse.EV_RETCODE">
             <remarks/>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationService.GetTypes(eContracting.Services.Models.OfferModel)">
+        <member name="T:eContracting.Services.IAuthenticationProviderService">
             <summary>
-            Gets all available authentication method types.
+            Represents storage provider which holds information about logged users.
             </summary>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationService.GetTypes(System.String,System.String)">
+        <member name="M:eContracting.Services.IAuthenticationProviderService.Login(eContracting.Services.Models.AuthDataModel)">
             <summary>
-            Gets all available authentication method types.
+            Log-in user with <paramref name="authData"/> containing <see cref="F:eContracting.Services.Models.AuthDataModel.Guid"/>.
             </summary>
-            <param name="process">The process.</param>
-            <param name="processType">Type of the process.</param>
+            <param name="authData">Auth data model.</param>
+        </member>
+        <member name="M:eContracting.Services.IAuthenticationProviderService.IsLoggedIn">
+            <summary>
+            Determines whether user is logged in.
+            </summary>
+            <returns>
+              <c>true</c> if is logged in; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.Services.IAuthenticationProviderService.GetData">
+            <summary>
+            Gets auth date for current (context) user.
+            </summary>
+            <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.Services.IAuthenticationService">
+            <summary>
+            Represents collection of actions for authentication operation.
+            </summary>
         </member>
         <member name="M:eContracting.Services.IAuthenticationService.GetLoginState(eContracting.Services.Models.OfferModel,System.String,System.String,System.String)">
             <summary>
@@ -313,30 +377,55 @@
             <param name="offer">The offer.</param>
             <returns></returns>
         </member>
+        <member name="M:eContracting.Services.IAuthenticationService.Login(eContracting.Services.Models.AuthDataModel)">
+            <summary>
+            Log-in user with <paramref name="authData"/>.
+            </summary>
+            <param name="authData">Authentication data.</param>
+        </member>
+        <member name="M:eContracting.Services.IAuthenticationService.IsLoggedIn">
+            <summary>
+            Determines whether user is logged in.
+            </summary>
+            <returns>
+              <c>true</c> if is logged in; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.Services.IAuthenticationService.GetCurrentUser">
+            <summary>
+            Gets the current user.
+            </summary>
+            <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.Services.IApiService">
+            <summary>
+            Service with direct communication to SAP / CACHE.
+            </summary>
+        </member>
         <member name="M:eContracting.Services.IApiService.AcceptOfferAsync(System.String)">
             <summary>
-            Accepts offer of <paramref name="guid"/> by setting <see cref="!:ZCCH_CACHE_STATUS_SET"/> asynchronously.
+            Accepts offer asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was accepted or false.</returns>
         </member>
         <member name="M:eContracting.Services.IApiService.AcceptOffer(System.String)">
             <summary>
-            Accepts offer of <paramref name="guid"/> by setting <see cref="!:ZCCH_CACHE_STATUS_SET"/> synchronously.
+            Accepts offer synchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was accepted or false.</returns>
         </member>
         <member name="M:eContracting.Services.IApiService.ReadOffer(System.String)">
             <summary>
-            Reads offer of <paramref name="guid"/> by setting <see cref="!:ZCCH_CACHE_STATUS_SET"/> synchronously.
+            Reads offer synchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
         </member>
         <member name="M:eContracting.Services.IApiService.ReadOfferAsync(System.String)">
             <summary>
-            Reads offer of <paramref name="guid"/> by setting <see cref="!:ZCCH_CACHE_STATUS_SET"/> asynchronously.
+            Reads offer asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
@@ -360,7 +449,7 @@
             Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">Type from <see cref="!:AvailableRequestTypes"/> collection.</param>
+            <param name="type">Offer type.</param>
             <returns>The offer.</returns>
         </member>
         <member name="M:eContracting.Services.IApiService.GetOfferAsync(System.String,System.String)">
@@ -368,7 +457,7 @@
             Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">Type from <see cref="!:AvailableRequestTypes"/> collection.</param>
+            <param name="type">Offer type.</param>
             <returns>The offer.</returns>
         </member>
         <member name="M:eContracting.Services.IApiService.GetXml(System.String)">
@@ -384,6 +473,20 @@
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>Array of texts.</returns>
+        </member>
+        <member name="M:eContracting.Services.IApiService.SignOffer(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:eContracting.Services.IApiService.SignOfferAsync(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
         </member>
         <member name="T:eContracting.Services.ILoginReportStore">
             <summary>
@@ -492,6 +595,27 @@
             Gets configuration for <see cref="T:eContracting.Services.IApiService"/>.
             </summary>
             <returns>The configuration.</returns>
+        </member>
+        <member name="T:eContracting.Services.Models.AuthDataModel">
+            <summary>
+            Authentication data model to log-in a visitor.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.Models.AuthDataModel.Guid">
+            <summary>
+            The unique offer identifier.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.Models.AuthDataModel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:eContracting.Services.Models.AuthDataModel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.Models.AuthDataModel.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.Models.AuthDataModel"/> class.
+            </summary>
+            <param name="guid">The unique identifier.</param>
         </member>
         <member name="T:eContracting.Services.Models.OfferAttachmentXmlModel">
             <summary>
@@ -828,6 +952,21 @@
             </summary>
         </member>
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Services.Models.ResponseCacheGetModel)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.SessionAuthenticationProviderService">
+            <summary>
+            Session provider for logged user.
+            </summary>
+            <seealso cref="T:eContracting.Services.IAuthenticationProviderService" />
+        </member>
+        <member name="M:eContracting.Services.SessionAuthenticationProviderService.GetData">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionAuthenticationProviderService.IsLoggedIn">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionAuthenticationProviderService.Login(eContracting.Services.Models.AuthDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext)">

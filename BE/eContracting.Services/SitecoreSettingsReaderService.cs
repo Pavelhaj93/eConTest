@@ -99,6 +99,8 @@ namespace eContracting.Services
 
             switch (type)
             {
+                case PageLinkTypes.Offer:
+                    return settings.Offer.Url;
                 case PageLinkTypes.SessionExpired:
                     return settings.SessionExpired.Url;
                 case PageLinkTypes.UserBlocked:

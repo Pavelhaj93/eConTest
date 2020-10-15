@@ -28,6 +28,9 @@ namespace eContracting.Models
         public virtual Link WrongUrl { get; set; }
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link Offer { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link OfferExpired { get; set; }
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]

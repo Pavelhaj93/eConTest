@@ -49,6 +49,36 @@ namespace eContracting
             /// The authentication process - application exception.
             /// </summary>
             public const string AUTH1_APP = "LI103";
+
+            /// <summary>
+            /// The authentication process - invalid operation exception.
+            /// </summary>
+            public const string AUTH1_INV_OP = "LI104";
+
+            /// <summary>
+            /// The authentication process - unknown exception.
+            /// </summary>
+            public const string AUTH2_UNKNOWN = "LI200";
+
+            /// <summary>
+            /// Call to CACHE during authentication process.
+            /// </summary>
+            public const string AUTH2_CACHE = "LI201";
+
+            /// <summary>
+            /// Call to CACHE during authentication process - unknown exception.
+            /// </summary>
+            public const string AUTH2_CACHE2 = "LI202";
+
+            /// <summary>
+            /// The authentication process - application exception.
+            /// </summary>
+            public const string AUTH2_APP = "LI203";
+
+            /// <summary>
+            /// The authentication process - invalid operation exception.
+            /// </summary>
+            public const string AUTH2_INV_OP = "LI204";
         }
 
         public static class ValidationCodes
@@ -61,5 +91,10 @@ namespace eContracting
             public const string KEY_MISMATCH = "v91";
             public const string KEY_VALUE_MISMATCH = "v92";
         }
+
+        public static class SessionKeys
+        {
+            public const string NAME = "ECON-GUID";
+        }  
     }
 }

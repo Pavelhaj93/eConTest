@@ -24,7 +24,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Sitecore;
 using Sitecore.Collections;
 using Sitecore.DependencyInjection;
-using Sitecore.Diagnostics;
 using Sitecore.Shell.Applications.ContentEditor.RichTextEditor;
 using Sitecore.Web;
 
@@ -97,7 +96,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var guid = string.Empty;
             var errorString = string.Empty;
-            var datasource = this.GetLayoutItem<EContractingAuthenticationTemplate>();
+            var datasource = this.GetLayoutItem<LoginComponentModel>();
 
             try
             {
@@ -152,6 +151,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
             }
+            catch (InvalidOperationException ex)
+            {
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_INV_OP})", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_INV_OP);
+            }
             catch (Exception ex)
             {
                 this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
@@ -169,9 +173,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public ActionResult Login(LoginSubmitViewModel authenticationModel)
         {
             var guid = Request.QueryString.Get("guid");
-            var reportDateOfBirth = false;
-            var reportAdditionalValue = false;
-            var datasource = this.GetLayoutItem<EContractingAuthenticationTemplate>();
+            //var datasource = this.GetLayoutItem<LoginComponentModel>();
 
             try
             {
@@ -202,8 +204,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 //TODO: this.DataSessionStorage.Login(userData);
-
-                Log.Info($"[{guid}] Successfully log-ged in", this);
+                this.AuthService.Login(guid);
+                this.Logger.Info($"[{guid}] Successfully log-ged in");
 
                 if (offer.IsAccepted)
                 {
@@ -219,12 +221,33 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Redirect(redirectUrl);
                 }
 
-                return this.Redirect(datasource.NextPageLink.Url);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.Offer));
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException is EndpointNotFoundException)
+                {
+                    this.Logger.Error($"[{guid}] Connection to CACHE failed ({Constants.ErrorCodes.AUTH2_CACHE})", ex);
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE);
+                }
+
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_CACHE2})", ex);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE2);
+            }
+            catch (ApplicationException ex)
+            {
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_APP);
+            }
+            catch (InvalidOperationException ex)
+            {
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_INV_OP);
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal($"[{guid}] Authentication process failed", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError));
+                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
             }
         }
 
@@ -267,7 +290,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(EContractingAuthenticationTemplate datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(LoginComponentModel datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
             viewModel.FormAction = this.Request.RawUrl;
@@ -375,7 +398,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (canLogin == LoginStates.EMPTY_OFFER)
             {
-                Log.Warn($"[{guid}] Offer is empty", this);
+                this.Logger.Warn($"[{guid}] Offer is empty", this);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 

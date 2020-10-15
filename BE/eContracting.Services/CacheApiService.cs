@@ -79,9 +79,6 @@ namespace eContracting.Services
             var task = Task.Run(() => this.GetOfferAsync(guid, type));
             task.Wait();
             var result = task.Result;
-            //var result = this.GetOfferAsync(guid, type).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
-            //var result = Task.Run(() => task).Result;
             return result;
         }
 
@@ -217,6 +214,21 @@ namespace eContracting.Services
             return await this.SetStatusAsync(guid, "NABIDKA", "4");
         }
 
+        /// <inheritdoc/>
+        public bool SignOffer(string guid)
+        {
+            var task = Task.Run(() => this.SignOfferAsync(guid));
+            task.Wait();
+            var result = task.Result;
+            return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<bool> SignOfferAsync(string guid)
+        {
+            return await this.SetStatusAsync(guid, "NABIDKA", "6");
+        }
+
         /// <summary>
         /// Gets data.
         /// </summary>
@@ -241,6 +253,13 @@ namespace eContracting.Services
             return new ResponseCacheGetModel(result);
         }
 
+        /// <summary>
+        /// Sets the <paramref name="status"/> asynchronously.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="status">The status.</param>
+        /// <returns></returns>
         protected internal async Task<bool> SetStatusAsync(string guid, string type, string status)
         {
             var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
@@ -260,7 +279,7 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Sets the status with <see cref="ZCCH_CACHE_STATUS_SET"/> object.
+        /// Sets the <paramref name="status"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">A type from <see cref="AvailableRequestTypes"/> collection.</param>
@@ -334,9 +353,5 @@ namespace eContracting.Services
 
             return files.ToArray();
         }
-
-        
-
-        
     }
 }

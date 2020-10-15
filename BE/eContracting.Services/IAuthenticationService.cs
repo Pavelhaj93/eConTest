@@ -8,21 +8,11 @@ using eContracting.Services.Models;
 
 namespace eContracting.Services
 {
+    /// <summary>
+    /// Represents collection of actions for authentication operation.
+    /// </summary>
     public interface IAuthenticationService
     {
-        /// <summary>
-        /// Gets all available authentication method types.
-        /// </summary>
-        [Obsolete]
-        IEnumerable<LoginTypeModel> GetTypes(OfferModel offer);
-
-        /// <summary>
-        /// Gets all available authentication method types.
-        /// </summary>
-        /// <param name="process">The process.</param>
-        /// <param name="processType">Type of the process.</param>
-        IEnumerable<LoginTypeModel> GetTypes(string process, string processType);
-
         /// <summary>
         /// Logins the specified offer.
         /// </summary>
@@ -41,5 +31,25 @@ namespace eContracting.Services
         /// <param name="offer">The offer.</param>
         /// <returns></returns>
         string GetUniqueKey(LoginTypeModel loginType, OfferModel offer);
+
+        /// <summary>
+        /// Log-in user with <paramref name="authData"/>.
+        /// </summary>
+        /// <param name="authData">Authentication data.</param>
+        void Login(AuthDataModel authData);
+
+        /// <summary>
+        /// Determines whether user is logged in.
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if is logged in; otherwise, <c>false</c>.
+        /// </returns>
+        bool IsLoggedIn();
+
+        /// <summary>
+        /// Gets the current user.
+        /// </summary>
+        /// <returns>Data or null.</returns>
+        AuthDataModel GetCurrentUser();
     }
 }

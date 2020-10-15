@@ -8,25 +8,27 @@ using eContracting.Services.Models;
 
 namespace eContracting.Services
 {
+    /// <inheritdoc/>
     public class AuthenticationService : IAuthenticationService
     {
+        /// <summary>
+        /// The settings reader.
+        /// </summary>
         protected readonly ISettingsReaderService SettingsReader;
 
+        /// <summary>
+        /// The authentication provider.
+        /// </summary>
+        protected readonly IAuthenticationProviderService AuthenticationProvider;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
+        /// </summary>
+        /// <param name="settingsReader">The settings reader.</param>
+        /// <exception cref="System.ArgumentNullException">settingsReader</exception>
         public AuthenticationService(ISettingsReaderService settingsReader)
         {
             this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<LoginTypeModel> GetTypes(OfferModel offer)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public IEnumerable<LoginTypeModel> GetTypes(string process, string processType)
-        {
-            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
@@ -93,6 +95,30 @@ namespace eContracting.Services
             return AuthResultState.KEY_VALUE_MISMATCH;
         }
 
+        /// <inheritdoc/>
+        public void Login(AuthDataModel authData)
+        {
+            this.AuthenticationProvider.Login(authData);
+        }
+
+        /// <inheritdoc/>
+        public bool IsLoggedIn()
+        {
+            return this.AuthenticationProvider.IsLoggedIn();
+        }
+
+        /// <inheritdoc/>
+        public AuthDataModel GetCurrentUser()
+        {
+            return this.AuthenticationProvider.GetData();
+        }
+
+        /// <summary>
+        /// Find <see cref="LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>Login type or null.</returns>
         protected LoginTypeModel GetMatched(OfferModel offer, string key)
         {
             var loginTypes = this.SettingsReader.GetAllLoginTypes();

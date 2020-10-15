@@ -24,6 +24,36 @@
             The authentication process - application exception.
             </summary>
         </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_INV_OP">
+            <summary>
+            The authentication process - invalid operation exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_UNKNOWN">
+            <summary>
+            The authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE">
+            <summary>
+            Call to CACHE during authentication process.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE2">
+            <summary>
+            Call to CACHE during authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_APP">
+            <summary>
+            The authentication process - application exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_INV_OP">
+            <summary>
+            The authentication process - invalid operation exception.
+            </summary>
+        </member>
         <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
             <summary>
             Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
@@ -166,6 +196,11 @@
         <member name="F:eContracting.PageLinkTypes.UserBlocked">
             <summary>
             User is blocked.
+            </summary>
+        </member>
+        <member name="F:eContracting.PageLinkTypes.Offer">
+            <summary>
+            The offer.
             </summary>
         </member>
         <member name="F:eContracting.PageLinkTypes.AcceptedOffer">

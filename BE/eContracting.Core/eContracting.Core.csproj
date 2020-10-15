@@ -71,6 +71,7 @@
     <Compile Include="Models\FailedLoginInfoModel.cs" />
     <Compile Include="Models\FolderItemModel.cs" />
     <Compile Include="Models\GeneralTextsSettings.cs" />
+    <Compile Include="Models\LoginComponentModel.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />

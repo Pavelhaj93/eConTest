@@ -3,31 +3,34 @@ using eContracting.Services.Models;
 
 namespace eContracting.Services
 {
+    /// <summary>
+    /// Service with direct communication to SAP / CACHE.
+    /// </summary>
     public interface IApiService
     {
         /// <summary>
-        /// Accepts offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> asynchronously.
+        /// Accepts offer asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was accepted or false.</returns>
         Task<bool> AcceptOfferAsync(string guid);
 
         /// <summary>
-        /// Accepts offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> synchronously.
+        /// Accepts offer synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was accepted or false.</returns>
         bool AcceptOffer(string guid);
 
         /// <summary>
-        /// Reads offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> synchronously.
+        /// Reads offer synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was set or false.</returns>
         bool ReadOffer(string guid);
 
         /// <summary>
-        /// Reads offer of <paramref name="guid"/> by setting <see cref="ZCCH_CACHE_STATUS_SET"/> asynchronously.
+        /// Reads offer asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was set or false.</returns>
@@ -51,7 +54,7 @@ namespace eContracting.Services
         /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
         OfferModel GetOffer(string guid, string type);
 
@@ -59,7 +62,7 @@ namespace eContracting.Services
         /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
         Task<OfferModel> GetOfferAsync(string guid, string type);
 
@@ -76,5 +79,19 @@ namespace eContracting.Services
         /// <param name="guid">Guid identifier.</param>
         /// <returns>Array of texts.</returns>
         Task<OfferTextModel[]> GetXmlAsync(string guid);
+
+        /// <summary>
+        /// Make offer <paramref name="guid"/> signed.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        bool SignOffer(string guid);
+
+        /// <summary>
+        /// Make offer <paramref name="guid"/> signed asynchronously.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        Task<bool> SignOfferAsync(string guid);
     }
 }
