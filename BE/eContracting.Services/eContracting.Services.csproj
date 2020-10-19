@@ -79,11 +79,6 @@
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="CacheApiService.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
-    <Compile Include="Connected Services\SAP\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="IAuthenticationProviderService.cs" />
     <Compile Include="IAuthenticationService.cs" />
@@ -92,22 +87,10 @@
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferParserService.cs" />
     <Compile Include="ISettingsReaderService.cs" />
-    <Compile Include="Models\AuthDataModel.cs" />
-    <Compile Include="Models\LoginStates.cs" />
-    <Compile Include="Models\OfferAttachmentXmlModel.cs" />
-    <Compile Include="Models\OfferBodyXmlModel.cs" />
-    <Compile Include="Models\OfferContentXmlModel.cs" />
-    <Compile Include="Models\OfferFileAttribute.cs" />
-    <Compile Include="Models\OfferHeaderXmlModel.cs" />
-    <Compile Include="Models\OfferModel.cs" />
-    <Compile Include="Models\OfferTextModel.cs" />
-    <Compile Include="Models\OfferXmlModel.cs" />
-    <Compile Include="Models\ResponseCacheGetModel.cs" />
     <Compile Include="MongoLoginReportStore.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />
     <Compile Include="OfferParserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Example.cs" />
     <Compile Include="SessionAuthenticationProviderService.cs" />
     <Compile Include="SitecoreSettingsReaderService.cs" />
     <Compile Include="ZCCH_CACHE_API_Extensions.cs" />
@@ -117,35 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Connected Services\SAP\eContracting.Services.SAP.ZCCH_CACHE_DELResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SAP\eContracting.Services.SAP.ZCCH_CACHE_GETResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SAP\eContracting.Services.SAP.ZCCH_CACHE_PUTResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SAP\eContracting.Services.SAP.ZCCH_CACHE_STATUS_SETResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\SAP\zcch_cache_api.wsdl" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\SAP\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SAP\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SAP\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\SAP\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">

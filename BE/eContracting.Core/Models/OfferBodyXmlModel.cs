@@ -42,74 +42,74 @@ namespace eContracting.Models
         [XmlElement("DATE_TO")]
         public string DATE_TO { get; set; }
 
-        /// <summary>
-        /// Gets the flag if offer expired.
-        /// </summary>
-        [XmlIgnore]
-        public bool OfferIsExpired
-        {
-            get
-            {
-                DateTime outValue = DateTime.Now.AddDays(-1);
+        ///// <summary>
+        ///// Gets the flag if offer expired.
+        ///// </summary>
+        //[XmlIgnore]
+        //public bool OfferIsExpired
+        //{
+        //    get
+        //    {
+        //        DateTime outValue = DateTime.Now.AddDays(-1);
 
-                return DateTime.TryParseExact(DATE_TO, "yyyyMMdd",
-                                    CultureInfo.InvariantCulture,
-                                    DateTimeStyles.None,
-                                    out outValue) && (outValue.Date < DateTime.Now.Date);
-            }
-        }
+        //        return DateTime.TryParseExact(DATE_TO, "yyyyMMdd",
+        //                            CultureInfo.InvariantCulture,
+        //                            DateTimeStyles.None,
+        //                            out outValue) && (outValue.Date < DateTime.Now.Date);
+        //    }
+        //}
 
-        [XmlIgnore]
-        public bool OfferIsRetention
-        {
-            get
-            {
-                return this.BusProcess == "01";
-            }
-        }
+        //[XmlIgnore]
+        //public bool OfferIsRetention
+        //{
+        //    get
+        //    {
+        //        return this.BusProcess == "01";
+        //    }
+        //}
 
-        [XmlIgnore]
-        public bool OfferIsAquisition
-        {
-            get
-            {
-                return this.BusProcess == "02";
-            }
-        }
+        //[XmlIgnore]
+        //public bool OfferIsAquisition
+        //{
+        //    get
+        //    {
+        //        return this.BusProcess == "02";
+        //    }
+        //}
 
-        [XmlIgnore]
-        public OfferTypes OfferType
-        {
-            get
-            {
-                if (this.OfferIsRetention)
-                {
-                    return OfferTypes.Retention;
-                }
-                else if (this.OfferIsAquisition)
-                {
-                    return OfferTypes.Acquisition;
-                }
-                else
-                {
-                    return OfferTypes.Default;
-                }
-            }
-        }
+        //[XmlIgnore]
+        //public OfferTypes OfferType
+        //{
+        //    get
+        //    {
+        //        if (this.OfferIsRetention)
+        //        {
+        //            return OfferTypes.Retention;
+        //        }
+        //        else if (this.OfferIsAquisition)
+        //        {
+        //            return OfferTypes.Acquisition;
+        //        }
+        //        else
+        //        {
+        //            return OfferTypes.Default;
+        //        }
+        //    }
+        //}
 
-        [XmlIgnore]
-        public bool OfferHasVoucher
-        {
-            get
-            {
-                if (this.Attachments == null || this.Attachments.Length == 0)
-                {
-                    return false;
-                }
+        //[XmlIgnore]
+        //public bool OfferHasVoucher
+        //{
+        //    get
+        //    {
+        //        if (this.Attachments == null || this.Attachments.Length == 0)
+        //        {
+        //            return false;
+        //        }
 
-                return this.Attachments.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
-            }
-        }
+        //        return this.Attachments.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
+        //    }
+        //}
 
         /// <summary>
         /// Gets or sets STATUS from SAP.
@@ -167,6 +167,9 @@ namespace eContracting.Models
 
         [XmlElement("BUS_PROCESS")]
         public string BusProcess { get; set; }
+
+        [XmlElement("BUS_TYPE")]
+        public string BusProcessType { get; set; }
 
         /// <summary>
         /// Gets or sets EXT_UI from SAP.

@@ -79,6 +79,10 @@ namespace eContracting
             /// The authentication process - invalid operation exception.
             /// </summary>
             public const string AUTH2_INV_OP = "LI204";
+
+            public const string OFFER_NOT_SIGNED = "OF101";
+
+            public const string OFFER_EXCEPTION = "OF100";
         }
 
         public static class ValidationCodes

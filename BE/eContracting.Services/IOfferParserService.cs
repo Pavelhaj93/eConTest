@@ -1,4 +1,4 @@
-﻿using eContracting.Services.Models;
+﻿using eContracting.Models;
 
 namespace eContracting.Services
 {

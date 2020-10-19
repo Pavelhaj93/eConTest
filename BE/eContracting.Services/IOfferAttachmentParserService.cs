@@ -1,5 +1,5 @@
-﻿using eContracting.Services.Models;
-using eContracting.Services.SAP;
+﻿using eContracting.Models;
+using eContracting.Services;
 
 namespace eContracting.Services
 {

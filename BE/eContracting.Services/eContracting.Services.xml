@@ -24,13 +24,13 @@
             <param name="settingsReader">The settings reader.</param>
             <exception cref="T:System.ArgumentNullException">settingsReader</exception>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.AuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Services.Models.OfferModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Services.Models.AuthDataModel)">
+        <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Models.AuthDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.IsLoggedIn">
@@ -39,7 +39,7 @@
         <member name="M:eContracting.Services.AuthenticationService.GetCurrentUser">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetMatched(eContracting.Services.Models.OfferModel,System.String)">
+        <member name="M:eContracting.Services.AuthenticationService.GetMatched(eContracting.Models.OfferModel,System.String)">
             <summary>
             Find <see cref="T:eContracting.Models.LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
             </summary>
@@ -49,7 +49,7 @@
         </member>
         <member name="T:eContracting.Services.CacheApiService">
             <summary>
-            Service wrapper over generated <see cref="T:eContracting.Services.SAP.ZCCH_CACHE_API"/>.
+            Service wrapper over generated <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.
             </summary>
         </member>
         <member name="M:eContracting.Services.CacheApiService.AcceptOffer(System.String)">
@@ -82,10 +82,10 @@
         <member name="M:eContracting.Services.CacheApiService.ReadOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SignOffer(System.String)">
+        <member name="M:eContracting.Services.CacheApiService.SignInOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SignOfferAsync(System.String)">
+        <member name="M:eContracting.Services.CacheApiService.SignInOfferAsync(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.CacheApiService.GetResponseAsync(System.String,System.String,System.String)">
@@ -95,7 +95,7 @@
             <param name="guid">Guid identifier.</param>
             <param name="type">Type from <see cref="F:eContracting.Services.CacheApiService.AvailableRequestTypes"/> collection.</param>
             <param name="fileType">Type of the file.</param>
-            <returns>Instance of <see cref="T:eContracting.Services.Models.ResponseCacheGetModel"/> or an exception.</returns>
+            <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
         <member name="M:eContracting.Services.CacheApiService.SetStatusAsync(System.String,System.String,System.String)">
             <summary>
@@ -113,7 +113,7 @@
             <param name="guid">Guid identifier.</param>
             <param name="type">A type from <see cref="F:eContracting.Services.CacheApiService.AvailableRequestTypes"/> collection.</param>
             <param name="timestamp">Decimal representation of a timestamp.</param>
-            <param name="status">Value for <see cref="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
+            <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>True if it was successfully set or false.</returns>
         </member>
         <member name="M:eContracting.Services.CacheApiService.GetFilesAsync(System.String,System.Boolean)">
@@ -124,218 +124,14 @@
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
         </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_GET">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GET.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GET.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GET.IV_GEFILE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.BAPIRET2">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.TYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.ID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.NUMBER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.MESSAGE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.LOG_NO">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.LOG_MSG_NO">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.MESSAGE_V1">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.MESSAGE_V2">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.MESSAGE_V3">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.MESSAGE_V4">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.PARAMETER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.ROW">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.FIELD">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.BAPIRET2.SYSTEM">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_ST_FILE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_FILE.FILEINDX">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_FILE.FILENAME">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_FILE.MIMETYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_FILE.FILECONTENT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_FILE.ATTRIB">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_ST_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_ATTRIB.ATTRID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_ATTRIB.ATTRINDX">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_ATTRIB.ATTRVAL">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_ST_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_HEADER.CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_HEADER.CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_HEADER.CCHSTAT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_ST_HEADER.CCHVALTO">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_GETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GETResponse.ES_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GETResponse.ET_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GETResponse.ET_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_GETResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_DEL">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DEL.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DEL.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DEL.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DEL.IV_DEL_FILES">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_DELResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DELResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_DELResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_STAT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_PUT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUT.IT_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUT.IT_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUT.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUT.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUT.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse.ET_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse.ET_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.SAP.ZCCH_CACHE_PUTResponse.EV_RETCODE">
-            <remarks/>
-        </member>
         <member name="T:eContracting.Services.IAuthenticationProviderService">
             <summary>
             Represents storage provider which holds information about logged users.
             </summary>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationProviderService.Login(eContracting.Services.Models.AuthDataModel)">
+        <member name="M:eContracting.Services.IAuthenticationProviderService.Login(eContracting.Models.AuthDataModel)">
             <summary>
-            Log-in user with <paramref name="authData"/> containing <see cref="F:eContracting.Services.Models.AuthDataModel.Guid"/>.
+            Log-in user with <paramref name="authData"/> containing <see cref="F:eContracting.Models.AuthDataModel.Guid"/>.
             </summary>
             <param name="authData">Auth data model.</param>
         </member>
@@ -358,7 +154,7 @@
             Represents collection of actions for authentication operation.
             </summary>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationService.GetLoginState(eContracting.Services.Models.OfferModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
             <summary>
             Logins the specified offer.
             </summary>
@@ -369,7 +165,7 @@
             <param name="value">The value by login type.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.IAuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
             <summary>
             Gets the key with combination of unique key of <paramref name="loginType"/> and unique key of <paramref name="offer"/>.
             </summary>
@@ -377,7 +173,7 @@
             <param name="offer">The offer.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.IAuthenticationService.Login(eContracting.Services.Models.AuthDataModel)">
+        <member name="M:eContracting.Services.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
             <summary>
             Log-in user with <paramref name="authData"/>.
             </summary>
@@ -474,14 +270,14 @@
             <param name="guid">Guid identifier.</param>
             <returns>Array of texts.</returns>
         </member>
-        <member name="M:eContracting.Services.IApiService.SignOffer(System.String)">
+        <member name="M:eContracting.Services.IApiService.SignInOffer(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed.
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:eContracting.Services.IApiService.SignOfferAsync(System.String)">
+        <member name="M:eContracting.Services.IApiService.SignInOfferAsync(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed asynchronously.
             </summary>
@@ -534,38 +330,38 @@
         </member>
         <member name="T:eContracting.Services.IOfferAttachmentParserService">
             <summary>
-            Represents parser from <see cref="T:eContracting.Services.SAP.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Services.Models.OfferAttachmentXmlModel"/> object.
+            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> object.
             </summary>
         </member>
-        <member name="M:eContracting.Services.IOfferAttachmentParserService.Parse(eContracting.Services.SAP.ZCCH_ST_FILE,System.Int32,eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.IOfferAttachmentParserService.Parse(eContracting.Services.ZCCH_ST_FILE,System.Int32,eContracting.Models.OfferModel)">
             <summary>
-            Creates <see cref="T:eContracting.Services.Models.OfferAttachmentXmlModel"/> from given <paramref name="file"/>. <paramref name="offer"/> is needed to define some parameters.
+            Creates <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> from given <paramref name="file"/>. <paramref name="offer"/> is needed to define some parameters.
             </summary>
             <param name="file">The file.</param>
             <param name="index">The index position from list of all files.</param>
             <param name="offer">The offer.</param>
-            <returns>Instance of <see cref="T:eContracting.Services.Models.OfferAttachmentXmlModel"/>.</returns>
+            <returns>Instance of <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/>.</returns>
         </member>
         <member name="T:eContracting.Services.IOfferParserService">
             <summary>
-            Represents parser from <see cref="T:eContracting.Services.Models.OfferModel"/> to <see cref="T:eContracting.Services.Models.ResponseCacheGetModel"/> object.
+            Represents parser from <see cref="T:eContracting.Models.OfferModel"/> to <see cref="T:eContracting.Models.ResponseCacheGetModel"/> object.
             </summary>
         </member>
-        <member name="M:eContracting.Services.IOfferParserService.GenerateOffer(eContracting.Services.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.IOfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <summary>
             Generates offer.
             </summary>
             <param name="response">The response.</param>
-            <returns>Return <see cref="T:eContracting.Services.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Services.Models.ResponseCacheGetModel"/>.</returns>
+            <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
         </member>
-        <member name="M:eContracting.Services.ISettingsReaderService.GetDefinition(eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <summary>
-            Gets definition by <see cref="P:eContracting.Services.Models.OfferModel.Process"/> and <see cref="P:eContracting.Services.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
+            Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
             </summary>
             <param name="offer">The offer.</param>
             <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
         </member>
-        <member name="M:eContracting.Services.ISettingsReaderService.GetLoginTypes(eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <summary>
             Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.DefinitionCombinationModel"/>.
             </summary>
@@ -595,298 +391,6 @@
             Gets configuration for <see cref="T:eContracting.Services.IApiService"/>.
             </summary>
             <returns>The configuration.</returns>
-        </member>
-        <member name="T:eContracting.Services.Models.AuthDataModel">
-            <summary>
-            Authentication data model to log-in a visitor.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.AuthDataModel.Guid">
-            <summary>
-            The unique offer identifier.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.Models.AuthDataModel.#ctor">
-            <summary>
-            Prevents a default instance of the <see cref="T:eContracting.Services.Models.AuthDataModel"/> class from being created.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.Models.AuthDataModel.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.Models.AuthDataModel"/> class.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-        </member>
-        <member name="T:eContracting.Services.Models.OfferAttachmentXmlModel">
-            <summary>
-            Represents file from 'ZCCH_CACHE_API'
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.Index">
-            <summary>
-            Gets or set index.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.FileNumber">
-            <summary>
-            Gets or sets file number.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.FileType">
-            <summary>
-            Gets or sets a file type.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.FileName">
-            <summary>
-            Gets or sets file name.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.SignRequired">
-            <summary>
-            Gets or sets a value indicating whether signing is required.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.TemplAlcId">
-            <summary>
-            Gets or sets a template alc id.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.SignedVersion">
-            <summary>
-            Gets or sets a value indicating whether this version of document is signed.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferAttachmentXmlModel.FileContent">
-            <summary>
-            Gets or sets file content.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferAttachmentXmlModel.Template">
-            <summary>
-            Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferAttachmentXmlModel.Group">
-            <summary>
-            Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.Guid">
-            <summary>
-            Gets or sets uuid.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.Campaign">
-            <summary>
-            Gets or sets CAMPAIGN value.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.ISU_CONTRACT">
-            <summary>
-            Gets or sets ISU_CONTRACT from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.DatumUcinnostiDodatku">
-            <summary>
-            Gets or sets CONTSTART from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.DATE_TO">
-            <summary>
-            Gets or sets DATE_TO from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.STATUS">
-            <summary>
-            Gets or sets STATUS from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.PARTNER">
-            <summary>
-            Gets or sets PARTNER from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NAME_LAST">
-            <summary>
-            Gets or sets NAME_LAST from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NAME_FIRST">
-            <summary>
-            Gets or sets NAME_FIRST from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NAME_ORG1">
-            <summary>
-            Gets or sets NAME_ORG1 from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.BIRTHDT">
-            <summary>
-            Gets or sets BIRTHDT from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.OrganizationNumber">
-            <summary>
-            Gets or sets IC from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.EMAIL">
-            <summary>
-            Gets or sets EMAIL from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.PHONE">
-            <summary>
-            Gets or sets PHONE from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.EanOrAndEic">
-            <summary>
-            Gets or sets EXT_UI from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NumberOfMistoSpotreby">
-            <summary>
-            Gets or sets VSTELLE from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NumberOfOdberneMisto">
-            <summary>
-            Gets or sets ANLAGE from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.NumberOfObchodniDohoda">
-            <summary>
-            Gets or sets BUAG from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.PscMistaSpotreby">
-            <summary>
-            Gets or sets PSC_MS from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.PscTrvaleBydliste">
-            <summary>
-            Gets or sets PSC_ADDR from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferBodyXmlModel.ACCOUNT_NUMBER">
-            <summary>
-            Gets or sets ACCOUNT_NUMBER from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferContentXmlModel.Header">
-            <summary>
-            Gets or sets header.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferContentXmlModel.Body">
-            <summary>
-            Gets or sets body.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.Guid">
-            <summary>
-            Gets or sets the unique GUID of this offer.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.IsAccepted">
-            <summary>
-            Gets or sets flag if offer is accepted.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.AcceptedAt">
-            <summary>
-            Gets or sets infromation when offer was accepted.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.CreatedAt">
-            <summary>
-            Gets or sets CREATED_AT value.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.HasGDPR">
-            <summary>
-            Gets or sets information if offer has GDPR.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.GDPRKey">
-            <summary>
-            Gets or sets GDPRKey.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.Campaign">
-            <summary>
-            Gets or sets CAMPAIGN value.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferModel.State">
-            <summary>
-            Gets or sets State.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferTextModel.Index">
-            <summary>
-            Gets or sets index.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferTextModel.Name">
-            <summary>
-            Gets or sets the name.
-            </summary>
-            <value>
-            The name.
-            </value>
-        </member>
-        <member name="F:eContracting.Services.Models.OfferTextModel.Text">
-            <summary>
-            Gets or sets text.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferTextModel.Attributes">
-            <summary>
-            Gets the attributes.
-            </summary>
-            <value>
-            The attributes.
-            </value>
-        </member>
-        <member name="M:eContracting.Services.Models.OfferTextModel.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.Models.OfferTextModel"/> class.
-            </summary>
-            <param name="index">The index.</param>
-            <param name="name">The name.</param>
-            <param name="text">The text.</param>
-        </member>
-        <member name="P:eContracting.Services.Models.OfferXmlModel.Content">
-            <summary>
-            Gets or sets inner content.
-            </summary>
-        </member>
-        <member name="T:eContracting.Services.Models.ResponseCacheGetModel">
-            <summary>
-            Represent response from 'CACHE_GET'.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.Models.ResponseCacheGetModel.Response">
-            <summary>
-            Raw response from SAP.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.Models.ResponseCacheGetModel.HasFiles">
-            <summary>
-            Gets a value indicating whether <see cref="F:eContracting.Services.Models.ResponseCacheGetModel.Response"/> contains files.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.Models.ResponseCacheGetModel.#ctor(eContracting.Services.SAP.ZCCH_CACHE_GETResponse)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.Models.ResponseCacheGetModel"/> class.
-            </summary>
-            <param name="response">The response.</param>
-            <exception cref="T:System.ArgumentNullException">response</exception>
         </member>
         <member name="F:eContracting.Services.MongoLoginReportStore.MongoClient">
             <summary>
@@ -933,10 +437,10 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.Services.IOfferAttachmentParserService" />
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Services.SAP.ZCCH_ST_FILE,System.Int32,eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Services.ZCCH_ST_FILE,System.Int32,eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.SAP.ZCCH_ST_FILE)">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
             Gets readable file name.
             </summary>
@@ -951,7 +455,7 @@
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferParserService"/> class.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Services.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.SessionAuthenticationProviderService">
@@ -966,7 +470,7 @@
         <member name="M:eContracting.Services.SessionAuthenticationProviderService.IsLoggedIn">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SessionAuthenticationProviderService.Login(eContracting.Services.Models.AuthDataModel)">
+        <member name="M:eContracting.Services.SessionAuthenticationProviderService.Login(eContracting.Models.AuthDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext)">
@@ -986,21 +490,21 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetApiServiceOptions">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Services.Models.OfferModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_API_Extensions">
             <summary>
-            Extensions for <see cref="T:eContracting.Services.SAP.ZCCH_CACHE_API"/>.
+            Extensions for <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.
             </summary>
         </member>
-        <member name="M:eContracting.Services.ZCCH_CACHE_API_Extensions.ThereAreFiles(eContracting.Services.SAP.ZCCH_CACHE_GETResponse)">
+        <member name="M:eContracting.Services.ZCCH_CACHE_API_Extensions.ThereAreFiles(eContracting.Services.ZCCH_CACHE_GETResponse)">
             <summary>
             Checks if the response contains files.
             </summary>

@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 650
+  Value: 1350
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -27,27 +27,41 @@ Languages:
   Versions:
   - Version: 1
     Fields:
-    - ID: "060d6406-b519-442f-9913-ec7118f6072b"
-      Hint: MainTextRetentionCampaign
-      Value: |
-        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
-        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>
-        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
     - ID: "0dcae80e-05f3-4a1b-92f2-dd14251e2cb1"
       Hint: GDPRUrl
       Value: "https://test-optin.innogy.cz/auth"
-    - ID: "1d0d678a-7393-43c8-b786-9220be7ec78f"
-      Hint: MainTextAcquisitionCampaign
+    - ID: "144c06bd-564c-4cf4-8181-bb2187fcf053"
+      Hint: OtherServicesAssociatedDocumentsSubtitle
+      Value: Dokument(y) si přečtěte a potvrďte zatržením
+    - ID: "1ddc54ca-5ccc-4bab-84d0-409ba3a9382d"
+      Hint: AdditionalServicesTitle
+      Value: Doplňkové služby
+    - ID: "1ec04110-8160-489b-859a-5f67ca1c1e4b"
+      Hint: ConfirmModalWindowText
       Value: |
-        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
-        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro zah&aacute;jen&iacute; dod&aacute;vky od innogy.</p>
-        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
+        Pro konečný a závazný projev Vaší vůle, prosím, stiskněte tlačítko "Potvrdit". Pokud si přejete vrátit se zpět, stiskněte tlačítko "Storno".
+    - ID: "235c8991-f856-451c-9392-1cc9f502f607"
+      Hint: ConfirmModalWindowButtonCancelLabel
+      Value: Storno
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200421T112121Z
+    - ID: "30edb706-8c3b-40e0-a6fb-0f6d7e3f65b7"
+      Hint: AcceptOfferSubtitle
+      Value: |
+        Stisknutím tlačítka "Akceptuji" potvrdíte souhlas s přechodem na novou smlouvu Relax u innogy.
+    - ID: "451d2e81-3c61-47a1-85db-052cc487d7d8"
+      Hint: ObligatoryDocumentsExtraAttachmentsTitle
+      Value: Pokud chcete přiložit ještě další dokument navíc (volitelné)
     - ID: "4542333b-3ec7-4e59-aa7d-a8b62d2ba2e5"
       Hint: AesEncryptVector
       Value: l0W0jlqCwVQrWLSa
+    - ID: "4aaaf2cc-2370-408f-a3a3-8cf3454a540a"
+      Hint: AcceptOfferButtonLabel
+      Value: Akceptuji
+    - ID: "4c89f79f-c57f-437d-855c-8237292bcf8b"
+      Hint: DocumentsToAcceptPowerTitle
+      Value: Plná moc
     - ID: "59fa2d18-799f-482d-88e3-c37a37e76444"
       Hint: AesEncryptKey
       Value: oEdvEcn24ofUe3gjXpFHYCd22ygalbXw
@@ -68,20 +82,27 @@ Languages:
         <p>{GIFT_NOW_COUNT} x {GIFT_NOW_NAME}</p>
         <p>{GIFT_NEXT_SIGN_COUNT} x {GIFT_NEXT_SIGN_NAME}</p>
         <p>{GIFT_NEXT_TZD_COUNT} x {GIFT_NEXT_TZD_NAME}</p>
-    - ID: "7c3c09e7-21cc-4812-8ce2-d8a1dd500872"
-      Hint: MainTextCampaign
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.&nbsp;</p>
-        <p>N&iacute;že naleznete potřebn&eacute; dokumenty k nab&iacute;dce pro odběrn&eacute; m&iacute;sto:</p>
-        <p><strong>{PREMADR}</strong></p>
-        <p><strong>{PREMLABEL}: {PREMEAN}{PREMEIC}</strong></p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte v&scaron;echny dokumenty, zatržen&iacute;m dokumentů potvrd&iacute;te přečten&iacute; a kliknete na tlač&iacute;tko Akceptuj.</p>
-        <p>Posl&eacute;ze v&scaron;echny dokumenty budou odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.
-        </p>
+    - ID: "649c2a71-10cf-45ff-ad0a-7300e5a64b42"
+      Hint: ObligatoryDocumentsLimitsNote
+      Value: "Celkem max. 25 MB. Povolené typy souborů: JPEG, JPG, PNG, PDF. Více dokumentů lze poslat v zazipovaném souboru."
+    - ID: "6dea6a26-e173-43f0-9171-f0eec8c5c048"
+      Hint: DocumentsToAcceptSupplementSubtitle
+      Value: Dodatek a přidružené dokumenty si přečtěte a potvrďte zatržením
+    - ID: "7b0d9f5a-3c2e-40a6-950d-53d27026cebd"
+      Hint: DocumentsToAcceptEANLabel
+      Value: EAN
+    - ID: "89466e2e-68fd-4fdc-b631-64749ec1f02b"
+      Hint: OtherServicesTitle
+      Value: Ostatní produkty
+    - ID: "98a163db-f5fd-4444-adcd-3993a26c7ba6"
+      Hint: BenefitTitle
+      Value: Zvoleným produktem získáte
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Nabídka
+    - ID: "a2de03de-146d-43ec-9aac-71cfad5d5c38"
+      Hint: ObligatoryDocumentsTitle
+      Value: Povinné dokumenty k nahrání
     - ID: "a44a73c3-ad9d-4e6d-833e-ce4e6512c61d"
       Hint: AcquistionVoucherText
       Value: |
@@ -93,38 +114,44 @@ Languages:
         <p><span style="color: #000000;">{GIFT_NEXT_SIGN_COUNT} x {GIFT_NEXT_SIGN_NAME}</span></p>
         <p><span style="color: #000000;">{GIFT_NEXT_TZD_COUNT} x {GIFT_NEXT_TZD_NAME}</span></p>
         <p><span style="color: #000000;">Tento d&aacute;rek V&aacute;m bude zasl&aacute;n korespondenčně na zas&iacute;lac&iacute; adresu.</span></p>
-    - ID: "b9653e38-ac49-41f8-af0b-05153843f6ac"
-      Hint: MainTextIndividual
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>ověřen&iacute; Va&scaron;ich &uacute;dajů proběhlo v poř&aacute;dku.&nbsp;</p>
-        <p>N&iacute;že naleznete potřebn&eacute; dokumenty k nab&iacute;dce pro odběrn&eacute; m&iacute;sto:</p>
-        <p><strong>{PREMADR}</strong></p>
-        <p><strong>{PREMLABEL}: {PREMEAN}{PREMEIC}</strong></p>
-        <p>Nejdř&iacute;ve si, pros&iacute;m, přečtěte v&scaron;echny dokumenty, zatržen&iacute;m dokumentů potvrd&iacute;te přečten&iacute; a kliknete na tlač&iacute;tko Akceptuj.</p>
-        <p>Posl&eacute;ze v&scaron;echny dokumenty budou odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.
-        </p>
+    - ID: "a4a1f4d2-d1e1-471b-aefe-af5c543de9b2"
+      Hint: ConfirmModalWindowTitle
+      Value: Potvrzení akceptace
+    - ID: "a8499592-7ba9-41ee-827d-5de2a3f10f30"
+      Hint: DocumentsToAcceptPowerNote
+      Value: Podepíšete snadno myší přímo v počítači nebo prstem v tabletu
+    - ID: "aa5889dd-fafb-4c49-af72-4849b72318b1"
+      Hint: DocumentsToAcceptPowerSubtitle
+      Value: Plnou moc potřebujeme pro zajištění pokračování dodávky u innogy
+    - ID: "ac9df0ce-353a-4545-9881-2f6b67b5a55f"
+      Hint: OtherServicesAssociatedDocumentsNote
+      Value: Po ověření Vaší Přihlášky na straně Pojistitele obdržíte, před požadovaným datem počátku pojištění, informaci o jeho souhlasu (či nesouhlasu) s Vaším pojištěním.
+    - ID: "ad5dce56-824b-4fb0-b11a-1dd759ef8d04"
+      Hint: ConfirmModalWindowButtonAcceptLabel
+      Value: Potvrdit
     - ID: "c18260e9-e843-4a82-9e17-ab59cdb29c1c"
       Hint: RetentionVoucherText
       Value: |
         <p>Rozhodnut&iacute;m zůstat u innogy z&iacute;sk&aacute;v&aacute;te: </p>
         <p>{REWARD_NEXT_TZD_COUNT} x {REWARD_NEXT_TZD_NAME}, kterou obdrž&iacute;te po&scaron;tou.</p>
-    - ID: "d38e0859-6b63-4d48-b042-0d5d895dda51"
-      Hint: MainTextRetentionIndividual
-      Value: |
-        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
-        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>
-        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
-    - ID: "e939843c-4e9f-437f-b4be-c1d57f00bbaa"
-      Hint: MainTextAcquisitionIndividual
-      Value: |
-        <h3>Va&scaron;e nab&iacute;dka je připravena k podpisu</h3>
-        <p>N&iacute;že naleznete dokumenty potřebn&eacute; pro zah&aacute;jen&iacute; dod&aacute;vky od innogy.</p>
-        <p>Po potvrzen&iacute; formul&aacute;ře budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; potřeba již dokumenty d&aacute;le zas&iacute;lat jinou formou.</p>
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20161006T115550Z
+    - ID: "c502934b-06e9-4277-9fd9-93191d34a66f"
+      Hint: DocumentsToAcceptTitle
+      Value: Dokumenty k elektronické akceptaci Vaší smlouvy
+    - ID: "cb6f450b-88b3-4eb2-9478-3c4328012bd5"
+      Hint: AcceptOfferTitle
+      Value: Potvrzení nabídky
+    - ID: "e0f3eb19-526b-428b-912b-43e8c755cf95"
+      Hint: DocumentsToAcceptSupplementTitle
+      Value: Dodatek a přidružené dokumenty
+    - ID: "ec93f806-09d1-44a5-a1d3-1137317e78b1"
+      Hint: OtherServicesAssociatedDocumentsTitle
+      Value: Přihláška a přidružené dokumenty
+    - ID: "f332be7f-00d3-4b02-b96e-c43399b9823a"
+      Hint: DocumentsToAcceptAddressLabel
+      Value: Vaše adresa
+    - ID: "f3bace84-b34c-487c-b32e-276310a86e53"
+      Hint: ObligatoryDocumentsExtraAttachmentsHelp
+      Value: Můžete nahrát obrázky nebo PDF dokumenty
+    - ID: "fa0e07aa-a6db-45b6-beb3-eba27a8ede33"
+      Hint: AdditionalServicesSubtitle
+      Value: Dokument(y) si přečtěte a potvrďte zatržením

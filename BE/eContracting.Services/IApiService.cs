@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using eContracting.Services.Models;
+using eContracting.Models;
 
 namespace eContracting.Services
 {

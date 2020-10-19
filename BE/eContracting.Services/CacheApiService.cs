@@ -10,8 +10,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using eContracting.Models;
-using eContracting.Services.Models;
-using eContracting.Services.SAP;
 
 namespace eContracting.Services
 {
@@ -49,7 +47,7 @@ namespace eContracting.Services
             binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
 
             var endpoint = new EndpointAddress(options.Url);
-
+            
             this.Api = new ZCCH_CACHE_APIClient(binding, endpoint);
             this.Api.ClientCredentials.UserName.UserName = options.User;
             this.Api.ClientCredentials.UserName.Password = options.Password;

@@ -17,7 +17,6 @@ using eContracting.Kernel.Services;
 using eContracting.Kernel.Utils;
 using eContracting.Models;
 using eContracting.Services;
-using eContracting.Services.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
@@ -204,7 +203,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 //TODO: this.DataSessionStorage.Login(userData);
-                this.AuthService.Login(guid);
+                this.AuthService.Login(new AuthDataModel(guid));
                 this.Logger.Info($"[{guid}] Successfully log-ged in");
 
                 if (offer.IsAccepted)
@@ -398,7 +397,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (canLogin == LoginStates.EMPTY_OFFER)
             {
-                this.Logger.Warn($"[{guid}] Offer is empty", this);
+                this.Logger.Warn($"[{guid}] Offer is empty");
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
             }
 

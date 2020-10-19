@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using eContracting.Services.Models;
+using eContracting.Models;
 
 namespace eContracting.Services
 {

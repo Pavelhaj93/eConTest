@@ -4,6 +4,210 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GET">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_GEFILE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.BAPIRET2">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.TYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.ID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.NUMBER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.LOG_NO">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.LOG_MSG_NO">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V1">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V2">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V3">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V4">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.PARAMETER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.ROW">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.FIELD">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.SYSTEM">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_FILE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILEINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILENAME">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.MIMETYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHSTAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHVALTO">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GETResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_DEL">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_DEL_FILES">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_DELResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SET">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_PUT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_PUTResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.EV_RETCODE">
+            <remarks/>
+        </member>
         <member name="F:eContracting.Constants.ErrorCodes.AUTH1_UNKNOWN">
             <summary>
             The authentication process - unknown exception.
@@ -63,6 +267,129 @@
             <param name="path">The path.</param>
             <returns>List of found children or empty list.</returns>
         </member>
+        <member name="T:eContracting.IApiService">
+            <summary>
+            Service with direct communication to SAP / CACHE.
+            </summary>
+        </member>
+        <member name="M:eContracting.IApiService.AcceptOfferAsync(System.String)">
+            <summary>
+            Accepts offer asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was accepted or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.AcceptOffer(System.String)">
+            <summary>
+            Accepts offer synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was accepted or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.ReadOffer(System.String)">
+            <summary>
+            Reads offer synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was set or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.ReadOfferAsync(System.String)">
+            <summary>
+            Reads offer asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was set or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetAttachmentsAsync(System.String)">
+            <summary>
+            Gets the files asynchronous.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns>Files in array or null</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetAttachments(System.String)">
+            <summary>
+            Gets the files synchronous.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns>Files in array or null</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetOffer(System.String,System.String)">
+            <summary>
+            Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Offer type.</param>
+            <returns>The offer.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,System.String)">
+            <summary>
+            Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Offer type.</param>
+            <returns>The offer.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetXml(System.String)">
+            <summary>
+            Gets texts for offer <paramref name="guid"/> synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>Array of texts.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetXmlAsync(System.String)">
+            <summary>
+            Gets texts for offer <paramref name="guid"/> asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>Array of texts.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.SignInOffer(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.SignInOfferAsync(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:eContracting.Models.AuthDataModel">
+            <summary>
+            Authentication data model to log-in a visitor.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.AuthDataModel.Guid">
+            <summary>
+            The unique offer identifier.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.AuthDataModel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.AuthDataModel.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+        </member>
+        <member name="T:eContracting.Models.BaseSitecoreModel">
+            <summary>
+            Base model for Sitecore item.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:eContracting.Models.BaseSitecoreModel.ID" -->
+        <member name="P:eContracting.Models.BaseSitecoreModel.Name">
+            <summary>
+            Gets or sets Sitecore item name.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.FailedLoginInfoDetailModel">
             <summary>
             Represents detail about failed login
@@ -111,6 +438,176 @@
         <member name="P:eContracting.Models.FailedLoginInfoModel.FailedAttemptsInfo">
             <summary>
             Gets or sets the failed attempts historical information.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.OfferAttachmentXmlModel">
+            <summary>
+            Represents file from 'ZCCH_CACHE_API'
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.Index">
+            <summary>
+            Gets or set index.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileNumber">
+            <summary>
+            Gets or sets file number.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileType">
+            <summary>
+            Gets or sets a file type.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileName">
+            <summary>
+            Gets or sets file name.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.SignRequired">
+            <summary>
+            Gets or sets a value indicating whether signing is required.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.TemplAlcId">
+            <summary>
+            Gets or sets a template alc id.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.SignedVersion">
+            <summary>
+            Gets or sets a value indicating whether this version of document is signed.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileContent">
+            <summary>
+            Gets or sets file content.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Template">
+            <summary>
+            Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Group">
+            <summary>
+            Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.Guid">
+            <summary>
+            Gets or sets uuid.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.Campaign">
+            <summary>
+            Gets or sets CAMPAIGN value.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.ISU_CONTRACT">
+            <summary>
+            Gets or sets ISU_CONTRACT from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.DatumUcinnostiDodatku">
+            <summary>
+            Gets or sets CONTSTART from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.DATE_TO">
+            <summary>
+            Gets or sets DATE_TO from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.STATUS">
+            <summary>
+            Gets or sets STATUS from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.PARTNER">
+            <summary>
+            Gets or sets PARTNER from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NAME_LAST">
+            <summary>
+            Gets or sets NAME_LAST from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NAME_FIRST">
+            <summary>
+            Gets or sets NAME_FIRST from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NAME_ORG1">
+            <summary>
+            Gets or sets NAME_ORG1 from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.BIRTHDT">
+            <summary>
+            Gets or sets BIRTHDT from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.OrganizationNumber">
+            <summary>
+            Gets or sets IC from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.EMAIL">
+            <summary>
+            Gets or sets EMAIL from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.PHONE">
+            <summary>
+            Gets or sets PHONE from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.EanOrAndEic">
+            <summary>
+            Gets or sets EXT_UI from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NumberOfMistoSpotreby">
+            <summary>
+            Gets or sets VSTELLE from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NumberOfOdberneMisto">
+            <summary>
+            Gets or sets ANLAGE from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.NumberOfObchodniDohoda">
+            <summary>
+            Gets or sets BUAG from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.PscMistaSpotreby">
+            <summary>
+            Gets or sets PSC_MS from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.PscTrvaleBydliste">
+            <summary>
+            Gets or sets PSC_ADDR from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferBodyXmlModel.ACCOUNT_NUMBER">
+            <summary>
+            Gets or sets ACCOUNT_NUMBER from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferContentXmlModel.Header">
+            <summary>
+            Gets or sets header.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferContentXmlModel.Body">
+            <summary>
+            Gets or sets body.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferLoginReportModel.Id">
@@ -167,6 +664,289 @@
             <summary>
             Gets or sets number of success attenpts.
             </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.Guid">
+            <summary>
+            Gets or sets the unique GUID of this offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.IsAccepted">
+            <summary>
+            Gets or sets flag if offer is accepted.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.AcceptedAt">
+            <summary>
+            Gets or sets infromation when offer was accepted.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.CreatedAt">
+            <summary>
+            Gets or sets CREATED_AT value.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.HasGDPR">
+            <summary>
+            Gets or sets information if offer has GDPR.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.GDPRKey">
+            <summary>
+            Gets or sets GDPRKey.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.Campaign">
+            <summary>
+            Gets or sets CAMPAIGN value.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.Commodity">
+            <summary>
+            Gets the commodity (EAN or EIC).
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.State">
+            <summary>
+            Gets or sets State.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.OfferPageModel">
+            <summary>
+            Represents model for offer page.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.PageTitle">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.Step">
+            <summary>
+            Gets or sets the step.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.GDPRUrl">
+            <summary>
+            Gets or sets the GDPR URL.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AesEncryptKey">
+            <summary>
+            Gets or sets the aes encrypt key.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AesEncryptVector">
+            <summary>
+            Gets or sets the aes encrypt vector.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.BenefitsTitle">
+            <summary>
+            Gets or sets title for benefits.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptTitle">
+            <summary>
+            Gets or sets title for documents for acceptance.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptAddressLabel">
+            <summary>
+            Gets or sets label for address in documents for acceptance.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptEANLabel">
+            <summary>
+            Gets or sets label for EAN in documents for acceptance..
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptSupplementTitle">
+            <summary>
+            Gets or sets title for supplement and associated documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptSupplementSubtitle">
+            <summary>
+            Gets or sets subtitle for supplement and associated documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerTitle">
+            <summary>
+            Gets or sets title for power of attorney.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerSubtitle">
+            <summary>
+            Gets or sets subtitle for power of attorney.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerNote">
+            <summary>
+            Gets or sets note for power of attorney.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsTitle">
+            <summary>
+            Gets or sets title for obligatory documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsExtraAttachmentsTitle">
+            <summary>
+            Gets or sets title for extra documents to upload.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsExtraAttachmentsHelp">
+            <summary>
+            Gets or sets help text for extra documents to upload.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsLimitsNote">
+            <summary>
+            Gets or sets note for extra documents to upload.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AdditionalServicesTitle">
+            <summary>
+            Gets or sets title for additional services.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AdditionalServicesSubtitle">
+            <summary>
+            Gets or sets subtitle for additional services.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.OtherServicesTitle">
+            <summary>
+            Gets or sets title for other services.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.OtherServicesSubtitle">
+            <summary>
+            Gets or sets subtitle for other services.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsTitle">
+            <summary>
+            Gets or sets title for other services and associated documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsSubtitle">
+            <summary>
+            Gets or sets subtitle for other services and associated documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsNote">
+            <summary>
+            Gets or sets note for other services and associated documents.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferTitle">
+            <summary>
+            Gets or sets title for accept offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferSubtitle">
+            <summary>
+            Gets or sets subtitle for accept offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferButtonLabel">
+            <summary>
+            Gets or sets submit button label to accept offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowTitle">
+            <summary>
+            Gets or sets title for confirm modal window.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowText">
+            <summary>
+            Gets or sets text for confirm modal window.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowButtonAcceptLabel">
+            <summary>
+            Gets or sets label for accept button in confirm modal window.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowButtonCancelLabel">
+            <summary>
+            Gets or sets label for cancel button in confirm modal window.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferTextModel.Index">
+            <summary>
+            Gets or sets index.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferTextModel.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="F:eContracting.Models.OfferTextModel.Text">
+            <summary>
+            Gets or sets text.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferTextModel.Attributes">
+            <summary>
+            Gets the attributes.
+            </summary>
+            <value>
+            The attributes.
+            </value>
+        </member>
+        <member name="M:eContracting.Models.OfferTextModel.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferTextModel"/> class.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="name">The name.</param>
+            <param name="text">The text.</param>
+        </member>
+        <member name="P:eContracting.Models.OfferXmlModel.Content">
+            <summary>
+            Gets or sets inner content.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.ProcessStepSitecoreModel">
+            <summary>
+            Model for step model.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.ProcessStepSitecoreModel.Label">
+            <summary>
+            Gets or sets the label.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.ResponseCacheGetModel">
+            <summary>
+            Represent response from 'CACHE_GET'.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.ResponseCacheGetModel.Response">
+            <summary>
+            Raw response from SAP.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.ResponseCacheGetModel.HasFiles">
+            <summary>
+            Gets a value indicating whether <see cref="F:eContracting.Models.ResponseCacheGetModel.Response"/> contains files.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.ResponseCacheGetModel.#ctor(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.ResponseCacheGetModel"/> class.
+            </summary>
+            <param name="response">The response.</param>
+            <exception cref="T:System.ArgumentNullException">response</exception>
         </member>
         <member name="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttemptsTimeSpan">
             <summary>

@@ -51,6 +51,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -60,9 +62,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\Services\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="IApiService.cs" />
     <Compile Include="LogTable.cs" />
+    <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
     <Compile Include="Models\AuthResultState.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
@@ -72,12 +81,22 @@
     <Compile Include="Models\FolderItemModel.cs" />
     <Compile Include="Models\GeneralTextsSettings.cs" />
     <Compile Include="Models\LoginComponentModel.cs" />
+    <Compile Include="Models\LoginStates.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
+    <Compile Include="Models\OfferAttachmentXmlModel.cs" />
+    <Compile Include="Models\OfferBodyXmlModel.cs" />
+    <Compile Include="Models\OfferContentXmlModel.cs" />
+    <Compile Include="Models\OfferFileAttribute.cs" />
+    <Compile Include="Models\OfferHeaderXmlModel.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
+    <Compile Include="Models\OfferModel.cs" />
     <Compile Include="Models\OfferPageModel.cs" />
+    <Compile Include="Models\OfferTextModel.cs" />
+    <Compile Include="Models\OfferXmlModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\ProcessStepSitecoreModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />
+    <Compile Include="Models\ResponseCacheGetModel.cs" />
     <Compile Include="Models\RichTextModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
     <Compile Include="OfferTypes.cs" />
@@ -89,10 +108,39 @@
     <Compile Include="SitecoreLogger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_DELResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_GETResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_PUTResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Services\zcch_cache_api.wsdl" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Services\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Services\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Services\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
