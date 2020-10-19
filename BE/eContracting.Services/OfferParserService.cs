@@ -127,7 +127,7 @@ namespace eContracting.Services
         {
             if (this.GetHasGdpr(response))
             {
-                return response.Response.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL;
+                return response.Response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == "KEY_GDPR")?.ATTRVAL;
             }
 
             return null;

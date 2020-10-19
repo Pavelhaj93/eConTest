@@ -38,7 +38,7 @@ namespace eContracting.Services
             this.SettingsReaderService = settingsReaderService;
             this.OfferParser = offerParser;
             this.AttachmentParser = offerAttachmentParser;
-
+            
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             var options = this.SettingsReaderService.GetApiServiceOptions();
 
@@ -215,16 +215,16 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool SignOffer(string guid)
+        public bool SignInOffer(string guid)
         {
-            var task = Task.Run(() => this.SignOfferAsync(guid));
+            var task = Task.Run(() => this.SignInOfferAsync(guid));
             task.Wait();
             var result = task.Result;
             return result;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> SignOfferAsync(string guid)
+        public async Task<bool> SignInOfferAsync(string guid)
         {
             return await this.SetStatusAsync(guid, "NABIDKA", "6");
         }

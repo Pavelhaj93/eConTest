@@ -85,13 +85,13 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        bool SignOffer(string guid);
+        bool SignInOffer(string guid);
 
         /// <summary>
         /// Make offer <paramref name="guid"/> signed asynchronously.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        Task<bool> SignOfferAsync(string guid);
+        Task<bool> SignInOfferAsync(string guid);
     }
 }
