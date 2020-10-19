@@ -10,11 +10,8 @@ using Glass.Mapper.Sc.Fields;
 namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{212C0D14-4BDF-47A6-846A-CDF7A549B169}", AutoMap = true)]
-    public class SiteSettingsModel
+    public class SiteSettingsModel : BaseSitecoreModel
     {
-        [SitecoreId]
-        public virtual Guid ID { get; set; }
-
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link SessionExpired { get; set; }
 

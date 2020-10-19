@@ -74,7 +74,9 @@
     <Compile Include="Models\LoginComponentModel.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
+    <Compile Include="Models\OfferPageModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
+    <Compile Include="Models\ProcessStepSitecoreModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />
     <Compile Include="Models\RichTextModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
@@ -88,6 +90,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
