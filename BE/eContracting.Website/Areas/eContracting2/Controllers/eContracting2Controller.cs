@@ -53,7 +53,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
         }
 
-        // OfferController
+        /// <summary>
+        /// Rendering view for offer.
+        /// </summary>
+        [HttpGet]
         public ActionResult Offer()
         {
             string guid = string.Empty;
@@ -324,6 +327,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult SessionExpired()
         {
+            //this.Server
+            var viewModel = new SessionExpiredViewModel();
+
             var datasouce = this.GetLayoutItem<EContractingSessionExpiredTemplate>();
             return View("/Areas/eContracting2/Views/SessionExpired.cshtml", datasouce);
         }

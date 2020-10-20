@@ -270,5 +270,14 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetPageLink(eContracting.PageLinkTypes)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSiteSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+            <inheritdoc/>
+        </member>
     </members>
 </doc>

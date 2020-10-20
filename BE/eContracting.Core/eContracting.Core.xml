@@ -28,9 +28,9 @@
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.CacheApiServiceOptions"/> class.
             </summary>
+            <param name="url">The URL.</param>
             <param name="base64Username">The base64 username.</param>
             <param name="base64password">The base64password.</param>
-            <param name="url">The URL.</param>
         </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_GET">
             <remarks/>
@@ -525,6 +525,11 @@
             <param name="response">The response.</param>
             <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
         </member>
+        <member name="T:eContracting.ISettingsReaderService">
+            <summary>
+            Global settings reader.
+            </summary>
+        </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <summary>
             Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
@@ -563,6 +568,28 @@
             </summary>
             <returns>The configuration.</returns>
         </member>
+        <member name="M:eContracting.ISettingsReaderService.GetPageLink(eContracting.PageLinkTypes)">
+            <summary>
+            Gets url from site settings.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>Url or exception.</returns>
+            <exception cref="T:System.InvalidOperationException">When <see cref="T:eContracting.PageLinkTypes"/> cannot be resolved.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetSiteSettings">
+            <summary>
+            Gets the site settings.
+            </summary>
+            <returns>Model or exception.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">When settings cannot be found.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+            <summary>
+            Get all steps from collection where <paramref name="currentStep"/> is.
+            </summary>
+            <param name="currentStep">The current step.</param>
+            <returns>Array of all related steps.</returns>
+        </member>
         <member name="T:eContracting.Models.AuthDataModel">
             <summary>
             Authentication data model to log-in a visitor.
@@ -573,16 +600,26 @@
             The unique offer identifier.
             </summary>
         </member>
+        <member name="F:eContracting.Models.AuthDataModel.Process">
+            <summary>
+            The process.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.AuthDataModel.ProcessType">
+            <summary>
+            The process type.
+            </summary>
+        </member>
         <member name="M:eContracting.Models.AuthDataModel.#ctor">
             <summary>
             Prevents a default instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.AuthDataModel.#ctor(System.String)">
+        <member name="M:eContracting.Models.AuthDataModel.#ctor(eContracting.Models.OfferModel)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class.
             </summary>
-            <param name="guid">The unique identifier.</param>
+            <param name="offer">The offer.</param>
         </member>
         <member name="T:eContracting.Models.BaseSitecoreModel">
             <summary>
@@ -593,6 +630,11 @@
         <member name="P:eContracting.Models.BaseSitecoreModel.Name">
             <summary>
             Gets or sets Sitecore item name.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.BaseSitecoreModel.Path">
+            <summary>
+            Gets or sets full path of the item.
             </summary>
         </member>
         <member name="T:eContracting.Models.FailedLoginInfoDetailModel">
@@ -1120,13 +1162,13 @@
             Gets or sets inner content.
             </summary>
         </member>
-        <member name="T:eContracting.Models.ProcessStepSitecoreModel">
+        <member name="T:eContracting.Models.ProcessStepModel">
             <summary>
             Model for step model.
             </summary>
             <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.ProcessStepSitecoreModel.Label">
+        <member name="P:eContracting.Models.ProcessStepModel.Label">
             <summary>
             Gets or sets the label.
             </summary>
@@ -1222,6 +1264,55 @@
             <summary>
             Login page.
             </summary>
+        </member>
+        <member name="T:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1">
+            <summary>
+            Evaluates if current logged-in user's offer has required process.
+            </summary>
+            <typeparam name="T">The rule context.</typeparam>
+            <seealso cref="T:Sitecore.Rules.Conditions.WhenCondition`1" />
+        </member>
+        <member name="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1.ProcessId">
+            <summary>
+            Gets or sets the process identifier.
+            </summary>
+        </member>
+        <member name="M:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1.Execute(`0)">
+            <summary>
+            Executes the specified rule context.
+            </summary>
+            <param name="ruleContext">The rule context.</param>
+            <returns>
+                <c>True</c> if match found in <see cref="T:eContracting.Models.AuthDataModel"/>, otherwise <c>false</c>.
+                Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1.ProcessId"/> doesn't exist or user is not logged in.
+            </returns>
+        </member>
+        <member name="T:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1">
+            <summary>
+            Evaluates if current logged-in user's offer has required process type.
+            </summary>
+            <typeparam name="T">The rule context.</typeparam>
+            <seealso cref="T:Sitecore.Rules.Conditions.WhenCondition`1" />
+        </member>
+        <member name="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.ProcessTypeId">
+            <summary>
+            Gets or sets the process type identifier.
+            </summary>
+        </member>
+        <member name="M:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.Execute(`0)">
+            <summary>
+            Executes the specified rule context.
+            </summary>
+            <param name="ruleContext">The rule context.</param>
+            <returns>
+                <c>True</c> if match found in <see cref="T:eContracting.Models.AuthDataModel"/>, otherwise <c>false</c>.
+                Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.ProcessTypeId"/> doesn't exist or user is not logged in.
+            </returns>
         </member>
         <member name="M:eContracting.Utils.GerReadableFileSize(System.Int32)">
             <summary>

@@ -10,6 +10,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class LoginViewModel : BaseViewModel
     {
+        public LoginPageModel Datasource { get; set; }
+
         [JsonProperty("doxReadyUrl")]
         public string doxReadyUrl { get; set; }
 
@@ -39,6 +41,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         [JsonProperty("choices")]
         public IEnumerable<LoginChoiceViewModel> Choices { get; set; }
+
+        public IEnumerable<ProcessStepModel> Steps { get; set; }
 
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }

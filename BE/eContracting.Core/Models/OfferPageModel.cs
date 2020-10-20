@@ -24,7 +24,7 @@ namespace eContracting.Models
         /// Gets or sets the step.
         /// </summary>
         [SitecoreField]
-        public virtual ProcessStepSitecoreModel Step { get; set; }
+        public virtual ProcessStepModel Step { get; set; }
 
         /// <summary>
         /// Gets or sets the GDPR URL.

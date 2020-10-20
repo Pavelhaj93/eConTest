@@ -42,8 +42,19 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public CacheApiServiceOptions GetApiServiceOptions()
         {
-            var generalSettings = this.GetSiteSettings();
-            var options = new CacheApiServiceOptions(generalSettings.ServiceUser, generalSettings.ServicePassword, generalSettings.ServiceUrl);
+            var url = Sitecore.Configuration.Settings.GetSetting("eContracting.ServiceUrl");
+            var username = Sitecore.Configuration.Settings.GetSetting("eContracting.ServiceUser");
+            var password = Sitecore.Configuration.Settings.GetSetting("eContracting.ServicePassword");
+
+            if (url == null || username == null || password == null)
+            {
+                var generalSettings = this.GetSiteSettings();
+                url = url ?? generalSettings.ServiceUrl;
+                username = username ?? generalSettings.ServiceUser;
+                password = password ?? generalSettings.ServicePassword;
+            }
+
+            var options = new CacheApiServiceOptions(url, username, password);
             return options;
         }
 
@@ -52,12 +63,6 @@ namespace eContracting.Services
         {
             var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
             return definitions.FirstOrDefault(x => x.Process.Code == offer.Process && x.ProcessType.Code == offer.ProcessType);
-        }
-
-        [Obsolete("Use 'GetSiteSettings' instead")]
-        public SiteSettingsModel GetGeneralSettings()
-        {
-            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
@@ -92,6 +97,7 @@ namespace eContracting.Services
             return offer.IsAccepted ? definition.MainTextLoginAccepted : definition.MainTextLogin;
         }
 
+        /// <inheritdoc/>
         public string GetPageLink(PageLinkTypes type)
         {
             var settings = this.GetSiteSettings();
@@ -119,13 +125,23 @@ namespace eContracting.Services
                 case PageLinkTypes.Login:
                     return settings.Login.Url;
                 default:
-                    throw new InvalidOperationException("Invalid page type.");
+                    throw new InvalidOperationException($"Invalid page type ({Enum.GetName(typeof(PageLinkTypes), type)}).");
             }
         }
 
+        /// <inheritdoc/>
         public SiteSettingsModel GetSiteSettings()
         {
-            return this.Context.GetItem<SiteSettingsModel>(Sitecore.Context.Site.RootPath);
+            var settings = this.Context.GetItem<SiteSettingsModel>(Sitecore.Context.Site.RootPath);
+            return settings ?? throw new MissingDatasourceException("Site settings could not be resolved.");
+        }
+
+        /// <inheritdoc/>
+        public ProcessStepModel[] GetSteps(ProcessStepModel currentStep)
+        {
+            var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
+            var items = this.Context.GetItems<ProcessStepModel>(parentPath);
+            return items.ToArray();
         }
     }
 }

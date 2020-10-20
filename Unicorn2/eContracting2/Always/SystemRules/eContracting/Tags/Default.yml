@@ -1,0 +1,23 @@
+﻿---
+ID: "01c12719-5174-4fcc-86e2-4a7b9bc83201"
+Parent: "7cd8b28b-d134-425a-b8b2-077d420e2347"
+Template: "854ba861-63ea-4a0c-8c7b-541e9a7ec4c1"
+Path: /sitecore/system/Settings/Rules/Definitions/Elements/eContracting/Tags/Default
+DB: master
+BranchID: "9a72c539-dbf8-4dad-96d3-a298fc04add6"
+SharedFields:
+- ID: "42f77151-098f-496a-94cf-590b7edeeabe"
+  Hint: Tags
+  Type: Multilist
+  Value: "{F1933AAE-5AC3-4F86-BFEB-3F0C49E39749}"
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{6F0688E4-7B16-482F-845B-35836FD15D14}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201020T122455Z

@@ -6,8 +6,10 @@ using Newtonsoft.Json;
 
 namespace eContracting.Website.Areas.eContracting2.Models
 {
-    public class BaseViewModel
+    public abstract class BaseViewModel
     {
+        public string PageTitle { get;set; }
+
         [JsonProperty("view")]
         public string View { get; set; }
 

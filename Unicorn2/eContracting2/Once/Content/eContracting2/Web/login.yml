@@ -14,11 +14,33 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
+        <r
+          ds="{C4E430EC-CDC8-456F-B209-FEBBC637AB10}"
+          id="{4CEF4551-AA4E-4AEA-AEAA-5EA1A1CC27A5}"
+          ph="/eContracting2/eContracting2-login-richtext"
+          uid="{17D87582-EAC2-42B0-BBF5-3F852233E0B3}" />
+        <r
+          id="{98B94438-C0B0-44A3-A32C-9078E992D049}"
+          ph="eContracting2"
+          uid="{C71EEDE7-9D64-4543-984F-8AB6C2D3EE5B}" />
+      </d>
+    </r>
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "088b75ed-cffd-46df-8f94-6a19de7cb292"
+      Hint: BirthDateLabel
+      Value: Datum narození
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T111925Z

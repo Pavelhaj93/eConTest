@@ -95,10 +95,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var guid = string.Empty;
             var errorString = string.Empty;
-            var datasource = this.GetLayoutItem<LoginComponentModel>();
 
             try
             {
+                var datasource = this.GetLayoutItem<LoginPageModel>();
+
+                if (!Sitecore.Context.PageMode.IsNormal)
+                {
+                    var editModel = new LoginViewModel();
+                    editModel.Datasource = datasource;
+                    editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
+                    editModel.BussProcess = "XX";
+                    editModel.BussProcessType = "YY";
+                    editModel.Choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => new LoginChoiceViewModel(x, "unknown"));
+                    editModel.Steps = this.SettingsReaderService.GetSteps(datasource.Step);
+                    editModel.PageTitle = datasource.PageTitle;
+                    editModel.Partner = "1234567890";
+                    editModel.Zip1 = "190 000";
+                    editModel.Zip2 = "190 000";
+
+                    return View("/Areas/eContracting2/Views/Login_edit.cshtml", editModel);
+                }
+
                 guid = Request.QueryString["guid"];
                 var msg = Request.QueryString["error"];
 
@@ -125,6 +143,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer));
                 var viewModel = this.GetViewModel(datasource, choices, errorString);
+                viewModel.Datasource = datasource;
                 viewModel.Birthdate = offer.Birthday;
                 viewModel.BussProcess = offer.Process;
                 viewModel.BussProcessType = offer.ProcessType;
@@ -203,7 +222,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 //TODO: this.DataSessionStorage.Login(userData);
-                this.AuthService.Login(new AuthDataModel(guid));
+                this.AuthService.Login(new AuthDataModel(offer));
                 this.Logger.Info($"[{guid}] Successfully log-ged in");
 
                 if (offer.IsAccepted)
@@ -289,7 +308,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(LoginComponentModel datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(LoginPageModel datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
             viewModel.FormAction = this.Request.RawUrl;

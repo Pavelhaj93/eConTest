@@ -12,7 +12,7 @@ namespace eContracting.Models
     /// </summary>
     /// <seealso cref="eContracting.Models.BaseSitecoreModel" />
     [SitecoreType(TemplateId = "{7691585A-BB36-4EE7-937F-DA4DE7A3EDEC}", AutoMap = true)]
-    public class ProcessStepSitecoreModel : BaseSitecoreModel
+    public class ProcessStepModel : BaseSitecoreModel
     {
         /// <summary>
         /// Gets or sets the label.

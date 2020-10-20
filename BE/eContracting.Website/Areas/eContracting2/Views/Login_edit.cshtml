@@ -2,17 +2,19 @@
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
-@model LoginViewModel
+@inherits GlassView<LoginViewModel>
+@{ 
+    var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
+}
 <div class="row">
     @*<div id="token">@@Html.AntiForgeryToken()</div>*@
-    <div class="col-md-8 col-md-offset-2">
+    <div class="">
         <div class="info">
-            @Html.Sitecore().Placeholder("eContracting2-login-richtext");
-            @Html.Raw(ViewData["MainText"])
+            @Html.Sitecore().Placeholder("eContracting2-login-richtext")
         </div>
-        <div id="app"></div>
     </div>
-    <form action="@Request.RawUrl" method="post" style="text-align: left; box-sizing: content-box;">
+    @Editable(Model.Datasource, x => x.BirthDatePlaceholder)
+    <div style="text-align: left; box-sizing: content-box;">
         @Html.AntiForgeryToken()
         <div>
             <p style="margin: 0px;">BIRTHDATE: @Model.Birthdate</p>
@@ -22,8 +24,8 @@
             <p>PSC: @Model.Zip1</p>
             <p>PSC_MS: @Model.Zip2</p>
         </div>
-        <h1>Datum narození</h1>
-        <p>@Html.TextBox("birthdate")</p>
+        <h1>@Editable(Model.Datasource, x => x.BirthDateLabel)</h1>
+        <p>@Html.TextBox("birthdate", null, new Dictionary<string, string>() { { "placeholder" , birthDatePlaceholder } })</p>
         @foreach (var choice in Model.Choices)
         {
             <h2>@choice.Label</h2>
@@ -32,9 +34,5 @@
         <h2>Hodnota</h2>
         <p>@Html.TextBox("value")</p>
         <button type="submit">Submit</button>
-    </form>
+    </div>
 </div>
-
-<script>
-    var appConfig = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
-</script>

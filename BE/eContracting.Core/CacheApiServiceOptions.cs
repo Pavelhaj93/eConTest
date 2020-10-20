@@ -31,14 +31,14 @@ namespace eContracting
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheApiServiceOptions"/> class.
         /// </summary>
+        /// <param name="url">The URL.</param>
         /// <param name="base64Username">The base64 username.</param>
         /// <param name="base64password">The base64password.</param>
-        /// <param name="url">The URL.</param>
-        public CacheApiServiceOptions(string base64Username, string base64password, string url)
+        public CacheApiServiceOptions(string url, string base64Username, string base64password)
         {
+            this.Url = new Uri(url, UriKind.Absolute);
             this.User = Encoding.UTF8.GetString(Convert.FromBase64String(base64Username));
             this.Password = Encoding.UTF8.GetString(Convert.FromBase64String(base64password));
-            this.Url = new Uri(url, UriKind.Absolute);
         }
 
         //public ICredentials GetCredentials()

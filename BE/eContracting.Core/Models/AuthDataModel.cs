@@ -18,6 +18,16 @@ namespace eContracting.Models
         public readonly string Guid;
 
         /// <summary>
+        /// The process.
+        /// </summary>
+        public readonly string Process;
+
+        /// <summary>
+        /// The process type.
+        /// </summary>
+        public readonly string ProcessType;
+
+        /// <summary>
         /// Prevents a default instance of the <see cref="AuthDataModel"/> class from being created.
         /// </summary>
         private AuthDataModel()
@@ -27,10 +37,12 @@ namespace eContracting.Models
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthDataModel"/> class.
         /// </summary>
-        /// <param name="guid">The unique identifier.</param>
-        public AuthDataModel(string guid)
+        /// <param name="offer">The offer.</param>
+        public AuthDataModel(OfferModel offer)
         {
-            this.Guid = guid;
+            this.Guid = offer.Guid;
+            this.Process = offer.Process;
+            this.ProcessType = offer.ProcessType;
         }
     }
 }

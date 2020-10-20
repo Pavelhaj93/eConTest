@@ -34,7 +34,7 @@ namespace eContracting.ConsoleClient
 
         public CacheApiServiceOptions GetApiServiceOptions()
         {
-            var options = new CacheApiServiceOptions(this.Options.Value.ServiceUser, this.Options.Value.ServicePassword, this.Options.Value.ServiceUrl);
+            var options = new CacheApiServiceOptions(this.Options.Value.ServiceUrl, this.Options.Value.ServiceUser, this.Options.Value.ServicePassword);
             return options;
         }
 

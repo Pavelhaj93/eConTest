@@ -8,8 +8,14 @@ using Glass.Mapper.Sc.Configuration.Attributes;
 namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}", AutoMap = true)]
-    public class LoginComponentModel : BaseSitecoreModel
+    public class LoginPageModel : BaseSitecoreModel
     {
+        [SitecoreField]
+        public virtual string PageTitle { get; set; }
+
+        [SitecoreField]
+        public virtual ProcessStepModel Step { get; set; }
+
         [SitecoreField]
         public virtual string BirthDateLabel { get; set; }
 

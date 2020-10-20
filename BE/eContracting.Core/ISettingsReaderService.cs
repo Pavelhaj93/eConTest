@@ -8,6 +8,9 @@ using Glass.Mapper.Sc.Fields;
 
 namespace eContracting
 {
+    /// <summary>
+    /// Global settings reader.
+    /// </summary>
     public interface ISettingsReaderService
     {
         /// <summary>
@@ -50,11 +53,26 @@ namespace eContracting
 
         RichTextModel GetMainTextForLogin(OfferModel offer);
 
-        [Obsolete]
-        SiteSettingsModel GetGeneralSettings();
-
+        /// <summary>
+        /// Gets url from site settings.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Url or exception.</returns>
+        /// <exception cref="InvalidOperationException">When <see cref="PageLinkTypes"/> cannot be resolved.</exception>
         string GetPageLink(PageLinkTypes type);
 
+        /// <summary>
+        /// Gets the site settings.
+        /// </summary>
+        /// <returns>Model or exception.</returns>
+        /// <exception cref="MissingDatasourceException">When settings cannot be found.</exception>
         SiteSettingsModel GetSiteSettings();
+
+        /// <summary>
+        /// Get all steps from collection where <paramref name="currentStep"/> is.
+        /// </summary>
+        /// <param name="currentStep">The current step.</param>
+        /// <returns>Array of all related steps.</returns>
+        ProcessStepModel[] GetSteps(ProcessStepModel currentStep);
     }
 }

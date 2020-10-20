@@ -33,56 +33,56 @@ namespace eContracting
             /// <summary>
             /// The authentication process - unknown exception.
             /// </summary>
-            public const string AUTH1_UNKNOWN = "LI100";
+            public const string AUTH1_UNKNOWN = "100";
 
             /// <summary>
             /// Call to CACHE during authentication process.
             /// </summary>
-            public const string AUTH1_CACHE = "LI101";
+            public const string AUTH1_CACHE = "110";
 
             /// <summary>
             /// Call to CACHE during authentication process - unknown exception.
             /// </summary>
-            public const string AUTH1_CACHE2 = "LI102";
+            public const string AUTH1_CACHE2 = "111";
 
             /// <summary>
             /// The authentication process - application exception.
             /// </summary>
-            public const string AUTH1_APP = "LI103";
+            public const string AUTH1_APP = "120";
 
             /// <summary>
             /// The authentication process - invalid operation exception.
             /// </summary>
-            public const string AUTH1_INV_OP = "LI104";
+            public const string AUTH1_INV_OP = "125";
 
             /// <summary>
             /// The authentication process - unknown exception.
             /// </summary>
-            public const string AUTH2_UNKNOWN = "LI200";
+            public const string AUTH2_UNKNOWN = "200";
 
             /// <summary>
             /// Call to CACHE during authentication process.
             /// </summary>
-            public const string AUTH2_CACHE = "LI201";
+            public const string AUTH2_CACHE = "210";
 
             /// <summary>
             /// Call to CACHE during authentication process - unknown exception.
             /// </summary>
-            public const string AUTH2_CACHE2 = "LI202";
+            public const string AUTH2_CACHE2 = "210";
 
             /// <summary>
             /// The authentication process - application exception.
             /// </summary>
-            public const string AUTH2_APP = "LI203";
+            public const string AUTH2_APP = "220";
 
             /// <summary>
             /// The authentication process - invalid operation exception.
             /// </summary>
-            public const string AUTH2_INV_OP = "LI204";
+            public const string AUTH2_INV_OP = "225";
 
-            public const string OFFER_NOT_SIGNED = "OF101";
+            public const string OFFER_NOT_SIGNED = "350";
 
-            public const string OFFER_EXCEPTION = "OF100";
+            public const string OFFER_EXCEPTION = "390";
         }
 
         public static class ValidationCodes
