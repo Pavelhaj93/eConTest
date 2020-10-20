@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc.Fields;
 
-namespace eContracting.Services
+namespace eContracting
 {
     public interface ISettingsReaderService
     {

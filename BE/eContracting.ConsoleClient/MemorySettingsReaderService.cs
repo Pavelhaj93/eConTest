@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
-using eContracting.Services.Models;
 using Microsoft.Extensions.Options;
 
 namespace eContracting.ConsoleClient

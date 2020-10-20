@@ -4,6 +4,34 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="T:eContracting.CacheApiServiceOptions">
+            <summary>
+            Settings for <see cref="T:eContracting.IApiService"/>.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.User">
+            <summary>
+            The user.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.Password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.Url">
+            <summary>
+            The URL.
+            </summary>
+        </member>
+        <member name="M:eContracting.CacheApiServiceOptions.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.CacheApiServiceOptions"/> class.
+            </summary>
+            <param name="base64Username">The base64 username.</param>
+            <param name="base64password">The base64password.</param>
+            <param name="url">The URL.</param>
+        </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_GET">
             <remarks/>
         </member>
@@ -357,6 +385,183 @@
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:eContracting.IAuthenticationProviderService">
+            <summary>
+            Represents storage provider which holds information about logged users.
+            </summary>
+        </member>
+        <member name="M:eContracting.IAuthenticationProviderService.Login(eContracting.Models.AuthDataModel)">
+            <summary>
+            Log-in user with <paramref name="authData"/> containing <see cref="F:eContracting.Models.AuthDataModel.Guid"/>.
+            </summary>
+            <param name="authData">Auth data model.</param>
+        </member>
+        <member name="M:eContracting.IAuthenticationProviderService.IsLoggedIn">
+            <summary>
+            Determines whether user is logged in.
+            </summary>
+            <returns>
+              <c>true</c> if is logged in; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationProviderService.GetData">
+            <summary>
+            Gets auth date for current (context) user.
+            </summary>
+            <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.IAuthenticationService">
+            <summary>
+            Represents collection of actions for authentication operation.
+            </summary>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
+            <summary>
+            Logins the specified offer.
+            </summary>
+            <seealso cref="T:eContracting.Models.LoginTypeModel"/>
+            <param name="offer">The offer.</param>
+            <param name="birthDay">The birth day.</param>
+            <param name="key">The key of login type.</param>
+            <param name="value">The value by login type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
+            <summary>
+            Gets the key with combination of unique key of <paramref name="loginType"/> and unique key of <paramref name="offer"/>.
+            </summary>
+            <param name="loginType">Type of the login.</param>
+            <param name="offer">The offer.</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
+            <summary>
+            Log-in user with <paramref name="authData"/>.
+            </summary>
+            <param name="authData">Authentication data.</param>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.IsLoggedIn">
+            <summary>
+            Determines whether user is logged in.
+            </summary>
+            <returns>
+              <c>true</c> if is logged in; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.GetCurrentUser">
+            <summary>
+            Gets the current user.
+            </summary>
+            <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.ILoginReportStore">
+            <summary>
+            Stores information about login attemps.
+            </summary>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.AddLoginAttempt(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the login attempt.
+            </summary>
+            <param name="sessionId">The session identifier.</param>
+            <param name="timestamp">The timestamp.</param>
+            <param name="guid">The unique identifier.</param>
+            <param name="type">The type.</param>
+            <param name="birthdayDate">if set to <c>true</c> [birthday date].</param>
+            <param name="wrongPostalCode">if set to <c>true</c> [wrong postal code].</param>
+            <param name="WrongResidencePostalCode">if set to <c>true</c> [wrong residence postal code].</param>
+            <param name="WrongIdentityCardNumber">if set to <c>true</c> [wrong identity card number].</param>
+            <param name="generalError">if set to <c>true</c> [general error].</param>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.AddFailedAttempt(System.String,System.String,System.String)">
+            <summary>
+            Adds the failed login attempt.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="sessionId">The session identifier.</param>
+            <param name="browserInfo">The browser information.</param>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String,System.Int32,System.TimeSpan)">
+            <summary>
+            Determines whether <paramref name="guid"/> can log-in.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="maxFailedAttempts">The maximum failed attempts.</param>
+            <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
+            <returns>
+              <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String)">
+            <summary>
+            Determines whether <paramref name="guid"/> can log-in.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+        </member>
+        <member name="T:eContracting.IOfferAttachmentParserService">
+            <summary>
+            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> object.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Services.ZCCH_ST_FILE,System.Int32,eContracting.Models.OfferModel)">
+            <summary>
+            Creates <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> from given <paramref name="file"/>. <paramref name="offer"/> is needed to define some parameters.
+            </summary>
+            <param name="file">The file.</param>
+            <param name="index">The index position from list of all files.</param>
+            <param name="offer">The offer.</param>
+            <returns>Instance of <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/>.</returns>
+        </member>
+        <member name="T:eContracting.IOfferParserService">
+            <summary>
+            Represents parser from <see cref="T:eContracting.Models.OfferModel"/> to <see cref="T:eContracting.Models.ResponseCacheGetModel"/> object.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Generates offer.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
+            <summary>
+            Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
+            <summary>
+            Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.DefinitionCombinationModel"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns>List of defined login types or if there is not defined any, one random login type from all of them.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllProcesses">
+            <summary>
+            Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
+            </summary>
+            <returns>List of all defined processes.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllProcessTypes">
+            <summary>
+            Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
+            </summary>
+            <returns>List of all defined process types.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllLoginTypes">
+            <summary>
+            Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
+            </summary>
+            <returns>List of all defined login types.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
+            <summary>
+            Gets configuration for <see cref="T:eContracting.IApiService"/>.
+            </summary>
+            <returns>The configuration.</returns>
         </member>
         <member name="T:eContracting.Models.AuthDataModel">
             <summary>

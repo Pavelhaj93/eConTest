@@ -1,7 +1,7 @@
 ﻿using eContracting.Models;
 using eContracting.Services;
 
-namespace eContracting.Services
+namespace eContracting
 {
     /// <summary>
     /// Represents parser from <see cref="ZCCH_ST_FILE"/> to <see cref="OfferAttachmentXmlModel"/> object.

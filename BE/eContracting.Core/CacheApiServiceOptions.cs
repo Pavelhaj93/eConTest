@@ -6,14 +6,34 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eContracting.Services
+namespace eContracting
 {
+    /// <summary>
+    /// Settings for <see cref="IApiService"/>.
+    /// </summary>
     public class CacheApiServiceOptions
     {
-        public string User { get; set; }
-        public string Password { get; set; }
-        public Uri Url { get; set; }
+        /// <summary>
+        /// The user.
+        /// </summary>
+        public readonly string User;
 
+        /// <summary>
+        /// The password.
+        /// </summary>
+        public readonly string Password;
+
+        /// <summary>
+        /// The URL.
+        /// </summary>
+        public readonly Uri Url;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheApiServiceOptions"/> class.
+        /// </summary>
+        /// <param name="base64Username">The base64 username.</param>
+        /// <param name="base64password">The base64password.</param>
+        /// <param name="url">The URL.</param>
         public CacheApiServiceOptions(string base64Username, string base64password, string url)
         {
             this.User = Encoding.UTF8.GetString(Convert.FromBase64String(base64Username));

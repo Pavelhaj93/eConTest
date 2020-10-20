@@ -23,10 +23,16 @@ namespace eContracting.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
         /// </summary>
+        /// <param name="authProvider">The authentication provider.</param>
         /// <param name="settingsReader">The settings reader.</param>
-        /// <exception cref="System.ArgumentNullException">settingsReader</exception>
-        public AuthenticationService(ISettingsReaderService settingsReader)
+        /// <exception cref="ArgumentNullException">
+        /// authProvider
+        /// or
+        /// settingsReader
+        /// </exception>
+        public AuthenticationService(IAuthenticationProviderService authProvider, ISettingsReaderService settingsReader)
         {
+            this.AuthenticationProvider = authProvider ?? throw new ArgumentNullException(nameof(authProvider));
             this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
         }
 

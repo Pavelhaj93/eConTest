@@ -12,7 +12,7 @@ namespace eContracting.Services
     /// <summary>
     /// Session provider for logged user.
     /// </summary>
-    /// <seealso cref="eContracting.Services.IAuthenticationProviderService" />
+    /// <seealso cref="IAuthenticationProviderService" />
     public class SessionAuthenticationProviderService : IAuthenticationProviderService
     {
         /// <inheritdoc/>

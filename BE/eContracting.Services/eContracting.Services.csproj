@@ -78,22 +78,13 @@
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="CacheApiService.cs" />
-    <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="IAuthenticationProviderService.cs" />
-    <Compile Include="IAuthenticationService.cs" />
-    <Compile Include="IApiService.cs" />
-    <Compile Include="ILoginReportStore.cs" />
-    <Compile Include="IOfferAttachmentParserService.cs" />
-    <Compile Include="IOfferParserService.cs" />
-    <Compile Include="ISettingsReaderService.cs" />
     <Compile Include="MongoLoginReportStore.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />
     <Compile Include="OfferParserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionAuthenticationProviderService.cs" />
     <Compile Include="SitecoreSettingsReaderService.cs" />
-    <Compile Include="ZCCH_CACHE_API_Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

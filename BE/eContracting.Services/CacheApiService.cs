@@ -19,13 +19,39 @@ namespace eContracting.Services
     public class CacheApiService : IApiService
     {
         public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
-        protected readonly ILogger Logger;
-        protected readonly ISettingsReaderService SettingsReaderService;
-        protected readonly IOfferParserService OfferParser;
-        protected readonly IOfferAttachmentParserService AttachmentParser;
-        private readonly ZCCH_CACHE_APIClient Api;
-        //private readonly TaskFactory _taskFactory = new TaskFactory(CancellationToken.None, TaskCreationOptions.None, TaskContinuationOptions.None, TaskScheduler.Default);
 
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        protected readonly ILogger Logger;
+
+        /// <summary>
+        /// The settings reader service.
+        /// </summary>
+        protected readonly ISettingsReaderService SettingsReaderService;
+
+        /// <summary>
+        /// The offer parser.
+        /// </summary>
+        protected readonly IOfferParserService OfferParser;
+
+        /// <summary>
+        /// The attachment parser.
+        /// </summary>
+        protected readonly IOfferAttachmentParserService AttachmentParser;
+
+        /// <summary>
+        /// The API client.
+        /// </summary>
+        private readonly ZCCH_CACHE_APIClient Api;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CacheApiService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <param name="offerParser">The offer parser.</param>
+        /// <param name="offerAttachmentParser">The offer attachment parser.</param>
         public CacheApiService(
             ILogger logger,
             ISettingsReaderService settingsReaderService,
@@ -99,9 +125,6 @@ namespace eContracting.Services
             var task = Task.Run(() => this.GetXmlAsync(guid));
             task.Wait();
             var result = task.Result;
-            //var result = this.GetXmlAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
-            //var result = Task.Run(() => task).Result;
             return result;
         }
 
@@ -145,9 +168,6 @@ namespace eContracting.Services
             var task = Task.Run(() => this.GetAttachmentsAsync(guid));
             task.Wait();
             var result = task.Result;
-            //var result = this.GetAttachmentsAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
-            //var result = Task.Run(() => task).Result;
             return result;
         }
 
@@ -200,9 +220,6 @@ namespace eContracting.Services
             var task = Task.Run(() => this.ReadOfferAsync(guid));
             task.Wait();
             var result = task.Result;
-            //var result = this.ReadOfferAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
-            //var result = Task.Run(() => task).Result;
             return result;
         }
 

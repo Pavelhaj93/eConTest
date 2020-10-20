@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 
-namespace eContracting.Services
+namespace eContracting
 {
     /// <summary>
     /// Represents storage provider which holds information about logged users.

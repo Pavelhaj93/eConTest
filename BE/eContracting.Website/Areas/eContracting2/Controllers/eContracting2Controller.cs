@@ -110,23 +110,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    return Redirect(redirectUrl);
                 //}
 
-                this.ViewData["MainText"] = mainText;
-                this.ViewData["VoucherText"] = string.Empty; //TODO: textHelper.GetVoucherText(datasource, data, this.SettingsReaderService.GetGeneralSettings());
+                //this.ViewData["MainText"] = mainText;
+                //this.ViewData["VoucherText"] = string.Empty; //TODO: textHelper.GetVoucherText(datasource, data, this.SettingsReaderService.GetGeneralSettings());
 
                 if (offer.HasGDPR)
                 {
                     var GDPRGuid = Utils.AesEncrypt(offer.GDPRKey, datasource.AesEncryptKey, datasource.AesEncryptVector);
-
-                    ViewData["GDPRGuid"] = GDPRGuid; //TODO: Get GDPR from offer
-                    ViewData["GDPRUrl"] = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
+                    viewModel.GdprGuid = GDPRGuid;
+                    viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
                 }
-
 
                 var generalSettings = ConfigHelpers.GetGeneralSettings();
                 ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
                 ViewData["SignFailure"] = string.Empty; //TODO: generalSettings.GetSignInFailure(data.OfferType);
 
-                return this.View("/Areas/eContracting2/Views/Offer.cshtml");
+                return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
             }
             catch (Exception ex)
             {

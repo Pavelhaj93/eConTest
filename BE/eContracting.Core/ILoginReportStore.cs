@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eContracting.Services
+namespace eContracting
 {
     /// <summary>
     /// Stores information about login attemps.

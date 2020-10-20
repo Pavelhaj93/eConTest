@@ -1,6 +1,6 @@
 ﻿using eContracting.Models;
 
-namespace eContracting.Services
+namespace eContracting
 {
     /// <summary>
     /// Represents parser from <see cref="OfferModel"/> to <see cref="ResponseCacheGetModel"/> object.

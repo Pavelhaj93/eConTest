@@ -55,6 +55,10 @@ SharedFields:
     <link id="{0E37FD03-1F17-4B51-ADDA-3CC16CCB6354}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/login" linktype="internal" />
 Languages:
 - Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: eContracting (nový)
   Versions:
   - Version: 1
     Fields:
