@@ -5,9 +5,9 @@
 @model LoginViewModel
 <div class="row">
     @*<div id="token">@@Html.AntiForgeryToken()</div>*@
-    <div class="col-md-8 col-md-offset-2">
+    <div class="@*col-md-8 col-md-offset-2*@">
         <div class="info">
-            @Html.Sitecore().Placeholder("eContracting2-login-richtext");
+            @Html.Sitecore().Placeholder("eContracting2-login-richtext")
             @Html.Raw(ViewData["MainText"])
         </div>
         <div id="app"></div>

@@ -1,0 +1,25 @@
+﻿---
+ID: "849d7d85-ce39-48f1-891e-91fc8fbca581"
+Parent: "7e5b090b-5e35-4237-89a1-4b226b6fc18f"
+Template: "0574008b-75be-4c2d-8583-451a67d33e0b"
+Path: /sitecore/content/eContracting2/Datasources/Content/Offer/RichTexts/BNR investor
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 1300
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201012T092920Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "70299500-6547-4dcf-a5f8-981d926fb58c"
+      Hint: Text
+      Value: "<p>BNR - INVEST Offer:&nbsp;Aliquam viverra eleifend sapien ornare iaculis. Nullam vitae cursus ipsum, quis ullamcorper mi. Pellentesque finibus arcu ac odio tristique, id ullamcorper lectus cursus. Donec eleifend ligula commodo ex convallis, vitae pulvinar felis maximus. Nunc vel placerat magna. Maecenas in condimentum sapien. Morbi eget magna eu nibh convallis rutrum. Nulla non nulla semper, congue lectus ac, faucibus erat. Etiam quis nulla in quam pretium elementum. Nam scelerisque ultrices porttitor. Quisque nunc dui, molestie vel euismod quis, vulputate vel lectus. Sed in vestibulum tellus. Quisque maximus sed lorem ut porta. Sed euismod urna risus, eget posuere ex pellentesque in. Praesent sapien odio, tempor ac porttitor non, vulputate nec ligula.</p>"

@@ -5,15 +5,66 @@ Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
 Path: /sitecore/content/eContracting2/Definitions/Akvizice kampan
 DB: master
 SharedFields:
+- ID: "0602663a-9590-4902-ad69-4687dd0003c0"
+  Hint: OfferSupplementDocumentsText
+  Value: "{BE931A3F-E88E-49B1-8022-7F3451568885}"
+- ID: "0c8cce0d-32cc-4d7c-b14f-5c7c75d4a13f"
+  Hint: OfferObligatoryDocumentsTitle
+  Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
+- ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
+  Hint: OfferTitle
+  Value: "{E21EA370-DCB0-4F67-9B5C-0074588E9EFA}"
+- ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
+  Hint: OfferSupplementDocumentsTitle
+  Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
+- ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
+  Hint: OfferOtherProductsTitle
+  Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
+- ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
+  Hint: OfferDocumentsForAcceptanceText
+  Value: "{4A3B18B0-5A69-49F0-A9FB-DE2F96B0E367}"
 - ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
   Hint: Process
   Value: "{AFB19A60-FB64-4416-A1B1-5F30D24EC2F7}"
+- ID: "3002b81c-2648-44b1-aae8-49eb6e5167ca"
+  Hint: OfferDocumentsForAcceptanceSection1
+  Value: "{449D995E-FEAB-43F1-9B99-D863B947D012}"
+- ID: "384dd170-ec45-46a5-9d20-40a66c6471ab"
+  Hint: OfferOtherProductsAcceptDocumentsText
+  Value: "{B088C567-5E43-44A0-8BAA-EDDF94829D1F}"
 - ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
   Hint: MainTextOfferExpired
   Value: "{2F911557-00F2-4C6F-B75E-3903BCBB0244}"
+- ID: "4825c7b5-e299-4dfa-b9e0-f6369eda5fd8"
+  Hint: OfferObligatoryAdditionalDocsText
+  Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
+- ID: "58934276-4619-4696-85f4-eda6be9e6c76"
+  Hint: OfferDocumentsForAcceptanceTitle
+  Value: "{9369F4D9-0160-4CA8-A61D-F04159DD888B}"
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
   Value: "{0A0C26AC-88DF-42E9-A59E-DA057C3457F6}"
+- ID: "5aff18e0-aedf-48b8-84c0-bda2f11646a3"
+  Hint: OfferAcceptTitle
+  Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
+- ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
+  Hint: OfferObligatoryAdditionalDocsHelp
+  Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
+- ID: "70941589-f449-4853-ac06-110f564ef692"
+  Hint: OfferOtherProductsText
+  Value: "{B8FDECA5-6673-4076-B0A3-FBFA3DC4DDDC}"
+- ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
+  Hint: OfferAcceptText
+  Value: "{DD6D7B57-BF5E-48D0-8CE7-C761C584080E}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "a6fe0df7-c9a6-4bda-9bd9-1d05544dc3b0"
+  Hint: OfferObligatoryDocumentsNote
+  Value: "{CD30BFB0-4AFA-4489-9FA1-1DAF2236C52B}"
+- ID: "b774cee3-3575-44a3-8405-d6af8aed1cbb"
+  Hint: OfferBenefitsTitle
+  Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
 - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
   Hint: MainTextOffer
   Value: "{7DB9CEC8-88AE-48C4-B8E0-B996CE4FC7EB}"
@@ -23,6 +74,9 @@ SharedFields:
 - ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
   Hint: MainTextLogin
   Value: "{75552851-C1AB-4D03-9E25-069A876359C2}"
+- ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
+  Hint: OfferDocumentsForAcceptanceSection2
+  Value: "{CF59474B-E808-46D8-9569-AF98224E21D9}"
 - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
   Hint: MainTextThankYour
   Value: "{443BECF2-8821-4C37-8BE5-F98AF43991E1}"

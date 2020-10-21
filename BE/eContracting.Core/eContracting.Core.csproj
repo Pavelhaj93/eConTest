@@ -122,6 +122,7 @@
     <Compile Include="Models\ProcessTypeModel.cs" />
     <Compile Include="Models\ResponseCacheGetModel.cs" />
     <Compile Include="Models\RichTextModel.cs" />
+    <Compile Include="Models\SimpleTextModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
     <Compile Include="OfferTypes.cs" />
     <Compile Include="PageLinkType.cs" />

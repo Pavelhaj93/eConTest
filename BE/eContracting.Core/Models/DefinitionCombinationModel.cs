@@ -17,6 +17,8 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual ProcessModel ProcessType { get; set; }
 
+        #region Login
+
         [SitecoreField]
         public virtual IEnumerable<LoginTypeModel> LoginTypes { get; set; }
 
@@ -26,8 +28,65 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual RichTextModel MainTextLoginAccepted { get; set; }
 
+        #endregion
+
+        #region Offer
+
         [SitecoreField]
-        public virtual RichTextModel MainTextOffer { get; set; }
+        public virtual SimpleTextModel OfferTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferMainText { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferBenefitsTitle { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferDocumentsForAcceptanceTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferDocumentsForAcceptanceText { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferDocumentsForAcceptanceSection1 { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferDocumentsForAcceptanceSection2 { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferObligatoryDocumentsTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferObligatoryAdditionalDocsText { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferObligatoryAdditionalDocsHelp { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferObligatoryDocumentsNote { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferSupplementDocumentsTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferSupplementDocumentsText { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferOtherProductsTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferOtherProductsAcceptDocumentsText { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferOtherProductsText { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferAcceptTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferAcceptText { get; set; }
+
+        #endregion
 
         [SitecoreField]
         public virtual RichTextModel MainTextOfferAccepted { get; set; }
