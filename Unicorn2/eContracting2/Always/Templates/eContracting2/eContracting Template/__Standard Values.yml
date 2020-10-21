@@ -4,6 +4,13 @@ Parent: "78143202-9009-45fa-a31d-f873287ea8d5"
 Template: "78143202-9009-45fa-a31d-f873287ea8d5"
 Path: /sitecore/templates/eContracting2/eContracting Template/__Standard Values
 DB: master
+SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
+- ID: "ca9b9f52-4fb0-4f87-a79f-24dea62cda65"
+  Hint: __Default workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
 Languages:
 - Language: en
   Versions:

@@ -1,0 +1,18 @@
+﻿---
+ID: "34d43cbb-e8e7-4cf2-b9a2-148a1f62057e"
+Parent: "e857c308-ab27-4e16-9e50-1d0facc407a0"
+Template: "cb01f9fc-c187-46b3-ab0b-97a8468d8303"
+Path: /sitecore/system/Workflows/eContracting Workflow/Draft/Submit
+DB: master
+SharedFields:
+- ID: "dcbebc58-6124-4100-a248-fc717d6c78d5"
+  Hint: Next state
+  Value: "{BC28A2A3-7E9D-48A6-98E9-C4E2CC4EEAE2}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201021T113008Z

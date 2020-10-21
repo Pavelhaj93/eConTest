@@ -1,0 +1,18 @@
+﻿---
+ID: "e857c308-ab27-4e16-9e50-1d0facc407a0"
+Parent: "e2425c61-706f-4759-a5d1-a08372576a98"
+Template: "4b7e2da9-de43-4c83-88c3-02f042031d04"
+Path: /sitecore/system/Workflows/eContracting Workflow/Draft
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 0
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201021T112909Z
