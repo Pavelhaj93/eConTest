@@ -1,13 +1,13 @@
 ﻿---
-ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
-Parent: "356e04df-87e2-4755-933d-381b04f3289b"
+ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+Parent: "35747d3c-c54c-4066-b0c7-d300f1b3c427"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Definitions/Combination/Setup/MainTextLogin
+Path: /sitecore/templates/eContracting2/Definitions/Combination/ThanYou Page/MainTextThankYou
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
   Hint: Source
-  Value: /sitecore/content/eContracting2/Datasources/Content/Login
+  Value: /sitecore/content/eContracting2/Datasources/Content/ThankYou
 - ID: "21828437-ea4b-40a1-8c61-4ce60ea41db6"
   Hint: Validate Button
   Type: tree list
@@ -25,7 +25,7 @@ SharedFields:
   Value: Droplink
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 400
+  Value: 800
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
@@ -46,7 +46,7 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Výchozí hlavní text nad přihlášením pro neakceptovanou nabídku (variace pro A/B testování se řeší v Experience editor na login stránce)
+    Value: Text na děkovací stránce
   - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
     Hint: __Short description
     Value: 
@@ -55,4 +55,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201012T090121Z
+      Value: 20201012T091725Z

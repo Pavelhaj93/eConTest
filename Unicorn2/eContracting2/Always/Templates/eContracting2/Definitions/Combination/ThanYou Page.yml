@@ -1,32 +1,25 @@
 ﻿---
-ID: "356e04df-87e2-4755-933d-381b04f3289b"
+ID: "35747d3c-c54c-4066-b0c7-d300f1b3c427"
 Parent: "b9b48c83-1724-43b5-8200-9cde955d6835"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting2/Definitions/Combination/Setup
+Path: /sitecore/templates/eContracting2/Definitions/Combination/ThanYou Page
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 600
 Languages:
-- Language: cs
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20201013T081310Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
 - Language: en
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Kombinace
+    Value: Stránka s poděkováním
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201012T090120Z
+      Value: 20201021T111537Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
