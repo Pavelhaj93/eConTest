@@ -66,6 +66,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public DefinitionCombinationModel GetDefinition(string process, string processType)
+        {
+            var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+            return definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<LoginTypeModel> GetLoginTypes(OfferModel offer)
         {
             var definition = this.GetDefinition(offer);

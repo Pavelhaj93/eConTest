@@ -16,7 +16,7 @@ namespace eContracting.Services
     /// <summary>
     /// Service wrapper over generated <see cref="ZCCH_CACHE_API"/>.
     /// </summary>
-    public class CacheApiService : IApiService
+    public class SapApiService : IApiService
     {
         public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
 
@@ -24,6 +24,11 @@ namespace eContracting.Services
         /// The logger.
         /// </summary>
         protected readonly ILogger Logger;
+
+        /// <summary>
+        /// The cache.
+        /// </summary>
+        protected readonly ICache Cache;
 
         /// <summary>
         /// The settings reader service.
@@ -46,19 +51,22 @@ namespace eContracting.Services
         private readonly ZCCH_CACHE_APIClient Api;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheApiService"/> class.
+        /// Initializes a new instance of the <see cref="SapApiService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
+        /// <param name="cache">The cache.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <param name="offerParser">The offer parser.</param>
         /// <param name="offerAttachmentParser">The offer attachment parser.</param>
-        public CacheApiService(
+        public SapApiService(
             ILogger logger,
+            ICache cache,
             ISettingsReaderService settingsReaderService,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser)
         {
             this.Logger = logger;
+            this.Cache = cache;
             this.SettingsReaderService = settingsReaderService;
             this.OfferParser = offerParser;
             this.AttachmentParser = offerAttachmentParser;
@@ -98,7 +106,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferModel GetOffer(string guid, string type)
+        public OfferModel GetOffer(string guid, OFFER_TYPES type)
         {
             var task = Task.Run(() => this.GetOfferAsync(guid, type));
             task.Wait();
@@ -107,9 +115,10 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<OfferModel> GetOfferAsync(string guid, string type)
+        public async Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type)
         {
-            var response = await this.GetResponseAsync(guid, type);
+            var name = Enum.GetName(typeof(OFFER_TYPES), type);
+            var response = await this.GetResponseAsync(guid, name);
 
             if (response == null)
             {

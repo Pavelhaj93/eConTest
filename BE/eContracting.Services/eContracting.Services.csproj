@@ -87,13 +87,13 @@
   <ItemGroup>
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
-    <Compile Include="CacheApiService.cs" />
+    <Compile Include="SapApiService.cs" />
+    <Compile Include="CacheService.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MongoLoginReportStore.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />
     <Compile Include="OfferParserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SessionAuthenticationProviderService.cs" />
     <Compile Include="SitecoreSettingsReaderService.cs" />
   </ItemGroup>
   <ItemGroup>

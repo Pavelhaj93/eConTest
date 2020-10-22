@@ -5,6 +5,7 @@ using System.Web;
 using Castle.Core.Logging;
 using eContracting.Kernel;
 using eContracting.Kernel.GlassItems.Settings;
+using eContracting.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
@@ -39,7 +40,56 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
             try
             {
+                if (rendering.Item.TemplateID == Constants.TemplateIds.PageHome)
+                {
+                    var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+                    var url = settings.GetSiteSettings().WrongUrl.Url + "?code=" + Constants.ErrorCodes.HOMEPAGE;
+                    HttpContext.Current.Response.Redirect(url, true);
+                    return;
+                }
+
                 base.Initialize(rendering);
+
+                if (!Sitecore.Context.PageMode.IsNormal)
+                {
+                    var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
+                    var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+                    var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
+                    var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+
+                    if (string.IsNullOrEmpty(processCode))
+                    {
+                        processCode = settings.GetAllProcesses().First().Code;
+                    }
+
+                    if (string.IsNullOrEmpty(processTypeCode))
+                    {
+                        processTypeCode = settings.GetAllProcessTypes().First().Code;
+                    }
+
+                    var data = new OfferIdentifier(processCode, processTypeCode);
+                    cache.AddToRequest(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                }
+                else
+                {
+                    if (rendering.Item.TemplateID == Constants.TemplateIds.PageLogin)
+                    {
+                        var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+
+                        if (!string.IsNullOrEmpty(guid))
+                        {
+                            var api = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
+                            var offer = api.GetOffer(guid, OFFER_TYPES.NABIDKA);
+
+                            if (offer != null)
+                            {
+                                var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
+                                var data = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType);
+                                cache.AddToSession(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                            }
+                        }
+                    }
+                }
 
                 using (var sitecoreContext = new SitecoreContext())
                 {

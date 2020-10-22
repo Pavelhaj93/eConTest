@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Sitecore.Data;
 
 namespace eContracting
 {
     public static class Constants
     {
+        public static class OfferTypes
+        {
+            public const string NABIDKA = "NABIDKA";
+            public const string NABIDKA_PDF = "NABIDKA_PDF";
+            public const string NABIDKA_ARCH = "NABIDKA_ARCH";
+        }
+
         public static class FileAttributes
         {
             public const string GROUP = "GROUP";
@@ -30,6 +38,8 @@ namespace eContracting
 
         public static class ErrorCodes
         {
+            public const string HOMEPAGE = "000";
+
             /// <summary>
             /// The authentication process - unknown exception.
             /// </summary>
@@ -99,6 +109,44 @@ namespace eContracting
         public static class SessionKeys
         {
             public const string NAME = "ECON-GUID";
-        }  
+        }
+
+        public static class TemplateIds
+        {
+            public static ID PageHome { get; } = new ID("{652F8E4F-5A5B-484B-9552-7E1A8650644C}");
+            public static ID PageLogin { get; } = new ID("{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}");
+            public static ID PageOffer { get; } = new ID("{456D5421-A2DE-42B4-97E6-A42FC243BF10}");
+            public static ID PageOfferAccepted { get; } = new ID("{0F225E4F-AA1E-44CC-91F4-19D4FB5C859C}");
+            public static ID PageOfferExpired { get; } = new ID("{220B964C-EA21-4672-92F1-58CCE932BD33}");
+            public static ID PageThankYou { get; } = new ID("{4F3B54BA-3DBC-408C-9573-F9F86AC0C3C7}");
+
+            /// <summary>
+            /// Determines whether <paramref name="templateId"/> contains data with offer.
+            /// </summary>
+            /// <param name="templateId">The template identifier.</param>
+            public static bool IsOfferPage(ID templateId)
+            {
+                var ids = new[] { PageLogin, PageOffer, PageOfferAccepted, PageOfferExpired, PageThankYou };
+                return ids.Contains(templateId);
+            }
+        }
+
+        public static class CacheKeys
+        {
+            public const string OFFER_IDENTIFIER = "eContracting.OFFER_IDENTIFIER";
+            public const string AUTH_DATA = "eContracting.AUTH_DATA";
+
+            public static string GetGuidIdentifier(string offerType)
+            {
+                return OFFER_IDENTIFIER + offerType;
+            }
+        }
+
+        public static class QueryKeys
+        {
+            public const string GUID = "guid";
+            public const string PROCESS = "econ_p";
+            public const string PROCESS_TYPE = "econ_pt";
+        }
     }
 }

@@ -126,7 +126,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
                 }
 
-                var offer = this.ApiService.GetOffer(guid, "NABIDKA");
+                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
                 var canLogin = this.CanLogin(guid, offer);
 
                 if (canLogin != LoginStates.OK)
@@ -203,7 +203,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    return Redirect(url);
                 //}
 
-                var offer = this.ApiService.GetOffer(guid, "NABIDKA");
+                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
                 var canLogin = this.CanLogin(guid, offer);
 
                 if (canLogin != LoginStates.OK)
@@ -267,6 +267,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
             }
+        }
+
+        public ActionResult RichText()
+        {
+            throw new NotImplementedException();
         }
 
         protected internal void ReportLogin(bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)

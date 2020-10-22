@@ -56,7 +56,7 @@ namespace eContracting
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
-        OfferModel GetOffer(string guid, string type);
+        OfferModel GetOffer(string guid, OFFER_TYPES type);
 
         /// <summary>
         /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
@@ -64,7 +64,7 @@ namespace eContracting
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
-        Task<OfferModel> GetOfferAsync(string guid, string type);
+        Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type);
 
         /// <summary>
         /// Gets texts for offer <paramref name="guid"/> synchronously.

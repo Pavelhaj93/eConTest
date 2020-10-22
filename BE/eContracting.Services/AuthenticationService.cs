@@ -16,24 +16,24 @@ namespace eContracting.Services
         protected readonly ISettingsReaderService SettingsReader;
 
         /// <summary>
-        /// The authentication provider.
+        /// The cache.
         /// </summary>
-        protected readonly IAuthenticationProviderService AuthenticationProvider;
+        protected readonly ICache Cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
         /// </summary>
-        /// <param name="authProvider">The authentication provider.</param>
         /// <param name="settingsReader">The settings reader.</param>
+        /// <param name="cacheService">The cache service.</param>
         /// <exception cref="ArgumentNullException">
-        /// authProvider
-        /// or
         /// settingsReader
+        /// or
+        /// cacheService
         /// </exception>
-        public AuthenticationService(IAuthenticationProviderService authProvider, ISettingsReaderService settingsReader)
+        public AuthenticationService(ISettingsReaderService settingsReader, ICache cacheService)
         {
-            this.AuthenticationProvider = authProvider ?? throw new ArgumentNullException(nameof(authProvider));
             this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
+            this.Cache = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
         }
 
         /// <inheritdoc/>
@@ -103,19 +103,19 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void Login(AuthDataModel authData)
         {
-            this.AuthenticationProvider.Login(authData);
+            this.Cache.AddToSession(Constants.CacheKeys.AUTH_DATA, authData);
         }
 
         /// <inheritdoc/>
         public bool IsLoggedIn()
         {
-            return this.AuthenticationProvider.IsLoggedIn();
+            return this.GetCurrentUser() != null;
         }
 
         /// <inheritdoc/>
         public AuthDataModel GetCurrentUser()
         {
-            return this.AuthenticationProvider.GetData();
+            return this.Cache.GetFromSession<AuthDataModel>(Constants.CacheKeys.AUTH_DATA);
         }
 
         /// <summary>

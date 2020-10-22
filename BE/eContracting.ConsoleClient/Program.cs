@@ -21,7 +21,7 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
-                    services.AddScoped<IApiService, CacheApiService>();
+                    services.AddScoped<IApiService, SapApiService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetXmlCommand>();

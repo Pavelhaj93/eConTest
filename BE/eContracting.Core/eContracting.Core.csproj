@@ -87,8 +87,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IApiService.cs" />
-    <Compile Include="IAuthenticationProviderService.cs" />
     <Compile Include="IAuthenticationService.cs" />
+    <Compile Include="ICache.cs" />
     <Compile Include="ILoginReportStore.cs" />
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferParserService.cs" />
@@ -112,6 +112,7 @@
     <Compile Include="Models\OfferContentXmlModel.cs" />
     <Compile Include="Models\OfferFileAttribute.cs" />
     <Compile Include="Models\OfferHeaderXmlModel.cs" />
+    <Compile Include="Models\OfferIdentifier.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
     <Compile Include="Models\OfferModel.cs" />
     <Compile Include="Models\OfferPageModel.cs" />
@@ -125,6 +126,7 @@
     <Compile Include="Models\SimpleTextModel.cs" />
     <Compile Include="Models\SiteSettingsModel.cs" />
     <Compile Include="OfferTypes.cs" />
+    <Compile Include="OFFER_TYPES.cs" />
     <Compile Include="PageLinkType.cs" />
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessCondition.cs" />
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessTypeCondition.cs" />

@@ -21,6 +21,14 @@ namespace eContracting
         DefinitionCombinationModel GetDefinition(OfferModel offer);
 
         /// <summary>
+        /// Gets definition by <paramref name="process"/> and <paramref name="processType"/> from '/sitecore/content/eContracting2/Definitions'.
+        /// </summary>
+        /// <param name="process">The process.</param>
+        /// <param name="processType">Type of the process.</param>
+        /// <returns>Definition or null.</returns>
+        DefinitionCombinationModel GetDefinition(string process, string processType);
+
+        /// <summary>
         /// Gets available login types for <paramref name="offer"/> defined in <see cref="DefinitionCombinationModel"/>.
         /// </summary>
         /// <param name="offer">The offer.</param>

@@ -32,7 +32,7 @@ namespace eContracting.ConsoleClient.Commands
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
-            var offer = await this.ApiService.GetOfferAsync(guid, "NABIDKA");
+            var offer = await this.ApiService.GetOfferAsync(guid, OFFER_TYPES.NABIDKA);
 
             this.Console.WriteLine($"Birthday: {offer.Birthday}");
             this.Console.WriteLine($"Partner number: {offer.PartnerNumber}");

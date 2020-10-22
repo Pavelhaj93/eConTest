@@ -123,30 +123,5 @@ namespace eContracting.Models
                 return new TimeSpan(0, 15, 0);
             }
         }
-
-        /// <summary>
-        /// Gets texts by value name of <paramref name="offerType"/> from <see cref="Texts"/> collection or null if not found.
-        /// </summary>
-        /// <param name="offerType">Type of the offer.</param>
-        /// <returns>Instance of <see cref="GeneralTextsSettings"/> or null when not found.</returns>
-        public GeneralTextsSettings GetTexts(OfferTypes offerType)
-        {
-            var name = Enum.GetName(typeof(OfferTypes), offerType);
-            return this.Texts.FirstOrDefault(x => x.Name == name);
-        }
-
-        public string GetSignInFailure(OfferTypes offerType)
-        {
-            var value = this.SignFailure;
-            var texts = this.GetTexts(offerType);
-
-            // should not happen, default offer type doesn't need this
-            if (texts != null)
-            {
-                value = texts.SignFailure;
-            }
-
-            return value;
-        }
     }
 }

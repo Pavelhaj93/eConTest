@@ -26,6 +26,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     public class eContracting2Controller : GlassController
     {
         protected readonly ILogger Logger;
+        protected readonly ICache Cache;
         protected readonly IApiService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationService AuthenticationService;
@@ -36,6 +37,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2Controller()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
+            this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
@@ -43,11 +45,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public eContracting2Controller(
             ILogger logger,
+            ICache cache,
             IApiService apiService,
             ISettingsReaderService settingsReaderService,
             IAuthenticationService authService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthenticationService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
@@ -63,6 +67,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
+                if (!Sitecore.Context.PageMode.IsNormal)
+                {
+                    return this.OfferEdit();
+                }
+
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     this.Logger.Debug($"[{guid}] Session expired");
@@ -70,10 +79,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                var data = this.AuthenticationService.GetCurrentUser();
-                guid = data.Guid;
+                var user = this.AuthenticationService.GetCurrentUser();
+                guid = user.Guid;
 
-                var offer = this.ApiService.GetOffer(guid, "NABIDKA"); //TODO: Or NABIDKA_ARCH ?
+                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA); //TODO: Or NABIDKA_PDF ?
 
                 if (offer.IsAccepted)
                 {
@@ -96,12 +105,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                var definition = this.SettingsReaderService.GetDefinition(offer);
                 var datasource = this.GetLayoutItem<OfferPageModel>();
+                var definition = this.SettingsReaderService.GetDefinition(offer);
 
                 var viewModel = new OfferViewModel();
                 viewModel.Datasource = datasource;
-                viewModel.MainText = definition.MainTextOffer.Text;
+                viewModel.MainText = definition.OfferMainText.Text;
 
                 var parameters = new Dictionary<string, string>(); //TODO: SystemHelpers.GetParameters(this.Client, data.Identifier, data.OfferType, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer), this.SettingsReaderService.GetGeneralSettings());
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText, parameters);
@@ -135,6 +144,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_EXCEPTION;
                 return this.Redirect(redirectUrl);
             }
+        }
+
+        public ActionResult OfferEdit()
+        {
+            var datasource = this.GetLayoutItem<OfferPageModel>();
+            var data = this.Cache.GetFromRequest<OfferIdentifier>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+            if (data != null)
+            {
+                var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+                var viewModel = new OfferViewModel();
+                viewModel.Datasource = datasource;
+                viewModel.Definition = definition;
+                return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
+            }
+
+            return new EmptyResult(); //TODO: We should return something more describable
         }
 
         // AcceptedOfferController
@@ -242,7 +268,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 guid = this.AuthenticationService.GetCurrentUser().Guid;
-                var offer = this.ApiService.GetOffer(guid, "NABIDKA");
+                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
                 mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
 

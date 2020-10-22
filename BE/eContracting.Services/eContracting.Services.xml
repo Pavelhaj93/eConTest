@@ -12,21 +12,21 @@
             The settings reader.
             </summary>
         </member>
-        <member name="F:eContracting.Services.AuthenticationService.AuthenticationProvider">
+        <member name="F:eContracting.Services.AuthenticationService.Cache">
             <summary>
-            The authentication provider.
+            The cache.
             </summary>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.IAuthenticationProviderService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.ISettingsReaderService,eContracting.ICache)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.AuthenticationService"/> class.
             </summary>
-            <param name="authProvider">The authentication provider.</param>
             <param name="settingsReader">The settings reader.</param>
+            <param name="cacheService">The cache service.</param>
             <exception cref="T:System.ArgumentNullException">
-            authProvider
-            or
             settingsReader
+            or
+            cacheService
             </exception>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
@@ -52,91 +52,97 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
-        <member name="T:eContracting.Services.CacheApiService">
+        <member name="T:eContracting.Services.SapApiService">
             <summary>
             Service wrapper over generated <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.
             </summary>
         </member>
-        <member name="F:eContracting.Services.CacheApiService.Logger">
+        <member name="F:eContracting.Services.SapApiService.Logger">
             <summary>
             The logger.
             </summary>
         </member>
-        <member name="F:eContracting.Services.CacheApiService.SettingsReaderService">
+        <member name="F:eContracting.Services.SapApiService.Cache">
+            <summary>
+            The cache.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SapApiService.SettingsReaderService">
             <summary>
             The settings reader service.
             </summary>
         </member>
-        <member name="F:eContracting.Services.CacheApiService.OfferParser">
+        <member name="F:eContracting.Services.SapApiService.OfferParser">
             <summary>
             The offer parser.
             </summary>
         </member>
-        <member name="F:eContracting.Services.CacheApiService.AttachmentParser">
+        <member name="F:eContracting.Services.SapApiService.AttachmentParser">
             <summary>
             The attachment parser.
             </summary>
         </member>
-        <member name="F:eContracting.Services.CacheApiService.Api">
+        <member name="F:eContracting.Services.SapApiService.Api">
             <summary>
             The API client.
             </summary>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.ICache,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.CacheApiService"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Services.SapApiService"/> class.
             </summary>
             <param name="logger">The logger.</param>
+            <param name="cache">The cache.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <param name="offerParser">The offer parser.</param>
             <param name="offerAttachmentParser">The offer attachment parser.</param>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.AcceptOffer(System.String)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.AcceptOfferAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetOffer(System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetOffer(System.String,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetOfferAsync(System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetXml(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetXml(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetXmlAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetXmlAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetAttachments(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetAttachments(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetAttachmentsAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetAttachmentsAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.ReadOffer(System.String)">
+        <member name="M:eContracting.Services.SapApiService.ReadOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.ReadOfferAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.ReadOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SignInOffer(System.String)">
+        <member name="M:eContracting.Services.SapApiService.SignInOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SignInOfferAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.SignInOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetResponseAsync(System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetResponseAsync(System.String,System.String,System.String)">
             <summary>
             Gets data.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">Type from <see cref="F:eContracting.Services.CacheApiService.AvailableRequestTypes"/> collection.</param>
+            <param name="type">Type from <see cref="F:eContracting.Services.SapApiService.AvailableRequestTypes"/> collection.</param>
             <param name="fileType">Type of the file.</param>
             <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SetStatusAsync(System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,System.String,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -145,23 +151,49 @@
             <param name="status">The status.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.SetStatusAsync(System.String,System.String,System.Decimal,System.String)">
+        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,System.String,System.Decimal,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">A type from <see cref="F:eContracting.Services.CacheApiService.AvailableRequestTypes"/> collection.</param>
+            <param name="type">A type from <see cref="F:eContracting.Services.SapApiService.AvailableRequestTypes"/> collection.</param>
             <param name="timestamp">Decimal representation of a timestamp.</param>
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>True if it was successfully set or false.</returns>
         </member>
-        <member name="M:eContracting.Services.CacheApiService.GetFilesAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.SapApiService.GetFilesAsync(System.String,System.Boolean)">
             <summary>
             Gets the files asynchronous.
             </summary>
             <param name="guid">The unique identifier.</param>
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
+        </member>
+        <member name="T:eContracting.Services.CacheService">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.CacheService"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.CacheService.AddToRequest``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.AddToSession``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.AddToPersist``1(System.String,``0,System.TimeSpan)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.GetFromRequest``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.GetFromSession``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.GetFromPersist``1(System.String)">
+            <inheritdoc/>
         </member>
         <member name="F:eContracting.Services.MongoLoginReportStore.MongoClient">
             <summary>
@@ -229,21 +261,6 @@
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>
         </member>
-        <member name="T:eContracting.Services.SessionAuthenticationProviderService">
-            <summary>
-            Session provider for logged user.
-            </summary>
-            <seealso cref="T:eContracting.IAuthenticationProviderService" />
-        </member>
-        <member name="M:eContracting.Services.SessionAuthenticationProviderService.GetData">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.SessionAuthenticationProviderService.IsLoggedIn">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.SessionAuthenticationProviderService.Login(eContracting.Models.AuthDataModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
@@ -262,6 +279,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">

@@ -286,6 +286,12 @@
             The authentication process - invalid operation exception.
             </summary>
         </member>
+        <member name="M:eContracting.Constants.TemplateIds.IsOfferPage(Sitecore.Data.ID)">
+            <summary>
+            Determines whether <paramref name="templateId"/> contains data with offer.
+            </summary>
+            <param name="templateId">The template identifier.</param>
+        </member>
         <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
             <summary>
             Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
@@ -342,7 +348,7 @@
             <param name="guid">The unique identifier.</param>
             <returns>Files in array or null</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetOffer(System.String,System.String)">
+        <member name="M:eContracting.IApiService.GetOffer(System.String,eContracting.OFFER_TYPES)">
             <summary>
             Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
             </summary>
@@ -350,7 +356,7 @@
             <param name="type">Offer type.</param>
             <returns>The offer.</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,System.String)">
+        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
             <summary>
             Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
             </summary>
@@ -385,31 +391,6 @@
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="T:eContracting.IAuthenticationProviderService">
-            <summary>
-            Represents storage provider which holds information about logged users.
-            </summary>
-        </member>
-        <member name="M:eContracting.IAuthenticationProviderService.Login(eContracting.Models.AuthDataModel)">
-            <summary>
-            Log-in user with <paramref name="authData"/> containing <see cref="F:eContracting.Models.AuthDataModel.Guid"/>.
-            </summary>
-            <param name="authData">Auth data model.</param>
-        </member>
-        <member name="M:eContracting.IAuthenticationProviderService.IsLoggedIn">
-            <summary>
-            Determines whether user is logged in.
-            </summary>
-            <returns>
-              <c>true</c> if is logged in; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:eContracting.IAuthenticationProviderService.GetData">
-            <summary>
-            Gets auth date for current (context) user.
-            </summary>
-            <returns>Data or null.</returns>
         </member>
         <member name="T:eContracting.IAuthenticationService">
             <summary>
@@ -454,6 +435,60 @@
             Gets the current user.
             </summary>
             <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.ICache">
+            <summary>
+            The cache where you can store data in a request cache or in persist cache limited by interval.
+            </summary>
+        </member>
+        <member name="M:eContracting.ICache.AddToRequest``1(System.String,``0)">
+            <summary>
+            Adds <paramref name="data"/> to request cache.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="M:eContracting.ICache.AddToSession``1(System.String,``0)">
+            <summary>
+            Adds <paramref name="data"/> to session.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="M:eContracting.ICache.AddToPersist``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Adds <paramref name="data"/> into persist cache for <paramref name="interval"/> from now.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The data.</param>
+            <param name="interval">The interval.</param>
+        </member>
+        <member name="M:eContracting.ICache.GetFromRequest``1(System.String)">
+            <summary>
+            Gets data from request cache.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.ICache.GetFromSession``1(System.String)">
+            <summary>
+            Gets data from session.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.ICache.GetFromPersist``1(System.String)">
+            <summary>
+            Gets from persist cache.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
         </member>
         <member name="T:eContracting.ILoginReportStore">
             <summary>
@@ -536,6 +571,14 @@
             </summary>
             <param name="offer">The offer.</param>
             <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinition(System.String,System.String)">
+            <summary>
+            Gets definition by <paramref name="process"/> and <paramref name="processType"/> from '/sitecore/content/eContracting2/Definitions'.
+            </summary>
+            <param name="process">The process.</param>
+            <param name="processType">Type of the process.</param>
+            <returns>Definition or null.</returns>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <summary>
@@ -856,6 +899,41 @@
             <summary>
             Gets or sets body.
             </summary>
+        </member>
+        <member name="T:eContracting.Models.OfferIdentifier">
+            <summary>
+            Identifier for an offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferIdentifier.Guid">
+            <summary>
+            Gets offer GUID identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferIdentifier.Process">
+            <summary>
+            Gets offer's process.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferIdentifier.ProcessType">
+            <summary>
+            Gets offer's process type.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            </summary>
+            <param name="process">The process.</param>
+            <param name="processType">Type of the process.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="process">The process.</param>
+            <param name="processType">Type of the process.</param>
         </member>
         <member name="P:eContracting.Models.OfferLoginReportModel.Id">
             <summary>
@@ -1203,12 +1281,25 @@
             Parsed value from <see cref="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
             </value>
         </member>
-        <member name="M:eContracting.Models.SiteSettingsModel.GetTexts(eContracting.OfferTypes)">
+        <member name="T:eContracting.OFFER_TYPES">
             <summary>
-            Gets texts by value name of <paramref name="offerType"/> from <see cref="P:eContracting.Models.SiteSettingsModel.Texts"/> collection or null if not found.
+            Type of offers presented in SAP.
             </summary>
-            <param name="offerType">Type of the offer.</param>
-            <returns>Instance of <see cref="T:eContracting.GeneralTextsSettings"/> or null when not found.</returns>
+        </member>
+        <member name="F:eContracting.OFFER_TYPES.NABIDKA">
+            <summary>
+            Type "NABIDKA" contains basic information with textations.
+            </summary>
+        </member>
+        <member name="F:eContracting.OFFER_TYPES.NABIDKA_PDF">
+            <summary>
+            The "NABIDKA_PDF" contains attached files for new offer.
+            </summary>
+        </member>
+        <member name="F:eContracting.OFFER_TYPES.NABIDKA_ARCH">
+            <summary>
+            Type "NABIDKA_ARCH" contains attached files for accepted offer.
+            </summary>
         </member>
         <member name="T:eContracting.PageLinkTypes">
             <summary>

@@ -1,0 +1,90 @@
+@using System.Linq
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Website.Areas.eContracting2.Models
+@inherits GlassView<OfferViewModel> 
+
+<div class="row">
+    <div>
+        <div class="info">
+            @if (Model.Definition == null)
+            {
+                <div><p>No combination found</p></div>
+            }
+            else
+            {
+                <div>
+                    <h1>OfferTitle</h1>
+                    @Editable(Model.Definition.OfferTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferMainText</h2>
+                    @Editable(Model.Definition.OfferMainText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferBenefitsTitle</h2>
+                    @Editable(Model.Definition.OfferBenefitsTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferDocumentsForAcceptanceTitle</h2>
+                    @Editable(Model.Definition.OfferDocumentsForAcceptanceTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferDocumentsForAcceptanceText</h2>
+                    @Editable(Model.Definition.OfferDocumentsForAcceptanceText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferDocumentsForAcceptanceSection1</h2>
+                    @Editable(Model.Definition.OfferDocumentsForAcceptanceSection1, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferDocumentsForAcceptanceSection2</h2>
+                    @Editable(Model.Definition.OfferDocumentsForAcceptanceSection2, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferObligatoryDocumentsTitle</h2>
+                    @Editable(Model.Definition.OfferObligatoryDocumentsTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferObligatoryAdditionalDocsText</h2>
+                    @Editable(Model.Definition.OfferObligatoryAdditionalDocsText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferObligatoryAdditionalDocsHelp</h2>
+                    @Editable(Model.Definition.OfferObligatoryAdditionalDocsHelp, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferObligatoryDocumentsNote</h2>
+                    @Editable(Model.Definition.OfferObligatoryDocumentsNote, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferSupplementDocumentsTitle</h2>
+                    @Editable(Model.Definition.OfferSupplementDocumentsTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferSupplementDocumentsText</h2>
+                    @Editable(Model.Definition.OfferSupplementDocumentsText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferOtherProductsTitle</h2>
+                    @Editable(Model.Definition.OfferOtherProductsTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferOtherProductsAcceptDocumentsText</h2>
+                    @Editable(Model.Definition.OfferOtherProductsAcceptDocumentsText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferOtherProductsText</h2>
+                    @Editable(Model.Definition.OfferOtherProductsText, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferAcceptTitle</h2>
+                    @Editable(Model.Definition.OfferAcceptTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>OfferAcceptText</h2>
+                    @Editable(Model.Definition.OfferAcceptText, x => x.Text)
+                </div>}
+        </div>
+    </div>
+</div>

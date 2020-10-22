@@ -67,5 +67,10 @@ namespace eContracting.ConsoleClient
         {
             throw new NotImplementedException();
         }
+
+        public ProcessStepModel[] GetSteps(ProcessStepModel currentStep)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
