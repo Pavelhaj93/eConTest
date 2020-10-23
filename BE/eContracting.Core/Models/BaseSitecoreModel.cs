@@ -27,6 +27,12 @@ namespace eContracting.Models
         public virtual string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets Sitecore item display name.
+        /// </summary>
+        [SitecoreInfo(Type = SitecoreInfoType.DisplayName)]
+        public virtual string DisplayName { get; set; }
+
+        /// <summary>
         /// Gets or sets full path of the item.
         /// </summary>
         [SitecoreInfo(Type = SitecoreInfoType.FullPath)]

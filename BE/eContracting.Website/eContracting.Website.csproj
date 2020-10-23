@@ -255,6 +255,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\eContracting2\Views\Base\" />
+    <Folder Include="Areas\eContracting2\Views\Edit\" />
     <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>

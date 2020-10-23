@@ -85,7 +85,7 @@ namespace eContracting.Services
 
                 if (count > 1)
                 {
-                    var index = Rand.Next(0, count - 1);
+                    var index = Rand.Next(0, count);
                     loginTypes.Add(availableLoginTypes[index]);
                 }
                 else

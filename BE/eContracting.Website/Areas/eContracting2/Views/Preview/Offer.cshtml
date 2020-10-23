@@ -1,4 +1,4 @@
-@using System.Linq
+﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
@@ -14,35 +14,35 @@
             else
             {
                 <div>
-                    <h1>OfferTitle</h1>
+                    <h2>Nadpis</h2>
                     @Editable(Model.Definition.OfferTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferMainText</h2>
+                    <h2>Hlavní text</h2>
                     @Editable(Model.Definition.OfferMainText, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferBenefitsTitle</h2>
+                    <h2>Nadpis benefitů</h2>
                     @Editable(Model.Definition.OfferBenefitsTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferDocumentsForAcceptanceTitle</h2>
+                    <h2>Nadpis dokumentů k akceptaci</h2>
                     @Editable(Model.Definition.OfferDocumentsForAcceptanceTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferDocumentsForAcceptanceText</h2>
+                    <h2>Text pro dokumenty k akceptaci</h2>
                     @Editable(Model.Definition.OfferDocumentsForAcceptanceText, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferDocumentsForAcceptanceSection1</h2>
+                    <h2>Text k dodatkům</h2>
                     @Editable(Model.Definition.OfferDocumentsForAcceptanceSection1, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferDocumentsForAcceptanceSection2</h2>
+                    <h2>Text k plné moci</h2>
                     @Editable(Model.Definition.OfferDocumentsForAcceptanceSection2, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferObligatoryDocumentsTitle</h2>
+                    <h2>Nadpis povinný dokumentů k nahrání</h2>
                     @Editable(Model.Definition.OfferObligatoryDocumentsTitle, x => x.Text)
                 </div>
                 <div>

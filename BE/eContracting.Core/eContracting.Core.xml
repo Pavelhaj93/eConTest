@@ -675,6 +675,11 @@
             Gets or sets Sitecore item name.
             </summary>
         </member>
+        <member name="P:eContracting.Models.BaseSitecoreModel.DisplayName">
+            <summary>
+            Gets or sets Sitecore item display name.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.BaseSitecoreModel.Path">
             <summary>
             Gets or sets full path of the item.
