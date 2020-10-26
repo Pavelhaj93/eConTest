@@ -10,7 +10,7 @@ SharedFields:
   Value: UserBlocked
 - ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
   Hint: Controller
-  Value: eContracting.Website.Areas.eContracting.Controllers.eContractingController, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting.Controllers.UserBlockedController, eContracting.Website
 Languages:
 - Language: en
   Versions:

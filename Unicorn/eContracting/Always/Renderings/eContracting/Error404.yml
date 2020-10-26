@@ -1,16 +1,13 @@
 ﻿---
 ID: "463b6026-fac7-4e4a-9ca1-796170e2a711"
 Parent: "29d7aa96-3d51-4d2c-9ecd-f52d9ee361f2"
-Template: "2a3e91a0-7987-44b5-ab34-35c2d9de83b9"
+Template: "99f8905d-4a87-4eb8-9f8b-a9bebfb3add6"
 Path: /sitecore/layout/Renderings/eContracting/Error404
 DB: master
 SharedFields:
-- ID: "ded9e431-3604-4921-a4b3-a6ec7636a5b6"
-  Hint: Controller Action
-  Value: Error404
-- ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
-  Hint: Controller
-  Value: eContracting.Website.Areas.eContracting.Controllers.eContractingController, eContracting.Website
+- ID: "51b435bc-f7b9-478a-9c51-52916af96ff5"
+  Hint: Path
+  Value: /Areas/eContracting/Views/Error404.cshtml
 Languages:
 - Language: en
   Versions:
