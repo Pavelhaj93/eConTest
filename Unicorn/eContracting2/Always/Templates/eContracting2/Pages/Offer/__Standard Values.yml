@@ -65,9 +65,6 @@ Languages:
     - ID: "59fa2d18-799f-482d-88e3-c37a37e76444"
       Hint: AesEncryptKey
       Value: oEdvEcn24ofUe3gjXpFHYCd22ygalbXw
-    - ID: "5a976224-c2d7-491d-836f-39820e290aee"
-      Hint: SelectAll_Text
-      Value: Označit vše
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -95,7 +92,7 @@ Languages:
       Hint: OtherServicesTitle
       Value: Ostatní produkty
     - ID: "98a163db-f5fd-4444-adcd-3993a26c7ba6"
-      Hint: BenefitTitle
+      Hint: BenefitsTitle
       Value: Zvoleným produktem získáte
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle

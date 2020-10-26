@@ -8,12 +8,6 @@ SharedFields:
 - ID: "2975573d-f84c-4ce8-9546-45a35ecb1580"
   Hint: Code
   Value: 01
-- ID: "a8256bbb-6d8c-4032-bb4b-27fcf55c0ae8"
-  Hint: Types
-  Type: Multilist
-  Value: |
-    {C2CE964B-8F81-41E6-A15E-39DF476C8663}
-    {0A0C26AC-88DF-42E9-A59E-DA057C3457F6}
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 300

@@ -42,78 +42,16 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090319Z
-    - ID: "2e01c1cc-1503-416b-9af1-92d13203b308"
-      Hint: MainTextCampaign
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
-        <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul>
-            <li>potvrzen&iacute; o přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě</li>
-            <li>webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak m&aacute;te kdykoliv k dispozici.</li>
-        </ul>
-        <p>Va&scaron;e innogy</p>
-    - ID: "556ae203-2ba4-4a18-8c13-56fd8cdd064f"
-      Hint: MainTextAcquisitionCampaign
-      Value: |
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">Děkujeme za akceptaci dokumentů k Va&scaron;&iacute; smlouvě s innogy.</p>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px;">
-            <li>Potvrzen&iacute; o přijet&iacute; akceptovan&yacute;ch dokumentů</li>
-            <li>Webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak budete m&iacute;t kdykoliv k dispozici</li>
-        </ul>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; padding: 0px;">Va&scaron;e innogy</p>
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "614a795d-c9a7-481a-9836-3973a88e50d6"
-      Hint: MainTextRetentionIndividual
-      Value: |
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">Děkujeme za akceptaci dokumentů k Va&scaron;&iacute; smlouvě s innogy. </p>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px;">
-            <li>Potvrzen&iacute; o přijet&iacute; akceptovan&yacute;ch dokumentů</li>
-            <li>Webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak budete m&iacute;t kdykoliv k dispozici</li>
-        </ul>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; padding: 0px;">Va&scaron;e innogy</p>
-    - ID: "82450bff-44c1-4c77-bfc0-d249bbc32c5b"
-      Hint: MainTextRetentionCampaign
-      Value: |
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">Děkujeme za akceptaci dokumentů k Va&scaron;&iacute; smlouvě s innogy.</p>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px;">
-            <li>Potvrzen&iacute; o přijet&iacute; akceptovan&yacute;ch dokumentů</li>
-            <li>Webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak budete m&iacute;t kdykoliv k dispozici</li>
-        </ul>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; padding: 0px;">Va&scaron;e innogy</p>
-    - ID: "bbc02ea3-ee53-42d2-b6fd-b27600ae8b70"
-      Hint: MainTextAcquisitionIndividual
-      Value: |
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">Děkujeme za akceptaci dokumentů k Va&scaron;&iacute; smlouvě s innogy.</p>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px; padding: 0px;">V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul style="color: #172b4d; background-color: #ffffff; margin-top: 10px; margin-bottom: 0px;">
-            <li>Potvrzen&iacute; o přijet&iacute; akceptovan&yacute;ch dokumentů</li>
-            <li>Webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak budete m&iacute;t kdykoliv k dispozici</li>
-        </ul>
-        <p style="color: #172b4d; background-color: #ffffff; margin-top: 10px; padding: 0px;">Va&scaron;e innogy</p>
     - ID: "e13ea30e-18ec-411d-b27d-51161560b10d"
       Hint: ServiceUnavailableText
       Value: |
         <p>Omlouv&aacute;me se V&aacute;m, ale aplikaci eContracting se nepodařilo spustit. Př&iacute;činou může b&yacute;t pr&aacute;vě prob&iacute;haj&iacute;c&iacute; odst&aacute;vka aplikace.</p>
         <p>V př&iacute;padě potřeby využijte na&scaron;i z&aacute;kaznickou linku uvedenou v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
         <p>Děkujeme</p>
-        <p>Va&scaron;e innogy</p>
-    - ID: "fcb5fbe0-50a4-4225-9394-cc9da570d7ff"
-      Hint: MainTextIndividual
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme za akceptaci dodatku k Va&scaron;&iacute; smlouvě s innogy.</p>
-        <p>V n&aacute;sleduj&iacute;c&iacute;ch hodin&aacute;ch V&aacute;m e-mailem za&scaron;leme:</p>
-        <ul>
-            <li>potvrzen&iacute; o přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě</li>
-            <li>webov&yacute; odkaz k pr&aacute;vě akceptovan&yacute;m smluvn&iacute;m dokumentům, kter&eacute; tak m&aacute;te kdykoliv k dispozici.</li>
-        </ul>
         <p>Va&scaron;e innogy</p>
 - Language: en
   Versions:

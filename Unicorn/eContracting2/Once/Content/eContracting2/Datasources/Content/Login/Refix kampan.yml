@@ -4,13 +4,6 @@ Parent: "9a212c47-cb9b-4bda-a075-0e1873f3bffe"
 Template: "0574008b-75be-4c2d-8583-451a67d33e0b"
 Path: /sitecore/content/eContracting2/Datasources/Content/Login/Refix kampan
 DB: master
-SharedFields:
-- ID: "131e3ad0-f6bc-48fb-9fad-2b459bad5ef1"
-  Hint: ProcessType
-  Value: "{0A0C26AC-88DF-42E9-A59E-DA057C3457F6}"
-- ID: "bf80ad20-8fe9-40ea-9584-feeb9086beee"
-  Hint: Process
-  Value: "{9FB9BC18-55AA-4FC6-B592-BF9FDA2A0D7E}"
 Languages:
 - Language: cs
   Versions:

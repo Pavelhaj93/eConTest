@@ -66,7 +66,7 @@ SharedFields:
   Hint: OfferBenefitsTitle
   Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
 - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
-  Hint: MainTextOffer
+  Hint: OfferMainText
   Value: "{F7CE88CF-DBF4-4A84-AE61-6DDC8B50DD7E}"
 - ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
   Hint: MainTextOfferAccepted
@@ -78,7 +78,7 @@ SharedFields:
   Hint: OfferDocumentsForAcceptanceSection2
   Value: "{CF59474B-E808-46D8-9569-AF98224E21D9}"
 - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
-  Hint: MainTextThankYour
+  Hint: MainTextThankYou
   Value: "{C725E00E-DE09-433F-94A1-D12C8D6799B2}"
 Languages:
 - Language: cs

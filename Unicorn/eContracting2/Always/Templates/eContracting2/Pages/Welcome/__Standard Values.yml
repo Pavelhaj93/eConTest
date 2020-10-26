@@ -33,9 +33,6 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "8edde421-cc67-4ed4-a1f9-8e7fe1d91eb3"
-      Hint: PageTitle
-      Value: Nabídka
     - ID: "a56ad276-aa81-4c15-9ed5-a71dd2e63be0"
       Hint: ButtonText
       Value: Pokračovat

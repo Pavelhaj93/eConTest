@@ -10,7 +10,7 @@ Languages:
   - Version: 1
     Fields:
     - ID: "124ed975-c5c5-48c6-a242-a677d8ef357b"
-      Hint: Title
+      Hint: Label
       Value: Přečtení a potvrzení dokumentů
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created

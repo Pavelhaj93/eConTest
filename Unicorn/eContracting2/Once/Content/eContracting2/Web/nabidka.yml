@@ -5,9 +5,6 @@ Template: "456d5421-a2de-42b4-97e6-a42fc243bf10"
 Path: /sitecore/content/eContracting2/Web/nabidka
 DB: master
 SharedFields:
-- ID: "71db3433-fadb-4c30-9f84-2997055050ac"
-  Hint: NextPage
-  Value: "/sitecore/content/eContracting2/Web/nabidka-akceptovana"
 - ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
   Hint: Step
   Value: "{9305D279-B84F-4873-B0CA-53CBAAC343E6}"

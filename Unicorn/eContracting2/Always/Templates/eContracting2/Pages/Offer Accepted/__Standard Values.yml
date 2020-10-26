@@ -27,61 +27,13 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090019Z
-    - ID: "4662f458-306a-44a1-8891-517d3a9de0ad"
-      Hint: MainTextAcquisitionIndividual
-      Value: |
-        <h3>M&aacute;te hotovo!</h3>
-        <p>Děkujeme V&aacute;m za akceptaci na&scaron;&iacute; nab&iacute;dky.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumenty, kter&eacute; byly elektronicky akceptov&aacute;ny.</p>
-        <p>Va&scaron;e innogy</p>
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "71656c7a-f358-4f5d-ab8b-f324602fbebe"
-      Hint: MainTextIndividual
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
-        <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>
-        <p>N&iacute;že najdete smluvn&iacute; dokumenty, kter&eacute; jste elektronicky akceptoval/a.</p>
-        <p>Dokumenty zde budete m&iacute;t př&iacute;stupn&eacute; po dobu trv&aacute;n&iacute; platnosti smlouvy.</p>
-        <p>V př&iacute;padě dotazů n&aacute;s nev&aacute;hejte kontaktovat na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv <a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
-        <p>Va&scaron;e innogy</p>
-    - ID: "82407ff1-7c77-4bdf-b597-92aa411df1c2"
-      Hint: MainTextRetentionIndividual
-      Value: |
-        <h3>M&aacute;te hotovo!</h3>
-        <p>Děkujeme V&aacute;m za akceptaci na&scaron;&iacute; nab&iacute;dky. </p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumenty, kter&eacute; byly elektronicky akceptov&aacute;ny.</p>
-        <p>Va&scaron;e innogy</p>
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Akceptovaná nabídka
-    - ID: "c0ee36de-e5b4-4516-a2aa-a2d60c84104a"
-      Hint: MainTextAcquisitionCampaign
-      Value: |
-        <h3>M&aacute;te hotovo!</h3>
-        <p>Děkujeme V&aacute;m za akceptaci na&scaron;&iacute; nab&iacute;dky.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumenty, kter&eacute; byly elektronicky akceptov&aacute;ny.</p>
-        <p>Va&scaron;e innogy</p>
-    - ID: "d717d4a9-073b-4a23-9bf7-e9750574ab88"
-      Hint: MainTextRetentionCampaign
-      Value: |
-        <h3>M&aacute;te hotovo!</h3>
-        <p>Děkujeme V&aacute;m za akceptaci na&scaron;&iacute; nab&iacute;dky.</p>
-        <p>N&iacute;že naleznete smluvn&iacute; dokumenty, kter&eacute; byly elektronicky akceptov&aacute;ny.</p>
-        <p>Va&scaron;e innogy</p>
-    - ID: "eacaf8c3-ea16-4726-9328-66ab20b5fe69"
-      Hint: MainTextCampaign
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
-        <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>
-        <p>N&iacute;že najdete smluvn&iacute; dokumenty, kter&eacute; jste elektronicky akceptoval/a.</p>
-        <p>Dokumenty zde budete m&iacute;t př&iacute;stupn&eacute; po dobu trv&aacute;n&iacute; platnosti smlouvy.</p>
-        <p>V př&iacute;padě dotazů n&aacute;s nev&aacute;hejte kontaktovat na z&aacute;kaznick&eacute; lince uveden&eacute; v prav&eacute;m horn&iacute;m rohu nebo na kter&eacute;mkoliv&nbsp;<a rel="noopener noreferrer" rel="noopener noreferrer" href="http://www.innogy.cz/kontakty/" target="_blank">z&aacute;kaznick&eacute;m centru</a>.</p>
-        <p>Va&scaron;e innogy</p>
 - Language: en
   Versions:
   - Version: 1
