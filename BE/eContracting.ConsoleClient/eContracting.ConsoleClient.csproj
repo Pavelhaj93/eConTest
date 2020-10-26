@@ -59,12 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\GetXmlCommand.cs" />
     <Compile Include="Commands\GetFilesCommand.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ContextData.cs" />
     <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="Commands\GetOfferCommand.cs" />
+    <Compile Include="MemoryCacheService.cs" />
     <Compile Include="MemorySettingsReaderService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

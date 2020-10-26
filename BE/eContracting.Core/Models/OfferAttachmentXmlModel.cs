@@ -53,7 +53,7 @@ namespace eContracting.Models
         /// </summary>
         public readonly byte[] FileContent;
 
-        public List<OfferFileAttribute> Attributes { get; } = new List<OfferFileAttribute>();
+        public List<OfferAttributeModel> Attributes { get; } = new List<OfferAttributeModel>();
 
         public int Size
         {
@@ -128,10 +128,24 @@ namespace eContracting.Models
             get { return this.HasAttribute(Constants.FileAttributes.MAIN_DOC); }
         }
 
-        public OfferAttachmentXmlModel()
+        /// <summary>
+        /// Prevents a default instance of the <see cref="OfferAttachmentXmlModel"/> class from being created.
+        /// </summary>
+        private OfferAttachmentXmlModel()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferAttachmentXmlModel"/> class.
+        /// </summary>
+        /// <param name="index">The index.</param>
+        /// <param name="number">The number.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="signRequired">if set to <c>true</c> [sign required].</param>
+        /// <param name="tempAlcId">The temporary alc identifier.</param>
+        /// <param name="signedVersion">if set to <c>true</c> [signed version].</param>
+        /// <param name="content">The content.</param>
         public OfferAttachmentXmlModel(string index, string number, string type, string name, bool signRequired, string tempAlcId, bool signedVersion, byte[] content)
         {
             this.Index = index;

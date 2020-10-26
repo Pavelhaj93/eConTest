@@ -1,36 +1,72 @@
-﻿@using System.Linq 
+﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
 @model LoginViewModel
+@{
+    var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
+    var choices = Model.Choices.ToArray();
+}
 <div class="row">
     @*<div id="token">@@Html.AntiForgeryToken()</div>*@
-    <div class="@*col-md-8 col-md-offset-2*@">
+    <div>
         <div class="info">
             @Html.Sitecore().Placeholder("eContracting2-login-richtext")
             @Html.Raw(ViewData["MainText"])
         </div>
         <div id="app"></div>
     </div>
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <th>BIRTHDATE:</th>
+                    <td>@Model.Birthdate</td>
+                </tr>
+                <tr>
+                    <th>BUS_PROCESS:</th>
+                    <td>@Model.BussProcess</td>
+                </tr>
+                <tr>
+                    <th>BUS_TYPE:</th>
+                    <td>@Model.BussProcessType</td>
+                </tr>
+                <tr>
+                    <th>PARTNER:</th>
+                    <td>@Model.Partner</td>
+                </tr>
+                <tr>
+                    <th>PSC:</th>
+                    <td>@Model.Zip1</td>
+                </tr>
+                <tr>
+                    <th>PSC_MS:</th>
+                    <td>@Model.Zip2</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <form action="@Request.RawUrl" method="post" style="text-align: left; box-sizing: content-box;">
         @Html.AntiForgeryToken()
-        <div>
-            <p style="margin: 0px;">BIRTHDATE: @Model.Birthdate</p>
-            <p>BUS_PROCESS: @Model.BussProcess</p>
-            <p>BUS_TYPE: @Model.BussProcessType</p>
-            <p>PARTNER: @Model.Partner</p>
-            <p>PSC: @Model.Zip1</p>
-            <p>PSC_MS: @Model.Zip2</p>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Model.Datasource.BirthDateLabel:</label>
+                @Html.TextBox("birthdate", "", new { placeholder = birthDatePlaceholder })
+                <p>@Model.Datasource.BirthDatePlaceholder</p>
+            </div>
+            <div class="col-sm-6">
+                @for (int i = 0; i < choices.Length; i++)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="key" id="@("c" + i)" value="@choices[i].Key" />
+                        <label class="form-check-label" for="@("c" + i)">
+                            @choices[i].Label
+                        </label>
+                    </div>
+                }
+                <p>@Html.TextBox("value")</p>
+            </div>
         </div>
-        <h1>Datum narození</h1>
-        <p>@Html.TextBox("birthdate")</p>
-        @foreach (var choice in Model.Choices)
-        {
-            <h2>@choice.Label</h2>
-            <p>@Html.RadioButton("key", choice.Key)</p>
-        }
-        <h2>Hodnota</h2>
-        <p>@Html.TextBox("value")</p>
         <button type="submit">Submit</button>
     </form>
 </div>

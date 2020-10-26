@@ -1,0 +1,39 @@
+﻿@using System.Linq
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Website.Areas.eContracting2.Models
+@inherits GlassView<LoginViewModel>
+@{ 
+    var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
+    var choices = Model.Choices.ToArray();
+}
+<div class="row">
+    @*<div id="token">@@Html.AntiForgeryToken()</div>*@
+    <div class="container">
+        <div class="info">
+            @Html.Sitecore().Placeholder("eContracting2-login-richtext")
+        </div>
+    </div>
+    <div class="container" style="text-align: left; box-sizing: content-box; padding-top: 14px;">
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Editable(Model.Datasource, x => x.BirthDateLabel):</label>
+                @Html.TextBox("birthdate", "", new { placeholder = birthDatePlaceholder })
+                <p>@Editable(Model.Datasource, x => x.BirthDatePlaceholder)</p>
+            </div>
+            <div class="col-sm-6">
+                @for (int i = 0; i < choices.Length; i++)
+                {
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="c@i" value="@choices[i].Key" />
+                    <label class="form-check-label" for="c@i">
+                        @choices[i].Label
+                    </label>
+                </div>
+                }
+                <p>@Html.TextBox("value")</p>
+            </div>
+        </div>
+        <button type="button">@Editable(Model.Datasource, x => x.ButtonText)</button>
+    </div>
+</div>

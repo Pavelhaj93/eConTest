@@ -408,14 +408,6 @@
             <param name="value">The value by login type.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.IAuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
-            <summary>
-            Gets the key with combination of unique key of <paramref name="loginType"/> and unique key of <paramref name="offer"/>.
-            </summary>
-            <param name="loginType">Type of the login.</param>
-            <param name="offer">The offer.</param>
-            <returns></returns>
-        </member>
         <member name="M:eContracting.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
             <summary>
             Log-in user with <paramref name="authData"/>.
@@ -790,6 +782,24 @@
             Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
             </summary>
         </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Boolean,System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="number">The number.</param>
+            <param name="type">The type.</param>
+            <param name="name">The name.</param>
+            <param name="signRequired">if set to <c>true</c> [sign required].</param>
+            <param name="tempAlcId">The temporary alc identifier.</param>
+            <param name="signedVersion">if set to <c>true</c> [signed version].</param>
+            <param name="content">The content.</param>
+        </member>
         <member name="P:eContracting.Models.OfferBodyXmlModel.Guid">
             <summary>
             Gets or sets uuid.
@@ -895,6 +905,13 @@
             Gets or sets ACCOUNT_NUMBER from SAP.
             </summary>
         </member>
+        <member name="M:eContracting.Models.OfferBodyXmlModel.Get(System.String)">
+            <summary>
+            Gets the specified XML element by <paramref name="xmlElementAttribuName"/> from this object.
+            </summary>
+            <param name="xmlElementAttribuName">The XML element name.</param>
+            <returns>Value or null.</returns>
+        </member>
         <member name="P:eContracting.Models.OfferContentXmlModel.Header">
             <summary>
             Gets or sets header.
@@ -904,6 +921,58 @@
             <summary>
             Gets or sets body.
             </summary>
+        </member>
+        <member name="T:eContracting.Models.OfferAttributeModel">
+            <summary>
+            Represent an attribute anywhere in an offer.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttributeModel.Index">
+            <summary>
+            Gets the index.
+            </summary>
+            <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX"/>
+        </member>
+        <member name="F:eContracting.Models.OfferAttributeModel.Key">
+            <summary>
+            The key.
+            </summary>
+            <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID"/>
+        </member>
+        <member name="F:eContracting.Models.OfferAttributeModel.Value">
+            <summary>
+            The value.
+            </summary>
+            <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL"/>
+        </member>
+        <member name="M:eContracting.Models.OfferAttributeModel.#ctor(System.Int32,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttributeModel"/> class.
+            </summary>
+            <param name="index">The index.</param>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferAttributeModel.#ctor(eContracting.Services.ZCCH_ST_ATTRIB)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttributeModel"/> class.
+            </summary>
+            <param name="attrib">The attribute.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferHeaderModel.#ctor(eContracting.Services.ZCCH_ST_HEADER)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferHeaderModel"/> class.
+            </summary>
+            <param name="header">The header.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferHeaderModel.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferHeaderModel"/> class.
+            </summary>
+            <param name="type">The type.</param>
+            <param name="key">The key.</param>
+            <param name="stat">The stat.</param>
+            <param name="valto">The valto.</param>
         </member>
         <member name="T:eContracting.Models.OfferIdentifier">
             <summary>
@@ -995,6 +1064,11 @@
             Gets or sets number of success attenpts.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferModel.Xml">
+            <summary>
+            Inner XML with content from SAP.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferModel.Guid">
             <summary>
             Gets or sets the unique GUID of this offer.
@@ -1039,6 +1113,57 @@
             <summary>
             Gets or sets State.
             </summary>
+            <remarks>
+                Description provided by Tereza:
+                <list type="table">
+                    <item>1 - Zapsáno</item>    
+                    <item>2 - Automatizace (je, že ji můžeme načíst, je jsou dokumenty v pořádku vygenerované)</item>
+                    <item>3 - Aktivní</item>
+                    <item>4 - Přečteno (se nastavuje, když si zákazník otevře na webu)</item>
+                    <item>5 - Akceptováno</item>
+                    <item>6 - Přihlášeno (když se poprvé přihlásí)</item>
+                    <item>8 - Chyba</item>
+                    <item>9 - Zastaralé (když je to stornované (prošlost se totiž ve skutečnosti podle mě kontrolovala podle data)</item>
+                </list>
+            </remarks>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.OfferIsExpired">
+            <summary>
+            Gets a value indicating whether offer already expired.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferModel.Attributes">
+            <summary>
+            Attributes from the offer.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferModel.Header">
+            <summary>
+            Header values from the offer.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferModel"/> class.
+            </summary>
+            <param name="xml">The XML.</param>
+            <param name="header">The header.</param>
+            <param name="attributes">The attributes.</param>
+            <exception cref="T:System.ArgumentNullException">
+            xml
+            or
+            header
+            or
+            attributes
+            </exception>
+            <exception cref="T:System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
+        </member>
+        <member name="M:eContracting.Models.OfferModel.GetValue(System.String)">
+            <summary>
+            Gets value from inner 'Xml.Content.Body' by XML name attribute.
+            </summary>
+            <param name="xmlElementName">Name of the XML element.</param>
+            <returns>Value or null.</returns>
         </member>
         <member name="T:eContracting.Models.OfferPageModel">
             <summary>
@@ -1416,6 +1541,14 @@
             </summary>
             <seealso cref="!:https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
             <param name="size">The size.</param>
+        </member>
+        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
+            <summary>
+            Gets the unique key for login type in a login view.
+            </summary>
+            <param name="loginType">Type of the login.</param>
+            <param name="offer">The offer.</param>
+            <returns>Generated key.</returns>
         </member>
         <member name="T:eContracting.ILogger">
             <summary>

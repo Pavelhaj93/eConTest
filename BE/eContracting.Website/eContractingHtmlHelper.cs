@@ -25,7 +25,7 @@ namespace eContracting.Website
 
         public HtmlString ProcessTypeSwitcher()
         {
-            if (!Sitecore.Context.PageMode.IsNormal)
+            if (Sitecore.Context.PageMode.IsPreview)
             {
                 var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
                 var allProcesses = settings.GetAllProcesses();

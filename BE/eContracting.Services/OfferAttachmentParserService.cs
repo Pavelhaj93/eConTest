@@ -48,7 +48,7 @@ namespace eContracting.Services
                 for (int i = 0; i < file.ATTRIB.Length; i++)
                 {
                     var attr = file.ATTRIB[i];
-                    fileModel.Attributes.Add(new OfferFileAttribute(Convert.ToInt32(attr.ATTRINDX), attr.ATTRID, attr.ATTRVAL));
+                    fileModel.Attributes.Add(new OfferAttributeModel(attr));
                 }
             }
 

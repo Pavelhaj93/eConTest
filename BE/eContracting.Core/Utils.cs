@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using eContracting.Models;
 using Sitecore.Web;
 
 namespace eContracting
@@ -82,7 +83,7 @@ namespace eContracting
         public static string SetQuery(Uri url, string key, string value)
         {
             var uriBuilder = new UriBuilder(url);
-            var query = WebUtil.ParseQueryString(uriBuilder.Query);
+            var query = WebUtil.ParseQueryString(uriBuilder.Query);            
             query[key] = value;
             uriBuilder.Query = WebUtil.BuildQueryString(query, false);
             return uriBuilder.Uri.ToString();
@@ -95,6 +96,17 @@ namespace eContracting
             query[key] = value;
             uriBuilder.Query = WebUtil.BuildQueryString(query, false);
             return uriBuilder.Uri.ToString();
+        }
+
+        /// <summary>
+        /// Gets the unique key for login type in a login view.
+        /// </summary>
+        /// <param name="loginType">Type of the login.</param>
+        /// <param name="offer">The offer.</param>
+        /// <returns>Generated key.</returns>
+        public static string GetUniqueKey(LoginTypeModel loginType, OfferModel offer)
+        {
+            return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
         }
     }
 }

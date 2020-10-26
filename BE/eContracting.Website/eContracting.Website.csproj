@@ -255,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\eContracting2\Views\Base\" />
-    <Folder Include="Areas\eContracting2\Views\Edit\" />
     <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -352,9 +351,10 @@
       <IsTransformFile>true</IsTransformFile>
     </None>
     <Content Include="Areas\eContracting2\Views\RichText.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Login_edit.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Preview\Login.cshtml" />
     <Content Include="Areas\eContracting2\Views\Preview\ProcessTypesSwitcher.cshtml" />
     <Content Include="Areas\eContracting2\Views\Preview\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Login.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -98,23 +98,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                var datasource = this.GetLayoutItem<LoginPageModel>();
-
                 if (!Sitecore.Context.PageMode.IsNormal)
                 {
-                    var editModel = new LoginViewModel();
-                    editModel.Datasource = datasource;
-                    editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
-                    editModel.BussProcess = "XX";
-                    editModel.BussProcessType = "YY";
-                    editModel.Choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => new LoginChoiceViewModel(x, "unknown"));
-                    editModel.Steps = this.SettingsReaderService.GetSteps(datasource.Step);
-                    editModel.PageTitle = datasource.PageTitle;
-                    editModel.Partner = "1234567890";
-                    editModel.Zip1 = "190 000";
-                    editModel.Zip2 = "190 000";
-
-                    return View("/Areas/eContracting2/Views/Login_edit.cshtml", editModel);
+                    return this.LoginEdit();
                 }
 
                 guid = Request.QueryString["guid"];
@@ -140,6 +126,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     var res = this.ApiService.ReadOffer(guid);
                 }
 
+                var datasource = this.GetLayoutItem<LoginPageModel>();
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer));
                 var viewModel = this.GetViewModel(datasource, choices, errorString);
@@ -213,7 +200,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var result = this.AuthService.GetLoginState(offer, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
 
-                if (result != AuthResultState.SUCCEEDED)
+                if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
                     this.Logger.Info($"[{guid}] Log-in failed");
                     //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
@@ -267,6 +254,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
             }
+        }
+
+        private ActionResult LoginEdit()
+        {
+            var fakeHeader = new OfferHeaderModel(type: "XX", Guid.NewGuid().ToString("N"), "00", "");
+            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
+            var fakeAttr = new OfferAttributeModel[] { };
+            var fakeOffer = new OfferModel(fateXml, fakeHeader, fakeAttr);
+            var datasource = this.GetLayoutItem<LoginPageModel>();
+            var editModel = new LoginViewModel();
+            editModel.Datasource = datasource;
+            editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
+            editModel.BussProcess = "XX";
+            editModel.BussProcessType = "YY";
+            editModel.Choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer));
+            editModel.Steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            editModel.PageTitle = datasource.PageTitle;
+            editModel.Partner = "1234567890";
+            editModel.Zip1 = "190 000";
+            editModel.Zip2 = "190 000";
+
+            return View("/Areas/eContracting2/Views/Preview/Login.cshtml", editModel);
         }
 
         public ActionResult RichText()
@@ -434,39 +443,57 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new EmptyResult();
         }
 
-        protected ActionResult GetLoginFailReturns(AuthResultState state, string guid)
+        protected ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, string guid)
         {
-            if (state == AuthResultState.INVALID_BIRTHDATE)
+            if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
                 return Redirect(url);
             }
 
-            if (state == AuthResultState.INVALID_PARTNER)
+            if (state == AUTH_RESULT_STATES.INVALID_PARTNER || state == AUTH_RESULT_STATES.INVALID_PARTNER_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_PARTNER);
                 return Redirect(url);
             }
 
-            if (state == AuthResultState.INVALID_ZIP1)
+            if (state == AUTH_RESULT_STATES.INVALID_VALUE)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE);
+                return Redirect(url);
+            }
+
+            if (state == AUTH_RESULT_STATES.INVALID_VALUE_FORMAT)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_FORMAT);
+                return Redirect(url);
+            }
+
+            if (state == AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_DEFINITION);
+                return Redirect(url);
+            }
+
+            if (state == AUTH_RESULT_STATES.INVALID_ZIP1 || state == AUTH_RESULT_STATES.INVALID_ZIP1_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP1);
                 return Redirect(url);
             }
 
-            if (state == AuthResultState.INVALID_ZIP2)
+            if (state == AUTH_RESULT_STATES.INVALID_ZIP2 || state == AUTH_RESULT_STATES.INVALID_ZIP2_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP2);
                 return Redirect(url);
             }
 
-            if (state == AuthResultState.KEY_MISMATCH)
+            if (state == AUTH_RESULT_STATES.KEY_MISMATCH)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_MISMATCH);
                 return Redirect(url);
             }
 
-            if (state == AuthResultState.KEY_VALUE_MISMATCH)
+            if (state == AUTH_RESULT_STATES.KEY_VALUE_MISMATCH)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_VALUE_MISMATCH);
                 return Redirect(url);
@@ -478,7 +505,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         
         protected LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
         {
-            string key = this.AuthService.GetUniqueKey(model, offer);
+            string key = Utils.GetUniqueKey(model, offer);
             var login = new LoginChoiceViewModel(model, key);
             return login;
         }

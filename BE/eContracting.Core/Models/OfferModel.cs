@@ -5,48 +5,116 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Services;
+using Sitecore.Reflection.Emit;
 
 namespace eContracting.Models
 {
     public class OfferModel
     {
+        /// <summary>
+        /// Inner XML with content from SAP.
+        /// </summary>
         public readonly OfferXmlModel Xml;
 
         /// <summary>
         /// Gets or sets the unique GUID of this offer.
         /// </summary>
-        //TODO: Implement it (found in XML where it is)
-        public string Guid { get;set; }
+        public string Guid
+        {
+            get
+            {
+                return this.Header.CCHKEY;
+            }
+        }
 
         /// <summary>
         /// Gets or sets flag if offer is accepted.
         /// </summary>
-        public bool IsAccepted { get; set; }
+        public bool IsAccepted
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == "ACCEPTED_AT")?.Value?.Any(c => char.IsDigit(c)) ?? false;
+                //return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+                //    && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
+                //    && response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => char.IsDigit(c));
+            }
+        }
 
         /// <summary>
         /// Gets or sets infromation when offer was accepted.
         /// </summary>
-        public string AcceptedAt { get; set; }
+        public string AcceptedAt
+        {
+            get
+            {
+                if (!this.IsAccepted)
+                {
+                    return null;
+                }
+
+                var acceptedAt = this.Attributes.FirstOrDefault(x => x.Key == "ACCEPTED_AT")?.Value?.Trim();
+
+                if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedAcceptedAt))
+                {
+                    return parsedAcceptedAt.ToString("d.M.yyyy");
+                }
+
+                return acceptedAt;
+            }
+        }
 
         /// <summary>
         /// Gets or sets CREATED_AT value.
         /// </summary>
-        public string CreatedAt { get; set; }
+        public string CreatedAt
+        {
+            get
+            {
+                var created = this.Attributes.FirstOrDefault(x => x.Key == "CREATED_AT")?.Value;
+
+                if (created != null && DateTime.TryParseExact(created, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime createdAt))
+                {
+                    return createdAt.ToString("d.M.yyyy");
+                }
+
+                return created;
+            }
+        }
 
         /// <summary>
         /// Gets or sets information if offer has GDPR.
         /// </summary>
-        public bool HasGDPR { get; set; }
+        public bool HasGDPR
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.GDPRKey);
+            }
+        }
 
         /// <summary>
         /// Gets or sets GDPRKey.
         /// </summary>
-        public string GDPRKey { get; set; }
+        public string GDPRKey
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == "KEY_GDPR")?.Value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets CAMPAIGN value.
         /// </summary>
-        public string Campaign { get; set; }
+        public string Campaign
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == "CAMPAIGN")?.Value;
+            }
+        }
 
         /// <summary>
         /// Gets the commodity (EAN or EIC).
@@ -70,7 +138,26 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets State.
         /// </summary>
-        public string State { get; set; }
+        /// <remarks>
+        ///     Description provided by Tereza:
+        ///     <list type="table">
+        ///         <item>1 - Zapsáno</item>    
+        ///         <item>2 - Automatizace (je, že ji můžeme načíst, je jsou dokumenty v pořádku vygenerované)</item>
+        ///         <item>3 - Aktivní</item>
+        ///         <item>4 - Přečteno (se nastavuje, když si zákazník otevře na webu)</item>
+        ///         <item>5 - Akceptováno</item>
+        ///         <item>6 - Přihlášeno (když se poprvé přihlásí)</item>
+        ///         <item>8 - Chyba</item>
+        ///         <item>9 - Zastaralé (když je to stornované (prošlost se totiž ve skutečnosti podle mě kontrolovala podle data)</item>
+        ///     </list>
+        /// </remarks>
+        public string State
+        {
+            get
+            {
+                return this.Header.CCHSTAT;
+            }
+        }
 
         public DocumentFileModel[] Attachments
         {
@@ -124,10 +211,18 @@ namespace eContracting.Models
         {
             get
             {
-                return this.Xml.Content.Body.BusProcessType;
+                if (!string.IsNullOrEmpty(this.Xml.Content.Body.BusProcessType))
+                {
+                    return this.Xml.Content.Body.BusProcessType;
+                }
+
+                return string.IsNullOrEmpty(this.Campaign) ? "INDI" : "CAMPAIGN";
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether offer already expired.
+        /// </summary>
         public bool OfferIsExpired
         {
             get
@@ -192,9 +287,45 @@ namespace eContracting.Models
             }
         }
 
-        public OfferModel(OfferXmlModel xml)
+        /// <summary>
+        /// Attributes from the offer.
+        /// </summary>
+        protected readonly OfferAttributeModel[] Attributes;
+
+        /// <summary>
+        /// Header values from the offer.
+        /// </summary>
+        protected readonly OfferHeaderModel Header;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferModel"/> class.
+        /// </summary>
+        /// <param name="xml">The XML.</param>
+        /// <param name="header">The header.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// xml
+        /// or
+        /// header
+        /// or
+        /// attributes
+        /// </exception>
+        /// <exception cref="System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
+        public OfferModel(OfferXmlModel xml, OfferHeaderModel header, OfferAttributeModel[] attributes)
         {
+            if (xml == null)
+            {
+                throw new ArgumentNullException(nameof(xml));
+            }
+
+            if (xml.Content == null)
+            {
+                throw new ArgumentException($"Inner content of {nameof(xml)} cannot be null");
+            }
+
             this.Xml = xml;
+            this.Header = header ?? throw new ArgumentNullException(nameof(header));
+            this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
         }
 
         public string GetCodeOfAdditionalInfoDocument()
@@ -218,6 +349,16 @@ namespace eContracting.Models
             }
 
             return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets value from inner 'Xml.Content.Body' by XML name attribute.
+        /// </summary>
+        /// <param name="xmlElementName">Name of the XML element.</param>
+        /// <returns>Value or null.</returns>
+        public string GetValue(string xmlElementName)
+        {
+            return this.Xml.Content.Body.Get(xmlElementName);
         }
     }
 }

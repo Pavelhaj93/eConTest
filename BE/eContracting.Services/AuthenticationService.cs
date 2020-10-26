@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eContracting.Models;
 
@@ -37,17 +38,11 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public string GetUniqueKey(LoginTypeModel loginType, OfferModel offer)
-        {
-            return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
-        }
-
-        /// <inheritdoc/>
-        public AuthResultState GetLoginState(OfferModel offer, string birthDay, string key, string value)
+        public AUTH_RESULT_STATES GetLoginState(OfferModel offer, string birthDay, string key, string value)
         {
             if (string.IsNullOrEmpty(birthDay))
             {
-                return AuthResultState.INVALID_BIRTHDATE;
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
             }
 
             var bd1 = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
@@ -55,49 +50,90 @@ namespace eContracting.Services
 
             if (bd1 != bd2)
             {
-                return AuthResultState.INVALID_BIRTHDATE;
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
             }
 
             var loginType = this.GetMatched(offer, key);
 
             if (loginType == null)
             {
-                return AuthResultState.KEY_MISMATCH;
+                return AUTH_RESULT_STATES.KEY_MISMATCH;
             }
 
-            if (loginType.Name == "PARTNER")
+            var val = value.Trim().Replace(" ", string.Empty); //.Replace(" ", string.Empty).ToLower();
+
+            // We can do it this way but it strongly depends on editor what he defines as 'loginType.Name'.
+            var xmlValue = offer.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
+
+            if (string.IsNullOrEmpty(xmlValue))
             {
-                if (offer.PartnerNumber != value)
-                {
-                    return AuthResultState.INVALID_PARTNER;
-                }
-
-                return AuthResultState.SUCCEEDED;
+                return AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION;
             }
 
-            var val = value.Trim().Replace(" ", string.Empty).ToLower();
-
-            if (loginType.Name == "PSC_ADDR")
+            if (!this.IsRegexValid(loginType, val))
             {
-                if (offer.PostNumber != val)
-                {
-                    return AuthResultState.INVALID_ZIP1;
-                }
-
-                return AuthResultState.SUCCEEDED;
+                return AUTH_RESULT_STATES.INVALID_VALUE_FORMAT;
             }
 
-            if (loginType.Name == "PSC_MS")
+            if (xmlValue != val)
             {
-                if (offer.PostNumberConsumption != val)
-                {
-                    return AuthResultState.INVALID_ZIP2;
-                }
-
-                return AuthResultState.SUCCEEDED;
+                return AUTH_RESULT_STATES.INVALID_VALUE;
             }
 
-            return AuthResultState.KEY_VALUE_MISMATCH;
+            return AUTH_RESULT_STATES.SUCCEEDED;
+
+            #region How it was before
+            //if (loginType.Key == "PARTNER")
+            //{
+            //    if (!this.IsRegexValid(loginType, value))
+            //    {
+            //        return AuthResultState.INVALID_PARTNER_FORMAT;
+            //    }
+
+            //    if (offer.PartnerNumber != value)
+            //    {
+            //        return AuthResultState.INVALID_PARTNER;
+            //    }
+
+            //    return AuthResultState.SUCCEEDED;
+            //}
+
+            //if (loginType.Key == "PSC_ADDR")
+            //{
+            //    if (!this.IsRegexValid(loginType, value))
+            //    {
+            //        return AuthResultState.INVALID_ZIP1_FORMAT;
+            //    }
+
+            //    var zip = offer.PostNumber.Trim().Replace(" ", string.Empty).ToLower();
+
+            //    if (zip != val)
+            //    {
+            //        return AuthResultState.INVALID_ZIP1;
+            //    }
+
+            //    return AuthResultState.SUCCEEDED;
+            //}
+
+            //if (loginType.Key == "PSC_MS")
+            //{
+            //    if (!this.IsRegexValid(loginType, value))
+            //    {
+            //        return AuthResultState.INVALID_ZIP2_FORMAT;
+            //    }
+
+            //    var zip = offer.PostNumberConsumption.Trim().Replace(" ", string.Empty).ToLower();
+
+            //    if (zip != val)
+            //    {
+            //        return AuthResultState.INVALID_ZIP2;
+            //    }
+
+            //    return AuthResultState.SUCCEEDED;
+            //}
+
+            //return AUTH_RESULT_STATES.KEY_VALUE_MISMATCH;
+            #endregion
         }
 
         /// <inheritdoc/>
@@ -130,13 +166,30 @@ namespace eContracting.Services
 
             foreach (var loginType in loginTypes)
             {
-                if (key == this.GetUniqueKey(loginType, offer))
+                if (key == Utils.GetUniqueKey(loginType, offer))
                 {
                     return loginType;
                 }
             }
 
             return null;
+        }
+
+        protected bool IsRegexValid(LoginTypeModel loginType, string value)
+        {
+            if (string.IsNullOrEmpty(loginType.ValidationRegex))
+            {
+                return true;
+            }
+
+            try
+            {
+                return Regex.IsMatch(value, loginType.ValidationRegex);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

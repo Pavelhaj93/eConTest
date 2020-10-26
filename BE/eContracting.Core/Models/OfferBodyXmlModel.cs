@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Castle.Core.Internal;
 using eContracting.Models;
 
 namespace eContracting.Models
@@ -213,6 +214,30 @@ namespace eContracting.Models
         [XmlElement("ACCOUNT_NUMBER")]
         public string ACCOUNT_NUMBER { get; set; }
 
+        [XmlArrayItem("Template")]
+        [XmlArray("Attachments")]
         public DocumentFileModel[] Attachments { get; set; }
+
+        /// <summary>
+        /// Gets the specified XML element by <paramref name="xmlElementAttribuName"/> from this object.
+        /// </summary>
+        /// <param name="xmlElementAttribuName">The XML element name.</param>
+        /// <returns>Value or null.</returns>
+        public string Get(string xmlElementAttribuName)
+        {
+            var properties = this.GetType().GetProperties().Where(x => x.GetAttribute<XmlElementAttribute>() != null);
+
+            foreach (var prop in properties)
+            {
+                var attribute = prop.GetAttribute<XmlElementAttribute>();
+
+                if (attribute.ElementName == xmlElementAttribuName)
+                {
+                    return prop.GetValue(this) as string;
+                }
+            }
+
+            return null;
+        }
     }
 }

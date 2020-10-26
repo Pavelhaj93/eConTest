@@ -23,6 +23,19 @@
             <PSC_MS>295 01</PSC_MS>
             <PSC_ADDR>295 01</PSC_ADDR>
             <ACCOUNT_NUMBER/>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>A10</IDATTACH>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ />
+                    <ADDINFO />
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                </Template>
+            </Attachments>
         </Body>
     </Nabidka>
 </asx:abap>

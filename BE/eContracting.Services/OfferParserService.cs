@@ -28,114 +28,136 @@ namespace eContracting.Services
                 return null;
             }
 
+            var file = Encoding.UTF8.GetString(response.Response.ET_FILES.First().FILECONTENT);
+
             using (var stream = new MemoryStream(response.Response.ET_FILES.First().FILECONTENT, false))
             {
+                // Use this to debug how XML looks like -> obj.InnerXML
+                //var serializer1 = new XmlSerializer(typeof(System.Xml.XmlDocument), "http://www.sap.com/abapxml");
+                //var obj = serializer1.Deserialize(stream);
+                //stream.Position = 0;
+
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
-
+                
                 if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
                 {
                     offerXml.Content.Body.BusProcess = "00";
                 }
 
-                var campaign = this.GetCampaign(response);
+                var header = this.GetHeader(response);
+                var attributes = this.GetAttributes(response);
 
-                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcessType))
-                {
-                    offerXml.Content.Body.BusProcessType = string.IsNullOrEmpty(campaign) ? "INDI" : "CAMPAIGN";
-                }
-
-                var offer = new OfferModel(offerXml);
-                offer.Guid = response.Response.ES_HEADER.CCHKEY;
-                offer.IsAccepted = this.GetIsAccepted(response);
-                offer.AcceptedAt = this.GetAcceptedAt(response);
-                offer.HasGDPR = this.GetHasGdpr(response);
-                offer.CreatedAt = this.GetCreatedAt(response);
-                offer.Campaign = campaign;
-                offer.GDPRKey = this.GetGdprKey(response);
-                offer.State = this.GetState(response);
+                var offer = new OfferModel(offerXml, header, attributes);
                 return offer;
             }
         }
 
-        protected internal bool GetIsAccepted(ResponseCacheGetModel response)
+        /// <summary>
+        /// Gets the header from <see cref="ZCCH_CACHE_GETResponse.ES_HEADER"/>.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        protected internal OfferHeaderModel GetHeader(ResponseCacheGetModel response)
         {
-            return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
-                    && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
-                    && response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => char.IsDigit(c));
+            return new OfferHeaderModel(response.Response.ES_HEADER);
         }
 
-        protected internal string GetAcceptedAt(ResponseCacheGetModel response)
+        /// <summary>
+        /// Gets the attributes from <see cref="ZCCH_CACHE_GETResponse.ET_ATTRIB"/>.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>Array of attributes.</returns>
+        protected internal OfferAttributeModel[] GetAttributes(ResponseCacheGetModel response)
         {
-            if (!this.GetIsAccepted(response))
+            var list = new List<OfferAttributeModel>();
+
+            for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
             {
-                return null;
+                var attrib = response.Response.ET_ATTRIB[i];
+                list.Add(new OfferAttributeModel(attrib));
             }
 
-            var acceptedAt = response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
-
-            if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedAcceptedAt))
-            {
-                return parsedAcceptedAt.ToString("d.M.yyyy");
-            }
-
-            return response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+            return list.ToArray();
         }
 
-        protected internal string GetCreatedAt(ResponseCacheGetModel response)
-        {
-            if (
-                response.Response.ET_ATTRIB != null
-                && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CREATED_AT")
-                && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL))
-            {
-                var created = response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL;
+        //protected internal bool GetIsAccepted(ResponseCacheGetModel response)
+        //{
+        //    return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
+        //            && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
+        //            && response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => char.IsDigit(c));
+        //}
 
-                if (DateTime.TryParseExact(created, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime createdAt))
-                {
-                    return createdAt.ToString("d.M.yyyy");
-                }
-                else
-                {
-                    return created;
-                }
-            }
+        //protected internal string GetAcceptedAt(ResponseCacheGetModel response)
+        //{
+        //    if (!this.GetIsAccepted(response))
+        //    {
+        //        return null;
+        //    }
 
-            return null;
-        }
+        //    var acceptedAt = response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
 
-        protected internal bool GetHasGdpr(ResponseCacheGetModel response)
-        {
-            return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
-                        && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
-        }
+        //    if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedAcceptedAt))
+        //    {
+        //        return parsedAcceptedAt.ToString("d.M.yyyy");
+        //    }
 
-        protected internal string GetCampaign(ResponseCacheGetModel response)
-        {
-            if (
-                response.Response.ET_ATTRIB != null
-                && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CAMPAIGN")
-                && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL))
-            {
-                return response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL;
-            }
+        //    return response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
+        //}
 
-            return null;
-        }
+        //protected internal string GetCreatedAt(ResponseCacheGetModel response)
+        //{
+        //    if (
+        //        response.Response.ET_ATTRIB != null
+        //        && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CREATED_AT")
+        //        && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL))
+        //    {
+        //        var created = response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL;
 
-        protected internal string GetGdprKey(ResponseCacheGetModel response)
-        {
-            if (this.GetHasGdpr(response))
-            {
-                return response.Response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == "KEY_GDPR")?.ATTRVAL;
-            }
+        //        if (DateTime.TryParseExact(created, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime createdAt))
+        //        {
+        //            return createdAt.ToString("d.M.yyyy");
+        //        }
+        //        else
+        //        {
+        //            return created;
+        //        }
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
-        protected internal string GetState(ResponseCacheGetModel response)
-        {
-            return response.Response.ES_HEADER.CCHSTAT;
-        }
+        //protected internal bool GetHasGdpr(ResponseCacheGetModel response)
+        //{
+        //    return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
+        //                && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
+        //}
+
+        //protected internal string GetCampaign(ResponseCacheGetModel response)
+        //{
+        //    if (
+        //        response.Response.ET_ATTRIB != null
+        //        && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CAMPAIGN")
+        //        && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL))
+        //    {
+        //        return response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL;
+        //    }
+
+        //    return null;
+        //}
+
+        //protected internal string GetGdprKey(ResponseCacheGetModel response)
+        //{
+        //    if (this.GetHasGdpr(response))
+        //    {
+        //        return response.Response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == "KEY_GDPR")?.ATTRVAL;
+        //    }
+
+        //    return null;
+        //}
+
+        //protected internal string GetState(ResponseCacheGetModel response)
+        //{
+        //    return response.Response.ES_HEADER.CCHSTAT;
+        //}
     }
 }

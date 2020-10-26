@@ -69,7 +69,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (!Sitecore.Context.PageMode.IsNormal)
                 {
-                    return this.OfferEdit();
+                    return this.OfferPreview();
                 }
 
                 if (!this.AuthenticationService.IsLoggedIn())
@@ -146,7 +146,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        public ActionResult OfferEdit()
+        public ActionResult OfferPreview()
         {
             var datasource = this.GetLayoutItem<OfferPageModel>();
             var data = this.Cache.GetFromRequest<OfferIdentifier>(Constants.CacheKeys.OFFER_IDENTIFIER);

@@ -21,10 +21,10 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
+                    services.AddScoped<ICache, MemoryCacheService>();
                     services.AddScoped<IApiService, SapApiService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
-                    services.AddScopedCommand<GetXmlCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
                 });
                 await consinloop.Run();

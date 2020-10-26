@@ -99,6 +99,9 @@ namespace eContracting
         {
             public const string UNKNOWN = "v00";
             public const string INVALID_BIRTHDATE = "v01";
+            public const string INVALID_VALUE = "v51";
+            public const string INVALID_VALUE_FORMAT = "v52";
+            public const string INVALID_VALUE_DEFINITION = "v53";
             public const string INVALID_PARTNER = "v02";
             public const string INVALID_ZIP1 = "v03";
             public const string INVALID_ZIP2 = "v04";

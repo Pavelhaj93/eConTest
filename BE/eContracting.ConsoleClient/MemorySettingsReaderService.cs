@@ -43,6 +43,11 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public DefinitionCombinationModel GetDefinition(string process, string processType)
+        {
+            throw new NotImplementedException();
+        }
+
         public SiteSettingsModel GetGeneralSettings()
         {
             throw new NotImplementedException();

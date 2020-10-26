@@ -97,7 +97,7 @@
     <Compile Include="MissingDatasourceException.cs" />
     <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
-    <Compile Include="Models\AuthResultState.cs" />
+    <Compile Include="Models\AUTH_RESULT_STATES.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
     <Compile Include="Models\DefinitionCombinationModel.cs" />
     <Compile Include="Models\FailedLoginInfoDetailModel.cs" />
@@ -110,7 +110,8 @@
     <Compile Include="Models\OfferAttachmentXmlModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />
     <Compile Include="Models\OfferContentXmlModel.cs" />
-    <Compile Include="Models\OfferFileAttribute.cs" />
+    <Compile Include="Models\OfferAttributeModel.cs" />
+    <Compile Include="Models\OfferHeaderModel.cs" />
     <Compile Include="Models\OfferHeaderXmlModel.cs" />
     <Compile Include="Models\OfferIdentifier.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />

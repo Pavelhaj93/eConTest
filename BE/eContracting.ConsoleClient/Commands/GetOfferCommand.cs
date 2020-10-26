@@ -32,18 +32,37 @@ namespace eContracting.ConsoleClient.Commands
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
+            this.Logger.Suspend(true);
             var offer = await this.ApiService.GetOfferAsync(guid, OFFER_TYPES.NABIDKA);
-
+            
+            this.Console.WriteLine($"Process: {offer.Process}");
+            this.Console.WriteLine($"Type: {offer.ProcessType}");
             this.Console.WriteLine($"Birthday: {offer.Birthday}");
             this.Console.WriteLine($"Partner number: {offer.PartnerNumber}");
             this.Console.WriteLine($"Post number: {offer.PostNumber}");
             this.Console.WriteLine($"Post number consumption: {offer.PostNumberConsumption}");
             this.Console.WriteLine($"Is expired: {offer.OfferIsExpired}");
             this.Console.WriteLine($"Is accepted: {offer.IsAccepted}");
-            this.Console.WriteLine($"Is retention: {offer.OfferIsRetention}");
-            this.Console.WriteLine($"Is aquisition: {offer.OfferIsAcquisition}");
-            this.Console.WriteLine($"Has GDPR: {offer.HasGDPR}");
-            this.Console.WriteLine($"Attachments: {offer.Attachments.Length}");
+
+            var files = await this.ApiService.GetAttachmentsAsync(guid);
+            this.Console.WriteLine($"Files: {files.Length}");
+            
+            if (files.Length > 0)
+            {
+                for (int i = 0; i < files.Length; i++)
+                {
+                    var f = files[i];
+                    this.Console.WriteLine($" - {f.FileName}:");
+                    this.Console.WriteLine($"   Size:          {f.SizeLabel}");
+                    this.Console.WriteLine($"   FileType:      {f.Template}");
+                    this.Console.WriteLine($"   FileNumber:    {f.FileNumber}");
+                    //this.Console.WriteLine($"   Group: {f.Group}");
+                    this.Console.WriteLine($"   Signed:        {f.SignedVersion}");
+                    this.Console.WriteLine($"   Sign Required: {f.SignRequired}");
+                }
+            }
+
+            this.Logger.Suspend(false);
         }
     }
 }

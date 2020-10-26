@@ -29,9 +29,6 @@
             cacheService
             </exception>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
@@ -260,6 +257,19 @@
         </member>
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetHeader(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Gets the header from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER"/>.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetAttributes(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Gets the attributes from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB"/>.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Array of attributes.</returns>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext)">
             <summary>

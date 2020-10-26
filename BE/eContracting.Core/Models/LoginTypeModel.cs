@@ -13,8 +13,7 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual string Label { get; set; }
 
-        [SitecoreIgnore]
-        [Obsolete]
+        [SitecoreField]
         public virtual string Key { get; set; }
 
         [SitecoreField]
