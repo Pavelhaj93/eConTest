@@ -1535,7 +1535,7 @@
                 Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.ProcessTypeId"/> doesn't exist or user is not logged in.
             </returns>
         </member>
-        <member name="M:eContracting.Utils.GerReadableFileSize(System.Int32)">
+        <member name="M:eContracting.Utils.GetReadableFileSize(System.Int32)">
             <summary>
             Gers readable size.
             </summary>

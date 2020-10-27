@@ -18,7 +18,7 @@ namespace eContracting
         /// </summary>
         /// <seealso cref="https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
         /// <param name="size">The size.</param>
-        public static string GerReadableFileSize(int size)
+        public static string GetReadableFileSize(int size)
         {
             if (size < 0)
             {

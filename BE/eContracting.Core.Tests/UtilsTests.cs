@@ -20,7 +20,7 @@ namespace eContracting.Core.Tests
         [InlineData(7842052, "7,48 MB")]
         public void GerReadableFileSize(int size, string expected)
         {
-            var result = Utils.GerReadableFileSize(size);
+            var result = Utils.GetReadableFileSize(size);
             Assert.Equal(expected, result);
         }
 

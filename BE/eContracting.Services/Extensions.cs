@@ -51,7 +51,7 @@ namespace eContracting.Services
                 totalSize += file.Size;
             }
 
-            builder.AppendLine("Total file size: " + Utils.GerReadableFileSize(totalSize));
+            builder.AppendLine("Total file size: " + Utils.GetReadableFileSize(totalSize));
             logger.Debug(builder.ToString());
         }
 

@@ -67,7 +67,7 @@ namespace eContracting.Models
         {
             get
             {
-                return Utils.GerReadableFileSize(this.Size);
+                return Utils.GetReadableFileSize(this.Size);
             }
         }
 
