@@ -1,30 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
-using eContracting.Kernel;
-using eContracting.Kernel.GlassItems.Pages;
-using eContracting.Kernel.Helpers;
 using eContracting.Kernel.Models;
-using eContracting.Kernel.Services;
-using eContracting.Kernel.Utils;
 using eContracting.Models;
-using eContracting.Services;
 using eContracting.Website.Areas.eContracting2.Models;
+using Glass.Mapper.Sc;
+using Glass.Mapper.Sc.Web;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using Sitecore;
-using Sitecore.Collections;
 using Sitecore.DependencyInjection;
-using Sitecore.Shell.Applications.ContentEditor.RichTextEditor;
-using Sitecore.Web;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -36,6 +22,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Obsolete]
         private const string salt = "228357";
         protected readonly ILogger Logger;
+        protected readonly IContextWrapper ContextWrapper;
         protected readonly IApiService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly ILoginReportStore LoginReportService;
@@ -47,6 +34,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2AuthController()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
+            this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
@@ -57,12 +45,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
+        /// <param name="contextWrapper">The context wrapper.</param>
         /// <param name="apiService">The API service.</param>
         /// <param name="authService">The authentication service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <param name="loginReportService">The login report service.</param>
-        /// <exception cref="ArgumentNullException">
+        /// <param name="sitecoreContext">The sitecore context.</param>
+        /// <param name="renderingContext">The rendering context.</param>
+        /// <exception cref="System.ArgumentNullException">
         /// logger
+        /// or
+        /// contextWrapper
         /// or
         /// apiService
         /// or
@@ -72,14 +65,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// or
         /// loginReportService
         /// </exception>
-        public eContracting2AuthController(
+        internal eContracting2AuthController(
             ILogger logger,
+            IContextWrapper contextWrapper,
             IApiService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
-            ILoginReportStore loginReportService)
+            ILoginReportStore loginReportService,
+            ISitecoreContext sitecoreContext,
+            IRenderingContext renderingContext) : base(sitecoreContext, renderingContext)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
@@ -98,19 +95,25 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                if (!Sitecore.Context.PageMode.IsNormal)
+                if (!this.ContextWrapper.IsNormalMode())
                 {
                     return this.LoginEdit();
                 }
 
                 guid = Request.QueryString["guid"];
-                var msg = Request.QueryString["error"];
 
-                if (!string.IsNullOrEmpty(msg) && msg == "validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
+                if (string.IsNullOrEmpty(guid))
                 {
-                    errorString = (string)this.Session["ErrorMessage"];
-                    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
+                    return this.GetLoginFailReturns(LoginStates.INVALID_GUID, guid);
                 }
+
+                //var msg = Request.QueryString["error"];
+
+                //if (!string.IsNullOrEmpty(msg) && msg == "validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
+                //{
+                //    errorString = (string)this.Session["ErrorMessage"];
+                //    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
+                //}
 
                 var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
                 var canLogin = this.CanLogin(guid, offer);
@@ -275,7 +278,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             editModel.Zip1 = "190 000";
             editModel.Zip2 = "190 000";
 
-            return View("/Areas/eContracting2/Views/Preview/Login.cshtml", editModel);
+            return View("/Areas/eContracting2/Views/Edit/Login.cshtml", editModel);
         }
 
         public ActionResult RichText()
@@ -369,7 +372,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return displayName;
         }
 
-        protected LoginStates CanLogin(string guid, OfferModel offer)
+        protected internal LoginStates CanLogin(string guid, OfferModel offer)
         {
             if (string.IsNullOrEmpty(guid))
             {
@@ -381,19 +384,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return LoginStates.USER_BLOCKED;
             }
 
-            if (offer?.Xml == null)
+            if (offer == null)
             {
-                return LoginStates.NO_OFFER;
+                return LoginStates.OFFER_NOT_FOUND;
             }
 
             if (offer.State == "1")
             {
                 return LoginStates.OFFER_STATE_1;
-            }
-
-            if (offer.Xml.Content == null)
-            {
-                return LoginStates.EMPTY_OFFER;
             }
 
             if (string.IsNullOrEmpty(offer.Birthday))
@@ -408,7 +406,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             if (canLogin == LoginStates.INVALID_GUID)
             {
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
+                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.INVALID_GUID;
+                return Redirect(url);
+            }
+
+            if (canLogin == LoginStates.OFFER_NOT_FOUND)
+            {
+                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
+                return Redirect(url);
             }
 
             if (canLogin == LoginStates.USER_BLOCKED)
@@ -416,28 +421,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.UserBlocked));
             }
 
-            if (canLogin == LoginStates.NO_OFFER)
-            {
-                this.Logger.Warn($"[{guid}] No offer found");
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
-            }
-
             if (canLogin == LoginStates.OFFER_STATE_1)
             {
                 this.Logger.Warn($"[{guid}] Offer with state [1] will be ignored");
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
-            }
-
-            if (canLogin == LoginStates.EMPTY_OFFER)
-            {
-                this.Logger.Warn($"[{guid}] Offer is empty");
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
+                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
+                return Redirect(url);
             }
 
             if (canLogin == LoginStates.MISSING_BIRTHDAY)
             {
                 this.Logger.Warn($"[{guid}] Attribute BIRTHDT is offer is empty");
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl));
+                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
+                return Redirect(url);
             }
 
             return new EmptyResult();

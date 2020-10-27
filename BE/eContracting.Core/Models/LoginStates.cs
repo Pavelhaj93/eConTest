@@ -8,10 +8,9 @@ namespace eContracting.Models
 {
     public enum LoginStates
     {
+        OFFER_NOT_FOUND,
         INVALID_GUID,
         USER_BLOCKED,
-        NO_OFFER,
-        EMPTY_OFFER,
         OFFER_STATE_1,
         MISSING_BIRTHDAY,
         OK

@@ -39,6 +39,11 @@ namespace eContracting
         public static class ErrorCodes
         {
             public const string HOMEPAGE = "000";
+            public const string USER_BLOCKED = "001";
+            public const string INVALID_GUID = "002";
+            public const string OFFER_NOT_FOUND = "010";
+            public const string OFFER_STATE_1 = "011";
+            public const string MISSING_BIRTDATE = "012";
 
             /// <summary>
             /// The authentication process - unknown exception.

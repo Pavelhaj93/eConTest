@@ -482,6 +482,32 @@
             <param name="key">The key.</param>
             <returns>Object of type <typeparamref name="T"/> or null.</returns>
         </member>
+        <member name="T:eContracting.IContextWrapper">
+            <summary>
+            Represents wrapper over context (static) values.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
+            <summary>
+            Sets the display mode.
+            </summary>
+            <param name="model">The model.</param>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsNormalMode">
+            <summary>
+            Determines whether Sitecore context page mode is in normal mode.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsPreviewMode">
+            <summary>
+            Determines whether Sitecore context page mode is in preview mode.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsEditMode">
+            <summary>
+            Determines whether Sitecore context page mode is in editing mode.
+            </summary>
+        </member>
         <member name="T:eContracting.ILoginReportStore">
             <summary>
             Stores information about login attemps.
@@ -1534,6 +1560,27 @@
                 <c>True</c> if match found in <see cref="T:eContracting.Models.AuthDataModel"/>, otherwise <c>false</c>.
                 Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.ProcessTypeId"/> doesn't exist or user is not logged in.
             </returns>
+        </member>
+        <member name="T:eContracting.SitecoreContextWrapper">
+            <summary>
+            Wrapper over 'Sitecore.Context'.
+            </summary>
+            <seealso cref="T:eContracting.IContextWrapper" />
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.IsEditMode">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.IsNormalMode">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.IsPreviewMode">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.IsPreviewModel">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
+            <inheritdoc/>
         </member>
         <member name="M:eContracting.Utils.GetReadableFileSize(System.Int32)">
             <summary>
