@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Controllers;
+using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Maps;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Configuration.Fluent;
@@ -18,6 +20,7 @@ using Xunit;
 
 namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class eContracting2AuthControllerTests
     {
         public eContracting2AuthControllerTests()
@@ -62,6 +65,28 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var result = controller.CanLogin(guid, offer);
 
             Assert.Equal(LoginStates.USER_BLOCKED, result);
+        }
+
+        [Fact]
+        public void Login_Get_CanLogin_OFFER_NOT_FOUND()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var state = "1";
+
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var mockApiService = new Mock<IApiService>();
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var result = controller.CanLogin(guid, (OfferModel)null);
+
+            Assert.Equal(LoginStates.OFFER_NOT_FOUND, result);
         }
 
         [Fact]
@@ -410,6 +435,163 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var actionResult = (RedirectResult)result;
 
                 Assert.Equal(expected, actionResult.Url);
+            }
+        }
+
+        [Fact]
+        public void Login_Get_ReadOffer_When_State_3()
+        {
+            bool wasRead = false;
+            var guid = Guid.NewGuid().ToString("N");
+            var state = "3";
+
+            var fakeOfferXmlModel = new OfferXmlModel();
+            fakeOfferXmlModel.Content = new OfferContentXmlModel();
+            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel() { BIRTHDT = "27.10.2020" };
+
+            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
+            var fakeAttributes = new OfferAttributeModel[] { };
+            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+
+            var requestUrl = "http://localhost/login";
+            var requestUrlQuery = "guid=" + guid;
+
+            var loginPageModel = new LoginPageModel();
+            loginPageModel.Step = new ProcessStepModel();
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
+            var mockApiService = new Mock<IApiService>();
+            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.ReadOffer(guid)).Returns(() =>
+            {
+                wasRead = true;
+                return true;
+            });
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { });
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            mockSitecoreContext.Setup(x => x.GetCurrentItem<LoginPageModel>(false, false)).Returns(new LoginPageModel());
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", requestUrl, requestUrlQuery);
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+                var result = controller.Login();
+
+                Assert.True(wasRead);
+
+                Assert.IsType<ViewResult>(result);
+                var actionResult = (ViewResult)result;
+                Assert.Equal("/Areas/eContracting2/Views/Login.cshtml", actionResult.ViewName);
+                Assert.IsType<LoginViewModel>(actionResult.Model);
+                var loginViewModel = actionResult.Model as LoginViewModel;
+            }
+        }
+
+        [Fact]
+        public void Login_Get_Succeeded()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var state = "4";
+
+            var fakeOfferXmlModel = new OfferXmlModel();
+            fakeOfferXmlModel.Content = new OfferContentXmlModel();
+            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel() { BIRTHDT = "27.10.2020" };
+
+            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
+            var fakeAttributes = new OfferAttributeModel[] { };
+            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+
+            var requestUrl = "http://localhost/login";
+            var requestUrlQuery = "guid=" + guid;
+
+            var loginPageModel = new LoginPageModel();
+            loginPageModel.Step = new ProcessStepModel();
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
+            var mockApiService = new Mock<IApiService>();
+            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { });
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            mockSitecoreContext.Setup(x => x.GetCurrentItem<LoginPageModel>(false, false)).Returns(new LoginPageModel());
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", requestUrl, requestUrlQuery);
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+                var result = controller.Login();
+
+                Assert.IsType<ViewResult>(result);
+                var actionResult = (ViewResult)result;
+                Assert.Equal("/Areas/eContracting2/Views/Login.cshtml", actionResult.ViewName);
+                Assert.IsType<LoginViewModel>(actionResult.Model);
+                var loginViewModel = actionResult.Model as LoginViewModel;
+            }
+        }
+
+        [Fact]
+        public void GetLoginFailReturns_INVALID_BIRTHDATE()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+
+            var requestUrl = "http://localhost/login";
+            var requestUrlQuery = "guid=" + guid;
+
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var mockApiService = new Mock<IApiService>();
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", requestUrl + "?" + requestUrlQuery, requestUrlQuery);
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+                var result = controller.GetLoginFailReturns(AUTH_RESULT_STATES.INVALID_BIRTHDATE, guid);
+
+                Assert.IsType<RedirectResult>(result);
+                var actionResult = (RedirectResult)result;
+
+                var resultUri = new Uri(actionResult.Url);
+                var query = HttpUtility.ParseQueryString(resultUri.Query);
+
+                Assert.Contains("guid", query.AllKeys);
+                Assert.Equal(guid, query["guid"]);
+                Assert.Contains("error", query.AllKeys);
+                Assert.Equal(Constants.ValidationCodes.INVALID_BIRTHDATE, query["error"]);
             }
         }
     }

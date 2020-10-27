@@ -438,7 +438,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new EmptyResult();
         }
 
-        protected ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, string guid)
+        protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, string guid)
         {
             if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
@@ -498,7 +498,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return Redirect(url1);
         }
         
-        protected LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
+        protected internal LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
         {
             string key = Utils.GetUniqueKey(model, offer);
             var login = new LoginChoiceViewModel(model, key);
