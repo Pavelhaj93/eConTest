@@ -20,9 +20,15 @@ namespace eContracting
         /// <param name="size">The size.</param>
         public static string GerReadableFileSize(int size)
         {
+            if (size < 0)
+            {
+                size = 0;
+            }
+
             string[] sizes = { "B", "KB", "MB", "GB", "TB" };
             double len = (double)size;
             int order = 0;
+
             while (len >= 1024 && order < sizes.Length - 1)
             {
                 order++;
@@ -83,7 +89,7 @@ namespace eContracting
         public static string SetQuery(Uri url, string key, string value)
         {
             var uriBuilder = new UriBuilder(url);
-            var query = WebUtil.ParseQueryString(uriBuilder.Query);            
+            var query = WebUtil.ParseQueryString(uriBuilder.Query);
             query[key] = value;
             uriBuilder.Query = WebUtil.BuildQueryString(query, false);
             return uriBuilder.Uri.ToString();
@@ -91,11 +97,7 @@ namespace eContracting
 
         public static string SetQuery(string url, string key, string value)
         {
-            var uriBuilder = new UriBuilder(url);
-            var query = WebUtil.ParseQueryString(uriBuilder.Query);
-            query[key] = value;
-            uriBuilder.Query = WebUtil.BuildQueryString(query, false);
-            return uriBuilder.Uri.ToString();
+            return SetQuery(new Uri(url), key, value);
         }
 
         /// <summary>
@@ -106,6 +108,16 @@ namespace eContracting
         /// <returns>Generated key.</returns>
         public static string GetUniqueKey(LoginTypeModel loginType, OfferModel offer)
         {
+            if (loginType == null)
+            {
+                throw new ArgumentNullException(nameof(loginType));
+            }
+
+            if (offer == null)
+            {
+                throw new ArgumentNullException(nameof(offer));
+            }
+
             return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
         }
     }
