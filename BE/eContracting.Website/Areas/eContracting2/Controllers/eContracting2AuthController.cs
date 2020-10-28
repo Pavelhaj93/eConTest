@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
@@ -31,6 +32,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
         /// </summary>
+        [ExcludeFromCodeCoverage]
         public eContracting2AuthController()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
@@ -435,7 +437,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return Redirect(url);
             }
 
-            return new EmptyResult();
+            var url1 = Utils.SetQuery(this.Request.Url, "error", Constants.ErrorCodes.UNKNOWN);
+            return Redirect(url1);
         }
 
         protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, string guid)
@@ -494,7 +497,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return Redirect(url);
             }
 
-            var url1 = Utils.SetQuery(this.Request.Url, "error", "v00");
+            var url1 = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.UNKNOWN);
             return Redirect(url1);
         }
         

@@ -610,18 +610,21 @@
             Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
             </summary>
             <returns>List of all defined processes.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No processes found.</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetAllProcessTypes">
             <summary>
             Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
             </summary>
             <returns>List of all defined process types.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No process types found</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetAllLoginTypes">
             <summary>
             Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
             </summary>
             <returns>List of all defined login types.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No login types found</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
             <summary>

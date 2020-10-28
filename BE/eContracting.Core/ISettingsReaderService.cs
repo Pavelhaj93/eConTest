@@ -39,18 +39,21 @@ namespace eContracting
         /// Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
         /// </summary>
         /// <returns>List of all defined processes.</returns>
+        /// <exception cref="MissingDatasourceException">No processes found.</exception>
         IEnumerable<ProcessModel> GetAllProcesses();
 
         /// <summary>
         /// Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
         /// </summary>
         /// <returns>List of all defined process types.</returns>
+        /// <exception cref="MissingDatasourceException">No process types found</exception>
         IEnumerable<ProcessTypeModel> GetAllProcessTypes();
 
         /// <summary>
         /// Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
         /// </summary>
         /// <returns>List of all defined login types.</returns>
+        /// <exception cref="MissingDatasourceException">No login types found</exception>
         IEnumerable<LoginTypeModel> GetAllLoginTypes();
 
         /// <summary>

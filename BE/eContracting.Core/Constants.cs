@@ -39,6 +39,7 @@ namespace eContracting
         public static class ErrorCodes
         {
             public const string HOMEPAGE = "000";
+            public const string UNKNOWN = "000";
             public const string USER_BLOCKED = "001";
             public const string INVALID_GUID = "002";
             public const string OFFER_NOT_FOUND = "010";

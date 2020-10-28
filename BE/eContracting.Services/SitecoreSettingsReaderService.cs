@@ -24,19 +24,40 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<LoginTypeModel> GetAllLoginTypes()
         {
-            return this.Context.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
+            var items = this.Context.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
+
+            if (items?.Count() == 0)
+            {
+                throw new MissingDatasourceException("No login types found");
+            }
+
+            return items;
         }
 
         /// <inheritdoc/>
         public IEnumerable<ProcessModel> GetAllProcesses()
         {
-            return this.Context.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES);
+            var items =  this.Context.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES);
+
+            if (items?.Count() == 0)
+            {
+                throw new MissingDatasourceException("No processes found");
+            }
+
+            return items;
         }
 
         /// <inheritdoc/>
         public IEnumerable<ProcessTypeModel> GetAllProcessTypes()
         {
-            return this.Context.GetItems<ProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
+            var items = this.Context.GetItems<ProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
+
+            if (items?.Count() == 0)
+            {
+                throw new MissingDatasourceException("No process types found");
+            }
+
+            return items;
         }
 
         /// <inheritdoc/>
