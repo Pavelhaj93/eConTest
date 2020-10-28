@@ -7,11 +7,11 @@ using Castle.Core.Internal;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("eContracting.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Contains shared stuffs for test projects")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Actum s.r.o.")]
 [assembly: AssemblyProduct("eContracting.Tests")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Actum s.r.o. for innogy CZ © 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

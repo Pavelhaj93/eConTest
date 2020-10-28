@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("eContracting - Kernel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Actum s.r.o.")]
 [assembly: AssemblyProduct("eContracting.Kernel")]
-[assembly: AssemblyCopyright("Actum s.r.o. © 2020")]
+[assembly: AssemblyCopyright("Actum s.r.o. for innogy CZ © 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
