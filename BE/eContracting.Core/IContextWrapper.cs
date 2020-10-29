@@ -19,6 +19,13 @@ namespace eContracting
         void SetDisplayMode(DisplayMode model);
 
         /// <summary>
+        /// Gets value from 'Sitecore.Configuration.Settings.GetSetting()'.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>String or null.</returns>
+        string GetSetting(string name);
+
+        /// <summary>
         /// Determines whether Sitecore context page mode is in normal mode.
         /// </summary>
         bool IsNormalMode();

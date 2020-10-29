@@ -14,6 +14,12 @@ namespace eContracting
     public class SitecoreContextWrapper : IContextWrapper
     {
         /// <inheritdoc/>
+        public string GetSetting(string name)
+        {
+            return Sitecore.Configuration.Settings.GetSetting(name);
+        }
+
+        /// <inheritdoc/>
         public bool IsEditMode()
         {
             return Sitecore.Context.PageMode.IsExperienceEditorEditing;

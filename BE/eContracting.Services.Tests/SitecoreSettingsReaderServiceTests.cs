@@ -33,8 +33,9 @@ namespace eContracting.Services.Tests
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<LoginTypeModel>());
+            var mockContextWrapper = new Mock<IContextWrapper>();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object);
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
             Assert.Throws<MissingDatasourceException>(() => service.GetAllLoginTypes());
         }
 
@@ -43,8 +44,9 @@ namespace eContracting.Services.Tests
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<LoginTypeModel>());
+            var mockContextWrapper = new Mock<IContextWrapper>();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object);
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
             Assert.Throws<MissingDatasourceException>(() => service.GetAllProcesses());
         }
 
@@ -53,8 +55,9 @@ namespace eContracting.Services.Tests
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<LoginTypeModel>());
+            var mockContextWrapper = new Mock<IContextWrapper>();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object);
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
             Assert.Throws<MissingDatasourceException>(() => service.GetAllProcessTypes());
         }
     }

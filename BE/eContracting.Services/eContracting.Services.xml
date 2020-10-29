@@ -271,7 +271,22 @@
             <param name="response">The response.</param>
             <returns>Array of attributes.</returns>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext)">
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
+            <summary>
+            The context.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.ContextWrapper">
+            <summary>
+            The context wrapper.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Rand">
+            <summary>
+            The randomizer.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
             </summary>

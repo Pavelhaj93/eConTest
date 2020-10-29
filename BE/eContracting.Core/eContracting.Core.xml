@@ -493,6 +493,13 @@
             </summary>
             <param name="model">The model.</param>
         </member>
+        <member name="M:eContracting.IContextWrapper.GetSetting(System.String)">
+            <summary>
+            Gets value from 'Sitecore.Configuration.Settings.GetSetting()'.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>String or null.</returns>
+        </member>
         <member name="M:eContracting.IContextWrapper.IsNormalMode">
             <summary>
             Determines whether Sitecore context page mode is in normal mode.
@@ -1569,6 +1576,9 @@
             Wrapper over 'Sitecore.Context'.
             </summary>
             <seealso cref="T:eContracting.IContextWrapper" />
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetSetting(System.String)">
+            <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.IsEditMode">
             <inheritdoc/>

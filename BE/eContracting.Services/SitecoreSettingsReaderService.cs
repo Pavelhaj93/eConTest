@@ -11,14 +11,28 @@ namespace eContracting.Services
 {
     public class SitecoreSettingsReaderService : ISettingsReaderService
     {
+        /// <summary>
+        /// The context.
+        /// </summary>
         protected readonly ISitecoreContext Context;
+
+        /// <summary>
+        /// The context wrapper.
+        /// </summary>
+        protected readonly IContextWrapper ContextWrapper;
+
+        /// <summary>
+        /// The randomizer.
+        /// </summary>
         protected readonly static Random Rand = new Random();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SitecoreSettingsReaderService"/> class.
         /// </summary>
-        public SitecoreSettingsReaderService(ISitecoreContext sitecoreContext)
+        public SitecoreSettingsReaderService(ISitecoreContext sitecoreContext, IContextWrapper contextWrapper)
         {
             this.Context = sitecoreContext ?? throw new ArgumentNullException(nameof(sitecoreContext));
+            this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
         }
 
         /// <inheritdoc/>
@@ -63,9 +77,9 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public CacheApiServiceOptions GetApiServiceOptions()
         {
-            var url = Sitecore.Configuration.Settings.GetSetting("eContracting.ServiceUrl");
-            var username = Sitecore.Configuration.Settings.GetSetting("eContracting.ServiceUser");
-            var password = Sitecore.Configuration.Settings.GetSetting("eContracting.ServicePassword");
+            var url = this.ContextWrapper.GetSetting("eContracting.ServiceUrl");
+            var username = this.ContextWrapper.GetSetting("eContracting.ServiceUser");
+            var password = this.ContextWrapper.GetSetting("eContracting.ServicePassword");
 
             if (url == null || username == null || password == null)
             {
