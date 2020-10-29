@@ -14,10 +14,10 @@ namespace eContracting.Core.Tests
         [InlineData(-1, "0 B")]
         [InlineData(0, "0 B")]
         [InlineData(462, "462 B")]
-        [InlineData(5523, "5,39 KB")]
-        [InlineData(63093, "61,61 KB")]
-        [InlineData(390123, "380,98 KB")]
-        [InlineData(7842052, "7,48 MB")]
+        [InlineData(5523, "5.39 KB")]
+        [InlineData(63093, "61.61 KB")]
+        [InlineData(390123, "380.98 KB")]
+        [InlineData(7842052, "7.48 MB")]
         public void GerReadableFileSize(int size, string expected)
         {
             var result = Utils.GetReadableFileSize(size);

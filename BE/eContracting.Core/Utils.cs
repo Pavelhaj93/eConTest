@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -37,7 +38,7 @@ namespace eContracting
 
             // Adjust the format string to your preferences. For example "{0:0.#}{1}" would
             // show a single decimal place, and no space.
-            return string.Format("{0:0.##} {1}", len, sizes[order]);
+            return string.Format(CultureInfo.InvariantCulture, "{0:0.##} {1}", len, sizes[order]);
         }
 
         public static string AesEncrypt(string input, string key, string vector)
