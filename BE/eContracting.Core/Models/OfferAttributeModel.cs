@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace eContracting.Models
     /// <summary>
     /// Represent an attribute anywhere in an offer.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class OfferAttributeModel
     {
         /// <summary>

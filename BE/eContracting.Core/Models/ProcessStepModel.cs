@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace eContracting.Models
     /// </summary>
     /// <seealso cref="eContracting.Models.BaseSitecoreModel" />
     [SitecoreType(TemplateId = "{7691585A-BB36-4EE7-937F-DA4DE7A3EDEC}", AutoMap = true)]
+    [ExcludeFromCodeCoverage]
     public class ProcessStepModel : BaseSitecoreModel
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Xml.Serialization;
 namespace eContracting.Models
 {
     [Serializable]
+    [ExcludeFromCodeCoverage]
     [XmlRoot("abap", Namespace = "http://www.sap.com/abapxml")]
     public class OfferXmlModel
     {

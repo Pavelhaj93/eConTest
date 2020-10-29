@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using Sitecore.Shell.Applications.ContentEditor;
 namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{B9B48C83-1724-43B5-8200-9CDE955D6835}", AutoMap = true)]
+    [ExcludeFromCodeCoverage]
     public class DefinitionCombinationModel : BaseSitecoreModel
     {
         [SitecoreField]

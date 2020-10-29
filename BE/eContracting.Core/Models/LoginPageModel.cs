@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Glass.Mapper.Sc.Configuration.Attributes;
 namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}", AutoMap = true)]
+    [ExcludeFromCodeCoverage]
     public class LoginPageModel : BaseSitecoreModel
     {
         [SitecoreField]

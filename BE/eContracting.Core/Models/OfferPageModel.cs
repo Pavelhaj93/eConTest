@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace eContracting.Models
     /// </summary>
     /// <seealso cref="BaseSitecoreModel" />
     [SitecoreType(TemplateId = "{456D5421-A2DE-42B4-97E6-A42FC243BF10}", AutoMap = true)]
+    [ExcludeFromCodeCoverage]
     public class OfferPageModel : BaseSitecoreModel
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace eContracting.Models
     /// <summary>
     /// Represent response from 'CACHE_GET'.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ResponseCacheGetModel
     {
         /// <summary>

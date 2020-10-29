@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace eContracting.Models
     /// <summary>
     /// Represents detail about failed login
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FailedLoginInfoDetailModel
     {
         /// <summary>

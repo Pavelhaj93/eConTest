@@ -1,15 +1,13 @@
-// <copyright file="GeneralSettings.cs" company="Actum">
-// Copyright © 2016 Respective owners
-// </copyright>
+using System;
+using System.Diagnostics.CodeAnalysis;
+using Glass.Mapper.Sc.Configuration;
+using Glass.Mapper.Sc.Configuration.Attributes;
+using Glass.Mapper.Sc.Fields;
 
 namespace eContracting
 {
-    using System;
-    using Glass.Mapper.Sc.Configuration;
-    using Glass.Mapper.Sc.Configuration.Attributes;
-    using Glass.Mapper.Sc.Fields;
-
     [SitecoreType(TemplateId = "{19121365-FDB3-4CD1-B1E0-ADA958669D0D}", AutoMap = true)]
+    [ExcludeFromCodeCoverage]
     public class GeneralTextsSettings
     {
         [SitecoreId]

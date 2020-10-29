@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using eContracting.Services;
 
 namespace eContracting.Models
 {
+    [ExcludeFromCodeCoverage]
     public class OfferHeaderModel
     {
         public readonly string CCHTYPE;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace eContracting.Models
     /// Represents file from 'ZCCH_CACHE_API'
     /// </summary>
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class OfferAttachmentXmlModel
     {
         /// <summary>

@@ -1,8 +1,10 @@
-﻿using MongoDB.Bson;
+﻿using System.Diagnostics.CodeAnalysis;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace eContracting.Models
 {
+    [ExcludeFromCodeCoverage]
     public class OfferLoginReportModel
     {
         /// <summary>
