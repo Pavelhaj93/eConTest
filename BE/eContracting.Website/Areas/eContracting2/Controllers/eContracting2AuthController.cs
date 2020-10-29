@@ -263,7 +263,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
-            var fakeHeader = new OfferHeaderModel(type: "XX", Guid.NewGuid().ToString("N"), "00", "");
+            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "00", "");
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fateXml, fakeHeader, fakeAttr);
