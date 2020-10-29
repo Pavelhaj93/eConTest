@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -249,8 +250,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void Login_Get_Redirect_When_Offer_Not_Found()
         {
             var guid = Guid.NewGuid().ToString("N");
-            var requestUrl = "http://localhost/login";
-            var requestUrlQuery = "guid=" + guid;
+            var requestQuery = "guid=" + guid;
+            var requestUrl = "http://localhost/login?" + requestQuery;
             var redirectUrl = "http://localhost/error";
             var expected = redirectUrl + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
 
@@ -272,7 +273,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             using (var writter = new StringWriter())
             {
-                var httpRequest = new HttpRequest("", requestUrl, requestUrlQuery);
+                var httpRequest = new HttpRequest("", requestUrl, requestQuery);
                 var httpResponse = new HttpResponse(writter);
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
@@ -549,6 +550,96 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 Assert.Equal("/Areas/eContracting2/Views/Login.cshtml", actionResult.ViewName);
                 Assert.IsType<LoginViewModel>(actionResult.Model);
                 var loginViewModel = actionResult.Model as LoginViewModel;
+            }
+        }
+
+        [Fact]
+        public void Loging_Get_Throws_AggregateException_With_EndpointNotFoundException_When_Call_GetOffer()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var requestQuery = "guid=" + guid;
+            var requestUrl = "http://localhost/login?" + requestQuery;
+            var redirectUrl = "http://localhost/system-error";
+            var expected = redirectUrl + "?code=" + Constants.ErrorCodes.AUTH1_CACHE;
+
+            var aggregageException = new AggregateException(new EndpointNotFoundException());
+
+            var loginPageModel = new LoginPageModel();
+            loginPageModel.Step = new ProcessStepModel();
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
+            var mockApiService = new Mock<IApiService>();
+            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.SystemError)).Returns(redirectUrl);
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", requestUrl, requestQuery);
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+
+                var result = controller.Login();
+
+                Assert.IsType<RedirectResult>(result);
+                var actionResult = (RedirectResult)result;
+
+                Assert.Equal(expected, actionResult.Url);
+            }
+        }
+
+        [Fact]
+        public void Loging_Get_Throws_AggregateException_When_Call_GetOffer()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var requestQuery = "guid=" + guid;
+            var requestUrl = "http://localhost/login?" + requestQuery;
+            var redirectUrl = "http://localhost/system-error";
+            var expected = redirectUrl + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2;
+
+            var aggregageException = new AggregateException();
+
+            var loginPageModel = new LoginPageModel();
+            loginPageModel.Step = new ProcessStepModel();
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
+            var mockApiService = new Mock<IApiService>();
+            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.SystemError)).Returns(redirectUrl);
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", requestUrl, requestQuery);
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+
+                var result = controller.Login();
+
+                Assert.IsType<RedirectResult>(result);
+                var actionResult = (RedirectResult)result;
+
+                Assert.Equal(expected, actionResult.Url);
             }
         }
 
