@@ -355,6 +355,7 @@
             <param name="guid">Guid identifier.</param>
             <param name="type">Offer type.</param>
             <returns>The offer.</returns>
+            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
         <member name="M:eContracting.IApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
             <summary>
@@ -363,6 +364,7 @@
             <param name="guid">Guid identifier.</param>
             <param name="type">Offer type.</param>
             <returns>The offer.</returns>
+            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
         <member name="M:eContracting.IApiService.GetXml(System.String)">
             <summary>
@@ -499,6 +501,12 @@
             </summary>
             <param name="name">The name.</param>
             <returns>String or null.</returns>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetSiteRoot">
+            <summary>
+            Gets the site root path.
+            </summary>
+            <returns>Value from 'Sitecore.Context.Site.RootPath'.</returns>
         </member>
         <member name="M:eContracting.IContextWrapper.IsNormalMode">
             <summary>
@@ -1578,6 +1586,9 @@
             <seealso cref="T:eContracting.IContextWrapper" />
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.GetSetting(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetSiteRoot">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.IsEditMode">

@@ -81,12 +81,12 @@ namespace eContracting.Services
             var username = this.ContextWrapper.GetSetting("eContracting.ServiceUser");
             var password = this.ContextWrapper.GetSetting("eContracting.ServicePassword");
 
-            if (url == null || username == null || password == null)
+            if (string.IsNullOrWhiteSpace(url) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 var generalSettings = this.GetSiteSettings();
-                url = url ?? generalSettings.ServiceUrl;
-                username = username ?? generalSettings.ServiceUser;
-                password = password ?? generalSettings.ServicePassword;
+                url = string.IsNullOrWhiteSpace(url) ? generalSettings.ServiceUrl : url;
+                username = string.IsNullOrWhiteSpace(username) ? generalSettings.ServiceUser : username;
+                password = string.IsNullOrWhiteSpace(password) ? generalSettings.ServicePassword : password;
             }
 
             var options = new CacheApiServiceOptions(url, username, password);
@@ -174,7 +174,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public SiteSettingsModel GetSiteSettings()
         {
-            var settings = this.Context.GetItem<SiteSettingsModel>(Sitecore.Context.Site.RootPath);
+            var settings = this.Context.GetItem<SiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
             return settings ?? throw new MissingDatasourceException("Site settings could not be resolved.");
         }
 

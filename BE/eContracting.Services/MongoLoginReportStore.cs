@@ -151,7 +151,7 @@ namespace eContracting.Services
                     return false;
                 }
             }
-            catch (Exception exception)
+            catch (ApplicationException exception)
             {
                 this.Logger.Error($"[{guid}] Cannot validate if had failed log-in attempts. We must allow him to log-in.", exception);
                 return true;

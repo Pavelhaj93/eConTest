@@ -26,6 +26,12 @@ namespace eContracting
         string GetSetting(string name);
 
         /// <summary>
+        /// Gets the site root path.
+        /// </summary>
+        /// <returns>Value from 'Sitecore.Context.Site.RootPath'.</returns>
+        string GetSiteRoot();
+
+        /// <summary>
         /// Determines whether Sitecore context page mode is in normal mode.
         /// </summary>
         bool IsNormalMode();

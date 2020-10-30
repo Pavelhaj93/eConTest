@@ -20,6 +20,12 @@ namespace eContracting
         }
 
         /// <inheritdoc/>
+        public string GetSiteRoot()
+        {
+            return Sitecore.Context.Site.RootPath;
+        }
+
+        /// <inheritdoc/>
         public bool IsEditMode()
         {
             return Sitecore.Context.PageMode.IsExperienceEditorEditing;

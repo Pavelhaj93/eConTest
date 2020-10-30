@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using eContracting.Models;
 
 namespace eContracting
@@ -56,6 +57,7 @@ namespace eContracting
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
+        /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
         OfferModel GetOffer(string guid, OFFER_TYPES type);
 
         /// <summary>
@@ -64,6 +66,7 @@ namespace eContracting
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
+        /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
         Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type);
 
         /// <summary>
