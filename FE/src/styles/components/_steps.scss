@@ -13,7 +13,7 @@ $icon-size: 30px;
     display: block;
     width: 1px;
     height: calc(100% - #{$icon-size} - #{$line-height-base});
-    border-left: 1px dotted $color-gray-light;
+    border-left: 1px dotted $color-border;
     position: absolute;
     bottom: 0;
     left: -#{($left-padding / 2)};
@@ -32,7 +32,7 @@ $icon-size: 30px;
     .icon {
       width: $icon-size;
       height: $icon-size;
-      fill: $color-gray-light;
+      fill: $color-border;
       transition: fill 0.2s ease;
 
       // @media (min-width: $screen-md-min) and (max-width: $screen-lg-max) {
@@ -54,7 +54,7 @@ $icon-size: 30px;
   &--active {
     .step__icon {
       .icon {
-        fill: $color-gray;
+        fill: $body-color;
       }
     }
   }

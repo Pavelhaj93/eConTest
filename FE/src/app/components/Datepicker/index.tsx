@@ -40,6 +40,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
           />
           <Button
             variant="link"
+            size="sm"
             className="react-datepicker__button-calendar"
             onClick={onClick}
             {...(ariaLabelOpen ? { 'aria-label': ariaLabelOpen } : {})}

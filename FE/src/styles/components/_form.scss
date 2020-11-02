@@ -41,8 +41,8 @@ select {
   &.disabled,
   &:disabled,
   &-inactive {
-    border-color: $color-gray-dim;
-    background: $color-gray-dim;
+    border-color: $btn-disabled-border;
+    background: $btn-disabled-bg;
   }
 
   &.disabled,
@@ -52,7 +52,7 @@ select {
   }
 
   &-primary {
-    padding: 0.65rem 1.5rem 0.6rem;
+    // padding: 0.65rem 1.5rem 0.6rem;
     box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
   }
 
@@ -70,10 +70,6 @@ label,
   font-weight: normal;
   margin-left: map-get($spacers, 4);
   margin-bottom: $label-margin-bottom;
-
-  &:not(.custom-control-label) {
-    color: $color-gray-light;
-  }
 }
 
 .form-control {
@@ -120,7 +116,7 @@ input {
         top: 0;
 
         border-radius: 4px;
-        border: 1px solid $color-gray-dim;
+        border: 1px solid $gray-20;
         content: '';
         height: $checkbox-size;
         transition: border-color 0.2s ease;
@@ -134,7 +130,7 @@ input {
         position: absolute;
         top: 0;
 
-        background: lighten($color-gray-dim, 10%);
+        background: lighten($gray-20, 10%);
         border-radius: 3px;
         content: '';
         height: $checkbox-size - 2;
@@ -160,14 +156,12 @@ input {
       }
 
       &[disabled] + label {
-        $color-disabled: $color-gray-dim;
         cursor: default;
-
         &:before {
-          border-color: $color-disabled;
+          border-color: $input-disabled-border-color;
         }
         &:after {
-          background-color: $color-disabled;
+          background-color: $input-disabled-bg;
         }
       }
     }
@@ -185,7 +179,7 @@ input {
 .custom-radio {
   .custom-control-label {
     margin-bottom: 0;
-    padding: $label-padding-y 0 $label-padding-y 1.5rem;
+    padding: $label-padding-y 0 $label-padding-y 2rem;
     cursor: pointer;
     border-radius: $input-border-radius;
     @include transition(box-shadow);
@@ -203,7 +197,7 @@ input {
     &::before {
       width: 20px;
       height: 20px;
-      border: 1px solid $color-gray-dim;
+      border: 1px solid $gray-40;
       z-index: 1;
       transform: translateY(-50%);
       @include transition(border);
@@ -252,7 +246,7 @@ input {
   margin: 1rem 0;
   padding: 1rem 0;
 
-  background: $color-gray-dimmer;
+  background: $gray-5;
 
   @include media-breakpoint-down(md) {
     padding-right: 1rem;

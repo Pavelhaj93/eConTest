@@ -1,3 +1,6 @@
+// Custom functions
+@import 'functions/rem';
+
 // Custom variables
 @import 'base/variables';
 
@@ -65,3 +68,6 @@
 @import 'components/signature';
 @import 'components/steps';
 @import 'components/tooltip';
+
+// Custom helpers
+@import 'utils/helpers';
