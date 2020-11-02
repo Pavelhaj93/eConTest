@@ -22,7 +22,7 @@ type FormValues = {
   [key: string]: string
 }
 
-export const Authentication: React.FC<View> = ({ labels, formAction, choices, itemValue }) => {
+export const Authentication: React.FC<View> = ({ labels, formAction, choices }) => {
   const [isFormValid, setFormValid] = useState(false)
   const [date, setDate] = useState<Date | null>(null)
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)
@@ -195,7 +195,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
                   type="radio"
                   label={label}
                   name="SelectedKey"
-                  id={key}
+                  id={`SelectedKey-${idx}`}
                   onChange={handleChangeChoice}
                   value={key}
                   custom
@@ -212,13 +212,13 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
                         className="mb-2 mb-md-0"
                         onEntered={() => choiceInputRefs[key].current?.focus()}
                       >
-                        <Form.Group controlId={`Additional${idx}`} className="mb-0 ml-4 ml-md-3">
+                        <Form.Group controlId={key} className="mb-0 ml-4 ml-md-3">
                           <FormControlTooltipWrapper>
                             <Form.Label srOnly>{label}</Form.Label>
                             <FormControl
                               inputMode="numeric"
                               pattern="[0-9]*"
-                              name="Additional"
+                              name={key}
                               {...(placeholder ? { placeholder } : {})}
                               ref={choiceInputRefs[key]}
                               // use custom "id" instead of the one on input element
@@ -280,7 +280,6 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
                   <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
                 )}
               </FormControlTooltipWrapper>
-              <input value="NotAvailable" id="SelectedKey" name="SelectedKey" type="hidden" />
             </Col>
           </Row>
         )}
@@ -293,8 +292,6 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices, it
       >
         {labels.submitBtn}
       </Button>
-
-      <input value={itemValue ?? 'NotAvailable'} id="ItemValue" name="ItemValue" type="hidden" />
     </Form>
   )
 }
