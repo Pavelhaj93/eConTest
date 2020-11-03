@@ -62,6 +62,10 @@ export default {
         test: /\.handlebars$/,
         loader: 'handlebars-loader',
         exclude: [/node_modules/, /build/],
+        query: {
+          partialDirs: [path.resolve(__dirname, '../src/tpl/partials')],
+          helperDirs: [path.resolve(__dirname, '../src/tpl/helpers')]
+        },
       },
       {
         test: /\.woff2?$/,
@@ -81,7 +85,7 @@ export default {
         options: {
           extract: true,
           spriteFilename: 'sprite.svg',
-          outputPath: 'gfx/icon/'
+          outputPath: 'gfx/icon/',
         },
       },
     ],

@@ -1,20 +1,20 @@
-{{> partials/html-header}}
-{{> partials/header}}
+{{> html-header}}
+{{> header}}
 
 <div class="main" role="main">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2">
-        {{#> partials/steps}}
-          {{> partials/step content="Ověření údajů" active=true}}
-          {{> partials/step content="Přečtení a potvrzení dokumentů"}}
-          {{> partials/step content="Hotovo"}}
-        {{/ partials/steps}}
+        {{#> steps}}
+          {{> step content="Ověření údajů" active=true}}
+          {{> step content="Přečtení a potvrzení dokumentů"}}
+          {{> step content="Hotovo"}}
+        {{/ steps}}
         <div class="info">
           <p>Vítáme Vás, pane Nováku,</p>
           <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
         </div>
-        {{> partials/app}}
+        {{> app}}
         <div id="token">
           <input name="__RequestVerificationToken" type="hidden"
             value="syILVuR3pRQyhW-s-FRQ3D7WLgLK21qtyplHUS34itGwBfYHYwkxlos6yMKXYF8Lt2HujsVHsj1MveXusQ6q0nESucc1" />
@@ -63,4 +63,4 @@
   };
 </script>
 
-{{> partials/footer}}
+{{> footer}}

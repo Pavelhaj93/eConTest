@@ -1,0 +1,13 @@
+{{!--
+  "Generate" an application config based on different type of the offer.
+--}}
+<script>
+  var appConfig = {
+    view: 'Offer',
+    doxReadyUrl: '/documents.json',
+    isRetention: {{ retention }},
+    isAcquisition: {{ acquisition }},
+    isAgreed: {{ agreed }},
+    labels: {},
+  }
+</script>
