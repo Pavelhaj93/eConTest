@@ -5,6 +5,11 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 offset-lg-2">
+        {{#> partials/steps}}
+          {{> partials/step content="Ověření údajů" active=true}}
+          {{> partials/step content="Přečtení a potvrzení dokumentů"}}
+          {{> partials/step content="Hotovo"}}
+        {{/ partials/steps}}
         <div class="info">
           <p>Vítáme Vás, pane Nováku,</p>
           <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>

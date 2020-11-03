@@ -16,15 +16,15 @@ $color-green-dark: #00875a;
 $color-yellow: #fff0d9;
 $color-black: #1a1a18;
 
-$gray-5: #f7f6f6;
-$gray-10: #eeecec;
-$gray-20: #dcdbd9;
-$gray-40: #b8b5b4;
-$gray-60: #928e8c;
-$gray-80: #696461;
-$gray-100: #3c3732;
+$color-gray-5: #f7f6f6;
+$color-gray-10: #eeecec;
+$color-gray-20: #dcdbd9;
+$color-gray-40: #b8b5b4;
+$color-gray-60: #928e8c;
+$color-gray-80: #696461;
+$color-gray-100: #3c3732;
 
-$color-border: $gray-10;
+$color-border: $color-gray-10;
 
 $transition-duration: 0.2s;
 
@@ -37,10 +37,11 @@ $font-size-base: rem(18);
 
 // Bootstrap variables
 $primary: $color-green;
+$secondary: $color-orange;
 $link-color: $color-orange;
 $red: $color-red;
 
-$body-color: $gray-100;
+$body-color: $color-gray-100;
 
 $tooltip-font-size: rem(18);
 $tooltip-bg: $color-orange;
@@ -53,13 +54,13 @@ $paragraph-margin-bottom: 10px;
 $input-btn-padding-x: 1.6rem;
 $input-btn-padding-y: 0.9rem;
 $input-color: $body-color;
-$input-placeholder-color: $gray-60;
-$input-border-color: $gray-80;
+$input-placeholder-color: $color-gray-60;
+$input-border-color: $color-gray-80;
 $input-focus-border-color: $color-orange;
 $input-border-radius: 35px;
 $input-focus-box-shadow: none;
 $input-font-size: inherit;
-$input-disabled-border-color: $gray-20;
+$input-disabled-border-color: $color-gray-20;
 
 $form-control-line-height: 1.35rem;
 $form-group-margin-bottom: 1.7rem;
@@ -69,8 +70,8 @@ $label-padding-y: $label-margin-bottom;
 $btn-disabled-opacity: 1;
 $btn-font-size: inherit;
 $btn-line-height: $form-control-line-height;
-$btn-disabled-border: $gray-40;
-$btn-disabled-bg: $gray-40;
+$btn-disabled-border: $color-gray-40;
+$btn-disabled-bg: $color-gray-40;
 
 $alert-border-radius: 0;
 $alert-border-width: 0;

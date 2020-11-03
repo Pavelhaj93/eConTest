@@ -9,12 +9,12 @@
 
   &__top {
     font-size: rem(16);
-    border-top: 1px solid $gray-20;
+    border-top: 1px solid $color-gray-20;
     padding: map-get($spacers, 3) 0 map-get($spacers, 2);
   }
 
   &__bottom {
-    background-color: $gray-40;
+    background-color: $color-gray-40;
     padding: 20px 0 8px;
   }
 }

@@ -194,8 +194,8 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                 <Form.Check
                   type="radio"
                   label={label}
-                  name="SelectedKey"
-                  id={`SelectedKey-${idx}`}
+                  name="key"
+                  id={`key-${idx}`}
                   onChange={handleChangeChoice}
                   value={key}
                   custom
@@ -218,7 +218,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                             <FormControl
                               inputMode="numeric"
                               pattern="[0-9]*"
-                              name={key}
+                              name="value"
                               {...(placeholder ? { placeholder } : {})}
                               ref={choiceInputRefs[key]}
                               // use custom "id" instead of the one on input element
@@ -235,7 +235,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                                   wasValidated,
                               })}
                               tabIndex={isVisible ? 0 : -1}
-                              // do not send multiple "Additional" fields
+                              // do not send multiple fields
                               disabled={key !== selectedChoice}
                             />
                             {helpText && (
@@ -256,13 +256,14 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
           // render single choice
           <Row>
             <Col xs={12} md={8} lg={6}>
+              <input type="hidden" name="key" value={choices[0].key} />
               <Form.Label htmlFor={choices[0].key}>{choices[0].label}</Form.Label>
               <FormControlTooltipWrapper>
                 <FormControl
                   inputMode="numeric"
                   pattern="[0-9]*"
                   id={choices[0].key}
-                  name={choices[0].key}
+                  name="value"
                   {...(choices[0].placeholder ? { placeholder: choices[0].placeholder } : {})}
                   // use custom "id" instead of the one on input element
                   onChange={event =>

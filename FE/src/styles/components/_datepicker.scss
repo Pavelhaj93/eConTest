@@ -19,7 +19,7 @@
       .react-datepicker__triangle {
         &,
         &::before {
-          border-bottom-color: $gray-100;
+          border-bottom-color: $color-gray-100;
         }
 
         & {
@@ -30,7 +30,7 @@
   }
 
   &__header {
-    background-color: $gray-100;
+    background-color: $color-gray-100;
     border-bottom: 0;
   }
 
@@ -73,7 +73,7 @@
       }
     }
     &--outside-month {
-      color: $gray-40;
+      color: $color-gray-40;
     }
     &--disabled {
       color: #fff;

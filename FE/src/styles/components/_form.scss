@@ -116,7 +116,7 @@ input {
         top: 0;
 
         border-radius: 4px;
-        border: 1px solid $gray-20;
+        border: 1px solid $color-gray-20;
         content: '';
         height: $checkbox-size;
         transition: border-color 0.2s ease;
@@ -130,7 +130,7 @@ input {
         position: absolute;
         top: 0;
 
-        background: lighten($gray-20, 10%);
+        background: lighten($color-gray-20, 10%);
         border-radius: 3px;
         content: '';
         height: $checkbox-size - 2;
@@ -197,7 +197,7 @@ input {
     &::before {
       width: 20px;
       height: 20px;
-      border: 1px solid $gray-40;
+      border: 1px solid $color-gray-40;
       z-index: 1;
       transform: translateY(-50%);
       @include transition(border);
@@ -246,7 +246,7 @@ input {
   margin: 1rem 0;
   padding: 1rem 0;
 
-  background: $gray-5;
+  background: $color-gray-5;
 
   @include media-breakpoint-down(md) {
     padding-right: 1rem;
