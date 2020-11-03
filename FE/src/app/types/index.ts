@@ -21,7 +21,6 @@ export type AppConfig = {
   isAcquisition: boolean
   formAction?: string
   choices: Choice[]
-  itemValue?: string
 }
 
 declare global {

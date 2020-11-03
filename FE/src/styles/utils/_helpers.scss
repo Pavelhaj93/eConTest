@@ -1,0 +1,17 @@
+.v-center {
+  &,
+  &--large {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  > *:not(:last-child) {
+    margin-right: map-get($spacers, 2);
+  }
+
+  &--large {
+    > *:not(:last-child) {
+      margin-right: map-get($spacers, 3);
+    }
+  }
+}

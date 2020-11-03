@@ -35,3 +35,7 @@ Once the build is complete, all the genereted files are automatically copied to 
 3. Use it as a component e.g. `<Icon name="arrow-right" width="10" height="20" color="orange" />`
 
 After build, the icon will be automatically part of SVG sprite.
+
+## Other information
+
+The header and footer parts are rendered directly by Sitecore.

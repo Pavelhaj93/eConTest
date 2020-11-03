@@ -104,6 +104,7 @@ export default {
         'Array.from',
         'Array.prototype.find',
         'Array.prototype.findIndex',
+        'Array.prototype.fill',
         'fetch',
         'Promise',
       ],

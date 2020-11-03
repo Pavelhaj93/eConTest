@@ -35,27 +35,6 @@ a {
   }
 }
 
-.phone,
-.email {
-  &:before {
-    $size: 1.5rem;
-    display: inline-block;
-    margin: -5px 0.5em 0 0;
-
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    content: '';
-    height: $size;
-    vertical-align: middle;
-    width: $size;
-  }
-}
-
-.phone:before {
-  background-image: svg-load('../icons/svg/phone.svg', fill=#fff);
-}
-
 .pdf:before {
   $size: 1rem;
   display: inline-block;
@@ -112,7 +91,7 @@ a {
         background: $color-orange;
       }
       &:nth-child(3n) {
-        background: $color-green-blue;
+        background: $color-blue-green-light;
       }
 
       p {
