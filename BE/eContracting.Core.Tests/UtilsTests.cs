@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace eContracting.Core.Tests
         }
 
         [Theory]
-        [InlineData("http://econtracting2.innogy.cz.local/page", "q","john", "http://econtracting2.innogy.cz.local/page?q=john")]
+        [InlineData("http://econtracting2.innogy.cz.local/page", "q", "john", "http://econtracting2.innogy.cz.local/page?q=john")]
         [InlineData("http://econtracting2.innogy.cz.local/page?q=john", "u", "uu", "http://econtracting2.innogy.cz.local/page?q=john&u=uu")]
         public void SetQuery_Append_To_AbsoluteUrl(string absoluteUrl, string key, string value, string expected)
         {
@@ -45,6 +46,64 @@ namespace eContracting.Core.Tests
         public void SetQuery_With_Null_Url_Throws_ArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => Utils.SetQuery((string)null, "k", "v"));
+        }
+
+        [Fact]
+        public void GetQueryString_Returns_Empty_String_When_Null_Collection()
+        {
+            var result = Utils.GetQueryString((NameValueCollection)null);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
+        public void GetQueryString_Returns_Empty_String_When_Empty_Collection()
+        {
+            var collection = new NameValueCollection();
+
+            var result = Utils.GetQueryString(collection);
+
+            Assert.Equal(string.Empty, result);
+        }
+
+        [Fact]
+        public void GetQueryString_Returns_Query_Without_Leading_Questionmark()
+        {
+            var collection = new NameValueCollection();
+            collection.Add("k1", "v1");
+            collection.Add("k2", "v2");
+            collection.Add("k3", "v3");
+
+            var result = Utils.GetQueryString(collection);
+
+            Assert.False(result.StartsWith("?"));
+        }
+
+        [Fact]
+        public void GetQueryString_Returns_Query_String()
+        {
+            var collection = new NameValueCollection();
+            collection.Add("k1", "v1");
+            collection.Add("k2", "v2");
+            collection.Add("k3", "v3");
+
+            var result = Utils.GetQueryString(collection);
+
+            Assert.Equal("k1=v1&k2=v2&k3=v3", result);
+        }
+
+        [Theory]
+        [InlineData("key","aaa", "key=aaa")]
+        [InlineData("key", "a b", "key=a+b")]
+        [InlineData("key", "žluťoučký kůň", "key=%c5%belu%c5%a5ou%c4%8dk%c3%bd+k%c5%af%c5%88")]
+        public void GetQueryString_Returns_Encoded_Values(string key, string value, string expected)
+        {
+            var collection = new NameValueCollection();
+            collection.Add(key, value);
+
+            var result = Utils.GetQueryString(collection);
+
+            Assert.Equal(expected, result);
         }
 
         [Fact(DisplayName = "Returns non empty result with 32 characters")]

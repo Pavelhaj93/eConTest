@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -90,15 +91,38 @@ namespace eContracting
         public static string SetQuery(Uri url, string key, string value)
         {
             var uriBuilder = new UriBuilder(url);
-            var query = WebUtil.ParseQueryString(uriBuilder.Query);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query[key] = value;
-            uriBuilder.Query = WebUtil.BuildQueryString(query, false);
+            uriBuilder.Query = GetQueryString(query);
             return uriBuilder.Uri.ToString();
         }
 
         public static string SetQuery(string url, string key, string value)
         {
             return SetQuery(new Uri(url), key, value);
+        }
+
+        /// <summary>
+        /// Gets the query string from <paramref name="collection"/>.
+        /// </summary>
+        /// <param name="collection">The collection.</param>
+        /// <returns>Query string representation from <paramref name="collection"/> items.</returns>
+        public static string GetQueryString(NameValueCollection collection)
+        {
+            if ((collection?.Count ?? 0) == 0)
+            {
+                return string.Empty;
+            }
+
+            var items = new List<string>();
+
+            foreach (var key in collection.AllKeys)
+            {
+                items.Add(key + "=" + HttpUtility.UrlEncode(collection[key]));
+            }
+
+            var query = string.Join("&", items);
+            return query;
         }
 
         /// <summary>

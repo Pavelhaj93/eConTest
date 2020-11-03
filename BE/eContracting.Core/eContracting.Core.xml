@@ -1613,6 +1613,13 @@
             <seealso cref="!:https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
             <param name="size">The size.</param>
         </member>
+        <member name="M:eContracting.Utils.GetQueryString(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            Gets the query string from <paramref name="collection"/>.
+            </summary>
+            <param name="collection">The collection.</param>
+            <returns>Query string representation from <paramref name="collection"/> items.</returns>
+        </member>
         <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
             <summary>
             Gets the unique key for login type in a login view.
