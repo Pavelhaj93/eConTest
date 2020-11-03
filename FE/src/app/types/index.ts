@@ -19,6 +19,7 @@ export type AppConfig = {
   }
   isAgreed: boolean
   isAcquisition: boolean
+  isRetention: boolean
   formAction?: string
   choices: Choice[]
 }
@@ -30,3 +31,13 @@ declare global {
 }
 
 export type View = AppConfig
+
+export type Document = {
+  id: string
+  title: string
+  url: string | null
+  label: string
+  sign: boolean
+  signed?: boolean
+  accepted?: boolean
+}

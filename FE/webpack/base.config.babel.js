@@ -48,6 +48,7 @@ export default {
       '@icons': path.resolve(__dirname, '../src/icons/svg'),
       '@views': path.resolve(__dirname, '../src/app/views'),
       '@theme': path.resolve(__dirname, '../src/app/theme'),
+      '@stores': path.resolve(__dirname, '../src/app/stores'),
     },
   },
 
