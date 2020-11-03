@@ -11,8 +11,11 @@
             </a>
             @if (!string.IsNullOrEmpty(Model.PhoneLinkUrl))
             {
-                <a class="phone" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
-                    @Model.PhoneLinkUrlText
+                <a class="phone v-center v-center--large" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
+                    <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use class="d-none d-sm-block" xlink:href="#phone"></use>
+                    </svg>
+                    <span>@Model.PhoneLinkUrlText</span>
                 </a>
             }
         </div>

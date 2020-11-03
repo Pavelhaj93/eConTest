@@ -1,41 +1,41 @@
 ﻿@using eContracting.Kernel.Models
 @model LayoutModel
-<div class="pre-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <p>
-                    @Model.CopyrightText
-                </p>
-            </div>
-            <div class="col-sm-6 text-right">
-                <div class="contact-info">
-                    @if (!string.IsNullOrEmpty(Model.EmailLink))
-                    {
-                        <a class="email" href="mailto:@Model.EmailLink" id="emailLink">
-                            @Model.EmailText
-                        </a>
-                    }
-                    @if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
-                    {
-                        <a class="phone" href="tel:@Model.PhoneLinkLowerUrl" id="phoneLinkLower">
-                            @Model.PhoneLinkLowerUrlText
-                        </a>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <footer class="footer">
+  <div class="footer__top">
     <div class="container">
-        <p>
-            @if (!string.IsNullOrEmpty(Model.DisclaimerLink))
-            {
-                <a href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">
-                    @Model.DisclaimerText
-                </a>
-            }
-        </p>
+      <div class="text-center text-md-right">
+        @if (!string.IsNullOrEmpty(Model.EmailLink))
+        {
+          <a href="mailto:@Model.EmailLink" class="v-center mr-4 font-weight-bold" id="emailLink">
+            <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
+              <use xlink:href="#email"></use>
+            </svg>
+            <span>@Model.EmailText</span>
+          </a>
+        }
+        @if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
+        {
+          <a href="tel:@Model.PhoneLinkLowerUrl" class="v-center font-weight-bold" id="phoneLinkLower">
+            <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
+              <use xlink:href="#email"></use>
+            </svg>
+            <span>@Model.PhoneLinkLowerUrlText</span>
+          </a>
+        }
+      </div>
     </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="container">
+      <div class="row">
+        @if (!string.IsNullOrEmpty(Model.DisclaimerLink))
+        {
+          <div class="col-12 col-md-6 text-center text-md-left mb-2">
+            <a href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerText</a>
+          </div>
+        }
+        <div class="col-12 col-md-6 text-center text-md-right mb-2">@Model.CopyrightText</div>
+      </div>
+    </div>
+  </div>
 </footer>
