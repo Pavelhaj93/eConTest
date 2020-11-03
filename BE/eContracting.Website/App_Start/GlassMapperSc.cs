@@ -5,6 +5,7 @@ DO NOT CHANGE THIS FILE - UPDATE GlassMapperScCustom.cs
 
 **************************************/
 
+using System.Diagnostics.CodeAnalysis;
 using Glass.Mapper.Maps;
 using Glass.Mapper.Sc.Configuration.Fluent;
 using Glass.Mapper.Sc.IoC;
@@ -17,6 +18,7 @@ using Sitecore.Pipelines;
 
 namespace eContracting.Website.App_Start
 {
+    [ExcludeFromCodeCoverage]
 	public class  GlassMapperSc
 	{
 		public void Process(PipelineArgs args){
