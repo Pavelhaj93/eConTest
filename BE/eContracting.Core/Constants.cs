@@ -144,11 +144,6 @@ namespace eContracting
         {
             public const string OFFER_IDENTIFIER = "eContracting.OFFER_IDENTIFIER";
             public const string AUTH_DATA = "eContracting.AUTH_DATA";
-
-            public static string GetGuidIdentifier(string offerType)
-            {
-                return OFFER_IDENTIFIER + offerType;
-            }
         }
 
         public static class QueryKeys

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,11 @@ using Sitecore.Diagnostics;
 
 namespace eContracting
 {
+    /// <summary>
+    /// Wrapper over Sitecore logger.
+    /// </summary>
+    /// <seealso cref="eContracting.ILogger" />
+    [ExcludeFromCodeCoverage]
     public class SitecoreLogger : ILogger
     {
         public void Info(string message)

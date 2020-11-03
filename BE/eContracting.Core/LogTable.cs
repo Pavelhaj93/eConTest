@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace eContracting
 {
+    [ExcludeFromCodeCoverage]
     public class LogTable
     {
         protected List<string> Headers { get; } = new List<string>();

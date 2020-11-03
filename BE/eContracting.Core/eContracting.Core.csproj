@@ -98,7 +98,7 @@
     <Compile Include="MissingDatasourceException.cs" />
     <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
-    <Compile Include="Models\AUTH_RESULT_STATES.cs" />
+    <Compile Include="AUTH_RESULT_STATES.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
     <Compile Include="Models\DefinitionCombinationModel.cs" />
     <Compile Include="Models\FailedLoginInfoDetailModel.cs" />

@@ -1633,5 +1633,11 @@
             Represents abstration layer for logger.
             </summary>
         </member>
+        <member name="T:eContracting.SitecoreLogger">
+            <summary>
+            Wrapper over Sitecore logger.
+            </summary>
+            <seealso cref="T:eContracting.ILogger" />
+        </member>
     </members>
 </doc>
