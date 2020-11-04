@@ -1,28 +1,25 @@
 {{> html-header}}
 {{> header}}
 
-<div class="main" role="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        {{#> steps}}
-          {{> step content="Ověření údajů" active=true}}
-          {{> step content="Přečtení a potvrzení dokumentů"}}
-          {{> step content="Hotovo"}}
-        {{/ steps}}
-        <div class="info">
-          <p>Vítáme Vás, pane Nováku,</p>
-          <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
-        </div>
-        {{> app}}
-        <div id="token">
-          <input name="__RequestVerificationToken" type="hidden"
-            value="syILVuR3pRQyhW-s-FRQ3D7WLgLK21qtyplHUS34itGwBfYHYwkxlos6yMKXYF8Lt2HujsVHsj1MveXusQ6q0nESucc1" />
-        </div>
-      </div>
-    </div>
+{{#> layout}}
+  {{#> steps}}
+    {{> step content="Ověření údajů" active=true}}
+    {{> step content="Přečtení a potvrzení dokumentů"}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
+
+  <div class="info">
+    <p>Vítáme Vás, pane Nováku,</p>
+    <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
   </div>
-</div>
+
+  {{> app}}
+
+  <div id="token">
+    <input name="__RequestVerificationToken" type="hidden"
+      value="syILVuR3pRQyhW-s-FRQ3D7WLgLK21qtyplHUS34itGwBfYHYwkxlos6yMKXYF8Lt2HujsVHsj1MveXusQ6q0nESucc1" />
+  </div>
+{{/ layout}}
 
 <script>
   var appConfig = {

@@ -1,18 +1,12 @@
 {{> html-header }}
 {{> header }}
 
-<div class="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <h1>Stránky</h1>
-        <ul>
-          <li><a href="authentication.html">Authentication</a></li>
-          <li><a href="offer.html">Offer</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{{#> layout}}
+  <h1>Stránky</h1>
+  <ul>
+    <li><a href="authentication.html">Authentication</a></li>
+    <li><a href="offer.html">Offer</a></li>
+  </ul>
+{{/ layout}}
 
 {{> footer }}
