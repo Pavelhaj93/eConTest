@@ -28,7 +28,7 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-type Name =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'cross-circle' | 'email' | 'exclamation-mark-circle' | 'gift' | 'leaf' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
+export type Name =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'cross-circle' | 'email' | 'exclamation-mark-circle' | 'gift' | 'leaf' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
 
 type IconProps = {
   name: Name,

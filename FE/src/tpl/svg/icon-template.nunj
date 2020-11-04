@@ -8,7 +8,7 @@ import '@icons/{{icon.name}}.svg'
 
 import React from 'react'
 
-type Name = {%- for icon in icons %} {% if not loop.first -%} | {%- endif %} '{{icon.name}}' {%- endfor %}
+export type Name = {%- for icon in icons %} {% if not loop.first -%} | {%- endif %} '{{icon.name}}' {%- endfor %}
 
 type IconProps = {
   name: Name,

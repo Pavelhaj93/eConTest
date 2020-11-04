@@ -37,18 +37,12 @@ h2 {
 }
 
 h3 {
-  font-size: rem(18);
+  font-size: rem(20);
 
   @include media-breakpoint-up(sm) {
-    font-size: rem(30);
+    font-size: rem(22);
   }
   @include media-breakpoint-up(md) {
-    font-size: rem(20);
-  }
-}
-
-p {
-  &:last-of-type {
-    margin-bottom: 0;
+    font-size: rem(30);
   }
 }

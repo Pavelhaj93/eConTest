@@ -41,3 +41,26 @@ export type Document = {
   signed?: boolean
   accepted?: boolean
 }
+
+export type Color =
+  | 'orange'
+  | 'orange-dark'
+  | 'red'
+  | 'red-dark'
+  | 'red-purple-dark'
+  | 'purple'
+  | 'purple-light'
+  | 'blue'
+  | 'blue-dark'
+  | 'blue-green-dark'
+  | 'blue-green-light'
+  | 'green'
+  | 'green-dark'
+  | 'yellow'
+  | 'gray-5'
+  | 'gray-10'
+  | 'gray-20'
+  | 'gray-40'
+  | 'gray-60'
+  | 'gray-80'
+  | 'gray-100'

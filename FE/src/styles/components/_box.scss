@@ -1,0 +1,15 @@
+.box {
+  padding: map-get($spacers, 4) $spacer;
+
+  &__heading {
+    // font-size: rem(30);
+    padding: map-get($spacers, 2) map-get($spacers, 4) map-get($spacers, 4);
+    margin-bottom: map-get($spacers, 4);
+    text-align: center;
+    border-bottom: 1px solid currentColor;
+  }
+
+  > *:last-child {
+    margin-bottom: 0 !important;
+  }
+}

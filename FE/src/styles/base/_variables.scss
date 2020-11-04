@@ -1,7 +1,7 @@
 // Colors
 $color-orange: #f59b00;
 $color-orange-dark: #d27300;
-$color-red: #EB4B0A;
+$color-red: #eb4b0a;
 $color-red-dark: #b9280a;
 $color-red-purple: #e60055;
 $color-red-purple-dark: #a50032;
@@ -11,7 +11,7 @@ $color-blue: #00aae1;
 $color-blue-dark: #143c8c;
 $color-blue-green-dark: #005f69;
 $color-blue-green-light: #009ba5;
-$color-green: #64B42D;
+$color-green: #64b42d;
 $color-green-dark: #00875a;
 $color-yellow: #fff0d9;
 $color-black: #1a1a18;
@@ -23,6 +23,30 @@ $color-gray-40: #b8b5b4;
 $color-gray-60: #928e8c;
 $color-gray-80: #696461;
 $color-gray-100: #3c3732;
+
+$colors: (
+  'orange': $color-orange,
+  'orange-dark': $color-orange-dark,
+  'red': $color-red,
+  'red-dark': $color-red-dark,
+  'red-dark-purple': $color-red-purple,
+  'purple': $color-purple,
+  'purple-light': $color-purple-light,
+  'blue': $color-blue,
+  'blue-dark': $color-blue-dark,
+  'blue-green-dark': $color-blue-green-dark,
+  'blue-green-light': $color-blue-green-light,
+  'green': $color-green,
+  'green-dark': $color-green-dark,
+  'yellow': $color-yellow,
+  'gray-5': $color-gray-5,
+  'gray-10': $color-gray-10,
+  'gray-20': $color-gray-20,
+  'gray-40': $color-gray-40,
+  'gray-60': $color-gray-60,
+  'gray-80': $color-gray-80,
+  'gray-100': $color-gray-100,
+);
 
 $color-border: $color-gray-10;
 
@@ -48,6 +72,7 @@ $body-color: $color-gray-100;
 $link-color: $color-orange;
 
 $border-radius: 35px;
+$border-radius-sm: 25px;
 
 // Tooltip
 $toTltip-font-size: rem(18);
@@ -55,10 +80,9 @@ $tooltip-bg: $color-orange;
 $tooltip-color: #fff;
 $tooltip-opacity: 1;
 
-
 // Typography
+$headings-font-weight: $font-weight-medium;
 $headings-margin-bottom: 0.5em;
-$paragraph-margin-bottom: 10px;
 
 // Inputs + forms
 $input-btn-padding-x: 1.6rem;
@@ -77,7 +101,7 @@ $label-margin-bottom: 8px;
 $label-padding-y: $label-margin-bottom;
 
 // Buttons
-$btn-font-weight:$font-weight-medium;
+$btn-font-weight: $font-weight-medium;
 $btn-disabled-opacity: 1;
 $btn-font-size: inherit;
 $btn-line-height: 1.4;

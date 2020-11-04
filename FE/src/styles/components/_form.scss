@@ -92,8 +92,9 @@ input {
     }
 
     &::before {
-      @include transition(border);
+      background-color: #fff;
       transform: translateY(-50%);
+      @include transition(border);
     }
 
     &::after {
@@ -102,6 +103,18 @@ input {
     }
 
     &:hover {
+      &::before {
+        border-color: $input-focus-border-color;
+      }
+    }
+  }
+
+  .custom-control-input {
+    &:focus ~ .custom-control-label {
+      [data-whatinput='keyboard'] & {
+        box-shadow: 0px 0px 0px 1px $color-orange;
+      }
+
       &::before {
         border-color: $input-focus-border-color;
       }
@@ -131,7 +144,7 @@ input {
       height: $checkmark-height;
       background: svg-load('../icons/svg/check.svg', fill=$color-orange) no-repeat 0 0;
       background-size: $checkmark-width $checkmark-height;
-      transform: translateY(-50%);
+      transform: translateY(-50%) scale(0);
     }
   }
 
@@ -179,15 +192,7 @@ input {
         background-color: $color-orange;
         opacity: 1;
         transform: translateY(-50%) scale(1);
-      }
-    }
-    &:focus ~ .custom-control-label {
-      [data-whatinput='keyboard'] & {
-        box-shadow: 0px 0px 0px 1px $color-orange;
-      }
-
-      &::before {
-        border-color: $input-focus-border-color;
+        z-index: 2;
       }
     }
   }
@@ -239,6 +244,45 @@ select {
 
     .form-control {
       margin-right: $spacer;
+    }
+  }
+}
+
+.form-check-wrapper {
+  .custom-control-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-left: 0;
+    padding-left: calc(#{rem(20)} + 3rem);
+    padding-right: rem(20);
+    border-radius: $border-radius-sm;
+    background-color: #fff;
+
+    @include media-breakpoint-down(sm) {
+      padding-top: rem(10);
+      padding-bottom: rem(10);
+    }
+
+    &::before,
+    &::after {
+      left: 20px;
+    }
+  }
+
+  &.custom-checkbox {
+    .custom-control-label {
+      &::after {
+        left: 31px;
+      }
+    }
+  }
+
+  &.custom-radio {
+    .custom-control-label {
+      &::after {
+        left: 24px;
+      }
     }
   }
 }
