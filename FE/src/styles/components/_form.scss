@@ -31,35 +31,7 @@ select {
   align-items: center;
 
   > *:first-child {
-    margin-right: 1rem;
-  }
-}
-
-.btn {
-  border-radius: $input-border-radius;
-
-  &.disabled,
-  &:disabled,
-  &-inactive {
-    border-color: $btn-disabled-border;
-    background: $btn-disabled-bg;
-  }
-
-  &.disabled,
-  &:disabled {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-
-  &-primary {
-    // padding: 0.65rem 1.5rem 0.6rem;
-    box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-  }
-
-  &-block-mobile {
-    @include media-breakpoint-down(sm) {
-      width: 100%;
-    }
+    margin-right: $spacer;
   }
 }
 
@@ -75,10 +47,6 @@ label,
 .form-control {
   height: auto;
   line-height: $form-control-line-height;
-
-  // &.invalid {
-  //   box-shadow: none;
-  // }
 }
 
 .form-check {
@@ -95,77 +63,6 @@ input {
   &::-ms-clear {
     display: none;
   }
-
-  &[type='checkbox'] {
-    $checkbox-size: 26px;
-
-    appearance: none;
-    display: none;
-    position: relative;
-
-    & + label {
-      margin: 5px 0 0;
-      padding: 4px 0 0 $checkbox-size + 12;
-
-      &:before {
-        bottom: 0;
-        display: inline-block;
-        left: 0;
-        margin: auto;
-        position: absolute;
-        top: 0;
-
-        border-radius: 4px;
-        border: 1px solid $color-gray-20;
-        content: '';
-        height: $checkbox-size;
-        transition: border-color 0.2s ease;
-        width: $checkbox-size;
-      }
-
-      &:after {
-        bottom: 0;
-        left: 1px;
-        margin: auto;
-        position: absolute;
-        top: 0;
-
-        background: lighten($color-gray-20, 10%);
-        border-radius: 3px;
-        content: '';
-        height: $checkbox-size - 2;
-        opacity: 0;
-        transform-origin: center;
-        transition: opacity 0.2s ease;
-        width: $checkbox-size - 2;
-      }
-    }
-
-    /* Checked */
-    &:checked {
-      & + label {
-        &:before {
-          border-color: $color-orange;
-        }
-
-        &:after {
-          background: $color-orange svg-load('../icons/svg/check.svg') center no-repeat;
-          border-color: darken($color-orange, 10%);
-          opacity: 1;
-        }
-      }
-
-      &[disabled] + label {
-        cursor: default;
-        &:before {
-          border-color: $input-disabled-border-color;
-        }
-        &:after {
-          background-color: $input-disabled-bg;
-        }
-      }
-    }
-  }
 }
 
 .custom-control {
@@ -176,39 +73,31 @@ input {
   }
 }
 
-.custom-radio {
+// common styles for radio + checkbox
+.custom-radio,
+.custom-checkbox {
   .custom-control-label {
-    margin-bottom: 0;
     padding: $label-padding-y 0 $label-padding-y 2rem;
+    margin-bottom: 0;
     cursor: pointer;
-    border-radius: $input-border-radius;
     @include transition(box-shadow);
 
     &::before,
     &::after {
       content: '';
       display: block;
-      border-radius: 50%;
       position: absolute;
       top: 50%;
       left: 0;
     }
 
     &::before {
-      width: 20px;
-      height: 20px;
-      border: 1px solid $color-gray-40;
-      z-index: 1;
-      transform: translateY(-50%);
       @include transition(border);
+      transform: translateY(-50%);
     }
 
     &::after {
-      width: 12px;
-      height: 12px;
-      left: 4px;
       opacity: 0;
-      transform: translateY(-50%) scale(0);
       @include transition(all, 0.1s);
     }
 
@@ -216,6 +105,68 @@ input {
       &::before {
         border-color: $input-focus-border-color;
       }
+    }
+  }
+}
+
+// checkbox
+.custom-checkbox {
+  .custom-control-label {
+    padding-left: 3rem;
+    margin-left: 0;
+
+    &::before {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid $color-gray-100;
+      @include transition(border);
+    }
+
+    &::after {
+      $checkmark-width: 14px;
+      $checkmark-height: 22px;
+      left: 11px;
+      width: $checkmark-width;
+      height: $checkmark-height;
+      background: svg-load('../icons/svg/check.svg', fill=$color-orange) no-repeat 0 0;
+      background-size: $checkmark-width $checkmark-height;
+      transform: translateY(-50%);
+    }
+  }
+
+  .custom-control-input {
+    &:checked ~ .custom-control-label {
+      &::after {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+      }
+    }
+  }
+}
+
+// radio
+.custom-radio {
+  .custom-control-label {
+    border-radius: $border-radius;
+
+    &::before,
+    &::after {
+      border-radius: 50%;
+    }
+
+    &::before {
+      width: 20px;
+      height: 20px;
+      border: 1px solid $color-gray-40;
+      z-index: 1;
+    }
+
+    &::after {
+      width: 12px;
+      height: 12px;
+      left: 4px;
+      transform: translateY(-50%) scale(0);
     }
   }
 
@@ -242,34 +193,6 @@ input {
   }
 }
 
-.form-background {
-  margin: 1rem 0;
-  padding: 1rem 0;
-
-  background: $color-gray-5;
-
-  @include media-breakpoint-down(md) {
-    padding-right: 1rem;
-    padding-left: 1rem;
-
-    .container-fluid {
-      padding: 0;
-    }
-  }
-}
-
-#offer {
-  button {
-    margin-bottom: 0.5rem;
-  }
-}
-
-.submit-zone {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid $color-border;
-}
-
 select {
   cursor: pointer;
   &.form-control {
@@ -292,14 +215,14 @@ select {
     position: relative;
 
     .form-control {
-      margin-right: 1rem;
+      margin-right: $spacer;
       padding-right: calc(#{$input-padding-x} + #{$icon-size});
     }
 
     .tooltip-icon-wrapper {
       position: absolute;
       top: 50%;
-      right: 1rem;
+      right: $spacer;
       z-index: 1;
       transform: translateY(-50%);
     }
@@ -315,7 +238,7 @@ select {
     align-items: center;
 
     .form-control {
-      margin-right: 1rem;
+      margin-right: $spacer;
     }
   }
 }

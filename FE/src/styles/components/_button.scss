@@ -1,0 +1,27 @@
+.btn {
+  padding-bottom: rem(9);
+
+  &.disabled,
+  &:disabled,
+  &-inactive {
+    border-color: $btn-disabled-border;
+    background: $btn-disabled-bg;
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &-block-mobile {
+    @include media-breakpoint-down(sm) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &-secondary {
+    color: $white;
+  }
+}

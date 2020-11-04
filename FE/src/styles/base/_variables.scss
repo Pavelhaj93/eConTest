@@ -35,29 +35,38 @@ $custom-font-path: '../fonts/';
 $font-weight-medium: 600;
 $font-size-base: rem(18);
 
-// Bootstrap variables
+//= Bootstrap variables
+//
+
+// General
 $primary: $color-green;
 $secondary: $color-orange;
-$link-color: $color-orange;
+$danger: $color-red;
+$dark: $color-gray-100;
 $red: $color-red;
-
 $body-color: $color-gray-100;
+$link-color: $color-orange;
 
-$tooltip-font-size: rem(18);
+$border-radius: 35px;
+
+// Tooltip
+$toTltip-font-size: rem(18);
 $tooltip-bg: $color-orange;
 $tooltip-color: #fff;
 $tooltip-opacity: 1;
 
+
+// Typography
 $headings-margin-bottom: 0.5em;
 $paragraph-margin-bottom: 10px;
 
+// Inputs + forms
 $input-btn-padding-x: 1.6rem;
 $input-btn-padding-y: 0.9rem;
 $input-color: $body-color;
 $input-placeholder-color: $color-gray-60;
 $input-border-color: $color-gray-80;
 $input-focus-border-color: $color-orange;
-$input-border-radius: 35px;
 $input-focus-box-shadow: none;
 $input-font-size: inherit;
 $input-disabled-border-color: $color-gray-20;
@@ -67,12 +76,17 @@ $form-group-margin-bottom: 1.7rem;
 $label-margin-bottom: 8px;
 $label-padding-y: $label-margin-bottom;
 
+// Buttons
+$btn-font-weight:$font-weight-medium;
 $btn-disabled-opacity: 1;
 $btn-font-size: inherit;
-$btn-line-height: $form-control-line-height;
+$btn-line-height: 1.4;
 $btn-disabled-border: $color-gray-40;
 $btn-disabled-bg: $color-gray-40;
+$btn-padding-x: rem(22);
+$btn-padding-y: rem(10);
 
+// Alerts
 $alert-border-radius: 0;
 $alert-border-width: 0;
 
