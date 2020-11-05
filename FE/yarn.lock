@@ -1835,7 +1835,7 @@ bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.1.3.tgz#beca005408f642ebebea80b042b4d18d2ac0ee6b"
   integrity sha512-GkTiFpjFtUzU9CbMeJ5iazkCzGL3jrhzerzZIuqLABjbwRaFt33I9tUdSNryIptM+RxDet6OKm2WnLXzW51KsQ==
 
-body-parser@1.19.0:
+body-parser@1.19.0, body-parser@^1.18.3:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
   integrity sha512-dhEPs72UPbDnAQJ9ZKMNTP6ptJaionhP5cBb541nXPlW60Jepo9RV/a4fX4XWW9CuFNK22krhrj1+rgzifNCsw==
@@ -2507,6 +2507,14 @@ concat-stream@^1.5.0:
     inherits "^2.0.3"
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
+
+connect-api-mocker@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/connect-api-mocker/-/connect-api-mocker-1.9.0.tgz#7aaf3d2dc3e7e655fe9f4d88bcf876947452083c"
+  integrity sha512-NOhDqXm1gQPAb6kDjltXRDx/2NQawwxF/6iNtOwHE7v2fyj2cs3DNG98RkCa75SV9r4U1reQU4AImay8HaTTYA==
+  dependencies:
+    body-parser "^1.18.3"
+    chalk "^2.4.1"
 
 connect-history-api-fallback@^1.6.0:
   version "1.6.0"

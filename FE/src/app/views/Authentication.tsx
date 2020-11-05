@@ -287,7 +287,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
       </Form.Group>
 
       <Button
-        variant="primary"
+        variant="secondary"
         type="submit"
         className={classNames({ 'btn-block-mobile': true, 'btn-inactive': !isFormValid })}
       >

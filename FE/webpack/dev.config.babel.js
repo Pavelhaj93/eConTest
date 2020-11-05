@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
+import apiMocker from 'connect-api-mocker'
 
 export default merge(baseConfig, {
   mode: 'development',
@@ -9,6 +10,9 @@ export default merge(baseConfig, {
 
   devServer: {
     host: '0.0.0.0',
+    before: app => {
+      app.use(apiMocker('/api', '/mocks/api'))
+    },
   },
 
   module: {

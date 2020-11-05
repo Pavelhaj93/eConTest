@@ -1,7 +1,7 @@
 # eContracting
 
 Based on combination of React, Bootstrap v4.x, React Bootstrap and Typescript ❤️
-Some components are using MobX for local state managament.
+Some components are using MobX for local state management.
 For maximum compatibility with IE11, older version of MobX is used.
 
 ## Setup

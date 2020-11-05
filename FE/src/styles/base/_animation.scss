@@ -7,9 +7,3 @@
     transform: rotate(359deg);
   }
 }
-
-.fade {
-  &:not(.show) {
-    pointer-events: none;
-  }
-}

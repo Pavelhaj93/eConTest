@@ -35,7 +35,7 @@ export type View = AppConfig
 export type Document = {
   id: string
   title: string
-  url: string | null
+  url: string
   label: string
   sign: boolean
   signed?: boolean

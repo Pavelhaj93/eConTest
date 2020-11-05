@@ -4,6 +4,7 @@
   &.disabled,
   &:disabled,
   &-inactive {
+    color: #fff;
     border-color: $btn-disabled-border;
     background: $btn-disabled-bg;
   }
@@ -11,7 +12,6 @@
   &.disabled,
   &:disabled {
     cursor: not-allowed;
-    pointer-events: none;
   }
 
   &-block-mobile {

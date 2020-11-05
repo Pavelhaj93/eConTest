@@ -4,10 +4,16 @@
 <script>
   var appConfig = {
     view: 'Offer',
-    doxReadyUrl: '/documents.json',
+    doxReadyUrl: '/api/documents',
     isRetention: {{ retention }},
     isAcquisition: {{ acquisition }},
     isAgreed: {{ agreed }},
-    labels: {},
+    formAction: 'offer.html',
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
+      acceptAll: 'Označit vše',
+      submitBtn: 'Akceptuji',
+    },
   }
 </script>
