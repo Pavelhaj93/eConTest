@@ -133,9 +133,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var datasource = this.GetLayoutItem<LoginPageModel>();
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
-                var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer));
-                var viewModel = this.GetViewModel(datasource, choices, errorString);
-                viewModel.Datasource = datasource;
+                var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
+                var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+                var viewModel = this.GetViewModel(datasource, choices, steps, errorString);
                 viewModel.Birthdate = offer.Birthday;
                 viewModel.BussProcess = offer.Process;
                 viewModel.BussProcessType = offer.ProcessType;
@@ -268,19 +268,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fateXml, fakeHeader, fakeAttr);
             var datasource = this.GetLayoutItem<LoginPageModel>();
-            var editModel = new LoginViewModel();
-            editModel.Datasource = datasource;
+            var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var editModel = this.GetViewModel(datasource, choices, steps);
             editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
             editModel.BussProcess = "XX";
             editModel.BussProcessType = "YY";
-            editModel.Choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer));
-            editModel.Steps = this.SettingsReaderService.GetSteps(datasource.Step);
             editModel.PageTitle = datasource.PageTitle;
             editModel.Partner = "1234567890";
             editModel.Zip1 = "190 000";
             editModel.Zip2 = "190 000";
 
-            return View("/Areas/eContracting2/Views/Edit/Login.cshtml", editModel);
+            if (this.ContextWrapper.IsEditMode())
+            {
+                return View("/Areas/eContracting2/Views/Edit/Login.cshtml", editModel);
+            }
+
+            return View("/Areas/eContracting2/Views/Preview/Login.cshtml", editModel);
         }
 
         public ActionResult RichText()
@@ -327,11 +331,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(LoginPageModel datasource, IEnumerable<LoginChoiceViewModel> choices, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(LoginPageModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
         {
-            var viewModel = new LoginViewModel();
+            var viewModel = new LoginViewModel(datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
-            viewModel.Choices = choices;
             viewModel.Labels = new Dictionary<string, string>();
             viewModel.Labels["requiredFields"] = datasource.RequiredFields;
             viewModel.Labels["birthDate"] = datasource.BirthDateLabel;

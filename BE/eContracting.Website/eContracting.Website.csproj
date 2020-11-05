@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -150,7 +151,9 @@
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -218,6 +221,7 @@
     <Compile Include="Areas\eContracting2\Models\LoginSubmitViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\OfferViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
     <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -257,6 +261,7 @@
     <Folder Include="Areas\eContracting2\Views\Base\" />
     <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
@@ -271,7 +276,6 @@
     <Content Include="Areas\eContracting2\Views\Login.cshtml" />
     <Content Include="Areas\eContracting2\Views\Offer.cshtml" />
     <Content Include="Areas\eContracting2\Views\SessionExpired.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Shared\eContractingLayout.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
@@ -355,6 +359,7 @@
     <Content Include="Areas\eContracting2\Views\Preview\ProcessTypesSwitcher.cshtml" />
     <Content Include="Areas\eContracting2\Views\Preview\Offer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Steps.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -20,6 +20,7 @@ namespace eContracting
 
         public static class FileAttributes
         {
+            public const string CHECK_VALUE = "X";
             public const string GROUP = "GROUP";
             public const string GROUP_OBLIG = "GROUP_OBLIG";
             public const string OBLIGATORY = "OBLIGATORY";

@@ -13,7 +13,7 @@ SharedFields:
   Value: 
 - ID: "a036b2bc-ba04-44f6-a75f-bae6cd242abf"
   Hint: Path
-  Value: /Areas/eContracting2/Views/Shared/eContractingLayout.cshtml
+  Value: /Areas/eContracting2/Views/Shared/_Layout.cshtml
 - ID: "e9cc5a73-3c8a-4d7d-92ac-3b88c18a996a"
   Hint: Model
   Value: /sitecore/layout/Models/eContracting2/LayoutModel

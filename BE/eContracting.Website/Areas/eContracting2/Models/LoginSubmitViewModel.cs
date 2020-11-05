@@ -12,9 +12,6 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string BirthDate { get; set; }
 
         [Required]
-        public string Id { get; set; }
-
-        [Required]
         public string Key { get; set; }
 
         [Required]

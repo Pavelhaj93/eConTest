@@ -664,7 +664,7 @@
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
             <summary>
-            Get all steps from collection where <paramref name="currentStep"/> is.
+            Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="P:eContracting.Models.ProcessStepModel.IsSelected"/> = <c>true</c>'.
             </summary>
             <param name="currentStep">The current step.</param>
             <returns>Array of all related steps.</returns>
@@ -826,12 +826,47 @@
             Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
             </summary>
         </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsGroupOblig">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.GROUP_OBLIG"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsObligatory">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.OBLIGATORY"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsPrinted">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.PRINTED"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsSignReq">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.SIGN_REQ"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsTmstReq">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.TMST_REQ"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsAddinfo">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.ADDINFO"/> with value 'X'.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsMainDoc">
+            <summary>
+            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.MAIN_DOC"/> with value 'X'.
+            </summary>
+        </member>
         <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor">
             <summary>
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Boolean,System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class.
             </summary>
@@ -842,7 +877,17 @@
             <param name="signRequired">if set to <c>true</c> [sign required].</param>
             <param name="tempAlcId">The temporary alc identifier.</param>
             <param name="signedVersion">if set to <c>true</c> [signed version].</param>
+            <param name="attributes">The attributes.</param>
             <param name="content">The content.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsAttributeChecked(System.String)">
+            <summary>
+            Determines whether an attribute with <paramref name="key"/> has value 'X'.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+              <c>true</c> if is attribute has value 'X', otherwise <c>false</c>.
+            </returns>
         </member>
         <member name="P:eContracting.Models.OfferBodyXmlModel.Guid">
             <summary>

@@ -21,5 +21,8 @@ namespace eContracting.Models
         /// </summary>
         [SitecoreField]
         public virtual string Label { get; set; }
+
+        [SitecoreIgnore]
+        public bool IsSelected { get; set; }
     }
 }

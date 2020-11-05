@@ -1,6 +1,7 @@
 ﻿@using Sitecore.Mvc.Analytics.Extensions
-@using eContracting.Kernel.Models
-@model LayoutModel
+@using eContracting.Website
+@using eContracting.Website.Areas.eContracting2.Models
+@model LayoutViewModel
 <!DOCTYPE html>
 
 <html lang="cs">
@@ -48,13 +49,13 @@
 <body data-sprite="/assets/eContracting/gfx/icon/sprite.svg">
     <script>!function () { var e = new XMLHttpRequest; e.open("GET", document.body.dataset.sprite, !0), e.send(), e.onload = (function () { var t = document.createElement("div"); t.style.display = "none", t.innerHTML = e.responseText, document.body.insertBefore(t, document.body.childNodes[0]) }) }();</script>
     @Html.Action("CookieLaw", "eContracting")
-    @Html.Partial("/Areas/eContracting/Views/Shared/Header.cshtml", Model)
+    @Html.Partial("/Areas/eContracting2/Views/Shared/Header.cshtml", Model)
     <div class="main">
         <div class="container">
-            @Html.Sitecore().Placeholder("eContracting")
+            @Html.Sitecore().Placeholder("eContracting2")
         </div>
     </div>
-    @Html.Partial("/Areas/eContracting/Views/Shared/Footer.cshtml", Model)
+    @Html.Partial("/Areas/eContracting2/Views/Shared/Footer.cshtml", Model)
     <script src="/assets/eContracting/js/econtracting.bundle.js"></script>
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>

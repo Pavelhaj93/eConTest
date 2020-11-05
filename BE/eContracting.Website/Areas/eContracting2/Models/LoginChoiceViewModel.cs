@@ -27,6 +27,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("regex")]
         public string ValidationRegex { get; set; }
 
+        [JsonProperty("validationError")]
+        public string ValidationMessage { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="LoginChoiceViewModel"/> class.
         /// </summary>
@@ -52,6 +55,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
             this.Label = model.Label;
             this.Placeholder = model.Placeholder;
             this.ValidationRegex = model.ValidationRegex;
+            this.ValidationMessage = model.ValidationMessage;
         }
     }
 }

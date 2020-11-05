@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using eContracting.Models;
@@ -41,17 +42,8 @@ namespace eContracting.Services
                 }
             }
 
-            var fileModel = new OfferAttachmentXmlModel(index: index.ToString(), number: file.FILEINDX, type: fileType, name: fileName, signRequired: signRequired, tempAlcId: templAlcId, signedVersion: false, content: file.FILECONTENT);
-
-            if (file.ATTRIB?.Length > 0)
-            {
-                for (int i = 0; i < file.ATTRIB.Length; i++)
-                {
-                    var attr = file.ATTRIB[i];
-                    fileModel.Attributes.Add(new OfferAttributeModel(attr));
-                }
-            }
-
+            var attrs = this.GetAttributes(file);
+            var fileModel = new OfferAttachmentXmlModel(index: index.ToString(), number: file.FILEINDX, type: fileType, name: fileName, signRequired: signRequired, tempAlcId: templAlcId, signedVersion: false, attributes: attrs, content: file.FILECONTENT);
             return fileModel;
         }
 
@@ -74,6 +66,22 @@ namespace eContracting.Services
             }
 
             return fileName;
+        }
+
+        protected internal OfferAttributeModel[] GetAttributes(ZCCH_ST_FILE file)
+        {
+            var list = new List<OfferAttributeModel>();
+
+            if (file.ATTRIB?.Length > 0)
+            {
+                for (int i = 0; i < file.ATTRIB.Length; i++)
+                {
+                    var attr = file.ATTRIB[i];
+                    list.Add(new OfferAttributeModel(attr));
+                }
+            }
+
+            return list.ToArray();
         }
     }
 }

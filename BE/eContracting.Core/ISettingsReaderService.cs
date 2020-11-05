@@ -80,7 +80,7 @@ namespace eContracting
         SiteSettingsModel GetSiteSettings();
 
         /// <summary>
-        /// Get all steps from collection where <paramref name="currentStep"/> is.
+        /// Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="ProcessStepModel.IsSelected"/> = <c>true</c>'.
         /// </summary>
         /// <param name="currentStep">The current step.</param>
         /// <returns>Array of all related steps.</returns>

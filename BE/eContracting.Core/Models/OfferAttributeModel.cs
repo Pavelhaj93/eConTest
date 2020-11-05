@@ -51,7 +51,11 @@ namespace eContracting.Models
         /// <param name="attrib">The attribute.</param>
         public OfferAttributeModel(ZCCH_ST_ATTRIB attrib)
         {
-            this.Index = Convert.ToInt32(attrib.ATTRINDX);
+            if (int.TryParse(attrib.ATTRINDX, out int i))
+            {
+                this.Index = i;
+            }
+
             this.Key = attrib.ATTRID;
             this.Value = attrib.ATTRVAL;
         }

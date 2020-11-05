@@ -10,7 +10,14 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class LoginViewModel : BaseViewModel
     {
-        public LoginPageModel Datasource { get; set; }
+        [JsonIgnore]
+        public readonly LoginPageModel Datasource;
+
+        [JsonIgnore]
+        public readonly StepsViewModel Steps;
+
+        [JsonProperty("choices")]
+        public readonly IEnumerable<LoginChoiceViewModel> Choices;
 
         [JsonProperty("doxReadyUrl")]
         public string doxReadyUrl { get; set; }
@@ -39,16 +46,14 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string Zip1 { get; set; }
         public string Zip2 { get; set; }
 
-        [JsonProperty("choices")]
-        public IEnumerable<LoginChoiceViewModel> Choices { get; set; }
-
-        public IEnumerable<ProcessStepModel> Steps { get; set; }
-
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
 
-        public LoginViewModel() : base("Authentication")
+        public LoginViewModel(LoginPageModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
         {
+            this.Datasource = datasource ?? throw new ArgumentNullException(nameof(datasource));
+            this.Steps = steps ?? throw new ArgumentNullException(nameof(steps));
+            this.Choices = choices ?? throw new ArgumentNullException(nameof(choices));
         }
     }
 }

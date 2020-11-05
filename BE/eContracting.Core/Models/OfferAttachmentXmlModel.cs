@@ -55,7 +55,7 @@ namespace eContracting.Models
         /// </summary>
         public readonly byte[] FileContent;
 
-        public List<OfferAttributeModel> Attributes { get; } = new List<OfferAttributeModel>();
+        public readonly OfferAttributeModel[] Attributes;
 
         public int Size
         {
@@ -72,6 +72,8 @@ namespace eContracting.Models
                 return Utils.GetReadableFileSize(this.Size);
             }
         }
+
+        #region Desicion makers where to place a file
 
         /// <summary>
         /// Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
@@ -95,40 +97,63 @@ namespace eContracting.Models
             }
         }
 
-        public bool IsAttrGroupOblig
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.GROUP_OBLIG"/> with value 'X'.
+        /// </summary>
+        public bool IsGroupOblig
         {
-            get { return this.HasAttribute(Constants.FileAttributes.GROUP_OBLIG); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.GROUP_OBLIG); }
         }
 
-        public bool IsAttrObligatory
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.OBLIGATORY"/> with value 'X'.
+        /// </summary>
+        public bool IsObligatory
         {
-            get { return this.HasAttribute(Constants.FileAttributes.OBLIGATORY); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.OBLIGATORY); }
         }
 
-        public bool IsAttrPrinted
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.PRINTED"/> with value 'X'.
+        /// </summary>
+        public bool IsPrinted
         {
-            get { return this.HasAttribute(Constants.FileAttributes.PRINTED); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.PRINTED); }
         }
 
-        public bool IsAttrSignReq
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.SIGN_REQ"/> with value 'X'.
+        /// </summary>
+        public bool IsSignReq
         {
-            get { return this.HasAttribute(Constants.FileAttributes.SIGN_REQ); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.SIGN_REQ); }
         }
 
-        public bool IsAttrTmstReq
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.TMST_REQ"/> with value 'X'.
+        /// </summary>
+        public bool IsTmstReq
         {
-            get { return this.HasAttribute(Constants.FileAttributes.TMST_REQ); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.TMST_REQ); }
         }
 
-        public bool IsAttrAddinfo
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.ADDINFO"/> with value 'X'.
+        /// </summary>
+        public bool IsAddinfo
         {
-            get { return this.HasAttribute(Constants.FileAttributes.ADDINFO); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.ADDINFO); }
         }
 
-        public bool IsAttrMainDoc
+        /// <summary>
+        /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.MAIN_DOC"/> with value 'X'.
+        /// </summary>
+        public bool IsMainDoc
         {
-            get { return this.HasAttribute(Constants.FileAttributes.MAIN_DOC); }
+            get { return this.IsAttributeChecked(Constants.FileAttributes.MAIN_DOC); }
         }
+
+        #endregion
 
         /// <summary>
         /// Prevents a default instance of the <see cref="OfferAttachmentXmlModel"/> class from being created.
@@ -147,8 +172,9 @@ namespace eContracting.Models
         /// <param name="signRequired">if set to <c>true</c> [sign required].</param>
         /// <param name="tempAlcId">The temporary alc identifier.</param>
         /// <param name="signedVersion">if set to <c>true</c> [signed version].</param>
+        /// <param name="attributes">The attributes.</param>
         /// <param name="content">The content.</param>
-        public OfferAttachmentXmlModel(string index, string number, string type, string name, bool signRequired, string tempAlcId, bool signedVersion, byte[] content)
+        public OfferAttachmentXmlModel(string index, string number, string type, string name, bool signRequired, string tempAlcId, bool signedVersion, OfferAttributeModel[] attributes, byte[] content)
         {
             this.Index = index;
             this.FileNumber = number;
@@ -157,12 +183,27 @@ namespace eContracting.Models
             this.SignRequired = signRequired;
             this.TemplAlcId = tempAlcId;
             this.SignedVersion = signedVersion;
+            this.Attributes = attributes;
             this.FileContent = content;
         }
 
-        public bool HasAttribute(string key)
+        /// <summary>
+        /// Determines whether an attribute with <paramref name="key"/> has value 'X'.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if is attribute has value 'X', otherwise <c>false</c>.
+        /// </returns>
+        public bool IsAttributeChecked(string key)
         {
-            return this.Attributes.Any(x => x.Key == key);
+            var attr = this.Attributes.FirstOrDefault(x => x.Key == key);
+
+            if (attr == null)
+            {
+                return false;
+            }
+
+            return attr.Value.Equals("X", StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

@@ -183,6 +183,15 @@ namespace eContracting.Services
         {
             var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
             var items = this.Context.GetItems<ProcessStepModel>(parentPath);
+
+            foreach (var item in items)
+            {
+                if (item.ID == currentStep.ID)
+                {
+                    item.IsSelected = true;
+                }
+            }
+
             return items.ToArray();
         }
     }

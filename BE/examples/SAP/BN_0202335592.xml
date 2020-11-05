@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>06D969E88C3C1EEB87BD0CC8786F02E5</GUID>
+            <ISU_CONTRACT/>
+            <CONTSTART>20210426</CONTSTART>
+            <DATE_TO>20201128</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9510900403</PARTNER>
+            <NAME_LAST>Macháček</NAME_LAST>
+            <NAME_FIRST>Miroslav</NAME_FIRST>
+            <NAME_ORG1/>
+            <BIRTHDT>12.09.1936</BIRTHDT>
+            <IC/>
+            <EMAIL>milos.rezanina@innogy.cz</EMAIL>
+            <PHONE>603 280 385</PHONE>
+            <EXT_UI>859182400105583625</EXT_UI>
+            <VSTELLE>9302880294</VSTELLE>
+            <ANLAGE/>
+            <BUAG>823000513212</BUAG>
+            <PSC_MS>379 01</PSC_MS>
+            <PSC_ADDR>550 01</PSC_ADDR>
+            <ACCOUNT_NUMBER/>
+            <GUID_GDPR/>
+            <BUS_PROCESS>02</BUS_PROCESS>
+            <Attachments>
+                <Template>
+                    <SEQNR>001</SEQNR>
+                    <IDATTACH>EPO</IDATTACH>
+                    <DESCRIPTION>Informace pro zákazníka – spotřebitele</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM046E</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>002</SEQNR>
+                    <IDATTACH>EES</IDATTACH>
+                    <DESCRIPTION>Smlouva o sdružených službách dodávky elektřiny</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM001E</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>A10</IDATTACH>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>004</SEQNR>
+                    <IDATTACH>V01</IDATTACH>
+                    <DESCRIPTION>Ceník</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>005</SEQNR>
+                    <IDATTACH>V02</IDATTACH>
+                    <DESCRIPTION>Ceník služeb</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>006</SEQNR>
+                    <IDATTACH>V03</IDATTACH>
+                    <DESCRIPTION>Obchodní podmínky</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH>DP3</IDATTACH>
+                    <DESCRIPTION>Dohoda o sjednání služby Předplacenka</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM057</TEMPL_ALC_ID>
+                    <GROUP>INVESTOR</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH>DP4</IDATTACH>
+                    <DESCRIPTION>Žádost o nesnížování zálohových plateb</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM077</TEMPL_ALC_ID>
+                    <GROUP>NSZ</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH>P01</IDATTACH>
+                    <DESCRIPTION>Přihláška k pojištění</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED/>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM078</TEMPL_ALC_ID>
+                    <GROUP>NONCOMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH/>
+                    <DESCRIPTION>Rámcová smlouva k pojištění</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED/>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <GROUP>NONCOMMODITY</GROUP>
+                </Template>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH/>
+                    <DESCRIPTION>Pojištění - Informační dokument</DESCRIPTION>
+                    <OBLIGATORY/>
+                    <PRINTED/>
+                    <SIGN_REQ/>
+                    <TMST_REQ/>
+                    <ADDINFO/>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <GROUP>NONCOMMODITY</GROUP>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>
