@@ -69,7 +69,7 @@ export class OfferStore {
   /**
    * Performs an ajax request to `url` (default set to `this.documentsUrl`), fetch and populate documents.
    */
-  @action public async fetchDocuments(url = this.documentsUrl) {
+  @action public async fetchDocuments(url = this.documentsUrl): Promise<void> {
     this.isLoading = true
 
     try {
@@ -85,6 +85,7 @@ export class OfferStore {
 
       this.documents = jsonResponse
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error)
       this.error = true
     } finally {

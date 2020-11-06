@@ -36,7 +36,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
               invalid: isInvalid,
             })}
             placeholder={placeholderText}
-            onFocus={!isMobileDevice() ? onClick : () => {}}
+            onFocus={!isMobileDevice() ? onClick : undefined}
           />
           <Button
             variant="link"
@@ -51,6 +51,8 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
       )
     },
   )
+
+  CustomDatepickerInput.displayName = 'CustomDatepickerInput'
 
   return (
     <DatePicker

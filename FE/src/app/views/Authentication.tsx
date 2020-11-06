@@ -99,6 +99,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
         checkedRadio.checked = false
       }
     }, 1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // 2. if choice is changed, mark the form as invalid
@@ -127,6 +128,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
     } else {
       setFormValid(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values, date, selectedChoice])
 
   return (

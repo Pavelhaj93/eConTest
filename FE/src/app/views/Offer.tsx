@@ -18,7 +18,7 @@ export const Offer: React.FC<View> = observer(
 
     const handleAcceptAll = useCallback(() => {
       store.acceptAllDocuments()
-    }, [])
+    }, [store])
 
     return (
       <Fragment>
@@ -98,8 +98,8 @@ export const Offer: React.FC<View> = observer(
             <h3>Potvrzení nabídky</h3>
             <Box>
               <p>
-                Stisknutím tlačítka "Akceptuji" potvrdíte souhlas s přechodem na novou smlouvu Relax
-                u innogy.
+                Stisknutím tlačítka Akceptuji potvrdíte souhlas s přechodem na novou smlouvu Relax u
+                innogy.
               </p>
               <Button type="submit" variant="secondary" disabled={!store.isOfferReadyToAccept}>
                 {labels.submitBtn}
