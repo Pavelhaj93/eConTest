@@ -179,13 +179,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         }
 
         [Fact]
-        public void Login_Get_Returns_EditView_When_In_Editing_Mode()
+        public void Login_Get_Returns_PreviewView_When_In_Preview_Mode()
         {
             var loginPageModel = new LoginPageModel();
             loginPageModel.Step = new ProcessStepModel();
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
+            mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -196,13 +197,61 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockSitecoreContext.Setup(x => x.GetCurrentItem<LoginPageModel>(false, false)).Returns(new LoginPageModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
-            var result = controller.Login();
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", "http://localhost", "");
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-            Assert.IsType<ViewResult>(result);
-            var actionResult = (ViewResult)result;
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+                var result = controller.Login();
 
-            Assert.Equal("/Areas/eContracting2/Views/Edit/Login.cshtml", actionResult.ViewName);
+                Assert.IsType<ViewResult>(result);
+                var actionResult = (ViewResult)result;
+
+                Assert.Equal("/Areas/eContracting2/Views/Preview/Login.cshtml", actionResult.ViewName);
+            }
+        }
+
+        [Fact]
+        public void Login_Get_Returns_EditView_When_In_Editing_Mode()
+        {
+            var loginPageModel = new LoginPageModel();
+            loginPageModel.Step = new ProcessStepModel();
+            var logger = new MemoryLogger();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
+            mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
+            var mockApiService = new Mock<IApiService>();
+            var mockAuthService = new Mock<IAuthenticationService>();
+            var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
+            mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
+            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockSitecoreContext = new Mock<ISitecoreContext>();
+            mockSitecoreContext.Setup(x => x.GetCurrentItem<LoginPageModel>(false, false)).Returns(new LoginPageModel());
+            var mockRenderingContext = new Mock<IRenderingContext>();
+
+            using (var writter = new StringWriter())
+            {
+                var httpRequest = new HttpRequest("", "http://localhost", "");
+                var httpResponse = new HttpResponse(writter);
+                var httpContext = new HttpContext(httpRequest, httpResponse);
+                var httpContextWrapper = new HttpContextWrapper(httpContext);
+
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                controller.ControllerContext = new ControllerContext();
+                controller.ControllerContext.HttpContext = httpContextWrapper;
+                var result = controller.Login();
+
+                Assert.IsType<ViewResult>(result);
+                var actionResult = (ViewResult)result;
+
+                Assert.Equal("/Areas/eContracting2/Views/Edit/Login.cshtml", actionResult.ViewName);
+            }
         }
 
         [Fact]
