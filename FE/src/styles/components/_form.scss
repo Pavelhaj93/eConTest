@@ -1,3 +1,5 @@
+$custom-control-label-padding-left: 3rem;
+
 %form-element {
   /* Validation */
   &.invalid {
@@ -7,6 +9,16 @@
       box-shadow: inset 0 0 0 1px $color-red;
     }
   }
+}
+
+%custom-control-label {
+  padding: $label-padding-y 0 $label-padding-y 2rem;
+  margin-bottom: 0;
+  @include transition(box-shadow);
+}
+
+.like-custom-control-label {
+  @extend %custom-control-label;
 }
 
 input,
@@ -77,10 +89,8 @@ input {
 .custom-radio,
 .custom-checkbox {
   .custom-control-label {
-    padding: $label-padding-y 0 $label-padding-y 2rem;
-    margin-bottom: 0;
+    @extend %custom-control-label;
     cursor: pointer;
-    @include transition(box-shadow);
 
     &::before,
     &::after {
@@ -125,7 +135,7 @@ input {
 // checkbox
 .custom-checkbox {
   .custom-control-label {
-    padding-left: 3rem;
+    padding-left: $custom-control-label-padding-left;
     margin-left: 0;
 
     &::before {
@@ -249,12 +259,13 @@ select {
 }
 
 .form-check-wrapper {
-  .custom-control-label {
+  .custom-control-label,
+  .like-custom-control-label {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-left: 0;
-    padding-left: calc(#{rem(20)} + 3rem);
+    padding-left: calc(#{rem(20)} + #{$custom-control-label-padding-left});
     padding-right: rem(20);
     border-radius: $border-radius-sm;
     background-color: #fff;
@@ -268,6 +279,10 @@ select {
     &::after {
       left: 20px;
     }
+  }
+
+  .like-custom-control-label {
+    padding-left: rem(20);
   }
 
   &.custom-checkbox {

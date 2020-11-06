@@ -11,7 +11,7 @@ export default merge(baseConfig, {
   devServer: {
     host: '0.0.0.0',
     before: app => {
-      app.use(apiMocker('/api', '/mocks/api'))
+      app.use(apiMocker('/api', '/src/mocks/api'))
     },
   },
 

@@ -4,29 +4,32 @@ import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Form } from 'react-bootstrap'
 import classNames from 'classnames'
-import { Box, BoxHeading, FormCheckWrapper, Icon } from '@components'
+import { Box, BoxHeading, FormCheckWrapper, Icon, SignatureModal } from '@components'
 import { colors } from '@theme'
+import { useLabels } from '@hooks'
 
 export const Offer: React.FC<View> = observer(
   ({ doxReadyUrl, isRetention, isAcquisition, labels, formAction }) => {
     const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
+    const [signatureModalShow, setSignatureModalShow] = useState(false)
+    const t = useLabels(labels)
 
     useEffect(() => {
       store.fetchDocuments()
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const handleAcceptAll = useCallback(() => {
-      store.acceptAllDocuments()
-    }, [store])
+    const openSignatureModal = useCallback((id: string) => {
+      setSignatureModalShow(true)
+    }, [])
 
     return (
       <Fragment>
         {/* error state */}
         {store.error && (
           <Alert variant="danger">
-            <h3>{labels.appUnavailableTitle}</h3>
-            <div>{labels.appUnavailableText}</div>
+            <h3>{t('appUnavailableTitle')}</h3>
+            <div>{t('appUnavailableText')}</div>
           </Alert>
         )}
         {/* /error state */}
@@ -44,8 +47,8 @@ export const Offer: React.FC<View> = observer(
               <Fragment>
                 <BoxHeading>Smlouva a přidružené dokumenty</BoxHeading>
                 <div className="mb-2">
-                  <Button variant="link" onClick={handleAcceptAll}>
-                    {labels.acceptAll}
+                  <Button variant="link" onClick={() => store.acceptAllDocuments()}>
+                    {t('acceptAll')}
                   </Button>
                 </div>
                 {store.documentsToBeAccepted.map(({ id, title, accepted, url, label }) => (
@@ -73,11 +76,25 @@ export const Offer: React.FC<View> = observer(
             {store.documentsToBeSigned.length > 0 && (
               <Fragment>
                 <BoxHeading>Dokumenty k podepsání</BoxHeading>
-                {store.documentsToBeSigned.map(({ id, title, label }) => (
-                  <div key={id}>
-                    {label} {title}
+                {store.documentsToBeSigned.map(({ id, title, label, url }) => (
+                  <div key={id} className="form-check-wrapper mb-3">
+                    <div className="like-custom-control-label">
+                      <span>
+                        {label} <a href={url}>{title}</a>
+                      </span>
+                      <Button
+                        variant="secondary"
+                        className="ml-auto"
+                        onClick={() => openSignatureModal(id)}
+                      >
+                        {t('signatureBtn')}
+                      </Button>
+                    </div>
                   </div>
                 ))}
+                <p className="text-muted">
+                  <small>{t('signatureModalHelpText')}</small>
+                </p>
               </Fragment>
             )}
           </Box>
@@ -95,19 +112,22 @@ export const Offer: React.FC<View> = observer(
                 !store.documentsToBeSigned,
             })}
           >
-            <h3>Potvrzení nabídky</h3>
+            <h3>{t('acceptOfferTitle')}</h3>
             <Box>
-              <p>
-                Stisknutím tlačítka Akceptuji potvrdíte souhlas s přechodem na novou smlouvu Relax u
-                innogy.
-              </p>
+              <p>{t('acceptOfferHelptext')}</p>
               <Button type="submit" variant="secondary" disabled={!store.isOfferReadyToAccept}>
-                {labels.submitBtn}
+                {t('submitBtn')}
               </Button>
             </Box>
           </div>
           {/* submit zone */}
         </form>
+
+        <SignatureModal
+          show={signatureModalShow}
+          onClose={() => setSignatureModalShow(false)}
+          labels={labels}
+        />
       </Fragment>
     )
   },
