@@ -15,7 +15,7 @@ $size: 46px;
 .loading {
   overflow: hidden;
   position: relative;
-  min-height: calc(#{$size} + #{map-get($spacers, 4)});
+  min-height: calc(#{$size} + #{map-get($spacers, 5)});
 
   &::before,
   &::after {
@@ -35,6 +35,10 @@ $size: 46px;
     top: 0;
     left: 0;
     z-index: 99;
+  }
+
+  &--image {
+    min-height: 0;
   }
 }
 
