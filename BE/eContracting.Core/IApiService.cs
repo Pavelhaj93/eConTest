@@ -70,20 +70,6 @@ namespace eContracting
         Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type);
 
         /// <summary>
-        /// Gets texts for offer <paramref name="guid"/> synchronously.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <returns>Array of texts.</returns>
-        OfferTextModel[] GetXml(string guid);
-
-        /// <summary>
-        /// Gets texts for offer <paramref name="guid"/> asynchronously.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <returns>Array of texts.</returns>
-        Task<OfferTextModel[]> GetXmlAsync(string guid);
-
-        /// <summary>
         /// Make offer <paramref name="guid"/> signed.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>

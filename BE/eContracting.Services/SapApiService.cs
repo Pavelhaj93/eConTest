@@ -18,8 +18,6 @@ namespace eContracting.Services
     /// </summary>
     public class SapApiService : IApiService
     {
-        public static string[] AvailableRequestTypes = new[] { "NABIDKA", "NABIDKA_XML", "NABIDKA_PDF", "NABIDKA_ARCH" };
-
         /// <summary>
         /// The logger.
         /// </summary>
@@ -102,7 +100,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<bool> AcceptOfferAsync(string guid)
         {
-            return await this.SetStatusAsync(guid, "NABIDKA", "5");
+            return await this.SetStatusAsync(guid, OFFER_TYPES.NABIDKA, "5");
         }
 
         /// <inheritdoc/>
@@ -117,8 +115,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type)
         {
-            var name = Enum.GetName(typeof(OFFER_TYPES), type);
-            var response = await this.GetResponseAsync(guid, name);
+            var response = await this.GetResponseAsync(guid, type);
 
             if (response == null)
             {
@@ -126,49 +123,6 @@ namespace eContracting.Services
             }
 
             return this.OfferParser.GenerateOffer(response);
-        }
-
-        /// <inheritdoc/>
-        public OfferTextModel[] GetXml(string guid)
-        {
-            var task = Task.Run(() => this.GetXmlAsync(guid));
-            task.Wait();
-            var result = task.Result;
-            return result;
-        }
-
-        /// <inheritdoc/>
-        public async Task<OfferTextModel[]> GetXmlAsync(string guid)
-        {
-            var response = await this.GetResponseAsync(guid, "NABIDKA_XML");
-
-            var list = new List<OfferTextModel>();
-
-            if (response.HasFiles)
-            {
-                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
-                {
-                    var file = response.Response.ET_FILES[i];
-                    this.Logger.Debug(guid, $"NABIDKA_XML response: Contains ST_FILE - {file.FILENAME}");
-                    var index = i.ToString();
-                    var name = file.FILENAME;
-                    var text = Encoding.UTF8.GetString(file.FILECONTENT);
-
-                    var item = new OfferTextModel(index: index, name: name, text: text);
-
-                    if (file.ATTRIB != null)
-                    {
-                        foreach (var attr in file.ATTRIB)
-                        {
-                            item.Attributes.Add(attr.ATTRID, attr.ATTRVAL);
-                        }
-                    }
-
-                    list.Add(item);
-                }
-            }
-
-            return list.ToArray();
         }
 
         /// <inheritdoc/>
@@ -183,7 +137,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid)
         {
-            var result = await this.GetResponseAsync(guid, "NABIDKA");
+            var result = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA);
 
             if (result == null)
             {
@@ -235,7 +189,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<bool> ReadOfferAsync(string guid)
         {
-            return await this.SetStatusAsync(guid, "NABIDKA", "4");
+            return await this.SetStatusAsync(guid, OFFER_TYPES.NABIDKA, "4");
         }
 
         /// <inheritdoc/>
@@ -250,21 +204,21 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<bool> SignInOfferAsync(string guid)
         {
-            return await this.SetStatusAsync(guid, "NABIDKA", "6");
+            return await this.SetStatusAsync(guid, OFFER_TYPES.NABIDKA, "6");
         }
 
         /// <summary>
         /// Gets data.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="type">Type from <see cref="OFFER_TYPES"/> collection.</param>
         /// <param name="fileType">Type of the file.</param>
         /// <returns>Instance of <see cref="ResponseCacheGetModel"/> or an exception.</returns>
-        protected internal async Task<ResponseCacheGetModel> GetResponseAsync(string guid, string type, string fileType = "B")
+        protected internal async Task<ResponseCacheGetModel> GetResponseAsync(string guid, OFFER_TYPES type, string fileType = "B")
         {
             var model = new ZCCH_CACHE_GET();
             model.IV_CCHKEY = guid;
-            model.IV_CCHTYPE = type;
+            model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
             model.IV_GEFILE = fileType;
 
             var request = new ZCCH_CACHE_GETRequest(model);
@@ -284,7 +238,7 @@ namespace eContracting.Services
         /// <param name="type">The type.</param>
         /// <param name="status">The status.</param>
         /// <returns></returns>
-        protected internal async Task<bool> SetStatusAsync(string guid, string type, string status)
+        protected internal async Task<bool> SetStatusAsync(string guid, OFFER_TYPES type, string status)
         {
             var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             decimal outValue = 1M;
@@ -306,15 +260,15 @@ namespace eContracting.Services
         /// Sets the <paramref name="status"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">A type from <see cref="AvailableRequestTypes"/> collection.</param>
+        /// <param name="type">A type from <see cref="OFFER_TYPES"/> collection.</param>
         /// <param name="timestamp">Decimal representation of a timestamp.</param>
         /// <param name="status">Value for <see cref="ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
         /// <returns>True if it was successfully set or false.</returns>
-        protected internal async Task<bool> SetStatusAsync(string guid, string type, decimal timestamp, string status)
+        protected internal async Task<bool> SetStatusAsync(string guid, OFFER_TYPES type, decimal timestamp, string status)
         {
             var model = new ZCCH_CACHE_STATUS_SET();
             model.IV_CCHKEY = guid;
-            model.IV_CCHTYPE = type;
+            model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
             model.IV_STAT = status;
             model.IV_TIMESTAMP = timestamp;
 
@@ -356,23 +310,23 @@ namespace eContracting.Services
 
             if (isAccepted)
             {
-                var result = await this.GetResponseAsync(guid, "NABIDKA_ARCH");
+                var result = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA_ARCH);
                 files.AddRange(result.Response.ET_FILES);
                 var filenames = result.Response.ET_FILES.Select(file => file.FILENAME);
                 files.RemoveAll(file => filenames.Contains(file.FILENAME));
                 files.AddRange(result.Response.ET_FILES);
-                this.Logger.LogFiles(files, guid, isAccepted, "NABIDKA_ARCH");
+                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_ARCH);
             }
             else
             {
-                var result = await this.GetResponseAsync(guid, "NABIDKA_PDF");
+                var result = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA_PDF);
 
                 if (result.Response?.ET_FILES?.Any() ?? false)
                 {
                     files.AddRange(result.Response.ET_FILES);
                 }
 
-                this.Logger.LogFiles(files, guid, isAccepted, "NABIDKA_PDF");
+                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_PDF);
             }
 
             return files.ToArray();

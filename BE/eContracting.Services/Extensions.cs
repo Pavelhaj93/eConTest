@@ -50,12 +50,12 @@ namespace eContracting.Services
             logger.Debug(guid, builder.ToString());
         }
 
-        public static void LogFiles(this ILogger logger, IEnumerable<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
+        public static void LogFiles(this ILogger logger, IEnumerable<ZCCH_ST_FILE> files, string guid, bool IsAccepted, OFFER_TYPES type)
         {
             var accept = IsAccepted ? "accepted" : "not accepted";
 
             var builder = new StringBuilder();
-            builder.Append($"[{responseType}] ");
+            builder.Append($"[{Enum.GetName(typeof(OFFER_TYPES), type)}] ");
             builder.Append($"Offer is {accept}");
             builder.AppendLine();
 

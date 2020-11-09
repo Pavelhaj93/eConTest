@@ -366,20 +366,6 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IApiService.GetXml(System.String)">
-            <summary>
-            Gets texts for offer <paramref name="guid"/> synchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>Array of texts.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.GetXmlAsync(System.String)">
-            <summary>
-            Gets texts for offer <paramref name="guid"/> asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>Array of texts.</returns>
-        </member>
         <member name="M:eContracting.IApiService.SignInOffer(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed.
@@ -1679,11 +1665,103 @@
             Represents abstration layer for logger.
             </summary>
         </member>
+        <member name="M:eContracting.ILogger.Info(System.String,System.String)">
+            <summary>
+            Add <c>info</c> log <paramref name="message"/>.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Debug(System.String,System.String)">
+            <summary>
+            Add <c>debug</c> log <paramref name="message"/>.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Warn(System.String,System.String)">
+            <summary>
+            Add <c>warning</c> log <paramref name="message"/>.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Error(System.String,System.String)">
+            <summary>
+            Add <c>error</c> log <paramref name="message"/>.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Error(System.String,System.Exception)">
+            <summary>
+            Add <c>error</c> log message from <paramref name="exception"/> with its details.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="exception">The exception.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Error(System.String,System.String,System.Exception)">
+            <summary>
+            Add <c>error</c> log <paramref name="message"/> with <paramref name="exception"/> details.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+            <param name="exception">The exception.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Fatal(System.String,System.String)">
+            <summary>
+            Add <c>fatal</c> log <paramref name="message"/>.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Fatal(System.String,System.Exception)">
+            <summary>
+            Add <c>fatal</c> log message from <paramref name="exception"/> with its details.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="exception">The exception.</param>
+        </member>
+        <member name="M:eContracting.ILogger.Fatal(System.String,System.String,System.Exception)">
+            <summary>
+            Add <c>fatal</c> log <paramref name="message"/> with <paramref name="exception"/> details.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="message">The message.</param>
+            <param name="exception">The exception.</param>
+        </member>
         <member name="T:eContracting.SitecoreLogger">
             <summary>
             Wrapper over Sitecore logger.
             </summary>
             <seealso cref="T:eContracting.ILogger" />
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Info(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Debug(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Warn(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Error(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Error(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Error(System.String,System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Fatal(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Fatal(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreLogger.Fatal(System.String,System.String,System.Exception)">
+            <inheritdoc/>
         </member>
     </members>
 </doc>

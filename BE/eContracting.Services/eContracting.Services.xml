@@ -106,12 +106,6 @@
         <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetXml(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.SapApiService.GetXmlAsync(System.String)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.SapApiService.GetAttachments(System.String)">
             <inheritdoc/>
         </member>
@@ -130,16 +124,16 @@
         <member name="M:eContracting.Services.SapApiService.SignInOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetResponseAsync(System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetResponseAsync(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Gets data.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">Type from <see cref="F:eContracting.Services.SapApiService.AvailableRequestTypes"/> collection.</param>
+            <param name="type">Type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
             <param name="fileType">Type of the file.</param>
             <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -148,12 +142,12 @@
             <param name="status">The status.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,System.String,System.Decimal,System.String)">
+        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">A type from <see cref="F:eContracting.Services.SapApiService.AvailableRequestTypes"/> collection.</param>
+            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
             <param name="timestamp">Decimal representation of a timestamp.</param>
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>True if it was successfully set or false.</returns>
