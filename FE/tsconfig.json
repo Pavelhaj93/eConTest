@@ -27,7 +27,8 @@
       "@utils": ["src/app/utils"],
       "@views": ["src/app/views"],
       "@theme": ["src/app/theme"],
-      "@stores": ["src/app/stores"]
+      "@stores": ["src/app/stores"],
+      "@context": ["src/app/context"]
     }
   },
   "include": ["./src/app", "custom.d.ts"],

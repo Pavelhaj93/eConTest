@@ -22,6 +22,12 @@ export type AppConfig = {
   isRetention: boolean
   formAction?: string
   choices: Choice[]
+  /** URL that returns the document itself. Need to append file ID. */
+  getFileUrl: string
+  /** URL that returns an image preview of the document. Need to append file ID. */
+  getFileForSignUrl: string
+  /** URL that accepts a signature as base64 PNG within POST body. Need to append file ID. */
+  signFileUrl: string
 }
 
 declare global {
@@ -35,7 +41,7 @@ export type View = AppConfig
 export type Document = {
   id: string
   title: string
-  url: string
+  // url: string
   label: string
   sign: boolean
   signed?: boolean

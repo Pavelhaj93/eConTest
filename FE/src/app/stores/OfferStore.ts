@@ -19,7 +19,13 @@ export class OfferStore {
   @observable
   public isLoading = false
 
-  constructor(documentsUrl: string, isRetention: boolean, isAcquisition: boolean) {
+  @observable
+  public isSigning = false
+
+  @observable
+  public signError = false
+
+  constructor(documentsUrl: string, isRetention = false, isAcquisition = false) {
     this.documentsUrl = documentsUrl
     this.isRetention = isRetention
     this.isAcquisition = isAcquisition
@@ -37,6 +43,10 @@ export class OfferStore {
 
   /** True if all documents that are marked to be signed are actually signed, otherwise false. */
   @computed public get allDocumentsAreSigned(): boolean {
+    if (!this.documentsToBeSigned.length) {
+      return false
+    }
+
     if (this.documentsToBeSigned.find(document => !document.signed)) {
       return false
     }
@@ -46,6 +56,10 @@ export class OfferStore {
 
   /** True if all documents that are marked to be accepted are actually accepted, otherwise false. */
   @computed public get allDocumentsAreAccepted(): boolean {
+    if (!this.documentsToBeAccepted.length) {
+      return false
+    }
+
     if (this.documentsToBeAccepted.find(document => !document.accepted)) {
       return false
     }
@@ -66,6 +80,7 @@ export class OfferStore {
     return false
   }
 
+  // TODO: add timeout parameter
   /**
    * Performs an ajax request to `url` (default set to `this.documentsUrl`), fetch and populate documents.
    */
@@ -102,25 +117,66 @@ export class OfferStore {
   }
 
   /**
-   * Change `signed` state of given document.
+   * Change `signed` state of given document after the signature is successfully sent to API.
    * @param id - ID of document
+   * @param signature - PNG image as base64
+   * @param signFileUrl - URL where to send `signature` data
+   * @returns Promise<boolean> - if true, the document was successfully signed, otherwise false.
    */
-  @action public signDocument(id: string): void {
+  @action public async signDocument(
+    id: string,
+    signature: string,
+    signFileUrl: string,
+  ): Promise<boolean> {
     const document = this.getDocument(id)
 
     if (!document) {
-      return
+      return false
     }
 
-    document.signed = !document.signed
+    this.isSigning = true
+    this.signError = false
 
-    this.documents = [...this.documents]
+    return this.signDocumentRequest(id, signature, signFileUrl)
+      .then(() => {
+        document.signed = !document.signed
+        this.documents = [...this.documents]
+        return true
+      })
+      .catch(() => {
+        this.signError = true
+        return false
+      })
+      .finally(() => {
+        this.isSigning = false
+      })
   }
 
-  // TODO:
-  // private signDocumentRequest(id: string): void {
+  private async signDocumentRequest(
+    id: string,
+    signature: string,
+    signFileUrl: string,
+  ): Promise<void> {
+    const data = {
+      signature,
+    }
 
-  // }
+    const response = await fetch(`${signFileUrl}${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+
+    return new Promise((resolve, reject) => {
+      if (response.ok) {
+        resolve()
+      } else {
+        reject()
+      }
+    })
+  }
 
   /**
    * Change `accepted` state of given document.

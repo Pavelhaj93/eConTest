@@ -7,8 +7,10 @@
     doxReadyUrl: '/api/documents',
     isRetention: {{ retention }},
     isAcquisition: {{ acquisition }},
-    isAgreed: {{ agreed }},
     formAction: 'offer.html',
+    getFileUrl: '/',
+    getFileForSignUrl: '/api/document-image?id=',
+    signFileUrl: '/api/sign-document?id=',
     labels: {
       appUnavailableTitle: 'Nedostupnost aplikace',
       appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
@@ -22,6 +24,7 @@
       signatureModalHelpText: 'Podepíšete snadno myši přímo v počítači nebo prstem v tabletu.',
       signatureModalConfirm: 'Potvrdit',
       signatureModalClear: 'Smazat',
+      signatureModalError: 'Dokument se nepodařilo podepsat, zkuste to prosím znova.',
     },
-  }
+  };
 </script>

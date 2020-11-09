@@ -45,7 +45,7 @@ describe('Standard offer', () => {
     expect(store.error).toBe(true)
   })
 
-  it('it should be ready to accept if all documents are accepted', async () => {
+  it('it should be ready to accept the offer if all documents are accepted', async () => {
     const store = new OfferStore(
       offerMockConfig.documentsUrl,
       offerMockConfig.isRetention,
@@ -92,7 +92,7 @@ const retentionMockConfig = {
 }
 
 describe('Retention offer', () => {
-  it('should sign the document', () => {
+  it('should sign the document', async () => {
     const store = new OfferStore(
       retentionMockConfig.documentsUrl,
       retentionMockConfig.isRetention,
@@ -111,12 +111,32 @@ describe('Retention offer', () => {
 
     const document = store.getDocument(mockDocument.id)
 
-    store.signDocument(mockDocument.id)
+    fetch.mockResponseOnce('')
+    await store.signDocument(mockDocument.id, 'signature', '')
 
     expect(document?.signed).toBe(true)
   })
 
-  it('it should be ready to accept if all documents are accepted and signed', async () => {
+  it('should has an error when trying to sing the document', async () => {
+    const store = new OfferStore(retentionMockConfig.documentsUrl)
+
+    const mockDocument = {
+      id: '009',
+      title: 'Informace pro zákazníka – spotřebitele.pdf',
+      url: 'null',
+      label: 'Souhlasím s',
+      sign: true,
+    }
+
+    store.documents = [mockDocument]
+
+    fetch.mockRejectOnce(() => Promise.reject('API is unavailable'))
+    await store.signDocument(mockDocument.id, 'signature', '')
+
+    expect(store.signError).toBe(true)
+  })
+
+  it('it should be ready to accept the offer if all documents are accepted and signed', async () => {
     const store = new OfferStore(
       retentionMockConfig.documentsUrl,
       retentionMockConfig.isRetention,
@@ -145,7 +165,8 @@ describe('Retention offer', () => {
 
     store.acceptAllDocuments()
 
-    store.signDocument(mockDocuments[1].id)
+    fetch.mockResponseOnce('')
+    await store.signDocument(mockDocuments[1].id, '', '')
 
     expect(store.isOfferReadyToAccept).toBe(true)
   })

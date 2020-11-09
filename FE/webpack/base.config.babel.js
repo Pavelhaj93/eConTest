@@ -49,6 +49,7 @@ export default {
       '@views': path.resolve(__dirname, '../src/app/views'),
       '@theme': path.resolve(__dirname, '../src/app/theme'),
       '@stores': path.resolve(__dirname, '../src/app/stores'),
+      '@context': path.resolve(__dirname, '../src/app/context'),
     },
   },
 
