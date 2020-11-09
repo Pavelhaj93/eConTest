@@ -34,6 +34,12 @@ namespace eContracting.ConsoleClient.Commands
         {
             this.Logger.Suspend(true);
             var offer = await this.ApiService.GetOfferAsync(guid, OFFER_TYPES.NABIDKA);
+
+            if (offer == null)
+            {
+                this.Console.WriteLineWarning("No offer");
+                return;
+            }
             
             this.Console.WriteLine($"Process: {offer.Process}");
             this.Console.WriteLine($"Type: {offer.ProcessType}");
@@ -45,9 +51,10 @@ namespace eContracting.ConsoleClient.Commands
             this.Console.WriteLine($"Is accepted: {offer.IsAccepted}");
 
             var files = await this.ApiService.GetAttachmentsAsync(guid);
-            this.Console.WriteLine($"Files: {files.Length}");
+            var filesCount = files?.Length ?? 0;
+            this.Console.WriteLine($"Files: {filesCount}");
             
-            if (files.Length > 0)
+            if (filesCount > 0)
             {
                 for (int i = 0; i < files.Length; i++)
                 {

@@ -74,7 +74,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
-                    this.Logger.Debug($"[{guid}] Session expired");
+                    this.Logger.Debug(guid, $"Session expired");
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SessionExpired);
                     return Redirect(redirectUrl);
                 }
@@ -86,21 +86,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (offer.IsAccepted)
                 {
-                    this.Logger.Debug($"[{guid}] Offer already accepted");
+                    this.Logger.Debug(guid, $"Offer already accepted");
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer);
                     return Redirect(redirectUrl);
                 }
 
                 if (offer.OfferIsExpired)
                 {
-                    this.Logger.Debug($"[{guid}] Offer expired");
+                    this.Logger.Debug(guid, $"Offer expired");
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired);
                     return Redirect(redirectUrl);
                 }
 
                 if (!this.ApiService.SignInOffer(guid))
                 {
-                    this.Logger.Debug($"[{guid}] Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})");
+                    this.Logger.Debug(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})");
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED;
                     return Redirect(redirectUrl);
                 }

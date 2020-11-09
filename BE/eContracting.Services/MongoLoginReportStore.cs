@@ -103,14 +103,14 @@ namespace eContracting.Services
                 // just to be sure
                 if (result == null)
                 {
-                    this.Logger.Info($"[{guid}] Can log-in (no result)");
+                    this.Logger.Info(guid, $"Can log-in (no result)");
                     return true;
                 }
 
                 // If number of failed logins if less then 'MaxFailedAttemps', user still can try to log-in
                 if (result.FailedAttempts < maxFailedAttempts)
                 {
-                    this.Logger.Info($"[{guid}] Can log-in (number of failed attempts: {result.FailedAttempts})");
+                    this.Logger.Info(guid, $"Can log-in (number of failed attempts: {result.FailedAttempts})");
                     return true;
                 }
 
@@ -125,7 +125,7 @@ namespace eContracting.Services
 
                         this.FailedLoginsCollection.DeleteOne(deleteFilter);
 
-                        this.Logger.Info($"[{guid}] Failed log-in attempts were deleted due to expiration");
+                        this.Logger.Info(guid, $"Failed log-in attempts were deleted due to expiration");
 
                         //var update = Builders<LoginGuidInfo>.Update
                         //    .PullAll(x => x.FailedAttemptsInfo, result.FailedAttemptsInfo)
@@ -136,10 +136,10 @@ namespace eContracting.Services
                     }
                     catch (Exception ex)
                     {
-                        this.Logger.Fatal($"[{guid}] Cannot clear information about failed log-ins. Records can grow up to infinity! Please fix!", ex);
+                        this.Logger.Fatal(guid, $"Cannot clear information about failed log-ins. Records can grow up to infinity! Please fix!", ex);
                     }
 
-                    this.Logger.Info($"[{guid}] Can log-in (had max failed log-in attempts but waiting for time to expire)");
+                    this.Logger.Info(guid, $"Can log-in (had max failed log-in attempts but waiting for time to expire)");
 
                     return true;
                 }
@@ -147,13 +147,13 @@ namespace eContracting.Services
                 {
                     TimeSpan difference = result.LastFailedAttemptTimestamp.Add(delayAfterFailedAttempts) - DateTime.UtcNow;
 
-                    this.Logger.Info($"[{guid}] Cannot log-in (max failed log-in attempts ({maxFailedAttempts}) reached and waiting time not expired yet - {difference.ToString("c")})");
+                    this.Logger.Info(guid, $"Cannot log-in (max failed log-in attempts ({maxFailedAttempts}) reached and waiting time not expired yet - {difference.ToString("c")})");
                     return false;
                 }
             }
             catch (ApplicationException exception)
             {
-                this.Logger.Error($"[{guid}] Cannot validate if had failed log-in attempts. We must allow him to log-in.", exception);
+                this.Logger.Error(guid, $"Cannot validate if had failed log-in attempts. We must allow him to log-in.", exception);
                 return true;
             }
         }
@@ -189,7 +189,7 @@ namespace eContracting.Services
 
                     this.FailedLoginsCollection.InsertOne(m);
 
-                    this.Logger.Info($"[{guid}] Failed log-in attempt increased to 1");
+                    this.Logger.Info(guid, $"Failed log-in attempt increased to 1");
                 }
                 else
                 {
@@ -203,12 +203,12 @@ namespace eContracting.Services
 
                     this.FailedLoginsCollection.UpdateOne(updateFilter, update);
 
-                    this.Logger.Info($"[{guid}] Failed log-in attempt increased to {value}");
+                    this.Logger.Info(guid, $"Failed log-in attempt increased to {value}");
                 }
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{guid}] Cannot update failed log-in attempts", ex);
+                this.Logger.Error(guid, $"Cannot update failed log-in attempts", ex);
             }
         }
 
@@ -218,12 +218,12 @@ namespace eContracting.Services
             {
                 this.LoginsLogCollection.InsertOne(newModel);
 
-                this.Logger.Info($"[{newModel.Guid}] Inserted new log-in attempt");
+                this.Logger.Info(newModel.Guid, $"Inserted new log-in attempt");
 
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{newModel.Guid}] Failed to Inserted new log-in attempt: {ex.Message}");
+                this.Logger.Error(newModel.Guid, $"Failed to Inserted new log-in attempt: {ex.Message}");
             }
         }
 
@@ -273,11 +273,11 @@ namespace eContracting.Services
 
                 this.LoginsLogCollection.UpdateOne(updateFilter, finalUpd);
 
-                this.Logger.Info($"[{current.Guid}] Updated offer login report.");
+                this.Logger.Info(current.Guid, $"Updated offer login report.");
             }
             catch (Exception ex)
             {
-                this.Logger.Info($"[{current.Guid}] Failed to update offer login report: {ex.Message}");
+                this.Logger.Info(current.Guid, $"Failed to update offer login report: {ex.Message}");
             }
         }
 

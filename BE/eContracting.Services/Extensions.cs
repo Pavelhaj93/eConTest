@@ -12,16 +12,12 @@ namespace eContracting.Services
     {
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_STATUS_SET model, TimeSpan time)
         {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append($"[{model.IV_CCHKEY}] {nameof(ZCCH_CACHE_STATUS_SET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
-            logger.Debug(stringBuilder.ToString());
+            logger.Debug(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_STATUS_SET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_GET model, TimeSpan time)
         {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append($"[{model.IV_CCHKEY}] [{model.IV_CCHTYPE}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
-            logger.Debug(stringBuilder.ToString());
+            logger.Debug(model.IV_CCHKEY, $"[{model.IV_CCHTYPE}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
         public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentXmlModel> files, string guid, bool IsAccepted)
@@ -29,14 +25,13 @@ namespace eContracting.Services
             var accept = IsAccepted ? "accepted" : "not accepted";
 
             var builder = new StringBuilder();
-            builder.Append($"[{guid}] ");
             builder.Append($"Offer is {accept}");
             builder.AppendLine();
 
             if (files == null || !files.Any())
             {
                 builder.AppendLine("0 files received");
-                logger.Debug(builder.ToString());
+                logger.Debug(guid, builder.ToString());
                 return;
             }
 
@@ -52,7 +47,7 @@ namespace eContracting.Services
             }
 
             builder.AppendLine("Total file size: " + Utils.GetReadableFileSize(totalSize));
-            logger.Debug(builder.ToString());
+            logger.Debug(guid, builder.ToString());
         }
 
         public static void LogFiles(this ILogger logger, IEnumerable<ZCCH_ST_FILE> files, string guid, bool IsAccepted, string responseType)
@@ -60,7 +55,6 @@ namespace eContracting.Services
             var accept = IsAccepted ? "accepted" : "not accepted";
 
             var builder = new StringBuilder();
-            builder.Append($"[{guid}] ");
             builder.Append($"[{responseType}] ");
             builder.Append($"Offer is {accept}");
             builder.AppendLine();
@@ -68,7 +62,7 @@ namespace eContracting.Services
             if (files == null || !files.Any())
             {
                 builder.AppendLine("0 files received");
-                logger.Debug(builder.ToString());
+                logger.Debug(guid, builder.ToString());
                 return;
             }
 
@@ -81,7 +75,7 @@ namespace eContracting.Services
                 counter++;
             }
 
-            logger.Debug(builder.ToString());
+            logger.Debug(guid, builder.ToString());
         }
     }
 }

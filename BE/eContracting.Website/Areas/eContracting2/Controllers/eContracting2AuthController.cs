@@ -207,7 +207,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
-                    this.Logger.Info($"[{guid}] Log-in failed");
+                    this.Logger.Info(guid, $"Log-in failed");
                     //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
                     //TODO: this.LoginReportService.AddFailedAttempt(guid, this.Session.SessionID, this.Request.Browser.Browser);
                     return this.GetLoginFailReturns(result, guid);
@@ -215,19 +215,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 //TODO: this.DataSessionStorage.Login(userData);
                 this.AuthService.Login(new AuthDataModel(offer));
-                this.Logger.Info($"[{guid}] Successfully log-ged in");
+                this.Logger.Info(guid, $"Successfully log-ged in");
 
                 if (offer.IsAccepted)
                 {
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer);
-                    this.Logger.Info($"[{guid}] Offer already accepted");
+                    this.Logger.Info(guid, $"Offer already accepted");
                     return Redirect(redirectUrl);
                 }
 
                 if (offer.OfferIsExpired)
                 {
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired);
-                    this.Logger.Info($"[{guid}] Offer expired");
+                    this.Logger.Info(guid, $"Offer expired");
                     return this.Redirect(redirectUrl);
                 }
 
@@ -237,26 +237,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (ex.InnerException is EndpointNotFoundException)
                 {
-                    this.Logger.Error($"[{guid}] Connection to CACHE failed ({Constants.ErrorCodes.AUTH2_CACHE})", ex);
+                    this.Logger.Error(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH2_CACHE})", ex);
                     return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE);
                 }
 
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_CACHE2})", ex);
+                this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_CACHE2})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE2);
             }
             catch (ApplicationException ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
+                this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_APP);
             }
             catch (InvalidOperationException ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
+                this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_INV_OP);
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
+                this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
                 return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
             }
         }
@@ -428,14 +428,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (canLogin == LoginStates.OFFER_STATE_1)
             {
-                this.Logger.Warn($"[{guid}] Offer with state [1] will be ignored");
+                this.Logger.Warn(guid, $"Offer with state [1] will be ignored");
                 var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
                 return Redirect(url);
             }
 
             if (canLogin == LoginStates.MISSING_BIRTHDAY)
             {
-                this.Logger.Warn($"[{guid}] Attribute BIRTHDT is offer is empty");
+                this.Logger.Warn(guid, $"Attribute BIRTHDT is offer is empty");
                 var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
                 return Redirect(url);
             }

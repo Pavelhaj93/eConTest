@@ -19,6 +19,8 @@ namespace eContracting.Models
         /// </summary>
         public readonly OfferXmlModel Xml;
 
+        public readonly Dictionary<string, string> TextParameters;
+
         /// <summary>
         /// Gets or sets the unique GUID of this offer.
         /// </summary>
@@ -299,21 +301,24 @@ namespace eContracting.Models
         /// </summary>
         protected readonly OfferHeaderModel Header;
 
+        public readonly Dictionary<string, string> RawContent = new Dictionary<string, string>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferModel"/> class.
         /// </summary>
         /// <param name="xml">The XML.</param>
         /// <param name="header">The header.</param>
         /// <param name="attributes">The attributes.</param>
-        /// <exception cref="System.ArgumentNullException">
+        /// <param name="textParameters">The text parameters.</param>
+        /// <exception cref="ArgumentNullException">
         /// xml
         /// or
         /// header
         /// or
         /// attributes
         /// </exception>
-        /// <exception cref="System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
-        public OfferModel(OfferXmlModel xml, OfferHeaderModel header, OfferAttributeModel[] attributes)
+        /// <exception cref="ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
+        public OfferModel(OfferXmlModel xml, OfferHeaderModel header, OfferAttributeModel[] attributes, Dictionary<string, string> textParameters = null)
         {
             if (xml == null)
             {
@@ -328,6 +333,7 @@ namespace eContracting.Models
             this.Xml = xml;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
+            this.TextParameters = textParameters ?? new Dictionary<string, string>();
         }
 
         public string GetCodeOfAdditionalInfoDocument()

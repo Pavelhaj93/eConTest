@@ -18,5 +18,8 @@ namespace eContracting.Models
         /// </summary>
         [XmlElement("Nabidka", Namespace = "")]
         public OfferContentXmlModel Content { get; set; }
+
+        [XmlIgnore]
+        public string RawXml { get; set; }
     }
 }

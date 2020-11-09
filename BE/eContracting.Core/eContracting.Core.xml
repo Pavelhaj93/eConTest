@@ -1231,13 +1231,14 @@
             Header values from the offer.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[])">
+        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[],System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferModel"/> class.
             </summary>
             <param name="xml">The XML.</param>
             <param name="header">The header.</param>
             <param name="attributes">The attributes.</param>
+            <param name="textParameters">The text parameters.</param>
             <exception cref="T:System.ArgumentNullException">
             xml
             or

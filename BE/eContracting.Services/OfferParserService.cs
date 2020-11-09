@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Serialization;
 using eContracting.Models;
 
@@ -14,10 +15,18 @@ namespace eContracting.Services
     public class OfferParserService : IOfferParserService
     {
         /// <summary>
+        /// The logger.
+        /// </summary>
+        protected readonly ILogger Logger;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OfferParserService"/> class.
         /// </summary>
-        public OfferParserService()
+        /// <param name="logger">The logger.</param>
+        /// <exception cref="ArgumentNullException">logger</exception>
+        public OfferParserService(ILogger logger)
         {
+            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <inheritdoc/>
@@ -25,32 +34,77 @@ namespace eContracting.Services
         {
             if (!response.HasFiles)
             {
+                this.Logger.Info(response.Guid, "No files in a response. Returns null offer.");
                 return null;
             }
 
-            var file = Encoding.UTF8.GetString(response.Response.ET_FILES.First().FILECONTENT);
+            var file1 = Encoding.UTF8.GetString(response.Response.ET_FILES[0].FILECONTENT);
+            OfferXmlModel offerXml = null;
+            var header = this.GetHeader(response);
+            var attributes = this.GetAttributes(response);
+            var parameters = new Dictionary<string, string>();
+            var rawXml = new Dictionary<string, string>();
+            rawXml.Add(response.Response.ET_FILES[0].FILENAME, file1);
 
-            using (var stream = new MemoryStream(response.Response.ET_FILES.First().FILECONTENT, false))
+            using (var stream = new MemoryStream(response.Response.ET_FILES[0].FILECONTENT, false))
             {
-                // Use this to debug how XML looks like -> obj.InnerXML
-                //var serializer1 = new XmlSerializer(typeof(System.Xml.XmlDocument), "http://www.sap.com/abapxml");
-                //var obj = serializer1.Deserialize(stream);
-                //stream.Position = 0;
-
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
-                var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
+                offerXml = (OfferXmlModel)serializer.Deserialize(stream);
                 
                 if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
                 {
                     offerXml.Content.Body.BusProcess = "00";
                 }
-
-                var header = this.GetHeader(response);
-                var attributes = this.GetAttributes(response);
-
-                var offer = new OfferModel(offerXml, header, attributes);
-                return offer;
             }
+
+            if (response.Response.ET_FILES.Length > 1)
+            {
+                try
+                {
+                    var file2 = Encoding.UTF8.GetString(response.Response.ET_FILES[1].FILECONTENT);
+                    rawXml.Add(response.Response.ET_FILES[1].FILENAME, file2);
+
+                    var doc = new XmlDocument();
+                    var xrs = new XmlReaderSettings() { NameTable = new NameTable() };
+                    var xnsm = new XmlNamespaceManager(xrs.NameTable);
+                    xnsm.AddNamespace("BENEFITS", "");
+                    xnsm.AddNamespace("COMMODITY", "");
+                    xnsm.AddNamespace("NONCOMMODITY", "");
+                    xnsm.AddNamespace("PERSON", "");
+                    var xcp = new XmlParserContext(null, xnsm, "", XmlSpace.Default);
+                    using (var strReader = new StringReader(file2))
+                    {
+                        var t = System.Xml.Linq.XDocument.Load(strReader, System.Xml.Linq.LoadOptions.PreserveWhitespace);
+                        var xr = XmlReader.Create(strReader, xrs, xcp);
+                        doc.Load(xr);
+
+                        var xmlParameters = doc.DocumentElement.SelectSingleNode("form/parameters").ChildNodes;
+
+                        if (xmlParameters != null)
+                        {
+                            foreach (XmlNode xmlNode in xmlParameters)
+                            {
+                                var key = xmlNode.Name;
+                                var value = xmlNode.InnerXml;
+                                parameters.Add(key, value);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+            }
+
+            var offer = new OfferModel(offerXml, header, attributes, parameters);
+
+            foreach (var raw in rawXml)
+            {
+                offer.RawContent.Add(raw.Key, raw.Value);
+            }
+
+            return offer;
         }
 
         /// <summary>

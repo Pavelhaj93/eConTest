@@ -1,0 +1,102 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29418.71
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website", "eContracting.Website\eContracting.Website.csproj", "{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3703D589-5C25-4F7D-BDE0-C24070AF2B9A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\Nuget.config = .nuget\Nuget.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Kernel", "eContracting.Kernel\eContracting.Kernel.csproj", "{8E443FE9-7BFB-4417-A625-9785FEC7F358}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{FCE383FF-8571-4051-95F9-6293F4F54522}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAP", "SAP", "{1A225118-EBA8-4BE0-BD04-DE6BBC8B53BA}"
+	ProjectSection(SolutionItems) = preProject
+		examples\SAP\BN_0202335592.xml = examples\SAP\BN_0202335592.xml
+		examples\SAP\BN_0202335592_AD1.xml = examples\SAP\BN_0202335592_AD1.xml
+		howto.md = howto.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B40BA044-AF31-4AC5-858D-6A8721FACBF0}"
+	ProjectSection(SolutionItems) = preProject
+		libs\pdfium.dll = libs\pdfium.dll
+		libs\Rwe.Sc.AcceptanceLogger.dll = libs\Rwe.Sc.AcceptanceLogger.dll
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{705180D5-694C-4CC6-A845-D8CB48A3D8D6}"
+	ProjectSection(SolutionItems) = preProject
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-CA64-4601-AD61-0188E9BF5F9D}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\ATTRIBUTES.md = ..\docs\ATTRIBUTES.md
+		..\docs\ATTRIBUTES_TABLE.md = ..\docs\ATTRIBUTES_TABLE.md
+		..\docs\Build_and_Deploy.md = ..\docs\Build_and_Deploy.md
+		..\docs\Guids.md = ..\docs\Guids.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services", "eContracting.Services\eContracting.Services.csproj", "{F532A851-C440-4513-B563-3EB1C3972FFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Core", "eContracting.Core\eContracting.Core.csproj", "{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C80BE2D2-3523-43B1-8D9D-A0CCC94C6806}"
+	ProjectSection(SolutionItems) = preProject
+		.runsettings = .runsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.ConsoleClient", "eContracting.ConsoleClient\eContracting.ConsoleClient.csproj", "{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Dev|Any CPU = Dev|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41B614D6-8AB8-4B13-B917-B81A2CCC8EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A225118-EBA8-4BE0-BD04-DE6BBC8B53BA} = {FCE383FF-8571-4051-95F9-6293F4F54522}
+		{2C8EC859-CA64-4601-AD61-0188E9BF5F9D} = {705180D5-694C-4CC6-A845-D8CB48A3D8D6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}
+	EndGlobalSection
+EndGlobal

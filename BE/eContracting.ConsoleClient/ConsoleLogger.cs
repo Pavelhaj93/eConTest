@@ -18,7 +18,7 @@ namespace eContracting.ConsoleClient
             this.Console = console;
         }
 
-        public void Debug(string message)
+        public void Debug(string guid, string message)
         {
             if (!this.Suspended)
             {
@@ -26,7 +26,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Error(string message)
+        public void Error(string guid, string message)
         {
             if (!this.Suspended)
             {
@@ -34,7 +34,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Error(Exception exception)
+        public void Error(string guid, Exception exception)
         {
             if (!this.Suspended)
             {
@@ -42,7 +42,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Error(string message, Exception exception)
+        public void Error(string guid, string message, Exception exception)
         {
             if (!this.Suspended)
             {
@@ -50,7 +50,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Fatal(string message)
+        public void Fatal(string guid, string message)
         {
             if (!this.Suspended)
             {
@@ -58,7 +58,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Fatal(Exception exception)
+        public void Fatal(string guid, Exception exception)
         {
             if (!this.Suspended)
             {
@@ -66,7 +66,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Fatal(string message, Exception exception)
+        public void Fatal(string guid, string message, Exception exception)
         {
             if (!this.Suspended)
             {
@@ -74,7 +74,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Info(string message)
+        public void Info(string guid, string message)
         {
             if (!this.Suspended)
             {
@@ -82,7 +82,7 @@ namespace eContracting.ConsoleClient
             }
         }
 
-        public void Warn(string message)
+        public void Warn(string guid, string message)
         {
             if (!this.Suspended)
             {

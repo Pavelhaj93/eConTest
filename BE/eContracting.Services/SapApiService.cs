@@ -149,7 +149,7 @@ namespace eContracting.Services
                 for (int i = 0; i < response.Response.ET_FILES.Length; i++)
                 {
                     var file = response.Response.ET_FILES[i];
-                    this.Logger.Debug($"[{guid}] NABIDKA_XML response: Contains ST_FILE - {file.FILENAME}");
+                    this.Logger.Debug(guid, $"NABIDKA_XML response: Contains ST_FILE - {file.FILENAME}");
                     var index = i.ToString();
                     var name = file.FILENAME;
                     var text = Encoding.UTF8.GetString(file.FILECONTENT);
@@ -296,7 +296,7 @@ namespace eContracting.Services
             }
             else
             {
-                this.Logger.Fatal($"Cannot parse timestamp to decimal ({timestampString})");
+                this.Logger.Fatal(guid, $"Cannot parse timestamp to decimal ({timestampString})");
             }
 
             return false;
@@ -325,7 +325,7 @@ namespace eContracting.Services
             stop.Stop();
             this.Logger.TimeSpent(model, stop.Elapsed);
 
-            this.Logger.Debug("");
+            this.Logger.Debug(guid, $"Status changed to {status}");
 
             if (response != null)
             {
@@ -334,11 +334,11 @@ namespace eContracting.Services
                     return true;
                 }
 
-                this.Logger.Error($"[{guid}] Call to the web service during Accepting returned result {response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE}.");
+                this.Logger.Error(guid, $"Call to the web service during Accepting returned result {response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE}.");
             }
             else
             {
-                this.Logger.Fatal($"[{guid}] Call to the web service during Accepting returned null result.");
+                this.Logger.Fatal(guid, $"Call to the web service during Accepting returned null result.");
             }
 
             return false;

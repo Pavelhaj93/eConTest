@@ -15,49 +15,49 @@ namespace eContracting
     [ExcludeFromCodeCoverage]
     public class SitecoreLogger : ILogger
     {
-        public void Info(string message)
+        public void Info(string guid, string message)
         {
-            Log.Info(message, this);
+            Log.Info($"[{guid}] {message}", this);
         }
 
-        public void Debug(string message)
+        public void Debug(string guid, string message)
         {
-            Log.Info(message, this);
+            Log.Info($"[{guid}] {message}", this);
         }
 
-        public void Warn(string message)
+        public void Warn(string guid, string message)
         {
-            Log.Warn(message, this);
+            Log.Warn($"[{guid}] {message}", this);
         }
 
-        public void Error(string message)
+        public void Error(string guid, string message)
         {
-            Log.Error(message, this);
+            Log.Error($"[{guid}] {message}", this);
         }
 
-        public void Error(Exception exception)
+        public void Error(string guid, Exception exception)
         {
-            Log.Error(exception.Message, this);
+            Log.Error($"[{guid}] {exception.Message}", exception, this);
         }
 
-        public void Error(string message, Exception exception)
+        public void Error(string guid, string message, Exception exception)
         {
-            Log.Error(message, exception, this);
+            Log.Error($"[{guid}] {message}", exception, this);
         }
 
-        public void Fatal(string message)
+        public void Fatal(string guid, string message)
         {
-            Log.Fatal(message, this);
+            Log.Fatal($"[{guid}] {message}", this);
         }
 
-        public void Fatal(Exception exception)
+        public void Fatal(string guid, Exception exception)
         {
-            Log.Fatal(exception.Message, this);
+            Log.Fatal($"[{guid}] {exception.Message}", this);
         }
 
-        public void Fatal(string message, Exception exception)
+        public void Fatal(string guid, string message, Exception exception)
         {
-            Log.Fatal(message, exception, this);
+            Log.Fatal($"[{guid}] {message}", exception, this);
         }
     }
 }

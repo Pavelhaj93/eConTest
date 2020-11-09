@@ -23,6 +23,14 @@ namespace eContracting.Models
         /// </summary>
         public readonly ZCCH_CACHE_GETResponse Response;
 
+        public string Guid
+        {
+            get
+            {
+                return this.Response.ES_HEADER.CCHKEY;
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether <see cref="Response"/> contains files.
         /// </summary>

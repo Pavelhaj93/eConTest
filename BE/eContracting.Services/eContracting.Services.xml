@@ -250,10 +250,17 @@
         <member name="T:eContracting.Services.OfferParserService">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.#ctor">
+        <member name="F:eContracting.Services.OfferParserService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.#ctor(eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferParserService"/> class.
             </summary>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">logger</exception>
         </member>
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>

@@ -11,22 +11,22 @@ namespace eContracting
     /// </summary>
     public interface ILogger
     {
-        void Info(string message);
+        void Info(string guid, string message);
 
-        void Debug(string message);
+        void Debug(string guid, string message);
 
-        void Warn(string message);
+        void Warn(string guid, string message);
 
-        void Error(string message);
+        void Error(string guid, string message);
 
-        void Error(Exception exception);
+        void Error(string guid, Exception exception);
 
-        void Error(string message, Exception exception);
+        void Error(string guid, string message, Exception exception);
 
-        void Fatal(string message);
+        void Fatal(string guid, string message);
 
-        void Fatal(Exception exception);
+        void Fatal(string guid, Exception exception);
 
-        void Fatal(string message, Exception exception);
+        void Fatal(string guid, string message, Exception exception);
     }
 }

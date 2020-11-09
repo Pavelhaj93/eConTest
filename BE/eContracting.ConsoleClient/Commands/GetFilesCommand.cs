@@ -51,13 +51,13 @@ namespace eContracting.ConsoleClient.Commands
                     file.Template,
                     file.FileName,
                     file.SizeLabel,
-                    file.HasAttribute(Constants.FileAttributes.GROUP_OBLIG) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.OBLIGATORY) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.PRINTED) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.SIGN_REQ) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.TMST_REQ) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.ADDINFO) ? "x" : "",
-                    file.HasAttribute(Constants.FileAttributes.MAIN_DOC) ? "x" : "");
+                    file.IsGroupOblig.ToString(),
+                    file.IsObligatory.ToString(),
+                    file.IsPrinted.ToString(),
+                    file.IsSignReq.ToString(),
+                    file.IsTmstReq.ToString(),
+                    file.IsAddinfo.ToString(),
+                    file.IsMainDoc.ToString());
             }
 
             this.Console.Write(table.ToString());
