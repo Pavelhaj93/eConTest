@@ -52,3 +52,9 @@
     }
   }
 }
+
+.fade {
+  &:not(.show) {
+    pointer-events: none;
+  }
+}

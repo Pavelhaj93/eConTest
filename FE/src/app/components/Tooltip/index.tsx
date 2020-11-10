@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import React from 'react'
 import { OverlayTrigger, Tooltip as BSTooltip } from 'react-bootstrap'
 import { Icon } from '@components'
 import { colors } from '@theme'
@@ -18,12 +19,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
   visible = true,
 }) => (
   <OverlayTrigger placement={placement} overlay={<BSTooltip id={id}>{children}</BSTooltip>}>
-    <Fragment>
-      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-      <span className="tooltip-icon-wrapper" tabIndex={visible ? 0 : -1}>
-        <span className="sr-only">{children}</span>
-        <Icon name="question-mark" size={40} color={colors.orange} className="icon-tooltip" />
-      </span>
-    </Fragment>
+    <span className="tooltip-icon-wrapper" tabIndex={visible ? 0 : -1}>
+      <span className="sr-only">{children}</span>
+      <Icon name="question-mark" size={40} color={colors.orange} className="icon-tooltip" />
+    </span>
   </OverlayTrigger>
 )
