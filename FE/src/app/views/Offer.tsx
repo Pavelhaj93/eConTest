@@ -98,18 +98,32 @@ export const Offer: React.FC<View> = observer(
                 <Fragment>
                   <BoxHeading>Dokumenty k podepsání</BoxHeading>
                   {store.documentsToBeSigned.map(({ id, title, label, signed }) => (
-                    <div key={id} className="form-check-wrapper mb-3">
+                    <div key={id} className="form-item-wrapper mb-3">
                       <div className="like-custom-control-label">
+                        {signed && (
+                          <Icon
+                            name="check-circle"
+                            size={36}
+                            color={colors.green}
+                            className="form-item-wrapper__icon mr-2"
+                          />
+                        )}
                         <span>
                           {label} <a href={`${getFileUrl}${id}`}>{title}</a>
                         </span>
-                        {/* TODO: render edit button */}
                         {signed ? (
-                          <span>Podepsáno</span>
+                          <Button
+                            variant="primary"
+                            className="btn-icon ml-auto form-item-wrapper__btn"
+                            aria-label={t('signatureEditBtn')}
+                            onClick={() => openSignatureModal(id)}
+                          >
+                            <Icon name="edit" size={18} color={colors.white} />
+                          </Button>
                         ) : (
                           <Button
                             variant="secondary"
-                            className="ml-auto"
+                            className="ml-auto form-item-wrapper__btn"
                             onClick={() => openSignatureModal(id)}
                           >
                             {t('signatureBtn')}

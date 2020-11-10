@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const FormCheckWrapper: React.FC<Props> = ({ children, id, ...rest }) => (
-  <Form.Check id={id} className="form-check-wrapper mb-3" custom>
+  <Form.Check id={id} className="form-item-wrapper mb-3" custom>
     <Form.Check.Input {...rest} />
     {children}
   </Form.Check>

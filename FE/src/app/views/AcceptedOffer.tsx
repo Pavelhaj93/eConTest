@@ -36,7 +36,7 @@ export const AcceptedOffer: React.FC<View> = observer(({ doxReadyUrl, labels, ge
           <Fragment>
             <BoxHeading>Dodatek a přidružené dokumenty</BoxHeading>
             {store.documents.map(({ id, title }) => (
-              <div key={id} className="form-check-wrapper mb-3">
+              <div key={id} className="form-item-wrapper mb-3">
                 <a href={`${getFileUrl}${id}`} className="like-custom-control-label">
                   <Icon name="pdf" size={36} color={colors.orange} className="mr-2" />
                   <span>{title}</span>

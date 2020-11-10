@@ -139,7 +139,7 @@ export class OfferStore {
 
     return this.signDocumentRequest(id, signature, signFileUrl)
       .then(() => {
-        document.signed = !document.signed
+        document.signed = true
         this.documents = [...this.documents]
         return true
       })

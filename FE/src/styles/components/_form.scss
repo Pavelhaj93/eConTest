@@ -1,4 +1,7 @@
 $custom-control-label-padding-left: 3rem;
+$custom-control-label-padding-right: 2rem;
+$form-item-control-label-padding-right: rem(20);
+$form-item-control-label-padding-left: rem(20);
 
 %form-element {
   /* Validation */
@@ -12,7 +15,7 @@ $custom-control-label-padding-left: 3rem;
 }
 
 %custom-control-label {
-  padding: $label-padding-y 0 $label-padding-y 2rem;
+  padding: $label-padding-y 0 $label-padding-y $custom-control-label-padding-right;
   margin-bottom: 0;
   @include transition(box-shadow);
 }
@@ -258,15 +261,17 @@ select {
   }
 }
 
-.form-check-wrapper {
+.form-item-wrapper {
   .custom-control-label,
   .like-custom-control-label {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-left: 0;
-    padding-left: calc(#{rem(20)} + #{$custom-control-label-padding-left});
-    padding-right: rem(20);
+    padding-left: calc(
+      #{$form-item-control-label-padding-left} + #{$custom-control-label-padding-left}
+    );
+    padding-right: $form-item-control-label-padding-right;
     border-radius: $border-radius-sm;
     background-color: #fff;
 
@@ -279,10 +284,23 @@ select {
     &::after {
       left: 20px;
     }
+
+    .form-item-wrapper__btn {
+      margin: -#{$label-padding-y} -#{$form-item-control-label-padding-right} -#{$label-padding-y} 0;
+
+      @include media-breakpoint-down(sm) {
+        margin-top: -#{rem(10)};
+        margin-bottom: -#{rem(10)};
+      }
+    }
+
+    .form-item-wrapper__icon {
+      margin-left: -#{map-get($spacers, 2)};
+    }
   }
 
   .like-custom-control-label {
-    padding-left: rem(20);
+    padding-left: $form-item-control-label-padding-left;
   }
 
   &.custom-checkbox {

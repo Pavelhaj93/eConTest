@@ -21,7 +21,23 @@
     }
   }
 
+  &-primary,
   &-secondary {
     color: $white;
+  }
+
+  &-icon {
+    @extend .rounded-circle;
+    padding: $btn-padding-y rem(14);
+
+    @include media-breakpoint-up(sm) {
+      padding-left: rem(15);
+      padding-right: rem(15);
+    }
+
+    @include media-breakpoint-up(md) {
+      padding-left: $spacer;
+      padding-right: $spacer;
+    }
   }
 }
