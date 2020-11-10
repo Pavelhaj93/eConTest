@@ -66,7 +66,7 @@ export default {
         exclude: [/node_modules/, /build/],
         query: {
           partialDirs: [path.resolve(__dirname, '../src/tpl/partials')],
-          helperDirs: [path.resolve(__dirname, '../src/tpl/helpers')]
+          helperDirs: [path.resolve(__dirname, '../src/tpl/helpers')],
         },
       },
       {
@@ -113,6 +113,7 @@ export default {
         'Array.prototype.fill',
         'fetch',
         'Promise',
+        'AbortController',
       ],
       singleFile: true,
       filename: 'js/polyfills.js',

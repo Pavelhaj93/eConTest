@@ -1,5 +1,5 @@
 import fetch from 'jest-fetch-mock'
-import documents from '../../mocks/api/documents/GET.json'
+import documents from '../../mocks/api/documents/documents.json'
 import { OfferStore } from './'
 
 const offerMockConfig = {

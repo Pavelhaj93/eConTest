@@ -80,17 +80,31 @@ export class OfferStore {
     return false
   }
 
-  // TODO: add timeout parameter
   /**
-   * Performs an ajax request to `url` (default set to `this.documentsUrl`), fetch and populate documents.
+   * Performs an ajax request to `documentsURL` provided in constructor, fetch and populate documents.
+   * @param timeoutMs - number of milliseconds after which the fetch request is canceled.
    */
-  @action public async fetchDocuments(url = this.documentsUrl): Promise<void> {
+  @action public async fetchDocuments(timeoutMs?: number): Promise<void> {
     this.isLoading = true
 
     try {
-      const response = await fetch(url, {
+      let fetchTimeout: NodeJS.Timeout | number | null = null
+      let controller: AbortController | null = null
+
+      // if timeoutMs is present => cancel the fetch request after this value
+      if (timeoutMs) {
+        controller = new AbortController()
+        fetchTimeout = setTimeout(() => {
+          controller && controller.abort()
+        }, timeoutMs)
+      }
+
+      const response = await fetch(this.documentsUrl, {
         headers: { Accept: 'application/json' },
+        signal: controller?.signal || null,
       })
+
+      fetchTimeout && clearTimeout(fetchTimeout)
 
       if (!response.ok) {
         throw new Error(`FAILED TO FETCH DOCUMENTS - ${response.status}`)
@@ -101,7 +115,7 @@ export class OfferStore {
       this.documents = jsonResponse
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(error)
+      console.error(error.toString())
       this.error = true
     } finally {
       this.isLoading = false

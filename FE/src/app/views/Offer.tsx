@@ -24,6 +24,7 @@ export const Offer: React.FC<View> = observer(
     getFileUrl,
     getFileForSignUrl,
     signFileUrl,
+    doxTimeout,
   }) => {
     const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -33,7 +34,7 @@ export const Offer: React.FC<View> = observer(
     const t = useLabels(labels)
 
     useEffect(() => {
-      store.fetchDocuments()
+      store.fetchDocuments(doxTimeout)
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -56,13 +57,17 @@ export const Offer: React.FC<View> = observer(
           )}
           {/* /error state */}
 
-          {/* TODO: maybe hide the whole form in case of error */}
-          <form action={formAction} method="post">
+          <form
+            action={formAction}
+            method="post"
+            className={classNames({
+              'd-none': !store.isLoading && store.error, // hide the whole form if there is an error
+            })}
+          >
             {/* box with documents to be accepted */}
             <Box
               className={classNames({
                 loading: store.isLoading,
-                'd-none': !store.isLoading && store.error, // hide the whole box if there is an error
               })}
             >
               {store.documentsToBeAccepted.length > 0 && (
