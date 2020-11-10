@@ -59,8 +59,7 @@ export default merge(baseConfig, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              plugins: loader => [require('postcss-inline-svg')(), require('autoprefixer')()],
+              plugins: () => [require('postcss-inline-svg')(), require('autoprefixer')()],
             },
           },
           {

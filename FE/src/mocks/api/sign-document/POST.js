@@ -3,7 +3,6 @@
  * Also simulate a short delay.
  */
 
-// eslint-disable-next-line no-undef
 module.exports = function (request, response) {
   const random = Math.random() * 100
   const delay = 400
@@ -15,7 +14,6 @@ module.exports = function (request, response) {
     statusCode = 400
   }
 
-  // eslint-disable-next-line no-undef
   setTimeout(() => {
     response.status(statusCode).send(' ')
   }, delay)

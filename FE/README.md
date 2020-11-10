@@ -1,7 +1,7 @@
 # eContracting
 
-Based on combination of React, Bootstrap v4.x, React Bootstrap and Typescript ❤️
-Some components are using MobX for local state management.
+Based on combination of React, Bootstrap v4.x, React Bootstrap and Typescript ❤️\
+Some components are using MobX for local state management.\
 For maximum compatibility with IE11, older version of MobX is used.
 
 ## Setup
@@ -23,7 +23,7 @@ For maximum compatibility with IE11, older version of MobX is used.
 
 `yarn build`
 
-The build command will generate all the static assets needed for BE guys.
+The build command will generate all the static assets needed for BE guys.\
 Once the build is complete, all the genereted files are automatically copied to the specified directory, so BE guys can actually use them and deploy them to test/prod environment.
 
 ### Want to create a new page?
@@ -37,6 +37,11 @@ Once the build is complete, all the genereted files are automatically copied to 
 3. Use it as a component e.g. `<Icon name="arrow-right" width="10" height="20" color="orange" />`
 
 After build, the icon will be automatically part of SVG sprite.
+
+### Mock API
+
+API are mocked using [connect-api-mocker](https://github.com/muratcorlu/connect-api-mocker) library.\
+All mock APIs and mock data can be found inside `src/mocks/api` directory.
 
 ## Other information
 

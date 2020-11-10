@@ -152,6 +152,13 @@ export class OfferStore {
       })
   }
 
+  /**
+   * Send a request with signature data to sign API.
+   * @param id - ID of document
+   * @param signature - PNG image as base64
+   * @param signFileUrl - URL where to send `signature` data
+   * @returns Promise<void>
+   */
   private async signDocumentRequest(
     id: string,
     signature: string,

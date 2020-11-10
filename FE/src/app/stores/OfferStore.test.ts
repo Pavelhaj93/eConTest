@@ -117,7 +117,7 @@ describe('Retention offer', () => {
     expect(document?.signed).toBe(true)
   })
 
-  it('should has an error when trying to sing the document', async () => {
+  it('should has an error when trying to sign the document', async () => {
     const store = new OfferStore(retentionMockConfig.documentsUrl)
 
     const mockDocument = {
