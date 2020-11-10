@@ -1,21 +1,25 @@
 ﻿---
-ID: "ef9a28ef-1598-4c0a-9615-1720f64e16f7"
+ID: "664625ff-12e6-464d-b2ed-a30d5e6fffdb"
 Parent: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
 Template: "cd3f44a2-6a63-4631-980c-8ab0bfe2a33f"
-Path: /sitecore/content/eContracting2/Settings/ProcessTypes/iKarta
+Path: /sitecore/content/eContracting2/Settings/ProcessTypes/H
 DB: master
 SharedFields:
 - ID: "34fe2998-8246-4824-a681-8d9122f2f6f7"
   Hint: Code
-  Value: IK
+  Value: H
 Languages:
 - Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "DSL - NSZ"
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201008T113055Z
+      Value: 20201008T113049Z
     - ID: "aa001007-385f-4365-a220-ceeca389714c"
       Hint: Title
-      Value: iKarta
+      Value: "DSL - NSZ"

@@ -16,6 +16,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class LayoutViewModel : RenderingModel
     {
+        public string PageMetaTitle { get; protected set; }
+
         public string ImageLinkUrl { get; set; }
 
         public string PhoneLinkUrl { get; set; }
@@ -36,6 +38,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public string DisclaimerLink { get; set; }
 
+        public string ErrorCodeDescription { get; set; }
+
         public override void Initialize(Rendering rendering)
         {
             try
@@ -49,6 +53,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 }
 
                 base.Initialize(rendering);
+
+                //this.ProcessErrorDescription(rendering);
+                //this.PageMetaTitle = Sitecore.Context.Item["PageTitle"] + (this.ErrorCodeDescription != null ? " - " + this.ErrorCodeDescription : "");
+                this.PageMetaTitle = Sitecore.Context.Item["PageTitle"];
 
                 if (!Sitecore.Context.PageMode.IsNormal)
                 {
@@ -130,5 +138,18 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 logger?.Error("Preparing layout model failed", ex);
             }
         }
+
+        //protected void ProcessErrorDescription(Rendering rendering)
+        //{
+        //    if (HttpContext.Current.Request.QueryString.AllKeys.Contains("code"))
+        //    {
+        //        var key = HttpContext.Current.Request.QueryString["code"];
+
+        //        if (Constants.ErrorCodes.Descriptions.ContainsKey(key))
+        //        {
+        //            this.ErrorCodeDescription = Constants.ErrorCodes.Descriptions[key];
+        //        }
+        //    }
+        //}
     }
 }

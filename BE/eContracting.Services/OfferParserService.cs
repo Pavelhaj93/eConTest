@@ -38,73 +38,8 @@ namespace eContracting.Services
                 return null;
             }
 
-            var file1 = Encoding.UTF8.GetString(response.Response.ET_FILES[0].FILECONTENT);
-            OfferXmlModel offerXml = null;
-            var header = this.GetHeader(response);
-            var attributes = this.GetAttributes(response);
-            var parameters = new Dictionary<string, string>();
-            var rawXml = new Dictionary<string, string>();
-            rawXml.Add(response.Response.ET_FILES[0].FILENAME, file1);
-
-            using (var stream = new MemoryStream(response.Response.ET_FILES[0].FILECONTENT, false))
-            {
-                var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
-                offerXml = (OfferXmlModel)serializer.Deserialize(stream);
-                
-                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
-                {
-                    offerXml.Content.Body.BusProcess = "00";
-                }
-            }
-
-            if (response.Response.ET_FILES.Length > 1)
-            {
-                try
-                {
-                    var file2 = Encoding.UTF8.GetString(response.Response.ET_FILES[1].FILECONTENT);
-                    rawXml.Add(response.Response.ET_FILES[1].FILENAME, file2);
-
-                    var doc = new XmlDocument();
-                    var xrs = new XmlReaderSettings() { NameTable = new NameTable() };
-                    var xnsm = new XmlNamespaceManager(xrs.NameTable);
-                    xnsm.AddNamespace("BENEFITS", "");
-                    xnsm.AddNamespace("COMMODITY", "");
-                    xnsm.AddNamespace("NONCOMMODITY", "");
-                    xnsm.AddNamespace("PERSON", "");
-                    var xcp = new XmlParserContext(null, xnsm, "", XmlSpace.Default);
-                    using (var strReader = new StringReader(file2))
-                    {
-                        var t = System.Xml.Linq.XDocument.Load(strReader, System.Xml.Linq.LoadOptions.PreserveWhitespace);
-                        var xr = XmlReader.Create(strReader, xrs, xcp);
-                        doc.Load(xr);
-
-                        var xmlParameters = doc.DocumentElement.SelectSingleNode("form/parameters").ChildNodes;
-
-                        if (xmlParameters != null)
-                        {
-                            foreach (XmlNode xmlNode in xmlParameters)
-                            {
-                                var key = xmlNode.Name;
-                                var value = xmlNode.InnerXml;
-                                parameters.Add(key, value);
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    
-                }
-            }
-
-            var offer = new OfferModel(offerXml, header, attributes, parameters);
-
-            foreach (var raw in rawXml)
-            {
-                offer.RawContent.Add(raw.Key, raw.Value);
-            }
-
-            return offer;
+            var offerModel = this.ProcessResponse(response);
+            return offerModel;
         }
 
         /// <summary>
@@ -132,6 +67,94 @@ namespace eContracting.Services
             }
 
             return list.ToArray();
+        }
+
+        /// <summary>
+        /// Processes the response and create <see cref="OfferModel"/> or root XML exists.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>Model or null.</returns>
+        protected internal OfferModel ProcessResponse(ResponseCacheGetModel response)
+        {
+            var root = response.Response.ET_FILES.FirstOrDefault(x => !x.FILENAME.EndsWith("_AD1.xml"));
+            var ad1 = response.Response.ET_FILES.FirstOrDefault(x => x.FILENAME.EndsWith("_AD1.xml"));
+            
+            if (root == null)
+            {
+                return null;
+            }
+
+            var header = this.GetHeader(response);
+            var attributes = this.GetAttributes(response);
+
+            var rootResult = this.ProcessRootFile(root);
+
+            Dictionary<string, string> parameters = null;
+            string ad1RawContent = null;
+
+            if (ad1 != null)
+            {
+                var ad1Result = this.ProcessAd1File(ad1);
+
+                parameters = ad1Result.parameters;
+                ad1RawContent = ad1Result.rawContent;
+            }
+
+            var offer = new OfferModel(rootResult.model, header, attributes, parameters);
+            offer.RawContent.Add(root.FILENAME, rootResult.rawContent);
+            offer.RawContent.Add(ad1.FILENAME, ad1RawContent);
+
+            return offer;
+        }
+
+        /// <summary>
+        /// Processes the root file.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>Tuple with model and raw XML content.</returns>
+        protected internal (OfferXmlModel model, string rawContent) ProcessRootFile(ZCCH_ST_FILE file)
+        {
+            var rawContent = Encoding.UTF8.GetString(file.FILECONTENT);
+
+            using (var stream = new MemoryStream(file.FILECONTENT, false))
+            {
+                var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
+                var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
+
+                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
+                {
+                    offerXml.Content.Body.BusProcess = "00";
+                }
+
+                return (offerXml, rawContent);
+            }
+        }
+
+        /// <summary>
+        /// Processes the ad1 file with parameters.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// /// <returns>Tuple with model and raw XML content.</returns>
+        protected internal (Dictionary<string, string> parameters, string rawContent) ProcessAd1File(ZCCH_ST_FILE file)
+        {
+            var rawContent = Encoding.UTF8.GetString(file.FILECONTENT);
+            var parameters = new Dictionary<string, string>();
+
+            var doc = new XmlDocument();
+            doc.LoadXml(rawContent);
+            var xmlParameters = doc.SelectSingleNode("form/parameters").ChildNodes;
+
+            if (xmlParameters != null)
+            {
+                foreach (XmlNode xmlNode in xmlParameters)
+                {
+                    var key = xmlNode.Name;
+                    var value = xmlNode.InnerXml;
+                    parameters.Add(key, value);
+                }
+            }
+
+            return (parameters, rawContent);
         }
 
         //protected internal bool GetIsAccepted(ResponseCacheGetModel response)
@@ -176,7 +199,6 @@ namespace eContracting.Services
         //            return created;
         //        }
         //    }
-
         //    return null;
         //}
 

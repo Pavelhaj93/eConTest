@@ -2,14 +2,18 @@
 ID: "0a0c26ac-88df-42e9-a59e-da057c3457f6"
 Parent: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
 Template: "cd3f44a2-6a63-4631-980c-8ab0bfe2a33f"
-Path: /sitecore/content/eContracting2/Settings/ProcessTypes/kampan
+Path: /sitecore/content/eContracting2/Settings/ProcessTypes/B
 DB: master
 SharedFields:
 - ID: "34fe2998-8246-4824-a681-8d9122f2f6f7"
   Hint: Code
-  Value: CAMPAIGN
+  Value: B
 Languages:
 - Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Kampaň
   Versions:
   - Version: 1
     Fields:
@@ -18,4 +22,4 @@ Languages:
       Value: 20201008T113009Z
     - ID: "aa001007-385f-4365-a220-ceeca389714c"
       Hint: Title
-      Value: kampaň
+      Value: Kampaň

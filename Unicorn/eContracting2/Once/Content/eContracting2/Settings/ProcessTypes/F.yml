@@ -2,14 +2,18 @@
 ID: "ebaddd19-1dba-4480-b3c9-7f68ed8d0aec"
 Parent: "8298f7d5-8c22-4755-a9f8-dd3b7b743d27"
 Template: "cd3f44a2-6a63-4631-980c-8ab0bfe2a33f"
-Path: /sitecore/content/eContracting2/Settings/ProcessTypes/SPS
+Path: /sitecore/content/eContracting2/Settings/ProcessTypes/F
 DB: master
 SharedFields:
 - ID: "34fe2998-8246-4824-a681-8d9122f2f6f7"
   Hint: Code
-  Value: SPS
+  Value: F
 Languages:
 - Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "NC - SPS"
   Versions:
   - Version: 1
     Fields:
@@ -18,4 +22,4 @@ Languages:
       Value: 20201008T113108Z
     - ID: "aa001007-385f-4365-a220-ceeca389714c"
       Hint: Title
-      Value: SPS
+      Value: "NC - SPS"

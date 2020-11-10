@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Sitecore.Data;
+using Sitecore.Globalization;
 
 namespace eContracting
 {
@@ -42,7 +44,7 @@ namespace eContracting
         public static class ErrorCodes
         {
             public const string HOMEPAGE = "000";
-            public const string UNKNOWN = "000";
+            public const string UNKNOWN = "999";
             public const string USER_BLOCKED = "001";
             public const string INVALID_GUID = "002";
             public const string OFFER_NOT_FOUND = "010";
@@ -64,15 +66,19 @@ namespace eContracting
             /// </summary>
             public const string AUTH1_CACHE2 = "111";
 
+            public const string AUTH1_MISSING_AUTH_TYPES = "120";
+
+            public const string AUTH1_MISSING_CHOICES = "121";
+
             /// <summary>
             /// The authentication process - application exception.
             /// </summary>
-            public const string AUTH1_APP = "120";
+            public const string AUTH1_APP = "190";
 
             /// <summary>
             /// The authentication process - invalid operation exception.
             /// </summary>
-            public const string AUTH1_INV_OP = "125";
+            public const string AUTH1_INV_OP = "195";
 
             /// <summary>
             /// The authentication process - unknown exception.
@@ -87,21 +93,44 @@ namespace eContracting
             /// <summary>
             /// Call to CACHE during authentication process - unknown exception.
             /// </summary>
-            public const string AUTH2_CACHE2 = "210";
+            public const string AUTH2_CACHE2 = "211";
 
             /// <summary>
             /// The authentication process - application exception.
             /// </summary>
-            public const string AUTH2_APP = "220";
+            public const string AUTH2_APP = "290";
 
             /// <summary>
             /// The authentication process - invalid operation exception.
             /// </summary>
-            public const string AUTH2_INV_OP = "225";
+            public const string AUTH2_INV_OP = "295";
 
             public const string OFFER_NOT_SIGNED = "350";
 
             public const string OFFER_EXCEPTION = "390";
+
+            //public static IDictionary<string, string> Descriptions = new Dictionary<string, string>()
+            //{
+            //    { HOMEPAGE, "Direct access from homepage" },
+            //    { UNKNOWN, "Unknown / unexpected error" },
+            //    { USER_BLOCKED, "User is blocked" },
+            //    { INVALID_GUID, "Requested guid is invalid" },
+            //    { OFFER_NOT_FOUND, "Offer was not found" },
+            //    { OFFER_STATE_1, "Offer has state 1" },
+            //    { MISSING_BIRTDATE, "Missing birthdate value" },
+            //    { AUTH1_UNKNOWN, "Unknown error on login page" },
+            //    { AUTH1_CACHE, "Issue when connecting to remote endpoint on login page" },
+            //    { AUTH1_CACHE2, "Issue with remote endpoint on login page" },
+            //    { AUTH1_APP, "Application error on login page" },
+            //    { AUTH1_INV_OP, "Invalid operation happend on login page" },
+            //    { AUTH2_UNKNOWN, "Unknown / unexpected error while submitting login data" },
+            //    { AUTH2_CACHE, "Issue when connecting to remote endpoint while submitting login data" },
+            //    { AUTH2_CACHE2, "Issue with remote endpoint while submitting login data" },
+            //    { AUTH2_APP, "Application error while submitting login data" },
+            //    { AUTH2_INV_OP, "Invalid operation happend while submitting login data" },
+            //    { OFFER_NOT_SIGNED, "Offer coudn't be signed" },
+            //    { OFFER_EXCEPTION, "Something went wrong on offer page" }
+            //};
         }
 
         public static class ValidationCodes

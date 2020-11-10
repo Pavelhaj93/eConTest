@@ -131,8 +131,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     var res = this.ApiService.ReadOffer(guid);
                 }
 
-                var datasource = this.GetLayoutItem<LoginPageModel>();
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
+
+                if (!authTypes.Any())
+                {
+                    this.Logger.Fatal(guid, $"No authentication types found ({Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES})");
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
+                }
+
+                var datasource = this.GetLayoutItem<LoginPageModel>();
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
                 var steps = this.SettingsReaderService.GetSteps(datasource.Step);
                 var viewModel = this.GetViewModel(datasource, choices, steps, errorString);
@@ -149,26 +156,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (ex.InnerException is EndpointNotFoundException)
                 {
-                    this.Logger.Error($"[{guid}] Connection to CACHE failed ({Constants.ErrorCodes.AUTH1_CACHE})", ex);
+                    this.Logger.Fatal(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH1_CACHE})", ex);
                     return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE);
                 }
 
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_CACHE2})", ex);
+                this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_CACHE2})", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2);
             }
             catch (ApplicationException ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
+                this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
             }
             catch (InvalidOperationException ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_INV_OP})", ex);
+                this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_INV_OP})", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_INV_OP);
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{guid}] Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
+                this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_UNKNOWN);
             }
         }

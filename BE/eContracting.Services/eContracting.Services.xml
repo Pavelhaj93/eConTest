@@ -272,6 +272,27 @@
             <param name="response">The response.</param>
             <returns>Array of attributes.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.ProcessResponse(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Processes the response and create <see cref="T:eContracting.Models.OfferModel"/> or root XML exists.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Model or null.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Processes the root file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Tuple with model and raw XML content.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.ProcessAd1File(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Processes the ad1 file with parameters.
+            </summary>
+            <param name="file">The file.</param>
+            /// <returns>Tuple with model and raw XML content.</returns>
+        </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
             <summary>
             The context.
