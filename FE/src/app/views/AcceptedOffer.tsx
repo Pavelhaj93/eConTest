@@ -39,8 +39,8 @@ export const AcceptedOffer: React.FC<View> = observer(
               {store.documents.map(({ id, title }) => (
                 <div key={id} className="form-item-wrapper mb-3">
                   <a href={`${getFileUrl}${id}`} className="like-custom-control-label">
-                    <Icon name="pdf" size={36} color={colors.orange} className="mr-2" />
                     <span>{title}</span>
+                    <Icon name="pdf" size={36} color={colors.orange} className="ml-auto" />
                   </a>
                 </div>
               ))}
