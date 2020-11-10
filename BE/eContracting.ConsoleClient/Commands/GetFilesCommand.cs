@@ -5,6 +5,7 @@ using Consinloop.Abstractions;
 using Consinloop.Attributes;
 using eContracting.Services;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace eContracting.ConsoleClient.Commands
 {
@@ -28,39 +29,48 @@ namespace eContracting.ConsoleClient.Commands
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            this.Logger.Suspend(true);
+            //this.Logger.Suspend(true);
             var files = await this.ApiService.GetAttachmentsAsync(guid);
-            this.Logger.Suspend(false);
+            //this.Logger.Suspend(false);
 
-            var table = new LogTable();
-            table.SetHeaders(
-                "Type",
-                "File",
-                "Size",
-                Constants.FileAttributes.GROUP_OBLIG,
-                Constants.FileAttributes.OBLIGATORY,
-                Constants.FileAttributes.PRINTED,
-                Constants.FileAttributes.SIGN_REQ,
-                Constants.FileAttributes.TMST_REQ,
-                Constants.FileAttributes.ADDINFO,
-                Constants.FileAttributes.MAIN_DOC);
-
-            foreach (var file in files)
+            if (files == null)
             {
-                table.SetValues(
-                    file.Template,
-                    file.FileName,
-                    file.SizeLabel,
-                    file.IsGroupOblig.ToString(),
-                    file.IsObligatory.ToString(),
-                    file.IsPrinted.ToString(),
-                    file.IsSignReq.ToString(),
-                    file.IsTmstReq.ToString(),
-                    file.IsAddinfo.ToString(),
-                    file.IsMainDoc.ToString());
+                this.Console.WriteLine("No files");
+            }
+            else
+            {
+                this.Console.WriteLine(JsonConvert.SerializeObject(files, Formatting.Indented));
             }
 
-            this.Console.Write(table.ToString());
+            //var table = new LogTable();
+            //table.SetHeaders(
+            //    "Type",
+            //    "File",
+            //    "Size",
+            //    Constants.FileAttributes.GROUP_OBLIG,
+            //    Constants.FileAttributes.OBLIGATORY,
+            //    Constants.FileAttributes.PRINTED,
+            //    Constants.FileAttributes.SIGN_REQ,
+            //    Constants.FileAttributes.TMST_REQ,
+            //    Constants.FileAttributes.ADDINFO,
+            //    Constants.FileAttributes.MAIN_DOC);
+
+            //foreach (var file in files)
+            //{
+            //    table.SetValues(
+            //        file.Template,
+            //        file.FileName,
+            //        file.SizeLabel,
+            //        file.IsGroupOblig.ToString(),
+            //        file.IsObligatory.ToString(),
+            //        file.IsPrinted.ToString(),
+            //        file.IsSignReq.ToString(),
+            //        file.IsTmstReq.ToString(),
+            //        file.IsAddinfo.ToString(),
+            //        file.IsMainDoc.ToString());
+            //}
+
+            //this.Console.Write(table.ToString());
         }
     }
 }

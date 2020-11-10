@@ -41,7 +41,7 @@ namespace eContracting.Services
 
             foreach (var file in files)
             {
-                builder.AppendLine($"[{counter}] Sign required [{file.SignRequired}]: {file.FileName} ({file.SizeLabel})");
+                builder.AppendLine($"[{counter}] Sign required [{file.IsSignReq}]: {file.FileName} ({file.SizeLabel})");
                 counter++;
                 totalSize += file.Size;
             }

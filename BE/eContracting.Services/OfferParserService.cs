@@ -76,10 +76,9 @@ namespace eContracting.Services
         /// <returns>Model or null.</returns>
         protected internal OfferModel ProcessResponse(ResponseCacheGetModel response)
         {
-            var root = response.Response.ET_FILES.FirstOrDefault(x => !x.FILENAME.EndsWith("_AD1.xml"));
-            var ad1 = response.Response.ET_FILES.FirstOrDefault(x => x.FILENAME.EndsWith("_AD1.xml"));
-            
-            if (root == null)
+            var separatedFiles = this.GetSeparatedFiles(response.Response.ET_FILES);
+
+            if (separatedFiles.root == null)
             {
                 return null;
             }
@@ -87,24 +86,44 @@ namespace eContracting.Services
             var header = this.GetHeader(response);
             var attributes = this.GetAttributes(response);
 
-            var rootResult = this.ProcessRootFile(root);
+            var rootResult = this.ProcessRootFile(separatedFiles.root);
 
             Dictionary<string, string> parameters = null;
             string ad1RawContent = null;
 
-            if (ad1 != null)
+            if (separatedFiles.ad1 != null)
             {
-                var ad1Result = this.ProcessAd1File(ad1);
+                var ad1Result = this.ProcessAd1File(separatedFiles.ad1);
 
                 parameters = ad1Result.parameters;
                 ad1RawContent = ad1Result.rawContent;
             }
 
             var offer = new OfferModel(rootResult.model, header, attributes, parameters);
-            offer.RawContent.Add(root.FILENAME, rootResult.rawContent);
-            offer.RawContent.Add(ad1.FILENAME, ad1RawContent);
+            offer.RawContent.Add(separatedFiles.root.FILENAME, rootResult.rawContent);
+            offer.RawContent.Add(separatedFiles.ad1.FILENAME, ad1RawContent);
 
             return offer;
+        }
+
+        protected internal (ZCCH_ST_FILE root, ZCCH_ST_FILE ad1) GetSeparatedFiles(ZCCH_ST_FILE[] files)
+        {
+            ZCCH_ST_FILE root = null;
+            ZCCH_ST_FILE ad1 = null;
+
+            for (int i = 0; i < files.Take(2).ToArray().Length; i++)
+            {
+                if (files[i].ATTRIB.Any(x => x.ATTRID == Constants.FileAttributes.TYPE && x.ATTRVAL == "AD1"))
+                {
+                    ad1 = ad1 ?? files[i];
+                }
+                else
+                {
+                    root = root ?? files[i];
+                }
+            }
+
+            return (root, ad1);
         }
 
         /// <summary>
@@ -121,12 +140,41 @@ namespace eContracting.Services
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
 
-                if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
+                if (!this.IsNotCompatible(offerXml))
                 {
-                    offerXml.Content.Body.BusProcess = "00";
+                    this.MakeCompatible(offerXml);
                 }
 
                 return (offerXml, rawContent);
+            }
+        }
+
+        protected internal bool IsNotCompatible(OfferXmlModel offerXml)
+        {
+            var body = offerXml.Content.Body;
+            return string.IsNullOrEmpty(body.BusProcess) || string.IsNullOrEmpty(body.BusProcessType);
+        }
+
+        protected internal void MakeCompatible(OfferXmlModel offerXml)
+        {
+            if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
+            {
+                offerXml.Content.Body.BusProcess = Constants.OfferDefaults.BUS_PROCESS;
+                this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcess' to '{Constants.OfferDefaults.BUS_PROCESS}'");
+            }
+
+            if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcessType))
+            {
+                if (string.IsNullOrEmpty(offerXml.Content.Body.Campaign))
+                {
+                    offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_A;
+                    this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcessType' to '{Constants.OfferDefaults.BUS_PROCESS_TYPE_A}'");
+                }
+                else
+                {
+                    offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_B;
+                    this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcessType' to '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
+                }
             }
         }
 

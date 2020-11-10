@@ -301,6 +301,13 @@
             <param name="path">The path.</param>
             <returns>List of found children or empty list.</returns>
         </member>
+        <member name="M:eContracting.Extensions.GetCounter(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets the counter integer value. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
+        </member>
         <member name="T:eContracting.IApiService">
             <summary>
             Service with direct communication to SAP / CACHE.
@@ -762,17 +769,17 @@
             Represents file from 'ZCCH_CACHE_API'
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.UniqueKey">
+            <summary>
+            The unique key.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferAttachmentXmlModel.Index">
             <summary>
             Gets or set index.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileNumber">
-            <summary>
-            Gets or sets file number.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileType">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.FileType">
             <summary>
             Gets or sets a file type.
             </summary>
@@ -780,16 +787,6 @@
         <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileName">
             <summary>
             Gets or sets file name.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.SignRequired">
-            <summary>
-            Gets or sets a value indicating whether signing is required.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.TemplAlcId">
-            <summary>
-            Gets or sets a template alc id.
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentXmlModel.SignedVersion">
@@ -817,11 +814,6 @@
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.GROUP_OBLIG"/> with value 'X'.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsObligatory">
-            <summary>
-            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.OBLIGATORY"/> with value 'X'.
-            </summary>
-        </member>
         <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsPrinted">
             <summary>
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.PRINTED"/> with value 'X'.
@@ -832,36 +824,18 @@
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.SIGN_REQ"/> with value 'X'.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsTmstReq">
-            <summary>
-            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.TMST_REQ"/> with value 'X'.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsAddinfo">
-            <summary>
-            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.ADDINFO"/> with value 'X'.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsMainDoc">
-            <summary>
-            Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.MAIN_DOC"/> with value 'X'.
-            </summary>
-        </member>
         <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor">
             <summary>
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class.
             </summary>
+            <param name="uniqueKey">The unique key.</param>
             <param name="index">The index.</param>
-            <param name="number">The number.</param>
-            <param name="type">The type.</param>
             <param name="name">The name.</param>
-            <param name="signRequired">if set to <c>true</c> [sign required].</param>
-            <param name="tempAlcId">The temporary alc identifier.</param>
             <param name="signedVersion">if set to <c>true</c> [signed version].</param>
             <param name="attributes">The attributes.</param>
             <param name="content">The content.</param>

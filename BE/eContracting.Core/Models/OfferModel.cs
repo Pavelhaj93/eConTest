@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
+using Newtonsoft.Json;
 using Sitecore.Reflection.Emit;
 
 namespace eContracting.Models
@@ -17,13 +18,16 @@ namespace eContracting.Models
         /// <summary>
         /// Inner XML with content from SAP.
         /// </summary>
+        [JsonIgnore]
         public readonly OfferXmlModel Xml;
 
+        [JsonProperty("parameters")]
         public readonly Dictionary<string, string> TextParameters;
 
         /// <summary>
         /// Gets or sets the unique GUID of this offer.
         /// </summary>
+        [JsonProperty("guid")]
         public string Guid
         {
             get
@@ -35,6 +39,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets flag if offer is accepted.
         /// </summary>
+        [JsonProperty("accepted")]
         public bool IsAccepted
         {
             get
@@ -49,6 +54,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets infromation when offer was accepted.
         /// </summary>
+        [JsonProperty("accepted_date")]
         public string AcceptedAt
         {
             get
@@ -72,6 +78,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets CREATED_AT value.
         /// </summary>
+        [JsonProperty("craeted_date")]
         public string CreatedAt
         {
             get
@@ -90,6 +97,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets information if offer has GDPR.
         /// </summary>
+        [JsonProperty("gdpr")]
         public bool HasGDPR
         {
             get
@@ -101,6 +109,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets GDPRKey.
         /// </summary>
+        [JsonProperty("gdpr_key")]
         public string GDPRKey
         {
             get
@@ -112,6 +121,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets CAMPAIGN value.
         /// </summary>
+        [JsonProperty("campaign")]
         public string Campaign
         {
             get
@@ -123,6 +133,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets the commodity (EAN or EIC).
         /// </summary>
+        [JsonProperty("commodity")]
         public string Commodity
         {
             get
@@ -131,6 +142,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("isCampaign")]
         public bool IsCampaign
         {
             get
@@ -155,6 +167,7 @@ namespace eContracting.Models
         ///         <item>9 - Zastaralé (když je to stornované (prošlost se totiž ve skutečnosti podle mě kontrolovala podle data)</item>
         ///     </list>
         /// </remarks>
+        [JsonProperty("state")]
         public string State
         {
             get
@@ -163,6 +176,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonIgnore]
         public DocumentFileModel[] Attachments
         {
             get
@@ -171,6 +185,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("birthdate")]
         public string Birthday
         {
             get
@@ -179,6 +194,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("pn")]
         public string PartnerNumber
         {
             get
@@ -187,6 +203,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("zip2")]
         public string PostNumberConsumption
         {
             get
@@ -195,6 +212,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("zip1")]
         public string PostNumber
         {
             get
@@ -203,6 +221,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("process")]
         public string Process
         {
             get
@@ -211,6 +230,7 @@ namespace eContracting.Models
             }
         }
 
+        [JsonProperty("process_type")]
         public string ProcessType
         {
             get
@@ -227,6 +247,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets a value indicating whether offer already expired.
         /// </summary>
+        [JsonProperty("expired")]
         public bool OfferIsExpired
         {
             get
@@ -240,44 +261,7 @@ namespace eContracting.Models
             }
         }
 
-        [Obsolete]
-        public bool OfferIsRetention
-        {
-            get
-            {
-                return this.Xml.Content.Body.BusProcess == "01";
-            }
-        }
-
-        [Obsolete]
-        public bool OfferIsAcquisition
-        {
-            get
-            {
-                return this.Xml.Content.Body.BusProcess == "02";
-            }
-        }
-
-        [Obsolete]
-        public OfferTypes OfferType
-        {
-            get
-            {
-                if (this.OfferIsRetention)
-                {
-                    return OfferTypes.Retention;
-                }
-                else if (this.OfferIsAcquisition)
-                {
-                    return OfferTypes.Acquisition;
-                }
-                else
-                {
-                    return OfferTypes.Default;
-                }
-            }
-        }
-
+        [JsonProperty("has_voucher")]
         public bool OfferHasVoucher
         {
             get
@@ -294,13 +278,16 @@ namespace eContracting.Models
         /// <summary>
         /// Attributes from the offer.
         /// </summary>
+        [JsonIgnore]
         protected readonly OfferAttributeModel[] Attributes;
 
         /// <summary>
         /// Header values from the offer.
         /// </summary>
+        [JsonProperty("header")]
         protected readonly OfferHeaderModel Header;
 
+        [JsonIgnore]
         public readonly Dictionary<string, string> RawContent = new Dictionary<string, string>();
 
         /// <summary>

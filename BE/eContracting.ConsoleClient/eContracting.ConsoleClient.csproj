@@ -92,6 +92,9 @@
     <PackageReference Include="Microsoft.Extensions.Options">
       <Version>3.1.8</Version>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>7.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

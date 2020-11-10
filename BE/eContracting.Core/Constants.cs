@@ -13,6 +13,12 @@ namespace eContracting
     [ExcludeFromCodeCoverage]
     public static class Constants
     {
+        public static class OfferAttributes
+        {
+            public const string COUNTER = "COUNTER";
+            public const string MD5 = "CONTENT_MD5_HASH";
+        }
+
         public static class OfferTypes
         {
             public const string NABIDKA = "NABIDKA";
@@ -20,9 +26,18 @@ namespace eContracting
             public const string NABIDKA_ARCH = "NABIDKA_ARCH";
         }
 
+        public static class OfferDefaults
+        {
+            public const string BUS_PROCESS = "00";
+            public const string BUS_PROCESS_TYPE_A = "A";
+            public const string BUS_PROCESS_TYPE_B = "B";
+        }
+
         public static class FileAttributes
         {
+            public const string TEMPLATE = "TEMPLATE";
             public const string CHECK_VALUE = "X";
+            public const string TYPE = "IDATTACH";
             public const string GROUP = "GROUP";
             public const string GROUP_OBLIG = "GROUP_OBLIG";
             public const string OBLIGATORY = "OBLIGATORY";
@@ -31,6 +46,11 @@ namespace eContracting
             public const string TMST_REQ = "TMST_REQ";
             public const string ADDINFO = "ADDINFO";
             public const string MAIN_DOC = "MAIN_DOC";
+        }
+
+        public static class FileAttributeDefaults
+        {
+            public const string GROUP = "EMPTY";
         }
 
         public static class SitecorePaths

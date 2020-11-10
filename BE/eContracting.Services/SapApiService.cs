@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using eContracting.Models;
+using Sitecore.Pipelines.Save;
 
 namespace eContracting.Services
 {
@@ -145,36 +146,37 @@ namespace eContracting.Services
             }
 
             var offer = this.OfferParser.GenerateOffer(result);
-
             bool isAccepted = offer.IsAccepted;
 
-            ZCCH_ST_FILE[] files = await this.GetFilesAsync(guid, isAccepted);
+            ZCCH_ST_FILE[] stFiles = await this.GetFilesAsync(guid, isAccepted);
 
-            var fileResults = new List<OfferAttachmentXmlModel>();
-
-            if (files.Length != 0 && files.All(x => x.ATTRIB.Any(y => y.ATTRID == "COUNTER")))
+            if (stFiles.Length == 0)
             {
-                int index = 0;
-
-                foreach (ZCCH_ST_FILE f in files.OrderBy(x => int.Parse(x.ATTRIB.FirstOrDefault(y => y.ATTRID == "COUNTER").ATTRVAL)))
-                {
-                    try
-                    {
-                        var fileModel = this.AttachmentParser.Parse(f, index, offer);
-                        fileResults.Add(fileModel);
-                    }
-                    catch (Exception ex)
-                    {
-                        this.Logger.Error($"[{guid}] Exception occured when parsing file list", ex);
-                    }
-                }
-
-                this.Logger.LogFiles(fileResults, guid, isAccepted);
-                return fileResults.ToArray();
+                this.Logger.LogFiles(null, guid, isAccepted);
+                return null;
             }
 
-            this.Logger.LogFiles(null, guid, isAccepted);
-            return null;
+            var orderedFiles = stFiles.OrderBy(x => x.GetCounter()).ToArray();
+            var fileModels = new List<OfferAttachmentXmlModel>();
+
+            for (int index = 0; index < orderedFiles.Length; index++)
+            {
+                var file = orderedFiles[index];
+
+                try
+                {
+                    var fileModel = this.AttachmentParser.Parse(file, index, offer);
+                    fileModels.Add(fileModel);
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(guid, $"Exception occured when parsing file '{file.FILENAME}'", ex);
+                    throw;
+                }
+            }
+
+            this.Logger.LogFiles(fileModels, guid, isAccepted);
+            return fileModels.ToArray();
         }
 
         /// <inheritdoc/>

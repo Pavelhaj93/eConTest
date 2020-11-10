@@ -16,34 +16,42 @@ namespace eContracting.Services
         {
             var fileName = this.GetFileName(file);
 
-            var signRequired = false;
-            var fileType = string.Empty;
-            var templAlcId = string.Empty;
+            //var signRequired = false;
+            //var fileType = string.Empty;
+            //var templAlcId = string.Empty;
 
-            if (offer.OfferType != OfferTypes.Default)
-            {
-                if (offer.Attachments != null)
-                {
-                    var fileTemplate = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
-                    if (fileTemplate != null)
-                    {
-                        var correspondingAttachment = offer.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
+            //if (offer.OfferType != OfferTypes.Default)
+            //{
+            //    if (offer.Attachments != null)
+            //    {
+            //        var fileTemplate = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
+            //        if (fileTemplate != null)
+            //        {
+            //            var correspondingAttachment = offer.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
 
-                        if (correspondingAttachment != null)
-                        {
-                            if (correspondingAttachment.SignReq.ToLower() == "x")
-                            {
-                                signRequired = true;
-                                templAlcId = correspondingAttachment.TemplAlcId;
-                                fileType = correspondingAttachment.IdAttach;
-                            }
-                        }
-                    }
-                }
-            }
+            //            if (correspondingAttachment != null)
+            //            {
+            //                if (correspondingAttachment.SignReq.ToLower() == "x")
+            //                {
+            //                    signRequired = true;
+            //                    templAlcId = correspondingAttachment.TemplAlcId;
+            //                    fileType = correspondingAttachment.IdAttach;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
+            var uniqueKey = this.GetUniqueKey(file);
             var attrs = this.GetAttributes(file);
-            var fileModel = new OfferAttachmentXmlModel(index: index.ToString(), number: file.FILEINDX, type: fileType, name: fileName, signRequired: signRequired, tempAlcId: templAlcId, signedVersion: false, attributes: attrs, content: file.FILECONTENT);
+
+            var fileModel = new OfferAttachmentXmlModel(
+                uniqueKey: uniqueKey,
+                index: index.ToString(),
+                name: fileName,
+                signedVersion: false,
+                attributes: attrs,
+                content: file.FILECONTENT);
             return fileModel;
         }
 
@@ -82,6 +90,18 @@ namespace eContracting.Services
             }
 
             return list.ToArray();
+        }
+
+        protected internal string GetUniqueKey(ZCCH_ST_FILE file)
+        {
+            var md5 = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.MD5);
+
+            if (!string.IsNullOrEmpty(md5?.ATTRVAL))
+            {
+                return md5.ATTRVAL;
+            }
+
+            return Utils.GetMd5(file.FILENAME);
         }
     }
 }
