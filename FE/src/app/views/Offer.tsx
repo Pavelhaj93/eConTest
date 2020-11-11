@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Form } from 'react-bootstrap'
 import classNames from 'classnames'
-import { Box, BoxHeading, FormCheckWrapper, Icon, SignatureModal } from '@components'
+import { Box, BoxHeading, FileDropZone, FormCheckWrapper, Icon, SignatureModal } from '@components'
 import { colors } from '@theme'
 import { useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
@@ -56,6 +56,20 @@ export const Offer: React.FC<View> = observer(
             </Alert>
           )}
           {/* /error state */}
+
+          <FileDropZone
+            label={t('selectFileHelpText')}
+            className="my-5"
+            selectFileLabel={t('selectFile')}
+            onFilesAccepted={files => {
+              console.log('accepted')
+              console.log(files)
+            }}
+            onFilesRejected={files => {
+              console.log('rejected')
+              console.log(files)
+            }}
+          />
 
           <form
             action={formAction}
