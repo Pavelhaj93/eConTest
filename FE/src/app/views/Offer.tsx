@@ -186,8 +186,8 @@ export const Offer: React.FC<View> = observer(
             {...signatureModalProps}
             onClose={() => setSignatureModalProps({ show: false, id: '' })}
             labels={labels}
-            getFileForSignUrl={getFileForSignUrl}
-            signFileUrl={signFileUrl}
+            getFileForSignUrl={getFileForSignUrl ?? ''}
+            signFileUrl={signFileUrl ?? ''}
           />
         </Fragment>
       </OfferStoreContext.Provider>

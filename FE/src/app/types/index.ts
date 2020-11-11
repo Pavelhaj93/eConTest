@@ -23,11 +23,11 @@ export type AppConfig = {
   formAction?: string
   choices: Choice[]
   /** URL that returns the document itself. Need to append file ID. */
-  getFileUrl: string
+  getFileUrl?: string
   /** URL that returns an image preview of the document. Need to append file ID. */
-  getFileForSignUrl: string
+  getFileForSignUrl?: string
   /** URL that accepts a signature as base64 PNG within POST body. Need to append file ID. */
-  signFileUrl: string
+  signFileUrl?: string
   /** After how many milliseconds the documents request will be canceled. */
   doxTimeout?: number
 }

@@ -82,8 +82,8 @@ export const FileDropZone: React.FC<Props> = ({
 
       if (disabled) return
 
+      // convert FileList to a plain array
       const files = Array.from(event.dataTransfer.files)
-      // onFilesAccepted(files)
       processFiles(files)
 
       setActive(false)
@@ -100,9 +100,6 @@ export const FileDropZone: React.FC<Props> = ({
     (event: ChangeEvent<HTMLInputElement>) => {
       // convert FileList to a plain array
       const files = Array.from(event.target.files ?? [])
-
-      // pass the files to the provided callback
-      // onFilesAccepted(files)
       processFiles(files)
     },
     [processFiles],

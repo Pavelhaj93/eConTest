@@ -218,6 +218,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                           <FormControlTooltipWrapper>
                             <Form.Label srOnly>{label}</Form.Label>
                             <FormControl
+                              type="text"
                               inputMode="numeric"
                               pattern="[0-9]*"
                               name="value"
@@ -262,6 +263,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
               <Form.Label htmlFor={choices[0].key}>{choices[0].label}</Form.Label>
               <FormControlTooltipWrapper>
                 <FormControl
+                  type="text"
                   inputMode="numeric"
                   pattern="[0-9]*"
                   id={choices[0].key}
