@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Authentication } from '../'
 
 const mockProps = {
@@ -78,7 +79,7 @@ describe('Authentication view', () => {
     expect(radioButton).toBe(null)
   })
 
-  it('should render validation message after submitting empty form', () => {
+  it('renders validation message after submitting empty form', () => {
     render(<Authentication {...mockProps} />)
     const submitBtn = screen.getByText(mockProps.labels.submitBtn)
 
@@ -87,5 +88,34 @@ describe('Authentication view', () => {
     const alert = screen.getByRole('alert')
 
     expect(alert).toBeInTheDocument()
+  })
+
+  it('renders validation error message when provided', () => {
+    const mockPropsWithError = {
+      ...mockProps,
+      labels: {
+        ...mockProps,
+        validationError: 'Validation error message',
+      },
+    }
+    render(<Authentication {...mockPropsWithError} />)
+
+    const alert = screen.getByRole('alert')
+
+    expect(alert).toBeInTheDocument()
+  })
+
+  it('submit button should not have inactive class after filling and submitting the form', () => {
+    render(<Authentication {...mockPropsSingleChoice} />)
+    const birthDateInput = screen.getByLabelText(mockPropsSingleChoice.labels.birthDate)
+    const zipCodeInput = screen.getByLabelText(mockPropsSingleChoice.choices[0].label)
+
+    // because of datepicker library, I used `paste` instead of `type` function
+    userEvent.paste(birthDateInput, '01.11.2020')
+    userEvent.type(zipCodeInput, '17000')
+
+    const submitBtn = screen.getByText(mockProps.labels.submitBtn)
+
+    expect(submitBtn).not.toHaveClass('btn-inactive')
   })
 })
