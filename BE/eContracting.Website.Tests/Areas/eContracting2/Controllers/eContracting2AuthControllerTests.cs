@@ -519,7 +519,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { });
+            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -575,7 +575,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { });
+            mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
