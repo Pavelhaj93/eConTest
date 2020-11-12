@@ -18,6 +18,11 @@ namespace eContracting
         NABIDKA,
 
         /// <summary>
+        /// Legacy type "NABIDKA_XML" contains only textations.
+        /// </summary>
+        NABIDKA_XML,
+
+        /// <summary>
         /// The "NABIDKA_PDF" contains attached files for new offer.
         /// </summary>
         NABIDKA_PDF,

@@ -8,7 +8,8 @@ namespace eContracting.ConsoleClient
 {
     class GlobalConfiguration
     {
-        public string ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+        public string ServiceUrl = "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+        //public string ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
         public string ServiceUser = "UkZDX1NJVEVDT1JF";
         public string ServicePassword = "QWRIYjI0Nyo=";
     }

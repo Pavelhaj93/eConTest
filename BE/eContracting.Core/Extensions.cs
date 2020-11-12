@@ -39,5 +39,25 @@ namespace eContracting
 
             return 100;
         }
+
+        /// <summary>
+        /// Merges two dictionaries.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the key.</typeparam>
+        /// <typeparam name="TValue">The type of the value.</typeparam>
+        /// <param name="dictionary">The dictionary.</param>
+        /// <param name="second">The second.</param>
+        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IDictionary<TKey, TValue> second)
+        {
+            if (dictionary == null || second == null)
+            {
+                return;
+            }
+
+            foreach (KeyValuePair<TKey, TValue> item in second)
+            {
+                dictionary[item.Key] = item.Value;
+            }
+        }
     }
 }

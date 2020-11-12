@@ -1,4 +1,6 @@
-﻿using eContracting.Models;
+﻿using System.Collections.Generic;
+using eContracting.Models;
+using eContracting.Services;
 
 namespace eContracting
 {
@@ -13,5 +15,7 @@ namespace eContracting
         /// <param name="response">The response.</param>
         /// <returns>Return <see cref="OfferModel"/> or null if there are no files in <see cref="ResponseCacheGetModel"/>.</returns>
         OfferModel GenerateOffer(ResponseCacheGetModel response);
+
+        (Dictionary<string, string> parameters, string rawContent) GetTextParameters(ZCCH_ST_FILE file);
     }
 }

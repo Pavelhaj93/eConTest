@@ -101,7 +101,11 @@ namespace eContracting.Services
 
             var offer = new OfferModel(rootResult.model, header, attributes, parameters);
             offer.RawContent.Add(separatedFiles.root.FILENAME, rootResult.rawContent);
-            offer.RawContent.Add(separatedFiles.ad1.FILENAME, ad1RawContent);
+
+            if (separatedFiles.ad1 != null)
+            {
+                offer.RawContent.Add(separatedFiles.ad1.FILENAME, ad1RawContent);
+            }
 
             return offer;
         }
@@ -140,7 +144,7 @@ namespace eContracting.Services
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
 
-                if (!this.IsNotCompatible(offerXml))
+                if (this.IsNotCompatible(offerXml))
                 {
                     this.MakeCompatible(offerXml);
                 }
@@ -160,7 +164,7 @@ namespace eContracting.Services
             if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
             {
                 offerXml.Content.Body.BusProcess = Constants.OfferDefaults.BUS_PROCESS;
-                this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcess' to '{Constants.OfferDefaults.BUS_PROCESS}'");
+                this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcess'. Set default: '{Constants.OfferDefaults.BUS_PROCESS}'");
             }
 
             if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcessType))
@@ -168,12 +172,12 @@ namespace eContracting.Services
                 if (string.IsNullOrEmpty(offerXml.Content.Body.Campaign))
                 {
                     offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_A;
-                    this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcessType' to '{Constants.OfferDefaults.BUS_PROCESS_TYPE_A}'");
+                    this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_A}'");
                 }
                 else
                 {
                     offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_B;
-                    this.Logger.Info(offerXml.Content.Body.Guid, $"Force set 'BusProcessType' to '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
+                    this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
                 }
             }
         }
@@ -185,11 +189,16 @@ namespace eContracting.Services
         /// /// <returns>Tuple with model and raw XML content.</returns>
         protected internal (Dictionary<string, string> parameters, string rawContent) ProcessAd1File(ZCCH_ST_FILE file)
         {
+            return this.GetTextParameters(file);
+        }
+
+        public (Dictionary<string, string> parameters, string rawContent) GetTextParameters(ZCCH_ST_FILE file)
+        {
             var rawContent = Encoding.UTF8.GetString(file.FILECONTENT);
             var parameters = new Dictionary<string, string>();
-
+            var xml = Encoding.UTF8.GetString(file.FILECONTENT);
             var doc = new XmlDocument();
-            doc.LoadXml(rawContent);
+            doc.LoadXml(xml);
             var xmlParameters = doc.SelectSingleNode("form/parameters").ChildNodes;
 
             if (xmlParameters != null)
@@ -198,7 +207,24 @@ namespace eContracting.Services
                 {
                     var key = xmlNode.Name;
                     var value = xmlNode.InnerXml;
-                    parameters.Add(key, value);
+
+                    if (parameters.ContainsKey(key))
+                    {
+                        var indexedValue = parameters[key];
+                        var currentValue = value;
+
+                        if (indexedValue != currentValue)
+                        {
+                            if (string.IsNullOrEmpty(indexedValue))
+                            {
+                                parameters[key] = value;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        parameters[key] = value;
+                    }
                 }
             }
 

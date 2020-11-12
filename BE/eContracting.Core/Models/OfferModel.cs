@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace eContracting.Models
         public readonly OfferXmlModel Xml;
 
         [JsonProperty("parameters")]
-        public readonly Dictionary<string, string> TextParameters;
+        public IDictionary<string, string> TextParameters { get; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Gets or sets the unique GUID of this offer.
@@ -288,7 +289,7 @@ namespace eContracting.Models
         protected readonly OfferHeaderModel Header;
 
         [JsonIgnore]
-        public readonly Dictionary<string, string> RawContent = new Dictionary<string, string>();
+        public readonly IDictionary<string, string> RawContent = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferModel"/> class.
@@ -320,7 +321,11 @@ namespace eContracting.Models
             this.Xml = xml;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
-            this.TextParameters = textParameters ?? new Dictionary<string, string>();
+
+            if (textParameters != null)
+            {
+                this.TextParameters.Merge(textParameters);
+            }
         }
 
         public string GetCodeOfAdditionalInfoDocument()

@@ -123,7 +123,45 @@ namespace eContracting.Services
                 return null;
             }
 
-            return this.OfferParser.GenerateOffer(response);
+            var offer = this.OfferParser.GenerateOffer(response);
+
+            if (type == OFFER_TYPES.NABIDKA)
+            {
+                await this.CheckLegacyAsync(response, offer);
+            }
+
+            return offer;
+        }
+
+        protected async Task CheckLegacyAsync(ResponseCacheGetModel offerResponse, OfferModel offer)
+        {
+            if (offerResponse.Response.ET_FILES.Count() < 2)
+            {
+                this.Logger.Info(offer.Guid, "Offer is legacy. Need to load NABIDKA_XML");
+
+                var response = await this.GetResponseAsync(offer.Guid, OFFER_TYPES.NABIDKA_XML);
+
+                if (response == null)
+                {
+                    this.Logger.Warn(offer.Guid, "NABIDKA_XML not found");
+                    return;
+                }
+
+                if (!response.HasFiles)
+                {
+                    this.Logger.Warn(offer.Guid, "NABIDKA_XML has not files");
+                    return;
+                }
+
+                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
+                {
+                    var file = response.Response.ET_FILES[i];
+                    this.Logger.Debug(offer.Guid, $"Get text parameters from file '{file.FILENAME}'");
+                    var result = this.OfferParser.GetTextParameters(file);
+                    offer.RawContent.Add(file.FILENAME, result.rawContent);
+                    offer.TextParameters.Merge(result.parameters);
+                }
+            }
         }
 
         /// <inheritdoc/>
