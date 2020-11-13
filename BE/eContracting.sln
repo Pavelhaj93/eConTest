@@ -41,7 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-C
 		..\docs\ATTRIBUTES.md = ..\docs\ATTRIBUTES.md
 		..\docs\ATTRIBUTES_TABLE.md = ..\docs\ATTRIBUTES_TABLE.md
 		..\docs\Build_and_Deploy.md = ..\docs\Build_and_Deploy.md
-		..\docs\Guids.md = ..\docs\Guids.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services", "eContracting.Services\eContracting.Services.csproj", "{F532A851-C440-4513-B563-3EB1C3972FFA}"
@@ -57,6 +56,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C80BE2D2-3523-43B1-8D9D-A0CCC94C6806}"
 	ProjectSection(SolutionItems) = preProject
 		.runsettings = .runsettings
+		..\docs\Guids.md = ..\docs\Guids.md
 	EndProjectSection
 EndProject
 Global
