@@ -2,20 +2,9 @@
 
 ## Development
 
-Please do not shared these data externaly.
-
-Guid = "06D969E88C3C1EEB88D90D420A3EE437"
-Birthday = "12.09.1936"
-PostNumber = "550 01"
-PostNumberConsumption = "379 01"
-
-Guid = "06D969E88C3C1EDB87DAEED0F04F332F"
-Birthday = "12.09.1936"
-PartnerNumber = "9510900403"
-PostNumber = "550 01"
-PostNumberConsumption = "379 01"
-Process = "02"
-ProcessType = "INDI"
+| GUID | OP | PSČ MS | PSČ | Birthdate | Valid to | Description | Accepted |
+|:----:|:--:|:------:|:---:|:---------:|:--------:|:------------|:--------:|
+| 06D969E88C3C1EEB899DAB957C0761E2 |            | 550 01 | 550 01 | 12.09.1994 | ? | ? | &check; |
 
 ## Staging / test
 
@@ -29,7 +18,7 @@ ProcessType = "INDI"
 | 02D67988E24D1EEB88E4B3F052748E34 | 9510345246 | 290 01 | 290 01 | 04.07.1947 | 30.11.2020 | Retence last call nwow na stávající produkt s odměnou za TZD | &cross; |
 | 02D67988E24D1EEB88E49B337FDAADCB | 9513204445 | 664 41 | 664 41 | 14.02.1948 | 30.11.2020 | Retence proaktivní retence na Garance26 se slevou | &cross; |
 | 02D67988E24D1EEB88E4C5AA33F46E99 | 9610924236 | 571 01 | 571 01 | 27.11.1989 | 30.11.2020 | Retence volací kampaň na Extra+ a odměnou za TZD | &cross; |
-| 02D67988E24D1EEB88E4DEFC82BC0F05 | 9511874398 | 588 26 | 588 26 | 29.11.1975 | 21.12.2020 | Kampaň C-00017102, TEST_2011_EDM_RF_EE_TN | &cross; |
+| 02D67988E24D1EEB88E4DEFC82BC0F05 | 9511874398 | 588 26 | 588 26 | 29.11.1975 | 21.12.2020 | Kampaň C-00017102, TEST_2011_EDM_RF_EE_TN | &check; |
 | 02D67988E24D1EEB88E4DF1196708F05 | 9513472507 | 351 01 | 351 01 | 25.03.1974 | 21.12.2020 | Kampaň C-00017102, TEST_2011_EDM_RF_EE_TN | &cross; |
 | 02D67988E24D1EEB88E4DF119680CF05 | 9610020767 | 198 00 | 190 16 | 18.04.1983 | 21.12.2020 | Kampaň C-00017102, TEST_2011_EDM_RF_EE_TN | &cross; |
 | 02D67988E24D1EDB88EBA5C88D0D4EF4 | 9510275539 | 284 01 | 284 01 | 20.03.1953 | 28.12.2020 | Kampaň LC (retence)  - C-00017107	| &cross; |

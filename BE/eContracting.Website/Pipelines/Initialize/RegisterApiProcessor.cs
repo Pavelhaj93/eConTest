@@ -22,7 +22,7 @@ namespace eContracting.Website.Pipelines.Initialize
         public void RegisterApiRoutes()
         {
             var controllerName = typeof(eContracting2ApiController).Name.Replace("Controller", "");
-            Route route = RouteTable.Routes.MapHttpRoute(name: "Actum." + controllerName, routeTemplate: "api/econ/{action}", defaults: new { controller = controllerName, action = "Index" });
+            Route route = RouteTable.Routes.MapHttpRoute(name: "Actum." + controllerName, routeTemplate: "api/econ/{action}/{id}", defaults: new { controller = controllerName, action = "Index", id = UrlParameter.Optional });
             route.RouteHandler = new SessionRouteHandler();
         }
     }

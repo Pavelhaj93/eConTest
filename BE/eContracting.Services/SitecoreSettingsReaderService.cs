@@ -77,16 +77,25 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public CacheApiServiceOptions GetApiServiceOptions()
         {
-            var url = this.ContextWrapper.GetSetting("eContracting.ServiceUrl");
-            var username = this.ContextWrapper.GetSetting("eContracting.ServiceUser");
-            var password = this.ContextWrapper.GetSetting("eContracting.ServicePassword");
+            var generalSettings = this.GetSiteSettings();
 
-            if (string.IsNullOrWhiteSpace(url) || string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            var url = generalSettings.ServiceUrl;
+            var username = generalSettings.ServiceUser;
+            var password = generalSettings.ServicePassword;
+
+            if (string.IsNullOrWhiteSpace(url))
             {
-                var generalSettings = this.GetSiteSettings();
-                url = string.IsNullOrWhiteSpace(url) ? generalSettings.ServiceUrl : url;
-                username = string.IsNullOrWhiteSpace(username) ? generalSettings.ServiceUser : username;
-                password = string.IsNullOrWhiteSpace(password) ? generalSettings.ServicePassword : password;
+                url = this.ContextWrapper.GetSetting("eContracting.ServiceUrl");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                username = this.ContextWrapper.GetSetting("eContracting.ServiceUser");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                password = this.ContextWrapper.GetSetting("eContracting.ServicePassword");
             }
 
             var options = new CacheApiServiceOptions(url, username, password);

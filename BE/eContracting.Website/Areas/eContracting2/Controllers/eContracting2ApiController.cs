@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
@@ -49,7 +51,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Offer()
+        [Route("files")]
+        public async Task<IHttpActionResult> Files()
         {
             // needs to check like this because info about it is only as custom session property :-(
             if (!this.AuthService.IsLoggedIn())
@@ -65,7 +68,35 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.NotFound();
             }
 
-            return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));
+            return this.Json(attachments);
+            //return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));
+        }
+
+        [HttpGet]
+        [Route("file/{id}")]
+        public async Task<IHttpActionResult> File([FromUri]string id)
+        {
+            // needs to check like this because info about it is only as custom session property :-(
+            if (!this.AuthService.IsLoggedIn())
+            {
+                return this.StatusCode(HttpStatusCode.Unauthorized);
+            }
+
+            var user = this.AuthService.GetCurrentUser();
+            var attachments = await this.ApiService.GetAttachmentsAsync(user.Guid);
+            var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
+
+            if (file == null)
+            {
+                return this.NotFound();
+            }
+
+            var response = new HttpResponseMessage(HttpStatusCode.OK);
+            response.Content = new ByteArrayContent(file.FileContent);
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
+            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+            response.Content.Headers.ContentDisposition.FileName = file.FileName;
+            return this.ResponseMessage(response);
         }
     }
 }

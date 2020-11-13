@@ -124,6 +124,14 @@
         <member name="M:eContracting.Services.SapApiService.SignInOfferAsync(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SapApiService.GetTextParametersAsync(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Gets the text parameters for specific version.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Dictionary or null.</returns>
+            <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
+        </member>
         <member name="M:eContracting.Services.SapApiService.GetResponseAsync(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Gets data.
@@ -140,7 +148,7 @@
             <param name="guid">The unique identifier.</param>
             <param name="type">The type.</param>
             <param name="status">The status.</param>
-            <returns></returns>
+            <returns><c>True</c> if status was set.</returns>
         </member>
         <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
             <summary>
@@ -231,7 +239,7 @@
             <inheritdoc/>
             <seealso cref="!:eContracting.Services.IOfferAttachmentParserService" />
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Services.ZCCH_ST_FILE,System.Int32,eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.ZCCH_ST_FILE)">

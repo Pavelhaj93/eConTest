@@ -574,14 +574,13 @@
             Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> object.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Services.ZCCH_ST_FILE,System.Int32,eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
-            Creates <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> from given <paramref name="file"/>. <paramref name="offer"/> is needed to define some parameters.
+            Parses raw <paramref name="files"/> into serializable format.
             </summary>
-            <param name="file">The file.</param>
-            <param name="index">The index position from list of all files.</param>
             <param name="offer">The offer.</param>
-            <returns>Instance of <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/>.</returns>
+            <param name="files">The files.</param>
+            <returns>Array of files.</returns>
         </member>
         <member name="T:eContracting.IOfferParserService">
             <summary>
@@ -808,6 +807,11 @@
             Gets or sets a file type.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.MimeType">
+            <summary>
+            The MIME type of the file.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileName">
             <summary>
             Gets or sets file name.
@@ -821,6 +825,21 @@
         <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileContent">
             <summary>
             Gets or sets file content.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentXmlModel.Attributes">
+            <summary>
+            The file attributes.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Size">
+            <summary>
+            Gets the size.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.SizeLabel">
+            <summary>
+            Gets size description.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferAttachmentXmlModel.Template">
@@ -853,11 +872,12 @@
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class.
             </summary>
             <param name="uniqueKey">The unique key.</param>
+            <param name="mimeType">Type of the MIME.</param>
             <param name="index">The index.</param>
             <param name="name">The name.</param>
             <param name="signedVersion">if set to <c>true</c> [signed version].</param>

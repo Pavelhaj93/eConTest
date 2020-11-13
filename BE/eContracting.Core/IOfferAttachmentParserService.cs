@@ -9,12 +9,11 @@ namespace eContracting
     public interface IOfferAttachmentParserService
     {
         /// <summary>
-        /// Creates <see cref="OfferAttachmentXmlModel"/> from given <paramref name="file"/>. <paramref name="offer"/> is needed to define some parameters.
+        /// Parses raw <paramref name="files"/> into serializable format.
         /// </summary>
-        /// <param name="file">The file.</param>
-        /// <param name="index">The index position from list of all files.</param>
         /// <param name="offer">The offer.</param>
-        /// <returns>Instance of <see cref="OfferAttachmentXmlModel"/>.</returns>
-        OfferAttachmentXmlModel Parse(ZCCH_ST_FILE file, int index, OfferModel offer);
+        /// <param name="files">The files.</param>
+        /// <returns>Array of files.</returns>
+        OfferAttachmentXmlModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files);
     }
 }

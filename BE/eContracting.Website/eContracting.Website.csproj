@@ -217,7 +217,6 @@
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
-    <Compile Include="Areas\eContracting2\Models\FileAttachmentViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />

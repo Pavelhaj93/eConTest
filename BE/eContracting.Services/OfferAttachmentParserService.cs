@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using eContracting.Models;
 using eContracting.Services;
+using Sitecore.Pipelines.Save;
 
 namespace eContracting.Services
 {
@@ -12,47 +13,27 @@ namespace eContracting.Services
     public class OfferAttachmentParserService : IOfferAttachmentParserService
     {
         /// <inheritdoc/>
-        public OfferAttachmentXmlModel Parse(ZCCH_ST_FILE file, int index, OfferModel offer)
+        public OfferAttachmentXmlModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
         {
-            var fileName = this.GetFileName(file);
+            var list = new List<OfferAttachmentXmlModel>();
 
-            //var signRequired = false;
-            //var fileType = string.Empty;
-            //var templAlcId = string.Empty;
-
-            //if (offer.OfferType != OfferTypes.Default)
-            //{
-            //    if (offer.Attachments != null)
-            //    {
-            //        var fileTemplate = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "TEMPLATE");
-            //        if (fileTemplate != null)
-            //        {
-            //            var correspondingAttachment = offer.Attachments.FirstOrDefault(attachment => attachment.IdAttach.ToLower() == fileTemplate.ATTRVAL.ToLower());
-
-            //            if (correspondingAttachment != null)
-            //            {
-            //                if (correspondingAttachment.SignReq.ToLower() == "x")
-            //                {
-            //                    signRequired = true;
-            //                    templAlcId = correspondingAttachment.TemplAlcId;
-            //                    fileType = correspondingAttachment.IdAttach;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-
-            var uniqueKey = this.GetUniqueKey(file);
-            var attrs = this.GetAttributes(file);
-
-            var fileModel = new OfferAttachmentXmlModel(
+            for (int i = 0; i < files.Length; i++)
+            {
+                var fileName = this.GetFileName(files[i]);
+                var uniqueKey = this.GetUniqueKey(files[i]);
+                var attrs = this.GetAttributes(files[i]);
+                var fileModel = new OfferAttachmentXmlModel(
                 uniqueKey: uniqueKey,
-                index: index.ToString(),
+                files[i].MIMETYPE,
+                index: i.ToString(),
                 name: fileName,
                 signedVersion: false,
                 attributes: attrs,
-                content: file.FILECONTENT);
-            return fileModel;
+                content: files[i].FILECONTENT);
+                list.Add(fileModel);
+            }
+
+            return list.ToArray();
         }
 
         /// <summary>
@@ -103,5 +84,6 @@ namespace eContracting.Services
 
             return Utils.GetMd5(file.FILENAME);
         }
+
     }
 }

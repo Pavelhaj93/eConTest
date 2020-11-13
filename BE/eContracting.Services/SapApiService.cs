@@ -127,35 +127,6 @@ namespace eContracting.Services
             return offer;
         }
 
-        protected async Task<IDictionary<string, string>> GetTextParametersAsync(ResponseCacheGetModel response)
-        {
-            var version = this.OfferParser.GetVersion(response.Response);
-
-            if (version == 1)
-            {
-                var response2 = await this.GetResponseAsync(response.Guid, OFFER_TYPES.NABIDKA_XML);
-
-                if (response2 != null)
-                {
-                    var response2Files = response2.Response.ET_FILES;
-                    return this.OfferParser.GetTextParameters(response2Files);
-                }
-                else
-                {
-                    return new Dictionary<string, string>();
-                }
-            }
-            else if (version == 2)
-            {
-                var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == "AD1")).ToArray();
-                return this.OfferParser.GetTextParameters(files);
-            }
-            else
-            {
-                throw new ApplicationException($"Cannot get text parameters. Unknown version {version}");
-            }
-        }
-
         /// <inheritdoc/>
         public OfferAttachmentXmlModel[] GetAttachments(string guid)
         {
@@ -176,37 +147,17 @@ namespace eContracting.Services
             }
 
             var offer = this.OfferParser.GenerateOffer(result);
+
+            if (offer == null)
+            {
+                throw new ApplicationException("Offer is null");
+            }
+
             bool isAccepted = offer.IsAccepted;
-
-            ZCCH_ST_FILE[] stFiles = await this.GetFilesAsync(guid, isAccepted);
-
-            if (stFiles.Length == 0)
-            {
-                this.Logger.LogFiles(null, guid, isAccepted);
-                return null;
-            }
-
-            var orderedFiles = stFiles.OrderBy(x => x.GetCounter()).ToArray();
-            var fileModels = new List<OfferAttachmentXmlModel>();
-
-            for (int index = 0; index < orderedFiles.Length; index++)
-            {
-                var file = orderedFiles[index];
-
-                try
-                {
-                    var fileModel = this.AttachmentParser.Parse(file, index, offer);
-                    fileModels.Add(fileModel);
-                }
-                catch (Exception ex)
-                {
-                    this.Logger.Error(guid, $"Exception occured when parsing file '{file.FILENAME}'", ex);
-                    throw;
-                }
-            }
-
-            this.Logger.LogFiles(fileModels, guid, isAccepted);
-            return fileModels.ToArray();
+            ZCCH_ST_FILE[] files = await this.GetFilesAsync(guid, isAccepted);
+            var attachments = this.AttachmentParser.Parse(offer, files);
+            this.Logger.LogFiles(attachments, guid, isAccepted);
+            return attachments.ToArray();
         }
 
         /// <inheritdoc/>
@@ -240,6 +191,41 @@ namespace eContracting.Services
         }
 
         /// <summary>
+        /// Gets the text parameters for specific version.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>Dictionary or null.</returns>
+        /// <exception cref="ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
+        protected async Task<IDictionary<string, string>> GetTextParametersAsync(ResponseCacheGetModel response)
+        {
+            var version = this.OfferParser.GetVersion(response.Response);
+
+            if (version == 1)
+            {
+                var response2 = await this.GetResponseAsync(response.Guid, OFFER_TYPES.NABIDKA_XML);
+
+                if (response2 != null)
+                {
+                    var response2Files = response2.Response.ET_FILES;
+                    return this.OfferParser.GetTextParameters(response2Files);
+                }
+                else
+                {
+                    return new Dictionary<string, string>();
+                }
+            }
+            else if (version == 2)
+            {
+                var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS)).ToArray();
+                return this.OfferParser.GetTextParameters(files);
+            }
+            else
+            {
+                throw new ApplicationException($"Cannot get text parameters. Unknown version {version}");
+            }
+        }
+
+        /// <summary>
         /// Gets data.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
@@ -269,7 +255,7 @@ namespace eContracting.Services
         /// <param name="guid">The unique identifier.</param>
         /// <param name="type">The type.</param>
         /// <param name="status">The status.</param>
-        /// <returns></returns>
+        /// <returns><c>True</c> if status was set.</returns>
         protected internal async Task<bool> SetStatusAsync(string guid, OFFER_TYPES type, string status)
         {
             var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");

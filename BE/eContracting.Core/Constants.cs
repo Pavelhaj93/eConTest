@@ -54,9 +54,14 @@ namespace eContracting
             public const string MAIN_DOC = "MAIN_DOC";
         }
 
+        public static class FileAttributeValues
+        {
+            public const string TEXT_PARAMETERS = "AD1";
+        }
+
         public static class FileAttributeDefaults
         {
-            public const string GROUP = "EMPTY";
+            public const string GROUP = "OTHER";
         }
 
         public static class SitecorePaths

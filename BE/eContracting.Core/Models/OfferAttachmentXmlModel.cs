@@ -41,6 +41,12 @@ namespace eContracting.Models
         }
 
         /// <summary>
+        /// The MIME type of the file.
+        /// </summary>
+        [JsonProperty("mimeType")]
+        public readonly string MimeType;
+
+        /// <summary>
         /// Gets or sets file name.
         /// </summary>
         [JsonProperty("name")]
@@ -58,9 +64,15 @@ namespace eContracting.Models
         [JsonIgnore]
         public readonly byte[] FileContent;
 
+        /// <summary>
+        /// The file attributes.
+        /// </summary>
         [JsonIgnore]
         public readonly OfferAttributeModel[] Attributes;
 
+        /// <summary>
+        /// Gets the size.
+        /// </summary>
         [JsonIgnore]
         public int Size
         {
@@ -70,6 +82,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets size description.
+        /// </summary>
         [JsonProperty("size")]
         public string SizeLabel
         {
@@ -152,14 +167,16 @@ namespace eContracting.Models
         /// Initializes a new instance of the <see cref="OfferAttachmentXmlModel"/> class.
         /// </summary>
         /// <param name="uniqueKey">The unique key.</param>
+        /// <param name="mimeType">Type of the MIME.</param>
         /// <param name="index">The index.</param>
         /// <param name="name">The name.</param>
         /// <param name="signedVersion">if set to <c>true</c> [signed version].</param>
         /// <param name="attributes">The attributes.</param>
         /// <param name="content">The content.</param>
-        public OfferAttachmentXmlModel(string uniqueKey, string index, string name, bool signedVersion, OfferAttributeModel[] attributes, byte[] content)
+        public OfferAttachmentXmlModel(string uniqueKey, string mimeType, string index, string name, bool signedVersion, OfferAttributeModel[] attributes, byte[] content)
         {
             this.UniqueKey = uniqueKey;
+            this.MimeType = mimeType;
             this.Index = index;
             this.FileName = name;
             this.SignedVersion = signedVersion;
