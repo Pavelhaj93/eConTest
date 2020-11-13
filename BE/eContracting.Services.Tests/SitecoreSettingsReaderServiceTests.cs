@@ -71,7 +71,7 @@ namespace eContracting.Services.Tests
 
             var siteRoot = "/site";
             var siteSettings = new SiteSettingsModel();
-            siteSettings.ServiceUrl = "http://localhost";
+            siteSettings.ServiceUrl = "";
             siteSettings.ServiceUser = Convert.ToBase64String(Encoding.UTF8.GetBytes(user));
             siteSettings.ServicePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
 
@@ -101,7 +101,7 @@ namespace eContracting.Services.Tests
             var siteRoot = "/site";
             var siteSettings = new SiteSettingsModel();
             siteSettings.ServiceUrl = url;
-            siteSettings.ServiceUser = "not-base64-user";
+            siteSettings.ServiceUser = "";
             siteSettings.ServicePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -132,7 +132,7 @@ namespace eContracting.Services.Tests
             var siteSettings = new SiteSettingsModel();
             siteSettings.ServiceUrl = url;
             siteSettings.ServiceUser = Convert.ToBase64String(Encoding.UTF8.GetBytes(user));
-            siteSettings.ServicePassword = "not-base64-password";
+            siteSettings.ServicePassword = "";
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
@@ -157,8 +157,12 @@ namespace eContracting.Services.Tests
             string user = "joe";
             string password = "secret";
 
+            var siteSettings = new SiteSettingsModel();
+
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>("/sitecore/content", false, false)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/sitecore/content");
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(url);
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(user)));
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(password)));
