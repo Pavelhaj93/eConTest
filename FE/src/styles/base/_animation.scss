@@ -7,3 +7,11 @@
     transform: rotate(359deg);
   }
 }
+
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+.spin-reverse {
+  animation: spin 0.8s reverse linear infinite;
+}

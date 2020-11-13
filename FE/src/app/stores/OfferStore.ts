@@ -1,8 +1,10 @@
-import { Document } from '@types'
+import { Document, UploadDocumentResponse } from '@types'
+import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
 
 export class OfferStore {
   private documentsUrl = ''
+  private uploadDocumentUrl = ''
 
   @observable
   public documents: Document[] = []
@@ -25,10 +27,17 @@ export class OfferStore {
   @observable
   public signError = false
 
+  @observable
+  public userDocuments: Record<string, UserDocument[]> = {}
+
   constructor(documentsUrl: string, isRetention = false, isAcquisition = false) {
     this.documentsUrl = documentsUrl
     this.isRetention = isRetention
     this.isAcquisition = isAcquisition
+  }
+
+  public set setUploadDocumentUrl(url: string) {
+    this.uploadDocumentUrl = url
   }
 
   /** All documents that are marked to be accepted. */
@@ -235,5 +244,113 @@ export class OfferStore {
     }
 
     this.documents = acceptedDocuments
+  }
+
+  @action public addUserFiles(files: File[], category: string): void {
+    // if category does not exist yet => create one and add all files
+    if (!this.userDocuments[category]) {
+      this.userDocuments[category] = files.map<UserDocument>(file => new UserDocument(file))
+
+      // this spread is needed for trigger rerender in React component
+      this.userDocuments = {
+        ...this.userDocuments,
+      }
+      return
+    }
+
+    // filter out documents with the same name
+    const newDocuments = files
+      .filter(
+        newDoc => !this.userDocuments[category].find(curDoc => curDoc.file.name === newDoc.name),
+      )
+      // and then remap the rest to the `UserDocument` shape
+      .map<UserDocument>(file => new UserDocument(file))
+
+    // spread existing documents within the category and add new ones
+    this.userDocuments[category] = [...this.userDocuments[category], ...newDocuments]
+  }
+
+  /**
+   * Get user document by its name and category.
+   * @param name - file name
+   * @param category - category name
+   */
+  public getUserDocument(name: string, category: string): UserDocument | undefined {
+    return this.userDocuments[category]?.find(document => document.file.name === name)
+  }
+
+  /**
+   * Remove user document by its name and category.
+   * @param name - file name
+   * @param category - category name
+   */
+  @action public removeUserDocument(name: string, category: string): void {
+    if (!this.userDocuments[category]) {
+      return
+    }
+
+    this.userDocuments[category] = this.userDocuments[category].filter(
+      ({ file }) => file.name !== name,
+    )
+  }
+
+  /**
+   * Sends a request with the document (file) to upload API.
+   * @param document - file
+   * @returns `Promise` in shape of `UploadDocumentResponse`
+   */
+  public async uploadDocument(document: UserDocument): Promise<UploadDocumentResponse> {
+    const formData = new FormData()
+    const { file } = document
+    formData.append('file', file, file.name)
+
+    const controller = new AbortController()
+
+    document.touched = true // change the `touched` state of the document
+    document.controller = controller // add a control of the following request to the document
+    document.uploading = true
+
+    try {
+      const response = await fetch(this.uploadDocumentUrl, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+        signal: controller.signal,
+      })
+
+      if (!response.ok) {
+        throw new Error(`FAILED TO UPLOAD DOCUMENT - ${response.statusText} (${response.status})`)
+      }
+
+      const { uploaded, message } = (await response.json()) as UploadDocumentResponse
+
+      if (!uploaded) {
+        throw new Error(message)
+      }
+
+      return Promise.resolve({ uploaded: true })
+    } catch (error) {
+      let message = undefined
+
+      if (typeof error === 'string') {
+        message = error
+      } else if (error instanceof Error) {
+        message = error.message
+      }
+
+      if (document) {
+        document.error = message // mark the document as invalid
+      }
+
+      return Promise.resolve({ uploaded: false, message })
+    } finally {
+      document.uploading = false
+    }
+  }
+
+  public cancelUploadDocument(document: UserDocument): void {
+    if (document.controller) {
+      document.controller.abort()
+    }
   }
 }

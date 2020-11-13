@@ -4,7 +4,15 @@ import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Form } from 'react-bootstrap'
 import classNames from 'classnames'
-import { Box, BoxHeading, FileDropZone, FormCheckWrapper, Icon, SignatureModal } from '@components'
+import {
+  Box,
+  BoxHeading,
+  FileDropZone,
+  FileUpload,
+  FormCheckWrapper,
+  Icon,
+  SignatureModal,
+} from '@components'
 import { colors } from '@theme'
 import { useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
@@ -25,6 +33,7 @@ export const Offer: React.FC<View> = observer(
     getFileForSignUrl,
     signFileUrl,
     doxTimeout,
+    uploadFileUrl,
   }) => {
     const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -35,6 +44,11 @@ export const Offer: React.FC<View> = observer(
 
     useEffect(() => {
       store.fetchDocuments(doxTimeout)
+
+      // set correct upload document URL if provided
+      if (uploadFileUrl) {
+        store.setUploadDocumentUrl = uploadFileUrl
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -62,14 +76,37 @@ export const Offer: React.FC<View> = observer(
             className="my-5"
             selectFileLabel={t('selectFile')}
             onFilesAccepted={files => {
-              console.log('accepted')
-              console.log(files)
+              store.addUserFiles(files, 'category1')
             }}
-            onFilesRejected={files => {
-              console.log('rejected')
-              console.log(files)
-            }}
+            // onFilesRejected={files => {
+            //   console.log('rejected')
+            //   console.log(files)
+            // }}
           />
+
+          {store.userDocuments['category1']?.length > 0 && (
+            <Box>
+              <ul aria-label={t('selectedFiles')} className="list-unstyled">
+                {store.userDocuments['category1'].map(document => (
+                  <li key={document.file.name}>
+                    <FileUpload
+                      file={document.file}
+                      removeFileLabel={t('removeFile')}
+                      onRemove={() => {
+                        store.cancelUploadDocument(document)
+                        store.removeUserDocument(document.file.name, 'category1')
+                      }}
+                      uploadHandler={() => store.uploadDocument(document)}
+                      // do not allow to reupload of already touched file (both with success or error)
+                      shouldUploadImmediately={!document.touched}
+                      error={document.error}
+                      uploading={document.uploading}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </Box>
+          )}
 
           <form
             action={formAction}

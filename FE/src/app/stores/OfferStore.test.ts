@@ -1,6 +1,7 @@
 import fetch from 'jest-fetch-mock'
 import documents from '../../mocks/api/documents/documents.json'
-import { OfferStore } from './'
+import { createFileFromMockFile } from '../../mocks/createFile'
+import { OfferStore, UserDocument } from './'
 
 const offerMockConfig = {
   documentsUrl: '',
@@ -169,5 +170,109 @@ describe('Retention offer', () => {
     await store.signDocument(mockDocuments[1].id, '', '')
 
     expect(store.isOfferReadyToAccept).toBe(true)
+  })
+})
+
+describe('General offer', () => {
+  it('adds file to the specified category', () => {
+    const file = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content',
+      mimeType: 'text/plain',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore('')
+
+    store.addUserFiles([file], category)
+
+    // first check if new a category was created
+    expect(store.userDocuments[category]).not.toBeFalsy()
+
+    // then check if the document is there
+    expect(store.getUserDocument(file.name, category)).not.toBeFalsy()
+  })
+
+  it('does not duplicate file with the same name in one category', () => {
+    const file1 = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content 1',
+      mimeType: 'text/plain',
+    })
+    const file2 = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content 2',
+      mimeType: 'text/plain',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore('')
+
+    store.addUserFiles([file1], category)
+    store.addUserFiles([file2], category)
+
+    // then check if the is there
+    expect(store.userDocuments[category].length).toBe(1)
+  })
+
+  it('uploads the document successfully', async () => {
+    const file = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content',
+      mimeType: 'text/plain',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore('')
+
+    store.addUserFiles([file], category)
+
+    const document = store.getUserDocument(file.name, category) as UserDocument
+
+    fetch.mockResponseOnce(JSON.stringify({ uploaded: true }))
+    await store.uploadDocument(document)
+
+    expect(document.touched).toBe(true)
+    expect(document.error).toBeFalsy()
+  })
+
+  it('rejects the document during upload', async () => {
+    const file = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content',
+      mimeType: 'text/plain',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore('')
+
+    store.addUserFiles([file], category)
+
+    const document = store.getUserDocument(file.name, category) as UserDocument
+
+    const apiMessage = 'API is unavailable'
+    fetch.mockRejectOnce(() => Promise.reject(apiMessage))
+    await store.uploadDocument(document)
+
+    expect(document.touched).toBe(true)
+    expect(document.error).toBe(apiMessage)
+  })
+
+  it('removes previously added document', () => {
+    const file1 = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content 1',
+      mimeType: 'text/plain',
+    })
+    const file2 = createFileFromMockFile({
+      name: 'contract.pdf',
+      body: 'content 2',
+      mimeType: 'application/pdf',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore('')
+
+    store.addUserFiles([file1, file2], category)
+
+    store.removeUserDocument(file1.name, category)
+
+    expect(store.getUserDocument(file1.name, category)).toBeFalsy()
+    expect(store.userDocuments[category].length).toBe(1)
   })
 })

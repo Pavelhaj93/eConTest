@@ -11,6 +11,7 @@ import '@icons/check.svg'
 import '@icons/check-circle.svg'
 import '@icons/chevron-down.svg'
 import '@icons/clock.svg'
+import '@icons/close.svg'
 import '@icons/cross-circle.svg'
 import '@icons/edit.svg'
 import '@icons/email.svg'
@@ -29,10 +30,10 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type Name =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'leaf' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
+export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'leaf' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
 
 type IconProps = {
-  name: Name,
+  name: IconName,
   /** Set a color for the icon. Hex format is required. */
   color?: string
   /** Size is used for both width and height. */

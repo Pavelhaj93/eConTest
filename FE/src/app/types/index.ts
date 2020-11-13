@@ -30,6 +30,8 @@ export type AppConfig = {
   signFileUrl?: string
   /** After how many milliseconds the documents request will be canceled. */
   doxTimeout?: number
+  /** URL where to upload user files. */
+  uploadFileUrl?: string
 }
 
 declare global {
@@ -40,10 +42,10 @@ declare global {
 
 export type View = AppConfig
 
+// used for documents coming from API
 export type Document = {
   id: string
   title: string
-  // url: string
   label: string
   sign: boolean
   signed?: boolean
@@ -72,3 +74,8 @@ export type Color =
   | 'gray-60'
   | 'gray-80'
   | 'gray-100'
+
+export type UploadDocumentResponse = {
+  uploaded: boolean
+  message?: string
+}

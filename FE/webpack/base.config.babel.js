@@ -114,6 +114,8 @@ export default {
         'fetch',
         'Promise',
         'AbortController',
+        'Number.isFinite',
+        'Math.log10',
       ],
       singleFile: true,
       filename: 'js/polyfills.js',
