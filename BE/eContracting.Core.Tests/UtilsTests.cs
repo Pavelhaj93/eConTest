@@ -121,7 +121,7 @@ namespace eContracting.Core.Tests
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
             var fakeAttributes = new OfferAttributeModel[] { };
 
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var result = Utils.GetUniqueKey(loginType, offer);
 
@@ -146,7 +146,7 @@ namespace eContracting.Core.Tests
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
             var fakeAttributes = new OfferAttributeModel[] { };
 
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var result = Utils.GetUniqueKey(loginType, offer);
 
@@ -164,7 +164,7 @@ namespace eContracting.Core.Tests
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
             var fakeAttributes = new OfferAttributeModel[] { };
 
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((LoginTypeModel)null, offer); });
         }

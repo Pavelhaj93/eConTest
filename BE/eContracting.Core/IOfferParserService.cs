@@ -16,6 +16,19 @@ namespace eContracting
         /// <returns>Return <see cref="OfferModel"/> or null if there are no files in <see cref="ResponseCacheGetModel"/>.</returns>
         OfferModel GenerateOffer(ResponseCacheGetModel response);
 
-        (Dictionary<string, string> parameters, string rawContent) GetTextParameters(ZCCH_ST_FILE file);
+        /// <summary>
+        /// Gets offer version from <paramref name="response"/> data.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>Numbered version starting at 1.</returns>
+        int GetVersion(ZCCH_CACHE_GETResponse response);
+
+        /// <summary>
+        /// Gets the text parameters from given <paramref name="files"/>.
+        /// </summary>
+        /// <remarks>There files needs to have XML path 'form/parameters'.</remarks>
+        /// <param name="files">The files.</param>
+        /// <returns>Dictionary or null.</returns>
+        IDictionary<string, string> GetTextParameters(ZCCH_ST_FILE[] files);
     }
 }

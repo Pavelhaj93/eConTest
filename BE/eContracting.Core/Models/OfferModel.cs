@@ -26,6 +26,16 @@ namespace eContracting.Models
         public IDictionary<string, string> TextParameters { get; } = new Dictionary<string, string>();
 
         /// <summary>
+        /// Gets the version of the offer.
+        /// </summary>
+        /// <remarks>
+        ///     1 - old offer without bus process type and with text parameters
+        ///     2 - new offer with bus process type and 
+        /// </remarks>
+        [JsonProperty("version")]
+        public readonly int Version;
+
+        /// <summary>
         /// Gets or sets the unique GUID of this offer.
         /// </summary>
         [JsonProperty("guid")]
@@ -41,16 +51,7 @@ namespace eContracting.Models
         /// Gets or sets flag if offer is accepted.
         /// </summary>
         [JsonProperty("accepted")]
-        public bool IsAccepted
-        {
-            get
-            {
-                return this.Attributes.FirstOrDefault(x => x.Key == "ACCEPTED_AT")?.Value?.Any(c => char.IsDigit(c)) ?? false;
-                //return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
-                //    && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
-                //    && response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => char.IsDigit(c));
-            }
-        }
+        public bool IsAccepted { get; set; }
 
         /// <summary>
         /// Gets or sets infromation when offer was accepted.
@@ -79,7 +80,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets CREATED_AT value.
         /// </summary>
-        [JsonProperty("craeted_date")]
+        [JsonProperty("created_date")]
         public string CreatedAt
         {
             get
@@ -98,7 +99,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets information if offer has GDPR.
         /// </summary>
-        [JsonProperty("gdpr")]
+        [JsonProperty("has_gdpr")]
         public bool HasGDPR
         {
             get
@@ -110,7 +111,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets GDPRKey.
         /// </summary>
-        [JsonProperty("gdpr_key")]
+        [JsonProperty("gdpr")]
         public string GDPRKey
         {
             get
@@ -236,12 +237,7 @@ namespace eContracting.Models
         {
             get
             {
-                if (!string.IsNullOrEmpty(this.Xml.Content.Body.BusProcessType))
-                {
-                    return this.Xml.Content.Body.BusProcessType;
-                }
-
-                return string.IsNullOrEmpty(this.Campaign) ? "INDI" : "CAMPAIGN";
+                return this.Xml.Content.Body.BusProcessType;
             }
         }
 
@@ -295,18 +291,18 @@ namespace eContracting.Models
         /// Initializes a new instance of the <see cref="OfferModel"/> class.
         /// </summary>
         /// <param name="xml">The XML.</param>
+        /// <param name="version">The version.</param>
         /// <param name="header">The header.</param>
         /// <param name="attributes">The attributes.</param>
-        /// <param name="textParameters">The text parameters.</param>
-        /// <exception cref="ArgumentNullException">
+        /// <exception cref="System.ArgumentNullException">
         /// xml
         /// or
         /// header
         /// or
         /// attributes
         /// </exception>
-        /// <exception cref="ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
-        public OfferModel(OfferXmlModel xml, OfferHeaderModel header, OfferAttributeModel[] attributes, Dictionary<string, string> textParameters = null)
+        /// <exception cref="System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
+        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, OfferAttributeModel[] attributes)
         {
             if (xml == null)
             {
@@ -319,13 +315,9 @@ namespace eContracting.Models
             }
 
             this.Xml = xml;
+            this.Version = version;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
-
-            if (textParameters != null)
-            {
-                this.TextParameters.Merge(textParameters);
-            }
         }
 
         public string GetCodeOfAdditionalInfoDocument()

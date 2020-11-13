@@ -273,7 +273,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "00", "");
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, fakeHeader, fakeAttr);
+            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, fakeAttr);
             var datasource = this.GetLayoutItem<LoginPageModel>();
             var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);

@@ -17,6 +17,12 @@ namespace eContracting
         {
             public const string COUNTER = "COUNTER";
             public const string MD5 = "CONTENT_MD5_HASH";
+            public const string VERSION = "MODELO_OFERTA";
+        }
+
+        public static class OfferAttributeValues
+        {
+            public const string VERSION_2 = "01";
         }
 
         public static class OfferTypes

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using eContracting.Models;
-using Sitecore.Pipelines.Save;
 
 namespace eContracting.Services
 {
@@ -92,9 +87,6 @@ namespace eContracting.Services
             var task = Task.Run(() => this.AcceptOfferAsync(guid));
             task.Wait();
             var result = task.Result;
-            //var result = this.AcceptOfferAsync(guid).ConfigureAwait(false).GetAwaiter().GetResult();
-            //var result = _taskFactory.StartNew(() => task).Unwrap().GetAwaiter().GetResult();
-            //var result = Task.Run(() => task).Result;
             return result;
         }
 
@@ -125,42 +117,42 @@ namespace eContracting.Services
 
             var offer = this.OfferParser.GenerateOffer(response);
 
-            if (type == OFFER_TYPES.NABIDKA)
+            if (offer == null)
             {
-                await this.CheckLegacyAsync(response, offer);
+                return null;
             }
 
+            var textParameters = await this.GetTextParametersAsync(response);
+            offer.TextParameters.Merge(textParameters);
             return offer;
         }
 
-        protected async Task CheckLegacyAsync(ResponseCacheGetModel offerResponse, OfferModel offer)
+        protected async Task<IDictionary<string, string>> GetTextParametersAsync(ResponseCacheGetModel response)
         {
-            if (offerResponse.Response.ET_FILES.Count() < 2)
+            var version = this.OfferParser.GetVersion(response.Response);
+
+            if (version == 1)
             {
-                this.Logger.Info(offer.Guid, "Offer is legacy. Need to load NABIDKA_XML");
+                var response2 = await this.GetResponseAsync(response.Guid, OFFER_TYPES.NABIDKA_XML);
 
-                var response = await this.GetResponseAsync(offer.Guid, OFFER_TYPES.NABIDKA_XML);
-
-                if (response == null)
+                if (response2 != null)
                 {
-                    this.Logger.Warn(offer.Guid, "NABIDKA_XML not found");
-                    return;
+                    var response2Files = response2.Response.ET_FILES;
+                    return this.OfferParser.GetTextParameters(response2Files);
                 }
-
-                if (!response.HasFiles)
+                else
                 {
-                    this.Logger.Warn(offer.Guid, "NABIDKA_XML has not files");
-                    return;
+                    return new Dictionary<string, string>();
                 }
-
-                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
-                {
-                    var file = response.Response.ET_FILES[i];
-                    this.Logger.Debug(offer.Guid, $"Get text parameters from file '{file.FILENAME}'");
-                    var result = this.OfferParser.GetTextParameters(file);
-                    offer.RawContent.Add(file.FILENAME, result.rawContent);
-                    offer.TextParameters.Merge(result.parameters);
-                }
+            }
+            else if (version == 2)
+            {
+                var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == "AD1")).ToArray();
+                return this.OfferParser.GetTextParameters(files);
+            }
+            else
+            {
+                throw new ApplicationException($"Cannot get text parameters. Unknown version {version}");
             }
         }
 

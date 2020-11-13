@@ -42,13 +42,74 @@ namespace eContracting.Services
             return offerModel;
         }
 
+        /// <inheritdoc/>
+        public int GetVersion(ZCCH_CACHE_GETResponse response)
+        {
+            var attr = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.VERSION);
+
+            if (attr == null)
+            {
+                return 1;
+            }
+
+            if (attr.ATTRVAL == Constants.OfferAttributeValues.VERSION_2)
+            {
+                return 2;
+            }
+
+            return 1;
+        }
+
+        /// <inheritdoc/>
+        public IDictionary<string, string> GetTextParameters(ZCCH_ST_FILE[] files)
+        {
+            var parameters = new Dictionary<string, string>();
+
+            for (int i = 0; i < files.Length; i++)
+            {
+                var xml = Encoding.UTF8.GetString(files[i].FILECONTENT);
+                var doc = new XmlDocument();
+                doc.LoadXml(xml);
+                var xmlParameters = doc.SelectSingleNode("form/parameters").ChildNodes;
+
+                if (xmlParameters != null)
+                {
+                    foreach (XmlNode xmlNode in xmlParameters)
+                    {
+                        var key = xmlNode.Name;
+                        var value = xmlNode.InnerXml;
+
+                        if (parameters.ContainsKey(key))
+                        {
+                            var indexedValue = parameters[key];
+                            var currentValue = value;
+
+                            if (indexedValue != currentValue)
+                            {
+                                if (string.IsNullOrEmpty(indexedValue))
+                                {
+                                    parameters[key] = value;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            parameters[key] = value;
+                        }
+                    }
+                }
+            }
+
+            return parameters;
+        }
+
         /// <summary>
         /// Gets the header from <see cref="ZCCH_CACHE_GETResponse.ES_HEADER"/>.
         /// </summary>
         /// <param name="response">The response.</param>
-        protected internal OfferHeaderModel GetHeader(ResponseCacheGetModel response)
+        protected internal OfferHeaderModel GetHeader(ZCCH_CACHE_GETResponse response)
         {
-            return new OfferHeaderModel(response.Response.ES_HEADER);
+            return new OfferHeaderModel(response.ES_HEADER);
         }
 
         /// <summary>
@@ -56,13 +117,13 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="response">The response.</param>
         /// <returns>Array of attributes.</returns>
-        protected internal OfferAttributeModel[] GetAttributes(ResponseCacheGetModel response)
+        protected internal OfferAttributeModel[] GetAttributes(ZCCH_CACHE_GETResponse response)
         {
             var list = new List<OfferAttributeModel>();
 
-            for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
+            for (int i = 0; i < response.ET_ATTRIB.Length; i++)
             {
-                var attrib = response.Response.ET_ATTRIB[i];
+                var attrib = response.ET_ATTRIB[i];
                 list.Add(new OfferAttributeModel(attrib));
             }
 
@@ -76,54 +137,72 @@ namespace eContracting.Services
         /// <returns>Model or null.</returns>
         protected internal OfferModel ProcessResponse(ResponseCacheGetModel response)
         {
-            var separatedFiles = this.GetSeparatedFiles(response.Response.ET_FILES);
+            var file = this.GetCoreFile(response.Response);
 
-            if (separatedFiles.root == null)
+            if (file == null)
             {
-                return null;
+                throw new ApplicationException("Valid offer not found in the response");
             }
 
-            var header = this.GetHeader(response);
-            var attributes = this.GetAttributes(response);
-
-            var rootResult = this.ProcessRootFile(separatedFiles.root);
-
-            Dictionary<string, string> parameters = null;
-            string ad1RawContent = null;
-
-            if (separatedFiles.ad1 != null)
-            {
-                var ad1Result = this.ProcessAd1File(separatedFiles.ad1);
-
-                parameters = ad1Result.parameters;
-                ad1RawContent = ad1Result.rawContent;
-            }
-
-            var offer = new OfferModel(rootResult.model, header, attributes, parameters);
-            offer.RawContent.Add(separatedFiles.root.FILENAME, rootResult.rawContent);
-
-            if (separatedFiles.ad1 != null)
-            {
-                offer.RawContent.Add(separatedFiles.ad1.FILENAME, ad1RawContent);
-            }
-
+            var header = this.GetHeader(response.Response);
+            var attributes = this.GetAttributes(response.Response);
+            var result = this.ProcessRootFile(file);
+            var rawXml = this.GetRawXml(file);
+            var version = this.GetVersion(response.Response);
+            var offer = new OfferModel(result, version, header, attributes);
+            offer.RawContent.Add(file.FILENAME, rawXml);
             return offer;
         }
 
-        protected internal (ZCCH_ST_FILE root, ZCCH_ST_FILE ad1) GetSeparatedFiles(ZCCH_ST_FILE[] files)
+        /// <summary>
+        /// Gets the core file of the offer.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>The file.</returns>
+        /// <exception cref="System.NotSupportedException">Unknow offer version ({version})</exception>
+        protected internal ZCCH_ST_FILE GetCoreFile(ZCCH_CACHE_GETResponse response)
+        {
+            if (response.ET_FILES.Length == 1)
+            {
+                return response.ET_FILES[0];
+            }
+
+            var version = this.GetVersion(response);
+
+            if (version == 1)
+            {
+                return response.ET_FILES[0];
+            }
+            else if (version == 2)
+            {
+                return response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == "AD1"));
+            }
+            else
+            {
+                throw new NotSupportedException($"No core file found. Unknow offer version {version}");
+            }
+        }
+
+        protected internal string GetRawXml(ZCCH_ST_FILE file)
+        {
+            return Encoding.UTF8.GetString(file.FILECONTENT);
+        }
+
+        [Obsolete]
+        protected internal (ZCCH_ST_FILE root, ZCCH_ST_FILE ad1) GetSeparatedFiles(ResponseCacheGetModel response)
         {
             ZCCH_ST_FILE root = null;
             ZCCH_ST_FILE ad1 = null;
 
-            for (int i = 0; i < files.Take(2).ToArray().Length; i++)
+            for (int i = 0; i < response.Response.ET_FILES.Take(2).ToArray().Length; i++)
             {
-                if (files[i].ATTRIB.Any(x => x.ATTRID == Constants.FileAttributes.TYPE && x.ATTRVAL == "AD1"))
+                if (response.Response.ET_FILES[i].ATTRIB.Any(x => x.ATTRID == Constants.FileAttributes.TYPE && x.ATTRVAL == "AD1"))
                 {
-                    ad1 = ad1 ?? files[i];
+                    ad1 = ad1 ?? response.Response.ET_FILES[i];
                 }
                 else
                 {
-                    root = root ?? files[i];
+                    root = root ?? response.Response.ET_FILES[i];
                 }
             }
 
@@ -135,10 +214,8 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns>Tuple with model and raw XML content.</returns>
-        protected internal (OfferXmlModel model, string rawContent) ProcessRootFile(ZCCH_ST_FILE file)
+        protected internal OfferXmlModel ProcessRootFile(ZCCH_ST_FILE file)
         {
-            var rawContent = Encoding.UTF8.GetString(file.FILECONTENT);
-
             using (var stream = new MemoryStream(file.FILECONTENT, false))
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
@@ -149,7 +226,7 @@ namespace eContracting.Services
                     this.MakeCompatible(offerXml);
                 }
 
-                return (offerXml, rawContent);
+                return offerXml;
             }
         }
 
@@ -181,133 +258,5 @@ namespace eContracting.Services
                 }
             }
         }
-
-        /// <summary>
-        /// Processes the ad1 file with parameters.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// /// <returns>Tuple with model and raw XML content.</returns>
-        protected internal (Dictionary<string, string> parameters, string rawContent) ProcessAd1File(ZCCH_ST_FILE file)
-        {
-            return this.GetTextParameters(file);
-        }
-
-        public (Dictionary<string, string> parameters, string rawContent) GetTextParameters(ZCCH_ST_FILE file)
-        {
-            var rawContent = Encoding.UTF8.GetString(file.FILECONTENT);
-            var parameters = new Dictionary<string, string>();
-            var xml = Encoding.UTF8.GetString(file.FILECONTENT);
-            var doc = new XmlDocument();
-            doc.LoadXml(xml);
-            var xmlParameters = doc.SelectSingleNode("form/parameters").ChildNodes;
-
-            if (xmlParameters != null)
-            {
-                foreach (XmlNode xmlNode in xmlParameters)
-                {
-                    var key = xmlNode.Name;
-                    var value = xmlNode.InnerXml;
-
-                    if (parameters.ContainsKey(key))
-                    {
-                        var indexedValue = parameters[key];
-                        var currentValue = value;
-
-                        if (indexedValue != currentValue)
-                        {
-                            if (string.IsNullOrEmpty(indexedValue))
-                            {
-                                parameters[key] = value;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        parameters[key] = value;
-                    }
-                }
-            }
-
-            return (parameters, rawContent);
-        }
-
-        //protected internal bool GetIsAccepted(ResponseCacheGetModel response)
-        //{
-        //    return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "ACCEPTED_AT")
-        //            && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL)
-        //            && response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Any(c => char.IsDigit(c));
-        //}
-
-        //protected internal string GetAcceptedAt(ResponseCacheGetModel response)
-        //{
-        //    if (!this.GetIsAccepted(response))
-        //    {
-        //        return null;
-        //    }
-
-        //    var acceptedAt = response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL.Trim();
-
-        //    if (DateTime.TryParseExact(acceptedAt, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedAcceptedAt))
-        //    {
-        //        return parsedAcceptedAt.ToString("d.M.yyyy");
-        //    }
-
-        //    return response.Response.ET_ATTRIB.First(x => x.ATTRID == "ACCEPTED_AT").ATTRVAL;
-        //}
-
-        //protected internal string GetCreatedAt(ResponseCacheGetModel response)
-        //{
-        //    if (
-        //        response.Response.ET_ATTRIB != null
-        //        && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CREATED_AT")
-        //        && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL))
-        //    {
-        //        var created = response.Response.ET_ATTRIB.First(x => x.ATTRID == "CREATED_AT").ATTRVAL;
-
-        //        if (DateTime.TryParseExact(created, "yyyyMMddHHmmss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime createdAt))
-        //        {
-        //            return createdAt.ToString("d.M.yyyy");
-        //        }
-        //        else
-        //        {
-        //            return created;
-        //        }
-        //    }
-        //    return null;
-        //}
-
-        //protected internal bool GetHasGdpr(ResponseCacheGetModel response)
-        //{
-        //    return response.Response.ET_ATTRIB != null && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "KEY_GDPR")
-        //                && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "KEY_GDPR").ATTRVAL);
-        //}
-
-        //protected internal string GetCampaign(ResponseCacheGetModel response)
-        //{
-        //    if (
-        //        response.Response.ET_ATTRIB != null
-        //        && response.Response.ET_ATTRIB.Any(x => x.ATTRID == "CAMPAIGN")
-        //        && !string.IsNullOrEmpty(response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL))
-        //    {
-        //        return response.Response.ET_ATTRIB.First(x => x.ATTRID == "CAMPAIGN").ATTRVAL;
-        //    }
-
-        //    return null;
-        //}
-
-        //protected internal string GetGdprKey(ResponseCacheGetModel response)
-        //{
-        //    if (this.GetHasGdpr(response))
-        //    {
-        //        return response.Response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == "KEY_GDPR")?.ATTRVAL;
-        //    }
-
-        //    return null;
-        //}
-
-        //protected internal string GetState(ResponseCacheGetModel response)
-        //{
-        //    return response.Response.ES_HEADER.CCHSTAT;
-        //}
     }
 }

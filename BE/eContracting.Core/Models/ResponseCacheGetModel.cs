@@ -23,6 +23,14 @@ namespace eContracting.Models
         /// </summary>
         public readonly ZCCH_CACHE_GETResponse Response;
 
+        public OFFER_TYPES Type
+        {
+            get
+            {
+                return (OFFER_TYPES)Enum.Parse(typeof(OFFER_TYPES), this.Response.ES_HEADER.CCHTYPE, true);
+            }
+        }
+
         public string Guid
         {
             get

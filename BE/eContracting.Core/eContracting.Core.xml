@@ -595,6 +595,21 @@
             <param name="response">The response.</param>
             <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
         </member>
+        <member name="M:eContracting.IOfferParserService.GetVersion(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets offer version from <paramref name="response"/> data.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Numbered version starting at 1.</returns>
+        </member>
+        <member name="M:eContracting.IOfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Gets the text parameters from given <paramref name="files"/>.
+            </summary>
+            <remarks>There files needs to have XML path 'form/parameters'.</remarks>
+            <param name="files">The files.</param>
+            <returns>Dictionary or null.</returns>
+        </member>
         <member name="T:eContracting.ISettingsReaderService">
             <summary>
             Global settings reader.
@@ -1127,6 +1142,15 @@
             Inner XML with content from SAP.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferModel.Version">
+            <summary>
+            Gets the version of the offer.
+            </summary>
+            <remarks>
+                1 - old offer without bus process type and with text parameters
+                2 - new offer with bus process type and 
+            </remarks>
+        </member>
         <member name="P:eContracting.Models.OfferModel.Guid">
             <summary>
             Gets or sets the unique GUID of this offer.
@@ -1200,14 +1224,14 @@
             Header values from the offer.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[],System.Collections.Generic.Dictionary{System.String,System.String})">
+        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferModel"/> class.
             </summary>
             <param name="xml">The XML.</param>
+            <param name="version">The version.</param>
             <param name="header">The header.</param>
             <param name="attributes">The attributes.</param>
-            <param name="textParameters">The text parameters.</param>
             <exception cref="T:System.ArgumentNullException">
             xml
             or

@@ -259,13 +259,19 @@
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.GetHeader(eContracting.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferParserService.GetVersion(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetHeader(eContracting.Services.ZCCH_CACHE_GETResponse)">
             <summary>
             Gets the header from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER"/>.
             </summary>
             <param name="response">The response.</param>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.GetAttributes(eContracting.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferParserService.GetAttributes(eContracting.Services.ZCCH_CACHE_GETResponse)">
             <summary>
             Gets the attributes from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB"/>.
             </summary>
@@ -279,19 +285,20 @@
             <param name="response">The response.</param>
             <returns>Model or null.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCoreFile(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets the core file of the offer.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>The file.</returns>
+            <exception cref="T:System.NotSupportedException">Unknow offer version ({version})</exception>
+        </member>
         <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
             Processes the root file.
             </summary>
             <param name="file">The file.</param>
             <returns>Tuple with model and raw XML content.</returns>
-        </member>
-        <member name="M:eContracting.Services.OfferParserService.ProcessAd1File(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Processes the ad1 file with parameters.
-            </summary>
-            <param name="file">The file.</param>
-            /// <returns>Tuple with model and raw XML content.</returns>
         </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
             <summary>

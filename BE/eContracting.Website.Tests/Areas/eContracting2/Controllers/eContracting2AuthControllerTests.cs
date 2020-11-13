@@ -49,7 +49,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "1", DateTime.Now.ToString("dd.MM.yyyy"));
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -100,7 +100,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
             
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -130,7 +130,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -160,7 +160,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -392,7 +392,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
@@ -445,7 +445,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
@@ -500,7 +500,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
@@ -560,7 +560,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
@@ -760,7 +760,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -805,7 +805,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var loginType = new LoginTypeModel();
 
@@ -835,7 +835,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var loginType = new LoginTypeModel();
 
@@ -866,7 +866,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
             var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, fakeHeaderModel, fakeAttributes);
+            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
 
             var loginType = new LoginTypeModel();
 
