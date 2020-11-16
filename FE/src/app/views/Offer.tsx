@@ -82,9 +82,12 @@ export const Offer: React.FC<View> = observer(
             label={t('selectFileHelpText')}
             className="my-5"
             selectFileLabel={t('selectFile')}
+            selectFileLabelMobile={t('uploadFile')}
             onFilesAccepted={files => {
               store.addUserFiles(files, 'category1')
             }}
+            useCaptureOnMobile
+            captureFileLabel={t('captureFile')}
             // onFilesRejected={files => {
             //   console.log('rejected')
             //   console.log(files)

@@ -250,6 +250,8 @@ export class OfferStore {
     this.documents = acceptedDocuments
   }
 
+  // TODO: how to deal with files with the same name captured directly by camera
+  // currently happening on iOS devices
   @action public addUserFiles(files: File[], category: string): void {
     // if category does not exist yet => create one and add all files
     if (!this.userDocuments[category]) {
