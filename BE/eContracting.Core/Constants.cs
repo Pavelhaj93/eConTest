@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Sitecore.Data;
-using Sitecore.Globalization;
 
 namespace eContracting
 {
@@ -41,6 +35,7 @@ namespace eContracting
 
         public static class FileAttributes
         {
+            public const string LABEL = "LINK_LABEL";
             public const string TEMPLATE = "TEMPLATE";
             public const string CHECK_VALUE = "X";
             public const string TYPE = "IDATTACH";

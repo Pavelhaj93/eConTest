@@ -45,9 +45,9 @@ namespace eContracting.Services
         {
             var fileName = file.FILENAME;
 
-            if (file.ATTRIB.Any(any => any.ATTRID == "LINK_LABEL"))
+            if (file.ATTRIB.Any(any => any.ATTRID == Constants.FileAttributes.LABEL))
             {
-                var linkLabel = file.ATTRIB.FirstOrDefault(where => where.ATTRID == "LINK_LABEL");
+                var linkLabel = file.ATTRIB.FirstOrDefault(where => where.ATTRID == Constants.FileAttributes.LABEL);
                 fileName = linkLabel.ATTRVAL;
 
                 var extension = Path.GetExtension(file.FILENAME);
