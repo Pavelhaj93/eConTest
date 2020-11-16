@@ -32,6 +32,8 @@ export type AppConfig = {
   doxTimeout?: number
   /** URL where to upload user files. */
   uploadFileUrl?: string
+  /** URL that accepts document id to remove the uploaded document. */
+  removeFileUrl?: string
 }
 
 declare global {
@@ -76,6 +78,7 @@ export type Color =
   | 'gray-100'
 
 export type UploadDocumentResponse = {
+  id?: string | null
   uploaded: boolean
   message?: string
 }

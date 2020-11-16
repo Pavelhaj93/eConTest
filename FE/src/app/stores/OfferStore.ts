@@ -5,6 +5,7 @@ import { action, computed, observable } from 'mobx'
 export class OfferStore {
   private documentsUrl = ''
   private uploadDocumentUrl = ''
+  private removeDocumentUrl = ''
 
   @observable
   public documents: Document[] = []
@@ -38,6 +39,10 @@ export class OfferStore {
 
   public set setUploadDocumentUrl(url: string) {
     this.uploadDocumentUrl = url
+  }
+
+  public set setRemoveDocumentUrl(url: string) {
+    this.removeDocumentUrl = url
   }
 
   /** All documents that are marked to be accepted. */
@@ -115,11 +120,12 @@ export class OfferStore {
 
       fetchTimeout && clearTimeout(fetchTimeout)
 
+      // TODO: if response is 404 => make redirection to error page
       if (!response.ok) {
         throw new Error(`FAILED TO FETCH DOCUMENTS - ${response.status}`)
       }
 
-      const jsonResponse = await (response.json() as Promise<Array<Document>>)
+      const jsonResponse = await    (response.json() as Promise<Array<Document>>)
 
       this.documents = jsonResponse
     } catch (error) {
@@ -281,17 +287,26 @@ export class OfferStore {
 
   /**
    * Remove user document by its name and category.
-   * @param name - file name
+   * @param document - `UserDocument`
    * @param category - category name
    */
-  @action public removeUserDocument(name: string, category: string): void {
+  @action public async removeUserDocument(name: string, category: string): Promise<void> {
     if (!this.userDocuments[category]) {
       return
     }
 
+    const document = this.getUserDocument(name, category)
+
     this.userDocuments[category] = this.userDocuments[category].filter(
       ({ file }) => file.name !== name,
     )
+
+    if (!document?.id) {
+      return
+    }
+
+    // if document has already id (has been successfully uploaded) => sends a request to remove it
+    await fetch(`${this.removeDocumentUrl}${document.id}`)
   }
 
   /**
@@ -299,10 +314,14 @@ export class OfferStore {
    * @param document - file
    * @returns `Promise` in shape of `UploadDocumentResponse`
    */
-  public async uploadDocument(document: UserDocument): Promise<UploadDocumentResponse> {
+  public async uploadDocument(
+    document: UserDocument,
+    category: string,
+  ): Promise<UploadDocumentResponse> {
     const formData = new FormData()
     const { file } = document
     formData.append('file', file, file.name)
+    formData.append('category', category)
 
     const controller = new AbortController()
 
@@ -322,13 +341,15 @@ export class OfferStore {
         throw new Error(`FAILED TO UPLOAD DOCUMENT - ${response.statusText} (${response.status})`)
       }
 
-      const { uploaded, message } = (await response.json()) as UploadDocumentResponse
+      const { uploaded, message, id } = (await response.json()) as UploadDocumentResponse
 
       if (!uploaded) {
         throw new Error(message)
       }
 
-      return Promise.resolve({ uploaded: true })
+      document.id = id ?? null
+
+      return Promise.resolve({ uploaded: true, id })
     } catch (error) {
       let message = undefined
 

@@ -226,11 +226,12 @@ describe('General offer', () => {
 
     const document = store.getUserDocument(file.name, category) as UserDocument
 
-    fetch.mockResponseOnce(JSON.stringify({ uploaded: true }))
-    await store.uploadDocument(document)
+    fetch.mockResponseOnce(JSON.stringify({ uploaded: true, id: 'aco123' }))
+    await store.uploadDocument(document, category)
 
     expect(document.touched).toBe(true)
     expect(document.error).toBeFalsy()
+    expect(document.id).toBeTruthy()
   })
 
   it('rejects the document during upload', async () => {
@@ -248,7 +249,7 @@ describe('General offer', () => {
 
     const apiMessage = 'API is unavailable'
     fetch.mockRejectOnce(() => Promise.reject(apiMessage))
-    await store.uploadDocument(document)
+    await store.uploadDocument(document, category)
 
     expect(document.touched).toBe(true)
     expect(document.error).toBe(apiMessage)

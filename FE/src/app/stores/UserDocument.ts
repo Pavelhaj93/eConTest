@@ -2,6 +2,9 @@ import { observable } from 'mobx'
 
 export class UserDocument {
   @observable
+  public id: string | null
+
+  @observable
   public file: File
 
   @observable
@@ -22,11 +25,13 @@ export class UserDocument {
     error?: string,
     uploading?: boolean,
     controller?: AbortController,
+    id?: string,
   ) {
     this.file = file
     this.touched = Boolean(touched)
     this.error = error
     this.uploading = Boolean(uploading)
     this.controller = controller
+    this.id = id ?? null
   }
 }

@@ -1,3 +1,5 @@
+const { generateId } = require('../../strings')
+
 /**
  * Mock upload document response by returning 200 or 400 HTTP status code.
  * Also simulate a short delay.
@@ -12,8 +14,9 @@ module.exports = function (request, response) {
   if (random > 10) {
     statusCode = 200
     jsonResponse = {
+      id: random > 40 ? generateId() : null,
       uploaded: random > 40,
-      message: random < 40 && 'Document has invalid type'
+      message: random < 40 && 'Document has invalid type',
     }
   } else {
     statusCode = 400

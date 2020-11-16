@@ -34,6 +34,7 @@ export const Offer: React.FC<View> = observer(
     signFileUrl,
     doxTimeout,
     uploadFileUrl,
+    removeFileUrl,
   }) => {
     const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -48,6 +49,10 @@ export const Offer: React.FC<View> = observer(
       // set correct upload document URL if provided
       if (uploadFileUrl) {
         store.setUploadDocumentUrl = uploadFileUrl
+      }
+
+      if (removeFileUrl) {
+        store.setRemoveDocumentUrl = removeFileUrl
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -96,7 +101,7 @@ export const Offer: React.FC<View> = observer(
                         store.cancelUploadDocument(document)
                         store.removeUserDocument(document.file.name, 'category1')
                       }}
-                      uploadHandler={() => store.uploadDocument(document)}
+                      uploadHandler={() => store.uploadDocument(document, 'category1')}
                       // do not allow to reupload of already touched file (both with success or error)
                       shouldUploadImmediately={!document.touched}
                       error={document.error}
