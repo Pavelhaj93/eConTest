@@ -149,34 +149,34 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public string GetPageLink(PageLinkTypes type)
+        public string GetPageLink(PAGE_LINK_TYPES type)
         {
             var settings = this.GetSiteSettings();
 
             switch (type)
             {
-                case PageLinkTypes.Offer:
+                case PAGE_LINK_TYPES.Offer:
                     return settings.Offer.Url;
-                case PageLinkTypes.SessionExpired:
+                case PAGE_LINK_TYPES.SessionExpired:
                     return settings.SessionExpired.Url;
-                case PageLinkTypes.UserBlocked:
+                case PAGE_LINK_TYPES.UserBlocked:
                     return settings.UserBlocked.Url;
-                case PageLinkTypes.AcceptedOffer:
+                case PAGE_LINK_TYPES.AcceptedOffer:
                     return settings.AcceptedOffer.Url;
-                case PageLinkTypes.WrongUrl:
+                case PAGE_LINK_TYPES.WrongUrl:
                     return settings.WrongUrl.Url;
-                case PageLinkTypes.OfferExpired:
+                case PAGE_LINK_TYPES.OfferExpired:
                     return settings.OfferExpired.Url;
-                case PageLinkTypes.ThankYou:
+                case PAGE_LINK_TYPES.ThankYou:
                     return settings.ThankYou.Url;
-                case PageLinkTypes.SystemError:
+                case PAGE_LINK_TYPES.SystemError:
                     return settings.SystemError.Url;
-                case PageLinkTypes.Welcome:
+                case PAGE_LINK_TYPES.Welcome:
                     return settings.Welcome.Url;
-                case PageLinkTypes.Login:
+                case PAGE_LINK_TYPES.Login:
                     return settings.Login.Url;
                 default:
-                    throw new InvalidOperationException($"Invalid page type ({Enum.GetName(typeof(PageLinkTypes), type)}).");
+                    throw new InvalidOperationException($"Invalid page type ({Enum.GetName(typeof(PAGE_LINK_TYPES), type)}).");
             }
         }
 

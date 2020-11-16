@@ -663,13 +663,13 @@
             </summary>
             <returns>The configuration.</returns>
         </member>
-        <member name="M:eContracting.ISettingsReaderService.GetPageLink(eContracting.PageLinkTypes)">
+        <member name="M:eContracting.ISettingsReaderService.GetPageLink(eContracting.PAGE_LINK_TYPES)">
             <summary>
             Gets url from site settings.
             </summary>
             <param name="type">The type.</param>
             <returns>Url or exception.</returns>
-            <exception cref="T:System.InvalidOperationException">When <see cref="T:eContracting.PageLinkTypes"/> cannot be resolved.</exception>
+            <exception cref="T:System.InvalidOperationException">When <see cref="T:eContracting.PAGE_LINK_TYPES"/> cannot be resolved.</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetSiteSettings">
             <summary>
@@ -1539,57 +1539,57 @@
             Type "NABIDKA_ARCH" contains attached files for accepted offer.
             </summary>
         </member>
-        <member name="T:eContracting.PageLinkTypes">
+        <member name="T:eContracting.PAGE_LINK_TYPES">
             <summary>
             Enumeration of page link types defined on <c>/sitecore/content/eContracting2</c>.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.SessionExpired">
+        <member name="F:eContracting.PAGE_LINK_TYPES.SessionExpired">
             <summary>
             Expired session.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.UserBlocked">
+        <member name="F:eContracting.PAGE_LINK_TYPES.UserBlocked">
             <summary>
             User is blocked.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.Offer">
+        <member name="F:eContracting.PAGE_LINK_TYPES.Offer">
             <summary>
             The offer.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.AcceptedOffer">
+        <member name="F:eContracting.PAGE_LINK_TYPES.AcceptedOffer">
             <summary>
             Offer is accepted.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.WrongUrl">
+        <member name="F:eContracting.PAGE_LINK_TYPES.WrongUrl">
             <summary>
             Wrong url.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.OfferExpired">
+        <member name="F:eContracting.PAGE_LINK_TYPES.OfferExpired">
             <summary>
             Offer expired.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.ThankYou">
+        <member name="F:eContracting.PAGE_LINK_TYPES.ThankYou">
             <summary>
             Thank you link.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.SystemError">
+        <member name="F:eContracting.PAGE_LINK_TYPES.SystemError">
             <summary>
             System error link.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.Welcome">
+        <member name="F:eContracting.PAGE_LINK_TYPES.Welcome">
             <summary>
             Welcome page.
             </summary>
         </member>
-        <member name="F:eContracting.PageLinkTypes.Login">
+        <member name="F:eContracting.PAGE_LINK_TYPES.Login">
             <summary>
             Login page.
             </summary>

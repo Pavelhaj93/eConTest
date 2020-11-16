@@ -136,7 +136,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (!authTypes.Any())
                 {
                     this.Logger.Fatal(guid, $"No authentication types found ({Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES})");
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
                 }
 
                 var datasource = this.GetLayoutItem<LoginPageModel>();
@@ -157,26 +157,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (ex.InnerException is EndpointNotFoundException)
                 {
                     this.Logger.Fatal(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH1_CACHE})", ex);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE);
                 }
 
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_CACHE2})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2);
             }
             catch (ApplicationException ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
             }
             catch (InvalidOperationException ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_INV_OP})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_INV_OP);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_INV_OP);
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_UNKNOWN);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_UNKNOWN);
             }
         }
 
@@ -226,45 +226,45 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (offer.IsAccepted)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer);
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
                     this.Logger.Info(guid, $"Offer already accepted");
                     return Redirect(redirectUrl);
                 }
 
                 if (offer.OfferIsExpired)
                 {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired);
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
                     this.Logger.Info(guid, $"Offer expired");
                     return this.Redirect(redirectUrl);
                 }
 
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.Offer));
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer));
             }
             catch (AggregateException ex)
             {
                 if (ex.InnerException is EndpointNotFoundException)
                 {
                     this.Logger.Error(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH2_CACHE})", ex);
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE);
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE);
                 }
 
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_CACHE2})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE2);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE2);
             }
             catch (ApplicationException ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_APP);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_APP);
             }
             catch (InvalidOperationException ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_INV_OP);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_INV_OP);
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
+                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
             }
         }
 
@@ -418,32 +418,32 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             if (canLogin == LoginStates.INVALID_GUID)
             {
-                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.INVALID_GUID;
+                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.INVALID_GUID;
                 return Redirect(url);
             }
 
             if (canLogin == LoginStates.OFFER_NOT_FOUND)
             {
-                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
+                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
                 return Redirect(url);
             }
 
             if (canLogin == LoginStates.USER_BLOCKED)
             {
-                return Redirect(this.SettingsReaderService.GetPageLink(PageLinkTypes.UserBlocked));
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.UserBlocked));
             }
 
             if (canLogin == LoginStates.OFFER_STATE_1)
             {
                 this.Logger.Warn(guid, $"Offer with state [1] will be ignored");
-                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
+                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
                 return Redirect(url);
             }
 
             if (canLogin == LoginStates.MISSING_BIRTHDAY)
             {
                 this.Logger.Warn(guid, $"Attribute BIRTHDT is offer is empty");
-                var url = this.SettingsReaderService.GetPageLink(PageLinkTypes.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
+                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
                 return Redirect(url);
             }
 

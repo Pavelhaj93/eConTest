@@ -270,7 +270,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.WrongUrl)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<LoginPageModel>(false, false)).Returns(new LoginPageModel());
@@ -313,7 +313,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.WrongUrl)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -356,7 +356,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.UserBlocked)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.UserBlocked)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(false);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -408,7 +408,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.WrongUrl)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -461,7 +461,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.WrongUrl)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -622,7 +622,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.SystemError)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -667,7 +667,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetPageLink(PageLinkTypes.SystemError)).Returns(redirectUrl);
+            mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();

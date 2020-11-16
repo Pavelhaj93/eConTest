@@ -75,7 +75,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     this.Logger.Debug(guid, $"Session expired");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SessionExpired);
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired);
                     return Redirect(redirectUrl);
                 }
 
@@ -87,21 +87,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (offer.IsAccepted)
                 {
                     this.Logger.Debug(guid, $"Offer already accepted");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.AcceptedOffer);
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
                     return Redirect(redirectUrl);
                 }
 
                 if (offer.OfferIsExpired)
                 {
                     this.Logger.Debug(guid, $"Offer expired");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.OfferExpired);
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
                     return Redirect(redirectUrl);
                 }
 
                 if (!this.ApiService.SignInOffer(guid))
                 {
                     this.Logger.Debug(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED;
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED;
                     return Redirect(redirectUrl);
                 }
 
@@ -141,7 +141,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error($"[{guid}] Error when displaying offer.", ex);
-                var redirectUrl = this.SettingsReaderService.GetPageLink(PageLinkTypes.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_EXCEPTION;
+                var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_EXCEPTION;
                 return this.Redirect(redirectUrl);
             }
         }

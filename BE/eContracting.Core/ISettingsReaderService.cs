@@ -69,8 +69,8 @@ namespace eContracting
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>Url or exception.</returns>
-        /// <exception cref="InvalidOperationException">When <see cref="PageLinkTypes"/> cannot be resolved.</exception>
-        string GetPageLink(PageLinkTypes type);
+        /// <exception cref="InvalidOperationException">When <see cref="PAGE_LINK_TYPES"/> cannot be resolved.</exception>
+        string GetPageLink(PAGE_LINK_TYPES type);
 
         /// <summary>
         /// Gets the site settings.

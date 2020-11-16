@@ -3,7 +3,7 @@ namespace eContracting
     /// <summary>
     /// Enumeration of page link types defined on <c>/sitecore/content/eContracting2</c>.
     /// </summary>
-    public enum PageLinkTypes
+    public enum PAGE_LINK_TYPES
     {
         /// <summary>
         /// Expired session.
