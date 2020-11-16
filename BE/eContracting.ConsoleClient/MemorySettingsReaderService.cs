@@ -63,7 +63,7 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public string GetPageLink(PageLinkTypes type)
+        public string GetPageLink(PAGE_LINK_TYPES type)
         {
             throw new NotImplementedException();
         }

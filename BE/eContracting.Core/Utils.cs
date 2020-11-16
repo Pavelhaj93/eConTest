@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using eContracting.Models;
+using eContracting.Services;
 using Sitecore.Web;
 
 namespace eContracting
@@ -146,6 +147,11 @@ namespace eContracting
             }
 
             return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
+        }
+
+        public static string GetRawXml(ZCCH_ST_FILE file)
+        {
+            return Encoding.UTF8.GetString(file.FILECONTENT);
         }
     }
 }

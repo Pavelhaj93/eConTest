@@ -82,7 +82,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var user = this.AuthenticationService.GetCurrentUser();
                 guid = user.Guid;
 
-                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA); //TODO: Or NABIDKA_PDF ?
+                var offer = this.ApiService.GetOffer(guid); //TODO: Or NABIDKA_PDF ?
 
                 if (offer.IsAccepted)
                 {
@@ -268,7 +268,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 guid = this.AuthenticationService.GetCurrentUser().Guid;
-                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
+                var offer = this.ApiService.GetOffer(guid);
                 var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
                 mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
 

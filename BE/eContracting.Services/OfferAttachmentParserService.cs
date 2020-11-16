@@ -9,31 +9,104 @@ using Sitecore.Pipelines.Save;
 namespace eContracting.Services
 {
     /// <inheritdoc/>
-    /// <seealso cref="eContracting.Services.IOfferAttachmentParserService" />
+    /// <seealso cref="IOfferAttachmentParserService" />
     public class OfferAttachmentParserService : IOfferAttachmentParserService
     {
-        /// <inheritdoc/>
-        public OfferAttachmentXmlModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
+        /// <summary>
+        /// The logger.
+        /// </summary>
+        protected readonly ILogger Logger;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferAttachmentParserService"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <exception cref="ArgumentNullException">logger</exception>
+        public OfferAttachmentParserService(ILogger logger)
         {
-            var list = new List<OfferAttachmentXmlModel>();
+            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+
+        /// <inheritdoc/>
+        public OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
+        {
+            var list = new List<OfferAttachmentModel>();
+
+            for (int i = 0; i < offer.Attachments.Length; i++)
+            {
+                var attachment = offer.Attachments[i];
+
+                if (string.IsNullOrEmpty(attachment.IdAttach))
+                {
+                    this.Logger.Error(offer.Guid, $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})");
+                    continue;
+                }
+
+                // if attachment exists in files
+                if (attachment.Printed == Constants.FileAttributes.CHECK_VALUE)
+                {
+                    OfferAttachmentModel item = null;
+
+                    for (int y = 0; y < files.Length; y++)
+                    {
+                        var file = files[y];
+                        var fileIdAttach = this.GetIdAttach(file);
+
+                        if (attachment.IdAttach == fileIdAttach)
+                        {
+                            var uniqueKey = this.GetUniqueKey(file);
+                            var attrs = this.GetAttributes(file);
+                            item = new OfferAttachmentModel(attachment, uniqueKey, fileIdAttach, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
+                        }
+                    }
+
+                    if (item != null)
+                    {
+                        list.Add(item);
+                    }
+                    else
+                    {
+                        this.Logger.Error(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
+                        //throw new ApplicationException($"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
+                        continue;
+                    }
+                }
+                // otherwise this file must be uploaded by user
+                else
+                {
+                    var item = new OfferAttachmentModel(attachment);
+                    list.Add(item);
+                }
+            }
 
             for (int i = 0; i < files.Length; i++)
             {
-                var fileName = this.GetFileName(files[i]);
-                var uniqueKey = this.GetUniqueKey(files[i]);
-                var attrs = this.GetAttributes(files[i]);
-                var fileModel = new OfferAttachmentXmlModel(
+                var file = files[i];
+                var idAttach = this.GetIdAttach(file);
+                var fileName = this.GetFileName(file);
+                var uniqueKey = this.GetUniqueKey(file);
+                var attrs = this.GetAttributes(file);
+
+                var fileModel = new OfferAttachmentModel(
                 uniqueKey: uniqueKey,
-                mimeType: files[i].MIMETYPE,
+                idAttach: idAttach,
+                mimeType: file.MIMETYPE,
                 index: i.ToString(),
-                name: fileName,
+                fileName: fileName,
+                originalFileName: file.FILENAME,
                 signedVersion: false,
                 attributes: attrs,
-                content: files[i].FILECONTENT);
+                content: file.FILECONTENT);
+
                 list.Add(fileModel);
             }
 
             return list.ToArray();
+        }
+
+        protected internal string GetIdAttach(ZCCH_ST_FILE file)
+        {
+            return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
         }
 
         /// <summary>

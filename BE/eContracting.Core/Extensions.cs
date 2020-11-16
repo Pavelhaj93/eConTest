@@ -40,6 +40,11 @@ namespace eContracting
             return Constants.FileAttributeDefaults.COUNTER;
         }
 
+        public static string GetIdAttach(this ZCCH_ST_FILE file)
+        {
+            return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
+        }
+
         /// <summary>
         /// Merges two dictionaries.
         /// </summary>

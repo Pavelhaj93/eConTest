@@ -20,7 +20,7 @@ namespace eContracting.Services
             logger.Debug(model.IV_CCHKEY, $"[{model.IV_CCHTYPE}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
-        public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentXmlModel> files, string guid, bool IsAccepted)
+        public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentModel> files, string guid, bool IsAccepted)
         {
             var accept = IsAccepted ? "accepted" : "not accepted";
 

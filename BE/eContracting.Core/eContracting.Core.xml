@@ -350,32 +350,31 @@
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetAttachmentsAsync(System.String)">
+        <member name="M:eContracting.IApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
             <summary>
             Gets the files asynchronous.
             </summary>
-            <param name="guid">The unique identifier.</param>
+            <param name="offer">The offer with attachment templates.</param>
             <returns>Files in array or null</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetAttachments(System.String)">
+        <member name="M:eContracting.IApiService.GetAttachments(eContracting.Models.OfferModel)">
             <summary>
             Gets the files synchronous.
             </summary>
-            <param name="guid">The unique identifier.</param>
+            <param name="offer">The offer with attachment templates.</param>
             <returns>Files in array or null</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetOffer(System.String,eContracting.OFFER_TYPES)">
+        <member name="M:eContracting.IApiService.GetOffer(System.String)">
             <summary>
-            Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
+            Gets the offer by <paramref name="guid"/> synchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
-            <param name="type">Offer type.</param>
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
+        <member name="M:eContracting.IApiService.GetOfferAsync(System.String)">
             <summary>
-            Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
+            Gets the offer by <paramref name="guid"/> asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <param name="type">Offer type.</param>
@@ -571,7 +570,7 @@
         </member>
         <member name="T:eContracting.IOfferAttachmentParserService">
             <summary>
-            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> object.
+            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentModel"/> object.
             </summary>
         </member>
         <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
@@ -798,104 +797,130 @@
             </summary>
             <param name="items">The items.</param>
         </member>
-        <member name="T:eContracting.Models.OfferAttachmentXmlModel">
+        <member name="T:eContracting.Models.OfferAttachmentModel">
             <summary>
             Represents file from 'ZCCH_CACHE_API'
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.UniqueKey">
+        <member name="F:eContracting.Models.OfferAttachmentModel.UniqueKey">
             <summary>
             The unique key.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.Index">
+        <member name="F:eContracting.Models.OfferAttachmentModel.IdAttach">
+            <summary>
+            The identifier of the attachment. 
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.Index">
             <summary>
             Gets or set index.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.FileType">
-            <summary>
-            Gets or sets a file type.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.MimeType">
+        <member name="F:eContracting.Models.OfferAttachmentModel.MimeType">
             <summary>
             The MIME type of the file.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileName">
+        <member name="F:eContracting.Models.OfferAttachmentModel.OriginalFileName">
+            <summary>
+            The original file name generated from SAP.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.FileName">
             <summary>
             Gets or sets file name.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.SignedVersion">
-            <summary>
-            Gets or sets a value indicating whether this version of document is signed.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.FileContent">
-            <summary>
-            Gets or sets file content.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentXmlModel.Attributes">
-            <summary>
-            The file attributes.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Size">
-            <summary>
-            Gets the size.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.SizeLabel">
-            <summary>
-            Gets size description.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Template">
-            <summary>
-            Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Group">
+        <member name="F:eContracting.Models.OfferAttachmentModel.Group">
             <summary>
             Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsGroupOblig">
+        <member name="F:eContracting.Models.OfferAttachmentModel.IsGroupOblig">
             <summary>
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.GROUP_OBLIG"/> with value 'X'.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsPrinted">
+        <member name="F:eContracting.Models.OfferAttachmentModel.IsPrinted">
             <summary>
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.PRINTED"/> with value 'X'.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IsSignReq">
+        <member name="F:eContracting.Models.OfferAttachmentModel.IsSignReq">
             <summary>
             Gets <c>true</c> if there is <see cref="F:eContracting.Constants.FileAttributes.SIGN_REQ"/> with value 'X'.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor">
+        <member name="F:eContracting.Models.OfferAttachmentModel.SignedVersion">
             <summary>
-            Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class from being created.
+            Gets or sets a value indicating whether this version of document is signed.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.#ctor(System.String,System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="F:eContracting.Models.OfferAttachmentModel.FileContent">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> class.
+            Gets or sets file content.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.Attributes">
+            <summary>
+            The file attributes.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentModel.Size">
+            <summary>
+            Gets the size.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentModel.SizeLabel">
+            <summary>
+            Gets size description.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferAttachmentModel.Template">
+            <summary>
+            Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor">
+            <summary>
+            Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
             <param name="uniqueKey">The unique key.</param>
+            <param name="idAttach">Id of the attachment.</param>
             <param name="mimeType">Type of the MIME.</param>
             <param name="index">The index.</param>
-            <param name="name">The name.</param>
+            <param name="originalFileName">Original file name.</param>
+            <param name="fileName">The labeled file name.</param>
             <param name="signedVersion">if set to <c>true</c> [signed version].</param>
             <param name="attributes">The attributes.</param>
             <param name="content">The content.</param>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsAttributeChecked(System.String)">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
+            </summary>
+            <param name="template">The template.</param>
+            <exception cref="T:System.ArgumentNullException">template</exception>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="uniqueKey">The unique key.</param>
+            <param name="idAttach">The identifier attach.</param>
+            <param name="mimeType">Type of the MIME.</param>
+            <param name="originalFileName">Name of the original file.</param>
+            <param name="attributes">The attributes.</param>
+            <param name="content">The content.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.IsAttributeChecked(System.String)">
             <summary>
             Determines whether an attribute with <paramref name="key"/> has value 'X'.
             </summary>
@@ -1524,6 +1549,12 @@
             <value>
             Parsed value from <see cref="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
             </value>
+        </member>
+        <member name="T:eContracting.Models.DocumentTemplateModel">
+            <summary>
+            Represents document template from <see cref="F:eContracting.OFFER_TYPES.NABIDKA"/>.
+            </summary>
+            <remarks>This template doesn't contain a file content.</remarks>
         </member>
         <member name="T:eContracting.OFFER_TYPES">
             <summary>

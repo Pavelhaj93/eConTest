@@ -87,7 +87,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                         if (!string.IsNullOrEmpty(guid))
                         {
                             var api = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
-                            var offer = api.GetOffer(guid, OFFER_TYPES.NABIDKA);
+                            var offer = api.GetOffer(guid);
 
                             if (offer != null)
                             {

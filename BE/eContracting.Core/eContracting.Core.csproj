@@ -114,7 +114,7 @@
     <Compile Include="Models\LoginPageModel.cs" />
     <Compile Include="Models\LoginStates.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
-    <Compile Include="Models\OfferAttachmentXmlModel.cs" />
+    <Compile Include="Models\OfferAttachmentModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />
     <Compile Include="Models\OfferContentXmlModel.cs" />
     <Compile Include="Models\OfferAttributeModel.cs" />
@@ -141,7 +141,7 @@
     <Compile Include="SitecoreContextWrapper.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ILogger.cs" />
-    <Compile Include="Models\DocumentFileModel.cs" />
+    <Compile Include="Models\DocumentTemplateModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecoreLogger.cs" />
   </ItemGroup>

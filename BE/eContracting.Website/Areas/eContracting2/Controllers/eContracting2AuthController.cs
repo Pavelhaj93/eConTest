@@ -117,7 +117,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
                 //}
 
-                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
+                var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.CanLogin(guid, offer);
 
                 if (canLogin != LoginStates.OK)
@@ -202,7 +202,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    return Redirect(url);
                 //}
 
-                var offer = this.ApiService.GetOffer(guid, OFFER_TYPES.NABIDKA);
+                var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.CanLogin(guid, offer);
 
                 if (canLogin != LoginStates.OK)

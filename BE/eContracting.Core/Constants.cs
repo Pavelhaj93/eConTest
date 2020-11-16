@@ -52,6 +52,7 @@ namespace eContracting
         public static class FileAttributeValues
         {
             public const string TEXT_PARAMETERS = "AD1";
+            public const string CHECK_VALUE = "X";
         }
 
         public static class FileAttributeDefaults

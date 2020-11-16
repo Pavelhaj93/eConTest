@@ -100,16 +100,16 @@
         <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetOffer(System.String,eContracting.OFFER_TYPES)">
+        <member name="M:eContracting.Services.SapApiService.GetOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String,eContracting.OFFER_TYPES)">
+        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetAttachments(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetAttachments(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetAttachmentsAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SapApiService.ReadOffer(System.String)">
@@ -237,7 +237,19 @@
         </member>
         <member name="T:eContracting.Services.OfferAttachmentParserService">
             <inheritdoc/>
-            <seealso cref="!:eContracting.Services.IOfferAttachmentParserService" />
+            <seealso cref="T:eContracting.IOfferAttachmentParserService" />
+        </member>
+        <member name="F:eContracting.Services.OfferAttachmentParserService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.#ctor(eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferAttachmentParserService"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">logger</exception>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>

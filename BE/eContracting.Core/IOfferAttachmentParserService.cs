@@ -4,7 +4,7 @@ using eContracting.Services;
 namespace eContracting
 {
     /// <summary>
-    /// Represents parser from <see cref="ZCCH_ST_FILE"/> to <see cref="OfferAttachmentXmlModel"/> object.
+    /// Represents parser from <see cref="ZCCH_ST_FILE"/> to <see cref="OfferAttachmentModel"/> object.
     /// </summary>
     public interface IOfferAttachmentParserService
     {
@@ -14,6 +14,6 @@ namespace eContracting
         /// <param name="offer">The offer.</param>
         /// <param name="files">The files.</param>
         /// <returns>Array of files.</returns>
-        OfferAttachmentXmlModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files);
+        OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files);
     }
 }

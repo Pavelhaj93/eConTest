@@ -179,7 +179,7 @@ namespace eContracting.Models
         }
 
         [JsonIgnore]
-        public DocumentFileModel[] Attachments
+        public DocumentTemplateModel[] Attachments
         {
             get
             {

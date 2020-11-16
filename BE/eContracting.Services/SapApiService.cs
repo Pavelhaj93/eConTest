@@ -97,18 +97,18 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferModel GetOffer(string guid, OFFER_TYPES type)
+        public OfferModel GetOffer(string guid)
         {
-            var task = Task.Run(() => this.GetOfferAsync(guid, type));
+            var task = Task.Run(() => this.GetOfferAsync(guid));
             task.Wait();
             var result = task.Result;
             return result;
         }
 
         /// <inheritdoc/>
-        public async Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type)
+        public async Task<OfferModel> GetOfferAsync(string guid)
         {
-            var response = await this.GetResponseAsync(guid, type);
+            var response = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA);
 
             if (response == null)
             {
@@ -128,35 +128,26 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferAttachmentXmlModel[] GetAttachments(string guid)
+        public OfferAttachmentModel[] GetAttachments(OfferModel offer)
         {
-            var task = Task.Run(() => this.GetAttachmentsAsync(guid));
+            var task = Task.Run(() => this.GetAttachmentsAsync(offer));
             task.Wait();
             var result = task.Result;
             return result;
         }
 
         /// <inheritdoc/>
-        public async Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid)
+        public async Task<OfferAttachmentModel[]> GetAttachmentsAsync(OfferModel offer)
         {
-            var result = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA);
-
-            if (result == null)
-            {
-                return null;
-            }
-
-            var offer = this.OfferParser.GenerateOffer(result);
-
             if (offer == null)
             {
                 throw new ApplicationException("Offer is null");
             }
 
             bool isAccepted = offer.IsAccepted;
-            ZCCH_ST_FILE[] files = await this.GetFilesAsync(guid, isAccepted);
+            ZCCH_ST_FILE[] files = await this.GetFilesAsync(offer.Guid, isAccepted);
             var attachments = this.AttachmentParser.Parse(offer, files);
-            this.Logger.LogFiles(attachments, guid, isAccepted);
+            this.Logger.LogFiles(attachments, offer.Guid, isAccepted);
             return attachments.ToArray();
         }
 

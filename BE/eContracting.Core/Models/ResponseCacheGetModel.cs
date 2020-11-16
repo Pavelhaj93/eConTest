@@ -50,7 +50,7 @@ namespace eContracting.Models
             }
         }
         
-        public OfferAttachmentXmlModel[] Attachments { get; set; }
+        public OfferAttachmentModel[] Attachments { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ResponseCacheGetModel"/> class.

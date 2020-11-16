@@ -34,7 +34,7 @@ namespace eContracting.ConsoleClient.Commands
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
             //this.Logger.Suspend(true);
-            var offer = await this.ApiService.GetOfferAsync(guid, OFFER_TYPES.NABIDKA);
+            var offer = await this.ApiService.GetOfferAsync(guid);
 
             if (offer == null)
             {

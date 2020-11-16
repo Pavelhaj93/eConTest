@@ -310,7 +310,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns((OfferModel)null);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
@@ -353,7 +353,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns((OfferModel)null);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.UserBlocked)).Returns(redirectUrl);
@@ -405,7 +405,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
@@ -458,7 +458,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
@@ -511,7 +511,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(() =>
             {
                 wasRead = true;
@@ -571,7 +571,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(offer);
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -619,7 +619,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
@@ -664,7 +664,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
-            mockApiService.Setup(x => x.GetOffer(guid, OFFER_TYPES.NABIDKA)).Returns(() => { throw aggregageException; });
+            mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);

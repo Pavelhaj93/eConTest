@@ -26,6 +26,7 @@ namespace eContracting.ConsoleClient
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
+                    services.AddScopedCommand<CompareIdAttach>();
                 });
                 await consinloop.Run();
             }

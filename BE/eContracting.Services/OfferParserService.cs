@@ -147,7 +147,7 @@ namespace eContracting.Services
             var header = this.GetHeader(response.Response);
             var attributes = this.GetAttributes(response.Response);
             var result = this.ProcessRootFile(file);
-            var rawXml = this.GetRawXml(file);
+            var rawXml = Utils.GetRawXml(file);
             var version = this.GetVersion(response.Response);
             var offer = new OfferModel(result, version, header, attributes);
             offer.RawContent.Add(file.FILENAME, rawXml);
@@ -181,11 +181,6 @@ namespace eContracting.Services
             {
                 throw new NotSupportedException($"No core file found. Unknow offer version {version}");
             }
-        }
-
-        protected internal string GetRawXml(ZCCH_ST_FILE file)
-        {
-            return Encoding.UTF8.GetString(file.FILECONTENT);
         }
 
         [Obsolete]

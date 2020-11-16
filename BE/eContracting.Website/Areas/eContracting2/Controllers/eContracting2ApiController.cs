@@ -61,7 +61,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             var user = this.AuthService.GetCurrentUser();
-            var attachments = await this.ApiService.GetAttachmentsAsync(user.Guid);
+            var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+            if (offer == null)
+            {
+                return this.StatusCode(HttpStatusCode.NoContent);
+            }
+
+            var attachments = await this.ApiService.GetAttachmentsAsync(offer);
 
             if ((attachments?.Length ?? 0) == 0)
             {
@@ -83,6 +90,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             var user = this.AuthService.GetCurrentUser();
+            var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+            if (offer == null)
+            {
+                return this.StatusCode(HttpStatusCode.NoContent);
+            }
+
             var attachments = await this.ApiService.GetAttachmentsAsync(user.Guid);
             var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 

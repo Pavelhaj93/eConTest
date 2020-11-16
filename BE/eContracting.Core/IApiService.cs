@@ -41,34 +41,33 @@ namespace eContracting
         /// <summary>
         /// Gets the files asynchronous.
         /// </summary>
-        /// <param name="guid">The unique identifier.</param>
+        /// <param name="offer">The offer with attachment templates.</param>
         /// <returns>Files in array or null</returns>
-        Task<OfferAttachmentXmlModel[]> GetAttachmentsAsync(string guid);
+        Task<OfferAttachmentModel[]> GetAttachmentsAsync(OfferModel offer);
 
         /// <summary>
         /// Gets the files synchronous.
         /// </summary>
-        /// <param name="guid">The unique identifier.</param>
+        /// <param name="offer">The offer with attachment templates.</param>
         /// <returns>Files in array or null</returns>
-        OfferAttachmentXmlModel[] GetAttachments(string guid);
+        OfferAttachmentModel[] GetAttachments(OfferModel offer);
 
         /// <summary>
-        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> synchronously.
+        /// Gets the offer by <paramref name="guid"/> synchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <returns>The offer.</returns>
+        /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
+        OfferModel GetOffer(string guid);
+
+        /// <summary>
+        /// Gets the offer by <paramref name="guid"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
-        OfferModel GetOffer(string guid, OFFER_TYPES type);
-
-        /// <summary>
-        /// Gets the offer by <paramref name="guid"/> and <paramref name="type"/> asynchronously.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Offer type.</param>
-        /// <returns>The offer.</returns>
-        /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
-        Task<OfferModel> GetOfferAsync(string guid, OFFER_TYPES type);
+        Task<OfferModel> GetOfferAsync(string guid);
 
         /// <summary>
         /// Make offer <paramref name="guid"/> signed.
