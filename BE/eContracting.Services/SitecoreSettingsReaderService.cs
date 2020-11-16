@@ -40,7 +40,7 @@ namespace eContracting.Services
         {
             var items = this.Context.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
 
-            if (items?.Count() == 0)
+            if (!items.Any())
             {
                 throw new MissingDatasourceException("No login types found");
             }
@@ -53,7 +53,7 @@ namespace eContracting.Services
         {
             var items =  this.Context.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES);
 
-            if (items?.Count() == 0)
+            if (!items.Any())
             {
                 throw new MissingDatasourceException("No processes found");
             }
@@ -66,7 +66,7 @@ namespace eContracting.Services
         {
             var items = this.Context.GetItems<ProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
 
-            if (items?.Count() == 0)
+            if (!items.Any())
             {
                 throw new MissingDatasourceException("No process types found");
             }

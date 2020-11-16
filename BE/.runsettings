@@ -33,7 +33,7 @@ Included items must then not match any entries in the exclude list to remain inc
                                 <ModulePath>.*\.exe$</ModulePath>
                             </Include>
                             <Exclude>
-                                <ModulePath>.*Tests.*</ModulePath>
+                                <ModulePath>.*\.tests\.dll$</ModulePath>
                                 <ModulePath>.*glass.*</ModulePath>
                                 <ModulePath>.*xunit.*</ModulePath>
                             </Exclude>
