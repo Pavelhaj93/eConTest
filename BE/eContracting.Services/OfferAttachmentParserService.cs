@@ -24,7 +24,7 @@ namespace eContracting.Services
                 var attrs = this.GetAttributes(files[i]);
                 var fileModel = new OfferAttachmentXmlModel(
                 uniqueKey: uniqueKey,
-                files[i].MIMETYPE,
+                mimeType: files[i].MIMETYPE,
                 index: i.ToString(),
                 name: fileName,
                 signedVersion: false,
