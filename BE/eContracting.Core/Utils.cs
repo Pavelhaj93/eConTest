@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace eContracting
             return string.Format(CultureInfo.InvariantCulture, "{0:0.##} {1}", len, sizes[order]);
         }
 
+        [ExcludeFromCodeCoverage]
         public static string AesEncrypt(string input, string key, string vector)
         {
             byte[] encrypted;

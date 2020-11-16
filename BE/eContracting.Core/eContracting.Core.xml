@@ -314,7 +314,7 @@
             </summary>
             <typeparam name="TKey">The type of the key.</typeparam>
             <typeparam name="TValue">The type of the value.</typeparam>
-            <param name="dictionary">The dictionary.</param>
+            <param name="source">The source dictionary.</param>
             <param name="second">The second.</param>
         </member>
         <member name="T:eContracting.IApiService">
@@ -786,6 +786,17 @@
             <summary>
             Gets or sets the failed attempts historical information.
             </summary>
+        </member>
+        <member name="M:eContracting.Models.FolderItemModel`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.FolderItemModel`1"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.FolderItemModel`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.FolderItemModel`1"/> class.
+            </summary>
+            <param name="items">The items.</param>
         </member>
         <member name="T:eContracting.Models.OfferAttachmentXmlModel">
             <summary>

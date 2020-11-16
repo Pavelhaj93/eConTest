@@ -37,3 +37,4 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("eContracting.Core.Tests")]
 [assembly: InternalsVisibleTo("eContracting.ConsoleClient")]
+[assembly: InternalsVisibleTo("eContracting.Services.Tests")]

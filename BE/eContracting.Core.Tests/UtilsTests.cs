@@ -25,6 +25,16 @@ namespace eContracting.Core.Tests
             Assert.Equal(expected, result);
         }
 
+
+        [Theory]
+        [InlineData("http://econtracting2.innogy.cz.local/page", "q", "john", "http://econtracting2.innogy.cz.local/page?q=john")]
+        [InlineData("http://econtracting2.innogy.cz.local/page?q=john", "u", "uu", "http://econtracting2.innogy.cz.local/page?q=john&u=uu")]
+        public void SetQuery_With_Text_Url_Append_To_AbsoluteUrl(string absoluteUrl, string key, string value, string expected)
+        {
+            var result = Utils.SetQuery(absoluteUrl, key, value);
+            Assert.Equal(expected, result);
+        }
+
         [Theory]
         [InlineData("http://econtracting2.innogy.cz.local/page", "q", "john", "http://econtracting2.innogy.cz.local/page?q=john")]
         [InlineData("http://econtracting2.innogy.cz.local/page?q=john", "u", "uu", "http://econtracting2.innogy.cz.local/page?q=john&u=uu")]

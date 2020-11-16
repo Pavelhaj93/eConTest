@@ -37,7 +37,7 @@ namespace eContracting
                 return position;
             }
 
-            return 100;
+            return Constants.FileAttributeDefaults.COUNTER;
         }
 
         /// <summary>
@@ -45,18 +45,18 @@ namespace eContracting
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <typeparam name="TValue">The type of the value.</typeparam>
-        /// <param name="dictionary">The dictionary.</param>
+        /// <param name="source">The source dictionary.</param>
         /// <param name="second">The second.</param>
-        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, IDictionary<TKey, TValue> second)
+        public static void Merge<TKey, TValue>(this IDictionary<TKey, TValue> source, IDictionary<TKey, TValue> second)
         {
-            if (dictionary == null || second == null)
+            if (source == null || second == null)
             {
                 return;
             }
 
             foreach (KeyValuePair<TKey, TValue> item in second)
             {
-                dictionary[item.Key] = item.Value;
+                source[item.Key] = item.Value;
             }
         }
     }

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CacheApiServiceOptionsTests.cs" />
+    <Compile Include="ExtensionsTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,8 +61,21 @@
       <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
       <Name>eContracting.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\eContracting.Tests\eContracting.Tests.csproj">
+      <Project>{f1c16540-9450-4a28-bfff-3f84662f87cd}</Project>
+      <Name>eContracting.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Glass.Mapper.Sc">
+      <Version>4.4.0.199</Version>
+    </PackageReference>
+    <PackageReference Include="Glass.Mapper.Sc.Core">
+      <Version>4.4.0.199</Version>
+    </PackageReference>
+    <PackageReference Include="Moq">
+      <Version>4.5.30</Version>
+    </PackageReference>
     <PackageReference Include="Sitecore.Kernel.NoReferences">
       <Version>8.2.171121</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -57,6 +57,7 @@ namespace eContracting
         public static class FileAttributeDefaults
         {
             public const string GROUP = "OTHER";
+            public const int COUNTER = 100;
         }
 
         public static class SitecorePaths
