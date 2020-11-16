@@ -9,6 +9,7 @@ using eContracting.Models;
 using Glass.Mapper.Maps;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Configuration.Fluent;
+using Glass.Mapper.Sc.Fields;
 using Moq;
 using Moq.Language.Flow;
 using Sitecore.Web;
@@ -27,6 +28,19 @@ namespace eContracting.Services.Tests
             var configurationMap = new ConfigurationMap(dependencyResolver);
             var configurationLoader = configurationMap.GetConfigurationLoader<SitecoreFluentConfigurationLoader>();
             context.Load(configurationLoader);
+        }
+
+        [Fact]
+        public void GetSiteSettings_Throws_MissingDatasourceException_When_Not_Found()
+        {
+            var siteRoot = "/site";
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns((SiteSettingsModel)null);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+
+            Assert.Throws<MissingDatasourceException>(() => service.GetSiteSettings());
         }
 
         [Fact]
@@ -201,6 +215,177 @@ namespace eContracting.Services.Tests
             Assert.Equal(new Uri(url), options.Url);
             Assert.Equal(user, options.User);
             Assert.Equal(password, options.Password);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_Login_Url()
+        {
+            var expected = "/login";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.Login = new Link();
+            siteSettings.Login.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.Login);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_Offer_Url()
+        {
+            var expected = "/offer";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.Offer = new Link();
+            siteSettings.Offer.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.Offer);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_OfferExpired_Url()
+        {
+            var expected = "/expired-offer";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.OfferExpired = new Link();
+            siteSettings.OfferExpired.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_AcceptedOffer_Url()
+        {
+            var expected = "/accepted-offer";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.AcceptedOffer = new Link();
+            siteSettings.AcceptedOffer.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_SessionExpired_Url()
+        {
+            var expected = "/session-expired";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.SessionExpired = new Link();
+            siteSettings.SessionExpired.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.SessionExpired);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_SystemError_Url()
+        {
+            var expected = "/system-error";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.SystemError = new Link();
+            siteSettings.SystemError.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.SystemError);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_ThankYou_Url()
+        {
+            var expected = "/thank-you";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.ThankYou = new Link();
+            siteSettings.ThankYou.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.ThankYou);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_UserBlocked_Url()
+        {
+            var expected = "/user-blocked";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.UserBlocked = new Link();
+            siteSettings.UserBlocked.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.UserBlocked);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetPageLink_Returns_WrongUrl_Url()
+        {
+            var expected = "/error";
+            var siteRoot = "/site";
+            var siteSettings = new SiteSettingsModel();
+            siteSettings.WrongUrl = new Link();
+            siteSettings.WrongUrl.Url = expected;
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetPageLink(PAGE_LINK_TYPES.WrongUrl);
+
+            Assert.Equal(expected, result);
         }
     }
 }
