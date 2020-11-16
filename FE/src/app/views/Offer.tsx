@@ -35,6 +35,7 @@ export const Offer: React.FC<View> = observer(
     doxTimeout,
     uploadFileUrl,
     removeFileUrl,
+    errorPageUrl,
   }) => {
     const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -44,15 +45,16 @@ export const Offer: React.FC<View> = observer(
     const t = useLabels(labels)
 
     useEffect(() => {
+      store.errorPageUrl = errorPageUrl
       store.fetchDocuments(doxTimeout)
 
       // set correct upload document URL if provided
       if (uploadFileUrl) {
-        store.setUploadDocumentUrl = uploadFileUrl
+        store.uploadDocumentUrl = uploadFileUrl
       }
 
       if (removeFileUrl) {
-        store.setRemoveDocumentUrl = removeFileUrl
+        store.removeDocumentUrl = removeFileUrl
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

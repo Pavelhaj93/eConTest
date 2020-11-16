@@ -6,6 +6,7 @@ import { Authentication } from '../'
 const mockProps = {
   view: 'Authentication',
   doxReadyUrl: '/api/documents',
+  errorPageUrl: '/error',
   isAgreed: false,
   isRetention: false,
   isAcquisition: true,
@@ -35,6 +36,7 @@ const mockProps = {
 const mockPropsSingleChoice = {
   view: 'Authentication',
   doxReadyUrl: '/api/documents',
+  errorPageUrl: '/error',
   isAgreed: false,
   isRetention: false,
   isAcquisition: true,

@@ -3,9 +3,10 @@ import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
 
 export class OfferStore {
-  private documentsUrl = ''
-  private uploadDocumentUrl = ''
-  private removeDocumentUrl = ''
+  public documentsUrl = ''
+  public uploadDocumentUrl = ''
+  public removeDocumentUrl = ''
+  public errorPageUrl = ''
 
   @observable
   public documents: Document[] = []
@@ -35,14 +36,6 @@ export class OfferStore {
     this.documentsUrl = documentsUrl
     this.isRetention = isRetention
     this.isAcquisition = isAcquisition
-  }
-
-  public set setUploadDocumentUrl(url: string) {
-    this.uploadDocumentUrl = url
-  }
-
-  public set setRemoveDocumentUrl(url: string) {
-    this.removeDocumentUrl = url
   }
 
   /** All documents that are marked to be accepted. */
@@ -120,12 +113,17 @@ export class OfferStore {
 
       fetchTimeout && clearTimeout(fetchTimeout)
 
-      // TODO: if response is 404 => make redirection to error page
+      // redirect to error page on 404 response
+      if (response.status === 404) {
+        window.location.href = this.errorPageUrl
+        return
+      }
+
       if (!response.ok) {
         throw new Error(`FAILED TO FETCH DOCUMENTS - ${response.status}`)
       }
 
-      const jsonResponse = await    (response.json() as Promise<Array<Document>>)
+      const jsonResponse = await (response.json() as Promise<Array<Document>>)
 
       this.documents = jsonResponse
     } catch (error) {

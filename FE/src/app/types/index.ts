@@ -34,6 +34,7 @@ export type AppConfig = {
   uploadFileUrl?: string
   /** URL that accepts document id to remove the uploaded document. */
   removeFileUrl?: string
+  errorPageUrl: string
 }
 
 declare global {
