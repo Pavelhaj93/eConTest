@@ -46,6 +46,16 @@ namespace eContracting.Services
                 return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
             }
 
+            if (string.IsNullOrEmpty(key))
+            {
+                return AUTH_RESULT_STATES.KEY_MISMATCH;
+            }
+
+            if (string.IsNullOrEmpty(value))
+            {
+                return AUTH_RESULT_STATES.INVALID_VALUE;
+            }
+
             var bd1 = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
             var bd2 = birthDay.Trim().Replace(" ", string.Empty).ToLower();
 
@@ -82,59 +92,6 @@ namespace eContracting.Services
             }
 
             return AUTH_RESULT_STATES.SUCCEEDED;
-
-            #region How it was before
-            //if (loginType.Key == "PARTNER")
-            //{
-            //    if (!this.IsRegexValid(loginType, value))
-            //    {
-            //        return AuthResultState.INVALID_PARTNER_FORMAT;
-            //    }
-
-            //    if (offer.PartnerNumber != value)
-            //    {
-            //        return AuthResultState.INVALID_PARTNER;
-            //    }
-
-            //    return AuthResultState.SUCCEEDED;
-            //}
-
-            //if (loginType.Key == "PSC_ADDR")
-            //{
-            //    if (!this.IsRegexValid(loginType, value))
-            //    {
-            //        return AuthResultState.INVALID_ZIP1_FORMAT;
-            //    }
-
-            //    var zip = offer.PostNumber.Trim().Replace(" ", string.Empty).ToLower();
-
-            //    if (zip != val)
-            //    {
-            //        return AuthResultState.INVALID_ZIP1;
-            //    }
-
-            //    return AuthResultState.SUCCEEDED;
-            //}
-
-            //if (loginType.Key == "PSC_MS")
-            //{
-            //    if (!this.IsRegexValid(loginType, value))
-            //    {
-            //        return AuthResultState.INVALID_ZIP2_FORMAT;
-            //    }
-
-            //    var zip = offer.PostNumberConsumption.Trim().Replace(" ", string.Empty).ToLower();
-
-            //    if (zip != val)
-            //    {
-            //        return AuthResultState.INVALID_ZIP2;
-            //    }
-
-            //    return AuthResultState.SUCCEEDED;
-            //}
-
-            //return AUTH_RESULT_STATES.KEY_VALUE_MISMATCH;
-            #endregion
         }
 
         /// <inheritdoc/>
