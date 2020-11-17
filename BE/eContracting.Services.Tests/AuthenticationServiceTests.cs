@@ -355,5 +355,60 @@ namespace eContracting.Services.Tests
 
             Assert.False(result);
         }
+
+        [Fact]
+        public void Login_Adds_AuthDataModel_To_Cache()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var offerXml = new OfferXmlModel();
+            offerXml.Content = new OfferContentXmlModel();
+            offerXml.Content.Body = new OfferBodyXmlModel();
+            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
+            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+
+            bool inserted = false;
+            var authData = new AuthDataModel(offer);
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+            mockCache.Setup(x => x.AddToSession(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            service.Login(authData);
+
+            Assert.True(inserted);
+        }
+
+        [Fact]
+        public void IsLoggedIn_Returns_True_When_AuthDataModel_Exists()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var offerXml = new OfferXmlModel();
+            offerXml.Content = new OfferContentXmlModel();
+            offerXml.Content.Body = new OfferBodyXmlModel();
+            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
+            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+
+            var authData = new AuthDataModel(offer);
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+            mockCache.Setup(x => x.GetFromSession<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns(authData);
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsLoggedIn();
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsLoggedIn_Returns_False_Because_AuthDataModel_Doesnt_Exist()
+        {
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+            mockCache.Setup(x => x.GetFromSession<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns((AuthDataModel)null);
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsLoggedIn();
+
+            Assert.False(result);
+        }
     }
 }
