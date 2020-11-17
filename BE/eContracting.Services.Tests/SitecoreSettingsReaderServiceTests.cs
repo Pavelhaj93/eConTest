@@ -100,13 +100,13 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetAllProcessTypes_Returns_Items()
         {
-            var list = new List<ProcessModel>();
-            list.Add(new ProcessModel());
-            list.Add(new ProcessModel());
-            list.Add(new ProcessModel());
+            var list = new List<ProcessTypeModel>();
+            list.Add(new ProcessTypeModel());
+            list.Add(new ProcessTypeModel());
+            list.Add(new ProcessTypeModel());
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<ProcessModel>>(Constants.SitecorePaths.PROCESS_TYPES, false, false)).Returns(new FolderItemModel<ProcessModel>(list));
-            mockSitecoreContext.Setup(x => x.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(list);
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<ProcessTypeModel>>(Constants.SitecorePaths.PROCESS_TYPES, false, false)).Returns(new FolderItemModel<ProcessTypeModel>(list));
+            mockSitecoreContext.Setup(x => x.GetItems<ProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(list);
             var mockContextWrapper = new Mock<IContextWrapper>();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
