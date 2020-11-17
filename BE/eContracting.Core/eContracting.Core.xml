@@ -1626,11 +1626,6 @@
             System error link.
             </summary>
         </member>
-        <member name="F:eContracting.PAGE_LINK_TYPES.Welcome">
-            <summary>
-            Welcome page.
-            </summary>
-        </member>
         <member name="F:eContracting.PAGE_LINK_TYPES.Login">
             <summary>
             Login page.

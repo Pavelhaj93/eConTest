@@ -374,6 +374,38 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        public void GetLoginTypes_Returns_1_Type_From_Many()
+        {
+            var loginTypes = new List<LoginTypeModel>();
+            loginTypes.Add(new LoginTypeModel() { Name = "LT1" });
+            loginTypes.Add(new LoginTypeModel() { Name = "LT2" });
+            loginTypes.Add(new LoginTypeModel() { Name = "LT3" });
+
+            var offerXmlModel = new OfferXmlModel();
+            offerXmlModel.Content = new OfferContentXmlModel();
+            offerXmlModel.Content.Body = new OfferBodyXmlModel();
+            offerXmlModel.Content.Body.BusProcess = "XYZ";
+            offerXmlModel.Content.Body.BusProcessType = "123";
+            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var combination = new DefinitionCombinationModel();
+            combination.Process = new ProcessModel() { Code = "XYZ" };
+            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.LoginTypes = Enumerable.Empty<LoginTypeModel>();
+
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<LoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new FolderItemModel<LoginTypeModel>(loginTypes));
+            mockSitecoreContext.Setup(x => x.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(loginTypes);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetLoginTypes(offer);
+
+            Assert.Single(result);
+        }
+
+        [Fact]
         public void GetLoginTypes_Returns_1_Random_Type_When_Only_1_Available()
         {
             var loginTypes = new List<LoginTypeModel>();

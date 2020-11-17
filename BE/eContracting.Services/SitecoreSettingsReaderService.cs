@@ -120,7 +120,7 @@ namespace eContracting.Services
         public IEnumerable<LoginTypeModel> GetLoginTypes(OfferModel offer)
         {
             var definition = this.GetDefinition(offer);
-            var loginTypes = definition.LoginTypes.ToList();
+            var loginTypes = definition.LoginTypes?.ToList() ?? new List<LoginTypeModel>();
 
             if (loginTypes.Count == 0)
             {
@@ -171,8 +171,6 @@ namespace eContracting.Services
                     return settings.ThankYou.Url;
                 case PAGE_LINK_TYPES.SystemError:
                     return settings.SystemError.Url;
-                case PAGE_LINK_TYPES.Welcome:
-                    return settings.Welcome.Url;
                 case PAGE_LINK_TYPES.Login:
                     return settings.Login.Url;
                 default:

@@ -46,11 +46,6 @@ namespace eContracting
         SystemError,
 
         /// <summary>
-        /// Welcome page.
-        /// </summary>
-        Welcome,
-
-        /// <summary>
         /// Login page.
         /// </summary>
         Login
