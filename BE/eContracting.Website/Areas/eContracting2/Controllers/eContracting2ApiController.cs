@@ -97,7 +97,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.StatusCode(HttpStatusCode.NoContent);
             }
 
-            var attachments = await this.ApiService.GetAttachmentsAsync(user.Guid);
+            var attachments = await this.ApiService.GetAttachmentsAsync(offer);
             var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
             if (file == null)
