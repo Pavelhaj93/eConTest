@@ -118,7 +118,7 @@ namespace eContracting.Services
         /// <param name="offer">The offer.</param>
         /// <param name="key">The key.</param>
         /// <returns>Login type or null.</returns>
-        protected LoginTypeModel GetMatched(OfferModel offer, string key)
+        protected internal LoginTypeModel GetMatched(OfferModel offer, string key)
         {
             var loginTypes = this.SettingsReader.GetAllLoginTypes();
 
@@ -133,7 +133,7 @@ namespace eContracting.Services
             return null;
         }
 
-        protected bool IsRegexValid(LoginTypeModel loginType, string value)
+        protected internal bool IsRegexValid(LoginTypeModel loginType, string value)
         {
             if (string.IsNullOrEmpty(loginType.ValidationRegex))
             {

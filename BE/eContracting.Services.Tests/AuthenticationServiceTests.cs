@@ -240,5 +240,120 @@ namespace eContracting.Services.Tests
 
             Assert.Equal(AUTH_RESULT_STATES.SUCCEEDED, result);
         }
+
+        [Fact]
+        public void GetMatched_Finds_Match()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var birthdate = "25.06.1971";
+            var offerXml = new OfferXmlModel();
+            offerXml.Content = new OfferContentXmlModel();
+            offerXml.Content.Body = new OfferBodyXmlModel();
+            offerXml.Content.Body.BIRTHDT = birthdate;
+            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
+            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+
+            var id = Guid.NewGuid();
+            var loginType = new LoginTypeModel();
+            loginType.ID = Guid.NewGuid();
+            loginType.Key = "PARTNER";
+            var key = Utils.GetUniqueKey(loginType, offer);
+            var loginTypes = new List<LoginTypeModel>();
+            loginTypes.Add(loginType);
+
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.GetMatched(offer, key);
+
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void GetMatched_Not_Finds_Match()
+        {
+            var guid = Guid.NewGuid().ToString("N");
+            var birthdate = "25.06.1971";
+            var offerXml = new OfferXmlModel();
+            offerXml.Content = new OfferContentXmlModel();
+            offerXml.Content.Body = new OfferBodyXmlModel();
+            offerXml.Content.Body.BIRTHDT = birthdate;
+            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
+            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+
+            var id = Guid.NewGuid();
+            var loginType = new LoginTypeModel();
+            loginType.ID = Guid.NewGuid();
+            loginType.Key = "PARTNER";
+            var key = Utils.GetUniqueKey(loginType, offer);
+            var loginTypes = new List<LoginTypeModel>();
+            loginTypes.Add(loginType);
+
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.GetMatched(offer, "mishmashkey");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_True()
+        {
+            var loginType = new LoginTypeModel();
+            loginType.ValidationRegex = "^[0-9]*$";
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsRegexValid(loginType, "486937476");
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_False()
+        {
+            var loginType = new LoginTypeModel();
+            loginType.ValidationRegex = "^[0-9]*$";
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsRegexValid(loginType, "4869x7476");
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void IsRegexValid_LoginType_Has_No_Regex_And_Returns_True()
+        {
+            var loginType = new LoginTypeModel();
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsRegexValid(loginType, "4869x7476");
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void IsRegexValid_LoginType_Has_Invalid_Regex_And_Returns_False()
+        {
+            var loginType = new LoginTypeModel();
+            loginType.ValidationRegex = "?^![0-9]*$";
+            var mockReaderSettings = new Mock<ISettingsReaderService>();
+            var mockCache = new Mock<ICache>();
+
+            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var result = service.IsRegexValid(loginType, "486937476");
+
+            Assert.False(result);
+        }
     }
 }

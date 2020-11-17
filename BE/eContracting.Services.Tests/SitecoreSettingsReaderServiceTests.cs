@@ -59,12 +59,30 @@ namespace eContracting.Services.Tests
         public void GetAllProcesses_Throws_MissingDatasourceException_When_No_Items_Found()
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<LoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new FolderItemModel<LoginTypeModel>());
-            mockSitecoreContext.Setup(x => x.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<LoginTypeModel>());
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<ProcessModel>>(Constants.SitecorePaths.PROCESSES, false, false)).Returns(new FolderItemModel<ProcessModel>());
+            mockSitecoreContext.Setup(x => x.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(Enumerable.Empty<ProcessModel>());
             var mockContextWrapper = new Mock<IContextWrapper>();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
             Assert.Throws<MissingDatasourceException>(() => service.GetAllProcesses());
+        }
+
+        [Fact]
+        public void GetAllProcesses_Returns_Items()
+        {
+            var list = new List<ProcessModel>();
+            list.Add(new ProcessModel());
+            list.Add(new ProcessModel());
+            list.Add(new ProcessModel());
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<ProcessModel>>(Constants.SitecorePaths.PROCESSES, false, false)).Returns(new FolderItemModel<ProcessModel>(list));
+            mockSitecoreContext.Setup(x => x.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(list);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetAllProcesses();
+
+            Assert.True(result.Count() == 3);
         }
 
         [Fact]
@@ -77,6 +95,24 @@ namespace eContracting.Services.Tests
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
             Assert.Throws<MissingDatasourceException>(() => service.GetAllProcessTypes());
+        }
+
+        [Fact]
+        public void GetAllProcessTypes_Returns_Items()
+        {
+            var list = new List<ProcessModel>();
+            list.Add(new ProcessModel());
+            list.Add(new ProcessModel());
+            list.Add(new ProcessModel());
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<ProcessModel>>(Constants.SitecorePaths.PROCESS_TYPES, false, false)).Returns(new FolderItemModel<ProcessModel>(list));
+            mockSitecoreContext.Setup(x => x.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(list);
+            var mockContextWrapper = new Mock<IContextWrapper>();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object);
+            var result = service.GetAllProcessTypes();
+
+            Assert.True(result.Count() == 3);
         }
 
         [Fact]
@@ -338,12 +374,10 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
-        public void GetLoginTypes_Returns_1_Random_Type()
+        public void GetLoginTypes_Returns_1_Random_Type_When_Only_1_Available()
         {
             var loginTypes = new List<LoginTypeModel>();
             loginTypes.Add(new LoginTypeModel() { Name = "LT1" });
-            loginTypes.Add(new LoginTypeModel() { Name = "LT2" });
-            loginTypes.Add(new LoginTypeModel() { Name = "LT3" });
 
             var offerXmlModel = new OfferXmlModel();
             offerXmlModel.Content = new OfferContentXmlModel();
@@ -367,7 +401,7 @@ namespace eContracting.Services.Tests
             var result = service.GetLoginTypes(offer);
 
             Assert.Single(result);
-            Assert.Contains(result.First(), loginTypes);
+            Assert.Equal(result.First(), loginTypes.First());
         }
 
         [Fact]
