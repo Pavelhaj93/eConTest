@@ -4,7 +4,7 @@ import { Alert, Button, Modal } from 'react-bootstrap'
 import SignaturePad from 'react-signature-pad-wrapper'
 import { useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
-import { PreloadImage } from '../PreloadImage'
+import { PreloadImage } from '@components'
 import { observer } from 'mobx-react-lite'
 
 type Props = {
