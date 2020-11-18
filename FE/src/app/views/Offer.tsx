@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment, useCallback } from 'react'
+import React, { useEffect, useState, Fragment, useCallback, useRef } from 'react'
 import { View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import {
   Box,
   BoxHeading,
+  ConfirmationModal,
   FileDropZone,
   FileUpload,
   FormCheckWrapper,
@@ -42,7 +43,9 @@ export const Offer: React.FC<View> = observer(
       id: '',
       show: false,
     })
+    const [confirmationModal, setConfirmationModal] = useState(false)
     const t = useLabels(labels)
+    const formRef = useRef<HTMLFormElement>(null)
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
@@ -117,6 +120,7 @@ export const Offer: React.FC<View> = observer(
           <form
             action={formAction}
             method="post"
+            ref={formRef}
             className={classNames({
               'd-none': !store.isLoading && store.error, // hide the whole form if there is an error
             })}
@@ -217,7 +221,11 @@ export const Offer: React.FC<View> = observer(
               <h3>{t('acceptOfferTitle')}</h3>
               <Box>
                 <p>{t('acceptOfferHelptext')}</p>
-                <Button type="submit" variant="secondary" disabled={!store.isOfferReadyToAccept}>
+                <Button
+                  variant="secondary"
+                  onClick={() => setConfirmationModal(true)}
+                  disabled={!store.isOfferReadyToAccept}
+                >
                   {t('submitBtn')}
                 </Button>
               </Box>
@@ -231,6 +239,13 @@ export const Offer: React.FC<View> = observer(
             labels={labels}
             getFileForSignUrl={getFileForSignUrl ?? ''}
             signFileUrl={signFileUrl ?? ''}
+          />
+
+          <ConfirmationModal
+            show={confirmationModal}
+            onClose={() => setConfirmationModal(false)}
+            onConfirm={() => formRef.current?.submit()}
+            labels={labels}
           />
         </Fragment>
       </OfferStoreContext.Provider>
