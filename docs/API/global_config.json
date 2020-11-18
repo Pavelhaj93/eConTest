@@ -1,0 +1,14 @@
+﻿{
+    "apis": {
+        "offer": "/api/eCon/offer",
+        "files": "/api/eCon/files"
+    }
+    "dictionary": {
+        "key1": "phrase 1"
+    },
+    "acceptance": {
+        "title": "Pomozte nám chránit lesy",
+        "text": "<p style='text-align: center;'><img src='leaf.png'/></p><p>Víte, že se dlouhodobě snažíme omezovat spotřebu papíru a tím chránit naše lesy?</p><p>Přidejte se k nám a vyberte si způsob, jak spolu budeme elektronicky komunikovat.</p>",
+        "button": "Aktivovat"
+    }
+}

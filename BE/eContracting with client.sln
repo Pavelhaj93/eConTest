@@ -14,7 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Kernel", "eCon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{FCE383FF-8571-4051-95F9-6293F4F54522}"
 	ProjectSection(SolutionItems) = preProject
-		..\docs\Examples\06D969E88C3C1EEB89FD7658BC71F0E7_NABIDKA.xml = ..\docs\Examples\06D969E88C3C1EEB89FD7658BC71F0E7_NABIDKA.xml
+		..\docs\Examples\BN_0202335625.xml = ..\docs\Examples\BN_0202335625.xml
+		..\docs\Examples\BN_0202335625_AD1.xml = ..\docs\Examples\BN_0202335625_AD1.xml
+		..\docs\Examples\BN_0202335631.xml = ..\docs\Examples\BN_0202335631.xml
+		..\docs\Examples\BN_0202335631_AD1.xml = ..\docs\Examples\BN_0202335631_AD1.xml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B40BA044-AF31-4AC5-858D-6A8721FACBF0}"
