@@ -88,10 +88,6 @@ export const Offer: React.FC<View> = observer(
             }}
             useCaptureOnMobile
             captureFileLabel={t('captureFile')}
-            // onFilesRejected={files => {
-            //   console.log('rejected')
-            //   console.log(files)
-            // }}
           />
 
           {store.userDocuments['category1']?.length > 0 && (

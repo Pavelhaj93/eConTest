@@ -40,4 +40,13 @@
       padding-right: $spacer;
     }
   }
+
+  &-link {
+    &.disabled,
+    &:disabled {
+      color: $color-gray-60;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
 }

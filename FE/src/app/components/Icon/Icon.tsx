@@ -17,7 +17,8 @@ import '@icons/edit.svg'
 import '@icons/email.svg'
 import '@icons/exclamation-mark-circle.svg'
 import '@icons/gift.svg'
-import '@icons/leaf.svg'
+import '@icons/info-circle.svg'
+import '@icons/leaf-circle.svg'
 import '@icons/logo.svg'
 import '@icons/number-one-circle.svg'
 import '@icons/number-two-circle.svg'
@@ -31,7 +32,7 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'leaf' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
+export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
 
 type IconProps = {
   name: IconName,

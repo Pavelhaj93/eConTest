@@ -162,7 +162,12 @@ export const FileDropZone: React.FC<Props> = ({
           disabled={disabled}
           className="d-inline-flex align-items-center"
         >
-          <Icon name="photo-circle" size={36} color={colors.orange} className="mr-2" />
+          <Icon
+            name="photo-circle"
+            size={36}
+            color={disabled ? colors.gray40 : colors.orange}
+            className="mr-2"
+          />
           {captureFileLabel}
         </Button>
         <input
