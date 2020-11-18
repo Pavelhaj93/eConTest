@@ -30,6 +30,12 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
         {
+            if (offer.Attachments.Length == 0)
+            {
+                this.Logger.Info(offer.Guid, "No attachments available");
+                return new OfferAttachmentModel[] { };
+            }
+
             var list = new List<OfferAttachmentModel>();
 
             for (int i = 0; i < offer.Attachments.Length; i++)
@@ -38,7 +44,7 @@ namespace eContracting.Services
 
                 if (string.IsNullOrEmpty(attachment.IdAttach))
                 {
-                    this.Logger.Error(offer.Guid, $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})");
+                    this.Logger.Fatal(offer.Guid, $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})");
                     continue;
                 }
 
@@ -66,7 +72,7 @@ namespace eContracting.Services
                     }
                     else
                     {
-                        this.Logger.Error(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
+                        this.Logger.Fatal(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
                         //throw new ApplicationException($"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
                         continue;
                     }
