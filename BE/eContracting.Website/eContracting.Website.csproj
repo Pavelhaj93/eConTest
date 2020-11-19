@@ -217,6 +217,14 @@
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ComplexOfferPerexParamViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\FilesSectionViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\FileViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ComplexOfferAcceptedViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ComplexOfferGiftsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ComplexOfferNotAcceptedViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ComplexOfferPerexViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ParameterViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />

@@ -270,10 +270,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
-            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "00", "");
+            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, fakeAttr);
+            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
             var datasource = this.GetLayoutItem<LoginPageModel>();
             var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);

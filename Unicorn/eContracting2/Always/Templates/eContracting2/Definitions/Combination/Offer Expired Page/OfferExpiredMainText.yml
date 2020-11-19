@@ -2,7 +2,7 @@
 ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
 Parent: "9404a3b7-baff-459c-823a-fe6879a8cc51"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Definitions/Combination/Offer Expired Page/MainTextOfferExpired
+Path: /sitecore/templates/eContracting2/Definitions/Combination/Offer Expired Page/OfferExpiredMainText
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
