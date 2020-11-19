@@ -90,6 +90,7 @@ export default {
     '@hooks': '<rootDir>/app/hooks',
     '@context': '<rootDir>/app/context',
     '@stores': '<rootDir>/app/stores',
+    '@types': '<rootDir>/app/types',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

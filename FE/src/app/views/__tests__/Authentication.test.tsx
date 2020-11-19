@@ -5,11 +5,8 @@ import { Authentication } from '../'
 
 const mockProps = {
   view: 'Authentication',
-  doxReadyUrl: '/api/documents',
+  offerUrl: '/api/documents',
   errorPageUrl: '/error',
-  isAgreed: false,
-  isRetention: false,
-  isAcquisition: true,
   formAction: '/authentication.html',
   choices: [
     {
@@ -35,11 +32,8 @@ const mockProps = {
 
 const mockPropsSingleChoice = {
   view: 'Authentication',
-  doxReadyUrl: '/api/documents',
+  offerUrl: '/api/documents',
   errorPageUrl: '/error',
-  isAgreed: false,
-  isRetention: false,
-  isAcquisition: true,
   formAction: '/authentication.html',
   choices: [
     {

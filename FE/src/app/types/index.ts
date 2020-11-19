@@ -13,13 +13,10 @@ export type Choice = {
 
 export type AppConfig = {
   view: string
-  doxReadyUrl: string
+  offerUrl: string
   labels: {
     [key: string]: any
   }
-  isAgreed: boolean
-  isAcquisition: boolean
-  isRetention: boolean
   formAction?: string
   choices: Choice[]
   /** URL that returns the document itself. Need to append file ID. */
@@ -47,9 +44,11 @@ export type View = AppConfig
 
 // used for documents coming from API
 export type Document = {
-  id: string
+  key: string
   title: string
   label: string
+  mime?: string
+  size?: string
   sign: boolean
   signed?: boolean
   accepted?: boolean
@@ -82,4 +81,18 @@ export type UploadDocumentResponse = {
   id?: string | null
   uploaded: boolean
   message?: string
+}
+
+export type Group = {
+  title: string
+  files: Document[]
+}
+
+export type AcceptedOfferResponse = {
+  groups: Group[]
+}
+
+export enum OfferType {
+  NEW = 'NEW',
+  ACCEPTED = 'ACCEPTED',
 }

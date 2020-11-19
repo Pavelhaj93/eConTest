@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, useCallback, useRef } from 'react'
-import { View } from '@types'
+import { OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Form } from 'react-bootstrap'
@@ -25,9 +25,7 @@ type SignatureModalType = {
 
 export const Offer: React.FC<View> = observer(
   ({
-    doxReadyUrl,
-    isRetention,
-    isAcquisition,
+    offerUrl,
     labels,
     formAction,
     getFileUrl,
@@ -38,7 +36,7 @@ export const Offer: React.FC<View> = observer(
     removeFileUrl,
     errorPageUrl,
   }) => {
-    const [store] = useState(() => new OfferStore(doxReadyUrl, isRetention, isAcquisition))
+    const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
       id: '',
       show: false,
@@ -49,7 +47,7 @@ export const Offer: React.FC<View> = observer(
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
-      store.fetchDocuments(doxTimeout)
+      // store.fetchOffer(doxTimeout)
 
       // set correct upload document URL if provided
       if (uploadFileUrl) {
@@ -81,20 +79,19 @@ export const Offer: React.FC<View> = observer(
           )}
           {/* /error state */}
 
-          <FileDropZone
-            label={t('selectFileHelpText')}
-            className="my-5"
-            selectFileLabel={t('selectFile')}
-            selectFileLabelMobile={t('uploadFile')}
-            onFilesAccepted={files => {
-              store.addUserFiles(files, 'category1')
-            }}
-            useCaptureOnMobile
-            captureFileLabel={t('captureFile')}
-          />
-
-          {store.userDocuments['category1']?.length > 0 && (
-            <Box>
+          <Box>
+            <FileDropZone
+              label={t('selectFileHelpText')}
+              className="my-5"
+              selectFileLabel={t('selectFile')}
+              selectFileLabelMobile={t('uploadFile')}
+              onFilesAccepted={files => {
+                store.addUserFiles(files, 'category1')
+              }}
+              useCaptureOnMobile
+              captureFileLabel={t('captureFile')}
+            />
+            {store.userDocuments['category1']?.length > 0 && (
               <ul aria-label={t('selectedFiles')} className="list-unstyled">
                 {store.userDocuments['category1'].map(document => (
                   <li key={document.file.name}>
@@ -114,8 +111,8 @@ export const Offer: React.FC<View> = observer(
                   </li>
                 ))}
               </ul>
-            </Box>
-          )}
+            )}
+          </Box>
 
           <form
             action={formAction}
@@ -126,7 +123,7 @@ export const Offer: React.FC<View> = observer(
             })}
           >
             {/* box with documents to be accepted */}
-            <Box
+            {/* <Box
               className={classNames({
                 loading: store.isLoading,
               })}
@@ -139,19 +136,19 @@ export const Offer: React.FC<View> = observer(
                       {t('acceptAll')}
                     </Button>
                   </div>
-                  {store.documentsToBeAccepted.map(({ id, title, accepted, label }) => (
+                  {store.documentsToBeAccepted.map(({ key, title, accepted, label }) => (
                     <FormCheckWrapper
-                      key={id}
+                      key={key}
                       type="checkbox"
                       name="documents"
-                      id={`document-${id}`}
-                      value={id}
+                      id={`document-${key}`}
+                      value={key}
                       checked={accepted !== undefined ? accepted : false}
-                      onChange={() => store.acceptDocument(id)}
+                      onChange={() => store.acceptDocument(key)}
                     >
                       <Form.Check.Label>
                         <span>
-                          {label} <a href={`${getFileUrl}${id}`}>{title}</a>
+                          {label} <a href={`${getFileUrl}${key}`}>{title}</a>
                         </span>
                         <Icon name="pdf" size={36} color={colors.orange} className="ml-md-auto" />
                       </Form.Check.Label>
@@ -163,8 +160,8 @@ export const Offer: React.FC<View> = observer(
               {store.documentsToBeSigned.length > 0 && (
                 <Fragment>
                   <BoxHeading>Dokumenty k podepsání</BoxHeading>
-                  {store.documentsToBeSigned.map(({ id, title, label, signed }) => (
-                    <div key={id} className="form-item-wrapper mb-3">
+                  {store.documentsToBeSigned.map(({ key, title, label, signed }) => (
+                    <div key={key} className="form-item-wrapper mb-3">
                       <div className="like-custom-control-label">
                         {signed && (
                           <Icon
@@ -175,14 +172,14 @@ export const Offer: React.FC<View> = observer(
                           />
                         )}
                         <span>
-                          {label} <a href={`${getFileUrl}${id}`}>{title}</a>
+                          {label} <a href={`${getFileUrl}${key}`}>{title}</a>
                         </span>
                         {signed ? (
                           <Button
                             variant="primary"
                             className="btn-icon ml-auto form-item-wrapper__btn"
                             aria-label={t('signatureEditBtn')}
-                            onClick={() => openSignatureModal(id)}
+                            onClick={() => openSignatureModal(key)}
                           >
                             <Icon name="edit" size={18} color={colors.white} />
                           </Button>
@@ -190,7 +187,7 @@ export const Offer: React.FC<View> = observer(
                           <Button
                             variant="secondary"
                             className="ml-auto form-item-wrapper__btn"
-                            onClick={() => openSignatureModal(id)}
+                            onClick={() => openSignatureModal(key)}
                           >
                             {t('signatureBtn')}
                           </Button>
@@ -203,7 +200,7 @@ export const Offer: React.FC<View> = observer(
                   </p>
                 </Fragment>
               )}
-            </Box>
+            </Box> */}
             {/* /box with documents to be accepted */}
 
             {/**

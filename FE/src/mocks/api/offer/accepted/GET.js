@@ -1,3 +1,5 @@
+// copy from https://virtserver.swaggerhub.com/LukasDvorak/eContracting2/1.0.0/api/eCon/acceptedOffer
+
 /**
  * Mock documents response.
  * Also simulate a short delay.

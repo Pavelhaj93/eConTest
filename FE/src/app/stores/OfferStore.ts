@@ -1,21 +1,19 @@
-import { Document, UploadDocumentResponse } from '@types'
+import { AcceptedOfferResponse, Document, Group, OfferType, UploadDocumentResponse } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
 
 export class OfferStore {
-  public documentsUrl = ''
+  public offerUrl = ''
   public uploadDocumentUrl = ''
   public removeDocumentUrl = ''
   public errorPageUrl = ''
+  private type: OfferType
 
   @observable
   public documents: Document[] = []
 
   @observable
-  public isRetention = false
-
-  @observable
-  public isAcquisition = false
+  public documentGroups: Group[] = []
 
   @observable
   public error = false
@@ -32,10 +30,9 @@ export class OfferStore {
   @observable
   public userDocuments: Record<string, UserDocument[]> = {}
 
-  constructor(documentsUrl: string, isRetention = false, isAcquisition = false) {
-    this.documentsUrl = documentsUrl
-    this.isRetention = isRetention
-    this.isAcquisition = isAcquisition
+  constructor(type: OfferType, offerUrl: string) {
+    this.offerUrl = offerUrl
+    this.type = type
   }
 
   /** All documents that are marked to be accepted. */
@@ -74,15 +71,16 @@ export class OfferStore {
     return true
   }
 
+  // TODO: implement
   /** True if all conditions for particular offer were fullfilled, otherwise false. */
   @computed public get isOfferReadyToAccept(): boolean {
-    if (!this.isRetention && !this.isAcquisition) {
-      return this.allDocumentsAreAccepted
-    }
+    // if (!this.isRetention && !this.isAcquisition) {
+    //   return this.allDocumentsAreAccepted
+    // }
 
-    if (this.isRetention || this.isAcquisition) {
-      return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
-    }
+    // if (this.isRetention || this.isAcquisition) {
+    //   return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
+    // }
 
     return false
   }
@@ -91,10 +89,14 @@ export class OfferStore {
    * Performs an ajax request to `documentsURL` provided in constructor, fetch and populate documents.
    * @param timeoutMs - number of milliseconds after which the fetch request is canceled.
    */
-  @action public async fetchDocuments(timeoutMs?: number): Promise<void> {
+  @action public async fetchOffer(timeoutMs?: number): Promise<void> {
     this.isLoading = true
 
     try {
+      if (!this.type) {
+        throw new Error('FAILED TO FETCH OFFER - MISSING OFFER TYPE')
+      }
+
       let fetchTimeout: NodeJS.Timeout | number | null = null
       let controller: AbortController | null = null
 
@@ -106,7 +108,7 @@ export class OfferStore {
         }, timeoutMs)
       }
 
-      const response = await fetch(this.documentsUrl, {
+      const response = await fetch(this.offerUrl, {
         headers: { Accept: 'application/json' },
         signal: controller?.signal || null,
       })
@@ -120,12 +122,24 @@ export class OfferStore {
       }
 
       if (!response.ok) {
-        throw new Error(`FAILED TO FETCH DOCUMENTS - ${response.status}`)
+        throw new Error(`FAILED TO FETCH OFFER - ${response.status}`)
       }
 
-      const jsonResponse = await (response.json() as Promise<Array<Document>>)
+      let jsonResponse
 
-      this.documents = jsonResponse
+      switch (this.type) {
+        case OfferType.NEW:
+          // TODO: implement parsing of new offer response
+          break
+
+        case OfferType.ACCEPTED:
+          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
+          this.documentGroups = jsonResponse.groups
+          break
+        default:
+          break
+      }
+
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error.toString())
@@ -140,7 +154,7 @@ export class OfferStore {
    * @param id - ID of document
    */
   public getDocument(id: string): Document | undefined {
-    return this.documents.find(document => document.id === id)
+    return this.documents.find(document => document.key === id)
   }
 
   /**
