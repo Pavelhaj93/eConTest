@@ -1,6 +1,7 @@
 import { AcceptedOfferResponse, Document, Group, OfferType, UploadDocumentResponse } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
+import { generateId } from '@utils'
 
 export class OfferStore {
   public offerUrl = ''
@@ -133,13 +134,12 @@ export class OfferStore {
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await     (response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
         default:
           break
       }
-
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error.toString())
@@ -264,62 +264,51 @@ export class OfferStore {
     this.documents = acceptedDocuments
   }
 
-  // TODO: how to deal with files with the same name captured directly by camera
-  // currently happening on iOS devices
   @action public addUserFiles(files: File[], category: string): void {
-    // if category does not exist yet => create one and add all files
-    if (!this.userDocuments[category]) {
-      this.userDocuments[category] = files.map<UserDocument>(file => new UserDocument(file))
+    // remap the files to the `UserDocument` shape
+    const newDocuments = files.map<UserDocument>(file => new UserDocument(file, generateId()))
 
-      // this spread is needed for trigger rerender in React component
-      this.userDocuments = {
-        ...this.userDocuments,
-      }
-      return
+    // if category does not exist yet => create one
+    if (!this.userDocuments[category]) {
+      this.userDocuments[category] = []
     }
 
-    // filter out documents with the same name
-    const newDocuments = files
-      .filter(
-        newDoc => !this.userDocuments[category].find(curDoc => curDoc.file.name === newDoc.name),
-      )
-      // and then remap the rest to the `UserDocument` shape
-      .map<UserDocument>(file => new UserDocument(file))
-
     // spread existing documents within the category and add new ones
-    this.userDocuments[category] = [...this.userDocuments[category], ...newDocuments]
+    this.userDocuments = {
+      ...this.userDocuments, // this spread is needed for trigger rerender in React component
+      [category]: [...this.userDocuments[category], ...newDocuments],
+    }
   }
 
   /**
-   * Get user document by its name and category.
-   * @param name - file name
+   * Get user document by its id and category.
+   * @param id - document id
    * @param category - category name
    */
-  public getUserDocument(name: string, category: string): UserDocument | undefined {
-    return this.userDocuments[category]?.find(document => document.file.name === name)
+  public getUserDocument(id: string, category: string): UserDocument | undefined {
+    return this.userDocuments[category]?.find(document => document.id === id)
   }
 
   /**
-   * Remove user document by its name and category.
+   * Remove user document by its id and category.
    * @param document - `UserDocument`
    * @param category - category name
    */
-  @action public async removeUserDocument(name: string, category: string): Promise<void> {
+  @action public async removeUserDocument(id: string, category: string): Promise<void> {
     if (!this.userDocuments[category]) {
       return
     }
 
-    const document = this.getUserDocument(name, category)
+    const document = this.getUserDocument(id, category)
 
-    this.userDocuments[category] = this.userDocuments[category].filter(
-      ({ file }) => file.name !== name,
-    )
+    this.userDocuments[category] = this.userDocuments[category].filter(doc => doc.id !== id)
 
-    if (!document?.id) {
+    // if document is still uploading => do not send the request
+    if (!document || document.uploading) {
       return
     }
 
-    // if document has already id (has been successfully uploaded) => sends a request to remove it
+    // if document has been successfully uploaded => sends a request to remove it
     await fetch(`${this.removeDocumentUrl}${document.id}`)
   }
 
@@ -361,7 +350,10 @@ export class OfferStore {
         throw new Error(message)
       }
 
-      document.id = id ?? null
+      // overwrite the existing id generated on frontend using the one from API
+      if (id) {
+        document.id = id
+      }
 
       return Promise.resolve({ uploaded: true, id })
     } catch (error) {

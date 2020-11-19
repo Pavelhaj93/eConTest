@@ -2,7 +2,7 @@ import { OfferType } from '@types'
 import fetch from 'jest-fetch-mock'
 import mockDocumentGroups from '../../mocks/api/offer/accepted/documents.json'
 import { createFileFromMockFile } from '../../mocks/createFile'
-import { OfferStore, UserDocument } from './'
+import { OfferStore } from './'
 
 describe('Accepted offer', () => {
   it('should have zero documents after init', () => {
@@ -45,29 +45,10 @@ describe('General offer', () => {
     // first check if new a category was created
     expect(store.userDocuments[category]).not.toBeFalsy()
 
+    const document = store.userDocuments[category][0]
+
     // then check if the document is there
-    expect(store.getUserDocument(file.name, category)).not.toBeFalsy()
-  })
-
-  it('does not duplicate file with the same name in one category', () => {
-    const file1 = createFileFromMockFile({
-      name: 'document.txt',
-      body: 'content 1',
-      mimeType: 'text/plain',
-    })
-    const file2 = createFileFromMockFile({
-      name: 'document.txt',
-      body: 'content 2',
-      mimeType: 'text/plain',
-    })
-    const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
-
-    store.addUserFiles([file1], category)
-    store.addUserFiles([file2], category)
-
-    // then check if the is there
-    expect(store.userDocuments[category].length).toBe(1)
+    expect(document).not.toBeFalsy()
   })
 
   it('uploads the document successfully', async () => {
@@ -81,14 +62,14 @@ describe('General offer', () => {
 
     store.addUserFiles([file], category)
 
-    const document = store.getUserDocument(file.name, category) as UserDocument
+    const document = store.userDocuments[category][0]
 
     fetch.mockResponseOnce(JSON.stringify({ uploaded: true, id: 'aco123' }))
     await store.uploadDocument(document, category)
 
     expect(document.touched).toBe(true)
     expect(document.error).toBeFalsy()
-    expect(document.id).toBeTruthy()
+    expect(document.id).toBe('aco123')
   })
 
   it('rejects the document during upload', async () => {
@@ -102,7 +83,7 @@ describe('General offer', () => {
 
     store.addUserFiles([file], category)
 
-    const document = store.getUserDocument(file.name, category) as UserDocument
+    const document = store.userDocuments[category][0]
 
     const apiMessage = 'API is unavailable'
     fetch.mockRejectOnce(() => Promise.reject(apiMessage))
@@ -128,9 +109,12 @@ describe('General offer', () => {
 
     store.addUserFiles([file1, file2], category)
 
-    store.removeUserDocument(file1.name, category)
+    const document = store.userDocuments[category][0]
 
-    expect(store.getUserDocument(file1.name, category)).toBeFalsy()
+    fetch.mockResponseOnce(JSON.stringify({}))
+    store.removeUserDocument(document.id, category)
+
+    expect(store.getUserDocument(document.id, category)).toBeFalsy()
     expect(store.userDocuments[category].length).toBe(1)
   })
 })

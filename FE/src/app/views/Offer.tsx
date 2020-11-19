@@ -94,13 +94,13 @@ export const Offer: React.FC<View> = observer(
             {store.userDocuments['category1']?.length > 0 && (
               <ul aria-label={t('selectedFiles')} className="list-unstyled">
                 {store.userDocuments['category1'].map(document => (
-                  <li key={document.file.name}>
+                  <li key={document.id}>
                     <FileUpload
                       file={document.file}
                       removeFileLabel={t('removeFile')}
                       onRemove={() => {
                         store.cancelUploadDocument(document)
-                        store.removeUserDocument(document.file.name, 'category1')
+                        store.removeUserDocument(document.id, 'category1')
                       }}
                       uploadHandler={() => store.uploadDocument(document, 'category1')}
                       // do not allow to reupload of already touched file (both with success or error)
