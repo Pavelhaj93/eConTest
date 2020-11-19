@@ -60,7 +60,7 @@ namespace eContracting.ConsoleClient.Commands
 
                 for (int i = 0; i < files.Length; i++)
                 {
-                    list2.Add(new FileModel(files[i].Attributes.FirstOrDefault(x => x.Key == "IDATTACH")?.Value, files[i].IsPrinted ? "X" : "", files[i].FileName));
+                    list2.Add(new FileModel(files[i].Attributes?.FirstOrDefault(x => x.Key == "IDATTACH")?.Value, files[i].IsPrinted ? "X" : "", files[i].FileName));
                 }
 
                 this.Console.WriteLine(JsonConvert.SerializeObject(list2, Formatting.Indented));

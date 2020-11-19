@@ -9,6 +9,7 @@ namespace eContracting.Tests
     public class TestLogger : ILogger
     {
         public List<KeyValuePair<string, string>> Fatals { get; } = new List<KeyValuePair<string, string>>();
+        public List<KeyValuePair<string, string>> Infos { get; } = new List<KeyValuePair<string, string>>();
 
         public void Debug(string guid, string message)
         {
@@ -47,7 +48,7 @@ namespace eContracting.Tests
 
         public void Info(string guid, string message)
         {
-            throw new NotImplementedException();
+            this.Infos.Add(new KeyValuePair<string, string>(guid, message));
         }
 
         public void Warn(string guid, string message)

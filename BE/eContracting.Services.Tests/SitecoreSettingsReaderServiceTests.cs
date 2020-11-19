@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Tests;
 using Glass.Mapper.Maps;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Configuration.Fluent;
@@ -18,7 +19,7 @@ using Xunit;
 namespace eContracting.Services.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class SitecoreSettingsReaderServiceTests
+    public class SitecoreSettingsReaderServiceTests : BaseTestClass
     {
         public SitecoreSettingsReaderServiceTests()
         {
@@ -259,16 +260,14 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetDefinition_Returns_Model_When_Matched_Offer()
         {
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var process = "XYZ";
+            var processType = "123";
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = process;
+            offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
-            combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
-
+            combination.Process = new ProcessModel() { Code = process };
+            combination.ProcessType = new ProcessModel() { Code = processType };
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
@@ -283,12 +282,9 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetDefinition_Returns_Not_When_NotMatched_Offer()
         {
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = "XYZ";
+            offer.Xml.Content.Body.BusProcessType = "123";
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "ABCDED" };
             combination.ProcessType = new ProcessModel() { Code = "09988" };
@@ -343,20 +339,18 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginTypes_Returns_Preselected_Types()
         {
+            var process = "XYZ";
+            var processType = "123";
             var loginTypes = new List<LoginTypeModel>();
             loginTypes.Add(new LoginTypeModel() { Name = "LT1" });
             loginTypes.Add(new LoginTypeModel() { Name = "LT2" });
             loginTypes.Add(new LoginTypeModel() { Name = "LT3" });
-
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = process;
+            offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
-            combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.Process = new ProcessModel() { Code = process };
+            combination.ProcessType = new ProcessModel() { Code = processType };
             combination.LoginTypes = loginTypes;
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -376,22 +370,19 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginTypes_Returns_1_Type_From_Many()
         {
+            var process = "XYZ";
+            var processType = "123";
             var loginTypes = new List<LoginTypeModel>();
             loginTypes.Add(new LoginTypeModel() { Name = "LT1" });
             loginTypes.Add(new LoginTypeModel() { Name = "LT2" });
             loginTypes.Add(new LoginTypeModel() { Name = "LT3" });
-
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = process;
+            offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
-            combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.Process = new ProcessModel() { Code = process };
+            combination.ProcessType = new ProcessModel() { Code = processType };
             combination.LoginTypes = Enumerable.Empty<LoginTypeModel>();
-
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
@@ -408,20 +399,17 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginTypes_Returns_1_Random_Type_When_Only_1_Available()
         {
+            var process = "XYZ";
+            var processType = "123";
             var loginTypes = new List<LoginTypeModel>();
             loginTypes.Add(new LoginTypeModel() { Name = "LT1" });
-
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            var offer = new OfferModel(offerXmlModel, 2, new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-16"), new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = process;
+            offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
-            combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.Process = new ProcessModel() { Code = process };
+            combination.ProcessType = new ProcessModel() { Code = processType };
             combination.LoginTypes = new LoginTypeModel[] { };
-
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });

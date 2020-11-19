@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using eContracting.Models;
+using eContracting.Tests;
 using eContracting.Website.Areas.eContracting2.Controllers;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Maps;
@@ -21,7 +22,7 @@ using Xunit;
 namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 {
     [ExcludeFromCodeCoverage]
-    public class eContracting2AuthControllerTests
+    public class eContracting2AuthControllerTests : BaseTestClass
     {
         public eContracting2AuthControllerTests()
         {
@@ -43,14 +44,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void Login_Get_CanLogin_USER_BLOCKED()
         {
             var guid = Guid.NewGuid().ToString("N");
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "1", DateTime.Now.ToString("dd.MM.yyyy"));
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -71,7 +65,6 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void Login_Get_CanLogin_OFFER_NOT_FOUND()
         {
             var guid = Guid.NewGuid().ToString("N");
-            var state = "1";
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
@@ -94,14 +87,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "1";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-            
+            var offer = this.CreateOffer(guid, true, 2, state);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -123,15 +109,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "3";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -153,15 +131,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "3";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel() { BIRTHDT = "27.10.2020" };
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
+            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -386,19 +357,11 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "1";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var redirectUrl = "http://localhost/error";
             var expected = redirectUrl + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
-
             var loginPageModel = new LoginPageModel();
             loginPageModel.Step = new ProcessStepModel();
             var logger = new MemoryLogger();
@@ -438,20 +401,11 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "2";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var redirectUrl = "http://localhost/error";
             var expected = redirectUrl + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
-
             var loginPageModel = new LoginPageModel();
             loginPageModel.Step = new ProcessStepModel();
             var logger = new MemoryLogger();
@@ -493,18 +447,10 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             bool wasRead = false;
             var guid = Guid.NewGuid().ToString("N");
             var state = "3";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel() { BIRTHDT = "27.10.2020" };
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
+            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
-
             var loginPageModel = new LoginPageModel();
             loginPageModel.Step = new ProcessStepModel();
             var logger = new MemoryLogger();
@@ -553,18 +499,10 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var guid = Guid.NewGuid().ToString("N");
             var state = "4";
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-            fakeOfferXmlModel.Content.Body = new OfferBodyXmlModel() { BIRTHDT = "27.10.2020" };
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, state, "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid, true, 2, state);
+            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
-
             var loginPageModel = new LoginPageModel();
             loginPageModel.Step = new ProcessStepModel();
             var logger = new MemoryLogger();
@@ -754,14 +692,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void GetChoiceViewModel_Throws_ArgumentNullException_When_Model_Null()
         {
             var guid = Guid.NewGuid().ToString("N");
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -771,8 +702,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+
             Assert.Throws<ArgumentNullException>(() => { controller.GetChoiceViewModel((LoginTypeModel)null, offer); });
         }
 
@@ -799,16 +730,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void GetChoiceViewModel_Success()
         {
             var guid = Guid.NewGuid().ToString("N");
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid);
             var loginType = new LoginTypeModel();
-
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -817,7 +740,6 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
-
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);
@@ -829,16 +751,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void GetChoiceViewModel_With_Unique_Key()
         {
             var guid = Guid.NewGuid().ToString("N");
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid);
             var loginType = new LoginTypeModel();
-
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -847,7 +761,6 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
-
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);
@@ -860,16 +773,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         public void GetChoiceViewModel_With_Corrent_Key()
         {
             var guid = Guid.NewGuid().ToString("N");
-
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", guid, "4", "");
-            var fakeAttributes = new OfferAttributeModel[] { };
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(guid);
             var loginType = new LoginTypeModel();
-
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
@@ -878,7 +783,6 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
-
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);

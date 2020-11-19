@@ -22,7 +22,8 @@ namespace eContracting.Models
         [JsonIgnore]
         public readonly OfferXmlModel Xml;
 
-        [JsonProperty("parameters")]
+        [JsonIgnore]
+        //[JsonProperty("parameters")]
         public IDictionary<string, string> TextParameters { get; } = new Dictionary<string, string>();
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace eContracting.Models
         /// Gets or sets flag if offer is accepted.
         /// </summary>
         [JsonProperty("accepted")]
-        public bool IsAccepted { get; set; }
+        public readonly bool IsAccepted;
 
         /// <summary>
         /// Gets or sets infromation when offer was accepted.
@@ -302,7 +303,7 @@ namespace eContracting.Models
         /// attributes
         /// </exception>
         /// <exception cref="System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
-        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, OfferAttributeModel[] attributes)
+        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, bool isAccepted, OfferAttributeModel[] attributes)
         {
             if (xml == null)
             {
@@ -317,6 +318,7 @@ namespace eContracting.Models
             this.Xml = xml;
             this.Version = version;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
+            this.IsAccepted = isAccepted;
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
         }
 

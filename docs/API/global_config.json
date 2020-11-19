@@ -1,7 +1,8 @@
 ﻿{
     "apis": {
-        "offer": "/api/eCon/offer",
-        "files": "/api/eCon/files"
+        "new": "/api/eCon/offer",
+        "accepted": "/api/eCon/offer2",
+        "files": "/api/eCon/files/{key}"
     }
     "dictionary": {
         "key1": "phrase 1"

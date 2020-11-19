@@ -30,7 +30,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
         {
-            if (offer.Attachments.Length == 0)
+            if ((offer.Attachments?.Length ?? 0) == 0)
             {
                 this.Logger.Info(offer.Guid, "No attachments available");
                 return new OfferAttachmentModel[] { };

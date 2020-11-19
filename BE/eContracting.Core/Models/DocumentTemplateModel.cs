@@ -43,7 +43,7 @@ namespace eContracting.Models
         public string Group { get; set; }
 
         [XmlElement("GROUP_OBLIGATORY")]
-        public string GroupObligatory { get; set; }
+        public string GroupObligatory { get; set; } = string.Empty;
 
         [XmlElement("ITEM_GUID")]
         public string ItemGuid { get; set; }

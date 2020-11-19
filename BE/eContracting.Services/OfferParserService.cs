@@ -149,7 +149,8 @@ namespace eContracting.Services
             var result = this.ProcessRootFile(file);
             var rawXml = Utils.GetRawXml(file);
             var version = this.GetVersion(response.Response);
-            var offer = new OfferModel(result, version, header, attributes);
+            var isAccepted = this.IsAccepted(response.Response);
+            var offer = new OfferModel(result, version, header, isAccepted, attributes);
             offer.RawContent.Add(file.FILENAME, rawXml);
             return offer;
         }
@@ -223,6 +224,18 @@ namespace eContracting.Services
 
                 return offerXml;
             }
+        }
+
+        protected internal bool IsAccepted(ZCCH_CACHE_GETResponse response)
+        {
+            var attr = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.ACCEPTED_DATE)?.ATTRVAL;
+
+            if (attr == null)
+            {
+                return false;
+            }
+
+            return attr.Any(c => Char.IsDigit(c));
         }
 
         protected internal bool IsNotCompatible(OfferXmlModel offerXml)

@@ -9,21 +9,16 @@ using Xunit;
 
 namespace eContracting.Services.Tests
 {
-    public class OfferAttachmentParserServiceTests
+    public class OfferAttachmentParserServiceTests : BaseTestClass
     {
         [Fact]
         public void Parse_Returns_Empty_When_No_Offer_Attachments()
         {
             var logger = new TestLogger();
             var guid = Guid.NewGuid().ToString("N");
-            var offerXmlModel = new OfferXmlModel();
-            offerXmlModel.Content = new OfferContentXmlModel();
-            offerXmlModel.Content.Body = new OfferBodyXmlModel();
-            offerXmlModel.Content.Body.BusProcess = "XYZ";
-            offerXmlModel.Content.Body.BusProcessType = "123";
-            offerXmlModel.Content.Body.Attachments = new DocumentTemplateModel[] { };
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-16");
-            var offer = new OfferModel(offerXmlModel, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer(guid);// new OfferModel(offerXmlModel, 2, offerHeader, new OfferAttributeModel[] { });
+            offer.Xml.Content.Body.BusProcess = "XYZ";
+            offer.Xml.Content.Body.BusProcessType = "123";
 
             var files = new List<ZCCH_ST_FILE>();
 
@@ -32,7 +27,7 @@ namespace eContracting.Services.Tests
 
             Assert.Empty(result);
 
-            var log = logger.Fatals.First();
+            var log = logger.Infos.First();
             Assert.Equal(guid, log.Key);
         }
     }

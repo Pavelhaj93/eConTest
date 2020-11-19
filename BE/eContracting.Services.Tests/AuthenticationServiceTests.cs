@@ -4,21 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Tests;
 using Moq;
 using Xunit;
 
 namespace eContracting.Services.Tests
 {
-    public class AuthenticationServiceTests
+    public class AuthenticationServiceTests : BaseTestClass
     {
         [Fact]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Empty()
         {
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            var offerHeader = new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();
 
@@ -31,11 +28,7 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginState_Returns_KEY_MISMATCH_When_Empty()
         {
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            var offerHeader = new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();
 
@@ -48,11 +41,7 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginState_Returns_INVALID_VALUE_When_Empty()
         {
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            var offerHeader = new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();
 
@@ -65,12 +54,8 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Dont_Match()
         {
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = "25.06.1971";
-            var offerHeader = new OfferHeaderModel("NABIDKA", "key", "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BIRTHDT = "25.06.1971";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();
 
@@ -85,13 +70,8 @@ namespace eContracting.Services.Tests
         {
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
             loginType.ID = Guid.NewGuid();
@@ -115,12 +95,8 @@ namespace eContracting.Services.Tests
         {
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
 
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
@@ -147,13 +123,9 @@ namespace eContracting.Services.Tests
             var partnerId2 = "8433x4421";
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            offerXml.Content.Body.PARTNER = partnerId1;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
+            offer.Xml.Content.Body.PARTNER = partnerId1;
 
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
@@ -181,14 +153,9 @@ namespace eContracting.Services.Tests
             var partnerId2 = "843374422";
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            offerXml.Content.Body.PARTNER = partnerId1;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
+            offer.Xml.Content.Body.PARTNER = partnerId1;
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
             loginType.ID = Guid.NewGuid();
@@ -214,14 +181,9 @@ namespace eContracting.Services.Tests
             var partnerId = "843374421";
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            offerXml.Content.Body.PARTNER = partnerId;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
+            offer.Xml.Content.Body.PARTNER = partnerId;
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
             loginType.ID = Guid.NewGuid();
@@ -246,12 +208,8 @@ namespace eContracting.Services.Tests
         {
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
 
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
@@ -276,13 +234,8 @@ namespace eContracting.Services.Tests
         {
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            offerXml.Content.Body.BIRTHDT = birthdate;
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
+            offer.Xml.Content.Body.BIRTHDT = birthdate;
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
             loginType.ID = Guid.NewGuid();
@@ -360,17 +313,13 @@ namespace eContracting.Services.Tests
         public void Login_Adds_AuthDataModel_To_Cache()
         {
             var guid = Guid.NewGuid().ToString("N");
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
             bool inserted = false;
             var authData = new AuthDataModel(offer);
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();
             mockCache.Setup(x => x.AddToSession(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
+
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             service.Login(authData);
 
@@ -381,12 +330,7 @@ namespace eContracting.Services.Tests
         public void IsLoggedIn_Returns_True_When_AuthDataModel_Exists()
         {
             var guid = Guid.NewGuid().ToString("N");
-            var offerXml = new OfferXmlModel();
-            offerXml.Content = new OfferContentXmlModel();
-            offerXml.Content.Body = new OfferBodyXmlModel();
-            var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "2020-11-17");
-            var offer = new OfferModel(offerXml, 2, offerHeader, new OfferAttributeModel[] { });
-
+            var offer = this.CreateOffer(guid);
             var authData = new AuthDataModel(offer);
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<ICache>();

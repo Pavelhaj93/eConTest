@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseTestClass.cs" />
     <Compile Include="ISitecoreContextExtended.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestLogger.cs" />

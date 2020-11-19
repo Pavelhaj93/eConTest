@@ -1212,7 +1212,7 @@
             Gets or sets the unique GUID of this offer.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferModel.IsAccepted">
+        <member name="F:eContracting.Models.OfferModel.IsAccepted">
             <summary>
             Gets or sets flag if offer is accepted.
             </summary>
@@ -1280,7 +1280,7 @@
             Header values from the offer.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferAttributeModel[])">
+        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,System.Boolean,eContracting.Models.OfferAttributeModel[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferModel"/> class.
             </summary>

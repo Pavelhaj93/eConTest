@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Tests;
 using Xunit;
 
 namespace eContracting.Core.Tests
 {
-    public class UtilsTests
+    public class UtilsTests : BaseTestClass
     {
         [Theory]
         [InlineData(-1, "0 B")]
@@ -125,13 +126,7 @@ namespace eContracting.Core.Tests
             var loginType = new LoginTypeModel();
             loginType.ID = loginTypeId;
 
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
-            var fakeAttributes = new OfferAttributeModel[] { };
-
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
+            var offer = this.CreateOffer();
 
             var result = Utils.GetUniqueKey(loginType, offer);
 
@@ -150,14 +145,7 @@ namespace eContracting.Core.Tests
             var loginType = new LoginTypeModel();
             loginType.ID = loginTypeId;
 
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
-            var fakeAttributes = new OfferAttributeModel[] { };
-
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
-
+            var offer = this.CreateOffer(offerId);
             var result = Utils.GetUniqueKey(loginType, offer);
 
             Assert.Equal(expected, result);
@@ -168,13 +156,7 @@ namespace eContracting.Core.Tests
         {
             var offerId = Guid.NewGuid();
 
-            var fakeOfferXmlModel = new OfferXmlModel();
-            fakeOfferXmlModel.Content = new OfferContentXmlModel();
-
-            var fakeHeaderModel = new OfferHeaderModel("NABIDKA", offerId.ToString("N"), "1", DateTime.Now.ToString("dd.MM.yyyy"));
-            var fakeAttributes = new OfferAttributeModel[] { };
-
-            var offer = new OfferModel(fakeOfferXmlModel, 2, fakeHeaderModel, fakeAttributes);
+            var offer = this.CreateOffer(offerId);
 
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((LoginTypeModel)null, offer); });
         }

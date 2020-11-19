@@ -91,10 +91,10 @@ namespace eContracting.Models
         #endregion
 
         [SitecoreField]
-        public virtual RichTextModel MainTextOfferAccepted { get; set; }
+        public virtual RichTextModel OfferAcceptedMainText { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel MainTextOfferExpired { get; set; }
+        public virtual RichTextModel OfferExpiredMainText { get; set; }
 
         [SitecoreField]
         public virtual RichTextModel MainTextThankYou { get; set; }

@@ -168,6 +168,10 @@
       <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
       <Name>eContracting.Kernel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\eContracting.Tests\eContracting.Tests.csproj">
+      <Project>{f1c16540-9450-4a28-bfff-3f84662f87cd}</Project>
+      <Name>eContracting.Tests</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eContracting.Website\eContracting.Website.csproj">
       <Project>{f5cdfde6-b465-46f0-a9d8-e69f06416bf8}</Project>
       <Name>eContracting.Website</Name>
