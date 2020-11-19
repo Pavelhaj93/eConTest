@@ -85,9 +85,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             //return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));
         }
 
+        /// <summary>
+        /// Download requested file from an offer.
+        /// </summary>
+        /// <param name="key">The identifier.</param>
         [HttpGet]
-        [Route("file/{id}")]
-        public async Task<IHttpActionResult> File([FromUri]string id)
+        [Route("file/{key}")]
+        public async Task<IHttpActionResult> File([FromUri]string key)
         {
             // needs to check like this because info about it is only as custom session property :-(
             if (!this.AuthService.IsLoggedIn())
@@ -104,7 +108,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             var attachments = await this.ApiService.GetAttachmentsAsync(offer);
-            var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
+            var file = attachments.FirstOrDefault(x => x.UniqueKey == key);
 
             if (file == null)
             {
@@ -119,6 +123,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.ResponseMessage(response);
         }
 
+        /// <summary>
+        /// Get JSON model for non accepted offer.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("offer")]
         public async Task<IHttpActionResult> Offer()
@@ -144,6 +152,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.StatusCode(HttpStatusCode.NotImplemented);
         }
 
+        /// <summary>
+        /// Get JSON model for accepted offer.
+        /// </summary>
         [HttpGet]
         [Route("accepted")]
         public async Task<IHttpActionResult> Accepted()
@@ -170,7 +181,39 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Json(model);
         }
 
-        protected async Task<ComplexOfferAcceptedViewModel> GetAcceptedViewModel(OfferModel offer)
+        /// <summary>
+        /// Uploads file and returns actual group size.
+        /// </summary>
+        [HttpPost]
+        [Route("upload/{groupId}")]
+        public async Task<IHttpActionResult> Upload(string groupId)
+        {
+            return this.StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        /// <summary>
+        /// Deletes uploaded file from group and returns actual group size.
+        /// </summary>
+        /// <param name="groupId">The group identifier.</param>
+        /// <param name="fileId">The file identifier.</param>
+        [HttpDelete]
+        [Route("upload/{groupId}/{fileId}")]
+        public async Task<IHttpActionResult> DeleteUpload(string groupId, string fileId)
+        {
+            return this.StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        /// <summary>
+        /// Submit an offer (model not defined yet).
+        /// </summary>
+        [HttpPost]
+        [Route("offer")]
+        public async Task<IHttpActionResult> Submit()
+        {
+            return this.StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        protected internal async Task<ComplexOfferAcceptedViewModel> GetAcceptedViewModel(OfferModel offer)
         {
             var groups = new List<FilesSectionViewModel>();
             var version = offer.Version;
@@ -194,7 +237,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new ComplexOfferAcceptedViewModel(groups);
         }
 
-        protected IEnumerable<FilesSectionViewModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, AcceptedOfferPageModel definition, OfferModel offer)
+        protected internal IEnumerable<FilesSectionViewModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, AcceptedOfferPageModel definition, OfferModel offer)
         {
             var list = new List<FilesSectionViewModel>();
 
@@ -235,7 +278,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return list;
         }
 
-        protected string GetGroupTitle(DefinitionCombinationModel definition, OfferAttachmentModel attachment, string groupName)
+        protected internal string GetGroupTitle(DefinitionCombinationModel definition, OfferAttachmentModel attachment, string groupName)
         {
             if (groupName == "COMMODITY")
             {
@@ -245,7 +288,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return null;
         }
 
-        protected AcceptedOfferPageModel GetAcceptedPageModel()
+        protected internal AcceptedOfferPageModel GetAcceptedPageModel()
         {
             Guid guid = this.SettingsReaderService.GetSiteSettings().AcceptedOffer?.TargetId ?? Guid.Empty;
 
