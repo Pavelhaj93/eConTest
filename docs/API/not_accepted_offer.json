@@ -170,16 +170,19 @@
             "note": "Celkem max 25 MB. Povolené typy: PDF, JPG, JPEG, PNG, PDF. Více dokumentů lze poslat v zazipovaném souboru",
             "types": [
                 {
+                    "id": "352a1b9154364a52a5c7d709e9366ccf",
                     "title": "Občanský nebo řidičský průkaz",
                     "info": "Prostě to tam nahraj a na nic se neptej",
                     "mandatory": true
                 },
                 {
+                    "id": "79d947f21ccb4e3bacd9d2ad3a0a1820",
                     "title": "Roční vyúčtování (fakturace)",
                     "info": "Prostě to tam nahraj a na nic se neptej",
                     "mandatory": true
                 },
                 {
+                    "id": "d199d71ecad3426b986c3a1d9850a85c",
                     "title": "Přiložit další dokumenty navíc (volitelné)",
                     "info": "Jestli to tam nechceš dávat, tak nemusíš",
                     "mandatory": false
