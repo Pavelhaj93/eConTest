@@ -13,6 +13,16 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string Title { get; set; }
 
         [JsonProperty("files")]
-        public FileViewModel[] Files { get; set; }
+        public IEnumerable<FileViewModel> Files { get; set; }
+
+        public FilesSectionViewModel()
+        {
+        }
+
+        public FilesSectionViewModel(IEnumerable<FileViewModel> files, string title)
+        {
+            this.Files = files;
+            this.Title = title;
+        }
     }
 }

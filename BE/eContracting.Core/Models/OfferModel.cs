@@ -180,7 +180,7 @@ namespace eContracting.Models
         }
 
         [JsonIgnore]
-        public DocumentTemplateModel[] Attachments
+        public DocumentTemplateModel[] Documents
         {
             get
             {
@@ -264,12 +264,12 @@ namespace eContracting.Models
         {
             get
             {
-                if (this.Attachments == null || this.Attachments.Length == 0)
+                if (this.Documents == null || this.Documents.Length == 0)
                 {
                     return false;
                 }
 
-                return this.Attachments.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
+                return this.Documents.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
             }
         }
 

@@ -102,6 +102,7 @@
     <Compile Include="ISettingsReaderService.cs" />
     <Compile Include="LogTable.cs" />
     <Compile Include="MissingDatasourceException.cs" />
+    <Compile Include="Models\AcceptedOfferPageModel.cs" />
     <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
     <Compile Include="AUTH_RESULT_STATES.cs" />

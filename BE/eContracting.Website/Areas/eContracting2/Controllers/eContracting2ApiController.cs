@@ -115,7 +115,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             response.Content = new ByteArrayContent(file.FileContent);
             response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
             response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            response.Content.Headers.ContentDisposition.FileName = file.FileName;
+            response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
             return this.ResponseMessage(response);
         }
 
@@ -166,24 +166,95 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.BadRequest();
             }
 
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+            var model = await this.GetAcceptedViewModel(offer);
+            return this.Json(model);
         }
 
-        protected ComplexOfferAcceptedViewModel GetAcceptedViewModel(OfferModel offer)
+        protected async Task<ComplexOfferAcceptedViewModel> GetAcceptedViewModel(OfferModel offer)
         {
-            var viewModel = new ComplexOfferAcceptedViewModel();
             var groups = new List<FilesSectionViewModel>();
             var version = offer.Version;
-            var attachments = offer.Attachments;
+            var documents = offer.Documents;
+            var files = await this.ApiService.GetAttachmentsAsync(offer);
             var definition = this.SettingsReaderService.GetDefinition(offer);
+            var page = this.GetAcceptedPageModel();
             var textParameters = offer.TextParameters;
 
             if (version == 1)
             {
-                
+                var fileGroups = files.GroupBy(x => x.Group);
+
+                foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
+                {
+                    var g = this.GetSection(fileGroup.Key, fileGroup, page, offer);
+                    groups.AddRange(g);
+                }
             }
 
-            return viewModel;
+            return new ComplexOfferAcceptedViewModel(groups);
+        }
+
+        protected IEnumerable<FilesSectionViewModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, AcceptedOfferPageModel definition, OfferModel offer)
+        {
+            var list = new List<FilesSectionViewModel>();
+
+            if (groupName == "COMMODITY")
+            {
+                var acceptFiles = attachments.Where(x => x.Group == "COMMODITY" && !x.IsSignReq);
+                var signFiles = attachments.Where(x => x.Group == "COMMODITY" && x.IsSignReq);
+
+                if (acceptFiles.Any())
+                {
+                    var title = definition.AcceptedDocumentsTitle;
+                    list.Add(new FilesSectionViewModel(acceptFiles.Select(x => new FileViewModel(x)), title));
+                }
+
+                if (signFiles.Any())
+                {
+                    var title = definition.SignedDocumentsTitle;
+                    list.Add(new FilesSectionViewModel(signFiles.Select(x => new FileViewModel(x)), title));
+                }
+            }
+            else if (groupName == "DLS")
+            {
+                var files = attachments.Where(x => x.Group == "DLS");
+                var title = definition.AdditionalServicesTitle;
+                list.Add(new FilesSectionViewModel(files.Select(x => new FileViewModel(x)), title));
+            }
+            else if (groupName == "NONCOMMODITY")
+            {
+                var files = attachments.Where(x => x.Group == "NONCOMMODITY");
+                var title = definition.OthersTitle;
+                list.Add(new FilesSectionViewModel(files.Select(x => new FileViewModel(x)), title));
+            }
+            else
+            {
+                this.Logger.Fatal(offer.Guid, $"Unknown group '{groupName}' found");
+            }
+
+            return list;
+        }
+
+        protected string GetGroupTitle(DefinitionCombinationModel definition, OfferAttachmentModel attachment, string groupName)
+        {
+            if (groupName == "COMMODITY")
+            {
+                return definition.OfferDocumentsForAcceptanceSection1.Text;
+            }
+
+            return null;
+        }
+
+        protected AcceptedOfferPageModel GetAcceptedPageModel()
+        {
+            Guid guid = this.SettingsReaderService.GetSiteSettings().AcceptedOffer?.TargetId ?? Guid.Empty;
+
+            if (guid == Guid.Empty)
+            {
+                return new AcceptedOfferPageModel();
+            }
+
+            return this.Context.GetItem<AcceptedOfferPageModel>(guid) ?? new AcceptedOfferPageModel();
         }
     }
 }

@@ -20,18 +20,12 @@ namespace eContracting
             public const string VERSION_2 = "01";
         }
 
-        public static class OfferTypes
-        {
-            public const string NABIDKA = "NABIDKA";
-            public const string NABIDKA_PDF = "NABIDKA_PDF";
-            public const string NABIDKA_ARCH = "NABIDKA_ARCH";
-        }
-
         public static class OfferDefaults
         {
             public const string BUS_PROCESS = "00";
             public const string BUS_PROCESS_TYPE_A = "A";
             public const string BUS_PROCESS_TYPE_B = "B";
+            public const string GROUP = "COMMODITY";
         }
 
         public static class FileAttributes

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using eContracting.Models;
 using eContracting.Services;
+using Sitecore.Data.Items;
 using Sitecore.Pipelines.Save;
 
 namespace eContracting.Services
@@ -30,7 +31,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
         {
-            if ((offer.Attachments?.Length ?? 0) == 0)
+            if ((offer.Documents?.Length ?? 0) == 0)
             {
                 this.Logger.Info(offer.Guid, "No attachments available");
                 return new OfferAttachmentModel[] { };
@@ -38,74 +39,51 @@ namespace eContracting.Services
 
             var list = new List<OfferAttachmentModel>();
 
-            for (int i = 0; i < offer.Attachments.Length; i++)
+            for (int i = 0; i < offer.Documents.Length; i++)
             {
-                var attachment = offer.Attachments[i];
+                var template = offer.Documents[i];
 
-                if (string.IsNullOrEmpty(attachment.IdAttach))
+                if (string.IsNullOrEmpty(template.IdAttach))
                 {
-                    this.Logger.Fatal(offer.Guid, $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})");
+                    this.Logger.Fatal(offer.Guid, $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {template.Description})");
                     continue;
                 }
 
-                // if attachment exists in files
-                if (attachment.Printed == Constants.FileAttributes.CHECK_VALUE)
+                this.MakeCompatible(offer, template);
+
+                var item = this.GetModel(offer, template, files);
+
+                if (item == null)
                 {
-                    OfferAttachmentModel item = null;
-
-                    for (int y = 0; y < files.Length; y++)
-                    {
-                        var file = files[y];
-                        var fileIdAttach = this.GetIdAttach(file);
-
-                        if (attachment.IdAttach == fileIdAttach)
-                        {
-                            var uniqueKey = this.GetUniqueKey(file);
-                            var attrs = this.GetAttributes(file);
-                            item = new OfferAttachmentModel(attachment, uniqueKey, fileIdAttach, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
-                        }
-                    }
-
-                    if (item != null)
-                    {
-                        list.Add(item);
-                    }
-                    else
-                    {
-                        this.Logger.Fatal(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
-                        //throw new ApplicationException($"File with {Constants.FileAttributes.TYPE} '{attachment.IdAttach}' not found");
-                        continue;
-                    }
+                    this.Logger.Fatal(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{template.IdAttach}' not found");
                 }
-                // otherwise this file must be uploaded by user
                 else
                 {
-                    var item = new OfferAttachmentModel(attachment);
                     list.Add(item);
                 }
             }
 
-            for (int i = 0; i < files.Length; i++)
-            {
-                var file = files[i];
-                var idAttach = this.GetIdAttach(file);
-                var fileName = this.GetFileName(file);
-                var uniqueKey = this.GetUniqueKey(file);
-                var attrs = this.GetAttributes(file);
+            //for (int i = 0; i < files.Length; i++)
+            //{
+            //    var file = files[i];
+            //    var idAttach = this.GetIdAttach(file);
+            //    var fileName = this.GetFileName(file);
+            //    var uniqueKey = this.GetUniqueKey(file);
+            //    var attrs = this.GetAttributes(file);
 
-                var fileModel = new OfferAttachmentModel(
-                uniqueKey: uniqueKey,
-                idAttach: idAttach,
-                mimeType: file.MIMETYPE,
-                index: i.ToString(),
-                fileName: fileName,
-                originalFileName: file.FILENAME,
-                signedVersion: false,
-                attributes: attrs,
-                content: file.FILECONTENT);
+            //    var fileModel = new OfferAttachmentModel(
+            //    uniqueKey: uniqueKey,
+            //    idAttach: idAttach,
+            //    mimeType: file.MIMETYPE,
+            //    index: i.ToString(),
+            //    fileName: fileName,
+            //    originalFileName: file.FILENAME,
+            //    signedVersion: false,
+            //    attributes: attrs,
+            //    content: file.FILECONTENT);
 
-                list.Add(fileModel);
-            }
+            //    list.Add(fileModel);
+            //}
 
             return list.ToArray();
         }
@@ -164,5 +142,57 @@ namespace eContracting.Services
             return Utils.GetMd5(file.FILENAME);
         }
 
+        protected internal bool IsNotCompatible(DocumentTemplateModel template)
+        {
+            return string.IsNullOrEmpty(template.Group);
+        }
+
+        protected internal void MakeCompatible(OfferModel offer, DocumentTemplateModel template)
+        {
+            if (string.IsNullOrEmpty(template.Group))
+            {
+                template.Group = Constants.OfferDefaults.GROUP;
+                this.Logger.Info(offer.Guid, $"Missing value for 'Group' (version {offer.Version}). Set default: '{Constants.OfferDefaults.GROUP}'");
+            }
+
+            if (offer.Version == 1)
+            {
+                if (!template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    template.Printed = Constants.FileAttributeValues.CHECK_VALUE;
+                    this.Logger.Info(offer.Guid, $"Missing value for 'Printed' (version {offer.Version}). Set default: '{Constants.FileAttributeValues.CHECK_VALUE}'");
+                }
+            }
+        }
+
+        protected internal OfferAttachmentModel GetModel(OfferModel offer, DocumentTemplateModel template, ZCCH_ST_FILE[] files)
+        {
+            OfferAttachmentModel item = null;
+
+            // if attachment exists in files
+            if (template.Printed == Constants.FileAttributes.CHECK_VALUE)
+            {
+                for (int y = 0; y < files.Length; y++)
+                {
+                    var file = files[y];
+                    var fileIdAttach = this.GetIdAttach(file);
+
+                    if (template.IdAttach == fileIdAttach)
+                    {
+                        var uniqueKey = this.GetUniqueKey(file);
+                        var attrs = this.GetAttributes(file);
+                        item = new OfferAttachmentModel(template, uniqueKey, fileIdAttach, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
+                    }
+                }
+            }
+            // otherwise this file must be uploaded by user
+            else
+            {
+                // this is just a template for file witch is required from a user
+                item = new OfferAttachmentModel(template);
+            }
+
+            return item;
+        }
     }
 }

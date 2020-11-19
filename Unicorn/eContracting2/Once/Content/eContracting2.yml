@@ -11,7 +11,7 @@ SharedFields:
     <link id="{7FDF07BC-0AC8-42BD-B1C4-75A0824E9066}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/systemova-chyba" linktype="internal" />
 - ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
   Hint: ServiceUrl
-  Value: 
+  Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api"
 - ID: "70b910ee-71e5-4436-b1cd-c9184374adf3"
   Hint: SigningServiceUrl
   Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
@@ -33,7 +33,7 @@ SharedFields:
 - ID: "c2220b46-f80a-4a9b-969a-954d3f292e73"
   Hint: AcceptedOffer
   Value: |
-    <link id="{E2A4B198-E69B-4C32-AD37-787FF751F847}" querystring="" linktype="internal" text="" anchor="" url="/eContracting2/Web/nabidka-akceptovana" title="" class="" target="" />
+    <link id="{E2A4B198-E69B-4C32-AD37-787FF751F847}" querystring="" target="" text="" anchor="" url="/eContracting2/Web/akceptovana-nabidka" title="" class="" linktype="internal" />
 - ID: "c5d6fe4f-5355-48de-872e-9c8451413c71"
   Hint: SessionExpired
   Value: |

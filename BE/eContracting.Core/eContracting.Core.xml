@@ -832,6 +832,11 @@
             Gets or sets file name.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.FileNameExtension">
+            <summary>
+            The file name with extension.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.Group">
             <summary>
             Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.

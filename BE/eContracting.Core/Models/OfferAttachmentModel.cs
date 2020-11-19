@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Services;
 using Newtonsoft.Json;
+using Sitecore.IO;
 
 namespace eContracting.Models
 {
@@ -51,6 +53,12 @@ namespace eContracting.Models
         /// </summary>
         [JsonProperty("name")]
         public readonly string FileName;
+
+        /// <summary>
+        /// The file name with extension.
+        /// </summary>
+        [JsonProperty("file")]
+        public readonly string FileNameExtension;
 
         /// <summary>
         /// Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
@@ -179,6 +187,7 @@ namespace eContracting.Models
             }
 
             this.Group = template.Group;
+            this.FileName = template.Description;
             this.IsGroupOblig = template.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
             this.IsPrinted = template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
             this.IsSignReq = template.SignReq.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
@@ -196,10 +205,16 @@ namespace eContracting.Models
         /// <param name="content">The content.</param>
         public OfferAttachmentModel(DocumentTemplateModel template, string uniqueKey, string idAttach, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content) : this(template)
         {
+            if (template == null)
+            {
+                throw new ArgumentNullException(nameof(template));
+            }
+
             this.UniqueKey = uniqueKey;
             this.IdAttach = idAttach;
             this.MimeType = mimeType;
             this.OriginalFileName = originalFileName;
+            this.FileNameExtension = this.GetFileNameExtension(template, originalFileName);
             this.Attributes = attributes;
             this.FileContent = content;
         }
@@ -221,6 +236,12 @@ namespace eContracting.Models
             }
 
             return attr.Value.Equals("X", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        protected string GetFileNameExtension(DocumentTemplateModel template, string originalFileName)
+        {
+            var ext = Path.GetExtension(originalFileName);
+            return template.Description + ext;
         }
     }
 }

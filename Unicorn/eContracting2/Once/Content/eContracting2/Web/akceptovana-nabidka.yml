@@ -2,7 +2,7 @@
 ID: "e2a4b198-e69b-4c32-ad37-787ff751f847"
 Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
 Template: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
-Path: "/sitecore/content/eContracting2/Web/nabidka-akceptovana"
+Path: "/sitecore/content/eContracting2/Web/akceptovana-nabidka"
 DB: master
 SharedFields:
 - ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"

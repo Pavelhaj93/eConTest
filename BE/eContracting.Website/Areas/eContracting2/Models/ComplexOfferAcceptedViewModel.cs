@@ -10,6 +10,11 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class ComplexOfferAcceptedViewModel
     {
         [JsonProperty("groups")]
-        public FilesSectionViewModel[] Groups { get; set; }
+        public IEnumerable<FilesSectionViewModel> Groups { get; set; }
+
+        public ComplexOfferAcceptedViewModel(IEnumerable<FilesSectionViewModel> groups)
+        {
+            this.Groups = groups;
+        }
     }
 }
