@@ -1,13 +1,13 @@
 ﻿---
-ID: "d8aa9fc3-aae9-49c5-b7c8-4fae3618d4cf"
+ID: "37a0c216-ff0f-461c-81f3-c3478c3cc6a2"
 Parent: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting2/WebRoot/Links
+Path: /sitecore/templates/eContracting2/WebRoot/General
 DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 25
+  Value: 250
 Languages:
 - Language: cs
   Versions:
@@ -15,18 +15,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20200107T135238Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20161007T121351Z
+      Value: 20201120T140823Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

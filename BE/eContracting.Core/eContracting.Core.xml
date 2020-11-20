@@ -684,6 +684,11 @@
             <param name="currentStep">The current step.</param>
             <returns>Array of all related steps.</returns>
         </member>
+        <member name="P:eContracting.Models.AcceptedOfferPageModel.PageTitle">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.AuthDataModel">
             <summary>
             Authentication data model to log-in a visitor.

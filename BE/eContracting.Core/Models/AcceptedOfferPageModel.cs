@@ -12,6 +12,12 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class AcceptedOfferPageModel : BaseSitecoreModel
     {
+        /// <summary>
+        /// Gets or sets the page title.
+        /// </summary>
+        [SitecoreField]
+        public virtual string PageTitle { get; set; }
+
         [SitecoreField]
         public virtual string AcceptedDocumentsTitle { get; set; }
 

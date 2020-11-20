@@ -216,6 +216,7 @@
     <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
+    <Compile Include="Areas\eContracting2\Models\AcceptedOfferViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ComplexOfferPerexParamViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\FilesSectionViewModel.cs" />
@@ -297,6 +298,28 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
+    <Content Include="Assets\eContracting2\css\econtracting.min.css" />
+    <Content Include="Assets\eContracting2\gfx\favicon\114x114.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\120x120.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\128x128.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\144x144.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\150x150.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\152x152.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\16x16.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\196x196.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\310x150.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\310x310.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\32x32.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\57x57.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\60x60.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\70x70.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\72x72.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\76x76.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\96x96.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\blob.png" />
+    <Content Include="Assets\eContracting2\gfx\icon\sprite.svg" />
+    <Content Include="Assets\eContracting2\js\econtracting.bundle.js" />
+    <Content Include="Assets\eContracting2\js\polyfills.js" />
     <Content Include="Assets_legacy\eContracting\css\econtracting.min.css" />
     <Content Include="Assets_legacy\eContracting\css\main.css" />
     <Content Include="Assets_legacy\eContracting\css\main.min.css" />
@@ -419,6 +442,10 @@
     <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.ttf" />
     <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.woff" />
     <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.woff2" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff2" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

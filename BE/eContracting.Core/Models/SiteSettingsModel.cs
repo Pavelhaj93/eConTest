@@ -101,6 +101,12 @@ namespace eContracting.Models
         [SitecoreField]
         public string DelayAfterFailedAttempts { get; set; }
 
+        [SitecoreField]
+        public virtual string ApplicationUnavailableTitle { get; set; }
+
+        [SitecoreField]
+        public virtual string ApplicationUnavailableText { get; set; }
+
         /// <summary>
         /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
         /// </summary>

@@ -175,6 +175,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
                 }
 
+                var user = this.AuthenticationService.GetCurrentUser();
+                guid = user.Guid;
                 var offer = this.ApiService.GetOffer(guid);
 
                 if (offer == null)
@@ -190,8 +192,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var datasource = this.GetLayoutItem<AcceptedOfferPageModel>();
-                
-                return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml");
+                var settings = this.SettingsReaderService.GetSiteSettings();
+                var viewModel = new AcceptedOfferViewModel(datasource, settings.ApplicationUnavailableTitle, settings.ApplicationUnavailableText);
+                return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);
             }
             catch (Exception ex)
             {

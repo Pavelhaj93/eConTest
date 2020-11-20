@@ -18,7 +18,7 @@ using Sitecore.DependencyInjection;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
-    public class eContracting2ApiController : ApiController
+    public class eContracting2ApiController : ApiController, IRequiresSessionState
     {
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
@@ -51,9 +51,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Index()
+        [HttpPost]
+        [HttpOptions]
+        [HttpDelete]
+        public async Task<IHttpActionResult> Index()
         {
-            return this.Ok();
+            return await Task.FromResult(this.Ok("Hello " + this.Request.Method.Method));
         }
 
         [HttpGet]
@@ -88,10 +91,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <summary>
         /// Download requested file from an offer.
         /// </summary>
-        /// <param name="key">The identifier.</param>
+        /// <param name="id">The identifier.</param>
         [HttpGet]
-        [Route("file/{key}")]
-        public async Task<IHttpActionResult> File([FromUri]string key)
+        [Route("file/{id}")]
+        public async Task<IHttpActionResult> File([FromUri]string id)
         {
             // needs to check like this because info about it is only as custom session property :-(
             if (!this.AuthService.IsLoggedIn())
@@ -108,7 +111,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             var attachments = await this.ApiService.GetAttachmentsAsync(offer);
-            var file = attachments.FirstOrDefault(x => x.UniqueKey == key);
+            var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
             if (file == null)
             {
@@ -184,11 +187,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <summary>
         /// Uploads file and returns actual group size.
         /// </summary>
+        /// <param name="id">Group identifier.</param>
         [HttpPost]
-        [Route("upload/{groupId}")]
-        public async Task<IHttpActionResult> Upload(string groupId)
+        [Route("upload/{id}")]
+        public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+            return await Task.FromResult(this.Ok("Will be uploaded in the future"));
         }
 
         /// <summary>
@@ -197,10 +201,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="groupId">The group identifier.</param>
         /// <param name="fileId">The file identifier.</param>
         [HttpDelete]
-        [Route("upload/{groupId}/{fileId}")]
-        public async Task<IHttpActionResult> DeleteUpload(string groupId, string fileId)
+        [HttpOptions]
+        [Route("upload/{id}")]
+        public async Task<IHttpActionResult> Delete([FromUri] int id)
         {
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+            if (this.Request.Method.Method == "OPTIONS")
+            {
+                return this.Ok();
+            }
+
+            return await Task.FromResult(this.Ok("Will be deleted in the future"));
         }
 
         /// <summary>
