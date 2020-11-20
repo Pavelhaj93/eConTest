@@ -50,11 +50,11 @@
     <script>!function () { var e = new XMLHttpRequest; e.open("GET", document.body.dataset.sprite, !0), e.send(), e.onload = (function () { var t = document.createElement("div"); t.style.display = "none", t.innerHTML = e.responseText, document.body.insertBefore(t, document.body.childNodes[0]) }) }();</script>
     @Html.Action("CookieLaw", "eContracting")
     @Html.Partial("/Areas/eContracting2/Views/Shared/Header.cshtml", Model)
-    <div class="main">
+    <main class="main">
         <div class="container">
             @Html.Sitecore().Placeholder("eContracting2")
         </div>
-    </div>
+    </main>
     @Html.Partial("/Areas/eContracting2/Views/Shared/Footer.cshtml", Model)
     <script src="/assets/eContracting/js/econtracting.bundle.js"></script>
     <noscript>

@@ -36,15 +36,17 @@ export const AcceptedOffer: React.FC<View> = observer(({ offerUrl, labels, getFi
           <Fragment>
             {store.documentGroups.map(({ title, files }, idx) => (
               <Fragment key={idx}>
-                <BoxHeading>{title}</BoxHeading>
-                {files.map(({ label, key }) => (
-                  <div key={key} className="form-item-wrapper mb-3">
-                    <a href={`${getFileUrl}${key}`} className="like-custom-control-label">
-                      <span>{label}</span>
-                      <Icon name="pdf" size={36} color={colors.orange} className="ml-auto" />
-                    </a>
-                  </div>
-                ))}
+                <BoxHeading id={`heading${idx}`}>{title}</BoxHeading>
+                <ul className="list-unstyled" aria-labelledby={`heading${idx}`}>
+                  {files.map(({ label, key }) => (
+                    <li key={key} className="form-item-wrapper mb-3">
+                      <a href={`${getFileUrl}${key}`} className="like-custom-control-label">
+                        <span>{label}</span>
+                        <Icon name="pdf" size={36} color={colors.orange} className="ml-auto" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </Fragment>
             ))}
           </Fragment>
