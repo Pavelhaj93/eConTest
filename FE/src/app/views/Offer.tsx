@@ -35,6 +35,8 @@ export const Offer: React.FC<View> = observer(
     uploadFileUrl,
     removeFileUrl,
     errorPageUrl,
+    allowedContentTypes,
+    maxFileSize,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -81,13 +83,13 @@ export const Offer: React.FC<View> = observer(
 
           <Box>
             <FileDropZone
+              accept={allowedContentTypes}
+              maxFileSize={maxFileSize}
               label={t('selectFileHelpText')}
               className="my-5"
               selectFileLabel={t('selectFile')}
               selectFileLabelMobile={t('uploadFile')}
-              onFilesAccepted={files => {
-                store.addUserFiles(files, 'category1')
-              }}
+              onFilesChanged={files => store.addUserFiles(files, 'category1')}
               useCaptureOnMobile
               captureFileLabel={t('captureFile')}
             />
@@ -97,7 +99,7 @@ export const Offer: React.FC<View> = observer(
                   <li key={document.id}>
                     <FileUpload
                       file={document.file}
-                      removeFileLabel={t('removeFile')}
+                      labels={labels}
                       onRemove={() => {
                         store.cancelUploadDocument(document)
                         store.removeUserDocument(document.id, 'category1')

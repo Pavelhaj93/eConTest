@@ -40,7 +40,7 @@ describe('General offer', () => {
     const category = 'testCategory'
     const store = new OfferStore(OfferType.NEW, '')
 
-    store.addUserFiles([file], category)
+    store.addUserFiles([{ file }], category)
 
     // first check if new a category was created
     expect(store.userDocuments[category]).not.toBeFalsy()
@@ -60,7 +60,7 @@ describe('General offer', () => {
     const category = 'testCategory'
     const store = new OfferStore(OfferType.NEW, '')
 
-    store.addUserFiles([file], category)
+    store.addUserFiles([{ file }], category)
 
     const document = store.userDocuments[category][0]
 
@@ -81,7 +81,7 @@ describe('General offer', () => {
     const category = 'testCategory'
     const store = new OfferStore(OfferType.NEW, '')
 
-    store.addUserFiles([file], category)
+    store.addUserFiles([{ file }], category)
 
     const document = store.userDocuments[category][0]
 
@@ -107,7 +107,7 @@ describe('General offer', () => {
     const category = 'testCategory'
     const store = new OfferStore(OfferType.NEW, '')
 
-    store.addUserFiles([file1, file2], category)
+    store.addUserFiles([{ file: file1 }, { file: file2 }], category)
 
     const document = store.userDocuments[category][0]
 

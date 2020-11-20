@@ -1,4 +1,11 @@
-import { AcceptedOfferResponse, Document, Group, OfferType, UploadDocumentResponse } from '@types'
+import {
+  AcceptedOfferResponse,
+  CustomFile,
+  Document,
+  Group,
+  OfferType,
+  UploadDocumentResponse,
+} from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
 import { generateId } from '@utils'
@@ -134,7 +141,7 @@ export class OfferStore {
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await     (response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
         default:
@@ -264,9 +271,20 @@ export class OfferStore {
     this.documents = acceptedDocuments
   }
 
-  @action public addUserFiles(files: File[], category: string): void {
-    // remap the files to the `UserDocument` shape
-    const newDocuments = files.map<UserDocument>(file => new UserDocument(file, generateId()))
+  /**
+   * Map `CustomFile` items to `UserDocument` shape and append the files to the given category.
+   * @param files - array of `CustomFile` objects
+   * @param category - category name
+   */
+  @action public addUserFiles(files: CustomFile[], category: string): void {
+    // remap files to the `UserDocument` shape
+    const newDocuments = files.map(({ file, error }) => {
+      if (error) {
+        return new UserDocument(file, generateId(), true, error)
+      }
+
+      return new UserDocument(file, generateId())
+    })
 
     // if category does not exist yet => create one
     if (!this.userDocuments[category]) {
@@ -303,8 +321,8 @@ export class OfferStore {
 
     this.userDocuments[category] = this.userDocuments[category].filter(doc => doc.id !== id)
 
-    // if document is still uploading => do not send the request
-    if (!document || document.uploading) {
+    // if document is still uploading or was rejected => do not send the request
+    if (!document || document.uploading || document.error) {
       return
     }
 

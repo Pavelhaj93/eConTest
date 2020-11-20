@@ -32,6 +32,8 @@ export type AppConfig = {
   /** URL that accepts document id to remove the uploaded document. */
   removeFileUrl?: string
   errorPageUrl: string
+  allowedContentTypes?: string[]
+  maxFileSize?: number
 }
 
 declare global {
@@ -95,4 +97,14 @@ export type AcceptedOfferResponse = {
 export enum OfferType {
   NEW = 'NEW',
   ACCEPTED = 'ACCEPTED',
+}
+
+export enum FileError {
+  INVALID_TYPE = 'INVALID_TYPE',
+  SIZE_EXCEEDED = 'SIZE_EXCEEDED',
+}
+
+export type CustomFile = {
+  file: File
+  error?: FileError
 }

@@ -4,35 +4,35 @@ import { Button } from 'react-bootstrap'
 import { Icon, IconName } from '@components'
 import { colors } from '@theme'
 import { formatBytes } from '@utils'
-import { UploadDocumentResponse } from '@types'
-import { useIsMountedRef } from '@hooks'
+import { FileError, UploadDocumentResponse } from '@types'
+import { useIsMountedRef, useLabels } from '@hooks'
 
 type Props = {
   file?: File
   /** Function that will be called when file is being removed. */
   onRemove?: () => void
-  /** Set `aria-label` on remove button due to a11y. */
-  removeFileLabel?: string
+  labels: Record<string, any>
   /** Set a function responsible for uploading the file. */
   uploadHandler: (file: File) => Promise<UploadDocumentResponse>
   /** If set to `false`, the `uploadHandler` won't be called when component is mounted. */
   shouldUploadImmediately?: boolean
   /** Set error message. */
-  error?: string | boolean
+  error?: string | FileError
   uploading: boolean
 }
 
 export const FileUpload: React.FC<Props> = ({
   file,
   onRemove,
-  removeFileLabel,
+  labels,
   uploadHandler,
   shouldUploadImmediately = true,
-  error = false,
+  error,
   uploading,
 }) => {
-  const [errorMessage, setErrorMessage] = useState<string | undefined | boolean>(error)
+  const [errorMessage, setErrorMessage] = useState<string | FileError | undefined>(error)
   const isMountedRef = useIsMountedRef()
+  const t = useLabels(labels)
 
   useEffect(() => {
     async function uploadFile(file: File) {
@@ -66,11 +66,27 @@ export const FileUpload: React.FC<Props> = ({
         color={color}
         className={classNames({
           'mr-2': true,
+          'ml-n2': true,
           'spin-reverse': uploading,
         })}
       />
     )
   }, [uploading, errorMessage])
+
+  const parsedErrorMessage = useMemo(() => {
+    if (!errorMessage) return
+
+    switch (errorMessage) {
+      case FileError.INVALID_TYPE:
+        return t('invalidFileTypeError')
+
+      case FileError.SIZE_EXCEEDED:
+        return t('fileExceedSizeError')
+
+      default:
+        return errorMessage
+    }
+  }, [errorMessage, t])
 
   if (!file) {
     return null
@@ -83,7 +99,7 @@ export const FileUpload: React.FC<Props> = ({
           {renderStatusIcon}
           <div className={classNames({ 'text-danger': errorMessage })}>
             {file.name}
-            {errorMessage && <small className="d-block">({errorMessage})</small>}
+            {errorMessage && <small className="d-block">({parsedErrorMessage})</small>}
           </div>
         </div>
         <div className="ml-auto">
@@ -92,7 +108,7 @@ export const FileUpload: React.FC<Props> = ({
             <Button
               variant="primary"
               className="btn-icon ml-2 form-item-wrapper__btn"
-              aria-label={removeFileLabel && `${removeFileLabel} ${file.name}`}
+              aria-label={`${t('removeFile')} ${file.name}`}
               onClick={onRemove}
             >
               <Icon name="close" size={18} color={colors.white} />

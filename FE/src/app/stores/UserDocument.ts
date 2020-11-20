@@ -1,4 +1,5 @@
 import { observable } from 'mobx'
+import { FileError } from '@types'
 
 export class UserDocument {
   @observable
@@ -11,7 +12,7 @@ export class UserDocument {
   public touched: boolean
 
   @observable
-  public error: string | undefined
+  public error: string | FileError | undefined
 
   @observable
   public uploading: boolean

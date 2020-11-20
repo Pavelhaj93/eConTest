@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import { isMobileDevice } from '@utils'
 import { Icon } from '@components'
 import { colors } from '@theme'
+import { FileError, CustomFile } from '@types'
 
 type Props = {
   /** Text displayed in the middle of dropzone. */
@@ -17,10 +18,14 @@ type Props = {
   disabled?: boolean
   /** Set mime type restriction for the accepted files. */
   accept?: string[]
-  /** Function that will be call whenever a new file is accepted. */
-  onFilesAccepted: (files: File[]) => void
-  /** Function that will be call whenever a new file is rejected. */
-  onFilesRejected?: (files: File[]) => void
+  /** Set limit of file size. */
+  maxFileSize?: number
+  /** Function that will be called whenever a new file is accepted. */
+  onFilesAccepted?: (files: CustomFile[]) => void
+  /** Function that will be called whenever a new file is rejected. */
+  onFilesRejected?: (files: CustomFile[]) => void
+  /** Function that will be called whenever a new file is selected / dropped. */
+  onFilesChanged?: (files: CustomFile[]) => void
   /** Set this to `true` if you want to render a different UI for mobile devices. */
   useCaptureOnMobile?: boolean
 }
@@ -31,8 +36,10 @@ export const FileDropZone: React.FC<Props> = ({
   disabled = false,
   selectFileLabel,
   accept,
+  maxFileSize,
   onFilesAccepted,
   onFilesRejected,
+  onFilesChanged,
   useCaptureOnMobile,
   selectFileLabelMobile,
   captureFileLabel,
@@ -56,27 +63,33 @@ export const FileDropZone: React.FC<Props> = ({
 
   const processFiles = useCallback(
     (files: File[]) => {
-      let acceptedFiles: File[] = files
-      let rejectedFiles: File[] = []
+      let allFiles: CustomFile[] = []
+      let acceptedFiles: CustomFile[] = []
+      let rejectedFiles: CustomFile[] = []
 
-      // check for mime types
-      if (accept?.length) {
-        // start with an empty array
-        acceptedFiles = []
+      files.forEach(file => {
+        // check for mime type
+        if (accept?.length && !accept.includes(file.type)) {
+          rejectedFiles = [...rejectedFiles, { file, error: FileError.INVALID_TYPE }]
+          allFiles = [...allFiles, { file, error: FileError.INVALID_TYPE }]
 
-        files.forEach(file => {
-          if (accept.includes(file.type)) {
-            acceptedFiles = [...acceptedFiles, file]
-          } else {
-            rejectedFiles = [...rejectedFiles, file]
-          }
-        })
-      }
+          // check for file size
+        } else if (maxFileSize && file.size > maxFileSize) {
+          rejectedFiles = [...rejectedFiles, { file, error: FileError.SIZE_EXCEEDED }]
+          allFiles = [...allFiles, { file, error: FileError.SIZE_EXCEEDED }]
 
-      onFilesAccepted(acceptedFiles)
+          // otherwise accept the file
+        } else {
+          acceptedFiles = [...acceptedFiles, { file }]
+          allFiles = [...allFiles, { file }]
+        }
+      })
+
+      onFilesChanged && onFilesChanged(allFiles)
+      onFilesAccepted && onFilesAccepted(acceptedFiles)
       onFilesRejected && onFilesRejected(rejectedFiles)
     },
-    [accept, onFilesAccepted, onFilesRejected],
+    [accept, maxFileSize, onFilesAccepted, onFilesRejected, onFilesChanged],
   )
 
   const handleDragOver = useCallback(
@@ -147,6 +160,7 @@ export const FileDropZone: React.FC<Props> = ({
             type="file"
             ref={inputRef}
             className="dropzone__input"
+            accept={accept?.join(',')}
             multiple
             autoComplete="off"
             tabIndex={0}
@@ -207,6 +221,7 @@ export const FileDropZone: React.FC<Props> = ({
         type="file"
         ref={inputRef}
         className="dropzone__input"
+        // accept={accept?.join(',')}
         multiple
         autoComplete="off"
         tabIndex={0}
