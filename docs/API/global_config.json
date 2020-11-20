@@ -3,7 +3,9 @@
         "new": "/api/eCon/offer",
         "accepted": "/api/eCon/accepted",
         "file": "/api/eCon/file/{key}",
-        "upload" : "/api/eCon/upload/{id}"
+        "upload" : "/api/eCon/upload/{id}",
+        "sign": "/api/eCon/sign/{id}",
+        "fileToSign": "/api/eCon/file-as-image/{id}"
     },
     "dictionary": {
         "key1": "phrase 1"
@@ -13,5 +15,8 @@
         "text": "<p style='text-align: center;'><img src='leaf.png'/></p><p>Víte, že se dlouhodobě snažíme omezovat spotřebu papíru a tím chránit naše lesy?</p><p>Přidejte se k nám a vyberte si způsob, jak spolu budeme elektronicky komunikovat.</p>",
         "button": "Aktivovat"
     },
-    "allowedContentTypes": [ "image/png", "image/jpeg", "application/pdf" ]
+    "allowedContentTypes": [ "image/png", "image/jpeg", "application/pdf" ],
+    "maxFileSize": 1695293,
+    "timeout": 30000,
+    "errorPageUrl": "/url-chybove-stranky"
 }

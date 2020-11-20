@@ -1,19 +1,21 @@
 ﻿<div class="row">
-	<div class="col-md-8 col-md-offset-2">
-		<div class="info">
-			@Html.Raw(ViewData["MainText"])
-		</div>
-	</div>
+  <div class="col-12 col-lg-10 offset-lg-1">
+    <div class="text-center">
+      <h1>Smluvní dokumenty</h1>
+    </div>
+    <div id="app"></div>
+  </div>
 </div>
-@Html.Action("DocumentPanel", "eContracting", new { IsAccepted = true })
 
+<%-- Aktuálně ti to poběží s tímto configem. Ty klíče pak upravíme, až budeš mít kompletní definici API. --%>
 <script>
-/* Message component messages from Back-end */
-	var messages = {
-		appUnavailable: [
-			'<h3>Nedostupnost aplikace</h3>',
-			'<p>@Html.Raw(ViewData["AppNotAvailable"])</p>'
-		],
-		signFileError: ['<div class="alert error mt-0" role="alert"><p>@Html.Raw(ViewData["SignFailure"])</p></div>']
-	}
+  var appConfig = {
+    view: 'AcceptedOffer',
+    offerUrl: '/api/eCon/accepted',
+    getFileUrl: '/api/eCon/file/',
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
+    }
+  };
 </script>
