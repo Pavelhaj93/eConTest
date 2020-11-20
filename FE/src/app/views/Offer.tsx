@@ -243,6 +243,7 @@ export const Offer: React.FC<View> = observer(
           <ConfirmationModal
             show={confirmationModal}
             onClose={() => setConfirmationModal(false)}
+            // TODO: add gaEvent (dataLayer.push)
             onConfirm={() => formRef.current?.submit()}
             labels={labels}
           />

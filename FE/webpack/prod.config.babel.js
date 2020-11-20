@@ -6,7 +6,7 @@ import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
 
-const productionPolyfillsPath = '/Assets/eContracting/js/polyfills.js'
+const productionPolyfillsPath = '/Assets/eContracting2/js/polyfills.js'
 
 // We need to modify path to polyfills and fonts in generated files.
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
