@@ -221,7 +221,7 @@ export const FileDropZone: React.FC<Props> = ({
         type="file"
         ref={inputRef}
         className="dropzone__input"
-        // accept={accept?.join(',')}
+        accept={accept?.join(',')}
         multiple
         autoComplete="off"
         tabIndex={0}
