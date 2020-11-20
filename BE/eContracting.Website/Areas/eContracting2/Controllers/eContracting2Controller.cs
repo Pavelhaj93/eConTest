@@ -172,27 +172,25 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
                 }
 
-                var datasource = this.GetLayoutItem<EContractingAcceptedOfferTemplate>();
-                var data = this.AuthenticationService.GetCurrentUser();
-                guid = data.Guid;
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                string mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
+                var offer = this.ApiService.GetOffer(guid);
 
-                if (mainText == null)
+                if (offer == null)
                 {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                    return Redirect(redirectUrl);
+                    var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
+                    return Redirect(url);
                 }
 
-                ViewData["MainText"] = mainText;
+                if (!offer.IsAccepted)
+                {
+                    var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer);
+                    return Redirect(url);
+                }
 
-                var generalSettings = this.SettingsReaderService.GetSiteSettings();
-                ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
-                ViewData["SignFailure"] = generalSettings.SignFailure;
-
+                var datasource = this.GetLayoutItem<AcceptedOfferPageModel>();
+                
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml");
             }
             catch (Exception ex)
