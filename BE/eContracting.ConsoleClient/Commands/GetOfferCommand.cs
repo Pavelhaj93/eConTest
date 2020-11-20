@@ -22,18 +22,19 @@ namespace eContracting.ConsoleClient.Commands
             IApiService apiService,
             ILogger logger,
             IConsole console,
-            ContextData contextData) : base("nabidka", console)
+            ContextData contextData) : base("offer", console)
         {
             this.ApiService = apiService;
             this.Logger = logger;
             this.Context = contextData;
+            this.AliasKey = "o";
+            this.Description = "get basic data about an offer";
         }
 
         [Execute]
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
-            //this.Logger.Suspend(true);
             var offer = await this.ApiService.GetOfferAsync(guid);
 
             if (offer == null)
@@ -43,7 +44,6 @@ namespace eContracting.ConsoleClient.Commands
             }
 
             this.Console.WriteLine(JsonConvert.SerializeObject(offer, Formatting.Indented));
-            //this.Logger.Suspend(false);
         }
     }
 }

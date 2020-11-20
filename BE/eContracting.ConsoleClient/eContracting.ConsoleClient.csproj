@@ -63,6 +63,7 @@
     <Compile Include="Commands\CompareIdAttach.cs" />
     <Compile Include="Commands\GetFilesCommand.cs" />
     <Compile Include="ConsoleLogger.cs" />
+    <Compile Include="ConsoleLoggerSuspender.cs" />
     <Compile Include="ContextData.cs" />
     <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="Commands\GetOfferCommand.cs" />

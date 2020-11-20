@@ -25,6 +25,8 @@ namespace eContracting.ConsoleClient.Commands
             this.ApiService = apiService;
             this.Logger = logger;
             this.Context = contextData;
+            this.AliasKey = "f";
+            this.Description = "gets offer files";
         }
 
         [Execute]
@@ -40,9 +42,9 @@ namespace eContracting.ConsoleClient.Commands
             this.Console.WriteLine("Offer attachments:");
             var list1 = new List<FileModel>();
 
-            for (int i = 0; i < offer.Attachments.Length; i++)
+            for (int i = 0; i < offer.Documents.Length; i++)
             {
-                list1.Add(new FileModel(offer.Attachments[i].IdAttach, offer.Attachments[i].Printed, offer.Attachments[i].Description));
+                list1.Add(new FileModel(offer.Documents[i].IdAttach, offer.Documents[i].Printed, offer.Documents[i].Description));
             }
 
             this.Console.WriteLine(JsonConvert.SerializeObject(list1, Formatting.Indented));

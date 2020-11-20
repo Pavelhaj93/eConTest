@@ -16,7 +16,13 @@ namespace eContracting.ConsoleClient
             {
                 consinloop.ConfigureServices((services) =>
                 {
-                    services.AddOptions<GlobalConfiguration>();
+                    services.AddOptions<GlobalConfiguration>().Configure((config) =>
+                    {
+                        //config.ServiceUrl = "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                        config.ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                        config.ServiceUser = "UkZDX1NJVEVDT1JF";
+                        config.ServicePassword = "QWRIYjI0Nyo=";
+                    });
                     services.AddSingleton<ContextData>();
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();

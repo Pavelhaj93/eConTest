@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.ServiceModel;
 using System.Threading.Tasks;
+using System.Xml;
 using eContracting.Models;
 
 namespace eContracting.Services
@@ -122,8 +123,16 @@ namespace eContracting.Services
                 return null;
             }
 
-            var textParameters = await this.GetTextParametersAsync(response);
-            offer.TextParameters.Merge(textParameters);
+            try
+            {
+                var textParameters = await this.GetTextParametersAsync(response);
+                offer.TextParameters.Merge(textParameters);
+            }
+            catch (XmlException ex)
+            {
+                this.Logger.Fatal(offer.Guid, "XML exception when parsing text parameters", ex);
+            }
+
             return offer;
         }
 

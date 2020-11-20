@@ -25,67 +25,71 @@ namespace eContracting.ConsoleClient.Commands
             this.ApiService = apiService as SapApiService;
             this.Logger = logger;
             this.Context = contextData;
+            this.AliasKey = "id";
+            this.Description = "compares attribute IDATTACH from offer with PDFs";
         }
 
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            this.Logger.Suspend(true);
-            var offer = await this.ApiService.GetOfferAsync(guid);
-
-            if (offer == null)
+            using (new ConsoleLoggerSuspender(this.Logger))
             {
-                this.Console.WriteLineError("Offer not found");
-                return;
-            }
+                var offer = await this.ApiService.GetOfferAsync(guid);
 
-            if (offer.Attachments.Length == 0)
-            {
-                this.Console.WriteLineError("No attachment(s) found");
-                return;
-            }
-
-            var files = await this.ApiService.GetFilesAsync(offer.Guid, false);
-
-            if (files == null)
-            {
-                this.Console.WriteLine("No files found");
-                return;
-            }
-
-            for (int i = 0; i < offer.Attachments.Length; i++)
-            {
-                var attachment = offer.Attachments[i];
-                bool fileFound = false;
-
-                for (int y = 0; y < files.Length; y++)
+                if (offer == null)
                 {
-                    var file = files[y];
-                    var fileIdAttach = file.GetIdAttach();
+                    this.Console.WriteLineError("Offer not found");
+                    return;
+                }
 
-                    if (fileIdAttach == attachment.IdAttach)
+                if (offer.Documents.Length == 0)
+                {
+                    this.Console.WriteLineError("No attachment(s) found");
+                    return;
+                }
+
+                var files = await this.ApiService.GetFilesAsync(offer.Guid, false);
+
+                if (files == null)
+                {
+                    this.Console.WriteLine("No files found");
+                    return;
+                }
+
+                for (int i = 0; i < offer.Documents.Length; i++)
+                {
+                    var attachment = offer.Documents[i];
+                    bool fileFound = false;
+
+                    for (int y = 0; y < files.Length; y++)
                     {
-                        fileFound = true;
+                        var file = files[y];
+                        var fileIdAttach = file.GetIdAttach();
+
+                        if (fileIdAttach == attachment.IdAttach)
+                        {
+                            fileFound = true;
+                        }
+                    }
+
+                    if (fileFound)
+                    {
+                        this.Console.WriteLineSuccess($"Attachment {attachment.IdAttach} found");
+                    }
+                    else
+                    {
+                        this.Console.WriteLineError($"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files");
                     }
                 }
 
-                if (fileFound)
+                for (int i = 0; i < files.Length; i++)
                 {
-                    this.Console.WriteLineSuccess($"Attachment {attachment.IdAttach} found");
-                }
-                else
-                {
-                    this.Console.WriteLineError($"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files");
-                }
-            }
+                    var file = files[i];
 
-            for (int i = 0; i < files.Length; i++)
-            {
-                var file = files[i];
-
-                if (!offer.Attachments.Any(x => x.IdAttach == file.GetIdAttach()))
-                {
-                    this.Console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments");
+                    if (!offer.Documents.Any(x => x.IdAttach == file.GetIdAttach()))
+                    {
+                        this.Console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments");
+                    }
                 }
             }
         }

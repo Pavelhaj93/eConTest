@@ -82,6 +82,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{8D2ADAF1-4DFE-4D
 		..\docs\Examples\Versions\2\BN_0202335625_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335625_AD1.xml
 		..\docs\Examples\Versions\2\BN_0202335631.xml = ..\docs\Examples\Versions\2\BN_0202335631.xml
 		..\docs\Examples\Versions\2\BN_0202335631_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335631_AD1.xml
+		..\docs\Examples\Versions\2\BN_0202335645.xml = ..\docs\Examples\Versions\2\BN_0202335645.xml
+		..\docs\Examples\Versions\2\BN_0202335645_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335645_AD1.xml
 	EndProjectSection
 EndProject
 Global
