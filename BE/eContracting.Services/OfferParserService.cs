@@ -217,10 +217,7 @@ namespace eContracting.Services
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
 
-                if (this.IsNotCompatible(offerXml))
-                {
-                    this.MakeCompatible(offerXml);
-                }
+                this.MakeCompatible(offerXml);
 
                 return offerXml;
             }
@@ -238,23 +235,17 @@ namespace eContracting.Services
             return attr.Any(c => Char.IsDigit(c));
         }
 
-        protected internal bool IsNotCompatible(OfferXmlModel offerXml)
-        {
-            var body = offerXml.Content.Body;
-            return string.IsNullOrEmpty(body.BusProcess) || string.IsNullOrEmpty(body.BusProcessType);
-        }
-
         protected internal void MakeCompatible(OfferXmlModel offerXml)
         {
-            if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcess))
+            if (string.IsNullOrWhiteSpace(offerXml.Content.Body.BusProcess))
             {
                 offerXml.Content.Body.BusProcess = Constants.OfferDefaults.BUS_PROCESS;
                 this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcess'. Set default: '{Constants.OfferDefaults.BUS_PROCESS}'");
             }
 
-            if (string.IsNullOrEmpty(offerXml.Content.Body.BusProcessType))
+            if (string.IsNullOrWhiteSpace(offerXml.Content.Body.BusProcessType))
             {
-                if (string.IsNullOrEmpty(offerXml.Content.Body.Campaign))
+                if (string.IsNullOrWhiteSpace(offerXml.Content.Body.Campaign))
                 {
                     offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_A;
                     this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_A}'");
