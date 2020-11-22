@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,12 @@ using Xunit;
 
 namespace eContracting.Services.Tests
 {
+    [Trait("Service", "SitecoreSettingsReaderService")]
+    [ExcludeFromCodeCoverage]
     public class AuthenticationServiceTests : BaseTestClass
     {
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Empty()
         {
             var offer = this.CreateOffer();
@@ -26,6 +30,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_KEY_MISMATCH_When_Empty()
         {
             var offer = this.CreateOffer();
@@ -39,6 +44,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_VALUE_When_Empty()
         {
             var offer = this.CreateOffer();
@@ -52,6 +58,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Dont_Match()
         {
             var offer = this.CreateOffer();
@@ -66,6 +73,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_KEY_MISMATCH_When_Login_Type_Doesnt_Match()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -91,6 +99,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_KEY_MISMATCH()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -117,6 +126,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_VALUE_FORMAT()
         {
             var partnerId1 = "843374421";
@@ -147,6 +157,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_VALUE()
         {
             var partnerId1 = "843374421";
@@ -176,6 +187,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_SUCCEEDED()
         {
             var partnerId = "843374421";
@@ -204,6 +216,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetMatched")]
         public void GetMatched_Finds_Match()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -230,6 +243,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetMatched")]
         public void GetMatched_Not_Finds_Match()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -255,6 +269,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_True()
         {
             var loginType = new LoginTypeModel();
@@ -269,6 +284,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_False()
         {
             var loginType = new LoginTypeModel();
@@ -283,6 +299,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_No_Regex_And_Returns_True()
         {
             var loginType = new LoginTypeModel();
@@ -296,6 +313,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Invalid_Regex_And_Returns_False()
         {
             var loginType = new LoginTypeModel();
@@ -310,6 +328,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "Login")]
         public void Login_Adds_AuthDataModel_To_Cache()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -327,6 +346,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsLoggedIn")]
         public void IsLoggedIn_Returns_True_When_AuthDataModel_Exists()
         {
             var guid = Guid.NewGuid().ToString("N");
@@ -343,6 +363,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "IsLoggedIn")]
         public void IsLoggedIn_Returns_False_Because_AuthDataModel_Doesnt_Exist()
         {
             var mockReaderSettings = new Mock<ISettingsReaderService>();

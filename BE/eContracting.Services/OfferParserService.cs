@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -57,7 +58,7 @@ namespace eContracting.Services
                 return 2;
             }
 
-            return 1;
+            throw new ApplicationException("Cannot determinate offer version");
         }
 
         /// <inheritdoc/>
@@ -70,7 +71,7 @@ namespace eContracting.Services
                 var xml = Encoding.UTF8.GetString(files[i].FILECONTENT);
                 var doc = new XmlDocument();
                 doc.LoadXml(xml);
-                var xmlParameters = doc.SelectSingleNode("form/parameters").ChildNodes;
+                var xmlParameters = doc.SelectSingleNode("form/parameters")?.ChildNodes;
 
                 if (xmlParameters != null)
                 {
@@ -176,7 +177,7 @@ namespace eContracting.Services
             }
             else if (version == 2)
             {
-                return response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == "AD1"));
+                return response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS));
             }
             else
             {
@@ -184,32 +185,12 @@ namespace eContracting.Services
             }
         }
 
-        [Obsolete]
-        protected internal (ZCCH_ST_FILE root, ZCCH_ST_FILE ad1) GetSeparatedFiles(ResponseCacheGetModel response)
-        {
-            ZCCH_ST_FILE root = null;
-            ZCCH_ST_FILE ad1 = null;
-
-            for (int i = 0; i < response.Response.ET_FILES.Take(2).ToArray().Length; i++)
-            {
-                if (response.Response.ET_FILES[i].ATTRIB.Any(x => x.ATTRID == Constants.FileAttributes.TYPE && x.ATTRVAL == "AD1"))
-                {
-                    ad1 = ad1 ?? response.Response.ET_FILES[i];
-                }
-                else
-                {
-                    root = root ?? response.Response.ET_FILES[i];
-                }
-            }
-
-            return (root, ad1);
-        }
-
         /// <summary>
         /// Processes the root file.
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns>Tuple with model and raw XML content.</returns>
+        [ExcludeFromCodeCoverage]
         protected internal OfferXmlModel ProcessRootFile(ZCCH_ST_FILE file)
         {
             using (var stream = new MemoryStream(file.FILECONTENT, false))

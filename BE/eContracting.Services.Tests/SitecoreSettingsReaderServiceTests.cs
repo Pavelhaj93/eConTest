@@ -18,6 +18,7 @@ using Xunit;
 
 namespace eContracting.Services.Tests
 {
+    [Trait("Service", "SitecoreSettingsReaderService")]
     [ExcludeFromCodeCoverage]
     public class SitecoreSettingsReaderServiceTests : BaseTestClass
     {
@@ -32,6 +33,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetSiteSettings")]
         public void GetSiteSettings_Throws_MissingDatasourceException_When_Not_Found()
         {
             var siteRoot = "/site";
@@ -45,6 +47,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetAllLoginTypes")]
         public void GetAllLoginTypes_Throws_MissingDatasourceException_When_No_Items_Found()
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -57,6 +60,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetAllProcesses")]
         public void GetAllProcesses_Throws_MissingDatasourceException_When_No_Items_Found()
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -69,6 +73,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetAllProcesses")]
         public void GetAllProcesses_Returns_Items()
         {
             var list = new List<ProcessModel>();
@@ -87,6 +92,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetAllProcessTypes")]
         public void GetAllProcessTypes_Throws_MissingDatasourceException_When_No_Items_Found()
         {
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -99,6 +105,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetAllProcessTypes")]
         public void GetAllProcessTypes_Returns_Items()
         {
             var list = new List<ProcessTypeModel>();
@@ -117,6 +124,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetApiServiceOptions")]
         public void GetApiServiceOptions_Takes_Only_Url_From_GetSetting()
         {
             var url = "http://sap.cz";
@@ -146,6 +154,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetApiServiceOptions")]
         public void GetApiServiceOptions_Takes_Only_Username_From_GetSetting()
         {
             string user = "joe";
@@ -175,6 +184,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetApiServiceOptions")]
         public void GetApiServiceOptions_Takes_Only_Password_From_GetSetting()
         {
             string user = "joe";
@@ -205,6 +215,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetApiServiceOptions")]
         public void GetApiServiceOptions_Get_Data_From_GetSetting()
         {
             var url = "http://sap.cz";
@@ -230,6 +241,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetApiServiceOptions")]
         public void GetApiServiceOptions_Get_Data_From_GeneralSettings()
         {
             var url = "http://sap.cz";
@@ -258,6 +270,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetDefinition")]
         public void GetDefinition_Returns_Model_When_Matched_Offer()
         {
             var process = "XYZ";
@@ -280,6 +293,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetDefinition")]
         public void GetDefinition_Returns_Not_When_NotMatched_Offer()
         {
             var offer = this.CreateOffer();
@@ -301,6 +315,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetDefinition")]
         public void GetDefinition_Returns_Model_When_Matched_Parameters()
         {
             var combination = new DefinitionCombinationModel();
@@ -319,6 +334,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetDefinition")]
         public void GetDefinition_Returns_Model_When_NotMatched_Parameters()
         {
             var combination = new DefinitionCombinationModel();
@@ -337,6 +353,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginTypes")]
         public void GetLoginTypes_Returns_Preselected_Types()
         {
             var process = "XYZ";
@@ -368,6 +385,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginTypes")]
         public void GetLoginTypes_Returns_1_Type_From_Many()
         {
             var process = "XYZ";
@@ -397,6 +415,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetLoginTypes")]
         public void GetLoginTypes_Returns_1_Random_Type_When_Only_1_Available()
         {
             var process = "XYZ";
@@ -425,6 +444,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_Login_Url()
         {
             var expected = "/login";
@@ -444,6 +464,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_Offer_Url()
         {
             var expected = "/offer";
@@ -463,6 +484,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_OfferExpired_Url()
         {
             var expected = "/expired-offer";
@@ -482,6 +504,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_AcceptedOffer_Url()
         {
             var expected = "/accepted-offer";
@@ -501,6 +524,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_SessionExpired_Url()
         {
             var expected = "/session-expired";
@@ -520,6 +544,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_SystemError_Url()
         {
             var expected = "/system-error";
@@ -539,6 +564,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_ThankYou_Url()
         {
             var expected = "/thank-you";
@@ -558,6 +584,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_UserBlocked_Url()
         {
             var expected = "/user-blocked";
@@ -577,6 +604,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetPageLink")]
         public void GetPageLink_Returns_WrongUrl_Url()
         {
             var expected = "/error";
@@ -596,6 +624,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetSteps")]
         public void GetSteps_Returns_Concurrent_Steps_In_Folder()
         {
             var currentStep = new ProcessStepModel();
@@ -626,6 +655,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        [Trait("Method", "GetSteps")]
         public void GetSteps_Returns_Current_Step_As_Selected()
         {
             var currentStep = new ProcessStepModel();
