@@ -4,13 +4,10 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 
-namespace eContracting.Website.Areas.eContracting2.Models
+namespace eContracting.Models
 {
-    public class ComplexOfferPerexParamViewModel
+    public class JsonArgumentViewModel
     {
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
         [JsonProperty("value")]
         public string Value { get; set; }
     }

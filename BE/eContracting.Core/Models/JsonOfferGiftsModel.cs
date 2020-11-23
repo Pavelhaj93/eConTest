@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace eContracting.Website.Areas.eContracting2.Models
+namespace eContracting.Models
 {
-    public class ComplexOfferGiftsViewModel
+    public class JsonOfferGiftsModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
         [JsonProperty("params")]
-        public string[] Parameters { get; set; }
+        public JsonArgumentViewModel[] Params { get; set; }
     }
 }

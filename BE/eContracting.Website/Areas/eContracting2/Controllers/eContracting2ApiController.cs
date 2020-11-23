@@ -25,6 +25,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IApiService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
+        protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
 
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
@@ -34,6 +35,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+            this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
         }
 
         internal eContracting2ApiController(
@@ -41,13 +43,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISitecoreContext context,
             IApiService apiService,
             IAuthenticationService authService,
-            ISettingsReaderService settingsReaderService)
+            ISettingsReaderService settingsReaderService,
+            IOfferJsonDescriptor offerJsonDescriptor)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
+            this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
         }
 
         [HttpGet]
@@ -152,7 +156,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.BadRequest();
             }
 
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+            var model = await this.OfferJsonDescriptor.GetNewAsync(offer);
+            return this.Json(model);
         }
 
         /// <summary>
@@ -180,7 +185,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.BadRequest();
             }
 
-            var model = await this.GetAcceptedViewModel(offer);
+            var model = await this.OfferJsonDescriptor.GetAcceptedAsync(offer);
             return this.Json(model);
         }
 
@@ -221,93 +226,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public async Task<IHttpActionResult> Submit()
         {
             return this.StatusCode(HttpStatusCode.NotImplemented);
-        }
-
-        protected internal async Task<ComplexOfferAcceptedViewModel> GetAcceptedViewModel(OfferModel offer)
-        {
-            var groups = new List<FilesSectionViewModel>();
-            var version = offer.Version;
-            var documents = offer.Documents;
-            var files = await this.ApiService.GetAttachmentsAsync(offer);
-            var definition = this.SettingsReaderService.GetDefinition(offer);
-            var page = this.GetAcceptedPageModel();
-            var textParameters = offer.TextParameters;
-
-            if (version == 1)
-            {
-                var fileGroups = files.GroupBy(x => x.Group);
-
-                foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
-                {
-                    var g = this.GetSection(fileGroup.Key, fileGroup, page, offer);
-                    groups.AddRange(g);
-                }
-            }
-
-            return new ComplexOfferAcceptedViewModel(groups);
-        }
-
-        protected internal IEnumerable<FilesSectionViewModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, AcceptedOfferPageModel definition, OfferModel offer)
-        {
-            var list = new List<FilesSectionViewModel>();
-
-            if (groupName == "COMMODITY")
-            {
-                var acceptFiles = attachments.Where(x => x.Group == "COMMODITY" && !x.IsSignReq);
-                var signFiles = attachments.Where(x => x.Group == "COMMODITY" && x.IsSignReq);
-
-                if (acceptFiles.Any())
-                {
-                    var title = definition.AcceptedDocumentsTitle;
-                    list.Add(new FilesSectionViewModel(acceptFiles.Select(x => new FileViewModel(x)), title));
-                }
-
-                if (signFiles.Any())
-                {
-                    var title = definition.SignedDocumentsTitle;
-                    list.Add(new FilesSectionViewModel(signFiles.Select(x => new FileViewModel(x)), title));
-                }
-            }
-            else if (groupName == "DLS")
-            {
-                var files = attachments.Where(x => x.Group == "DLS");
-                var title = definition.AdditionalServicesTitle;
-                list.Add(new FilesSectionViewModel(files.Select(x => new FileViewModel(x)), title));
-            }
-            else if (groupName == "NONCOMMODITY")
-            {
-                var files = attachments.Where(x => x.Group == "NONCOMMODITY");
-                var title = definition.OthersTitle;
-                list.Add(new FilesSectionViewModel(files.Select(x => new FileViewModel(x)), title));
-            }
-            else
-            {
-                this.Logger.Fatal(offer.Guid, $"Unknown group '{groupName}' found");
-            }
-
-            return list;
-        }
-
-        protected internal string GetGroupTitle(DefinitionCombinationModel definition, OfferAttachmentModel attachment, string groupName)
-        {
-            if (groupName == "COMMODITY")
-            {
-                return definition.OfferDocumentsForAcceptanceSection1.Text;
-            }
-
-            return null;
-        }
-
-        protected internal AcceptedOfferPageModel GetAcceptedPageModel()
-        {
-            Guid guid = this.SettingsReaderService.GetSiteSettings().AcceptedOffer?.TargetId ?? Guid.Empty;
-
-            if (guid == Guid.Empty)
-            {
-                return new AcceptedOfferPageModel();
-            }
-
-            return this.Context.GetItem<AcceptedOfferPageModel>(guid) ?? new AcceptedOfferPageModel();
         }
     }
 }

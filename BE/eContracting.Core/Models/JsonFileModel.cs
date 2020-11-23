@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using Newtonsoft.Json;
 
-namespace eContracting.Website.Areas.eContracting2.Models
+namespace eContracting.Models
 {
-    public class FileViewModel
+    public class JsonFileModel
     {
         [JsonProperty("label")]
         public string Label { get; set; }
@@ -22,11 +22,11 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("size")]
         public int Size { get; set; }
 
-        public FileViewModel()
+        public JsonFileModel()
         {
         }
 
-        public FileViewModel(OfferAttachmentModel attachment)
+        public JsonFileModel(OfferAttachmentModel attachment)
         {
             this.Label = attachment.FileName;
             this.UniqueId = attachment.UniqueKey;

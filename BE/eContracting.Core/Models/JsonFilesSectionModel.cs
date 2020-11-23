@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace eContracting.Website.Areas.eContracting2.Models
+namespace eContracting.Models
 {
-    public class FilesSectionViewModel
+    public class JsonFilesSectionModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
         [JsonProperty("files")]
-        public IEnumerable<FileViewModel> Files { get; set; }
+        public IEnumerable<JsonFileModel> Files { get; set; }
 
-        public FilesSectionViewModel()
+        public JsonFilesSectionModel()
         {
         }
 
-        public FilesSectionViewModel(IEnumerable<FileViewModel> files, string title)
+        public JsonFilesSectionModel(IEnumerable<JsonFileModel> files, string title)
         {
             this.Files = files;
             this.Title = title;

@@ -63,28 +63,6 @@ namespace eContracting.Services
                 }
             }
 
-            //for (int i = 0; i < files.Length; i++)
-            //{
-            //    var file = files[i];
-            //    var idAttach = this.GetIdAttach(file);
-            //    var fileName = this.GetFileName(file);
-            //    var uniqueKey = this.GetUniqueKey(file);
-            //    var attrs = this.GetAttributes(file);
-
-            //    var fileModel = new OfferAttachmentModel(
-            //    uniqueKey: uniqueKey,
-            //    idAttach: idAttach,
-            //    mimeType: file.MIMETYPE,
-            //    index: i.ToString(),
-            //    fileName: fileName,
-            //    originalFileName: file.FILENAME,
-            //    signedVersion: false,
-            //    attributes: attrs,
-            //    content: file.FILECONTENT);
-
-            //    list.Add(fileModel);
-            //}
-
             return list.ToArray();
         }
 

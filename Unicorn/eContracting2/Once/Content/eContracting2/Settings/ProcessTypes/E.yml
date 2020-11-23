@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "34fe2998-8246-4824-a681-8d9122f2f6f7"
   Hint: Code
-  Value: SENZ
+  Value: E
 Languages:
 - Language: cs
   Fields:

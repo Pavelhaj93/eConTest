@@ -581,6 +581,24 @@
             <param name="files">The files.</param>
             <returns>Array of files.</returns>
         </member>
+        <member name="T:eContracting.IOfferJsonDescriptor">
+            <summary>
+            Creates prescription for JSON / API for not accepted offer and accepted offer.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
+            <summary>
+            Gets prescription for not accepted offer.
+            </summary>
+            <param name="offer">The offer.</param>
+        </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
+            <summary>
+            Gets prescription for accepted offer.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns></returns>
+        </member>
         <member name="T:eContracting.IOfferParserService">
             <summary>
             Represents parser from <see cref="T:eContracting.Models.OfferModel"/> to <see cref="T:eContracting.Models.ResponseCacheGetModel"/> object.
@@ -739,6 +757,11 @@
         <member name="P:eContracting.Models.BaseSitecoreModel.Path">
             <summary>
             Gets or sets full path of the item.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.JsonOfferPerexModel">
+            <summary>
+            Contains data from AD1 - <c>COMMODITY_OFFER_SUMMARY</c>.
             </summary>
         </member>
         <member name="T:eContracting.Models.FailedLoginInfoDetailModel">

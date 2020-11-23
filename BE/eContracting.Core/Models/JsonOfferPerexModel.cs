@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace eContracting.Website.Areas.eContracting2.Models
+namespace eContracting.Models
 {
     /// <summary>
     /// Contains data from AD1 - <c>COMMODITY_OFFER_SUMMARY</c>.
     /// </summary>
-    public class ComplexOfferPerexViewModel
+    public class JsonOfferPerexModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
         [JsonProperty("params")]
-        public ComplexOfferPerexParamViewModel[] Parameters { get; set; }
+        public JsonParamModel[] Parameters { get; set; }
     }
 }

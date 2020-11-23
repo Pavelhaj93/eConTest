@@ -320,6 +320,24 @@
             <param name="file">The file.</param>
             <returns>Tuple with model and raw XML content.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel)">
+            <summary>
+            Set missing required values in <paramref name="offerXml"/>.
+            </summary>
+            <remarks>
+            <para>When missing bus process value, set default '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS"/>'.</para>
+            <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
+            </remarks>
+            <param name="offerXml">The offer XML.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetNodeValue(System.Xml.XmlNode)">
+            <summary>
+            Gets InnerXml from <paramref name="xmlNode"/>. If <paramref name="xmlNode"/> contains "&lt;body&gt;", it returns inner XML of it.
+            </summary>
+            <remarks>Some nodes can contains inner XML with '&lt;body xmlns="http://www.w3.org/1999/xhtml"&gt;'.</remarks>
+            <param name="xmlNode">The XML node.</param>
+            <returns>Inner xml value of <paramref name="xmlNode"/>.</returns>
+        </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
             <summary>
             The context.

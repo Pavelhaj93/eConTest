@@ -78,7 +78,7 @@ namespace eContracting.Services
                     foreach (XmlNode xmlNode in xmlParameters)
                     {
                         var key = xmlNode.Name;
-                        var value = xmlNode.InnerXml;
+                        var value = this.GetNodeValue(xmlNode);
 
                         if (parameters.ContainsKey(key))
                         {
@@ -216,6 +216,14 @@ namespace eContracting.Services
             return attr.Any(c => Char.IsDigit(c));
         }
 
+        /// <summary>
+        /// Set missing required values in <paramref name="offerXml"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>When missing bus process value, set default '<see cref="Constants.OfferDefaults.BUS_PROCESS"/>'.</para>
+        /// <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
+        /// </remarks>
+        /// <param name="offerXml">The offer XML.</param>
         protected internal void MakeCompatible(OfferXmlModel offerXml)
         {
             if (string.IsNullOrWhiteSpace(offerXml.Content.Body.BusProcess))
@@ -237,6 +245,17 @@ namespace eContracting.Services
                     this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets InnerXml from <paramref name="xmlNode"/>. If <paramref name="xmlNode"/> contains "&lt;body&gt;", it returns inner XML of it.
+        /// </summary>
+        /// <remarks>Some nodes can contains inner XML with '&lt;body xmlns="http://www.w3.org/1999/xhtml"&gt;'.</remarks>
+        /// <param name="xmlNode">The XML node.</param>
+        /// <returns>Inner xml value of <paramref name="xmlNode"/>.</returns>
+        protected internal string GetNodeValue(XmlNode xmlNode)
+        {
+            return xmlNode.FirstChild?.Name == "body" ? xmlNode.FirstChild.InnerXml : xmlNode.InnerXml;
         }
     }
 }

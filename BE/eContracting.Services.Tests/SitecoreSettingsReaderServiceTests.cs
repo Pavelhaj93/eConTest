@@ -280,7 +280,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = process };
-            combination.ProcessType = new ProcessModel() { Code = processType };
+            combination.ProcessType = new ProcessTypeModel() { Code = processType };
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
@@ -301,7 +301,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BusProcessType = "123";
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "ABCDED" };
-            combination.ProcessType = new ProcessModel() { Code = "09988" };
+            combination.ProcessType = new ProcessTypeModel() { Code = "09988" };
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
@@ -320,7 +320,7 @@ namespace eContracting.Services.Tests
         {
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.ProcessType = new ProcessTypeModel() { Code = "123" };
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
@@ -339,7 +339,7 @@ namespace eContracting.Services.Tests
         {
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "XYZ" };
-            combination.ProcessType = new ProcessModel() { Code = "123" };
+            combination.ProcessType = new ProcessTypeModel() { Code = "123" };
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
@@ -367,7 +367,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = process };
-            combination.ProcessType = new ProcessModel() { Code = processType };
+            combination.ProcessType = new ProcessTypeModel() { Code = processType };
             combination.LoginTypes = loginTypes;
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
@@ -399,7 +399,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = process };
-            combination.ProcessType = new ProcessModel() { Code = processType };
+            combination.ProcessType = new ProcessTypeModel() { Code = processType };
             combination.LoginTypes = Enumerable.Empty<LoginTypeModel>();
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
@@ -427,7 +427,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BusProcessType = processType;
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = process };
-            combination.ProcessType = new ProcessModel() { Code = processType };
+            combination.ProcessType = new ProcessTypeModel() { Code = processType };
             combination.LoginTypes = new LoginTypeModel[] { };
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));

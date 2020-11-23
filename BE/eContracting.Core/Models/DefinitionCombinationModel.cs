@@ -17,7 +17,7 @@ namespace eContracting.Models
         public virtual ProcessModel Process { get; set; }
 
         [SitecoreField]
-        public virtual ProcessModel ProcessType { get; set; }
+        public virtual ProcessTypeModel ProcessType { get; set; }
 
         #region Login
 

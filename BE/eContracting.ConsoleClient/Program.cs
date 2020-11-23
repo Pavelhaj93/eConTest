@@ -29,10 +29,12 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
                     services.AddScoped<ICache, MemoryCacheService>();
                     services.AddScoped<IApiService, SapApiService>();
+                    services.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
-                    services.AddScopedCommand<CompareIdAttach>();
+                    services.AddScopedCommand<CompareIdAttachCommand>();
+                    services.AddScopedCommand<OfferToJsonCommand>();
                 });
                 await consinloop.Run();
             }

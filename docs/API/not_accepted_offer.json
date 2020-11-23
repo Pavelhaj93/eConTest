@@ -106,6 +106,7 @@
             "accept": {
                 "title": "Dodatek a přidružené dokumenty",
                 "subTitle": "Dodate a přidružené dokumenty si přeštěte a potvrďte zatržením",
+                "mandatory": true,
                 "params": [
                     {
                         "title": "Vaše adresa",
@@ -116,7 +117,6 @@
                         "value": "RRI329212"
                     }
                 ],
-                "mandatory": true,
                 "files": [
                     {
                         "label": "Informace pro zákazníka - spotřebitele",
@@ -209,13 +209,13 @@
                 ],
                 "arguments": [
                     {
-                        "title": "Pojištění domácnosti"
+                        "value": "Pojištění domácnosti"
                     },
                     {
-                        "title": "Pojištění odpovědnosti"
+                        "value": "Pojištění odpovědnosti"
                     },
                     {
-                        "title": "Asistenční služby"
+                        "value": "Asistenční služby"
                     }
                 ],
                 "subTitle2": "Přihláška a přidružené dokumenty",

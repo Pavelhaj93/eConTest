@@ -5,7 +5,7 @@
         "file": "/api/eCon/file/{key}",
         "upload" : "/api/eCon/upload/{id}",
         "sign": "/api/eCon/sign/{id}",
-        "fileToSign": "/api/eCon/file-as-image/{id}"
+        "fileToSign": "/api/eCon/preview/{id}"
     },
     "dictionary": {
         "key1": "phrase 1"

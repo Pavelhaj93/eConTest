@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
+    <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="SapApiService.cs" />
     <Compile Include="CacheService.cs" />
     <Compile Include="Extensions.cs" />

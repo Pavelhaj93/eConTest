@@ -10,13 +10,13 @@ using Newtonsoft.Json;
 
 namespace eContracting.ConsoleClient.Commands
 {
-    class CompareIdAttach : BaseCommand
+    class CompareIdAttachCommand : BaseCommand
     {
         readonly ContextData Context;
         readonly SapApiService ApiService;
         readonly ILogger Logger;
 
-        public CompareIdAttach(
+        public CompareIdAttachCommand(
             IApiService apiService,
             ILogger logger,
             IConsole console,
