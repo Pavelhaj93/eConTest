@@ -2,6 +2,11 @@
 {{> header }}
 
 {{#> layout}}
+  {{#> steps}}
+    {{> step content="Ověření údajů"}}
+    {{> step content="Přečtení a potvrzení dokumentů" active=true}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
   <div class="text-center">
     <h1>Projděte si všechny detaily</h1>
     <p>Všechny dokumenty si pročtěte a poté potvrďte</p>

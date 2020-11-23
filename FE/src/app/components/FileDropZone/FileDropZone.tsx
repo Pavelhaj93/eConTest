@@ -1,14 +1,16 @@
-import React, { useCallback, useRef, useState, DragEvent, ChangeEvent } from 'react'
+import React, { useCallback, useRef, useState, DragEvent, ChangeEvent, useMemo } from 'react'
 import classNames from 'classnames'
 import { Button } from 'react-bootstrap'
 import { isMobileDevice } from '@utils'
-import { Icon } from '@components'
+import { Icon, Tooltip } from '@components'
 import { colors } from '@theme'
 import { FileError, CustomFile } from '@types'
 
 type Props = {
-  /** Text displayed in the middle of dropzone. */
   label?: string
+  labelTooltip?: string
+  /** Text displayed in the middle of dropzone. */
+  helpText?: string
   /** Label for main button. */
   selectFileLabel: string
   /** Label for main button for mobile devices. */
@@ -32,6 +34,8 @@ type Props = {
 
 export const FileDropZone: React.FC<Props> = ({
   label,
+  labelTooltip,
+  helpText,
   className,
   disabled = false,
   selectFileLabel,
@@ -137,30 +141,78 @@ export const FileDropZone: React.FC<Props> = ({
     [processFiles],
   )
 
+  const renderLabel = useMemo(() => {
+    if (label) {
+      return (
+        <div className="dropzone__label">
+          <span
+            className={classNames({
+              'mr-2': Boolean(labelTooltip),
+            })}
+          >
+            {label}
+          </span>{' '}
+          {labelTooltip && <Tooltip>{labelTooltip}</Tooltip>}
+        </div>
+      )
+    }
+  }, [label, labelTooltip])
+
   if (isMobile) {
     return (
-      <div
-        className={classNames({
-          'dropzone--mobile': true,
-          [className ?? '']: className,
-          'dropzone--disabled': disabled,
-        })}
-      >
-        {/* standard file selection */}
-        <div className="mb-2">
+      <>
+        {renderLabel}
+        <div
+          className={classNames({
+            'dropzone--mobile': true,
+            [className ?? '']: className,
+            'dropzone--disabled': disabled,
+          })}
+        >
+          {/* standard file selection */}
+          <div className="mb-2">
+            <Button
+              variant="primary"
+              onClick={openFileDialog}
+              disabled={disabled}
+              className="btn-block-mobile"
+            >
+              {selectFileLabelMobile}
+            </Button>
+            <input
+              type="file"
+              ref={inputRef}
+              className="dropzone__input"
+              accept={accept?.join(',')}
+              multiple
+              autoComplete="off"
+              tabIndex={0}
+              disabled={disabled}
+              onChange={handleFilesChange}
+            />
+          </div>
+
+          {/* open device camera directly */}
           <Button
-            variant="primary"
-            onClick={openFileDialog}
+            variant="link"
+            onClick={openDeviceCamera}
             disabled={disabled}
-            className="btn-block-mobile"
+            className="d-inline-flex align-items-center"
           >
-            {selectFileLabelMobile}
+            <Icon
+              name="photo-circle"
+              size={36}
+              color={disabled ? colors.gray40 : colors.orange}
+              className="mr-2"
+            />
+            {captureFileLabel}
           </Button>
           <input
             type="file"
-            ref={inputRef}
+            accept="image/*"
+            capture="environment"
+            ref={inputCaptureRef}
             className="dropzone__input"
-            accept={accept?.join(',')}
             multiple
             autoComplete="off"
             tabIndex={0}
@@ -168,28 +220,34 @@ export const FileDropZone: React.FC<Props> = ({
             onChange={handleFilesChange}
           />
         </div>
+      </>
+    )
+  }
 
-        {/* open device camera directly */}
-        <Button
-          variant="link"
-          onClick={openDeviceCamera}
-          disabled={disabled}
-          className="d-inline-flex align-items-center"
-        >
-          <Icon
-            name="photo-circle"
-            size={36}
-            color={disabled ? colors.gray40 : colors.orange}
-            className="mr-2"
-          />
-          {captureFileLabel}
+  return (
+    <>
+      {renderLabel}
+      <div
+        className={classNames({
+          dropzone: true,
+          [className ?? '']: className,
+          'dropzone--disabled': disabled,
+          'dropzone--active': active,
+        })}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+        onDragEnter={handleDragEnter}
+      >
+        {helpText && <p>{helpText}</p>}
+        <Button variant="primary" onClick={openFileDialog} disabled={disabled}>
+          {selectFileLabel}
         </Button>
         <input
           type="file"
-          accept="image/*"
-          capture="environment"
-          ref={inputCaptureRef}
+          ref={inputRef}
           className="dropzone__input"
+          accept={accept?.join(',')}
           multiple
           autoComplete="off"
           tabIndex={0}
@@ -197,37 +255,6 @@ export const FileDropZone: React.FC<Props> = ({
           onChange={handleFilesChange}
         />
       </div>
-    )
-  }
-
-  return (
-    <div
-      className={classNames({
-        dropzone: true,
-        [className ?? '']: className,
-        'dropzone--disabled': disabled,
-        'dropzone--active': active,
-      })}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-      onDragEnter={handleDragEnter}
-    >
-      {label && <p>{label}</p>}
-      <Button variant="primary" onClick={openFileDialog} disabled={disabled}>
-        {selectFileLabel}
-      </Button>
-      <input
-        type="file"
-        ref={inputRef}
-        className="dropzone__input"
-        accept={accept?.join(',')}
-        multiple
-        autoComplete="off"
-        tabIndex={0}
-        disabled={disabled}
-        onChange={handleFilesChange}
-      />
-    </div>
+    </>
   )
 }

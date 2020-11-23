@@ -14,9 +14,9 @@ module.exports = function (request, response) {
   if (random > 10) {
     statusCode = 200
     jsonResponse = {
-      id: random > 40 ? generateId() : null,
-      uploaded: random > 40,
-      message: random < 40 && 'Document has invalid type',
+      id: random >= 20 ? generateId() : null,
+      uploaded: random >= 20,
+      message: random < 20 && 'Document has invalid type',
     }
   } else {
     statusCode = 400

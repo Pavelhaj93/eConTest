@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment, useCallback, useRef } from 'react'
-import { OfferType, View } from '@types'
+import { CustomFile, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Form } from 'react-bootstrap'
@@ -31,7 +31,7 @@ export const Offer: React.FC<View> = observer(
     getFileUrl,
     getFileForSignUrl,
     signFileUrl,
-    doxTimeout,
+    timeout,
     uploadFileUrl,
     removeFileUrl,
     errorPageUrl,
@@ -46,10 +46,11 @@ export const Offer: React.FC<View> = observer(
     const [confirmationModal, setConfirmationModal] = useState(false)
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)
+    const [rejectedFiles, setRejectedFiles] = useState<Record<string, CustomFile[]>>({})
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
-      // store.fetchOffer(doxTimeout)
+      store.fetchOffer(timeout)
 
       // set correct upload document URL if provided
       if (uploadFileUrl) {
@@ -69,6 +70,21 @@ export const Offer: React.FC<View> = observer(
       })
     }, [])
 
+    const addRejectedFiles = useCallback(
+      (files: CustomFile[], category: string) => {
+        // if category does not exist yet => create one
+        if (!rejectedFiles[category]) {
+          rejectedFiles[category] = []
+        }
+
+        setRejectedFiles({
+          ...rejectedFiles,
+          [category]: files,
+        })
+      },
+      [rejectedFiles],
+    )
+
     return (
       <OfferStoreContext.Provider value={store}>
         <Fragment>
@@ -83,19 +99,43 @@ export const Offer: React.FC<View> = observer(
 
           <Box>
             <FileDropZone
+              label="Občanský nebo řidičský průkaz"
+              labelTooltip="Zde bude obsah tooltipu"
               accept={allowedContentTypes}
               maxFileSize={maxFileSize}
-              label={t('selectFileHelpText')}
-              className="my-5"
+              helpText={t('selectFileHelpText')}
               selectFileLabel={t('selectFile')}
               selectFileLabelMobile={t('uploadFile')}
-              onFilesChanged={files => store.addUserFiles(files, 'category1')}
+              // on each file change => clear the ones selected previously within the same category
+              onFilesChanged={() => setRejectedFiles({ ...rejectedFiles, category1: [] })}
+              onFilesAccepted={files => store.addUserFiles(files, 'category1')}
+              onFilesRejected={files => addRejectedFiles(files, 'category1')}
               useCaptureOnMobile
               captureFileLabel={t('captureFile')}
             />
+
+            {/* custom rejected documents */}
+            {rejectedFiles['category1']?.length > 0 && (
+              <ul aria-label={t('rejectedFiles')} className="list-unstyled border-bottom">
+                {rejectedFiles['category1'].map((document, idx) => (
+                  <li key={`${idx}-${document.file.name}`} className="shake">
+                    <FileUpload
+                      file={document.file}
+                      labels={labels}
+                      shouldUploadImmediately={false}
+                      error={document.error}
+                      uploading={false}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+            {/* /custom rejected documents */}
+
+            {/* custom uploaded documents */}
             {store.userDocuments['category1']?.length > 0 && (
               <ul aria-label={t('selectedFiles')} className="list-unstyled">
-                {store.userDocuments['category1'].map(document => (
+                {store.userDocuments['category1']?.map(document => (
                   <li key={document.id}>
                     <FileUpload
                       file={document.file}
@@ -114,6 +154,7 @@ export const Offer: React.FC<View> = observer(
                 ))}
               </ul>
             )}
+            {/* /custom uploaded documents */}
           </Box>
 
           <form
@@ -125,7 +166,7 @@ export const Offer: React.FC<View> = observer(
             })}
           >
             {/* box with documents to be accepted */}
-            {/* <Box
+            <Box
               className={classNames({
                 loading: store.isLoading,
               })}
@@ -202,7 +243,7 @@ export const Offer: React.FC<View> = observer(
                   </p>
                 </Fragment>
               )}
-            </Box> */}
+            </Box>
             {/* /box with documents to be accepted */}
 
             {/**
@@ -217,8 +258,8 @@ export const Offer: React.FC<View> = observer(
                   !store.documentsToBeSigned,
               })}
             >
-              <h3>{t('acceptOfferTitle')}</h3>
-              <Box>
+              <h3 className="text-center">{t('acceptOfferTitle')}</h3>
+              <Box className="text-center">
                 <p>{t('acceptOfferHelptext')}</p>
                 <Button
                   variant="secondary"

@@ -241,11 +241,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                               // do not send multiple fields
                               disabled={key !== selectedChoice}
                             />
-                            {helpText && (
-                              <Tooltip id={`${key}HelpText`} visible={isVisible}>
-                                {helpText}
-                              </Tooltip>
-                            )}
+                            {helpText && <Tooltip visible={isVisible}>{helpText}</Tooltip>}
                           </FormControlTooltipWrapper>
                         </Form.Group>
                       </ShowHideComponent>
@@ -281,9 +277,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices }) 
                       !isFieldValid(values[choices[0].key], choices[0].regex ?? '') && wasValidated,
                   })}
                 />
-                {choices[0].helpText && (
-                  <Tooltip id={`${choices[0].key}HelpText`}>{choices[0].helpText}</Tooltip>
-                )}
+                {choices[0].helpText && <Tooltip>{choices[0].helpText}</Tooltip>}
               </FormControlTooltipWrapper>
             </Col>
           </Row>

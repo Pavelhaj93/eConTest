@@ -13,7 +13,7 @@ type Props = {
   onRemove?: () => void
   labels: Record<string, any>
   /** Set a function responsible for uploading the file. */
-  uploadHandler: (file: File) => Promise<UploadDocumentResponse>
+  uploadHandler?: (file: File) => Promise<UploadDocumentResponse>
   /** If set to `false`, the `uploadHandler` won't be called when component is mounted. */
   shouldUploadImmediately?: boolean
   /** Set error message. */
@@ -36,9 +36,11 @@ export const FileUpload: React.FC<Props> = ({
 
   useEffect(() => {
     async function uploadFile(file: File) {
-      const { message } = await uploadHandler(file)
-      if (isMountedRef.current) {
-        setErrorMessage(message)
+      if (uploadHandler) {
+        const { message } = await uploadHandler(file)
+        if (isMountedRef.current) {
+          setErrorMessage(message)
+        }
       }
     }
 

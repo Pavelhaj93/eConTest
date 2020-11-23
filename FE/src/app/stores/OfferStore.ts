@@ -3,6 +3,7 @@ import {
   CustomFile,
   Document,
   Group,
+  NewOfferResponse,
   OfferType,
   UploadDocumentResponse,
 } from '@types'
@@ -90,7 +91,9 @@ export class OfferStore {
     //   return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
     // }
 
-    return false
+    return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
+
+    // return false
   }
 
   /**
@@ -138,6 +141,8 @@ export class OfferStore {
       switch (this.type) {
         case OfferType.NEW:
           // TODO: implement parsing of new offer response
+          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
+          this.documents = jsonResponse
           break
 
         case OfferType.ACCEPTED:

@@ -1,0 +1,65 @@
+[
+  {
+    "key": "009",
+    "title": "Informace pro zákazníka – spotřebitele.pdf",
+    "url": null,
+    "label": "Souhlasím s",
+    "sign": false
+  },
+  {
+    "key": "004",
+    "title": "Dodatek.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "003",
+    "title": "Plná moc (Lastcall).pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": true
+  },
+  {
+    "key": "001",
+    "title": "Ceník.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "002",
+    "title": "Ceník služeb.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "007",
+    "title": "Obchodní podmínky.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "006",
+    "title": "DS - Smlouva innogy Karta.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "008",
+    "title": "Potvrzení o přiznání indivkeyuální slevy.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  },
+  {
+    "key": "005",
+    "title": "Dodatečné info k dárkům a odměnám - web.pdf",
+    "url": null,
+    "label": "Jsem poučen o",
+    "sign": false
+  }
+]

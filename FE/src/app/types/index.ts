@@ -1,15 +1,7 @@
-export type Choice = {
-  /** Use for HTML label. */
-  label: string
-  /** Value of the choice. */
-  key: string
-  /** Placeholder used for the additional text input. */
-  placeholder?: string | null
-  /** If provided, it will be rendered as as tooltip. */
-  helpText?: string | null
-  /** Regex used for user input validation. */
-  regex?: string | null
-}
+import { Choice } from './Authentication'
+
+export * from './Offer'
+export * from './Authentication'
 
 export type AppConfig = {
   view: string
@@ -26,7 +18,7 @@ export type AppConfig = {
   /** URL that accepts a signature as base64 PNG within POST body. Need to append file ID. */
   signFileUrl?: string
   /** After how many milliseconds the documents request will be canceled. */
-  doxTimeout?: number
+  timeout?: number
   /** URL where to upload user files. */
   uploadFileUrl?: string
   /** URL that accepts document id to remove the uploaded document. */
@@ -43,18 +35,6 @@ declare global {
 }
 
 export type View = AppConfig
-
-// used for documents coming from API
-export type Document = {
-  key: string
-  title: string
-  label: string
-  mime?: string
-  size?: string
-  sign: boolean
-  signed?: boolean
-  accepted?: boolean
-}
 
 export type Color =
   | 'orange'
@@ -83,20 +63,6 @@ export type UploadDocumentResponse = {
   id?: string | null
   uploaded: boolean
   message?: string
-}
-
-export type Group = {
-  title: string
-  files: Document[]
-}
-
-export type AcceptedOfferResponse = {
-  groups: Group[]
-}
-
-export enum OfferType {
-  NEW = 'NEW',
-  ACCEPTED = 'ACCEPTED',
 }
 
 export enum FileError {

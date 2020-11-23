@@ -24,15 +24,15 @@ export const ConfirmationModal: React.FC<Props> = ({ show, labels, onClose, onCo
         <Row as="ul" className="justify-content-center list-unstyled mb-0 mt-3">
           <Col as="li" xs={6} lg={4} className="mb-4 text-center">
             <Icon name="check-circle" size={36} color={colors.green} />
-            <span className="d-block mt-3 text-success">Smlouva / dodatek</span>
+            <span className="d-block mt-2 text-success">Smlouva / dodatek</span>
           </Col>
           <Col as="li" xs={6} lg={4} className="mb-4 text-center">
             <Icon name="check-circle" size={36} color={colors.green} />
-            <span className="d-block mt-3 text-success">innogy Pojištění domácnosti</span>
+            <span className="d-block mt-2 text-success">innogy Pojištění domácnosti</span>
           </Col>
           <Col as="li" xs={6} lg={4} className="mb-4 text-center">
             <Icon name="cross-circle" size={36} color={colors.red} />
-            <span className="d-block mt-3 text-danger">Investor</span>
+            <span className="d-block mt-2 text-danger">Investor</span>
           </Col>
         </Row>
         <p>{t('confirmationModalText')}</p>

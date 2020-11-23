@@ -24,6 +24,14 @@ $form-item-control-label-padding-left: rem(20);
   @extend %custom-control-label;
 }
 
+%label {
+  position: relative;
+  display: block;
+  font-weight: normal;
+  margin-left: map-get($spacers, 4);
+  margin-bottom: $label-margin-bottom;
+}
+
 input,
 textarea,
 button,
@@ -52,11 +60,7 @@ select {
 
 label,
 .like-label {
-  position: relative;
-  display: block;
-  font-weight: normal;
-  margin-left: map-get($spacers, 4);
-  margin-bottom: $label-margin-bottom;
+  @extend %label;
 }
 
 .form-control {

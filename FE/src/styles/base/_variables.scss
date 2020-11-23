@@ -48,8 +48,6 @@ $colors: (
   'gray-100': $color-gray-100,
 );
 
-$color-border: $color-gray-10;
-
 $transition-duration: 0.2s;
 
 // Fonts
@@ -71,6 +69,7 @@ $red: $color-red;
 $green: $color-green;
 $body-color: $color-gray-100;
 $link-color: $color-orange;
+$border-color: $color-gray-20;
 
 $border-radius: 35px;
 $border-radius-sm: 25px;
