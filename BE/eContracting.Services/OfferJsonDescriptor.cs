@@ -56,13 +56,17 @@ namespace eContracting.Services
 
         public async Task<JsonOfferNotAcceptedModel> GetNewAsync(OfferModel offer)
         {
+            var definition = this.SettingsReaderService.GetDefinition(offer);
             var model = new JsonOfferNotAcceptedModel();
 
             if (offer.Version > 1)
             {
-                var definition = this.SettingsReaderService.GetDefinition(offer);
                 model.Perex = this.GetPerex(offer.TextParameters, definition);
+                model.Gifts = this.GetGifts(offer.TextParameters, definition);
+                model.Benefits = this.GetBenefits(offer.TextParameters, definition);
             }
+
+            model.Documents = await this.GetDocuments(offer, definition);
 
             return await Task.FromResult(model);
         }
@@ -133,10 +137,6 @@ namespace eContracting.Services
         protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
         {
             var parameters = new List<JsonParamModel>();
-
-            var model = new JsonOfferPerexModel();
-            model.Title = "perex";
-
             var keys = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_NAME")).ToArray();
             var values = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE")).ToArray();
 
@@ -152,8 +152,66 @@ namespace eContracting.Services
                 }
             }
 
-            model.Parameters = parameters.ToArray();
+            if (parameters.Count > 0)
+            {
+                var model = new JsonOfferPerexModel();
+                model.Title = "perex";
+                model.Parameters = parameters.ToArray();
+                return model;
+            }
 
+            return null;
+        }
+
+        protected internal JsonBenefitsModel GetBenefits(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        {
+            var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
+
+            if (values.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new JsonBenefitsModel();
+            model.Title = "gifts";
+            model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
+            return model;
+        }
+
+        protected internal JsonGiftsModel GetGifts(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        {
+            if (!this.IsSectionChecked(textParameters, "BENEFITS"))
+            {
+                return null;
+            }
+
+            var keys = new[] { "BENEFITS_NOW", "BENEFITS_NEXT_SIGN", "BENEFITS_NEXT_TZD" };
+            var groups = new List<JsonGiftsGroupModel>();
+
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var g = this.GetBenefitGroup(keys[i], textParameters);
+
+                if (g != null)
+                {
+                    groups.Add(g);
+                }
+            }
+
+            if (groups.Count == 0)
+            {
+                return null;
+            }
+
+            var model = new JsonGiftsModel();
+            model.Title = "TITLE";
+
+            if (textParameters.HasValue("BENEFITS_CLOSE"))
+            {
+                model.Note = textParameters["BENEFITS_CLOSE"];
+            }
+
+            model.Groups = groups;
             return model;
         }
 
@@ -167,6 +225,98 @@ namespace eContracting.Services
             }
 
             return null;
+        }
+
+        protected internal JsonGiftsGroupModel GetBenefitGroup(string key, IDictionary<string, string> textParameters)
+        {
+            string keyIntro = key + "_INTRO";
+            string keyCount = key + "_COUNT_";
+            string keyImage = key + "_IMAGE_";
+            string keyName = key + "_NAME_";
+
+            if (!this.IsSectionChecked(textParameters, key))
+            {
+                return null;
+            }
+
+            var keys = textParameters.Keys.Where(x => x.StartsWith(key)).ToArray();
+
+            var group = new JsonGiftsGroupModel();
+
+            if (keys.Contains(keyIntro))
+            {
+                group.Title = textParameters[keyIntro];
+            }
+
+            var count = textParameters.Keys.Where(x => x.StartsWith(keyName)).Count();
+
+            if (count == 0)
+            {
+                return null;
+            }
+
+            var list = new List<JsonGiftModel>();
+
+            for (int i = 0; i < count; i++)
+            {
+                var benefit = new JsonGiftModel();
+
+                if (keys.Contains($"{keyCount}_{i}") && int.TryParse(textParameters[$"{keyCount}_{i}"], out int c))
+                {
+                    benefit.Count = c;
+                }
+
+                if (keys.Contains($"{keyName}_{i}"))
+                {
+                    benefit.Title = textParameters[$"{keyName}_{i}"];
+                }
+
+                if (keys.Contains($"{keyImage}_{i}"))
+                {
+                    benefit.Icon = textParameters[$"{keyImage}_{i}"];
+                }
+
+                list.Add(benefit);
+            }
+
+            group.Params = list;
+            return group;
+        }
+
+        protected internal async Task<JsonOfferDocumentsModel> GetDocuments(OfferModel offer, DefinitionCombinationModel definition)
+        {
+            if (!this.IsSectionChecked(offer.TextParameters, "COMMODITY"))
+            {
+                return null;
+            }
+
+            var files = await this.ApiService.GetAttachmentsAsync(offer);
+
+            var model = new JsonOfferDocumentsModel();
+            model.Acceptance = this.GetDocumentsAcceptance(offer, files, definition);
+            return model;
+        }
+
+        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        {
+            return null;
+        }
+
+        /// <summary>
+        /// Determines whether section <paramref name="key"/> has value 'X' (&lt;SECTION&gt;X&lt;/SECTION&gt;)
+        /// </summary>
+        /// <param name="textParameters">The text parameters.</param>
+        /// <param name="key">The key.</param>
+        protected internal bool IsSectionChecked(IDictionary<string, string> textParameters, string key)
+        {
+            if (!textParameters.ContainsKey(key))
+            {
+                return false;
+            }
+
+            var value = textParameters[key];
+
+            return value.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
         }
     }
 }

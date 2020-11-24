@@ -49,6 +49,13 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Determines whether section <paramref name="key"/> has value 'X' (&lt;SECTION&gt;X&lt;/SECTION&gt;)
+            </summary>
+            <param name="textParameters">The text parameters.</param>
+            <param name="key">The key.</param>
+        </member>
         <member name="T:eContracting.Services.SapApiService">
             <summary>
             Service wrapper over generated <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.

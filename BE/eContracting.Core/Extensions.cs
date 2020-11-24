@@ -64,5 +64,30 @@ namespace eContracting
                 source[item.Key] = item.Value;
             }
         }
+
+        /// <summary>
+        /// Determines whether the specified key has value any value.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified key has value; otherwise, <c>false</c>.
+        /// </returns>
+        public static bool HasValue(this IDictionary<string, string> source, string key)
+        {
+            if (source == null)
+            {
+                return false;
+            }
+
+            if (!source.ContainsKey(key))
+            {
+                return false;
+            }
+
+            var value = source[key].Trim();
+
+            return !string.IsNullOrWhiteSpace(value);
+        }
     }
 }

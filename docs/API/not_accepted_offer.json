@@ -20,7 +20,7 @@
             }
         ]
     },
-    "gifts": {
+    "benefits": {
         "title": "Zvoleným produktem získáte",
         "params": [
             {
@@ -34,7 +34,7 @@
             }
         ]
     },
-    "benefits": {
+    "gifts": {
         "title": "Máme pro Vás nachystané dárky",
         "note": "Způsob doručení korespondenčně na zasílací adresu",
         "groups": [

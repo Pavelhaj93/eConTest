@@ -317,6 +317,16 @@
             <param name="source">The source dictionary.</param>
             <param name="second">The second.</param>
         </member>
+        <member name="M:eContracting.Extensions.HasValue(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Determines whether the specified key has value any value.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="key">The key.</param>
+            <returns>
+              <c>true</c> if the specified key has value; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="T:eContracting.IApiService">
             <summary>
             Service with direct communication to SAP / CACHE.

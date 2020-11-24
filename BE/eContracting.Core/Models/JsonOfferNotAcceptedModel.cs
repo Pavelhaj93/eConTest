@@ -9,14 +9,14 @@ namespace eContracting.Models
 {
     public class JsonOfferNotAcceptedModel
     {
-        [JsonProperty("perex")]
+        [JsonProperty("perex", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonOfferPerexModel Perex { get; set; }
 
-        [JsonProperty("gifts")]
-        public JsonOfferGiftsModel Gifts { get; set; }
+        [JsonProperty("benefits", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public JsonBenefitsModel Benefits { get; set; }
 
-        [JsonProperty("benefits")]
-        public JsonOfferBenefitsModel Benefits { get; set; }
+        [JsonProperty("gifts", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
+        public JsonGiftsModel Gifts { get; set; }
 
         [JsonProperty("documents")]
         public JsonOfferDocumentsModel Documents { get; set; }

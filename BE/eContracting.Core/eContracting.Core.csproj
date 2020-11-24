@@ -112,9 +112,9 @@
     <Compile Include="Models\JsonFilesSectionModel.cs" />
     <Compile Include="Models\JsonFileModel.cs" />
     <Compile Include="Models\JsonAcceptanceDialogViewModel.cs" />
-    <Compile Include="Models\JsonArgumentViewModel.cs" />
-    <Compile Include="Models\JsonComplexBenefitGroupModel.cs" />
-    <Compile Include="Models\JsonBenefitModel.cs" />
+    <Compile Include="Models\JsonArgumentModel.cs" />
+    <Compile Include="Models\JsonGiftsGroupModel.cs" />
+    <Compile Include="Models\JsonGiftModel.cs" />
     <Compile Include="Models\JsonDocumentsAcceptanceModel.cs" />
     <Compile Include="Models\JsonDocumentsAcceptModel.cs" />
     <Compile Include="Models\JsonDocumentsOthersCommoditiesModel.cs" />
@@ -122,9 +122,9 @@
     <Compile Include="Models\JsonDocumentsOthersModel.cs" />
     <Compile Include="Models\JsonDocumentsUploadsModel.cs" />
     <Compile Include="Models\JsonOfferAcceptedModel.cs" />
-    <Compile Include="Models\JsonOfferBenefitsModel.cs" />
+    <Compile Include="Models\JsonGiftsModel.cs" />
     <Compile Include="Models\JsonOfferDocumentsModel.cs" />
-    <Compile Include="Models\JsonOfferGiftsModel.cs" />
+    <Compile Include="Models\JsonBenefitsModel.cs" />
     <Compile Include="Models\JsonOfferNotAcceptedModel.cs" />
     <Compile Include="Models\JsonOfferPerexModel.cs" />
     <Compile Include="Models\JsonParamModel.cs" />
