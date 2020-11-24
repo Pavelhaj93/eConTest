@@ -9,13 +9,23 @@ using Sitecore.Shell.Applications.ContentEditor;
 
 namespace eContracting.Models
 {
+    /// <summary>
+    /// Represents combination of <see cref="Process"/> and <see cref="ProcessType"/> with their relevant settings.
+    /// </summary>
+    /// <seealso cref="eContracting.Models.BaseSitecoreModel" />
     [SitecoreType(TemplateId = "{B9B48C83-1724-43B5-8200-9CDE955D6835}", AutoMap = true)]
     [ExcludeFromCodeCoverage]
     public class DefinitionCombinationModel : BaseSitecoreModel
     {
+        /// <summary>
+        /// Gets or sets related process definition.
+        /// </summary>
         [SitecoreField]
         public virtual ProcessModel Process { get; set; }
 
+        /// <summary>
+        /// Gets or sets related process type definition.
+        /// </summary>
         [SitecoreField]
         public virtual ProcessTypeModel ProcessType { get; set; }
 
@@ -44,43 +54,72 @@ namespace eContracting.Models
         public virtual SimpleTextModel OfferBenefitsTitle { get; set; }
 
         [SitecoreField]
-        public virtual SimpleTextModel OfferDocumentsForAcceptanceTitle { get; set; }
+        public virtual SimpleTextModel OfferCommoditiesTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferDocumentsForAcceptanceText { get; set; }
+        public virtual RichTextModel OfferCommoditiesText { get; set; }
+
+        #region Documents for accept
 
         [SitecoreField]
-        public virtual RichTextModel OfferDocumentsForAcceptanceSection1 { get; set; }
+        public virtual SimpleTextModel OfferCommoditiesAcceptTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferDocumentsForAcceptanceSection2 { get; set; }
+        public virtual RichTextModel OfferCommoditiesAcceptText { get; set; }
+
+        #endregion
+
+        #region Documents for sign
 
         [SitecoreField]
-        public virtual SimpleTextModel OfferObligatoryDocumentsTitle { get; set; }
+        public virtual SimpleTextModel OfferCommoditiesSignTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferObligatoryAdditionalDocsText { get; set; }
+        public virtual RichTextModel OfferCommoditiesSignText { get; set; }
+
+        #endregion
+
+        #region Documents for upload
 
         [SitecoreField]
-        public virtual SimpleTextModel OfferObligatoryAdditionalDocsHelp { get; set; }
+        public virtual SimpleTextModel OfferUploadsTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferObligatoryDocumentsNote { get; set; }
+        public virtual RichTextModel OfferUploadsExtraText { get; set; }
 
         [SitecoreField]
-        public virtual SimpleTextModel OfferSupplementDocumentsTitle { get; set; }
+        public virtual SimpleTextModel OfferUploadsExtraHelp { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferSupplementDocumentsText { get; set; }
+        public virtual RichTextModel OfferUploadsNote { get; set; }
+
+        #endregion
+
+        #region Additional services
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferAdditionalServicesTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferAdditionalServicesText { get; set; }
+
+        #endregion
+
+        #region Other products
 
         [SitecoreField]
         public virtual SimpleTextModel OfferOtherProductsTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferOtherProductsAcceptDocumentsText { get; set; }
+        public virtual SimpleTextModel OfferOtherProductsDocsTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferOtherProductsText { get; set; }
+        public virtual RichTextModel OfferOtherProductsDocsText { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferOtherProductsNote { get; set; }
+
+        #endregion
 
         [SitecoreField]
         public virtual SimpleTextModel OfferAcceptTitle { get; set; }

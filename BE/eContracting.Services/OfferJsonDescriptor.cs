@@ -116,7 +116,7 @@ namespace eContracting.Services
         {
             if (groupName == "COMMODITY")
             {
-                return definition.OfferDocumentsForAcceptanceSection1.Text;
+                return definition.OfferCommoditiesAcceptTitle.Text;
             }
 
             return null;
@@ -299,7 +299,86 @@ namespace eContracting.Services
 
         protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
         {
-            return null;
+            var model = new JsonDocumentsAcceptanceModel();
+            model.Title = definition.OfferCommoditiesTitle.Text;
+            model.Text = this.ReplaceWithTextParameters(definition.OfferCommoditiesText.Text, offer.TextParameters);
+
+            var acceptFiles = files.Where(x => x.Group == "COMMODITY" && x.IsSignReq == false).ToArray();
+
+            if(acceptFiles.Length > 0)
+            {
+                var acceptModel = new JsonDocumentsAcceptModel();
+                acceptModel.Title = definition.OfferCommoditiesAcceptTitle.Text;
+                acceptModel.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesAcceptText.Text, offer.TextParameters);
+                acceptModel.MandatoryGroup = true; //TODO: Value cannot be hardcoded
+
+                var jsonFiles = new List<JsonAcceptFileModel>();
+
+                for (int i = 0; i < acceptFiles.Length; i++)
+                {
+                    var f = acceptFiles[i];
+                    var j = new JsonAcceptFileModel();
+                    j.Key = f.UniqueKey;
+                    j.Label = f.FileName;
+                    j.MimeType = f.MimeType;
+                    j.Mandatory = f.IsGroupOblig;
+                    j.Prefix = "lorem ipsum"; //TODO: Solve prefix for a file
+                    jsonFiles.Add(j);
+                }
+
+                acceptModel.Files = jsonFiles;
+                model.Accept = acceptModel;
+            }
+
+            var signFiles = files.Where(x => x.Group == "COMMODITY" && x.IsSignReq == true).ToArray();
+
+            if (signFiles.Length > 0)
+            {
+                var signModel = new JsonDocumentsAcceptModel();
+                signModel.Title = definition.OfferCommoditiesSignTitle.Text;
+                signModel.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
+                signModel.MandatoryGroup = true;
+
+                var jsonFiles = new List<JsonAcceptFileModel>();
+
+                for (int i = 0; i < signFiles.Length; i++)
+                {
+                    var f = signFiles[i];
+                    var j = new JsonAcceptFileModel();
+                    j.Key = f.UniqueKey;
+                    j.Label = f.FileName;
+                    j.MimeType = f.MimeType;
+                    j.Mandatory = f.IsGroupOblig;
+                    j.Prefix = "lorem ipsum"; //TODO: Solve prefix for a file
+                    jsonFiles.Add(j);
+                }
+
+                signModel.Files = jsonFiles;
+                model.Accept = signModel;
+            }
+
+            return model;
+        }
+
+        /// <summary>
+        /// Replaces placeholders in <paramref name="source"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="textParameters">The text parameters.</param>
+        /// <returns>Modified string.</returns>
+        protected internal string ReplaceWithTextParameters(string source, IDictionary<string, string> textParameters)
+        {
+            if (string.IsNullOrWhiteSpace(source))
+            {
+                return source;
+            }
+
+            foreach (var parameters in textParameters)
+            {
+                source.Replace("{" + parameters.Key + "}", parameters.Value);
+            }
+
+            return source;
         }
 
         /// <summary>

@@ -103,49 +103,45 @@
     "documents": {
         "acceptance": {
             "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
+            "params": "<p>Vaše adres: Ledčice 178, 277 08 Ledčice</p><p>EAN: 860292365023</p>",
             "accept": {
                 "title": "Dodatek a přidružené dokumenty",
                 "subTitle": "Dodate a přidružené dokumenty si přeštěte a potvrďte zatržením",
                 "mandatory": true,
-                "params": [
-                    {
-                        "title": "Vaše adresa",
-                        "value": "Ledčice 178, 277 08 Ledčice"
-                    },
-                    {
-                        "title": "EAN",
-                        "value": "RRI329212"
-                    }
-                ],
                 "files": [
                     {
                         "label": "Informace pro zákazníka - spotřebitele",
                         "prefix": "Souhlasím s",
                         "key": "e1c9a5ce583743e6928ee4df91862a91",
+                        "mime": "application/pdf",
                         "mandatory": true
                     },
                     {
                         "label": "Dodatek",
                         "prefix": "Jsem poučen o",
                         "key": "8e0ed4754f99464eb2d0155c140a2541",
+                        "mime": "application/pdf",
                         "mandatory": true
                     },
                     {
                         "label": "Ceník",
                         "prefix": "Jsem poučen o",
                         "key": "76868bd607804b9ca6bc5248f99726d3",
+                        "mime": "application/pdf",
                         "mandatory": true
                     },
                     {
                         "label": "Ceník služeb",
                         "prefix": "Jsem poučen o",
                         "key": "2304df60d07448818c8b0b8c074d82a8",
+                        "mime": "application/pdf",
                         "mandatory": true
                     },
                     {
                         "label": "Obchodní podmínky",
                         "prefix": "Jsem poučen o",
                         "key": "ee68d1a1da63434a9c91643d6b8504cf",
+                        "mime": "application/pdf",
                         "mandatory": true
                     }
                 ]

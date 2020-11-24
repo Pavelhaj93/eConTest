@@ -13,7 +13,7 @@ SharedFields:
   Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
 - ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
   Hint: OfferTitle
-  Value: "{E21EA370-DCB0-4F67-9B5C-0074588E9EFA}"
+  Value: "{AAF2EB42-1EF0-4798-8E83-67B61C55CE95}"
 - ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
   Hint: OfferSupplementDocumentsTitle
   Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
@@ -21,17 +21,17 @@ SharedFields:
   Hint: OfferOtherProductsTitle
   Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
 - ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
-  Hint: OfferDocumentsForAcceptanceText
-  Value: "{4A3B18B0-5A69-49F0-A9FB-DE2F96B0E367}"
+  Hint: OfferCommoditiesText
+  Value: "{63465FAB-3EA9-4D95-AC0F-6F9F49A4CE8C}"
 - ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
   Hint: Process
   Value: "{C59CABA7-B4B1-4586-A55E-FAC2BFD343D1}"
 - ID: "3002b81c-2648-44b1-aae8-49eb6e5167ca"
-  Hint: OfferDocumentsForAcceptanceSection1
-  Value: "{449D995E-FEAB-43F1-9B99-D863B947D012}"
+  Hint: OfferCommoditiesAcceptTitle
+  Value: "{0F561FAC-CB99-4678-BE61-2486DE7D0927}"
 - ID: "384dd170-ec45-46a5-9d20-40a66c6471ab"
-  Hint: OfferOtherProductsAcceptDocumentsText
-  Value: "{B088C567-5E43-44A0-8BAA-EDDF94829D1F}"
+  Hint: OfferOtherProductsDocsText
+  Value: "{E00A892D-3943-4B6A-A1B0-273DEC6FF500}"
 - ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
   Hint: MainTextOfferExpired
   Value: "{4A78DBAA-B818-46BE-8C6D-DCE8964A0860}"
@@ -39,8 +39,8 @@ SharedFields:
   Hint: OfferObligatoryAdditionalDocsText
   Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
 - ID: "58934276-4619-4696-85f4-eda6be9e6c76"
-  Hint: OfferDocumentsForAcceptanceTitle
-  Value: "{9369F4D9-0160-4CA8-A61D-F04159DD888B}"
+  Hint: OfferCommoditiesTitle
+  Value: "{BCC7AE4B-F368-43D1-8383-F86D387654F9}"
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
   Value: "{0A0C26AC-88DF-42E9-A59E-DA057C3457F6}"
@@ -51,11 +51,11 @@ SharedFields:
   Hint: OfferObligatoryAdditionalDocsHelp
   Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
 - ID: "70941589-f449-4853-ac06-110f564ef692"
-  Hint: OfferOtherProductsText
-  Value: "{B8FDECA5-6673-4076-B0A3-FBFA3DC4DDDC}"
+  Hint: OfferOtherProductsNote
+  Value: "{F22A96FC-2D9D-4AE4-A74C-C2E3984B54FE}"
 - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
   Hint: OfferAcceptText
-  Value: "{DD6D7B57-BF5E-48D0-8CE7-C761C584080E}"
+  Value: "{2939ECDD-6F02-4358-ACA7-D5AC741708A8}"
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 
@@ -67,16 +67,25 @@ SharedFields:
   Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
 - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
   Hint: OfferMainText
-  Value: "{B7E24F22-E8A6-4BA6-A375-12425D0BFAA8}"
+  Value: "{D6CC9F96-2E18-4C8E-A375-574235C1052F}"
 - ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
   Hint: MainTextOfferAccepted
   Value: "{7A854AA8-D9EE-4D82-9DB6-F31C73E7669A}"
+- ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
+  Hint: OfferOtherProductsDocsTitle
+  Value: "{9A1EADD2-2A8A-46B7-9606-B29534BF883D}"
+- ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
+  Hint: OfferCommoditiesAcceptText
+  Value: "{3C07F77E-EE7C-42A9-98C0-47950D0E92F5}"
 - ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
   Hint: MainTextLogin
   Value: "{CE0F79B7-AD81-43D8-97E7-1ABC44F14690}"
+- ID: "d9367ba4-b4fd-4854-86a5-971d8074cb0a"
+  Hint: OfferCommoditiesSignText
+  Value: "{E47BCEE7-31C3-4333-ADFF-02639C2DCFA6}"
 - ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
-  Hint: OfferDocumentsForAcceptanceSection2
-  Value: "{CF59474B-E808-46D8-9569-AF98224E21D9}"
+  Hint: OfferCommoditiesSignTitle
+  Value: "{503847D9-82D4-4EDE-AB4C-1F09E2362D24}"
 - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
   Hint: MainTextThankYou
   Value: "{29A156D6-E0AB-4F00-9AAC-7720C2586D30}"
@@ -88,6 +97,17 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201012T121043Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201124T151013Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

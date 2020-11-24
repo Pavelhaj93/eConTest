@@ -49,6 +49,14 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.ReplaceWithTextParameters(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Replaces placeholders in <paramref name="source"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="textParameters">The text parameters.</param>
+            <returns>Modified string.</returns>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
             <summary>
             Determines whether section <paramref name="key"/> has value 'X' (&lt;SECTION&gt;X&lt;/SECTION&gt;)

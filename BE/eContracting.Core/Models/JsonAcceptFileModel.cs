@@ -17,6 +17,9 @@ namespace eContracting.Models
         [JsonProperty("key")]
         public string Key { get; set; }
 
+        [JsonProperty("mime")]
+        public string MimeType { get; set; }
+
         [JsonProperty("mandatory")]
         public bool Mandatory { get; set; } = true;
     }

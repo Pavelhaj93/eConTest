@@ -14,14 +14,11 @@ namespace eContracting.Models
         [JsonProperty("subTitle")]
         public string SubTitle { get; set; }
 
-        [JsonProperty("params")]
-        public JsonParamModel[] Params { get; set; }
-
         [JsonProperty("mandatory")]
         public bool MandatoryGroup { get; set; } = true;
 
         [JsonProperty("files")]
-        public JsonAcceptFileModel[] Files { get; set; }
+        public IEnumerable<JsonAcceptFileModel> Files { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }

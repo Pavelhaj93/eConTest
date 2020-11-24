@@ -774,6 +774,22 @@
             Contains data from AD1 - <c>COMMODITY_OFFER_SUMMARY</c>.
             </summary>
         </member>
+        <member name="T:eContracting.Models.DefinitionCombinationModel">
+            <summary>
+            Represents combination of <see cref="P:eContracting.Models.DefinitionCombinationModel.Process"/> and <see cref="P:eContracting.Models.DefinitionCombinationModel.ProcessType"/> with their relevant settings.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.DefinitionCombinationModel.Process">
+            <summary>
+            Gets or sets related process definition.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.DefinitionCombinationModel.ProcessType">
+            <summary>
+            Gets or sets related process type definition.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.FailedLoginInfoDetailModel">
             <summary>
             Represents detail about failed login

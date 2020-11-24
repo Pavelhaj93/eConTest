@@ -11,6 +11,9 @@ namespace eContracting.Models
         [JsonProperty("title")]
         public string Title { get; set; }
 
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
         [JsonProperty("accept")]
         public JsonDocumentsAcceptModel Accept { get; set; }
 
