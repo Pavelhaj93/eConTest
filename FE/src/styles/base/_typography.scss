@@ -16,7 +16,8 @@ body {
 
 /* Headings */
 
-h1 {
+h1,
+.h1 {
   font-weight: bold;
   font-size: rem(30);
 
@@ -25,7 +26,8 @@ h1 {
   }
 }
 
-h2 {
+h2,
+.h3 {
   font-size: rem(20);
 
   @include media-breakpoint-up(sm) {
@@ -36,7 +38,8 @@ h2 {
   }
 }
 
-h3 {
+h3,
+.h3 {
   font-size: rem(20);
 
   @include media-breakpoint-up(sm) {
@@ -45,4 +48,21 @@ h3 {
   @include media-breakpoint-up(md) {
     font-size: rem(30);
   }
+}
+
+h4,
+.h4 {
+  font-size: rem(18);
+
+  @include media-breakpoint-up(sm) {
+    font-size: rem(20);
+  }
+  @include media-breakpoint-up(md) {
+    font-size: rem(22);
+  }
+}
+
+b,
+strong {
+  font-weight: $font-weight-medium;
 }

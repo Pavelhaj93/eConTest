@@ -3,25 +3,10 @@ export enum OfferType {
   ACCEPTED = 'ACCEPTED',
 }
 
-// used for documents coming from API
-export type Document = {
-  key: string
-  title: string
-  label: string
-  mime?: string
-  size?: string
-  sign: boolean
-  signed?: boolean
-  accepted?: boolean
-}
-
-export type Group = {
-  title: string
-  files: Document[]
-}
-
-export type AcceptedOfferResponse = {
-  groups: Group[]
+export enum GiftType {
+  LED = 'LED',
+  DET = 'DET',
+  PKZ = 'PKZ',
 }
 
 export type OfferDocument = {
@@ -29,6 +14,17 @@ export type OfferDocument = {
   prefix: string
   key: string
   mandatory: boolean
+  accepted?: boolean
+  signed?: boolean
+}
+
+export type Group = {
+  title: string
+  files: OfferDocument[]
+}
+
+export type AcceptedOfferResponse = {
+  groups: Group[]
 }
 
 export type UploadType = {
@@ -48,14 +44,14 @@ export type OfferBox = {
   }>
 }
 
-export type BenefitBox = {
+export type GiftsBox = {
   title: string
   note: string
   groups: Array<{
     title: string
     params: OfferParams<{
       title: string
-      icon: string
+      icon: GiftType
       count: number
     }>
   }>
@@ -63,20 +59,17 @@ export type BenefitBox = {
 
 export type AcceptanceDocuments = {
   title: string
-  accept: {
-    title: string
-    subTitle: string
-    params: OfferParams<{
-      title: string
-      value: string
-    }>
-    files: OfferDocument[]
-  }
-  sign: {
+  text: string
+  accept?: {
     title: string
     subTitle: string
     files: OfferDocument[]
-  }
+  } | null
+  sign?: {
+    title: string
+    subTitle: string
+    files: OfferDocument[]
+  } | null
 }
 
 export type UploadDocuments = {
@@ -86,33 +79,33 @@ export type UploadDocuments = {
 }
 
 export type OtherDocuments = {
-  commodities: {
+  commodities?: {
     title: string
     subTitle: string
     params: OfferParams<{
       title: string
       value: string
     }>
-    arguments: Array<{ title: string }>
+    arguments: Array<{ value: string }>
     subTitle2: string
     files: OfferDocument[]
+    note: string
   }
-  services: {
+  services?: {
     title: string
     files: OfferDocument[]
   }
 }
 
-// export type NewOfferResponse = {
-//   perex?: OfferBox
-//   gifts?: OfferBox
-//   benefits?: BenefitBox
-//   documents: {
-//     acceptance?: AcceptanceDocuments
-//     upload?: UploadDocuments
-//     other?: OtherDocuments
-//   }
-// }
+export type OfferDocuments = {
+  acceptance?: AcceptanceDocuments | null
+  uploads?: UploadDocuments | null
+  other?: OtherDocuments | null
+}
 
-// TODO: remove after demo
-export type NewOfferResponse = Document[]
+export type NewOfferResponse = {
+  perex?: OfferBox
+  benefits?: OfferBox
+  gifts?: GiftsBox
+  documents: OfferDocuments
+}

@@ -1,0 +1,286 @@
+{
+  "perex": {
+    "title": "Stručný přehled Vaší nabídky",
+    "params": [
+      {
+        "title": "Produkt",
+        "value": "Relax"
+      },
+      {
+        "title": "Platnost nabídky do",
+        "value": "24 měsíců"
+      },
+      {
+        "title": "Délka fixace",
+        "value": "18.09.2020"
+      },
+      {
+        "title": "Účinnost smlouvy",
+        "value": "01.10.2020"
+      }
+    ]
+  },
+  "benefits": {
+    "title": "Zvoleným produktem získáte",
+    "params": [
+      {
+        "value": "Garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy"
+      },
+      {
+        "value": "Ve druhém i třetím roce garance dalšího cenového snížení"
+      },
+      {
+        "value": "Férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy"
+      }
+    ]
+  },
+  "gifts": {
+    "title": "Máme pro Vás nachystané dárky",
+    "note": "Způsob doručení korespondenčně na zasílací adresu",
+    "groups": [
+      {
+        "title": "Za čas věnovaný naší nabídce od nás jako pozornost získáváte:",
+        "params": [
+          {
+            "title": "100x LED žárovka",
+            "icon": "LED",
+            "count": 100
+          },
+          {
+            "title": "20x detektor",
+            "icon": "DET",
+            "count": 20
+          },
+          {
+            "title": "1x poukázka Kaufland 10 Kč",
+            "icon": "PKZ",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "title": "Za přijetí nabídky za Vás čeká:",
+        "params": [
+          {
+            "title": "10x LED žárovka",
+            "icon": "LED",
+            "count": 10
+          },
+          {
+            "title": "20x detektor",
+            "icon": "DET",
+            "count": 20
+          },
+          {
+            "title": "1230 x poukázka Hornbach, 1000 Kč na vybavení zahrady",
+            "icon": "PKZ",
+            "count": 1230
+          }
+        ]
+      },
+      {
+        "title": "Po zahájení dodávky na Vás čeká:",
+        "params": [
+          {
+            "title": "10x LED žárovka",
+            "icon": "LED",
+            "count": 10
+          },
+          {
+            "title": "2x detektor",
+            "icon": "DET",
+            "count": 2
+          },
+          {
+            "title": "123x poukázka Kaufland 100 Kč",
+            "icon": "PKZ",
+            "count": 123
+          }
+        ]
+      }
+    ]
+  },
+  "documents": {
+    "acceptance": {
+      "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
+      "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+      "accept": {
+        "title": "Dodatek a přidružené dokumenty",
+        "subTitle": "Dodatek a přidružené dokumenty si přeštěte a potvrďte zatržením",
+        "mandatory": true,
+        "params": [
+          {
+            "title": "Vaše adresa",
+            "value": "Ledčice 178, 277 08 Ledčice"
+          },
+          {
+            "title": "EAN",
+            "value": "RRI329212"
+          }
+        ],
+        "files": [
+          {
+            "label": "Informace pro zákazníka - spotřebitele",
+            "prefix": "Souhlasím s",
+            "key": "e1c9a5ce583743e6928ee4df91862a91",
+            "mandatory": true
+          },
+          {
+            "label": "Dodatek",
+            "prefix": "Jsem poučen o",
+            "key": "8e0ed4754f99464eb2d0155c140a2541",
+            "mandatory": true
+          },
+          {
+            "label": "Ceník",
+            "prefix": "Jsem poučen o",
+            "key": "76868bd607804b9ca6bc5248f99726d3",
+            "mandatory": true
+          },
+          {
+            "label": "Ceník služeb",
+            "prefix": "Jsem poučen o",
+            "key": "2304df60d07448818c8b0b8c074d82a8",
+            "mandatory": true
+          },
+          {
+            "label": "Obchodní podmínky",
+            "prefix": "Jsem poučen o",
+            "key": "ee68d1a1da63434a9c91643d6b8504cf",
+            "mandatory": true
+          }
+        ]
+      },
+      "sign": {
+        "title": "Plná moc",
+        "subTitle": "Plnou moc potřebujeme pro zajištění pokračování dodávky u innogy",
+        "mandatory": true,
+        "files": [
+          {
+            "label": "Plná moc",
+            "prefix": "Jsem poučen o",
+            "key": "5e40683abb1441f5a0ec99425c2c6908",
+            "mandatory": true
+          }
+        ],
+        "note": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu"
+      }
+    },
+    "uploads": {
+      "title": "Povinné dokumenty k nahrání",
+      "note": "Celkem max 25 MB. Povolené typy: PDF, JPG, JPEG, PNG, PDF. Více dokumentů lze poslat v zazipovaném souboru",
+      "types": [
+        {
+          "id": "352a1b9154364a52a5c7d709e9366ccf",
+          "title": "Občanský nebo řidičský průkaz",
+          "info": "Prostě to tam nahraj a na nic se neptej",
+          "mandatory": true
+        },
+        {
+          "id": "79d947f21ccb4e3bacd9d2ad3a0a1820",
+          "title": "Roční vyúčtování (fakturace)",
+          "info": "Prostě to tam nahraj a na nic se neptej",
+          "mandatory": true
+        },
+        {
+          "id": "d199d71ecad3426b986c3a1d9850a85c",
+          "title": "Přiložit další dokumenty navíc (volitelné)",
+          "info": "Jestli to tam nechceš dávat, tak nemusíš",
+          "mandatory": false
+        }
+      ]
+    },
+    "other": {
+      "commodities": {
+        "title": "Ostatní produkty",
+        "subTitle": "Stručný přehled Vaší nabídky",
+        "params": [
+          {
+            "title": "Služba",
+            "value": "innogy Pojistění domácnosti"
+          },
+          {
+            "title": "Varianta",
+            "value": "Basic"
+          },
+          {
+            "title": "Platnost nabídky do",
+            "value": "01.10.2020"
+          }
+        ],
+        "arguments": [
+          {
+            "value": "Pojištění domácnosti"
+          },
+          {
+            "value": "Pojištění odpovědnosti"
+          },
+          {
+            "value": "Asistenční služby"
+          }
+        ],
+        "subTitle2": "Přihláška a přidružené dokumenty",
+        "mandatory": 3,
+        "files": [
+          {
+            "label": "Informační dokument o pojistném produktu 1",
+            "key": "729a1d7ba5ce48298b848a3d732f45cd",
+            "mandatory": true
+          },
+          {
+            "label": "Informační dokument o pojistném produktu 2",
+            "key": "b72e43e72c094a47bbc6767274d0b4a5",
+            "mandatory": true
+          },
+          {
+            "label": "Informační dokument o pojistném produktu 3",
+            "key": "2894f4d3c1d14ea4ba4e7ce907b8a449",
+            "mandatory": true
+          }
+        ],
+        "note": "Po ověření Vaší Přihlášky na straně Pojistitele obdržíte, před požadovaný datem počátku pojištění, informaci o jeho souhlasu (či neshouhlasu) s Vaším pojištěním."
+      },
+      "services": {
+        "title": "Doplňkové služby",
+        "mandatory": 0,
+        "files": [
+          {
+            "label": "Dohoda o sjednání doplňkové služby investor",
+            "key": "9658576e88f1458da13db8f2034476d8",
+            "mandatory": false
+          },
+          {
+            "label": "Žádost o nesnížování zálohových plateb",
+            "key": "cc6d047821044adc86b6c811d6cecb0b",
+            "mandatory": false
+          },
+          {
+            "label": "Smlouva o využívání innogy Karty",
+            "key": "c371d67295ab41e8bc64818c45a10a0f",
+            "mandatory": false
+          }
+        ]
+      }
+    }
+  },
+  "acceptance": {
+    "button": {
+      "title": "Pomozte nám chránit lesy",
+      "text": "<p>Víte, že se dlouhodobě snažíme omezovat spotřebu papíru a tím chránit naše lesy?</p><p></p>"
+    },
+    "params": [
+      {
+        "title": "Smlouva/Dodatek",
+        "group": "f1e5c5d9f95847f9ad3c52d0c0201701"
+      },
+      {
+        "title": "innogy Pojistění domácnosti",
+        "group": "0de3bd2b380848f396270f40b0aad859"
+      },
+      {
+        "title": "Investor",
+        "group": "4d1a8c05d5a946f1aa799cdd4004db72"
+      }
+    ]
+  }
+}

@@ -48,7 +48,10 @@
         $color ==
         'gray-100'
     ) {
-      color: #fff;
+      &,
+      .table {
+        color: #fff;
+      }
     }
   }
 }

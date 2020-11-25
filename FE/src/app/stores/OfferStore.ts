@@ -1,11 +1,15 @@
 import {
   AcceptedOfferResponse,
   CustomFile,
-  Document,
   Group,
   NewOfferResponse,
+  OfferDocuments,
+  OfferDocument,
   OfferType,
   UploadDocumentResponse,
+  OfferBox,
+  GiftsBox,
+  OtherDocuments,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -19,7 +23,7 @@ export class OfferStore {
   private type: OfferType
 
   @observable
-  public documents: Document[] = []
+  public documents: OfferDocuments = {}
 
   @observable
   public documentGroups: Group[] = []
@@ -39,41 +43,90 @@ export class OfferStore {
   @observable
   public userDocuments: Record<string, UserDocument[]> = {}
 
+  @observable
+  public perex: OfferBox | undefined
+
+  @observable
+  public benefits: OfferBox | undefined
+
+  @observable
+  public gifts: GiftsBox | undefined
+
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
     this.type = type
   }
 
+  @computed public get offerFetched(): boolean {
+    return Boolean(Object.keys(this.documents).length)
+  }
+
+  @computed public get singleGiftGroup(): boolean {
+    return this.gifts?.groups.length === 1 ?? false
+  }
+
   /** All documents that are marked to be accepted. */
-  @computed public get documentsToBeAccepted(): Document[] {
-    return this.documents.filter(document => !document.sign)
+  @computed public get documentsToBeAccepted(): OfferDocument[] {
+    return this.documents.acceptance?.accept?.files ?? []
   }
 
   /** All documents that are marked to be signed. */
-  @computed public get documentsToBeSigned(): Document[] {
-    return this.documents.filter(document => document.sign)
+  @computed public get documentsToBeSigned(): OfferDocument[] {
+    return this.documents.acceptance?.sign?.files ?? []
   }
 
-  /** True if all documents that are marked to be signed are actually signed, otherwise false. */
+  @computed public get documentsServices(): OfferDocument[] {
+    return this.documents.other?.services?.files ?? []
+  }
+
+  @computed public get documentsCommodities(): OfferDocument[] {
+    return this.documents.other?.commodities?.files ?? []
+  }
+
+  /** True if all documents that are mandatory are actually signed, otherwise false. */
   @computed public get allDocumentsAreSigned(): boolean {
     if (!this.documentsToBeSigned.length) {
-      return false
+      return true
     }
 
-    if (this.documentsToBeSigned.find(document => !document.signed)) {
+    if (this.documentsToBeSigned.find(document => document.mandatory && !document.signed)) {
       return false
     }
 
     return true
   }
 
-  /** True if all documents that are marked to be accepted are actually accepted, otherwise false. */
+  /** True if all documents that are mandatory are actually accepted, otherwise false. */
   @computed public get allDocumentsAreAccepted(): boolean {
     if (!this.documentsToBeAccepted.length) {
+      return true
+    }
+
+    if (this.documentsToBeAccepted.find(document => document.mandatory && !document.accepted)) {
       return false
     }
 
-    if (this.documentsToBeAccepted.find(document => !document.accepted)) {
+    return true
+  }
+
+  @computed public get allServicesDocumentsAreAccepted(): boolean {
+    if (!this.documentsServices.length) {
+      return true
+    }
+
+    if (this.documentsServices.find(document => document.mandatory && !document.accepted)) {
+      return false
+    }
+
+    return true
+  }
+
+  @computed public get allCommoditiesDocumentsAreAccepted(): boolean {
+    if (!this.documentsCommodities.length) {
+      return true
+    }
+
+    if (this.documentsCommodities.find(document => document.mandatory && !document.accepted)) {
       return false
     }
 
@@ -83,17 +136,74 @@ export class OfferStore {
   // TODO: implement
   /** True if all conditions for particular offer were fullfilled, otherwise false. */
   @computed public get isOfferReadyToAccept(): boolean {
-    // if (!this.isRetention && !this.isAcquisition) {
-    //   return this.allDocumentsAreAccepted
-    // }
+    // if we don't have a single section under `documents` => there is nothing to accept
+    if (!this.offerFetched) {
+      return false
+    }
 
-    // if (this.isRetention || this.isAcquisition) {
-    //   return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
-    // }
+    return (
+      this.allDocumentsAreAccepted &&
+      this.allDocumentsAreSigned &&
+      this.allCommoditiesDocumentsAreAccepted &&
+      this.allServicesDocumentsAreAccepted
+    )
+  }
 
-    return this.allDocumentsAreAccepted && this.allDocumentsAreSigned
+  /**
+   * Since the `accepted` and `signed` keys are not present in the JSON response on `OfferDocument` object,
+   * here I add them manually.
+   * The reason is that MobX can't observe dynamic keys on object that are not present on that object
+   * during initialization of the store, so whenever a new dynamic key is added, it won't trigger
+   * rerender in React component.
+   * Another approach would be to use Map instead of pure Object.
+   *
+   * https://alexhisen.gitbook.io/mobx-recipes/use-extendobservable-sparingly
+   */
+  private enrichDocuments(documents: OfferDocument[]): OfferDocument[] {
+    return documents.map(document => ({
+      ...document,
+      accepted: false,
+      signed: false,
+    }))
+  }
 
-    // return false
+  /**
+   * This just enriches all the received documents in all sections with two extra keys - `accepted` and `signed`
+   * and then merged the enriched documents with the rest of the object.
+   * @param documents
+   */
+  private enrichDocumentsResponse(documents: OfferDocuments): OfferDocuments {
+    const acceptance = Object.assign({}, documents.acceptance, {
+      accept: !documents.acceptance?.accept
+        ? null
+        : Object.assign({}, documents.acceptance?.accept, {
+            files: this.enrichDocuments(documents.acceptance?.accept?.files),
+          }),
+      sign: !documents.acceptance?.sign
+        ? null
+        : Object.assign({}, documents.acceptance?.sign, {
+            files: this.enrichDocuments(documents.acceptance?.sign?.files),
+          }),
+    })
+
+    const other = Object.assign({}, documents.other, {
+      commodities: !documents.other?.commodities
+        ? null
+        : Object.assign({}, documents.other?.commodities, {
+            files: this.enrichDocuments(documents.other?.commodities?.files),
+          }),
+      services: !documents.other?.services
+        ? null
+        : Object.assign({}, documents.other?.services, {
+            files: this.enrichDocuments(documents.other?.services?.files),
+          }),
+    })
+
+    return {
+      uploads: documents.uploads,
+      acceptance,
+      other,
+    }
   }
 
   /**
@@ -140,15 +250,18 @@ export class OfferStore {
 
       switch (this.type) {
         case OfferType.NEW:
-          // TODO: implement parsing of new offer response
-          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
-          this.documents = jsonResponse
+          jsonResponse = await (response.json() as Promise<NewOfferResponse>)
+          this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
+          this.perex = jsonResponse.perex
+          this.gifts = jsonResponse.gifts
+          this.benefits = jsonResponse.benefits
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
+
         default:
           break
       }
@@ -162,11 +275,17 @@ export class OfferStore {
   }
 
   /**
-   * Get a document by ID.
-   * @param id - ID of document
+   * Get a document by key.
+   * @param key - key of document
    */
-  public getDocument(id: string): Document | undefined {
-    return this.documents.find(document => document.key === id)
+  public getDocument(key: string): OfferDocument | undefined {
+    // search in all documents
+    return [
+      ...this.documentsToBeAccepted,
+      ...this.documentsToBeSigned,
+      ...this.documentsServices,
+      ...this.documentsCommodities,
+    ].find(document => document.key === key)
   }
 
   /**
@@ -193,7 +312,7 @@ export class OfferStore {
     return this.signDocumentRequest(id, signature, signFileUrl)
       .then(() => {
         document.signed = true
-        this.documents = [...this.documents]
+        this.documents = { ...this.documents }
         return true
       })
       .catch(() => {
@@ -240,18 +359,15 @@ export class OfferStore {
 
   /**
    * Change `accepted` state of given document.
-   * @param id - ID of document
+   * @param key - ID of document
    */
-  @action public acceptDocument(id: string): void {
-    const document = this.getDocument(id)
+  @action public acceptDocument(key: string): void {
+    const document = this.getDocument(key)
 
-    if (!document) {
-      return
-    }
+    if (!document) return
 
     document.accepted = !document.accepted
-
-    this.documents = [...this.documents]
+    this.documents = { ...this.documents }
   }
 
   /**
@@ -259,21 +375,36 @@ export class OfferStore {
    * If all documents are already accepted => set to false.
    */
   @action public acceptAllDocuments(): void {
-    let acceptedDocuments: Document[] = []
+    if (!this.documentsToBeAccepted.length) {
+      return
+    }
+
+    let acceptedDocuments: OfferDocument[] = []
 
     if (this.allDocumentsAreAccepted) {
-      acceptedDocuments = this.documents.map(document => ({
+      acceptedDocuments = this.documentsToBeAccepted.map(document => ({
         ...document,
         accepted: false,
       }))
     } else {
-      acceptedDocuments = this.documents.map(document => ({
+      acceptedDocuments = this.documentsToBeAccepted.map(document => ({
         ...document,
         accepted: true,
       }))
     }
 
-    this.documents = acceptedDocuments
+    // update array with all accepted documents
+    const accept = Object.assign({}, this.documents.acceptance?.accept, {
+      files: acceptedDocuments,
+    })
+    // merge with acceptance object
+    const acceptance = Object.assign({}, this.documents.acceptance, { accept })
+
+    // merge with documents object
+    this.documents = {
+      ...this.documents,
+      acceptance,
+    }
   }
 
   /**
