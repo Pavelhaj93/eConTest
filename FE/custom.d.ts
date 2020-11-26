@@ -14,3 +14,7 @@ interface SignaturePad {
   off: () => void
   on: () => void
 }
+
+interface Window {
+  dataLayer: Record<string, any>[]
+}

@@ -70,6 +70,24 @@ export const Offer: React.FC<View> = observer(
       })
     }, [])
 
+    const handleAcceptOffer = useCallback(() => {
+      if (!window.dataLayer) {
+        window.dataLayer = []
+      }
+      window.dataLayer.push({
+        event: 'gaEvent',
+        gaEventData: {
+          eCat: 'eContracting',
+          eAct: 'Offer accepted',
+        },
+        eventCallback: function () {
+          window.dataLayer.push({ gaEventData: undefined })
+        },
+      })
+
+      formRef.current?.submit()
+    }, [])
+
     return (
       <OfferStoreContext.Provider value={store}>
         {/* error state */}
@@ -481,8 +499,7 @@ export const Offer: React.FC<View> = observer(
         <ConfirmationModal
           show={confirmationModal}
           onClose={() => setConfirmationModal(false)}
-          // TODO: add gaEvent (dataLayer.push)
-          onConfirm={() => formRef.current?.submit()}
+          onConfirm={handleAcceptOffer}
           labels={labels}
         />
       </OfferStoreContext.Provider>
