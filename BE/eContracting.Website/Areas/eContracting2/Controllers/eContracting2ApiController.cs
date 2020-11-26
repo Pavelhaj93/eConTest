@@ -190,21 +190,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Uploads file and returns actual group size.
+        /// Uploads file and returns actual group state.
         /// </summary>
         /// <param name="id">Group identifier.</param>
+        /// <returns><see cref="GroupUploadViewModel"/> with current status of uploaded files. Failed uploaded file is not presented.</returns>
         [HttpPost]
         [Route("upload/{id}")]
         public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
-            return await Task.FromResult(this.Ok("Will be uploaded in the future"));
+            return await Task.FromResult(this.Ok(new GroupUploadViewModel()));
         }
 
         /// <summary>
-        /// Deletes uploaded file from group and returns actual group size.
+        /// Deletes uploaded file from group and returns actual group state.
         /// </summary>
         /// <param name="groupId">The group identifier.</param>
         /// <param name="fileId">The file identifier.</param>
+        /// <returns><see cref="GroupUploadViewModel"/> with current status of related files.</returns>
         [HttpDelete]
         [HttpOptions]
         [Route("upload/{id}")]

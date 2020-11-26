@@ -107,7 +107,7 @@
             "accept": {
                 "title": "Dodatek a přidružené dokumenty",
                 "subTitle": "Dodate a přidružené dokumenty si přeštěte a potvrďte zatržením",
-                "mandatory": true,
+                "mandatory": 5,
                 "files": [
                     {
                         "label": "Informace pro zákazníka - spotřebitele",
@@ -149,7 +149,7 @@
             "sign": {
                 "title": "Plná moc",
                 "subTitle": "Plnou moc potřebujeme pro zajištění pokračování dodávky u innogy",
-                "mandatory": true,
+                "mandatory": 1,
                 "files": [
                     {
                         "label": "Plná moc",
