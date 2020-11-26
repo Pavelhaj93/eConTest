@@ -12,7 +12,7 @@ namespace eContracting.Models
         public readonly JsonDocumentsOthersCommoditiesModel Commodities;
 
         [JsonProperty("services")]
-        public readonly JsonDocumentsOthersServicesModel;
+        public readonly JsonDocumentsOthersServicesModel Services;
 
         public JsonDocumentsOthersModel(JsonDocumentsOthersCommoditiesModel commodities, JsonDocumentsOthersServicesModel services)
         {

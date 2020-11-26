@@ -69,29 +69,40 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("files")]
         public async Task<IHttpActionResult> Files()
         {
-            // needs to check like this because info about it is only as custom session property :-(
-            if (!this.AuthService.IsLoggedIn())
+            string guid = null;
+
+            try
             {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
+                // needs to check like this because info about it is only as custom session property :-(
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+
+                if ((attachments?.Length ?? 0) == 0)
+                {
+                    return this.NotFound();
+                }
+
+                return this.Json(attachments);
+                //return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));            }
             }
-
-            var user = this.AuthService.GetCurrentUser();
-            var offer = await this.ApiService.GetOfferAsync(user.Guid);
-
-            if (offer == null)
+            catch (Exception ex)
             {
-                return this.StatusCode(HttpStatusCode.NoContent);
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
-
-            var attachments = await this.ApiService.GetAttachmentsAsync(offer);
-
-            if ((attachments?.Length ?? 0) == 0)
-            {
-                return this.NotFound();
-            }
-
-            return this.Json(attachments);
-            //return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));
         }
 
         /// <summary>
@@ -102,34 +113,45 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("file/{id}")]
         public async Task<IHttpActionResult> File([FromUri]string id)
         {
-            // needs to check like this because info about it is only as custom session property :-(
-            if (!this.AuthService.IsLoggedIn())
+            string guid = null;
+            
+            try
             {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
+                // needs to check like this because info about it is only as custom session property :-(
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
+
+                if (file == null)
+                {
+                    return this.NotFound();
+                }
+
+                var response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new ByteArrayContent(file.FileContent);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
+                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
+                response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
+                return this.ResponseMessage(response);
             }
-
-            var user = this.AuthService.GetCurrentUser();
-            var offer = await this.ApiService.GetOfferAsync(user.Guid);
-
-            if (offer == null)
+            catch (Exception ex)
             {
-                return this.StatusCode(HttpStatusCode.NoContent);
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
-
-            var attachments = await this.ApiService.GetAttachmentsAsync(offer);
-            var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
-
-            if (file == null)
-            {
-                return this.NotFound();
-            }
-
-            var response = new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content = new ByteArrayContent(file.FileContent);
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
-            response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-            response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
-            return this.ResponseMessage(response);
         }
 
         /// <summary>
@@ -140,26 +162,37 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("offer")]
         public async Task<IHttpActionResult> Offer()
         {
-            if (!this.AuthService.IsLoggedIn())
+            string guid = null;
+
+            try
             {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    return this.BadRequest();
+                }
+
+                var model = await this.OfferJsonDescriptor.GetNewAsync(offer);
+                return this.Json(model);
             }
-
-            var user = this.AuthService.GetCurrentUser();
-            var offer = await this.ApiService.GetOfferAsync(user.Guid);
-
-            if (offer == null)
+            catch (Exception ex)
             {
-                return this.StatusCode(HttpStatusCode.NoContent);
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
-
-            if (offer.IsAccepted)
-            {
-                return this.BadRequest();
-            }
-
-            var model = await this.OfferJsonDescriptor.GetNewAsync(offer);
-            return this.Json(model);
         }
 
         /// <summary>
@@ -169,26 +202,37 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("accepted")]
         public async Task<IHttpActionResult> Accepted()
         {
-            if (!this.AuthService.IsLoggedIn())
+            string guid = null;
+
+            try
             {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                if (!offer.IsAccepted)
+                {
+                    return this.BadRequest();
+                }
+
+                var model = await this.OfferJsonDescriptor.GetAcceptedAsync(offer);
+                return this.Json(model);
             }
-
-            var user = this.AuthService.GetCurrentUser();
-            var offer = await this.ApiService.GetOfferAsync(user.Guid);
-
-            if (offer == null)
+            catch (Exception ex)
             {
-                return this.StatusCode(HttpStatusCode.NoContent);
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
-
-            if (!offer.IsAccepted)
-            {
-                return this.BadRequest();
-            }
-
-            var model = await this.OfferJsonDescriptor.GetAcceptedAsync(offer);
-            return this.Json(model);
         }
 
         /// <summary>
@@ -200,24 +244,36 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("upload/{id}")]
         public async Task<IHttpActionResult> Uploaded([FromUri] string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            string guid = null;
+
+            try
             {
-                return this.BadRequest("Invalid id");
-            }
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return this.BadRequest("Invalid id");
+                }
 
-            if (!this.AuthService.IsLoggedIn())
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var result = await this.FileOptimizer.GetAsync(id);
+
+                if (result == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                return this.Json(new GroupUploadViewModel(result));
+            }
+            catch (Exception ex)
             {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
-
-            var result = await this.FileOptimizer.GetAsync(id);
-
-            if (result == null)
-            {
-                return this.StatusCode(HttpStatusCode.NoContent);
-            }
-
-            return this.Json(new GroupUploadViewModel(result));
         }
 
         /// <summary>
@@ -229,56 +285,69 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("upload/{id}")]
         public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            string guid = null;
+
+            try
             {
-                return this.BadRequest("Invalid id");
-            }
-
-            if (!this.AuthService.IsLoggedIn())
-            {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
-            }
-
-            if (!this.Request.Content.IsMimeMultipartContent())
-            {
-                return this.BadRequest($"Invalid content type");
-            }
-
-            string root = HttpContext.Current.Server.MapPath("~/App_Data");
-            var provider = new MultipartFormDataStreamProvider(root);
-            var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
-
-            if (multipartData.FileData.Count == 1)
-            {
-                return this.BadRequest("No file received");
-            }
-
-            OptimizedFileGroupModel result = null;
-
-            // everytime there "should" be only one file
-            for (int i = 0; i < multipartData.FileData.Count; i++)
-            {
-                var file = multipartData.FileData[i];
-                var localFile = new FileInfo(file.LocalFileName);
-                var originalFileName = file.Headers.ContentDisposition.FileName.Trim('"');
-
-                using (var stream = localFile.OpenRead())
+                if (string.IsNullOrWhiteSpace(id))
                 {
-                    using (var memoryStream = new MemoryStream())
+                    return this.BadRequest("Invalid id");
+                }
+
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+
+                if (!this.Request.Content.IsMimeMultipartContent())
+                {
+                    return this.BadRequest($"Invalid content type");
+                }
+
+                string root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new MultipartFormDataStreamProvider(root);
+                var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
+
+                if (multipartData.FileData.Count == 1)
+                {
+                    return this.BadRequest("No file received");
+                }
+
+                OptimizedFileGroupModel result = null;
+
+                // everytime there "should" be only one file
+                for (int i = 0; i < multipartData.FileData.Count; i++)
+                {
+                    var file = multipartData.FileData[i];
+                    var localFile = new FileInfo(file.LocalFileName);
+                    var originalFileName = file.Headers.ContentDisposition.FileName.Trim('"');
+
+                    using (var stream = localFile.OpenRead())
                     {
-                        await stream.CopyToAsync(memoryStream);
-                        var fileBytes = memoryStream.ToArray();
-                        result = await this.FileOptimizer.AddAsync(id, originalFileName, fileBytes);
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            await stream.CopyToAsync(memoryStream);
+                            var fileBytes = memoryStream.ToArray();
+                            result = await this.FileOptimizer.AddAsync(id, originalFileName, fileBytes);
+                        }
                     }
                 }
-            }
 
-            if (result == null)
+                if (result == null)
+                {
+                    return this.InternalServerError();
+                }
+
+                return this.Json(new GroupUploadViewModel(result));
+            }
+            catch (Exception ex)
             {
+                this.Logger.Fatal(guid, ex);
                 return this.InternalServerError();
             }
-
-            return this.Json(new GroupUploadViewModel(result));
         }
 
         /// <summary>
@@ -292,43 +361,55 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("upload/{id}")]
         public async Task<IHttpActionResult> Delete([FromUri] string id)
         {
-            if (this.Request.Method.Method == "OPTIONS")
+            string guid = null;
+
+            try
             {
-                return this.Ok();
-            }
-
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                return this.BadRequest("Invalid id");
-            }
-
-            var fileId = this.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key == "fileId").Value;
-
-            if (string.IsNullOrWhiteSpace(fileId))
-            {
-                return this.BadRequest("Invalid file id");
-            }
-
-            if (!this.AuthService.IsLoggedIn())
-            {
-                return this.StatusCode(HttpStatusCode.Unauthorized);
-            }
-
-            var result = await this.FileOptimizer.RemoveAsync(id, fileId);
-
-            if (result)
-            {
-                var data = await this.FileOptimizer.GetAsync(id);
-
-                if (data == null)
+                if (this.Request.Method.Method == "OPTIONS")
                 {
-                    return this.StatusCode(HttpStatusCode.NoContent);
+                    return this.Ok();
                 }
 
-                return this.Json(new GroupUploadViewModel(data));
-            }
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return this.BadRequest("Invalid id");
+                }
 
-            return this.InternalServerError();
+                var fileId = this.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key == "fileId").Value;
+
+                if (string.IsNullOrWhiteSpace(fileId))
+                {
+                    return this.BadRequest("Invalid file id");
+                }
+
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var result = await this.FileOptimizer.RemoveAsync(id, fileId);
+
+                if (result)
+                {
+                    var data = await this.FileOptimizer.GetAsync(id);
+
+                    if (data == null)
+                    {
+                        return this.StatusCode(HttpStatusCode.NoContent);
+                    }
+
+                    return this.Json(new GroupUploadViewModel(data));
+                }
+
+                return this.InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
         }
 
         /// <summary>
@@ -338,7 +419,32 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("offer")]
         public async Task<IHttpActionResult> Submit()
         {
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+            string guid = null;
+            
+            try
+            {
+                if (this.Request.Method.Method == "OPTIONS")
+                {
+                    return this.Ok();
+                }
+
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+
+                //TODO: Process submitted data
+
+                return this.StatusCode(HttpStatusCode.NotImplemented);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
         }
     }
 }
