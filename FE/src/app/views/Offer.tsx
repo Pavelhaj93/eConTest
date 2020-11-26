@@ -191,7 +191,10 @@ export const Offer: React.FC<View> = observer(
                       }}
                     />
                     <div className="mb-2">
-                      <Button variant="link" onClick={() => store.acceptAllDocuments()}>
+                      <Button
+                        variant="link"
+                        onClick={() => store.acceptAllDocuments(store.documentsToBeAccepted)}
+                      >
                         {t('acceptAll')}
                       </Button>
                     </div>
@@ -357,9 +360,7 @@ export const Offer: React.FC<View> = observer(
                 <div className="mb-2">
                   <Button
                     variant="link"
-                    onClick={() => {
-                      // TODO: handle accept all commodities
-                    }}
+                    onClick={() => store.acceptAllDocuments(store.documentsCommodities)}
                   >
                     {t('acceptAll')}
                   </Button>
@@ -372,9 +373,7 @@ export const Offer: React.FC<View> = observer(
                     id={`document-${key}`}
                     value={key}
                     checked={accepted !== undefined ? accepted : false}
-                    onChange={() => {
-                      // TODO: handle accept commodity document
-                    }}
+                    onChange={() => store.acceptDocument(key)}
                   >
                     <Form.Check.Label>
                       <span>
@@ -414,9 +413,7 @@ export const Offer: React.FC<View> = observer(
                 <div className="mb-2">
                   <Button
                     variant="link"
-                    onClick={() => {
-                      // TODO: handle accept all service documents
-                    }}
+                    onClick={() => store.acceptAllDocuments(store.documentsServices)}
                   >
                     {t('acceptAll')}
                   </Button>
@@ -429,9 +426,7 @@ export const Offer: React.FC<View> = observer(
                     id={`document-${key}`}
                     value={key}
                     checked={accepted !== undefined ? accepted : false}
-                    onChange={() => {
-                      // TODO: handle accept service document
-                    }}
+                    onChange={() => store.acceptDocument(key)}
                   >
                     <Form.Check.Label>
                       <span>
@@ -460,7 +455,7 @@ export const Offer: React.FC<View> = observer(
               'd-none': (!store.isLoading && store.error) || !store.offerFetched,
             })}
           >
-            <h2 className="text-center mt-5">{t('acceptOfferTitle')}</h2>
+            <h2 className="mt-5">{t('acceptOfferTitle')}</h2>
             <Box className="text-center">
               <p>{t('acceptOfferHelptext')}</p>
               <Button

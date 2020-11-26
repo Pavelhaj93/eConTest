@@ -174,7 +174,7 @@ describe('Offer with documents for acceptance', () => {
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
 
-    store.acceptAllDocuments()
+    store.acceptAllDocuments(store.documentsToBeAccepted)
 
     expect(store.allDocumentsAreAccepted).toBe(true)
   })
@@ -185,7 +185,7 @@ describe('Offer with documents for acceptance', () => {
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
 
-    store.acceptAllDocuments()
+    store.acceptAllDocuments(store.documentsToBeAccepted)
 
     expect(store.isOfferReadyToAccept).toBe(true)
   })
@@ -305,7 +305,7 @@ describe('Offer with both documents for acceptance and signing', () => {
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
 
-    store.acceptAllDocuments()
+    store.acceptAllDocuments(store.documentsToBeAccepted)
     fetch.mockResponseOnce(JSON.stringify({}))
     await store.signDocument(key, '', '')
 

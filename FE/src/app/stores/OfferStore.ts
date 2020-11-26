@@ -9,7 +9,6 @@ import {
   UploadDocumentResponse,
   OfferBox,
   GiftsBox,
-  OtherDocuments,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -133,13 +132,14 @@ export class OfferStore {
     return true
   }
 
-  // TODO: implement
   /** True if all conditions for particular offer were fullfilled, otherwise false. */
   @computed public get isOfferReadyToAccept(): boolean {
     // if we don't have a single section under `documents` => there is nothing to accept
     if (!this.offerFetched) {
       return false
     }
+
+    // TODO: implement checking of mandatory upload sections
 
     return (
       this.allDocumentsAreAccepted &&
@@ -312,7 +312,6 @@ export class OfferStore {
     return this.signDocumentRequest(id, signature, signFileUrl)
       .then(() => {
         document.signed = true
-        this.documents = { ...this.documents }
         return true
       })
       .catch(() => {
@@ -367,44 +366,28 @@ export class OfferStore {
     if (!document) return
 
     document.accepted = !document.accepted
-    this.documents = { ...this.documents }
   }
 
   /**
-   * Change `accepted` state of all documents to true.
-   * If all documents are already accepted => set to false.
+   * Change `accepted` state of all given documents to true.
+   * If all the documents are already accepted => set to false.
    */
-  @action public acceptAllDocuments(): void {
-    if (!this.documentsToBeAccepted.length) {
+  @action public acceptAllDocuments(documents: OfferDocument[]): void {
+    if (!documents.length) {
       return
     }
 
-    let acceptedDocuments: OfferDocument[] = []
+    // let's assume all `documents` are accepted
+    let allAccepted = true
 
-    if (this.allDocumentsAreAccepted) {
-      acceptedDocuments = this.documentsToBeAccepted.map(document => ({
-        ...document,
-        accepted: false,
-      }))
-    } else {
-      acceptedDocuments = this.documentsToBeAccepted.map(document => ({
-        ...document,
-        accepted: true,
-      }))
-    }
+    // if at least one document which isn't accepted is found,
+    // mark the whole group of documents as not accepted
+    allAccepted = !documents.find(document => !document.accepted)
 
-    // update array with all accepted documents
-    const accept = Object.assign({}, this.documents.acceptance?.accept, {
-      files: acceptedDocuments,
+    // then just update the `accepted` flag of each document
+    documents.forEach(document => {
+      document.accepted = !allAccepted
     })
-    // merge with acceptance object
-    const acceptance = Object.assign({}, this.documents.acceptance, { accept })
-
-    // merge with documents object
-    this.documents = {
-      ...this.documents,
-      acceptance,
-    }
   }
 
   /**

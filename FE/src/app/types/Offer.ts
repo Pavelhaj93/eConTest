@@ -14,8 +14,8 @@ export type OfferDocument = {
   prefix: string
   key: string
   mandatory: boolean
-  accepted?: boolean
-  signed?: boolean
+  accepted: boolean
+  signed: boolean
 }
 
 export type Group = {
