@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
+using Sitecore.Globalization;
+using Sitecore.Web;
 
 namespace eContracting.Services
 {
@@ -294,6 +296,8 @@ namespace eContracting.Services
 
             var model = new JsonOfferDocumentsModel();
             model.Acceptance = this.GetDocumentsAcceptance(offer, files, definition);
+            model.Uploads = this.GetUploads(offer, files, definition);
+            model.Other = this.GetOther(offer, files, definition);
             return model;
         }
 
@@ -303,7 +307,7 @@ namespace eContracting.Services
             model.Title = definition.OfferCommoditiesTitle.Text;
             model.Text = this.ReplaceWithTextParameters(definition.OfferCommoditiesText.Text, offer.TextParameters);
 
-            var acceptFiles = files.Where(x => x.Group == "COMMODITY" && x.IsSignReq == false).ToArray();
+            var acceptFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
             if(acceptFiles.Length > 0)
             {
@@ -330,7 +334,7 @@ namespace eContracting.Services
                 model.Accept = acceptModel;
             }
 
-            var signFiles = files.Where(x => x.Group == "COMMODITY" && x.IsSignReq == true).ToArray();
+            var signFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == true).ToArray();
 
             if (signFiles.Length > 0)
             {
@@ -349,7 +353,7 @@ namespace eContracting.Services
                     j.Label = f.FileName;
                     j.MimeType = f.MimeType;
                     j.Mandatory = f.IsGroupOblig;
-                    j.Prefix = "lorem ipsum"; //TODO: Solve prefix for a file
+                    j.Prefix = this.GetFileLabelPrefix(f);
                     jsonFiles.Add(j);
                 }
 
@@ -358,6 +362,64 @@ namespace eContracting.Services
             }
 
             return model;
+        }
+
+        protected internal JsonDocumentsUploadsModel GetUploads(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        {
+            var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
+
+            if (fileTemplates.Length == 0)
+            {
+                return null;
+            }
+
+            var list = new List<JsonUploadTemplateModel>();
+
+            for (int i = 0; i < fileTemplates.Length; i++)
+            {
+                var template = fileTemplates[i];
+                var file = new JsonUploadTemplateModel();
+                file.GroupId = template.UniqueKey;
+                file.Title = template.FileName;
+                file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
+                file.Mandatory = template.IsObligatory;
+                list.Add(file);
+            }
+
+            var customFile = new JsonUploadTemplateModel();
+            customFile.Title = definition.OfferUploadsExtraText.Text;
+            customFile.Info = definition.OfferUploadsExtraHelp.Text;
+            customFile.Mandatory = false;
+            list.Add(customFile);
+
+            var model = new JsonDocumentsUploadsModel();
+            model.Title = definition.OfferUploadsTitle.Text;
+            model.Note = definition.OfferUploadsNote.Text;
+            model.Types = list;
+            return model;
+        }
+
+        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        {
+            var commodities = this.GetOtherCommodities(offer, files, definition);
+            var services = this.GetOtherServices(offer, files, definition);
+
+            if (commodities == null && services == null)
+            {
+                return null;
+            }
+
+            return new JsonDocumentsOthersModel(commodities, services); ;
+        }
+
+        protected internal JsonDocumentsOthersCommoditiesModel GetOtherCommodities(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        {
+            return null;
+        }
+
+        protected internal JsonDocumentsOthersServicesModel GetOtherServices(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        {
+            return null;
         }
 
         /// <summary>
@@ -379,6 +441,28 @@ namespace eContracting.Services
             }
 
             return source;
+        }
+
+        protected internal string GetTemplateHelp(string idAttach, IDictionary<string, string> textParameters)
+        {
+            var key = $"USER_ATTACH_{idAttach}_HELP";
+
+            if (textParameters.ContainsKey(key))
+            {
+                return textParameters[key];
+            }
+
+            return null;
+        }
+
+        protected internal string GetFileLabelPrefix(OfferAttachmentModel model)
+        {
+            if (model.ConsentType == "S")
+            {
+                return Translate.Text("Souhlasím s");
+            }
+
+            return Translate.Text("Jsem poučen o");
         }
 
         /// <summary>

@@ -14,10 +14,10 @@ namespace eContracting.Models
         [JsonProperty("text")]
         public string Text { get; set; }
 
-        [JsonProperty("accept")]
+        [JsonProperty("accept", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public JsonDocumentsAcceptModel Accept { get; set; }
 
-        [JsonProperty("sign")]
+        [JsonProperty("sign", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public JsonDocumentsAcceptModel Sign { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace eContracting.Models
         [JsonProperty("files")]
         public IEnumerable<JsonAcceptFileModel> Files { get; set; }
 
-        [JsonProperty("note")]
+        [JsonProperty("note", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public string Note { get; set; }
     }
 }

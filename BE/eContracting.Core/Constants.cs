@@ -156,6 +156,51 @@ namespace eContracting
             //};
         }
 
+        public static string GetErrorDescription(string code)
+        {
+            switch (code)
+            {
+                case ErrorCodes.HOMEPAGE:
+                    return "Invalid initial page";
+                case ErrorCodes.USER_BLOCKED:
+                    return "User is temporarily blocked due to exceeded";
+                case ErrorCodes.INVALID_GUID:
+                    return "Invalid unique identifier found";
+                case ErrorCodes.OFFER_NOT_FOUND:
+                    return "Offer was not found or doesn't exist";
+                case ErrorCodes.OFFER_STATE_1:
+                    return "Offer has invalid state";
+                case ErrorCodes.MISSING_BIRTDATE:
+                    return "Missing birth date";
+                case ErrorCodes.AUTH1_UNKNOWN:
+                    return "Unknown error while getting your data";
+                case ErrorCodes.AUTH1_CACHE:
+                    return "Cannot get your data or data are invalid";
+                case ErrorCodes.AUTH1_CACHE2:
+                    return "Cannot verify your data";
+                case ErrorCodes.AUTH1_MISSING_AUTH_TYPES:
+                    return "Internal error - missing relevant data (auth types)";
+                case ErrorCodes.AUTH1_MISSING_CHOICES:
+                    return "Internal error - missing relevant data (auth choices)";
+                case ErrorCodes.AUTH1_APP:
+                    return "Unknown application exception";
+                case ErrorCodes.AUTH1_INV_OP:
+                    return "Unknown operation exception";
+                case ErrorCodes.AUTH2_UNKNOWN:
+                    return "Unknown error while authorazing you inputs";
+                case ErrorCodes.AUTH2_CACHE:
+                    return "Cannot validate your data or data are invalid";
+                case ErrorCodes.AUTH2_CACHE2:
+                    return "Unknown error while validating your data";
+                case ErrorCodes.AUTH2_APP:
+                    return "Unknown application exception";
+                case ErrorCodes.AUTH2_INV_OP:
+                    return "Unknown operation exception";
+                default: // case Constants.ErrorCodes.UNKNOWN:
+                    return "unknown error";
+            }
+        }
+
         public static class ValidationCodes
         {
             public const string UNKNOWN = "v00";

@@ -15,6 +15,6 @@ namespace eContracting.Models
         public string Note { get; set; }
 
         [JsonProperty("types")]
-        public JsonUploadTemplateModel[] Types { get; set; }
+        public IEnumerable<JsonUploadTemplateModel> Types { get; set; }
     }
 }

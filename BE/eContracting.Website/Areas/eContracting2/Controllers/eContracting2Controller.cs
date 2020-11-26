@@ -30,6 +30,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IApiService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationService AuthenticationService;
+        protected readonly IContextWrapper Context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="eContracting2Controller"/> class.
@@ -41,6 +42,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
+            this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
         }
 
         public eContracting2Controller(
@@ -48,13 +50,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ICache cache,
             IApiService apiService,
             ISettingsReaderService settingsReaderService,
-            IAuthenticationService authService)
+            IAuthenticationService authService,
+            IContextWrapper context)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthenticationService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
+            this.Context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
         /// <summary>
@@ -348,7 +352,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Error404()
         {
-            var datasource = this.GetLayoutItem<EContracting404Template>();
+            var code = this.Request.QueryString["code"];
+
+            var datasource = this.GetLayoutItem<Error404PageModel>();
+
+            if (!this.Context.IsEditMode())
+            {
+                var error = Constants.GetErrorDescription(code);
+                datasource.PageTitle = datasource.PageTitle.Replace("{CODE}", error);
+                datasource.Text = datasource.Text.Replace("{CODE}", error);
+            }
+
             return View("/Areas/eContracting2/Views/Error404.cshtml", datasource);
         }
 

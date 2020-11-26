@@ -47,5 +47,8 @@ namespace eContracting.Models
 
         [XmlElement("ITEM_GUID")]
         public string ItemGuid { get; set; }
+
+        [XmlElement("CONSENT_TYPE")]
+        public string ConsentType { get; set; }
     }
 }

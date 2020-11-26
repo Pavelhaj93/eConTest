@@ -61,6 +61,12 @@ namespace eContracting.Models
         public readonly string FileNameExtension;
 
         /// <summary>
+        /// The description.
+        /// </summary>
+        [JsonProperty("description")]
+        public readonly string Description;
+
+        /// <summary>
         /// Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
         /// </summary>
         [JsonProperty("group")]
@@ -91,6 +97,11 @@ namespace eContracting.Models
         public readonly bool SignedVersion;
 
         /// <summary>
+        /// Determinates if this attachment is obligatory or not.
+        /// </summary>
+        public readonly bool IsObligatory;
+
+        /// <summary>
         /// Gets or sets file content.
         /// </summary>
         [JsonIgnore]
@@ -101,6 +112,8 @@ namespace eContracting.Models
         /// </summary>
         [JsonIgnore]
         public readonly OfferAttributeModel[] Attributes;
+
+        public readonly string GroupGuid;
 
         /// <summary>
         /// Gets the size.
@@ -126,6 +139,8 @@ namespace eContracting.Models
             }
         }
 
+        public readonly string ConsentType;
+
         #region Desicion makers where to place a file
 
         /// <summary>
@@ -142,55 +157,13 @@ namespace eContracting.Models
 
         #endregion
 
+        private readonly DocumentTemplateModel DocumentTemplate;
+
         /// <summary>
         /// Prevents a default instance of the <see cref="OfferAttachmentModel"/> class from being created.
         /// </summary>
         private OfferAttachmentModel()
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
-        /// </summary>
-        /// <param name="uniqueKey">The unique key.</param>
-        /// <param name="idAttach">Id of the attachment.</param>
-        /// <param name="mimeType">Type of the MIME.</param>
-        /// <param name="index">The index.</param>
-        /// <param name="originalFileName">Original file name.</param>
-        /// <param name="fileName">The labeled file name.</param>
-        /// <param name="signedVersion">if set to <c>true</c> [signed version].</param>
-        /// <param name="attributes">The attributes.</param>
-        /// <param name="content">The content.</param>
-        public OfferAttachmentModel(string uniqueKey, string idAttach, string mimeType, string index, string originalFileName, string fileName, bool signedVersion, OfferAttributeModel[] attributes, byte[] content)
-        {
-            this.UniqueKey = uniqueKey;
-            this.IdAttach = idAttach;
-            this.MimeType = mimeType;
-            this.Index = index;
-            this.OriginalFileName = originalFileName;
-            this.FileName = fileName;
-            this.SignedVersion = signedVersion;
-            this.Attributes = attributes;
-            this.FileContent = content;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
-        /// </summary>
-        /// <param name="template">The template.</param>
-        /// <exception cref="ArgumentNullException">template</exception>
-        public OfferAttachmentModel(DocumentTemplateModel template)
-        {
-            if (template == null)
-            {
-                throw new ArgumentNullException(nameof(template));
-            }
-
-            this.Group = template.Group;
-            this.FileName = template.Description;
-            this.IsGroupOblig = template.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
-            this.IsPrinted = template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
-            this.IsSignReq = template.SignReq.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
         }
 
         /// <summary>
@@ -203,12 +176,23 @@ namespace eContracting.Models
         /// <param name="originalFileName">Name of the original file.</param>
         /// <param name="attributes">The attributes.</param>
         /// <param name="content">The content.</param>
-        public OfferAttachmentModel(DocumentTemplateModel template, string uniqueKey, string idAttach, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content) : this(template)
+        public OfferAttachmentModel(DocumentTemplateModel template, string uniqueKey, string idAttach, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content)
         {
             if (template == null)
             {
                 throw new ArgumentNullException(nameof(template));
             }
+
+            this.DocumentTemplate = template;
+
+            this.Group = template.Group;
+            this.GroupGuid = template.ItemGuid;
+            this.FileName = template.Description;
+            this.ConsentType = template.ConsentType;
+            this.IsObligatory = template.Obligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+            this.IsGroupOblig = template.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+            this.IsPrinted = template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+            this.IsSignReq = template.SignReq.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
 
             this.UniqueKey = uniqueKey;
             this.IdAttach = idAttach;

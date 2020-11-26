@@ -1,12 +1,12 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Models
 
-@inherits GlassView<EContracting404Template>
+@inherits GlassView<Error404PageModel>
 
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="info">
-			<h1>@Editable(model=>model.HeaderText)</h1>
+			<h1>@Editable(model=>model.PageTitle)</h1>
 			@Editable(model=>model.Text)
 		</div>
 	</div>

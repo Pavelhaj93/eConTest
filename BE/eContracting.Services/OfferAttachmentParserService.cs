@@ -120,6 +120,12 @@ namespace eContracting.Services
             return Utils.GetMd5(file.FILENAME);
         }
 
+        protected internal string GetUniqueKey(DocumentTemplateModel template)
+        {
+            var data = template.IdAttach + template.Group + template.Description;
+            return Utils.GetMd5(data);
+        }
+
         protected internal bool IsNotCompatible(DocumentTemplateModel template)
         {
             return string.IsNullOrEmpty(template.Group);
@@ -166,8 +172,9 @@ namespace eContracting.Services
             // otherwise this file must be uploaded by user
             else
             {
+                var uniqueKey = this.GetUniqueKey(template);
                 // this is just a template for file witch is required from a user
-                item = new OfferAttachmentModel(template);
+                item = new OfferAttachmentModel(template, uniqueKey, template.IdAttach, null, null, new OfferAttributeModel[] { }, null);
             }
 
             return item;

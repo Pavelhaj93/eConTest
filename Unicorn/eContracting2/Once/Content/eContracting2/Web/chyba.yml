@@ -16,3 +16,13 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125340Z
+    - ID: "265db6e1-685e-4a4c-a53a-ca46ff79927a"
+      Hint: Text
+      Value: |
+        <p>V&aacute;žen&yacute; z&aacute;kazn&iacute;ku,</p>
+        <p>omlouv&aacute;me se, ale str&aacute;nku, na kterou směřoval V&aacute;&scaron; požadavek, se nepodařilo naj&iacute;t. Je možn&eacute;, že byla odstraněna, přejmenov&aacute;na nebo je dočasně nedostupn&aacute;.</p>
+        <p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
+        <p>&nbsp;</p>
+        <p><em>Chyba: {CODE}</em></p>

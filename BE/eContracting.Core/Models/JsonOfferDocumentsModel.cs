@@ -8,13 +8,13 @@ namespace eContracting.Models
 {
     public class JsonOfferDocumentsModel
     {
-        [JsonProperty("acceptance")]
+        [JsonProperty("acceptance", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public JsonDocumentsAcceptanceModel Acceptance { get; set; }
 
-        [JsonProperty("uploads")]
+        [JsonProperty("uploads", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public JsonDocumentsUploadsModel Uploads { get; set; }
 
-        [JsonProperty("other")]
+        [JsonProperty("other", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
         public JsonDocumentsOthersModel Other { get; set; }
     }
 }

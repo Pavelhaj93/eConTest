@@ -9,9 +9,15 @@ namespace eContracting.Models
     public class JsonDocumentsOthersModel
     {
         [JsonProperty("commodities")]
-        public JsonDocumentsOthersCommoditiesModel Commodities { get; set; }
+        public readonly JsonDocumentsOthersCommoditiesModel Commodities;
 
         [JsonProperty("services")]
-        public JsonDocumentsOthersServicesModel Services { get; set; }
+        public readonly JsonDocumentsOthersServicesModel;
+
+        public JsonDocumentsOthersModel(JsonDocumentsOthersCommoditiesModel commodities, JsonDocumentsOthersServicesModel services)
+        {
+            this.Commodities = commodities;
+            this.Services = services;
+        }
     }
 }

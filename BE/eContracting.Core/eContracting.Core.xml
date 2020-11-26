@@ -748,6 +748,22 @@
             Gets or sets the page title.
             </summary>
         </member>
+        <member name="T:eContracting.Models.Error404PageModel">
+            <summary>
+            Represents page model for error page 404.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.Error404PageModel.PageTitle">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.Error404PageModel.Text">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.OptimizedFileGroupModel">
             <summary>
             Optimized group of <see cref="F:eContracting.Models.OptimizedFileGroupModel.Files"/> with optimized (grouped) <see cref="F:eContracting.Models.OptimizedFileGroupModel.File"/>.
@@ -963,6 +979,11 @@
             The file name with extension.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.Group">
             <summary>
             Gets value of attribute "GROUP" or null. Expected values: KOM1, SEN1, INV1.
@@ -986,6 +1007,11 @@
         <member name="F:eContracting.Models.OfferAttachmentModel.SignedVersion">
             <summary>
             Gets or sets a value indicating whether this version of document is signed.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.IsObligatory">
+            <summary>
+            Determinates if this attachment is obligatory or not.
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.FileContent">
@@ -1017,27 +1043,6 @@
             <summary>
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
             </summary>
-        </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,eContracting.Models.OfferAttributeModel[],System.Byte[])">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
-            </summary>
-            <param name="uniqueKey">The unique key.</param>
-            <param name="idAttach">Id of the attachment.</param>
-            <param name="mimeType">Type of the MIME.</param>
-            <param name="index">The index.</param>
-            <param name="originalFileName">Original file name.</param>
-            <param name="fileName">The labeled file name.</param>
-            <param name="signedVersion">if set to <c>true</c> [signed version].</param>
-            <param name="attributes">The attributes.</param>
-            <param name="content">The content.</param>
-        </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
-            </summary>
-            <param name="template">The template.</param>
-            <exception cref="T:System.ArgumentNullException">template</exception>
         </member>
         <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
