@@ -534,6 +534,37 @@
             Determines whether Sitecore context page mode is in editing mode.
             </summary>
         </member>
+        <member name="T:eContracting.IFileOptimizer">
+            <summary>
+            Join file(s) into group and optimize it into PDF file.
+            </summary>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.AddAsync(System.String,System.String,System.Byte[])">
+            <summary>
+            Adds a file with <paramref name="name" /> to a group with <paramref name="groupKey" />.
+            </summary>
+            <remarks>If grou with <paramref name="groupKey"/> doesn't exist, creates new one.</remarks>
+            <param name="groupKey">The group unique key.</param>
+            <param name="name">The file name.</param>
+            <param name="content">The content content.</param>
+            <returns>Current state of the group after adding new file.</returns>
+            <exception cref="T:System.ApplicationException">Adding failed.</exception>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.GetAsync(System.String)">
+            <summary>
+            Gets current group state by <paramref name="groupKey"/>.
+            </summary>
+            <param name="groupKey">The group unique key.</param>
+            <returns>Current state of the group or null if group doens't exist (or group is empty).</returns>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.RemoveAsync(System.String,System.String)">
+            <summary>
+            Removes specific file with <paramref name="fileId"/> from group by <paramref name="groupKey"/>.
+            </summary>
+            <param name="groupKey">The group unique key.</param>
+            <param name="fileId">The file identifier.</param>
+            <returns>True if file was removed, otherwise false.</returns>
+        </member>
         <member name="T:eContracting.ILoginReportStore">
             <summary>
             Stores information about login attemps.
@@ -716,6 +747,47 @@
             <summary>
             Gets or sets the page title.
             </summary>
+        </member>
+        <member name="T:eContracting.Models.OptimizedFileGroupModel">
+            <summary>
+            Optimized group of <see cref="F:eContracting.Models.OptimizedFileGroupModel.Files"/> with optimized (grouped) <see cref="F:eContracting.Models.OptimizedFileGroupModel.File"/>.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OptimizedFileGroupModel.Id">
+            <summary>
+            The group identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OptimizedFileGroupModel.Size">
+            <summary>
+            The group optimized size.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OptimizedFileGroupModel.File">
+            <summary>
+            The optimized file (PDF expected) of all <see cref="F:eContracting.Models.OptimizedFileGroupModel.Files"/> in the group.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OptimizedFileGroupModel.Files">
+            <summary>
+            All related original files.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OptimizedFileGroupModel.#ctor(System.String,System.Collections.Generic.IEnumerable{eContracting.Models.FileInOptimizedGroupModel},System.Byte[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OptimizedFileGroupModel"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="files">The files.</param>
+            <param name="file">The file.</param>
+            <exception cref="T:System.ArgumentException">
+            Value cannot be null - id
+            or
+            No files defined - files
+            or
+            File content cannot be empty - file
+            </exception>
+            <exception cref="T:System.ArgumentNullException">file</exception>
         </member>
         <member name="T:eContracting.Models.AuthDataModel">
             <summary>
@@ -1567,6 +1639,47 @@
             <summary>
             Gets or sets inner content.
             </summary>
+        </member>
+        <member name="T:eContracting.Models.FileInOptimizedGroupModel">
+            <summary>
+            Original file info in optimized group.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.FileInOptimizedGroupModel.FileName">
+            <summary>
+            The original file name.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.FileInOptimizedGroupModel.Key">
+            <summary>
+            The unique file key.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.FileInOptimizedGroupModel.MimeType">
+            <summary>
+            The MIME type.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.FileInOptimizedGroupModel.OriginalSize">
+            <summary>
+            The original file size.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.FileInOptimizedGroupModel.#ctor(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.FileInOptimizedGroupModel"/> class.
+            </summary>
+            <param name="fileName">Name of the file.</param>
+            <param name="key">The key.</param>
+            <param name="mimeType">Type of the MIME.</param>
+            <param name="originalSize">The original size.</param>
+            <exception cref="T:System.ArgumentException">
+            File name is empty - fileName
+            or
+            File key is empty - key
+            or
+            Mime type is empty - mimeType
+            </exception>
         </member>
         <member name="T:eContracting.Models.ProcessStepModel">
             <summary>

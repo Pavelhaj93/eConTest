@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -26,6 +27,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
+        protected readonly IFileOptimizer FileOptimizer;
 
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
@@ -190,6 +192,35 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
+        /// Gets current state of group with <paramref name="id"/>.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns><see cref="GroupUploadViewModel"/> with current status of the group.</returns>
+        [HttpGet]
+        [Route("upload/{id}")]
+        public async Task<IHttpActionResult> Uploaded([FromUri] string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return this.BadRequest("Invalid id");
+            }
+
+            if (!this.AuthService.IsLoggedIn())
+            {
+                return this.StatusCode(HttpStatusCode.Unauthorized);
+            }
+
+            var result = await this.FileOptimizer.GetAsync(id);
+
+            if (result == null)
+            {
+                return this.StatusCode(HttpStatusCode.NoContent);
+            }
+
+            return this.Json(new GroupUploadViewModel(result));
+        }
+
+        /// <summary>
         /// Uploads file and returns actual group state.
         /// </summary>
         /// <param name="id">Group identifier.</param>
@@ -198,7 +229,56 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Route("upload/{id}")]
         public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
-            return await Task.FromResult(this.Ok(new GroupUploadViewModel()));
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return this.BadRequest("Invalid id");
+            }
+
+            if (!this.AuthService.IsLoggedIn())
+            {
+                return this.StatusCode(HttpStatusCode.Unauthorized);
+            }
+
+            if (!this.Request.Content.IsMimeMultipartContent())
+            {
+                return this.BadRequest($"Invalid content type");
+            }
+
+            string root = HttpContext.Current.Server.MapPath("~/App_Data");
+            var provider = new MultipartFormDataStreamProvider(root);
+            var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
+
+            if (multipartData.FileData.Count == 1)
+            {
+                return this.BadRequest("No file received");
+            }
+
+            OptimizedFileGroupModel result = null;
+
+            // everytime there "should" be only one file
+            for (int i = 0; i < multipartData.FileData.Count; i++)
+            {
+                var file = multipartData.FileData[i];
+                var localFile = new FileInfo(file.LocalFileName);
+                var originalFileName = file.Headers.ContentDisposition.FileName.Trim('"');
+
+                using (var stream = localFile.OpenRead())
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await stream.CopyToAsync(memoryStream);
+                        var fileBytes = memoryStream.ToArray();
+                        result = await this.FileOptimizer.AddAsync(id, originalFileName, fileBytes);
+                    }
+                }
+            }
+
+            if (result == null)
+            {
+                return this.InternalServerError();
+            }
+
+            return this.Json(new GroupUploadViewModel(result));
         }
 
         /// <summary>
@@ -210,14 +290,45 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpDelete]
         [HttpOptions]
         [Route("upload/{id}")]
-        public async Task<IHttpActionResult> Delete([FromUri] int id)
+        public async Task<IHttpActionResult> Delete([FromUri] string id)
         {
             if (this.Request.Method.Method == "OPTIONS")
             {
                 return this.Ok();
             }
 
-            return await Task.FromResult(this.Ok("Will be deleted in the future"));
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return this.BadRequest("Invalid id");
+            }
+
+            var fileId = this.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key == "fileId").Value;
+
+            if (string.IsNullOrWhiteSpace(fileId))
+            {
+                return this.BadRequest("Invalid file id");
+            }
+
+            if (!this.AuthService.IsLoggedIn())
+            {
+                return this.StatusCode(HttpStatusCode.Unauthorized);
+            }
+
+            var result = await this.FileOptimizer.RemoveAsync(id, fileId);
+
+            if (result)
+            {
+                var data = await this.FileOptimizer.GetAsync(id);
+
+                if (data == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                return this.Json(new GroupUploadViewModel(data));
+            }
+
+            return this.InternalServerError();
         }
 
         /// <summary>

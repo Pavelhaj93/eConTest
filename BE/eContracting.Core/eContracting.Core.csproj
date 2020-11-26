@@ -96,6 +96,7 @@
     <Compile Include="IAuthenticationService.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="IContextWrapper.cs" />
+    <Compile Include="IFileOptimizer.cs" />
     <Compile Include="ILoginReportStore.cs" />
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferJsonDescriptor.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="LogTable.cs" />
     <Compile Include="MissingDatasourceException.cs" />
     <Compile Include="Models\AcceptedOfferPageModel.cs" />
+    <Compile Include="Models\OptimizedFileGroupModel.cs" />
     <Compile Include="Models\JsonAcceptFileModel.cs" />
     <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
@@ -149,6 +151,7 @@
     <Compile Include="Models\OfferPageModel.cs" />
     <Compile Include="Models\OfferTextModel.cs" />
     <Compile Include="Models\OfferXmlModel.cs" />
+    <Compile Include="Models\FileInOptimizedGroupModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\ProcessStepModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />

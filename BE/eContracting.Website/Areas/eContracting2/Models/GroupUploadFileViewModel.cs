@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using eContracting.Models;
 using Newtonsoft.Json;
 
 namespace eContracting.Website.Areas.eContracting2.Models
@@ -12,24 +13,32 @@ namespace eContracting.Website.Areas.eContracting2.Models
         /// Gets or sets name of the file.
         /// </summary>
         [JsonProperty("label")]
-        public string Label { get; set; }
+        public readonly string Label;
 
         /// <summary>
         /// Gets or sets file unique key.
         /// </summary>
         [JsonProperty("key")]
-        public string Key { get; set; }
+        public readonly string Key;
 
         /// <summary>
         /// Gets or sets file MIME type.
         /// </summary>
         [JsonProperty("mime")]
-        public string MimeType { get; set; }
+        public readonly string MimeType;
 
         /// <summary>
         /// Gets or sets original file size.
         /// </summary>
         [JsonProperty("size")]
-        public int Size { get; set; }
+        public readonly int Size;
+
+        public GroupUploadFileViewModel(FileInOptimizedGroupModel model)
+        {
+            this.Label = model.FileName;
+            this.Key = model.Key;
+            this.MimeType = model.MimeType;
+            this.Size = model.OriginalSize;
+        }
     }
 }
