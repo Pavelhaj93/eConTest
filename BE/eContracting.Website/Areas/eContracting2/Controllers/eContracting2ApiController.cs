@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
@@ -98,6 +99,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.Json(attachments);
                 //return this.Json(attachments.Select(x => new FileAttachmentViewModel(x)));            }
             }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
@@ -147,6 +153,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
                 return this.ResponseMessage(response);
             }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
@@ -182,11 +193,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (offer.IsAccepted)
                 {
-                    return this.BadRequest();
+                    return this.BadRequest("Offer is already accepted");
                 }
 
                 var model = await this.OfferJsonDescriptor.GetNewAsync(offer);
                 return this.Json(model);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
             catch (Exception ex)
             {
@@ -227,6 +243,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var model = await this.OfferJsonDescriptor.GetAcceptedAsync(offer);
                 return this.Json(model);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
             catch (Exception ex)
             {
@@ -445,6 +466,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //TODO: Process submitted data
 
                 return this.StatusCode(HttpStatusCode.NotImplemented);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
             }
             catch (Exception ex)
             {
