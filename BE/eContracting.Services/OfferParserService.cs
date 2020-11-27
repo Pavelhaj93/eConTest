@@ -258,15 +258,30 @@ namespace eContracting.Services
         {
             if (xmlNode.FirstChild?.Name == "body")
             {
-                var xml = xmlNode.FirstChild.InnerXml;
-                // "<p style=\"margin-top:0pt;margin-bottom:0pt\" xmlns=\"http://www.w3.org/1999/xhtml\">\nInvestor<br /></p>"
-                var clean = Utils.ReplaceXmlAttributes(xml);
-                return clean;
+                return this.GetCleanedUpBodyValue(xmlNode);
             }
             else
             {
                 return xmlNode.InnerXml;
             }
+        }
+
+        /// <summary>
+        /// Gets <paramref name="xmlNode"/> value with extra, non wanted, data.
+        /// </summary>
+        /// <param name="xmlNode">The XML node.</param>
+        protected internal string GetCleanedUpBodyValue(XmlNode xmlNode)
+        {
+            // this is label for dialog accept dialog window and it should be without any HTML
+            if (xmlNode.Name.Contains("_ACCEPT_LABEL"))
+            {
+                return xmlNode.InnerText?.Trim();
+            }
+
+            var xml = xmlNode.FirstChild.InnerXml;
+            // remove style and xmlns attributes, e.g. "<p style=\"margin-top:0pt;margin-bottom:0pt\" xmlns=\"http://www.w3.org/1999/xhtml\">\nInvestor<br /></p>"
+            var clean = Utils.ReplaceXmlAttributes(xml);
+            return clean;
         }
     }
 }

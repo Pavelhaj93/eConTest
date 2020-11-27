@@ -30,5 +30,23 @@ namespace eContracting.Services.Tests
             var log = logger.Infos.First();
             Assert.Equal(guid, log.Key);
         }
+
+        //TODO: TBI
+        public void Parse_Return_Only_Files_Matching_Offer_Documents()
+        {
+
+        }
+
+        //TODO: TBI
+        public void GetModel_Finds_Printed_File_Matching_To_Template()
+        {
+
+        }
+
+        //TODO: TBI
+        public void GetModel_Return_Only_File_Template_When_No_Real_File_Exists()
+        {
+            
+        }
     }
 }

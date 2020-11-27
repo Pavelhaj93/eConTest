@@ -18,7 +18,7 @@ namespace eContracting.Models
         [JsonProperty("gifts", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonGiftsModel Gifts { get; set; }
 
-        [JsonProperty("documents")]
+        [JsonProperty("documents", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonOfferDocumentsModel Documents { get; set; }
 
         [JsonProperty("acceptance")]

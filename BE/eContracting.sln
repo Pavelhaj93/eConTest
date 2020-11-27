@@ -53,6 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\docs\API\global_config.json = ..\docs\API\global_config.json
 		..\docs\Guids.md = ..\docs\Guids.md
 		..\docs\API\not_accepted_offer.json = ..\docs\API\not_accepted_offer.json
+		..\docs\API\offer_06D969E88C3C1EDB8BD275D399A167D8.json = ..\docs\API\offer_06D969E88C3C1EDB8BD275D399A167D8.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{B1549BD5-5605-4ED2-906E-3851EC2646AB}"
