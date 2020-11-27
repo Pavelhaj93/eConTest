@@ -15,13 +15,17 @@ namespace eContracting
         /// <summary>
         /// Adds a file with <paramref name="name" /> to a group with <paramref name="groupKey" />.
         /// </summary>
-        /// <remarks>If grou with <paramref name="groupKey"/> doesn't exist, creates new one.</remarks>
+        /// <remarks>
+        ///     <para>If group with <paramref name="groupKey"/> doesn't exist, creates new one.</para>
+        ///     <para>Parameter <paramref name="fileId"/> is used to find new file in <see cref="OptimizedFileGroupModel.Files"/> collection.</para>
+        /// </remarks>
         /// <param name="groupKey">The group unique key.</param>
+        /// <param name="fileId">Unique file key.</param>
         /// <param name="name">The file name.</param>
         /// <param name="content">The content content.</param>
         /// <returns>Current state of the group after adding new file.</returns>
         /// <exception cref="ApplicationException">Adding failed.</exception>
-        Task<OptimizedFileGroupModel> AddAsync(string groupKey, string name, byte[] content);
+        Task<OptimizedFileGroupModel> AddAsync(string groupKey, string fileId, string name, byte[] content);
 
         /// <summary>
         /// Gets current group state by <paramref name="groupKey"/>.

@@ -310,6 +310,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 string root = HttpContext.Current.Server.MapPath("~/App_Data");
                 var provider = new MultipartFormDataStreamProvider(root);
                 var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
+                var key = multipartData.FormData["key"];
+
+                if (string.IsNullOrWhiteSpace(key))
+                {
+                    return this.BadRequest("File key cannot be empty");
+                }
 
                 if (multipartData.FileData.Count == 1)
                 {
@@ -331,7 +337,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         {
                             await stream.CopyToAsync(memoryStream);
                             var fileBytes = memoryStream.ToArray();
-                            result = await this.FileOptimizer.AddAsync(id, originalFileName, fileBytes);
+                            result = await this.FileOptimizer.AddAsync(id, key, originalFileName, fileBytes);
                         }
                     }
                 }
