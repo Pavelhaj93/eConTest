@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using eContracting.Models;
@@ -17,6 +18,9 @@ namespace eContracting
 {
     public static class Utils
     {
+        private static Regex RegexAttrStyle = new Regex("( style=\"[\\d\\w\\s\\-\\:\\;]*\")", RegexOptions.Compiled);
+        private static Regex RegexAttrXmlNamespace = new Regex("( xmlns=\"[^\"]*\")", RegexOptions.Compiled);
+
         /// <summary>
         /// Gers readable size.
         /// </summary>
@@ -152,6 +156,13 @@ namespace eContracting
         public static string GetRawXml(ZCCH_ST_FILE file)
         {
             return Encoding.UTF8.GetString(file.FILECONTENT);
+        }
+
+        public static string ReplaceXmlAttributes(string input)
+        {
+            input = RegexAttrStyle.Replace(input, "");
+            input = RegexAttrXmlNamespace.Replace(input, "");
+            return input;
         }
     }
 }

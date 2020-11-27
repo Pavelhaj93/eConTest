@@ -8,16 +8,16 @@ namespace eContracting.Models
 {
     public class JsonDocumentsOthersModel
     {
-        [JsonProperty("commodities")]
-        public readonly JsonDocumentsOthersCommoditiesModel Commodities;
-
         [JsonProperty("services")]
-        public readonly JsonDocumentsOthersServicesModel Services;
+        public readonly JsonDocumentsAdditionalServicesModel AdditionalServices;
 
-        public JsonDocumentsOthersModel(JsonDocumentsOthersCommoditiesModel commodities, JsonDocumentsOthersServicesModel services)
+        [JsonProperty("products")]
+        public readonly JsonDocumentsOtherProductsModel OtherProducts;
+
+        public JsonDocumentsOthersModel(JsonDocumentsOtherProductsModel otherProducts, JsonDocumentsAdditionalServicesModel additionalServices)
         {
-            this.Commodities = commodities;
-            this.Services = services;
+            this.OtherProducts = otherProducts;
+            this.AdditionalServices = additionalServices;
         }
     }
 }

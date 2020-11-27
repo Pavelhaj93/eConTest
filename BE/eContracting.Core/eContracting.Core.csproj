@@ -120,8 +120,8 @@
     <Compile Include="Models\JsonGiftModel.cs" />
     <Compile Include="Models\JsonDocumentsAcceptanceModel.cs" />
     <Compile Include="Models\JsonDocumentsAcceptModel.cs" />
-    <Compile Include="Models\JsonDocumentsOthersCommoditiesModel.cs" />
-    <Compile Include="Models\JsonDocumentsOthersServicesModel.cs" />
+    <Compile Include="Models\JsonDocumentsOtherProductsModel.cs" />
+    <Compile Include="Models\JsonDocumentsAdditionalServicesModel.cs" />
     <Compile Include="Models\JsonDocumentsOthersModel.cs" />
     <Compile Include="Models\JsonDocumentsUploadsModel.cs" />
     <Compile Include="Models\JsonOfferAcceptedModel.cs" />

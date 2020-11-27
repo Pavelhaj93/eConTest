@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models
 {
-    public class JsonDocumentsOthersServicesModel
+    public class JsonDocumentsAdditionalServicesModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -15,6 +15,6 @@ namespace eContracting.Models
         public int Mandatory { get; set; }
 
         [JsonProperty("files")]
-        public JsonAcceptFileModel[] Files { get; set; }
+        public IEnumerable<JsonAcceptFileModel> Files { get; set; }
     }
 }

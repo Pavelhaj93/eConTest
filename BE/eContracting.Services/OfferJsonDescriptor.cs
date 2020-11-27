@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Sitecore.Globalization;
+using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.Web;
 
 namespace eContracting.Services
@@ -401,25 +402,95 @@ namespace eContracting.Services
 
         protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
         {
-            var commodities = this.GetOtherCommodities(offer, files, definition);
-            var services = this.GetOtherServices(offer, files, definition);
+            var products = this.GetOtherProducts(offer, files, definition);
+            var services = this.GetAdditionalServices(offer, files, definition);
 
-            if (commodities == null && services == null)
+            if (products == null && services == null)
             {
                 return null;
             }
 
-            return new JsonDocumentsOthersModel(commodities, services); ;
+            return new JsonDocumentsOthersModel(products, services);
         }
 
-        protected internal JsonDocumentsOthersCommoditiesModel GetOtherCommodities(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
         {
-            return null;
+            var selectedFiles = files.Where(x => x.Group == "DSL" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+
+            var list = new List<JsonAcceptFileModel>();
+
+            for (int i = 0; i < selectedFiles.Length; i++)
+            {
+                var f = selectedFiles[i];
+                var file = new JsonAcceptFileModel();
+                file.Label = f.FileName;
+                file.Key = f.UniqueKey;
+                file.Prefix = this.GetFileLabelPrefix(f);
+                file.MimeType = f.MimeType;
+                file.Mandatory = f.IsObligatory;
+                list.Add(file);
+            }
+
+            var model = new JsonDocumentsAdditionalServicesModel();
+            model.Title = definition.OfferAdditionalServicesTitle.Text;
+            model.Mandatory = selectedFiles.Length;
+            model.Files = list;
+            return model;
         }
 
-        protected internal JsonDocumentsOthersServicesModel GetOtherServices(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
         {
-            return null;
+            var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+
+            var list = new List<JsonAcceptFileModel>();
+
+            for (int i = 0; i < selectedFiles.Length; i++)
+            {
+                var f = selectedFiles[i];
+                var file = new JsonAcceptFileModel();
+                file.Label = f.FileName;
+                file.Key = f.UniqueKey;
+                file.Prefix = this.GetFileLabelPrefix(f);
+                file.MimeType = f.MimeType;
+                file.Mandatory = f.IsObligatory;
+                list.Add(file);
+            }
+
+            var parameters = new List<JsonParamModel>();
+            var arguments = new List<JsonArgumentModel>();
+
+            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME")))
+            {
+                var key = item.Value;
+                var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+                parameters.Add(new JsonParamModel(key, value));
+            }
+
+            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")))
+            {
+                arguments.Add(new JsonArgumentModel(item.Value));
+            }
+
+            var model = new JsonDocumentsOtherProductsModel();
+            model.Title = definition.OfferOtherProductsTitle.Text;
+            model.Note = definition.OfferOtherProductsNote.Text;
+            model.Arguments = arguments;
+            model.Params = parameters;
+            model.SubTitle = definition.OfferOtherProductsDocsTitle.Text;
+            model.SubTitle2 = definition.OfferOtherProductsDocsText.Text;
+            model.Files = list;
+            model.Mandatory = 0;
+            return model;
         }
 
         /// <summary>

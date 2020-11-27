@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models
 {
-    public class JsonDocumentsOthersCommoditiesModel
+    public class JsonDocumentsOtherProductsModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -15,10 +15,10 @@ namespace eContracting.Models
         public string SubTitle { get; set; }
 
         [JsonProperty("params")]
-        public JsonParamModel[] Params { get; set; }
+        public IEnumerable<JsonParamModel> Params { get; set; }
 
         [JsonProperty("arguments")]
-        public JsonArgumentModel[] Arguments { get; set; }
+        public IEnumerable<JsonArgumentModel> Arguments { get; set; }
 
         [JsonProperty("subTitle2")]
         public string SubTitle2 { get; set; }
@@ -27,7 +27,7 @@ namespace eContracting.Models
         public int Mandatory { get; set; }
 
         [JsonProperty("files")]
-        public JsonAcceptFileModel[] Files { get; set; }
+        public IEnumerable<JsonAcceptFileModel> Files { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }

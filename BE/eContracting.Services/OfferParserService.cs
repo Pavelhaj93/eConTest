@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -255,7 +256,17 @@ namespace eContracting.Services
         /// <returns>Inner xml value of <paramref name="xmlNode"/>.</returns>
         protected internal string GetNodeValue(XmlNode xmlNode)
         {
-            return xmlNode.FirstChild?.Name == "body" ? xmlNode.FirstChild.InnerXml : xmlNode.InnerXml;
+            if (xmlNode.FirstChild?.Name == "body")
+            {
+                var xml = xmlNode.FirstChild.InnerXml;
+                // "<p style=\"margin-top:0pt;margin-bottom:0pt\" xmlns=\"http://www.w3.org/1999/xhtml\">\nInvestor<br /></p>"
+                var clean = Utils.ReplaceXmlAttributes(xml);
+                return clean;
+            }
+            else
+            {
+                return xmlNode.InnerXml;
+            }
         }
     }
 }
