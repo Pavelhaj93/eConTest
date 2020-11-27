@@ -14,7 +14,8 @@
     "svg": "svg-icon-generate --svgDir ./src/icons/svg --destination ./src/app/components/Icon/Icon.tsx --template ./src/tpl/svg/icon-template.nunj",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "prepush": "yarn lint && yarn test"
+    "prepush": "yarn lint && yarn test",
+    "clean:files" : "node ./scripts/cleanUploadedFiles.js"
   },
   "husky": {
     "hooks": {
@@ -78,6 +79,7 @@
     "prettier": "^2.0.5",
     "react-svg-icon-generator": "^0.5.2",
     "replace-in-file-webpack-plugin": "^1.0.6",
+    "rimraf": "^3.0.2",
     "sass-loader": "^10.0.4",
     "svg-sprite-loader": "^5.0.0",
     "time-fix-plugin": "^2.0.6",

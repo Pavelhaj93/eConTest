@@ -6,9 +6,9 @@ import {
   OfferDocuments,
   OfferDocument,
   OfferType,
-  UploadDocumentResponse,
   OfferBox,
   GiftsBox,
+  UploadDocumentPromise,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -78,8 +78,8 @@ export class OfferStore {
     return this.documents.other?.services?.files ?? []
   }
 
-  @computed public get documentsCommodities(): OfferDocument[] {
-    return this.documents.other?.commodities?.files ?? []
+  @computed public get documentsProducts(): OfferDocument[] {
+    return this.documents.other?.products?.files ?? []
   }
 
   /** True if all documents that are mandatory are actually signed, otherwise false. */
@@ -120,16 +120,44 @@ export class OfferStore {
     return true
   }
 
-  @computed public get allCommoditiesDocumentsAreAccepted(): boolean {
-    if (!this.documentsCommodities.length) {
+  @computed public get allProductsDocumentsAreAccepted(): boolean {
+    if (!this.documentsProducts.length) {
       return true
     }
 
-    if (this.documentsCommodities.find(document => document.mandatory && !document.accepted)) {
+    if (this.documentsProducts.find(document => document.mandatory && !document.accepted)) {
       return false
     }
 
     return true
+  }
+
+  /** True if documents were uploaded to all mandatory sections. */
+  @computed public get allDocumentsUploaded(): boolean {
+    // if there are no upload groups => nothing to validate
+    if (!this.documents.uploads || !this.documents.uploads?.types.length) {
+      return true
+    }
+
+    let allUploaded = true
+
+    // iterate over all mandatory upload groups
+    this.documents.uploads.types
+      .filter(type => type.mandatory)
+      .forEach(group => {
+        // no documents found
+        if (!this.userDocuments[group.id] || !this.userDocuments[group.id].length) {
+          allUploaded = false
+          return
+        }
+
+        // if all documents are still untouched or uploading or have error => group is not valid
+        if (this.userDocuments[group.id].every(doc => !doc.touched || doc.uploading || doc.error)) {
+          allUploaded = false
+        }
+      })
+
+    return allUploaded
   }
 
   /** True if all conditions for particular offer were fullfilled, otherwise false. */
@@ -144,8 +172,9 @@ export class OfferStore {
     return (
       this.allDocumentsAreAccepted &&
       this.allDocumentsAreSigned &&
-      this.allCommoditiesDocumentsAreAccepted &&
-      this.allServicesDocumentsAreAccepted
+      this.allProductsDocumentsAreAccepted &&
+      this.allServicesDocumentsAreAccepted &&
+      this.allDocumentsUploaded
     )
   }
 
@@ -187,10 +216,10 @@ export class OfferStore {
     })
 
     const other = Object.assign({}, documents.other, {
-      commodities: !documents.other?.commodities
+      products: !documents.other?.products
         ? null
-        : Object.assign({}, documents.other?.commodities, {
-            files: this.enrichDocuments(documents.other?.commodities?.files),
+        : Object.assign({}, documents.other?.products, {
+            files: this.enrichDocuments(documents.other?.products?.files),
           }),
       services: !documents.other?.services
         ? null
@@ -284,7 +313,7 @@ export class OfferStore {
       ...this.documentsToBeAccepted,
       ...this.documentsToBeSigned,
       ...this.documentsServices,
-      ...this.documentsCommodities,
+      ...this.documentsProducts,
     ].find(document => document.key === key)
   }
 
@@ -339,7 +368,7 @@ export class OfferStore {
       signature,
     }
 
-    const response = await fetch(`${signFileUrl}${id}`, {
+    const response = await fetch(`${signFileUrl}/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -423,22 +452,22 @@ export class OfferStore {
    * @param category - category name
    */
   public getUserDocument(id: string, category: string): UserDocument | undefined {
-    return this.userDocuments[category]?.find(document => document.id === id)
+    return this.userDocuments[category]?.find(document => document.key === id)
   }
 
   /**
-   * Remove user document by its id and category.
+   * Remove user document by its key and category.
    * @param document - `UserDocument`
    * @param category - category name
    */
-  @action public async removeUserDocument(id: string, category: string): Promise<void> {
+  @action public async removeUserDocument(key: string, category: string): Promise<void> {
     if (!this.userDocuments[category]) {
       return
     }
 
-    const document = this.getUserDocument(id, category)
+    const document = this.getUserDocument(key, category)
 
-    this.userDocuments[category] = this.userDocuments[category].filter(doc => doc.id !== id)
+    this.userDocuments[category] = this.userDocuments[category].filter(doc => doc.key !== key)
 
     // if document is still uploading or was rejected => do not send the request
     if (!document || document.uploading || document.error) {
@@ -446,22 +475,25 @@ export class OfferStore {
     }
 
     // if document has been successfully uploaded => sends a request to remove it
-    await fetch(`${this.removeDocumentUrl}${document.id}`)
+    await fetch(`${this.removeDocumentUrl}/${category}?f=${key}`, {
+      method: 'DELETE',
+      headers: { Accept: 'application/json' },
+    })
   }
 
   /**
    * Sends a request with the document (file) to upload API.
    * @param document - file
-   * @returns `Promise` in shape of `UploadDocumentResponse`
+   * @returns `Promise` in shape of `UploadDocumentPromise`
    */
   public async uploadDocument(
     document: UserDocument,
     category: string,
-  ): Promise<UploadDocumentResponse> {
+  ): Promise<UploadDocumentPromise> {
     const formData = new FormData()
     const { file } = document
     formData.append('file', file, file.name)
-    formData.append('category', category)
+    formData.append('key', document.key)
 
     const controller = new AbortController()
 
@@ -470,29 +502,30 @@ export class OfferStore {
     document.uploading = true
 
     try {
-      const response = await fetch(this.uploadDocumentUrl, {
+      const response = await fetch(`${this.uploadDocumentUrl}/${category}`, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: formData,
         signal: controller.signal,
       })
 
-      if (!response.ok) {
+      // handle unexpected statuses
+      if (response.status !== 200 && response.status !== 400) {
         throw new Error(`FAILED TO UPLOAD DOCUMENT - ${response.statusText} (${response.status})`)
       }
 
-      const { uploaded, message, id } = (await response.json()) as UploadDocumentResponse
+      // all other statuses than 200 are considered as upload failure
+      const uploaded = response.status === 200
 
+      // TODO: get some nice application error message
       if (!uploaded) {
-        throw new Error(message)
+        throw new Error(`${response.statusText} (${response.status})`)
       }
 
-      // overwrite the existing id generated on frontend using the one from API
-      if (id) {
-        document.id = id
-      }
+      // TODO: implement total size check from response
+      // ;(await response.json()) as UploadDocumentResponse
 
-      return Promise.resolve({ uploaded: true, id })
+      return Promise.resolve({ uploaded: true })
     } catch (error) {
       let message = undefined
 
@@ -502,9 +535,7 @@ export class OfferStore {
         message = error.message
       }
 
-      if (document) {
-        document.error = message // mark the document as invalid
-      }
+      document.error = message // mark the document as invalid (upload failed)
 
       return Promise.resolve({ uploaded: false, message })
     } finally {

@@ -64,12 +64,23 @@ describe('General offer', () => {
 
     const document = store.userDocuments[category][0]
 
-    fetch.mockResponseOnce(JSON.stringify({ uploaded: true, id: 'aco123' }))
+    const mockResponse = {
+      id: 'groupId',
+      files: [
+        {
+          key: 'hf83hnufwenfiuw',
+          name: document.file.name,
+          size: 4320,
+          mime: document.file.type,
+        },
+      ],
+    }
+    fetch.mockResponseOnce(JSON.stringify(mockResponse))
     await store.uploadDocument(document, category)
 
     expect(document.touched).toBe(true)
+    expect(document.uploading).toBe(false)
     expect(document.error).toBeFalsy()
-    expect(document.id).toBe('aco123')
   })
 
   it('rejects the document during upload', async () => {
@@ -112,9 +123,9 @@ describe('General offer', () => {
     const document = store.userDocuments[category][0]
 
     fetch.mockResponseOnce(JSON.stringify({}))
-    store.removeUserDocument(document.id, category)
+    store.removeUserDocument(document.key, category)
 
-    expect(store.getUserDocument(document.id, category)).toBeFalsy()
+    expect(store.getUserDocument(document.key, category)).toBeFalsy()
     expect(store.userDocuments[category].length).toBe(1)
   })
 })
@@ -308,6 +319,56 @@ describe('Offer with both documents for acceptance and signing', () => {
     store.acceptAllDocuments(store.documentsToBeAccepted)
     fetch.mockResponseOnce(JSON.stringify({}))
     await store.signDocument(key, '', '')
+
+    expect(store.isOfferReadyToAccept).toBe(true)
+  })
+})
+
+describe('Offer with documents for upload', () => {
+  const offerResponse = {
+    documents: {
+      uploads: {
+        types: [
+          {
+            id: 'testCategory',
+            title: 'Občanský nebo řidičský průkaz',
+            info: 'Prostě to tam nahraj a na nic se neptej',
+            mandatory: true,
+          },
+        ],
+      },
+    },
+  }
+
+  it('allows to accept the offer', async () => {
+    const file = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content',
+      mimeType: 'text/plain',
+    })
+    const category = 'testCategory'
+    const store = new OfferStore(OfferType.NEW, '')
+
+    fetchMock.mockResponseOnce(JSON.stringify(offerResponse))
+    store.fetchOffer()
+
+    store.addUserFiles([{ file }], category)
+
+    const document = store.userDocuments[category][0]
+
+    const mockUploadResponse = {
+      id: category,
+      files: [
+        {
+          key: 'testId123',
+          name: document.file.name,
+          size: 4320,
+          mime: document.file.type,
+        },
+      ],
+    }
+    fetch.mockResponseOnce(JSON.stringify(mockUploadResponse))
+    await store.uploadDocument(document, category)
 
     expect(store.isOfferReadyToAccept).toBe(true)
   })

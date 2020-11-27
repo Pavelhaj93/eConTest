@@ -106,7 +106,7 @@
       "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
       "accept": {
         "title": "Dodatek a přidružené dokumenty",
-        "subTitle": "Dodatek a přidružené dokumenty si přeštěte a potvrďte zatržením",
+        "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
         "mandatory": true,
         "params": [
           {
@@ -168,7 +168,7 @@
     },
     "uploads": {
       "title": "Povinné dokumenty k nahrání",
-      "note": "Celkem max 25 MB. Povolené typy: PDF, JPG, JPEG, PNG, PDF. Více dokumentů lze poslat v zazipovaném souboru",
+      "note": "<p>Celkem <strong>max. 25 MB</strong>. Povolen&eacute; typy souborů: <strong>JPEG, JPG, PNG, PDF</strong>. V&iacute;ce dokumentů lze poslat v zazipovan&eacute;m souboru.",
       "types": [
         {
           "id": "352a1b9154364a52a5c7d709e9366ccf",
@@ -191,7 +191,7 @@
       ]
     },
     "other": {
-      "commodities": {
+      "products": {
         "title": "Ostatní produkty",
         "subTitle": "Stručný přehled Vaší nabídky",
         "params": [
@@ -238,7 +238,7 @@
             "mandatory": true
           }
         ],
-        "note": "Po ověření Vaší Přihlášky na straně Pojistitele obdržíte, před požadovaný datem počátku pojištění, informaci o jeho souhlasu (či neshouhlasu) s Vaším pojištěním."
+        "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>"
       },
       "services": {
         "title": "Doplňkové služby",
@@ -266,7 +266,7 @@
   "acceptance": {
     "button": {
       "title": "Pomozte nám chránit lesy",
-      "text": "<p>Víte, že se dlouhodobě snažíme omezovat spotřebu papíru a tím chránit naše lesy?</p><p></p>"
+      "text": "<p>Pro konečný a závazný projev Vaší vůle, prosím, stiskněte tlačítko \"Potvrdit\".Pokud si přejete vrátit se zpět, stiskněte tlačítko \"Storno\".</p>"
     },
     "params": [
       {

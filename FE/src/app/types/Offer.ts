@@ -16,6 +16,7 @@ export type OfferDocument = {
   mandatory: boolean
   accepted: boolean
   signed: boolean
+  mime: string
 }
 
 export type Group = {
@@ -69,6 +70,7 @@ export type AcceptanceDocuments = {
     title: string
     subTitle: string
     files: OfferDocument[]
+    note: string
   } | null
 }
 
@@ -79,7 +81,7 @@ export type UploadDocuments = {
 }
 
 export type OtherDocuments = {
-  commodities?: {
+  products?: {
     title: string
     subTitle: string
     params: OfferParams<{
@@ -108,4 +110,18 @@ export type NewOfferResponse = {
   benefits?: OfferBox
   gifts?: GiftsBox
   documents: OfferDocuments
+}
+
+export type UploadDocumentResponse = {
+  /** Category / group ID. */
+  id: string
+  /** Total size of all uploaded documents in current group. */
+  size: number
+  /** Array of all files that were successfully uploaded. */
+  files: OfferDocument[]
+}
+
+export type UploadDocumentPromise = {
+  uploaded: boolean
+  message?: string
 }

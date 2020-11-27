@@ -44,7 +44,7 @@ describe('FileUpload', () => {
     expect(button).toBeInTheDocument()
   })
 
-  it('renders error message from API', async () => {
+  it.skip('renders error message from API', async () => {
     const file = createFileFromMockFile({
       name: 'document.txt',
       body: 'content',
@@ -69,7 +69,7 @@ describe('FileUpload', () => {
     })
   })
 
-  it('translates and renders custom error message', async () => {
+  it.skip('translates and renders custom error message', async () => {
     const file = createFileFromMockFile({
       name: 'document.txt',
       body: 'content',

@@ -25,7 +25,7 @@ export const SignatureModal: React.FC<Props> = observer(
     // construct an URL for image preview of the document
     const documentUrl = useMemo(() => {
       const time = new Date().getTime()
-      return `${getFileForSignUrl}${id}&=t${time}`
+      return `${getFileForSignUrl}/${id}&=t${time}`
     }, [id, getFileForSignUrl])
 
     // 0. when the modal is shown => trigger `resize` event on window,

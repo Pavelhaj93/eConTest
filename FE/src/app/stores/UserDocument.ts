@@ -3,7 +3,7 @@ import { FileError } from '@types'
 
 export class UserDocument {
   @observable
-  public id: string
+  public key: string
 
   @observable
   public file: File
@@ -22,7 +22,7 @@ export class UserDocument {
 
   constructor(
     file: File,
-    id: string,
+    key: string,
     touched?: boolean,
     error?: string,
     uploading?: boolean,
@@ -33,6 +33,6 @@ export class UserDocument {
     this.error = error
     this.uploading = Boolean(uploading)
     this.controller = controller
-    this.id = id
+    this.key = key
   }
 }

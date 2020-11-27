@@ -21,6 +21,7 @@ export const ConfirmationModal: React.FC<Props> = ({ show, labels, onClose, onCo
         <Modal.Title>{t('confirmationModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p className="text-center">Prozatím statický obsah</p>
         <Row as="ul" className="justify-content-center list-unstyled mb-0 mt-3">
           <Col as="li" xs={6} lg={4} className="mb-4 text-center">
             <Icon name="check-circle" size={40} color={colors.green} />

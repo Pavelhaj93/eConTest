@@ -59,12 +59,6 @@ export type Color =
   | 'gray-80'
   | 'gray-100'
 
-export type UploadDocumentResponse = {
-  id?: string | null
-  uploaded: boolean
-  message?: string
-}
-
 export enum FileError {
   INVALID_TYPE = 'INVALID_TYPE',
   SIZE_EXCEEDED = 'SIZE_EXCEEDED',

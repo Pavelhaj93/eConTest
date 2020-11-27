@@ -197,13 +197,16 @@ export const Offer: React.FC<View> = observer(
           {store.documents.acceptance && (
             <>
               <h2 className="mt-5">{store.documents.acceptance.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: store.documents.acceptance.text }} />
+              <div
+                className="editorial-content"
+                dangerouslySetInnerHTML={{ __html: store.documents.acceptance.text }}
+              />
               <Box>
                 {store.documentsToBeAccepted.length > 0 && (
                   <>
                     <BoxHeading>{store.documents.acceptance?.accept?.title}</BoxHeading>
                     <div
-                      className="my-4 text-center"
+                      className="my-4 text-center editorial-content"
                       dangerouslySetInnerHTML={{
                         __html: store.documents.acceptance?.accept?.subTitle ?? '',
                       }}
@@ -281,9 +284,12 @@ export const Offer: React.FC<View> = observer(
                         </div>
                       </div>
                     ))}
-                    <p className="text-muted">
-                      <small>{t('signatureModalHelpText')}</small>
-                    </p>
+                    <div
+                      className="editorial-content text-muted small"
+                      dangerouslySetInnerHTML={{
+                        __html: store.documents.acceptance.sign?.note ?? '',
+                      }}
+                    />
                   </>
                 )}
               </Box>
@@ -311,13 +317,13 @@ export const Offer: React.FC<View> = observer(
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
                         {store.userDocuments[categoryId].map(document => (
-                          <li key={document.id}>
+                          <li key={document.key}>
                             <FileUpload
                               file={document.file}
                               labels={labels}
                               onRemove={() => {
                                 store.cancelUploadDocument(document)
-                                store.removeUserDocument(document.id, categoryId)
+                                store.removeUserDocument(document.key, categoryId)
                               }}
                               uploadHandler={() => store.uploadDocument(document, categoryId)}
                               // do not allow to reupload of already touched file (both with success or error)
@@ -332,23 +338,26 @@ export const Offer: React.FC<View> = observer(
                     {/* /custom uploaded documents */}
                   </div>
                 ))}
-                <p className="small text-muted">{store.documents.uploads.note}</p>
+                <div
+                  className="small text-muted editorial-content"
+                  dangerouslySetInnerHTML={{ __html: store.documents.uploads.note }}
+                />
                 {/* <p className="small text-muted">Dokumenty označené * jsou povinné.</p> */}
               </Box>
             </>
           )}
           {/* /uploads box */}
 
-          {/* commodities box */}
-          {store.documents.other?.commodities && (
+          {/* products box */}
+          {store.documents.other?.products && (
             <>
-              <h2 className="mt-5">{store.documents.other.commodities.title}</h2>
+              <h2 className="mt-5">{store.documents.other.products.title}</h2>
               <Box>
-                <BoxHeading>{store.documents.other.commodities.subTitle}</BoxHeading>
-                {store.documents.other.commodities.params.length > 0 && (
+                <BoxHeading>{store.documents.other.products.subTitle}</BoxHeading>
+                {store.documents.other.products.params.length > 0 && (
                   <Table size="sm" borderless>
                     <tbody>
-                      {store.documents.other.commodities.params.map(({ title, value }, idx) => (
+                      {store.documents.other.products.params.map(({ title, value }, idx) => (
                         <tr key={idx}>
                           <th scope="row" className="w-50 text-right font-weight-normal">
                             {title}:
@@ -360,10 +369,10 @@ export const Offer: React.FC<View> = observer(
                   </Table>
                 )}
 
-                {store.documents.other.commodities.arguments.length > 0 && (
+                {store.documents.other.products.arguments.length > 0 && (
                   <Box backgroundColor="blue-green-light">
                     <Row as="ul" className="justify-content-center list-unstyled mb-0">
-                      {store.documents.other.commodities.arguments.map(({ value }, idx) => (
+                      {store.documents.other.products.arguments.map(({ value }, idx) => (
                         <Col as="li" key={idx} xs={12} sm={6} lg={4} className="my-3 text-center">
                           <Icon name="check-circle" size={40} color={colors.white} />
                           <span className="d-block mt-2 font-weight-bold">{value}</span>
@@ -373,17 +382,17 @@ export const Offer: React.FC<View> = observer(
                   </Box>
                 )}
 
-                <BoxHeading>{store.documents.other.commodities.subTitle2}</BoxHeading>
+                <BoxHeading>{store.documents.other.products.subTitle2}</BoxHeading>
                 <p className="text-center my-4">Dokument(y) si pročtěte a potvrďte zatržením</p>
                 <div className="mb-2">
                   <Button
                     variant="link"
-                    onClick={() => store.acceptAllDocuments(store.documentsCommodities)}
+                    onClick={() => store.acceptAllDocuments(store.documentsProducts)}
                   >
                     {t('acceptAll')}
                   </Button>
                 </div>
-                {store.documentsCommodities.map(({ key, prefix, label, accepted }) => (
+                {store.documentsProducts.map(({ key, prefix, label, accepted }) => (
                   <FormCheckWrapper
                     key={key}
                     type="checkbox"
@@ -406,19 +415,22 @@ export const Offer: React.FC<View> = observer(
                     </Form.Check.Label>
                   </FormCheckWrapper>
                 ))}
-                <p className="text-center mt-4">
+                <div className="text-center mt-4">
                   <Icon
                     name="info-circle"
                     size={40}
                     color={colors.gray100}
                     className="d-block mx-auto mb-3"
                   />
-                  {store.documents.other.commodities.note}
-                </p>
+                  <div
+                    className="editorial-content"
+                    dangerouslySetInnerHTML={{ __html: store.documents.other.products.note }}
+                  />
+                </div>
               </Box>
             </>
           )}
-          {/* /commodities box */}
+          {/* /products box */}
 
           {/* services box */}
           {store.documents.other?.services && (
