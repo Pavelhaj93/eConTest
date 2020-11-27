@@ -105,11 +105,19 @@ export type OfferDocuments = {
   other?: OtherDocuments | null
 }
 
+export type Acceptance = {
+  params: OfferParams<{
+    title: string
+    group: string
+  }>
+}
+
 export type NewOfferResponse = {
   perex?: OfferBox
   benefits?: OfferBox
   gifts?: GiftsBox
   documents: OfferDocuments
+  acceptance: Acceptance
 }
 
 export type UploadDocumentResponse = {

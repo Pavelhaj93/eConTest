@@ -18,7 +18,7 @@ export const useLabels = (initialLabels: Record<string, any>): TranslateFunction
   const translate = useCallback<TranslateFunction>(
     (key, fallbackStr): string => {
       if (!labels[key]) {
-        return `${notFoundPrefix}${fallbackStr ?? ''}`
+        return `${notFoundPrefix}${fallbackStr ?? key}`
       }
 
       return labels[key]

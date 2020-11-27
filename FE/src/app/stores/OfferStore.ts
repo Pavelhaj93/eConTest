@@ -9,6 +9,7 @@ import {
   OfferBox,
   GiftsBox,
   UploadDocumentPromise,
+  Acceptance,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -50,6 +51,9 @@ export class OfferStore {
 
   @observable
   public gifts: GiftsBox | undefined
+
+  @observable
+  public acceptance: Acceptance = { params: [] }
 
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
@@ -284,6 +288,7 @@ export class OfferStore {
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
           this.benefits = jsonResponse.benefits
+          this.acceptance = jsonResponse.acceptance
           break
 
         case OfferType.ACCEPTED:

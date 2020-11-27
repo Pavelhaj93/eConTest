@@ -264,13 +264,9 @@
     }
   },
   "acceptance": {
-    "button": {
-      "title": "Pomozte nám chránit lesy",
-      "text": "<p>Pro konečný a závazný projev Vaší vůle, prosím, stiskněte tlačítko \"Potvrdit\".Pokud si přejete vrátit se zpět, stiskněte tlačítko \"Storno\".</p>"
-    },
     "params": [
       {
-        "title": "Smlouva/Dodatek",
+        "title": "Smlouva dodatek",
         "group": "f1e5c5d9f95847f9ad3c52d0c0201701"
       },
       {

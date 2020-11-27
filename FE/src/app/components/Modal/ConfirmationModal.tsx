@@ -18,7 +18,7 @@ export const ConfirmationModal: React.FC<Props> = ({ show, labels, onClose, onCo
   return (
     <Modal size="lg" show={show} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('confirmationModalTitle')}</Modal.Title>
+        <Modal.Title>{t('acceptanceModalTitle')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="text-center">Prozatím statický obsah</p>
@@ -36,14 +36,17 @@ export const ConfirmationModal: React.FC<Props> = ({ show, labels, onClose, onCo
             <span className="d-block mt-2 text-danger">Investor</span>
           </Col>
         </Row>
-        <p className="text-center">{t('confirmationModalText')}</p>
+        <div
+          className="text-center editorial-content"
+          dangerouslySetInnerHTML={{ __html: t('acceptanceModalText') }}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onConfirm}>
-          {t('confirmationModalAccept')}
+          {t('acceptanceModalAccept')}
         </Button>
         <Button variant="outline-dark" onClick={onClose}>
-          {t('confirmationModalCancel')}
+          {t('acceptanceModalCancel')}
         </Button>
       </Modal.Footer>
     </Modal>
