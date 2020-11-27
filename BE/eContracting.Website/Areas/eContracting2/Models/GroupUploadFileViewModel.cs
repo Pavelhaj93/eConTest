@@ -10,16 +10,16 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class GroupUploadFileViewModel
     {
         /// <summary>
-        /// Gets or sets name of the file.
-        /// </summary>
-        [JsonProperty("label")]
-        public readonly string Label;
-
-        /// <summary>
         /// Gets or sets file unique key.
         /// </summary>
         [JsonProperty("key")]
         public readonly string Key;
+
+        /// <summary>
+        /// Gets or sets name of the file.
+        /// </summary>
+        [JsonProperty("label")]
+        public readonly string Label;
 
         /// <summary>
         /// Gets or sets file MIME type.

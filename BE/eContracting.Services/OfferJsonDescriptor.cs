@@ -70,7 +70,7 @@ namespace eContracting.Services
             }
 
             model.Documents = await this.GetDocuments(offer, definition);
-
+            model.AcceptanceDialog = this.GetAcceptance(offer, definition);
             return await Task.FromResult(model);
         }
 
@@ -218,18 +218,6 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal string GetEnumPairValue(string key, IDictionary<string, string> textParameters)
-        {
-            var valueKey = key.Replace("ATRIB_NAME", "ATRIB_VALUE");
-            
-            if (textParameters.TryGetValue(valueKey, out string value))
-            {
-                return value;
-            }
-
-            return null;
-        }
-
         protected internal JsonGiftsGroupModel GetBenefitGroup(string key, IDictionary<string, string> textParameters)
         {
             string keyIntro = key + "_INTRO";
@@ -324,6 +312,7 @@ namespace eContracting.Services
                     var f = acceptFiles[i];
                     var j = new JsonAcceptFileModel();
                     j.Key = f.UniqueKey;
+                    j.Group = f.GroupGuid;
                     j.Label = f.FileName;
                     j.MimeType = f.MimeType;
                     j.Mandatory = f.IsGroupOblig;
@@ -351,6 +340,7 @@ namespace eContracting.Services
                     var f = signFiles[i];
                     var j = new JsonAcceptFileModel();
                     j.Key = f.UniqueKey;
+                    j.Group = f.GroupGuid;
                     j.Label = f.FileName;
                     j.MimeType = f.MimeType;
                     j.Mandatory = f.IsGroupOblig;
@@ -428,8 +418,9 @@ namespace eContracting.Services
             {
                 var f = selectedFiles[i];
                 var file = new JsonAcceptFileModel();
-                file.Label = f.FileName;
                 file.Key = f.UniqueKey;
+                file.Group = f.GroupGuid;
+                file.Label = f.FileName;
                 file.Prefix = this.GetFileLabelPrefix(f);
                 file.MimeType = f.MimeType;
                 file.Mandatory = f.IsObligatory;
@@ -458,8 +449,9 @@ namespace eContracting.Services
             {
                 var f = selectedFiles[i];
                 var file = new JsonAcceptFileModel();
-                file.Label = f.FileName;
                 file.Key = f.UniqueKey;
+                file.Group = f.GroupGuid;
+                file.Label = f.FileName;
                 file.Prefix = this.GetFileLabelPrefix(f);
                 file.MimeType = f.MimeType;
                 file.Mandatory = f.IsObligatory;
@@ -491,6 +483,40 @@ namespace eContracting.Services
             model.Files = list;
             model.Mandatory = 0;
             return model;
+        }
+
+        protected internal JsonAcceptanceDialogViewModel GetAcceptance(OfferModel offer, DefinitionCombinationModel definition)
+        {
+            var acceptGuids = offer.TextParameters.Where(x => x.Key.Contains("_ACCEPT_LABEL_GUID")).ToArray();
+
+            var list = new List<JsonAcceptanceDialogParamViewModel>();
+
+            for (int i = 0; i < acceptGuids.Length; i++)
+            {
+                var group = acceptGuids[i].Value;
+                var labelKey = acceptGuids[i].Key.Replace("_GUID", "");
+                var title = offer.TextParameters.FirstOrDefault(x => x.Key == labelKey).Value;
+                list.Add(new JsonAcceptanceDialogParamViewModel(group, title));
+            }
+
+            var model = new JsonAcceptanceDialogViewModel();
+            model.Button = new JsonAcceptanceDialogButtonViewModel();
+            model.Button.Title = definition.OfferAcceptTitle.Text;
+            model.Button.Text = definition.OfferAcceptText.Text;
+            model.Parameters = list;
+            return model;
+        }
+
+        protected internal string GetEnumPairValue(string key, IDictionary<string, string> textParameters)
+        {
+            var valueKey = key.Replace("ATRIB_NAME", "ATRIB_VALUE");
+
+            if (textParameters.TryGetValue(valueKey, out string value))
+            {
+                return value;
+            }
+
+            return null;
         }
 
         /// <summary>

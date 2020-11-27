@@ -17,7 +17,10 @@ namespace eContracting
         /// </summary>
         /// <remarks>
         ///     <para>If group with <paramref name="groupKey"/> doesn't exist, creates new one.</para>
-        ///     <para>Parameter <paramref name="fileId"/> is used to find new file in <see cref="OptimizedFileGroupModel.Files"/> collection.</para>
+        ///     <para>
+        ///         Parameter <paramref name="fileId"/> is used to find new file in <see cref="OptimizedFileGroupModel.Files"/> collection.
+        ///         If any file with the same <paramref name="fileId"/> already exists in the group, throws <see cref="ApplicationException"/>.
+        ///     </para>
         /// </remarks>
         /// <param name="groupKey">The group unique key.</param>
         /// <param name="fileId">Unique file key.</param>

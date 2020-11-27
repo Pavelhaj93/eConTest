@@ -106,6 +106,8 @@
     <Compile Include="MissingDatasourceException.cs" />
     <Compile Include="Models\AcceptedOfferPageModel.cs" />
     <Compile Include="Models\Error404PageModel.cs" />
+    <Compile Include="Models\JsonAcceptanceDialogButtonViewModel.cs" />
+    <Compile Include="Models\JsonAcceptanceDialogParamViewModel.cs" />
     <Compile Include="Models\OptimizedFileGroupModel.cs" />
     <Compile Include="Models\JsonAcceptFileModel.cs" />
     <Compile Include="Models\AuthDataModel.cs" />

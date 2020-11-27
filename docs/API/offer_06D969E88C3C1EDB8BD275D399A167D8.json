@@ -1,0 +1,184 @@
+﻿{
+    "perex": {
+        "title": "perex",
+        "params": [
+            {
+                "title": "Produkt",
+                "value": "elektřina Garance 24"
+            },
+            {
+                "title": "Platnost nabídky do",
+                "value": "21.12.2020"
+            },
+            {
+                "title": "Délka fixace",
+                "value": "24 měsíců od platnosti smlouvy"
+            },
+            {
+                "title": "Platnost smlouvy",
+                "value": "Dnem podpisusmlouvy zákazníkem"
+            },
+            {
+                "title": "Předpokládaná účinnost smlouvy",
+                "value": "Montáži měřidla "
+            }
+        ]
+    },
+    "benefits": {
+        "title": "gifts",
+        "params": [
+            {
+                "value": "garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy"
+            },
+            {
+                "value": "ve druhém i třetím roce garance dalšího cenového snížení"
+            },
+            {
+                "value": "férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy"
+            }
+        ]
+    },
+    "documents": {
+        "acceptance": {
+            "title": "Dokumenty k elektronické akceptaci Vaší smlouvy",
+            "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+            "accept": {
+                "title": "Dodatek a přidružené dokumenty",
+                "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
+                "mandatory": true,
+                "files": [
+                    {
+                        "key": "C3B051848D7F7B0EC9AA9BA42A109A5B",
+                        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+                        "label": "Ceník",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "097A16F8C513ABC3413ED4FCF245360B",
+                        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+                        "label": "Ceník služeb",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "6938B16467BC94730F040D6EA9D67052",
+                        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+                        "label": "Obchodní podmínky",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "25883210FFE7451FB3D129B9A72FAB95",
+                        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+                        "label": "Certifikát zelená elektřina",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    }
+                ]
+            }
+        },
+        "uploads": {
+            "title": "Povinné dokumenty k nahrání",
+            "note": "<p>Celkem <strong>max. 25 MB</strong>. Povolen&eacute; typy souborů: <strong>JPEG, JPG, PNG, PDF</strong>. V&iacute;ce dokumentů lze poslat v zazipovan&eacute;m souboru.</p>",
+            "types": [
+                {
+                    "id": "94758C0F4A75C571955FEC90DAF4284D",
+                    "title": "EE - Revizní zpráva (mimo PRE)",
+                    "info": "<p><b>Revizní zpráva</b><br />Revizní zpráva je dokument, který poskytuje základní údaje o provedené revizi elektrického zařízení nebo elektrické instalace a její výsledek. Formální vzhled revize není předepsán, revizní zpráva však musí být ve shodě se základní normou pro provádění revizí elektrických zařízení ČSN 33 1500 a déle normy ČSN 33 1600 a částečně ČSN 33 2000-6-61 a ČSN 50110-1. Revizní zprávu vyhotoví revizní technik po provedené revizi na odběrném místě.<br />Revizní zpráva není vázána na jméno osoby, ale na konkrétní odběrné místo. Revizní zpráva může být tedy vystavená i na jinou osobu než na zákazníka (např. na majitele nemovitosti. Důležité je, aby bylo přesně identifikováno odběrné místo - např. u bytových domů musí být uvedeno číslo bytu a podlaží.<br /></p>",
+                    "mandatory": true
+                },
+                {
+                    "id": "3240C1DC2DBE11537302D933C902F5CD",
+                    "title": "EE - Protokol o instalaci tepel. čerpadla",
+                    "info": "<p><b>Protokol o instalaci tepelného čerpadla a výpočet tepelných ztrát</b><br />Pokud je instalováno tepelné čerpadlo, je třeba přiložit protokol o instalaci a doklad o výpočtu tepelných ztrát, který může být součástí Průkazu energetické náročnosti budovy.<br /><br />Vystaví odborná firma nebo projektant v případě, že je součtový instalovaný příkon přímotopných nebo hybridních elektrických spotřebičů nebo systému vytápění s tepelným čerpadlem vč. příkonu akumulačního spotřebiče pro ohřev vody (je-li instalován) nižší, než je požadovaná procentuální hranice příkonu odpovídajícího hodnotě hlavního jističe před elektroměrem v souladu s platným cenovým rozhodnutím Energetického regulačního úřadu.<br />Distributor přizná požadovanou distribuční sazbu pouze v případě, pokud odběratel prokáže, že výkon těchto elektrických spotřebičů odpovídá tepelným ztrátám vytápěného objektu nebo odpovídá min. 80 % pokrytí dílčí potřeby energie na vytápění uvedené v průkazu energetické náročnosti budovy.<br /></p>",
+                    "mandatory": true
+                },
+                {
+                    "id": "26EA9D7CCD088842E21B63A8F58772B9",
+                    "title": "EE - Dok. prokazující vztah k nemovitost",
+                    "info": "<p><b>Doklad o vlastnictví nemovitosti</b><br />Zpravidla Výpis z katastru nemovitostí. Pokud nejste uveden jako vlastník dané nemovitosti v katastru nemovitostí, připravte si kopii Dokumentu prokazujícího vlastnické právo k nemovitosti např. nájemní smlouva.<br /></p>",
+                    "mandatory": true
+                },
+                {
+                    "id": null,
+                    "title": "Pokud chcete přiložit ještě další dokumenty navíc (volitelné)",
+                    "info": "<p>N&aacute;pověda</p>",
+                    "mandatory": false
+                }
+            ]
+        },
+        "other": {
+            "products": {
+                "title": "Ostatní produkty",
+                "subTitle": "Přihláška a přidružené dokumenty",
+                "params": [
+                    {
+                        "title": "Služba",
+                        "value": "innogy Pojištění domácnosti"
+                    },
+                    {
+                        "title": "Varianta",
+                        "value": "Komfort"
+                    },
+                    {
+                        "title": "Platnost nabídky do",
+                        "value": "09.12.2020"
+                    }
+                ],
+                "arguments": [
+                    {
+                        "value": "1. Pojištění domácnosti"
+                    },
+                    {
+                        "value": "2. Pojištění odpovědnosti"
+                    },
+                    {
+                        "value": "3. Asistenční služby"
+                    }
+                ],
+                "subTitle2": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
+                "mandatory": 0,
+                "files": [
+                    {
+                        "key": "130D04BAEC6A063BFCEA2A61E26351C3",
+                        "group": "06D969E88C3C1EDB8BD27637117787D8",
+                        "label": "Pojištění - Informační dokument",
+                        "prefix": "Jsem poučen o",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    }
+                ],
+                "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>"
+            }
+        }
+    },
+    "acceptance": {
+        "button": {
+            "title": "Potvrzení nabídky",
+            "text": "<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>"
+        },
+        "params": [
+            {
+                "title": "Investor",
+                "group": "06D969E88C3C1EDB8BD27637116827D8"
+            },
+            {
+                "title": "Nesnižování záloh",
+                "group": "06D969E88C3C1EDB8BD27637116D07D8"
+            },
+            {
+                "title": "Smlouva dodatek",
+                "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            },
+            {
+                "title": "innogy Pojištění domácnosti",
+                "group": "06D969E88C3C1EDB8BD27637117787D8"
+            }
+        ]
+    }
+}

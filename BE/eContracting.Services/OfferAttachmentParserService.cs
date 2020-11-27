@@ -63,6 +63,11 @@ namespace eContracting.Services
                 }
             }
 
+            if (offer.Documents.Length != list.Count)
+            {
+                this.Logger.Error(offer.Guid, $"Count of offer document templates and real files in not equal! (templates: {offer.Documents.Length}, files: {list.Count})");
+            }
+
             return list.ToArray();
         }
 

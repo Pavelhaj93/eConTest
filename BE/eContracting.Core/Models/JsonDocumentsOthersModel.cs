@@ -8,10 +8,10 @@ namespace eContracting.Models
 {
     public class JsonDocumentsOthersModel
     {
-        [JsonProperty("services")]
+        [JsonProperty("services", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public readonly JsonDocumentsAdditionalServicesModel AdditionalServices;
 
-        [JsonProperty("products")]
+        [JsonProperty("products", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public readonly JsonDocumentsOtherProductsModel OtherProducts;
 
         public JsonDocumentsOthersModel(JsonDocumentsOtherProductsModel otherProducts, JsonDocumentsAdditionalServicesModel additionalServices)

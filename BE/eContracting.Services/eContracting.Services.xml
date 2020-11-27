@@ -353,6 +353,12 @@
             <param name="xmlNode">The XML node.</param>
             <returns>Inner xml value of <paramref name="xmlNode"/>.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCleanedUpBodyValue(System.Xml.XmlNode)">
+            <summary>
+            Gets <paramref name="xmlNode"/> value with extra, non wanted, data.
+            </summary>
+            <param name="xmlNode">The XML node.</param>
+        </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
             <summary>
             The context.
