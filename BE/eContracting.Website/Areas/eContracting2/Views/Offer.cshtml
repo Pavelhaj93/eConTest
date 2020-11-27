@@ -3,7 +3,8 @@
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
 @inherits GlassView<OfferViewModel> 
-<script>
+<%-- TODO: implement GDPR --%>
+<%-- <script>
     $().ready(function() {
         CheckGDPR();
     });
@@ -15,38 +16,55 @@
             window.open(url);
         }
     }
-</script>
+</script> --%>
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="info">
-            @Html.Raw(Model.MainText)
-        </div>
+    <div class="col-12">
+        <h1>Projděte si všechny detaily</h1>
+        <p>Všechny dokumenty si pročtěte a poté potvrďte</p>
+        <div id="app"></div>
     </div>
 </div>
-@if (ViewData["VoucherText"] != null)
-{
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="info">
-                <div class="alert info with-icon" role="alert">
-                    <svg class="icon" preserveAspectRatio="none">
-                        <use class="alert__icon" xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#bubble-info" />
-                    </svg>
-                    <p>@Html.Raw(ViewData["VoucherText"])</p>
-                </div>
-            </div>
-        </div>
-    </div>
-}
 
 <script>
-/* Message component messages from Back-end */
-    var messages = {
-        appUnavailable: [
-            '<h3>Nedostupnost aplikace</h3>',
-            '<p>@Html.Raw(ViewData["AppNotAvailable"])</p>'
-        ],
-        signFileError: ['<div class="alert error mt-0" role="alert"><p>@Html.Raw(ViewData["SignFailure"])</p></div>']
-    }
+  var appConfig = {
+    view: 'Offer',
+    offerUrl: '/api/offer/new',
+    timeout: 0, // 0 znamená žádný timeout, případně stačí tento atribut vůbec neuvést
+    offerSubmitUrl: '/api/offer', // TODO:
+    getFileUrl: '/',
+    getFileForSignUrl: '/api/document-image',
+    signFileUrl: '/api/sign-document',
+    uploadFileUrl: '/api/upload-document',
+    removeFileUrl: '/api/remove-document',
+    errorPageUrl: '/error',
+    allowedContentTypes: ['image/png', 'image/jpeg', 'application/pdf'],
+    maxFileSize: 1695293,
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
+      acceptAll: 'Označit vše',
+      acceptOfferTitle: 'Potvrzení nabídky',
+      acceptOfferHelptext: 'Stisknutím tlačítka Akceptuji potvrdíte souhlas s přechodem na novou smlouvu Relax u innogy.',
+      submitBtn: 'Akceptuji',
+      signatureBtn: 'Podepsat',
+      signatureEditBtn: 'Upravit podpis',
+      signatureModalTitle: 'Podepsat dokument',
+      signatureModalText: 'Podepište se prosím níže:',
+      signatureModalConfirm: 'Potvrdit',
+      signatureModalClear: 'Smazat',
+      signatureModalError: 'Dokument se nepodařilo podepsat, zkuste to prosím znova.',
+      selectFile: 'Vyberte dokument',
+      selectFileHelpText: 'Sem přetáhněte jeden i více souborů nebo',
+      removeFile: 'Odebrat dokument',
+      selectedFiles: 'Vybrané dokumenty',
+      rejectedFiles: 'Nevyhovující dokumenty',
+      uploadFile: 'Nahrát dokument',
+      captureFile: 'Vyfotit a nahrát',
+      invalidFileTypeError: 'Dokument má špatný formát',
+      fileExceedSizeError: 'Dokument je příliš velký',
+      confirmationModalAccept: 'Potvrdit',
+      confirmationModalCancel: 'Storno',
+    },
+  };
 </script>
