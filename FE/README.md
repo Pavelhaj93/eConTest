@@ -40,8 +40,62 @@ After build, the icon will be automatically part of SVG sprite.
 
 ### Mock API
 
-API are mocked using [connect-api-mocker](https://github.com/muratcorlu/connect-api-mocker) library.\
-All mock APIs and mock data can be found inside `src/mocks/api` directory.
+API is mocked using [connect-api-mocker](https://github.com/muratcorlu/connect-api-mocker) library.\
+Implementation of all mocked APIs and mock data can be found inside `src/mocks/api` directory or check the description below.
+
+#### `GET` /api/offer/accepted
+
+Returns JSON in shape of `AcceptedOfferResponse`. Check `@types/Offer.ts` for more details.
+
+#### `GET` /api/offer/new
+
+Returns JSON in shape of `NewOfferResponse`. Check `@types/Offer.ts` for more details.
+
+#### `GET` /api/document-image/{id}
+
+Returns PNG image.
+
+#### `POST` /api/upload-document/{groupId}
+
+Request body params:
+- `file` - an actual file
+- `key` - unique key of the uploading file
+
+Params need to be sent as `FormData`.
+
+Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when upload is successful, `400` when fails.
+```json
+{
+  "id": "4310a9b78dbb4b2fbf77c1502f420ecb", // group identifier
+  "size": 64578, // total size of all uploaded files in the current group in bytes
+  // all the uploaded files in the current group including the newest one that was uploaded
+  "files": [
+    {
+      "label": "IMG_3422.jpg",
+      "key": "89a5219bc72",
+      "mime": "image/jpeg",
+      "size": 12235
+    },
+    {
+      "label": "smlouva.pdf",
+      "key": "6fec15d2e98",
+      "mime": "application/pdf",
+      "size": 52343
+    }
+  ]
+}
+```
+
+#### `DELETE` /api/remove-document/{groupId}
+
+Request body params:
+- `f` - unique key of the file
+
+Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when removal of the file is successful, `400` when fails.
+
+#### `POST` /api/sign-document
+
+TODO:
 
 ## Other information
 
