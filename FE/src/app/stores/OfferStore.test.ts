@@ -371,7 +371,7 @@ describe('Offer with documents for upload', () => {
     const store = new OfferStore(OfferType.NEW, '')
 
     fetchMock.mockResponseOnce(JSON.stringify(offerResponse))
-    store.fetchOffer()
+    await store.fetchOffer()
 
     store.addUserFiles([{ file }], category)
 
@@ -392,5 +392,41 @@ describe('Offer with documents for upload', () => {
     await store.uploadDocument(document, category)
 
     expect(store.isOfferReadyToAccept).toBe(true)
+  })
+
+  it('exceeds maximum allowed size for all upload groups', async () => {
+    const file = createFileFromMockFile({
+      name: 'document.txt',
+      body: 'content',
+      mimeType: 'text/plain',
+    })
+    const fileSize = 2049
+    const category = 'testCategory'
+    const store = new OfferStore(OfferType.NEW, '')
+
+    store.maxUploadGroupSize = 2048
+
+    fetchMock.mockResponseOnce(JSON.stringify(offerResponse))
+    await store.fetchOffer()
+
+    store.addUserFiles([{ file }], category)
+    const document = store.userDocuments[category][0]
+
+    const mockUploadResponse = {
+      id: category,
+      size: fileSize,
+      files: [
+        {
+          key: 'testId123',
+          name: document.file.name,
+          size: fileSize,
+          mime: document.file.type,
+        },
+      ],
+    }
+    fetch.mockResponseOnce(JSON.stringify(mockUploadResponse))
+    await store.uploadDocument(document, category)
+
+    expect(store.uploadGroupSizeExceeded).toBe(true)
   })
 })

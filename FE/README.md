@@ -88,7 +88,7 @@ Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is ret
 
 #### `DELETE` /api/remove-document/{groupId}
 
-Request body params:
+Query string params:
 - `f` - unique key of the file
 
 Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when removal of the file is successful, `400` when fails.

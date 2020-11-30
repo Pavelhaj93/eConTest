@@ -60,6 +60,10 @@ export const Offer: React.FC<View> = observer(
       if (removeFileUrl) {
         store.removeDocumentUrl = removeFileUrl
       }
+
+      if (maxFileSize) {
+        store.maxUploadGroupSize = maxFileSize
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -312,6 +316,7 @@ export const Offer: React.FC<View> = observer(
                       allowedContentTypes={allowedContentTypes}
                       maxFileSize={maxFileSize}
                       onFilesAccepted={files => store.addUserFiles(files, categoryId)}
+                      disabled={store.uploadGroupSizeExceeded}
                     />
                     {/* custom uploaded documents */}
                     {store.userDocuments[categoryId]?.length > 0 && (

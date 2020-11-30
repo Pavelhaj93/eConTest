@@ -10,6 +10,7 @@ import {
   GiftsBox,
   UploadDocumentPromise,
   Acceptance,
+  UploadDocumentResponse,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable, reaction } from 'mobx'
@@ -20,6 +21,7 @@ export class OfferStore {
   public uploadDocumentUrl = ''
   public removeDocumentUrl = ''
   public errorPageUrl = ''
+  public maxUploadGroupSize = 0
   private type: OfferType
 
   @observable
@@ -230,6 +232,17 @@ export class OfferStore {
     )
   }
 
+  @computed public get uploadGroupSizeExceeded(): boolean {
+    if (this.maxUploadGroupSize === 0) {
+      return false
+    }
+
+    // sum sizes from all upload groups
+    const totalSize = this.documents.uploads?.types.reduce((sum, group) => sum + group.size, 0) ?? 0
+
+    return totalSize >= this.maxUploadGroupSize
+  }
+
   /**
    * Since the `accepted` and `signed` keys are not present in the JSON response on `OfferDocument` object,
    * here I add them manually.
@@ -280,8 +293,19 @@ export class OfferStore {
           }),
     })
 
+    // enrich upload group/type with extra attribute `size`
+    const uploads = !documents.uploads
+      ? null
+      : Object.assign({}, documents.uploads, {
+          ...documents.uploads,
+          types: documents.uploads.types.map(type => ({
+            ...type,
+            size: 0,
+          })),
+        })
+
     return {
-      uploads: documents.uploads,
+      uploads,
       acceptance,
       other,
     }
@@ -532,10 +556,17 @@ export class OfferStore {
     }
 
     // if document has been successfully uploaded => sends a request to remove it
-    await fetch(`${this.removeDocumentUrl}/${category}?f=${key}`, {
+    const response = await fetch(`${this.removeDocumentUrl}/${category}?f=${key}`, {
       method: 'DELETE',
       headers: { Accept: 'application/json' },
     })
+
+    if (!response.ok) {
+      return
+    }
+
+    const { size } = (await response.json()) as UploadDocumentResponse
+    this.setUploadGroupSize(category, size)
   }
 
   /**
@@ -579,8 +610,8 @@ export class OfferStore {
         throw new Error(`${response.statusText} (${response.status})`)
       }
 
-      // TODO: implement total size check from response
-      // ;(await response.json()) as UploadDocumentResponse
+      const { size } = (await response.json()) as UploadDocumentResponse
+      this.setUploadGroupSize(category, size)
 
       return Promise.resolve({ uploaded: true })
     } catch (error) {
@@ -604,5 +635,13 @@ export class OfferStore {
     if (document.controller) {
       document.controller.abort()
     }
+  }
+
+  @action private setUploadGroupSize(id: string, size: number): void {
+    const group = this.documents.uploads?.types.find(group => group.id === id)
+
+    if (!group) return
+
+    group.size = size
   }
 }

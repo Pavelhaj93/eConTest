@@ -34,6 +34,7 @@ export type UploadType = {
   title: string
   info: string
   mandatory: boolean
+  size: number
 }
 
 export type OfferParams<T> = Array<T>

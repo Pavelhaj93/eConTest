@@ -11,6 +11,7 @@ type Props = {
   label?: string
   labelTooltip?: string
   mandatory: boolean
+  disabled?: boolean
 }
 
 export const UploadZone: React.FC<Props> = ({
@@ -21,6 +22,7 @@ export const UploadZone: React.FC<Props> = ({
   label,
   labelTooltip,
   mandatory,
+  disabled,
 }) => {
   const [rejectedFiles, setRejectedFiles] = useState<CustomFile[]>([])
   const t = useLabels(labels)
@@ -41,6 +43,7 @@ export const UploadZone: React.FC<Props> = ({
         onFilesRejected={files => setRejectedFiles(files)}
         useCaptureOnMobile
         captureFileLabel={t('captureFile')}
+        disabled={disabled}
       />
 
       {/* custom rejected documents */}
