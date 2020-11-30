@@ -12,7 +12,7 @@ import {
   Acceptance,
 } from '@types'
 import { UserDocument } from './'
-import { action, computed, observable } from 'mobx'
+import { action, computed, observable, reaction } from 'mobx'
 import { generateId } from '@utils'
 
 export class OfferStore {
@@ -58,6 +58,54 @@ export class OfferStore {
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
     this.type = type
+
+    reaction(
+      () => this.allDocumentsAreAccepted,
+      (allAccepted: boolean) => {
+        if (!this.documentsToBeAccepted.length) return
+
+        // all documents have the same group id
+        const group = this.documentsToBeAccepted[0].group
+        this.updateAcceptanceGroup(group, allAccepted)
+      },
+    )
+
+    reaction(
+      () => this.allDocumentsAreSigned,
+      (allSigned: boolean) => {
+        if (!this.documentsToBeSigned.length) return
+
+        // all documents have the same group id
+        const group = this.documentsToBeSigned[0].group
+        this.updateAcceptanceGroup(group, allSigned)
+      },
+    )
+
+    reaction(
+      () => this.allProductsDocumentsAreAccepted,
+      (allAccepted: boolean) => {
+        if (!this.documentsProducts.length) return
+
+        // all documents have the same group id
+        const group = this.documentsProducts[0].group
+        this.updateAcceptanceGroup(group, allAccepted)
+      },
+    )
+  }
+
+  /**
+   * Set a acceptance group as accepted based on `groupAccepted` value.
+   * @param group - a group GUID.
+   * @param groupAccepted - boolean indicating whether the whole group should be marked as accepted.
+   */
+  private updateAcceptanceGroup(group: string, groupAccepted: boolean): void {
+    this.acceptance = {
+      ...this.acceptance,
+      params: this.acceptance.params.map(p => ({
+        ...p,
+        accepted: p.group === group ? groupAccepted : p.accepted,
+      })),
+    }
   }
 
   @computed public get offerFetched(): boolean {
@@ -283,16 +331,20 @@ export class OfferStore {
 
       switch (this.type) {
         case OfferType.NEW:
-          jsonResponse = await (response.json() as Promise<NewOfferResponse>)
+          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
           this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
           this.benefits = jsonResponse.benefits
-          this.acceptance = jsonResponse.acceptance
+          // enrich acceptance groups with `accepted` key
+          this.acceptance = {
+            ...jsonResponse.acceptance,
+            params: jsonResponse.acceptance.params.map(p => ({ ...p, accepted: false })),
+          }
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
 

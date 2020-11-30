@@ -123,31 +123,36 @@
             "label": "Informace pro zákazníka - spotřebitele",
             "prefix": "Souhlasím s",
             "key": "e1c9a5ce583743e6928ee4df91862a91",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Dodatek",
             "prefix": "Jsem poučen o",
             "key": "8e0ed4754f99464eb2d0155c140a2541",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Ceník",
             "prefix": "Jsem poučen o",
             "key": "76868bd607804b9ca6bc5248f99726d3",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Ceník služeb",
             "prefix": "Jsem poučen o",
             "key": "2304df60d07448818c8b0b8c074d82a8",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Obchodní podmínky",
             "prefix": "Jsem poučen o",
             "key": "ee68d1a1da63434a9c91643d6b8504cf",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           }
         ]
       },
@@ -160,7 +165,8 @@
             "label": "Plná moc",
             "prefix": "Jsem poučen o",
             "key": "5e40683abb1441f5a0ec99425c2c6908",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27637116827D8"
           }
         ],
         "note": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu"
@@ -223,19 +229,25 @@
         "mandatory": 3,
         "files": [
           {
-            "label": "Informační dokument o pojistném produktu 1",
+            "label": "Pojištění - Informační dokument 1",
+            "prefix": "Jsem poučen o",
             "key": "729a1d7ba5ce48298b848a3d732f45cd",
-            "mandatory": true
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27637117787D8"
           },
           {
-            "label": "Informační dokument o pojistném produktu 2",
+            "label": "Pojištění - Informační dokument 2",
             "key": "b72e43e72c094a47bbc6767274d0b4a5",
-            "mandatory": true
+            "prefix": "Jsem poučen o",
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27637117787D8"
           },
           {
-            "label": "Informační dokument o pojistném produktu 3",
+            "label": "Pojištění - Informační dokument 3",
             "key": "2894f4d3c1d14ea4ba4e7ce907b8a449",
-            "mandatory": true
+            "prefix": "Jsem poučen o",
+            "mandatory": true,
+            "group": "06D969E88C3C1EDB8BD27637117787D8"
           }
         ],
         "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>"
@@ -266,16 +278,20 @@
   "acceptance": {
     "params": [
       {
-        "title": "Smlouva dodatek",
-        "group": "f1e5c5d9f95847f9ad3c52d0c0201701"
-      },
-      {
-        "title": "innogy Pojistění domácnosti",
-        "group": "0de3bd2b380848f396270f40b0aad859"
-      },
-      {
         "title": "Investor",
-        "group": "4d1a8c05d5a946f1aa799cdd4004db72"
+        "group": "06D969E88C3C1EDB8BD27637116827D8"
+      },
+      {
+        "title": "Nesnižování záloh",
+        "group": "06D969E88C3C1EDB8BD27637116D07D8"
+      },
+      {
+        "title": "Smlouva dodatek",
+        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+      },
+      {
+        "title": "innogy Pojištění domácnosti",
+        "group": "06D969E88C3C1EDB8BD27637117787D8"
       }
     ]
   }

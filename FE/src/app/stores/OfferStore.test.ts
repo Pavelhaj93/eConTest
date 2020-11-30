@@ -141,17 +141,27 @@ describe('Offer with documents for acceptance', () => {
               prefix: 'Souhlasím s',
               key: 'e1c9a5ce583743e6928ee4df91862a91',
               mandatory: true,
+              group: '06D969E88C3C1EDB8BD27637116827D8',
             },
             {
               label: 'Dodatek',
               prefix: 'Jsem poučen o',
               key: '8e0ed4754f99464eb2d0155c140a2541',
               mandatory: true,
+              group: '06D969E88C3C1EDB8BD27637116827D8',
             },
           ],
         },
         sign: null,
       },
+    },
+    acceptance: {
+      params: [
+        {
+          title: 'Investor',
+          group: '06D969E88C3C1EDB8BD27637116827D8',
+        },
+      ],
     },
   }
 
@@ -199,6 +209,17 @@ describe('Offer with documents for acceptance', () => {
     store.acceptAllDocuments(store.documentsToBeAccepted)
 
     expect(store.isOfferReadyToAccept).toBe(true)
+  })
+
+  it('marks the acceptance group as accepted', async () => {
+    const store = new OfferStore(OfferType.NEW, '')
+
+    fetch.mockResponseOnce(JSON.stringify(offerResponse))
+    await store.fetchOffer()
+
+    store.acceptAllDocuments(store.documentsToBeAccepted)
+
+    expect(store.acceptance.params[0].accepted).toBe(true)
   })
 })
 

@@ -317,7 +317,7 @@ export const Offer: React.FC<View> = observer(
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
                         {store.userDocuments[categoryId].map(document => (
-                          <li key={document.key}>
+                          <li key={document.key} className={classNames({ shake: document.error })}>
                             <FileUpload
                               file={document.file}
                               labels={labels}

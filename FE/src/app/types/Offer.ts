@@ -17,6 +17,7 @@ export type OfferDocument = {
   accepted: boolean
   signed: boolean
   mime: string
+  group: string
 }
 
 export type Group = {
@@ -109,6 +110,7 @@ export type Acceptance = {
   params: OfferParams<{
     title: string
     group: string
+    accepted: boolean
   }>
 }
 
