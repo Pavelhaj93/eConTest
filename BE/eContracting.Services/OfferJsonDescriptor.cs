@@ -545,7 +545,7 @@ namespace eContracting.Services
 
             foreach (var parameters in textParameters)
             {
-                source.Replace("{" + parameters.Key + "}", parameters.Value);
+                source = source.Replace("{" + parameters.Key + "}", parameters.Value);
             }
 
             return source;
