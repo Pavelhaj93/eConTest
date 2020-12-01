@@ -19,6 +19,7 @@ using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
+using Sitecore.Globalization;
 using Log = Sitecore.Diagnostics.Log;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
@@ -112,22 +113,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var datasource = this.GetLayoutItem<OfferPageModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
 
-                var viewModel = new OfferViewModel();
-                viewModel.Datasource = datasource;
-                viewModel.MainText = definition.OfferMainText.Text;
-
-                var parameters = new Dictionary<string, string>(); //TODO: SystemHelpers.GetParameters(this.Client, data.Identifier, data.OfferType, SystemHelpers.GetCodeOfAdditionalInfoDocument(offer), this.SettingsReaderService.GetGeneralSettings());
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText, parameters);
-                string mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
-
-                //if (mainText == null)
-                //{
-                //    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                //    return Redirect(redirectUrl);
-                //}
-
-                //this.ViewData["MainText"] = mainText;
-                //this.ViewData["VoucherText"] = string.Empty; //TODO: textHelper.GetVoucherText(datasource, data, this.SettingsReaderService.GetGeneralSettings());
+                var viewModel = new OfferViewModel(this.SettingsReaderService);
+                this.FillLabels(viewModel, definition);
 
                 if (offer.HasGDPR)
                 {
@@ -135,10 +122,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     viewModel.GdprGuid = GDPRGuid;
                     viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
                 }
-
-                var generalSettings = ConfigHelpers.GetGeneralSettings();
-                ViewData["AppNotAvailable"] = generalSettings.AppNotAvailable;
-                ViewData["SignFailure"] = string.Empty; //TODO: generalSettings.GetSignInFailure(data.OfferType);
 
                 return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
             }
@@ -421,6 +404,37 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return new string[] { eCat, eAct, eLab };
+        }
+
+        private void FillLabels(OfferViewModel viewModel, DefinitionCombinationModel definition)
+        {
+            var settings = this.SettingsReaderService.GetSiteSettings();
+            viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
+            viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
+            viewModel["acceptAll"] = Translate.Text("Označit vše");
+            viewModel["acceptOfferTitle"] = definition.OfferAcceptTitle.Text;
+            viewModel["acceptOfferHelptext"] = definition.OfferAcceptText.Text;
+            viewModel["submitBtn"] = "Akceptuji"; //TODO:
+            viewModel["signatureBtn"] = "Podepsat"; //TODO:
+            viewModel["signatureEditBtn"] = "signatureEditBtn"; //TODO:
+            viewModel["signatureModalTitle"] = "signatureModalTitle"; //TODO:
+            viewModel["signatureModalText"] = "Podepište se prosím níže:"; //TODO:
+            viewModel["signatureModalConfirm"] = "Potvrdit"; //TODO:
+            viewModel["signatureModalClear"] = "Smazat"; //TODO:
+            viewModel["signatureModalError"] = "Dokument se nepodařilo podepsat, zkuste to prosím znovu"; //TODO:
+            viewModel["selectFile"] = "Vyberte dokument"; //TODO:
+            viewModel["selectFileHelpText"] = "Sem přetáhněte jeden i více souborů nebo"; //TODO:
+            viewModel["removeFile"] = "Odebrat dokument"; //TODO:
+            viewModel["selectedFiles"] = "Vybrané dokumenty"; //TODO:
+            viewModel["rejectedFiles"] = "Nevyhovující dokumenty"; //TODO:
+            viewModel["uploadFile"] = "Nahrát dokument"; //TODO:
+            viewModel["captureFile"] = "Vyfotit a nahrát"; //TODO:
+            viewModel["invalidFileTypeError"] = "Dokument má špatný formát"; //TODO:
+            viewModel["fileExceedSizeError"] = "Dokument je příliš velký"; //TODO:
+            viewModel["acceptanceModalTitle"] = "Potvrzení akceptace"; //TODO:
+            viewModel["acceptanceModalText"] = "<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>"; //TODO:
+            viewModel["acceptanceModalAccept"] = "Potvrdit"; //TODO:
+            viewModel["acceptanceModalCancel"] = "Storno"; //TODO:
         }
     }
 }

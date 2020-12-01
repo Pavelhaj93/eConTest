@@ -217,6 +217,7 @@
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\AcceptedOfferViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\BaseAppConfigViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />
