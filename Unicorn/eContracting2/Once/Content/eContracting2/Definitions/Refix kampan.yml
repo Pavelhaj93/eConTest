@@ -92,6 +92,9 @@ SharedFields:
 - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
   Hint: MainTextThankYou
   Value: "{A1D88FD0-6541-4BC0-87FB-1CD679D36845}"
+- ID: "fd643dd9-94ce-4a65-9648-4efdd32b63cc"
+  Hint: OfferOtherProductsSummaryTitle
+  Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
 Languages:
 - Language: cs
   Versions:

@@ -23,6 +23,9 @@ namespace eContracting.Models
         [JsonProperty("subTitle2")]
         public string SubTitle2 { get; set; }
 
+        [JsonProperty("text")]
+        public string Text { get; set; }
+
         [JsonProperty("mandatory")]
         public int Mandatory { get; set; }
 

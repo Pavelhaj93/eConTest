@@ -114,6 +114,9 @@ namespace eContracting.Models
         public virtual SimpleTextModel OfferOtherProductsTitle { get; set; }
 
         [SitecoreField]
+        public virtual SimpleTextModel OfferOtherProductsSummaryTitle { get; set; }
+
+        [SitecoreField]
         public virtual SimpleTextModel OfferOtherProductsDocsTitle { get; set; }
 
         [SitecoreField]

@@ -489,8 +489,9 @@ namespace eContracting.Services
             model.Note = definition.OfferOtherProductsNote.Text;
             model.SalesArguments = salesArguments;
             model.Params = parameters;
-            model.SubTitle = definition.OfferOtherProductsDocsTitle.Text;
-            model.SubTitle2 = definition.OfferOtherProductsDocsText.Text;
+            model.SubTitle = definition.OfferOtherProductsSummaryTitle.Text;
+            model.SubTitle2 = definition.OfferOtherProductsDocsTitle.Text;
+            model.Text = definition.OfferOtherProductsDocsText.Text;
             model.Files = list;
             model.Mandatory = 0;
             return model;
