@@ -151,6 +151,11 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public string[] GetXmlNodeNamesExcludeHtml()
+        {
+            throw new NotImplementedException();
+        }
+
         protected IEnumerable<DefinitionCombinationModel> GetAllDefinitionCombinations()
         {
             var list = new List<DefinitionCombinationModel>();

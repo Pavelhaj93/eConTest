@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("eContracting.ConsoleClient")]
+[assembly: AssemblyTitle("eContracting.ConsoleClient2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("eContracting.ConsoleClient")]
+[assembly: AssemblyProduct("eContracting.ConsoleClient2")]
 [assembly: AssemblyCopyright("Copyright ©  2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("41b614d6-8ab8-4b13-b917-b81a2ccc8ea7")]
+[assembly: Guid("ba1ae80d-3bb2-4e01-8b2b-aa4a753e90b4")]
 
 // Version information for an assembly consists of the following four values:
 //

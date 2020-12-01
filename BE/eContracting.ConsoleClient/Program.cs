@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using Consinloop;
 using eContracting.ConsoleClient.Commands;
 using eContracting.Services;
+using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 
 namespace eContracting.ConsoleClient
 {
@@ -12,6 +14,9 @@ namespace eContracting.ConsoleClient
     {
         public static async Task Main(string[] args)
         {
+            var fakeSitecoreContent = new Mock<ISitecoreContext>();
+            var sitecoreContext = fakeSitecoreContent.Object;
+
             using (var consinloop = new ConsinloopRunner(args))
             {
                 consinloop.ConfigureServices((services) =>
@@ -29,12 +34,13 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
                     services.AddScoped<ICache, MemoryCacheService>();
                     services.AddScoped<IApiService, SapApiService>();
-                    //services.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
+                    services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
+                    services.AddScoped<IOfferJsonDescriptor, FixedOfferJsonDescriptor>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
                     services.AddScopedCommand<CompareIdAttachCommand>();
-                    //services.AddScopedCommand<OfferToJsonCommand>();
+                    services.AddScopedCommand<GetOfferJsonCommand>();
                 });
                 await consinloop.Run();
             }
