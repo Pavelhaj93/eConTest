@@ -5,6 +5,7 @@ import ReplaceInFilePlugin from 'replace-in-file-webpack-plugin'
 import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
+import { removeDataTestIdTransformer } from 'typescript-transformer-jsx-remove-data-test-id'
 
 const productionPolyfillsPath = '/Assets/eContracting2/js/polyfills.js'
 
@@ -43,6 +44,16 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+          getCustomTransformers: () => ({
+            before: [removeDataTestIdTransformer()],
+          }),
+        },
+        exclude: [/node_modules/, /build/],
+      },
       {
         test: /\.scss$/,
         use: [

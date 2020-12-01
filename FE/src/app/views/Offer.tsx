@@ -118,7 +118,7 @@ export const Offer: React.FC<View> = observer(
             <Box backgroundColor="gray-80">
               <BoxHeading>{store.perex.title}</BoxHeading>
               {store.perex.params.length > 0 && (
-                <Table size="sm" borderless>
+                <Table size="sm" borderless data-testid="summaryTable">
                   <tbody>
                     {store.perex.params.map(({ title, value }, idx) => (
                       <tr key={idx}>
@@ -156,7 +156,7 @@ export const Offer: React.FC<View> = observer(
           {/* gifts box */}
           {store.gifts && (
             <Box backgroundColor="green">
-              <BoxHeading>
+              <BoxHeading data-testid="giftBoxHeading">
                 {store.singleGiftGroup ? store.gifts.groups[0].title : store.gifts.title}
               </BoxHeading>
               {store.singleGiftGroup ? (
@@ -192,7 +192,10 @@ export const Offer: React.FC<View> = observer(
                   ))}
                 </Row>
               )}
-              <p className="text-center">{store.gifts.note}</p>
+              <div
+                className="text-center editorial-content"
+                dangerouslySetInnerHTML={{ __html: store.gifts.note }}
+              />
             </Box>
           )}
           {/* /gifts box */}
@@ -205,7 +208,7 @@ export const Offer: React.FC<View> = observer(
                 className="editorial-content"
                 dangerouslySetInnerHTML={{ __html: store.documents.acceptance.text }}
               />
-              <Box>
+              <Box data-testid="boxDocumentsToBeAccepted">
                 {store.documentsToBeAccepted.length > 0 && (
                   <>
                     <BoxHeading>{store.documents.acceptance?.accept?.title}</BoxHeading>

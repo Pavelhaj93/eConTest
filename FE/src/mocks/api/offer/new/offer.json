@@ -36,7 +36,7 @@
   },
   "gifts": {
     "title": "Máme pro Vás nachystané dárky",
-    "note": "Způsob doručení korespondenčně na zasílací adresu",
+    "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
     "groups": [
       {
         "title": "Za čas věnovaný naší nabídce od nás jako pozornost získáváte:",

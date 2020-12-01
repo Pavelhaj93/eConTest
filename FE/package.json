@@ -15,7 +15,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "prepush": "yarn lint && yarn test",
-    "clean:files" : "node ./scripts/cleanUploadedFiles.js"
+    "clean:files": "node ./scripts/cleanUploadedFiles.js"
   },
   "husky": {
     "hooks": {
@@ -54,6 +54,7 @@
     "@typescript-eslint/parser": "^4.6.0",
     "autoprefixer": "^9.8.6",
     "awesome-typescript-loader": "^5.2.1",
+    "canvas": "^2.6.1",
     "clean-webpack-plugin": "^3.0.0",
     "connect-api-mocker": "^1.9.0",
     "copy-webpack-plugin": "^6.0.3",
@@ -86,6 +87,7 @@
     "ts-jest": "^26.4.3",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.5",
+    "typescript-transformer-jsx-remove-data-test-id": "^1.1.0",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",

@@ -18,6 +18,11 @@ export default merge(baseConfig, {
   module: {
     rules: [
       {
+        test: /\.(j|t)sx?$/,
+        loader: 'awesome-typescript-loader',
+        exclude: [/node_modules/, /build/],
+      },
+      {
         test: /\.scss$/,
         use: [
           {

@@ -56,11 +56,6 @@ export default {
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: [/node_modules/, /build/],
-      },
-      {
         test: /\.handlebars$/,
         loader: 'handlebars-loader',
         exclude: [/node_modules/, /build/],
