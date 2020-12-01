@@ -173,7 +173,7 @@ namespace eContracting.Services
             }
 
             var model = new JsonSalesArgumentsModel();
-            model.Title = definition.OfferPerexTitle.Text;
+            model.Title = definition.OfferBenefitsTitle.Text;
             model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
             return model;
         }

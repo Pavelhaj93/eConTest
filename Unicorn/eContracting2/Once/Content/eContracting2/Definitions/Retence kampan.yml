@@ -56,6 +56,9 @@ SharedFields:
 - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
   Hint: OfferAcceptText
   Value: "{2939ECDD-6F02-4358-ACA7-D5AC741708A8}"
+- ID: "985bbc27-0a52-4303-8a21-75d2778ff137"
+  Hint: OfferGiftsTitle
+  Value: "{F28B8991-4D1E-4AAA-B456-1E41C64DECFA}"
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 

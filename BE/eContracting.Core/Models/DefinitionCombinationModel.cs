@@ -54,6 +54,9 @@ namespace eContracting.Models
         public virtual SimpleTextModel OfferPerexTitle { get; set; }
 
         [SitecoreField]
+        public virtual SimpleTextModel OfferGiftsTitle { get; set; }
+
+        [SitecoreField]
         public virtual SimpleTextModel OfferBenefitsTitle { get; set; }
 
         [SitecoreField]
