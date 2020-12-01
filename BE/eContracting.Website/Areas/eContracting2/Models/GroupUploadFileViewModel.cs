@@ -31,7 +31,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         /// Gets or sets original file size.
         /// </summary>
         [JsonProperty("size")]
-        public readonly int Size;
+        public readonly long Size;
 
         public GroupUploadFileViewModel(FileInOptimizedGroupModel model)
         {

@@ -1677,7 +1677,7 @@
             The original file size.
             </summary>
         </member>
-        <member name="M:eContracting.Models.FileInOptimizedGroupModel.#ctor(System.String,System.String,System.String,System.Int32)">
+        <member name="M:eContracting.Models.FileInOptimizedGroupModel.#ctor(System.String,System.String,System.String,System.Int64)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.FileInOptimizedGroupModel"/> class.
             </summary>

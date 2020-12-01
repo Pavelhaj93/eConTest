@@ -41,6 +41,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
         }
 
+        internal string FileStorageRoot { get; private set; }
+
         internal eContracting2ApiController(
             ILogger logger,
             ISitecoreContext context,
@@ -55,6 +57,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
+
+            this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
+            this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
         }
 
         [HttpGet]
@@ -342,7 +347,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.BadRequest("No file received");
                 }
-
+                
                 OptimizedFileGroupModel result = null;
 
                 // everytime there "should" be only one file

@@ -29,7 +29,7 @@ namespace eContracting.Models
         /// <summary>
         /// The original file size.
         /// </summary>
-        public readonly int OriginalSize;
+        public readonly long OriginalSize;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileInOptimizedGroupModel"/> class.
@@ -45,7 +45,7 @@ namespace eContracting.Models
         /// or
         /// Mime type is empty - mimeType
         /// </exception>
-        public FileInOptimizedGroupModel(string fileName, string key, string mimeType, int originalSize)
+        public FileInOptimizedGroupModel(string fileName, string key, string mimeType, long originalSize)
         {
             if (string.IsNullOrWhiteSpace(fileName))
             {
