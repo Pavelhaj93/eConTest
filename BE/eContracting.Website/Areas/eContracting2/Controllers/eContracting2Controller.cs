@@ -141,9 +141,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             if (data != null)
             {
                 var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
-                var viewModel = new OfferViewModel();
-                viewModel.Datasource = datasource;
-                viewModel.Definition = definition;
+                var viewModel = new OfferViewModel(this.SettingsReaderService);
                 return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
             }
 

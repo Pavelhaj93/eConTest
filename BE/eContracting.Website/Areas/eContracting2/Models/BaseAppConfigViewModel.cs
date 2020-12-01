@@ -8,6 +8,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class BaseAppConfigViewModel
     {
+        [JsonIgnore]
         public string PageTitle { get; set; }
 
         [JsonProperty("view")]

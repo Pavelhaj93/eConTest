@@ -9,6 +9,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class OfferViewModel : BaseAppConfigViewModel
     {
+        [JsonIgnore]
         public string MainText { get; set; }
         public string GdprGuid { get; set; }
         public string GdprUrl { get; set; }
