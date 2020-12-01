@@ -21,13 +21,21 @@ namespace eContracting.Services
         /// </summary>
         protected readonly ILogger Logger;
 
+        protected readonly ISettingsReaderService SettingsReader;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferParserService"/> class.
         /// </summary>
+        /// <param name="settingsReader">The settings reader.</param>
         /// <param name="logger">The logger.</param>
-        /// <exception cref="ArgumentNullException">logger</exception>
-        public OfferParserService(ILogger logger)
+        /// <exception cref="ArgumentNullException">
+        /// settingsReader
+        /// or
+        /// logger
+        /// </exception>
+        public OfferParserService(ISettingsReaderService settingsReader, ILogger logger)
         {
+            this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
@@ -262,7 +270,7 @@ namespace eContracting.Services
             }
             else
             {
-                return xmlNode.InnerXml;
+                return this.GetXmlNodeValue(xmlNode);
             }
         }
 
@@ -278,10 +286,29 @@ namespace eContracting.Services
                 return xmlNode.InnerText?.Trim();
             }
 
+            var names = this.SettingsReader.GetXmlNodeNamesExcludeHtml();
+
+            if (names.Contains(xmlNode.Name))
+            {
+                return xmlNode.InnerText?.Trim();
+            }
+
             var xml = xmlNode.FirstChild.InnerXml;
             // remove style and xmlns attributes, e.g. "<p style=\"margin-top:0pt;margin-bottom:0pt\" xmlns=\"http://www.w3.org/1999/xhtml\">\nInvestor<br /></p>"
             var clean = Utils.ReplaceXmlAttributes(xml);
             return clean;
+        }
+
+        protected internal string GetXmlNodeValue(XmlNode xmlNode)
+        {
+            var names = this.SettingsReader.GetXmlNodeNamesExcludeHtml();
+
+            if (names.Contains(xmlNode.Name))
+            {
+                return xmlNode.InnerText;
+            }
+
+            return xmlNode.InnerXml;
         }
     }
 }

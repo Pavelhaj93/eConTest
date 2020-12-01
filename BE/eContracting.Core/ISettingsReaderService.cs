@@ -85,5 +85,7 @@ namespace eContracting
         /// <param name="currentStep">The current step.</param>
         /// <returns>Array of all related steps.</returns>
         ProcessStepModel[] GetSteps(ProcessStepModel currentStep);
+
+        string[] GetXmlNodeNamesExcludeHtml();
     }
 }

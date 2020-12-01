@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Fields;
+using Sitecore.Reflection.Emit;
 
 namespace eContracting.Services
 {
@@ -183,6 +184,13 @@ namespace eContracting.Services
         {
             var settings = this.Context.GetItem<SiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
             return settings ?? throw new MissingDatasourceException("Site settings could not be resolved.");
+        }
+
+        public string[] GetXmlNodeNamesExcludeHtml()
+        {
+            var list = new List<string>();
+            list.Add("BENEFITS_NEXT_SIGN_INTRO");
+            return list.ToArray();
         }
 
         /// <inheritdoc/>

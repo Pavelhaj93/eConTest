@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using Newtonsoft.Json;
 
 namespace eContracting.Models
 {
-    public class JsonBenefitsModel
+    public class JsonBenefitModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
-        [JsonProperty("params")]
-        public JsonArgumentModel[] Params { get; set; }
+        [JsonProperty("icon")]
+        public string Icon { get; set; }
+
+        [JsonProperty("count")]
+        public int Count { get; set; }
     }
 }

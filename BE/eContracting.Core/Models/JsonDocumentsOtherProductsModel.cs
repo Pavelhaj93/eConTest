@@ -18,7 +18,7 @@ namespace eContracting.Models
         public IEnumerable<JsonParamModel> Params { get; set; }
 
         [JsonProperty("arguments")]
-        public IEnumerable<JsonArgumentModel> Arguments { get; set; }
+        public IEnumerable<JsonArgumentModel> SalesArguments { get; set; }
 
         [JsonProperty("subTitle2")]
         public string SubTitle2 { get; set; }

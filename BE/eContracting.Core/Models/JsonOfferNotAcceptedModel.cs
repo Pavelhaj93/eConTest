@@ -13,10 +13,10 @@ namespace eContracting.Models
         public JsonOfferPerexModel Perex { get; set; }
 
         [JsonProperty("benefits", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public JsonBenefitsModel Benefits { get; set; }
+        public JsonSalesArgumentsModel Benefits { get; set; }
 
         [JsonProperty("gifts", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public JsonGiftsModel Gifts { get; set; }
+        public JsonAllBenefitsModel Gifts { get; set; }
 
         [JsonProperty("documents", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonOfferDocumentsModel Documents { get; set; }

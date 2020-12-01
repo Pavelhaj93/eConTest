@@ -6,15 +6,12 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models
 {
-    public class JsonGiftModel
+    public class JsonBenefitsGroupModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
-        [JsonProperty("icon")]
-        public string Icon { get; set; }
-
-        [JsonProperty("count")]
-        public int Count { get; set; }
+        [JsonProperty("params")]
+        public IEnumerable<JsonBenefitModel> Params { get; set; }
     }
 }

@@ -335,12 +335,17 @@
             The logger.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.#ctor(eContracting.ILogger)">
+        <member name="M:eContracting.Services.OfferParserService.#ctor(eContracting.ISettingsReaderService,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferParserService"/> class.
             </summary>
+            <param name="settingsReader">The settings reader.</param>
             <param name="logger">The logger.</param>
-            <exception cref="T:System.ArgumentNullException">logger</exception>
+            <exception cref="T:System.ArgumentNullException">
+            settingsReader
+            or
+            logger
+            </exception>
         </member>
         <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
             <inheritdoc/>

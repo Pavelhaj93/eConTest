@@ -11,6 +11,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     {
         [JsonIgnore]
         public string MainText { get; set; }
+
         public string GdprGuid { get; set; }
         public string GdprUrl { get; set; }
 
@@ -42,8 +43,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("maxFileSize")]
         public int MaxAllFilesSize { get; set; }
 
-        public OfferViewModel(ISettingsReaderService settingsReader) : base("Offer", settingsReader)
+        public OfferViewModel(DefinitionCombinationModel definition, ISettingsReaderService settingsReader) : base("Offer", settingsReader)
         {
+            this.PageTitle = definition.OfferTitle.Text;
+            this.MainText = definition.OfferMainText.Text;
         }
     }
 }

@@ -83,6 +83,9 @@ SharedFields:
 - ID: "d9367ba4-b4fd-4854-86a5-971d8074cb0a"
   Hint: OfferCommoditiesSignText
   Value: "{F14E0794-8E6F-4F08-B11C-5A643A3E6A9B}"
+- ID: "da3fb39b-f38b-4815-92c7-9a3a7bd2d541"
+  Hint: OfferPerexTitle
+  Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
 - ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
   Hint: OfferCommoditiesSignTitle
   Value: "{9C03C2EE-ABFB-4DF7-ADC8-B565E07788F6}"

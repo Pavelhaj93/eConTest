@@ -113,8 +113,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var datasource = this.GetLayoutItem<OfferPageModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
 
-                var viewModel = new OfferViewModel(this.SettingsReaderService);
-                this.FillLabels(viewModel, definition);
+                var viewModel = new OfferViewModel(definition, this.SettingsReaderService);
+                viewModel.GdprGuid = offer.GDPRKey;
+                viewModel.GdprUrl = datasource.GDPRUrl;
+                this.FillLabels(viewModel, datasource, definition);
 
                 if (offer.HasGDPR)
                 {
@@ -135,17 +137,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult OfferPreview()
         {
+            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
+            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
+            var fakeAttr = new OfferAttributeModel[] { };
+            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
             var datasource = this.GetLayoutItem<OfferPageModel>();
-            var data = this.Cache.GetFromRequest<OfferIdentifier>(Constants.CacheKeys.OFFER_IDENTIFIER);
-
-            if (data != null)
-            {
-                var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
-                var viewModel = new OfferViewModel(this.SettingsReaderService);
-                return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
-            }
-
-            return new EmptyResult(); //TODO: We should return something more describable
+            var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
+            var viewModel = new OfferViewModel(definition, this.SettingsReaderService);
+            return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
         }
 
         // AcceptedOfferController
@@ -404,7 +403,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new string[] { eCat, eAct, eLab };
         }
 
-        private void FillLabels(OfferViewModel viewModel, DefinitionCombinationModel definition)
+        private void FillLabels(OfferViewModel viewModel, OfferPageModel datasource, DefinitionCombinationModel definition)
         {
             var settings = this.SettingsReaderService.GetSiteSettings();
             viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
@@ -429,10 +428,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["captureFile"] = "Vyfotit a nahrát"; //TODO:
             viewModel["invalidFileTypeError"] = "Dokument má špatný formát"; //TODO:
             viewModel["fileExceedSizeError"] = "Dokument je příliš velký"; //TODO:
-            viewModel["acceptanceModalTitle"] = "Potvrzení akceptace"; //TODO:
-            viewModel["acceptanceModalText"] = "<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>"; //TODO:
-            viewModel["acceptanceModalAccept"] = "Potvrdit"; //TODO:
-            viewModel["acceptanceModalCancel"] = "Storno"; //TODO:
+            viewModel["acceptanceModalTitle"] = datasource.ConfirmModalWindowTitle;
+            viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
+            viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
+            viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
         }
     }
 }
