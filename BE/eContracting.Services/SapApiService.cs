@@ -23,7 +23,7 @@ namespace eContracting.Services
         /// <summary>
         /// The cache.
         /// </summary>
-        protected readonly ICache Cache;
+        protected readonly IUserCacheService Cache;
 
         /// <summary>
         /// The settings reader service.
@@ -55,7 +55,7 @@ namespace eContracting.Services
         /// <param name="offerAttachmentParser">The offer attachment parser.</param>
         public SapApiService(
             ILogger logger,
-            ICache cache,
+            IUserCacheService cache,
             ISettingsReaderService settingsReaderService,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser)

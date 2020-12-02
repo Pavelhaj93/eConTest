@@ -98,6 +98,7 @@
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="FileOptimizer.cs" />
+    <Compile Include="FileSignService.cs" />
     <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="SapApiService.cs" />
     <Compile Include="CacheService.cs" />

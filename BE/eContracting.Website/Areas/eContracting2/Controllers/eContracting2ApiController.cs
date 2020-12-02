@@ -31,6 +31,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
         protected readonly IFileOptimizer FileOptimizer;
+        protected readonly ISignService SignService;
+        protected readonly IUserCacheService CacheService;
 
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
@@ -41,6 +43,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
+            this.SignService = ServiceLocator.ServiceProvider.GetRequiredService<ISignService>();
+            this.CacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
         }
 
         internal string FileStorageRoot { get; private set; }
@@ -51,14 +55,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IApiService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
-            IOfferJsonDescriptor offerJsonDescriptor)
+            ISignService signService,
+            IOfferJsonDescriptor offerJsonDescriptor,
+            IUserCacheService cacheService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
+            this.SignService = signService ?? throw new ArgumentNullException(nameof(signService));
             this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
+            this.CacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
 
             this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
             this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
@@ -196,11 +204,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var attachments = await this.ApiService.GetAttachmentsAsync(offer);
-                var file = attachments.FirstOrDefault(x => x.UniqueKey == id && x.IsPrinted);
+                var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
                 {
                     return this.NotFound();
+                }
+
+                if (!file.IsPrinted)
+                {
+                    return this.BadRequest("File is not printed");
                 }
 
                 using (var imageStream = new MemoryStream())
@@ -232,6 +245,83 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Fatal(guid, ex);
                 return this.InternalServerError();
             }
+        }
+
+        [HttpPost]
+        [Route("sign/{id}")]
+        public async Task<IHttpActionResult> Sign([FromUri] string id)
+        {
+            string guid = null;
+
+            try
+            {
+                // needs to check like this because info about it is only as custom session property :-(
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.Request.Content.IsFormData())
+                {
+                    return this.BadRequest("Invalid request data");
+                }
+
+                var formData = await this.Request.Content.ReadAsFormDataAsync();
+                var postedSignature = formData["signature"];
+
+                if (string.IsNullOrWhiteSpace(postedSignature))
+                {
+                    return this.BadRequest("Empty signature");
+                }
+
+                var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
+                var signature = Convert.FromBase64String(base64);
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
+
+                if (file == null)
+                {
+                    return this.NotFound();
+                }
+
+                if (!file.IsPrinted)
+                {
+                    return this.BadRequest("File is not printed");
+                }
+
+                if (!file.IsSignReq)
+                {
+                    return this.BadRequest("File is not determined for sign");
+                }
+
+                var signedFile = await this.SignService.SignAsync(file, signature);
+
+                if (signedFile == null)
+                {
+                    return this.InternalServerError();
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+
+            return this.StatusCode(HttpStatusCode.NotImplemented);
         }
 
         /// <summary>

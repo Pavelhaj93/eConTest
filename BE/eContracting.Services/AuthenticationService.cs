@@ -20,7 +20,7 @@ namespace eContracting.Services
         /// <summary>
         /// The cache.
         /// </summary>
-        protected readonly ICache Cache;
+        protected readonly IUserCacheService Cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
@@ -32,7 +32,7 @@ namespace eContracting.Services
         /// or
         /// cacheService
         /// </exception>
-        public AuthenticationService(ISettingsReaderService settingsReader, ICache cacheService)
+        public AuthenticationService(ISettingsReaderService settingsReader, IUserCacheService cacheService)
         {
             this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
             this.Cache = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
@@ -97,7 +97,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void Login(AuthDataModel authData)
         {
-            this.Cache.AddToSession(Constants.CacheKeys.AUTH_DATA, authData);
+            this.Cache.Add(Constants.CacheKeys.AUTH_DATA, authData);
         }
 
         /// <inheritdoc/>
@@ -109,7 +109,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public AuthDataModel GetCurrentUser()
         {
-            return this.Cache.GetFromSession<AuthDataModel>(Constants.CacheKeys.AUTH_DATA);
+            return this.Cache.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA);
         }
 
         /// <summary>

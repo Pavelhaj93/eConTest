@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.XPath;
 using eContracting.Models;
 using eContracting.Tests;
+using Moq;
 using Xunit;
 
 namespace eContracting.Services.Tests
@@ -23,8 +24,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.IsAccepted(response);
 
             Assert.False(result);
@@ -40,8 +42,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.IsAccepted(response);
 
             Assert.False(result);
@@ -57,8 +60,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.IsAccepted(response);
 
             Assert.True(result);
@@ -75,10 +79,10 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcess = value;
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             service.MakeCompatible(offerXml);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS, offerXml.Content.Body.BusProcess);
@@ -92,10 +96,10 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.Campaign = null;
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             service.MakeCompatible(offerXml);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_A, offerXml.Content.Body.BusProcessType);
@@ -109,10 +113,10 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.Campaign = "any value";
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             service.MakeCompatible(offerXml);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_B, offerXml.Content.Body.BusProcessType);
@@ -127,10 +131,10 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcess = value;
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             service.MakeCompatible(offerXml);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcess);
@@ -145,10 +149,10 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcessType = value;
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             service.MakeCompatible(offerXml);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcessType);
@@ -161,8 +165,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetVersion(response);
 
             Assert.Equal(1, result);
@@ -178,8 +183,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetVersion(response);
 
             Assert.Equal(2, result);
@@ -195,8 +201,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
 
             Assert.Throws<ApplicationException>(() => { service.GetVersion(response); });
         }
@@ -210,8 +217,9 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_FILES = new[] { file };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
             Assert.Equal(result, file);
@@ -229,8 +237,9 @@ namespace eContracting.Services.Tests
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
             response.ET_FILES = new[] { file1, file2 };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
             Assert.Equal(result, file1);
@@ -251,8 +260,9 @@ namespace eContracting.Services.Tests
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.VERSION, ATTRVAL = Constants.OfferAttributeValues.VERSION_2 } };
             response.ET_FILES = new[] { coreFile, ad1File };
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
             Assert.Equal(coreFile, result);
@@ -268,8 +278,9 @@ namespace eContracting.Services.Tests
             var file = new ZCCH_ST_FILE();
             file.FILECONTENT = Encoding.UTF8.GetBytes(xml.ToString());
             var logger = new TestLogger();
-            
-            var service = new OfferParserService(logger);
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetTextParameters(new[] { file });
 
             Assert.Empty(result);
@@ -296,8 +307,9 @@ namespace eContracting.Services.Tests
             var file2 = new ZCCH_ST_FILE();
             file2.FILECONTENT = Encoding.UTF8.GetBytes(xml2.ToString());
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetTextParameters(new[] { file1, file2 });
 
             Assert.Equal("TEXT_B", result["PARAM"]);
@@ -314,8 +326,9 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetHeader(response);
 
             Assert.Equal(response.ES_HEADER.CCHKEY, result.CCHKEY);
@@ -332,8 +345,9 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetHeader(response);
 
             Assert.Equal(response.ES_HEADER.CCHSTAT, result.CCHSTAT);
@@ -350,8 +364,9 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetHeader(response);
 
             Assert.Equal(response.ES_HEADER.CCHTYPE, result.CCHTYPE);
@@ -368,8 +383,9 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetHeader(response);
 
             Assert.Equal(response.ES_HEADER.CCHVALTO, result.CCHVALTO);
@@ -387,10 +403,10 @@ namespace eContracting.Services.Tests
             attr2.ATTRVAL = "lorem";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr1, attr2 };
-
             var logger = new TestLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
 
-            var service = new OfferParserService(logger);
+            var service = new OfferParserService(settingsService, logger);
             var result = service.GetAttributes(response);
 
             Assert.Contains(result, x => x.Key == attr1.ATTRID);

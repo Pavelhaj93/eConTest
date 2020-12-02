@@ -62,7 +62,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 {
                     var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
                     var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
-                    var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
+                    var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
                     var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
 
                     if (string.IsNullOrEmpty(processCode))
@@ -76,7 +76,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     }
 
                     var data = new OfferIdentifier(processCode, processTypeCode);
-                    cache.AddToRequest(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                    cache.Add(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                 }
                 else
                 {
@@ -91,9 +91,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
                             if (offer != null)
                             {
-                                var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
+                                var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
                                 var data = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType);
-                                cache.AddToSession(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                                cache.Add(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                             }
                         }
                     }

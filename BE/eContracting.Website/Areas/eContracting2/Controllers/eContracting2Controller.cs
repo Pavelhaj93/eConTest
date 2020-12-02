@@ -27,7 +27,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     public class eContracting2Controller : GlassController
     {
         protected readonly ILogger Logger;
-        protected readonly ICache Cache;
+        protected readonly IUserCacheService Cache;
         protected readonly IApiService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationService AuthenticationService;
@@ -39,7 +39,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2Controller()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
-            this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
+            this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
@@ -48,7 +48,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public eContracting2Controller(
             ILogger logger,
-            ICache cache,
+            IUserCacheService cache,
             IApiService apiService,
             ISettingsReaderService settingsReaderService,
             IAuthenticationService authService,
