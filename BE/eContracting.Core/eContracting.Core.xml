@@ -1740,6 +1740,11 @@
             </summary>
             <remarks>This template doesn't contain a file content.</remarks>
         </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.ConsentType">
+            <summary>
+            Gets or sets prefix for the document.
+            </summary>
+        </member>
         <member name="T:eContracting.OFFER_TYPES">
             <summary>
             Type of offers presented in SAP.

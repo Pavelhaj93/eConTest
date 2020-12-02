@@ -325,7 +325,7 @@ namespace eContracting.Services
                 file.Label = selectedFile.FileName;
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsGroupOblig;
-                file.Prefix = "lorem ipsum"; //TODO: Solve prefix for a file
+                file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 list.Add(file);
             }
 

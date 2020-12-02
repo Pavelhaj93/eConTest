@@ -49,7 +49,7 @@ namespace eContracting.Services
                     continue;
                 }
 
-                this.MakeCompatible(offer, template);
+                this.MakeCompatible(offer, template, i);
 
                 var item = this.GetModel(offer, template, files);
 
@@ -136,7 +136,7 @@ namespace eContracting.Services
             return string.IsNullOrEmpty(template.Group);
         }
 
-        protected internal void MakeCompatible(OfferModel offer, DocumentTemplateModel template)
+        protected internal void MakeCompatible(OfferModel offer, DocumentTemplateModel template, int index)
         {
             if (string.IsNullOrEmpty(template.Group))
             {
@@ -150,6 +150,18 @@ namespace eContracting.Services
                 {
                     template.Printed = Constants.FileAttributeValues.CHECK_VALUE;
                     this.Logger.Info(offer.Guid, $"Missing value for 'Printed' (version {offer.Version}). Set default: '{Constants.FileAttributeValues.CHECK_VALUE}'");
+                }
+            }
+
+            if (!template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) && string.IsNullOrWhiteSpace(template.ConsentType))
+            {
+                if (index == 0)
+                {
+                    template.ConsentType = "S";
+                }
+                else
+                {
+                    template.ConsentType = "P";
                 }
             }
         }

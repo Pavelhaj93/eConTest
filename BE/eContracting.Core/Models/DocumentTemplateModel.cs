@@ -48,6 +48,9 @@ namespace eContracting.Models
         [XmlElement("ITEM_GUID")]
         public string ItemGuid { get; set; }
 
+        /// <summary>
+        /// Gets or sets prefix for the document.
+        /// </summary>
         [XmlElement("CONSENT_TYPE")]
         public string ConsentType { get; set; }
     }
