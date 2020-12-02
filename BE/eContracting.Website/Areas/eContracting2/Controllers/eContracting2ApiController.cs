@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -157,6 +159,68 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                 response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
                 return this.ResponseMessage(response);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+        }
+
+        [HttpGet]
+        [Route("thumbnail/{id}")]
+        public async Task<IHttpActionResult> Thumbnail([FromUri] string id)
+        {
+            string guid = null;
+
+            try
+            {
+                // needs to check like this because info about it is only as custom session property :-(
+                if (!this.AuthService.IsLoggedIn())
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.AuthService.GetCurrentUser();
+                guid = user.Guid;
+                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var file = attachments.FirstOrDefault(x => x.UniqueKey == id && x.IsPrinted);
+
+                if (file == null)
+                {
+                    return this.NotFound();
+                }
+
+                using (var imageStream = new MemoryStream())
+                {
+                    using (var pdfStream = new MemoryStream(file.FileContent))
+                    {
+                        this.PrintPdfToImage(pdfStream, imageStream);
+
+                        var imageArray = imageStream.ToArray();
+                        var response = new HttpResponseMessage(HttpStatusCode.OK);
+                        response.Headers.CacheControl = new CacheControlHeaderValue();
+                        response.Headers.CacheControl.NoCache = true;
+                        response.Content = new ByteArrayContent(imageArray);
+                        response.Content.Headers.Expires = new DateTimeOffset(DateTime.Now.AddMinutes(1));
+                        response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+                        response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("inline");
+                        response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
+                        return this.ResponseMessage(response);
+                    }
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -481,6 +545,91 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 this.Logger.Fatal(guid, ex);
                 return this.InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Converts PDF file to the PNG stream
+        /// </summary>
+        /// <param name="memoryStream"></param>
+        private void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        {
+            var pdfImages = new List<Image>();
+
+            using (var document = PdfiumViewer.PdfDocument.Load(pdfStream))
+            {
+                for (var i = 0; i < document.PageCount; i++)
+                {
+                    var image = document.Render(i, 600, 600, false);
+                    pdfImages.Add(image);
+                }
+            }
+
+            var bitmap = CombineBitmap(pdfImages);
+            bitmap.Save(imageStream, ImageFormat.Png);
+        }
+
+        /// <summary>
+        /// Mergne obrazky
+        /// https://stackoverflow.com/questions/465172/merging-two-images-in-c-net
+        /// </summary>
+        /// <param name="files"></param>
+        /// <returns></returns>
+        private Bitmap CombineBitmap(IEnumerable<Image> files)
+        {
+            //read all images into memory
+            var images = new List<Bitmap>();
+            Bitmap finalImage = null;
+
+            try
+            {
+                var width = 0;
+                var height = 0;
+
+                foreach (var image in files)
+                {
+                    //create a Bitmap from the file and add it to the list
+                    var bitmap = new Bitmap(image);
+
+                    //update the size of the final bitmap
+                    width = bitmap.Width > width ? bitmap.Width : width;
+                    height += bitmap.Height;
+
+                    images.Add(bitmap);
+                }
+
+                //create a bitmap to hold the combined image
+                finalImage = new Bitmap(width, height);
+
+                //get a graphics object from the image so we can draw on it
+                using (var g = Graphics.FromImage(finalImage))
+                {
+                    //set background color
+                    g.Clear(Color.Black);
+
+                    //go through each image and draw it on the final image
+                    var offset = 0;
+                    foreach (var image in images)
+                    {
+                        g.DrawImage(image, new Rectangle(0, offset, image.Width, image.Height));
+                        offset += image.Height;
+                    }
+                }
+
+                return finalImage;
+            }
+            catch (Exception)
+            {
+                finalImage?.Dispose();
+                return null;
+            }
+            finally
+            {
+                //clean up memory
+                foreach (var image in images)
+                {
+                    image.Dispose();
+                }
             }
         }
     }
