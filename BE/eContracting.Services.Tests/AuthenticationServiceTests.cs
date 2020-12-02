@@ -337,7 +337,7 @@ namespace eContracting.Services.Tests
             var authData = new AuthDataModel(offer);
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserCacheService>();
-            mockCache.Setup(x => x.Add(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
+            mockCache.Setup(x => x.Set(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             service.Login(authData);

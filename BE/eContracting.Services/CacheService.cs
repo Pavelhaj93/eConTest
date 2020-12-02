@@ -10,17 +10,17 @@ using Sitecore.Caching;
 namespace eContracting.Services
 {
     /// <inheritdoc/>
-    public class CacheService : CustomCache, IUserCacheService
+    public class CacheService : IUserCacheService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CacheService"/> class.
         /// </summary>
-        public CacheService() : base("eContracting.Data", StringUtil.ParseSizeString("25MB"))
+        public CacheService()
         {
         }
 
         /// <inheritdoc/>
-        public void Add<T>(string key, T data)
+        public void Set<T>(string key, T data)
         {
             if (HttpContext.Current == null)
             {
@@ -41,6 +41,19 @@ namespace eContracting.Services
             }
 
             return default(T);
+        }
+
+        /// <inheritdoc/>
+        public void Remove(string key)
+        {
+            HttpContext.Current?.Session?.Remove(key);
+            //TODO: Remove data related to session
+        }
+
+        /// <inheritdoc/>
+        public void Clear()
+        {
+            //TODO: clear data dependent on session
         }
     }
 }

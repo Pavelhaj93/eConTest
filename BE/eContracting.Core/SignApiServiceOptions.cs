@@ -11,7 +11,7 @@ namespace eContracting
     /// <summary>
     /// Settings for <see cref="IApiService"/>.
     /// </summary>
-    public class SignApiServiceOptions
+    public class CacheApiServiceOptions
     {
         /// <summary>
         /// The user.
@@ -29,12 +29,12 @@ namespace eContracting
         public readonly Uri Url;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SignApiServiceOptions"/> class.
+        /// Initializes a new instance of the <see cref="CacheApiServiceOptions"/> class.
         /// </summary>
         /// <param name="url">The URL.</param>
         /// <param name="base64Username">The base64 username.</param>
         /// <param name="base64password">The base64password.</param>
-        public SignApiServiceOptions(string url, string base64Username, string base64password)
+        public CacheApiServiceOptions(string url, string base64Username, string base64password)
         {
             if (string.IsNullOrEmpty(url))
             {

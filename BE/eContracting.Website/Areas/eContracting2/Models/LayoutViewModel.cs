@@ -76,7 +76,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     }
 
                     var data = new OfferIdentifier(processCode, processTypeCode);
-                    cache.Add(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                    cache.Set(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                 }
                 else
                 {
@@ -93,7 +93,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                             {
                                 var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
                                 var data = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType);
-                                cache.Add(Constants.CacheKeys.OFFER_IDENTIFIER, data);
+                                cache.Set(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                             }
                         }
                     }

@@ -100,6 +100,28 @@
             </summary>
             <param name="imgBytes"></param>
         </member>
+        <member name="F:eContracting.Services.FileSignService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.FileSignService.SettingsReaderService">
+            <summary>
+            The settings reader service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.FileSignService.Api">
+            <summary>
+            The API client.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.FileSignService.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.FileSignService"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.ReplaceWithTextParameters(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Replaces placeholders in <paramref name="source"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
@@ -242,10 +264,16 @@
             Initializes a new instance of the <see cref="T:eContracting.Services.CacheService"/> class.
             </summary>
         </member>
-        <member name="M:eContracting.Services.CacheService.Add``1(System.String,``0)">
+        <member name="M:eContracting.Services.CacheService.Set``1(System.String,``0)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.CacheService.Get``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CacheService.Clear">
             <inheritdoc/>
         </member>
         <member name="F:eContracting.Services.MongoLoginReportStore.MongoClient">
@@ -433,6 +461,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetApiServiceOptions">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSignApiServiceOptions">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">

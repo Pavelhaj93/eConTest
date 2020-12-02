@@ -97,7 +97,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void Login(AuthDataModel authData)
         {
-            this.Cache.Add(Constants.CacheKeys.AUTH_DATA, authData);
+            this.Cache.Set(Constants.CacheKeys.AUTH_DATA, authData);
         }
 
         /// <inheritdoc/>

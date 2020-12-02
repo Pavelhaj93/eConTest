@@ -104,6 +104,34 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public SignApiServiceOptions GetSignApiServiceOptions()
+        {
+            var generalSettings = this.GetSiteSettings();
+
+            var url = generalSettings.SigningServiceUrl;
+            var username = generalSettings.SigningServiceUser;
+            var password = generalSettings.SigningServicePassword;
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                url = this.ContextWrapper.GetSetting("eContracting.SigningServiceUrl");
+            }
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                username = this.ContextWrapper.GetSetting("eContracting.SigningServiceUser");
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                password = this.ContextWrapper.GetSetting("eContracting.SigningServicePassword");
+            }
+
+            var options = new SignApiServiceOptions(url, username, password);
+            return options;
+        }
+
+        /// <inheritdoc/>
         public DefinitionCombinationModel GetDefinition(OfferModel offer)
         {
             var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);

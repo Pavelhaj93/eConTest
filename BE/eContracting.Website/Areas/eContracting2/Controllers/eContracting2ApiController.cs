@@ -309,6 +309,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.InternalServerError();
                 }
+
+                return this.Ok();
             }
             catch (EndpointNotFoundException ex)
             {

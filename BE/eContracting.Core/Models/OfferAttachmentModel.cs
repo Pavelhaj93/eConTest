@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Services;
@@ -141,6 +142,8 @@ namespace eContracting.Models
 
         public readonly string ConsentType;
 
+        public readonly string TemplAlcId;
+
         #region Desicion makers where to place a file
 
         /// <summary>
@@ -189,6 +192,7 @@ namespace eContracting.Models
             this.GroupGuid = template.ItemGuid;
             this.FileName = template.Description;
             this.ConsentType = template.ConsentType;
+            this.TemplAlcId = template.TemplAlcId;
             this.IsObligatory = template.Obligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
             this.IsGroupOblig = template.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
             this.IsPrinted = template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
@@ -220,6 +224,27 @@ namespace eContracting.Models
             }
 
             return attr.Value.Equals("X", StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public OfferAttachmentModel Clone(byte[] newFileContent)
+        {
+            var template = new DocumentTemplateModel();
+            template.AddInfo = this.DocumentTemplate.AddInfo;
+            template.ConsentType = this.DocumentTemplate.ConsentType;
+            template.Description = this.DocumentTemplate.Description;
+            template.Group = this.DocumentTemplate.Group;
+            template.GroupObligatory = this.DocumentTemplate.GroupObligatory;
+            template.IdAttach = this.DocumentTemplate.IdAttach;
+            template.ItemGuid = this.DocumentTemplate.ItemGuid;
+            template.Obligatory = this.DocumentTemplate.Obligatory;
+            template.Printed = this.DocumentTemplate.Printed;
+            template.SequenceNumber = this.DocumentTemplate.SequenceNumber;
+            template.SignReq = this.DocumentTemplate.SignReq;
+            template.TemplAlcId = this.DocumentTemplate.TemplAlcId;
+            template.TimeStampRequired = this.DocumentTemplate.TimeStampRequired;
+
+            var model = new OfferAttachmentModel(template, this.UniqueKey, this.IdAttach, this.MimeType, this.OriginalFileName, this.Attributes, newFileContent);
+            return model;
         }
 
         protected string GetFileNameExtension(DocumentTemplateModel template, string originalFileName)

@@ -62,6 +62,13 @@ namespace eContracting
         /// <returns>The configuration.</returns>
         CacheApiServiceOptions GetApiServiceOptions();
 
+        /// <summary>
+        /// Gets configuration for <see cref="ISignService"/>.
+        /// </summary>
+        /// <returns>The configuration.</returns>
+        SignApiServiceOptions GetSignApiServiceOptions();
+
+        [Obsolete]
         RichTextModel GetMainTextForLogin(OfferModel offer);
 
         /// <summary>
