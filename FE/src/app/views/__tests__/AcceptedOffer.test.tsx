@@ -7,6 +7,7 @@ const mockProps = {
   view: 'Offer',
   offerUrl: '',
   errorPageUrl: '',
+  thankYouPageUrl: '',
   getFileUrl: '/',
   getFileForSignUrl: '',
   signFileUrl: '',

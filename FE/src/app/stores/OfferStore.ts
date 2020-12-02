@@ -698,8 +698,6 @@ export class OfferStore {
         throw new Error(`FAILED TO ACCEPT OFFER - ${response.statusText}`)
       }
 
-      // TODO: implement redirection after offer was accepted
-
       return true
     } catch (error) {
       // eslint-disable-next-line no-console

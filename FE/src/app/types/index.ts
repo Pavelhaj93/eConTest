@@ -25,6 +25,7 @@ export type AppConfig = {
   removeFileUrl?: string
   errorPageUrl: string
   acceptOfferUrl?: string
+  thankYouPageUrl: string
   allowedContentTypes?: string[]
   maxFileSize?: number
 }

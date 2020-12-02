@@ -7,6 +7,7 @@ const mockProps = {
   view: 'Authentication',
   offerUrl: '/api/documents',
   errorPageUrl: '/error',
+  thankYouPageUrl: '',
   formAction: '/authentication.html',
   choices: [
     {
@@ -34,6 +35,7 @@ const mockPropsSingleChoice = {
   view: 'Authentication',
   offerUrl: '/api/documents',
   errorPageUrl: '/error',
+  thankYouPageUrl: '',
   formAction: '/authentication.html',
   choices: [
     {

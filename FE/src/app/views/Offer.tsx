@@ -38,6 +38,7 @@ export const Offer: React.FC<View> = observer(
     allowedContentTypes,
     maxFileSize,
     acceptOfferUrl,
+    thankYouPageUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -517,6 +518,7 @@ export const Offer: React.FC<View> = observer(
           show={confirmationModal}
           onClose={() => setConfirmationModal(false)}
           labels={labels}
+          thankYouPageUrl={thankYouPageUrl}
         />
       </OfferStoreContext.Provider>
     )
