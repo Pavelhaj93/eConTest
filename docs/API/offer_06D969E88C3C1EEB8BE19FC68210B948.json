@@ -1,0 +1,237 @@
+﻿{
+    "perex": {
+        "title": "Stručný přehled Vaší nabídky",
+        "params": [
+            {
+                "title": "Produkt",
+                "value": "elektřina Garance 24"
+            },
+            {
+                "title": "Platnost nabídky do",
+                "value": "30.12.2020"
+            },
+            {
+                "title": "Délka fixace",
+                "value": "24 měsíců od platnosti smlouvy"
+            },
+            {
+                "title": "Platnost smlouvy",
+                "value": "Dnem podpisusmlouvy zákazníkem"
+            },
+            {
+                "title": "Předpokládaná účinnost smlouvy",
+                "value": "Zatím neurčeno "
+            }
+        ]
+    },
+    "benefits": {
+        "title": "Zvoleným produktem získáte",
+        "params": [
+            {
+                "value": "garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy"
+            },
+            {
+                "value": "ve druhém i třetím roce garance dalšího cenového snížení"
+            },
+            {
+                "value": "férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy"
+            }
+        ]
+    },
+    "gifts": {
+        "title": "Zvoleným produktem získáte",
+        "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
+        "groups": [
+            {
+                "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
+                "params": [
+                    {
+                        "title": "LED žárovka",
+                        "icon": "LED",
+                        "count": 1
+                    },
+                    {
+                        "title": "Poukázka Kaufland 100 Kč",
+                        "icon": "PKZ",
+                        "count": 1
+                    }
+                ]
+            }
+        ]
+    },
+    "documents": {
+        "acceptance": {
+            "title": "Dokumenty k elektronické akceptaci Vaší smlouvy",
+            "text": "<p>Va&scaron;e adresa: Lužnice 10 / test, 379 01 Lužnice<br />\r\nEAN: 859182400105583625</p>",
+            "accept": {
+                "title": "Dodatek a přidružené dokumenty",
+                "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
+                "mandatory": true,
+                "files": [
+                    {
+                        "key": "A9BBAD26F1BEC745002778576170ADCA",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Informace pro zákazníka – spotřebitele",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "94F996AA6FD51AA3FE3F5E3475539053",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Smlouva o sdružených službách dodávky elektřiny",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "C3B051848D7F7B0EC9AA9BA42A109A5B",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Ceník",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "097A16F8C513ABC3413ED4FCF245360B",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Ceník služeb",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    },
+                    {
+                        "key": "6938B16467BC94730F040D6EA9D67052",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Obchodní podmínky",
+                        "prefix": "lorem ipsum",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    }
+                ]
+            },
+            "sign": {
+                "title": "Plná moc",
+                "subTitle": "<p>Plnou moc potřebujeme pro zaji&scaron;těn&iacute; pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>",
+                "mandatory": true,
+                "files": [
+                    {
+                        "key": "250432E2E030C514C541064EC087B69D",
+                        "group": "06D969E88C3C1EEB8BE19F8B97309948",
+                        "label": "Plná moc",
+                        "prefix": "Souhlasím s",
+                        "mime": "application/pdf",
+                        "mandatory": true
+                    }
+                ]
+            }
+        },
+        "other": {
+            "services": {
+                "title": "Doplňkové služby",
+                "mandatory": 2,
+                "files": [
+                    {
+                        "key": "4132B9832A99B38711F6B251F1737014",
+                        "group": "06D969E88C3C1EEB8BE1A0344550B948",
+                        "label": "Dohoda o sjednání služby Předplacenka",
+                        "prefix": "Souhlasím s",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    },
+                    {
+                        "key": "84C899303F9A44A63AFD2975CBC6CA24",
+                        "group": "06D969E88C3C1EEB8BE1A03445559948",
+                        "label": "Žádost o nesnížování zálohových plateb",
+                        "prefix": "Souhlasím s",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    }
+                ]
+            },
+            "products": {
+                "title": "Ostatní produkty",
+                "subTitle": "Stručný přehled Vaší nabídky",
+                "params": [
+                    {
+                        "title": "Služba",
+                        "value": "innogy Pojištění domácnosti"
+                    },
+                    {
+                        "title": "Varianta",
+                        "value": "Komfort"
+                    },
+                    {
+                        "title": "Platnost nabídky do",
+                        "value": "10.12.2020"
+                    }
+                ],
+                "arguments": [
+                    {
+                        "value": "1. Pojištění domácnosti"
+                    },
+                    {
+                        "value": "2. Pojištění odpovědnosti"
+                    },
+                    {
+                        "value": "3. Asistenční služby"
+                    }
+                ],
+                "subTitle2": "Přihláška a přidružené dokumenty",
+                "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
+                "mandatory": 0,
+                "files": [
+                    {
+                        "key": "13CB7EE8DEDF5454E117731DB8A95BE6",
+                        "group": "06D969E88C3C1EEB8BE1A03445601948",
+                        "label": "Přihláška k pojištění",
+                        "prefix": "Souhlasím s",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    },
+                    {
+                        "key": "7A169BEE01A28437A7CCD887CDD88BEF",
+                        "group": "06D969E88C3C1EEB8BE1A03445601948",
+                        "label": "Rámcová smlouva k pojištění",
+                        "prefix": "Jsem poučen o",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    },
+                    {
+                        "key": "130D04BAEC6A063BFCEA2A61E26351C3",
+                        "group": "06D969E88C3C1EEB8BE1A03445601948",
+                        "label": "Pojištění - Informační dokument",
+                        "prefix": "Jsem poučen o",
+                        "mime": "application/pdf",
+                        "mandatory": false
+                    }
+                ],
+                "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>"
+            }
+        }
+    },
+    "acceptance": {
+        "button": {
+            "title": "Potvrzení nabídky",
+            "text": "<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>"
+        },
+        "params": [
+            {
+                "title": "Investor",
+                "group": "06D969E88C3C1EEB8BE1A0344550B948"
+            },
+            {
+                "title": "Nesnižování záloh",
+                "group": "06D969E88C3C1EEB8BE1A03445559948"
+            },
+            {
+                "title": "Smlouva dodatek",
+                "group": "06D969E88C3C1EEB8BE19F8B97309948"
+            },
+            {
+                "title": "innogy Pojištění domácnosti",
+                "group": "06D969E88C3C1EEB8BE1A03445601948"
+            }
+        ]
+    }
+}
