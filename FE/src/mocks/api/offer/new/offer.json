@@ -158,7 +158,7 @@
       },
       "sign": {
         "title": "Plná moc",
-        "subTitle": "Plnou moc potřebujeme pro zajištění pokračování dodávky u innogy",
+        "subTitle": "<p>Plnou moc potřebujeme pro zaji&scaron;těn&iacute; pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>",
         "mandatory": true,
         "files": [
           {
@@ -226,6 +226,7 @@
           }
         ],
         "subTitle2": "Přihláška a přidružené dokumenty",
+        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
         "mandatory": 3,
         "files": [
           {
@@ -254,6 +255,7 @@
       },
       "services": {
         "title": "Doplňkové služby",
+        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
         "mandatory": 0,
         "files": [
           {

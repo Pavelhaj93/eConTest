@@ -94,9 +94,11 @@ export type OtherDocuments = {
     subTitle2: string
     files: OfferDocument[]
     note: string
+    text: string
   }
   services?: {
     title: string
+    text: string
     files: OfferDocument[]
   }
 }

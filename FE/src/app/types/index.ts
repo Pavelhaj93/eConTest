@@ -24,6 +24,7 @@ export type AppConfig = {
   /** URL that accepts document id to remove the uploaded document. */
   removeFileUrl?: string
   errorPageUrl: string
+  acceptOfferUrl?: string
   allowedContentTypes?: string[]
   maxFileSize?: number
 }

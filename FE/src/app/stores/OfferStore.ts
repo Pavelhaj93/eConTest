@@ -21,6 +21,7 @@ export class OfferStore {
   public uploadDocumentUrl = ''
   public removeDocumentUrl = ''
   public errorPageUrl = ''
+  public acceptOfferUrl = ''
   public maxUploadGroupSize = 0
   private type: OfferType
 
@@ -56,6 +57,9 @@ export class OfferStore {
 
   @observable
   public acceptance: Acceptance = { params: [] }
+
+  @observable
+  public isAccepting = false
 
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
@@ -312,7 +316,7 @@ export class OfferStore {
   }
 
   /**
-   * Performs an ajax request to `documentsURL` provided in constructor, fetch and populate documents.
+   * Performs an ajax request to `offerUrl` provided in constructor, fetch and populate documents.
    * @param timeoutMs - number of milliseconds after which the fetch request is canceled.
    */
   @action public async fetchOffer(timeoutMs?: number): Promise<void> {
@@ -643,5 +647,66 @@ export class OfferStore {
     if (!group) return
 
     group.size = size
+  }
+
+  /**
+   * Returns array of keys of all accepted or signed documents.
+   * @param documents - an array of `OfferDocument` items.
+   */
+  private getAcceptedKeys(documents: Array<OfferDocument>): string[] {
+    return documents.filter(d => d.accepted || d.signed).map(d => d.key)
+  }
+
+  /**
+   * Performs an ajax request to `acceptOfferUrl`.
+   * @returns Promise<boolean> - true if offer was successfully accepted, false otherwise.
+   */
+  public async acceptOffer(url = this.acceptOfferUrl): Promise<boolean> {
+    if (!this.isOfferReadyToAccept) {
+      return false
+    }
+
+    // get keys for all uploaded files in all groups
+    const uploadedKeys = Object.values(this.userDocuments).reduce((keys: string[], docs) => {
+      // filter out all failed uploads
+      const uploadedDocs = docs.filter(d => !d.error)
+      return [...keys, ...uploadedDocs.map(d => d.key)]
+    }, [])
+
+    const data = {
+      accepted: this.getAcceptedKeys(this.documentsToBeAccepted),
+      signed: this.getAcceptedKeys(this.documentsToBeSigned),
+      uploaded: uploadedKeys,
+      other: [
+        ...this.getAcceptedKeys(this.documentsProducts),
+        ...this.getAcceptedKeys(this.documentsServices),
+      ],
+    }
+
+    this.isAccepting = true
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw new Error(`FAILED TO ACCEPT OFFER - ${response.statusText}`)
+      }
+
+      // TODO: implement redirection after offer was accepted
+
+      return true
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error.toString())
+      return false
+    } finally {
+      this.isAccepting = false
+    }
   }
 }

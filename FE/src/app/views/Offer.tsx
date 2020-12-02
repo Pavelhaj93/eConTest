@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef, Fragment } from 'react'
+import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
 import { OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
@@ -28,7 +28,6 @@ export const Offer: React.FC<View> = observer(
   ({
     offerUrl,
     labels,
-    formAction,
     getFileUrl,
     getFileForSignUrl,
     signFileUrl,
@@ -38,6 +37,7 @@ export const Offer: React.FC<View> = observer(
     errorPageUrl,
     allowedContentTypes,
     maxFileSize,
+    acceptOfferUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -64,6 +64,10 @@ export const Offer: React.FC<View> = observer(
       if (maxFileSize) {
         store.maxUploadGroupSize = maxFileSize
       }
+
+      if (acceptOfferUrl) {
+        store.acceptOfferUrl = acceptOfferUrl
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -72,24 +76,6 @@ export const Offer: React.FC<View> = observer(
         id,
         show: true,
       })
-    }, [])
-
-    const handleAcceptOffer = useCallback(() => {
-      if (!window.dataLayer) {
-        window.dataLayer = []
-      }
-      window.dataLayer.push({
-        event: 'gaEvent',
-        gaEventData: {
-          eCat: 'eContracting',
-          eAct: 'Offer accepted',
-        },
-        eventCallback: function () {
-          window.dataLayer.push({ gaEventData: undefined })
-        },
-      })
-
-      formRef.current?.submit()
     }, [])
 
     return (
@@ -104,7 +90,7 @@ export const Offer: React.FC<View> = observer(
         {/* /error state */}
 
         <form
-          action={formAction}
+          action={acceptOfferUrl}
           method="post"
           ref={formRef}
           className={classNames({
@@ -112,6 +98,7 @@ export const Offer: React.FC<View> = observer(
             loading: store.isLoading,
             'd-none': store.error, // hide the whole form if there is an error
           })}
+          onSubmit={(ev: FormEvent) => ev.preventDefault()}
         >
           {/* summary / perex box */}
           {store.perex && (
@@ -255,7 +242,12 @@ export const Offer: React.FC<View> = observer(
                 {store.documentsToBeSigned.length > 0 && (
                   <>
                     <BoxHeading>{store.documents.acceptance.sign?.title}</BoxHeading>
-                    <p className="my-4 text-center">{store.documents.acceptance?.sign?.subTitle}</p>
+                    <div
+                      className="editorial-content text-center my-4"
+                      dangerouslySetInnerHTML={{
+                        __html: store.documents.acceptance?.sign?.subTitle ?? '',
+                      }}
+                    />
                     {store.documentsToBeSigned.map(({ key, prefix, label, signed }) => (
                       <div key={key} className="form-item-wrapper mb-3">
                         <div className="like-custom-control-label">
@@ -391,7 +383,10 @@ export const Offer: React.FC<View> = observer(
                 )}
 
                 <BoxHeading>{store.documents.other.products.subTitle2}</BoxHeading>
-                <p className="text-center my-4">Dokument(y) si pročtěte a potvrďte zatržením</p>
+                <div
+                  className="text-center editorial-content my-4"
+                  dangerouslySetInnerHTML={{ __html: store.documents.other.products.text }}
+                />
                 <div className="mb-2">
                   <Button
                     variant="link"
@@ -445,9 +440,10 @@ export const Offer: React.FC<View> = observer(
             <>
               <h2 className="mt-5">{store.documents.other.services.title}</h2>
               <Box>
-                <p className="text-center mt-2 mb-4">
-                  Dokument(y) si pročtěte a potvrďte zatržením
-                </p>
+                <div
+                  className="text-center editorial-content mt-2 mb-4"
+                  dangerouslySetInnerHTML={{ __html: store.documents.other.services.text }}
+                />
                 <div className="mb-2">
                   <Button
                     variant="link"
@@ -498,6 +494,7 @@ export const Offer: React.FC<View> = observer(
               <p>{t('acceptOfferHelptext')}</p>
               <Button
                 variant="secondary"
+                type="submit"
                 onClick={() => setConfirmationModal(true)}
                 disabled={!store.isOfferReadyToAccept}
               >
@@ -519,7 +516,6 @@ export const Offer: React.FC<View> = observer(
         <ConfirmationModal
           show={confirmationModal}
           onClose={() => setConfirmationModal(false)}
-          onConfirm={handleAcceptOffer}
           labels={labels}
         />
       </OfferStoreContext.Provider>
