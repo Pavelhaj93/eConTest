@@ -32,7 +32,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
         protected readonly IFileOptimizer FileOptimizer;
         protected readonly ISignService SignService;
-        protected readonly IUserDataCacheService CacheService;
+        protected readonly IUserDataCacheService UserDataCacheService;
+        protected readonly IUserFileCacheService UserFileCacheService;
 
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
@@ -44,7 +45,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
             this.SignService = ServiceLocator.ServiceProvider.GetRequiredService<ISignService>();
-            this.CacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+            this.UserDataCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+            this.UserFileCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
         }
 
         internal string FileStorageRoot { get; private set; }
@@ -57,7 +59,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISettingsReaderService settingsReaderService,
             ISignService signService,
             IOfferJsonDescriptor offerJsonDescriptor,
-            IUserDataCacheService cacheService)
+            IUserDataCacheService userDataCache,
+            IUserFileCacheService userFileCache)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -66,7 +69,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.SignService = signService ?? throw new ArgumentNullException(nameof(signService));
             this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
-            this.CacheService = cacheService ?? throw new ArgumentNullException(nameof(cacheService));
+            this.UserDataCacheService = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
+            this.UserFileCacheService = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
 
             this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
             this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
@@ -309,6 +313,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.InternalServerError();
                 }
+
+                this.UserFileCacheService.Set("signed_" + file.UniqueKey, signedFile);
 
                 return this.Ok();
             }
