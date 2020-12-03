@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Authentication } from '../'
 
@@ -81,7 +81,7 @@ describe('Authentication view', () => {
     render(<Authentication {...mockProps} />)
     const submitBtn = screen.getByText(mockProps.labels.submitBtn)
 
-    fireEvent.click(submitBtn)
+    userEvent.click(submitBtn)
 
     const alert = screen.getByRole('alert')
 

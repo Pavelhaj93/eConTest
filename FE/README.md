@@ -51,7 +51,7 @@ Returns JSON in shape of `AcceptedOfferResponse`. Check `@types/Offer.ts` for mo
 
 Returns JSON in shape of `NewOfferResponse`. Check `@types/Offer.ts` for more details.
 
-#### `GET` /api/document-image/{id}
+#### `GET` /api/document-image/{key}
 
 Returns PNG image.
 
@@ -93,9 +93,26 @@ Query string params:
 
 Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when removal of the file is successful, `400` when fails.
 
-#### `POST` /api/sign-document
+#### `POST` /api/sign-document/{key}
 
-TODO:
+Request body params:
+- `signature` - PNG representation of signature encoded as base64 (string)
+
+HTTP status code `200` is returned when sign process is successful, `400` when fails.
+
+#### `POST` /api/offer/accept
+
+Request body JSON:
+```json
+{
+  "accepted": [], // array of keys
+  "signed": [], // array of keys
+  "uploaded": [], // array of keys
+  "other": [] // array of keys
+}
+```
+
+HTTP status code `200` is returned when offer is accepted, `400` when fails.
 
 ## Other information
 

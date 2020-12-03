@@ -10,7 +10,7 @@ export type AppConfig = {
     [key: string]: any
   }
   formAction?: string
-  choices: Choice[]
+  choices?: Choice[]
   /** URL that returns the document itself. Need to append file ID. */
   getFileUrl?: string
   /** URL that returns an image preview of the document. Need to append file ID. */

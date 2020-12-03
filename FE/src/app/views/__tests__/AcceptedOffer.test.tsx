@@ -12,7 +12,6 @@ const mockProps = {
   getFileForSignUrl: '',
   signFileUrl: '',
   labels: {},
-  choices: [],
 }
 
 const acceptedOfferResponse = {
@@ -32,7 +31,7 @@ const acceptedOfferResponse = {
 }
 
 describe('Accepted offer', () => {
-  it('render error message when API is unavailable', async () => {
+  it('renders error message when API is unavailable', async () => {
     fetch.mockRejectOnce(() => Promise.reject('API is unavailable'))
 
     render(<AcceptedOffer {...mockProps} />)

@@ -22,7 +22,7 @@ type FormValues = {
   [key: string]: string
 }
 
-export const Authentication: React.FC<View> = ({ labels, formAction, choices }) => {
+export const Authentication: React.FC<View> = ({ labels, formAction, choices = [] }) => {
   const [isFormValid, setFormValid] = useState(false)
   const [date, setDate] = useState<Date | null>(null)
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null)

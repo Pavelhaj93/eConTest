@@ -16,7 +16,6 @@ const mockProps = {
     signatureBtn: 'Podepsat',
     submitBtn: 'Akceptuji',
   },
-  choices: [],
 }
 
 const basicOfferResponse = {
