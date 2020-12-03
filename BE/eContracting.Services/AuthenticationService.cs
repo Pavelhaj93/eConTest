@@ -20,7 +20,7 @@ namespace eContracting.Services
         /// <summary>
         /// The cache.
         /// </summary>
-        protected readonly IUserCacheService Cache;
+        protected readonly IUserDataCacheService Cache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthenticationService"/> class.
@@ -32,7 +32,7 @@ namespace eContracting.Services
         /// or
         /// cacheService
         /// </exception>
-        public AuthenticationService(ISettingsReaderService settingsReader, IUserCacheService cacheService)
+        public AuthenticationService(ISettingsReaderService settingsReader, IUserDataCacheService cacheService)
         {
             this.SettingsReader = settingsReader ?? throw new ArgumentNullException(nameof(settingsReader));
             this.Cache = cacheService ?? throw new ArgumentNullException(nameof(cacheService));

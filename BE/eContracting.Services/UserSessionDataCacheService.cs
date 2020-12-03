@@ -10,12 +10,12 @@ using Sitecore.Caching;
 namespace eContracting.Services
 {
     /// <inheritdoc/>
-    public class CacheService : IUserCacheService
+    public class UserSessionDataCacheService : IUserDataCacheService
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CacheService"/> class.
+        /// Initializes a new instance of the <see cref="UserSessionDataCacheService"/> class.
         /// </summary>
-        public CacheService()
+        public UserSessionDataCacheService()
         {
         }
 
@@ -48,12 +48,6 @@ namespace eContracting.Services
         {
             HttpContext.Current?.Session?.Remove(key);
             //TODO: Remove data related to session
-        }
-
-        /// <inheritdoc/>
-        public void Clear()
-        {
-            //TODO: clear data dependent on session
         }
     }
 }

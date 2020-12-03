@@ -17,7 +17,7 @@
             The cache.
             </summary>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.ISettingsReaderService,eContracting.IUserCacheService)">
+        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.ISettingsReaderService,eContracting.IUserDataCacheService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.AuthenticationService"/> class.
             </summary>
@@ -172,7 +172,7 @@
             The API client.
             </summary>
         </member>
-        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.IUserCacheService,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SapApiService"/> class.
             </summary>
@@ -256,24 +256,21 @@
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
         </member>
-        <member name="T:eContracting.Services.CacheService">
+        <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheService.#ctor">
+        <member name="M:eContracting.Services.UserSessionDataCacheService.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.CacheService"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Services.UserSessionDataCacheService"/> class.
             </summary>
         </member>
-        <member name="M:eContracting.Services.CacheService.Set``1(System.String,``0)">
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Set``1(System.String,``0)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheService.Get``1(System.String)">
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Get``1(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.CacheService.Remove(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.CacheService.Clear">
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Remove(System.String)">
             <inheritdoc/>
         </member>
         <member name="F:eContracting.Services.MongoLoginReportStore.MongoClient">

@@ -12,7 +12,7 @@ namespace eContracting.Website.Pipelines.SessionEnd
     {
         public void Process(SessionEndArgs endArgs)
         {
-            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
+            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             cache.Clear();
         }
     }

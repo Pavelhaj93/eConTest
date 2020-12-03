@@ -21,7 +21,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, "", "id", "132546796");
@@ -35,7 +35,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, "23.11.2001", "", "132546796");
@@ -49,7 +49,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, "23.11.2001", "key", "");
@@ -64,7 +64,7 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BIRTHDT = "25.06.1971";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, "17.11.2020", "id", "132546796");
@@ -90,7 +90,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, birthdate, "invalidkey", "132546796");
@@ -117,7 +117,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, birthdate, key, "132546796");
@@ -148,7 +148,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, birthdate, key, partnerId2);
@@ -178,7 +178,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, birthdate, key, partnerId2);
@@ -207,7 +207,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, birthdate, key, partnerId);
@@ -234,7 +234,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetMatched(offer, key);
@@ -260,7 +260,7 @@ namespace eContracting.Services.Tests
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetMatched(offer, "mishmashkey");
@@ -275,7 +275,7 @@ namespace eContracting.Services.Tests
             var loginType = new LoginTypeModel();
             loginType.ValidationRegex = "^[0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "486937476");
@@ -290,7 +290,7 @@ namespace eContracting.Services.Tests
             var loginType = new LoginTypeModel();
             loginType.ValidationRegex = "^[0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "4869x7476");
@@ -304,7 +304,7 @@ namespace eContracting.Services.Tests
         {
             var loginType = new LoginTypeModel();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "4869x7476");
@@ -319,7 +319,7 @@ namespace eContracting.Services.Tests
             var loginType = new LoginTypeModel();
             loginType.ValidationRegex = "?^![0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "486937476");
@@ -336,7 +336,7 @@ namespace eContracting.Services.Tests
             bool inserted = false;
             var authData = new AuthDataModel(offer);
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Set(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
@@ -353,7 +353,7 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(guid);
             var authData = new AuthDataModel(offer);
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns(authData);
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
@@ -367,7 +367,7 @@ namespace eContracting.Services.Tests
         public void IsLoggedIn_Returns_False_Because_AuthDataModel_Doesnt_Exist()
         {
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            var mockCache = new Mock<IUserCacheService>();
+            var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns((AuthDataModel)null);
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);

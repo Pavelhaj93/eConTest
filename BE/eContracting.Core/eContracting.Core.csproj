@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">
@@ -100,7 +101,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="IApiService.cs" />
     <Compile Include="IAuthenticationService.cs" />
-    <Compile Include="IUserCacheService.cs" />
+    <Compile Include="IUserDataCacheService.cs" />
     <Compile Include="IContextWrapper.cs" />
     <Compile Include="IFileOptimizer.cs" />
     <Compile Include="ILoginReportStore.cs" />

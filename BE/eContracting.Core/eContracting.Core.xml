@@ -4,6 +4,38 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="T:eContracting.IUserFileCacheService">
+            <summary>
+            Cache for user files relevant only for current user. Data cannot be shared among sessions.
+            </summary>
+        </member>
+        <member name="M:eContracting.IUserFileCacheService.Set``1(System.String,``0)">
+            <summary>
+            Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The file data.</param>
+        </member>
+        <member name="M:eContracting.IUserFileCacheService.Get``1(System.String)">
+            <summary>
+            Gets file(s) by specific <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.IUserFileCacheService.Remove(System.String)">
+            <summary>
+            Removes file(s) under specific <paramref name="key"/>.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:eContracting.IUserFileCacheService.Clear">
+            <summary>
+            Removes all existins files.
+            </summary>
+        </member>
         <member name="T:eContracting.CacheApiServiceOptions">
             <summary>
             Settings for <see cref="T:eContracting.IApiService"/>.
@@ -526,12 +558,12 @@
             </summary>
             <returns>Data or null.</returns>
         </member>
-        <member name="T:eContracting.IUserCacheService">
+        <member name="T:eContracting.IUserDataCacheService">
             <summary>
-            Cache relevant only for current user. Data cannot be shared among sessions.
+            Cache for simple user data relevant only for current user. Data cannot be shared among sessions.
             </summary>
         </member>
-        <member name="M:eContracting.IUserCacheService.Set``1(System.String,``0)">
+        <member name="M:eContracting.IUserDataCacheService.Set``1(System.String,``0)">
             <summary>
             Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
             </summary>
@@ -539,7 +571,7 @@
             <param name="key">The key.</param>
             <param name="data">The data.</param>
         </member>
-        <member name="M:eContracting.IUserCacheService.Get``1(System.String)">
+        <member name="M:eContracting.IUserDataCacheService.Get``1(System.String)">
             <summary>
             Gets data by <paramref name="key"/>.
             </summary>
@@ -547,16 +579,11 @@
             <param name="key">The key.</param>
             <returns>Object of type <typeparamref name="T"/> or null.</returns>
         </member>
-        <member name="M:eContracting.IUserCacheService.Remove(System.String)">
+        <member name="M:eContracting.IUserDataCacheService.Remove(System.String)">
             <summary>
             Removes data under specific <paramref name="key"/>.
             </summary>
             <param name="key">The key.</param>
-        </member>
-        <member name="M:eContracting.IUserCacheService.Clear">
-            <summary>
-            Removes all data.
-            </summary>
         </member>
         <member name="T:eContracting.IContextWrapper">
             <summary>

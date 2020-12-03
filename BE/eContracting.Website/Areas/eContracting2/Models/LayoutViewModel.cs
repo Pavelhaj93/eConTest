@@ -62,7 +62,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 {
                     var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
                     var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
-                    var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
+                    var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
                     var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
 
                     if (string.IsNullOrEmpty(processCode))
@@ -91,7 +91,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
                             if (offer != null)
                             {
-                                var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
+                                var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
                                 var data = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType);
                                 cache.Set(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                             }

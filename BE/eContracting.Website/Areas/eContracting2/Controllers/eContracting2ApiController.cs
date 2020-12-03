@@ -32,7 +32,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
         protected readonly IFileOptimizer FileOptimizer;
         protected readonly ISignService SignService;
-        protected readonly IUserCacheService CacheService;
+        protected readonly IUserDataCacheService CacheService;
 
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
@@ -44,7 +44,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
             this.SignService = ServiceLocator.ServiceProvider.GetRequiredService<ISignService>();
-            this.CacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserCacheService>();
+            this.CacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
         }
 
         internal string FileStorageRoot { get; private set; }
@@ -57,7 +57,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISettingsReaderService settingsReaderService,
             ISignService signService,
             IOfferJsonDescriptor offerJsonDescriptor,
-            IUserCacheService cacheService)
+            IUserDataCacheService cacheService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
