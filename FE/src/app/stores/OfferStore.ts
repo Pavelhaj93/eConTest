@@ -404,17 +404,17 @@ export class OfferStore {
 
   /**
    * Change `signed` state of given document after the signature is successfully sent to API.
-   * @param id - ID of document
+   * @param key - ID of document
    * @param signature - PNG image as base64
    * @param signFileUrl - URL where to send `signature` data
    * @returns Promise<boolean> - if true, the document was successfully signed, otherwise false.
    */
   @action public async signDocument(
-    id: string,
+    key: string,
     signature: string,
     signFileUrl: string,
   ): Promise<boolean> {
-    const document = this.getDocument(id)
+    const document = this.getDocument(key)
 
     if (!document) {
       return false
@@ -423,7 +423,7 @@ export class OfferStore {
     this.isSigning = true
     this.signError = false
 
-    return this.signDocumentRequest(id, signature, signFileUrl)
+    return this.signDocumentRequest(key, signature, signFileUrl)
       .then(() => {
         document.signed = true
         return true
@@ -439,13 +439,13 @@ export class OfferStore {
 
   /**
    * Send a request with signature data to sign API.
-   * @param id - ID of document
+   * @param key - ID of document
    * @param signature - PNG image as base64
    * @param signFileUrl - URL where to send `signature` data
    * @returns Promise<void>
    */
   private async signDocumentRequest(
-    id: string,
+    key: string,
     signature: string,
     signFileUrl: string,
   ): Promise<void> {
@@ -453,7 +453,7 @@ export class OfferStore {
       signature,
     }
 
-    const response = await fetch(`${signFileUrl}/${id}`, {
+    const response = await fetch(`${signFileUrl}/${key}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

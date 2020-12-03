@@ -15,6 +15,52 @@
   {{> app}}
 {{/ layout}}
 
-{{> offer-config}}
+<script>
+  var appConfig = {
+    view: 'Offer',
+    offerUrl: '/api/offer/new',
+    timeout: 0,
+    formAction: 'offer.html',
+    getFileUrl: '/',
+    thumbnailUrl: '/api/document-image',
+    signFileUrl: '/api/sign-document',
+    uploadFileUrl: '/api/upload-document',
+    removeFileUrl: '/api/remove-document',
+    errorPageUrl: '/error',
+    acceptOfferUrl: '/api/offer/accept',
+    thankYouPageUrl: '/thank-you.html',
+    allowedContentTypes: ['image/png', 'image/jpeg', 'application/pdf'],
+    maxFileSize: 1695293,
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
+      acceptAll: 'Označit vše',
+      acceptOfferTitle: 'Potvrzení nabídky',
+      acceptOfferHelptext: 'Stisknutím tlačítka Akceptuji potvrdíte souhlas s přechodem na novou smlouvu Relax u innogy.',
+      submitBtn: 'Akceptuji',
+      signatureBtn: 'Podepsat',
+      signatureEditBtn: 'Upravit podpis',
+      signatureModalTitle: 'Podepsat dokument',
+      signatureModalText: 'Podepište se prosím níže:',
+      signatureModalConfirm: 'Potvrdit',
+      signatureModalClear: 'Smazat',
+      signatureModalError: 'Dokument se nepodařilo podepsat, zkuste to prosím znova.',
+      selectFile: 'Vyberte dokument',
+      selectFileHelpText: 'Sem přetáhněte jeden i více souborů nebo',
+      removeFile: 'Odebrat dokument',
+      selectedFiles: 'Vybrané dokumenty',
+      rejectedFiles: 'Nevyhovující dokumenty',
+      uploadFile: 'Nahrát dokument',
+      captureFile: 'Vyfotit a nahrát',
+      invalidFileTypeError: 'Dokument má špatný formát',
+      fileExceedSizeError: 'Dokument je příliš velký',
+      acceptanceModalTitle: 'Potvrzení akceptace',
+      acceptanceModalText: '<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>',
+      acceptanceModalAccept: 'Potvrdit',
+      acceptanceModalCancel: 'Storno',
+      acceptanceModalError: 'Nabídku se nepodařilo akceptovat, zkuste to prosím znova.',
+    },
+  };
+</script>
 
 {{> footer }}

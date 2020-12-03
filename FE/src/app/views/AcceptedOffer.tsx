@@ -41,7 +41,7 @@ export const AcceptedOffer: React.FC<View> = observer(
                   <ul className="list-unstyled" aria-labelledby={`heading${idx}`}>
                     {files.map(({ label, key }) => (
                       <li key={key} className="form-item-wrapper mb-3">
-                        <a href={`${getFileUrl}${key}`} className="like-custom-control-label">
+                        <a href={`${getFileUrl}/${key}`} className="like-custom-control-label">
                           <span>{label}</span>
                           <Icon name="pdf" size={36} color={colors.orange} className="ml-auto" />
                         </a>

@@ -29,7 +29,7 @@ export const Offer: React.FC<View> = observer(
     offerUrl,
     labels,
     getFileUrl,
-    getFileForSignUrl,
+    thumbnailUrl,
     signFileUrl,
     timeout,
     uploadFileUrl,
@@ -226,7 +226,7 @@ export const Offer: React.FC<View> = observer(
                       >
                         <Form.Check.Label>
                           <span>
-                            {prefix} <a href={`${getFileUrl}${key}`}>{label}</a>
+                            {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
                           </span>
                           <Icon
                             name="pdf"
@@ -261,7 +261,7 @@ export const Offer: React.FC<View> = observer(
                             />
                           )}
                           <span>
-                            {prefix} <a href={`${getFileUrl}${key}`}>{label}</a>
+                            {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
                           </span>
                           {signed ? (
                             <Button
@@ -408,7 +408,7 @@ export const Offer: React.FC<View> = observer(
                   >
                     <Form.Check.Label>
                       <span>
-                        {prefix} <a href={`${getFileUrl}${key}`}>{label}</a>
+                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
                       </span>
                       <Icon
                         name="pdf"
@@ -465,7 +465,7 @@ export const Offer: React.FC<View> = observer(
                   >
                     <Form.Check.Label>
                       <span>
-                        {prefix} <a href={`${getFileUrl}${key}`}>{label}</a>
+                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
                       </span>
                       <Icon
                         name="pdf"
@@ -510,7 +510,7 @@ export const Offer: React.FC<View> = observer(
           {...signatureModalProps}
           onClose={() => setSignatureModalProps({ show: false, id: '' })}
           labels={labels}
-          getFileForSignUrl={getFileForSignUrl ?? ''}
+          thumbnailUrl={thumbnailUrl ?? ''}
           signFileUrl={signFileUrl ?? ''}
         />
 

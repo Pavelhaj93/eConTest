@@ -12,12 +12,12 @@ type Props = {
   show: boolean
   onClose: () => void
   labels: Record<string, any>
-  getFileForSignUrl: string
+  thumbnailUrl: string
   signFileUrl: string
 }
 
 export const SignatureModal: React.FC<Props> = observer(
-  ({ id, show, onClose, labels, getFileForSignUrl, signFileUrl }) => {
+  ({ id, show, onClose, labels, thumbnailUrl, signFileUrl }) => {
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
@@ -25,8 +25,8 @@ export const SignatureModal: React.FC<Props> = observer(
     // construct an URL for image preview of the document
     const documentUrl = useMemo(() => {
       const time = new Date().getTime()
-      return `${getFileForSignUrl}/${id}&=t${time}`
-    }, [id, getFileForSignUrl])
+      return `${thumbnailUrl}/${id}&=t${time}`
+    }, [id, thumbnailUrl])
 
     // 0. when the modal is shown => trigger `resize` event on window,
     // so signature canvas will fit into the parent container

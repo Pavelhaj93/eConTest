@@ -14,7 +14,7 @@ export type AppConfig = {
   /** URL that returns the document itself. Need to append file ID. */
   getFileUrl?: string
   /** URL that returns an image preview of the document. Need to append file ID. */
-  getFileForSignUrl?: string
+  thumbnailUrl?: string
   /** URL that accepts a signature as base64 PNG within POST body. Need to append file ID. */
   signFileUrl?: string
   /** After how many milliseconds the documents request will be canceled. */
