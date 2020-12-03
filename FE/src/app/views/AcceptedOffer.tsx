@@ -23,7 +23,10 @@ export const AcceptedOffer: React.FC<View> = observer(
         {store.error && (
           <Alert variant="danger">
             <h3>{t('appUnavailableTitle')}</h3>
-            <div>{t('appUnavailableText')}</div>
+            <div
+              className="editorial-content"
+              dangerouslySetInnerHTML={{ __html: t('appUnavailableText') }}
+            />
           </Alert>
         )}
 

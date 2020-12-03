@@ -85,7 +85,10 @@ export const Offer: React.FC<View> = observer(
         {store.error && (
           <Alert variant="danger">
             <h3>{t('appUnavailableTitle')}</h3>
-            <div>{t('appUnavailableText')}</div>
+            <div
+              className="editorial-content"
+              dangerouslySetInnerHTML={{ __html: t('appUnavailableText') }}
+            />
           </Alert>
         )}
         {/* /error state */}
@@ -166,7 +169,7 @@ export const Offer: React.FC<View> = observer(
                       xl={store.gifts && store.gifts.groups.length > 2 ? 4 : undefined}
                       className="d-flex flex-column mb-5"
                     >
-                      <h3 className="h4 mb-4 gift__group-title">{title}</h3>
+                      <h4 className="mb-4 gift__group-title">{title}</h4>
                       {params.length > 0 && (
                         <ul className="list-unstyled mb-0">
                           {params.map(({ title, icon }, idx) => (
