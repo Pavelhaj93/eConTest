@@ -17,6 +17,7 @@ namespace eContracting
         /// <typeparam name="T">Type of data.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="data">The file data.</param>
+        /// <exception cref="ApplicationException">When data were not stored.</exception>
         void Set<T>(string key, T data);
 
         /// <summary>
