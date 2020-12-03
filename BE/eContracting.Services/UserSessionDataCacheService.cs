@@ -24,7 +24,12 @@ namespace eContracting.Services
         {
             if (HttpContext.Current == null)
             {
-                throw new InvalidOperationException("Http context is empty");
+                throw new InvalidOperationException("Http context is not available");
+            }
+
+            if (HttpContext.Current.Session == null)
+            {
+                throw new InvalidOperationException("Session is not available");
             }
 
             HttpContext.Current.Session[key] = data;
