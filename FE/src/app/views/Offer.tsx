@@ -495,7 +495,10 @@ export const Offer: React.FC<View> = observer(
           >
             <h2 className="mt-5">{t('acceptOfferTitle')}</h2>
             <Box className="text-center">
-              <p>{t('acceptOfferHelptext')}</p>
+              <div
+                className="editorial-content mb-3"
+                dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
+              />
               <Button
                 variant="secondary"
                 type="submit"
