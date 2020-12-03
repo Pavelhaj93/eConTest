@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IUserFileCacheService.cs" />
+    <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">

@@ -70,6 +70,34 @@ namespace eContracting.Services
 
             return list.ToArray();
         }
+        
+        /// <inheritdoc/>
+        public bool Equals(DocumentTemplateModel template, ZCCH_ST_FILE file)
+        {
+            // IDATTACH cannot be empty!
+            if (string.IsNullOrWhiteSpace(template.IdAttach))
+            {
+                return false;
+            }
+
+            return template.IdAttach == this.GetIdAttach(file);
+        }
+
+        /// <inheritdoc/>
+        public ZCCH_ST_FILE GetFileByTemplate(DocumentTemplateModel template, ZCCH_ST_FILE[] files)
+        {
+            for (int y = 0; y < files.Length; y++)
+            {
+                var file = files[y];
+
+                if (this.Equals(template, file))
+                {
+                    return file;
+                }
+            }
+
+            return null;
+        }
 
         protected internal string GetIdAttach(ZCCH_ST_FILE file)
         {
@@ -113,24 +141,6 @@ namespace eContracting.Services
             return list.ToArray();
         }
 
-        protected internal string GetUniqueKey(ZCCH_ST_FILE file)
-        {
-            var md5 = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.MD5);
-
-            if (!string.IsNullOrEmpty(md5?.ATTRVAL))
-            {
-                return md5.ATTRVAL;
-            }
-
-            return Utils.GetMd5(file.FILENAME);
-        }
-
-        protected internal string GetUniqueKey(DocumentTemplateModel template)
-        {
-            var data = template.IdAttach + template.Group + template.Description;
-            return Utils.GetMd5(data);
-        }
-
         protected internal bool IsNotCompatible(DocumentTemplateModel template)
         {
             return string.IsNullOrEmpty(template.Group);
@@ -169,29 +179,23 @@ namespace eContracting.Services
         protected internal OfferAttachmentModel GetModel(OfferModel offer, DocumentTemplateModel template, ZCCH_ST_FILE[] files)
         {
             OfferAttachmentModel item = null;
-
+            var uniqueKey = Utils.GetUniqueKey(template); //TODO: Do it in OfferAttachmentModel constructor
             // if attachment exists in files
             if (template.Printed == Constants.FileAttributes.CHECK_VALUE)
             {
-                for (int y = 0; y < files.Length; y++)
-                {
-                    var file = files[y];
-                    var fileIdAttach = this.GetIdAttach(file);
+                var file = this.GetFileByTemplate(template, files);
 
-                    if (template.IdAttach == fileIdAttach)
-                    {
-                        var uniqueKey = this.GetUniqueKey(file);
-                        var attrs = this.GetAttributes(file);
-                        item = new OfferAttachmentModel(template, uniqueKey, fileIdAttach, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
-                    }
+                if (file != null)
+                {
+                    var attrs = this.GetAttributes(file);
+                    item = new OfferAttachmentModel(template, uniqueKey, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
                 }
             }
             // otherwise this file must be uploaded by user
             else
             {
-                var uniqueKey = this.GetUniqueKey(template);
                 // this is just a template for file witch is required from a user
-                item = new OfferAttachmentModel(template, uniqueKey, template.IdAttach, null, null, new OfferAttributeModel[] { }, null);
+                item = new OfferAttachmentModel(template, uniqueKey, null, null, new OfferAttributeModel[] { }, null);
             }
 
             return item;

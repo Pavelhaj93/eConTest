@@ -15,5 +15,20 @@ namespace eContracting
         /// <param name="files">The files.</param>
         /// <returns>Array of files.</returns>
         OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files);
+
+        /// <summary>
+        /// Determinates if <paramref name="template"/> is relevant for this <paramref name="file"/>.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <param name="file">The file.</param>
+        bool Equals(DocumentTemplateModel template, ZCCH_ST_FILE file);
+
+        /// <summary>
+        /// Find a file which matches to its <paramref name="template"/>.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <param name="files">The files.</param>
+        /// <returns>File or null.</returns>
+        ZCCH_ST_FILE GetFileByTemplate(DocumentTemplateModel template, ZCCH_ST_FILE[] files);
     }
 }

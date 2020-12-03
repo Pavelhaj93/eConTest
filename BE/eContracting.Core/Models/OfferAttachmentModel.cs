@@ -174,12 +174,11 @@ namespace eContracting.Models
         /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="uniqueKey">The unique key.</param>
-        /// <param name="idAttach">The identifier attach.</param>
         /// <param name="mimeType">Type of the MIME.</param>
         /// <param name="originalFileName">Name of the original file.</param>
         /// <param name="attributes">The attributes.</param>
         /// <param name="content">The content.</param>
-        public OfferAttachmentModel(DocumentTemplateModel template, string uniqueKey, string idAttach, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content)
+        public OfferAttachmentModel(DocumentTemplateModel template, string uniqueKey, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content)
         {
             if (template == null)
             {
@@ -193,13 +192,13 @@ namespace eContracting.Models
             this.FileName = template.Description;
             this.ConsentType = template.ConsentType;
             this.TemplAlcId = template.TemplAlcId;
-            this.IsObligatory = template.Obligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
-            this.IsGroupOblig = template.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
-            this.IsPrinted = template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
-            this.IsSignReq = template.SignReq.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+            this.IsObligatory = template.IsObligatory();
+            this.IsGroupOblig = template.IsGroupObligatory();
+            this.IsPrinted = template.IsPrinted();
+            this.IsSignReq = template.IsSignRequired();
+            this.IdAttach = template.IdAttach;
 
             this.UniqueKey = uniqueKey;
-            this.IdAttach = idAttach;
             this.MimeType = mimeType;
             this.OriginalFileName = originalFileName;
             this.FileNameExtension = this.GetFileNameExtension(template, originalFileName);
@@ -243,7 +242,7 @@ namespace eContracting.Models
             template.TemplAlcId = this.DocumentTemplate.TemplAlcId;
             template.TimeStampRequired = this.DocumentTemplate.TimeStampRequired;
 
-            var model = new OfferAttachmentModel(template, this.UniqueKey, this.IdAttach, this.MimeType, this.OriginalFileName, this.Attributes, newFileContent);
+            var model = new OfferAttachmentModel(template, this.UniqueKey, this.MimeType, this.OriginalFileName, this.Attributes, newFileContent);
             return model;
         }
 

@@ -53,5 +53,47 @@ namespace eContracting.Models
         /// </summary>
         [XmlElement("CONSENT_TYPE")]
         public string ConsentType { get; set; }
+
+        /// <summary>
+        /// Gets the unique key for this template.
+        /// </summary>
+        public string UniqueKey
+        {
+            get
+            {
+                return Utils.GetUniqueKey(this);
+            }
+        }
+
+        public bool IsSignRequired()
+        {
+            return this.SignReq.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsPrinted()
+        {
+            return this.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsObligatory()
+        {
+            return this.Obligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        public bool IsGroupObligatory()
+        {
+            return this.GroupObligatory.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> with <see cref="IdAttach"/> and <see cref="Description"/>.
+        /// </returns>
+        public override string ToString()
+        {
+            return this.IdAttach + " " + this.Description;
+        }
     }
 }

@@ -18,6 +18,22 @@ namespace eContracting.Services
         protected readonly IApiService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferJsonDescriptor"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="apiService">The API service.</param>
+        /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <exception cref="ArgumentNullException">
+        /// logger
+        /// or
+        /// context
+        /// or
+        /// apiService
+        /// or
+        /// settingsReaderService
+        /// </exception>
         public OfferJsonDescriptor(
             ILogger logger,
             ISitecoreContext context,
@@ -30,6 +46,7 @@ namespace eContracting.Services
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
         }
 
+        /// <inheritdoc/>
         public async Task<JsonOfferAcceptedModel> GetAcceptedAsync(OfferModel offer)
         {
             var groups = new List<JsonFilesSectionModel>();
@@ -54,6 +71,7 @@ namespace eContracting.Services
             return new JsonOfferAcceptedModel(groups);
         }
 
+        /// <inheritdoc/>
         public async Task<JsonOfferNotAcceptedModel> GetNewAsync(OfferModel offer)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
@@ -389,6 +407,7 @@ namespace eContracting.Services
             }
 
             var customFile = new JsonUploadTemplateModel();
+            customFile.GroupId = Utils.GetUniqueKeyForCustomUpload(offer);
             customFile.Title = definition.OfferUploadsExtraText.Text;
             customFile.Info = definition.OfferUploadsExtraHelp.Text;
             customFile.Mandatory = false;

@@ -153,6 +153,22 @@ namespace eContracting
             return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
         }
 
+        public static string GetUniqueKeyForCustomUpload(OfferModel offer)
+        {
+            return GetMd5(offer.Guid + "D3F8837DE7F44DA3AD73C57C95A0893D");
+        }
+
+        /// <summary>
+        /// Gets the unique key for template document.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <returns>Hash of <see cref="DocumentTemplateModel.IdAttach"/> + <see cref="DocumentTemplateModel.Group"/> + <see cref="DocumentTemplateModel.Description"/></returns>
+        public static string GetUniqueKey(DocumentTemplateModel template)
+        {
+            var data = template.IdAttach + template.Group + template.Description;
+            return GetMd5(data);
+        }
+
         public static string GetRawXml(ZCCH_ST_FILE file)
         {
             return Encoding.UTF8.GetString(file.FILECONTENT);
@@ -163,6 +179,12 @@ namespace eContracting
             input = RegexAttrStyle.Replace(input, "");
             input = RegexAttrXmlNamespace.Replace(input, "");
             return input;
+        }
+
+        public static string GetIpAddress()
+        {
+            string text = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            return string.IsNullOrEmpty(text) ? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] : text.Split(',')[0];
         }
     }
 }

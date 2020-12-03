@@ -26,7 +26,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("getFileUrl")]
         public readonly string FileApi = "/api/econ/file";
 
-        [JsonProperty("getFileForSignUrl")]
+        [JsonProperty("thumbnailUrl")]
         public readonly string FileImageApi = "/api/econ/thumbnail";
 
         [JsonProperty("signFileUrl")]

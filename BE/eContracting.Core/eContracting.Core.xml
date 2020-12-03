@@ -37,815 +37,30 @@
             Removes all existins files.
             </summary>
         </member>
-        <member name="T:eContracting.CacheApiServiceOptions">
+        <member name="T:eContracting.Models.OfferSubmitDataModel">
             <summary>
-            Settings for <see cref="T:eContracting.IApiService"/>.
+            Represent set of accepted, signed and uploaded documents for an offer.
             </summary>
         </member>
-        <member name="F:eContracting.CacheApiServiceOptions.User">
+        <member name="P:eContracting.Models.OfferSubmitDataModel.Accepted">
             <summary>
-            The user.
+            Gets or sets array of <c>accepted</c> unique file IDs.
             </summary>
         </member>
-        <member name="F:eContracting.CacheApiServiceOptions.Password">
+        <member name="P:eContracting.Models.OfferSubmitDataModel.Signed">
             <summary>
-            The password.
+            Gets or sets array of <c>signed</c> unique file IDs.
             </summary>
         </member>
-        <member name="F:eContracting.CacheApiServiceOptions.Url">
+        <member name="P:eContracting.Models.OfferSubmitDataModel.Uploaded">
             <summary>
-            The URL.
+            Gets or sets array of <c>uploaded</c> unique file IDs.
             </summary>
         </member>
-        <member name="M:eContracting.CacheApiServiceOptions.#ctor(System.String,System.String,System.String)">
+        <member name="P:eContracting.Models.OfferSubmitDataModel.Other">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.CacheApiServiceOptions"/> class.
+            Gets or sets array of <c>other</c> unique file IDs.
             </summary>
-            <param name="url">The URL.</param>
-            <param name="base64Username">The base64 username.</param>
-            <param name="base64password">The base64password.</param>
-        </member>
-        <member name="T:eContracting.SignApiServiceOptions">
-            <summary>
-            Settings for <see cref="T:eContracting.IApiService"/>.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.User">
-            <summary>
-            The user.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.Password">
-            <summary>
-            The password.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.Url">
-            <summary>
-            The URL.
-            </summary>
-        </member>
-        <member name="M:eContracting.SignApiServiceOptions.#ctor(System.String,System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.SignApiServiceOptions"/> class.
-            </summary>
-            <param name="url">The URL.</param>
-            <param name="base64Username">The base64 username.</param>
-            <param name="base64password">The base64password.</param>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_GET">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_GEFILE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.BAPIRET2">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.TYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.ID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.NUMBER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.MESSAGE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.LOG_NO">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.LOG_MSG_NO">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V1">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V2">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V3">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V4">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.PARAMETER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.ROW">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.FIELD">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.BAPIRET2.SYSTEM">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_ST_FILE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILEINDX">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILENAME">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.MIMETYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_ST_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_ST_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHSTAT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHVALTO">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_GETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_DEL">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_DEL_FILES">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_DELResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SET">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_PUT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_COMMIT">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_PUTResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.EV_RETCODE">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.SignStamp.invoke">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invoke.inputPDF">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invoke.inputPNGSign">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invoke.overlay">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.SignStamp.BLOB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.contentType">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.binaryData">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.attachmentID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.remoteURL">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.MTOM">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.swaRef">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.BLOB.attributes">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item.key">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item.value">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.SignStamp.invokeResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invokeResponse.errCode">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invokeResponse.errMsg">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.SignStamp.invokeResponse.outputPDF">
-            <remarks/>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_UNKNOWN">
-            <summary>
-            The authentication process - unknown exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE">
-            <summary>
-            Call to CACHE during authentication process.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE2">
-            <summary>
-            Call to CACHE during authentication process - unknown exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_APP">
-            <summary>
-            The authentication process - application exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_INV_OP">
-            <summary>
-            The authentication process - invalid operation exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_UNKNOWN">
-            <summary>
-            The authentication process - unknown exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE">
-            <summary>
-            Call to CACHE during authentication process.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE2">
-            <summary>
-            Call to CACHE during authentication process - unknown exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_APP">
-            <summary>
-            The authentication process - application exception.
-            </summary>
-        </member>
-        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_INV_OP">
-            <summary>
-            The authentication process - invalid operation exception.
-            </summary>
-        </member>
-        <member name="M:eContracting.Constants.TemplateIds.IsOfferPage(Sitecore.Data.ID)">
-            <summary>
-            Determines whether <paramref name="templateId"/> contains data with offer.
-            </summary>
-            <param name="templateId">The template identifier.</param>
-        </member>
-        <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
-            <summary>
-            Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
-            </summary>
-            <typeparam name="T">Sitecore item model type.</typeparam>
-            <param name="service">The service.</param>
-            <param name="path">The path.</param>
-            <returns>List of found children or empty list.</returns>
-        </member>
-        <member name="M:eContracting.Extensions.GetCounter(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Gets the counter integer value. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
-            </summary>
-            <param name="file">The file.</param>
-            <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
-        </member>
-        <member name="M:eContracting.Extensions.Merge``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
-            <summary>
-            Merges two dictionaries.
-            </summary>
-            <typeparam name="TKey">The type of the key.</typeparam>
-            <typeparam name="TValue">The type of the value.</typeparam>
-            <param name="source">The source dictionary.</param>
-            <param name="second">The second.</param>
-        </member>
-        <member name="M:eContracting.Extensions.HasValue(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
-            <summary>
-            Determines whether the specified key has value any value.
-            </summary>
-            <param name="source">The source.</param>
-            <param name="key">The key.</param>
-            <returns>
-              <c>true</c> if the specified key has value; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="T:eContracting.IApiService">
-            <summary>
-            Service with direct communication to SAP / CACHE.
-            </summary>
-        </member>
-        <member name="M:eContracting.IApiService.AcceptOfferAsync(System.String)">
-            <summary>
-            Accepts offer asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>True if it was accepted or false.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.AcceptOffer(System.String)">
-            <summary>
-            Accepts offer synchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>True if it was accepted or false.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.ReadOffer(System.String)">
-            <summary>
-            Reads offer synchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>True if it was set or false.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.ReadOfferAsync(System.String)">
-            <summary>
-            Reads offer asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>True if it was set or false.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
-            <summary>
-            Gets the files asynchronous.
-            </summary>
-            <param name="offer">The offer with attachment templates.</param>
-            <returns>Files in array or null</returns>
-        </member>
-        <member name="M:eContracting.IApiService.GetAttachments(eContracting.Models.OfferModel)">
-            <summary>
-            Gets the files synchronous.
-            </summary>
-            <param name="offer">The offer with attachment templates.</param>
-            <returns>Files in array or null</returns>
-        </member>
-        <member name="M:eContracting.IApiService.GetOffer(System.String)">
-            <summary>
-            Gets the offer by <paramref name="guid"/> synchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>The offer.</returns>
-            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
-        </member>
-        <member name="M:eContracting.IApiService.GetOfferAsync(System.String)">
-            <summary>
-            Gets the offer by <paramref name="guid"/> asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <param name="type">Offer type.</param>
-            <returns>The offer.</returns>
-            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
-        </member>
-        <member name="M:eContracting.IApiService.SignInOffer(System.String)">
-            <summary>
-            Make offer <paramref name="guid"/> signed.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:eContracting.IApiService.SignInOfferAsync(System.String)">
-            <summary>
-            Make offer <paramref name="guid"/> signed asynchronously.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="T:eContracting.IAuthenticationService">
-            <summary>
-            Represents collection of actions for authentication operation.
-            </summary>
-        </member>
-        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
-            <summary>
-            Logins the specified offer.
-            </summary>
-            <seealso cref="T:eContracting.Models.LoginTypeModel"/>
-            <param name="offer">The offer.</param>
-            <param name="birthDay">The birth day.</param>
-            <param name="key">The key of login type.</param>
-            <param name="value">The value by login type.</param>
-            <returns></returns>
-        </member>
-        <member name="M:eContracting.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
-            <summary>
-            Log-in user with <paramref name="authData"/>.
-            </summary>
-            <param name="authData">Authentication data.</param>
-        </member>
-        <member name="M:eContracting.IAuthenticationService.IsLoggedIn">
-            <summary>
-            Determines whether user is logged in.
-            </summary>
-            <returns>
-              <c>true</c> if is logged in; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:eContracting.IAuthenticationService.GetCurrentUser">
-            <summary>
-            Gets the current user.
-            </summary>
-            <returns>Data or null.</returns>
-        </member>
-        <member name="T:eContracting.IUserDataCacheService">
-            <summary>
-            Cache for simple user data relevant only for current user. Data cannot be shared among sessions.
-            </summary>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Set``1(System.String,``0)">
-            <summary>
-            Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
-            </summary>
-            <typeparam name="T">Type of data.</typeparam>
-            <param name="key">The key.</param>
-            <param name="data">The data.</param>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Get``1(System.String)">
-            <summary>
-            Gets data by <paramref name="key"/>.
-            </summary>
-            <typeparam name="T">Type of data.</typeparam>
-            <param name="key">The key.</param>
-            <returns>Object of type <typeparamref name="T"/> or null.</returns>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Remove(System.String)">
-            <summary>
-            Removes data under specific <paramref name="key"/>.
-            </summary>
-            <param name="key">The key.</param>
-        </member>
-        <member name="T:eContracting.IContextWrapper">
-            <summary>
-            Represents wrapper over context (static) values.
-            </summary>
-        </member>
-        <member name="M:eContracting.IContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
-            <summary>
-            Sets the display mode.
-            </summary>
-            <param name="model">The model.</param>
-        </member>
-        <member name="M:eContracting.IContextWrapper.GetSetting(System.String)">
-            <summary>
-            Gets value from 'Sitecore.Configuration.Settings.GetSetting()'.
-            </summary>
-            <param name="name">The name.</param>
-            <returns>String or null.</returns>
-        </member>
-        <member name="M:eContracting.IContextWrapper.GetSiteRoot">
-            <summary>
-            Gets the site root path.
-            </summary>
-            <returns>Value from 'Sitecore.Context.Site.RootPath'.</returns>
-        </member>
-        <member name="M:eContracting.IContextWrapper.IsNormalMode">
-            <summary>
-            Determines whether Sitecore context page mode is in normal mode.
-            </summary>
-        </member>
-        <member name="M:eContracting.IContextWrapper.IsPreviewMode">
-            <summary>
-            Determines whether Sitecore context page mode is in preview mode.
-            </summary>
-        </member>
-        <member name="M:eContracting.IContextWrapper.IsEditMode">
-            <summary>
-            Determines whether Sitecore context page mode is in editing mode.
-            </summary>
-        </member>
-        <member name="T:eContracting.IFileOptimizer">
-            <summary>
-            Join file(s) into group and optimize it into PDF file.
-            </summary>
-        </member>
-        <member name="M:eContracting.IFileOptimizer.AddAsync(System.String,System.String,System.String,System.Byte[])">
-            <summary>
-            Adds a file with <paramref name="name" /> to a group with <paramref name="groupKey" />.
-            </summary>
-            <remarks>
-                <para>If group with <paramref name="groupKey"/> doesn't exist, creates new one.</para>
-                <para>
-                    Parameter <paramref name="fileId"/> is used to find new file in <see cref="F:eContracting.Models.OptimizedFileGroupModel.Files"/> collection.
-                    If any file with the same <paramref name="fileId"/> already exists in the group, throws <see cref="T:System.ApplicationException"/>.
-                </para>
-            </remarks>
-            <param name="groupKey">The group unique key.</param>
-            <param name="fileId">Unique file key.</param>
-            <param name="name">The file name.</param>
-            <param name="content">The content content.</param>
-            <returns>Current state of the group after adding new file.</returns>
-            <exception cref="T:System.ApplicationException">Adding failed.</exception>
-        </member>
-        <member name="M:eContracting.IFileOptimizer.GetAsync(System.String)">
-            <summary>
-            Gets current group state by <paramref name="groupKey"/>.
-            </summary>
-            <param name="groupKey">The group unique key.</param>
-            <returns>Current state of the group or null if group doens't exist (or group is empty).</returns>
-        </member>
-        <member name="M:eContracting.IFileOptimizer.RemoveAsync(System.String,System.String)">
-            <summary>
-            Removes specific file with <paramref name="fileId"/> from group by <paramref name="groupKey"/>.
-            </summary>
-            <param name="groupKey">The group unique key.</param>
-            <param name="fileId">The file identifier.</param>
-            <returns>True if file was removed, otherwise false.</returns>
-        </member>
-        <member name="T:eContracting.ILoginReportStore">
-            <summary>
-            Stores information about login attemps.
-            </summary>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.AddLoginAttempt(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Adds the login attempt.
-            </summary>
-            <param name="sessionId">The session identifier.</param>
-            <param name="timestamp">The timestamp.</param>
-            <param name="guid">The unique identifier.</param>
-            <param name="type">The type.</param>
-            <param name="birthdayDate">if set to <c>true</c> [birthday date].</param>
-            <param name="wrongPostalCode">if set to <c>true</c> [wrong postal code].</param>
-            <param name="WrongResidencePostalCode">if set to <c>true</c> [wrong residence postal code].</param>
-            <param name="WrongIdentityCardNumber">if set to <c>true</c> [wrong identity card number].</param>
-            <param name="generalError">if set to <c>true</c> [general error].</param>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.AddFailedAttempt(System.String,System.String,System.String)">
-            <summary>
-            Adds the failed login attempt.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <param name="sessionId">The session identifier.</param>
-            <param name="browserInfo">The browser information.</param>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String,System.Int32,System.TimeSpan)">
-            <summary>
-            Determines whether <paramref name="guid"/> can log-in.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <param name="maxFailedAttempts">The maximum failed attempts.</param>
-            <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
-            <returns>
-              <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
-            </returns>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String)">
-            <summary>
-            Determines whether <paramref name="guid"/> can log-in.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-        </member>
-        <member name="T:eContracting.IOfferAttachmentParserService">
-            <summary>
-            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentModel"/> object.
-            </summary>
-        </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
-            <summary>
-            Parses raw <paramref name="files"/> into serializable format.
-            </summary>
-            <param name="offer">The offer.</param>
-            <param name="files">The files.</param>
-            <returns>Array of files.</returns>
-        </member>
-        <member name="T:eContracting.IOfferJsonDescriptor">
-            <summary>
-            Creates prescription for JSON / API for not accepted offer and accepted offer.
-            </summary>
-        </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
-            <summary>
-            Gets prescription for not accepted offer.
-            </summary>
-            <param name="offer">The offer.</param>
-        </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
-            <summary>
-            Gets prescription for accepted offer.
-            </summary>
-            <param name="offer">The offer.</param>
-            <returns></returns>
-        </member>
-        <member name="T:eContracting.IOfferParserService">
-            <summary>
-            Represents parser from <see cref="T:eContracting.Models.OfferModel"/> to <see cref="T:eContracting.Models.ResponseCacheGetModel"/> object.
-            </summary>
-        </member>
-        <member name="M:eContracting.IOfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
-            <summary>
-            Generates offer.
-            </summary>
-            <param name="response">The response.</param>
-            <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
-        </member>
-        <member name="M:eContracting.IOfferParserService.GetVersion(eContracting.Services.ZCCH_CACHE_GETResponse)">
-            <summary>
-            Gets offer version from <paramref name="response"/> data.
-            </summary>
-            <param name="response">The response.</param>
-            <returns>Numbered version starting at 1.</returns>
-        </member>
-        <member name="M:eContracting.IOfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
-            <summary>
-            Gets the text parameters from given <paramref name="files"/>.
-            </summary>
-            <remarks>There files needs to have XML path 'form/parameters'.</remarks>
-            <param name="files">The files.</param>
-            <returns>Dictionary or null.</returns>
-        </member>
-        <member name="T:eContracting.ISettingsReaderService">
-            <summary>
-            Global settings reader.
-            </summary>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
-            <summary>
-            Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
-            </summary>
-            <param name="offer">The offer.</param>
-            <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetDefinition(System.String,System.String)">
-            <summary>
-            Gets definition by <paramref name="process"/> and <paramref name="processType"/> from '/sitecore/content/eContracting2/Definitions'.
-            </summary>
-            <param name="process">The process.</param>
-            <param name="processType">Type of the process.</param>
-            <returns>Definition or null.</returns>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
-            <summary>
-            Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.DefinitionCombinationModel"/>.
-            </summary>
-            <param name="offer">The offer.</param>
-            <returns>List of defined login types or if there is not defined any, one random login type from all of them.</returns>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetAllProcesses">
-            <summary>
-            Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
-            </summary>
-            <returns>List of all defined processes.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No processes found.</exception>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetAllProcessTypes">
-            <summary>
-            Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
-            </summary>
-            <returns>List of all defined process types.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No process types found</exception>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetAllLoginTypes">
-            <summary>
-            Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
-            </summary>
-            <returns>List of all defined login types.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No login types found</exception>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
-            <summary>
-            Gets configuration for <see cref="T:eContracting.IApiService"/>.
-            </summary>
-            <returns>The configuration.</returns>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetSignApiServiceOptions">
-            <summary>
-            Gets configuration for <see cref="T:eContracting.ISignService"/>.
-            </summary>
-            <returns>The configuration.</returns>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetPageLink(eContracting.PAGE_LINK_TYPES)">
-            <summary>
-            Gets url from site settings.
-            </summary>
-            <param name="type">The type.</param>
-            <returns>Url or exception.</returns>
-            <exception cref="T:System.InvalidOperationException">When <see cref="T:eContracting.PAGE_LINK_TYPES"/> cannot be resolved.</exception>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetSiteSettings">
-            <summary>
-            Gets the site settings.
-            </summary>
-            <returns>Model or exception.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">When settings cannot be found.</exception>
-        </member>
-        <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
-            <summary>
-            Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="P:eContracting.Models.ProcessStepModel.IsSelected"/> = <c>true</c>'.
-            </summary>
-            <param name="currentStep">The current step.</param>
-            <returns>Array of all related steps.</returns>
         </member>
         <member name="P:eContracting.Models.AcceptedOfferPageModel.PageTitle">
             <summary>
@@ -1148,13 +363,12 @@
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
             <param name="template">The template.</param>
             <param name="uniqueKey">The unique key.</param>
-            <param name="idAttach">The identifier attach.</param>
             <param name="mimeType">Type of the MIME.</param>
             <param name="originalFileName">Name of the original file.</param>
             <param name="attributes">The attributes.</param>
@@ -1842,6 +1056,856 @@
             Gets or sets prefix for the document.
             </summary>
         </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.UniqueKey">
+            <summary>
+            Gets the unique key for this template.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.DocumentTemplateModel.ToString">
+            <summary>
+            Converts to string.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> with <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> and <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/>.
+            </returns>
+        </member>
+        <member name="T:eContracting.CacheApiServiceOptions">
+            <summary>
+            Settings for <see cref="T:eContracting.IApiService"/>.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.User">
+            <summary>
+            The user.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.Password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:eContracting.CacheApiServiceOptions.Url">
+            <summary>
+            The URL.
+            </summary>
+        </member>
+        <member name="M:eContracting.CacheApiServiceOptions.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.CacheApiServiceOptions"/> class.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="base64Username">The base64 username.</param>
+            <param name="base64password">The base64password.</param>
+        </member>
+        <member name="T:eContracting.SignApiServiceOptions">
+            <summary>
+            Settings for <see cref="T:eContracting.IApiService"/>.
+            </summary>
+        </member>
+        <member name="F:eContracting.SignApiServiceOptions.User">
+            <summary>
+            The user.
+            </summary>
+        </member>
+        <member name="F:eContracting.SignApiServiceOptions.Password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:eContracting.SignApiServiceOptions.Url">
+            <summary>
+            The URL.
+            </summary>
+        </member>
+        <member name="M:eContracting.SignApiServiceOptions.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.SignApiServiceOptions"/> class.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="base64Username">The base64 username.</param>
+            <param name="base64password">The base64password.</param>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GET">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_GEFILE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.BAPIRET2">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.TYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.ID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.NUMBER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.LOG_NO">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.LOG_MSG_NO">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V1">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V2">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V3">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.MESSAGE_V4">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.PARAMETER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.ROW">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.FIELD">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.BAPIRET2.SYSTEM">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_FILE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILEINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILENAME">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.MIMETYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHSTAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHVALTO">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GETResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_DEL">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_DEL_FILES">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_DELResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SET">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_PUT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IT_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_PUTResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.SignStamp.invoke">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invoke.inputPDF">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invoke.inputPNGSign">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invoke.overlay">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.SignStamp.BLOB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.contentType">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.binaryData">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.attachmentID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.remoteURL">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.MTOM">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.swaRef">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.BLOB.attributes">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item.key">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.MyMapOf_xsd_string_To_xsd_anyType_Item.value">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.SignStamp.invokeResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invokeResponse.errCode">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invokeResponse.errMsg">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.SignStamp.invokeResponse.outputPDF">
+            <remarks/>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_UNKNOWN">
+            <summary>
+            The authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE">
+            <summary>
+            Call to CACHE during authentication process.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_CACHE2">
+            <summary>
+            Call to CACHE during authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_APP">
+            <summary>
+            The authentication process - application exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH1_INV_OP">
+            <summary>
+            The authentication process - invalid operation exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_UNKNOWN">
+            <summary>
+            The authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE">
+            <summary>
+            Call to CACHE during authentication process.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_CACHE2">
+            <summary>
+            Call to CACHE during authentication process - unknown exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_APP">
+            <summary>
+            The authentication process - application exception.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.AUTH2_INV_OP">
+            <summary>
+            The authentication process - invalid operation exception.
+            </summary>
+        </member>
+        <member name="M:eContracting.Constants.TemplateIds.IsOfferPage(Sitecore.Data.ID)">
+            <summary>
+            Determines whether <paramref name="templateId"/> contains data with offer.
+            </summary>
+            <param name="templateId">The template identifier.</param>
+        </member>
+        <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
+            <summary>
+            Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
+            </summary>
+            <typeparam name="T">Sitecore item model type.</typeparam>
+            <param name="service">The service.</param>
+            <param name="path">The path.</param>
+            <returns>List of found children or empty list.</returns>
+        </member>
+        <member name="M:eContracting.Extensions.GetCounter(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets the counter integer value. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
+        </member>
+        <member name="M:eContracting.Extensions.Merge``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
+            <summary>
+            Merges two dictionaries.
+            </summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="source">The source dictionary.</param>
+            <param name="second">The second.</param>
+        </member>
+        <member name="M:eContracting.Extensions.HasValue(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Determines whether the specified key has value any value.
+            </summary>
+            <param name="source">The source.</param>
+            <param name="key">The key.</param>
+            <returns>
+              <c>true</c> if the specified key has value; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:eContracting.IApiService">
+            <summary>
+            Service with direct communication to SAP / CACHE.
+            </summary>
+        </member>
+        <member name="M:eContracting.IApiService.AcceptOfferAsync(System.String,eContracting.Models.OfferSubmitDataModel)">
+            <summary>
+            Accepts offer asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="data">The submitted data.</param>
+            <returns>True if it was accepted or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.AcceptOffer(System.String,eContracting.Models.OfferSubmitDataModel)">
+            <summary>
+            Accepts offer synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="data">The submitted data.</param>
+            <returns>True if it was accepted or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.ReadOffer(System.String)">
+            <summary>
+            Reads offer synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was set or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.ReadOfferAsync(System.String)">
+            <summary>
+            Reads offer asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>True if it was set or false.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
+            <summary>
+            Gets the files asynchronous.
+            </summary>
+            <param name="offer">The offer with attachment templates.</param>
+            <returns>Files in array or null</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetAttachments(eContracting.Models.OfferModel)">
+            <summary>
+            Gets the files synchronous.
+            </summary>
+            <param name="offer">The offer with attachment templates.</param>
+            <returns>Files in array or null</returns>
+        </member>
+        <member name="M:eContracting.IApiService.GetOffer(System.String)">
+            <summary>
+            Gets the offer by <paramref name="guid"/> with text parameters synchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <returns>The offer.</returns>
+            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
+        </member>
+        <member name="M:eContracting.IApiService.GetOfferAsync(System.String)">
+            <summary>
+            Gets the offer by <paramref name="guid"/> with text parameters asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Offer type.</param>
+            <returns>The offer.</returns>
+            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
+        </member>
+        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,System.Boolean)">
+            <summary>
+            Gets the offer by <paramref name="guid"/> asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Offer type.</param>
+            <param name="includeTextParameters">When you need to get <see cref="P:eContracting.Models.OfferModel.TextParameters"/>.</param>
+            <returns>The offer.</returns>
+            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
+        </member>
+        <member name="M:eContracting.IApiService.SignInOffer(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:eContracting.IApiService.SignInOfferAsync(System.String)">
+            <summary>
+            Make offer <paramref name="guid"/> signed asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:eContracting.IAuthenticationService">
+            <summary>
+            Represents collection of actions for authentication operation.
+            </summary>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
+            <summary>
+            Logins the specified offer.
+            </summary>
+            <seealso cref="T:eContracting.Models.LoginTypeModel"/>
+            <param name="offer">The offer.</param>
+            <param name="birthDay">The birth day.</param>
+            <param name="key">The key of login type.</param>
+            <param name="value">The value by login type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
+            <summary>
+            Log-in user with <paramref name="authData"/>.
+            </summary>
+            <param name="authData">Authentication data.</param>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.IsLoggedIn">
+            <summary>
+            Determines whether user is logged in.
+            </summary>
+            <returns>
+              <c>true</c> if is logged in; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.IAuthenticationService.GetCurrentUser">
+            <summary>
+            Gets the current user.
+            </summary>
+            <returns>Data or null.</returns>
+        </member>
+        <member name="T:eContracting.IUserDataCacheService">
+            <summary>
+            Cache for simple user data relevant only for current user. Data cannot be shared among sessions.
+            </summary>
+        </member>
+        <member name="M:eContracting.IUserDataCacheService.Set``1(System.String,``0)">
+            <summary>
+            Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="M:eContracting.IUserDataCacheService.Get``1(System.String)">
+            <summary>
+            Gets data by <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.IUserDataCacheService.Remove(System.String)">
+            <summary>
+            Removes data under specific <paramref name="key"/>.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:eContracting.IContextWrapper">
+            <summary>
+            Represents wrapper over context (static) values.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
+            <summary>
+            Sets the display mode.
+            </summary>
+            <param name="model">The model.</param>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetSetting(System.String)">
+            <summary>
+            Gets value from 'Sitecore.Configuration.Settings.GetSetting()'.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>String or null.</returns>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetSiteRoot">
+            <summary>
+            Gets the site root path.
+            </summary>
+            <returns>Value from 'Sitecore.Context.Site.RootPath'.</returns>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsNormalMode">
+            <summary>
+            Determines whether Sitecore context page mode is in normal mode.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsPreviewMode">
+            <summary>
+            Determines whether Sitecore context page mode is in preview mode.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.IsEditMode">
+            <summary>
+            Determines whether Sitecore context page mode is in editing mode.
+            </summary>
+        </member>
+        <member name="T:eContracting.IFileOptimizer">
+            <summary>
+            Join file(s) into group and optimize it into PDF file.
+            </summary>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.AddAsync(System.String,System.String,System.String,System.Byte[])">
+            <summary>
+            Adds a file with <paramref name="name" /> to a group with <paramref name="groupKey" />.
+            </summary>
+            <remarks>
+                <para>If group with <paramref name="groupKey"/> doesn't exist, creates new one.</para>
+                <para>
+                    Parameter <paramref name="fileId"/> is used to find new file in <see cref="F:eContracting.Models.OptimizedFileGroupModel.Files"/> collection.
+                    If any file with the same <paramref name="fileId"/> already exists in the group, throws <see cref="T:System.ApplicationException"/>.
+                </para>
+            </remarks>
+            <param name="groupKey">The group unique key.</param>
+            <param name="fileId">Unique file key.</param>
+            <param name="name">The file name.</param>
+            <param name="content">The content content.</param>
+            <returns>Current state of the group after adding new file.</returns>
+            <exception cref="T:System.ApplicationException">Adding failed.</exception>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.GetAsync(System.String)">
+            <summary>
+            Gets current group state by <paramref name="groupKey"/>.
+            </summary>
+            <param name="groupKey">The group unique key.</param>
+            <returns>Current state of the group or null if group doens't exist (or group is empty).</returns>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.RemoveAsync(System.String,System.String)">
+            <summary>
+            Removes specific file with <paramref name="fileId"/> from group by <paramref name="groupKey"/>.
+            </summary>
+            <param name="groupKey">The group unique key.</param>
+            <param name="fileId">The file identifier.</param>
+            <returns>True if file was removed, otherwise false.</returns>
+        </member>
+        <member name="T:eContracting.ILoginReportStore">
+            <summary>
+            Stores information about login attemps.
+            </summary>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.AddLoginAttempt(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Adds the login attempt.
+            </summary>
+            <param name="sessionId">The session identifier.</param>
+            <param name="timestamp">The timestamp.</param>
+            <param name="guid">The unique identifier.</param>
+            <param name="type">The type.</param>
+            <param name="birthdayDate">if set to <c>true</c> [birthday date].</param>
+            <param name="wrongPostalCode">if set to <c>true</c> [wrong postal code].</param>
+            <param name="WrongResidencePostalCode">if set to <c>true</c> [wrong residence postal code].</param>
+            <param name="WrongIdentityCardNumber">if set to <c>true</c> [wrong identity card number].</param>
+            <param name="generalError">if set to <c>true</c> [general error].</param>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.AddFailedAttempt(System.String,System.String,System.String)">
+            <summary>
+            Adds the failed login attempt.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="sessionId">The session identifier.</param>
+            <param name="browserInfo">The browser information.</param>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String,System.Int32,System.TimeSpan)">
+            <summary>
+            Determines whether <paramref name="guid"/> can log-in.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="maxFailedAttempts">The maximum failed attempts.</param>
+            <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
+            <returns>
+              <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String)">
+            <summary>
+            Determines whether <paramref name="guid"/> can log-in.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+        </member>
+        <member name="T:eContracting.IOfferAttachmentParserService">
+            <summary>
+            Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentModel"/> object.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Parses raw <paramref name="files"/> into serializable format.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="files">The files.</param>
+            <returns>Array of files.</returns>
+        </member>
+        <member name="M:eContracting.IOfferAttachmentParserService.Equals(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Determinates if <paramref name="template"/> is relevant for this <paramref name="file"/>.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="file">The file.</param>
+        </member>
+        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Find a file which matches to its <paramref name="template"/>.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="files">The files.</param>
+            <returns>File or null.</returns>
+        </member>
+        <member name="T:eContracting.IOfferJsonDescriptor">
+            <summary>
+            Creates prescription for JSON / API for not accepted offer and accepted offer.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
+            <summary>
+            Gets prescription for not accepted offer.
+            </summary>
+            <param name="offer">The offer.</param>
+        </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
+            <summary>
+            Gets prescription for accepted offer.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns></returns>
+        </member>
+        <member name="T:eContracting.IOfferParserService">
+            <summary>
+            Represents parser from <see cref="T:eContracting.Models.OfferModel"/> to <see cref="T:eContracting.Models.ResponseCacheGetModel"/> object.
+            </summary>
+        </member>
+        <member name="M:eContracting.IOfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Generates offer.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Return <see cref="T:eContracting.Models.OfferModel"/> or null if there are no files in <see cref="T:eContracting.Models.ResponseCacheGetModel"/>.</returns>
+        </member>
+        <member name="M:eContracting.IOfferParserService.GetVersion(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets offer version from <paramref name="response"/> data.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Numbered version starting at 1.</returns>
+        </member>
+        <member name="M:eContracting.IOfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Gets the text parameters from given <paramref name="files"/>.
+            </summary>
+            <remarks>There files needs to have XML path 'form/parameters'.</remarks>
+            <param name="files">The files.</param>
+            <returns>Dictionary or null.</returns>
+        </member>
+        <member name="T:eContracting.ISettingsReaderService">
+            <summary>
+            Global settings reader.
+            </summary>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
+            <summary>
+            Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinition(System.String,System.String)">
+            <summary>
+            Gets definition by <paramref name="process"/> and <paramref name="processType"/> from '/sitecore/content/eContracting2/Definitions'.
+            </summary>
+            <param name="process">The process.</param>
+            <param name="processType">Type of the process.</param>
+            <returns>Definition or null.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
+            <summary>
+            Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.DefinitionCombinationModel"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <returns>List of defined login types or if there is not defined any, one random login type from all of them.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllProcesses">
+            <summary>
+            Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
+            </summary>
+            <returns>List of all defined processes.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No processes found.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllProcessTypes">
+            <summary>
+            Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
+            </summary>
+            <returns>List of all defined process types.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No process types found</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllLoginTypes">
+            <summary>
+            Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
+            </summary>
+            <returns>List of all defined login types.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">No login types found</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
+            <summary>
+            Gets configuration for <see cref="T:eContracting.IApiService"/>.
+            </summary>
+            <returns>The configuration.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetSignApiServiceOptions">
+            <summary>
+            Gets configuration for <see cref="T:eContracting.ISignService"/>.
+            </summary>
+            <returns>The configuration.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetPageLink(eContracting.PAGE_LINK_TYPES)">
+            <summary>
+            Gets url from site settings.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>Url or exception.</returns>
+            <exception cref="T:System.InvalidOperationException">When <see cref="T:eContracting.PAGE_LINK_TYPES"/> cannot be resolved.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetSiteSettings">
+            <summary>
+            Gets the site settings.
+            </summary>
+            <returns>Model or exception.</returns>
+            <exception cref="T:eContracting.MissingDatasourceException">When settings cannot be found.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+            <summary>
+            Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="P:eContracting.Models.ProcessStepModel.IsSelected"/> = <c>true</c>'.
+            </summary>
+            <param name="currentStep">The current step.</param>
+            <returns>Array of all related steps.</returns>
+        </member>
         <member name="T:eContracting.OFFER_TYPES">
             <summary>
             Type of offers presented in SAP.
@@ -2014,6 +2078,13 @@
             <param name="loginType">Type of the login.</param>
             <param name="offer">The offer.</param>
             <returns>Generated key.</returns>
+        </member>
+        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.DocumentTemplateModel)">
+            <summary>
+            Gets the unique key for template document.
+            </summary>
+            <param name="template">The template.</param>
+            <returns>Hash of <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Group"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/></returns>
         </member>
         <member name="T:eContracting.ILogger">
             <summary>

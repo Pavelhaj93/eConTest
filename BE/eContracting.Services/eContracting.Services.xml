@@ -122,6 +122,30 @@
             <param name="logger">The logger.</param>
             <param name="settingsReaderService">The settings reader service.</param>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IApiService,eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="context">The context.</param>
+            <param name="apiService">The API service.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <exception cref="T:System.ArgumentNullException">
+            logger
+            or
+            context
+            or
+            apiService
+            or
+            settingsReaderService
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.ReplaceWithTextParameters(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Replaces placeholders in <paramref name="source"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
@@ -147,9 +171,14 @@
             The logger.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.Cache">
+        <member name="F:eContracting.Services.SapApiService.UserDataCache">
             <summary>
-            The cache.
+            The user data cache.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SapApiService.UserFileCache">
+            <summary>
+            The user file cache.
             </summary>
         </member>
         <member name="F:eContracting.Services.SapApiService.SettingsReaderService">
@@ -172,20 +201,21 @@
             The API client.
             </summary>
         </member>
-        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SapApiService"/> class.
             </summary>
             <param name="logger">The logger.</param>
-            <param name="cache">The cache.</param>
+            <param name="userDataCache">The user data cache.</param>
+            <param name="userFileCache">The user file cache.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <param name="offerParser">The offer parser.</param>
             <param name="offerAttachmentParser">The offer attachment parser.</param>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOffer(System.String)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOffer(System.String,eContracting.Models.OfferSubmitDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(System.String)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(System.String,eContracting.Models.OfferSubmitDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SapApiService.GetOffer(System.String)">
@@ -255,6 +285,15 @@
             <param name="guid">The unique identifier.</param>
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.SapApiService.PutAsync(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Inserts data asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="attributes">The attributes.</param>
+            <param name="files">The files.</param>
+            <returns>The response.</returns>
         </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>
@@ -331,6 +370,12 @@
             <exception cref="T:System.ArgumentNullException">logger</exception>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Equals(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.ZCCH_ST_FILE)">

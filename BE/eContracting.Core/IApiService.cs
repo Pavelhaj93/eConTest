@@ -14,15 +14,17 @@ namespace eContracting
         /// Accepts offer asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
+        /// <param name="data">The submitted data.</param>
         /// <returns>True if it was accepted or false.</returns>
-        Task<bool> AcceptOfferAsync(string guid);
+        Task<bool> AcceptOfferAsync(string guid, OfferSubmitDataModel data);
 
         /// <summary>
         /// Accepts offer synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
+        /// <param name="data">The submitted data.</param>
         /// <returns>True if it was accepted or false.</returns>
-        bool AcceptOffer(string guid);
+        bool AcceptOffer(string guid, OfferSubmitDataModel data);
 
         /// <summary>
         /// Reads offer synchronously.
@@ -53,7 +55,7 @@ namespace eContracting
         OfferAttachmentModel[] GetAttachments(OfferModel offer);
 
         /// <summary>
-        /// Gets the offer by <paramref name="guid"/> synchronously.
+        /// Gets the offer by <paramref name="guid"/> with text parameters synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>The offer.</returns>
@@ -61,13 +63,23 @@ namespace eContracting
         OfferModel GetOffer(string guid);
 
         /// <summary>
-        /// Gets the offer by <paramref name="guid"/> asynchronously.
+        /// Gets the offer by <paramref name="guid"/> with text parameters asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
         Task<OfferModel> GetOfferAsync(string guid);
+
+        /// <summary>
+        /// Gets the offer by <paramref name="guid"/> asynchronously.
+        /// </summary>
+        /// <param name="guid">Guid identifier.</param>
+        /// <param name="type">Offer type.</param>
+        /// <param name="includeTextParameters">When you need to get <see cref="OfferModel.TextParameters"/>.</param>
+        /// <returns>The offer.</returns>
+        /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
+        Task<OfferModel> GetOfferAsync(string guid, bool includeTextParameters);
 
         /// <summary>
         /// Make offer <paramref name="guid"/> signed.

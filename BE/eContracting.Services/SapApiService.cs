@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using eContracting.Models;
+using Sitecore.Data.Events;
 
 namespace eContracting.Services
 {
@@ -21,9 +23,14 @@ namespace eContracting.Services
         protected readonly ILogger Logger;
 
         /// <summary>
-        /// The cache.
+        /// The user data cache.
         /// </summary>
-        protected readonly IUserDataCacheService Cache;
+        protected readonly IUserDataCacheService UserDataCache;
+
+        /// <summary>
+        /// The user file cache.
+        /// </summary>
+        protected readonly IUserFileCacheService UserFileCache;
 
         /// <summary>
         /// The settings reader service.
@@ -49,19 +56,22 @@ namespace eContracting.Services
         /// Initializes a new instance of the <see cref="SapApiService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        /// <param name="cache">The cache.</param>
+        /// <param name="userDataCache">The user data cache.</param>
+        /// <param name="userFileCache">The user file cache.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <param name="offerParser">The offer parser.</param>
         /// <param name="offerAttachmentParser">The offer attachment parser.</param>
         public SapApiService(
             ILogger logger,
-            IUserDataCacheService cache,
+            IUserDataCacheService userDataCache,
+            IUserFileCacheService userFileCache,
             ISettingsReaderService settingsReaderService,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser)
         {
             this.Logger = logger;
-            this.Cache = cache;
+            this.UserDataCache = userDataCache;
+            this.UserFileCache = userFileCache;
             this.SettingsReaderService = settingsReaderService;
             this.OfferParser = offerParser;
             this.AttachmentParser = offerAttachmentParser;
@@ -83,17 +93,136 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool AcceptOffer(string guid)
+        public bool AcceptOffer(string guid, OfferSubmitDataModel data)
         {
-            var task = Task.Run(() => this.AcceptOfferAsync(guid));
+            var task = Task.Run(() => this.AcceptOfferAsync(guid, data));
             task.Wait();
             var result = task.Result;
             return result;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AcceptOfferAsync(string guid)
+        public async Task<bool> AcceptOfferAsync(string guid, OfferSubmitDataModel data)
         {
+            var offer = await this.GetOfferAsync(guid, false);
+
+            var when = DateTime.UtcNow;
+            var startingLog = new StringBuilder();
+            startingLog.AppendLine($"[LogAcceptance] Initializing...");
+            startingLog.AppendLine($" - Guid: {guid}");
+            startingLog.AppendLine($" - when: {when.ToString("yyyy-MM-dd HH:mm:ss")}");
+
+            this.Logger.Debug(guid, startingLog.ToString());
+
+            string timestampString = when.ToString("yyyyMMddHHmmss");
+            Decimal outValue = 1M;
+            Decimal.TryParse(timestampString, out outValue);
+
+            List<ZCCH_ST_ATTRIB> attributes = new List<ZCCH_ST_ATTRIB>();
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "ACCEPTED_AT",
+                ATTRVAL = outValue.ToString()
+            });
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "IP_ADDRESS",
+                ATTRVAL = Utils.GetIpAddress()
+            });
+
+            this.Logger.Debug(guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
+
+            var responsePdfFiles = await this.GetFilesAsync(guid, false);
+
+            var files = new List<ZCCH_ST_FILE>();
+
+            var templatesRequiredForSign = offer.Documents.Where(x => x.IsSignRequired() == true && x.IsPrinted());
+
+            foreach (var template in templatesRequiredForSign)
+            {
+                var uniqueKey = template.UniqueKey;
+                
+                if (!data.Signed.Any(x => x == template.UniqueKey))
+                {
+                    throw new ApplicationException($"Missing required file for sign: {template}");
+                }
+
+                var signedFile = this.UserFileCache.Get<OfferAttachmentModel>(uniqueKey);
+
+                if (signedFile == null)
+                {
+                    throw new ApplicationException($"File not found in the cache: key: {uniqueKey}: template: {template}");
+                }
+
+                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+                
+                if (file == null)
+                {
+                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
+                }
+
+                // replace original content with signed
+                file.FILECONTENT = signedFile.FileContent;
+
+                var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+
+                arccIdAttribute.ATTRVAL = arccIdAttribute != null ? string.Empty : arccIdAttribute.ATTRVAL;
+                arcDocAttribute.ATTRVAL = arcDocAttribute != null ? string.Empty : arcDocAttribute.ATTRVAL;
+                arcArchIdAttribute.ATTRVAL = arcArchIdAttribute != null ? string.Empty : arcArchIdAttribute.ATTRVAL;
+
+                // add signed to list of files to be sent
+                files.Add(file);
+            }
+
+            var templatesOthersPrinted = offer.Documents.Where(x => x.IsSignRequired() == false && x.IsPrinted());
+            var checkedFiles = data.GetCheckedFiles();
+
+            foreach (var template in templatesOthersPrinted)
+            {
+                var uniqueKey = template.UniqueKey;
+                
+                if (!checkedFiles.Contains(uniqueKey))
+                {
+                    continue;
+                }
+
+                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+
+                if (file == null)
+                {
+                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
+                }
+
+                file.FILECONTENT = new byte[] { };
+                files.Add(file);
+            }
+
+            var templatesFileForUploads = offer.Documents.Where(x => x.IsPrinted() == false);
+
+            foreach (var uploadGroup in data.Uploaded)
+            {
+                var template = templatesFileForUploads.FirstOrDefault(x => x.UniqueKey == uploadGroup);
+
+                if (template == null && Utils.GetUniqueKeyForCustomUpload(offer) != uploadGroup)
+                {
+                    throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
+                }
+
+                object uploadedFile = null; //TODO: this.UserFileCache.Get<>(uploadGroup);
+                ZCCH_ST_FILE file = null; //TODO: Convert uploadedFile to this
+
+                //files.Add(file);
+            }
+
+            var putResult = await this.PutAsync(guid, attributes.ToArray(), files.ToArray());
+
+            if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
+            {
+                throw new ApplicationException("ZCCH_CACHE_PUT request failed. Code: " + putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE);
+            }
+
             return await this.SetStatusAsync(guid, OFFER_TYPES.NABIDKA, "5");
         }
 
@@ -109,6 +238,11 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<OfferModel> GetOfferAsync(string guid)
         {
+            return await this.GetOfferAsync(guid, true);
+        }
+
+        public async Task<OfferModel> GetOfferAsync(string guid, bool includeTextParameters)
+        {
             var response = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA);
 
             if (response == null)
@@ -123,14 +257,17 @@ namespace eContracting.Services
                 return null;
             }
 
-            try
+            if (includeTextParameters)
             {
-                var textParameters = await this.GetTextParametersAsync(response);
-                offer.TextParameters.Merge(textParameters);
-            }
-            catch (XmlException ex)
-            {
-                this.Logger.Fatal(offer.Guid, "XML exception when parsing text parameters", ex);
+                try
+                {
+                    var textParameters = await this.GetTextParametersAsync(response);
+                    offer.TextParameters.Merge(textParameters);
+                }
+                catch (XmlException ex)
+                {
+                    this.Logger.Fatal(offer.Guid, "XML exception when parsing text parameters", ex);
+                }
             }
 
             return offer;
@@ -348,6 +485,31 @@ namespace eContracting.Services
             }
 
             return files.ToArray();
+        }
+
+        /// <summary>
+        /// Inserts data asynchronously.
+        /// </summary>
+        /// <param name="guid">The unique identifier.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <param name="files">The files.</param>
+        /// <returns>The response.</returns>
+        protected internal async Task<ZCCH_CACHE_PUTResponse1> PutAsync(string guid, ZCCH_ST_ATTRIB[] attributes, ZCCH_ST_FILE[] files)
+        {
+            var model = new ZCCH_CACHE_PUT();
+            model.IV_CCHKEY = guid;
+            model.IV_CCHTYPE = "NABIDKA_PRIJ";
+            model.IT_ATTRIB = attributes;
+            model.IT_FILES = files;
+
+            var request = new ZCCH_CACHE_PUTRequest(model);
+            var stop = new Stopwatch();
+            stop.Start();
+            var response = await this.Api.ZCCH_CACHE_PUTAsync(request);
+            stop.Stop();
+            //this.Logger.TimeSpent(model, stop.Elapsed);
+
+            return response;
         }
     }
 }
