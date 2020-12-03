@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useContext, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import { Alert, Button, Modal } from 'react-bootstrap'
 import SignaturePad from 'react-signature-pad-wrapper'
@@ -21,12 +21,6 @@ export const SignatureModal: React.FC<Props> = observer(
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
-
-    // construct an URL for image preview of the document
-    const documentUrl = useMemo(() => {
-      const time = new Date().getTime()
-      return `${thumbnailUrl}/${id}&=t${time}`
-    }, [id, thumbnailUrl])
 
     // 0. when the modal is shown => trigger `resize` event on window,
     // so signature canvas will fit into the parent container
@@ -76,7 +70,11 @@ export const SignatureModal: React.FC<Props> = observer(
             )}
             <div className="document-wrapper mb-3">
               {show && (
-                <PreloadImage src={documentUrl} className="img-fluid d-block mx-auto" alt="" />
+                <PreloadImage
+                  src={`${thumbnailUrl}/${id}`}
+                  className="img-fluid d-block mx-auto"
+                  alt=""
+                />
               )}
             </div>
             <p>{t('signatureModalText')}</p>
