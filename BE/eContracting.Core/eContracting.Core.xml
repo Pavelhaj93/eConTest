@@ -16,6 +16,7 @@
             <typeparam name="T">Type of data.</typeparam>
             <param name="key">The key.</param>
             <param name="data">The file data.</param>
+            <exception cref="T:System.ApplicationException">When data were not stored.</exception>
         </member>
         <member name="M:eContracting.IUserFileCacheService.Get``1(System.String)">
             <summary>

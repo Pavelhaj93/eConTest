@@ -101,6 +101,7 @@
     <Compile Include="FileSignService.cs" />
     <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="SapApiService.cs" />
+    <Compile Include="UserSessionFileCacheService.cs" />
     <Compile Include="UserSessionDataCacheService.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MongoLoginReportStore.cs" />

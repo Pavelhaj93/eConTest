@@ -440,6 +440,7 @@ namespace eContracting.Services
 
             var model = new JsonDocumentsAdditionalServicesModel();
             model.Title = definition.OfferAdditionalServicesTitle.Text;
+            model.Text = definition.OfferAdditionalServicesText.Text;
             model.Mandatory = selectedFiles.Length;
             model.Files = list;
             return model;
