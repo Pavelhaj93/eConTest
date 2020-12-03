@@ -3,7 +3,7 @@
 // If you want to add a new icon check README file for instructions.
 import '@icons/arrow-next.svg'
 import '@icons/arrow-right.svg'
-import '@icons/arrow-up.svg'
+import '@icons/arrow-right-up.svg'
 import '@icons/bubble-info.svg'
 import '@icons/bulb.svg'
 import '@icons/calendar.svg'
@@ -33,7 +33,7 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
+export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
 
 type IconProps = {
   name: IconName,

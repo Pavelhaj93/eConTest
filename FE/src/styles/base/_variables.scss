@@ -15,6 +15,7 @@ $color-green: #64b42d;
 $color-green-dark: #00875a;
 $color-yellow: #fff0d9;
 $color-black: #1a1a18;
+$color-white: #fff;
 
 $color-gray-5: #f7f6f6;
 $color-gray-10: #eeecec;
@@ -46,6 +47,7 @@ $colors: (
   'gray-60': $color-gray-60,
   'gray-80': $color-gray-80,
   'gray-100': $color-gray-100,
+  'white': $color-white,
 );
 
 $transition-duration: 0.2s;

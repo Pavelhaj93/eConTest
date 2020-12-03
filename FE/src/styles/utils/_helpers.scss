@@ -54,6 +54,10 @@
       }
     }
   }
+
+  .fill-#{$color} {
+    fill: $value;
+  }
 }
 
 .fade {
