@@ -393,6 +393,11 @@
             The logger.
             </summary>
         </member>
+        <member name="F:eContracting.Services.OfferParserService.SettingsReader">
+            <summary>
+            The settings reader.
+            </summary>
+        </member>
         <member name="M:eContracting.Services.OfferParserService.#ctor(eContracting.ISettingsReaderService,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferParserService"/> class.
@@ -449,6 +454,15 @@
             <param name="file">The file.</param>
             <returns>Tuple with model and raw XML content.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.IsAccepted(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Determines whether the specified response is accepted.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>
+              <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
+            </returns>
+        </member>
         <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel)">
             <summary>
             Set missing required values in <paramref name="offerXml"/>.
@@ -457,6 +471,12 @@
             <para>When missing bus process value, set default '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS"/>'.</para>
             <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
             </remarks>
+            <param name="offerXml">The offer XML.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.AddCustomUploadModelWhenNecessary(eContracting.Models.OfferXmlModel)">
+            <summary>
+            Adds the custom upload model when any other upload is required.
+            </summary>
             <param name="offerXml">The offer XML.</param>
         </member>
         <member name="M:eContracting.Services.OfferParserService.GetNodeValue(System.Xml.XmlNode)">
@@ -472,6 +492,19 @@
             Gets <paramref name="xmlNode"/> value with extra, non wanted, data.
             </summary>
             <param name="xmlNode">The XML node.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetXmlNodeValue(System.Xml.XmlNode)">
+            <summary>
+            Gets <see cref="P:System.Xml.XmlNode.InnerText"/> or <see cref="P:System.Xml.XmlNode.InnerXml"/> based on 'this.SettingsReader.GetXmlNodeNamesExcludeHtml()'.
+            </summary>
+            <param name="xmlNode">The XML node.</param>
+            <returns>Inner text or inner xml.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCustomUploadModel">
+            <summary>
+            Creates model for custom, not mandatory, upload.
+            </summary>
+            <returns>The template model.</returns>
         </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
             <summary>

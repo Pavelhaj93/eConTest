@@ -156,14 +156,14 @@ namespace eContracting.Services
 
             if (offer.Version == 1)
             {
-                if (!template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase))
+                if (!template.IsPrinted())
                 {
                     template.Printed = Constants.FileAttributeValues.CHECK_VALUE;
                     this.Logger.Info(offer.Guid, $"Missing value for 'Printed' (version {offer.Version}). Set default: '{Constants.FileAttributeValues.CHECK_VALUE}'");
                 }
             }
 
-            if (!template.Printed.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) && string.IsNullOrWhiteSpace(template.ConsentType))
+            if (!template.IsPrinted() && string.IsNullOrWhiteSpace(template.ConsentType))
             {
                 if (index == 0)
                 {
@@ -179,7 +179,6 @@ namespace eContracting.Services
         protected internal OfferAttachmentModel GetModel(OfferModel offer, DocumentTemplateModel template, ZCCH_ST_FILE[] files)
         {
             OfferAttachmentModel item = null;
-            var uniqueKey = Utils.GetUniqueKey(template); //TODO: Do it in OfferAttachmentModel constructor
             // if attachment exists in files
             if (template.Printed == Constants.FileAttributes.CHECK_VALUE)
             {
@@ -188,14 +187,14 @@ namespace eContracting.Services
                 if (file != null)
                 {
                     var attrs = this.GetAttributes(file);
-                    item = new OfferAttachmentModel(template, uniqueKey, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
+                    item = new OfferAttachmentModel(template, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
                 }
             }
             // otherwise this file must be uploaded by user
             else
             {
                 // this is just a template for file witch is required from a user
-                item = new OfferAttachmentModel(template, uniqueKey, null, null, new OfferAttributeModel[] { }, null);
+                item = new OfferAttachmentModel(template, null, null, new OfferAttributeModel[] { }, null);
             }
 
             return item;

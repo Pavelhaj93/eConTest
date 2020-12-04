@@ -134,87 +134,7 @@ namespace eContracting.Services
 
             var responsePdfFiles = await this.GetFilesAsync(guid, false);
 
-            var files = new List<ZCCH_ST_FILE>();
-
-            var templatesRequiredForSign = offer.Documents.Where(x => x.IsSignRequired() == true && x.IsPrinted());
-
-            foreach (var template in templatesRequiredForSign)
-            {
-                var uniqueKey = template.UniqueKey;
-                
-                if (!data.Signed.Any(x => x == template.UniqueKey))
-                {
-                    throw new ApplicationException($"Missing required file for sign: {template}");
-                }
-
-                var signedFile = this.UserFileCache.Get<OfferAttachmentModel>(uniqueKey);
-
-                if (signedFile == null)
-                {
-                    throw new ApplicationException($"File not found in the cache: key: {uniqueKey}: template: {template}");
-                }
-
-                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
-                
-                if (file == null)
-                {
-                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
-                }
-
-                // replace original content with signed
-                file.FILECONTENT = signedFile.FileContent;
-
-                var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
-                var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
-                var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
-
-                arccIdAttribute.ATTRVAL = arccIdAttribute != null ? string.Empty : arccIdAttribute.ATTRVAL;
-                arcDocAttribute.ATTRVAL = arcDocAttribute != null ? string.Empty : arcDocAttribute.ATTRVAL;
-                arcArchIdAttribute.ATTRVAL = arcArchIdAttribute != null ? string.Empty : arcArchIdAttribute.ATTRVAL;
-
-                // add signed to list of files to be sent
-                files.Add(file);
-            }
-
-            var templatesOthersPrinted = offer.Documents.Where(x => x.IsSignRequired() == false && x.IsPrinted());
-            var checkedFiles = data.GetCheckedFiles();
-
-            foreach (var template in templatesOthersPrinted)
-            {
-                var uniqueKey = template.UniqueKey;
-                
-                if (!checkedFiles.Contains(uniqueKey))
-                {
-                    continue;
-                }
-
-                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
-
-                if (file == null)
-                {
-                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
-                }
-
-                file.FILECONTENT = new byte[] { };
-                files.Add(file);
-            }
-
-            var templatesFileForUploads = offer.Documents.Where(x => x.IsPrinted() == false);
-
-            foreach (var uploadGroup in data.Uploaded)
-            {
-                var template = templatesFileForUploads.FirstOrDefault(x => x.UniqueKey == uploadGroup);
-
-                if (template == null && Utils.GetUniqueKeyForCustomUpload(offer) != uploadGroup)
-                {
-                    throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
-                }
-
-                object uploadedFile = null; //TODO: this.UserFileCache.Get<>(uploadGroup);
-                ZCCH_ST_FILE file = null; //TODO: Convert uploadedFile to this
-
-                //files.Add(file);
-            }
+            var files = this.GetFilesForAccept(offer, data, responsePdfFiles);
 
             var putResult = await this.PutAsync(guid, attributes.ToArray(), files.ToArray());
 
@@ -360,6 +280,108 @@ namespace eContracting.Services
             {
                 throw new ApplicationException($"Cannot get text parameters. Unknown version {version}");
             }
+        }
+
+        protected internal ZCCH_ST_FILE[] GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles)
+        {
+            var files = new List<ZCCH_ST_FILE>();
+
+            // templates for sign
+            var templatesRequiredForSign = offer.Documents.Where(x => x.IsSignRequired() == true && x.IsPrinted());
+
+            foreach (var template in templatesRequiredForSign)
+            {
+                var uniqueKey = template.UniqueKey;
+
+                if (!data.Signed.Any(x => x == template.UniqueKey))
+                {
+                    throw new ApplicationException($"Missing required file for sign: {template}");
+                }
+
+                var signedFile = this.UserFileCache.Get<OfferAttachmentModel>(uniqueKey);
+
+                if (signedFile == null)
+                {
+                    throw new ApplicationException($"File not found in the cache: key: {uniqueKey}: template: {template}");
+                }
+
+                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+
+                if (file == null)
+                {
+                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
+                }
+
+                // replace original content with signed
+                file.FILECONTENT = signedFile.FileContent;
+
+                var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
+                var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
+                var arcArchIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCHID$");
+
+                arccIdAttribute.ATTRVAL = arccIdAttribute != null ? string.Empty : arccIdAttribute.ATTRVAL;
+                arcDocAttribute.ATTRVAL = arcDocAttribute != null ? string.Empty : arcDocAttribute.ATTRVAL;
+                arcArchIdAttribute.ATTRVAL = arcArchIdAttribute != null ? string.Empty : arcArchIdAttribute.ATTRVAL;
+
+                // add signed to list of files to be sent
+                files.Add(file);
+            }
+
+            // templates for accept
+            var templatesOthersPrinted = offer.Documents.Where(x => x.IsSignRequired() == false && x.IsPrinted());
+            var checkedFiles = data.GetCheckedFiles();
+
+            foreach (var template in templatesOthersPrinted)
+            {
+                var uniqueKey = template.UniqueKey;
+
+                if (!checkedFiles.Contains(uniqueKey))
+                {
+                    continue;
+                }
+
+                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+
+                if (file == null)
+                {
+                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
+                }
+
+                file.FILECONTENT = new byte[] { };
+                files.Add(file);
+            }
+
+            // templates for upload
+            var templatesFileForUploads = offer.Documents.Where(x => x.IsPrinted() == false);
+
+            foreach (var uploadGroup in data.Uploaded)
+            {
+                var template = templatesFileForUploads.FirstOrDefault(x => x.UniqueKey == uploadGroup);
+
+                if (template == null)
+                {
+                    throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
+                }
+
+                var uploadedFileGroup = this.UserFileCache.Get<OptimizedFileGroupModel>(uploadGroup);
+
+                if (uploadedFileGroup == null)
+                {
+                    throw new ApplicationException($"Cannot find upload for '{uploadGroup}'");
+                }
+
+                if (uploadedFileGroup.File.Length == 0)
+                {
+                    throw new ApplicationException($"Group '{uploadGroup}' doesn't have content");
+                }
+
+                var file = new ZCCH_ST_FILE();
+                file.FILENAME = template.Description;
+                file.FILECONTENT = uploadedFileGroup.File;
+                files.Add(file);
+            }
+
+            return files.ToArray();
         }
 
         /// <summary>

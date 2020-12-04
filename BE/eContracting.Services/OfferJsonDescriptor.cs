@@ -406,12 +406,13 @@ namespace eContracting.Services
                 list.Add(file);
             }
 
-            var customFile = new JsonUploadTemplateModel();
-            customFile.GroupId = Utils.GetUniqueKeyForCustomUpload(offer);
-            customFile.Title = definition.OfferUploadsExtraText.Text;
-            customFile.Info = definition.OfferUploadsExtraHelp.Text;
-            customFile.Mandatory = false;
-            list.Add(customFile);
+            // logic moved to OfferParserService
+            //var customFile = new JsonUploadTemplateModel();
+            //customFile.GroupId = Utils.GetUniqueKeyForCustomUpload(offer);
+            //customFile.Title = definition.OfferUploadsExtraText.Text;
+            //customFile.Info = definition.OfferUploadsExtraHelp.Text;
+            //customFile.Mandatory = false;
+            //list.Add(customFile);
 
             var model = new JsonDocumentsUploadsModel();
             model.Title = definition.OfferUploadsTitle.Text;

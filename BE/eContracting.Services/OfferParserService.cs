@@ -21,6 +21,9 @@ namespace eContracting.Services
         /// </summary>
         protected readonly ILogger Logger;
 
+        /// <summary>
+        /// The settings reader.
+        /// </summary>
         protected readonly ISettingsReaderService SettingsReader;
 
         /// <summary>
@@ -206,13 +209,19 @@ namespace eContracting.Services
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
-
                 this.MakeCompatible(offerXml);
-
+                this.AddCustomUploadModelWhenNecessary(offerXml);
                 return offerXml;
             }
         }
 
+        /// <summary>
+        /// Determines whether the specified response is accepted.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
+        /// </returns>
         protected internal bool IsAccepted(ZCCH_CACHE_GETResponse response)
         {
             var attr = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.ACCEPTED_DATE)?.ATTRVAL;
@@ -253,6 +262,20 @@ namespace eContracting.Services
                     offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_B;
                     this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Adds the custom upload model when any other upload is required.
+        /// </summary>
+        /// <param name="offerXml">The offer XML.</param>
+        protected void AddCustomUploadModelWhenNecessary(OfferXmlModel offerXml)
+        {
+            if (offerXml.Content.Body.Attachments.Any(x => x.IsPrinted() == false && x.IsObligatory() == true))
+            {
+                var list = new List<DocumentTemplateModel>(offerXml.Content.Body.Attachments);
+                list.Add(this.GetCustomUploadModel());
+                offerXml.Content.Body.Attachments = list.ToArray();
             }
         }
 
@@ -299,6 +322,11 @@ namespace eContracting.Services
             return clean;
         }
 
+        /// <summary>
+        /// Gets <see cref="XmlNode.InnerText"/> or <see cref="XmlNode.InnerXml"/> based on 'this.SettingsReader.GetXmlNodeNamesExcludeHtml()'.
+        /// </summary>
+        /// <param name="xmlNode">The XML node.</param>
+        /// <returns>Inner text or inner xml.</returns>
         protected internal string GetXmlNodeValue(XmlNode xmlNode)
         {
             var names = this.SettingsReader.GetXmlNodeNamesExcludeHtml();
@@ -309,6 +337,22 @@ namespace eContracting.Services
             }
 
             return xmlNode.InnerXml;
+        }
+
+        /// <summary>
+        /// Creates model for custom, not mandatory, upload.
+        /// </summary>
+        /// <returns>The template model.</returns>
+        protected internal DocumentTemplateModel GetCustomUploadModel()
+        {
+            var template = new DocumentTemplateModel();
+            template.AddInfo = string.Empty;
+            template.Description = "Custom upload"; //TODO: Add label from Sitecore
+            template.Group = "COMMODITY";
+            template.IdAttach = "CUSTOM UPLOAD";
+            template.ItemGuid = "11111111111111111111111111111111";
+            template.SequenceNumber = "999";
+            return template;
         }
     }
 }

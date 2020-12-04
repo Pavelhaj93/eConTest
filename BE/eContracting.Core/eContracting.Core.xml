@@ -363,12 +363,11 @@
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
             <param name="template">The template.</param>
-            <param name="uniqueKey">The unique key.</param>
             <param name="mimeType">Type of the MIME.</param>
             <param name="originalFileName">Name of the original file.</param>
             <param name="attributes">The attributes.</param>

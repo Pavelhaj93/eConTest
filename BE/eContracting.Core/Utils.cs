@@ -153,11 +153,6 @@ namespace eContracting
             return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
         }
 
-        public static string GetUniqueKeyForCustomUpload(OfferModel offer)
-        {
-            return GetMd5(offer.Guid + "D3F8837DE7F44DA3AD73C57C95A0893D");
-        }
-
         /// <summary>
         /// Gets the unique key for template document.
         /// </summary>
