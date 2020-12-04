@@ -102,10 +102,12 @@ export default {
     new PolyfillInjectorPlugin({
       polyfills: [
         'Object.assign',
+        'Object.values',
         'Array.from',
         'Array.prototype.find',
         'Array.prototype.findIndex',
         'Array.prototype.fill',
+        'Array.prototype.includes',
         'fetch',
         'Promise',
         'AbortController',

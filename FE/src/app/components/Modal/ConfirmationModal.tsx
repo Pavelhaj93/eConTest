@@ -18,6 +18,7 @@ type Props = {
 export const ConfirmationModal: React.FC<Props> = observer(
   ({ show, labels, onClose, thankYouPageUrl }) => {
     const [error, setError] = useState(false)
+    const [isRedirecting, setRedirecting] = useState(false)
     const t = useLabels(labels)
     const store = useContext(OfferStoreContext)
 
@@ -43,6 +44,8 @@ export const ConfirmationModal: React.FC<Props> = observer(
       const accepted = await store.acceptOffer()
 
       if (accepted) {
+        // keep the loading spinner and disabled buttons even during the redirection
+        setRedirecting(true)
         window.location.href = thankYouPageUrl
       } else {
         setError(true)
@@ -56,7 +59,7 @@ export const ConfirmationModal: React.FC<Props> = observer(
         </Modal.Header>
         <Modal.Body
           className={classNames({
-            loading: store.isAccepting,
+            loading: store.isAccepting || isRedirecting,
           })}
         >
           {error && (
@@ -65,9 +68,13 @@ export const ConfirmationModal: React.FC<Props> = observer(
             </Alert>
           )}
           <Row as="ul" className="justify-content-center list-unstyled mb-0 mt-3">
-            {store.acceptance.params.map(({ group, title, accepted }) => (
+            {store.acceptanceGroups.map(({ group, title, accepted }) => (
               <Col key={group} as="li" xs={6} lg={4} className="mb-4 text-center">
-                <Icon name="check-circle" size={40} color={accepted ? colors.green : colors.red} />
+                <Icon
+                  name={accepted ? 'check-circle' : 'cross-circle'}
+                  size={40}
+                  color={accepted ? colors.green : colors.red}
+                />
                 <span
                   className={classNames({
                     'd-block': true,
@@ -87,10 +94,18 @@ export const ConfirmationModal: React.FC<Props> = observer(
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleAcceptOffer} disabled={store.isAccepting}>
+          <Button
+            variant="secondary"
+            onClick={handleAcceptOffer}
+            disabled={store.isAccepting || isRedirecting}
+          >
             {t('acceptanceModalAccept')}
           </Button>
-          <Button variant="outline-dark" onClick={onClose} disabled={store.isAccepting}>
+          <Button
+            variant="outline-dark"
+            onClick={onClose}
+            disabled={store.isAccepting || isRedirecting}
+          >
             {t('acceptanceModalCancel')}
           </Button>
         </Modal.Footer>

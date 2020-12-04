@@ -9,7 +9,7 @@ export default merge(baseConfig, {
   devtool: 'source-map',
 
   devServer: {
-    host: '0.0.0.0',
+    host: '0.0.0.0', // on Windows use standard localhost
     before: app => {
       app.use(apiMocker('/api', '/src/mocks/api'))
     },

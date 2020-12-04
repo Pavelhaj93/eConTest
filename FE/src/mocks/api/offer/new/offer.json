@@ -107,7 +107,7 @@
       "accept": {
         "title": "Dodatek a přidružené dokumenty",
         "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
-        "mandatory": true,
+        "mandatoryGroups": ["06D969E88C3C1EDB8BD27598F0B3C7D8"],
         "params": [
           {
             "title": "Vaše adresa",
@@ -227,7 +227,7 @@
         ],
         "subTitle2": "Přihláška a přidružené dokumenty",
         "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
-        "mandatory": 3,
+        "mandatoryGroups": [],
         "files": [
           {
             "label": "Pojištění - Informační dokument 1",
@@ -256,7 +256,7 @@
       "services": {
         "title": "Doplňkové služby",
         "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
-        "mandatory": 0,
+        "mandatoryGroups": [],
         "files": [
           {
             "label": "Dohoda o sjednání doplňkové služby investor",
@@ -264,8 +264,9 @@
             "mandatory": false
           },
           {
-            "label": "Žádost o nesnížování zálohových plateb",
+            "label": "Žádost o nesnižování zálohových plateb",
             "key": "cc6d047821044adc86b6c811d6cecb0b",
+            "group": "06D969E88C3C1EDB8BD27637116D07D8",
             "mandatory": false
           },
           {

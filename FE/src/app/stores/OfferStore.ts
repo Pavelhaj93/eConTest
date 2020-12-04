@@ -11,9 +11,10 @@ import {
   UploadDocumentPromise,
   Acceptance,
   UploadDocumentResponse,
+  AcceptanceGroup,
 } from '@types'
 import { UserDocument } from './'
-import { action, computed, observable, reaction } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { generateId } from '@utils'
 
 export class OfferStore {
@@ -64,54 +65,6 @@ export class OfferStore {
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
     this.type = type
-
-    reaction(
-      () => this.allDocumentsAreAccepted,
-      (allAccepted: boolean) => {
-        if (!this.documentsToBeAccepted.length) return
-
-        // all documents have the same group id
-        const group = this.documentsToBeAccepted[0].group
-        this.updateAcceptanceGroup(group, allAccepted)
-      },
-    )
-
-    reaction(
-      () => this.allDocumentsAreSigned,
-      (allSigned: boolean) => {
-        if (!this.documentsToBeSigned.length) return
-
-        // all documents have the same group id
-        const group = this.documentsToBeSigned[0].group
-        this.updateAcceptanceGroup(group, allSigned)
-      },
-    )
-
-    reaction(
-      () => this.allProductsDocumentsAreAccepted,
-      (allAccepted: boolean) => {
-        if (!this.documentsProducts.length) return
-
-        // all documents have the same group id
-        const group = this.documentsProducts[0].group
-        this.updateAcceptanceGroup(group, allAccepted)
-      },
-    )
-  }
-
-  /**
-   * Set a acceptance group as accepted based on `groupAccepted` value.
-   * @param group - a group GUID.
-   * @param groupAccepted - boolean indicating whether the whole group should be marked as accepted.
-   */
-  private updateAcceptanceGroup(group: string, groupAccepted: boolean): void {
-    this.acceptance = {
-      ...this.acceptance,
-      params: this.acceptance.params.map(p => ({
-        ...p,
-        accepted: p.group === group ? groupAccepted : p.accepted,
-      })),
-    }
   }
 
   @computed public get offerFetched(): boolean {
@@ -171,23 +124,87 @@ export class OfferStore {
       return true
     }
 
-    if (this.documentsServices.find(document => document.mandatory && !document.accepted)) {
-      return false
+    // first check if we have some mandatory groups
+    if (this.documents.other?.services?.mandatoryGroups.length) {
+      return this.allGroupsAccepted(
+        this.documents.other.services.mandatoryGroups,
+        this.documentsServices,
+      )
     }
 
-    return true
+    // if there is no mandatory group, but one document from one particular group
+    // is checked => the whole group of documents must be checked
+
+    // "create" an array of mandatory groups based on which documents are currently accepted
+    const groups = this.createGroups(this.documentsServices)
+
+    return this.allGroupsAccepted(groups, this.documentsProducts)
   }
 
   @computed public get allProductsDocumentsAreAccepted(): boolean {
+    // if we don't have any product => consider this section as valid
     if (!this.documentsProducts.length) {
       return true
     }
 
-    if (this.documentsProducts.find(document => document.mandatory && !document.accepted)) {
-      return false
+    // first check if we have some mandatory groups
+    if (this.documents.other?.products?.mandatoryGroups.length) {
+      return this.allGroupsAccepted(
+        this.documents.other.products.mandatoryGroups,
+        this.documentsProducts,
+      )
     }
 
-    return true
+    // if there is no mandatory group, but one document from one particular group
+    // is checked => the whole group of documents must be checked
+
+    // "create" an array of mandatory groups based on which documents are currently accepted
+    const groups = this.createGroups(this.documentsProducts)
+
+    return this.allGroupsAccepted(groups, this.documentsProducts)
+  }
+
+  /**
+   * Returns an array of unique group IDs based on documents that are currently accepted.
+   * e.g. two documents from the same group are accepted => array contains a single group ID.
+   * e.g. none of the documents are accepted => array is empty
+   * e.g. two documents from two different groups are accepted => array contains two unique group IDs
+   * @param documents - an array of `OfferDocument`
+   */
+  private createGroups(documents: OfferDocument[]): string[] {
+    return documents
+      .filter(document => document.accepted)
+      .reduce((acc: string[], document) => {
+        if (!acc.includes(document.group)) {
+          return [...acc, document.group]
+        }
+        return acc
+      }, [])
+  }
+
+  /**
+   * Check if all documents with the same group IDs are accepted or not.
+   * If at least one document is not accepted => all groups are not valid.
+   * @param groups - an array of mandatory group IDs
+   * @param documents - an array of `OfferDocument`
+   */
+  private allGroupsAccepted(groups: string[], documents: OfferDocument[]): boolean {
+    if (!groups.length) {
+      return true
+    }
+
+    let allGroupsAccepted = true
+
+    // iterate over all the groups
+    groups.forEach(group => {
+      // if at least one document within the current group is unaccepted => the whole section is invalid
+      if (documents.filter(d => d.group === group).some(document => !document.accepted)) {
+        allGroupsAccepted = false
+        return
+      }
+    })
+
+    return allGroupsAccepted
   }
 
   /** True if documents were uploaded to all mandatory sections. */
@@ -218,14 +235,31 @@ export class OfferStore {
     return allUploaded
   }
 
+  /**
+   * Returns all acceptance groups with updated `accepted` flag based on whether all the documents
+   * from the particular group are accepted or not.
+   */
+  @computed public get acceptanceGroups(): AcceptanceGroup[] {
+    const groups = this.acceptance.params.map(({ title, group }) => {
+      const docs = this.getDocuments(group)
+      const groupAccepted = docs.every(d => d.accepted || d.signed)
+
+      return {
+        title,
+        group,
+        accepted: groupAccepted,
+      }
+    })
+
+    return groups
+  }
+
   /** True if all conditions for particular offer were fullfilled, otherwise false. */
   @computed public get isOfferReadyToAccept(): boolean {
     // if we don't have a single section under `documents` => there is nothing to accept
     if (!this.offerFetched) {
       return false
     }
-
-    // TODO: implement checking of mandatory upload sections
 
     return (
       this.allDocumentsAreAccepted &&
@@ -359,7 +393,7 @@ export class OfferStore {
 
       switch (this.type) {
         case OfferType.NEW:
-          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
+          jsonResponse = await   (response.json() as Promise<NewOfferResponse>)
           this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
@@ -372,7 +406,7 @@ export class OfferStore {
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await   (response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
 
@@ -400,6 +434,19 @@ export class OfferStore {
       ...this.documentsServices,
       ...this.documentsProducts,
     ].find(document => document.key === key)
+  }
+
+  /**
+   * Get documents by group.
+   * @param group - group ID
+   */
+  public getDocuments(group: string): OfferDocument[] {
+    return [
+      ...this.documentsToBeAccepted,
+      ...this.documentsToBeSigned,
+      ...this.documentsServices,
+      ...this.documentsProducts,
+    ].filter(document => document.group === group)
   }
 
   /**

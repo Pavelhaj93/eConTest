@@ -66,11 +66,13 @@ export type AcceptanceDocuments = {
   accept?: {
     title: string
     subTitle: string
+    mandatoryGroups: string[]
     files: OfferDocument[]
   } | null
   sign?: {
     title: string
     subTitle: string
+    mandatoryGroups: string[]
     files: OfferDocument[]
     note: string
   } | null
@@ -92,6 +94,7 @@ export type OtherDocuments = {
     }>
     arguments: Array<{ value: string }>
     subTitle2: string
+    mandatoryGroups: string[]
     files: OfferDocument[]
     note: string
     text: string
@@ -99,6 +102,7 @@ export type OtherDocuments = {
   services?: {
     title: string
     text: string
+    mandatoryGroups: string[]
     files: OfferDocument[]
   }
 }
@@ -109,12 +113,14 @@ export type OfferDocuments = {
   other?: OtherDocuments | null
 }
 
-export type Acceptance = {
-  params: OfferParams<{
-    title: string
+export type AcceptanceGroup = {
+  title: string
     group: string
     accepted: boolean
-  }>
+}
+
+export type Acceptance = {
+  params: OfferParams<AcceptanceGroup>
 }
 
 export type NewOfferResponse = {

@@ -6,6 +6,7 @@ import { useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { PreloadImage } from '@components'
 import { observer } from 'mobx-react-lite'
+import { OfferStore } from '@stores'
 
 type Props = {
   id: string
@@ -21,6 +22,10 @@ export const SignatureModal: React.FC<Props> = observer(
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
+
+    if (!(store instanceof OfferStore)) {
+      return null
+    }
 
     // 0. when the modal is shown => trigger `resize` event on window,
     // so signature canvas will fit into the parent container
@@ -48,7 +53,7 @@ export const SignatureModal: React.FC<Props> = observer(
       const signatureData = signature.toDataURL()
 
       // sign the document with user signature
-      const signed = await store?.signDocument(id, signatureData, signFileUrl)
+      const signed = await store.signDocument(id, signatureData, signFileUrl)
 
       // if request was successful => close the modal, otherwise display error
       if (signed) {
@@ -58,12 +63,12 @@ export const SignatureModal: React.FC<Props> = observer(
 
     return (
       <Modal size="lg" show={show} onHide={onClose}>
-        <div className={classNames({ loading: store?.isSigning })}>
+        <div className={classNames({ loading: store.isSigning })}>
           <Modal.Header closeButton>
             <Modal.Title>{t('signatureModalTitle')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {store?.signError && (
+            {store.signError && (
               <Alert variant="danger" className="mt-0">
                 {t('signatureModalError')}
               </Alert>
@@ -86,7 +91,7 @@ export const SignatureModal: React.FC<Props> = observer(
             </p>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleSubmit} disabled={store?.isSigning}>
+            <Button variant="secondary" onClick={handleSubmit} disabled={store.isSigning}>
               {t('signatureModalConfirm')}
             </Button>
             <Button variant="dark" onClick={handleClear}>
