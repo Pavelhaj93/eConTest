@@ -154,7 +154,7 @@ export const Offer: React.FC<View> = observer(
                 <Row as="ul" className="justify-content-center list-unstyled mb-0">
                   {store.gifts.groups[0].params.map(({ title, icon }, idx) => (
                     <Col as="li" key={idx} xs={12} sm={6} lg={4} className="mb-3">
-                      <Gift type={icon} title={title} />
+                      <Gift type={icon} title={title} className="justify-content-sm-center" />
                     </Col>
                   ))}
                 </Row>

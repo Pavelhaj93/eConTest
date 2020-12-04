@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import classNames from 'classnames'
 import { Icon, IconName } from '@components'
 import { colors } from '@theme'
 import { GiftType } from '@types'
@@ -6,9 +7,10 @@ import { GiftType } from '@types'
 type Props = {
   type: GiftType
   title: string
+  className?: string
 }
 
-export const Gift: React.FC<Props> = ({ type, title }) => {
+export const Gift: React.FC<Props> = ({ type, title, className, ...rest }) => {
   const getIcon: IconName = useMemo(() => {
     switch (type) {
       case GiftType.LED:
@@ -26,7 +28,7 @@ export const Gift: React.FC<Props> = ({ type, title }) => {
   }, [type])
 
   return (
-    <div className="gift">
+    <div className={classNames('gift', className)} {...rest}>
       <span className="gift__icon-wrapper">
         <Icon name={getIcon} size={30} color={colors.orange} className="gift__icon" />
       </span>
