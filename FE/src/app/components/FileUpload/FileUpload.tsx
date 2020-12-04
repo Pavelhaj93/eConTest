@@ -100,7 +100,10 @@ export const FileUpload: React.FC<Props> = ({
           </div>
         </div>
         <div className="ml-auto">
-          {formatBytes(file.size)}
+          <span className="sr-only">
+            {t('fileSize')} {formatBytes(file.size)}
+          </span>
+          <span aria-hidden="true">{formatBytes(file.size)}</span>
           {onRemove && (
             <Button
               variant="primary"

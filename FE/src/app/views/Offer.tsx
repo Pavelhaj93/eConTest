@@ -213,6 +213,7 @@ export const Offer: React.FC<View> = observer(
                       <Button
                         variant="link"
                         onClick={() => store.acceptAllDocuments(store.documentsToBeAccepted)}
+                        aria-pressed={store.allDocumentsAreAccepted}
                       >
                         {t('acceptAll')}
                       </Button>
@@ -375,7 +376,11 @@ export const Offer: React.FC<View> = observer(
 
                 {store.documents.other.products.arguments.length > 0 && (
                   <Box backgroundColor="blue-green-light">
-                    <Row as="ul" className="justify-content-center list-unstyled mb-0">
+                    <Row
+                      as="ul"
+                      className="justify-content-center list-unstyled mb-0"
+                      aria-label={t('productBenefits')}
+                    >
                       {store.documents.other.products.arguments.map(({ value }, idx) => (
                         <Col as="li" key={idx} xs={12} sm={6} lg={4} className="my-3 text-center">
                           <Icon name="check-circle" size={40} color={colors.white} />
@@ -395,6 +400,7 @@ export const Offer: React.FC<View> = observer(
                   <Button
                     variant="link"
                     onClick={() => store.acceptAllDocuments(store.documentsProducts)}
+                    aria-pressed={store.documentsProducts.every(d => d.accepted)}
                   >
                     {t('acceptAll')}
                   </Button>
@@ -452,6 +458,7 @@ export const Offer: React.FC<View> = observer(
                   <Button
                     variant="link"
                     onClick={() => store.acceptAllDocuments(store.documentsServices)}
+                    aria-pressed={store.documentsServices.every(d => d.accepted)}
                   >
                     {t('acceptAll')}
                   </Button>

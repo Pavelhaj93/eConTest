@@ -34,8 +34,15 @@ export const SignatureModal: React.FC<Props> = observer(
         const event = document.createEvent('HTMLEvents')
         event.initEvent('resize', true, false)
         window.dispatchEvent(event)
+
+        // append some attributes for better a11y
+        const canvas = signatureRef.current?.canvas
+        if (canvas) {
+          canvas.setAttribute('role', 'img')
+          canvas.setAttribute('aria-label', t('signaturePadAlt'))
+        }
       }
-    }, [show])
+    }, [show, t])
 
     const handleClear = useCallback(() => {
       signatureRef.current?.clear()
@@ -64,7 +71,7 @@ export const SignatureModal: React.FC<Props> = observer(
     return (
       <Modal size="lg" show={show} onHide={onClose}>
         <div className={classNames({ loading: store.isSigning })}>
-          <Modal.Header closeButton>
+          <Modal.Header closeButton closeLabel={t('modalClose')}>
             <Modal.Title>{t('signatureModalTitle')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -78,7 +85,7 @@ export const SignatureModal: React.FC<Props> = observer(
                 <PreloadImage
                   src={`${thumbnailUrl}/${id}`}
                   className="img-fluid d-block mx-auto"
-                  alt=""
+                  alt={t('signatureModalThumbnailAlt')}
                 />
               )}
             </div>

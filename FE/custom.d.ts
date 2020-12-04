@@ -13,6 +13,7 @@ interface SignaturePad {
   isEmpty: () => boolean
   off: () => void
   on: () => void
+  canvas: HTMLCanvasElement
 }
 
 interface Window {

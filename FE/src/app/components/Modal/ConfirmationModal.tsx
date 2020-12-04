@@ -54,7 +54,7 @@ export const ConfirmationModal: React.FC<Props> = observer(
 
     return (
       <Modal size="lg" show={show} onHide={onClose}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton closeLabel={t('modalClose')}>
           <Modal.Title>{t('acceptanceModalTitle')}</Modal.Title>
         </Modal.Header>
         <Modal.Body
@@ -67,7 +67,11 @@ export const ConfirmationModal: React.FC<Props> = observer(
               {t('acceptanceModalError')}
             </Alert>
           )}
-          <Row as="ul" className="justify-content-center list-unstyled mb-0 mt-3">
+          <Row
+            as="ul"
+            className="justify-content-center list-unstyled mb-0 mt-3"
+            aria-label={t('acceptanceModalSummary')}
+          >
             {store.acceptanceGroups.map(({ group, title, accepted }) => (
               <Col key={group} as="li" xs={6} lg={4} className="mb-4 text-center">
                 <Icon
@@ -75,6 +79,9 @@ export const ConfirmationModal: React.FC<Props> = observer(
                   size={40}
                   color={accepted ? colors.green : colors.red}
                 />
+                <span className="sr-only">
+                  {title} {accepted ? t('accepted') : t('notAccepted')}
+                </span>
                 <span
                   className={classNames({
                     'd-block': true,
@@ -82,6 +89,7 @@ export const ConfirmationModal: React.FC<Props> = observer(
                     'text-success': accepted,
                     'text-danger': !accepted,
                   })}
+                  aria-hidden="true"
                 >
                   {title}
                 </span>
