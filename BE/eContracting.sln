@@ -112,6 +112,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{8D2ADAF1-4DFE-4D
 		..\docs\Examples\Versions\2\BN_0202335701_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335701_AD1.xml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Storage", "eContracting.Storage\eContracting.Storage.csproj", "{7A3E9656-AF6E-4231-9031-B20A8C34306D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -173,6 +175,12 @@ Global
 		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Dev|Any CPU.Build.0 = Debug|Any CPU
 		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A3E9656-AF6E-4231-9031-B20A8C34306D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
