@@ -51,6 +51,7 @@
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="DatabaseContextStartup.cs" />
+    <Compile Include="Models\FileAttributeModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginAttemptModel.cs" />
     <Compile Include="Models\SignedFileModel.cs" />

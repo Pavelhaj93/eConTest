@@ -8,23 +8,16 @@ using System.Threading.Tasks;
 
 namespace eContracting.Storage.Models
 {
-    [Table("UploadGroups")]
-    public class UploadGroupFileModel
+    [Table("FileAttributes")]
+    public class FileAttributeModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
-        public string Key { get; set; }
+        public string Name { get; set; }
 
-        [Required]
-        public FileModel OutputFile { get; set; }
-
-        [Required]
-        public virtual ICollection<FileModel> UploadedFiles { get; set; }
-
-        [Required]
-        public virtual ICollection<FileModel> OptimizedFiles { get; set; }
+        public string Value { get; set; }
     }
 }

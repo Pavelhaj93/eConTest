@@ -239,5 +239,25 @@ namespace eContracting.Services
 
             return items.ToArray();
         }
+
+        /// <inheritdoc/>
+        public string GetFileCacheStorageConnectionString()
+        {
+            string name = "eContractingContext";
+
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ApplicationException("Name of connection string is empty");
+            }
+
+            var conString = System.Configuration.ConfigurationManager.ConnectionStrings[name];
+
+            if (conString == null)
+            {
+                throw new ApplicationException($"Connection string '{name}' doesn't exist");
+            }
+
+            return conString.ConnectionString;
+        }
     }
 }

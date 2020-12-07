@@ -309,7 +309,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
-                this.UserFileCacheService.Set(file.UniqueKey, signedFile);
+                var cacheFile = new DbSignedFileModel(id, guid, HttpContext.Current.Session.SessionID, signedFile);
+                await this.UserFileCacheService.SetAsync(cacheFile);
 
                 return this.Ok();
             }

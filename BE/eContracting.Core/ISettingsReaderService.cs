@@ -94,5 +94,11 @@ namespace eContracting
         ProcessStepModel[] GetSteps(ProcessStepModel currentStep);
 
         string[] GetXmlNodeNamesExcludeHtml();
+
+        /// <summary>
+        /// Gets connection string for <see cref="IUserFileCacheService"/>.
+        /// </summary>
+        /// <returns></returns>
+        string GetFileCacheStorageConnectionString();
     }
 }

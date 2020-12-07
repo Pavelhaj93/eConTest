@@ -13,7 +13,7 @@ using Sitecore.IO;
 namespace eContracting.Models
 {
     /// <summary>
-    /// Represents file from 'ZCCH_CACHE_API'
+    /// Represents file from 'ZCCH_CACHE_API'.
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
@@ -50,10 +50,16 @@ namespace eContracting.Models
         public readonly string OriginalFileName;
 
         /// <summary>
-        /// Gets or sets file name.
+        /// The file name.
         /// </summary>
         [JsonProperty("name")]
         public readonly string FileName;
+
+        /// <summary>
+        /// The file extension
+        /// </summary>
+        [JsonIgnore]
+        public readonly string FileExtension;
 
         /// <summary>
         /// The file name with extension.
@@ -160,7 +166,7 @@ namespace eContracting.Models
 
         #endregion
 
-        private readonly DocumentTemplateModel DocumentTemplate;
+        public readonly DocumentTemplateModel DocumentTemplate;
 
         /// <summary>
         /// Prevents a default instance of the <see cref="OfferAttachmentModel"/> class from being created.
@@ -200,7 +206,8 @@ namespace eContracting.Models
 
             this.MimeType = mimeType;
             this.OriginalFileName = originalFileName;
-            this.FileNameExtension = this.GetFileNameExtension(template, originalFileName);
+            this.FileExtension = Path.GetExtension(originalFileName).TrimStart('.');
+            this.FileNameExtension = template.Description + "." + this.FileExtension;
             this.Attributes = attributes;
             this.FileContent = content;
         }

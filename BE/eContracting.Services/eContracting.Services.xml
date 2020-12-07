@@ -49,6 +49,41 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
+        <member name="T:eContracting.Services.DbContext">
+            <summary>
+            Database context for eContracting data.
+            </summary>
+            <seealso cref="T:System.Data.Entity.DbContext" />
+        </member>
+        <member name="P:eContracting.Services.DbContext.SignedFiles">
+            <summary>
+            Gets or sets collection of signed files.
+            </summary>
+        </member>
+        <member name="P:eContracting.Services.DbContext.UploadGroupFiles">
+            <summary>
+            Gets or sets upload group data.
+            </summary>
+        </member>
+        <member name="P:eContracting.Services.DbContext.Files">
+            <summary>
+            Gets or sets the files.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbContext.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbContext"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbContext.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbContext"/> class.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+        </member>
+        <member name="M:eContracting.Services.DbContextStartup.Initialize">
+            <inheritdoc/>
+        </member>
         <member name="T:eContracting.Services.FileOptimizer">
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
@@ -294,6 +329,27 @@
             <param name="attributes">The attributes.</param>
             <param name="files">The files.</param>
             <returns>The response.</returns>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.GetGroupAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.GetSignedFileAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroupAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFileAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
+            <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>
@@ -560,6 +616,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetFileCacheStorageConnectionString">
             <inheritdoc/>
         </member>
     </members>

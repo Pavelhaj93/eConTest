@@ -38,5 +38,7 @@ namespace eContracting.Storage.Models
 
         [Required]
         public byte[] Content { get; set; }
+
+        public ICollection<FileAttributeModel> Attributes { get; set; }
     }
 }

@@ -134,7 +134,7 @@ namespace eContracting.Services
 
             var responsePdfFiles = await this.GetFilesAsync(guid, false);
 
-            var files = this.GetFilesForAccept(offer, data, responsePdfFiles);
+            var files = await this.GetFilesForAccept(offer, data, responsePdfFiles);
 
             var putResult = await this.PutAsync(guid, attributes.ToArray(), files.ToArray());
 
@@ -282,7 +282,7 @@ namespace eContracting.Services
             }
         }
 
-        protected internal ZCCH_ST_FILE[] GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles)
+        protected internal async Task<ZCCH_ST_FILE[]> GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles)
         {
             var files = new List<ZCCH_ST_FILE>();
 
@@ -298,7 +298,8 @@ namespace eContracting.Services
                     throw new ApplicationException($"Missing required file for sign: {template}");
                 }
 
-                var signedFile = this.UserFileCache.Get<OfferAttachmentModel>(uniqueKey);
+                var cacheModel = await this.UserFileCache.GetSignedFileAsync(new DbSearchParameters(uniqueKey, offer.Guid, null));
+                var signedFile = cacheModel.ToAttachment();
 
                 if (signedFile == null)
                 {
@@ -363,21 +364,21 @@ namespace eContracting.Services
                     throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
                 }
 
-                var uploadedFileGroup = this.UserFileCache.Get<OptimizedFileGroupModel>(uploadGroup);
+                var uploadedFileGroup = await this.UserFileCache.GetGroupAsync(new DbSearchParameters(uploadGroup, offer.Guid, null));
 
                 if (uploadedFileGroup == null)
                 {
                     throw new ApplicationException($"Cannot find upload for '{uploadGroup}'");
                 }
 
-                if (uploadedFileGroup.File.Length == 0)
+                if (uploadedFileGroup.OutputFile.Content.Length == 0)
                 {
                     throw new ApplicationException($"Group '{uploadGroup}' doesn't have content");
                 }
 
                 var file = new ZCCH_ST_FILE();
                 file.FILENAME = template.Description;
-                file.FILECONTENT = uploadedFileGroup.File;
+                file.FILECONTENT = uploadedFileGroup.OutputFile.Content;
                 files.Add(file);
             }
 
