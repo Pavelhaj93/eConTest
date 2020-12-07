@@ -49,12 +49,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="DatabaseContextStartup.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginAttemptModel.cs" />
+    <Compile Include="Models\SignedFileModel.cs" />
+    <Compile Include="Models\UploadGroupFileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
+      <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
+      <Name>eContracting.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

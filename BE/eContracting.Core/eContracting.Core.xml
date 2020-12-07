@@ -4,6 +4,16 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="T:eContracting.IStartup">
+            <summary>
+            Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
+            </summary>
+        </member>
+        <member name="M:eContracting.IStartup.Initialize">
+            <summary>
+            Initialize the code.
+            </summary>
+        </member>
         <member name="T:eContracting.IUserFileCacheService">
             <summary>
             Cache for user files relevant only for current user. Data cannot be shared among sessions.

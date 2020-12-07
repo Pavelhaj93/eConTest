@@ -8,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace eContracting.Storage.Models
 {
+    [Table("LoginAttempts")]
     public class LoginAttemptModel
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
@@ -18,5 +20,20 @@ namespace eContracting.Storage.Models
 
         [Required]
         public string Guid { get; set; }
+
+        [Required]
+        public string SessionId { get; set; }
+
+        public int WrongBirthdayDateCount { get; set; }
+
+        public int WrongPostalCodeCount { get; set; }
+
+        public int WrongResidencePostalCodeCount { get; set; }
+
+        public int WrongPartnerNumberCount { get; set; }
+
+        public int GeneralErrorCount { get; set; }
+
+        public int SuccessAttemptCount { get; set; }
     }
 }

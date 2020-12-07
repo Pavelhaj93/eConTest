@@ -264,6 +264,7 @@
     <Compile Include="eContractingHtmlHelper.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Pipelines\Initialize\RegisterApiProcessor.cs" />
+    <Compile Include="Pipelines\Initialize\RunStartupsProcessor.cs" />
     <Compile Include="Pipelines\SessionEnd\ClearUserCacheProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
