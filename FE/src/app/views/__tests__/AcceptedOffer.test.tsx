@@ -30,7 +30,7 @@ const acceptedOfferResponse = {
   ],
 }
 
-describe('Accepted offer', () => {
+describe('Accepted offer view', () => {
   it('renders error message when API is unavailable', async () => {
     fetch.mockRejectOnce(() => Promise.reject('API is unavailable'))
 

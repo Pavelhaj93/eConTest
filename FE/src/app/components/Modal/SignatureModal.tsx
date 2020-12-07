@@ -80,7 +80,9 @@ export const SignatureModal: React.FC<Props> = observer(
                 {t('signatureModalError')}
               </Alert>
             )}
-            <div className="document-wrapper mb-3">
+            {/* Add tabindex on scrollable element causes the element scrollable by a keyboard. */}
+            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+            <div className="document-wrapper mb-3" tabIndex={0}>
               {show && (
                 <PreloadImage
                   src={`${thumbnailUrl}/${id}`}

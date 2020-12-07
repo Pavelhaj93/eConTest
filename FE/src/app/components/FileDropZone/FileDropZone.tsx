@@ -1,7 +1,7 @@
 import React, { useCallback, useRef, useState, DragEvent, ChangeEvent, useMemo } from 'react'
 import classNames from 'classnames'
 import { Button } from 'react-bootstrap'
-import { isMobileDevice } from '@utils'
+import { generateId, isMobileDevice } from '@utils'
 import { Icon, Tooltip } from '@components'
 import { colors } from '@theme'
 import { FileError, CustomFile } from '@types'
@@ -52,6 +52,7 @@ export const FileDropZone: React.FC<Props> = ({
   const [isMobile] = useState(useCaptureOnMobile && isMobileDevice())
   const inputRef = useRef<HTMLInputElement>(null)
   const inputCaptureRef = useRef<HTMLInputElement>(null)
+  const buttonId = useRef<string>(generateId())
 
   const openFileDialog = useCallback(() => {
     if (disabled) return
@@ -240,7 +241,12 @@ export const FileDropZone: React.FC<Props> = ({
         onDragEnter={handleDragEnter}
       >
         {helpText && <p>{helpText}</p>}
-        <Button variant="primary" onClick={openFileDialog} disabled={disabled}>
+        <Button
+          id={`selectFile_${buttonId.current}`}
+          variant="primary"
+          onClick={openFileDialog}
+          disabled={disabled}
+        >
           {selectFileLabel}
         </Button>
         <input
@@ -253,6 +259,7 @@ export const FileDropZone: React.FC<Props> = ({
           tabIndex={0}
           disabled={disabled}
           onChange={handleFilesChange}
+          aria-labelledby={`selectFile_${buttonId.current}`}
         />
       </div>
     </>
