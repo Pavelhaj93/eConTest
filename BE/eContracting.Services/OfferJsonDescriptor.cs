@@ -330,7 +330,6 @@ namespace eContracting.Services
             var model = new JsonDocumentsAcceptModel();
             model.Title = definition.OfferCommoditiesAcceptTitle.Text;
             model.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesAcceptText.Text, offer.TextParameters);
-            model.MandatoryGroup = true; //TODO: Value cannot be hardcoded
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -344,7 +343,13 @@ namespace eContracting.Services
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsGroupOblig;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
+
                 list.Add(file);
+
+                if (selectedFile.IsObligatory)
+                {
+                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
+                }
             }
 
             model.Files = list;
@@ -363,7 +368,6 @@ namespace eContracting.Services
             var model = new JsonDocumentsAcceptModel();
             model.Title = definition.OfferCommoditiesSignTitle.Text;
             model.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
-            model.MandatoryGroup = true;
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -378,6 +382,11 @@ namespace eContracting.Services
                 file.Mandatory = selectedFile.IsGroupOblig;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 list.Add(file);
+
+                if (selectedFile.IsObligatory)
+                {
+                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
+                }
             }
 
             model.Files = list;
@@ -393,6 +402,7 @@ namespace eContracting.Services
                 return null;
             }
 
+            var model = new JsonDocumentsUploadsModel();
             var list = new List<JsonUploadTemplateModel>();
 
             for (int i = 0; i < fileTemplates.Length; i++)
@@ -403,6 +413,12 @@ namespace eContracting.Services
                 file.Title = template.FileName;
                 file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
                 file.Mandatory = template.IsObligatory;
+
+                if (template.IsObligatory)
+                {
+                    model.MandatoryGroups.Add(template.GroupGuid);
+                }
+
                 list.Add(file);
             }
 
@@ -414,7 +430,6 @@ namespace eContracting.Services
             //customFile.Mandatory = false;
             //list.Add(customFile);
 
-            var model = new JsonDocumentsUploadsModel();
             model.Title = definition.OfferUploadsTitle.Text;
             model.Note = definition.OfferUploadsNote.Text;
             model.Types = list;
@@ -443,25 +458,30 @@ namespace eContracting.Services
                 return null;
             }
 
+            var model = new JsonDocumentsAdditionalServicesModel();
             var list = new List<JsonAcceptFileModel>();
 
             for (int i = 0; i < selectedFiles.Length; i++)
             {
-                var f = selectedFiles[i];
+                var selectedFile = selectedFiles[i];
                 var file = new JsonAcceptFileModel();
-                file.Key = f.UniqueKey;
-                file.Group = f.GroupGuid;
-                file.Label = f.FileName;
-                file.Prefix = this.GetFileLabelPrefix(f);
-                file.MimeType = f.MimeType;
-                file.Mandatory = f.IsObligatory;
+                file.Key = selectedFile.UniqueKey;
+                file.Group = selectedFile.GroupGuid;
+                file.Label = selectedFile.FileName;
+                file.Prefix = this.GetFileLabelPrefix(selectedFile);
+                file.MimeType = selectedFile.MimeType;
+                file.Mandatory = selectedFile.IsObligatory;
+
+                if (selectedFile.IsObligatory)
+                {
+                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
+                }
+
                 list.Add(file);
             }
 
-            var model = new JsonDocumentsAdditionalServicesModel();
             model.Title = definition.OfferAdditionalServicesTitle.Text;
             model.Text = definition.OfferAdditionalServicesText.Text;
-            model.Mandatory = selectedFiles.Length;
             model.Files = list;
             return model;
         }
@@ -475,18 +495,25 @@ namespace eContracting.Services
                 return null;
             }
 
+            var model = new JsonDocumentsOtherProductsModel();
             var list = new List<JsonAcceptFileModel>();
 
             for (int i = 0; i < selectedFiles.Length; i++)
             {
-                var f = selectedFiles[i];
+                var selectedFile = selectedFiles[i];
                 var file = new JsonAcceptFileModel();
-                file.Key = f.UniqueKey;
-                file.Group = f.GroupGuid;
-                file.Label = f.FileName;
-                file.Prefix = this.GetFileLabelPrefix(f);
-                file.MimeType = f.MimeType;
-                file.Mandatory = f.IsObligatory;
+                file.Key = selectedFile.UniqueKey;
+                file.Group = selectedFile.GroupGuid;
+                file.Label = selectedFile.FileName;
+                file.Prefix = this.GetFileLabelPrefix(selectedFile);
+                file.MimeType = selectedFile.MimeType;
+                file.Mandatory = selectedFile.IsObligatory;
+
+                if (selectedFile.IsObligatory)
+                {
+                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
+                }
+
                 list.Add(file);
             }
 
@@ -505,7 +532,6 @@ namespace eContracting.Services
                 salesArguments.Add(new JsonArgumentModel(item.Value));
             }
 
-            var model = new JsonDocumentsOtherProductsModel();
             model.Title = definition.OfferOtherProductsTitle.Text;
             model.Note = definition.OfferOtherProductsNote.Text;
             model.SalesArguments = salesArguments;
@@ -514,7 +540,6 @@ namespace eContracting.Services
             model.SubTitle2 = definition.OfferOtherProductsDocsTitle.Text;
             model.Text = definition.OfferOtherProductsDocsText.Text;
             model.Files = list;
-            model.Mandatory = 0;
             return model;
         }
 

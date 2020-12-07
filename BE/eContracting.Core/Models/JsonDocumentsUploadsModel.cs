@@ -14,6 +14,9 @@ namespace eContracting.Models
         [JsonProperty("note")]
         public string Note { get; set; }
 
+        [JsonProperty("mandatoryGroups")]
+        public HashSet<string> MandatoryGroups { get; } = new HashSet<string>();
+
         [JsonProperty("types")]
         public IEnumerable<JsonUploadTemplateModel> Types { get; set; }
     }

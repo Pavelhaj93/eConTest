@@ -9,6 +9,9 @@ namespace eContracting.Models
 {
     public class JsonOfferNotAcceptedModel
     {
+        [JsonProperty("Message", NullValueHandling = NullValueHandling.Ignore)]
+        public string Message { get; set; }
+
         [JsonProperty("perex", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonOfferPerexModel Perex { get; set; }
 

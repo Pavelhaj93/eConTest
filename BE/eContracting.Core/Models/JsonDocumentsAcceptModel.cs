@@ -14,8 +14,8 @@ namespace eContracting.Models
         [JsonProperty("subTitle")]
         public string SubTitle { get; set; }
 
-        [JsonProperty("mandatory")]
-        public bool MandatoryGroup { get; set; } = true;
+        [JsonProperty("mandatoryGroups")]
+        public HashSet<string> MandatoryGroups { get; } = new HashSet<string>();
 
         [JsonProperty("files")]
         public IEnumerable<JsonAcceptFileModel> Files { get; set; }

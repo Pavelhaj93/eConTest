@@ -137,8 +137,9 @@
     <Compile Include="ContextData.cs" />
     <Compile Include="FixedOfferJsonDescriptor.cs" />
     <Compile Include="GlobalConfiguration.cs" />
-    <Compile Include="MemoryCacheService.cs" />
+    <Compile Include="MemoryUserDataCacheService.cs" />
     <Compile Include="MemorySettingsReaderService.cs" />
+    <Compile Include="MemoryUserFileCacheService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

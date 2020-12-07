@@ -265,21 +265,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                if (!this.Request.Content.IsFormData())
-                {
-                    return this.BadRequest("Invalid request data");
-                }
-
-                var formData = await this.Request.Content.ReadAsFormDataAsync();
-                var postedSignature = formData["signature"];
-
-                if (string.IsNullOrWhiteSpace(postedSignature))
-                {
-                    return this.BadRequest("Empty signature");
-                }
-
-                var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
-                var signature = Convert.FromBase64String(base64);
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
                 var offer = await this.ApiService.GetOfferAsync(user.Guid);
@@ -307,6 +292,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("File is not determined for sign");
                 }
 
+                var formData = await this.Request.Content.ReadAsAsync<SingDataViewModel>();
+                var postedSignature = formData.Signature;
+
+                if (string.IsNullOrWhiteSpace(postedSignature))
+                {
+                    return this.BadRequest("Empty signature");
+                }
+
+                var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
+                var signature = Convert.FromBase64String(base64);
                 var signedFile = await this.SignService.SignAsync(file, signature);
 
                 if (signedFile == null)
@@ -314,7 +309,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
-                this.UserFileCacheService.Set("signed_" + file.UniqueKey, signedFile);
+                this.UserFileCacheService.Set(file.UniqueKey, signedFile);
 
                 return this.Ok();
             }

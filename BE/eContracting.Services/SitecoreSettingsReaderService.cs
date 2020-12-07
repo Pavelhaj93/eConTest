@@ -217,7 +217,9 @@ namespace eContracting.Services
         public string[] GetXmlNodeNamesExcludeHtml()
         {
             var list = new List<string>();
+            list.Add("BENEFITS_NOW_INTRO");
             list.Add("BENEFITS_NEXT_SIGN_INTRO");
+            list.Add("BENEFITS_NEXT_TZD_INTRO");
             return list.ToArray();
         }
 

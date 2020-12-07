@@ -141,6 +141,11 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public SignApiServiceOptions GetSignApiServiceOptions()
+        {
+            throw new NotImplementedException();
+        }
+
         public SiteSettingsModel GetSiteSettings()
         {
             throw new NotImplementedException();
@@ -153,7 +158,11 @@ namespace eContracting.ConsoleClient
 
         public string[] GetXmlNodeNamesExcludeHtml()
         {
-            throw new NotImplementedException();
+            var list = new List<string>();
+            list.Add("BENEFITS_NOW_INTRO");
+            list.Add("BENEFITS_NEXT_SIGN_INTRO");
+            list.Add("BENEFITS_NEXT_TZD_INTRO");
+            return list.ToArray();
         }
 
         protected IEnumerable<DefinitionCombinationModel> GetAllDefinitionCombinations()

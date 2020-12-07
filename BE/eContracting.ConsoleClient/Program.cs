@@ -32,7 +32,8 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
-                    services.AddScoped<ICache, MemoryCacheService>();
+                    services.AddScoped<IUserDataCacheService, MemoryUserDataCacheService>();
+                    services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
                     services.AddScoped<IApiService, SapApiService>();
                     services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
                     services.AddScoped<IOfferJsonDescriptor, FixedOfferJsonDescriptor>();

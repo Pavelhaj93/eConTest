@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>06D969E88C3C1EDB8BEA12147C1855B0</GUID>
+            <ISU_CONTRACT>1001110562</ISU_CONTRACT>
+            <CONTSTART>20201226</CONTSTART>
+            <DATE_TO>20201225</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9610834142</PARTNER>
+            <NAME_LAST>David</NAME_LAST>
+            <NAME_FIRST>Štěpán</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>24.12.1983</BIRTHDT>
+            <IC></IC>
+            <EMAIL>dalibordavid57@gmail.com</EMAIL>
+            <PHONE>724 931 805</PHONE>
+            <EXT_UI>859182400504401216</EXT_UI>
+            <VSTELLE>9300780189</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>823000474242</BUAG>
+            <PSC_MS>756 61</PSC_MS>
+            <PSC_ADDR>702 00</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>01</BUS_PROCESS>
+            <BUS_TYPE>A</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>ELH</IDATTACH>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <GROUP>COMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>06D969E88C3C1EDB8BEA12147C1855B0</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>
