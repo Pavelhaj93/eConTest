@@ -13,9 +13,7 @@ export type OfferDocument = {
   label: string
   prefix: string
   key: string
-  mandatory: boolean
   accepted: boolean
-  signed: boolean
   mime: string
   group: string
 }

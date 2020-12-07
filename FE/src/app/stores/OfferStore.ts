@@ -99,11 +99,17 @@ export class OfferStore {
       return true
     }
 
-    if (this.documentsToBeSigned.find(document => document.mandatory && !document.signed)) {
-      return false
+    // first check if we have some mandatory groups
+    if (this.documents.acceptance?.sign?.mandatoryGroups.length) {
+      return this.allGroupsAccepted(
+        this.documents.acceptance.sign.mandatoryGroups,
+        this.documentsToBeSigned,
+      )
     }
 
-    return true
+    const groups = this.createGroups(this.documentsToBeSigned)
+
+    return this.allGroupsAccepted(groups, this.documentsToBeSigned)
   }
 
   /** True if all documents that are mandatory are actually accepted, otherwise false. */
@@ -112,11 +118,17 @@ export class OfferStore {
       return true
     }
 
-    if (this.documentsToBeAccepted.find(document => document.mandatory && !document.accepted)) {
-      return false
+    // first check if we have some mandatory groups
+    if (this.documents.acceptance?.accept?.mandatoryGroups.length) {
+      return this.allGroupsAccepted(
+        this.documents.acceptance.accept.mandatoryGroups,
+        this.documentsToBeAccepted,
+      )
     }
 
-    return true
+    const groups = this.createGroups(this.documentsToBeAccepted)
+
+    return this.allGroupsAccepted(groups, this.documentsToBeAccepted)
   }
 
   @computed public get allServicesDocumentsAreAccepted(): boolean {
@@ -138,7 +150,7 @@ export class OfferStore {
     // "create" an array of mandatory groups based on which documents are currently accepted
     const groups = this.createGroups(this.documentsServices)
 
-    return this.allGroupsAccepted(groups, this.documentsProducts)
+    return this.allGroupsAccepted(groups, this.documentsServices)
   }
 
   @computed public get allProductsDocumentsAreAccepted(): boolean {
@@ -242,7 +254,7 @@ export class OfferStore {
   @computed public get acceptanceGroups(): AcceptanceGroup[] {
     const groups = this.acceptance.params.map(({ title, group }) => {
       const docs = this.getDocuments(group)
-      const groupAccepted = docs.every(d => d.accepted || d.signed)
+      const groupAccepted = docs.every(d => d.accepted)
 
       return {
         title,
@@ -282,8 +294,8 @@ export class OfferStore {
   }
 
   /**
-   * Since the `accepted` and `signed` keys are not present in the JSON response on `OfferDocument` object,
-   * here I add them manually.
+   * Since the `accepted` key is not present in the JSON response on `OfferDocument` object,
+   * here I add it manually.
    * The reason is that MobX can't observe dynamic keys on object that are not present on that object
    * during initialization of the store, so whenever a new dynamic key is added, it won't trigger
    * rerender in React component.
@@ -295,7 +307,6 @@ export class OfferStore {
     return documents.map(document => ({
       ...document,
       accepted: false,
-      signed: false,
     }))
   }
 
@@ -393,7 +404,7 @@ export class OfferStore {
 
       switch (this.type) {
         case OfferType.NEW:
-          jsonResponse = await   (response.json() as Promise<NewOfferResponse>)
+          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
           this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
@@ -406,7 +417,7 @@ export class OfferStore {
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await   (response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
 
@@ -472,7 +483,7 @@ export class OfferStore {
 
     return this.signDocumentRequest(key, signature, signFileUrl)
       .then(() => {
-        document.signed = true
+        document.accepted = true
         return true
       })
       .catch(() => {
@@ -697,11 +708,11 @@ export class OfferStore {
   }
 
   /**
-   * Returns array of keys of all accepted or signed documents.
+   * Returns array of keys of all accepted documents.
    * @param documents - an array of `OfferDocument` items.
    */
   private getAcceptedKeys(documents: Array<OfferDocument>): string[] {
-    return documents.filter(d => d.accepted || d.signed).map(d => d.key)
+    return documents.filter(d => d.accepted).map(d => d.key)
   }
 
   /**

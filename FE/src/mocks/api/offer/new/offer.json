@@ -123,35 +123,30 @@
             "label": "Informace pro zákazníka - spotřebitele",
             "prefix": "Souhlasím s",
             "key": "e1c9a5ce583743e6928ee4df91862a91",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Dodatek",
             "prefix": "Jsem poučen o",
             "key": "8e0ed4754f99464eb2d0155c140a2541",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Ceník",
             "prefix": "Jsem poučen o",
             "key": "76868bd607804b9ca6bc5248f99726d3",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Ceník služeb",
             "prefix": "Jsem poučen o",
             "key": "2304df60d07448818c8b0b8c074d82a8",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           },
           {
             "label": "Obchodní podmínky",
             "prefix": "Jsem poučen o",
             "key": "ee68d1a1da63434a9c91643d6b8504cf",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
           }
         ]
@@ -159,13 +154,12 @@
       "sign": {
         "title": "Plná moc",
         "subTitle": "<p>Plnou moc potřebujeme pro zaji&scaron;těn&iacute; pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>",
-        "mandatory": true,
+        "mandatoryGroups": ["06D969E88C3C1EDB8BD27637116827D8"],
         "files": [
           {
             "label": "Plná moc",
             "prefix": "Jsem poučen o",
             "key": "5e40683abb1441f5a0ec99425c2c6908",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27637116827D8"
           }
         ],
@@ -233,21 +227,18 @@
             "label": "Pojištění - Informační dokument 1",
             "prefix": "Jsem poučen o",
             "key": "729a1d7ba5ce48298b848a3d732f45cd",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27637117787D8"
           },
           {
             "label": "Pojištění - Informační dokument 2",
             "key": "b72e43e72c094a47bbc6767274d0b4a5",
             "prefix": "Jsem poučen o",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27637117787D8"
           },
           {
             "label": "Pojištění - Informační dokument 3",
             "key": "2894f4d3c1d14ea4ba4e7ce907b8a449",
             "prefix": "Jsem poučen o",
-            "mandatory": true,
             "group": "06D969E88C3C1EDB8BD27637117787D8"
           }
         ],
@@ -261,18 +252,17 @@
           {
             "label": "Dohoda o sjednání doplňkové služby investor",
             "key": "9658576e88f1458da13db8f2034476d8",
-            "mandatory": false
+            "group": "2780ca707bbb4eb58645135d17fea86a"
           },
           {
             "label": "Žádost o nesnižování zálohových plateb",
             "key": "cc6d047821044adc86b6c811d6cecb0b",
-            "group": "06D969E88C3C1EDB8BD27637116D07D8",
-            "mandatory": false
+            "group": "06D969E88C3C1EDB8BD27637116D07D8"
           },
           {
             "label": "Smlouva o využívání innogy Karty",
             "key": "c371d67295ab41e8bc64818c45a10a0f",
-            "mandatory": false
+            "group": "8784531c0fcc4aa28a92b5a847d7eeff"
           }
         ]
       }

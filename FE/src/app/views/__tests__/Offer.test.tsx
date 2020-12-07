@@ -48,7 +48,7 @@ const basicOfferResponse = {
       accept: {
         title: 'Dodatek a přidružené dokumenty',
         subTitle: '<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>',
-        mandatory: true,
+        mandatoryGroups: ['06D969E88C3C1EDB8BD27598F0B3C7D8'],
         params: [
           {
             title: 'Vaše adresa',
@@ -64,14 +64,12 @@ const basicOfferResponse = {
             label: 'Informace pro zákazníka - spotřebitele',
             prefix: 'Souhlasím s',
             key: 'e1c9a5ce583743e6928ee4df91862a91',
-            mandatory: true,
             group: '06D969E88C3C1EDB8BD27598F0B3C7D8',
           },
           {
             label: 'Dodatek',
             prefix: 'Jsem poučen o',
             key: '8e0ed4754f99464eb2d0155c140a2541',
-            mandatory: true,
             group: '06D969E88C3C1EDB8BD27598F0B3C7D8',
           },
         ],
@@ -79,7 +77,7 @@ const basicOfferResponse = {
       sign: {
         title: 'Plná moc',
         subTitle: 'Plnou moc potřebujeme pro zajištění pokračování dodávky u innogy',
-        mandatory: true,
+        mandatoryGroups: ['06D969E88C3C1EDB8BD27637116827D8'],
         files: [
           {
             label: 'Plná moc',
@@ -240,21 +238,19 @@ describe('Offer view', () => {
       documents: {
         acceptance: {
           accept: {
-            mandatory: true,
+            mandatoryGroups: ['group1'],
             files: [
               {
                 label: 'Informace pro zákazníka - spotřebitele',
                 prefix: 'Souhlasím s',
                 key: 'e1c9a5ce583743e6928ee4df91862a91',
-                mandatory: true,
-                group: '06D969E88C3C1EDB8BD27598F0B3C7D8',
+                group: 'group1',
               },
               {
                 label: 'Dodatek',
                 prefix: 'Jsem poučen o',
                 key: '8e0ed4754f99464eb2d0155c140a2541',
-                mandatory: true,
-                group: '06D969E88C3C1EDB8BD27598F0B3C7D8',
+                group: 'group1',
               },
             ],
           },

@@ -267,7 +267,7 @@ describe('Offer with documents for signing', () => {
     await store.signDocument(key, 'signature', '')
 
     const document = store.getDocument(key)
-    expect(document?.signed).toBe(true)
+    expect(document?.accepted).toBe(true)
   })
 
   it('fails to sign the document', async () => {
@@ -281,7 +281,7 @@ describe('Offer with documents for signing', () => {
     await store.signDocument(key, 'signature', '')
 
     const document = store.getDocument(key)
-    expect(document?.signed).toBeFalsy()
+    expect(document?.accepted).toBeFalsy()
   })
 
   it('allows to accept the offer', async () => {

@@ -253,10 +253,10 @@ export const Offer: React.FC<View> = observer(
                         __html: store.documents.acceptance?.sign?.subTitle ?? '',
                       }}
                     />
-                    {store.documentsToBeSigned.map(({ key, prefix, label, signed }) => (
+                    {store.documentsToBeSigned.map(({ key, prefix, label, accepted }) => (
                       <div key={key} className="form-item-wrapper mb-3">
                         <div className="like-custom-control-label">
-                          {signed && (
+                          {accepted && (
                             <Icon
                               name="check-circle"
                               size={36}
@@ -267,7 +267,7 @@ export const Offer: React.FC<View> = observer(
                           <span>
                             {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
                           </span>
-                          {signed ? (
+                          {accepted ? (
                             <Button
                               variant="primary"
                               className="btn-icon ml-auto form-item-wrapper__btn"
