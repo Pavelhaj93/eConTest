@@ -9,6 +9,9 @@ namespace eContracting
     /// <summary>
     /// Initialize the code in <see cref="IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
     /// </summary>
+    /// <remarks>
+    /// Do not use DI because something (like ISitecoreContext) won't be available in initialize pipeline.
+    /// </remarks>
     public interface IStartup
     {
         /// <summary>

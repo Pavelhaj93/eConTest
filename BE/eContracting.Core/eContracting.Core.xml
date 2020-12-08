@@ -8,6 +8,9 @@
             <summary>
             Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
             </summary>
+            <remarks>
+            Do not use DI because something (like ISitecoreContext) won't be available in initialize pipeline.
+            </remarks>
         </member>
         <member name="M:eContracting.IStartup.Initialize">
             <summary>
