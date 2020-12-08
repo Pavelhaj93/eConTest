@@ -121,6 +121,11 @@ namespace eContracting.ConsoleClient
             return this.GetAllDefinitionCombinations().FirstOrDefault(x => x.Process.Code == process && x.ProcessType.Code == processType);
         }
 
+        public string GetFileCacheStorageConnectionString()
+        {
+            throw new NotImplementedException();
+        }
+
         public SiteSettingsModel GetGeneralSettings()
         {
             throw new NotImplementedException();
