@@ -8,7 +8,7 @@ namespace eContracting.Storage
     public partial class DatabaseContext : DbContext
     {
         public DatabaseContext()
-            : base("name=DatabaseContext")
+            : base("eContractingContext")
         {
         }
 
