@@ -5,11 +5,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eContracting.Storage;
 
 namespace eContracting.Services.Migrations
 {
     [ExcludeFromCodeCoverage]
-    public sealed class Configuration : DbMigrationsConfiguration<DbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<DatabaseContext>
     {
         public Configuration()
         {
@@ -22,7 +23,7 @@ namespace eContracting.Services.Migrations
             this.MigrationsDirectory = "Migrations";
         }
 
-        protected override void Seed(DbContext context)
+        protected override void Seed(DatabaseContext context)
         {
             //base.Seed(context);
         }

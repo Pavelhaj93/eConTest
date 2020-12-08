@@ -15,6 +15,7 @@ using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.SessionState;
 using eContracting.Models;
+using eContracting.Storage;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
@@ -309,8 +310,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
-                var cacheFile = new DbSignedFileModel(id, guid, HttpContext.Current.Session.SessionID, signedFile);
-                await this.UserFileCacheService.SetAsync(cacheFile);
+                var dbSignedFile = new SignedFile(id, guid, HttpContext.Current.Session.SessionID, signedFile);
+                await this.UserFileCacheService.SetAsync(dbSignedFile);
 
                 return this.Ok();
             }

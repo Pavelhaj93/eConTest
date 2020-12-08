@@ -49,38 +49,6 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
-        <member name="T:eContracting.Services.DbContext">
-            <summary>
-            Database context for eContracting data.
-            </summary>
-            <seealso cref="T:System.Data.Entity.DbContext" />
-        </member>
-        <member name="P:eContracting.Services.DbContext.SignedFiles">
-            <summary>
-            Gets or sets collection of signed files.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.DbContext.UploadGroupFiles">
-            <summary>
-            Gets or sets upload group data.
-            </summary>
-        </member>
-        <member name="P:eContracting.Services.DbContext.Files">
-            <summary>
-            Gets or sets the files.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.DbContext.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.DbContext"/> class.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.DbContext.#ctor(System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.DbContext"/> class.
-            </summary>
-            <param name="connectionString">The connection string.</param>
-        </member>
         <member name="M:eContracting.Services.DbContextStartup.Initialize">
             <inheritdoc/>
         </member>
@@ -345,10 +313,10 @@
         <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFileAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Storage.UploadGroup)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Storage.SignedFile)">
             <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">

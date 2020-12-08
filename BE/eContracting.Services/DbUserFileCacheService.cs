@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Storage;
 
 namespace eContracting.Services
 {
@@ -24,15 +25,15 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task<DbUploadGroupFileModel> GetGroupAsync(DbSearchParameters search)
+        public Task<UploadGroup> GetGroupAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public async Task<DbSignedFileModel> GetSignedFileAsync(DbSearchParameters search)
+        public async Task<SignedFile> GetSignedFileAsync(DbSearchParameters search)
         {
-            using (var db = new DbContext(this.ConnectionString))
+            using (var db = new DatabaseContext(this.ConnectionString))
             {
                 var query = db.SignedFiles.AsQueryable();
                 query = query.Where(x => x.Key == search.Key);
@@ -56,15 +57,15 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task SetAsync(DbUploadGroupFileModel group)
+        public Task SetAsync(UploadGroup group)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public async Task SetAsync(DbSignedFileModel file)
+        public async Task SetAsync(SignedFile file)
         {
-            using (var db = new DbContext(this.ConnectionString))
+            using (var db = new DatabaseContext(this.ConnectionString))
             {
                 var dbModel = db.SignedFiles.FirstOrDefault(x => x.Key == file.Key && x.Guid == file.Guid && x.SessionId == file.SessionId);
 

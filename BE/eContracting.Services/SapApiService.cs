@@ -371,14 +371,14 @@ namespace eContracting.Services
                     throw new ApplicationException($"Cannot find upload for '{uploadGroup}'");
                 }
 
-                if (uploadedFileGroup.OutputFile.Content.Length == 0)
+                if (uploadedFileGroup.File.Content.Length == 0)
                 {
                     throw new ApplicationException($"Group '{uploadGroup}' doesn't have content");
                 }
 
                 var file = new ZCCH_ST_FILE();
                 file.FILENAME = template.Description;
-                file.FILECONTENT = uploadedFileGroup.OutputFile.Content;
+                file.FILECONTENT = uploadedFileGroup.File.Content;
                 files.Add(file);
             }
 

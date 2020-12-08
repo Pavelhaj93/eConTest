@@ -10,42 +10,32 @@ namespace eContracting.Models
     /// <summary>
     /// Represents signed file like 'Plná moc.pdf'
     /// </summary>
-    [Table("SignedFiles")]
     public class DbSignedFileModel
     {
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the session identifier.
         /// </summary>
-        [Required]
         public string SessionId { get; set; }
 
         /// <summary>
         /// Gets or sets the unique offer identifier.
         /// </summary>
-        [Required]
         public string Guid { get; set; }
 
         /// <summary>
         /// Gets or sets unique key.
         /// </summary>
-        [Required]
         public string Key { get; set; }
 
         /// <summary>
         /// Gets or sets the file.
         /// </summary>
-        [Required]
         public virtual DbFileModel File { get; set; }
-
-        [ForeignKey("File")]
-        public int FileId { get; set; }
 
         /// <summary>
         /// Prevents a default instance of the <see cref="DbSignedFileModel"/> class from being created.

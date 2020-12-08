@@ -19,16 +19,16 @@
             Cache for user files relevant only for current user. Data cannot be shared among sessions.
             </summary>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
+        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Storage.UploadGroup)">
             <summary>
-            Adds or rewrite <paramref name="group"/> under specific <see cref="P:eContracting.Models.DbUploadGroupFileModel.Key"/>.
+            Adds or rewrite <paramref name="group"/> under specific <see cref="P:eContracting.Storage.UploadGroup.Key"/>.
             </summary>
             <param name="group">The group.</param>
             <exception cref="T:System.ApplicationException">When data were not stored.</exception>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
+        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Storage.SignedFile)">
             <summary>
-            Adds or rewrite <paramref name="file"/> under specific <see cref="P:eContracting.Models.DbSignedFileModel.Key"/>.
+            Adds or rewrite <paramref name="file"/> under specific <see cref="P:eContracting.Storage.SignedFile.Key"/>.
             </summary>
             <param name="file">The signed file model.</param>
             <exception cref="T:System.ApplicationException">When data were not stored.</exception>
@@ -65,66 +65,6 @@
             </summary>
             <param name="search">The search parameters.</param>
         </member>
-        <member name="T:eContracting.Models.DbFileAttributeModel">
-            <summary>
-            Represents additional file attributes serialized by its purpose.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileAttributeModel.Id">
-            <summary>
-            Gets or sets the identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileAttributeModel.Name">
-            <summary>
-            Gets or sets the name.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileAttributeModel.Value">
-            <summary>
-            Gets or sets the value.
-            </summary>
-        </member>
-        <member name="T:eContracting.Models.DbFileModel">
-            <summary>
-            Represents physical file.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.Id">
-            <summary>
-            Gets or sets the identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.FileName">
-            <summary>
-            Gets or sets the file name without extension.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.FileExtension">
-            <summary>
-            Gets or sets the file extension.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.MimeType">
-            <summary>
-            Gets or sets the MIME type of the file.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.Size">
-            <summary>
-            Gets or sets file size.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.Content">
-            <summary>
-            Gets or sets file content in bytes.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbFileModel.Attributes">
-            <summary>
-            Gets or sets additional file attributes.
-            </summary>
-        </member>
         <member name="T:eContracting.Models.OfferSubmitDataModel">
             <summary>
             Represent set of accepted, signed and uploaded documents for an offer.
@@ -148,86 +88,6 @@
         <member name="P:eContracting.Models.OfferSubmitDataModel.Other">
             <summary>
             Gets or sets array of <c>other</c> unique file IDs.
-            </summary>
-        </member>
-        <member name="T:eContracting.Models.DbSignedFileModel">
-            <summary>
-            Represents signed file like 'Plná moc.pdf'
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbSignedFileModel.Id">
-            <summary>
-            Gets or sets the identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbSignedFileModel.SessionId">
-            <summary>
-            Gets or sets the session identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbSignedFileModel.Guid">
-            <summary>
-            Gets or sets the unique offer identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbSignedFileModel.Key">
-            <summary>
-            Gets or sets unique key.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbSignedFileModel.File">
-            <summary>
-            Gets or sets the file.
-            </summary>
-        </member>
-        <member name="M:eContracting.Models.DbSignedFileModel.#ctor">
-            <summary>
-            Prevents a default instance of the <see cref="T:eContracting.Models.DbSignedFileModel"/> class from being created.
-            </summary>
-        </member>
-        <member name="M:eContracting.Models.DbSignedFileModel.#ctor(System.String,System.String,System.String,eContracting.Models.OfferAttachmentModel)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.DbSignedFileModel"/> class.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="guid">The unique identifier.</param>
-            <param name="sessionId">The session identifier.</param>
-            <param name="attachment">The attachment.</param>
-        </member>
-        <member name="M:eContracting.Models.DbSignedFileModel.ToAttachment">
-            <summary>
-            Converts current model to attachment model.
-            </summary>
-            <returns>The attachment model.</returns>
-        </member>
-        <member name="T:eContracting.Models.DbUploadGroupFileModel">
-            <summary>
-            Represents one upload field with multiple attached files.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbUploadGroupFileModel.Id">
-            <summary>
-            Gets or sets the identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbUploadGroupFileModel.Key">
-            <summary>
-            Gets or sets unique group key.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbUploadGroupFileModel.SessionId">
-            <summary>
-            Gets or sets the session identifier.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbUploadGroupFileModel.OutputFile">
-            <summary>
-            Gets or sets the output single file optimized from <see cref="P:eContracting.Models.DbUploadGroupFileModel.OriginalFiles"/>.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.DbUploadGroupFileModel.OriginalFiles">
-            <summary>
-            Gets or sets original uploaded files.
             </summary>
         </member>
         <member name="P:eContracting.Models.AcceptedOfferPageModel.PageTitle">
@@ -2234,6 +2094,12 @@
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Storage.SignedFile.ToAttachment">
+            <summary>
+            Converts current model to attachment model.
+            </summary>
+            <returns>The attachment model.</returns>
         </member>
         <member name="M:eContracting.Utils.GetReadableFileSize(System.Int32)">
             <summary>

@@ -78,6 +78,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
@@ -93,13 +94,8 @@
   <ItemGroup>
     <Compile Include="IStartup.cs" />
     <Compile Include="IUserFileCacheService.cs" />
-    <Compile Include="Models\DbFileAttributeModel.cs" />
-    <Compile Include="Models\DbFileModel.cs" />
-    <Compile Include="Models\DbLoginAttemptModel.cs" />
     <Compile Include="Models\DbSearchParameters.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
-    <Compile Include="Models\DbSignedFileModel.cs" />
-    <Compile Include="Models\DbUploadGroupFileModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">
@@ -191,6 +187,15 @@
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessCondition.cs" />
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessTypeCondition.cs" />
     <Compile Include="SitecoreContextWrapper.cs" />
+    <Compile Include="Storage\DatabaseContext.cs" />
+    <Compile Include="Storage\File.cs" />
+    <Compile Include="Storage\FileAttribute.cs" />
+    <Compile Include="Storage\Partials\DatabaseContext.cs" />
+    <Compile Include="Storage\Partials\FileAttribute.cs" />
+    <Compile Include="Storage\SignedFile.cs" />
+    <Compile Include="Storage\Partials\SignedFile.cs" />
+    <Compile Include="Storage\UploadGroup.cs" />
+    <Compile Include="Storage\UploadGroupOriginalFile.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="Models\DocumentTemplateModel.cs" />
