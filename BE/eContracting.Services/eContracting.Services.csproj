@@ -108,7 +108,7 @@
     <Compile Include="DbContextStartup.cs" />
     <Compile Include="FileOptimizer.cs" />
     <Compile Include="FileSignService.cs" />
-    <Compile Include="Migration\Configuration.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="SapApiService.cs" />
     <Compile Include="DbUserFileCacheService.cs" />

@@ -42,7 +42,10 @@ namespace eContracting.Models
         /// Gets or sets the file.
         /// </summary>
         [Required]
-        public DbFileModel File { get; set; }
+        public virtual DbFileModel File { get; set; }
+
+        [ForeignKey("File")]
+        public int FileId { get; set; }
 
         /// <summary>
         /// Prevents a default instance of the <see cref="DbSignedFileModel"/> class from being created.
@@ -75,6 +78,7 @@ namespace eContracting.Models
             file.Attributes = new Collection<DbFileAttributeModel>();
             file.Attributes.Add(new DbFileAttributeModel("template", template));
             file.Attributes.Add(new DbFileAttributeModel("attributes", attributes));
+            this.File = file;
         }
 
         /// <summary>

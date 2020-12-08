@@ -50,6 +50,11 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets additional file attributes.
         /// </summary>
-        public ICollection<DbFileAttributeModel> Attributes { get; set; }
+        public virtual ICollection<DbFileAttributeModel> Attributes { get; set; }
+
+        public DbFileModel()
+        {
+            this.Attributes = new HashSet<DbFileAttributeModel>();
+        }
     }
 }
