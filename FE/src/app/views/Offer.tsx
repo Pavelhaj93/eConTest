@@ -273,6 +273,7 @@ export const Offer: React.FC<View> = observer(
                               className="btn-icon ml-auto form-item-wrapper__btn"
                               aria-label={t('signatureEditBtn')}
                               onClick={() => openSignatureModal(key)}
+                              aria-describedby="signBtnDescription"
                             >
                               <Icon name="edit" size={18} color={colors.white} />
                             </Button>
@@ -281,6 +282,7 @@ export const Offer: React.FC<View> = observer(
                               variant="secondary"
                               className="ml-auto form-item-wrapper__btn"
                               onClick={() => openSignatureModal(key)}
+                              aria-describedby="signBtnDescription"
                             >
                               {t('signatureBtn')}
                             </Button>
@@ -289,10 +291,12 @@ export const Offer: React.FC<View> = observer(
                       </div>
                     ))}
                     <div
+                      id="signBtnDescription"
                       className="editorial-content text-muted small"
                       dangerouslySetInnerHTML={{
                         __html: store.documents.acceptance.sign?.note ?? '',
                       }}
+                      aria-hidden="true"
                     />
                   </>
                 )}
@@ -523,6 +527,7 @@ export const Offer: React.FC<View> = observer(
           {...signatureModalProps}
           onClose={() => setSignatureModalProps({ show: false, id: '' })}
           labels={labels}
+          note={store.documents.acceptance?.sign?.note}
           thumbnailUrl={thumbnailUrl ?? ''}
           signFileUrl={signFileUrl ?? ''}
         />

@@ -15,10 +15,11 @@ type Props = {
   labels: Record<string, any>
   thumbnailUrl: string
   signFileUrl: string
+  note?: string
 }
 
 export const SignatureModal: React.FC<Props> = observer(
-  ({ id, show, onClose, labels, thumbnailUrl, signFileUrl }) => {
+  ({ id, show, onClose, labels, thumbnailUrl, signFileUrl, note }) => {
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
@@ -92,12 +93,18 @@ export const SignatureModal: React.FC<Props> = observer(
               )}
             </div>
             <p>{t('signatureModalText')}</p>
-            <div className="signature mb-2">
+            <div className="signature mb-1">
               <SignaturePad height={140} ref={signatureRef} />
             </div>
-            <p className="text-muted mb-2">
-              <small>{t('signatureModalHelpText')}</small>
-            </p>
+            {note && (
+              <div
+                className="editorial-content text-muted small mb-2"
+                dangerouslySetInnerHTML={{
+                  __html: note,
+                }}
+                aria-hidden="true"
+              />
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleSubmit} disabled={store.isSigning}>

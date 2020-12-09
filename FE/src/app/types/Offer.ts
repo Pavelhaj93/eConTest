@@ -13,6 +13,7 @@ export type OfferDocument = {
   label: string
   prefix: string
   key: string
+  /** Common key "accepted" is used for both accepted and signed documents. */
   accepted: boolean
   mime: string
   group: string
