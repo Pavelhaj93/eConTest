@@ -89,7 +89,7 @@
             </summary>
             <param name="image"></param>
         </member>
-        <member name="M:eContracting.Services.FileOptimizer.ResizeImage(System.Drawing.Image,System.Nullable{System.Single},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:eContracting.Services.FileOptimizer.ResizeImage(System.Drawing.Image,System.Int32,System.Int32,System.Nullable{System.Single},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Zmensi bitmap obrazek
             </summary>

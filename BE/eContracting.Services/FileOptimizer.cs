@@ -30,6 +30,7 @@ namespace eContracting.Services
 
         private readonly long GroupResultingFileSizeLimit;
         private readonly Size MaxImageSizeAfterResize;
+        private readonly Size MinImageSizeNoResize;
 
         private const string sourceFileNameComponentsSeparator = "___";
         private const string jointFileNamePrefix = "___jointFile___";
@@ -72,18 +73,29 @@ namespace eContracting.Services
             // TODO: sitecore config
             this.GroupResultingFileSizeLimit = 25 * 1024 * 1024;
             this.MaxImageSizeAfterResize = new Size(8096, 8096);
+            this.MinImageSizeNoResize = new Size(768, 768);
         }
 
         /// <inheritdoc/>
         public async Task<DbUploadGroupFileModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
         {
             var originalFiles = new List<DbFileModel>();
+            //DbFileModel outputFile = null;
+            PdfDocument outputPdfDocument = null;
 
             if (group != null)
             {
                 if (group.OriginalFiles?.Length > 0)
                 {
                     originalFiles.AddRange(group.OriginalFiles);
+                }
+                //outputFile = group.OutputFile;
+                if (group.OutputFile != null && group.OutputFile.Content!=null && group.OutputFile.Content.Length > 0)
+                {
+                    using (Stream existingPdfStream = new MemoryStream(group.OutputFile.Content))
+                    {
+                        outputPdfDocument = PdfReader.Open(existingPdfStream, PdfDocumentOpenMode.Modify);
+                    }                    
                 }
             }
             else
@@ -92,192 +104,181 @@ namespace eContracting.Services
                 group.Key = groupKey;
                 group.SessionId = sessionId;
                 group.Guid = guid;
+                group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf", Size = 0 }; // attributes?   
             }
 
-            byte[] imageBytes = null;
-
-            using (var memoryStream = new MemoryStream(content))
+            // vytvor vystupni pdf dokument, pokud neexistuje
+            if (outputPdfDocument == null)
             {
-                using (Image image = Image.FromStream(memoryStream))
+                outputPdfDocument = this.CreatePdfDocument(groupKey);
+            }
+
+
+            byte[] fileByteContent = null;
+
+            // otoc obrazek podle EXIF orientace
+            if (this.IsImage(name))
+            {
+                using (var memoryStream = new MemoryStream(content))
                 {
-                    this.NormalizeOrientation(image);
-                    
-                    using (var imageStream = new MemoryStream())
+                    using (Image image = Image.FromStream(memoryStream))
                     {
-                        image.Save(imageStream, image.RawFormat);
-                        imageBytes = imageStream.ToArray();
+                        this.NormalizeOrientation(image);
+
+                        using (var imageStream = new MemoryStream())
+                        {
+                            image.Save(imageStream, image.RawFormat);
+                            fileByteContent = imageStream.ToArray();
+                        }
                     }
                 }
             }
-
-            //string fileNameWithGroupIdentifier = $"{groupKey}{sourceFileNameComponentsSeparator}{fileId}{sourceFileNameComponentsSeparator}{name}";
-            //string fileNameAndPath = this.FileStorageRoot + fileNameWithGroupIdentifier;
-
-            //File.WriteAllBytes(fileNameAndPath, content);
-
-            //if (this.IsImage(new FileInfo(fileNameAndPath)))
-            //{
-            //    using (Image image = Image.FromFile(fileNameAndPath))
-            //    {
-            //        this.NormalizeOrientation(image);
-            //        image.Save(fileNameAndPath);
-            //    }
-            //}
-
-            // VYHODIT A POUŽÍT originalFiles
-            var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
-            var filesToJoinIntoPdf = new List<FileInfo>();
-
-            long totalSizeWithoutCompression = this.GetOriginalFilesInGroup(groupKey).Sum(f => f.Length);  
-            
-            if (totalSizeWithoutCompression <= this.GroupResultingFileSizeLimit)
-            {
-                filesToJoinIntoPdf.AddRange(originalFilesInGroup);
-            }
             else
             {
-                filesToJoinIntoPdf.AddRange(this.CompressFiles(originalFilesInGroup));
+                fileByteContent = content;
             }
 
-            // group.OutputFile = ? použít a naplnit
-            this.JoinFilesToPdf(filesToJoinIntoPdf, this.GetJointPdfFileName(groupKey));
+            // pridej file do db modelu
+            DbFileModel fileModel = new DbFileModel()
+            {
+                Key = fileId,
+                FileName = name,
+                FileExtension = Path.GetExtension(name),
+                MimeType = MimeMapping.GetMimeMapping(name),
+                Content = fileByteContent,
+            };
+            originalFiles.Add(fileModel);
 
-            // není potřeba, jestli jsem dobře pochopil
-            //var result = await this.GetInternalAsync(groupKey);
+
+            // zapis file do pdfka v groupe
+            AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+
+            // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
+            int compressionRounds = 0;
+            while (compressionRounds<5)
+            {
+                if (outputPdfDocument.FileSize <= this.GroupResultingFileSizeLimit)
+                {
+                    outputPdfDocument = this.CreatePdfDocument(groupKey);
+                    this.CompressFiles(group, compressionRounds);
+                    foreach (var fileInGroup in originalFiles)
+                    {
+                        AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                    }
+                    compressionRounds++;
+                }
+                else 
+                    break;
+            }
+
+            // ulozim vyslednou podobu OriginalFiles (pridany novy soubor a pripadne zmensene ty predchazejici)
+            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+            group.OriginalFiles = originalFiles.ToArray();
+
+            // tady to musíme zase uložit
+            // ne, ukladame to prece v controlleru
+            //await this.UserFileCache.SetAsync(dbGroup);
             return group;
+        }
+
+        private void SaveOutputPdfDocumentToGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument)
+        {
+            using (MemoryStream outputFileWriteMemoryStream = new MemoryStream())
+            {
+                outputPdfDocument.Save(outputFileWriteMemoryStream);
+                group.OutputFile.Content = outputFileWriteMemoryStream.ToArray();                
+            }
         }
 
         /// <inheritdoc/>
         public async Task<DbUploadGroupFileModel> RemoveFileAsync(DbUploadGroupFileModel group, string fileId)
         {
-            throw new NotImplementedException();
-        }
-
-        //private async Task<DbUploadGroupFileModel> GetInternalAsync(string groupKey)
-        //{            
-        //    List<FileInOptimizedGroupModel> filesinGroupModels = new List<FileInOptimizedGroupModel>();
-        //    var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
-
-        //    foreach (var file in originalFilesInGroup)
-        //    {
-        //        FileInOptimizedGroupModel fileModel = new FileInOptimizedGroupModel(
-        //                                                            this.GetGroupfileOriginalName(file),
-        //                                                            this.GetGroupfileKey(file),
-        //                                                             MimeMapping.GetMimeMapping(file.Name),
-        //                                                             file.Length);
-        //        filesinGroupModels.Add(fileModel);
-        //    }
-
-        //    string jointPdfFile = this.GetJointPdfFileName(groupKey);
-
-        //    OptimizedFileGroupModel optimizedFileGroupModel = new OptimizedFileGroupModel(groupKey, filesinGroupModels, File.ReadAllBytes(jointPdfFile));
-        //    return await Task.FromResult<OptimizedFileGroupModel>(optimizedFileGroupModel);
-        //}
-
-        private string GetGroupfileOriginalName(FileInfo file)
-        {
-            string fileOriginalName = string.Empty;
-            try
+            if (group != null)
             {
-                fileOriginalName = file.Name.Substring(file.Name.LastIndexOf(sourceFileNameComponentsSeparator) + sourceFileNameComponentsSeparator.Length);
-            }
-            catch (Exception ex)
-            {
-                Sitecore.Diagnostics.Log.Warn("GetGroupfileOriginalName: Chyba pri zjisteni puvodniho jmena souboru: ", ex, this);
-            }
-            return fileOriginalName;
-        }
-        private string GetGroupfileKey(FileInfo file)
-        {
-            string fileOriginalName = string.Empty;
-            try
-            {
-                fileOriginalName = file.Name.Substring(file.Name.IndexOf(sourceFileNameComponentsSeparator) + sourceFileNameComponentsSeparator.Length,
-                                                      file.Name.Length-file.Name.LastIndexOf(sourceFileNameComponentsSeparator));
-            }
-            catch (Exception ex)
-            {
-                Sitecore.Diagnostics.Log.Warn("GetGroupfileKey: Chyba pri zjisteni identifikatoru z nazvu souboru: ", ex, this);
-            }
-            return fileOriginalName;
-        }
-        private string GetJointPdfFileName(string groupKey)
-        {
-            return this.FileStorageRoot + jointFileNamePrefix + groupKey + ".pdf";
-        }
-
-
-        private void JoinFilesToPdf(List<FileInfo> files, string resultingPdfFileNameWithPath)
-        {
-            PdfDocument outputPDFDocument = new PdfDocument();
-
-            foreach (var file in files)
-            {
-                if (this.IsPdf(file))
+                if (group.OriginalFiles?.Length > 0)
                 {
-                    this.AppendPdfToPdf(File.ReadAllBytes(file.FullName), outputPDFDocument);
-                }
-                if (this.IsImage(file))
-                {
-                    PdfPage pdfPageForImage = new PdfPage(outputPDFDocument);
-                    this.AppendImageToPdf(pdfPageForImage, File.ReadAllBytes(file.FullName),0,0,1, this.GetGroupfileOriginalName(file));
+                    var originalFiles = new List<DbFileModel>();
+                    originalFiles.AddRange(group.OriginalFiles);
+
+                    var fileToRemove = originalFiles.FirstOrDefault(f => f.Key == fileId);
+                    if (fileToRemove != null)
+                    {
+                        originalFiles.Remove(fileToRemove);
+                        group.OriginalFiles = originalFiles.ToArray();
+
+                        // nove vygeneruju vysledne pdfko, protoze konkretni soubor nevim jak z nej vymazat
+                        PdfDocument outputPdfDocument = this.CreatePdfDocument(group.Key);
+                        foreach (var fileInGroup in originalFiles)
+                        {
+                            AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                        }
+                        this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+                        
+                    }
+                // TODO: mam neco vyhazovat, kdyz je tu neco divnyho? file neexistuje, kolekce prazdna,.. ?
                 }
             }
 
-            if (File.Exists(resultingPdfFileNameWithPath))
-            {
-                File.Delete(resultingPdfFileNameWithPath);
-            }
-
-            outputPDFDocument.Save(resultingPdfFileNameWithPath);
+            return group;
         }
 
-        private List<FileInfo> CompressFiles(List<FileInfo> originalFilesInGroup)
+        private void AddFileToOutputPdfDocument(PdfDocument outputPdfDocument, byte[] fileByteContent, string name)
         {
-            List<FileInfo> result = new List<FileInfo>();
-            long compressableFilesSize = originalFilesInGroup.Where(f => this.IsCompressable(f)).Sum(f => f.Length);
-            long uncompressableFilesSize = originalFilesInGroup.Where(f => !this.IsCompressable(f)).Sum(f => f.Length);
+            if (this.IsPdf(name))
+            {
+                this.AppendPdfToPdf(fileByteContent, outputPdfDocument);
+            }
+            else if (this.IsImage(name))
+            {
+                PdfPage pdfPageForImage = new PdfPage(outputPdfDocument);
+                this.AppendImageToPdf(pdfPageForImage, fileByteContent, 0, 0, 1, name);
+            }
+        }
+
+
+
+        private PdfDocument CreatePdfDocument(string groupKey)
+        {
+            PdfDocument document = new PdfDocument(groupKey);
+            return document;
+        }
+
+        private void CompressFiles(DbUploadGroupFileModel group, int compressionRoundsElapsed)
+        {
+            long compressableFilesSize = group.OriginalFiles.Where(f => this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
+            long uncompressableFilesSize = group.OriginalFiles.Where(f => !this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
             long totalLimitForCompressableFiles = this.GroupResultingFileSizeLimit - uncompressableFilesSize;
 
             float needToCompressTimes = 1;
-            int compressionRoundsElapsed = 0;
 
             needToCompressTimes = compressableFilesSize / totalLimitForCompressableFiles;
 
-            // 5 je pojistka proti nekonecne smyccce, kdyby to tu nekdo zprasil
-            while (compressionRoundsElapsed < 5)
+            foreach (var originalFile in group.OriginalFiles.Where(f => this.IsCompressable(f.FileExtension)))
             {
-                foreach (var originalFile in originalFilesInGroup)
+                if (this.IsCompressable(originalFile.FileExtension) && this.IsImage(originalFile.FileExtension))
                 {
-                    if (this.IsCompressable(originalFile) && this.IsImage(originalFile))
+                    using (var memoryStream = new MemoryStream(originalFile.Content))
                     {
-                        using (Image imageOriginal = Image.FromFile(originalFile.FullName))
+                        using (Image imageOriginal = Image.FromStream(memoryStream))
                         {
                             // TODO: lepsi odhad potrebneho pomeru komprese datova velikost vs rozmer
                             float imageReductionByNeeded = (needToCompressTimes - (float)0.5 + compressionRoundsElapsed);
                             // sichr je sichr, hlavne nezvetsovat
                             if (imageReductionByNeeded < 1)
-                                imageReductionByNeeded = 1; 
+                                imageReductionByNeeded = 1;
 
-                            using (Image resizedImage = this.ResizeImage(imageOriginal, 1 / (imageReductionByNeeded), this.MaxImageSizeAfterResize.Width, this.MaxImageSizeAfterResize.Height))
+                            using (Image resizedImage = this.ResizeImage(imageOriginal, this.MinImageSizeNoResize.Width, this.MinImageSizeNoResize.Height, 1 / (imageReductionByNeeded), this.MaxImageSizeAfterResize.Width, this.MaxImageSizeAfterResize.Height))
                             {
-                                string resizedImageFileNameWoPath = resizedFileNamePrefix + originalFile.Name;
-                                string resizedImageFileName = originalFile.DirectoryName + resizedImageFileNameWoPath;
-                                resizedImage.Save(resizedImageFileName, ImageFormat.Jpeg);
-                                result.Add(new FileInfo(resizedImageFileName));
+                                using (MemoryStream resizedImageMemoryStream = new MemoryStream())
+                                {
+                                    resizedImage.Save(resizedImageMemoryStream, resizedImage.RawFormat);
+                                    originalFile.Content = resizedImageMemoryStream.ToArray();
+                                }
                             }
                         }
                     }
-                    else
-                    {
-                        result.Add(originalFile);
-                    }
-
-                    compressionRoundsElapsed++;
                 }
             }
-
-            return result;
         }
 
 
@@ -297,18 +298,18 @@ namespace eContracting.Services
             return result;
         }
 
-        private bool IsCompressable(FileInfo fi)
+        private bool IsCompressable(string filename)
         {
-            return this.IsImage(fi);
+            return this.IsImage(filename);
         }
-        private bool IsPdf(FileInfo fi)
+        private bool IsPdf(string filename)
         {
-            return fi.Extension.Trim().ToLower().Equals("pdf");
+            return filename?.ToLower().EndsWith("pdf")?? false;
         }
 
-        private bool IsImage(FileInfo fi)
+        private bool IsImage(string filename)
         {
-            return !fi.Extension.Trim().ToLower().Equals("pdf");            
+            return !IsPdf(filename);
         }
 
 
@@ -368,7 +369,7 @@ namespace eContracting.Services
         /// <param name="maxWidth"></param>
         /// <param name="maxHeight"></param>
         /// <returns></returns>
-        private Image ResizeImage(Image image, float? ratio = 1, int? maxWidth = int.MaxValue, int? maxHeight = int.MaxValue)
+        private Image ResizeImage(Image image, int minWidth, int minHeight, float? ratio = 1, int? maxWidth = int.MaxValue, int? maxHeight = int.MaxValue)
         {
             // Get the image's original width and height
             int originalWidth = image.Width;
@@ -387,6 +388,9 @@ namespace eContracting.Services
             int newWidth = (int)(originalWidth * resultingRatio);
             int newHeight = (int)(originalHeight * resultingRatio);
 
+            // TODO: pokud bych zmensoval pod minima
+            if (newWidth < minWidth || newHeight < minHeight)
+                return image;
 
             // Convert other formats (including CMYK) to RGB.
             Bitmap newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);

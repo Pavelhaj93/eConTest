@@ -593,8 +593,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
-
-                return this.Json(new GroupUploadViewModel(updatedGroup));
+                else
+                {
+                    await this.UserFileCacheService.SetAsync(updatedGroup);
+                    return this.Json(new GroupUploadViewModel(updatedGroup));
+                }
             }
             catch (Exception ex)
             {
