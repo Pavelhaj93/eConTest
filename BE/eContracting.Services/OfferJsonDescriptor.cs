@@ -56,16 +56,12 @@ namespace eContracting.Services
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var page = this.GetAcceptedPageModel();
             var textParameters = offer.TextParameters;
+            var fileGroups = files.GroupBy(x => x.Group);
 
-            if (version == 1)
+            foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
             {
-                var fileGroups = files.GroupBy(x => x.Group);
-
-                foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
-                {
-                    var g = this.GetSection(fileGroup.Key, fileGroup, page, offer);
-                    groups.AddRange(g);
-                }
+                var g = this.GetSection(fileGroup.Key, fileGroup, page, offer);
+                groups.AddRange(g);
             }
 
             return new JsonOfferAcceptedModel(groups);

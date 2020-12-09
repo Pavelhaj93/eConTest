@@ -18,19 +18,23 @@ namespace eContracting.Models
         /// Gets the index.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRINDX"/>
-        public readonly int Index;
+        public int Index { get; protected set; }
 
         /// <summary>
         /// The key.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRID"/>
-        public readonly string Key;
+        public string Key { get; protected set; }
 
         /// <summary>
         /// The value.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRVAL"/>
-        public readonly string Value;
+        public string Value { get; protected set; }
+
+        public OfferAttributeModel()
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferAttributeModel"/> class.

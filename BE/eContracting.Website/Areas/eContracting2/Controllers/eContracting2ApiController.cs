@@ -627,9 +627,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
 
-                //TODO: Process submitted data
+                var submitModel = await this.Request.Content.ReadAsAsync<OfferSubmitDataModel>();
 
-                return this.StatusCode(HttpStatusCode.NotImplemented);
+                if (submitModel == null)
+                {
+                    return this.BadRequest("Invalid submit data");
+                }
+
+                var offer = await this.ApiService.GetOfferAsync(guid, false);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    return this.BadRequest("Offer is already accepted");
+                }
+
+                await this.ApiService.AcceptOfferAsync(offer, submitModel, HttpContext.Current.Session.SessionID);
+
+                return this.Ok();
             }
             catch (EndpointNotFoundException ex)
             {

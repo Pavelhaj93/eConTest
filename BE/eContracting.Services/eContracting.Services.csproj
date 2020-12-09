@@ -106,6 +106,7 @@
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DbContextStartup.cs" />
+    <Compile Include="DbLoginReportStore.cs" />
     <Compile Include="FileOptimizer.cs" />
     <Compile Include="FileSignService.cs" />
     <Compile Include="Migrations\Configuration.cs" />
@@ -114,7 +115,6 @@
     <Compile Include="DbUserFileCacheService.cs" />
     <Compile Include="UserSessionDataCacheService.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="MongoLoginReportStore.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />
     <Compile Include="OfferParserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

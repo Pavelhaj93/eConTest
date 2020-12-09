@@ -13,18 +13,18 @@ namespace eContracting
         /// <summary>
         /// Accepts offer asynchronously.
         /// </summary>
-        /// <param name="guid">Guid identifier.</param>
+        /// <param name="offer">Valid offer.</param>
         /// <param name="data">The submitted data.</param>
         /// <returns>True if it was accepted or false.</returns>
-        Task<bool> AcceptOfferAsync(string guid, OfferSubmitDataModel data);
+        Task<bool> AcceptOfferAsync(OfferModel offer, OfferSubmitDataModel data, string sessionId);
 
         /// <summary>
         /// Accepts offer synchronously.
         /// </summary>
-        /// <param name="guid">Guid identifier.</param>
+        /// <param name="offer">Valid offer.</param>
         /// <param name="data">The submitted data.</param>
         /// <returns>True if it was accepted or false.</returns>
-        bool AcceptOffer(string guid, OfferSubmitDataModel data);
+        bool AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId);
 
         /// <summary>
         /// Reads offer synchronously.

@@ -242,16 +242,19 @@
             <param name="offerParser">The offer parser.</param>
             <param name="offerAttachmentParser">The offer attachment parser.</param>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOffer(System.String,eContracting.Models.OfferSubmitDataModel)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(System.String,eContracting.Models.OfferSubmitDataModel)">
+        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SapApiService.GetOffer(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SapApiService.GetAttachments(eContracting.Models.OfferModel)">
@@ -362,47 +365,6 @@
         </member>
         <member name="M:eContracting.Services.UserSessionDataCacheService.Remove(System.String)">
             <inheritdoc/>
-        </member>
-        <member name="F:eContracting.Services.MongoLoginReportStore.MongoClient">
-            <summary>
-            The client
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.MongoLoginReportStore.MongoDatabase">
-            <summary>
-            The database of the collections.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.MongoLoginReportStore.LoginsLogCollection">
-            <summary>
-            Collection of all login attempts.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.MongoLoginReportStore.FailedLoginsCollection">
-            <summary>
-            Collection of failed login attempts.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.MongoLoginReportStore.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.MongoLoginReportStore"/> class.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.MongoLoginReportStore.AddLoginAttempt(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.MongoLoginReportStore.CanLogin(System.String,System.Int32,System.TimeSpan)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.MongoLoginReportStore.AddFailedAttempt(System.String,System.String,System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.MongoLoginReportStore.NormalizeGuid(System.String)">
-            <summary>
-            Normalizes the unique identifier.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <returns>Upper case value of <paramref name="guid"/></returns>
         </member>
         <member name="T:eContracting.Services.OfferAttachmentParserService">
             <inheritdoc/>

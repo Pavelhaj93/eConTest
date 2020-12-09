@@ -194,8 +194,10 @@
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessTypeCondition.cs" />
     <Compile Include="SitecoreContextWrapper.cs" />
     <Compile Include="Storage\DatabaseContext.cs" />
+    <Compile Include="Storage\EventLog.cs" />
     <Compile Include="Storage\File.cs" />
     <Compile Include="Storage\FileAttribute.cs" />
+    <Compile Include="Storage\LoginAttempt.cs" />
     <Compile Include="Storage\Partials\DatabaseContext.cs" />
     <Compile Include="Storage\Partials\File.cs" />
     <Compile Include="Storage\Partials\FileAttribute.cs" />

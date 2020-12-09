@@ -93,26 +93,24 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool AcceptOffer(string guid, OfferSubmitDataModel data)
+        public bool AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId)
         {
-            var task = Task.Run(() => this.AcceptOfferAsync(guid, data));
+            var task = Task.Run(() => this.AcceptOfferAsync(offer, data, sessionId));
             task.Wait();
             var result = task.Result;
             return result;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> AcceptOfferAsync(string guid, OfferSubmitDataModel data)
+        public async Task<bool> AcceptOfferAsync(OfferModel offer, OfferSubmitDataModel data, string sessionId)
         {
-            var offer = await this.GetOfferAsync(guid, false);
-
             var when = DateTime.UtcNow;
             var startingLog = new StringBuilder();
             startingLog.AppendLine($"[LogAcceptance] Initializing...");
-            startingLog.AppendLine($" - Guid: {guid}");
+            startingLog.AppendLine($" - Guid: {offer.Guid}");
             startingLog.AppendLine($" - when: {when.ToString("yyyy-MM-dd HH:mm:ss")}");
 
-            this.Logger.Debug(guid, startingLog.ToString());
+            this.Logger.Debug(offer.Guid, startingLog.ToString());
 
             string timestampString = when.ToString("yyyyMMddHHmmss");
             Decimal outValue = 1M;
@@ -130,20 +128,20 @@ namespace eContracting.Services
                 ATTRVAL = Utils.GetIpAddress()
             });
 
-            this.Logger.Debug(guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
+            this.Logger.Debug(offer.Guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
 
-            var responsePdfFiles = await this.GetFilesAsync(guid, false);
+            var responsePdfFiles = await this.GetFilesAsync(offer.Guid, false);
 
-            var files = await this.GetFilesForAccept(offer, data, responsePdfFiles);
+            var files = await this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
 
-            var putResult = await this.PutAsync(guid, attributes.ToArray(), files.ToArray());
+            var putResult = await this.PutAsync(offer.Guid, attributes.ToArray(), files.ToArray());
 
             if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
             {
                 throw new ApplicationException("ZCCH_CACHE_PUT request failed. Code: " + putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE);
             }
 
-            return await this.SetStatusAsync(guid, OFFER_TYPES.NABIDKA, "5");
+            return await this.SetStatusAsync(offer.Guid, OFFER_TYPES.NABIDKA, "5");
         }
 
         /// <inheritdoc/>
@@ -161,6 +159,7 @@ namespace eContracting.Services
             return await this.GetOfferAsync(guid, true);
         }
 
+        /// <inheritdoc/>
         public async Task<OfferModel> GetOfferAsync(string guid, bool includeTextParameters)
         {
             var response = await this.GetResponseAsync(guid, OFFER_TYPES.NABIDKA);
@@ -282,7 +281,7 @@ namespace eContracting.Services
             }
         }
 
-        protected internal async Task<ZCCH_ST_FILE[]> GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles)
+        protected internal async Task<ZCCH_ST_FILE[]> GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles, string sessionId)
         {
             var files = new List<ZCCH_ST_FILE>();
 
@@ -298,13 +297,14 @@ namespace eContracting.Services
                     throw new ApplicationException($"Missing required file for sign: {template}");
                 }
 
-                var cacheModel = await this.UserFileCache.FindSignedFileAsync(new DbSearchParameters(uniqueKey, offer.Guid, null));
-                var signedFile = cacheModel.ToAttachment();
+                var cacheModel = await this.UserFileCache.FindSignedFileAsync(new DbSearchParameters(uniqueKey, offer.Guid, sessionId));
 
-                if (signedFile == null)
+                if (cacheModel == null)
                 {
                     throw new ApplicationException($"File not found in the cache: key: {uniqueKey}: template: {template}");
                 }
+
+                var signedFile = cacheModel.ToAttachment();
 
                 var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
 

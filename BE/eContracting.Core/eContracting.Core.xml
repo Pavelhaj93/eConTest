@@ -748,19 +748,19 @@
             Represent an attribute anywhere in an offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Index">
+        <member name="P:eContracting.Models.OfferAttributeModel.Index">
             <summary>
             Gets the index.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX"/>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Key">
+        <member name="P:eContracting.Models.OfferAttributeModel.Key">
             <summary>
             The key.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID"/>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Value">
+        <member name="P:eContracting.Models.OfferAttributeModel.Value">
             <summary>
             The value.
             </summary>
@@ -1679,19 +1679,19 @@
             Service with direct communication to SAP / CACHE.
             </summary>
         </member>
-        <member name="M:eContracting.IApiService.AcceptOfferAsync(System.String,eContracting.Models.OfferSubmitDataModel)">
+        <member name="M:eContracting.IApiService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
             Accepts offer asynchronously.
             </summary>
-            <param name="guid">Guid identifier.</param>
+            <param name="offer">Valid offer.</param>
             <param name="data">The submitted data.</param>
             <returns>True if it was accepted or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.AcceptOffer(System.String,eContracting.Models.OfferSubmitDataModel)">
+        <member name="M:eContracting.IApiService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
             Accepts offer synchronously.
             </summary>
-            <param name="guid">Guid identifier.</param>
+            <param name="offer">Valid offer.</param>
             <param name="data">The submitted data.</param>
             <returns>True if it was accepted or false.</returns>
         </member>

@@ -12,14 +12,36 @@ namespace eContracting.Storage
         {
         }
 
+        public virtual DbSet<EventLog> EventLogs { get; set; }
         public virtual DbSet<FileAttribute> FileAttributes { get; set; }
         public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<LoginAttempt> LoginAttempts { get; set; }
         public virtual DbSet<SignedFile> SignedFiles { get; set; }
         public virtual DbSet<UploadGroupOriginalFile> UploadGroupOriginalFiles { get; set; }
         public virtual DbSet<UploadGroup> UploadGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<EventLog>()
+                .Property(e => e.SessionId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<EventLog>()
+                .Property(e => e.Guid)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<EventLog>()
+                .Property(e => e.Event)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<EventLog>()
+                .Property(e => e.Message)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<EventLog>()
+                .Property(e => e.Error)
+                .IsUnicode(false);
+
             modelBuilder.Entity<FileAttribute>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -60,6 +82,14 @@ namespace eContracting.Storage
                 .WithRequired(e => e.File)
                 .HasForeignKey(e => e.OutputFileId)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<LoginAttempt>()
+                .Property(e => e.SessionId)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<LoginAttempt>()
+                .Property(e => e.Guid)
+                .IsUnicode(false);
 
             modelBuilder.Entity<SignedFile>()
                 .Property(e => e.Key)

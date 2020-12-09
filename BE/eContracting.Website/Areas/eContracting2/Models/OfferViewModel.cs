@@ -20,7 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("offerUrl")]
         public readonly string OfferApi = "/api/econ/offer";
 
-        [JsonProperty("offerSubmitUrl")]
+        [JsonProperty("acceptOfferUrl")]
         public readonly string OfferSubmitApi = "/api/econ/submit";
 
         [JsonProperty("getFileUrl")]
@@ -37,6 +37,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         #endregion
 
+        #region Urls
+
+        [JsonProperty("thankYouPageUrl")]
+        public string ThankYouPage { get; set; }
+
+        #endregion
+
         [JsonProperty("allowedContentTypes")]
         public string[] AllowedContentTypes { get; set; }
 
@@ -47,6 +54,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
             this.PageTitle = definition.OfferTitle.Text;
             this.MainText = definition.OfferMainText.Text;
+
+            this.ThankYouPage = settingsReader.GetSiteSettings().ThankYou.Url;
         }
     }
 }

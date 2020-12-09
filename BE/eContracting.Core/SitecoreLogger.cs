@@ -60,7 +60,7 @@ namespace eContracting
         /// <inheritdoc/>
         public void Fatal(string guid, Exception exception)
         {
-            Log.Fatal($"[{guid}] {exception.Message}", this);
+            Log.Fatal($"[{guid}] {exception.Message}", exception, this);
         }
 
         /// <inheritdoc/>

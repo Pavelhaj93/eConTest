@@ -21,7 +21,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public Task ClearAsync(DbSearchParameters search)
         {
-            throw new NotImplementedException();
+            return new Task(() => { });
         }
 
         /// <inheritdoc/>
@@ -78,39 +78,43 @@ namespace eContracting.Services
                 }
                 else
                 {
-                    using (var transaction = context.Database.BeginTransaction())
-                    {
-                        var file = new File();
-                        file.FileName = model.File.FileName;
-                        file.FileExtension = model.File.FileExtension;
-                        file.MimeType = model.File.MimeType;
-                        file.Size = model.File.Size;
-                        file.Content = model.File.Content;
+                    dbModel = new SignedFile(model);
+                    context.SignedFiles.Add(dbModel);
+                    await context.SaveChangesAsync();
 
-                        var newFile = context.Files.Add(file);
+                    //using (var transaction = context.Database.BeginTransaction())
+                    //{
+                    //    var file = new File();
+                    //    file.FileName = model.File.FileName;
+                    //    file.FileExtension = model.File.FileExtension;
+                    //    file.MimeType = model.File.MimeType;
+                    //    file.Size = model.File.Size;
+                    //    file.Content = model.File.Content;
 
-                        var fileAttributes = new List<FileAttribute>();
+                    //    var newFile = context.Files.Add(file);
 
-                        if (model.File.Attributes?.Length > 0)
-                        {
-                            for (int i = 0; i < model.File.Attributes.Length; i++)
-                            {
-                                fileAttributes.Add(new FileAttribute(model.File.Attributes[i]) { FileId = newFile.Id });
-                            }
-                        }
+                    //    var fileAttributes = new List<FileAttribute>();
 
-                        var newAttributes = context.FileAttributes.AddRange(fileAttributes);
+                    //    if (model.File.Attributes?.Length > 0)
+                    //    {
+                    //        for (int i = 0; i < model.File.Attributes.Length; i++)
+                    //        {
+                    //            fileAttributes.Add(new FileAttribute(model.File.Attributes[i]) { FileId = newFile.Id });
+                    //        }
+                    //    }
 
-                        var signedFile = new SignedFile();
-                        signedFile.Guid = model.Guid;
-                        signedFile.Key = model.Key;
-                        signedFile.SessionId = model.SessionId;
-                        signedFile.FileId = newFile.Id;
+                    //    var newAttributes = context.FileAttributes.AddRange(fileAttributes);
 
-                        context.SignedFiles.Add(signedFile);
-                        var result = await context.SaveChangesAsync();
-                        transaction.Commit();
-                    }
+                    //    var signedFile = new SignedFile();
+                    //    signedFile.Guid = model.Guid;
+                    //    signedFile.Key = model.Key;
+                    //    signedFile.SessionId = model.SessionId;
+                    //    signedFile.FileId = newFile.Id;
+
+                    //    context.SignedFiles.Add(signedFile);
+                    //    var result = await context.SaveChangesAsync();
+                    //    transaction.Commit();
+                    //}
                 }
             }
         }
