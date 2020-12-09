@@ -96,6 +96,8 @@
     <Compile Include="IEventLogger.cs" />
     <Compile Include="IStartup.cs" />
     <Compile Include="IUserFileCacheService.cs" />
+    <Compile Include="Models\BasePageModel.cs" />
+    <Compile Include="Models\BasePageWithStepsModel.cs" />
     <Compile Include="Models\DbFileAttributeModel.cs" />
     <Compile Include="Models\DbFileModel.cs" />
     <Compile Include="Models\DbLoginAttemptModel.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Models\DbUploadGroupFileModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
+    <Compile Include="Models\ThankYouPageModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">

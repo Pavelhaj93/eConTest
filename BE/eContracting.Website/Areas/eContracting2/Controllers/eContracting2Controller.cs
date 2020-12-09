@@ -32,6 +32,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationService AuthenticationService;
         protected readonly IContextWrapper Context;
+        protected readonly IUserFileCacheService UserFileCache;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="eContracting2Controller"/> class.
@@ -44,6 +45,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
+            this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
         }
 
         public eContracting2Controller(
@@ -52,7 +54,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IApiService apiService,
             ISettingsReaderService settingsReaderService,
             IAuthenticationService authService,
-            IContextWrapper context)
+            IContextWrapper context,
+            IUserFileCacheService userFileCache)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -60,6 +63,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.AuthenticationService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
+            this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
         }
 
         /// <summary>
@@ -243,7 +247,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var mainText = string.Empty;
             var guid = string.Empty;
-            var datasource = this.GetLayoutItem<EContractingThankYouTemplate>();
 
             try
             {
@@ -252,18 +255,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
                 }
 
-                guid = this.AuthenticationService.GetCurrentUser().Guid;
+                var user = this.AuthenticationService.GetCurrentUser();
+                guid = user.Guid;
                 var offer = this.ApiService.GetOffer(guid);
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
 
-                if (mainText == null)
+                if (!offer.IsAccepted)
                 {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
+                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer);
+                    this.Logger.Info(guid, $"Offer is not accepted");
                     return this.Redirect(redirectUrl);
                 }
 
-                this.Session.Remove("UserFiles");
+                var searchFilesParams = new DbSearchParameters(null, guid, null);
+                this.UserFileCache.Clear(searchFilesParams);
+
+                var datasource = this.GetLayoutItem<ThankYouPageModel>();
+
+                
                 var scriptParameters = this.GetScriptParameters(offer);
 
                 if (scriptParameters == null || scriptParameters.Length != 3 || scriptParameters.Any(a => string.IsNullOrEmpty(a)))
@@ -274,16 +282,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.ViewData["eCat"] = scriptParameters[0];
                 this.ViewData["eAct"] = scriptParameters[1];
                 this.ViewData["eLab"] = scriptParameters[2];
+                this.ViewData["MainText"] = mainText;
+
+                return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", datasource);
             }
             catch (Exception ex)
             {
-                mainText = datasource.ServiceUnavailableText;
-                Sitecore.Diagnostics.Log.Error($"[{guid}] Error when displaying thank you page", ex, this);
+                this.Logger.Error(guid, $"Error when displaying thank you page", ex);
+                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
             }
-
-            this.ViewData["MainText"] = mainText;
-
-            return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", datasource);
         }
 
         // UserBlockedController

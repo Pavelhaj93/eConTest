@@ -56,6 +56,12 @@ namespace eContracting
         /// Removes all data base on <paramref name="search"/> parameters.
         /// </summary>
         /// <param name="search">The search parameters.</param>
+        void Clear(DbSearchParameters search);
+
+        /// <summary>
+        /// Removes all data base on <paramref name="search"/> parameters.
+        /// </summary>
+        /// <param name="search">The search parameters.</param>
         Task ClearAsync(DbSearchParameters search);
     }
 }

@@ -11,23 +11,11 @@ namespace eContracting.Models
     /// <summary>
     /// Represents model for offer page.
     /// </summary>
-    /// <seealso cref="BaseSitecoreModel" />
+    /// <seealso cref="BasePageWithStepsModel" />
     [SitecoreType(TemplateId = "{456D5421-A2DE-42B4-97E6-A42FC243BF10}", AutoMap = true)]
     [ExcludeFromCodeCoverage]
-    public class OfferPageModel : BaseSitecoreModel
+    public class OfferPageModel : BasePageWithStepsModel
     {
-        /// <summary>
-        /// Gets or sets the page title.
-        /// </summary>
-        [SitecoreField]
-        public virtual string PageTitle { get; set; }
-
-        /// <summary>
-        /// Gets or sets the step.
-        /// </summary>
-        [SitecoreField]
-        public virtual ProcessStepModel Step { get; set; }
-
         /// <summary>
         /// Gets or sets the GDPR URL.
         /// </summary>

@@ -13,8 +13,7 @@ namespace eContracting.Website.Pipelines.SessionEnd
         public void Process(SessionEndArgs endArgs)
         {
             var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
-            var task = cache.ClearAsync(new Models.DbSearchParameters(null, null, endArgs.Context.Session.SessionID));
-            task.Wait();
+            cache.Clear(new Models.DbSearchParameters(null, null, endArgs.Context.Session.SessionID));
         }
     }
 }

@@ -328,6 +328,26 @@
             <param name="files">The files.</param>
             <returns>The response.</returns>
         </member>
+        <member name="T:eContracting.Services.DbUserFileCacheService">
+            <summary>
+            Database cache for user files.
+            </summary>
+            <seealso cref="T:eContracting.IUserFileCacheService" />
+        </member>
+        <member name="F:eContracting.Services.DbUserFileCacheService.ConnectionString">
+            <summary>
+            The connection string.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.#ctor(eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbUserFileCacheService"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.Clear(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>

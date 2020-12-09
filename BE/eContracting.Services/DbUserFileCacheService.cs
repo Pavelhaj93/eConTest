@@ -9,19 +9,66 @@ using eContracting.Storage;
 
 namespace eContracting.Services
 {
+    /// <summary>
+    /// Database cache for user files.
+    /// </summary>
+    /// <seealso cref="eContracting.IUserFileCacheService" />
     public class DbUserFileCacheService : IUserFileCacheService
     {
+        /// <summary>
+        /// The connection string.
+        /// </summary>
         protected readonly string ConnectionString;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DbUserFileCacheService"/> class.
+        /// </summary>
+        /// <param name="settingsReader">The settings reader.</param>
         public DbUserFileCacheService(ISettingsReaderService settingsReader)
         {
             this.ConnectionString = settingsReader.GetFileCacheStorageConnectionString();
         }
 
         /// <inheritdoc/>
-        public Task ClearAsync(DbSearchParameters search)
+        public void Clear(DbSearchParameters search)
         {
-            return new Task(() => { });
+            var task = Task.Run(() => this.ClearAsync(search));
+            task.Wait();
+        }
+
+        /// <inheritdoc/>
+        public async Task ClearAsync(DbSearchParameters search)
+        {
+            if (string.IsNullOrEmpty(search.Guid))
+            {
+                return;
+            }
+
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                bool changes = false;
+
+                var signedFiles = context.SignedFiles.Where(x => x.Guid == search.Guid);
+
+                if (signedFiles.Any())
+                {
+                    context.SignedFiles.RemoveRange(signedFiles);
+                    changes = true;
+                }
+
+                var uploadGroups = context.UploadGroups.Where(x => x.Guid == search.Guid);
+
+                if (signedFiles.Any())
+                {
+                    context.UploadGroups.RemoveRange(uploadGroups);
+                    changes = true;
+                }
+
+                if (changes)
+                {
+                    await context.SaveChangesAsync();
+                }
+            }
         }
 
         /// <inheritdoc/>
@@ -33,9 +80,9 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
         {
-            using (var db = new DatabaseContext(this.ConnectionString))
+            using (var context = new DatabaseContext(this.ConnectionString))
             {
-                var query = db.SignedFiles.AsQueryable();
+                var query = context.SignedFiles.AsQueryable();
                 query = query.Where(x => x.Key == search.Key);
                 query = query.Where(x => x.Guid == search.Guid);
                 query = query.Where(x => x.SessionId == search.SessionId);

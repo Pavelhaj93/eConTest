@@ -107,11 +107,39 @@
             </summary>
             <param name="search">The search parameters.</param>
         </member>
+        <member name="M:eContracting.IUserFileCacheService.Clear(eContracting.Models.DbSearchParameters)">
+            <summary>
+            Removes all data base on <paramref name="search"/> parameters.
+            </summary>
+            <param name="search">The search parameters.</param>
+        </member>
         <member name="M:eContracting.IUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
             <summary>
             Removes all data base on <paramref name="search"/> parameters.
             </summary>
             <param name="search">The search parameters.</param>
+        </member>
+        <member name="T:eContracting.Models.BasePageModel">
+            <summary>
+            Represents common page with <see cref="P:eContracting.Models.BasePageModel.PageTitle"/>.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.BasePageModel.PageTitle">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.BasePageWithStepsModel">
+            <summary>
+            Represents common page with <see cref="P:eContracting.Models.BasePageWithStepsModel.Step"/>.
+            </summary>
+            <seealso cref="T:eContracting.Models.BasePageModel" />
+        </member>
+        <member name="P:eContracting.Models.BasePageWithStepsModel.Step">
+            <summary>
+            Gets or sets the step.
+            </summary>
         </member>
         <member name="T:eContracting.Models.DbFileAttributeModel">
             <summary>
@@ -337,6 +365,12 @@
             Gets or sets array of <c>other</c> unique file IDs.
             </summary>
         </member>
+        <member name="T:eContracting.Models.ThankYouPageModel">
+            <summary>
+            Represents model for thank you page.
+            </summary>
+            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+        </member>
         <member name="P:eContracting.Models.AcceptedOfferPageModel.PageTitle">
             <summary>
             Gets or sets the page title.
@@ -491,6 +525,12 @@
             Initializes a new instance of the <see cref="T:eContracting.Models.FolderItemModel`1"/> class.
             </summary>
             <param name="items">The items.</param>
+        </member>
+        <member name="T:eContracting.Models.LoginPageModel">
+            <summary>
+            Represents login page.
+            </summary>
+            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
         </member>
         <member name="T:eContracting.Models.OfferAttachmentModel">
             <summary>
@@ -1000,17 +1040,7 @@
             <summary>
             Represents model for offer page.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.PageTitle">
-            <summary>
-            Gets or sets the page title.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.Step">
-            <summary>
-            Gets or sets the step.
-            </summary>
+            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
         </member>
         <member name="P:eContracting.Models.OfferPageModel.GDPRUrl">
             <summary>
