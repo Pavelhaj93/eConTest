@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace eContracting.Models
         /// <summary>
         /// Prevents a default instance of the <see cref="DbSignedFileModel"/> class from being created.
         /// </summary>
-        private DbSignedFileModel()
+        public DbSignedFileModel()
         {
         }
 
@@ -65,9 +66,13 @@ namespace eContracting.Models
             file.FileExtension = attachment.FileExtension;
             file.Content = attachment.FileContent;
             file.MimeType = attachment.MimeType;
-            file.Attributes = new Collection<DbFileAttributeModel>();
-            file.Attributes.Add(new DbFileAttributeModel("template", template));
-            file.Attributes.Add(new DbFileAttributeModel("attributes", attributes));
+
+            var dbAttributes = new List<DbFileAttributeModel>();
+            dbAttributes.Add(new DbFileAttributeModel("template", template));
+            dbAttributes.Add(new DbFileAttributeModel("attributes", attributes));
+
+            file.Attributes = dbAttributes.ToArray();
+
             this.File = file;
         }
 

@@ -313,10 +313,10 @@
         <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFileAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Storage.UploadGroup)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Storage.SignedFile)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
             <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">

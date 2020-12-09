@@ -39,10 +39,6 @@ namespace eContracting.Models
         /// </summary>
         public byte[] Content { get; set; }
 
-        public DbUploadGroupFileModel UploadGroup { get; set; }
-
-        public DbSignedFileModel SignedFile { get; set; }
-
-        public virtual ICollection<DbFileAttributeModel> Attributes { get; set; } = new HashSet<DbFileAttributeModel>();
+        public virtual DbFileAttributeModel[] Attributes { get; set; }
     }
 }

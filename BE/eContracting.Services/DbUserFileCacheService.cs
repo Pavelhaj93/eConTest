@@ -25,13 +25,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task<UploadGroup> GetGroupAsync(DbSearchParameters search)
+        public Task<DbUploadGroupFileModel> GetGroupAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public async Task<SignedFile> GetSignedFileAsync(DbSearchParameters search)
+        public async Task<DbSignedFileModel> GetSignedFileAsync(DbSearchParameters search)
         {
             using (var db = new DatabaseContext(this.ConnectionString))
             {
@@ -40,7 +40,7 @@ namespace eContracting.Services
                 query = query.Where(x => x.Guid == search.Guid);
                 query = query.Where(x => x.SessionId == search.SessionId);
                 var result = await query.FirstOrDefaultAsync();
-                return result;
+                return result.ToModel();
             }
         }
 
@@ -57,29 +57,60 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task SetAsync(UploadGroup group)
+        public Task SetAsync(DbUploadGroupFileModel group)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public async Task SetAsync(SignedFile file)
+        public async Task SetAsync(DbSignedFileModel model)
         {
-            using (var db = new DatabaseContext(this.ConnectionString))
+            using (var context = new DatabaseContext(this.ConnectionString))
             {
-                var dbModel = db.SignedFiles.FirstOrDefault(x => x.Key == file.Key && x.Guid == file.Guid && x.SessionId == file.SessionId);
+                var dbModel = context.SignedFiles.FirstOrDefault(x => x.Key == model.Key && x.Guid == model.Guid && x.SessionId == model.SessionId);
 
                 if (dbModel != null)
                 {
-                    dbModel.File.Content = file.File.Content;
-                    var entry = db.Entry(dbModel.File);
+                    dbModel.File.Content = model.File.Content;
+                    var entry = context.Entry(dbModel.File);
                     entry.State = System.Data.Entity.EntityState.Modified;
-                    var result = await db.SaveChangesAsync();
+                    var result = await context.SaveChangesAsync();
                 }
                 else
                 {
-                    db.SignedFiles.Add(file);
-                    var result = await db.SaveChangesAsync();
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        var file = new File();
+                        file.FileName = model.File.FileName;
+                        file.FileExtension = model.File.FileExtension;
+                        file.MimeType = model.File.MimeType;
+                        file.Size = model.File.Size;
+                        file.Content = model.File.Content;
+
+                        var newFile = context.Files.Add(file);
+
+                        var fileAttributes = new List<FileAttribute>();
+
+                        if (model.File.Attributes?.Length > 0)
+                        {
+                            for (int i = 0; i < model.File.Attributes.Length; i++)
+                            {
+                                fileAttributes.Add(new FileAttribute(model.File.Attributes[i]) { FileId = newFile.Id });
+                            }
+                        }
+
+                        var newAttributes = context.FileAttributes.AddRange(fileAttributes);
+
+                        var signedFile = new SignedFile();
+                        signedFile.Guid = model.Guid;
+                        signedFile.Key = model.Key;
+                        signedFile.SessionId = model.SessionId;
+                        signedFile.FileId = newFile.Id;
+
+                        context.SignedFiles.Add(signedFile);
+                        var result = await context.SaveChangesAsync();
+                        transaction.Commit();
+                    }
                 }
             }
         }

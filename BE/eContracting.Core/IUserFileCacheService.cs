@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
-using eContracting.Storage;
 
 namespace eContracting
 {
@@ -14,32 +13,32 @@ namespace eContracting
     public interface IUserFileCacheService
     {
         /// <summary>
-        /// Adds or rewrite <paramref name="group"/> under specific <see cref="UploadGroup.Key"/>.
+        /// Adds or rewrite <paramref name="group"/> under specific <see cref="DbUploadGroupFileModel.Key"/>.
         /// </summary>
         /// <param name="group">The group.</param>
         /// <exception cref="ApplicationException">When data were not stored.</exception>
-        Task SetAsync(UploadGroup group);
+        Task SetAsync(DbUploadGroupFileModel group);
 
         /// <summary>
-        /// Adds or rewrite <paramref name="file"/> under specific <see cref="SignedFile.Key"/>.
+        /// Adds or rewrite <paramref name="file"/> under specific <see cref="DbSignedFileModel.Key"/>.
         /// </summary>
         /// <param name="file">The signed file model.</param>
         /// <exception cref="ApplicationException">When data were not stored.</exception>
-        Task SetAsync(SignedFile file);
+        Task SetAsync(DbSignedFileModel file);
 
         /// <summary>
         /// Gets the signed file by specific <paramref name="search"/> parameters.
         /// </summary>
         /// <param name="search">The search parameters.</param>
         /// <returns>File or null.</returns>
-        Task<SignedFile> GetSignedFileAsync(DbSearchParameters search);
+        Task<DbSignedFileModel> GetSignedFileAsync(DbSearchParameters search);
 
         /// <summary>
         /// Gets the group data by specific <paramref name="search"/> parameters.
         /// </summary>
         /// <param name="search">The search parameters.</param>
         /// <returns>Data or null.</returns>
-        Task<UploadGroup> GetGroupAsync(DbSearchParameters search);
+        Task<DbUploadGroupFileModel> GetGroupAsync(DbSearchParameters search);
 
         /// <summary>
         /// Removes the signed file under specific <paramref name="search"/> parameters.

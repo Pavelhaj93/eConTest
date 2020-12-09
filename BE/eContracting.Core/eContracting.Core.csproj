@@ -94,7 +94,12 @@
   <ItemGroup>
     <Compile Include="IStartup.cs" />
     <Compile Include="IUserFileCacheService.cs" />
+    <Compile Include="Models\DbFileAttributeModel.cs" />
+    <Compile Include="Models\DbFileModel.cs" />
+    <Compile Include="Models\DbLoginAttemptModel.cs" />
     <Compile Include="Models\DbSearchParameters.cs" />
+    <Compile Include="Models\DbSignedFileModel.cs" />
+    <Compile Include="Models\DbUploadGroupFileModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />

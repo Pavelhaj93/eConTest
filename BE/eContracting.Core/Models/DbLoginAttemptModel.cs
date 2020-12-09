@@ -8,20 +8,14 @@ using System.Threading.Tasks;
 
 namespace eContracting.Models
 {
-    [Table("LoginAttempts")]
     public class DbLoginAttemptModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         public DateTime Time { get; set; }
 
-        [Required]
         public string Guid { get; set; }
 
-        [Required]
         public string SessionId { get; set; }
 
         public int WrongBirthdayDateCount { get; set; }

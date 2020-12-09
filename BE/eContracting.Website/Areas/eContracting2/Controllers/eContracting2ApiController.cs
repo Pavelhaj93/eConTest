@@ -310,7 +310,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
-                var dbSignedFile = new SignedFile(id, guid, HttpContext.Current.Session.SessionID, signedFile);
+                var dbSignedFile = new DbSignedFileModel(id, guid, HttpContext.Current.Session.SessionID, signedFile);
                 await this.UserFileCacheService.SetAsync(dbSignedFile);
 
                 return this.Ok();
