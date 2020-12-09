@@ -14,7 +14,6 @@ namespace eContracting.Storage
             UploadGroupOriginalFiles = new HashSet<UploadGroupOriginalFile>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]

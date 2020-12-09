@@ -8,7 +8,6 @@ namespace eContracting.Storage
 
     public partial class FileAttribute
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public int FileId { get; set; }

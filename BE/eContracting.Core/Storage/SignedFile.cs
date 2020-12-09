@@ -8,7 +8,6 @@ namespace eContracting.Storage
 
     public partial class SignedFile
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Required]

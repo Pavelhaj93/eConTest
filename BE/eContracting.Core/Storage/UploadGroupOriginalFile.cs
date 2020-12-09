@@ -8,7 +8,6 @@ namespace eContracting.Storage
 
     public partial class UploadGroupOriginalFile
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         public int GroupId { get; set; }
