@@ -144,9 +144,6 @@ namespace eContracting.Services
 
             // není potřeba, jestli jsem dobře pochopil
             //var result = await this.GetInternalAsync(groupKey);
-
-            // tady to musíme zase uložit
-            // await this.UserFileCache.SetAsync(dbGroup);
             return group;
         }
 
