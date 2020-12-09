@@ -51,6 +51,16 @@ namespace eContracting.Storage
             return model;
         }
 
+        public SignedFile(DbSignedFileModel dbFileModel)
+        {
+            this.Id = dbFileModel.Id;
+            this.File = new File(dbFileModel.File);
+            this.Key = dbFileModel.Key;
+            this.Guid = dbFileModel.Guid;
+            this.SessionId = dbFileModel.SessionId;
+            this.File.Content = dbFileModel.File.Content;
+        }
+
         public DbSignedFileModel ToModel()
         {
             var model = new DbSignedFileModel();

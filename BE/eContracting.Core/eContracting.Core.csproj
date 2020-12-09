@@ -197,6 +197,7 @@
     <Compile Include="Storage\File.cs" />
     <Compile Include="Storage\FileAttribute.cs" />
     <Compile Include="Storage\Partials\DatabaseContext.cs" />
+    <Compile Include="Storage\Partials\File.cs" />
     <Compile Include="Storage\Partials\FileAttribute.cs" />
     <Compile Include="Storage\SignedFile.cs" />
     <Compile Include="Storage\Partials\SignedFile.cs" />
