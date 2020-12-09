@@ -63,5 +63,10 @@
     <Build Include="SignedFiles.sql" />
     <Build Include="UploadGroups.sql" />
     <Build Include="UploadGroupOriginalFiles.sql" />
+    <Build Include="EventLogs.sql" />
+    <Build Include="LoginAttempts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="eContracting.Database.refactorlog" />
   </ItemGroup>
 </Project>

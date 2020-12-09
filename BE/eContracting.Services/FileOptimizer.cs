@@ -14,6 +14,7 @@ using PdfSharp.Drawing;
 using System.Drawing.Imaging;
 using System.Web;
 using Sitecore.DependencyInjection;
+using Sitecore.Data.Serialization.Exceptions;
 
 namespace eContracting.Services
 {
@@ -36,14 +37,31 @@ namespace eContracting.Services
 
         public string FileStorageRoot { get; set; }
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileOptimizer"/> class.
+        /// </summary>
+        /// <param name="logger">The logger.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="apiService">The API service.</param>
+        /// <param name="authService">The authentication service.</param>
+        /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <exception cref="ArgumentNullException">
+        /// logger
+        /// or
+        /// context
+        /// or
+        /// apiService
+        /// or
+        /// authService
+        /// or
+        /// settingsReaderService
+        /// </exception>
         public FileOptimizer(
             ILogger logger,
             ISitecoreContext context,
             IApiService apiService,
             IAuthenticationService authService,
-            ISettingsReaderService settingsReaderService
-            )
+            ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -51,79 +69,113 @@ namespace eContracting.Services
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
 
-
             // TODO: sitecore config
             this.GroupResultingFileSizeLimit = 25 * 1024 * 1024;
             this.MaxImageSizeAfterResize = new Size(8096, 8096);
         }
 
-
-
-
-        public Task<OptimizedFileGroupModel> AddAsync(string groupKey, string fileId, string name, byte[] content)
+        /// <inheritdoc/>
+        public async Task<DbUploadGroupFileModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
         {
-            string fileNameWithGroupIdentifier = $"{groupKey}{sourceFileNameComponentsSeparator}{fileId}{sourceFileNameComponentsSeparator}{name}";
-            string fileNameAndPath = this.FileStorageRoot + fileNameWithGroupIdentifier;
+            var originalFiles = new List<DbFileModel>();
 
-            File.WriteAllBytes(fileNameAndPath, content);
-
-            if (this.IsImage(new FileInfo(fileNameAndPath)))
+            if (group != null)
             {
-                using (Image image = Image.FromFile(fileNameAndPath))
+                if (group.OriginalFiles?.Length > 0)
+                {
+                    originalFiles.AddRange(group.OriginalFiles);
+                }
+            }
+            else
+            {
+                group = new DbUploadGroupFileModel();
+                group.Key = groupKey;
+                group.SessionId = sessionId;
+                group.Guid = guid;
+            }
+
+            byte[] imageBytes = null;
+
+            using (var memoryStream = new MemoryStream(content))
+            {
+                using (Image image = Image.FromStream(memoryStream))
                 {
                     this.NormalizeOrientation(image);
-                    image.Save(fileNameAndPath);
+                    
+                    using (var imageStream = new MemoryStream())
+                    {
+                        image.Save(imageStream, image.RawFormat);
+                        imageBytes = imageStream.ToArray();
+                    }
                 }
             }
 
-            var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
-            List<FileInfo> filesToJoinIntoPdf = new List<FileInfo>();
+            //string fileNameWithGroupIdentifier = $"{groupKey}{sourceFileNameComponentsSeparator}{fileId}{sourceFileNameComponentsSeparator}{name}";
+            //string fileNameAndPath = this.FileStorageRoot + fileNameWithGroupIdentifier;
 
-            long totalSizeWithoutCompression = this.GetOriginalFilesInGroup(groupKey).Sum(f => f.Length);                                             
-            if (totalSizeWithoutCompression <= GroupResultingFileSizeLimit)
+            //File.WriteAllBytes(fileNameAndPath, content);
+
+            //if (this.IsImage(new FileInfo(fileNameAndPath)))
+            //{
+            //    using (Image image = Image.FromFile(fileNameAndPath))
+            //    {
+            //        this.NormalizeOrientation(image);
+            //        image.Save(fileNameAndPath);
+            //    }
+            //}
+
+            // VYHODIT A POUŽÍT originalFiles
+            var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
+            var filesToJoinIntoPdf = new List<FileInfo>();
+
+            long totalSizeWithoutCompression = this.GetOriginalFilesInGroup(groupKey).Sum(f => f.Length);  
+            
+            if (totalSizeWithoutCompression <= this.GroupResultingFileSizeLimit)
             {
                 filesToJoinIntoPdf.AddRange(originalFilesInGroup);
             }
             else
             {
-                filesToJoinIntoPdf.AddRange(CompressFiles(originalFilesInGroup));
+                filesToJoinIntoPdf.AddRange(this.CompressFiles(originalFilesInGroup));
             }
-            
-            JoinFilesToPdf(filesToJoinIntoPdf, GetJointPdfFileName(groupKey));
 
-            // TODO: aby se nedelal novy dotaz do filesystemu, ale naplnily se jen ty soubory, ktere se prave zpracovaly
-            return this.GetInternalAsync(groupKey);
+            // group.OutputFile = ? použít a naplnit
+            this.JoinFilesToPdf(filesToJoinIntoPdf, this.GetJointPdfFileName(groupKey));
+
+            // není potřeba, jestli jsem dobře pochopil
+            //var result = await this.GetInternalAsync(groupKey);
+
+            // tady to musíme zase uložit
+            // await this.UserFileCache.SetAsync(dbGroup);
+            return group;
         }
 
-        public Task<OptimizedFileGroupModel> GetAsync(string groupKey)
-        {
-            return this.GetInternalAsync(groupKey);
-        }
-
-
-        public Task<bool> RemoveAsync(string groupKey, string fileId)
+        /// <inheritdoc/>
+        public async Task<DbUploadGroupFileModel> RemoveFileAsync(DbUploadGroupFileModel group, string fileId)
         {
             throw new NotImplementedException();
         }
 
-        private Task<OptimizedFileGroupModel> GetInternalAsync(string groupKey)
-        {            
-            List<FileInOptimizedGroupModel> filesinGroupModels = new List<FileInOptimizedGroupModel>();
-            var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
-            foreach (var file in originalFilesInGroup)
-            {
-                FileInOptimizedGroupModel fileModel = new FileInOptimizedGroupModel(
-                                                                    GetGroupfileOriginalName(file),
-                                                                    GetGroupfileKey(file),
-                                                                     MimeMapping.GetMimeMapping(file.Name),
-                                                                     file.Length);
-                filesinGroupModels.Add(fileModel);
-            }
-            string jointPdfFile = this.GetJointPdfFileName(groupKey);
+        //private async Task<DbUploadGroupFileModel> GetInternalAsync(string groupKey)
+        //{            
+        //    List<FileInOptimizedGroupModel> filesinGroupModels = new List<FileInOptimizedGroupModel>();
+        //    var originalFilesInGroup = this.GetOriginalFilesInGroup(groupKey);
 
-            OptimizedFileGroupModel optimizedFileGroupModel = new OptimizedFileGroupModel(groupKey, filesinGroupModels, File.ReadAllBytes(jointPdfFile));
-            return Task.FromResult<OptimizedFileGroupModel>(optimizedFileGroupModel);
-        }
+        //    foreach (var file in originalFilesInGroup)
+        //    {
+        //        FileInOptimizedGroupModel fileModel = new FileInOptimizedGroupModel(
+        //                                                            this.GetGroupfileOriginalName(file),
+        //                                                            this.GetGroupfileKey(file),
+        //                                                             MimeMapping.GetMimeMapping(file.Name),
+        //                                                             file.Length);
+        //        filesinGroupModels.Add(fileModel);
+        //    }
+
+        //    string jointPdfFile = this.GetJointPdfFileName(groupKey);
+
+        //    OptimizedFileGroupModel optimizedFileGroupModel = new OptimizedFileGroupModel(groupKey, filesinGroupModels, File.ReadAllBytes(jointPdfFile));
+        //    return await Task.FromResult<OptimizedFileGroupModel>(optimizedFileGroupModel);
+        //}
 
         private string GetGroupfileOriginalName(FileInfo file)
         {
@@ -166,12 +218,12 @@ namespace eContracting.Services
             {
                 if (this.IsPdf(file))
                 {
-                    AppendPdfToPdf(File.ReadAllBytes(file.FullName), outputPDFDocument);
+                    this.AppendPdfToPdf(File.ReadAllBytes(file.FullName), outputPDFDocument);
                 }
                 if (this.IsImage(file))
                 {
-                    PdfPage pdfPageForImage = new PdfPage(outputPDFDocument);                                     
-                    AppendImageToPdf(pdfPageForImage, File.ReadAllBytes(file.FullName),0,0,1, this.GetGroupfileOriginalName(file));
+                    PdfPage pdfPageForImage = new PdfPage(outputPDFDocument);
+                    this.AppendImageToPdf(pdfPageForImage, File.ReadAllBytes(file.FullName),0,0,1, this.GetGroupfileOriginalName(file));
                 }
             }
 
@@ -179,8 +231,8 @@ namespace eContracting.Services
             {
                 File.Delete(resultingPdfFileNameWithPath);
             }
-            outputPDFDocument.Save(resultingPdfFileNameWithPath);
 
+            outputPDFDocument.Save(resultingPdfFileNameWithPath);
         }
 
         private List<FileInfo> CompressFiles(List<FileInfo> originalFilesInGroup)
@@ -272,6 +324,7 @@ namespace eContracting.Services
         private void NormalizeOrientation(Image image)
         {
             const int ExifOrientationTagId = 274;
+
             if (Array.IndexOf(image.PropertyIdList, ExifOrientationTagId) > -1)
             {
                 int orientation;
@@ -430,7 +483,7 @@ namespace eContracting.Services
         private void AppendImageToPdf(PdfPage pdf, byte[] img, int xPosition, int yPosition, double scale, string footerText)
         {
             var gfx = XGraphics.FromPdfPage(pdf);
-            var bitmapImage = CreateBitmap(img);
+            var bitmapImage = this.CreateBitmap(img);
             float verticalResolution;
             float horizontalResolution;
 
@@ -446,7 +499,7 @@ namespace eContracting.Services
                 && bitmapImage != null)
             {
                 // zmensim preulozeny obrazek
-                var resizeBitmap = ResizeImage(bitmapImage, new Size((int)(0.75f * bitmapImage.Width), (int)(0.75f * bitmapImage.Height)));
+                var resizeBitmap = this.ResizeImage(bitmapImage, new Size((int)(0.75f * bitmapImage.Width), (int)(0.75f * bitmapImage.Height)));
 
                 // vlozim do pdf preulozeny obrazek
                 var ximg = XImage.FromGdiPlusImage(resizeBitmap);

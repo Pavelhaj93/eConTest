@@ -25,6 +25,11 @@ namespace eContracting.Models
         public string SessionId { get; set; }
 
         /// <summary>
+        /// Gets or sets offer unique identifier.
+        /// </summary>
+        public string Guid { get; set; }
+
+        /// <summary>
         /// Gets or sets the output single file optimized from <see cref="OriginalFiles"/>.
         /// </summary>
         public DbFileModel OutputFile { get; set; }
@@ -32,11 +37,6 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets original uploaded files.
         /// </summary>
-        public virtual ICollection<DbFileModel> OriginalFiles { get; set; }
-
-        public DbUploadGroupFileModel()
-        {
-            this.OriginalFiles = new HashSet<DbFileModel>();
-        }
+        public virtual DbFileModel[] OriginalFiles { get; set; }
     }
 }

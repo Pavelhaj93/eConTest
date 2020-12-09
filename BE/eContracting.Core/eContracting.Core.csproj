@@ -92,6 +92,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EVENT_NAMES.cs" />
+    <Compile Include="IEventLogger.cs" />
     <Compile Include="IStartup.cs" />
     <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="Models\DbFileAttributeModel.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Models\DbSearchParameters.cs" />
     <Compile Include="Models\DbSignedFileModel.cs" />
     <Compile Include="Models\DbUploadGroupFileModel.cs" />
+    <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
@@ -132,7 +135,6 @@
     <Compile Include="Models\Error404PageModel.cs" />
     <Compile Include="Models\JsonAcceptanceDialogButtonViewModel.cs" />
     <Compile Include="Models\JsonAcceptanceDialogParamViewModel.cs" />
-    <Compile Include="Models\OptimizedFileGroupModel.cs" />
     <Compile Include="Models\JsonAcceptFileModel.cs" />
     <Compile Include="Models\AuthDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
@@ -178,7 +180,6 @@
     <Compile Include="Models\OfferPageModel.cs" />
     <Compile Include="Models\OfferTextModel.cs" />
     <Compile Include="Models\OfferXmlModel.cs" />
-    <Compile Include="Models\FileInOptimizedGroupModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\ProcessStepModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />

@@ -33,12 +33,12 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("size")]
         public readonly long Size;
 
-        public GroupUploadFileViewModel(FileInOptimizedGroupModel model)
+        public GroupUploadFileViewModel(DbFileModel model)
         {
             this.Label = model.FileName;
             this.Key = model.Key;
             this.MimeType = model.MimeType;
-            this.Size = model.OriginalSize;
+            this.Size = model.Size;
         }
     }
 }

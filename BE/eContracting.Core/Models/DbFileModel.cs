@@ -15,6 +15,11 @@ namespace eContracting.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        public string Key { get; set; }
+
+        /// <summary>
         /// Gets or sets the file name without extension.
         /// </summary>
         public string FileName { get; set; }

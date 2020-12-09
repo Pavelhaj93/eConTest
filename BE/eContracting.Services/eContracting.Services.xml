@@ -56,6 +56,33 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
         </member>
+        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IApiService,eContracting.IAuthenticationService,eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.FileOptimizer"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="context">The context.</param>
+            <param name="apiService">The API service.</param>
+            <param name="authService">The authentication service.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <exception cref="T:System.ArgumentNullException">
+            logger
+            or
+            context
+            or
+            apiService
+            or
+            authService
+            or
+            settingsReaderService
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.AddAsync(eContracting.Models.DbUploadGroupFileModel,System.String,System.String,System.String,System.Byte[],System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.RemoveFileAsync(eContracting.Models.DbUploadGroupFileModel,System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.FileOptimizer.NormalizeOrientation(System.Drawing.Image)">
             <summary>
             Otoci obrazek podle Exif tagu, pokud tam je
@@ -301,10 +328,10 @@
         <member name="M:eContracting.Services.DbUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.GetGroupAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroupAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.GetSignedFileAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFileAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroupAsync(eContracting.Models.DbSearchParameters)">

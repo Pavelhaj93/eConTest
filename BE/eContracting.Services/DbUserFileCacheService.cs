@@ -25,13 +25,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task<DbUploadGroupFileModel> GetGroupAsync(DbSearchParameters search)
+        public Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
-        public async Task<DbSignedFileModel> GetSignedFileAsync(DbSearchParameters search)
+        public async Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
         {
             using (var db = new DatabaseContext(this.ConnectionString))
             {

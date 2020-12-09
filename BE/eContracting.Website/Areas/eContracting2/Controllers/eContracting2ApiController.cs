@@ -445,7 +445,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var result = await this.FileOptimizer.GetAsync(id);
+
+                var searchGroupParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var result = await this.UserFileCacheService.FindGroupAsync(searchGroupParams);
 
                 if (result == null)
                 {
@@ -495,9 +497,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 string root = HttpContext.Current.Server.MapPath("~/App_Data");
                 var provider = new MultipartFormDataStreamProvider(root);
                 var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
-                var key = multipartData.FormData["key"];
+                var fileId = multipartData.FormData["key"];
 
-                if (string.IsNullOrWhiteSpace(key))
+                if (string.IsNullOrWhiteSpace(fileId))
                 {
                     return this.BadRequest("File key cannot be empty");
                 }
@@ -506,8 +508,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.BadRequest("No file received");
                 }
-                
-                OptimizedFileGroupModel result = null;
+
+                var groupSearchParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
 
                 // everytime there "should" be only one file
                 for (int i = 0; i < multipartData.FileData.Count; i++)
@@ -522,17 +525,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         {
                             await stream.CopyToAsync(memoryStream);
                             var fileBytes = memoryStream.ToArray();
-                            result = await this.FileOptimizer.AddAsync(id, key, originalFileName, fileBytes);
+                            group = await this.FileOptimizer.AddAsync(group, id, fileId, originalFileName, fileBytes, HttpContext.Current.Session.SessionID, guid);
                         }
                     }
                 }
 
-                if (result == null)
+                if (group == null)
                 {
                     return this.InternalServerError();
                 }
 
-                return this.Json(new GroupUploadViewModel(result));
+                await this.UserFileCacheService.SetAsync(group);
+
+                return this.Json(new GroupUploadViewModel(group));
             }
             catch (Exception ex)
             {
@@ -580,21 +585,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var result = await this.FileOptimizer.RemoveAsync(id, fileId);
+                var groupSearchParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
+                var updatedGroup = await this.FileOptimizer.RemoveFileAsync(group, fileId);
 
-                if (result)
+                if (updatedGroup == null)
                 {
-                    var data = await this.FileOptimizer.GetAsync(id);
-
-                    if (data == null)
-                    {
-                        return this.StatusCode(HttpStatusCode.NoContent);
-                    }
-
-                    return this.Json(new GroupUploadViewModel(data));
+                    return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                return this.InternalServerError();
+                return this.Json(new GroupUploadViewModel(updatedGroup));
             }
             catch (Exception ex)
             {

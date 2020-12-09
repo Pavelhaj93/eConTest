@@ -298,7 +298,7 @@ namespace eContracting.Services
                     throw new ApplicationException($"Missing required file for sign: {template}");
                 }
 
-                var cacheModel = await this.UserFileCache.GetSignedFileAsync(new DbSearchParameters(uniqueKey, offer.Guid, null));
+                var cacheModel = await this.UserFileCache.FindSignedFileAsync(new DbSearchParameters(uniqueKey, offer.Guid, null));
                 var signedFile = cacheModel.ToAttachment();
 
                 if (signedFile == null)
@@ -364,7 +364,7 @@ namespace eContracting.Services
                     throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
                 }
 
-                var uploadedFileGroup = await this.UserFileCache.GetGroupAsync(new DbSearchParameters(uploadGroup, offer.Guid, null));
+                var uploadedFileGroup = await this.UserFileCache.FindGroupAsync(new DbSearchParameters(uploadGroup, offer.Guid, null));
 
                 if (uploadedFileGroup == null)
                 {

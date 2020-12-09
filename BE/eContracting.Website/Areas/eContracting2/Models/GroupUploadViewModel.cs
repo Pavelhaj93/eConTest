@@ -27,11 +27,11 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("size")]
         public readonly IEnumerable<GroupUploadFileViewModel> Files;
 
-        public GroupUploadViewModel(OptimizedFileGroupModel model)
+        public GroupUploadViewModel(DbUploadGroupFileModel model)
         {
-            this.Id = model.Id;
-            this.Size = model.Size;
-            this.Files = model.Files.Select(x => new GroupUploadFileViewModel(x));
+            this.Id = model.Id.ToString();
+            this.Size = model.OutputFile.Size;
+            this.Files = model.OriginalFiles.Select(x => new GroupUploadFileViewModel(x));
         }
     }
 }

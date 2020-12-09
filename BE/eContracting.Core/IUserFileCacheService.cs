@@ -31,14 +31,14 @@ namespace eContracting
         /// </summary>
         /// <param name="search">The search parameters.</param>
         /// <returns>File or null.</returns>
-        Task<DbSignedFileModel> GetSignedFileAsync(DbSearchParameters search);
+        Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search);
 
         /// <summary>
         /// Gets the group data by specific <paramref name="search"/> parameters.
         /// </summary>
         /// <param name="search">The search parameters.</param>
         /// <returns>Data or null.</returns>
-        Task<DbUploadGroupFileModel> GetGroupAsync(DbSearchParameters search);
+        Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search);
 
         /// <summary>
         /// Removes the signed file under specific <paramref name="search"/> parameters.
