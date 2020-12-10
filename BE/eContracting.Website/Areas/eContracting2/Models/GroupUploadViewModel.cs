@@ -24,7 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         /// <summary>
         /// Gets or sets files successfully paired with the group.
         /// </summary>
-        [JsonProperty("size")]
+        [JsonProperty("files")]
         public readonly IEnumerable<GroupUploadFileViewModel> Files;
 
         public GroupUploadViewModel(DbUploadGroupFileModel model)

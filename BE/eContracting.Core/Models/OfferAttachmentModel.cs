@@ -206,9 +206,14 @@ namespace eContracting.Models
             this.IdAttach = template.IdAttach;
             this.UniqueKey = template.UniqueKey;
 
+            if (string.IsNullOrEmpty(originalFileName))
+            {
+                originalFileName = template.Description;
+            }
+
             this.MimeType = mimeType;
             this.OriginalFileName = originalFileName;
-            this.FileExtension = Path.GetExtension(originalFileName).TrimStart('.');
+            this.FileExtension = Path.GetExtension(this.OriginalFileName).TrimStart('.');
             this.FileNameExtension = template.Description + "." + this.FileExtension;
             this.Attributes = attributes;
             this.FileContent = content;

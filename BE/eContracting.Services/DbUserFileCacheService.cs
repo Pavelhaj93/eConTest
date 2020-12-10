@@ -48,17 +48,17 @@ namespace eContracting.Services
             {
                 bool changes = false;
 
-                var signedFiles = context.SignedFiles.Where(x => x.Guid == search.Guid);
+                var signedFiles = context.SignedFiles.Where(x => x.Guid == search.Guid).ToArray();
 
-                if (signedFiles.Any())
+                if (signedFiles.Length > 0)
                 {
                     context.SignedFiles.RemoveRange(signedFiles);
                     changes = true;
                 }
 
-                var uploadGroups = context.UploadGroups.Where(x => x.Guid == search.Guid);
+                var uploadGroups = context.UploadGroups.Where(x => x.Guid == search.Guid).ToArray();
 
-                if (signedFiles.Any())
+                if (uploadGroups.Length > 0)
                 {
                     context.UploadGroups.RemoveRange(uploadGroups);
                     changes = true;
@@ -72,9 +72,30 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
+        public async Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
         {
-            throw new NotImplementedException();
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var query = context.UploadGroups.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                var result = await query.FirstOrDefaultAsync();
+                return result?.ToModel();
+            }
         }
 
         /// <inheritdoc/>
@@ -87,7 +108,7 @@ namespace eContracting.Services
                 query = query.Where(x => x.Guid == search.Guid);
                 query = query.Where(x => x.SessionId == search.SessionId);
                 var result = await query.FirstOrDefaultAsync();
-                return result.ToModel();
+                return result?.ToModel();
             }
         }
 
@@ -104,9 +125,22 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public Task SetAsync(DbUploadGroupFileModel group)
+        public async Task SetAsync(DbUploadGroupFileModel group)
         {
-            throw new NotImplementedException();
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var existingDbModel = await context.UploadGroups.FirstOrDefaultAsync(x => x.Key == group.Key && x.Guid == group.Guid && x.SessionId == group.SessionId);
+
+                if (existingDbModel != null)
+                {
+                    context.UploadGroups.Remove(existingDbModel);
+                    await context.SaveChangesAsync();
+                }
+
+                var newDbModel = new UploadGroup(group);
+                context.UploadGroups.Add(newDbModel);
+                await context.SaveChangesAsync();
+            }
         }
 
         /// <inheritdoc/>
@@ -114,7 +148,7 @@ namespace eContracting.Services
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
-                var dbModel = context.SignedFiles.FirstOrDefault(x => x.Key == model.Key && x.Guid == model.Guid && x.SessionId == model.SessionId);
+                var dbModel = await context.SignedFiles.FirstOrDefaultAsync(x => x.Key == model.Key && x.Guid == model.Guid && x.SessionId == model.SessionId);
 
                 if (dbModel != null)
                 {

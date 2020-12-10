@@ -204,6 +204,8 @@
     <Compile Include="Storage\Partials\DatabaseContext.cs" />
     <Compile Include="Storage\Partials\File.cs" />
     <Compile Include="Storage\Partials\FileAttribute.cs" />
+    <Compile Include="Storage\Partials\UploadGroup.cs" />
+    <Compile Include="Storage\Partials\UploadGroupOriginalFile.cs" />
     <Compile Include="Storage\SignedFile.cs" />
     <Compile Include="Storage\Partials\SignedFile.cs" />
     <Compile Include="Storage\UploadGroup.cs" />

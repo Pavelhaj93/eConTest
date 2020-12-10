@@ -48,6 +48,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SignService = ServiceLocator.ServiceProvider.GetRequiredService<ISignService>();
             this.UserDataCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.UserFileCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
+            this.FileOptimizer = ServiceLocator.ServiceProvider.GetRequiredService<IFileOptimizer>();
         }
 
         internal string FileStorageRoot { get; private set; }
@@ -61,7 +62,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISignService signService,
             IOfferJsonDescriptor offerJsonDescriptor,
             IUserDataCacheService userDataCache,
-            IUserFileCacheService userFileCache)
+            IUserFileCacheService userFileCache,
+            IFileOptimizer fileOptimizer)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -72,6 +74,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
             this.UserDataCacheService = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
             this.UserFileCacheService = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
+            this.FileOptimizer = fileOptimizer ?? throw new ArgumentNullException(nameof(fileOptimizer));
 
             this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
             this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
@@ -504,7 +507,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("File key cannot be empty");
                 }
 
-                if (multipartData.FileData.Count == 1)
+                if (multipartData.FileData.Count < 1)
                 {
                     return this.BadRequest("No file received");
                 }

@@ -114,6 +114,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
+                try
+                {
+                    this.UserFileCache.Clear(new DbSearchParameters(null, guid, null));
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(guid, "Cannot clear user file cache", ex);
+                }
+
                 var datasource = this.GetLayoutItem<OfferPageModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
 

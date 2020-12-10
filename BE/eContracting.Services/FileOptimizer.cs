@@ -83,107 +83,124 @@ namespace eContracting.Services
             //DbFileModel outputFile = null;
             PdfDocument outputPdfDocument = null;
 
-            if (group != null)
+            using (var existingPdfStream = new MemoryStream())
             {
-                if (group.OriginalFiles?.Length > 0)
+                if (group != null)
                 {
-                    originalFiles.AddRange(group.OriginalFiles);
-                }
-                //outputFile = group.OutputFile;
-                if (group.OutputFile != null && group.OutputFile.Content!=null && group.OutputFile.Content.Length > 0)
-                {
-                    using (Stream existingPdfStream = new MemoryStream(group.OutputFile.Content))
+                    if (group.OriginalFiles?.Length > 0)
                     {
-                        outputPdfDocument = PdfReader.Open(existingPdfStream, PdfDocumentOpenMode.Modify);
-                    }                    
-                }
-            }
-            else
-            {
-                group = new DbUploadGroupFileModel();
-                group.Key = groupKey;
-                group.SessionId = sessionId;
-                group.Guid = guid;
-                group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf", Size = 0 }; // attributes?   
-            }
+                        originalFiles.AddRange(group.OriginalFiles);
+                    }
 
-            // vytvor vystupni pdf dokument, pokud neexistuje
-            if (outputPdfDocument == null)
-            {
-                outputPdfDocument = this.CreatePdfDocument(groupKey);
-            }
-
-
-            byte[] fileByteContent = null;
-
-            // otoc obrazek podle EXIF orientace
-            if (this.IsImage(name))
-            {
-                using (var memoryStream = new MemoryStream(content))
-                {
-                    using (Image image = Image.FromStream(memoryStream))
+                    //outputFile = group.OutputFile;
+                    if (group.OutputFile?.Content.Length > 0)
                     {
-                        this.NormalizeOrientation(image);
+                        await existingPdfStream.WriteAsync(group.OutputFile.Content, 0, group.OutputFile.Content.Length);
+                        //outputPdfDocument = PdfReader.Open(existingPdfStream, PdfDocumentOpenMode.Modify);
+                        outputPdfDocument = new PdfDocument(existingPdfStream);
+                    }
+                }
+                else
+                {
+                    group = new DbUploadGroupFileModel();
+                    group.Key = groupKey;
+                    group.SessionId = sessionId;
+                    group.Guid = guid;
+                    group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf", Size = 0 }; // attributes?   
+                }
 
-                        using (var imageStream = new MemoryStream())
+                return await this.ProcessFilesAsync(group, originalFiles, outputPdfDocument, fileId, name, content, groupKey);
+            }
+        }
+
+        private async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, List<DbFileModel> originalFiles, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
+        {
+            using (var newPdfDocumentStream = new MemoryStream())
+            {
+                // vytvor vystupni pdf dokument, pokud neexistuje
+                if (outputPdfDocument == null)
+                {
+                    outputPdfDocument = new PdfDocument(newPdfDocumentStream);
+                }
+
+                byte[] fileByteContent = null;
+
+                // otoc obrazek podle EXIF orientace
+                if (this.IsImage(name))
+                {
+                    using (var memoryStream = new MemoryStream(content))
+                    {
+                        using (Image image = Image.FromStream(memoryStream))
                         {
-                            image.Save(imageStream, image.RawFormat);
-                            fileByteContent = imageStream.ToArray();
+                            this.NormalizeOrientation(image);
+
+                            using (var imageStream = new MemoryStream())
+                            {
+                                image.Save(imageStream, image.RawFormat);
+                                fileByteContent = imageStream.ToArray();
+                            }
                         }
                     }
                 }
-            }
-            else
-            {
-                fileByteContent = content;
-            }
-
-            // pridej file do db modelu
-            DbFileModel fileModel = new DbFileModel()
-            {
-                Key = fileId,
-                FileName = name,
-                FileExtension = Path.GetExtension(name),
-                MimeType = MimeMapping.GetMimeMapping(name),
-                Content = fileByteContent,
-            };
-            originalFiles.Add(fileModel);
-
-
-            // zapis file do pdfka v groupe
-            AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
-
-            // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
-            int compressionRounds = 0;
-            while (compressionRounds<5)
-            {
-                if (outputPdfDocument.FileSize <= this.GroupResultingFileSizeLimit)
+                else
                 {
-                    outputPdfDocument = this.CreatePdfDocument(groupKey);
-                    this.CompressFiles(group, compressionRounds);
-                    foreach (var fileInGroup in originalFiles)
-                    {
-                        AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
-                    }
-                    compressionRounds++;
+                    fileByteContent = content;
                 }
-                else 
-                    break;
+
+                // pridej file do db modelu
+                var fileModel = new DbFileModel()
+                {
+                    Key = fileId,
+                    FileName = name,
+                    FileExtension = Path.GetExtension(name),
+                    MimeType = MimeMapping.GetMimeMapping(name),
+                    Content = fileByteContent,
+                };
+
+                originalFiles.Add(fileModel);
+                
+                // zapis file do pdfka v groupe
+                AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+
+                // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
+                int compressionRounds = 0;
+
+                while (compressionRounds < 5)
+                {
+                    if (outputPdfDocument.FileSize <= this.GroupResultingFileSizeLimit)
+                    {
+                        using (var newPdfDocumentStream2 = new MemoryStream())
+                        {
+                            outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
+
+                            this.CompressFiles(originalFiles, compressionRounds);
+
+                            foreach (var fileInGroup in originalFiles)
+                            {
+                                AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                            }
+
+                            compressionRounds++;
+                        }
+                    }
+                    else
+                        break;
+                }
+
+                // ulozim vyslednou podobu OriginalFiles (pridany novy soubor a pripadne zmensene ty predchazejici)
+                this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+                group.OriginalFiles = originalFiles.ToArray();
+
+                // tady to musíme zase uložit
+                // ne, ukladame to prece v controlleru
+                //await this.UserFileCache.SetAsync(dbGroup);
+                return group;
             }
-
-            // ulozim vyslednou podobu OriginalFiles (pridany novy soubor a pripadne zmensene ty predchazejici)
-            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
-            group.OriginalFiles = originalFiles.ToArray();
-
-            // tady to musíme zase uložit
-            // ne, ukladame to prece v controlleru
-            //await this.UserFileCache.SetAsync(dbGroup);
-            return group;
         }
 
         private void SaveOutputPdfDocumentToGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument)
         {
-            using (MemoryStream outputFileWriteMemoryStream = new MemoryStream())
+            using (var outputFileWriteMemoryStream = new MemoryStream())
             {
                 outputPdfDocument.Save(outputFileWriteMemoryStream);
                 group.OutputFile.Content = outputFileWriteMemoryStream.ToArray();                
@@ -207,13 +224,18 @@ namespace eContracting.Services
                         group.OriginalFiles = originalFiles.ToArray();
 
                         // nove vygeneruju vysledne pdfko, protoze konkretni soubor nevim jak z nej vymazat
-                        PdfDocument outputPdfDocument = this.CreatePdfDocument(group.Key);
-                        foreach (var fileInGroup in originalFiles)
+
+                        using (var newPdfStream = new MemoryStream())
                         {
-                            AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                            var outputPdfDocument = new PdfDocument(newPdfStream);
+
+                            foreach (var fileInGroup in originalFiles)
+                            {
+                                AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                            }
+
+                            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
                         }
-                        this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
-                        
                     }
                 // TODO: mam neco vyhazovat, kdyz je tu neco divnyho? file neexistuje, kolekce prazdna,.. ?
                 }
@@ -235,25 +257,22 @@ namespace eContracting.Services
             }
         }
 
-
-
-        private PdfDocument CreatePdfDocument(string groupKey)
+        private void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed)
         {
-            PdfDocument document = new PdfDocument(groupKey);
-            return document;
-        }
+            if (originalFiles.Count == 0)
+            {
+                return;
+            }
 
-        private void CompressFiles(DbUploadGroupFileModel group, int compressionRoundsElapsed)
-        {
-            long compressableFilesSize = group.OriginalFiles.Where(f => this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
-            long uncompressableFilesSize = group.OriginalFiles.Where(f => !this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
+            long compressableFilesSize = originalFiles.Where(f => this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
+            long uncompressableFilesSize = originalFiles.Where(f => !this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
             long totalLimitForCompressableFiles = this.GroupResultingFileSizeLimit - uncompressableFilesSize;
 
             float needToCompressTimes = 1;
 
             needToCompressTimes = compressableFilesSize / totalLimitForCompressableFiles;
 
-            foreach (var originalFile in group.OriginalFiles.Where(f => this.IsCompressable(f.FileExtension)))
+            foreach (var originalFile in originalFiles.Where(f => this.IsCompressable(f.FileExtension)))
             {
                 if (this.IsCompressable(originalFile.FileExtension) && this.IsImage(originalFile.FileExtension))
                 {
