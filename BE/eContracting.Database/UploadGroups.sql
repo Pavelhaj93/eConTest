@@ -5,5 +5,16 @@
     [SessionId] VARCHAR(255) NOT NULL, 
     [Guid] VARCHAR(255) NOT NULL, 
     [OutputFileId] INT NOT NULL, 
-    CONSTRAINT [FK_UploadGroups_Files] FOREIGN KEY ([OutputFileId]) REFERENCES [Files]([Id])
+    CONSTRAINT [FK_UploadGroups_Files] FOREIGN KEY ([OutputFileId]) REFERENCES [Files]([Id]) ON DELETE CASCADE
 )
+
+GO
+
+CREATE TRIGGER [dbo].[Trigger_UploadGroups_DELETE]
+    ON [dbo].[UploadGroups]
+    FOR DELETE
+    AS
+    BEGIN
+        SET NOCOUNT ON;
+        DELETE FROM [dbo].[UploadGroupOriginalFiles] WHERE [dbo].[UploadGroupOriginalFiles].[GroupId] IN (SELECT [deleted].[Id] FROM [deleted]);
+    END

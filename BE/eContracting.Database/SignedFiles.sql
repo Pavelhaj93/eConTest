@@ -7,3 +7,14 @@
     [FileId] INT NOT NULL, 
     CONSTRAINT [FK_SignedFiles_Files] FOREIGN KEY ([FileId]) REFERENCES [Files]([Id])
 )
+
+GO
+
+CREATE TRIGGER [dbo].[Trigger_SignedFiles_DELETE]
+    ON [dbo].[SignedFiles]
+    FOR DELETE
+    AS
+    BEGIN
+        SET NOCOUNT ON;
+        DELETE FROM [dbo].[Files] WHERE [dbo].[Files].[Id] IN (SELECT [deleted].[Id] FROM [deleted]);
+    END
