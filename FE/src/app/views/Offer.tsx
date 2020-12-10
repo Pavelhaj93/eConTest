@@ -16,7 +16,7 @@ import {
   UploadZone,
 } from '@components'
 import { colors } from '@theme'
-import { useLabels } from '@hooks'
+import { useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 
 type SignatureModalType = {
@@ -71,6 +71,13 @@ export const Offer: React.FC<View> = observer(
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+
+    useUnload(ev => {
+      if (store.isOfferDirty && !store.isAccepting) {
+        ev.preventDefault()
+        ev.returnValue = ''
+      }
+    })
 
     const openSignatureModal = useCallback((id: string) => {
       setSignatureModalProps({

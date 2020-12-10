@@ -294,6 +294,23 @@ export class OfferStore {
   }
 
   /**
+   * Returns true if user has already did some action e.g. accept or upload any document.
+   */
+  @computed public get isOfferDirty(): boolean {
+    // if at least one document was accepted => the offer is dirty
+    if (this.getAllDocuments().some(document => document.accepted)) {
+      return true
+    }
+
+    // if at least one document was uploaded (or is uploading) => the offer is dirty
+    if (Object.values(this.userDocuments).some(docs => docs.length)) {
+      return true
+    }
+
+    return false
+  }
+
+  /**
    * Since the `accepted` key is not present in the JSON response on `OfferDocument` object,
    * here I add it manually.
    * The reason is that MobX can't observe dynamic keys on object that are not present on that object
@@ -404,7 +421,7 @@ export class OfferStore {
 
       switch (this.type) {
         case OfferType.NEW:
-          jsonResponse = await(response.json() as Promise<NewOfferResponse>)
+          jsonResponse = await (response.json() as Promise<NewOfferResponse>)
           this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
@@ -417,7 +434,7 @@ export class OfferStore {
           break
 
         case OfferType.ACCEPTED:
-          jsonResponse = await(response.json() as Promise<AcceptedOfferResponse>)
+          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
           this.documentGroups = jsonResponse.groups
           break
 
@@ -439,12 +456,7 @@ export class OfferStore {
    */
   public getDocument(key: string): OfferDocument | undefined {
     // search in all documents
-    return [
-      ...this.documentsToBeAccepted,
-      ...this.documentsToBeSigned,
-      ...this.documentsServices,
-      ...this.documentsProducts,
-    ].find(document => document.key === key)
+    return this.getAllDocuments().find(document => document.key === key)
   }
 
   /**
@@ -452,12 +464,16 @@ export class OfferStore {
    * @param group - group ID
    */
   public getDocuments(group: string): OfferDocument[] {
+    return this.getAllDocuments().filter(document => document.group === group)
+  }
+
+  public getAllDocuments(): OfferDocument[] {
     return [
       ...this.documentsToBeAccepted,
       ...this.documentsToBeSigned,
       ...this.documentsServices,
       ...this.documentsProducts,
-    ].filter(document => document.group === group)
+    ]
   }
 
   /**
@@ -758,11 +774,11 @@ export class OfferStore {
 
       return true
     } catch (error) {
+      this.isAccepting = false
+
       // eslint-disable-next-line no-console
       console.error(error.toString())
       return false
-    } finally {
-      this.isAccepting = false
     }
   }
 }

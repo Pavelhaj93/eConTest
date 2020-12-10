@@ -140,14 +140,14 @@ describe('Offer with documents for acceptance', () => {
             {
               label: 'Informace pro zákazníka - spotřebitele',
               prefix: 'Souhlasím s',
-              key: 'e1c9a5ce583743e6928ee4df91862a91',
+              key: 'doc1',
               mandatory: true,
               group: '06D969E88C3C1EDB8BD27637116827D8',
             },
             {
               label: 'Dodatek',
               prefix: 'Jsem poučen o',
-              key: '8e0ed4754f99464eb2d0155c140a2541',
+              key: 'doc2',
               mandatory: true,
               group: '06D969E88C3C1EDB8BD27637116827D8',
             },
@@ -221,6 +221,18 @@ describe('Offer with documents for acceptance', () => {
     store.acceptAllDocuments(store.documentsToBeAccepted)
 
     expect(store.acceptanceGroups[0].accepted).toBe(true)
+  })
+
+  it('marks the offer as dirty after accepting document', async () => {
+    const store = new OfferStore(OfferType.NEW, '')
+
+    fetch.mockResponseOnce(JSON.stringify(offerResponse))
+    await store.fetchOffer()
+
+    const doc = store.getDocument('doc1') as OfferDocument
+    doc.accepted = true
+
+    expect(store.isOfferDirty).toBe(true)
   })
 })
 

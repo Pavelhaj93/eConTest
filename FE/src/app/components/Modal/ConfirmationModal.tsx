@@ -18,7 +18,6 @@ type Props = {
 export const ConfirmationModal: React.FC<Props> = observer(
   ({ show, labels, onClose, thankYouPageUrl }) => {
     const [error, setError] = useState(false)
-    const [isRedirecting, setRedirecting] = useState(false)
     const t = useLabels(labels)
     const store = useContext(OfferStoreContext)
 
@@ -44,8 +43,6 @@ export const ConfirmationModal: React.FC<Props> = observer(
       const accepted = await store.acceptOffer()
 
       if (accepted) {
-        // keep the loading spinner and disabled buttons even during the redirection
-        setRedirecting(true)
         window.location.href = thankYouPageUrl
       } else {
         setError(true)
@@ -59,7 +56,7 @@ export const ConfirmationModal: React.FC<Props> = observer(
         </Modal.Header>
         <Modal.Body
           className={classNames({
-            loading: store.isAccepting || isRedirecting,
+            loading: store.isAccepting,
           })}
         >
           {error && (
@@ -105,14 +102,14 @@ export const ConfirmationModal: React.FC<Props> = observer(
           <Button
             variant="secondary"
             onClick={handleAcceptOffer}
-            disabled={store.isAccepting || isRedirecting}
+            disabled={store.isAccepting}
           >
             {t('acceptanceModalAccept')}
           </Button>
           <Button
             variant="outline-dark"
             onClick={onClose}
-            disabled={store.isAccepting || isRedirecting}
+            disabled={store.isAccepting}
           >
             {t('acceptanceModalCancel')}
           </Button>
