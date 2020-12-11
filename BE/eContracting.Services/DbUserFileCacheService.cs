@@ -161,8 +161,7 @@ namespace eContracting.Services
 
                 if (records.Length > 0)
                 {
-                    context.UploadGroups.RemoveRange(records);
-                    await context.SaveChangesAsync();
+                    await this.RemoveAsync(context, records);
                 }
             }
         }
@@ -193,8 +192,7 @@ namespace eContracting.Services
 
                 if (records.Length > 0)
                 {
-                    context.SignedFiles.RemoveRange(records);
-                    await context.SaveChangesAsync();
+                    await this.RemoveAsync(context, records);
                 }
             }
         }
@@ -434,29 +432,98 @@ namespace eContracting.Services
         {
             using (var transaction = context.Database.BeginTransaction())
             {
-                foreach (var file in files)
+                await this.RemoveAsync(context, transaction, files);
+                transaction.Commit();
+            }
+        }
+
+        protected async Task RemoveAsync(DatabaseContext context, DbContextTransaction transaction, IEnumerable<File> files)
+        {
+            foreach (var file in files)
+            {
+                var attr = context.FileAttributes.Where(x => x.FileId == file.Id).ToArray();
+
+                if (attr.Any())
                 {
-                    var attr = context.FileAttributes.Where(x => x.FileId == file.Id).ToArray();
-
-                    if (attr.Any())
-                    {
-                        context.FileAttributes.RemoveRange(attr);
-                        await context.SaveChangesAsync();
-                    }
-
-                    var rel = context.UploadGroupOriginalFiles.Where(x => x.FileId == file.Id).ToArray();
-
-                    if (rel.Any())
-                    {
-                        context.UploadGroupOriginalFiles.RemoveRange(rel);
-                        await context.SaveChangesAsync();
-                    }
-
-                    context.Files.Remove(file);
+                    context.FileAttributes.RemoveRange(attr);
                     await context.SaveChangesAsync();
                 }
 
-                transaction.Commit();
+                var rel = context.UploadGroupOriginalFiles.Where(x => x.FileId == file.Id).ToArray();
+
+                if (rel.Any())
+                {
+                    context.UploadGroupOriginalFiles.RemoveRange(rel);
+                    await context.SaveChangesAsync();
+                }
+
+                context.Files.Remove(file);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        protected async Task RemoveAsync(DatabaseContext context, IEnumerable<UploadGroup> groups)
+        {
+            foreach (var group in groups)
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    var allFiles = new List<File>();
+
+                    if (group.OutputFileId > 0)
+                    {
+                        var outputFile = await context.Files.Where(x => x.Id == group.OutputFileId).FirstOrDefaultAsync();
+
+                        if (outputFile != null)
+                        {
+                            allFiles.Add(outputFile);
+                        }
+                    }
+
+                    var rel = await context.UploadGroupOriginalFiles.Where(x => x.GroupId == group.Id).ToArrayAsync();
+
+                    if (rel.Length > 0)
+                    {
+                        var relFiles = rel.Select(x => x.FileId).ToArray();
+                        var files = await context.Files.Where(x => relFiles.Contains(x.Id)).ToArrayAsync();
+
+                        if (files.Length > 0)
+                        {
+                            allFiles.AddRange(files);
+                        }
+                    }
+
+                    context.UploadGroups.Remove(group);
+                    await context.SaveChangesAsync();
+                    await this.RemoveAsync(context, transaction, allFiles);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        protected async Task RemoveAsync(DatabaseContext context, IEnumerable<SignedFile> signedFiles)
+        {
+            foreach (var signedFile in signedFiles)
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    File file = null;
+
+                    if (signedFile.FileId > 0)
+                    {
+                        file = await context.Files.FirstOrDefaultAsync(x => x.Id == signedFile.FileId);
+                    }
+
+                    context.SignedFiles.Remove(signedFile);
+                    await context.SaveChangesAsync();
+
+                    if (file != null)
+                    {
+                        await this.RemoveAsync(context, transaction, new[] { file });
+                    }
+
+                    transaction.Commit();
+                }
             }
         }
     }

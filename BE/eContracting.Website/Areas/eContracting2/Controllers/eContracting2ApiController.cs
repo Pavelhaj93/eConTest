@@ -544,7 +544,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(guid, ex);
+                this.Logger.Fatal(guid, "An error occured when trying to add new upload into a group", ex);
                 return this.InternalServerError();
             }
         }
@@ -590,6 +590,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 guid = user.Guid;
                 var groupSearchParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
                 var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
+
+                if (group == null)
+                {
+                    return this.BadRequest("Targe upload doesn't exists");
+                }
+
                 var updatedGroup = await this.FileOptimizer.RemoveFileAsync(group, fileId);
 
                 if (updatedGroup == null)
@@ -604,7 +610,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(guid, ex);
+                this.Logger.Fatal(guid, "An error occured when trying to remove a file from a group", ex);
                 return this.InternalServerError();
             }
         }
