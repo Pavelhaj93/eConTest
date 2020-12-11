@@ -243,7 +243,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public string GetFileCacheStorageConnectionString()
         {
-            string name = "eContractingContext";
+            string name = Constants.DatabaseContextConnectionStringName;
 
             if (string.IsNullOrEmpty(name))
             {

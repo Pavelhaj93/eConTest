@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +11,16 @@ namespace eContracting.Storage
 {
     public partial class File
     {
+        [NotMapped]
+        public DbFileModel Model { get; set; }
+
+        public File()
+        {
+        }
+
         public File(DbFileModel model)
         {
+            this.Model = model;
             this.Id = model.Id;
             //this.Key = model.Key;
             this.FileName = model.FileName;
@@ -19,14 +28,9 @@ namespace eContracting.Storage
             this.MimeType = model.MimeType;
             this.Size = model.Size;
             this.Content = model.Content;
-
-            if (model.Attributes?.Length > 0)
-            {
-                this.FileAttributes = model.Attributes.Select(x => new FileAttribute(x)).ToArray();
-            }
         }
 
-        public DbFileModel ToModel()
+        public DbFileModel ToModel(IEnumerable<FileAttribute> attributes)
         {
             var model = new DbFileModel();
             model.Id = this.Id;
@@ -34,14 +38,8 @@ namespace eContracting.Storage
             model.FileExtension = this.FileExtension;
             //model.Key = this.Key
             model.MimeType = this.MimeType;
-            model.Size = this.Size;
             model.Content = this.Content;
-
-            if (this.FileAttributes?.Count > 0)
-            {
-                model.Attributes = this.FileAttributes.Select(x => x.ToModel()).ToArray();
-            }
-
+            model.Attributes.AddRange(attributes.Select(x => x.ToModel()));
             return model;
         }
     }

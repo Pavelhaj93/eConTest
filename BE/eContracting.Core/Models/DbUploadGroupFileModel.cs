@@ -37,6 +37,6 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets original uploaded files.
         /// </summary>
-        public virtual DbFileModel[] OriginalFiles { get; set; }
+        public virtual List<DbFileModel> OriginalFiles { get; } = new List<DbFileModel>();
     }
 }

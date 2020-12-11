@@ -13,15 +13,10 @@ namespace eContracting.Storage
         {
         }
 
-        public UploadGroupOriginalFile(DbFileModel model)
+        public UploadGroupOriginalFile(DbUploadGroupFileModel group, DbFileModel model)
         {
+            this.GroupId = group.Id;
             this.FileId = model.Id;
-            this.File = new File(model);
-        }
-
-        public DbFileModel ToModel()
-        {
-            return this.File?.ToModel();
         }
     }
 }

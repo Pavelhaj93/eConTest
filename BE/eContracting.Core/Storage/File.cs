@@ -8,15 +8,6 @@ namespace eContracting.Storage
 
     public partial class File
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public File()
-        {
-            FileAttributes = new HashSet<FileAttribute>();
-            SignedFiles = new HashSet<SignedFile>();
-            UploadGroupOriginalFiles = new HashSet<UploadGroupOriginalFile>();
-            UploadGroups = new HashSet<UploadGroup>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -35,17 +26,5 @@ namespace eContracting.Storage
 
         [Required]
         public byte[] Content { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FileAttribute> FileAttributes { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SignedFile> SignedFiles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UploadGroupOriginalFile> UploadGroupOriginalFiles { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UploadGroup> UploadGroups { get; set; }
     }
 }

@@ -62,27 +62,6 @@ namespace eContracting.Storage
                 .Property(e => e.MimeType)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<File>()
-                .HasMany(e => e.FileAttributes)
-                .WithRequired(e => e.File)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<File>()
-                .HasMany(e => e.SignedFiles)
-                .WithRequired(e => e.File)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<File>()
-                .HasMany(e => e.UploadGroupOriginalFiles)
-                .WithRequired(e => e.File)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<File>()
-                .HasMany(e => e.UploadGroups)
-                .WithRequired(e => e.File)
-                .HasForeignKey(e => e.OutputFileId)
-                .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<LoginAttempt>()
                 .Property(e => e.SessionId)
                 .IsUnicode(false);
@@ -114,12 +93,6 @@ namespace eContracting.Storage
             modelBuilder.Entity<UploadGroup>()
                 .Property(e => e.Guid)
                 .IsUnicode(false);
-
-            modelBuilder.Entity<UploadGroup>()
-                .HasMany(e => e.UploadGroupOriginalFiles)
-                .WithRequired(e => e.UploadGroup)
-                .HasForeignKey(e => e.GroupId)
-                .WillCascadeOnDelete(false);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,22 +10,20 @@ namespace eContracting.Storage
 {
     public partial class UploadGroup
     {
-        public UploadGroup(DbUploadGroupFileModel model) : this()
+        [NotMapped]
+        public DbUploadGroupFileModel Model { get; set; }
+
+        public UploadGroup()
         {
+        }
+
+        public UploadGroup(DbUploadGroupFileModel model)
+        {
+            this.Model = model;
             this.Id = model.Id;
             this.Key = model.Key;
             this.Guid = model.Guid;
             this.SessionId = model.SessionId;
-
-            if (model.OutputFile != null)
-            {
-                this.File = new File(model.OutputFile);
-            }
-
-            if (model.OriginalFiles?.Length > 0)
-            {
-                this.UploadGroupOriginalFiles = model.OriginalFiles.Select(x => new UploadGroupOriginalFile(x) { GroupId = this.Id, UploadGroup = this }).ToArray();
-            }
         }
 
         public DbUploadGroupFileModel ToModel()
@@ -34,13 +33,6 @@ namespace eContracting.Storage
             model.Key = this.Key;
             model.Guid = this.Guid;
             model.SessionId = this.SessionId;
-            model.OutputFile = this.File?.ToModel();
-
-            if (this.UploadGroupOriginalFiles?.Count > 0)
-            {
-                model.OriginalFiles = this.UploadGroupOriginalFiles.Where(x => x.File != null).Select(x => x.File.ToModel()).ToArray();
-            }
-
             return model;
         }
     }

@@ -7,6 +7,8 @@ namespace eContracting
     [ExcludeFromCodeCoverage]
     public static class Constants
     {
+        public const string DatabaseContextConnectionStringName = "eContractingContext";
+
         public static class OfferAttributes
         {
             public const string COUNTER = "COUNTER";

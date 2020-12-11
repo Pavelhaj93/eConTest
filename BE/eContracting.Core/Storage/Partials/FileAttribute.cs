@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,9 @@ namespace eContracting.Storage
 {
     public partial class FileAttribute
     {
+        [NotMapped]
+        public DbFileAttributeModel Model { get; set; }
+
         public FileAttribute()
         {
         }
@@ -21,6 +25,7 @@ namespace eContracting.Storage
 
         public FileAttribute(DbFileAttributeModel model)
         {
+            this.Model = model;
             this.Id = model.Id;
             this.Name = model.Name;
             this.Value = model.Value;

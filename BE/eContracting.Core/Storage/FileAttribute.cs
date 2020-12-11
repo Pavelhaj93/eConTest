@@ -17,7 +17,5 @@ namespace eContracting.Storage
         public string Name { get; set; }
 
         public string Value { get; set; }
-
-        public virtual File File { get; set; }
     }
 }

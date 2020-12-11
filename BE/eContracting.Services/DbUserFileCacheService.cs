@@ -4,8 +4,10 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Castle.Core.Internal;
 using eContracting.Models;
 using eContracting.Storage;
+using MongoDB.Driver.Linq;
 
 namespace eContracting.Services
 {
@@ -44,31 +46,8 @@ namespace eContracting.Services
                 return;
             }
 
-            using (var context = new DatabaseContext(this.ConnectionString))
-            {
-                bool changes = false;
-
-                var signedFiles = context.SignedFiles.Where(x => x.Guid == search.Guid).ToArray();
-
-                if (signedFiles.Length > 0)
-                {
-                    context.SignedFiles.RemoveRange(signedFiles);
-                    changes = true;
-                }
-
-                var uploadGroups = context.UploadGroups.Where(x => x.Guid == search.Guid).ToArray();
-
-                if (uploadGroups.Length > 0)
-                {
-                    context.UploadGroups.RemoveRange(uploadGroups);
-                    changes = true;
-                }
-
-                if (changes)
-                {
-                    await context.SaveChangesAsync();
-                }
-            }
+            await this.RemoveSignedFileAsync(search);
+            await this.RemoveGroupAsync(search);
         }
 
         /// <inheritdoc/>
@@ -94,7 +73,37 @@ namespace eContracting.Services
                 }
 
                 var result = await query.FirstOrDefaultAsync();
-                return result?.ToModel();
+
+                if (result != null)
+                {
+                    var group = result.ToModel();
+
+                    if (result.OutputFileId > 0)
+                    {
+                        var file = await this.FindFileAsync(context, result.OutputFileId);
+
+                        if (file != null)
+                        {
+                            group.OutputFile = file;
+                        }
+                    }
+
+                    var origFiles = context.UploadGroupOriginalFiles.Where(x => x.GroupId == result.Id);
+
+                    if (origFiles.Any())
+                    {
+                        var files = await this.FindFilesAsync(context, origFiles.Select(x => x.FileId));
+
+                        if (files.Any())
+                        {
+                            group.OriginalFiles.AddRange(files);
+                        }
+                    }
+
+                    return group;
+                }
+
+                return null;
             }
         }
 
@@ -108,38 +117,170 @@ namespace eContracting.Services
                 query = query.Where(x => x.Guid == search.Guid);
                 query = query.Where(x => x.SessionId == search.SessionId);
                 var result = await query.FirstOrDefaultAsync();
-                return result?.ToModel();
+
+                if (result != null)
+                {
+                    var signedFile = result.ToModel();
+                    
+                    if (result.FileId > 0)
+                    {
+                        var file = await this.FindFileAsync(context, result.FileId);
+                        signedFile.File = file;
+                    }
+
+                    return signedFile;
+                }
+            }
+
+            return null;
+        }
+
+        /// <inheritdoc/>
+        public async Task RemoveGroupAsync(DbSearchParameters search)
+        {
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var query = context.UploadGroups.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                var records = query.ToArray();
+
+                if (records.Length > 0)
+                {
+                    context.UploadGroups.RemoveRange(records);
+                    await context.SaveChangesAsync();
+                }
             }
         }
 
         /// <inheritdoc/>
-        public Task RemoveGroupAsync(DbSearchParameters search)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public Task RemoveSignedFileAsync(DbSearchParameters search)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public async Task SetAsync(DbUploadGroupFileModel group)
+        public async Task RemoveSignedFileAsync(DbSearchParameters search)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
-                var existingDbModel = await context.UploadGroups.FirstOrDefaultAsync(x => x.Key == group.Key && x.Guid == group.Guid && x.SessionId == group.SessionId);
+                var query = context.SignedFiles.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                var records = query.ToArray();
+
+                if (records.Length > 0)
+                {
+                    context.SignedFiles.RemoveRange(records);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task SetAsync(DbUploadGroupFileModel groupModel)
+        {
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var existingDbModel = await context.UploadGroups.FirstOrDefaultAsync(x => x.Id == groupModel.Id);
 
                 if (existingDbModel != null)
                 {
-                    context.UploadGroups.Remove(existingDbModel);
-                    await context.SaveChangesAsync();
-                }
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        var file = await context.Files.FirstOrDefaultAsync(x => x.Id == existingDbModel.OutputFileId);
+                        // we need to update only content of outputfile
+                        file.Content = groupModel.OutputFile.Content;
+                        var entry = context.Entry(file);
+                        entry.State = EntityState.Modified;
+                        await context.SaveChangesAsync();
 
-                var newDbModel = new UploadGroup(group);
-                context.UploadGroups.Add(newDbModel);
-                await context.SaveChangesAsync();
+                        var allDbOriginalFiles = await context.UploadGroupOriginalFiles.Where(x => x.GroupId == existingDbModel.Id).ToListAsync();
+                        var dbOriginalFileIds = allDbOriginalFiles.Select(x => x.FileId).ToList();
+
+                        if (groupModel.OriginalFiles.Count > 0)
+                        {
+                            foreach (var origFile in groupModel.OriginalFiles)
+                            {
+                                if (origFile.Id == 0)
+                                {
+                                    await this.SaveAsync(context, transaction, origFile);
+
+                                    var rel = new UploadGroupOriginalFile();
+                                    rel.FileId = origFile.Id;
+                                    rel.GroupId = groupModel.Id;
+                                    context.UploadGroupOriginalFiles.Add(rel);
+                                    await context.SaveChangesAsync();
+                                }
+                                else
+                                {
+                                    await this.SaveAsync(context, transaction, origFile);
+                                }
+
+                                dbOriginalFileIds.Remove(origFile.Id);
+                            }
+                        }
+
+                        if (dbOriginalFileIds.Count > 0)
+                        {
+                            var toRemove = allDbOriginalFiles.Where(x => dbOriginalFileIds.Contains(x.Id));
+                            var files = context.Files.Where(x => toRemove.Select(y => y.FileId).Contains(x.Id));
+                            await this.RemoveAsync(context, files);
+                        }
+
+                        transaction.Commit();
+                    }
+                }
+                else
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        var file = new File(groupModel.OutputFile);
+                        var fileAttr = groupModel.OutputFile.Attributes?.Select(x => new FileAttribute(x));
+                        await this.SaveAsync(context, transaction, file, fileAttr);
+
+                        var group = new UploadGroup(groupModel);
+                        group.OutputFileId = file.Id;
+                        context.UploadGroups.Add(group);
+                        await context.SaveChangesAsync();
+                        group.Model.Id = group.Id;
+
+                        foreach (var item in groupModel.OriginalFiles)
+                        {
+                            await this.SaveAsync(context, transaction, item);
+
+                            var rel = new UploadGroupOriginalFile();
+                            rel.FileId = item.Id;
+                            rel.GroupId = group.Id;
+                            context.UploadGroupOriginalFiles.Add(rel);
+                            await context.SaveChangesAsync();
+                        }
+
+                        transaction.Commit();
+                    }
+                }
             }
         }
 
@@ -152,51 +293,170 @@ namespace eContracting.Services
 
                 if (dbModel != null)
                 {
-                    dbModel.File.Content = model.File.Content;
-                    var entry = context.Entry(dbModel.File);
-                    entry.State = System.Data.Entity.EntityState.Modified;
-                    var result = await context.SaveChangesAsync();
+                    if (dbModel.FileId > 0)
+                    {
+                        var file = await this.FindFileAsync(context, dbModel.FileId);
+                        file.Content = model.File.Content;
+                        var entry = context.Entry(file);
+                        entry.State = EntityState.Modified;
+                        var result = await context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        var file = new File(model.File);
+                        context.Files.Add(file);
+                        var result = await context.SaveChangesAsync();
+
+                        if (model.File.Attributes.Count > 0)
+                        {
+                            context.FileAttributes.AddRange(model.File.Attributes.Select(x => new FileAttribute(x) { FileId = file.Id }));
+                            var result2 = await context.SaveChangesAsync();
+                        }
+                    }
                 }
                 else
                 {
-                    dbModel = new SignedFile(model);
-                    context.SignedFiles.Add(dbModel);
-                    await context.SaveChangesAsync();
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        var file = new File(model.File);
+                        context.Files.Add(file);
+                        await context.SaveChangesAsync();
 
-                    //using (var transaction = context.Database.BeginTransaction())
-                    //{
-                    //    var file = new File();
-                    //    file.FileName = model.File.FileName;
-                    //    file.FileExtension = model.File.FileExtension;
-                    //    file.MimeType = model.File.MimeType;
-                    //    file.Size = model.File.Size;
-                    //    file.Content = model.File.Content;
+                        if (model.File.Attributes.Count > 0)
+                        {
+                            var fileAttrs = model.File.Attributes.Select(x => new FileAttribute(x) { FileId = file.Id });
+                            context.FileAttributes.AddRange(fileAttrs);
+                            await context.SaveChangesAsync();
+                        }
 
-                    //    var newFile = context.Files.Add(file);
+                        var signedFile = new SignedFile(model);
+                        signedFile.FileId = file.Id;
+                        context.SignedFiles.Add(signedFile);
+                        await context.SaveChangesAsync();
 
-                    //    var fileAttributes = new List<FileAttribute>();
-
-                    //    if (model.File.Attributes?.Length > 0)
-                    //    {
-                    //        for (int i = 0; i < model.File.Attributes.Length; i++)
-                    //        {
-                    //            fileAttributes.Add(new FileAttribute(model.File.Attributes[i]) { FileId = newFile.Id });
-                    //        }
-                    //    }
-
-                    //    var newAttributes = context.FileAttributes.AddRange(fileAttributes);
-
-                    //    var signedFile = new SignedFile();
-                    //    signedFile.Guid = model.Guid;
-                    //    signedFile.Key = model.Key;
-                    //    signedFile.SessionId = model.SessionId;
-                    //    signedFile.FileId = newFile.Id;
-
-                    //    context.SignedFiles.Add(signedFile);
-                    //    var result = await context.SaveChangesAsync();
-                    //    transaction.Commit();
-                    //}
+                        transaction.Commit();
+                    }
                 }
+            }
+        }
+
+        protected async Task<DbFileModel> FindFileAsync(DatabaseContext context, int fileId)
+        {
+            var result = await this.FindFilesAsync(context, new[] { fileId });
+            return result.FirstOrDefault();
+        }
+
+        protected async Task<IEnumerable<DbFileModel>> FindFilesAsync(DatabaseContext context, IEnumerable<int> ids)
+        {
+            var list = new List<DbFileModel>();
+
+            var files = context.Files.Where(x => ids.Contains(x.Id)).ToArray();
+
+            if (files.Length > 0)
+            {
+                foreach (var file in files)
+                {
+                    var attributes = context.FileAttributes.Where(x => x.FileId == file.Id).ToArray();
+                    list.Add(file.ToModel(attributes));
+                }
+            }
+
+            return list;
+        }
+
+        protected async Task<(File, IEnumerable<FileAttribute>)> SaveAsync(DatabaseContext context, DbContextTransaction transaction, DbFileModel file)
+        {
+            var dbFile = new File(file);
+            var attributes = file.Attributes.Select(x => new FileAttribute(x)).ToArray();
+            await this.SaveAsync(context, transaction, dbFile, attributes);
+            file.Id = dbFile.Id;
+            attributes.ForEach(x => { x.Model.Id = x.Id; });
+            return (dbFile, attributes);
+        }
+
+        /// <summary>
+        /// Save <paramref name="file"/> with its <paramref name="attributes"/> in transaction.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="attributes">The attributes.</param>
+        protected async Task SaveAsync(DatabaseContext context, File file, IEnumerable<FileAttribute> attributes)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                await this.SaveAsync(context, transaction, file, attributes);
+                transaction.Commit();
+            }
+        }
+
+        protected async Task SaveAsync(DatabaseContext context, DbContextTransaction transaction, File file, IEnumerable<FileAttribute> attributes)
+        {
+            if (file.Id > 1)
+            {
+                var entry = context.Entry(file);
+                entry.State = EntityState.Modified;
+                await context.SaveChangesAsync();
+
+                foreach (var attr in attributes)
+                {
+                    attr.FileId = file.Id;
+
+                    if (attr.Id > 0)
+                    {
+                        var entry2 = context.Entry(attr);
+                        entry2.State = EntityState.Modified;
+                        await context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        context.FileAttributes.Add(attr);
+                        await context.SaveChangesAsync();
+                    }
+                }
+
+                await context.SaveChangesAsync();
+            }
+            else
+            {
+                context.Files.Add(file);
+                await context.SaveChangesAsync();
+
+                if (attributes.Any())
+                {
+                    attributes.ForEach(x => { x.FileId = file.Id; });
+                    context.FileAttributes.AddRange(attributes);
+                    await context.SaveChangesAsync();
+                }
+            }
+        }
+
+        protected async Task RemoveAsync(DatabaseContext context, IEnumerable<File> files)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                foreach (var file in files)
+                {
+                    var attr = context.FileAttributes.Where(x => x.FileId == file.Id).ToArray();
+
+                    if (attr.Any())
+                    {
+                        context.FileAttributes.RemoveRange(attr);
+                        await context.SaveChangesAsync();
+                    }
+
+                    var rel = context.UploadGroupOriginalFiles.Where(x => x.FileId == file.Id).ToArray();
+
+                    if (rel.Any())
+                    {
+                        context.UploadGroupOriginalFiles.RemoveRange(rel);
+                        await context.SaveChangesAsync();
+                    }
+
+                    context.Files.Remove(file);
+                    await context.SaveChangesAsync();
+                }
+
+                transaction.Commit();
             }
         }
     }

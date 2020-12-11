@@ -79,7 +79,6 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<DbUploadGroupFileModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
         {
-            var originalFiles = new List<DbFileModel>();
             //DbFileModel outputFile = null;
             PdfDocument outputPdfDocument = null;
 
@@ -87,11 +86,6 @@ namespace eContracting.Services
             {
                 if (group != null)
                 {
-                    if (group.OriginalFiles?.Length > 0)
-                    {
-                        originalFiles.AddRange(group.OriginalFiles);
-                    }
-
                     //outputFile = group.OutputFile;
                     if (group.OutputFile?.Content.Length > 0)
                     {
@@ -106,14 +100,14 @@ namespace eContracting.Services
                     group.Key = groupKey;
                     group.SessionId = sessionId;
                     group.Guid = guid;
-                    group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf", Size = 0 }; // attributes?   
+                    group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf" }; // attributes?   
                 }
 
-                return await this.ProcessFilesAsync(group, originalFiles, outputPdfDocument, fileId, name, content, groupKey);
+                return await this.ProcessFilesAsync(group, outputPdfDocument, fileId, name, content, groupKey);
             }
         }
 
-        private async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, List<DbFileModel> originalFiles, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
+        private async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
         {
             using (var newPdfDocumentStream = new MemoryStream())
             {
@@ -157,7 +151,7 @@ namespace eContracting.Services
                     Content = fileByteContent,
                 };
 
-                originalFiles.Add(fileModel);
+                group.OriginalFiles.Add(fileModel);
                 
                 // zapis file do pdfka v groupe
                 AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
@@ -173,9 +167,9 @@ namespace eContracting.Services
                         {
                             outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
 
-                            this.CompressFiles(originalFiles, compressionRounds);
+                            this.CompressFiles(group.OriginalFiles, compressionRounds);
 
-                            foreach (var fileInGroup in originalFiles)
+                            foreach (var fileInGroup in group.OriginalFiles)
                             {
                                 AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
                             }
@@ -189,7 +183,6 @@ namespace eContracting.Services
 
                 // ulozim vyslednou podobu OriginalFiles (pridany novy soubor a pripadne zmensene ty predchazejici)
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
-                group.OriginalFiles = originalFiles.ToArray();
 
                 // tady to musíme zase uložit
                 // ne, ukladame to prece v controlleru
@@ -212,16 +205,12 @@ namespace eContracting.Services
         {
             if (group != null)
             {
-                if (group.OriginalFiles?.Length > 0)
+                if (group.OriginalFiles.Count > 0)
                 {
-                    var originalFiles = new List<DbFileModel>();
-                    originalFiles.AddRange(group.OriginalFiles);
-
-                    var fileToRemove = originalFiles.FirstOrDefault(f => f.Key == fileId);
+                    var fileToRemove = group.OriginalFiles.FirstOrDefault(f => f.Key == fileId);
                     if (fileToRemove != null)
                     {
-                        originalFiles.Remove(fileToRemove);
-                        group.OriginalFiles = originalFiles.ToArray();
+                        group.OriginalFiles.Remove(fileToRemove);
 
                         // nove vygeneruju vysledne pdfko, protoze konkretni soubor nevim jak z nej vymazat
 
@@ -229,7 +218,7 @@ namespace eContracting.Services
                         {
                             var outputPdfDocument = new PdfDocument(newPdfStream);
 
-                            foreach (var fileInGroup in originalFiles)
+                            foreach (var fileInGroup in group.OriginalFiles)
                             {
                                 AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
                             }

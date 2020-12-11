@@ -37,13 +37,19 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets file size.
         /// </summary>
-        public int Size { get; set; }
+        public int Size
+        {
+            get
+            {
+                return this.Content?.Length ?? 0;
+            }
+        }
 
         /// <summary>
         /// Gets or sets file content in bytes.
         /// </summary>
         public byte[] Content { get; set; }
 
-        public virtual DbFileAttributeModel[] Attributes { get; set; }
+        public virtual List<DbFileAttributeModel> Attributes { get; } = new List<DbFileAttributeModel>();
     }
 }

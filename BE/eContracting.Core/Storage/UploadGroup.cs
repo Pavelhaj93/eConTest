@@ -8,12 +8,6 @@ namespace eContracting.Storage
 
     public partial class UploadGroup
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UploadGroup()
-        {
-            UploadGroupOriginalFiles = new HashSet<UploadGroupOriginalFile>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -29,10 +23,5 @@ namespace eContracting.Storage
         public string Guid { get; set; }
 
         public int OutputFileId { get; set; }
-
-        public virtual File File { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UploadGroupOriginalFile> UploadGroupOriginalFiles { get; set; }
     }
 }

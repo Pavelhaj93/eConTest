@@ -49,6 +49,11 @@
             <param name="key">The key.</param>
             <returns>Login type or null.</returns>
         </member>
+        <member name="F:eContracting.Services.DbContextStartup.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
         <member name="M:eContracting.Services.DbContextStartup.Initialize">
             <inheritdoc/>
         </member>
@@ -368,6 +373,14 @@
         </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.SaveAsync(eContracting.Storage.DatabaseContext,eContracting.Storage.File,System.Collections.Generic.IEnumerable{eContracting.Storage.FileAttribute})">
+            <summary>
+            Save <paramref name="file"/> with its <paramref name="attributes"/> in transaction.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="file">The file.</param>
+            <param name="attributes">The attributes.</param>
         </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>

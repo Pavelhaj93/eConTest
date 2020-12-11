@@ -2286,12 +2286,6 @@
         <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Storage.SignedFile.ToAttachment">
-            <summary>
-            Converts current model to attachment model.
-            </summary>
-            <returns>The attachment model.</returns>
-        </member>
         <member name="M:eContracting.Utils.GetReadableFileSize(System.Int32)">
             <summary>
             Gers readable size.
