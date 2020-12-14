@@ -365,6 +365,21 @@
             Gets or sets array of <c>other</c> unique file IDs.
             </summary>
         </member>
+        <member name="T:eContracting.Models.OfferSubmitDataUploadsModel">
+            <summary>
+            Represents upload group for submit an offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferSubmitDataUploadsModel.GroupKey">
+            <summary>
+            Gets or sets the group key.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferSubmitDataUploadsModel.FileKeys">
+            <summary>
+            Gets or sets the file keys.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.ThankYouPageModel">
             <summary>
             Represents model for thank you page.

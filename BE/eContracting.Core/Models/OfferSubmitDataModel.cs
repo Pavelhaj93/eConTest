@@ -25,7 +25,7 @@ namespace eContracting.Models
         /// Gets or sets array of <c>uploaded</c> unique file IDs.
         /// </summary>
         [JsonProperty("uploaded")]
-        public IEnumerable<string> Uploaded { get; set; }
+        public IEnumerable<OfferSubmitDataUploadsModel> Uploaded { get; set; }
 
         /// <summary>
         /// Gets or sets array of <c>other</c> unique file IDs.
@@ -53,11 +53,6 @@ namespace eContracting.Models
             }
 
             return list.ToArray();
-        }
-
-        public string[] GetUploadedFiles()
-        {
-            return this.Uploaded.ToArray() ?? new string[] { };
         }
     }
 }

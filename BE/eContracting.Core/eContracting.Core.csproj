@@ -106,6 +106,7 @@
     <Compile Include="Models\DbUploadGroupFileModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
+    <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
     <Compile Include="Models\ThankYouPageModel.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />

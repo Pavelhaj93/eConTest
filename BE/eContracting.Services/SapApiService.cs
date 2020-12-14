@@ -359,18 +359,21 @@ namespace eContracting.Services
 
             foreach (var uploadGroup in data.Uploaded)
             {
-                var template = templatesFileForUploads.FirstOrDefault(x => x.UniqueKey == uploadGroup);
+                var groupKey = uploadGroup.GroupKey;
+                var fileKeys = uploadGroup.FileKeys;
+
+                var template = templatesFileForUploads.FirstOrDefault(x => x.UniqueKey == groupKey);
 
                 if (template == null)
                 {
-                    throw new ApplicationException($"Unknown upload group '{uploadGroup}'");
+                    throw new ApplicationException($"Unknown upload group '{groupKey}'");
                 }
 
-                var uploadedFileGroup = await this.UserFileCache.FindGroupAsync(new DbSearchParameters(uploadGroup, offer.Guid, null));
+                var uploadedFileGroup = await this.UserFileCache.FindGroupAsync(new DbSearchParameters(groupKey, offer.Guid, sessionId));
 
                 if (uploadedFileGroup == null)
                 {
-                    throw new ApplicationException($"Cannot find upload for '{uploadGroup}'");
+                    throw new ApplicationException($"Cannot find upload for '{groupKey}'");
                 }
 
                 if (uploadedFileGroup.OutputFile.Content.Length == 0)
