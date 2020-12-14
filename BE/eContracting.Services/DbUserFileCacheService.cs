@@ -94,10 +94,12 @@ namespace eContracting.Services
                     {
                         var files = await this.FindFilesAsync(context, origFiles.Select(x => x.FileId));
 
-                        if (files.Any())
+                        foreach (var file in files)
                         {
-                            group.OriginalFiles.AddRange(files);
+                            file.Key = origFiles.First(x => x.FileId == file.Id).FileKey;
                         }
+
+                        group.OriginalFiles.AddRange(files);
                     }
 
                     return group;
@@ -206,6 +208,12 @@ namespace eContracting.Services
 
                 if (existingDbModel != null)
                 {
+                    if (groupModel.OriginalFiles.Count == 0)
+                    {
+                        await this.RemoveAsync(context, new[] { existingDbModel });
+                        return;
+                    }
+
                     using (var transaction = context.Database.BeginTransaction())
                     {
                         var file = await context.Files.FirstOrDefaultAsync(x => x.Id == existingDbModel.OutputFileId);
@@ -229,6 +237,7 @@ namespace eContracting.Services
                                     var rel = new UploadGroupOriginalFile();
                                     rel.FileId = origFile.Id;
                                     rel.GroupId = groupModel.Id;
+                                    rel.FileKey = origFile.Key;
                                     context.UploadGroupOriginalFiles.Add(rel);
                                     await context.SaveChangesAsync();
                                 }
@@ -245,7 +254,7 @@ namespace eContracting.Services
                         {
                             var toRemove = allDbOriginalFiles.Where(x => dbOriginalFileIds.Contains(x.Id));
                             var files = context.Files.Where(x => toRemove.Select(y => y.FileId).Contains(x.Id));
-                            await this.RemoveAsync(context, files);
+                            await this.RemoveAsync(context, transaction, files);
                         }
 
                         transaction.Commit();
@@ -272,6 +281,7 @@ namespace eContracting.Services
                             var rel = new UploadGroupOriginalFile();
                             rel.FileId = item.Id;
                             rel.GroupId = group.Id;
+                            rel.FileKey = item.Key;
                             context.UploadGroupOriginalFiles.Add(rel);
                             await context.SaveChangesAsync();
                         }

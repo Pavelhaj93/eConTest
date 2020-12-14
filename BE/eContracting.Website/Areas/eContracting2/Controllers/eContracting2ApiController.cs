@@ -11,11 +11,9 @@ using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.SessionState;
 using eContracting.Models;
-using eContracting.Storage;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
@@ -140,10 +138,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="id">The identifier.</param>
         [HttpGet]
         [Route("file/{id}")]
-        public async Task<IHttpActionResult> File([FromUri]string id)
+        public async Task<IHttpActionResult> File([FromUri] string id)
         {
             string guid = null;
-            
+
             try
             {
                 // needs to check like this because info about it is only as custom session property :-(
@@ -423,14 +421,36 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+        [HttpGet]
+        [HttpPost]
+        [HttpDelete]
+        [HttpOptions]
+        public async Task<IHttpActionResult> Upload([FromUri] string id)
+        {
+            if (this.Request.Method.Method == "POST")
+            {
+                return await this.AddToUpload(id);
+            }
+
+            if (this.Request.Method.Method == "DELETE")
+            {
+                return await this.DeleteFromUpload(id);
+            }
+
+            if (this.Request.Method.Method == "GET")
+            {
+                return await this.GetUpload(id);
+            }
+
+            return this.Ok();
+        }
+
         /// <summary>
         /// Gets current state of group with <paramref name="id"/>.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns><see cref="GroupUploadViewModel"/> with current status of the group.</returns>
-        [HttpGet]
-        [Route("upload/{id}")]
-        public async Task<IHttpActionResult> Uploaded([FromUri] string id)
+        protected async Task<IHttpActionResult> GetUpload([FromUri] string id)
         {
             string guid = null;
 
@@ -471,9 +491,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="id">Group identifier.</param>
         /// <returns><see cref="GroupUploadViewModel"/> with current status of uploaded files. Failed uploaded file is not presented.</returns>
-        [HttpPost]
-        [Route("upload/{id}")]
-        public async Task<IHttpActionResult> Upload([FromUri] string id)
+        protected async Task<IHttpActionResult> AddToUpload([FromUri] string id)
         {
             string guid = null;
 
@@ -555,26 +573,25 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="groupId">The group identifier.</param>
         /// <param name="fileId">The file identifier.</param>
         /// <returns><see cref="GroupUploadViewModel"/> with current status of related files.</returns>
-        [HttpDelete]
-        [HttpOptions]
-        [Route("upload/{id}")]
-        public async Task<IHttpActionResult> Delete([FromUri] string id)
+        protected async Task<IHttpActionResult> DeleteFromUpload([FromUri] string id)
         {
             string guid = null;
 
             try
             {
+                string groupId = id;
+
                 if (this.Request.Method.Method == "OPTIONS")
                 {
                     return this.Ok();
                 }
 
-                if (string.IsNullOrWhiteSpace(id))
+                if (string.IsNullOrWhiteSpace(groupId))
                 {
                     return this.BadRequest("Invalid id");
                 }
 
-                var fileId = this.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key == "fileId").Value;
+                var fileId = this.Request.GetQueryNameValuePairs().FirstOrDefault(x => x.Key == "f").Value;
 
                 if (string.IsNullOrWhiteSpace(fileId))
                 {
@@ -588,7 +605,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var groupSearchParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var groupSearchParams = new DbSearchParameters(groupId, guid, HttpContext.Current.Session.SessionID);
                 var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
 
                 if (group == null)

@@ -82,6 +82,10 @@ namespace eContracting.Storage
                 .Property(e => e.Guid)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<UploadGroupOriginalFile>()
+                .Property(e => e.FileKey)
+                .IsUnicode(false);
+
             modelBuilder.Entity<UploadGroup>()
                 .Property(e => e.Key)
                 .IsUnicode(false);

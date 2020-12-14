@@ -35,6 +35,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("uploadFileUrl")]
         public readonly string UploadFileApi = "/api/econ/upload";
 
+        [JsonProperty("removeFileUrl")]
+        public readonly string UploadRemoveFileUrl = "/api/econ/upload";
+
         #endregion
 
         #region Urls

@@ -22,7 +22,6 @@ namespace eContracting.Storage
         {
             this.Model = model;
             this.Id = model.Id;
-            //this.Key = model.Key;
             this.FileName = model.FileName;
             this.FileExtension = model.FileExtension;
             this.MimeType = model.MimeType;
@@ -36,7 +35,6 @@ namespace eContracting.Storage
             model.Id = this.Id;
             model.FileName = this.FileName;
             model.FileExtension = this.FileExtension;
-            //model.Key = this.Key
             model.MimeType = this.MimeType;
             model.Content = this.Content;
             model.Attributes.AddRange(attributes.Select(x => x.ToModel()));

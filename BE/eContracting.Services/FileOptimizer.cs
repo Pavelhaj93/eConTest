@@ -212,18 +212,21 @@ namespace eContracting.Services
                     {
                         group.OriginalFiles.Remove(fileToRemove);
 
-                        // nove vygeneruju vysledne pdfko, protoze konkretni soubor nevim jak z nej vymazat
-
-                        using (var newPdfStream = new MemoryStream())
+                        if (group.OriginalFiles.Count > 0)
                         {
-                            var outputPdfDocument = new PdfDocument(newPdfStream);
+                            // nove vygeneruju vysledne pdfko, protoze konkretni soubor nevim jak z nej vymazat
 
-                            foreach (var fileInGroup in group.OriginalFiles)
+                            using (var newPdfStream = new MemoryStream())
                             {
-                                AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
-                            }
+                                var outputPdfDocument = new PdfDocument(newPdfStream);
 
-                            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+                                foreach (var fileInGroup in group.OriginalFiles)
+                                {
+                                    AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                                }
+
+                                this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+                            }
                         }
                     }
                 // TODO: mam neco vyhazovat, kdyz je tu neco divnyho? file neexistuje, kolekce prazdna,.. ?

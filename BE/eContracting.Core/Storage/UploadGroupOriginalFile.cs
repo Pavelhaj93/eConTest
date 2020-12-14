@@ -13,5 +13,9 @@ namespace eContracting.Storage
         public int GroupId { get; set; }
 
         public int FileId { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public string FileKey { get; set; }
     }
 }
