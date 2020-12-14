@@ -21,7 +21,7 @@ namespace eContracting.Models
         /// <summary>
         /// Gets or sets the file keys.
         /// </summary>
-        [JsonProperty("files")]
+        [JsonProperty("keys")]
         public IEnumerable<string> FileKeys { get; set; }
     }
 }
