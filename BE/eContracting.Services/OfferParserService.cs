@@ -210,7 +210,7 @@ namespace eContracting.Services
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
                 this.MakeCompatible(offerXml);
-                this.AddCustomUploadModelWhenNecessary(offerXml);
+                //this.AddCustomUploadModelWhenNecessary(offerXml);
                 return offerXml;
             }
         }
