@@ -181,5 +181,13 @@ namespace eContracting
             string text = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             return string.IsNullOrEmpty(text) ? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] : text.Split(',')[0];
         }
+
+        public static ZCCH_ST_ATTRIB[] CreateAttributesFromTemplate(DocumentTemplateModel template)
+        {
+            var list = new List<ZCCH_ST_ATTRIB>();
+            list.Add(new ZCCH_ST_ATTRIB() { ATTRID = "IDATTACH", ATTRVAL = template.IdAttach });
+            return list.ToArray();
+        }
+
     }
 }

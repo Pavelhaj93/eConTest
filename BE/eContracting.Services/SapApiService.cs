@@ -379,7 +379,8 @@ namespace eContracting.Services
                 }
 
                 var file = new ZCCH_ST_FILE();
-                file.FILENAME = template.Description;
+                file.ATTRIB = Utils.CreateAttributesFromTemplate(template);
+                file.FILENAME = template.Description + "." + uploadedFileGroup.OutputFile.FileExtension;
                 file.FILECONTENT = uploadedFileGroup.OutputFile.Content;
                 files.Add(file);
             }
