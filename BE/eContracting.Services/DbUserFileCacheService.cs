@@ -224,38 +224,32 @@ namespace eContracting.Services
                         await context.SaveChangesAsync();
 
                         var allDbOriginalFiles = await context.UploadGroupOriginalFiles.Where(x => x.GroupId == existingDbModel.Id).ToListAsync();
-                        var dbOriginalFileIds = allDbOriginalFiles.Select(x => x.FileId).ToList();
+                        var allDbOriginalFileIds = allDbOriginalFiles.Select(x => x.FileId).ToList();
 
-                        if (groupModel.OriginalFiles.Count > 0)
+                        var currentFileIds = groupModel.OriginalFiles.Select(x => x.Id).ToArray();
+                        var removeFileIds = allDbOriginalFileIds.Where(x => !currentFileIds.Contains(x)).ToArray();
+                        var newFiles = groupModel.OriginalFiles.Where(x => x.Id == 0).ToArray();
+
+                        if (removeFileIds.Length > 0)
                         {
-                            foreach (var origFile in groupModel.OriginalFiles)
-                            {
-                                if (origFile.Id == 0)
-                                {
-                                    await this.SaveAsync(context, transaction, origFile);
-
-                                    var rel = new UploadGroupOriginalFile();
-                                    rel.FileId = origFile.Id;
-                                    rel.GroupId = groupModel.Id;
-                                    rel.FileKey = origFile.Key;
-                                    context.UploadGroupOriginalFiles.Add(rel);
-                                    await context.SaveChangesAsync();
-                                }
-                                else
-                                {
-                                    await this.SaveAsync(context, transaction, origFile);
-                                }
-
-                                dbOriginalFileIds.Remove(origFile.Id);
-                            }
+                            var removeFiles = context.Files.Where(x => removeFileIds.Contains(x.Id)).ToArray();
+                            await this.RemoveAsync(context, transaction, removeFiles);
                         }
 
-                        if (dbOriginalFileIds.Count > 0)
+                        for (int i = 0; i < newFiles.Length; i++)
                         {
-                            var toRemove = allDbOriginalFiles.Where(x => dbOriginalFileIds.Contains(x.Id));
-                            var files = context.Files.Where(x => toRemove.Select(y => y.FileId).Contains(x.Id));
-                            await this.RemoveAsync(context, transaction, files);
+                            var newFile = newFiles[i];
+                            await this.SaveAsync(context, transaction, newFile);
+
+                            var rel = new UploadGroupOriginalFile();
+                            rel.FileId = newFile.Id;
+                            rel.GroupId = groupModel.Id;
+                            rel.FileKey = newFile.Key;
+                            context.UploadGroupOriginalFiles.Add(rel);
+                            await context.SaveChangesAsync();
                         }
+
+                        // it's not necessary to do update of the files because they don't change during lifecycle
 
                         transaction.Commit();
                     }
