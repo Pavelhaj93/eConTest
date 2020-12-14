@@ -740,17 +740,20 @@ export class OfferStore {
       return false
     }
 
-    // get keys for all uploaded files in all groups
-    const uploadedKeys = Object.values(this.userDocuments).reduce((keys: string[], docs) => {
+    // transform uploaded files into a different data structure that BE understands
+    const uploadedGroups = Object.entries(this.userDocuments).map(([group, docs]) => {
       // filter out all failed uploads
       const uploadedDocs = docs.filter(d => !d.error)
-      return [...keys, ...uploadedDocs.map(d => d.key)]
-    }, [])
+      return {
+        group,
+        keys: uploadedDocs.map(d => d.key),
+      }
+    })
 
     const data = {
       accepted: this.getAcceptedKeys(this.documentsToBeAccepted),
       signed: this.getAcceptedKeys(this.documentsToBeSigned),
-      uploaded: uploadedKeys,
+      uploaded: uploadedGroups,
       other: [
         ...this.getAcceptedKeys(this.documentsProducts),
         ...this.getAcceptedKeys(this.documentsServices),

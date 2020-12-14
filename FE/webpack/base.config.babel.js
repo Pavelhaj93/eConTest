@@ -103,6 +103,7 @@ export default {
       polyfills: [
         'Object.assign',
         'Object.values',
+        'Object.entries',
         'Array.from',
         'Array.prototype.find',
         'Array.prototype.findIndex',
