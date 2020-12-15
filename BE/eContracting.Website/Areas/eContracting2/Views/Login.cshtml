@@ -8,14 +8,16 @@
     var choices = Model.Choices.ToArray();
 }
 <div class="row">
-    <div id="token">@Html.AntiForgeryToken()</div>
-    <div>
-        @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
-        <div class="info">
-            @Html.Sitecore().Placeholder("eContracting2-login")
-            @Html.Raw(ViewData["MainText"])
+    <div class="col-12">
+        <div id="token">@Html.AntiForgeryToken()</div>
+        <div>
+            @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
+            <div class="info">
+                @Html.Sitecore().Placeholder("eContracting2-login-richtext")
+                @Html.Raw(ViewData["MainText"])
+            </div>
+            <div id="app"></div>
         </div>
-        <div id="app"></div>
     </div>
 </div>
 
