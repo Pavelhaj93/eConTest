@@ -4,7 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Glass.Mapper.Sc.Configuration;
 using Glass.Mapper.Sc.Configuration.Attributes;
+using Glass.Mapper.Sc.Fields;
 
 namespace eContracting.Models
 {
@@ -16,5 +18,13 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class ThankYouPageModel : BasePageWithStepsModel
     {
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link Link1 { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link Link2 { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        public virtual Link Link3 { get; set; }
     }
 }

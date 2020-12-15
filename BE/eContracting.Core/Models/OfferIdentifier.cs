@@ -17,17 +17,40 @@ namespace eContracting.Models
         /// <summary>
         /// Gets offer GUID identifier.
         /// </summary>
-        public string Guid { get; }
+        public readonly string Guid;
 
         /// <summary>
         /// Gets offer's process.
         /// </summary>
-        public string Process { get; }
+        public readonly string Process;
 
         /// <summary>
         /// Gets offer's process type.
         /// </summary>
-        public string ProcessType { get; }
+        public readonly string ProcessType;
+
+        /// <summary>
+        /// Determinates if offer is accepted or not.
+        /// </summary>
+        public readonly bool IsAccepted;
+
+        /// <summary>
+        /// The text parameters from offer.
+        /// </summary>
+        public readonly IDictionary<string, string> TextParameters;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferIdentifier"/> class.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        public OfferIdentifier(OfferModel offer)
+        {
+            this.Guid = offer.Guid;
+            this.Process = offer.Process;
+            this.ProcessType = offer.ProcessType;
+            this.IsAccepted = offer.IsAccepted;
+            this.TextParameters = offer.TextParameters;
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferIdentifier"/> class.

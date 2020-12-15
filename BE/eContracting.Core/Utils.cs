@@ -189,5 +189,19 @@ namespace eContracting
             return list.ToArray();
         }
 
+        public static string GetReplacedTextTokens(string text, IDictionary<string, string> textParameters)
+        {
+            if (string.IsNullOrEmpty(text) || textParameters.Count < 1)
+            {
+                return text;
+            }
+
+            foreach (var textParam in textParameters)
+            {
+                text.Replace($"{textParam.Key}", textParam.Value);
+            }
+
+            return text;
+        }
     }
 }

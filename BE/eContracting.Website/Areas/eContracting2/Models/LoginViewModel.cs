@@ -16,6 +16,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonIgnore]
         public readonly StepsViewModel Steps;
 
+        [JsonIgnore]
+        public string MainText { get; set; }
+
         [JsonProperty("choices")]
         public readonly IEnumerable<LoginChoiceViewModel> Choices;
 

@@ -16,10 +16,10 @@ SharedFields:
   Value: /sitecore/content/eContracting2/Datasources/Content
 - ID: "ded9e431-3604-4921-a4b3-a6ec7636a5b6"
   Hint: Controller Action
-  Value: LoginRichText
+  Value: RichText
 - ID: "e64ad073-dfcc-4d20-8c0b-fe5aa6226cd7"
   Hint: Controller
-  Value: eContracting.Website.Areas.eContracting2.Controllers.eContracting2Controller, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting2.Controllers.eContracting2AuthController, eContracting.Website
 Languages:
 - Language: en
   Versions:

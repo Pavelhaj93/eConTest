@@ -1,61 +1,53 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Website.Areas.eContracting2.Models
+@using Newtonsoft.Json
 
-@inherits GlassView<EContractingThankYouTemplate>
+@inherits GlassView<ThankYouViewModel>
 
-<ol class="list-steps">
-  <li class="list-steps__item">
-    Ověření údajů
-  </li>
-  <li class="list-steps__item">
-    Přečtení a potvrzení dokumentů
-  </li>
-  <li class="list-steps__item list-steps__item--active" aria-current="step">
-    Hotovo
-  </li>
-</ol>
+@Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
 <div class="text-center">
-  <h1>Vaši smlouvu jsme úspěšně uzavřeli</h1>
-  <p>Za chvíli na svém e-mailu najdete potvrzení a odkazy na všechny smluvní dokumenty.</p>
-  <p>Vaše innogy</p>
+    @Html.Raw(Model.MainText)
 </div>
 <div class="row justify-content-center">
-  @if (Model.Link1 != null) {
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="box box--action bg--green text-center">
-        <p>
-          <a runat="server" href="@Model.Link1.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Link1.Text</a>
-          <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-            <use xlink:href="#arrow-right-up"></use>
-          </svg>
-        </p>
-      </div>
-    </div>
-  }
-  @if (Model.Link2 != null) {
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="box box--action bg--orange text-center">
-        <p>
-          <a runat="server" href="@Model.Link2.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Link2.Text</a>
-          <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-            <use xlink:href="#arrow-right-up"></use>
-          </svg>
-        </p>
-      </div>
-    </div>
-  }
-  @if (Model.Link3 != null) {
-    <div class="col-12 col-md-6 col-lg-4 mb-4">
-      <div class="box box--action bg--blue-green-light text-center">
-        <p>
-          <a runat="server" href="@Model.Link3.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Link3.Text</a>
-          <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-            <use xlink:href="#arrow-right-up"></use>
-          </svg>
-        </p>
-      </div>
-    </div>
-  }
+    @if (Model.Datasource.Link1 != null)
+    {
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="box box--action bg--green text-center">
+                <p>
+                    <a runat="server" href="@Model.Datasource.Link1.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Datasource.Link1.Text</a>
+                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use xlink:href="#arrow-right-up"></use>
+                    </svg>
+                </p>
+            </div>
+        </div>
+    }
+    @if (Model.Datasource.Link2 != null)
+    {
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="box box--action bg--orange text-center">
+                <p>
+                    <a runat="server" href="@Model.Datasource.Link2.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Datasource.Link2.Text</a>
+                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use xlink:href="#arrow-right-up"></use>
+                    </svg>
+                </p>
+            </div>
+        </div>
+    }
+    @if (Model.Datasource.Link3 != null)
+    {
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+            <div class="box box--action bg--blue-green-light text-center">
+                <p>
+                    <a runat="server" href="@Model.Datasource.Link3.Url" class="box__link text-white font-weight-bold" target="_blank">@Model.Datasource.Link3.Text</a>
+                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use xlink:href="#arrow-right-up"></use>
+                    </svg>
+                </p>
+            </div>
+        </div>
+    }
 </div>
 
 <script>
@@ -71,14 +63,9 @@
 </script>
 
 <script>
-    dataLayer.push(
-        {
-    'event':'gaEvent',
-            'gaEventData':
-            {
-        'eCat':'@Html.Raw(ViewData["eCat"])',
-        'eAct':'@Html.Raw(ViewData["eAct"])',
-        'eLab':'@Html.Raw(ViewData["eLab"])'
-      }
-        });
+dataLayer.push(
+{
+    'event': 'gaEvent',
+    'gaEventData': @JsonConvert.SerializeObject(Model.ScriptParameters)
+});
 </script>

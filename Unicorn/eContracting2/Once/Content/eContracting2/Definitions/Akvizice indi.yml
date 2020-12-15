@@ -47,6 +47,9 @@ SharedFields:
 - ID: "5aff18e0-aedf-48b8-84c0-bda2f11646a3"
   Hint: OfferAcceptTitle
   Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
+- ID: "5fb9c684-4353-4677-b32d-7e7a06fe7076"
+  Hint: MainTextLoginAccepted
+  Value: "{A0386428-0C7D-407F-9577-68EEA80A1D42}"
 - ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
   Hint: OfferUploadsExtraHelp
   Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"

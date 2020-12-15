@@ -86,13 +86,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
                         if (!string.IsNullOrEmpty(guid))
                         {
-                            //var api = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
-                            OfferModel offer = null; // api.GetOffer(guid);
+                            var api = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
+                            var offer = api.GetOffer(guid);
 
                             if (offer != null)
                             {
                                 var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-                                var data = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType);
+                                var data = new OfferIdentifier(offer);
                                 cache.Set(Constants.CacheKeys.OFFER_IDENTIFIER, data);
                             }
                         }

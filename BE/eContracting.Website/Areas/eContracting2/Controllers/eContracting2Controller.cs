@@ -254,7 +254,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         // ThankYouController
         public ActionResult ThankYou()
         {
-            var mainText = string.Empty;
             var guid = string.Empty;
 
             try
@@ -275,25 +274,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Redirect(redirectUrl);
                 }
 
-                var searchFilesParams = new DbSearchParameters(null, guid, null);
-                this.UserFileCache.Clear(searchFilesParams);
+                this.ClearUserData(guid);
 
-                var datasource = this.GetLayoutItem<ThankYouPageModel>();
-
-                
-                var scriptParameters = this.GetScriptParameters(offer);
-
-                if (scriptParameters == null || scriptParameters.Length != 3 || scriptParameters.Any(a => string.IsNullOrEmpty(a)))
-                {
-                    throw new Exception("Can not get script parameters.");
-                }
-
-                this.ViewData["eCat"] = scriptParameters[0];
-                this.ViewData["eAct"] = scriptParameters[1];
-                this.ViewData["eLab"] = scriptParameters[2];
-                this.ViewData["MainText"] = mainText;
-
-                return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", datasource);
+                var viewModel = this.GetThankYouViewModel(offer);
+                return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
             }
             catch (Exception ex)
             {
@@ -419,7 +403,29 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new string[] { eCat, eAct, eLab };
         }
 
-        private void FillLabels(OfferViewModel viewModel, OfferPageModel datasource, DefinitionCombinationModel definition)
+        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
+        {
+            var datasource = this.GetLayoutItem<ThankYouPageModel>();
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+
+            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
+            viewModel.MainText = Utils.GetReplacedTextTokens(definition.MainTextThankYou.Text, offer.TextParameters);
+            var scriptParameters = this.GetScriptParameters(offer);
+
+            if (scriptParameters == null || scriptParameters.Length != 3 || scriptParameters.Any(a => string.IsNullOrEmpty(a)))
+            {
+                throw new Exception("Can not get script parameters.");
+            }
+
+            viewModel.ScriptParameters["eCat"] = scriptParameters[0];
+            viewModel.ScriptParameters["eAct"] = scriptParameters[1];
+            viewModel.ScriptParameters["eLab"] = scriptParameters[2];
+
+            return viewModel;
+        }
+
+        protected internal void FillLabels(OfferViewModel viewModel, OfferPageModel datasource, DefinitionCombinationModel definition)
         {
             var settings = this.SettingsReaderService.GetSiteSettings();
             viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
@@ -448,6 +454,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
             viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
+        }
+
+        protected internal void ClearUserData(string guid)
+        {
+            try
+            {
+                var searchFilesParams = new DbSearchParameters(null, guid, null);
+                this.UserFileCache.Clear(searchFilesParams);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(guid, "Cannot clear user file cache", ex);
+            }
         }
     }
 }

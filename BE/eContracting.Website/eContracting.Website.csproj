@@ -230,6 +230,7 @@
     <Compile Include="Areas\eContracting2\Models\OfferViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SingDataViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
     <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
       <DependentUpon>Modal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -415,6 +416,7 @@
     <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
     <Content Include="App_Config\Include\zeContracting\Services.config" />
+    <Content Include="App_Config\Include\zeContracting\Pipelines.CM.config" />
     <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
@@ -445,6 +447,7 @@
     <Content Include="Assets\eContracting2\fonts\innogy-light.woff2" />
     <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
     <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
+    <Content Include="Areas\eContracting2\Views\LoginRichText.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

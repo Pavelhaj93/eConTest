@@ -562,12 +562,17 @@
             The context wrapper.
             </summary>
         </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
         <member name="F:eContracting.Services.SitecoreSettingsReaderService.Rand">
             <summary>
             The randomizer.
             </summary>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
             </summary>

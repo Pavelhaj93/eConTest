@@ -286,6 +286,18 @@
             Gets or sets original uploaded files.
             </summary>
         </member>
+        <member name="T:eContracting.Models.DefinitionCombinationContainerModel">
+            <summary>
+            Represent container for all definition including data for default values.
+            </summary>
+            <seealso cref="T:eContracting.Models.DefinitionCombinationDataModel" />
+        </member>
+        <member name="T:eContracting.Models.DefinitionCombinationDataModel">
+            <summary>
+            Represents data for combination.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
         <member name="T:eContracting.Models.EventLogModel">
             <summary>
             Represent a log event entry.
@@ -855,20 +867,36 @@
             Identifier for an offer.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferIdentifier.Guid">
+        <member name="F:eContracting.Models.OfferIdentifier.Guid">
             <summary>
             Gets offer GUID identifier.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferIdentifier.Process">
+        <member name="F:eContracting.Models.OfferIdentifier.Process">
             <summary>
             Gets offer's process.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferIdentifier.ProcessType">
+        <member name="F:eContracting.Models.OfferIdentifier.ProcessType">
             <summary>
             Gets offer's process type.
             </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferIdentifier.IsAccepted">
+            <summary>
+            Determinates if offer is accepted or not.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferIdentifier.TextParameters">
+            <summary>
+            The text parameters from offer.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferIdentifier.#ctor(eContracting.Models.OfferModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            </summary>
+            <param name="offer">The offer.</param>
         </member>
         <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String)">
             <summary>
@@ -2080,7 +2108,8 @@
             </summary>
             <param name="process">The process.</param>
             <param name="processType">Type of the process.</param>
-            <returns>Definition or null.</returns>
+            <returns>Definition matched by <paramref name="process"/> and <paramref name="processType"/> or default one.</returns>
+            <exception cref="T:System.ApplicationException">When even default definition was not found.</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <summary>

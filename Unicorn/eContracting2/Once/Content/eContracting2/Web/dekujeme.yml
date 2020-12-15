@@ -5,6 +5,9 @@ Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
 Path: /sitecore/content/eContracting2/Web/dekujeme
 DB: master
 SharedFields:
+- ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
+  Hint: Step
+  Value: "{04C12E95-ACB4-4514-860D-C7EA9E1C0B37}"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 288
@@ -16,3 +19,6 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125510Z
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Děkujeme

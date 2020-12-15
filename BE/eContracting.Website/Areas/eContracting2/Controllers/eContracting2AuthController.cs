@@ -26,6 +26,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IContextWrapper ContextWrapper;
         protected readonly IApiService ApiService;
         protected readonly IAuthenticationService AuthService;
+        protected readonly IUserDataCacheService UserDataCache;
         protected readonly ILoginReportStore LoginReportService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
@@ -39,6 +40,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
+            this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
         }
@@ -72,6 +74,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IContextWrapper contextWrapper,
             IApiService apiService,
             IAuthenticationService authService,
+            IUserDataCacheService userDataCache,
             ISettingsReaderService settingsReaderService,
             ILoginReportStore loginReportService,
             ISitecoreContext sitecoreContext,
@@ -81,6 +84,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
+            this.UserDataCache = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
         }
@@ -294,9 +298,27 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/Preview/Login.cshtml", editModel);
         }
 
+
+        /// <summary>
+        /// Rendering for '/sitecore/layout/Renderings/eContracting2/Rich Text for login page'.
+        /// </summary>
         public ActionResult RichText()
         {
-            throw new NotImplementedException();
+            var dataSource = this.GetDataSourceItem<RichTextModel>();
+            var data = this.UserDataCache.Get<OfferIdentifier>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+            if (dataSource == null)
+            {
+                var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+                dataSource = data.IsAccepted ? definition.MainTextLoginAccepted : definition.MainTextLogin;
+            }
+
+            if (this.ContextWrapper.IsNormalMode())
+            {
+                dataSource.Text = Utils.GetReplacedTextTokens(dataSource.Text, data.TextParameters);
+            }
+
+            return View("/Areas/eContracting2/Views/LoginRichText.cshtml", dataSource);
         }
 
         protected internal void ReportLogin(bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
