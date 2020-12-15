@@ -308,7 +308,7 @@ namespace eContracting.Services
         {
             var model = new JsonDocumentsAcceptanceModel();
             model.Title = definition.OfferCommoditiesTitle.Text;
-            model.Text = this.ReplaceWithTextParameters(definition.OfferCommoditiesText.Text, offer.TextParameters);
+            model.Text = Utils.GetReplacedTextTokens(definition.OfferCommoditiesText.Text, offer.TextParameters);
             model.Accept = this.GetAcceptanceDocumentsAccept(offer, files, definition);
             model.Sign = this.GetAcceptanceDocumentsSign(offer, files, definition);
             return model;
@@ -325,7 +325,7 @@ namespace eContracting.Services
 
             var model = new JsonDocumentsAcceptModel();
             model.Title = definition.OfferCommoditiesAcceptTitle.Text;
-            model.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesAcceptText.Text, offer.TextParameters);
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesAcceptText.Text, offer.TextParameters);
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -363,7 +363,7 @@ namespace eContracting.Services
 
             var model = new JsonDocumentsAcceptModel();
             model.Title = definition.OfferCommoditiesSignTitle.Text;
-            model.SubTitle = this.ReplaceWithTextParameters(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -571,27 +571,6 @@ namespace eContracting.Services
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Replaces placeholders in <paramref name="source"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
-        /// </summary>
-        /// <param name="source">The source.</param>
-        /// <param name="textParameters">The text parameters.</param>
-        /// <returns>Modified string.</returns>
-        protected internal string ReplaceWithTextParameters(string source, IDictionary<string, string> textParameters)
-        {
-            if (string.IsNullOrWhiteSpace(source))
-            {
-                return source;
-            }
-
-            foreach (var parameters in textParameters)
-            {
-                source = source.Replace("{" + parameters.Key + "}", parameters.Value);
-            }
-
-            return source;
         }
 
         protected internal string GetTemplateHelp(string idAttach, IDictionary<string, string> textParameters)

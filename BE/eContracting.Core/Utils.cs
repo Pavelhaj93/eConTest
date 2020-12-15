@@ -189,6 +189,12 @@ namespace eContracting
             return list.ToArray();
         }
 
+        /// <summary>
+        /// Replaces placeholders in <paramref name="text"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
+        /// </summary>
+        /// <param name="text">The original text.</param>
+        /// <param name="textParameters">The text parameters.</param>
+        /// <returns>Modified string.</returns>
         public static string GetReplacedTextTokens(string text, IDictionary<string, string> textParameters)
         {
             if (string.IsNullOrEmpty(text) || textParameters.Count < 1)

@@ -2359,6 +2359,14 @@
             <param name="template">The template.</param>
             <returns>Hash of <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Group"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/></returns>
         </member>
+        <member name="M:eContracting.Utils.GetReplacedTextTokens(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Replaces placeholders in <paramref name="text"/> (e.g.: {PERSON_ADDRESS}) with key / value from <paramref name="textParameters"/>.
+            </summary>
+            <param name="text">The original text.</param>
+            <param name="textParameters">The text parameters.</param>
+            <returns>Modified string.</returns>
+        </member>
         <member name="T:eContracting.ILogger">
             <summary>
             Represents abstration layer for logger.

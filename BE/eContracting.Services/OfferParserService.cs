@@ -316,6 +316,12 @@ namespace eContracting.Services
                 return xmlNode.InnerText?.Trim();
             }
 
+            // do this to check if there is empty HTML (do not return something like '<p></p>')
+            if (string.IsNullOrEmpty(xmlNode.FirstChild.InnerText.Trim()))
+            {
+                return string.Empty;
+            }
+
             var xml = xmlNode.FirstChild.InnerXml;
             // remove style and xmlns attributes, e.g. "<p style=\"margin-top:0pt;margin-bottom:0pt\" xmlns=\"http://www.w3.org/1999/xhtml\">\nInvestor<br /></p>"
             var clean = Utils.ReplaceXmlAttributes(xml);
@@ -334,6 +340,12 @@ namespace eContracting.Services
             if (names.Contains(xmlNode.Name))
             {
                 return xmlNode.InnerText;
+            }
+
+            // do this to check if there is empty HTML (do not return something like '<p></p>')
+            if (string.IsNullOrEmpty(xmlNode.InnerText.Trim()))
+            {
+                return string.Empty;
             }
 
             return xmlNode.InnerXml;
