@@ -385,6 +385,7 @@ namespace eContracting.Services
                 file.ATTRIB = Utils.CreateAttributesFromTemplate(template);
                 file.FILENAME = template.Description + "." + uploadedFileGroup.OutputFile.FileExtension;
                 file.FILECONTENT = uploadedFileGroup.OutputFile.Content;
+                file.MIMETYPE = uploadedFileGroup.OutputFile.MimeType;
                 files.Add(file);
             }
 

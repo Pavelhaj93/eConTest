@@ -125,8 +125,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var datasource = this.GetLayoutItem<OfferPageModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
-
-                var viewModel = new OfferViewModel(definition, this.SettingsReaderService);
+                var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+                var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
                 viewModel.GdprGuid = offer.GDPRKey;
                 viewModel.GdprUrl = datasource.GDPRUrl;
                 this.FillLabels(viewModel, datasource, definition);
@@ -155,8 +155,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
             var datasource = this.GetLayoutItem<OfferPageModel>();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
-            var viewModel = new OfferViewModel(definition, this.SettingsReaderService);
+            var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
             return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
         }
 

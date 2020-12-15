@@ -140,8 +140,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public DefinitionCombinationModel GetDefinition(OfferModel offer)
         {
-            var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
-            return definitions.FirstOrDefault(x => x.Process.Code == offer.Process && x.ProcessType.Code == offer.ProcessType);
+            return this.GetDefinition(offer.Process, offer.ProcessType);
         }
 
         /// <inheritdoc/>

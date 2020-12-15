@@ -146,7 +146,7 @@ namespace eContracting.Services
                 {
                     Key = fileId,
                     FileName = name,
-                    FileExtension = Path.GetExtension(name),
+                    FileExtension = Path.GetExtension(name).TrimStart('.'),
                     MimeType = MimeMapping.GetMimeMapping(name),
                     Content = fileByteContent,
                 };
