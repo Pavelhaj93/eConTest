@@ -306,7 +306,7 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetDefinition")]
-        public void GetDefinition_Returns_Not_When_NotMatched_Offer()
+        public void GetDefinition_Returns_Default_Definition_When_NotMatched_Offer()
         {
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BusProcess = "XYZ";
@@ -314,17 +314,19 @@ namespace eContracting.Services.Tests
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "ABCDED" };
             combination.ProcessType = new ProcessTypeModel() { Code = "09988" };
+            var defaultCombination = new DefinitionCombinationModel();
 
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            mockSitecoreContext.Setup(x => x.GetItem<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(defaultCombination);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new TestLogger();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
             var result = service.GetDefinition(offer);
 
-            Assert.Null(result);
+            Assert.Equal(result, defaultCombination);
         }
 
         [Fact]
