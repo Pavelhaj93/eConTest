@@ -107,7 +107,7 @@ namespace eContracting.Services
             }
         }
 
-        private async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
+        protected internal async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
         {
             using (var newPdfDocumentStream = new MemoryStream())
             {
@@ -191,7 +191,7 @@ namespace eContracting.Services
             }
         }
 
-        private void SaveOutputPdfDocumentToGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument)
+        protected internal void SaveOutputPdfDocumentToGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument)
         {
             using (var outputFileWriteMemoryStream = new MemoryStream())
             {
@@ -236,7 +236,7 @@ namespace eContracting.Services
             return group;
         }
 
-        private void AddFileToOutputPdfDocument(PdfDocument outputPdfDocument, byte[] fileByteContent, string name)
+        protected internal void AddFileToOutputPdfDocument(PdfDocument outputPdfDocument, byte[] fileByteContent, string name)
         {
             if (this.IsPdf(name))
             {
@@ -244,12 +244,12 @@ namespace eContracting.Services
             }
             else if (this.IsImage(name))
             {
-                PdfPage pdfPageForImage = new PdfPage(outputPdfDocument);
-                this.AppendImageToPdf(pdfPageForImage, fileByteContent, 0, 0, 1, name);
+                //PdfPage pdfPageForImage = new PdfPage(outputPdfDocument);
+                this.AppendImageToPdf(fileByteContent, outputPdfDocument, 0, 0, 1, name);
             }
         }
 
-        private void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed)
+        protected internal void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed)
         {
             if (originalFiles.Count == 0)
             {
@@ -292,8 +292,7 @@ namespace eContracting.Services
             }
         }
 
-
-        private List<FileInfo> GetOriginalFilesInGroup(string groupKey)
+        protected internal List<FileInfo> GetOriginalFilesInGroup(string groupKey)
         {
             // TODO: predelat na pouziti session misto file storage
             //var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
@@ -309,28 +308,26 @@ namespace eContracting.Services
             return result;
         }
 
-        private bool IsCompressable(string filename)
+        protected internal bool IsCompressable(string filename)
         {
             return this.IsImage(filename);
         }
-        private bool IsPdf(string filename)
+
+        protected internal bool IsPdf(string filename)
         {
             return filename?.ToLower().EndsWith("pdf")?? false;
         }
 
-        private bool IsImage(string filename)
+        protected internal bool IsImage(string filename)
         {
             return !IsPdf(filename);
         }
-
-
-
 
         /// <summary>
         /// Otoci obrazek podle Exif tagu, pokud tam je
         /// </summary>
         /// <param name="image"></param>
-        private void NormalizeOrientation(Image image)
+        protected internal void NormalizeOrientation(Image image)
         {
             const int ExifOrientationTagId = 274;
 
@@ -380,7 +377,7 @@ namespace eContracting.Services
         /// <param name="maxWidth"></param>
         /// <param name="maxHeight"></param>
         /// <returns></returns>
-        private Image ResizeImage(Image image, int minWidth, int minHeight, float? ratio = 1, int? maxWidth = int.MaxValue, int? maxHeight = int.MaxValue)
+        protected internal Image ResizeImage(Image image, int minWidth, int minHeight, float? ratio = 1, int? maxWidth = int.MaxValue, int? maxHeight = int.MaxValue)
         {
             // Get the image's original width and height
             int originalWidth = image.Width;
@@ -428,7 +425,7 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="mg"></param>
         /// <param name="newSize"></param>        
-        private Bitmap ResizeImage(Image mg, Size newSize)
+        protected internal Bitmap ResizeImage(Image mg, Size newSize)
         {
             double ratio;
 
@@ -468,32 +465,24 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="pdf"></param>
         /// <param name="outputDocument"></param>
-        private void AppendPdfToPdf(byte[] pdf, PdfDocument outputDocument)
+        protected internal void AppendPdfToPdf(byte[] pdf, PdfDocument outputDocument)
         {
             using (var msPdf = new MemoryStream(pdf))
             {
                 var inputDocument = PdfReader.Open(msPdf, PdfDocumentOpenMode.Import);
                 // pridam stranku po strance
                 var count = inputDocument.PageCount;
-                for (var idx = 0; idx < count; idx++)
+                for (var i = 0; i < count; i++)
                 {
-                    var page = inputDocument.Pages[idx];
+                    var page = inputDocument.Pages[i];
                     outputDocument.AddPage(page);
                 }
             }
         }
 
-        /// <summary>
-        /// Vlozi obrazek do pdf dokumentu
-        /// </summary>
-        /// <param name="pdf"></param>
-        /// <param name="img"></param>
-        /// <param name="xPosition"></param>
-        /// <param name="yPosition"></param>
-        /// <param name="scale"></param>
-        /// <param name="footerText"></param>
-        private void AppendImageToPdf(PdfPage pdf, byte[] img, int xPosition, int yPosition, double scale, string footerText)
+        protected internal void AppendImageToPdf(byte[] img, PdfDocument outputPdfDocument, int xPosition, int yPosition, double scale, string footerText)
         {
+            var pdf = new PdfPage(outputPdfDocument);
             var gfx = XGraphics.FromPdfPage(pdf);
             var bitmapImage = this.CreateBitmap(img);
             float verticalResolution;
@@ -567,13 +556,15 @@ namespace eContracting.Services
                 box.Inflate(0, -10);
                 gfx.DrawString(String.Format("- {0} -", footerText), font, XBrushes.Black, box, pageFooterFormat);
             }
+
+            outputPdfDocument.AddPage(pdf);
         }
 
         /// <summary>
         /// Vytvori bitmap obrazek z bytoveho pole
         /// </summary>
         /// <param name="imgBytes"></param>
-        private Image CreateBitmap(byte[] imgBytes)
+        protected internal Image CreateBitmap(byte[] imgBytes)
         {
             var ic = new ImageConverter();
             var newImg = (Image)ic.ConvertFrom(imgBytes);
