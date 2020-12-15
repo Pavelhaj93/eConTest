@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.ServiceModel;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -18,6 +19,7 @@ using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
+using Sitecore.IO;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -556,6 +558,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
+                this.SaveToDebug(group);
+
                 await this.UserFileCacheService.SetAsync(group);
 
                 return this.Json(new GroupUploadViewModel(group));
@@ -580,11 +584,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             try
             {
                 string groupId = id;
-
-                if (this.Request.Method.Method == "OPTIONS")
-                {
-                    return this.Ok();
-                }
 
                 if (string.IsNullOrWhiteSpace(groupId))
                 {
@@ -695,7 +694,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Converts PDF file to the PNG stream
         /// </summary>
         /// <param name="memoryStream"></param>
-        private void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
         {
             var pdfImages = new List<Image>();
 
@@ -718,7 +717,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        private Bitmap CombineBitmap(IEnumerable<Image> files)
+        protected internal Bitmap CombineBitmap(IEnumerable<Image> files)
         {
             //read all images into memory
             var images = new List<Bitmap>();
@@ -773,6 +772,29 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     image.Dispose();
                 }
+            }
+        }
+
+        protected internal void SaveToDebug(DbUploadGroupFileModel group)
+        {
+            try
+            {
+                if (this.SettingsReaderService.SaveFilesToDebugFolder)
+                {
+                    var fileName = new StringBuilder();
+                    fileName.Append("upload_group");
+                    fileName.Append("_");
+                    fileName.Append(group.Guid);
+                    fileName.Append("_");
+                    fileName.Append(group.Id);
+                    fileName.Append(".pdf");
+                    var filePath = Sitecore.Configuration.Settings.DebugFolder + "/" + fileName.ToString();
+                    System.IO.File.WriteAllBytes(filePath, group.OutputFile.Content);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(null, "Cannot save files to debug folder", ex);
             }
         }
     }

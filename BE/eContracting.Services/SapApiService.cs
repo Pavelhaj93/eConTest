@@ -264,7 +264,9 @@ namespace eContracting.Services
                 if (response2 != null)
                 {
                     var response2Files = response2.Response.ET_FILES;
-                    return this.OfferParser.GetTextParameters(response2Files);
+                    var parameters = this.OfferParser.GetTextParameters(response2Files);
+                    this.OfferParser.MakeCompatibleParameters(parameters, version);
+                    return parameters;
                 }
                 else
                 {
@@ -274,7 +276,9 @@ namespace eContracting.Services
             else if (version == 2)
             {
                 var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS)).ToArray();
-                return this.OfferParser.GetTextParameters(files);
+                var parameters = this.OfferParser.GetTextParameters(files);
+                this.OfferParser.MakeCompatibleParameters(parameters, version);
+                return parameters;
             }
             else
             {

@@ -30,5 +30,12 @@ namespace eContracting
         /// <param name="files">The files.</param>
         /// <returns>Dictionary or null.</returns>
         IDictionary<string, string> GetTextParameters(ZCCH_ST_FILE[] files);
+
+        /// <summary>
+        /// Makes <paramref name="textParameters"/> compatible in respect to offer <paramref name="version"/>.
+        /// </summary>
+        /// <param name="textParameters">The text parameters.</param>
+        /// <param name="version">Offer version.</param>
+        void MakeCompatibleParameters(IDictionary<string, string> textParameters, int version);
     }
 }

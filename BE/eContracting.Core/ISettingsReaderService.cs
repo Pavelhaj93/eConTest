@@ -14,6 +14,11 @@ namespace eContracting
     public interface ISettingsReaderService
     {
         /// <summary>
+        /// Gets a value indicating whether to save group file to <c>debug</c> folder.
+        /// </summary>
+        bool SaveFilesToDebugFolder { get; }
+
+        /// <summary>
         /// Gets definition by <see cref="OfferModel.Process"/> and <see cref="OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
         /// </summary>
         /// <param name="offer">The offer.</param>
@@ -101,5 +106,15 @@ namespace eContracting
         /// </summary>
         /// <returns></returns>
         string GetFileCacheStorageConnectionString();
+
+        /// <summary>
+        /// Gets mapping from old keys to new ones with respect to offer <paramref name="version"/>.
+        /// </summary>
+        /// <remarks>
+        ///     <para><see cref="KeyValuePair{TKey, TValue}.Key"/> is what you have.</para>
+        ///     <para><see cref="KeyValuePair{TKey, TValue}.Value"/> is what you need.</para>
+        /// </remarks>
+        /// <param name="version">Offer version.</param>
+        KeyValuePair<string, string>[] GetBackCompatibleTextParametersKeys(int version);
     }
 }

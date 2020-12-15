@@ -116,6 +116,23 @@ namespace eContracting.Services
             return parameters;
         }
 
+        /// <inheritdoc/>
+        public void MakeCompatibleParameters(IDictionary<string, string> textParameters, int version)
+        {
+            var keys = this.SettingsReader.GetBackCompatibleTextParametersKeys(version);
+
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var newKey = keys[i].Key;
+                var oldKey = keys[i].Value;
+
+                if (textParameters.ContainsKey(newKey) && !textParameters.ContainsKey(oldKey))
+                {
+                    textParameters[oldKey] = textParameters[newKey];
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the header from <see cref="ZCCH_CACHE_GETResponse.ES_HEADER"/>.
         /// </summary>
@@ -289,11 +306,11 @@ namespace eContracting.Services
         {
             if (xmlNode.FirstChild?.Name == "body")
             {
-                return this.GetCleanedUpBodyValue(xmlNode);
+                return this.GetCleanedUpBodyValue(xmlNode)?.Trim();
             }
             else
             {
-                return this.GetXmlNodeValue(xmlNode);
+                return this.GetXmlNodeValue(xmlNode)?.Trim();
             }
         }
 

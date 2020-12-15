@@ -118,17 +118,6 @@
             <param name="pdf"></param>
             <param name="outputDocument"></param>
         </member>
-        <member name="M:eContracting.Services.FileOptimizer.AppendImageToPdf(PdfSharp.Pdf.PdfPage,System.Byte[],System.Int32,System.Int32,System.Double,System.String)">
-            <summary>
-            Vlozi obrazek do pdf dokumentu
-            </summary>
-            <param name="pdf"></param>
-            <param name="img"></param>
-            <param name="xPosition"></param>
-            <param name="yPosition"></param>
-            <param name="scale"></param>
-            <param name="footerText"></param>
-        </member>
         <member name="M:eContracting.Services.FileOptimizer.CreateBitmap(System.Byte[])">
             <summary>
             Vytvori bitmap obrazek z bytoveho pole
@@ -457,6 +446,9 @@
         <member name="M:eContracting.Services.OfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatibleParameters(System.Collections.Generic.IDictionary{System.String,System.String},System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.OfferParserService.GetHeader(eContracting.Services.ZCCH_CACHE_GETResponse)">
             <summary>
             Gets the header from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER"/>.
@@ -564,6 +556,9 @@
             The randomizer.
             </summary>
         </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.SaveFilesToDebugFolder">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
@@ -602,10 +597,16 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSiteSettings">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetXmlNodeNamesExcludeHtml">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetFileCacheStorageConnectionString">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetBackCompatibleTextParametersKeys(System.Int32)">
             <inheritdoc/>
         </member>
     </members>

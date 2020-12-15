@@ -2090,9 +2090,21 @@
             <param name="files">The files.</param>
             <returns>Dictionary or null.</returns>
         </member>
+        <member name="M:eContracting.IOfferParserService.MakeCompatibleParameters(System.Collections.Generic.IDictionary{System.String,System.String},System.Int32)">
+            <summary>
+            Makes <paramref name="textParameters"/> compatible in respect to offer <paramref name="version"/>.
+            </summary>
+            <param name="textParameters">The text parameters.</param>
+            <param name="version">Offer version.</param>
+        </member>
         <member name="T:eContracting.ISettingsReaderService">
             <summary>
             Global settings reader.
+            </summary>
+        </member>
+        <member name="P:eContracting.ISettingsReaderService.SaveFilesToDebugFolder">
+            <summary>
+            Gets a value indicating whether to save group file to <c>debug</c> folder.
             </summary>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
@@ -2178,6 +2190,16 @@
             Gets connection string for <see cref="T:eContracting.IUserFileCacheService"/>.
             </summary>
             <returns></returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetBackCompatibleTextParametersKeys(System.Int32)">
+            <summary>
+            Gets mapping from old keys to new ones with respect to offer <paramref name="version"/>.
+            </summary>
+            <remarks>
+                <para><see cref="P:System.Collections.Generic.KeyValuePair`2.Key"/> is what you have.</para>
+                <para><see cref="P:System.Collections.Generic.KeyValuePair`2.Value"/> is what you need.</para>
+            </remarks>
+            <param name="version">Offer version.</param>
         </member>
         <member name="T:eContracting.OFFER_TYPES">
             <summary>

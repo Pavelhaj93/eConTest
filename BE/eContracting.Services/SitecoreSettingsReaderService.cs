@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Fields;
+using Sitecore.Data.Fields;
 using Sitecore.Reflection.Emit;
 
 namespace eContracting.Services
@@ -31,6 +32,15 @@ namespace eContracting.Services
         /// The randomizer.
         /// </summary>
         protected readonly static Random Rand = new Random();
+
+        /// <inheritdoc/>
+        public bool SaveFilesToDebugFolder
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetBoolSetting("eContracting.SaveFilesToDebugFolder", false);
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SitecoreSettingsReaderService"/> class.
@@ -235,6 +245,7 @@ namespace eContracting.Services
             return settings ?? throw new MissingDatasourceException("Site settings could not be resolved.");
         }
 
+        /// <inheritdoc/>
         public string[] GetXmlNodeNamesExcludeHtml()
         {
             var list = new List<string>();
@@ -279,6 +290,19 @@ namespace eContracting.Services
             }
 
             return conString.ConnectionString;
+        }
+
+        /// <inheritdoc/>
+        public KeyValuePair<string, string>[] GetBackCompatibleTextParametersKeys(int version)
+        {
+            var list = new List<KeyValuePair<string, string>>();
+
+            if (version == 1)
+            {
+                list.Add(new KeyValuePair<string, string>("CUSTTITLELET", "PERSON_CUSTTITLELET"));
+            }
+
+            return list.ToArray();
         }
     }
 }
