@@ -28,6 +28,12 @@ SharedFields:
           id="{98B94438-C0B0-44A3-A32C-9078E992D049}"
           ph="eContracting2"
           uid="{C71EEDE7-9D64-4543-984F-8AB6C2D3EE5B}" />
+        <r
+          ds=""
+          id="{994F14EA-C859-4055-BB0E-523CE476057A}"
+          par=""
+          ph="/eContracting2/eContracting2-login"
+          uid="{A9AD3125-0E1F-4EBB-97AA-69BFE5DEA9D5}" />
       </d>
     </r>
 - ID: "f5fce8e0-0930-4d43-8f90-c06da4ececed"

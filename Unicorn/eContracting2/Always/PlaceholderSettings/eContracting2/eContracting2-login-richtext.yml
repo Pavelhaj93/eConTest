@@ -7,11 +7,11 @@ DB: master
 SharedFields:
 - ID: "7256bdab-1fd2-49dd-b205-cb4873d2917c"
   Hint: Placeholder Key
-  Value: "eContracting2-login-richtext"
+  Value: "eContracting2-login"
 - ID: "e391b526-d0c5-439d-803e-17512eae6222"
   Hint: Allowed Controls
   Type: TreelistEx
-  Value: "{4CEF4551-AA4E-4AEA-AEAA-5EA1A1CC27A5}"
+  Value: "{994F14EA-C859-4055-BB0E-523CE476057A}"
 Languages:
 - Language: en
   Versions:

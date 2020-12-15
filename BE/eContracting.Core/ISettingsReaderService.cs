@@ -25,7 +25,8 @@ namespace eContracting
         /// </summary>
         /// <param name="process">The process.</param>
         /// <param name="processType">Type of the process.</param>
-        /// <returns>Definition or null.</returns>
+        /// <returns>Definition matched by <paramref name="process"/> and <paramref name="processType"/> or default one.</returns>
+        /// <exception cref="ApplicationException">When even default definition was not found.</exception>
         DefinitionCombinationModel GetDefinition(string process, string processType);
 
         /// <summary>

@@ -104,6 +104,8 @@
     <Compile Include="Models\DbSearchParameters.cs" />
     <Compile Include="Models\DbSignedFileModel.cs" />
     <Compile Include="Models\DbUploadGroupFileModel.cs" />
+    <Compile Include="Models\DefinitionCombinationContainerModel.cs" />
+    <Compile Include="Models\DefinitionCombinationDataModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />

@@ -6,22 +6,22 @@ Path: /sitecore/content/eContracting2/Definitions/BNR pojisteni
 DB: master
 SharedFields:
 - ID: "0602663a-9590-4902-ad69-4687dd0003c0"
-  Hint: OfferSupplementDocumentsText
+  Hint: OfferAdditionalServicesText
   Value: "{BE931A3F-E88E-49B1-8022-7F3451568885}"
 - ID: "0c8cce0d-32cc-4d7c-b14f-5c7c75d4a13f"
-  Hint: OfferObligatoryDocumentsTitle
+  Hint: OfferUploadsTitle
   Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
 - ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
   Hint: OfferTitle
   Value: "{DAD47FAC-39DA-4219-B7C4-8F1D97537935}"
 - ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
-  Hint: OfferSupplementDocumentsTitle
+  Hint: OfferAdditionalServicesTitle
   Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
 - ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
   Hint: OfferOtherProductsTitle
   Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
 - ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
-  Hint: OfferDocumentsForAcceptanceText
+  Hint: OfferCommoditiesText
   Value: "{4A3B18B0-5A69-49F0-A9FB-DE2F96B0E367}"
 - ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
   Hint: Process
@@ -33,13 +33,13 @@ SharedFields:
   Hint: OfferOtherProductsDocsText
   Value: "{E00A892D-3943-4B6A-A1B0-273DEC6FF500}"
 - ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
-  Hint: MainTextOfferExpired
+  Hint: OfferExpiredMainText
   Value: "{E876E1F6-374E-4628-8708-C995FB49848C}"
 - ID: "4825c7b5-e299-4dfa-b9e0-f6369eda5fd8"
-  Hint: OfferObligatoryAdditionalDocsText
+  Hint: OfferUploadsExtraText
   Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
 - ID: "58934276-4619-4696-85f4-eda6be9e6c76"
-  Hint: OfferDocumentsForAcceptanceTitle
+  Hint: OfferCommoditiesTitle
   Value: "{9369F4D9-0160-4CA8-A61D-F04159DD888B}"
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
@@ -48,7 +48,7 @@ SharedFields:
   Hint: OfferAcceptTitle
   Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
 - ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
-  Hint: OfferObligatoryAdditionalDocsHelp
+  Hint: OfferUploadsExtraHelp
   Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
 - ID: "70941589-f449-4853-ac06-110f564ef692"
   Hint: OfferOtherProductsNote
@@ -63,7 +63,7 @@ SharedFields:
   Hint: __Workflow
   Value: 
 - ID: "a6fe0df7-c9a6-4bda-9bd9-1d05544dc3b0"
-  Hint: OfferObligatoryDocumentsNote
+  Hint: OfferUploadsNote
   Value: "{CD30BFB0-4AFA-4489-9FA1-1DAF2236C52B}"
 - ID: "b774cee3-3575-44a3-8405-d6af8aed1cbb"
   Hint: OfferBenefitsTitle
@@ -72,7 +72,7 @@ SharedFields:
   Hint: OfferMainText
   Value: "{253B0B8A-018E-40C3-9BBA-A0FB6BF11279}"
 - ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
-  Hint: MainTextOfferAccepted
+  Hint: OfferAcceptedMainText
   Value: "{F35393DD-5C73-4591-AC87-83B68C589496}"
 - ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
   Hint: OfferOtherProductsDocsTitle
