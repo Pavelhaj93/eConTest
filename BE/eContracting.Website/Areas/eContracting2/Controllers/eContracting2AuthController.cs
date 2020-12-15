@@ -74,11 +74,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IContextWrapper contextWrapper,
             IApiService apiService,
             IAuthenticationService authService,
-            IUserDataCacheService userDataCache,
             ISettingsReaderService settingsReaderService,
             ILoginReportStore loginReportService,
             ISitecoreContext sitecoreContext,
-            IRenderingContext renderingContext) : base(sitecoreContext, renderingContext)
+            IRenderingContext renderingContext,
+            IUserDataCacheService userDataCache) : base(sitecoreContext, renderingContext)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));

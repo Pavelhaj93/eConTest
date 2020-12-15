@@ -49,13 +49,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(false);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.CanLogin(guid, offer);
 
             Assert.Equal(LoginStates.USER_BLOCKED, result);
@@ -70,13 +71,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.CanLogin(guid, (OfferModel)null);
 
             Assert.Equal(LoginStates.OFFER_NOT_FOUND, result);
@@ -92,13 +94,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.CanLogin(guid, offer);
 
             Assert.Equal(LoginStates.OFFER_STATE_1, result);
@@ -114,13 +117,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.CanLogin(guid, offer);
 
             Assert.Equal(LoginStates.MISSING_BIRTHDAY, result);
@@ -137,13 +141,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             mockLoginReportService.Setup(x => x.CanLogin(guid)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.CanLogin(guid, offer);
 
             Assert.Equal(LoginStates.OK, result);
@@ -160,6 +165,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
@@ -175,7 +181,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -198,6 +204,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
@@ -213,7 +220,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -240,6 +247,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -254,7 +262,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -283,6 +291,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -298,7 +307,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -326,6 +335,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.UserBlocked)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -340,7 +350,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -370,6 +380,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -384,7 +395,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -414,6 +425,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -429,7 +441,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -464,6 +476,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 return true;
             });
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -479,7 +492,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -512,6 +525,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -527,7 +541,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.Login();
@@ -559,6 +573,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -572,7 +587,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
 
@@ -604,6 +619,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockApiService = new Mock<IApiService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginReportStore>();
@@ -617,7 +633,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
 
@@ -655,6 +671,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
@@ -667,7 +684,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var httpContext = new HttpContext(httpRequest, httpResponse);
                 var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+                var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
                 var result = controller.GetLoginFailReturns(state, guid);
@@ -697,12 +714,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
 
             Assert.Throws<ArgumentNullException>(() => { controller.GetChoiceViewModel((LoginTypeModel)null, offer); });
         }
@@ -716,13 +734,14 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             Assert.Throws<ArgumentNullException>(() => { controller.GetChoiceViewModel(loginType, (OfferModel)null); });
         }
 
@@ -736,12 +755,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);
 
             Assert.NotNull(result);
@@ -757,12 +777,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);
 
             Assert.NotNull(result);
@@ -779,12 +800,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             var mockApiService = new Mock<IApiService>();
             var mockAuthService = new Mock<IAuthenticationService>();
+            var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginReportStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
-            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object);
+            var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object);
             var result = controller.GetChoiceViewModel(loginType, offer);
 
             Assert.NotNull(result);
