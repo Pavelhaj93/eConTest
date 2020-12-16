@@ -24,7 +24,7 @@ namespace eContracting.Services
     {
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
-        protected readonly IApiService ApiService;
+        protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
@@ -60,7 +60,7 @@ namespace eContracting.Services
         public FileOptimizer(
             ILogger logger,
             ISitecoreContext context,
-            IApiService apiService,
+            IOfferService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService)
         {

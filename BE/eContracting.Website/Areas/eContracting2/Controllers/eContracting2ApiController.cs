@@ -27,7 +27,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     {
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
-        protected readonly IApiService ApiService;
+        protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
@@ -41,7 +41,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
+            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
@@ -56,7 +56,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         internal eContracting2ApiController(
             ILogger logger,
             ISitecoreContext context,
-            IApiService apiService,
+            IOfferService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
             ISignService signService,

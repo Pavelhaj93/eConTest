@@ -15,7 +15,7 @@ namespace eContracting.Services
     {
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
-        protected readonly IApiService ApiService;
+        protected readonly IOfferService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace eContracting.Services
         public OfferJsonDescriptor(
             ILogger logger,
             ISitecoreContext context,
-            IApiService apiService,
+            IOfferService apiService,
             ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));

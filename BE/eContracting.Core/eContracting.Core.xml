@@ -1371,7 +1371,7 @@
         </member>
         <member name="T:eContracting.CacheApiServiceOptions">
             <summary>
-            Settings for <see cref="T:eContracting.IApiService"/>.
+            Settings for <see cref="T:eContracting.IOfferService"/>.
             </summary>
         </member>
         <member name="M:eContracting.CacheApiServiceOptions.#ctor(System.String,System.String,System.String)">
@@ -1384,7 +1384,7 @@
         </member>
         <member name="T:eContracting.SignApiServiceOptions">
             <summary>
-            Settings for <see cref="T:eContracting.IApiService"/>.
+            Settings for <see cref="T:eContracting.IOfferService"/>.
             </summary>
         </member>
         <member name="M:eContracting.SignApiServiceOptions.#ctor(System.String,System.String,System.String)">
@@ -1712,6 +1712,11 @@
             </summary>
             <param name="templateId">The template identifier.</param>
         </member>
+        <member name="T:eContracting.Extensions">
+            <summary>
+            All extensions available in core functionality.
+            </summary>
+        </member>
         <member name="M:eContracting.Extensions.GetItems``1(Glass.Mapper.Sc.ISitecoreService,System.String)">
             <summary>
             Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.
@@ -1727,6 +1732,13 @@
             </summary>
             <param name="file">The file.</param>
             <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
+        </member>
+        <member name="M:eContracting.Extensions.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets value of IDATTACH from the <paramref name="file"/> if exists.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Value or null.</returns>
         </member>
         <member name="M:eContracting.Extensions.Merge``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
             <summary>
@@ -1747,12 +1759,12 @@
               <c>true</c> if the specified key has value; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="T:eContracting.IApiService">
+        <member name="T:eContracting.IOfferService">
             <summary>
             Service with direct communication to SAP / CACHE.
             </summary>
         </member>
-        <member name="M:eContracting.IApiService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.IOfferService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
             Accepts offer asynchronously.
             </summary>
@@ -1760,7 +1772,7 @@
             <param name="data">The submitted data.</param>
             <returns>True if it was accepted or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.IOfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
             Accepts offer synchronously.
             </summary>
@@ -1768,35 +1780,35 @@
             <param name="data">The submitted data.</param>
             <returns>True if it was accepted or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.ReadOffer(System.String)">
+        <member name="M:eContracting.IOfferService.ReadOffer(System.String)">
             <summary>
             Reads offer synchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.ReadOfferAsync(System.String)">
+        <member name="M:eContracting.IOfferService.ReadOfferAsync(System.String)">
             <summary>
             Reads offer asynchronously.
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
             <summary>
             Gets the files asynchronous.
             </summary>
             <param name="offer">The offer with attachment templates.</param>
             <returns>Files in array or null</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetAttachments(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel)">
             <summary>
             Gets the files synchronous.
             </summary>
             <param name="offer">The offer with attachment templates.</param>
             <returns>Files in array or null</returns>
         </member>
-        <member name="M:eContracting.IApiService.GetOffer(System.String)">
+        <member name="M:eContracting.IOfferService.GetOffer(System.String)">
             <summary>
             Gets the offer by <paramref name="guid"/> with text parameters synchronously.
             </summary>
@@ -1804,7 +1816,7 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IApiService.GetOfferAsync(System.String)">
+        <member name="M:eContracting.IOfferService.GetOfferAsync(System.String)">
             <summary>
             Gets the offer by <paramref name="guid"/> with text parameters asynchronously.
             </summary>
@@ -1813,7 +1825,7 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IApiService.GetOfferAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.IOfferService.GetOfferAsync(System.String,System.Boolean)">
             <summary>
             Gets the offer by <paramref name="guid"/> asynchronously.
             </summary>
@@ -1823,14 +1835,14 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IApiService.SignInOffer(System.String)">
+        <member name="M:eContracting.IOfferService.SignInOffer(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed.
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
         </member>
-        <member name="M:eContracting.IApiService.SignInOfferAsync(System.String)">
+        <member name="M:eContracting.IOfferService.SignInOfferAsync(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed asynchronously.
             </summary>
@@ -2153,7 +2165,7 @@
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
             <summary>
-            Gets configuration for <see cref="T:eContracting.IApiService"/>.
+            Gets configuration for <see cref="T:eContracting.IOfferService"/>.
             </summary>
             <returns>The configuration.</returns>
         </member>

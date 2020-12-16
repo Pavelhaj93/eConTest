@@ -47,7 +47,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var offer = this.CreateOffer(guid);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -69,7 +69,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -92,7 +92,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var offer = this.CreateOffer(guid, true, 2, state);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -115,7 +115,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var offer = this.CreateOffer(guid, true, 2, state);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -139,7 +139,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -163,7 +163,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -202,7 +202,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -245,7 +245,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -288,7 +288,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -332,7 +332,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -377,7 +377,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -422,7 +422,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -468,7 +468,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(() =>
             {
@@ -521,7 +521,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
             mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
             var mockAuthService = new Mock<IAuthenticationService>();
@@ -570,7 +570,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -616,7 +616,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(() => { throw aggregageException; });
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
@@ -669,7 +669,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -712,7 +712,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var offer = this.CreateOffer(guid);
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -732,7 +732,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -753,7 +753,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginType = new LoginTypeModel();
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -775,7 +775,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginType = new LoginTypeModel();
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
@@ -798,7 +798,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginType = new LoginTypeModel();
             var logger = new MemoryLogger();
             var mockContextWrapper = new Mock<IContextWrapper>();
-            var mockApiService = new Mock<IApiService>();
+            var mockApiService = new Mock<IOfferService>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();

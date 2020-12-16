@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace eContracting
 {
     /// <summary>
-    /// Settings for <see cref="IApiService"/>.
+    /// Settings for <see cref="IOfferService"/>.
     /// </summary>
     public class SignApiServiceOptions : BaseApiServiceOptions
     {

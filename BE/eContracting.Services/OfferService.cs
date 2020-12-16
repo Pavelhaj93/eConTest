@@ -16,7 +16,7 @@ namespace eContracting.Services
     /// <summary>
     /// Service wrapper over generated <see cref="ZCCH_CACHE_API"/>.
     /// </summary>
-    public class SapApiService : IApiService
+    public class OfferService : IOfferService
     {
         /// <summary>
         /// The logger.
@@ -51,22 +51,24 @@ namespace eContracting.Services
         /// <summary>
         /// The API client.
         /// </summary>
-        private readonly ZCCH_CACHE_APIClient Api;
+        private readonly ZCCH_CACHE_API Api; // ZCCH_CACHE_API
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SapApiService"/> class.
+        /// Initializes a new instance of the <see cref="OfferService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="userDataCache">The user data cache.</param>
         /// <param name="userFileCache">The user file cache.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <param name="factory">The factory for <see cref="ZCCH_CACHE_API"/>.</param>
         /// <param name="offerParser">The offer parser.</param>
         /// <param name="offerAttachmentParser">The offer attachment parser.</param>
-        public SapApiService(
+        public OfferService(
             ILogger logger,
             IUserDataCacheService userDataCache,
             IUserFileCacheService userFileCache,
             ISettingsReaderService settingsReaderService,
+            IOfferServiceFactory factory,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser)
         {
@@ -80,17 +82,7 @@ namespace eContracting.Services
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             var options = this.SettingsReaderService.GetApiServiceOptions();
 
-            var binding = new BasicHttpBinding();
-            binding.Name = nameof(ZCCH_CACHE_APIClient);
-            binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
-            binding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
-            binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
-
-            var endpoint = new EndpointAddress(options.Url);
-            
-            this.Api = new ZCCH_CACHE_APIClient(binding, endpoint);
-            this.Api.ClientCredentials.UserName.UserName = options.User;
-            this.Api.ClientCredentials.UserName.Password = options.Password;
+            this.Api = factory.CreateCacheApi(options);
         }
 
         /// <inheritdoc/>

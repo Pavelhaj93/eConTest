@@ -28,7 +28,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     {
         protected readonly ILogger Logger;
         protected readonly IUserDataCacheService Cache;
-        protected readonly IApiService ApiService;
+        protected readonly IOfferService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IAuthenticationService AuthenticationService;
         protected readonly IContextWrapper Context;
@@ -41,7 +41,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
+            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
@@ -51,7 +51,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2Controller(
             ILogger logger,
             IUserDataCacheService cache,
-            IApiService apiService,
+            IOfferService apiService,
             ISettingsReaderService settingsReaderService,
             IAuthenticationService authService,
             IContextWrapper context,

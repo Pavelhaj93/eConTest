@@ -24,7 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         private const string salt = "228357";
         protected readonly ILogger Logger;
         protected readonly IContextWrapper ContextWrapper;
-        protected readonly IApiService ApiService;
+        protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly IUserDataCacheService UserDataCache;
         protected readonly ILoginReportStore LoginReportService;
@@ -38,7 +38,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IApiService>();
+            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
@@ -72,7 +72,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         internal eContracting2AuthController(
             ILogger logger,
             IContextWrapper contextWrapper,
-            IApiService apiService,
+            IOfferService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
             ILoginReportStore loginReportService,

@@ -10,7 +10,7 @@ using Sitecore.ApplicationCenter.Applications;
 namespace eContracting
 {
     /// <summary>
-    /// Settings for <see cref="IApiService"/>.
+    /// Settings for <see cref="IOfferService"/>.
     /// </summary>
     public class CacheApiServiceOptions : BaseApiServiceOptions
     {

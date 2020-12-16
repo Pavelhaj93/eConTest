@@ -63,7 +63,7 @@ namespace eContracting
         IEnumerable<LoginTypeModel> GetAllLoginTypes();
 
         /// <summary>
-        /// Gets configuration for <see cref="IApiService"/>.
+        /// Gets configuration for <see cref="IOfferService"/>.
         /// </summary>
         /// <returns>The configuration.</returns>
         CacheApiServiceOptions GetApiServiceOptions();

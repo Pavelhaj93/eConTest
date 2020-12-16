@@ -90,7 +90,7 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
         </member>
-        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IApiService,eContracting.IAuthenticationService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.IAuthenticationService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.FileOptimizer"/> class.
             </summary>
@@ -175,7 +175,7 @@
             <param name="logger">The logger.</param>
             <param name="settingsReaderService">The settings reader service.</param>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IApiService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
             </summary>
@@ -206,91 +206,92 @@
             <param name="textParameters">The text parameters.</param>
             <param name="key">The key.</param>
         </member>
-        <member name="T:eContracting.Services.SapApiService">
+        <member name="T:eContracting.Services.OfferService">
             <summary>
             Service wrapper over generated <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.Logger">
+        <member name="F:eContracting.Services.OfferService.Logger">
             <summary>
             The logger.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.UserDataCache">
+        <member name="F:eContracting.Services.OfferService.UserDataCache">
             <summary>
             The user data cache.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.UserFileCache">
+        <member name="F:eContracting.Services.OfferService.UserFileCache">
             <summary>
             The user file cache.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.SettingsReaderService">
+        <member name="F:eContracting.Services.OfferService.SettingsReaderService">
             <summary>
             The settings reader service.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.OfferParser">
+        <member name="F:eContracting.Services.OfferService.OfferParser">
             <summary>
             The offer parser.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.AttachmentParser">
+        <member name="F:eContracting.Services.OfferService.AttachmentParser">
             <summary>
             The attachment parser.
             </summary>
         </member>
-        <member name="F:eContracting.Services.SapApiService.Api">
+        <member name="F:eContracting.Services.OfferService.Api">
             <summary>
             The API client.
             </summary>
         </member>
-        <member name="M:eContracting.Services.SapApiService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IOfferServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.SapApiService"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>
             <param name="logger">The logger.</param>
             <param name="userDataCache">The user data cache.</param>
             <param name="userFileCache">The user file cache.</param>
             <param name="settingsReaderService">The settings reader service.</param>
+            <param name="factory">The factory for <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.</param>
             <param name="offerParser">The offer parser.</param>
             <param name="offerAttachmentParser">The offer attachment parser.</param>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.Services.OfferService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetOffer(System.String)">
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String)">
+        <member name="M:eContracting.Services.OfferService.GetOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetOfferAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetOfferAsync(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetAttachments(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.ReadOffer(System.String)">
+        <member name="M:eContracting.Services.OfferService.ReadOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.ReadOfferAsync(System.String)">
+        <member name="M:eContracting.Services.OfferService.ReadOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SignInOffer(System.String)">
+        <member name="M:eContracting.Services.OfferService.SignInOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SignInOfferAsync(System.String)">
+        <member name="M:eContracting.Services.OfferService.SignInOfferAsync(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetTextParametersAsync(eContracting.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferService.GetTextParametersAsync(eContracting.Models.ResponseCacheGetModel)">
             <summary>
             Gets the text parameters for specific version.
             </summary>
@@ -298,7 +299,7 @@
             <returns>Dictionary or null.</returns>
             <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetResponseAsync(System.String,eContracting.OFFER_TYPES,System.String)">
+        <member name="M:eContracting.Services.OfferService.GetResponseAsync(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Gets data.
             </summary>
@@ -307,7 +308,7 @@
             <param name="fileType">Type of the file.</param>
             <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.String)">
+        <member name="M:eContracting.Services.OfferService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -316,7 +317,7 @@
             <param name="status">The status.</param>
             <returns><c>True</c> if status was set.</returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
+        <member name="M:eContracting.Services.OfferService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -326,7 +327,7 @@
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>True if it was successfully set or false.</returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.GetFilesAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetFilesAsync(System.String,System.Boolean)">
             <summary>
             Gets the files asynchronous.
             </summary>
@@ -334,7 +335,7 @@
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.SapApiService.PutAsync(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.Services.OfferService.PutAsync(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
             Inserts data asynchronously.
             </summary>

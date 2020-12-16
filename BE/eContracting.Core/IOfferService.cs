@@ -8,7 +8,7 @@ namespace eContracting
     /// <summary>
     /// Service with direct communication to SAP / CACHE.
     /// </summary>
-    public interface IApiService
+    public interface IOfferService
     {
         /// <summary>
         /// Accepts offer asynchronously.
