@@ -45,11 +45,10 @@ Included items must then not match any entries in the exclude list to remain inc
                             <Exclude>
                                 <Function>^glass.*</Function>
                                 <Function>^xunit.*</Function>
-                                <Function>^std::.*</Function>
-                                <Function>^ATL::.*</Function>
-                                <Function>.*::__GetTestMethodInfo.*</Function>
-                                <Function>^Microsoft::VisualStudio::CppCodeCoverageFramework::.*</Function>
-                                <Function>^Microsoft::VisualStudio::CppUnitTestFramework::.*</Function>
+                                <Function>^eContracting\.Models\..*</Function>
+                                <Function>^eContracting\.Storage\..*</Function>
+                                <Function>^eContracting\.Website\.Areas\.eContracting\..*</Function>
+                                <Function>^eContracting\.Website\.App_Start\..*</Function>
                             </Exclude>
                         </Functions>
 

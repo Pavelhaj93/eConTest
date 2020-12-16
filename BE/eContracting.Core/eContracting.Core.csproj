@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseApiServiceOptions.cs" />
     <Compile Include="EVENT_NAMES.cs" />
     <Compile Include="IEventLogger.cs" />
     <Compile Include="IStartup.cs" />

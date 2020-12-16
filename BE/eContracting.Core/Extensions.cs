@@ -75,7 +75,7 @@ namespace eContracting
         /// </returns>
         public static bool HasValue(this IDictionary<string, string> source, string key)
         {
-            if (source == null)
+            if (source == null || source.Count == 0)
             {
                 return false;
             }
@@ -85,7 +85,7 @@ namespace eContracting
                 return false;
             }
 
-            var value = source[key].Trim();
+            var value = source[key]?.Trim();
 
             return !string.IsNullOrWhiteSpace(value);
         }

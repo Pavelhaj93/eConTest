@@ -4,6 +4,36 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="F:eContracting.BaseApiServiceOptions.User">
+            <summary>
+            The user.
+            </summary>
+        </member>
+        <member name="F:eContracting.BaseApiServiceOptions.Password">
+            <summary>
+            The password.
+            </summary>
+        </member>
+        <member name="F:eContracting.BaseApiServiceOptions.Url">
+            <summary>
+            The URL.
+            </summary>
+        </member>
+        <member name="M:eContracting.BaseApiServiceOptions.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.BaseApiServiceOptions"/> class.
+            </summary>
+            <param name="url">The URL.</param>
+            <param name="base64Username">The base64 username.</param>
+            <param name="base64password">The base64password.</param>
+            <exception cref="T:System.ArgumentException">
+            Url cannot be empty - url
+            or
+            Username cannot be empty - base64Username
+            or
+            Password cannot be empty - base64password
+            </exception>
+        </member>
         <member name="T:eContracting.EVENT_NAMES">
             <summary>
             List of events for <see cref="T:eContracting.IEventLogger"/>.
@@ -1344,21 +1374,6 @@
             Settings for <see cref="T:eContracting.IApiService"/>.
             </summary>
         </member>
-        <member name="F:eContracting.CacheApiServiceOptions.User">
-            <summary>
-            The user.
-            </summary>
-        </member>
-        <member name="F:eContracting.CacheApiServiceOptions.Password">
-            <summary>
-            The password.
-            </summary>
-        </member>
-        <member name="F:eContracting.CacheApiServiceOptions.Url">
-            <summary>
-            The URL.
-            </summary>
-        </member>
         <member name="M:eContracting.CacheApiServiceOptions.#ctor(System.String,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.CacheApiServiceOptions"/> class.
@@ -1370,21 +1385,6 @@
         <member name="T:eContracting.SignApiServiceOptions">
             <summary>
             Settings for <see cref="T:eContracting.IApiService"/>.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.User">
-            <summary>
-            The user.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.Password">
-            <summary>
-            The password.
-            </summary>
-        </member>
-        <member name="F:eContracting.SignApiServiceOptions.Url">
-            <summary>
-            The URL.
             </summary>
         </member>
         <member name="M:eContracting.SignApiServiceOptions.#ctor(System.String,System.String,System.String)">
@@ -2352,6 +2352,16 @@
         <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
             <inheritdoc/>
         </member>
+        <member name="F:eContracting.Utils.RegexAttrStyle">
+            <summary>
+            Regular expression for HTML attribute ' style="..."'.
+            </summary>
+        </member>
+        <member name="F:eContracting.Utils.RegexAttrXmlNamespace">
+            <summary>
+            Regular expression for XML attribute ' xmlns="..."'.
+            </summary>
+        </member>
         <member name="M:eContracting.Utils.GetReadableFileSize(System.Int32)">
             <summary>
             Gers readable size.
@@ -2380,6 +2390,32 @@
             </summary>
             <param name="template">The template.</param>
             <returns>Hash of <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Group"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/></returns>
+        </member>
+        <member name="M:eContracting.Utils.GetRawXml(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets the raw XML from <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>String representation of <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.</returns>
+        </member>
+        <member name="M:eContracting.Utils.ReplaceXmlAttributes(System.String)">
+            <summary>
+            Replaces the HTML attribute <c>style</c> and XML attribute <c>xmlns</c> from given <paramref name="input"/> string.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>Clean up string.</returns>
+        </member>
+        <member name="M:eContracting.Utils.GetIpAddress">
+            <summary>
+            Gets value from 'HttpContext.Current.Request', first try take it from 'ServerVariables["HTTP_X_FORWARDED_FOR"]', if it's empty, try take it from 'ServerVariables["REMOTE_ADDR"]'.
+            </summary>
+        </member>
+        <member name="M:eContracting.Utils.CreateAttributesFromTemplate(eContracting.Models.DocumentTemplateModel)">
+            <summary>
+            Creates the attribute(s) from template.
+            </summary>
+            <param name="template">The template.</param>
+            <returns>Collection with IDATTACH attribute.</returns>
         </member>
         <member name="M:eContracting.Utils.GetReplacedTextTokens(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>

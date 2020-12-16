@@ -7,7 +7,7 @@ using Xunit;
 
 namespace eContracting.Core.Tests
 {
-    public class CacheApiServiceOptionsTests
+    public class BaseApiServiceOptionsTests
     {
         [Fact]
         public void Constructor_Throws_ArgumentException_When_Url_Null()
@@ -17,6 +17,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -27,6 +28,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -37,6 +39,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<UriFormatException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<UriFormatException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -47,6 +50,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -57,6 +61,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         /// <summary>
@@ -70,6 +75,7 @@ namespace eContracting.Core.Tests
             string password = Convert.ToBase64String(Encoding.UTF8.GetBytes("password"));
 
             Assert.Throws<FormatException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<FormatException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -80,6 +86,7 @@ namespace eContracting.Core.Tests
             string password = null;
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         [Fact]
@@ -90,6 +97,7 @@ namespace eContracting.Core.Tests
             string password = string.Empty;
 
             Assert.Throws<ArgumentException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<ArgumentException>(() => { new SignApiServiceOptions(url, username, password); });
         }
 
         /// <summary>
@@ -103,6 +111,7 @@ namespace eContracting.Core.Tests
             string password = "mypassword";
 
             Assert.Throws<FormatException>(() => { new CacheApiServiceOptions(url, username, password); });
+            Assert.Throws<FormatException>(() => { new SignApiServiceOptions(url, username, password); });
         }
     }
 }

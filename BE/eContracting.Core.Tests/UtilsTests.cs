@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Services;
 using eContracting.Tests;
 using Xunit;
 
@@ -168,6 +169,113 @@ namespace eContracting.Core.Tests
             loginType.ID = Guid.NewGuid();
 
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey(loginType, (OfferModel)null); });
+        }
+
+        [Fact]
+        public void GetRawXml_Returns_Null_When_Given_File_Is_Null()
+        {
+            ZCCH_ST_FILE file = null;
+
+            var result = Utils.GetRawXml(file);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetRawXml_Returns_Null_When_Given_File_Content_Is_Null()
+        {
+            var file = new ZCCH_ST_FILE();
+            file.FILECONTENT = null;
+
+            var result = Utils.GetRawXml(file);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetRawXml_Returns_Null_When_Given_File_Content_Is_0()
+        {
+            var file = new ZCCH_ST_FILE();
+            file.FILECONTENT = new byte[] { };
+
+            var result = Utils.GetRawXml(file);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetRawXml_Returns_String_Representation()
+        {
+            var expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit";
+            var file = new ZCCH_ST_FILE();
+            file.FILECONTENT = Encoding.UTF8.GetBytes(expected);
+
+            var result = Utils.GetRawXml(file);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetReplacedTextTokens_Returns_Not_Modified_Given_Text_Because_Text_Is_Empty(string text)
+        {
+            var dic = new Dictionary<string, string>();
+
+            var result = Utils.GetReplacedTextTokens(text, dic);
+
+            Assert.Equal(text, result);
+        }
+
+        [Fact]
+        public void GetReplacedTextTokens_Returns_Not_Modified_Given_Text_With_Input_Dictionary_Is_Null()
+        {
+            var expected = "Hello {FIRSTNAME}";
+            Dictionary<string, string> dic = null;
+
+            var result = Utils.GetReplacedTextTokens(expected, dic);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetReplacedTextTokens_Returns_Text_With_Replaced_Tokens()
+        {
+            var token1 = "John";
+            var token2 = "Škoda Superb";
+            var text = "Hello {FIRSTNAME}, how is working your {PRODUCT_NAME}?";
+            var expected = $"Hello {token1}, how is working your {token2}?";
+            var dic = new Dictionary<string, string>();
+            dic.Add("FIRSTNAME", token1);
+            dic.Add("PRODUCT_NAME", token2);
+
+            var result = Utils.GetReplacedTextTokens(text, dic);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void CreateAttributesFromTemplate_Returns_Attributes_IDATTACH_From_Template()
+        {
+            var idAttachValue = "XYZ";
+            var template = new DocumentTemplateModel();
+            template.IdAttach = idAttachValue;
+
+            var result = Utils.CreateAttributesFromTemplate(template);
+
+            Assert.Contains(result, (attr) => { return attr.ATTRID == Constants.FileAttributes.TYPE && attr.ATTRVAL == idAttachValue; });
+        }
+
+        [Theory]
+        [InlineData(" style=\"text-align: center;\"", "")]
+        [InlineData("<p style=\"margin-top:0pt;margin-bottom:0pt\">", "<p>")]
+        [InlineData("data=\"mydata\" style=\"text-align: center;\"", "data=\"mydata\"")]
+        public void ReplaceXmlAttributes_Remove_Style_Attribute_From_Given_String(string input, string expected)
+        {
+            var result = Utils.ReplaceXmlAttributes(input);
+
+            Assert.Equal(expected, result);
         }
     }
 }

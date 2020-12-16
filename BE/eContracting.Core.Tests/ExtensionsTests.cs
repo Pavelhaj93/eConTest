@@ -137,5 +137,81 @@ namespace eContracting.Core.Tests
 
             Assert.Null(first);
         }
+
+        [Fact]
+        public void GetIdAttach_Returns_IdAttach_Value_Based_On_Constants_FileAttributes_TYPE()
+        {
+            var expected = "XYZ";
+            var attrs = new List<ZCCH_ST_ATTRIB>();
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "unknown", ATTRVAL = "hello" });
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = expected });
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = attrs.ToArray();
+
+            var result = file.GetIdAttach();
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_False_When_Dictionary_Is_Null()
+        {
+            var key = "key";
+            Dictionary<string, string> dic = null;
+
+            var result = dic.HasValue(key);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_False_When_Dictionary_Is_Empty()
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+
+            var result = dic.HasValue(key);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_False_When_Dictionary_Doesnt_Contain_Given_Key()
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add("a", "custom");
+
+            var result = dic.HasValue(key);
+
+            Assert.False(result);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void HasValue_Returns_False_When_Value_Found_By_Given_Key_Is_Empty(string value)
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add(key, value);
+
+            var result = dic.HasValue(key);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_True_When_Value_Found_By_Given_Key_Is_Not_Empty()
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add(key, "x");
+
+            var result = dic.HasValue(key);
+
+            Assert.True(result);
+        }
     }
 }

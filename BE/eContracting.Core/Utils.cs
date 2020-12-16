@@ -18,7 +18,14 @@ namespace eContracting
 {
     public static class Utils
     {
+        /// <summary>
+        /// Regular expression for HTML attribute ' style="..."'.
+        /// </summary>
         private static Regex RegexAttrStyle = new Regex("( style=\"[\\d\\w\\s\\-\\:\\;]*\")", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Regular expression for XML attribute ' xmlns="..."'.
+        /// </summary>
         private static Regex RegexAttrXmlNamespace = new Regex("( xmlns=\"[^\"]*\")", RegexOptions.Compiled);
 
         /// <summary>
@@ -158,17 +165,33 @@ namespace eContracting
         /// </summary>
         /// <param name="template">The template.</param>
         /// <returns>Hash of <see cref="DocumentTemplateModel.IdAttach"/> + <see cref="DocumentTemplateModel.Group"/> + <see cref="DocumentTemplateModel.Description"/></returns>
+        [ExcludeFromCodeCoverage]
         public static string GetUniqueKey(DocumentTemplateModel template)
         {
             var data = template.IdAttach + template.Group + template.Description;
             return GetMd5(data);
         }
 
+        /// <summary>
+        /// Gets the raw XML from <see cref="ZCCH_ST_FILE.FILECONTENT"/>.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>String representation of <see cref="ZCCH_ST_FILE.FILECONTENT"/>.</returns>
         public static string GetRawXml(ZCCH_ST_FILE file)
         {
+            if ((file?.FILECONTENT?.Length ?? 0) < 1)
+            {
+                return null;
+            }
+
             return Encoding.UTF8.GetString(file.FILECONTENT);
         }
 
+        /// <summary>
+        /// Replaces the HTML attribute <c>style</c> and XML attribute <c>xmlns</c> from given <paramref name="input"/> string.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>Clean up string.</returns>
         public static string ReplaceXmlAttributes(string input)
         {
             input = RegexAttrStyle.Replace(input, "");
@@ -176,16 +199,25 @@ namespace eContracting
             return input;
         }
 
+        /// <summary>
+        /// Gets value from 'HttpContext.Current.Request', first try take it from 'ServerVariables["HTTP_X_FORWARDED_FOR"]', if it's empty, try take it from 'ServerVariables["REMOTE_ADDR"]'.
+        /// </summary>
+        [ExcludeFromCodeCoverage]
         public static string GetIpAddress()
         {
             string text = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             return string.IsNullOrEmpty(text) ? HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] : text.Split(',')[0];
         }
 
+        /// <summary>
+        /// Creates the attribute(s) from template.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <returns>Collection with IDATTACH attribute.</returns>
         public static ZCCH_ST_ATTRIB[] CreateAttributesFromTemplate(DocumentTemplateModel template)
         {
             var list = new List<ZCCH_ST_ATTRIB>();
-            list.Add(new ZCCH_ST_ATTRIB() { ATTRID = "IDATTACH", ATTRVAL = template.IdAttach });
+            list.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = template.IdAttach });
             return list.ToArray();
         }
 
@@ -197,14 +229,14 @@ namespace eContracting
         /// <returns>Modified string.</returns>
         public static string GetReplacedTextTokens(string text, IDictionary<string, string> textParameters)
         {
-            if (string.IsNullOrEmpty(text) || textParameters.Count < 1)
+            if (string.IsNullOrWhiteSpace(text) || (textParameters?.Count ?? 0) < 1)
             {
                 return text;
             }
 
             foreach (var textParam in textParameters)
             {
-                text.Replace($"{textParam.Key}", textParam.Value);
+                text = text.Replace("{" + textParam.Key + "}", textParam.Value);
             }
 
             return text;
