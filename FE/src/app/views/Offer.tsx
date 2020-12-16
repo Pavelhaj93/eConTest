@@ -364,6 +364,52 @@ export const Offer: React.FC<View> = observer(
           )}
           {/* /uploads box */}
 
+          {/* services box */}
+          {store.documents.other?.services && (
+            <>
+              <h2 className="mt-5">{store.documents.other.services.title}</h2>
+              <Box>
+                <div
+                  className="text-center editorial-content mt-2 mb-4"
+                  dangerouslySetInnerHTML={{ __html: store.documents.other.services.text }}
+                />
+                <div className="mb-2">
+                  <Button
+                    variant="link"
+                    onClick={() => store.acceptAllDocuments(store.documentsServices)}
+                    aria-pressed={store.documentsServices.every(d => d.accepted)}
+                  >
+                    {t('acceptAll')}
+                  </Button>
+                </div>
+                {store.documentsServices.map(({ key, prefix, label, accepted }) => (
+                  <FormCheckWrapper
+                    key={key}
+                    type="checkbox"
+                    name="commoditiesDocuments"
+                    id={`document-${key}`}
+                    value={key}
+                    checked={accepted !== undefined ? accepted : false}
+                    onChange={() => store.acceptDocument(key)}
+                  >
+                    <Form.Check.Label>
+                      <span>
+                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
+                      </span>
+                      <Icon
+                        name="pdf"
+                        size={36}
+                        color={colors.orange}
+                        className="ml-md-auto d-none d-sm-block"
+                      />
+                    </Form.Check.Label>
+                  </FormCheckWrapper>
+                ))}
+              </Box>
+            </>
+          )}
+          {/* /services box */}
+
           {/* products box */}
           {store.documents.other?.products && (
             <>
@@ -455,52 +501,6 @@ export const Offer: React.FC<View> = observer(
             </>
           )}
           {/* /products box */}
-
-          {/* services box */}
-          {store.documents.other?.services && (
-            <>
-              <h2 className="mt-5">{store.documents.other.services.title}</h2>
-              <Box>
-                <div
-                  className="text-center editorial-content mt-2 mb-4"
-                  dangerouslySetInnerHTML={{ __html: store.documents.other.services.text }}
-                />
-                <div className="mb-2">
-                  <Button
-                    variant="link"
-                    onClick={() => store.acceptAllDocuments(store.documentsServices)}
-                    aria-pressed={store.documentsServices.every(d => d.accepted)}
-                  >
-                    {t('acceptAll')}
-                  </Button>
-                </div>
-                {store.documentsServices.map(({ key, prefix, label, accepted }) => (
-                  <FormCheckWrapper
-                    key={key}
-                    type="checkbox"
-                    name="commoditiesDocuments"
-                    id={`document-${key}`}
-                    value={key}
-                    checked={accepted !== undefined ? accepted : false}
-                    onChange={() => store.acceptDocument(key)}
-                  >
-                    <Form.Check.Label>
-                      <span>
-                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
-                      </span>
-                      <Icon
-                        name="pdf"
-                        size={36}
-                        color={colors.orange}
-                        className="ml-md-auto d-none d-sm-block"
-                      />
-                    </Form.Check.Label>
-                  </FormCheckWrapper>
-                ))}
-              </Box>
-            </>
-          )}
-          {/* /services box */}
 
           {/**
            * submit zone
