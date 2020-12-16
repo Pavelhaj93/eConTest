@@ -13,16 +13,16 @@ namespace eContracting.ConsoleClient.Commands
     class CompareIdAttachCommand : BaseCommand
     {
         readonly ContextData Context;
-        readonly SapApiService ApiService;
+        readonly OfferService ApiService;
         readonly ILogger Logger;
 
         public CompareIdAttachCommand(
-            IApiService apiService,
+            IOfferService apiService,
             ILogger logger,
             IConsole console,
             ContextData contextData) : base("idattach", console)
         {
-            this.ApiService = apiService as SapApiService;
+            this.ApiService = apiService as OfferService;
             this.Logger = logger;
             this.Context = contextData;
             this.AliasKey = "id";
@@ -59,6 +59,13 @@ namespace eContracting.ConsoleClient.Commands
                 for (int i = 0; i < offer.Documents.Length; i++)
                 {
                     var attachment = offer.Documents[i];
+
+                    if (!attachment.IsPrinted())
+                    {
+                        this.Console.WriteLineSuccess($"Attachment {attachment.IdAttach} not printed (upload)");
+                        continue;
+                    }
+
                     bool fileFound = false;
 
                     for (int y = 0; y < files.Length; y++)
@@ -85,10 +92,11 @@ namespace eContracting.ConsoleClient.Commands
                 for (int i = 0; i < files.Length; i++)
                 {
                     var file = files[i];
+                    var idattach = file.GetIdAttach();
 
-                    if (!offer.Documents.Any(x => x.IdAttach == file.GetIdAttach()))
+                    if (!offer.Documents.Any(x => x.IdAttach == idattach))
                     {
-                        this.Console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments");
+                        this.Console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})");
                     }
                 }
             }

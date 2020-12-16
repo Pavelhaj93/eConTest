@@ -48,14 +48,13 @@
 </head>
 <body data-sprite="/assets/eContracting2/gfx/icon/sprite.svg">
     <script>!function () { var e = new XMLHttpRequest; e.open("GET", document.body.dataset.sprite, !0), e.send(), e.onload = (function () { var t = document.createElement("div"); t.style.display = "none", t.innerHTML = e.responseText, document.body.insertBefore(t, document.body.childNodes[0]) }) }();</script>
-    @Html.Action("CookieLaw", "eContracting")
-    @Html.Partial("/Areas/eContracting2/Views/Shared/Header.cshtml", Model)
+    @Html.Sitecore().Placeholder("eContracting2Top")
     <main class="main">
         <div class="container">
-            @Html.Sitecore().Placeholder("eContracting2")
+            @Html.Sitecore().Placeholder("eContracting2Main")
         </div>
     </main>
-    @Html.Partial("/Areas/eContracting2/Views/Shared/Footer.cshtml", Model)
+    @Html.Sitecore().Placeholder("eContracting2Bottom")
     <script src="/assets/eContracting2/js/econtracting.bundle.js"></script>
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>

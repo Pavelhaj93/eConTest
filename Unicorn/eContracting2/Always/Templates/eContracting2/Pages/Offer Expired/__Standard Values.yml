@@ -17,25 +17,29 @@ SharedFields:
   Hint: Link1
   Value: |
     <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          id="{E5ACF897-B4A2-411D-B0BA-E89443E74134}"
-          ph="eContracting2"
-          uid="{A7D16DC5-0EF0-410E-8C82-245BCF8C7433}" />
-      </d>
-    </r>
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{FC95DCA4-2FD0-4725-AE99-600E5B506049}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{CA680F6B-DA24-44F2-B667-FA33E75DE4C4}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090159Z
@@ -46,10 +50,3 @@ Languages:
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Nabídka pozbyla platnost
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20161006T115538Z

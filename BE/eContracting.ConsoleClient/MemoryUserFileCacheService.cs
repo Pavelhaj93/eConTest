@@ -10,17 +10,22 @@ namespace eContracting.ConsoleClient
 {
     class MemoryUserFileCacheService : IUserFileCacheService
     {
+        public void Clear(DbSearchParameters search)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task ClearAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task<UploadGroup> GetGroupAsync(DbSearchParameters search)
+        public Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task<SignedFile> GetSignedFileAsync(DbSearchParameters search)
+        public Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
@@ -35,12 +40,12 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public Task SetAsync(UploadGroup group)
+        public Task SetAsync(DbUploadGroupFileModel group)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetAsync(SignedFile file)
+        public Task SetAsync(DbSignedFileModel file)
         {
             throw new NotImplementedException();
         }

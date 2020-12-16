@@ -16,26 +16,6 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          id="{98B94438-C0B0-44A3-A32C-9078E992D049}"
-          ph="eContracting2"
-          uid="{C71EEDE7-9D64-4543-984F-8AB6C2D3EE5B}" />
-        <r
-          ds=""
-          id="{994F14EA-C859-4055-BB0E-523CE476057A}"
-          par=""
-          ph="/eContracting2/eContracting2-login"
-          uid="{A9AD3125-0E1F-4EBB-97AA-69BFE5DEA9D5}" />
-      </d>
-    </r>
 - ID: "f5fce8e0-0930-4d43-8f90-c06da4ececed"
   Hint: UserChoiceAuthenticationEnabledAcquisition
   Type: Checkbox
@@ -48,6 +28,26 @@ Languages:
     - ID: "03047546-9d8d-44e8-9f51-623bb86cfd24"
       Hint: VerificationMethodLabel
       Value: Vyberte způsob ověření
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{CBD4DC5B-2DBF-4475-A67A-C2201C7B1E4B}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:ds=""
+              s:id="{98B94438-C0B0-44A3-A32C-9078E992D049}"
+              s:par=""
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
     - ID: "088b75ed-cffd-46df-8f94-6a19de7cb292"
       Hint: BirthDateLabel
       Value: Datum narození
@@ -101,13 +101,3 @@ Languages:
     - ID: "e973d772-5286-40ec-b678-2c13dea139e9"
       Hint: CalendarPreviousMonth
       Value: Předchozí měsíc
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20161006T115526Z
-    - ID: "4c12e372-0803-479c-8ae4-16cfa9be1f5c"
-      Hint: ContractSecondPropertyLabel
-      Value: Vyberte si druhý smluvní údaj pro přihlášení

@@ -18,6 +18,9 @@ namespace eContracting.ConsoleClient
         {
             this.Options = options;
         }
+
+        public bool SaveFilesToDebugFolder { get; } = false;
+
         public IEnumerable<LoginTypeModel> GetAllLoginTypes()
         {
             throw new NotImplementedException();
@@ -109,6 +112,16 @@ namespace eContracting.ConsoleClient
         {
             var options = new CacheApiServiceOptions(this.Options.Value.ServiceUrl, this.Options.Value.ServiceUser, this.Options.Value.ServicePassword);
             return options;
+        }
+
+        public KeyValuePair<string, string>[] GetBackCompatibleTextParametersKeys(int version)
+        {
+            return new List<KeyValuePair<string, string>>().ToArray();
+        }
+
+        public string GetCustomDatabaseConnectionString()
+        {
+            throw new NotImplementedException();
         }
 
         public DefinitionCombinationModel GetDefinition(OfferModel offer)

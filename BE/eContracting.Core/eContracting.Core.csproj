@@ -111,6 +111,8 @@
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
+    <Compile Include="Models\PageFooterModel.cs" />
+    <Compile Include="Models\PageHeaderModel.cs" />
     <Compile Include="Models\ThankYouPageModel.cs" />
     <Compile Include="OfferServiceFactory.cs" />
     <Compile Include="SignApiServiceOptions.cs" />

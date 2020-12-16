@@ -4,26 +4,29 @@ Parent: "1740614a-9025-4491-a63a-14cbe7ccdfc6"
 Template: "1740614a-9025-4491-a63a-14cbe7ccdfc6"
 Path: /sitecore/templates/eContracting2/Pages/Session Expired/__Standard Values
 DB: master
-SharedFields:
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          id="{E5ACF897-B4A2-411D-B0BA-E89443E74134}"
-          ph="eContracting2"
-          uid="{7A018580-47C5-4C0D-94DD-26A827CDFD73}" />
-      </d>
-    </r>
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{48D4BE36-27F0-406C-B7B1-B6E28D7692A9}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{E5ACF897-B4A2-411D-B0BA-E89443E74134}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
     - ID: "1cabf0db-f63a-4ab6-a6f8-17acb1492af5"
       Hint: MainText
       Value: |
@@ -45,10 +48,3 @@ Languages:
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Vypršení session
-- Language: en
-  Versions:
-  - Version: 1
-    Fields:
-    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
-      Hint: __Created
-      Value: 20161006T115556Z

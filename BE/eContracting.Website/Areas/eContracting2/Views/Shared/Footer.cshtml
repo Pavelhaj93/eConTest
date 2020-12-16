@@ -1,5 +1,5 @@
-﻿@using eContracting.Website.Areas.eContracting2.Models
-@model LayoutViewModel
+﻿@using eContracting.Models
+@model PageFooterModel
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
@@ -13,13 +13,13 @@
                         <span>@Model.EmailText</span>
                     </a>
                 }
-                @if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
+                @if (!string.IsNullOrEmpty(Model.PhoneNumberLinkFooter))
                 {
-                    <a href="tel:@Model.PhoneLinkLowerUrl" class="v-center font-weight-bold" id="phoneLinkLower">
+                    <a href="tel:@Model.PhoneNumberLinkFooter" class="v-center font-weight-bold" id="phoneLinkLower">
                         <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
                             <use xlink:href="#phone"></use>
                         </svg>
-                        <span>@Model.PhoneLinkLowerUrlText</span>
+                        <span>@Model.PhoneNumberFooter</span>
                     </a>
                 }
             </div>
@@ -28,10 +28,10 @@
     <div class="footer__bottom">
         <div class="container">
             <div class="row">
-                @if (!string.IsNullOrEmpty(Model.DisclaimerLink))
+                @if (!string.IsNullOrEmpty(Model.DisclaimerLinkUrl))
                 {
                     <div class="col-12 col-md-6 text-center text-md-left mb-2">
-                        <a href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerText</a>
+                        <a href="@Model.DisclaimerLinkUrl" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
                     </div>
                 }
                 <div class="col-12 col-md-6 text-center text-md-right mb-2">@Model.CopyrightText</div>

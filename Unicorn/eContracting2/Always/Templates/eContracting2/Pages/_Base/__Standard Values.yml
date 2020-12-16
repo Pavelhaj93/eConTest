@@ -12,16 +12,33 @@ SharedFields:
     <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
       <d
         id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}" />
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
+        <r
+          id="{C9E6964D-A594-4A57-A933-8DBEAE72A896}"
+          ph="eContracting2Top"
+          uid="{E0DE4DAD-AF0D-4CF0-AA70-964E82CC5657}" />
+        <r
+          ds="{FEDC5ECD-CB1B-46FE-838A-859C9BF683FD}"
+          id="{C6B149DB-135E-4A89-B58F-91E6544C10D0}"
+          par=""
+          ph="eContracting2Top"
+          uid="{0B8EA37E-00C7-47C9-9562-C070E573E9A0}" />
+        <r
+          ds="{1EBB80D7-AE0C-4A0C-8CD4-6EFC5F4148C6}"
+          id="{C2060F07-1E5B-4679-82D9-0114EAC77CF3}"
+          par=""
+          ph="eContracting2Bottom"
+          uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}" />
+      </d>
     </r>
 Languages:
-- Language: en
+- Language: cs
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20160907T095112Z
+      Value: 20201216T162844Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

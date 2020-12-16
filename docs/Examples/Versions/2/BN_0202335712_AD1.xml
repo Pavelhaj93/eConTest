@@ -1,0 +1,118 @@
+﻿<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Investor<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_1>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL_1>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>06D969E88C3C1EEB8FC4EFA8FEAF345D</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID_1>06D969E88C3C1EEB8FC4EFA8FEB4145D</ADD_SERVICES_ACCEPT_LABEL_GUID_1>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>06D969E88C3C1EEB8FC4EEF623ABF45D</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Optimal]<br />|Platnost nabídky do|: [29.01.2021]<br />|Délka fixace|: [36 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem podpisusmlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [Montáži měřidla ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Optimal</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>29.01.2021</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>36 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem podpisusmlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Montáži měřidla </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_OPTIMAL2</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Optimal</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Pojištění domácnosti<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>06D969E88C3C1EEB8FC4EFA8FEBE945D</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [innogy Pojištění domácnosti]<br />|Varianta|: [Komfort]<br />|Platnost nabídky do|: [29.12.2020]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Varianta</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>innogy Pojištění domácnosti</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Komfort</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>29.12.2020</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_PRODUCT>20000040</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Pojištění Komfort (750 tis.Kč)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [1. Pojištění domácnosti]<br />|Druhé|: [2. Pojištění odpovědnosti]<br />|Třetí|: [3. Asistenční služby]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>1. Pojištění domácnosti</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>2. Pojištění odpovědnosti</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>3. Asistenční služby</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>Sirková 288, 561 51 Letohrad</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>25.01.1946</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>milos.rezanina@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Jiří Poláček</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>603 280 385</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Jirko Poláčku                                     </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510900404</PERSON_NUMBER>
+        <PERSON_PREMADR>Sirková 288, 561 51 Letohrad</PERSON_PREMADR>
+        <PERSON_PREMEXT>27ZG500Z00531488</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300528152</PERSON_PREMNUMBER>
+        <USER_ATTACH>X</USER_ATTACH>
+        <USER_ATTACH_PL2_HELP>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                </p>
+            </body>
+        </USER_ATTACH_PL2_HELP>
+        <USER_ATTACH_PRZ_HELP>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                </p>
+            </body>
+        </USER_ATTACH_PRZ_HELP>
+    </parameters>
+</form>

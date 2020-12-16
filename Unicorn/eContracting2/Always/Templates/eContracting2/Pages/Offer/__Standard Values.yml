@@ -8,25 +8,29 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 1350
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          id="{073F2938-DC30-44AD-9F46-B83A31D75652}"
-          ph="eContracting2"
-          uid="{AC781AB5-A453-42DC-B046-FC53F041C7A7}" />
-      </d>
-    </r>
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{DA612AA0-6397-4414-84DA-490EC7F5B3AC}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{073F2938-DC30-44AD-9F46-B83A31D75652}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
     - ID: "0dcae80e-05f3-4a1b-92f2-dd14251e2cb1"
       Hint: GDPRUrl
       Value: "https://test-optin.innogy.cz/auth"

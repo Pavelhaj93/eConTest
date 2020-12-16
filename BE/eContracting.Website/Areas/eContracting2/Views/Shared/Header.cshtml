@@ -1,5 +1,5 @@
-﻿@using eContracting.Website.Areas.eContracting2.Models
-@model LayoutViewModel
+﻿@using eContracting.Models
+@model PageHeaderModel
 
 <header class="header">
     <div class="container">
@@ -9,13 +9,13 @@
                     <use xlink:href="#logo" />
                 </svg>
             </a>
-            @if (!string.IsNullOrEmpty(Model.PhoneLinkUrl))
+            @if (!string.IsNullOrEmpty(Model.PhoneNumberLink))
             {
-                <a class="phone v-center v-center--large" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
+                <a class="phone v-center v-center--large" href="tel:@Model.PhoneNumberLink" id="phoneLink">
                     <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
                         <use class="d-none d-sm-block" xlink:href="#phone"></use>
                     </svg>
-                    <span>@Model.PhoneLinkUrlText</span>
+                    <span>@Model.PhoneNumber</span>
                 </a>
             }
         </div>

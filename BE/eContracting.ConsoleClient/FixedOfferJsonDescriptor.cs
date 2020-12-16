@@ -14,7 +14,7 @@ namespace eContracting.ConsoleClient
         public FixedOfferJsonDescriptor(
             ILogger logger,
             ISitecoreContext context,
-            IApiService apiService,
+            IOfferService apiService,
             ISettingsReaderService settingsReaderService) : base(logger, context, apiService, settingsReaderService)
         {
         }

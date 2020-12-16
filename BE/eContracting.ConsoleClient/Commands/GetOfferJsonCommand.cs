@@ -12,12 +12,12 @@ namespace eContracting.ConsoleClient.Commands
 {
     class GetOfferJsonCommand : BaseCommand
     {
-        readonly IApiService ApiService;
+        readonly IOfferService ApiService;
         readonly IOfferJsonDescriptor JsonDescriptor;
         readonly ILogger Logger;
 
         public GetOfferJsonCommand(
-            IApiService apiService,
+            IOfferService apiService,
             IOfferJsonDescriptor jsonDescriptor,
             ILogger logger,
             IConsole console) : base("json", console)

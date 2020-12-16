@@ -15,11 +15,11 @@ namespace eContracting.ConsoleClient.Commands
     class GetOfferCommand : BaseCommand
     {
         readonly ContextData Context;
-        readonly IApiService ApiService;
+        readonly IOfferService ApiService;
         readonly ILogger Logger;
 
         public GetOfferCommand(
-            IApiService apiService,
+            IOfferService apiService,
             ILogger logger,
             IConsole console,
             ContextData contextData) : base("offer", console)

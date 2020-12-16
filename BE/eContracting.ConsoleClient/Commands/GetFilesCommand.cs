@@ -13,11 +13,11 @@ namespace eContracting.ConsoleClient.Commands
     class GetFilesCommand : BaseCommand
     {
         readonly ContextData Context;
-        readonly IApiService ApiService;
+        readonly IOfferService ApiService;
         readonly ILogger Logger;
 
         public GetFilesCommand(
-            IApiService apiService,
+            IOfferService apiService,
             ILogger logger,
             IConsole console,
             ContextData contextData) : base("files", console)

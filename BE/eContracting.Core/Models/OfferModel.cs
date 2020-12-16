@@ -179,7 +179,7 @@ namespace eContracting.Models
             }
         }
 
-        [JsonIgnore]
+        [JsonProperty("templates")]
         public DocumentTemplateModel[] Documents
         {
             get
@@ -215,7 +215,7 @@ namespace eContracting.Models
             }
         }
 
-        [JsonProperty("zip1")]
+        [JsonProperty("zip")]
         public string PostNumber
         {
             get

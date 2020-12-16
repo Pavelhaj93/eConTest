@@ -4,26 +4,29 @@ Parent: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
 Template: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
 Path: /sitecore/templates/eContracting2/Pages/Offer Accepted/__Standard Values
 DB: master
-SharedFields:
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          id="{6A924B55-716B-4026-8707-B641E7E42719}"
-          ph="eContracting2"
-          uid="{715EBDD4-0F70-4297-B177-DDC88766372E}" />
-      </d>
-    </r>
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{C3CA92BE-7FC0-4D08-927F-483C51EB49FD}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{6A924B55-716B-4026-8707-B641E7E42719}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090019Z

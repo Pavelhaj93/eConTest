@@ -29,12 +29,13 @@ namespace eContracting.ConsoleClient
                         config.ServicePassword = "QWRIYjI0Nyo=";
                     });
                     services.AddSingleton<ContextData>();
+                    services.AddScoped<IOfferServiceFactory, OfferServiceFactory>();
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
                     services.AddScoped<IUserDataCacheService, MemoryUserDataCacheService>();
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
-                    services.AddScoped<IApiService, SapApiService>();
+                    services.AddScoped<IOfferService, OfferService>();
                     services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
                     services.AddScoped<IOfferJsonDescriptor, FixedOfferJsonDescriptor>();
                     services.AddSingleton<ILogger, ConsoleLogger>();

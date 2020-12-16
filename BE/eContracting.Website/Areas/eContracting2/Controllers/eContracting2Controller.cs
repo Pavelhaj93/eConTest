@@ -356,6 +356,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/SessionExpired.cshtml", datasouce);
         }
 
+        public ActionResult Header()
+        {
+            var model = this.GetDataSourceItem<PageHeaderModel>();
+            return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", model);
+        }
+
+        public ActionResult Footer()
+        {
+            var model = this.GetDataSourceItem<PageFooterModel>();
+            return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", model);
+        }
+
         private string[] GetScriptParameters(OfferModel offer)
         {
             var eCat = string.Empty;

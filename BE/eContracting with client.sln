@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{9728E0BC-DD58-44
 		..\docs\Examples\Versions\2\BN_0202335625_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335625_AD1.xml
 		..\docs\Examples\Versions\2\BN_0202335631.xml = ..\docs\Examples\Versions\2\BN_0202335631.xml
 		..\docs\Examples\Versions\2\BN_0202335631_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335631_AD1.xml
+		..\docs\Examples\Versions\2\BN_0202335638.xml = ..\docs\Examples\Versions\2\BN_0202335638.xml
+		..\docs\Examples\Versions\2\BN_0202335638_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335638_AD1.xml
 		..\docs\Examples\Versions\2\BN_0202335645.xml = ..\docs\Examples\Versions\2\BN_0202335645.xml
 		..\docs\Examples\Versions\2\BN_0202335645_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335645_AD1.xml
 		..\docs\Examples\Versions\2\BN_0202335667.xml = ..\docs\Examples\Versions\2\BN_0202335667.xml
@@ -93,6 +95,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{9728E0BC-DD58-44
 		..\docs\Examples\Versions\2\BN_0202335689_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335689_AD1.xml
 		..\docs\Examples\Versions\2\BN_0202335701.xml = ..\docs\Examples\Versions\2\BN_0202335701.xml
 		..\docs\Examples\Versions\2\BN_0202335701_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335701_AD1.xml
+		..\docs\Examples\Versions\2\BN_0202335712.xml = ..\docs\Examples\Versions\2\BN_0202335712.xml
+		..\docs\Examples\Versions\2\BN_0202335712_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335712_AD1.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.ConsoleClient", "eContracting.ConsoleClient\eContracting.ConsoleClient.csproj", "{BA1AE80D-3BB2-4E01-8B2B-AA4A753E90B4}"
