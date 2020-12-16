@@ -8,12 +8,15 @@
     {{> step content="Hotovo"}}
   {{/ steps}}
 
-  <div class="info">
-    <p>Vítáme Vás, pane Nováku,</p>
-    <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="info">
+        <p>Vítáme Vás, pane Nováku,</p>
+        <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
+      </div>
+      {{> app}}
+    </div>
   </div>
-
-  {{> app}}
 
   <div id="token">
     <input name="__RequestVerificationToken" type="hidden"

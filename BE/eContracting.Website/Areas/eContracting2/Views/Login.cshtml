@@ -12,11 +12,15 @@
         <div id="token">@Html.AntiForgeryToken()</div>
         <div>
             @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
-            <div class="info">
-                @Html.Sitecore().Placeholder("eContracting2-login")
-                @Html.Raw(ViewData["MainText"])
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="info">
+                        @Html.Sitecore().Placeholder("eContracting2-login")
+                        @Html.Raw(ViewData["MainText"])
+                    </div>
+                    <div id="app"></div>
+                </div>
             </div>
-            <div id="app"></div>
         </div>
     </div>
 </div>
