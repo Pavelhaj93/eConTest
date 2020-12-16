@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -14,6 +15,7 @@ namespace eContracting.Website
     /// <summary>
     /// Summary description for GetFile
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class GetFileImage : IHttpHandler, IRequiresSessionState
     {
         /// <summary>

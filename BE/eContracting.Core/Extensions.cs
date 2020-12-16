@@ -9,6 +9,9 @@ using Glass.Mapper.Sc;
 
 namespace eContracting
 {
+    /// <summary>
+    /// All extensions available in core functionality.
+    /// </summary>
     public static class Extensions
     {
         /// <summary>
@@ -40,6 +43,11 @@ namespace eContracting
             return Constants.FileAttributeDefaults.COUNTER;
         }
 
+        /// <summary>
+        /// Gets value of IDATTACH from the <paramref name="file"/> if exists.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns>Value or null.</returns>
         public static string GetIdAttach(this ZCCH_ST_FILE file)
         {
             return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;

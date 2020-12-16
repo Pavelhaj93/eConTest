@@ -49,6 +49,7 @@ Included items must then not match any entries in the exclude list to remain inc
                                 <Function>^eContracting\.Storage\..*</Function>
                                 <Function>^eContracting\.Website\.Areas\.eContracting\..*</Function>
                                 <Function>^eContracting\.Website\.App_Start\..*</Function>
+                                <Function>^eContracting\.Website\.Areas\.eContracting2\.Models\..*</Function>
                             </Exclude>
                         </Functions>
 

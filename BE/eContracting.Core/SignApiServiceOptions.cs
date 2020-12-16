@@ -23,22 +23,5 @@ namespace eContracting
         public CacheApiServiceOptions(string url, string base64Username, string base64password) : base(url, base64Username, base64password)
         {
         }
-
-        //public ICredentials GetCredentials()
-        //{
-        //    var username = Encoding.UTF8.GetString(Convert.FromBase64String(this.User));
-        //    var password = Encoding.UTF8.GetString(Convert.FromBase64String(this.Password));
-
-        //    if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
-        //    {
-        //        throw new InvalidCredentialException("Wrong credentials for cache!");
-        //    }
-
-        //    var uri = new Uri(this.Url, UriKind.Absolute);
-
-        //    var cred = new CredentialCache();
-        //    cred.Add(uri, "Basic", new NetworkCredential(username, password));
-        //    return cred;
-        //}
     }
 }

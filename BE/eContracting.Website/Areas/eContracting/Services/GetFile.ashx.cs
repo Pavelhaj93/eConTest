@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,7 @@ namespace eContracting.Website
     /// <summary>
     /// Summary description for GetFile
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class GetFile : IHttpHandler, IRequiresSessionState
     {
         /// <summary>
