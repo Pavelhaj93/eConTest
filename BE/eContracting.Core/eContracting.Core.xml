@@ -2185,7 +2185,7 @@
             <param name="currentStep">The current step.</param>
             <returns>Array of all related steps.</returns>
         </member>
-        <member name="M:eContracting.ISettingsReaderService.GetFileCacheStorageConnectionString">
+        <member name="M:eContracting.ISettingsReaderService.GetCustomDatabaseConnectionString">
             <summary>
             Gets connection string for <see cref="T:eContracting.IUserFileCacheService"/>.
             </summary>

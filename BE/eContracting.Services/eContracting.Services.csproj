@@ -106,6 +106,7 @@
     <Compile Include="AuthenticationDataStorageService.cs" />
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DbContextStartup.cs" />
+    <Compile Include="DbEventLogger.cs" />
     <Compile Include="DbLoginReportStore.cs" />
     <Compile Include="FileOptimizer.cs" />
     <Compile Include="FileSignService.cs" />

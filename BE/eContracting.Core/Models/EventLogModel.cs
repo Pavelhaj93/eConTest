@@ -36,6 +36,8 @@ namespace eContracting.Models
         /// </summary>
         public readonly string Message;
 
+        public string ErrorMessage { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EventLogModel"/> class.
         /// </summary>

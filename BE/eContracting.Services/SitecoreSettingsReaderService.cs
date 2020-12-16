@@ -273,7 +273,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public string GetFileCacheStorageConnectionString()
+        public string GetCustomDatabaseConnectionString()
         {
             string name = Constants.DatabaseContextConnectionStringName;
 

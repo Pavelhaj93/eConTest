@@ -57,6 +57,35 @@
         <member name="M:eContracting.Services.DbContextStartup.Initialize">
             <inheritdoc/>
         </member>
+        <member name="T:eContracting.Services.DbEventLogger">
+            <summary>
+            Database storage for log events.
+            </summary>
+            <seealso cref="T:eContracting.IEventLogger" />
+        </member>
+        <member name="F:eContracting.Services.DbEventLogger.ConnectionString">
+            <summary>
+            The connection string.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.DbEventLogger.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.#ctor(eContracting.ISettingsReaderService,eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbEventLogger"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(eContracting.Models.EventLogModel)">
+            <inheritdoc/>
+        </member>
         <member name="T:eContracting.Services.FileOptimizer">
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
@@ -603,7 +632,7 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetFileCacheStorageConnectionString">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetCustomDatabaseConnectionString">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetBackCompatibleTextParametersKeys(System.Int32)">

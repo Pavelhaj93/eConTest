@@ -206,6 +206,7 @@
     <Compile Include="Storage\FileAttribute.cs" />
     <Compile Include="Storage\LoginAttempt.cs" />
     <Compile Include="Storage\Partials\DatabaseContext.cs" />
+    <Compile Include="Storage\Partials\EventLog.cs" />
     <Compile Include="Storage\Partials\File.cs" />
     <Compile Include="Storage\Partials\FileAttribute.cs" />
     <Compile Include="Storage\Partials\UploadGroup.cs" />

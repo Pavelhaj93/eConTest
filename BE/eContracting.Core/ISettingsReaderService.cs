@@ -105,7 +105,7 @@ namespace eContracting
         /// Gets connection string for <see cref="IUserFileCacheService"/>.
         /// </summary>
         /// <returns></returns>
-        string GetFileCacheStorageConnectionString();
+        string GetCustomDatabaseConnectionString();
 
         /// <summary>
         /// Gets mapping from old keys to new ones with respect to offer <paramref name="version"/>.

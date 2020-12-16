@@ -28,7 +28,7 @@ namespace eContracting.Services
         /// <param name="settingsReader">The settings reader.</param>
         public DbUserFileCacheService(ISettingsReaderService settingsReader)
         {
-            this.ConnectionString = settingsReader.GetFileCacheStorageConnectionString();
+            this.ConnectionString = settingsReader.GetCustomDatabaseConnectionString();
         }
 
         /// <inheritdoc/>
