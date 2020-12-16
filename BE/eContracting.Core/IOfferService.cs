@@ -15,6 +15,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offer">Valid offer.</param>
         /// <param name="data">The submitted data.</param>
+        /// <param name="sessionId">Current session id.</param>
         /// <returns>True if it was accepted or false.</returns>
         Task<bool> AcceptOfferAsync(OfferModel offer, OfferSubmitDataModel data, string sessionId);
 
@@ -23,6 +24,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offer">Valid offer.</param>
         /// <param name="data">The submitted data.</param>
+        /// <param name="sessionId">Current session id.</param>
         /// <returns>True if it was accepted or false.</returns>
         bool AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId);
 
@@ -66,7 +68,6 @@ namespace eContracting
         /// Gets the offer by <paramref name="guid"/> with text parameters asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Offer type.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
         Task<OfferModel> GetOfferAsync(string guid);
@@ -75,7 +76,6 @@ namespace eContracting
         /// Gets the offer by <paramref name="guid"/> asynchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Offer type.</param>
         /// <param name="includeTextParameters">When you need to get <see cref="OfferModel.TextParameters"/>.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
