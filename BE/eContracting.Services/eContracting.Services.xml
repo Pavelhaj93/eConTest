@@ -80,6 +80,9 @@
             <param name="settingsReader">The settings reader.</param>
             <param name="logger">The logger.</param>
         </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.DbEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES,System.String)">
             <inheritdoc/>
         </member>

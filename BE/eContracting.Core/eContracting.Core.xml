@@ -64,6 +64,14 @@
             Tracks common user actions on a website.
             </summary>
         </member>
+        <member name="M:eContracting.IEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES)">
+            <summary>
+            Adds information for new log event.
+            </summary>
+            <param name="sessionId">The session identifier.</param>
+            <param name="guid">The unique identifier.</param>
+            <param name="eventName">Name of the event.</param>
+        </member>
         <member name="M:eContracting.IEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES,System.String)">
             <summary>
             Adds information for new log event.
@@ -1128,121 +1136,6 @@
         <member name="P:eContracting.Models.OfferPageModel.AesEncryptVector">
             <summary>
             Gets or sets the aes encrypt vector.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.BenefitsTitle">
-            <summary>
-            Gets or sets title for benefits.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptTitle">
-            <summary>
-            Gets or sets title for documents for acceptance.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptAddressLabel">
-            <summary>
-            Gets or sets label for address in documents for acceptance.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptEANLabel">
-            <summary>
-            Gets or sets label for EAN in documents for acceptance..
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptSupplementTitle">
-            <summary>
-            Gets or sets title for supplement and associated documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptSupplementSubtitle">
-            <summary>
-            Gets or sets subtitle for supplement and associated documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerTitle">
-            <summary>
-            Gets or sets title for power of attorney.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerSubtitle">
-            <summary>
-            Gets or sets subtitle for power of attorney.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.DocumentsToAcceptPowerNote">
-            <summary>
-            Gets or sets note for power of attorney.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsTitle">
-            <summary>
-            Gets or sets title for obligatory documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsExtraAttachmentsTitle">
-            <summary>
-            Gets or sets title for extra documents to upload.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsExtraAttachmentsHelp">
-            <summary>
-            Gets or sets help text for extra documents to upload.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.ObligatoryDocumentsLimitsNote">
-            <summary>
-            Gets or sets note for extra documents to upload.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.AdditionalServicesTitle">
-            <summary>
-            Gets or sets title for additional services.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.AdditionalServicesSubtitle">
-            <summary>
-            Gets or sets subtitle for additional services.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.OtherServicesTitle">
-            <summary>
-            Gets or sets title for other services.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.OtherServicesSubtitle">
-            <summary>
-            Gets or sets subtitle for other services.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsTitle">
-            <summary>
-            Gets or sets title for other services and associated documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsSubtitle">
-            <summary>
-            Gets or sets subtitle for other services and associated documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.OtherServicesAssociatedDocumentsNote">
-            <summary>
-            Gets or sets note for other services and associated documents.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferTitle">
-            <summary>
-            Gets or sets title for accept offer.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferSubtitle">
-            <summary>
-            Gets or sets subtitle for accept offer.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.OfferPageModel.AcceptOfferButtonLabel">
-            <summary>
-            Gets or sets submit button label to accept offer.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowTitle">
