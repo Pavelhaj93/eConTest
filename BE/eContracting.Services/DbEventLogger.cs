@@ -36,6 +36,12 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public void Add(string sessionId, string guid, EVENT_NAMES eventName)
+        {
+            this.Add(sessionId, guid, eventName, null);
+        }
+
+        /// <inheritdoc/>
         public void Add(string sessionId, string guid, EVENT_NAMES eventName, string message)
         {
             var model = new EventLogModel(sessionId, guid, eventName, message);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
+using System.Web;
 using System.Web.Mvc;
 using eContracting.Kernel.Models;
 using eContracting.Models;
@@ -231,6 +232,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //TODO: this.DataSessionStorage.Login(userData);
                 this.AuthService.Login(new AuthDataModel(offer));
                 this.Logger.Info(guid, $"Successfully log-ged in");
+
+                this.EventLogger.Add(this.Session.SessionID, guid, EVENT_NAMES.LOGIN);
 
                 if (offer.IsAccepted)
                 {

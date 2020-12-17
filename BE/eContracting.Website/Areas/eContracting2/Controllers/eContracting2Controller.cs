@@ -201,14 +201,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        // eContractingController
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Accept()
-        {
-            return new EmptyResult();
-        }
-
         // ExpirationController
         public ActionResult Expiration()
         {

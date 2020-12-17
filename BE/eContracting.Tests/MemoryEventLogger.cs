@@ -9,6 +9,11 @@ namespace eContracting.Tests
 {
     public class MemoryEventLogger : IEventLogger
     {
+        public void Add(string sessionId, string guid, EVENT_NAMES eventName)
+        {
+            
+        }
+
         public void Add(string sessionId, string guid, EVENT_NAMES eventName, string message)
         {
             
