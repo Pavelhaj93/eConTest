@@ -10,7 +10,7 @@ SharedFields:
   Value: Imaging/32x32/zoom_document.png
 - ID: "580c75a8-c01a-4580-83cb-987776ceb3af"
   Hint: Key
-  Value: Označit vše
+  Value: MARK_ALL
 Languages:
 - Language: cs
   Fields:

@@ -20,19 +20,25 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public string ErrorCodeDescription { get; set; }
 
+        public string GoogleTagManagerKey { get; set; }
+
         public override void Initialize(Rendering rendering)
         {
             try
             {
+                var settingsReader = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+                var settings = settingsReader.GetSiteSettings();
+
                 if (rendering.Item.TemplateID == Constants.TemplateIds.PageHome)
                 {
-                    var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-                    var url = settings.GetSiteSettings().WrongUrl.Url + "?code=" + Constants.ErrorCodes.HOMEPAGE;
+                    var url = settings.WrongUrl.Url + "?code=" + Constants.ErrorCodes.HOMEPAGE;
                     HttpContext.Current.Response.Redirect(url, true);
                     return;
                 }
 
                 base.Initialize(rendering);
+
+                this.GoogleTagManagerKey = settings.GoogleTagManager;
 
                 //this.ProcessErrorDescription(rendering);
                 //this.PageMetaTitle = Sitecore.Context.Item["PageTitle"] + (this.ErrorCodeDescription != null ? " - " + this.ErrorCodeDescription : "");
@@ -43,16 +49,15 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
                     var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
                     var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-                    var settings = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
 
                     if (string.IsNullOrEmpty(processCode))
                     {
-                        processCode = settings.GetAllProcesses().First().Code;
+                        processCode = settingsReader.GetAllProcesses().First().Code;
                     }
 
                     if (string.IsNullOrEmpty(processTypeCode))
                     {
-                        processTypeCode = settings.GetAllProcessTypes().First().Code;
+                        processTypeCode = settingsReader.GetAllProcessTypes().First().Code;
                     }
 
                     var data = new OfferIdentifier(processCode, processTypeCode);

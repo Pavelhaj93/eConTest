@@ -22,20 +22,6 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("choices")]
         public readonly IEnumerable<LoginChoiceViewModel> Choices;
 
-        [JsonProperty("doxReadyUrl")]
-        public string doxReadyUrl { get; set; }
-
-        [JsonProperty("isAgreed")]
-        public bool IsAgreed { get; set; }
-
-        [JsonProperty("isRetention")]
-        [Obsolete]
-        public bool IsRetention { get; set; }
-
-        [JsonProperty("isAcquisition")]
-        [Obsolete]
-        public bool IsAcquisition { get; set; }
-
         [JsonProperty("formAction")]
         public string FormAction { get; set; }
 

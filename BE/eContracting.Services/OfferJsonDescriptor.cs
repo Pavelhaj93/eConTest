@@ -587,12 +587,7 @@ namespace eContracting.Services
 
         protected internal string GetFileLabelPrefix(OfferAttachmentModel model)
         {
-            if (model.ConsentType == "S")
-            {
-                return Translate.Text("Souhlasím s");
-            }
-
-            return Translate.Text("Jsem poučen o");
+            return Translate.Text("DOCUMENT_PREFIX_" + model.ConsentType);
         }
 
         /// <summary>

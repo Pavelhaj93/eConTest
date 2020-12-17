@@ -107,6 +107,9 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual string ApplicationUnavailableText { get; set; }
 
+        [SitecoreField]
+        public string GoogleTagManager { get; set; }
+
         /// <summary>
         /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
         /// </summary>
