@@ -567,7 +567,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, "An error occured when trying to add new upload into a group", ex);
-                return this.InternalServerError();
+                return this.InternalServerError(ex);
             }
         }
 
