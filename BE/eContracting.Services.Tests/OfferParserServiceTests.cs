@@ -23,7 +23,7 @@ namespace eContracting.Services.Tests
         {
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -41,7 +41,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -59,7 +59,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "20201015225809";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -79,7 +79,7 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcess = value;
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -96,7 +96,7 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.Campaign = null;
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -113,7 +113,7 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.Campaign = "any value";
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -131,7 +131,7 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcess = value;
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -149,7 +149,7 @@ namespace eContracting.Services.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.BusProcessType = value;
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -164,7 +164,7 @@ namespace eContracting.Services.Tests
         {
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -182,7 +182,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "01";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -200,7 +200,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "02";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -216,7 +216,7 @@ namespace eContracting.Services.Tests
             file.FILENAME = "myfile";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_FILES = new[] { file };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -236,7 +236,7 @@ namespace eContracting.Services.Tests
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
             response.ET_FILES = new[] { file1, file2 };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -259,7 +259,7 @@ namespace eContracting.Services.Tests
             // defines version 2
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.VERSION, ATTRVAL = Constants.OfferAttributeValues.VERSION_2 } };
             response.ET_FILES = new[] { coreFile, ad1File };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -277,7 +277,7 @@ namespace eContracting.Services.Tests
             xml.Append("</parameters>");
             var file = new ZCCH_ST_FILE();
             file.FILECONTENT = Encoding.UTF8.GetBytes(xml.ToString());
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -306,7 +306,7 @@ namespace eContracting.Services.Tests
             file1.FILECONTENT = Encoding.UTF8.GetBytes(xml1.ToString());
             var file2 = new ZCCH_ST_FILE();
             file2.FILECONTENT = Encoding.UTF8.GetBytes(xml2.ToString());
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -325,7 +325,7 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHSTAT = "3";
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -344,7 +344,7 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHSTAT = "3";
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -363,7 +363,7 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHSTAT = "3";
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -382,7 +382,7 @@ namespace eContracting.Services.Tests
             response.ES_HEADER.CCHSTAT = "3";
             response.ES_HEADER.CCHTYPE = "NABIDKA";
             response.ES_HEADER.CCHVALTO = "20201122";
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
@@ -403,7 +403,7 @@ namespace eContracting.Services.Tests
             attr2.ATTRVAL = "lorem";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr1, attr2 };
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);

@@ -29,6 +29,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IUserDataCacheService UserDataCache;
         protected readonly ILoginReportStore LoginReportService;
         protected readonly ISettingsReaderService SettingsReaderService;
+        protected readonly IEventLogger EventLogger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
@@ -43,6 +44,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
+            this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
         }
 
         /// <summary>
@@ -78,7 +80,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ILoginReportStore loginReportService,
             ISitecoreContext sitecoreContext,
             IRenderingContext renderingContext,
-            IUserDataCacheService userDataCache) : base(sitecoreContext, renderingContext)
+            IUserDataCacheService userDataCache,
+            IEventLogger evetLogger) : base(sitecoreContext, renderingContext)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
@@ -87,6 +90,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserDataCache = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
+            this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
         }
 
         /// <summary>

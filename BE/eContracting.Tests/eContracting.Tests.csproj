@@ -53,8 +53,9 @@
   <ItemGroup>
     <Compile Include="BaseTestClass.cs" />
     <Compile Include="ISitecoreContextExtended.cs" />
+    <Compile Include="MemoryEventLogger.cs" />
+    <Compile Include="MemoryLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

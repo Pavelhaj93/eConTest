@@ -14,7 +14,7 @@ namespace eContracting.Services.Tests
         [Fact]
         public void Parse_Returns_Empty_When_No_Offer_Attachments()
         {
-            var logger = new TestLogger();
+            var logger = new MemoryLogger();
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid);// new OfferModel(offerXmlModel, 2, offerHeader, new OfferAttributeModel[] { });
             offer.Xml.Content.Body.BusProcess = "XYZ";

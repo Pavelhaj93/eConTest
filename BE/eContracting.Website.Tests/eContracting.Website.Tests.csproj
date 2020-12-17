@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthControllerTests.cs" />
-    <Compile Include="MemoryLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
