@@ -126,12 +126,19 @@ namespace eContracting.Services
                     {
                         using (Image image = Image.FromStream(memoryStream))
                         {
-                            this.NormalizeOrientation(image);
-
-                            using (var imageStream = new MemoryStream())
+                            // pokud bylo potreba otocit podle pritomne exif informace 
+                            if (this.NormalizeOrientation(image))
                             {
-                                image.Save(imageStream, image.RawFormat);
-                                fileByteContent = imageStream.ToArray();
+                                using (var imageStream = new MemoryStream())
+                                {
+                                    image.Save(imageStream, image.RawFormat);
+                                    fileByteContent = imageStream.ToArray();
+                                }
+                            }
+                            else
+                            {
+                                // pokud se obrazek neotacel, nech ho, jak je a zbytecne neprevadej na image. Muze narust na velikosti.
+                                fileByteContent = content;
                             }
                         }
                     }
@@ -156,12 +163,14 @@ namespace eContracting.Services
                 // zapis file do pdfka v groupe
                 AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
 
+                // ulozim vyslednou podobu OriginalFiles (pridany novy soubor k tem predchazejicim)
+                this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+
                 // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
                 int compressionRounds = 0;
-
                 while (compressionRounds < 5)
                 {
-                    if (outputPdfDocument.FileSize <= this.GroupResultingFileSizeLimit)
+                    if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
                     {
                         using (var newPdfDocumentStream2 = new MemoryStream())
                         {
@@ -174,6 +183,8 @@ namespace eContracting.Services
                                 AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
                             }
 
+                            // ulozim novy vysledny pdf a zmensene OriginalFiles 
+                            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
                             compressionRounds++;
                         }
                     }
@@ -181,12 +192,6 @@ namespace eContracting.Services
                         break;
                 }
 
-                // ulozim vyslednou podobu OriginalFiles (pridany novy soubor a pripadne zmensene ty predchazejici)
-                this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
-
-                // tady to musíme zase uložit
-                // ne, ukladame to prece v controlleru
-                //await this.UserFileCache.SetAsync(dbGroup);
                 return group;
             }
         }
@@ -296,22 +301,6 @@ namespace eContracting.Services
             }
         }
 
-        protected internal List<FileInfo> GetOriginalFilesInGroup(string groupKey)
-        {
-            // TODO: predelat na pouziti session misto file storage
-            //var cache = ServiceLocator.ServiceProvider.GetRequiredService<ICache>();
-            //cache.AddToSession(Constants.CacheKeys.OFFER_IDENTIFIER, data);
-
-
-            List<FileInfo> result = new List<FileInfo>();
-            var originalFiles = Directory.GetFiles(this.FileStorageRoot, $"{groupKey}{sourceFileNameComponentsSeparator}*");
-            if (originalFiles != null && originalFiles.Any())
-            {
-                result = originalFiles.Select(of => new FileInfo(of)).ToList();
-            }
-            return result;
-        }
-
         protected internal bool IsCompressable(string filename)
         {
             return this.IsImage(filename);
@@ -331,9 +320,11 @@ namespace eContracting.Services
         /// Otoci obrazek podle Exif tagu, pokud tam je
         /// </summary>
         /// <param name="image"></param>
-        protected internal void NormalizeOrientation(Image image)
+        /// <returns>True, pokud Image nejak otocil. Jinak false.</returns>
+        protected internal bool NormalizeOrientation(Image image)
         {
             const int ExifOrientationTagId = 274;
+            bool retval = false;
 
             if (Array.IndexOf(image.PropertyIdList, ExifOrientationTagId) > -1)
             {
@@ -369,8 +360,10 @@ namespace eContracting.Services
                     }
 
                     image.RemovePropertyItem(ExifOrientationTagId);
+                    retval = true;
                 }
             }
+            return retval;
         }
 
         /// <summary>

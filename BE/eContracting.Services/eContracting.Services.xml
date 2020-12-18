@@ -125,6 +125,7 @@
             Otoci obrazek podle Exif tagu, pokud tam je
             </summary>
             <param name="image"></param>
+            <returns>True, pokud Image nejak otocil. Jinak false.</returns>
         </member>
         <member name="M:eContracting.Services.FileOptimizer.ResizeImage(System.Drawing.Image,System.Int32,System.Int32,System.Nullable{System.Single},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
