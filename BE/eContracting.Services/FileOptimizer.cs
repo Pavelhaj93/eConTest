@@ -195,6 +195,10 @@ namespace eContracting.Services
         {
             using (var outputFileWriteMemoryStream = new MemoryStream())
             {
+                // je potreba nastavit verzi, jinak se Acrobat uzivatele pri zavirani souboru pta, jestli chce ulozit zmeny (je rozdil, kdyz se uklada pdf file a stream)
+                if (outputPdfDocument.Version == 0 )
+                    outputPdfDocument.Version = 14;
+
                 outputPdfDocument.Save(outputFileWriteMemoryStream);
                 group.OutputFile.Content = outputFileWriteMemoryStream.ToArray();                
             }
