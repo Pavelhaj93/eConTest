@@ -31,6 +31,11 @@ namespace eContracting.Models
         public readonly string ProcessType;
 
         /// <summary>
+        /// The text parameters from offer.
+        /// </summary>
+        public readonly IDictionary<string, string> TextParameters;
+
+        /// <summary>
         /// Prevents a default instance of the <see cref="AuthDataModel"/> class from being created.
         /// </summary>
         private AuthDataModel()
@@ -46,6 +51,11 @@ namespace eContracting.Models
             this.Guid = offer.Guid;
             this.Process = offer.Process;
             this.ProcessType = offer.ProcessType;
+            
+            if (offer.TextParameters != null)
+            {
+                this.TextParameters = offer.TextParameters;
+            }
         }
     }
 }

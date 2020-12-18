@@ -85,7 +85,7 @@ namespace eContracting.Services
             return await Task.FromResult(model);
         }
 
-        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, AcceptedOfferPageModel definition, OfferModel offer)
+        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, PageAcceptedOfferModel definition, OfferModel offer)
         {
             var list = new List<JsonFilesSectionModel>();
 
@@ -136,16 +136,16 @@ namespace eContracting.Services
             return null;
         }
 
-        protected virtual internal AcceptedOfferPageModel GetAcceptedPageModel()
+        protected virtual internal PageAcceptedOfferModel GetAcceptedPageModel()
         {
             Guid guid = this.SettingsReaderService.GetSiteSettings().AcceptedOffer?.TargetId ?? Guid.Empty;
 
             if (guid == Guid.Empty)
             {
-                return new AcceptedOfferPageModel();
+                return new PageAcceptedOfferModel();
             }
 
-            return this.Context.GetItem<AcceptedOfferPageModel>(guid) ?? new AcceptedOfferPageModel();
+            return this.Context.GetItem<PageAcceptedOfferModel>(guid) ?? new PageAcceptedOfferModel();
         }
 
         protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)

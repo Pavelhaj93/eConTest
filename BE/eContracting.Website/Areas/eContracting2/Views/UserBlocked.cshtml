@@ -1,12 +1,10 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
-
-@inherits GlassView<EContractingUserBlockedTemplate>
-
+@using eContracting.Models
+@inherits GlassView<PageUserBlockedModel>
 
 <div class="row">
 	<div class="col-12">
-		<h1>@Editable(model=>model.Header)</h1>
-		@Editable(model=>model.MainText)
+		<h1>@Editable(model => model.PageTitle)</h1>
+		@Editable(model => model.MainText)
 	</div>
 </div>

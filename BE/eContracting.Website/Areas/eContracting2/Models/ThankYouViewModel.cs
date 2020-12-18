@@ -10,7 +10,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class ThankYouViewModel
     {
         [JsonIgnore]
-        public readonly ThankYouPageModel Datasource;
+        public readonly PageThankYouModel Datasource;
 
         [JsonIgnore]
         public readonly StepsViewModel Steps;
@@ -20,7 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public Dictionary<string, string> ScriptParameters { get; } = new Dictionary<string, string>();
 
-        public ThankYouViewModel(ThankYouPageModel datasource, StepsViewModel steps)
+        public ThankYouViewModel(PageThankYouModel datasource, StepsViewModel steps)
         {
             this.Datasource = datasource;
             this.Steps = steps;

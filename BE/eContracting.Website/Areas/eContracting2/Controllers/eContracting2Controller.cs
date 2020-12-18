@@ -3,24 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using eContracting.Kernel;
-using eContracting.Kernel.GlassItems.Content;
-using eContracting.Kernel.GlassItems.Content.Modal_window;
-using eContracting.Kernel.GlassItems.Pages;
-using eContracting.Kernel.GlassItems.Settings;
-using eContracting.Kernel.Helpers;
-using eContracting.Kernel.Models;
-using eContracting.Kernel.Services;
-using eContracting.Kernel.Utils;
 using eContracting.Models;
-using eContracting.Services;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 using Sitecore.Globalization;
-using Log = Sitecore.Diagnostics.Log;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -123,7 +112,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.Logger.Error(guid, "Cannot clear user file cache", ex);
                 }
 
-                var datasource = this.GetLayoutItem<OfferPageModel>();
+                var datasource = this.GetLayoutItem<PageNewOfferModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
                 var steps = this.SettingsReaderService.GetSteps(datasource.Step);
                 var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
@@ -154,7 +143,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
-            var datasource = this.GetLayoutItem<OfferPageModel>();
+            var datasource = this.GetLayoutItem<PageNewOfferModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
             var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
@@ -189,7 +178,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(url);
                 }
 
-                var datasource = this.GetLayoutItem<AcceptedOfferPageModel>();
+                var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
                 var settings = this.SettingsReaderService.GetSiteSettings();
                 var viewModel = new AcceptedOfferViewModel(datasource, settings.ApplicationUnavailableTitle, settings.ApplicationUnavailableText);
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);
@@ -197,7 +186,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error($"[{guid}] Error when displaying accepted offer.", ex);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
             }
         }
 
@@ -208,32 +197,25 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                var datasource = this.GetLayoutItem<EContractingExpirationTemplate>();
+                var datasource = this.GetLayoutItem<PageExpirationModel>();
 
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
-                    return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
                 }
 
                 var data = this.AuthenticationService.GetCurrentUser();
                 guid = data.Guid;
-                var textHelper = new EContractingTextHelper(SystemHelpers.GenerateMainText);
-                string mainText = null; //TODO: textHelper.GetMainText(this.Client, datasource, data, this.SettingsReaderService.GetGeneralSettings());
 
-                if (mainText == null)
-                {
-                    var redirectUrl = ConfigHelpers.GetPageLink(PageLinkType.WrongUrl).Url;
-                    return Redirect(redirectUrl);
-                }
-
-                ViewData["MainText"] = mainText;
-
-                return View("/Areas/eContracting2/Views/Expiration.cshtml", datasource);
+                var viewModel = new PageExpirationViewModel();
+                viewModel.Datasource = datasource;
+                viewModel.MainText = Utils.GetReplacedTextTokens(datasource.MainText, data.TextParameters);
+                return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
             }
             catch (Exception ex)
             {
-                Log.Error($"[{guid}] Error when displaying expiration page", ex, this);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                this.Logger.Error(guid, $"Error when displaying expiration page", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
             }
         }
 
@@ -253,7 +235,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
-                    return this.Redirect(ConfigHelpers.GetPageLink(PageLinkType.SessionExpired).Url);
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
                 }
 
                 var user = this.AuthenticationService.GetCurrentUser();
@@ -275,51 +257,51 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Error when displaying thank you page", ex);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
             }
         }
 
         // UserBlockedController
         public ActionResult UserBlocked()
         {
+            var guid = string.Empty;
+
             try
             {
-                var datasource = this.GetLayoutItem<EContractingUserBlockedTemplate>();
+                if (!this.AuthenticationService.IsLoggedIn())
+                {
+                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
+                }
+
+                var user = this.AuthenticationService.GetCurrentUser();
+                guid = user.Guid;
+
+                var datasource = this.GetLayoutItem<PageUserBlockedModel>();
                 return View("/Areas/eContracting2/Views/UserBlocked.cshtml", datasource);
             }
             catch (Exception ex)
             {
-                Log.Error("Error when displaying user blocked page", ex, this);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                this.Logger.Error(guid, "Error when displaying user blocked page", ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
             }
         }
 
         // eContractingController
         public ActionResult CookieLaw()
         {
-            try
-            {
-                using (var sitecoreContext = new SitecoreContext())
-                {
-                    var cookieLawSettings = sitecoreContext.GetItem<CookieLawSettings>(ItemPaths.CookieLawSettings);
-                    if (cookieLawSettings != null)
-                    {
-                        return View("/Areas/eContracting2/Views/CookieLaw.cshtml", cookieLawSettings);
-                    }
-                }
+            var model = this.SettingsReaderService.GetSiteSettings().CookieLawSettings;
 
-                return new EmptyResult();
-            }
-            catch (Exception ex)
+            if (model != null)
             {
-                Log.Error("Error when displaying cookie law", ex, this);
-                return Redirect(ConfigHelpers.GetPageLink(PageLinkType.SystemError).Url);
+                return View("/Areas/eContracting2/Views/CookieLaw.cshtml", model);
             }
+
+            return new EmptyResult();
         }
         
         public ActionResult Disclaimer()
         {
-            var datasource = this.GetLayoutItem<EContractingDisclaimerTemplate>();
+            var datasource = this.GetLayoutItem<PageDisclaimerModel>();
             return View("/Areas/eContracting2/Views/Disclaimer.cshtml", datasource);
         }
 
@@ -327,13 +309,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var code = this.Request.QueryString["code"];
 
-            var datasource = this.GetLayoutItem<Error404PageModel>();
+            var datasource = this.GetLayoutItem<PageError404Model>();
 
             if (!this.Context.IsEditMode())
             {
                 var error = Constants.GetErrorDescription(code);
                 datasource.PageTitle = datasource.PageTitle.Replace("{CODE}", error);
-                datasource.Text = datasource.Text.Replace("{CODE}", error);
+                datasource.MainText = datasource.MainText.Replace("{CODE}", error);
             }
 
             return View("/Areas/eContracting2/Views/Error404.cshtml", datasource);
@@ -341,10 +323,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult SessionExpired()
         {
-            //this.Server
-            var viewModel = new SessionExpiredViewModel();
-
-            var datasouce = this.GetLayoutItem<EContractingSessionExpiredTemplate>();
+            var datasouce = this.GetLayoutItem<PageSessionExpiredModel>();
             return View("/Areas/eContracting2/Views/SessionExpired.cshtml", datasouce);
         }
 
@@ -360,77 +339,59 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", model);
         }
 
-        private string[] GetScriptParameters(OfferModel offer)
+        private (string eCat, string eAct, string eLab) GetScriptParameters(OfferModel offer, PageThankYouModel datasource)
         {
+            const string electricityIdentifier = "8591824";
             var eCat = string.Empty;
             var eAct = string.Empty;
             var eLab = string.Empty;
 
             try
             {
-                var settings = this.SitecoreContext.GetItem<ThankYouPageSettings>(ItemPaths.ThankYouPageSettings);
-                var commodity = CommodityHelper.CommodityTypeByExtUi(offer.Commodity) == CommodityTypes.Electricity ? settings.ElectricityLabel : settings.GasLabel;
-                var type = offer.IsCampaign ? settings.CampaignLabel : settings.IndividualLabel;
+                var type = offer.IsCampaign ? datasource.CampaignLabel : datasource.IndividualLabel;
                 var code = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
-                eCat = string.Format(settings.CatText, type);
-                eAct = string.Format(settings.ActText, type, commodity);
-                eLab = string.Format(settings.LabText, eAct, code);
+                var commodity = string.Empty;
+
+                if (string.IsNullOrEmpty(offer.Commodity))
+                {
+                    commodity = "NotDefined";
+                }
+                else if (offer.Commodity.StartsWith(electricityIdentifier))
+                {
+                    commodity = "Electricity";
+                }
+                else
+                {
+                    commodity = "Gas";
+                }
+
+                eCat = string.Format(datasource.CatText, type);
+                eAct = string.Format(datasource.ActText, type, commodity);
+                eLab = string.Format(datasource.LabText, eAct, code);
             }
             catch (Exception ex)
             {
                 this.Logger.Error($"[{offer.Guid}] Can not process Google script parameters", ex);
             }
 
-            return new string[] { eCat, eAct, eLab };
-        }
-
-        private string[] GetScriptParameters(AuthenticationDataItem data)
-        {
-            var eCat = string.Empty;
-            var eAct = string.Empty;
-            var eLab = string.Empty;
-
-            try
-            {
-                var settings = this.SitecoreContext.GetItem<ThankYouPageSettings>(ItemPaths.ThankYouPageSettings);
-                var commodity = CommodityHelper.CommodityTypeByExtUi(data.Commodity) == CommodityTypes.Electricity ? settings.ElectricityLabel : settings.GasLabel;
-                var type = data.IsIndi ? settings.IndividualLabel : settings.CampaignLabel;
-                var code = data.IsIndi ? data.CreatedAt : data.Campaign;
-                eCat = string.Format(settings.CatText, type);
-                eAct = string.Format(settings.ActText, type, commodity);
-                eLab = string.Format(settings.LabText, eAct, code);
-            }
-            catch (Exception ex)
-            {
-                Sitecore.Diagnostics.Log.Error($"[{data.Identifier}] Can not process Google script parameters", ex, this);
-            }
-
-            return new string[] { eCat, eAct, eLab };
+            return (eCat, eAct, eLab);
         }
 
         protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
         {
-            var datasource = this.GetLayoutItem<ThankYouPageModel>();
+            var datasource = this.GetLayoutItem<PageThankYouModel>();
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
             viewModel.MainText = Utils.GetReplacedTextTokens(definition.MainTextThankYou.Text, offer.TextParameters);
-            var scriptParameters = this.GetScriptParameters(offer);
-
-            if (scriptParameters == null || scriptParameters.Length != 3 || scriptParameters.Any(a => string.IsNullOrEmpty(a)))
-            {
-                throw new Exception("Can not get script parameters.");
-            }
-
-            viewModel.ScriptParameters["eCat"] = scriptParameters[0];
-            viewModel.ScriptParameters["eAct"] = scriptParameters[1];
-            viewModel.ScriptParameters["eLab"] = scriptParameters[2];
-
+            var scriptParameters = this.GetScriptParameters(offer, datasource);
+            viewModel.ScriptParameters["eCat"] = scriptParameters.eCat;
+            viewModel.ScriptParameters["eAct"] = scriptParameters.eAct;
+            viewModel.ScriptParameters["eLab"] = scriptParameters.eLab;
             return viewModel;
         }
 
-        protected internal void FillLabels(OfferViewModel viewModel, OfferPageModel datasource, DefinitionCombinationModel definition)
+        protected internal void FillLabels(OfferViewModel viewModel, PageNewOfferModel datasource, DefinitionCombinationModel definition)
         {
             var settings = this.SettingsReaderService.GetSiteSettings();
             viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;

@@ -430,29 +430,39 @@
             Gets or sets the file keys.
             </summary>
         </member>
-        <member name="T:eContracting.Models.ThankYouPageModel">
+        <member name="P:eContracting.Models.PageSessionExpiredModel.PageTitle">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.PageSessionExpiredModel.MainText">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.PageThankYouModel">
             <summary>
             Represents model for thank you page.
             </summary>
             <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
         </member>
-        <member name="P:eContracting.Models.AcceptedOfferPageModel.PageTitle">
+        <member name="P:eContracting.Models.PageAcceptedOfferModel.PageTitle">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="T:eContracting.Models.Error404PageModel">
+        <member name="T:eContracting.Models.PageError404Model">
             <summary>
             Represents page model for error page 404.
             </summary>
             <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.Error404PageModel.PageTitle">
+        <member name="P:eContracting.Models.PageError404Model.PageTitle">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="P:eContracting.Models.Error404PageModel.Text">
+        <member name="P:eContracting.Models.PageError404Model.MainText">
             <summary>
             Gets or sets the page title.
             </summary>
@@ -475,6 +485,11 @@
         <member name="F:eContracting.Models.AuthDataModel.ProcessType">
             <summary>
             The process type.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.AuthDataModel.TextParameters">
+            <summary>
+            The text parameters from offer.
             </summary>
         </member>
         <member name="M:eContracting.Models.AuthDataModel.#ctor">
@@ -1117,43 +1132,43 @@
             <param name="xmlElementName">Name of the XML element.</param>
             <returns>Value or null.</returns>
         </member>
-        <member name="T:eContracting.Models.OfferPageModel">
+        <member name="T:eContracting.Models.PageNewOfferModel">
             <summary>
             Represents model for offer page.
             </summary>
             <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.GDPRUrl">
+        <member name="P:eContracting.Models.PageNewOfferModel.GDPRUrl">
             <summary>
             Gets or sets the GDPR URL.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.AesEncryptKey">
+        <member name="P:eContracting.Models.PageNewOfferModel.AesEncryptKey">
             <summary>
             Gets or sets the aes encrypt key.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.AesEncryptVector">
+        <member name="P:eContracting.Models.PageNewOfferModel.AesEncryptVector">
             <summary>
             Gets or sets the aes encrypt vector.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowTitle">
+        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowTitle">
             <summary>
             Gets or sets title for confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowText">
+        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowText">
             <summary>
             Gets or sets text for confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowButtonAcceptLabel">
+        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowButtonAcceptLabel">
             <summary>
             Gets or sets label for accept button in confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferPageModel.ConfirmModalWindowButtonCancelLabel">
+        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowButtonCancelLabel">
             <summary>
             Gets or sets label for cancel button in confirm modal window.
             </summary>

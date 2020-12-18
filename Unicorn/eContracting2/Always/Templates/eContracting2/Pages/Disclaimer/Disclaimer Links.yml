@@ -4,6 +4,10 @@ Parent: "aea91936-870e-40df-b18a-0e949c0ad3d6"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
 Path: /sitecore/templates/eContracting2/Pages/Disclaimer/Disclaimer Links
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 50
 Languages:
 - Language: en
   Versions:

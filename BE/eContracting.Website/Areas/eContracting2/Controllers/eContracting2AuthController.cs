@@ -5,7 +5,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using eContracting.Kernel.Models;
 using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
@@ -383,34 +382,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.Labels["ariaChooseDay"] = datasource.CalendarSelectDay;
             viewModel.Labels["validationError"] = validationMessage;
             return viewModel;
-        }
-
-        protected internal string TryToGetPlaceholder(AuthenticationSettingsModel settings, string displayName)
-        {
-            try
-            {
-                if (displayName.ToLowerInvariant().Contains("psč"))
-                {
-                    var match = settings.AuthFields.FirstOrDefault(x => x.Label.ToLowerInvariant().Contains("psč"));
-
-                    if (match != null)
-                    {
-                        return match.Placeholder;
-                    }
-                }
-                else if (displayName.ToLowerInvariant().Contains("číslo"))
-                {
-                    var match = settings.AuthFields.FirstOrDefault(x => x.Label.ToLowerInvariant().Contains("číslo"));
-
-                    if (match != null)
-                    {
-                        return match.Placeholder;
-                    }
-                }
-            }
-            catch { }
-
-            return displayName;
         }
 
         protected internal LoginStates CanLogin(string guid, OfferModel offer)

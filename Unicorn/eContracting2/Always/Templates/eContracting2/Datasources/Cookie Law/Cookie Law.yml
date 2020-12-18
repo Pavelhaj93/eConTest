@@ -1,13 +1,9 @@
 ﻿---
-ID: "7be7daad-f5f8-4317-89a6-9a4a9c246d3b"
-Parent: "220b964c-ea21-4672-92f1-58cce932bd33"
+ID: "b7b8dc11-e048-4c4e-8085-e7a1d344b94b"
+Parent: "3406e570-bd83-480f-b4a7-96a681f5e8ae"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting2/Pages/Offer Expired/ExpirationLinks
+Path: /sitecore/templates/eContracting2/Datasources/Cookie Law/Cookie Law
 DB: master
-SharedFields:
-- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
-  Hint: __Sortorder
-  Value: 100
 Languages:
 - Language: cs
   Versions:
@@ -15,7 +11,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191217T132850Z
+      Value: 20201218T100318Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -26,7 +22,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20160908T122409Z
+      Value: 20160909T075130Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

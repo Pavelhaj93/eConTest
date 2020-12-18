@@ -1,12 +1,11 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Settings
-@inherits GlassView<CookieLawSettings>
-
+@using eContracting.Models
+@inherits GlassView<CookieLawSettingsModel>
 
 <div id="notification">
 	<div class="container-fluid">
 		<p>
-			@Editable(model=>model.MainText)
+			@Editable(model=>model.Text)
 		</p>
 		<div class="actions">
 			@if (Model.Link != null)
@@ -21,7 +20,7 @@
                 }
             }
 			<a class="button agree" href="">
-				@Editable(model => model.ButtonText)
+				@Editable(model => model.ButtonLabel)
 			</a>
 		</div>
 	</div>

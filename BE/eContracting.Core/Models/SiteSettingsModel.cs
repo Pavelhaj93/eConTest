@@ -110,6 +110,9 @@ namespace eContracting.Models
         [SitecoreField]
         public string GoogleTagManager { get; set; }
 
+        [SitecoreField]
+        public virtual CookieLawSettingsModel CookieLawSettings { get; set; }
+
         /// <summary>
         /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
         /// </summary>

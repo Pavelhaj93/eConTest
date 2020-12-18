@@ -51,6 +51,9 @@ SharedFields:
 - ID: "e5e0efe2-5e3d-493b-9010-6b7172a2c00c"
   Hint: SigningServicePassword
   Value: QWRIYjI0Nyo=
+- ID: "f4ed5a8d-2516-493d-95da-0ee480166948"
+  Hint: CookieLawSettings
+  Value: "{E65354AF-42FF-4F8A-82B3-A2EA9B72F219}"
 - ID: "f91f0879-6520-40d3-b160-2f4a5fe00c9f"
   Hint: Offer
   Value: |

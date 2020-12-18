@@ -14,7 +14,7 @@ namespace eContracting.Models
     /// <seealso cref="BasePageWithStepsModel" />
     [SitecoreType(TemplateId = "{456D5421-A2DE-42B4-97E6-A42FC243BF10}", AutoMap = true)]
     [ExcludeFromCodeCoverage]
-    public class OfferPageModel : BasePageWithStepsModel
+    public class PageNewOfferModel : BasePageWithStepsModel
     {
         /// <summary>
         /// Gets or sets the GDPR URL.

@@ -1,11 +1,10 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Models
-
-@inherits GlassView<Error404PageModel>
+@inherits GlassView<PageError404Model>
 
 <div class="row">
 	<div class="col-12">
 		<h1>@Editable(model=>model.PageTitle)</h1>
-		@Editable(model=>model.Text)
+		@Editable(model=>model.MainText)
 	</div>
 </div>

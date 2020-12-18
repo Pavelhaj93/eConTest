@@ -10,7 +10,7 @@ namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{0F225E4F-AA1E-44CC-91F4-19D4FB5C859C}", AutoMap = true)]
     [ExcludeFromCodeCoverage]
-    public class AcceptedOfferPageModel : BaseSitecoreModel
+    public class PageAcceptedOfferModel : BaseSitecoreModel
     {
         /// <summary>
         /// Gets or sets the page title.

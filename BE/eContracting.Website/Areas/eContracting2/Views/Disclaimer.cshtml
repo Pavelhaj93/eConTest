@@ -1,11 +1,10 @@
 ﻿@using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
-
-@inherits GlassView<EContractingDisclaimerTemplate>
+@using eContracting.Models
+@inherits GlassView<PageDisclaimerModel>
 
 <div class="row">
   <div class="col-12">
-    <h1>@Editable(model => model.Header)</h1>
+    <h1>@Editable(model => model.PageTitle)</h1>
     @Editable(model => model.MainText)
   </div>
 </div>

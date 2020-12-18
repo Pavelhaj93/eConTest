@@ -13,8 +13,7 @@ namespace eContracting.Models
     /// </summary>
     /// <seealso cref="eContracting.Models.BaseSitecoreModel" />
     [SitecoreType(TemplateId = "{6CCFEF10-7A13-47F8-AAF3-237085B9C556}", AutoMap = true)]
-    [ExcludeFromCodeCoverage]
-    public class Error404PageModel : BaseSitecoreModel
+    public class PageError404Model : BaseSitecoreModel
     {
         /// <summary>
         /// Gets or sets the page title.
@@ -26,6 +25,6 @@ namespace eContracting.Models
         /// Gets or sets the page title.
         /// </summary>
         [SitecoreField]
-        public virtual string Text { get; set; }
+        public virtual string MainText { get; set; }
     }
 }
