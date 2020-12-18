@@ -39,6 +39,7 @@ export const Offer: React.FC<View> = observer(
     maxFileSize,
     acceptOfferUrl,
     thankYouPageUrl,
+    debug,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -69,6 +70,10 @@ export const Offer: React.FC<View> = observer(
       if (acceptOfferUrl) {
         store.acceptOfferUrl = acceptOfferUrl
       }
+
+      if (debug) {
+        store.debug = true
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -90,13 +95,24 @@ export const Offer: React.FC<View> = observer(
       <OfferStoreContext.Provider value={store}>
         {/* error state */}
         {store.error && (
-          <Alert variant="danger">
-            <h3>{t('appUnavailableTitle')}</h3>
-            <div
-              className="editorial-content"
-              dangerouslySetInnerHTML={{ __html: t('appUnavailableText') }}
-            />
-          </Alert>
+          <>
+            <Alert variant="danger">
+              <h3>{t('appUnavailableTitle')}</h3>
+              <div
+                className="editorial-content"
+                dangerouslySetInnerHTML={{ __html: t('appUnavailableText') }}
+              />
+            </Alert>
+            {/* TODO: delete before production usage */}
+            {debug && (
+              <>
+                <h4>API response:</h4>
+                <pre className="bg--gray-5 p-3 small">
+                  <code className="small">{JSON.stringify(store.debugMessage, null, '  ')}</code>
+                </pre>
+              </>
+            )}
+          </>
         )}
         {/* /error state */}
 

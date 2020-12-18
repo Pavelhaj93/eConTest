@@ -28,6 +28,7 @@ export type AppConfig = {
   thankYouPageUrl: string
   allowedContentTypes?: string[]
   maxFileSize?: number
+  debug?: boolean
 }
 
 declare global {

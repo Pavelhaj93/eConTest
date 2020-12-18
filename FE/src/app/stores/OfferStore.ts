@@ -24,6 +24,7 @@ export class OfferStore {
   public errorPageUrl = ''
   public acceptOfferUrl = ''
   public maxUploadGroupSize = 0
+  public debug = false
   private type: OfferType
 
   @observable
@@ -61,6 +62,9 @@ export class OfferStore {
 
   @observable
   public isAccepting = false
+
+  @observable
+  public debugMessage: string | NewOfferResponse | AcceptedOfferResponse = ''
 
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
@@ -422,6 +426,11 @@ export class OfferStore {
       switch (this.type) {
         case OfferType.NEW:
           jsonResponse = await (response.json() as Promise<NewOfferResponse>)
+
+          if (this.debug) {
+            this.debugMessage = jsonResponse
+          }
+
           this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
@@ -435,6 +444,11 @@ export class OfferStore {
 
         case OfferType.ACCEPTED:
           jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
+
+          if (this.debug) {
+            this.debugMessage = jsonResponse
+          }
+
           this.documentGroups = jsonResponse.groups
           break
 
