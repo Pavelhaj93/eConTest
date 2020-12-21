@@ -16,7 +16,7 @@ import {
   UploadZone,
 } from '@components'
 import { colors } from '@theme'
-import { useLabels, useUnload } from '@hooks'
+import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 
 type SignatureModalType = {
@@ -41,6 +41,7 @@ export const Offer: React.FC<View> = observer(
     thankYouPageUrl,
     sessionExpiredPageUrl,
     debug,
+    keepAliveUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -50,6 +51,9 @@ export const Offer: React.FC<View> = observer(
     const [confirmationModal, setConfirmationModal] = useState(false)
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)
+
+    // keep session alive
+    useKeepAlive(30 * 1000, keepAliveUrl)
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
