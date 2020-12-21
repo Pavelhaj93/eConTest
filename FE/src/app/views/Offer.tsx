@@ -39,6 +39,7 @@ export const Offer: React.FC<View> = observer(
     maxFileSize,
     acceptOfferUrl,
     thankYouPageUrl,
+    sessionExpiredPageUrl,
     debug,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
@@ -52,6 +53,7 @@ export const Offer: React.FC<View> = observer(
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
+      store.sessionExpiredPageUrl = sessionExpiredPageUrl
       store.fetchOffer(timeout)
 
       // set correct upload document URL if provided
@@ -78,7 +80,7 @@ export const Offer: React.FC<View> = observer(
     }, [])
 
     useUnload(ev => {
-      if (store.isOfferDirty && !store.isAccepting) {
+      if (store.isOfferDirty && !store.isAccepting && !store.forceReload) {
         ev.preventDefault()
         ev.returnValue = ''
       }

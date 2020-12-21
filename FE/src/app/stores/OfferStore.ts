@@ -22,6 +22,7 @@ export class OfferStore {
   public uploadDocumentUrl = ''
   public removeDocumentUrl = ''
   public errorPageUrl = ''
+  public sessionExpiredPageUrl = ''
   public acceptOfferUrl = ''
   public maxUploadGroupSize = 0
   public debug = false
@@ -62,6 +63,9 @@ export class OfferStore {
 
   @observable
   public isAccepting = false
+
+  @observable
+  public forceReload = false
 
   @observable
   public debugMessage: string | NewOfferResponse | AcceptedOfferResponse = ''
@@ -413,6 +417,7 @@ export class OfferStore {
 
       // redirect to error page on 404 response
       if (response.status === 404) {
+        this.forceReload = true
         window.location.href = this.errorPageUrl
         return
       }
@@ -690,12 +695,19 @@ export class OfferStore {
       })
 
       // handle unexpected statuses
-      if (response.status !== 200 && response.status !== 400) {
+      if (response.status !== 200 && response.status !== 400 && response.status !== 401) {
         throw new Error(`FAILED TO UPLOAD DOCUMENT - ${response.statusText} (${response.status})`)
       }
 
       // all other statuses than 200 are considered as upload failure
       const uploaded = response.status === 200
+
+      if (response.status === 401) {
+        this.forceReload = true
+        window.location.href = this.sessionExpiredPageUrl
+        // @ts-ignore
+        return
+      }
 
       // TODO: get some nice application error message
       if (!uploaded) {

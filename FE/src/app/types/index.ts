@@ -25,7 +25,9 @@ export type AppConfig = {
   removeFileUrl?: string
   errorPageUrl: string
   acceptOfferUrl?: string
+  keepAliveUrl?: string
   thankYouPageUrl: string
+  sessionExpiredPageUrl: string
   allowedContentTypes?: string[]
   maxFileSize?: number
   debug?: boolean

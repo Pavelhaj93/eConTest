@@ -8,6 +8,7 @@ const mockProps = {
   offerUrl: '/api/documents',
   errorPageUrl: '/error',
   thankYouPageUrl: '',
+  sessionExpiredPageUrl: '',
   formAction: '/authentication.html',
   choices: [
     {
@@ -36,6 +37,7 @@ const mockPropsSingleChoice = {
   offerUrl: '/api/documents',
   errorPageUrl: '/error',
   thankYouPageUrl: '',
+  sessionExpiredPageUrl: '',
   formAction: '/authentication.html',
   choices: [
     {
