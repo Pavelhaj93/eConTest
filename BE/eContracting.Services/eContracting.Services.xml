@@ -132,6 +132,8 @@
             Zmensi bitmap obrazek
             </summary>
             <param name="image"></param>
+            <param name="minWidth"></param>
+            <param name="minHeight"></param>
             <param name="ratio">Desetinne cislo, jak moc se ma obrazek zmensit</param>
             <param name="maxWidth"></param>
             <param name="maxHeight"></param>

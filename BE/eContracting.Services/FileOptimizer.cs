@@ -32,10 +32,6 @@ namespace eContracting.Services
         private readonly Size MaxImageSizeAfterResize;
         private readonly Size MinImageSizeNoResize;
 
-        private const string sourceFileNameComponentsSeparator = "___";
-        private const string jointFileNamePrefix = "___jointFile___";
-        private const string resizedFileNamePrefix = "___resizedFile___";
-
         public string FileStorageRoot { get; set; }
 
         /// <summary>
@@ -168,7 +164,9 @@ namespace eContracting.Services
 
                 // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
                 int compressionRounds = 0;
-                while (compressionRounds < 5)
+                int compressionRoundsMax = 5;
+
+                while (compressionRounds < compressionRoundsMax)
                 {
                     if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
                     {
@@ -176,7 +174,7 @@ namespace eContracting.Services
                         {
                             outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
 
-                            this.CompressFiles(group.OriginalFiles, compressionRounds);
+                            this.CompressFiles(group.OriginalFiles, compressionRounds, compressionRoundsMax);
 
                             foreach (var fileInGroup in group.OriginalFiles)
                             {
@@ -258,7 +256,7 @@ namespace eContracting.Services
             }
         }
 
-        protected internal void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed)
+        protected internal void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed, int compressionRoundsMax)
         {
             if (originalFiles.Count == 0)
             {
@@ -270,29 +268,57 @@ namespace eContracting.Services
             long totalLimitForCompressableFiles = this.GroupResultingFileSizeLimit - uncompressableFilesSize;
 
             float needToCompressTimes = 1;
-
-            needToCompressTimes = compressableFilesSize / totalLimitForCompressableFiles;
-
-            foreach (var originalFile in originalFiles.Where(f => this.IsCompressable(f.FileExtension)))
+            if (totalLimitForCompressableFiles > 0)
             {
-                if (this.IsCompressable(originalFile.FileExtension) && this.IsImage(originalFile.FileExtension))
-                {
-                    using (var memoryStream = new MemoryStream(originalFile.Content))
-                    {
-                        using (Image imageOriginal = Image.FromStream(memoryStream))
-                        {
-                            // TODO: lepsi odhad potrebneho pomeru komprese datova velikost vs rozmer
-                            float imageReductionByNeeded = (needToCompressTimes - (float)0.5 + compressionRoundsElapsed);
-                            // sichr je sichr, hlavne nezvetsovat
-                            if (imageReductionByNeeded < 1)
-                                imageReductionByNeeded = 1;
+                needToCompressTimes = compressableFilesSize / totalLimitForCompressableFiles;
 
-                            using (Image resizedImage = this.ResizeImage(imageOriginal, this.MinImageSizeNoResize.Width, this.MinImageSizeNoResize.Height, 1 / (imageReductionByNeeded), this.MaxImageSizeAfterResize.Width, this.MaxImageSizeAfterResize.Height))
+
+                foreach (var originalFile in originalFiles.Where(f => this.IsCompressable(f.FileExtension)))
+                {
+                    if (this.IsCompressable(originalFile.FileExtension) && this.IsImage(originalFile.FileExtension))
+                    {
+                        using (var memoryStream = new MemoryStream(originalFile.Content))
+                        {
+                            using (Image imageOriginal = Image.FromStream(memoryStream))
                             {
-                                using (MemoryStream resizedImageMemoryStream = new MemoryStream())
+                                // TODO: lepsi odhad potrebneho pomeru komprese datova velikost vs rozmer
+                                float imageReductionByNeeded = ((float)Math.Sqrt(needToCompressTimes) + (float)0.0 + (float)Math.Pow(compressionRoundsElapsed, 2));
+                                // sichr je sichr, hlavne nezvetsovat
+                                if (imageReductionByNeeded < 1)
+                                    imageReductionByNeeded = 1;
+
+                                float ratio = 1 / (imageReductionByNeeded);
+                                using (Image resizedImage = this.ResizeImage(imageOriginal, this.MinImageSizeNoResize.Width, this.MinImageSizeNoResize.Height, ratio, this.MaxImageSizeAfterResize.Width, this.MaxImageSizeAfterResize.Height))
                                 {
-                                    resizedImage.Save(resizedImageMemoryStream, resizedImage.RawFormat);
-                                    originalFile.Content = resizedImageMemoryStream.ToArray();
+                                    using (MemoryStream resizedImageMemoryStream = new MemoryStream())
+                                    {
+                                        resizedImage.Save(resizedImageMemoryStream, resizedImage.RawFormat);
+                                        if (resizedImageMemoryStream.Length < originalFile.Content.Length)
+                                        {
+                                            // prepis puvodni obraze jedine pokud je novy datove mensi
+                                            originalFile.Content = resizedImageMemoryStream.ToArray();
+                                        }
+                                        else
+                                        {
+                                            // jinak nasad natrdo jpeg a cim dal brutalnejsi ztratovost
+                                            using (MemoryStream resizedImageMemoryStreamJpeg = new MemoryStream())
+                                            {
+                                                var encoderParameters = new EncoderParameters(1);
+                                                long quality = (90L - 10L * (long)compressionRoundsElapsed) > 0 ? 90L - (long)10L * compressionRoundsElapsed : 30L;
+                                                encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
+                                                resizedImage.Save(resizedImageMemoryStreamJpeg, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+
+                                                if (resizedImageMemoryStreamJpeg.Length < originalFile.Content.Length)
+                                                {
+                                                    originalFile.Content = resizedImageMemoryStreamJpeg.ToArray();
+                                                }
+                                                else
+                                                {
+                                                    // tak to uz fakt nevim. Treba pri pristim pruchodu.
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -300,7 +326,18 @@ namespace eContracting.Services
                 }
             }
         }
-
+        protected internal ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
         protected internal bool IsCompressable(string filename)
         {
             return this.IsImage(filename);
@@ -366,10 +403,25 @@ namespace eContracting.Services
             return retval;
         }
 
+        protected internal Size GetMinimalDimensions(int origwidth, int origheight, int minwidth, int minheight)
+        {
+            double scale1, scale2;
+            scale1 = (double)origwidth / minwidth;
+            scale2 = (double)origheight / minheight;
+            if (scale1 > scale2)
+            {
+                return new Size((int)Math.Round(origwidth / scale2), minheight);
+            }
+            return new Size(minwidth, (int)Math.Round(origheight / scale1));
+        }
+
+
         /// <summary>
         /// Zmensi bitmap obrazek
         /// </summary>
         /// <param name="image"></param>
+        /// <param name="minWidth"></param>
+        /// <param name="minHeight"></param>
         /// <param name="ratio">Desetinne cislo, jak moc se ma obrazek zmensit</param>
         /// <param name="maxWidth"></param>
         /// <param name="maxHeight"></param>
@@ -393,9 +445,8 @@ namespace eContracting.Services
             int newWidth = (int)(originalWidth * resultingRatio);
             int newHeight = (int)(originalHeight * resultingRatio);
 
-            // TODO: pokud bych zmensoval pod minima
-            if (newWidth < minWidth || newHeight < minHeight)
-                return image;
+            // pokud bych zmensoval pod minima
+            Size newSize = GetMinimalDimensions(newWidth, newHeight, minWidth, minHeight);
 
             // Convert other formats (including CMYK) to RGB.
             Bitmap newImage = new Bitmap(newWidth, newHeight, PixelFormat.Format24bppRgb);
@@ -406,7 +457,7 @@ namespace eContracting.Services
                 graphics.CompositingQuality = CompositingQuality.HighQuality;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
                 graphics.SmoothingMode = SmoothingMode.HighQuality;
-                graphics.DrawImage(image, 0, 0, newWidth, newHeight);
+                graphics.DrawImage(image, 0, 0, newSize.Width, newSize.Height);
             }
 
             MemoryStream mStream = new MemoryStream();
