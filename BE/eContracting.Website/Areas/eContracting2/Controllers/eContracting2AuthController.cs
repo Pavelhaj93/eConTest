@@ -24,6 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         private const string salt = "228357";
         protected readonly ILogger Logger;
         protected readonly IContextWrapper ContextWrapper;
+        protected readonly ISessionProvider SessionProvider;
         protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly IUserDataCacheService UserDataCache;
@@ -75,6 +76,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ILogger logger,
             IContextWrapper contextWrapper,
             IOfferService apiService,
+            ISessionProvider sessionProvider,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
             ILoginReportStore loginReportService,
@@ -86,6 +88,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
+            this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.UserDataCache = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
@@ -224,7 +227,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     this.Logger.Info(guid, $"Log-in failed");
                     //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
-                    //TODO: this.LoginReportService.AddFailedAttempt(guid, this.Session.SessionID, this.Request.Browser.Browser);
+                    //TODO: this.LoginReportService.AddFailedAttempt(guid, this.SessionProvider.GetId(), this.Request.Browser.Browser);
                     return this.GetLoginFailReturns(result, guid);
                 }
 
@@ -232,7 +235,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.AuthService.Login(new AuthDataModel(offer));
                 this.Logger.Info(guid, $"Successfully log-ged in");
 
-                this.EventLogger.Add(this.Session.SessionID, guid, EVENT_NAMES.LOGIN);
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
 
                 if (offer.IsAccepted)
                 {
@@ -336,7 +339,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             if (generalError)
             {
-                this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, generalError: true);
+                this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, generalError: true);
                 return;
             }
 
@@ -344,25 +347,25 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (additionalValueKey == "identitycardnumber")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
+                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
                     return;
                 }
 
                 if (additionalValueKey == "permanentresidencepostalcode")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
+                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
                     return;
                 }
 
                 if (additionalValueKey == "postalcode")
                 {
-                    this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
+                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
                     return;
                 }
             }
             else
             {
-                this.LoginReportService.AddLoginAttempt(this.Session.SessionID, reportTime, guid, type, birthdayDate: wrongDateOfBirth);
+                this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth);
             }
         }
 

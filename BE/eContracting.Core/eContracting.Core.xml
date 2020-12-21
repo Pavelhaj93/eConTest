@@ -2159,21 +2159,21 @@
             Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
             </summary>
             <returns>List of all defined processes.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No processes found.</exception>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">No processes found.</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetAllProcessTypes">
             <summary>
             Gets all process types from '/sitecore/content/eContracting2/Settings/ProcessTypes'.
             </summary>
             <returns>List of all defined process types.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No process types found</exception>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">No process types found</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetAllLoginTypes">
             <summary>
             Gets all login types from '/sitecore/content/eContracting2/Settings/LoginTypes'.
             </summary>
             <returns>List of all defined login types.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">No login types found</exception>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">No login types found</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetApiServiceOptions">
             <summary>
@@ -2200,7 +2200,7 @@
             Gets the site settings.
             </summary>
             <returns>Model or exception.</returns>
-            <exception cref="T:eContracting.MissingDatasourceException">When settings cannot be found.</exception>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">When settings cannot be found.</exception>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
             <summary>
@@ -2224,6 +2224,25 @@
                 <para><see cref="P:System.Collections.Generic.KeyValuePair`2.Value"/> is what you need.</para>
             </remarks>
             <param name="version">Offer version.</param>
+        </member>
+        <member name="T:eContracting.EcontractingMissingDatasourceException">
+            <summary>
+            Represents missing datasouce.
+            </summary>
+            <seealso cref="T:System.InvalidOperationException" />
+        </member>
+        <member name="M:eContracting.EcontractingMissingDatasourceException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingMissingDatasourceException"/> class.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:eContracting.EcontractingMissingDatasourceException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingMissingDatasourceException"/> class.
+            </summary>
+            <param name="message">The error message that explains the reason for the exception.</param>
+            <param name="innerException">The exception that is the cause of the current exception. If the <paramref name="innerException" /> parameter is not a null reference (Nothing in Visual Basic), the current exception is raised in a catch block that handles the inner exception.</param>
         </member>
         <member name="T:eContracting.OFFER_TYPES">
             <summary>

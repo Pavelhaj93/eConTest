@@ -226,7 +226,7 @@ namespace eContracting.Services
                 case PAGE_LINK_TYPES.WrongUrl:
                     return settings.WrongUrl.Url;
                 case PAGE_LINK_TYPES.OfferExpired:
-                    return settings.OfferExpired.Url;
+                    return settings.ExpiredOffer.Url;
                 case PAGE_LINK_TYPES.ThankYou:
                     return settings.ThankYou.Url;
                 case PAGE_LINK_TYPES.SystemError:

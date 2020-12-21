@@ -511,8 +511,8 @@ namespace eContracting.Services.Tests
             var expected = "/expired-offer";
             var siteRoot = "/site";
             var siteSettings = new SiteSettingsModel();
-            siteSettings.OfferExpired = new Link();
-            siteSettings.OfferExpired.Url = expected;
+            siteSettings.ExpiredOffer = new Link();
+            siteSettings.ExpiredOffer.Url = expected;
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<SiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
