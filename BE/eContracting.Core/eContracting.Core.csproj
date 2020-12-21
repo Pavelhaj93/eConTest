@@ -93,10 +93,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseApiServiceOptions.cs" />
+    <Compile Include="ERROR_CODES.cs" />
     <Compile Include="EVENT_NAMES.cs" />
     <Compile Include="IEventLogger.cs" />
+    <Compile Include="EcontractingDataException.cs" />
     <Compile Include="IOfferServiceFactory.cs" />
+    <Compile Include="ISessionProvider.cs" />
     <Compile Include="IStartup.cs" />
+    <Compile Include="ITextService.cs" />
     <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="Models\BasePageModel.cs" />
     <Compile Include="Models\BasePageWithStepsModel.cs" />
@@ -109,6 +113,7 @@
     <Compile Include="Models\DbUploadGroupFileModel.cs" />
     <Compile Include="Models\DefinitionCombinationContainerModel.cs" />
     <Compile Include="Models\DefinitionCombinationDataModel.cs" />
+    <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
@@ -146,7 +151,7 @@
     <Compile Include="ISettingsReaderService.cs" />
     <Compile Include="ISignService.cs" />
     <Compile Include="LogTable.cs" />
-    <Compile Include="MissingDatasourceException.cs" />
+    <Compile Include="EcontractingMissingDatasourceException.cs" />
     <Compile Include="Models\PageAcceptedOfferModel.cs" />
     <Compile Include="Models\PageError404Model.cs" />
     <Compile Include="Models\JsonAcceptanceDialogButtonViewModel.cs" />

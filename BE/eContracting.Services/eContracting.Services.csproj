@@ -114,6 +114,8 @@
     <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="OfferService.cs" />
     <Compile Include="DbUserFileCacheService.cs" />
+    <Compile Include="SessionProvider.cs" />
+    <Compile Include="SitecoreTextService.cs" />
     <Compile Include="UserSessionDataCacheService.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="OfferAttachmentParserService.cs" />

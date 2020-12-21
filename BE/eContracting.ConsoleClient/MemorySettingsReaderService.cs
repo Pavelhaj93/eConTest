@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
@@ -131,7 +132,43 @@ namespace eContracting.ConsoleClient
 
         public DefinitionCombinationModel GetDefinition(string process, string processType)
         {
-            return this.GetAllDefinitionCombinations().FirstOrDefault(x => x.Process.Code == process && x.ProcessType.Code == processType);
+            var model = new DefinitionCombinationModel()
+            {
+                Process = new ProcessModel() { Code = process },
+                ProcessType = new ProcessTypeModel() { Code = processType }
+            };
+            model.LoginTypes = new List<LoginTypeModel>() { new LoginTypeModel() { Name = "dummy" } };
+            model.MainTextLogin = new RichTextModel() { Text = "" };
+            model.MainTextLoginAccepted = new RichTextModel() { Text = "" };
+            model.MainTextThankYou = new RichTextModel() { Text = "" };
+            model.OfferAcceptedMainText = new RichTextModel() { Text = "" };
+            model.OfferAcceptText = new RichTextModel() { Text = "" };
+            model.OfferAcceptTitle = new SimpleTextModel() { Text = "" };
+            model.OfferAdditionalServicesText = new RichTextModel() { Text = "" };
+            model.OfferAdditionalServicesTitle = new SimpleTextModel() { Text = "" };
+            model.OfferBenefitsTitle = new SimpleTextModel() { Text = "" };
+            model.OfferCommoditiesAcceptText = new RichTextModel() { Text = "" };
+            model.OfferCommoditiesAcceptTitle = new SimpleTextModel() { Text = "" };
+            model.OfferCommoditiesSignText = new RichTextModel() { Text = "" };
+            model.OfferCommoditiesSignTitle = new SimpleTextModel() { Text = "" };
+            model.OfferCommoditiesText = new RichTextModel() { Text = "" };
+            model.OfferCommoditiesTitle = new SimpleTextModel() { Text = "" };
+            model.OfferExpiredMainText = new RichTextModel() { Text = "" };
+            model.OfferGiftsTitle = new SimpleTextModel() { Text = "" };
+            model.OfferMainText = new RichTextModel() { Text = "" };
+            model.OfferOtherProductsDocsText = new RichTextModel() { Text = "" };
+            model.OfferOtherProductsDocsTitle = new SimpleTextModel() { Text = "" };
+            model.OfferOtherProductsNote = new RichTextModel() { Text = "" };
+            model.OfferOtherProductsSummaryTitle = new SimpleTextModel() { Text = "" };
+            model.OfferOtherProductsTitle = new SimpleTextModel() { Text = "" };
+            model.OfferPerexTitle = new SimpleTextModel() { Text = "" };
+            model.OfferTitle = new SimpleTextModel() { Text = "" };
+            model.OfferUploadsExtraHelp = new SimpleTextModel() { Text = "" };
+            model.OfferUploadsExtraText = new RichTextModel() { Text = "" };
+            model.OfferUploadsNote = new RichTextModel() { Text = "" };
+            model.OfferUploadsTitle = new SimpleTextModel() { Text = "" };
+            return model;
+            //return this.GetAllDefinitionCombinations().FirstOrDefault(x => x.Process.Code == process && x.ProcessType.Code == processType);
         }
 
         public string GetFileCacheStorageConnectionString()

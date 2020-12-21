@@ -16,7 +16,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string MainText { get; set; }
 
         public string GdprGuid { get; set; }
+
         public string GdprUrl { get; set; }
+
+        public bool Debug { get; set; } = false;
 
         #region APIs
 
@@ -41,12 +44,18 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("removeFileUrl")]
         public readonly string UploadRemoveFileUrl = "/api/econ/upload";
 
+        [JsonProperty("keepAliveUrl")]
+        public readonly string KeepAliveUrl = "/api/econ/keepalive";
+
         #endregion
 
         #region Urls
 
         [JsonProperty("thankYouPageUrl")]
         public string ThankYouPage { get; set; }
+
+        [JsonProperty("sessionExpiredPageUrl")]
+        public string SessionExpiredPage { get; set; }
 
         #endregion
 
@@ -61,7 +70,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
             this.PageTitle = definition.OfferTitle.Text;
             this.MainText = definition.OfferMainText.Text;
             this.Steps = new StepsViewModel(steps);
-            this.ThankYouPage = settingsReader.GetSiteSettings().ThankYou.Url;
+            var siteSettings = settingsReader.GetSiteSettings();
+            this.ThankYouPage = siteSettings.ThankYou.Url;
+            this.SessionExpiredPage = siteSettings.SessionExpired.Url;
         }
     }
 }

@@ -59,7 +59,7 @@ namespace eContracting.Services
 
             if (!items.Any())
             {
-                throw new MissingDatasourceException("No login types found");
+                throw new EcontractingMissingDatasourceException("No login types found");
             }
 
             return items;
@@ -72,7 +72,7 @@ namespace eContracting.Services
 
             if (!items.Any())
             {
-                throw new MissingDatasourceException("No processes found");
+                throw new EcontractingMissingDatasourceException("No processes found");
             }
 
             return items;
@@ -85,7 +85,7 @@ namespace eContracting.Services
 
             if (!items.Any())
             {
-                throw new MissingDatasourceException("No process types found");
+                throw new EcontractingMissingDatasourceException("No process types found");
             }
 
             return items;
@@ -242,7 +242,7 @@ namespace eContracting.Services
         public SiteSettingsModel GetSiteSettings()
         {
             var settings = this.Context.GetItem<SiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
-            return settings ?? throw new MissingDatasourceException("Site settings could not be resolved.");
+            return settings ?? throw new EcontractingMissingDatasourceException("Site settings could not be resolved.");
         }
 
         /// <inheritdoc/>

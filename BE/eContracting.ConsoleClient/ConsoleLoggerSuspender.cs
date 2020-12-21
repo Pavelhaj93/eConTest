@@ -10,11 +10,14 @@ namespace eContracting.ConsoleClient
     {
         private ILogger Logger;
 
-        public ConsoleLoggerSuspender(ILogger logger)
+        public ConsoleLoggerSuspender(ILogger logger) : this(logger, true)
+        {
+        }
+
+        public ConsoleLoggerSuspender(ILogger logger, bool suspend)
         {
             this.Logger = logger;
-            this.Logger.Suspend(true);
-            this.Logger.Debug("", "Logger suspended");
+            this.Logger.Suspend(suspend);
         }
 
         public void Dispose()

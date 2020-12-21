@@ -13,15 +13,16 @@ namespace eContracting.ConsoleClient
     {
         public FixedOfferJsonDescriptor(
             ILogger logger,
+            ITextService textService,
             ISitecoreContext context,
             IOfferService apiService,
-            ISettingsReaderService settingsReaderService) : base(logger, context, apiService, settingsReaderService)
+            ISettingsReaderService settingsReaderService) : base(logger, textService, context, apiService, settingsReaderService)
         {
         }
 
-        protected internal override AcceptedOfferPageModel GetAcceptedPageModel()
+        protected internal override PageAcceptedOfferModel GetAcceptedPageModel()
         {
-            return new AcceptedOfferPageModel();
+            return new PageAcceptedOfferModel();
         }
     }
 }

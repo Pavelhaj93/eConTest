@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
-using Sitecore.Globalization;
 using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.Web;
 
@@ -14,6 +13,7 @@ namespace eContracting.Services
     public class OfferJsonDescriptor : IOfferJsonDescriptor
     {
         protected readonly ILogger Logger;
+        protected readonly ITextService TextService;
         protected readonly ISitecoreContext Context;
         protected readonly IOfferService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
@@ -22,11 +22,14 @@ namespace eContracting.Services
         /// Initializes a new instance of the <see cref="OfferJsonDescriptor"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
+        /// <param name="textService">The text service.</param>
         /// <param name="context">The context.</param>
         /// <param name="apiService">The API service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <exception cref="ArgumentNullException">
         /// logger
+        /// or
+        /// textService
         /// or
         /// context
         /// or
@@ -36,11 +39,13 @@ namespace eContracting.Services
         /// </exception>
         public OfferJsonDescriptor(
             ILogger logger,
+            ITextService textService,
             ISitecoreContext context,
             IOfferService apiService,
             ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
@@ -335,6 +340,7 @@ namespace eContracting.Services
                 var file = new JsonAcceptFileModel();
                 file.Key = selectedFile.UniqueKey;
                 file.Group = selectedFile.GroupGuid;
+                file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsGroupOblig;
@@ -373,6 +379,7 @@ namespace eContracting.Services
                 var file = new JsonAcceptFileModel();
                 file.Key = selectedFile.UniqueKey;
                 file.Group = selectedFile.GroupGuid;
+                file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsGroupOblig;
@@ -406,6 +413,7 @@ namespace eContracting.Services
                 var template = fileTemplates[i];
                 var file = new JsonUploadTemplateModel();
                 file.GroupId = template.UniqueKey;
+                file.IdAttach = template.IdAttach;
                 file.Title = template.FileName;
                 file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
                 file.Mandatory = template.IsObligatory;
@@ -463,6 +471,7 @@ namespace eContracting.Services
                 var file = new JsonAcceptFileModel();
                 file.Key = selectedFile.UniqueKey;
                 file.Group = selectedFile.GroupGuid;
+                file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 file.MimeType = selectedFile.MimeType;
@@ -500,6 +509,7 @@ namespace eContracting.Services
                 var file = new JsonAcceptFileModel();
                 file.Key = selectedFile.UniqueKey;
                 file.Group = selectedFile.GroupGuid;
+                file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 file.MimeType = selectedFile.MimeType;
@@ -587,7 +597,7 @@ namespace eContracting.Services
 
         protected internal string GetFileLabelPrefix(OfferAttachmentModel model)
         {
-            return Translate.Text("DOCUMENT_PREFIX_" + model.ConsentType);
+            return this.TextService.FindByKey("DOCUMENT_PREFIX_" + model.ConsentType);
         }
 
         /// <summary>

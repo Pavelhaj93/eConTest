@@ -11,6 +11,9 @@ namespace eContracting.Models
         [JsonProperty("id")]
         public string GroupId { get; set; }
 
+        [JsonIgnore]
+        public string IdAttach { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 

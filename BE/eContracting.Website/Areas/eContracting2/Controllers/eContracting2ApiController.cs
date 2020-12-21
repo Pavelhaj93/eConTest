@@ -27,6 +27,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     {
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
+        protected readonly ISessionProvider SessionProvider;
         protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
@@ -36,11 +37,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IUserDataCacheService UserDataCacheService;
         protected readonly IUserFileCacheService UserFileCacheService;
 
+        private static Random KeepAliveRandomizer = new Random();
+
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
+            this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
@@ -56,6 +60,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         internal eContracting2ApiController(
             ILogger logger,
             ISitecoreContext context,
+            ISessionProvider sessionProvider,
             IOfferService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
@@ -67,6 +72,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
+            this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
@@ -313,7 +319,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.InternalServerError();
                 }
 
-                var dbSignedFile = new DbSignedFileModel(id, guid, HttpContext.Current.Session.SessionID, signedFile);
+                var dbSignedFile = new DbSignedFileModel(id, guid, this.SessionProvider.GetId(), signedFile);
                 await this.UserFileCacheService.SetAsync(dbSignedFile);
 
                 return this.Ok();
@@ -447,6 +453,129 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Ok();
         }
 
+        [HttpGet]
+        [HttpOptions]
+        public IHttpActionResult KeepAlive()
+        {
+            #region Catch phrases
+            var catchphrases = new List<string>()
+            {
+                "Jestlipak si myslíte, soudruzi, že to přežil? No přežil, protože mu to politicky myslelo, vy šmejdi!",
+                "Čo bolo, to bolo, v pätnáctém století jsem též nebyl majorom a terazky hej!",
+                "...samopal má kadenci: ta ta ta ta ta, a někdy i mnohem rychlejší...",
+                "Ahój - hoj, slyšíš to jo?",
+                "Šak je to sladké jak hov.. z nutrie",
+                "Děláte machry a hajzl máte na chodbě!",
+                "Vašu pi.. jsem taky neviděl a věřím, že ju máte",
+                "Jak se to ty kur.. šikmooké dozvěděli, že mám cihelňu?",
+                "Nová doba, host vyhazuje vrchního!",
+                "A přece jdu do Budějovic!",
+                "Co blbnete, dyť jsou tady lidi!",
+                "Jestli si ten fotbal neprosadíš, tak si u mě mrtvej muž.",
+                "Já jsem si ty prsa musel holit, dokud si mě nevzala, ovšem pak jsem se na to vyfláknul...",
+                "Vy povídejte, vy jste z Prahy!",
+                "Až budeme nahoře, to teprv budou panoramata!",
+                "On se tam stejně dívá. No nedivte se, dyť mu hoří barák...",
+                "Kdo si nenakrad, musí to brát, jako že nevyhrál",
+                "Nemá někdo zájem o dobrou brazilskou kávu?",
+                "To je ale pěkná půdička... ta se vám povedla pane Knotek, to jsem sama ráda. Tady se mi to bude věšet",
+                "To mělo všechno čistě umělecký platonický ráz. Anička, ta měla na zadečku takovou velkou roztomilou pihu",
+                "Máňa říkala, že to není směroplatný",
+                "Nejradši mám takový, co nenosej prsenky",
+                "Doporučuji studenou sprchu a tření končetin a celého těla froté ručníky",
+                "Neber úplatky, neber úplatky nebo se z toho zblázníš",
+                "Tak kdepak je ten prďola, co tady čepuje pivo?",
+                "Neřeš, nepřepínej a hlavně po ničem nepátrej",
+                "Nikam neuběgáj a normálně zůstaň v metró... konec hlášení v ruském jazyce",
+                "Já znám široko daleko všechny krávy, ale vás jsem tady ještě neviděl",
+                "Kakaová skvrna velikosti Mexického dolaru!",
+                "Já se vrátím a nebudu sám Dougu Badmane, se mnou přijde zákon",
+                "Hliník se vodstěhoval do Humpolce",
+                "Metelesku blesku",
+                "Nepotěšil jste mě, ani já vás nepotěším",
+                "Sem si dovolil... na ukázku ze své zahrádky pár švestiček",
+                "To jsou blechy psí, ty na člověka nejdou",
+                "Děda je hodný, ale překáží nám",
+                "Slovan jsem a Slovan budu! Až jindy Lakatoši",
+                "A jiný kruhy nemáte? Kreténi!",
+                "Je-li ruka nastřelena, tak v žádném případě",
+                "Kde udělali soudruzi z NDR chybu?",
+                "Jsou tady Rusové! Tak jim řekni, že hned přijdeme. To je vůl, ten Boris",
+                "Nudíte se? Kupte si medvídka mývala",
+                "Tak z toho nedělejme aféru, onanoval každý...",
+                "Repráky here, dráty here, kazeťák here... I am going, I am playing.. a to je zakázaný, jo",
+                "Tři vojáky těžce zranil, dva zhmoždil a jednoho zesměšnil",
+                "Prdí taky hadi?",
+                "Co to je za muziku? To je státní hymna, ty vole",
+                "Tys nás zapálil? Nezapálil. Dyť hoříme!",
+                "To zas bude v álejích nablito",
+                "Inženýrka, to je něco, auto má z Tuzexu, peněz jako šlupek...",
+                "Tu přední nohu budeš jíst, že se budeš divit",
+                "Bitvu jsem presrál, ale dobro sa vyspál!",
+                "Jeď do Pelhřimova a prohlédni si krematorium, ať víš, do čeho jdeš",
+                "Na funkci to vliv mít nebude. To jako na funkci rostlináře?",
+                "Stěrače stírají, klakson troubí...",
+                "Já jsem inženýr Králík... Ježiš to je hrozný, takhle se střískat za bílého dne",
+                "Dobrý den, půjde Jindra ven? Nikdy, nebo navždy...",
+                "Dávám Bolševikovi rok, maximálně dva!",
+                "Proletáří všech zemí světa, vyližte si prdel.",
+                "Pane učiteli, už je čas...",
+                "Máš v hlavně místo mozku z piva kostku.",
+                ".... Vy nekouříte? Ne, já když kouřím, tak zvracím",
+                "Chčije a chčije",
+                "Ty kuřata v tý bedně se mi zdáli nějaký divný, měly takový zahnutý zobáky",
+                "Nečum na mně, nebo ti useknu ruku",
+                "Ráno ho našli na pláži, ležel tam jak vorvaň. Už se do něho pouštěli racci",
+                "Do obrněného transportéru se vejde 20 - 24 západoněmeckých soudruhů",
+                "Tati, a bila tě taky tvoje maminka? Ne, jenom ta tvoje",
+                "Spadlo ti to, asi vítr",
+                "Táto, ty si se zul. Ale jenom trošku",
+                "Rodiče, kteří mají zájem vidět Idiota, nechť se dostaví do ředitelny",
+                "To musim sežrat, i kdybych se měl poblejt",
+                "My nejsme žádní ti, unterwassermani",
+                "Pepíno! Už toho máme dost! - My taky! Matýsek se posral!",
+                "Kačenka jde celou dobu v bačkůrkách – to má smůlu a v čem bude lyžovat?",
+                "Kdo to byl? Omyl...A co chtěl?",
+                "Já sem synovec...Hmm, a chcete to reklamovat, kdo vám to dělal?",
+                "A zme v pérdéli, pane hrábě!",
+                "Chlapi, nelijte to pivo z vokna...",
+                "Vona taky dáma může být pěkná svině...",
+                "Já ti dám posraný hasiči, ty chuligáne!",
+                "Prosimvás, netykejte mi, ja to vopravdu nemám rád. Kdo ti tyká?",
+                "Pojedeme zkratkou, je to sice delší, ale zato horší cesta.",
+                "Vydrž, prďka vydrž!!",
+                "Kdo sem pověsil tu máničku? Myslíš Gagarinova bratra?",
+                "A komu tim prospějete?!",
+                "Hledáš někoho soudruhu? Co že ?!",
+                "Co to je za čaj? - Normální houbovej čaj...",
+                "Doktor říkal, že je momentálně zaostalej",
+                "Odvolávám, co jsem odvolal a slibuji, co jsem slíbil",
+                "Vy jste se zase kochal, že jo, pane doktore?",
+                "Když vy kachličky, tak my břízolit",
+                "Drž to pořádně nebo ti jednu fláknu! Se pobleju! Aby ses neposral!",
+                "Složenky, vy krávy zelený, nenažraný",
+                "Dědo, kde se to splachuje? To nech ležet…",
+                "Chlape, odkud jste přišel? STS Chvojkovice Brod. Hmmm, zřejmě nějakej slušnej oddíl!",
+                "Já měl na frontě aj 27 stupňů a šol som na steč",
+                "Čéská foják, dobrá foják",
+                "Sejdeme se za 15 minut - já nemám hodinky - tak za 20",
+                "Poslušně hlásím, že jsem opět zde!"
+            };
+            #endregion
+
+            try
+            {
+                this.SessionProvider.Set("D2DKeepAlive", DateTime.Now);
+
+                var index = KeepAliveRandomizer.Next(0, catchphrases.Count);
+                var phrase = catchphrases[index];
+                return this.Ok(phrase);
+            }
+            catch { }
+
+            return this.Ok();
+        }
+
         /// <summary>
         /// Gets current state of group with <paramref name="id"/>.
         /// </summary>
@@ -471,7 +600,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
 
-                var searchGroupParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var searchGroupParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
                 var result = await this.UserFileCacheService.FindGroupAsync(searchGroupParams);
 
                 if (result == null)
@@ -532,7 +661,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("No file received");
                 }
 
-                var groupSearchParams = new DbSearchParameters(id, guid, HttpContext.Current.Session.SessionID);
+                var groupSearchParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
                 var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
 
                 // everytime there "should" be only one file
@@ -548,7 +677,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         {
                             await stream.CopyToAsync(memoryStream);
                             var fileBytes = memoryStream.ToArray();
-                            group = await this.FileOptimizer.AddAsync(group, id, fileId, originalFileName, fileBytes, HttpContext.Current.Session.SessionID, guid);
+                            group = await this.FileOptimizer.AddAsync(group, id, fileId, originalFileName, fileBytes, this.SessionProvider.GetId(), guid);
                         }
                     }
                 }
@@ -604,7 +733,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var groupSearchParams = new DbSearchParameters(groupId, guid, HttpContext.Current.Session.SessionID);
+                var groupSearchParams = new DbSearchParameters(groupId, guid, this.SessionProvider.GetId());
                 var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
 
                 if (group == null)
@@ -674,7 +803,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                await this.ApiService.AcceptOfferAsync(offer, submitModel, HttpContext.Current.Session.SessionID);
+                await this.ApiService.AcceptOfferAsync(offer, submitModel, this.SessionProvider.GetId());
 
                 return this.Ok();
             }

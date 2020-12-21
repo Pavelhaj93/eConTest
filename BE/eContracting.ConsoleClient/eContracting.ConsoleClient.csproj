@@ -127,6 +127,7 @@
   <ItemGroup>
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
+    <Compile Include="Commands\AnalyzeOfferCommand.cs" />
     <Compile Include="Commands\CompareIdAttachCommand.cs" />
     <Compile Include="Commands\FileModel.cs" />
     <Compile Include="Commands\GetFilesCommand.cs" />
@@ -137,11 +138,13 @@
     <Compile Include="ContextData.cs" />
     <Compile Include="FixedOfferJsonDescriptor.cs" />
     <Compile Include="GlobalConfiguration.cs" />
+    <Compile Include="MemoryTextService.cs" />
     <Compile Include="MemoryUserDataCacheService.cs" />
     <Compile Include="MemorySettingsReaderService.cs" />
     <Compile Include="MemoryUserFileCacheService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -34,6 +34,16 @@
             Password cannot be empty - base64password
             </exception>
         </member>
+        <member name="F:eContracting.ERROR_CODES.UNKNOWN">
+            <summary>
+            Unknown
+            </summary>
+        </member>
+        <member name="F:eContracting.ERROR_CODES.HP01">
+            <summary>
+            Homepage.
+            </summary>
+        </member>
         <member name="T:eContracting.EVENT_NAMES">
             <summary>
             List of events for <see cref="T:eContracting.IEventLogger"/>.
@@ -87,6 +97,59 @@
             </summary>
             <param name="eventLog">The event log.</param>
         </member>
+        <member name="F:eContracting.EcontractingDataException.Error">
+            <summary>
+            The error.
+            </summary>
+        </member>
+        <member name="M:eContracting.EcontractingDataException.#ctor(eContracting.ERROR_CODES,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingDataException"/> class.
+            </summary>
+            <param name="code">The code.</param>
+            <param name="description">The description.</param>
+        </member>
+        <member name="M:eContracting.EcontractingDataException.#ctor(eContracting.Models.ErrorModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingDataException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+        </member>
+        <member name="T:eContracting.ISessionProvider">
+            <summary>
+            Represents wrapper over <see cref="T:System.Web.SessionState.HttpSessionState"/>.
+            </summary>
+        </member>
+        <member name="M:eContracting.ISessionProvider.GetId">
+            <summary>
+            Gets session ID.
+            </summary>
+            <returns>Session ID or null.</returns>
+        </member>
+        <member name="M:eContracting.ISessionProvider.GetValue``1(System.String)">
+            <summary>
+            Gets the value from session.
+            </summary>
+            <typeparam name="T">Return type.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Typed value or null.</returns>
+        </member>
+        <member name="M:eContracting.ISessionProvider.Set``1(System.String,``0,System.Boolean)">
+            <summary>
+            Sets <paramref name="value"/> under specific <paramref name="key"/> into session. If <paramref name="key"/> exist, value will be overwriten.
+            </summary>
+            <typeparam name="T">The type.</typeparam>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <param name="throwException">The exception when session is not accessible.</param>
+            <exception cref="T:System.InvalidOperationException">When <paramref name="throwException"/> = true and session is not accessible.</exception>
+        </member>
+        <member name="M:eContracting.ISessionProvider.Remove(System.String)">
+            <summary>
+            Removes value from session under specified <paramref name="key"/>.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
         <member name="T:eContracting.IStartup">
             <summary>
             Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
@@ -99,6 +162,13 @@
             <summary>
             Initialize the code.
             </summary>
+        </member>
+        <member name="M:eContracting.ITextService.FindByKey(System.String)">
+            <summary>
+            Tries to find text by give <paramref name="key"/>.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>Found text or empty string.</returns>
         </member>
         <member name="T:eContracting.IUserFileCacheService">
             <summary>
@@ -335,6 +405,40 @@
             Represents data for combination.
             </summary>
             <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="T:eContracting.Models.ErrorModel">
+            <summary>
+            Error description with it's unique code.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.ErrorModel.Code">
+            <summary>
+            The code.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.ErrorModel.Description">
+            <summary>
+            The description.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.ErrorModel.#ctor(eContracting.ERROR_CODES,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.ErrorModel"/> struct.
+            </summary>
+            <param name="code">The code.</param>
+            <param name="description">The description.</param>
+        </member>
+        <member name="M:eContracting.Models.ErrorModel.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.ErrorModel"/> struct.
+            </summary>
+            <param name="code">The code.</param>
+            <param name="description">The description.</param>
+        </member>
+        <member name="M:eContracting.Models.ErrorModel.ToString">
+            <summary>
+            Converts to string in format '[<see cref="F:eContracting.Models.ErrorModel.Code"/>] <see cref="F:eContracting.Models.ErrorModel.Description"/>'.
+            </summary>
         </member>
         <member name="T:eContracting.Models.EventLogModel">
             <summary>

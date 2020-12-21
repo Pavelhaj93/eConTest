@@ -181,16 +181,19 @@
             <param name="logger">The logger.</param>
             <param name="settingsReaderService">The settings reader service.</param>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
             </summary>
             <param name="logger">The logger.</param>
+            <param name="textService">The text service.</param>
             <param name="context">The context.</param>
             <param name="apiService">The API service.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <exception cref="T:System.ArgumentNullException">
             logger
+            or
+            textService
             or
             context
             or
@@ -399,10 +402,33 @@
             <param name="file">The file.</param>
             <param name="attributes">The attributes.</param>
         </member>
+        <member name="T:eContracting.Services.SessionProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.GetId">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.GetValue``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.Set``1(System.String,``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.UserSessionDataCacheService.#ctor">
+        <member name="F:eContracting.Services.UserSessionDataCacheService.SessionProvider">
+            <summary>
+            The session provider.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.UserSessionDataCacheService.#ctor(eContracting.ISessionProvider)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.UserSessionDataCacheService"/> class.
             </summary>

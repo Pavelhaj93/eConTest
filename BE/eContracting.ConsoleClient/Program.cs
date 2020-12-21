@@ -35,10 +35,12 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
                     services.AddScoped<IUserDataCacheService, MemoryUserDataCacheService>();
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
+                    services.AddScoped<ITextService, MemoryTextService>();
                     services.AddScoped<IOfferService, OfferService>();
                     services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
                     services.AddScoped<IOfferJsonDescriptor, FixedOfferJsonDescriptor>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
+                    services.AddScopedCommand<AnalyzeOfferCommand>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
                     services.AddScopedCommand<CompareIdAttachCommand>();

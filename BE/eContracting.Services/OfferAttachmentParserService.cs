@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Web.UI.WebControls;
 using eContracting.Models;
 using eContracting.Services;
 using Sitecore.Data.Items;
@@ -55,7 +56,9 @@ namespace eContracting.Services
 
                 if (item == null)
                 {
-                    this.Logger.Fatal(offer.Guid, $"File with {Constants.FileAttributes.TYPE} '{template.IdAttach}' not found");
+                    var str = $"File template with {Constants.FileAttributes.TYPE} '{template.IdAttach}' doesn't match to any file";
+                    this.Logger.Fatal(offer.Guid, str);
+                    throw new EcontractingDataException(ERROR_CODES.TFNF01, str);
                 }
                 else
                 {

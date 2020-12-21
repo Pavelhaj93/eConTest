@@ -13,46 +13,34 @@ namespace eContracting.Services
     public class UserSessionDataCacheService : IUserDataCacheService
     {
         /// <summary>
+        /// The session provider.
+        /// </summary>
+        protected readonly ISessionProvider SessionProvider;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="UserSessionDataCacheService"/> class.
         /// </summary>
-        public UserSessionDataCacheService()
+        public UserSessionDataCacheService(ISessionProvider sessionProvider)
         {
+            this.SessionProvider = sessionProvider;
         }
 
         /// <inheritdoc/>
         public void Set<T>(string key, T data)
         {
-            if (HttpContext.Current == null)
-            {
-                throw new InvalidOperationException("Http context is not available");
-            }
-
-            if (HttpContext.Current.Session == null)
-            {
-                throw new InvalidOperationException("Session is not available");
-            }
-
-            HttpContext.Current.Session[key] = data;
+            this.SessionProvider.Set(key, data, true);
         }
 
         /// <inheritdoc/>
         public T Get<T>(string key)
         {
-            var data = HttpContext.Current?.Session?[key];
-
-            if (data != null)
-            {
-                return (T)data;
-            }
-
-            return default(T);
+            return this.SessionProvider.GetValue<T>(key);
         }
 
         /// <inheritdoc/>
         public void Remove(string key)
         {
-            HttpContext.Current?.Session?.Remove(key);
-            //TODO: Remove data related to session
+            this.SessionProvider.Remove(key);
         }
     }
 }

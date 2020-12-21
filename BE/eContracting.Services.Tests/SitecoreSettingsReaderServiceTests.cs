@@ -44,7 +44,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
 
-            Assert.Throws<MissingDatasourceException>(() => service.GetSiteSettings());
+            Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetSiteSettings());
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
-            Assert.Throws<MissingDatasourceException>(() => service.GetAllLoginTypes());
+            Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllLoginTypes());
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
-            Assert.Throws<MissingDatasourceException>(() => service.GetAllProcesses());
+            Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllProcesses());
         }
 
         [Fact]
@@ -106,7 +106,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
-            Assert.Throws<MissingDatasourceException>(() => service.GetAllProcessTypes());
+            Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllProcessTypes());
         }
 
         [Fact]
