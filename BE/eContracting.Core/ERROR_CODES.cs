@@ -3,24 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eContracting.Models;
 
 namespace eContracting
 {
-    public enum ERROR_CODES
+    public static class ERROR_CODES
     {
         /// <summary>
         /// Unknown
         /// </summary>
-        UNKNOWN,
+        public static ErrorModel UNKNOWN { get; } = new ErrorModel("UNKNOWN", "Unknown error");
+
         /// <summary>
-        /// Homepage.
+        /// Missing file in an offer.
         /// </summary>
-        HP01,
-        UB01,
-        IG01,
-        ONF01,
-        OS1,
-        LG01,
-        TFNF01
+        public static ErrorModel MissingFile(string idAttach) => new ErrorModel("OAPS-MF", $"File template with {Constants.FileAttributes.TYPE} '{idAttach}' doesn't match to any file");
     }
 }

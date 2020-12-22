@@ -76,6 +76,40 @@ namespace eContracting.ConsoleClient.Commands
                     this.Console.WriteLine();
                 }
 
+                if (model.Benefits != null)
+                {
+                    this.Console.WriteLineSuccess("Benefits:");
+
+                    var benefits = model.Benefits.Params.ToArray();
+
+                    for (int i = 0; i < benefits.Length; i++)
+                    {
+                        var b = benefits[i];
+
+                        this.Console.WriteLine($" - {b.Value}");
+                    }
+
+                    this.Console.WriteLine();
+                }
+
+                if (model.Gifts != null)
+                {
+                    this.Console.WriteLineSuccess("Gifts:");
+
+                    foreach (var group in model.Gifts.Groups)
+                    {
+                        var parameters = group.Params.ToArray();
+
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            var p = parameters[i];
+                            this.Console.WriteLine($" - {p.Count} [{p.Icon}] {p.Title}");
+                        }
+                    }
+
+                    this.Console.WriteLine();
+                }
+
                 if (model.Documents != null)
                 {
                     if (model.Documents.Acceptance != null)

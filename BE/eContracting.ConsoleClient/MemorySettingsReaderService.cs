@@ -21,6 +21,7 @@ namespace eContracting.ConsoleClient
         }
 
         public bool SaveFilesToDebugFolder { get; } = false;
+        public bool ShowDebugMessages { get; } = true;
 
         public IEnumerable<LoginTypeModel> GetAllLoginTypes()
         {

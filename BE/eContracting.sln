@@ -77,40 +77,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1", "1", "{05F3A673-E035-4B
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{8D2ADAF1-4DFE-4D31-BCD4-209349B5CED8}"
-	ProjectSection(SolutionItems) = preProject
-		..\docs\Examples\Versions\2\BN_0202335592.xml = ..\docs\Examples\Versions\2\BN_0202335592.xml
-		..\docs\Examples\Versions\2\BN_0202335592_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335592_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335625.xml = ..\docs\Examples\Versions\2\BN_0202335625.xml
-		..\docs\Examples\Versions\2\BN_0202335625_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335625_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335631.xml = ..\docs\Examples\Versions\2\BN_0202335631.xml
-		..\docs\Examples\Versions\2\BN_0202335631_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335631_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335645.xml = ..\docs\Examples\Versions\2\BN_0202335645.xml
-		..\docs\Examples\Versions\2\BN_0202335645_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335645_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335655.xml = ..\docs\Examples\Versions\2\BN_0202335655.xml
-		..\docs\Examples\Versions\2\BN_0202335655_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335655_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335667.xml = ..\docs\Examples\Versions\2\BN_0202335667.xml
-		..\docs\Examples\Versions\2\BN_0202335667_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335667_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335668.xml = ..\docs\Examples\Versions\2\BN_0202335668.xml
-		..\docs\Examples\Versions\2\BN_0202335668_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335668_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335669.xml = ..\docs\Examples\Versions\2\BN_0202335669.xml
-		..\docs\Examples\Versions\2\BN_0202335669_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335669_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335675.xml = ..\docs\Examples\Versions\2\BN_0202335675.xml
-		..\docs\Examples\Versions\2\BN_0202335675_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335675_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335683.xml = ..\docs\Examples\Versions\2\BN_0202335683.xml
-		..\docs\Examples\Versions\2\BN_0202335683_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335683_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335684.xml = ..\docs\Examples\Versions\2\BN_0202335684.xml
-		..\docs\Examples\Versions\2\BN_0202335684_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335684_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335685.xml = ..\docs\Examples\Versions\2\BN_0202335685.xml
-		..\docs\Examples\Versions\2\BN_0202335685_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335685_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335686.xml = ..\docs\Examples\Versions\2\BN_0202335686.xml
-		..\docs\Examples\Versions\2\BN_0202335686_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335686_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335687.xml = ..\docs\Examples\Versions\2\BN_0202335687.xml
-		..\docs\Examples\Versions\2\BN_0202335687_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335687_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335689.xml = ..\docs\Examples\Versions\2\BN_0202335689.xml
-		..\docs\Examples\Versions\2\BN_0202335689_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335689_AD1.xml
-		..\docs\Examples\Versions\2\BN_0202335701.xml = ..\docs\Examples\Versions\2\BN_0202335701.xml
-		..\docs\Examples\Versions\2\BN_0202335701_AD1.xml = ..\docs\Examples\Versions\2\BN_0202335701_AD1.xml
-	EndProjectSection
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "eContracting.Database", "eContracting.Database\eContracting.Database.sqlproj", "{903B9255-5E08-4128-BF57-D04B9794FA15}"
 EndProject

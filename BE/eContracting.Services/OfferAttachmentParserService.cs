@@ -56,9 +56,8 @@ namespace eContracting.Services
 
                 if (item == null)
                 {
-                    var str = $"File template with {Constants.FileAttributes.TYPE} '{template.IdAttach}' doesn't match to any file";
-                    this.Logger.Fatal(offer.Guid, str);
-                    throw new EcontractingDataException(ERROR_CODES.TFNF01, str);
+                    this.Logger.Fatal(offer.Guid, $"File template with {Constants.FileAttributes.TYPE} '{template.IdAttach}' doesn't match to any file");
+                    throw new EcontractingDataException(ERROR_CODES.MissingFile(template.IdAttach));
                 }
                 else
                 {

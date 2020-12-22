@@ -13,6 +13,9 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "00503bc4-0ff5-48b4-a092-2150a57e622d"
+      Hint: SignModalWindowTitle
+      Value: Podepsat dokument
     - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
       Hint: __Final Renderings
       Type: Layout
@@ -86,6 +89,9 @@ Languages:
     - ID: "649c2a71-10cf-45ff-ad0a-7300e5a64b42"
       Hint: ObligatoryDocumentsLimitsNote
       Value: "Celkem max. 25 MB. Povolené typy souborů: JPEG, JPG, PNG, PDF. Více dokumentů lze poslat v zazipovaném souboru."
+    - ID: "671928a1-b83d-454c-919d-bd840dccf133"
+      Hint: SignModalWindowConfirmButtonLabel
+      Value: Potvrdit
     - ID: "6dea6a26-e173-43f0-9171-f0eec8c5c048"
       Hint: DocumentsToAcceptSupplementSubtitle
       Value: Dodatek a přidružené dokumenty si přečtěte a potvrďte zatržením
@@ -95,6 +101,9 @@ Languages:
     - ID: "89466e2e-68fd-4fdc-b631-64749ec1f02b"
       Hint: OtherServicesTitle
       Value: Ostatní produkty
+    - ID: "8a4e4893-2fa5-4b2f-a25d-4674bcaa474d"
+      Hint: SignModalWindowClearButtonLabel
+      Value: Smazat
     - ID: "98a163db-f5fd-4444-adcd-3993a26c7ba6"
       Hint: BenefitsTitle
       Value: Zvoleným produktem získáte
@@ -130,6 +139,12 @@ Languages:
     - ID: "ad5dce56-824b-4fb0-b11a-1dd759ef8d04"
       Hint: ConfirmModalWindowButtonAcceptLabel
       Value: Potvrdit
+    - ID: "b73d03a3-0e48-48ab-987d-020515e9270e"
+      Hint: SignModalWindowText
+      Value: "Podepište se prosím níže:"
+    - ID: "bd59ebd7-a382-4828-8fd8-a3eabb4b1955"
+      Hint: SignModalWindowGeneralErrorMessage
+      Value: Dokument se nepodařilo podepsat, zkuste to prosím znova.
     - ID: "c18260e9-e843-4a82-9e17-ab59cdb29c1c"
       Hint: RetentionVoucherText
       Value: |

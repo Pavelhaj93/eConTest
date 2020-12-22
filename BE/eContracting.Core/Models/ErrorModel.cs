@@ -26,17 +26,6 @@ namespace eContracting.Models
         /// </summary>
         /// <param name="code">The code.</param>
         /// <param name="description">The description.</param>
-        public ErrorModel(ERROR_CODES code, string description)
-        {
-            this.Code = Enum.GetName(typeof(ERROR_CODES), code);
-            this.Description = description;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ErrorModel"/> struct.
-        /// </summary>
-        /// <param name="code">The code.</param>
-        /// <param name="description">The description.</param>
         public ErrorModel(string code, string description)
         {
             this.Code = code;

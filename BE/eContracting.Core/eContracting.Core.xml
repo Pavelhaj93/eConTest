@@ -34,14 +34,14 @@
             Password cannot be empty - base64password
             </exception>
         </member>
-        <member name="F:eContracting.ERROR_CODES.UNKNOWN">
+        <member name="P:eContracting.ERROR_CODES.UNKNOWN">
             <summary>
             Unknown
             </summary>
         </member>
-        <member name="F:eContracting.ERROR_CODES.HP01">
+        <member name="M:eContracting.ERROR_CODES.MissingFile(System.String)">
             <summary>
-            Homepage.
+            Missing file in an offer.
             </summary>
         </member>
         <member name="T:eContracting.EVENT_NAMES">
@@ -101,13 +101,6 @@
             <summary>
             The error.
             </summary>
-        </member>
-        <member name="M:eContracting.EcontractingDataException.#ctor(eContracting.ERROR_CODES,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.EcontractingDataException"/> class.
-            </summary>
-            <param name="code">The code.</param>
-            <param name="description">The description.</param>
         </member>
         <member name="M:eContracting.EcontractingDataException.#ctor(eContracting.Models.ErrorModel)">
             <summary>
@@ -427,13 +420,6 @@
             <summary>
             The description.
             </summary>
-        </member>
-        <member name="M:eContracting.Models.ErrorModel.#ctor(eContracting.ERROR_CODES,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.ErrorModel"/> struct.
-            </summary>
-            <param name="code">The code.</param>
-            <param name="description">The description.</param>
         </member>
         <member name="M:eContracting.Models.ErrorModel.#ctor(System.String,System.String)">
             <summary>

@@ -250,6 +250,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public SiteSettingsModel GetSiteSettings()
         {
+            //TODO: sometimes this.Context.Database = null when calling it from api controller.
             var settings = this.Context.GetItem<SiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
             return settings ?? throw new EcontractingMissingDatasourceException("Site settings could not be resolved.");
         }
