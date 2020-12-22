@@ -40,6 +40,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
+            this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();

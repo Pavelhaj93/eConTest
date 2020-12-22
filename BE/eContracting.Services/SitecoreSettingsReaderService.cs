@@ -42,6 +42,15 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
+        public bool ShowDebugMessages
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetBoolSetting("eContracting.ShowDebugMessages", false);
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SitecoreSettingsReaderService"/> class.
         /// </summary>

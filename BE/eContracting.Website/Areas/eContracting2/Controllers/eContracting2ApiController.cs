@@ -36,6 +36,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISignService SignService;
         protected readonly IUserDataCacheService UserDataCacheService;
         protected readonly IUserFileCacheService UserFileCacheService;
+        protected readonly IEventLogger EventLogger;
+        protected readonly ITextService TextService;
 
         private static Random KeepAliveRandomizer = new Random();
 
@@ -53,6 +55,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserDataCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.UserFileCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.FileOptimizer = ServiceLocator.ServiceProvider.GetRequiredService<IFileOptimizer>();
+            this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
+            this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
 
         internal string FileStorageRoot { get; private set; }
@@ -68,7 +72,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IOfferJsonDescriptor offerJsonDescriptor,
             IUserDataCacheService userDataCache,
             IUserFileCacheService userFileCache,
-            IFileOptimizer fileOptimizer)
+            IFileOptimizer fileOptimizer,
+            IEventLogger eventLogger,
+            ITextService textService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -81,6 +87,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserDataCacheService = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
             this.UserFileCacheService = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.FileOptimizer = fileOptimizer ?? throw new ArgumentNullException(nameof(fileOptimizer));
+            this.EventLogger = eventLogger ?? throw new ArgumentNullException(nameof(eventLogger));
+            this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
 
             this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
             this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
@@ -131,12 +139,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (EndpointNotFoundException ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -185,12 +209,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (EndpointNotFoundException ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -257,7 +297,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -321,21 +369,36 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var dbSignedFile = new DbSignedFileModel(id, guid, this.SessionProvider.GetId(), signedFile);
                 await this.UserFileCacheService.SetAsync(dbSignedFile);
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SIGN_DOCUMENT, file.OriginalFileName);
 
                 return this.Ok();
             }
             catch (EndpointNotFoundException ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
-            }
 
-            return this.StatusCode(HttpStatusCode.NotImplemented);
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
+            }
         }
 
         /// <summary>
@@ -375,12 +438,41 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (EndpointNotFoundException ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
+            }
+            catch (EcontractingDataException ex)
+            {
+                var message = this.TextService.Error(ex.Error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
+                }
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -420,12 +512,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (EndpointNotFoundException ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -613,7 +721,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -690,13 +806,22 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.SaveToDebug(group);
 
                 await this.UserFileCacheService.SetAsync(group);
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.UPLOAD_ATTACHMENT, group.OutputFile.FileName);
 
                 return this.Json(new GroupUploadViewModel(group));
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, "An error occured when trying to add new upload into a group", ex);
-                return this.InternalServerError(ex);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -756,7 +881,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, "An error occured when trying to remove a file from a group", ex);
-                return this.InternalServerError();
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
             }
         }
 
@@ -804,6 +937,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 await this.ApiService.AcceptOfferAsync(offer, submitModel, this.SessionProvider.GetId());
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);
 
                 return this.Ok();
             }

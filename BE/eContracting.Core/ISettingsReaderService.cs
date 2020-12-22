@@ -19,6 +19,11 @@ namespace eContracting
         bool SaveFilesToDebugFolder { get; }
 
         /// <summary>
+        /// Gets a value indicating whether to show debug messages to frontend.
+        /// </summary>
+        bool ShowDebugMessages { get; }
+
+        /// <summary>
         /// Gets definition by <see cref="OfferModel.Process"/> and <see cref="OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
         /// </summary>
         /// <param name="offer">The offer.</param>

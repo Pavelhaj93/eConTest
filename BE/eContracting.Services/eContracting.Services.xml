@@ -417,6 +417,9 @@
         <member name="M:eContracting.Services.SessionProvider.Remove(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreTextService.ErrorCode(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String)">
             <inheritdoc/>
         </member>
@@ -619,6 +622,9 @@
             </summary>
         </member>
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.SaveFilesToDebugFolder">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.ShowDebugMessages">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper,eContracting.ILogger)">

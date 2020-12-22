@@ -170,6 +170,13 @@
             <param name="key">The key.</param>
             <returns>Found text or empty string.</returns>
         </member>
+        <member name="M:eContracting.ITextService.ErrorCode(System.String)">
+            <summary>
+            Translate error code to readable message.
+            </summary>
+            <param name="code">The code.</param>
+            <returns>Rich message or <paramref name="code"/>.</returns>
+        </member>
         <member name="T:eContracting.IUserFileCacheService">
             <summary>
             Cache for user files relevant only for current user. Data cannot be shared among sessions.
@@ -2129,6 +2136,11 @@
         <member name="P:eContracting.ISettingsReaderService.SaveFilesToDebugFolder">
             <summary>
             Gets a value indicating whether to save group file to <c>debug</c> folder.
+            </summary>
+        </member>
+        <member name="P:eContracting.ISettingsReaderService.ShowDebugMessages">
+            <summary>
+            Gets a value indicating whether to show debug messages to frontend.
             </summary>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
