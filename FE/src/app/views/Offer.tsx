@@ -181,9 +181,13 @@ export const Offer: React.FC<View> = observer(
               </BoxHeading>
               {store.singleGiftGroup ? (
                 <Row as="ul" className="justify-content-center list-unstyled mb-0">
-                  {store.gifts.groups[0].params.map(({ title, icon }, idx) => (
+                  {store.gifts.groups[0].params.map(({ title, icon, count }, idx) => (
                     <Col as="li" key={idx} xs={12} sm={6} lg={4} className="mb-3">
-                      <Gift type={icon} title={title} className="justify-content-sm-center" />
+                      <Gift
+                        type={icon}
+                        title={`${count}x ${title}`}
+                        className="justify-content-sm-center"
+                      />
                     </Col>
                   ))}
                 </Row>
@@ -201,9 +205,9 @@ export const Offer: React.FC<View> = observer(
                       <h4 className="mb-4 gift__group-title">{title}</h4>
                       {params.length > 0 && (
                         <ul className="list-unstyled mb-0">
-                          {params.map(({ title, icon }, idx) => (
+                          {params.map(({ title, icon, count }, idx) => (
                             <li key={idx} className="mb-3">
-                              <Gift type={icon} title={title} />
+                              <Gift type={icon} title={`${count}x ${title}`} />
                             </li>
                           ))}
                         </ul>

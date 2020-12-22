@@ -42,17 +42,17 @@
         "title": "Za čas věnovaný naší nabídce od nás jako pozornost získáváte:",
         "params": [
           {
-            "title": "100x LED žárovka",
+            "title": "LED žárovka",
             "icon": "LED",
             "count": 100
           },
           {
-            "title": "20x detektor",
+            "title": "detektor",
             "icon": "DET",
             "count": 20
           },
           {
-            "title": "1x poukázka Kaufland 10 Kč",
+            "title": "poukázka Kaufland 10 Kč",
             "icon": "PKZ",
             "count": 1
           }
@@ -62,17 +62,17 @@
         "title": "Za přijetí nabídky za Vás čeká:",
         "params": [
           {
-            "title": "10x LED žárovka",
+            "title": "LED žárovka",
             "icon": "LED",
             "count": 10
           },
           {
-            "title": "20x detektor",
+            "title": "detektor",
             "icon": "DET",
             "count": 20
           },
           {
-            "title": "1230 x poukázka Hornbach, 1000 Kč na vybavení zahrady",
+            "title": "poukázka Hornbach, 1000 Kč na vybavení zahrady",
             "icon": "PKZ",
             "count": 1230
           }
@@ -82,17 +82,17 @@
         "title": "Po zahájení dodávky na Vás čeká:",
         "params": [
           {
-            "title": "10x LED žárovka",
+            "title": "LED žárovka",
             "icon": "LED",
             "count": 10
           },
           {
-            "title": "2x detektor",
+            "title": "detektor",
             "icon": "DET",
             "count": 2
           },
           {
-            "title": "123x poukázka Kaufland 100 Kč",
+            "title": "poukázka Kaufland 100 Kč",
             "icon": "PKZ",
             "count": 123
           }
