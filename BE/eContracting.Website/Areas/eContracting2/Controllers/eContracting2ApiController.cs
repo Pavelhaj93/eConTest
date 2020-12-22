@@ -59,7 +59,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
 
-        internal string FileStorageRoot { get; private set; }
+        //internal string FileStorageRoot { get; private set; }
 
         internal eContracting2ApiController(
             ILogger logger,
@@ -90,8 +90,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.EventLogger = eventLogger ?? throw new ArgumentNullException(nameof(eventLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
 
-            this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
-            this.FileOptimizer.FileStorageRoot = this.FileStorageRoot;
+           // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");            
         }
 
         [HttpGet]

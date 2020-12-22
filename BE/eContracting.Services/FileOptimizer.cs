@@ -31,8 +31,9 @@ namespace eContracting.Services
         private readonly long GroupResultingFileSizeLimit;
         private readonly Size MaxImageSizeAfterResize;
         private readonly Size MinImageSizeNoResize;
+        private readonly int CompressionRoundsMax;
 
-        public string FileStorageRoot { get; set; }
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileOptimizer"/> class.
@@ -66,10 +67,13 @@ namespace eContracting.Services
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
 
-            // TODO: sitecore config
-            this.GroupResultingFileSizeLimit = 25 * 1024 * 1024;
-            this.MaxImageSizeAfterResize = new Size(8096, 8096);
-            this.MinImageSizeNoResize = new Size(768, 768);
+            
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            this.GroupResultingFileSizeLimit = siteSettings.GroupResultingFileSizeLimitKBytes * 1024; 
+            this.MaxImageSizeAfterResize = new Size(siteSettings.MaxImageWidthAfterResize, siteSettings.MaxImageHeightAfterResize);
+            this.MinImageSizeNoResize = new Size(siteSettings.MinImageWidthNoResize, siteSettings.MinImageHeightNoResize);
+            this.CompressionRoundsMax = siteSettings.MaxOptimizationRounds;
+
         }
 
         /// <inheritdoc/>
@@ -86,8 +90,7 @@ namespace eContracting.Services
                     if (group.OutputFile?.Content.Length > 0)
                     {
                         await existingPdfStream.WriteAsync(group.OutputFile.Content, 0, group.OutputFile.Content.Length);
-                        //outputPdfDocument = PdfReader.Open(existingPdfStream, PdfDocumentOpenMode.Modify);
-                        outputPdfDocument = new PdfDocument(existingPdfStream);
+                        outputPdfDocument = PdfReader.Open(existingPdfStream, PdfDocumentOpenMode.Modify);                        
                     }
                 }
                 else
@@ -163,10 +166,9 @@ namespace eContracting.Services
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
 
                 // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
-                int compressionRounds = 0;
-                int compressionRoundsMax = 5;
+                int compressionRounds = 0;                
 
-                while (compressionRounds < compressionRoundsMax)
+                while (compressionRounds < this.CompressionRoundsMax)
                 {
                     if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
                     {
@@ -174,7 +176,7 @@ namespace eContracting.Services
                         {
                             outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
 
-                            this.CompressFiles(group.OriginalFiles, compressionRounds, compressionRoundsMax);
+                            this.CompressFiles(group.OriginalFiles, compressionRounds, this.CompressionRoundsMax);
 
                             foreach (var fileInGroup in group.OriginalFiles)
                             {

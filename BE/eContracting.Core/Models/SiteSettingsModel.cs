@@ -113,6 +113,29 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual CookieLawSettingsModel CookieLawSettings { get; set; }
 
+
+        [SitecoreField]
+        public int GroupResultingFileSizeLimitKBytes { get; set; }
+
+        [SitecoreField]
+        public int MaxImageWidthAfterResize { get; set; }
+
+        [SitecoreField]
+        public int MaxImageHeightAfterResize { get; set; }
+
+        [SitecoreField]
+        public int MinImageWidthNoResize { get; set; }
+
+        [SitecoreField]
+        public int MinImageHeightNoResize { get; set; }
+
+        [SitecoreField]
+        public int MaxOptimizationRounds { get; set; }
+
+
+
+
+
         /// <summary>
         /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
         /// </summary>

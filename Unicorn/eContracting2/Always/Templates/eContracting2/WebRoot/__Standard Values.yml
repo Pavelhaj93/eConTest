@@ -9,9 +9,30 @@ SharedFields:
   Hint: __Masters
   Type: TreelistEx
   Value: 
+- ID: "453dd7db-cbe4-4962-8c70-2c690163ce7f"
+  Hint: MaxImageHeightAfterResize
+  Value: 8096
+- ID: "462f14a0-b715-4a81-adb2-60b0c66c546c"
+  Hint: GroupResultingFileSizeLimitKBytes
+  Value: 25600
+- ID: "51654b99-0321-483f-a7bb-6125c30bb567"
+  Hint: MinImageWidthNoResize
+  Value: 768
+- ID: "52d1137c-4e99-4f4c-9813-988e5fef5400"
+  Hint: MaxImageWidthAfterResize
+  Value: 8096
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "b0a5f616-ab2b-44cb-8997-95e1411212d1"
+  Hint: MinImageHeightNoResize
+  Value: 768
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 300
+- ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
+  Hint: MaxOptimizationRounds
+  Value: 5
 Languages:
 - Language: cs
   Versions:

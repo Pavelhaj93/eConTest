@@ -12,8 +12,6 @@ namespace eContracting
     /// </summary>
     public interface IFileOptimizer
     {
-        string FileStorageRoot { get; set; }
-
         /// <summary>
         /// Adds a file with <paramref name="name" /> to a group with <paramref name="groupKey" />.
         /// </summary>
