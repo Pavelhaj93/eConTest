@@ -24,6 +24,17 @@ namespace eContracting
         public readonly Uri Url;
 
         /// <summary>
+        /// Gets a value indicating whether <see cref="Url"/> is HTTPS.
+        /// </summary>
+        public bool IsHttps
+        {
+            get
+            {
+                return this.Url.Scheme == "https";
+            }
+        }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="BaseApiServiceOptions"/> class.
         /// </summary>
         /// <param name="url">The URL.</param>

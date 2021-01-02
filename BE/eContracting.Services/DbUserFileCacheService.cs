@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Castle.Core.Internal;
 using eContracting.Models;
@@ -41,7 +39,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task ClearAsync(DbSearchParameters search)
+        protected async Task ClearAsync(DbSearchParameters search)
         {
             if (string.IsNullOrEmpty(search.Guid))
             {
@@ -53,7 +51,14 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
+        public DbUploadGroupFileModel FindGroup(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.FindGroupAsync(search));
+            task.Wait();
+            return task.Result;
+        }
+
+        protected async Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
@@ -112,7 +117,14 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
+        public DbSignedFileModel FindSignedFile(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.FindSignedFileAsync(search));
+            task.Wait();
+            return task.Result;
+        }
+
+        protected async Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
@@ -140,7 +152,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task RemoveGroupAsync(DbSearchParameters search)
+        public void RemoveGroup(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.RemoveGroupAsync(search));
+            task.Wait();
+        }
+
+        protected async Task RemoveGroupAsync(DbSearchParameters search)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
@@ -171,7 +189,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task RemoveSignedFileAsync(DbSearchParameters search)
+        public void RemoveSignedFile(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.RemoveSignedFileAsync(search));
+            task.Wait();
+        }
+
+        protected async Task RemoveSignedFileAsync(DbSearchParameters search)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
@@ -202,7 +226,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task SetAsync(DbUploadGroupFileModel groupModel)
+        public void Set(DbUploadGroupFileModel groupModel)
+        {
+            var task = Task.Run(() => this.SetAsync(groupModel));
+            task.Wait();
+        }
+
+        protected async Task SetAsync(DbUploadGroupFileModel groupModel)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {
@@ -289,7 +319,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task SetAsync(DbSignedFileModel model)
+        public void Set(DbSignedFileModel model)
+        {
+            var task = Task.Run(() => this.SetAsync(model));
+            task.Wait();
+        }
+
+        protected async Task SetAsync(DbSignedFileModel model)
         {
             using (var context = new DatabaseContext(this.ConnectionString))
             {

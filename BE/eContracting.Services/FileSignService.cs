@@ -18,62 +18,75 @@ namespace eContracting.Services
         protected readonly ILogger Logger;
 
         /// <summary>
-        /// The settings reader service.
+        /// The settings service.
         /// </summary>
         protected readonly ISettingsReaderService SettingsReaderService;
 
         /// <summary>
-        /// The API client.
+        /// The service factory.
         /// </summary>
-        private readonly CRM_SIGN_STAMP_MERGEClient Api;
+        protected readonly IServiceFactory ServiceFactory;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileSignService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
+        /// <param name="factory">The factory.</param>
         public FileSignService(
             ILogger logger,
-            ISettingsReaderService settingsReaderService)
+            ISettingsReaderService settingsReaderService,
+            IServiceFactory factory)
         {
             this.Logger = logger;
+            this.ServiceFactory = factory;
             this.SettingsReaderService = settingsReaderService;
-
-            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
-            var options = this.SettingsReaderService.GetSignApiServiceOptions();
-
-            var binding = new BasicHttpBinding();
-            binding.Name = nameof(CRM_SIGN_STAMP_MERGEClient);
-            binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
-            binding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
-            binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
-
-            var endpoint = new EndpointAddress(options.Url);
-
-            this.Api = new CRM_SIGN_STAMP_MERGEClient(binding, endpoint);
-            this.Api.ClientCredentials.UserName.UserName = options.User;
-            this.Api.ClientCredentials.UserName.Password = options.Password;
         }
 
-        public async Task<OfferAttachmentModel> SignAsync(OfferAttachmentModel file, byte[] signature)
+        public OfferAttachmentModel Sign(OfferAttachmentModel file, byte[] signature)
         {
-            var inputPDFBlob = new BLOB() { binaryData = file.FileContent.ToArray(), contentType = "application/pdf", };
-            var inputSignBlob = new BLOB() { binaryData = signature, contentType = "image/png" };
-            
-            var request = new invoke();
-            request.inputPDF = inputPDFBlob;
-            request.inputPNGSign = inputSignBlob;
-            request.overlay = file.TemplAlcId;
-            var response = await this.Api.invokeAsync(request);
+            var options = this.SettingsReaderService.GetSignApiServiceOptions();
 
-            if (response.invokeResponse.errCode != 0)
+            using (var api = this.ServiceFactory.CreateApi(options))
             {
-                this.Logger.Fatal("", "Sign the file failed: " + response.invokeResponse.errMsg);
-                return null;
-            }
+                var inputPDFBlob = new BLOB() { binaryData = file.FileContent.ToArray(), contentType = "application/pdf", };
+                var inputSignBlob = new BLOB() { binaryData = signature, contentType = "image/png" };
 
-            var newFile = file.Clone(response.invokeResponse.outputPDF.binaryData);
-            return newFile;
+                var invoke = new invoke();
+                invoke.inputPDF = inputPDFBlob;
+                invoke.inputPNGSign = inputSignBlob;
+                invoke.overlay = file.TemplAlcId;
+
+                this.Logger.Debug(null, $"Connecting to signig service on '{api.Endpoint.ListenUri.ToString()}' ...");
+
+                try
+                {
+                    var response = api.invoke(invoke);
+                    //var task = api.invokeAsync(request);
+                    //task.Wait();
+                    //var response = task.Result;
+
+                    this.Logger.Debug(null, $"Response received: {response.errCode}");
+
+                    if (response.errCode != 0)
+                    {
+                        throw new EcontractingSignException(ERROR_CODES.FileNotSigned(response.errMsg));
+                    }
+
+                    if ((response.outputPDF?.binaryData?.Length ?? 0) == 0)
+                    {
+                        throw new EcontractingSignException(ERROR_CODES.EmptySignedFile());
+                    }
+
+                    var newFile = file.Clone(response.outputPDF.binaryData);
+                    return newFile;
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Fatal(null, "Connection failed", ex);
+                    throw;
+                }
+            }
         }
     }
 }

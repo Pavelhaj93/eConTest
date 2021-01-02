@@ -28,11 +28,11 @@ namespace eContracting.ConsoleClient.Commands
         }
 
         [Execute]
-        public async Task Execute(
+        public async void Execute(
             [Argument(Description = "unique identifier for an offer")] string guid,
             [Argument(Description = "what part to render")] string part = "all")
         {
-            var offer = await this.ApiService.GetOfferAsync(guid);
+            var offer = this.ApiService.GetOffer(guid);
 
             if (offer == null)
             {
@@ -40,7 +40,7 @@ namespace eContracting.ConsoleClient.Commands
                 return;
             }
 
-            var json = await this.JsonDescriptor.GetNewAsync(offer);
+            var json = this.JsonDescriptor.GetNew(offer);
 
             if (part == "perex")
             {

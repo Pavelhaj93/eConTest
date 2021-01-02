@@ -15,37 +15,32 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public Task ClearAsync(DbSearchParameters search)
+        public DbUploadGroupFileModel FindGroup(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task<DbUploadGroupFileModel> FindGroupAsync(DbSearchParameters search)
+        public DbSignedFileModel FindSignedFile(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task<DbSignedFileModel> FindSignedFileAsync(DbSearchParameters search)
+        public void RemoveGroup(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveGroupAsync(DbSearchParameters search)
+        public void RemoveSignedFile(DbSearchParameters search)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveSignedFileAsync(DbSearchParameters search)
+        public void Set(DbUploadGroupFileModel group)
         {
             throw new NotImplementedException();
         }
 
-        public Task SetAsync(DbUploadGroupFileModel group)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task SetAsync(DbSignedFileModel file)
+        public void Set(DbSignedFileModel file)
         {
             throw new NotImplementedException();
         }

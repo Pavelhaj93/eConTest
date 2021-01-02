@@ -125,14 +125,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\GlassMapperSc.cs" />
-    <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="Commands\AnalyzeOfferCommand.cs" />
     <Compile Include="Commands\CompareIdAttachCommand.cs" />
     <Compile Include="Commands\FileModel.cs" />
     <Compile Include="Commands\GetFilesCommand.cs" />
     <Compile Include="Commands\GetOfferCommand.cs" />
     <Compile Include="Commands\GetOfferJsonCommand.cs" />
+    <Compile Include="Commands\SignFileCommand.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ConsoleLoggerSuspender.cs" />
     <Compile Include="ContextData.cs" />
@@ -148,10 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="App_Config\Include\Glass.Mapper.Sc.CodeFirst.config.exclude" />
-    <None Include="App_Config\Include\Glass.Mapper.Sc.config" />
-    <None Include="App_Config\Include\Glass.Mapper.Sc.Start.config" />
-    <None Include="App_Config\Include\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

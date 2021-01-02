@@ -35,7 +35,7 @@ namespace eContracting.ConsoleClient.Commands
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
-            var offer = await this.ApiService.GetOfferAsync(guid);
+            var offer = this.ApiService.GetOffer(guid);
 
             if (offer == null)
             {

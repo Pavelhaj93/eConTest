@@ -9,6 +9,6 @@ namespace eContracting
 {
     public interface ISignService
     {
-        Task<OfferAttachmentModel> SignAsync(OfferAttachmentModel file, byte[] signature);
+        OfferAttachmentModel Sign(OfferAttachmentModel file, byte[] signature);
     }
 }

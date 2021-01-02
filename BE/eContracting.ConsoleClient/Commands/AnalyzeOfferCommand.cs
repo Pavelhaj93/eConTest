@@ -38,7 +38,7 @@ namespace eContracting.ConsoleClient.Commands
         {
             using (new ConsoleLoggerSuspender(this.Logger))
             {
-                var offer = await this.ApiService.GetOfferAsync(guid);
+                var offer = this.ApiService.GetOffer(guid);
 
                 if (offer == null)
                 {
@@ -52,7 +52,7 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
-                var files = await this.ApiService.GetFilesAsync(offer.Guid, false);
+                var files = this.ApiService.GetFiles(offer.Guid, false);
 
                 if (files == null)
                 {
@@ -63,7 +63,7 @@ namespace eContracting.ConsoleClient.Commands
                 Utils.CompareIdAttach(this.Console, offer, files);
                 this.Console.WriteLine();
 
-                var model = await this.OfferDescriptor.GetNewAsync(offer);
+                var model = this.OfferDescriptor.GetNew(offer);
 
                 if (model.Perex != null)
                 {

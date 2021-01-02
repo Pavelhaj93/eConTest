@@ -52,12 +52,12 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<JsonOfferAcceptedModel> GetAcceptedAsync(OfferModel offer)
+        public JsonOfferAcceptedModel GetAccepted(OfferModel offer)
         {
             var groups = new List<JsonFilesSectionModel>();
             var version = offer.Version;
             var documents = offer.Documents;
-            var files = await this.ApiService.GetAttachmentsAsync(offer);
+            var files = this.ApiService.GetAttachments(offer);
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var page = this.GetAcceptedPageModel();
             var textParameters = offer.TextParameters;
@@ -73,7 +73,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<JsonOfferNotAcceptedModel> GetNewAsync(OfferModel offer)
+        public JsonOfferNotAcceptedModel GetNew(OfferModel offer)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var model = new JsonOfferNotAcceptedModel();
@@ -85,9 +85,9 @@ namespace eContracting.Services
                 model.Benefits = this.GetCommoditySalesArguments(offer.TextParameters, definition);
             }
 
-            model.Documents = await this.GetDocuments(offer, definition);
+            model.Documents = this.GetDocuments(offer, definition);
             model.AcceptanceDialog = this.GetAcceptance(offer, definition);
-            return await Task.FromResult(model);
+            return model;
         }
 
         protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, PageAcceptedOfferModel definition, OfferModel offer)
@@ -293,14 +293,14 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal async Task<JsonOfferDocumentsModel> GetDocuments(OfferModel offer, DefinitionCombinationModel definition)
+        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, DefinitionCombinationModel definition)
         {
             if (!this.IsSectionChecked(offer.TextParameters, "COMMODITY"))
             {
                 return null;
             }
 
-            var files = await this.ApiService.GetAttachmentsAsync(offer);
+            var files = this.ApiService.GetAttachments(offer);
 
             var model = new JsonOfferDocumentsModel();
             model.Acceptance = this.GetDocumentsAcceptance(offer, files, definition);

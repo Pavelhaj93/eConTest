@@ -118,14 +118,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var attachments = this.ApiService.GetAttachments(offer);
 
                 if ((attachments?.Length ?? 0) == 0)
                 {
@@ -183,14 +183,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var attachments = this.ApiService.GetAttachments(offer);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -249,14 +249,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var attachments = this.ApiService.GetAttachments(offer);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -324,14 +324,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = await this.ApiService.GetAttachmentsAsync(offer);
+                var attachments = this.ApiService.GetAttachments(offer);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -359,7 +359,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
                 var signature = Convert.FromBase64String(base64);
-                var signedFile = await this.SignService.SignAsync(file, signature);
+                var signedFile = this.SignService.Sign(file, signature);
 
                 if (signedFile == null)
                 {
@@ -367,7 +367,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var dbSignedFile = new DbSignedFileModel(id, guid, this.SessionProvider.GetId(), signedFile);
-                await this.UserFileCacheService.SetAsync(dbSignedFile);
+                this.UserFileCacheService.Set(dbSignedFile);
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SIGN_DOCUMENT, file.OriginalFileName);
 
                 return this.Ok();
@@ -383,6 +383,20 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 else
                 {
                     return this.InternalServerError();
+                }
+            }
+            catch (EcontractingSignException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                var message = this.TextService.Error(ex.Error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
                 }
             }
             catch (Exception ex)
@@ -419,7 +433,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
@@ -431,7 +445,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                var model = await this.OfferJsonDescriptor.GetNewAsync(offer);
+                var model = this.OfferJsonDescriptor.GetNew(offer);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)
@@ -449,6 +463,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (EcontractingDataException ex)
             {
+                this.Logger.Fatal(guid, ex);
                 var message = this.TextService.Error(ex.Error);
 
                 if (this.SettingsReaderService.ShowDebugMessages)
@@ -493,7 +508,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
-                var offer = await this.ApiService.GetOfferAsync(user.Guid);
+                var offer = this.ApiService.GetOffer(user.Guid);
 
                 if (offer == null)
                 {
@@ -505,7 +520,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest();
                 }
 
-                var model = await this.OfferJsonDescriptor.GetAcceptedAsync(offer);
+                var model = this.OfferJsonDescriptor.GetAccepted(offer);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)
@@ -708,7 +723,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 guid = user.Guid;
 
                 var searchGroupParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
-                var result = await this.UserFileCacheService.FindGroupAsync(searchGroupParams);
+                var result = this.UserFileCacheService.FindGroup(searchGroupParams);
 
                 if (result == null)
                 {
@@ -777,7 +792,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var groupSearchParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
-                var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
+                var group = this.UserFileCacheService.FindGroup(groupSearchParams);
 
                 // everytime there "should" be only one file
                 for (int i = 0; i < multipartData.FileData.Count; i++)
@@ -804,7 +819,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 this.SaveToDebug(group);
 
-                await this.UserFileCacheService.SetAsync(group);
+                this.UserFileCacheService.Set(group);
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.UPLOAD_ATTACHMENT, group.OutputFile.FileName);
 
                 return this.Json(new GroupUploadViewModel(group));
@@ -858,7 +873,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var user = this.AuthService.GetCurrentUser();
                 guid = user.Guid;
                 var groupSearchParams = new DbSearchParameters(groupId, guid, this.SessionProvider.GetId());
-                var group = await this.UserFileCacheService.FindGroupAsync(groupSearchParams);
+                var group = this.UserFileCacheService.FindGroup(groupSearchParams);
 
                 if (group == null)
                 {
@@ -873,7 +888,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
                 else
                 {
-                    await this.UserFileCacheService.SetAsync(updatedGroup);
+                    this.UserFileCacheService.Set(updatedGroup);
                     return this.Json(new GroupUploadViewModel(updatedGroup));
                 }
             }
@@ -923,7 +938,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Invalid submit data");
                 }
 
-                var offer = await this.ApiService.GetOfferAsync(guid, false);
+                var offer = this.ApiService.GetOffer(guid, false);
 
                 if (offer == null)
                 {
@@ -935,7 +950,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                await this.ApiService.AcceptOfferAsync(offer, submitModel, this.SessionProvider.GetId());
+                this.ApiService.AcceptOffer(offer, submitModel, this.SessionProvider.GetId());
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);
 
                 return this.Ok();

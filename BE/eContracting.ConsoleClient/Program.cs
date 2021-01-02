@@ -29,7 +29,7 @@ namespace eContracting.ConsoleClient
                         config.ServicePassword = "QWRIYjI0Nyo=";
                     });
                     services.AddSingleton<ContextData>();
-                    services.AddScoped<IOfferServiceFactory, OfferServiceFactory>();
+                    services.AddScoped<IServiceFactory, ServiceFactory>();
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();

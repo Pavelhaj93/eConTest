@@ -32,7 +32,7 @@ namespace eContracting.ConsoleClient.Commands
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            var offer = await this.ApiService.GetOfferAsync(guid);
+            var offer = this.ApiService.GetOffer(guid);
 
             if (offer == null)
             {
@@ -49,7 +49,7 @@ namespace eContracting.ConsoleClient.Commands
 
             this.Console.WriteLine(JsonConvert.SerializeObject(list1, Formatting.Indented));
 
-            var files = await this.ApiService.GetAttachmentsAsync(offer);
+            var files = this.ApiService.GetAttachments(offer);
 
             if (files == null)
             {

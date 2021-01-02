@@ -19,6 +19,11 @@
             The URL.
             </summary>
         </member>
+        <member name="P:eContracting.BaseApiServiceOptions.IsHttps">
+            <summary>
+            Gets a value indicating whether <see cref="F:eContracting.BaseApiServiceOptions.Url"/> is HTTPS.
+            </summary>
+        </member>
         <member name="M:eContracting.BaseApiServiceOptions.#ctor(System.String,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.BaseApiServiceOptions"/> class.
@@ -33,6 +38,17 @@
             or
             Password cannot be empty - base64password
             </exception>
+        </member>
+        <member name="F:eContracting.EcontractingSignException.Error">
+            <summary>
+            The error.
+            </summary>
+        </member>
+        <member name="M:eContracting.EcontractingSignException.#ctor(eContracting.Models.ErrorModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingSignException"/> class.
+            </summary>
+            <param name="error">The error.</param>
         </member>
         <member name="P:eContracting.ERROR_CODES.UNKNOWN">
             <summary>
@@ -175,53 +191,47 @@
             Cache for user files relevant only for current user. Data cannot be shared among sessions.
             </summary>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
+        <member name="M:eContracting.IUserFileCacheService.Set(eContracting.Models.DbUploadGroupFileModel)">
             <summary>
             Adds or rewrite <paramref name="group"/> under specific <see cref="P:eContracting.Models.DbUploadGroupFileModel.Key"/>.
             </summary>
             <param name="group">The group.</param>
             <exception cref="T:System.ApplicationException">When data were not stored.</exception>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
+        <member name="M:eContracting.IUserFileCacheService.Set(eContracting.Models.DbSignedFileModel)">
             <summary>
             Adds or rewrite <paramref name="file"/> under specific <see cref="P:eContracting.Models.DbSignedFileModel.Key"/>.
             </summary>
             <param name="file">The signed file model.</param>
             <exception cref="T:System.ApplicationException">When data were not stored.</exception>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.FindSignedFileAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.IUserFileCacheService.FindSignedFile(eContracting.Models.DbSearchParameters)">
             <summary>
             Gets the signed file by specific <paramref name="search"/> parameters.
             </summary>
             <param name="search">The search parameters.</param>
             <returns>File or null.</returns>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.FindGroupAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.IUserFileCacheService.FindGroup(eContracting.Models.DbSearchParameters)">
             <summary>
             Gets the group data by specific <paramref name="search"/> parameters.
             </summary>
             <param name="search">The search parameters.</param>
             <returns>Data or null.</returns>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.RemoveSignedFileAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.IUserFileCacheService.RemoveSignedFile(eContracting.Models.DbSearchParameters)">
             <summary>
             Removes the signed file under specific <paramref name="search"/> parameters.
             </summary>
             <param name="search">The search parameters.</param>
         </member>
-        <member name="M:eContracting.IUserFileCacheService.RemoveGroupAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.IUserFileCacheService.RemoveGroup(eContracting.Models.DbSearchParameters)">
             <summary>
             Removes the group under specific <paramref name="search"/> parameters>.
             </summary>
             <param name="search">The search parameters.</param>
         </member>
         <member name="M:eContracting.IUserFileCacheService.Clear(eContracting.Models.DbSearchParameters)">
-            <summary>
-            Removes all data base on <paramref name="search"/> parameters.
-            </summary>
-            <param name="search">The search parameters.</param>
-        </member>
-        <member name="M:eContracting.IUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
             <summary>
             Removes all data base on <paramref name="search"/> parameters.
             </summary>
@@ -1769,15 +1779,6 @@
             Service with direct communication to SAP / CACHE.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
-            <summary>
-            Accepts offer asynchronously.
-            </summary>
-            <param name="offer">Valid offer.</param>
-            <param name="data">The submitted data.</param>
-            <param name="sessionId">Current session id.</param>
-            <returns>True if it was accepted or false.</returns>
-        </member>
         <member name="M:eContracting.IOfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
             Accepts offer synchronously.
@@ -1794,20 +1795,6 @@
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
         </member>
-        <member name="M:eContracting.IOfferService.ReadOfferAsync(System.String)">
-            <summary>
-            Reads offer asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>True if it was set or false.</returns>
-        </member>
-        <member name="M:eContracting.IOfferService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
-            <summary>
-            Gets the files asynchronous.
-            </summary>
-            <param name="offer">The offer with attachment templates.</param>
-            <returns>Files in array or null</returns>
-        </member>
         <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel)">
             <summary>
             Gets the files synchronous.
@@ -1823,15 +1810,7 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.GetOfferAsync(System.String)">
-            <summary>
-            Gets the offer by <paramref name="guid"/> with text parameters asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <returns>The offer.</returns>
-            <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
-        </member>
-        <member name="M:eContracting.IOfferService.GetOfferAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.IOfferService.GetOffer(System.String,System.Boolean)">
             <summary>
             Gets the offer by <paramref name="guid"/> asynchronously.
             </summary>
@@ -1843,13 +1822,6 @@
         <member name="M:eContracting.IOfferService.SignInOffer(System.String)">
             <summary>
             Make offer <paramref name="guid"/> signed.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        </member>
-        <member name="M:eContracting.IOfferService.SignInOfferAsync(System.String)">
-            <summary>
-            Make offer <paramref name="guid"/> signed asynchronously.
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
@@ -2067,13 +2039,13 @@
             Creates prescription for JSON / API for not accepted offer and accepted offer.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OfferModel)">
             <summary>
             Gets prescription for not accepted offer.
             </summary>
             <param name="offer">The offer.</param>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel)">
             <summary>
             Gets prescription for accepted offer.
             </summary>

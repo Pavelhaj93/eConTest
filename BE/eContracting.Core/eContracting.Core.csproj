@@ -93,11 +93,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseApiServiceOptions.cs" />
+    <Compile Include="EcontractingSignException.cs" />
     <Compile Include="ERROR_CODES.cs" />
     <Compile Include="EVENT_NAMES.cs" />
     <Compile Include="IEventLogger.cs" />
     <Compile Include="EcontractingDataException.cs" />
-    <Compile Include="IOfferServiceFactory.cs" />
+    <Compile Include="IServiceFactory.cs" />
     <Compile Include="ISessionProvider.cs" />
     <Compile Include="IStartup.cs" />
     <Compile Include="ITextService.cs" />
@@ -124,7 +125,7 @@
     <Compile Include="Models\PageSessionExpiredModel.cs" />
     <Compile Include="Models\PageUserBlockedModel.cs" />
     <Compile Include="Models\PageThankYouModel.cs" />
-    <Compile Include="OfferServiceFactory.cs" />
+    <Compile Include="ServiceFactory.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">

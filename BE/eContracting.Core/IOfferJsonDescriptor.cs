@@ -16,13 +16,13 @@ namespace eContracting
         /// Gets prescription for not accepted offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
-        Task<JsonOfferNotAcceptedModel> GetNewAsync(OfferModel offer);
+        JsonOfferNotAcceptedModel GetNew(OfferModel offer);
 
         /// <summary>
         /// Gets prescription for accepted offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <returns></returns>
-        Task<JsonOfferAcceptedModel> GetAcceptedAsync(OfferModel offer);
+        JsonOfferAcceptedModel GetAccepted(OfferModel offer);
     }
 }

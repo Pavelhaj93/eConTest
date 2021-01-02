@@ -166,20 +166,21 @@
         </member>
         <member name="F:eContracting.Services.FileSignService.SettingsReaderService">
             <summary>
-            The settings reader service.
+            The settings service.
             </summary>
         </member>
-        <member name="F:eContracting.Services.FileSignService.Api">
+        <member name="F:eContracting.Services.FileSignService.ServiceFactory">
             <summary>
-            The API client.
+            The service factory.
             </summary>
         </member>
-        <member name="M:eContracting.Services.FileSignService.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.FileSignService.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService,eContracting.IServiceFactory)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.FileSignService"/> class.
             </summary>
             <param name="logger">The logger.</param>
             <param name="settingsReaderService">The settings reader service.</param>
+            <param name="factory">The factory.</param>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
             <summary>
@@ -202,10 +203,10 @@
             settingsReaderService
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAcceptedAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNewAsync(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
@@ -240,6 +241,11 @@
             The settings reader service.
             </summary>
         </member>
+        <member name="F:eContracting.Services.OfferService.ServiceFactory">
+            <summary>
+            The API service factory.
+            </summary>
+        </member>
         <member name="F:eContracting.Services.OfferService.OfferParser">
             <summary>
             The offer parser.
@@ -250,12 +256,7 @@
             The attachment parser.
             </summary>
         </member>
-        <member name="F:eContracting.Services.OfferService.Api">
-            <summary>
-            The API client.
-            </summary>
-        </member>
-        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IOfferServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>
@@ -270,37 +271,22 @@
         <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.AcceptOfferAsync(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetOfferAsync(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferService.GetOfferAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetAttachmentsAsync(eContracting.Models.OfferModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferService.ReadOffer(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferService.ReadOfferAsync(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.SignInOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.SignInOfferAsync(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferService.GetTextParametersAsync(eContracting.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferService.GetTextParameters(eContracting.Models.ResponseCacheGetModel)">
             <summary>
             Gets the text parameters for specific version.
             </summary>
@@ -308,7 +294,7 @@
             <returns>Dictionary or null.</returns>
             <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetResponseAsync(System.String,eContracting.OFFER_TYPES,System.String)">
+        <member name="M:eContracting.Services.OfferService.GetResponse(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Gets data.
             </summary>
@@ -317,7 +303,7 @@
             <param name="fileType">Type of the file.</param>
             <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.String)">
+        <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -326,7 +312,7 @@
             <param name="status">The status.</param>
             <returns><c>True</c> if status was set.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.SetStatusAsync(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
+        <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
             </summary>
@@ -336,7 +322,7 @@
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>True if it was successfully set or false.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetFilesAsync(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetFiles(System.String,System.Boolean)">
             <summary>
             Gets the files asynchronous.
             </summary>
@@ -344,7 +330,7 @@
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.PutAsync(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.Services.OfferService.Put(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
             Inserts data asynchronously.
             </summary>
@@ -376,22 +362,22 @@
         <member name="M:eContracting.Services.DbUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroupAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroup(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFileAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFile(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroupAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroup(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFileAsync(eContracting.Models.DbSearchParameters)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFile(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbUploadGroupFileModel)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.Set(eContracting.Models.DbUploadGroupFileModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.DbUserFileCacheService.SetAsync(eContracting.Models.DbSignedFileModel)">
+        <member name="M:eContracting.Services.DbUserFileCacheService.Set(eContracting.Models.DbSignedFileModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.SaveAsync(eContracting.Storage.DatabaseContext,eContracting.Storage.File,System.Collections.Generic.IEnumerable{eContracting.Storage.FileAttribute})">
