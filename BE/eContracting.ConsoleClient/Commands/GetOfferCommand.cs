@@ -32,7 +32,7 @@ namespace eContracting.ConsoleClient.Commands
         }
 
         [Execute]
-        public async Task Execute(
+        public void Execute(
             [Argument(Description = "unique identifier for an offer")]string guid)
         {
             var offer = this.ApiService.GetOffer(guid);

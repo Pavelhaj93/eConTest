@@ -28,7 +28,7 @@ namespace eContracting.ConsoleClient.Commands
         }
 
         [Execute]
-        public async void Execute(
+        public void Execute(
             [Argument(Description = "unique identifier for an offer")] string guid,
             [Argument(Description = "what part to render")] string part = "all")
         {

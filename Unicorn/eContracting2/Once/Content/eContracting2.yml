@@ -17,7 +17,7 @@ SharedFields:
   Value: "GTM-KTXKW8"
 - ID: "70b910ee-71e5-4436-b1cd-c9184374adf3"
   Hint: SigningServiceUrl
-  Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
+  Value: "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
 - ID: "85599138-47ff-40d3-bc4c-c6c64b046035"
   Hint: WrongUrl
   Value: |
