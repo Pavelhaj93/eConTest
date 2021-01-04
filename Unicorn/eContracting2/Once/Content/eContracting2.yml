@@ -11,7 +11,7 @@ SharedFields:
     <link id="{7FDF07BC-0AC8-42BD-B1C4-75A0824E9066}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/systemova-chyba" linktype="internal" />
 - ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
   Hint: ServiceUrl
-  Value: 
+  Value: "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api"
 - ID: "6b84d933-dad8-45e1-b43d-97fb05c82280"
   Hint: GoogleTagManager
   Value: "GTM-KTXKW8"
@@ -22,6 +22,9 @@ SharedFields:
   Hint: WrongUrl
   Value: |
     <link id="{B02E9CFF-C2C8-467B-8933-7A81BCC0474F}" querystring="" linktype="internal" text="" anchor="" url="/eContracting2/Web/chyba" title="" class="" target="" />
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "aaa8605d-9cde-46ca-88a4-73e1c27a4999"
   Hint: ThankYou
   Value: |

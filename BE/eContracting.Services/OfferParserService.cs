@@ -119,6 +119,11 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void MakeCompatibleParameters(IDictionary<string, string> textParameters, int version)
         {
+            if (version < 2)
+            {
+                textParameters["COMMODITY"] = "X";
+            }
+
             var keys = this.SettingsReader.GetBackCompatibleTextParametersKeys(version);
 
             for (int i = 0; i < keys.Length; i++)

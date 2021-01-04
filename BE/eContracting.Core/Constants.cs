@@ -49,7 +49,13 @@ namespace eContracting
         public static class FileAttributeValues
         {
             public const string TEXT_PARAMETERS = "AD1";
+            public const string SIGN_FILE_IDATTACH = "A10";
             public const string CHECK_VALUE = "X";
+
+            /// <summary>
+            /// IDATTACH values for old offers where the value doesn't match with file template.
+            /// </summary>
+            public static string[] SignFileIdAttachValues = new[] { "PLH", "ELH" };
         }
 
         public static class FileAttributeDefaults

@@ -7,20 +7,14 @@ using eContracting.Models;
 
 namespace eContracting
 {
-    public class EcontractingSignException : ApplicationException
+    public class EcontractingSignException : EcontractingCodeException
     {
-        /// <summary>
-        /// The error.
-        /// </summary>
-        public readonly ErrorModel Error;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EcontractingSignException"/> class.
         /// </summary>
         /// <param name="error">The error.</param>
-        public EcontractingSignException(ErrorModel error) : base(error.ToString())
+        public EcontractingSignException(ErrorModel error) : base(error)
         {
-            this.Error = error;
         }
     }
 }

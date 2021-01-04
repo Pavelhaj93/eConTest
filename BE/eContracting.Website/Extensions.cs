@@ -35,5 +35,18 @@ namespace eContracting.Website
             errorMessage.Message = message;
             return new NegotiatedContentResult<HttpError>(System.Net.HttpStatusCode.InternalServerError, errorMessage, controller);
         }
+
+        public static NegotiatedContentResult<HttpError> ServiceUnavailable(this ApiController controller, string message)
+        {
+            var errorMessage = new HttpError(message);
+            return new NegotiatedContentResult<HttpError>(System.Net.HttpStatusCode.ServiceUnavailable, errorMessage, controller);
+        }
+
+        public static NegotiatedContentResult<HttpError> ServiceUnavailable(this ApiController controller, string message, Exception exception)
+        {
+            var errorMessage = new HttpError(exception, true);
+            errorMessage.Message = message;
+            return new NegotiatedContentResult<HttpError>(System.Net.HttpStatusCode.ServiceUnavailable, errorMessage, controller);
+        }
     }
 }
