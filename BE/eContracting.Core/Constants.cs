@@ -51,6 +51,8 @@ namespace eContracting
             public const string TEXT_PARAMETERS = "AD1";
             public const string SIGN_FILE_IDATTACH = "A10";
             public const string CHECK_VALUE = "X";
+            public const string CONSENT_TYPE_P = "P";
+            public const string CONSENT_TYPE_S = "S";
 
             /// <summary>
             /// IDATTACH values for old offers where the value doesn't match with file template.

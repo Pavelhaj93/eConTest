@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="BaseApiServiceOptionsTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="Models\DocumentTemplateModelTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -34,7 +34,7 @@ namespace eContracting.Services
         {
             if ((offer.Documents?.Length ?? 0) == 0)
             {
-                this.Logger.Info(offer.Guid, "No attachments available");
+                this.Logger.Warn(offer.Guid, "No attachments available");
                 return new OfferAttachmentModel[] { };
             }
 
@@ -99,6 +99,12 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files)
         {
+            for (int i = 0; i < offer.Documents.Length; i++)
+            {
+                var template = offer.Documents[i];
+                this.MakeCompatible(offer, template, i);
+            }
+
             if (offer.Version == 1)
             {
                 for (int i = 0; i < offer.Documents.Length; i++)
@@ -137,12 +143,6 @@ namespace eContracting.Services
                     }
                 }
             }
-
-            for (int i = 0; i < offer.Documents.Length; i++)
-            {
-                var template = offer.Documents[i];
-                this.MakeCompatible(offer, template, i);
-            }
         }
 
         protected internal string GetIdAttach(ZCCH_ST_FILE file)
@@ -159,13 +159,12 @@ namespace eContracting.Services
         {
             var fileName = file.FILENAME;
 
-            if (file.ATTRIB.Any(any => any.ATTRID == Constants.FileAttributes.LABEL))
-            {
-                var linkLabel = file.ATTRIB.FirstOrDefault(where => where.ATTRID == Constants.FileAttributes.LABEL);
-                fileName = linkLabel.ATTRVAL;
+            var attr = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.LABEL);
 
+            if (attr != null)
+            {
                 var extension = Path.GetExtension(file.FILENAME);
-                fileName = string.Format("{0}{1}", fileName, extension);
+                fileName = string.Format("{0}{1}", attr.ATTRVAL, extension);
             }
 
             return fileName;
@@ -215,18 +214,18 @@ namespace eContracting.Services
                 {
                     if (template.IsSignRequired())
                     {
-                        template.ConsentType = "S";
+                        template.ConsentType = Constants.FileAttributeValues.CONSENT_TYPE_S;
                         return;
                     }
                 }
 
                 if (index == 0)
                 {
-                    template.ConsentType = "S";
+                    template.ConsentType = Constants.FileAttributeValues.CONSENT_TYPE_S;
                 }
                 else
                 {
-                    template.ConsentType = "P";
+                    template.ConsentType = Constants.FileAttributeValues.CONSENT_TYPE_P;
                 }
             }
         }
