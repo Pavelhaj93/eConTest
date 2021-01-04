@@ -105,8 +105,9 @@ export const Offer: React.FC<View> = observer(
             <Alert variant="danger">
               <h3>{t('appUnavailableTitle')}</h3>
               <div
+                data-testid="errorMessage"
                 className="editorial-content"
-                dangerouslySetInnerHTML={{ __html: t('appUnavailableText') }}
+                dangerouslySetInnerHTML={{ __html: store.errorMessage || t('appUnavailableText') }}
               />
             </Alert>
             {/* TODO: delete before production usage */}

@@ -114,6 +114,7 @@ export default {
         'AbortController',
         'Number.isFinite',
         'Math.log10',
+        'String.prototype.startsWith',
       ],
       singleFile: true,
       filename: 'js/polyfills.js',

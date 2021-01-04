@@ -143,3 +143,7 @@ export type UploadDocumentPromise = {
   uploaded: boolean
   message?: string
 }
+
+export type OfferErrorResponse = {
+  Message: string
+}

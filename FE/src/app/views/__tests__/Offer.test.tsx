@@ -270,12 +270,26 @@ describe('Offer view', () => {
     expect(acceptBtn).not.toBeDisabled()
   })
 
-  it('renders error message when API is unavailable', async () => {
+  it('renders general error message when API is unavailable', async () => {
     fetch.mockRejectOnce(() => Promise.reject('API is unavailable'))
 
     render(<Offer {...mockProps} />)
 
-    const errorMesage = await waitFor(() => screen.getByRole('alert'))
-    expect(errorMesage).toBeInTheDocument()
+    const alert = await waitFor(() => screen.getByRole('alert'))
+    expect(alert).toBeInTheDocument()
+  })
+
+  it('renders custom error message from API', async () => {
+    const errorMessage = 'Offer is not ready.'
+
+    fetch.mockResponseOnce(JSON.stringify({ Message: errorMessage }), {
+      headers: { 'content-type': 'application/json' },
+      status: 500,
+    })
+
+    render(<Offer {...mockProps} />)
+
+    const errorMessageEl = await waitFor(() => screen.getByTestId('errorMessage'))
+    expect(errorMessageEl).toHaveTextContent(errorMessage)
   })
 })

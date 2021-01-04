@@ -12,6 +12,7 @@ import {
   Acceptance,
   UploadDocumentResponse,
   AcceptanceGroup,
+  OfferErrorResponse,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -36,6 +37,9 @@ export class OfferStore {
 
   @observable
   public error = false
+
+  @observable
+  public errorMessage = ''
 
   @observable
   public isLoading = false
@@ -415,13 +419,21 @@ export class OfferStore {
 
       fetchTimeout && clearTimeout(fetchTimeout)
 
-      // redirect to error page on 404 response
+      // redirect to error page when 404 response
       if (response.status === 404) {
         this.forceReload = true
         window.location.href = this.errorPageUrl
         return
       }
 
+      // handle 5xx statuses and custom error message
+      if (response.status.toString().startsWith('5')) {
+        const { Message } = await(response.json() as Promise<OfferErrorResponse>)
+        this.errorMessage = Message
+        throw new Error(Message)
+      }
+
+      // the rest of the statuses are treated as unknown errors
       if (!response.ok) {
         throw new Error(`FAILED TO FETCH OFFER - ${response.status}`)
       }
