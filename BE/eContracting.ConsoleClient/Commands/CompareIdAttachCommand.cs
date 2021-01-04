@@ -14,15 +14,18 @@ namespace eContracting.ConsoleClient.Commands
     {
         readonly ContextData Context;
         readonly OfferService ApiService;
+        readonly OfferAttachmentParserService AttachmentParserService;
         readonly ILogger Logger;
 
         public CompareIdAttachCommand(
             IOfferService apiService,
+            IOfferAttachmentParserService attachmentParserService,
             ILogger logger,
             IConsole console,
             ContextData contextData) : base("idattach", console)
         {
             this.ApiService = apiService as OfferService;
+            this.AttachmentParserService = attachmentParserService as OfferAttachmentParserService;
             this.Logger = logger;
             this.Context = contextData;
             this.AliasKey = "id";
@@ -55,6 +58,8 @@ namespace eContracting.ConsoleClient.Commands
                     this.Console.WriteLine("No files found");
                     return;
                 }
+
+                this.AttachmentParserService.MakeCompatible(offer, files);
 
                 Utils.CompareIdAttach(this.Console, offer, files);
             }

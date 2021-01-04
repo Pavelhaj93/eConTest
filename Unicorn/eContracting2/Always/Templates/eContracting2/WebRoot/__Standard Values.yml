@@ -9,6 +9,9 @@ SharedFields:
   Hint: __Masters
   Type: TreelistEx
   Value: 
+- ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
+  Hint: ServiceUrl
+  Value: 
 - ID: "453dd7db-cbe4-4962-8c70-2c690163ce7f"
   Hint: MaxImageHeightAfterResize
   Value: 8096
@@ -29,7 +32,13 @@ SharedFields:
   Value: 768
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 300
+  Value: 100
+- ID: "bbb4ed05-200d-4071-8997-4f94bcb1a76b"
+  Hint: ServicePassword
+  Value: 
+- ID: "e82c99c8-ce35-453e-b54e-663e861cd0af"
+  Hint: ServiceUser
+  Value: 
 - ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
   Hint: MaxOptimizationRounds
   Value: 5
@@ -41,6 +50,17 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200908T082439Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210104T153314Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

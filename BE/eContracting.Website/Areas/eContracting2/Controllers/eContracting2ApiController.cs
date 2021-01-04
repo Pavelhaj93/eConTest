@@ -363,7 +363,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (signedFile == null)
                 {
-                    return this.InternalServerError();
+                    throw new EcontractingSignException(ERROR_CODES.EmptySignedFile());
                 }
 
                 var dbSignedFile = new DbSignedFileModel(id, guid, this.SessionProvider.GetId(), signedFile);
@@ -402,14 +402,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
+                var error = ERROR_CODES.UNKNOWN;
+                var message = this.TextService.Error(error);
 
                 if (this.SettingsReaderService.ShowDebugMessages)
                 {
-                    return this.InternalServerError(ex);
+                    return this.InternalServerError(message, ex);
                 }
                 else
                 {
-                    return this.InternalServerError();
+                    return this.InternalServerError(message);
                 }
             }
         }
@@ -478,14 +480,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
+                var error = ERROR_CODES.UNKNOWN;
+
+                var message = this.TextService.Error(error);
 
                 if (this.SettingsReaderService.ShowDebugMessages)
                 {
-                    return this.InternalServerError(ex);
+                    return this.InternalServerError(message, ex);
                 }
                 else
                 {
-                    return this.InternalServerError();
+                    return this.InternalServerError(message);
                 }
             }
         }
@@ -1072,6 +1077,37 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(null, "Cannot save files to debug folder", ex);
+            }
+        }
+
+        protected IHttpActionResult Error(string guid, Exception ex)
+        {
+            this.Logger.Fatal(guid, ex);
+            string code = null;
+            string message = null;
+
+            if (ex is EcontractingCodeException)
+            {
+                var error = (ex as EcontractingCodeException).Error;
+                code = error.Code;
+                message = this.TextService.Error(error);
+            }
+            else if (ex is EndpointNotFoundException)
+            {
+                
+            }
+            else
+            {
+                code = ERROR_CODES.UNKNOWN.Code;
+            }
+
+            if (this.SettingsReaderService.ShowDebugMessages)
+            {
+                return this.InternalServerError(message, ex);
+            }
+            else
+            {
+                return this.InternalServerError(message);
             }
         }
     }

@@ -9,19 +9,16 @@ SharedFields:
   Hint: SystemError
   Value: |
     <link id="{7FDF07BC-0AC8-42BD-B1C4-75A0824E9066}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/systemova-chyba" linktype="internal" />
-- ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
-  Hint: ServiceUrl
-  Value: 
 - ID: "6b84d933-dad8-45e1-b43d-97fb05c82280"
   Hint: GoogleTagManager
   Value: "GTM-KTXKW8"
-- ID: "70b910ee-71e5-4436-b1cd-c9184374adf3"
-  Hint: SigningServiceUrl
-  Value: "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge"
 - ID: "85599138-47ff-40d3-bc4c-c6c64b046035"
   Hint: WrongUrl
   Value: |
     <link id="{B02E9CFF-C2C8-467B-8933-7A81BCC0474F}" querystring="" linktype="internal" text="" anchor="" url="/eContracting2/Web/chyba" title="" class="" target="" />
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "aaa8605d-9cde-46ca-88a4-73e1c27a4999"
   Hint: ThankYou
   Value: |
@@ -45,12 +42,6 @@ SharedFields:
   Hint: UserBlocked
   Value: |
     <link id="{F69361B4-294D-4F38-9E17-6DA10371E5DE}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/docasne-zablokovany" linktype="internal" />
-- ID: "de0feae9-4be9-4021-bdef-f7aa348f77b4"
-  Hint: SigningServiceUser
-  Value: UkZDX1NJVEVDT1JF
-- ID: "e5e0efe2-5e3d-493b-9010-6b7172a2c00c"
-  Hint: SigningServicePassword
-  Value: QWRIYjI0Nyo=
 - ID: "f4ed5a8d-2516-493d-95da-0ee480166948"
   Hint: CookieLawSettings
   Value: "{E65354AF-42FF-4F8A-82B3-A2EA9B72F219}"

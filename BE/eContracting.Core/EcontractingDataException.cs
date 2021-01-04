@@ -8,20 +8,14 @@ using eContracting.Models;
 
 namespace eContracting
 {
-    public class EcontractingDataException : ApplicationException
+    public class EcontractingDataException : EcontractingCodeException
     {
-        /// <summary>
-        /// The error.
-        /// </summary>
-        public readonly ErrorModel Error;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EcontractingDataException"/> class.
         /// </summary>
         /// <param name="error">The error.</param>
-        public EcontractingDataException(ErrorModel error) : base(error.ToString())
+        public EcontractingDataException(ErrorModel error) : base(error)
         {
-            this.Error = error;
         }
     }
 }
