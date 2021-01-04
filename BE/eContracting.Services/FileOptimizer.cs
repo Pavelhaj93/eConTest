@@ -28,10 +28,52 @@ namespace eContracting.Services
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
-        private readonly long GroupResultingFileSizeLimit;
-        private readonly Size MaxImageSizeAfterResize;
-        private readonly Size MinImageSizeNoResize;
-        private readonly int CompressionRoundsMax;
+        private SiteSettingsModel _siteSettings { get; set; }
+
+        protected SiteSettingsModel SiteSettings
+        {
+            get
+            {
+                if (this._siteSettings == null)
+                {
+                    this._siteSettings = this.SettingsReaderService.GetSiteSettings();
+                }
+
+                return this._siteSettings;
+            }
+        }
+
+        protected long GroupResultingFileSizeLimit
+        {
+            get
+            {
+                return this.SiteSettings.GroupResultingFileSizeLimitKBytes * 1024;
+            }
+        }
+
+        protected Size MaxImageSizeAfterResize
+        {
+            get
+            {
+                return new Size(this.SiteSettings.MaxImageWidthAfterResize, this.SiteSettings.MaxImageHeightAfterResize);
+            }
+        }
+
+        protected Size MinImageSizeNoResize
+        {
+            get
+            {
+                return new Size(this.SiteSettings.MinImageWidthNoResize, this.SiteSettings.MinImageHeightNoResize);
+            }
+        }
+
+        protected int CompressionRoundsMax
+        {
+            get
+            {
+                return this.SiteSettings.MaxOptimizationRounds;
+            }
+        }
 
 
 
@@ -66,14 +108,6 @@ namespace eContracting.Services
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-
-            
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            this.GroupResultingFileSizeLimit = siteSettings.GroupResultingFileSizeLimitKBytes * 1024; 
-            this.MaxImageSizeAfterResize = new Size(siteSettings.MaxImageWidthAfterResize, siteSettings.MaxImageHeightAfterResize);
-            this.MinImageSizeNoResize = new Size(siteSettings.MinImageWidthNoResize, siteSettings.MinImageHeightNoResize);
-            this.CompressionRoundsMax = siteSettings.MaxOptimizationRounds;
-
         }
 
         /// <inheritdoc/>
