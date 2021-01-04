@@ -173,7 +173,7 @@
         {
           "id": "352a1b9154364a52a5c7d709e9366ccf",
           "title": "Občanský nebo řidičský průkaz",
-          "info": "Prostě to tam nahraj a na nic se neptej",
+          "info": "<p><b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vaše elektrického zařízení. Součástí zprávy musí být označení odběrného místa (u bytových domů vč. čísla bytu a podlaží).<br /></p>",
           "mandatory": true
         },
         {

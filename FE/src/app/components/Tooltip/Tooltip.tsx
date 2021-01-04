@@ -21,9 +21,9 @@ export const Tooltip: React.FC<TooltipProps> = ({
     placement={placement}
     overlay={<BSTooltip id={`tooltip${generateId()}`}>{children}</BSTooltip>}
   >
-    <span className="tooltip-icon-wrapper" tabIndex={visible ? 0 : -1}>
-      <span className="sr-only">{children}</span>
+    <div className="tooltip-icon-wrapper" tabIndex={visible ? 0 : -1}>
+      <div className="sr-only">{children}</div>
       <Icon name="info-inversed-circle" size={30} color={colors.orange} className="icon-tooltip" />
-    </span>
+    </div>
   </OverlayTrigger>
 )
