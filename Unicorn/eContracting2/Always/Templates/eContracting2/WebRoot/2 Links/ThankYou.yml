@@ -1,8 +1,8 @@
 ﻿---
-ID: "b72f6e9b-87ab-4f83-a72c-cf504534f85c"
+ID: "aaa8605d-9cde-46ca-88a4-73e1c27a4999"
 Parent: "d8aa9fc3-aae9-49c5-b7c8-4fae3618d4cf"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/Links/ExpiredOffer
+Path: /sitecore/templates/eContracting2/WebRoot/2 Links/ThankYou
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
@@ -25,7 +25,7 @@ SharedFields:
   Value: General Link
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 75
+  Value: 81
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
@@ -43,9 +43,13 @@ Languages:
       Value: |
         sitecore\admin
 - Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Poděkování
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20160923T073509Z
+      Value: 20161018T153534Z

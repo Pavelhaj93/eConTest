@@ -1,8 +1,8 @@
 ﻿---
-ID: "1889400c-b059-4fc1-ac59-698ff0155faf"
+ID: "c2220b46-f80a-4a9b-969a-954d3f292e73"
 Parent: "d8aa9fc3-aae9-49c5-b7c8-4fae3618d4cf"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/Links/SystemError
+Path: /sitecore/templates/eContracting2/WebRoot/2 Links/AcceptedOffer
 DB: master
 SharedFields:
 - ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
@@ -25,7 +25,7 @@ SharedFields:
   Value: General Link
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 300
+  Value: 50
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
@@ -43,9 +43,13 @@ Languages:
       Value: |
         sitecore\admin
 - Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Akceptovaná nabídka
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20161019T150141Z
+      Value: 20160922T095150Z
