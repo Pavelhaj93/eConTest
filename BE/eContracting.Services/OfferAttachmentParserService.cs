@@ -96,6 +96,55 @@ namespace eContracting.Services
             return null;
         }
 
+        /// <inheritdoc/>
+        public void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files)
+        {
+            if (offer.Version == 1)
+            {
+                for (int i = 0; i < offer.Documents.Length; i++)
+                {
+                    var t = offer.Documents[i];
+
+                    // this is because value IDATTACH in template and in a file is not matching
+                    if (t.IsSignRequired())
+                    {
+                        var fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+
+                        if (fileForSign == null)
+                        {
+                            this.Logger.Info(offer.Guid, $"No file found with {Constants.FileAttributes.TYPE} = '{t.IdAttach}'. Try to find a compatible file ...");
+
+                            // find a file by attribute TEMPLATE == "A10"
+                            fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();
+
+                            // find a file by attribute IDATTACH from the collection of value variants
+                            //fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && Constants.FileAttributeValues.SignFileIdAttachValues.Contains(y.ATTRVAL)) != null).FirstOrDefault();
+
+                            if (fileForSign == null)
+                            {
+                                this.Logger.Fatal(offer.Guid, $"No compatible file found for template with IDATTACH = '{t.IdAttach}'");
+                            }
+                            else
+                            {
+                                var attr = fileForSign.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
+
+                                if (attr != null)
+                                {
+                                    t.IdAttach = attr.ATTRVAL;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            for (int i = 0; i < offer.Documents.Length; i++)
+            {
+                var template = offer.Documents[i];
+                this.MakeCompatible(offer, template, i);
+            }
+        }
+
         protected internal string GetIdAttach(ZCCH_ST_FILE file)
         {
             return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
@@ -141,59 +190,6 @@ namespace eContracting.Services
             }
 
             return list.ToArray();
-        }
-
-        /// <summary>
-        /// Makes compatible offer templates and offer files.
-        /// </summary>
-        /// <param name="offer">The offer.</param>
-        /// <param name="files">The files.</param>
-        protected internal void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files)
-        {
-            if (offer.Version == 1)
-            {
-                for (int i = 0; i < offer.Documents.Length; i++)
-                {
-                    var t = offer.Documents[i];
-
-                    // this is because value IDATTACH in template and in a file is not matching
-                    if (t.IsSignRequired())
-                    {
-                        var fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
-
-                        if (fileForSign == null)
-                        {
-                            this.Logger.Info(offer.Guid, $"No file found with {Constants.FileAttributes.TYPE} = '{t.IdAttach}'. Try to find a compatible file ...");
-
-                            // find a file by attribute TEMPLATE == "A10"
-                            fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();
-                            
-                            // find a file by attribute IDATTACH from the collection of value variants
-                            //fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && Constants.FileAttributeValues.SignFileIdAttachValues.Contains(y.ATTRVAL)) != null).FirstOrDefault();
-
-                            if (fileForSign == null)
-                            {
-                                this.Logger.Fatal(offer.Guid, $"No compatible file found for template with IDATTACH = '{t.IdAttach}'");
-                            }
-                            else
-                            {
-                                var attr = fileForSign.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
-
-                                if (attr != null)
-                                {
-                                    t.IdAttach = attr.ATTRVAL;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            for (int i = 0; i < offer.Documents.Length; i++)
-            {
-                var template = offer.Documents[i];
-                this.MakeCompatible(offer, template, i);
-            }
         }
 
         protected internal void MakeCompatible(OfferModel offer, DocumentTemplateModel template, int index)

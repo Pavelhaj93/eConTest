@@ -2035,6 +2035,13 @@
             <param name="files">The files.</param>
             <returns>File or null.</returns>
         </member>
+        <member name="M:eContracting.IOfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Makes compatible offer templates and offer files.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="files">The files.</param>
+        </member>
         <member name="T:eContracting.IOfferJsonDescriptor">
             <summary>
             Creates prescription for JSON / API for not accepted offer and accepted offer.

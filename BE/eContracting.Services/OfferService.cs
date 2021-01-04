@@ -111,6 +111,7 @@ namespace eContracting.Services
             this.Logger.Debug(offer.Guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
 
             var responsePdfFiles = this.GetFiles(offer.Guid, false);
+            this.AttachmentParser.MakeCompatible(offer, responsePdfFiles);
 
             var files = this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
 

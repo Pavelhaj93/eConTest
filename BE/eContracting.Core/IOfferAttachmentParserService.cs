@@ -30,5 +30,12 @@ namespace eContracting
         /// <param name="files">The files.</param>
         /// <returns>File or null.</returns>
         ZCCH_ST_FILE GetFileByTemplate(DocumentTemplateModel template, ZCCH_ST_FILE[] files);
+
+        /// <summary>
+        /// Makes compatible offer templates and offer files.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="files">The files.</param>
+        void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files);
     }
 }
