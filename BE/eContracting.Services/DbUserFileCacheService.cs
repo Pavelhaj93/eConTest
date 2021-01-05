@@ -335,7 +335,7 @@ namespace eContracting.Services
                 {
                     if (dbModel.FileId > 0)
                     {
-                        var file = await this.FindFileAsync(context, dbModel.FileId);
+                        var file = await context.Files.FirstAsync(x => x.Id == dbModel.FileId);
                         file.Content = model.File.Content;
                         var entry = context.Entry(file);
                         entry.State = EntityState.Modified;
