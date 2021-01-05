@@ -1,0 +1,33 @@
+﻿<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>06D969E88C3C1EDB93ED2D00619CDD7F</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [1. Investor, Nesnižování záloh, Innogy Karta]<br />|Platnost nabídky do|: [20.01.2021]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Služba</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME_1>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>1. Investor, Nesnižování záloh, Innogy Karta</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE_1>20.01.2021</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>Okružní 904, 517 21 Týniště nad Orlicí</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>31.10.1951</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>milos.rezanina@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Marie Vychodilová</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>603 280 385</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Vychodilová - eConová                             </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510900409</PERSON_NUMBER>
+        <PERSON_PREMADR>Okružní 904, 517 21 Týniště nad Orlicí</PERSON_PREMADR>
+        <PERSON_PREMEXT>27ZG500Z0271516Q</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300341072</PERSON_PREMNUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

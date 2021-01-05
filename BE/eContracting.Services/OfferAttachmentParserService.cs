@@ -35,6 +35,7 @@ namespace eContracting.Services
             if ((offer.Documents?.Length ?? 0) == 0)
             {
                 this.Logger.Warn(offer.Guid, "No attachments available");
+                //TODO: return null (fix all related code!)
                 return new OfferAttachmentModel[] { };
             }
 

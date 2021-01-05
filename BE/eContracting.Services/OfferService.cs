@@ -176,7 +176,7 @@ namespace eContracting.Services
             ZCCH_ST_FILE[] files = this.GetFiles(offer.Guid, isAccepted);
             var attachments = this.AttachmentParser.Parse(offer, files);
             this.Logger.LogFiles(attachments, offer.Guid, isAccepted);
-            return attachments.ToArray();
+            return attachments;
         }
 
         /// <inheritdoc/>

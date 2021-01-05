@@ -295,17 +295,26 @@ namespace eContracting.Services
 
         protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, DefinitionCombinationModel definition)
         {
-            if (!this.IsSectionChecked(offer.TextParameters, "COMMODITY"))
+            var files = this.ApiService.GetAttachments(offer);
+
+            if (files.Length == 0)
             {
                 return null;
             }
 
-            var files = this.ApiService.GetAttachments(offer);
+            var acceptance = this.GetDocumentsAcceptance(offer, files, definition);
+            var uploads = this.GetUploads(offer, files, definition);
+            var other = this.GetOther(offer, files, definition);
+
+            if (acceptance == null && uploads == null && other == null)
+            {
+                return null;
+            }
 
             var model = new JsonOfferDocumentsModel();
-            model.Acceptance = this.GetDocumentsAcceptance(offer, files, definition);
-            model.Uploads = this.GetUploads(offer, files, definition);
-            model.Other = this.GetOther(offer, files, definition);
+            model.Acceptance = acceptance;
+            model.Uploads = uploads;
+            model.Other = other;
             return model;
         }
 
@@ -572,9 +581,6 @@ namespace eContracting.Services
             }
 
             var model = new JsonAcceptanceDialogViewModel();
-            model.Button = new JsonAcceptanceDialogButtonViewModel();
-            model.Button.Title = definition.OfferAcceptTitle.Text;
-            model.Button.Text = definition.OfferAcceptText.Text;
             model.Parameters = list;
             return model;
         }
