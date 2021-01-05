@@ -27,7 +27,7 @@ namespace eContracting.Services.Tests
 
             Assert.Empty(result);
 
-            var log = logger.Infos.First();
+            var log = logger.Warns.First();
             Assert.Equal(guid, log.Key);
         }
 
