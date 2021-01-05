@@ -59,17 +59,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
 
-        //internal string FileStorageRoot { get; private set; }
-
-        internal eContracting2ApiController(
+        [ExcludeFromCodeCoverage]
+        public eContracting2ApiController(
             ILogger logger,
             ISitecoreContext context,
             ISessionProvider sessionProvider,
             IOfferService apiService,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
-            ISignService signService,
             IOfferJsonDescriptor offerJsonDescriptor,
+            ISignService signService,
             IUserDataCacheService userDataCache,
             IUserFileCacheService userFileCache,
             IFileOptimizer fileOptimizer,

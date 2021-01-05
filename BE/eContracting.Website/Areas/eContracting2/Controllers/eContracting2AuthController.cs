@@ -32,9 +32,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IEventLogger EventLogger;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
-        /// </summary>
         [ExcludeFromCodeCoverage]
         public eContracting2AuthController()
         {
@@ -73,7 +70,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// or
         /// loginReportService
         /// </exception>
-        internal eContracting2AuthController(
+        [ExcludeFromCodeCoverage]
+        public eContracting2AuthController(
             ILogger logger,
             IContextWrapper contextWrapper,
             IOfferService apiService,

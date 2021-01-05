@@ -264,6 +264,7 @@
       <DependentUpon>SignFile.ashx</DependentUpon>
     </Compile>
     <Compile Include="eContractingHtmlHelper.cs" />
+    <Compile Include="eContractingServiceConfigurator.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Pipelines\GetTranslation\CheckTranslationProcessor.cs" />

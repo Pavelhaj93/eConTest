@@ -15,6 +15,10 @@ namespace eContracting
     [ExcludeFromCodeCoverage]
     public class SitecoreLogger : ILogger
     {
+        public SitecoreLogger()
+        {
+        }
+
         /// <inheritdoc/>
         public void Info(string guid, string message)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,9 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IContextWrapper Context;
         protected readonly IUserFileCacheService UserFileCache;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="eContracting2Controller"/> class.
-        /// </summary>
+        [ExcludeFromCodeCoverage]
         public eContracting2Controller()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
@@ -37,6 +36,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
         }
 
+        [ExcludeFromCodeCoverage]
         public eContracting2Controller(
             ILogger logger,
             IUserDataCacheService cache,
