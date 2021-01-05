@@ -49,10 +49,56 @@ namespace eContracting.Services.Tests
 
         }
 
+        [Fact]
+        public void GetFileByTemplate_Returns_First_Match()
+        {
+            var iddattach = "X1";
+
+            var logger = new MemoryLogger();
+
+            var attr = new ZCCH_ST_ATTRIB();
+            attr.ATTRID = Constants.FileAttributes.TYPE;
+            attr.ATTRVAL = iddattach;
+
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { attr };
+
+            var template = new DocumentTemplateModel();
+            template.IdAttach = iddattach;
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetFileByTemplate(template, new[] { file });
+
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void GetFileByTemplate_Returns_Null_When_Not_Match()
+        {
+            var logger = new MemoryLogger();
+
+            var attr = new ZCCH_ST_ATTRIB();
+            attr.ATTRID = Constants.FileAttributes.TYPE;
+            attr.ATTRVAL = "AAA";
+
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { attr };
+
+            var template = new DocumentTemplateModel();
+            template.IdAttach = "BBB";
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetFileByTemplate(template, new[] { file });
+
+            Assert.Null(result);
+        }
+
         [Theory]
         [InlineData("ST_FILE_FROM_CACHE.pdf", "My labeled file name", "My labeled file name.pdf")]
         public void GetFileName_Returns_Readable_Label_From_ZCCH_ST_FILE_File(string realFileName, string labeledFileName, string expected)
         {
+            var logger = new MemoryLogger();
+
             var attr = new ZCCH_ST_ATTRIB();
             attr.ATTRID = Constants.FileAttributes.LABEL;
             attr.ATTRVAL = labeledFileName;
@@ -61,20 +107,104 @@ namespace eContracting.Services.Tests
             file.FILENAME = realFileName;
             file.ATTRIB = new[] { attr };
 
-            var logger = new MemoryLogger();
             var service = new OfferAttachmentParserService(logger);
-
             var result = service.GetFileName(file);
 
             Assert.Equal(expected, result);
         }
 
         [Fact]
-        public void MakeCompatible_Sets_Default_Group_When_Empty()
+        public void GetIdAttach_Returns_Value_When_Found()
+        {
+            var idattach = "V02";
+            var logger = new MemoryLogger();
+
+            var attr = new ZCCH_ST_ATTRIB();
+            attr.ATTRID = Constants.FileAttributes.TYPE;
+            attr.ATTRVAL = idattach;
+
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { attr };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetIdAttach(file);
+
+            Assert.Equal(idattach, attr.ATTRVAL);
+        }
+
+        [Fact]
+        public void GetIdAttach_Returns_Null_When_Not_Found()
+        {
+            var logger = new MemoryLogger();
+
+            var attr = new ZCCH_ST_ATTRIB();
+            attr.ATTRID = "whatever";
+            attr.ATTRVAL = "V03";
+
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { attr };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetIdAttach(file);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void Equals_Returns_False_When_Template_Idattach_Missing()
+        {
+            var logger = new MemoryLogger();
+            var template = new DocumentTemplateModel();
+            template.IdAttach = null;
+            var file = new ZCCH_ST_FILE();
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.Equals(template, file);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Equals_Returns_False_If_Idattach_Not_Matches()
+        {
+            var logger = new MemoryLogger();
+            var template = new DocumentTemplateModel();
+            template.IdAttach = "ID1";
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "WRONG" } };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.Equals(template, file);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void Equals_Returns_True_If_Idattach_Matches()
+        {
+            var idattach = "A10";
+
+            var logger = new MemoryLogger();
+            var template = new DocumentTemplateModel();
+            template.IdAttach = idattach;
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = idattach } };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.Equals(template, file);
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        public void MakeCompatible_Sets_Default_Group_When_Empty_For_Any_Version(int version)
         {
             var logger = new MemoryLogger();
             var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 1);
+            var offer = this.CreateOffer(guid, false, version);
 
             var template = new DocumentTemplateModel();
             template.Description = "Obchodní podmínky";
@@ -98,9 +228,28 @@ namespace eContracting.Services.Tests
             template.Printed = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 1);
+            service.MakeCompatible(offer, template, 0);
 
             Assert.Equal(Constants.FileAttributeValues.CHECK_VALUE, template.Printed);
+            Assert.True(template.IsPrinted());
+        }
+
+        [Fact]
+        public void MakeCompatible_Doesnt_Set_Printed_To_Templates_In_Version_2()
+        {
+            var logger = new MemoryLogger();
+            var guid = Guid.NewGuid().ToString("N");
+            var offer = this.CreateOffer(guid, false, 2);
+
+            var template = new DocumentTemplateModel();
+            template.Description = "Obchodní podmínky";
+            template.Printed = null;
+
+            var service = new OfferAttachmentParserService(logger);
+            service.MakeCompatible(offer, template, 0);
+
+            Assert.Null(template.Printed);
+            Assert.False(template.IsPrinted());
         }
 
         [Fact]
@@ -111,12 +260,12 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(guid, false, 1);
 
             var template = new DocumentTemplateModel();
-            template.Description = "Obchodní podmínky";
+            template.Description = "Plná moc";
             template.SignReq = Constants.FileAttributeValues.CHECK_VALUE;
             template.ConsentType = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 1);
+            service.MakeCompatible(offer, template, 0);
 
             Assert.Equal(Constants.FileAttributeValues.CONSENT_TYPE_S, template.ConsentType);
         }
@@ -191,6 +340,53 @@ namespace eContracting.Services.Tests
             var changedTemplate = offer.Documents.First();
 
             Assert.Equal(attr1.ATTRVAL, changedTemplate.IdAttach);
+        }
+
+        [Fact]
+        public void GetAttributes_Just_Converts_Data_To_Custom_Model_One_To_One()
+        {
+            var logger = new MemoryLogger();
+
+            var attrs = new List<ZCCH_ST_ATTRIB>();
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "ATR_A", ATTRVAL = "AAA", ATTRINDX = "01" });
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "ATR_B", ATTRVAL = "BBB", ATTRINDX = "02" });
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "ATR_C", ATTRVAL = "CCC", ATTRINDX = "03" });
+
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = attrs.ToArray();
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetAttributes(file);
+
+            Assert.True(result.Length == attrs.Count);
+        }
+
+        [Fact]
+        public void GetAttributes_Just_Converts_Data_To_Custom_Model()
+        {
+            var logger = new MemoryLogger();
+            var attr = new ZCCH_ST_ATTRIB() { ATTRID = "ATR_A", ATTRVAL = "AAA", ATTRINDX = "01" };
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { attr };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetAttributes(file).First();
+
+            Assert.Equal(attr.ATTRID, result.Key);
+            Assert.Equal(attr.ATTRVAL, result.Value);
+            Assert.Equal(1, result.Index);
+        }
+
+        [Fact]
+        public void GetAttributes_Wont_Broke_When_Attributes_Are_Null()
+        {
+            var logger = new MemoryLogger();
+            var file = new ZCCH_ST_FILE();
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetAttributes(file);
+
+            Assert.Empty(result);
         }
     }
 }

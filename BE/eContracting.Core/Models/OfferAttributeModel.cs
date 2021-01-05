@@ -11,30 +11,25 @@ namespace eContracting.Models
     /// <summary>
     /// Represent an attribute anywhere in an offer.
     /// </summary>
-    [ExcludeFromCodeCoverage]
     public class OfferAttributeModel
     {
         /// <summary>
         /// Gets the index.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRINDX"/>
-        public int Index { get; protected set; }
+        public readonly int Index;
 
         /// <summary>
         /// The key.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRID"/>
-        public string Key { get; protected set; }
+        public readonly string Key;
 
         /// <summary>
         /// The value.
         /// </summary>
         /// <seealso cref="ZCCH_ST_ATTRIB.ATTRVAL"/>
-        public string Value { get; protected set; }
-
-        public OfferAttributeModel()
-        {
-        }
+        public readonly string Value;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferAttributeModel"/> class.

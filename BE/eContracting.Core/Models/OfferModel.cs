@@ -250,6 +250,11 @@ namespace eContracting.Models
         {
             get
             {
+                if (this.State == "9")
+                {
+                    return true;
+                }
+
                 DateTime outValue = DateTime.Now.AddDays(-1);
 
                 return DateTime.TryParseExact(this.Xml.Content.Body.DATE_TO, "yyyyMMdd",

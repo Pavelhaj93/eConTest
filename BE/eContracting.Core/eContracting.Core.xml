@@ -971,19 +971,19 @@
             Represent an attribute anywhere in an offer.
             </summary>
         </member>
-        <member name="P:eContracting.Models.OfferAttributeModel.Index">
+        <member name="F:eContracting.Models.OfferAttributeModel.Index">
             <summary>
             Gets the index.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX"/>
         </member>
-        <member name="P:eContracting.Models.OfferAttributeModel.Key">
+        <member name="F:eContracting.Models.OfferAttributeModel.Key">
             <summary>
             The key.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID"/>
         </member>
-        <member name="P:eContracting.Models.OfferAttributeModel.Value">
+        <member name="F:eContracting.Models.OfferAttributeModel.Value">
             <summary>
             The value.
             </summary>

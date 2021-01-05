@@ -145,9 +145,14 @@ namespace eContracting.Services
             }
         }
 
+        /// <summary>
+        /// Gets IDATTACH value from given <paramref name="file"/>.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <returns></returns>
         protected internal string GetIdAttach(ZCCH_ST_FILE file)
         {
-            return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
+            return file.ATTRIB?.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
         }
 
         /// <summary>
@@ -201,6 +206,7 @@ namespace eContracting.Services
 
             if (offer.Version == 1)
             {
+                // in version 1 all files must be set as printed because there were no other variant (fix inconsistent data)
                 if (!template.IsPrinted())
                 {
                     template.Printed = Constants.FileAttributeValues.CHECK_VALUE;

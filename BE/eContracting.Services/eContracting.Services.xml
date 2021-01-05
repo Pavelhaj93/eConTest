@@ -459,6 +459,13 @@
         <member name="M:eContracting.Services.OfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets IDATTACH value from given <paramref name="file"/>.
+            </summary>
+            <param name="file">The file.</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
             Gets readable file name.
