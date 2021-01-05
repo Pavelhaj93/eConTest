@@ -18,6 +18,7 @@ import {
 import { colors } from '@theme'
 import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
+import { isIE11 } from '@utils'
 
 type SignatureModalType = {
   id: string
@@ -83,6 +84,7 @@ export const Offer: React.FC<View> = observer(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // show warning to user when trying to refresh or leave the page once he did some changes
     useUnload(ev => {
       if (store.isOfferDirty && !store.isAccepting && !store.forceReload) {
         ev.preventDefault()
@@ -96,6 +98,14 @@ export const Offer: React.FC<View> = observer(
         show: true,
       })
     }, [])
+
+    // Since IE11 doesn't support a `download` attribute on link, here I manually change the `forceReload`
+    // property so browser can refresh and download the file.
+    const handleDownload = useCallback(() => {
+      if (isIE11()) {
+        store.forceReload = true
+      }
+    }, [store])
 
     return (
       <OfferStoreContext.Provider value={store}>
@@ -264,7 +274,10 @@ export const Offer: React.FC<View> = observer(
                       >
                         <Form.Check.Label>
                           <span>
-                            {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
+                            {prefix}{' '}
+                            <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                              {label}
+                            </a>
                           </span>
                           <Icon
                             name="pdf"
@@ -299,7 +312,10 @@ export const Offer: React.FC<View> = observer(
                             />
                           )}
                           <span>
-                            {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
+                            {prefix}{' '}
+                            <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                              {label}
+                            </a>
                           </span>
                           {accepted ? (
                             <Button
@@ -421,7 +437,10 @@ export const Offer: React.FC<View> = observer(
                   >
                     <Form.Check.Label>
                       <span>
-                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
+                        {prefix}{' '}
+                        <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                          {label}
+                        </a>
                       </span>
                       <Icon
                         name="pdf"
@@ -501,7 +520,10 @@ export const Offer: React.FC<View> = observer(
                   >
                     <Form.Check.Label>
                       <span>
-                        {prefix} <a href={`${getFileUrl}/${key}`}>{label}</a>
+                        {prefix}{' '}
+                        <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                          {label}
+                        </a>
                       </span>
                       <Icon
                         name="pdf"

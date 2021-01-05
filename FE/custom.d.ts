@@ -18,4 +18,5 @@ interface SignaturePad {
 
 interface Window {
   dataLayer: Record<string, any>[]
+  msCrypto?: Crypto
 }
