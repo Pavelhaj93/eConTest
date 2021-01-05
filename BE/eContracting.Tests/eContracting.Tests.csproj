@@ -55,6 +55,7 @@
     <Compile Include="ISitecoreContextExtended.cs" />
     <Compile Include="MemoryEventLogger.cs" />
     <Compile Include="MemoryLogger.cs" />
+    <Compile Include="MemoryTextService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

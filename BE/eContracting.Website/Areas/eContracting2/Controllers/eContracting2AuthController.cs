@@ -31,6 +31,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ILoginReportStore LoginReportService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IEventLogger EventLogger;
+        protected readonly ITextService TextService;
+        private const string SESSION_ERROR_KEY = "INVALID_LOGIN";
 
         [ExcludeFromCodeCoverage]
         public eContracting2AuthController()
@@ -44,6 +46,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
+            this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
 
         /// <summary>
@@ -82,7 +85,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISitecoreContext sitecoreContext,
             IRenderingContext renderingContext,
             IUserDataCacheService userDataCache,
-            IEventLogger evetLogger) : base(sitecoreContext, renderingContext)
+            IEventLogger evetLogger,
+            ITextService textService) : base(sitecoreContext, renderingContext)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
@@ -93,6 +97,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
+            this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
         }
 
         /// <summary>
@@ -121,11 +126,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 //var msg = Request.QueryString["error"];
 
-                //if (!string.IsNullOrEmpty(msg) && msg == "validationError" && !string.IsNullOrEmpty((string)this.Session["ErrorMessage"]))
-                //{
-                //    errorString = (string)this.Session["ErrorMessage"];
-                //    this.Session["ErrorMessage"] = null;    ////After error page refresh user will get general validation error message
-                //}
+                if (!string.IsNullOrEmpty(this.SessionProvider.GetValue<string>(SESSION_ERROR_KEY)))
+                {
+                    errorString = this.SessionProvider.GetValue<string>(SESSION_ERROR_KEY);
+                    this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
+                }
 
                 var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.CanLogin(guid, offer);
@@ -220,14 +225,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(canLogin, guid);
                 }
 
-                var result = this.AuthService.GetLoginState(offer, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
+                var loginType = this.GetLoginType(offer, authenticationModel.Key);
+                var result = this.AuthService.GetLoginState(offer, loginType, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
 
                 if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
                     this.Logger.Info(guid, $"Log-in failed");
                     //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
                     //TODO: this.LoginReportService.AddFailedAttempt(guid, this.SessionProvider.GetId(), this.Request.Browser.Browser);
-                    return this.GetLoginFailReturns(result, guid);
+                    return this.GetLoginFailReturns(result, loginType, guid);
                 }
 
                 //TODO: this.DataSessionStorage.Login(userData);
@@ -416,7 +422,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return LoginStates.OK;
         }
 
-        protected ActionResult GetLoginFailReturns(LoginStates canLogin, string guid)
+        protected internal ActionResult GetLoginFailReturns(LoginStates canLogin, string guid)
         {
             if (canLogin == LoginStates.INVALID_GUID)
             {
@@ -453,64 +459,74 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return Redirect(url1);
         }
 
-        protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, string guid)
+        protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, LoginTypeModel loginType, string guid)
         {
+            var msg = loginType.ValidationMessage;
+            ActionResult result = null;
+
             if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
+                var datasource = this.GetLayoutItem<LoginPageModel>();
+                msg = datasource.BirthDateValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_PARTNER || state == AUTH_RESULT_STATES.INVALID_PARTNER_FORMAT)
+            else if (state == AUTH_RESULT_STATES.INVALID_PARTNER || state == AUTH_RESULT_STATES.INVALID_PARTNER_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_PARTNER);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_VALUE)
+            else if (state == AUTH_RESULT_STATES.MISSING_VALUE)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.MISSING_VALUE);
+                result = Redirect(url);
+            }
+            else if (state == AUTH_RESULT_STATES.INVALID_VALUE)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_VALUE_FORMAT)
+            else if (state == AUTH_RESULT_STATES.INVALID_VALUE_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_FORMAT);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION)
+            else if (state == AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_DEFINITION);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_ZIP1 || state == AUTH_RESULT_STATES.INVALID_ZIP1_FORMAT)
+            else if (state == AUTH_RESULT_STATES.INVALID_ZIP1 || state == AUTH_RESULT_STATES.INVALID_ZIP1_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP1);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.INVALID_ZIP2 || state == AUTH_RESULT_STATES.INVALID_ZIP2_FORMAT)
+            else if (state == AUTH_RESULT_STATES.INVALID_ZIP2 || state == AUTH_RESULT_STATES.INVALID_ZIP2_FORMAT)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP2);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.KEY_MISMATCH)
+            else if (state == AUTH_RESULT_STATES.KEY_MISMATCH)
             {
+                msg = this.TextService.ErrorCode("LOGIN-KEY_MISMATCH");
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_MISMATCH);
-                return Redirect(url);
+                result = Redirect(url);
             }
-
-            if (state == AUTH_RESULT_STATES.KEY_VALUE_MISMATCH)
+            else if (state == AUTH_RESULT_STATES.KEY_VALUE_MISMATCH)
             {
+                msg = this.TextService.ErrorCode("LOGIN-KEY_VALUE_MISMATCH");
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.KEY_VALUE_MISMATCH);
-                return Redirect(url);
+                result = Redirect(url);
+            }
+            else
+            {
+                var url1 = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.UNKNOWN);
+                result = Redirect(url1);
             }
 
-            var url1 = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.UNKNOWN);
-            return Redirect(url1);
+            this.SessionProvider.Set(SESSION_ERROR_KEY, msg);
+
+            return result;
         }
         
         protected internal LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
@@ -518,6 +534,27 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             string key = Utils.GetUniqueKey(model, offer);
             var login = new LoginChoiceViewModel(model, key);
             return login;
+        }
+
+        /// <summary>
+        /// Find <see cref="LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>Login type or null.</returns>
+        protected internal LoginTypeModel GetLoginType(OfferModel offer, string key)
+        {
+            var loginTypes = this.SettingsReaderService.GetAllLoginTypes();
+
+            foreach (var loginType in loginTypes)
+            {
+                if (key == Utils.GetUniqueKey(loginType, offer))
+                {
+                    return loginType;
+                }
+            }
+
+            return null;
         }
     }
 }

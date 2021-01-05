@@ -39,7 +39,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public AUTH_RESULT_STATES GetLoginState(OfferModel offer, string birthDay, string key, string value)
+        public AUTH_RESULT_STATES GetLoginState(OfferModel offer, LoginTypeModel loginType, string birthDay, string key, string value)
         {
             if (string.IsNullOrEmpty(birthDay))
             {
@@ -53,7 +53,7 @@ namespace eContracting.Services
 
             if (string.IsNullOrEmpty(value))
             {
-                return AUTH_RESULT_STATES.INVALID_VALUE;
+                return AUTH_RESULT_STATES.MISSING_VALUE;
             }
 
             var bd1 = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
@@ -64,11 +64,9 @@ namespace eContracting.Services
                 return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
             }
 
-            var loginType = this.GetMatched(offer, key);
-
             if (loginType == null)
             {
-                return AUTH_RESULT_STATES.KEY_MISMATCH;
+                return AUTH_RESULT_STATES.MISSING_LOGIN_TYPE;
             }
 
             var val = value.Trim().Replace(" ", string.Empty); //.Replace(" ", string.Empty).ToLower();
@@ -110,27 +108,6 @@ namespace eContracting.Services
         public AuthDataModel GetCurrentUser()
         {
             return this.Cache.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA);
-        }
-
-        /// <summary>
-        /// Find <see cref="LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
-        /// </summary>
-        /// <param name="offer">The offer.</param>
-        /// <param name="key">The key.</param>
-        /// <returns>Login type or null.</returns>
-        protected internal LoginTypeModel GetMatched(OfferModel offer, string key)
-        {
-            var loginTypes = this.SettingsReader.GetAllLoginTypes();
-
-            foreach (var loginType in loginTypes)
-            {
-                if (key == Utils.GetUniqueKey(loginType, offer))
-                {
-                    return loginType;
-                }
-            }
-
-            return null;
         }
 
         protected internal bool IsRegexValid(LoginTypeModel loginType, string value)

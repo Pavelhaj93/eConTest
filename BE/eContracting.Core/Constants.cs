@@ -215,6 +215,7 @@ namespace eContracting
         {
             public const string UNKNOWN = "v00";
             public const string INVALID_BIRTHDATE = "v01";
+            public const string MISSING_VALUE = "v50";
             public const string INVALID_VALUE = "v51";
             public const string INVALID_VALUE_FORMAT = "v52";
             public const string INVALID_VALUE_DEFINITION = "v53";

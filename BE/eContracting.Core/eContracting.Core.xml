@@ -1832,12 +1832,13 @@
             Represents collection of actions for authentication operation.
             </summary>
         </member>
-        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.LoginTypeModel,System.String,System.String,System.String)">
             <summary>
             Logins the specified offer.
             </summary>
             <seealso cref="T:eContracting.Models.LoginTypeModel"/>
             <param name="offer">The offer.</param>
+            <param name="loginType">The login type.</param>
             <param name="birthDay">The birth day.</param>
             <param name="key">The key of login type.</param>
             <param name="value">The value by login type.</param>

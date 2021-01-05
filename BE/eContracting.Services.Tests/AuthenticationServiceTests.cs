@@ -19,12 +19,13 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Empty()
         {
+            var loginType = new LoginTypeModel();
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, "", "id", "132546796");
+            var result = service.GetLoginState(offer, loginType, "", "id", "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
         }
@@ -33,12 +34,13 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_KEY_MISMATCH_When_Empty()
         {
+            var loginType = new LoginTypeModel();
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, "23.11.2001", "", "132546796");
+            var result = service.GetLoginState(offer, loginType, "23.11.2001", "", "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.KEY_MISMATCH, result);
         }
@@ -47,34 +49,36 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_VALUE_When_Empty()
         {
+            var loginType = new LoginTypeModel();
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, "23.11.2001", "key", "");
+            var result = service.GetLoginState(offer, loginType, "23.11.2001", "key", "");
 
-            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE, result);
+            Assert.Equal(AUTH_RESULT_STATES.MISSING_VALUE, result);
         }
 
         [Fact]
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Dont_Match()
         {
+            var loginType = new LoginTypeModel();
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BIRTHDT = "25.06.1971";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, "17.11.2020", "id", "132546796");
+            var result = service.GetLoginState(offer, loginType, "17.11.2020", "id", "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
         }
 
         [Fact]
         [Trait("Method", "GetLoginState")]
-        public void GetLoginState_Returns_KEY_MISMATCH_When_Login_Type_Doesnt_Match()
+        public void GetLoginState_Returns_INVALID_VALUE_DEFINITION_When_Login_Type_Doesnt_Match()
         {
             var guid = Guid.NewGuid().ToString("N");
             var birthdate = "25.06.1971";
@@ -85,17 +89,14 @@ namespace eContracting.Services.Tests
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, birthdate, "invalidkey", "132546796");
+            var result = service.GetLoginState(offer, loginType, birthdate, "invalidkey", "132546796");
 
-            Assert.Equal(AUTH_RESULT_STATES.KEY_MISMATCH, result);
+            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
         }
 
         [Fact]
@@ -112,15 +113,12 @@ namespace eContracting.Services.Tests
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, birthdate, key, "132546796");
+            var result = service.GetLoginState(offer, loginType, birthdate, key, "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
         }
@@ -143,15 +141,12 @@ namespace eContracting.Services.Tests
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
             var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, birthdate, key, partnerId2);
+            var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId2);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_FORMAT, result);
         }
@@ -173,15 +168,12 @@ namespace eContracting.Services.Tests
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
             var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, birthdate, key, partnerId2);
+            var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId2);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE, result);
         }
@@ -202,70 +194,14 @@ namespace eContracting.Services.Tests
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
             var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
 
             var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, birthdate, key, partnerId);
+            var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId);
 
             Assert.Equal(AUTH_RESULT_STATES.SUCCEEDED, result);
-        }
-
-        [Fact]
-        [Trait("Method", "GetMatched")]
-        public void GetMatched_Finds_Match()
-        {
-            var guid = Guid.NewGuid().ToString("N");
-            var birthdate = "25.06.1971";
-            var offer = this.CreateOffer(guid);
-            offer.Xml.Content.Body.BIRTHDT = birthdate;
-
-            var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
-            loginType.ID = Guid.NewGuid();
-            loginType.Key = "PARTNER";
-            var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
-
-            var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserDataCacheService>();
-
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetMatched(offer, key);
-
-            Assert.NotNull(result);
-        }
-
-        [Fact]
-        [Trait("Method", "GetMatched")]
-        public void GetMatched_Not_Finds_Match()
-        {
-            var guid = Guid.NewGuid().ToString("N");
-            var birthdate = "25.06.1971";
-            var offer = this.CreateOffer(guid);
-            offer.Xml.Content.Body.BIRTHDT = birthdate;
-            var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
-            loginType.ID = Guid.NewGuid();
-            loginType.Key = "PARTNER";
-            var key = Utils.GetUniqueKey(loginType, offer);
-            var loginTypes = new List<LoginTypeModel>();
-            loginTypes.Add(loginType);
-
-            var mockReaderSettings = new Mock<ISettingsReaderService>();
-            mockReaderSettings.Setup(x => x.GetAllLoginTypes()).Returns(loginTypes);
-            var mockCache = new Mock<IUserDataCacheService>();
-
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetMatched(offer, "mishmashkey");
-
-            Assert.Null(result);
         }
 
         [Fact]

@@ -29,7 +29,7 @@
             cacheService
             </exception>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.LoginTypeModel,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Models.AuthDataModel)">
@@ -40,14 +40,6 @@
         </member>
         <member name="M:eContracting.Services.AuthenticationService.GetCurrentUser">
             <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetMatched(eContracting.Models.OfferModel,System.String)">
-            <summary>
-            Find <see cref="T:eContracting.Models.LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
-            </summary>
-            <param name="offer">The offer.</param>
-            <param name="key">The key.</param>
-            <returns>Login type or null.</returns>
         </member>
         <member name="F:eContracting.Services.DbContextStartup.Logger">
             <summary>

@@ -22,6 +22,8 @@ namespace eContracting
         INVALID_VALUE_FORMAT,
         INVALID_VALUE_DEFINITION,
         KEY_VALUE_MISMATCH,
+        MISSING_LOGIN_TYPE,
+        MISSING_VALUE,
         KEY_MISMATCH,
     }
 }
