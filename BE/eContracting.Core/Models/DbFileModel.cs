@@ -50,6 +50,7 @@ namespace eContracting.Models
         /// </summary>
         public byte[] Content { get; set; }
 
+        [NotMapped]
         public virtual List<DbFileAttributeModel> Attributes { get; } = new List<DbFileAttributeModel>();
     }
 }
