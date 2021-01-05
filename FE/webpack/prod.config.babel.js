@@ -9,35 +9,6 @@ import { removeDataTestIdTransformer } from 'typescript-transformer-jsx-remove-d
 
 const productionPolyfillsPath = '/Assets/eContracting2/js/polyfills.js'
 
-// We need to modify path to polyfills and fonts in generated files.
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const replaceProductionPaths = () => {
-  return [0].map(() => {
-    return new ReplaceInFilePlugin([
-      {
-        dir: './build/js/',
-        test: /\.js$/,
-        rules: [
-          {
-            search: /src="\/js\/polyfills\.js"/g,
-            replace: `src="${productionPolyfillsPath}"`,
-          },
-        ],
-      },
-      {
-        dir: './build/css/',
-        test: /\.css$/,
-        rules: [
-          {
-            search: /url\(\/fonts\//g,
-            replace: 'url(../fonts/',
-          },
-        ],
-      },
-    ])
-  })
-}
-
 export default merge(baseConfig, {
   mode: 'production',
   devtool: false,
@@ -99,9 +70,34 @@ export default merge(baseConfig, {
         },
       ],
     }),
+
+    // we need to modify path to polyfills and fonts in generated files
+    new ReplaceInFilePlugin([
+      {
+        dir: './build/js/',
+        test: /\.js$/,
+        rules: [
+          {
+            search: /src="\/js\/polyfills\.js"/g,
+            replace: `src="${productionPolyfillsPath}"`,
+          },
+        ],
+      },
+      {
+        dir: './build/css/',
+        test: /\.css$/,
+        rules: [
+          {
+            search: /url\(\/fonts\//g,
+            replace: 'url(../fonts/',
+          },
+        ],
+      },
+    ]),
+
     // copy build files to assets directory for BE
     new WebpackShellPlugin({
-      onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
+      onBuildExit: ['node ./scripts/copyBuildFiles.js'],
     }),
-  ].concat(replaceProductionPaths()),
+  ],
 })
