@@ -311,11 +311,19 @@ namespace eContracting.Services
 
         protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
         {
+            var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition);
+            var sign = this.GetAcceptanceDocumentsSign(offer, files, definition);
+
+            if (accept == null && sign == null)
+            {
+                return null;
+            }
+
             var model = new JsonDocumentsAcceptanceModel();
             model.Title = definition.OfferCommoditiesTitle.Text;
             model.Text = Utils.GetReplacedTextTokens(definition.OfferCommoditiesText.Text, offer.TextParameters);
-            model.Accept = this.GetAcceptanceDocumentsAccept(offer, files, definition);
-            model.Sign = this.GetAcceptanceDocumentsSign(offer, files, definition);
+            model.Accept = accept;
+            model.Sign = sign;
             return model;
         }
 
