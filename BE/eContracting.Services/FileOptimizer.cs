@@ -583,8 +583,9 @@ namespace eContracting.Services
             {
                 using (var msImg = new MemoryStream(img))
                 {
-                    var image = Image.FromStream(msImg);
-                    var ximg = XImage.FromGdiPlusImage(image);
+                    //var image = Image.FromStream(msImg);
+                    //var ximg = XImage.FromGdiPlusImage(image);
+                    var ximg = XImage.FromStream(msImg);
 
                     // prepocitam velikosti obrazku
                     var width = (XUnit)ximg.PixelWidth;
