@@ -236,7 +236,7 @@ export const Offer: React.FC<View> = observer(
           {/* /gifts box */}
 
           {/* box with documents to be accepted or signed */}
-          {store.documents.acceptance && (
+          {(store.documents.acceptance?.accept || store.documents.acceptance?.sign) && (
             <>
               <h2 className="mt-5">{store.documents.acceptance.title}</h2>
               <div
