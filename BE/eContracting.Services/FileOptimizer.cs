@@ -164,7 +164,18 @@ namespace eContracting.Services
                             {
                                 using (var imageStream = new MemoryStream())
                                 {
-                                    image.Save(imageStream, image.RawFormat);
+                                    try
+                                    {
+                                        image.Save(imageStream, image.RawFormat);
+                                    }
+                                    catch (Exception imgSaveEx)
+                                    {
+                                        // u nekterych obrazku nefgunguje ukladani v jejich originalnim formatu/kodeku, tak zkus ulozit jako jpeg
+                                        var encoderParameters = new EncoderParameters(1);
+                                        encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+                                        image.Save(imageStream, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+                                    }
+
                                     fileByteContent = imageStream.ToArray();
                                 }
                             }
