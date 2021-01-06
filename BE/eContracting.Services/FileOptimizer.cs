@@ -579,44 +579,7 @@ namespace eContracting.Services
         {
             var pdf = new PdfPage(outputPdfDocument);
             var gfx = XGraphics.FromPdfPage(pdf);
-            var bitmapImage = this.CreateBitmap(img);
-            float verticalResolution;
-            float horizontalResolution;
 
-            using (var msImg = new MemoryStream(img))
-            {
-                var image = Image.FromStream(msImg);
-                verticalResolution = image.VerticalResolution;
-                horizontalResolution = image.HorizontalResolution;
-            }
-
-            // pred pripojenim obrazku do pdf ho preulozim, protoze obrazky s velkym dpi se do pdf vlozi spatne
-            if (verticalResolution > 96 || horizontalResolution > 96
-                && bitmapImage != null)
-            {
-                // zmensim preulozeny obrazek
-                var resizeBitmap = this.ResizeImage(bitmapImage, new Size((int)(0.75f * bitmapImage.Width), (int)(0.75f * bitmapImage.Height)));
-
-                // vlozim do pdf preulozeny obrazek
-                var ximg = XImage.FromGdiPlusImage(resizeBitmap);
-
-                // prepocitam velikosti obrazku
-                var width = (XUnit)ximg.PixelWidth;
-                var height = (XUnit)ximg.PixelHeight;
-
-                if (width > pdf.Width)
-                {
-                    var ratioX = pdf.Width / ximg.PixelWidth;
-                    var ratioY = pdf.Height / ximg.PixelHeight;
-                    var ratio = Math.Min(ratioX, ratioY);
-
-                    width = width * ratio;
-                    height = height * ratio;
-                }
-
-                gfx.DrawImage(ximg, xPosition, yPosition, width * scale, height * scale);
-            }
-            else
             {
                 using (var msImg = new MemoryStream(img))
                 {
