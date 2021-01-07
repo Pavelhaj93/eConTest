@@ -8,6 +8,7 @@ import {
   Box,
   BoxHeading,
   ConfirmationModal,
+  DocumentLink,
   FileUpload,
   FormCheckWrapper,
   Gift,
@@ -273,24 +274,11 @@ export const Offer: React.FC<View> = observer(
                         onChange={() => store.acceptDocument(key)}
                       >
                         <Form.Check.Label>
-                          <span>
-                            {prefix}{' '}
-                            {/* By adding target="_blank" it bypasses `beforeunload` event and allows to download the file. */}
-                            <a
-                              href={`${getFileUrl}/${key}`}
-                              download
-                              target="_blank"
-                              rel="noreferrer"
-                              onClick={handleDownload}
-                            >
-                              {label}
-                            </a>
-                          </span>
-                          <Icon
-                            name="pdf"
-                            size={36}
-                            color={colors.orange}
-                            className="ml-md-auto d-none d-sm-block"
+                          <span className="mr-1">{prefix}</span>
+                          <DocumentLink
+                            url={`${getFileUrl}/${key}`}
+                            label={label}
+                            onClick={handleDownload}
                           />
                         </Form.Check.Label>
                       </FormCheckWrapper>
@@ -449,23 +437,11 @@ export const Offer: React.FC<View> = observer(
                     onChange={() => store.acceptDocument(key)}
                   >
                     <Form.Check.Label>
-                      <span>
-                        {prefix}{' '}
-                        <a
-                          href={`${getFileUrl}/${key}`}
-                          download
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={handleDownload}
-                        >
-                          {label}
-                        </a>
-                      </span>
-                      <Icon
-                        name="pdf"
-                        size={36}
-                        color={colors.orange}
-                        className="ml-md-auto d-none d-sm-block"
+                      <span className="mr-1">{prefix}</span>
+                      <DocumentLink
+                        url={`${getFileUrl}/${key}`}
+                        label={label}
+                        onClick={handleDownload}
                       />
                     </Form.Check.Label>
                   </FormCheckWrapper>
@@ -538,23 +514,11 @@ export const Offer: React.FC<View> = observer(
                     onChange={() => store.acceptDocument(key)}
                   >
                     <Form.Check.Label>
-                      <span>
-                        {prefix}{' '}
-                        <a
-                          href={`${getFileUrl}/${key}`}
-                          download
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={handleDownload}
-                        >
-                          {label}
-                        </a>
-                      </span>
-                      <Icon
-                        name="pdf"
-                        size={36}
-                        color={colors.orange}
-                        className="ml-md-auto d-none d-sm-block"
+                      <span className="mr-1">{prefix}</span>
+                      <DocumentLink
+                        url={`${getFileUrl}/${key}`}
+                        label={label}
+                        onClick={handleDownload}
                       />
                     </Form.Check.Label>
                   </FormCheckWrapper>
