@@ -971,23 +971,28 @@
             Represent an attribute anywhere in an offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Index">
+        <member name="P:eContracting.Models.OfferAttributeModel.Index">
             <summary>
             Gets the index.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX"/>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Key">
+        <member name="P:eContracting.Models.OfferAttributeModel.Key">
             <summary>
             The key.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID"/>
         </member>
-        <member name="F:eContracting.Models.OfferAttributeModel.Value">
+        <member name="P:eContracting.Models.OfferAttributeModel.Value">
             <summary>
             The value.
             </summary>
             <seealso cref="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL"/>
+        </member>
+        <member name="M:eContracting.Models.OfferAttributeModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttributeModel"/> class.
+            </summary>
         </member>
         <member name="M:eContracting.Models.OfferAttributeModel.#ctor(System.Int32,System.String,System.String)">
             <summary>

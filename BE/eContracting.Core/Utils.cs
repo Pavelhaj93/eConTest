@@ -229,6 +229,7 @@ namespace eContracting
             attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.GROUP, ATTRVAL = template.Group ?? string.Empty });
             attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.GROUP_OBLIG, ATTRVAL = template.GroupObligatory ?? string.Empty });
             attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.ITEM_GUID, ATTRVAL = template.ItemGuid ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.CONSENT_TYPE, ATTRVAL = template.ConsentType ?? string.Empty });
             return attributes.ToArray();
         }
 
