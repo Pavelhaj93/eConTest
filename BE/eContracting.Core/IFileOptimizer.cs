@@ -31,7 +31,7 @@ namespace eContracting
         /// <param name="guid">Offer unique identifier.</param>
         /// <returns>Current state of the group after adding new file.</returns>
         /// <exception cref="ApplicationException">Adding failed.</exception>
-        Task<DbUploadGroupFileModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid);
+        Task<UploadGroupFileOperationResultModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid);
 
         /// <summary>
         /// Removes specific file with <paramref name="fileId"/> from <paramref name="group"/>.

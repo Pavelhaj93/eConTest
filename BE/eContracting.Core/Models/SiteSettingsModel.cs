@@ -113,9 +113,11 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual CookieLawSettingsModel CookieLawSettings { get; set; }
 
-
         [SitecoreField]
         public int GroupResultingFileSizeLimitKBytes { get; set; }
+
+        [SitecoreField]
+        public int TotalResultingFilesSizeLimitKBytes { get; set; }
 
         [SitecoreField]
         public int MaxImageWidthAfterResize { get; set; }

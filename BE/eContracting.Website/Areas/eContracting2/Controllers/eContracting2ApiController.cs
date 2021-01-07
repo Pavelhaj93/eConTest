@@ -758,6 +758,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns><see cref="GroupUploadViewModel"/> with current status of uploaded files. Failed uploaded file is not presented.</returns>
         protected async Task<IHttpActionResult> AddToUpload([FromUri] string id)
         {
+            UploadGroupFileOperationResultModel internalOperationResult= new UploadGroupFileOperationResultModel();
             string guid = null;
 
             try
@@ -811,9 +812,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         {
                             await stream.CopyToAsync(memoryStream);
                             var fileBytes = memoryStream.ToArray();
-                            group = await this.FileOptimizer.AddAsync(group, id, fileId, originalFileName, fileBytes, this.SessionProvider.GetId(), guid);
+                            internalOperationResult = await this.FileOptimizer.AddAsync(group, id, fileId, originalFileName, fileBytes, this.SessionProvider.GetId(), guid);
+                            group = internalOperationResult?.DbUploadGroupFileModel;
                         }
                     }
+                }
+
+                if (!internalOperationResult.IsSuccess)
+                {
+                    return this.BadRequest(this.TextService.Error(internalOperationResult.ErrorModel));
                 }
 
                 if (group == null)

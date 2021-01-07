@@ -50,6 +50,13 @@ namespace eContracting.Services
                 return this.SiteSettings.GroupResultingFileSizeLimitKBytes * 1024;
             }
         }
+        protected long TotalResultingFilesSizeLimit
+        {
+            get
+            {
+                return this.SiteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
+            }
+        }
 
         protected Size MaxImageSizeAfterResize
         {
@@ -111,7 +118,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public async Task<DbUploadGroupFileModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
+        public async Task<UploadGroupFileOperationResultModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
         {
             //DbFileModel outputFile = null;
             PdfDocument outputPdfDocument = null;
@@ -140,8 +147,10 @@ namespace eContracting.Services
             }
         }
 
-        protected internal async Task<DbUploadGroupFileModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
+        protected internal async Task<UploadGroupFileOperationResultModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
         {
+            UploadGroupFileOperationResultModel result = new UploadGroupFileOperationResultModel() { IsSuccess = false };
+
             using (var newPdfDocumentStream = new MemoryStream())
             {
                 // vytvor vystupni pdf dokument, pokud neexistuje
@@ -215,7 +224,7 @@ namespace eContracting.Services
 
                 while (compressionRounds < this.CompressionRoundsMax)
                 {
-                    if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
+                    if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit && group.OriginalFiles.Any(f=>this.IsCompressable(f.FileName)))
                     {
                         using (var newPdfDocumentStream2 = new MemoryStream())
                         {
@@ -237,7 +246,19 @@ namespace eContracting.Services
                         break;
                 }
 
-                return group;
+                // pokud i po pokusu o kompresi vysledny soubor presahuje limit, odstran tenhle posledni nahrany soubor
+                if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
+                {
+                    result.ErrorModel = ERROR_CODES.UploadedFilesSizeExceeded(); // $"Group files size limit { this.GroupResultingFileSizeLimit} exceeeded, actual size would be { group.OutputFile.Content.LongLength } bytes.");
+                    result.IsSuccess = false;
+                    await this.RemoveFileAsync(group, fileId);
+                }
+                else
+                {                    
+                    result.IsSuccess = true;
+                }
+                result.DbUploadGroupFileModel = group;
+                return result;
             }
         }
 

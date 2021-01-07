@@ -1,8 +1,8 @@
 ﻿---
-ID: "b0a5f616-ab2b-44cb-8997-95e1411212d1"
+ID: "739f3649-8839-4b83-99a6-9dde316af4cb"
 Parent: "4c82e596-05a5-43a0-a662-3225b6d649ed"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/Attachments Upload/MinImageHeightNoResize
+Path: /sitecore/templates/eContracting2/WebRoot/6 Attachments Upload/TotalResultingFilesSizeLimitKBytes
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,19 +10,23 @@ SharedFields:
   Value: Integer
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 500
+  Value: 100
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
   Value: 1
 Languages:
 - Language: cs
+  Fields:
+  - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
+    Hint: __Short description
+    Value: maximální celková velikost všech výsledných PDF souborů jednotlivých skupin příloh (v kilobytech)
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201222T045824Z
+      Value: 20201222T045822Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

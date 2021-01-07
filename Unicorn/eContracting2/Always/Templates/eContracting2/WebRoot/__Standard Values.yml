@@ -24,6 +24,9 @@ SharedFields:
 - ID: "52d1137c-4e99-4f4c-9813-988e5fef5400"
   Hint: MaxImageWidthAfterResize
   Value: 8096
+- ID: "739f3649-8839-4b83-99a6-9dde316af4cb"
+  Hint: TotalResultingFilesSizeLimitKBytes
+  Value: 51200
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 
