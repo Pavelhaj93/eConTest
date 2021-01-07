@@ -275,7 +275,14 @@ export const Offer: React.FC<View> = observer(
                         <Form.Check.Label>
                           <span>
                             {prefix}{' '}
-                            <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                            {/* By adding target="_blank" it bypasses `beforeunload` event and allows to download the file. */}
+                            <a
+                              href={`${getFileUrl}/${key}`}
+                              download
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={handleDownload}
+                            >
                               {label}
                             </a>
                           </span>
@@ -316,6 +323,8 @@ export const Offer: React.FC<View> = observer(
                             <a
                               href={`${getFileUrl}/${key}&t=${new Date().getTime()}`}
                               download
+                              target="_blank"
+                              rel="noreferrer"
                               onClick={handleDownload}
                             >
                               {label}
@@ -442,7 +451,13 @@ export const Offer: React.FC<View> = observer(
                     <Form.Check.Label>
                       <span>
                         {prefix}{' '}
-                        <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                        <a
+                          href={`${getFileUrl}/${key}`}
+                          download
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={handleDownload}
+                        >
                           {label}
                         </a>
                       </span>
@@ -525,7 +540,13 @@ export const Offer: React.FC<View> = observer(
                     <Form.Check.Label>
                       <span>
                         {prefix}{' '}
-                        <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                        <a
+                          href={`${getFileUrl}/${key}`}
+                          download
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={handleDownload}
+                        >
                           {label}
                         </a>
                       </span>
