@@ -313,7 +313,11 @@ export const Offer: React.FC<View> = observer(
                           )}
                           <span>
                             {prefix}{' '}
-                            <a href={`${getFileUrl}/${key}`} download onClick={handleDownload}>
+                            <a
+                              href={`${getFileUrl}/${key}&t=${new Date().getTime()}`}
+                              download
+                              onClick={handleDownload}
+                            >
                               {label}
                             </a>
                           </span>
