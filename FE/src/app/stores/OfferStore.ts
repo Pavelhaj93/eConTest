@@ -13,6 +13,7 @@ import {
   UploadDocumentResponse,
   AcceptanceGroup,
   OfferErrorResponse,
+  UploadDocumentErrorResponse,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -721,9 +722,10 @@ export class OfferStore {
         return
       }
 
-      // TODO: get some nice application error message
+      // parse error message from API
       if (!uploaded) {
-        throw new Error(`${response.statusText} (${response.status})`)
+        const { Message } = (await response.json()) as UploadDocumentErrorResponse
+        throw new Error(Message)
       }
 
       const { size } = (await response.json()) as UploadDocumentResponse

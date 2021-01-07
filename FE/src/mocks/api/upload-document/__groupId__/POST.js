@@ -32,6 +32,9 @@ module.exports = function (request, response) {
     }
   } else {
     statusCode = 400
+    jsonResponse = {
+      Message: 'Uploaded files size limit exceeded.',
+    }
   }
 
   setTimeout(() => {

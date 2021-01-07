@@ -10,16 +10,6 @@ const mockSuccessfullResponse = {
   uploaded: true,
 }
 
-const mockErrorResponse = {
-  uploaded: false,
-  message: 'Document failed to upload',
-}
-
-const mockErrorResponseSizeExceeded = {
-  uploaded: false,
-  message: FileError.SIZE_EXCEEDED,
-}
-
 describe('FileUpload', () => {
   it('renders cancel button', () => {
     const file = createFileFromMockFile({
@@ -44,7 +34,7 @@ describe('FileUpload', () => {
     expect(button).toBeInTheDocument()
   })
 
-  it.skip('renders error message from API', async () => {
+  it('renders error message from API', async () => {
     const file = createFileFromMockFile({
       name: 'document.txt',
       body: 'content',
@@ -52,6 +42,7 @@ describe('FileUpload', () => {
     })
 
     const document = new UserDocument(file, 'testId123')
+    const errorMessage = 'Document failed to upload'
 
     render(
       <FileUpload
@@ -59,17 +50,18 @@ describe('FileUpload', () => {
         labels={{}}
         onRemove={jest.fn}
         uploading={true}
-        uploadHandler={() => Promise.resolve(mockErrorResponse)}
+        uploadHandler={() => Promise.resolve({ uploaded: false })}
+        error={errorMessage}
       />,
     )
 
     await waitFor(() => {
-      const message = screen.getByText(`(${mockErrorResponse.message})`)
+      const message = screen.getByText(`(${errorMessage})`)
       expect(message).toBeInTheDocument()
     })
   })
 
-  it.skip('translates and renders custom error message', async () => {
+  it('translates and renders custom error message', async () => {
     const file = createFileFromMockFile({
       name: 'document.txt',
       body: 'content',
@@ -88,7 +80,8 @@ describe('FileUpload', () => {
         labels={labels}
         onRemove={jest.fn}
         uploading={true}
-        uploadHandler={() => Promise.resolve(mockErrorResponseSizeExceeded)}
+        uploadHandler={() => Promise.resolve({ uploaded: false })}
+        error={FileError.SIZE_EXCEEDED}
       />,
     )
 

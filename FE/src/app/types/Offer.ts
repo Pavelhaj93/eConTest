@@ -114,8 +114,8 @@ export type OfferDocuments = {
 
 export type AcceptanceGroup = {
   title: string
-    group: string
-    accepted: boolean
+  group: string
+  accepted: boolean
 }
 
 export type Acceptance = {
@@ -141,9 +141,13 @@ export type UploadDocumentResponse = {
 
 export type UploadDocumentPromise = {
   uploaded: boolean
-  message?: string
+  Message?: string
 }
 
-export type OfferErrorResponse = {
+type ErrorResponse = {
   Message: string
 }
+
+export type OfferErrorResponse = ErrorResponse
+
+export type UploadDocumentErrorResponse = ErrorResponse
