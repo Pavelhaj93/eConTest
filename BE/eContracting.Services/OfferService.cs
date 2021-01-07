@@ -197,7 +197,7 @@ namespace eContracting.Services
         /// <param name="response">The response.</param>
         /// <returns>Dictionary or null.</returns>
         /// <exception cref="ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
-        protected IDictionary<string, string> GetTextParameters(ResponseCacheGetModel response)
+        protected internal IDictionary<string, string> GetTextParameters(ResponseCacheGetModel response)
         {
             var version = this.OfferParser.GetVersion(response.Response);
 
@@ -230,6 +230,29 @@ namespace eContracting.Services
             }
         }
 
+        /// <summary>
+        /// Gets all files for accept.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="responsePdfFiles">The response PDF files.</param>
+        /// <param name="sessionId">The session identifier.</param>
+        /// <returns>Array of all accepted, signed and uploaded files in <paramref name="offer"/>.</returns>
+        /// <exception cref="ApplicationException">
+        /// Missing required file for sign: {template}
+        /// or
+        /// File not found in the cache: key: {uniqueKey}: template: {template}
+        /// or
+        /// File matching template ({template}) doesn't exist
+        /// or
+        /// File matching template ({template}) doesn't exist
+        /// or
+        /// Unknown upload group '{groupKey}'
+        /// or
+        /// Cannot find upload for '{groupKey}'
+        /// or
+        /// Group '{uploadGroup}' doesn't have content
+        /// </exception>
         protected internal ZCCH_ST_FILE[] GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles, string sessionId)
         {
             var files = new List<ZCCH_ST_FILE>();

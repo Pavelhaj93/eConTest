@@ -40,10 +40,15 @@ namespace eContracting
             public const string GROUP_OBLIG = "GROUP_OBLIG";
             public const string OBLIGATORY = "OBLIGATORY";
             public const string PRINTED = "PRINTED";
+            public const string DESCRIPTION = "DESCRIPTION";
+            public const string SEQUENCE_NUMBER = "SEQNR";
             public const string SIGN_REQ = "SIGN_REQ";
             public const string TMST_REQ = "TMST_REQ";
             public const string ADDINFO = "ADDINFO";
             public const string MAIN_DOC = "MAIN_DOC";
+            public const string TEMPL_ALC_ID = "TEMPL_ALC_ID";
+            public const string ITEM_GUID = "ITEM_GUID";
+            public const string CONSENT_TYPE = "CONSENT_TYPE";
         }
 
         public static class FileAttributeValues

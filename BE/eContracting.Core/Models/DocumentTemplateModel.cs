@@ -13,58 +13,58 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class DocumentTemplateModel
     {
-        [XmlElement("SEQNR")]
+        [XmlElement(Constants.FileAttributes.SEQUENCE_NUMBER)]
         [JsonIgnore]
         public string SequenceNumber { get; set; }
 
-        [XmlElement("IDATTACH")]
+        [XmlElement(Constants.FileAttributes.TYPE)]
         [JsonProperty("idattach")]
         public string IdAttach { get; set; }
 
-        [XmlElement("DESCRIPTION")]
+        [XmlElement(Constants.FileAttributes.DESCRIPTION)]
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [XmlElement("OBLIGATORY")]
+        [XmlElement(Constants.FileAttributes.OBLIGATORY)]
         [JsonProperty("obligatory")]
         public string Obligatory { get; set; }
 
-        [XmlElement("PRINTED")]
+        [XmlElement(Constants.FileAttributes.PRINTED)]
         [JsonProperty("printed")]
         public string Printed { get; set; }
 
-        [XmlElement("SIGN_REQ")]
+        [XmlElement(Constants.FileAttributes.SIGN_REQ)]
         [JsonProperty("sing_required")]
         public string SignReq { get; set; }
 
-        [XmlElement("TMST_REQ")]
+        [XmlElement(Constants.FileAttributes.TMST_REQ)]
         [JsonIgnore]
         public string TimeStampRequired { get; set; }
 
-        [XmlElement("ADDINFO")]
+        [XmlElement(Constants.FileAttributes.ADDINFO)]
         [JsonIgnore]
         public string AddInfo { get; set; }
 
-        [XmlElement("TEMPL_ALC_ID")]
+        [XmlElement(Constants.FileAttributes.TEMPL_ALC_ID)]
         [JsonIgnore]
         public string TemplAlcId { get; set; }
 
-        [XmlElement("GROUP")]
+        [XmlElement(Constants.FileAttributes.GROUP)]
         [JsonProperty("group")]
         public string Group { get; set; }
 
-        [XmlElement("GROUP_OBLIGATORY")]
+        [XmlElement(Constants.FileAttributes.GROUP_OBLIG)]
         [JsonIgnore]
         public string GroupObligatory { get; set; } = string.Empty;
 
-        [XmlElement("ITEM_GUID")]
+        [XmlElement(Constants.FileAttributes.ITEM_GUID)]
         [JsonIgnore]
         public string ItemGuid { get; set; }
 
         /// <summary>
         /// Gets or sets prefix for the document.
         /// </summary>
-        [XmlElement("CONSENT_TYPE")]
+        [XmlElement(Constants.FileAttributes.CONSENT_TYPE)]
         [JsonIgnore]
         public string ConsentType { get; set; }
 

@@ -286,6 +286,31 @@
             <returns>Dictionary or null.</returns>
             <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
         </member>
+        <member name="M:eContracting.Services.OfferService.GetFilesForAccept(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,eContracting.Services.ZCCH_ST_FILE[],System.String)">
+            <summary>
+            Gets all files for accept.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="data">The data.</param>
+            <param name="responsePdfFiles">The response PDF files.</param>
+            <param name="sessionId">The session identifier.</param>
+            <returns>Array of all accepted, signed and uploaded files in <paramref name="offer"/>.</returns>
+            <exception cref="T:System.ApplicationException">
+            Missing required file for sign: {template}
+            or
+            File not found in the cache: key: {uniqueKey}: template: {template}
+            or
+            File matching template ({template}) doesn't exist
+            or
+            File matching template ({template}) doesn't exist
+            or
+            Unknown upload group '{groupKey}'
+            or
+            Cannot find upload for '{groupKey}'
+            or
+            Group '{uploadGroup}' doesn't have content
+            </exception>
+        </member>
         <member name="M:eContracting.Services.OfferService.GetResponse(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Gets data.

@@ -216,9 +216,20 @@ namespace eContracting
         /// <returns>Collection with IDATTACH attribute.</returns>
         public static ZCCH_ST_ATTRIB[] CreateAttributesFromTemplate(DocumentTemplateModel template)
         {
-            var list = new List<ZCCH_ST_ATTRIB>();
-            list.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = template.IdAttach });
-            return list.ToArray();
+            var attributes = new List<ZCCH_ST_ATTRIB>();
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.SEQUENCE_NUMBER, ATTRVAL = template.SequenceNumber ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = template.IdAttach ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.DESCRIPTION, ATTRVAL = template.Description ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.OBLIGATORY, ATTRVAL = template.Obligatory ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.PRINTED, ATTRVAL = template.Printed ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.SIGN_REQ, ATTRVAL = template.SignReq ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TMST_REQ, ATTRVAL = template.TimeStampRequired ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.ADDINFO, ATTRVAL = template.AddInfo ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TEMPL_ALC_ID, ATTRVAL = template.TemplAlcId ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.GROUP, ATTRVAL = template.Group ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.GROUP_OBLIG, ATTRVAL = template.GroupObligatory ?? string.Empty });
+            attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.ITEM_GUID, ATTRVAL = template.ItemGuid ?? string.Empty });
+            return attributes.ToArray();
         }
 
         /// <summary>
