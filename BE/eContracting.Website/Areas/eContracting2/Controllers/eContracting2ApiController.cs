@@ -197,9 +197,22 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.NotFound();
                 }
 
+                byte[] fileContent = file.FileContent;
+
+                if (file.IsSignReq)
+                {
+                    var dbFile = this.UserFileCacheService.FindSignedFile(new DbSearchParameters(id, guid, this.SessionProvider.GetId()));
+
+                    if (dbFile != null)
+                    {
+                        fileContent = dbFile.File.Content;
+                    }
+                }
+
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
-                response.Content = new ByteArrayContent(file.FileContent);
+                response.Content = new ByteArrayContent(fileContent);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
+                response.Content.Headers.ContentLength = (long)fileContent.Length;
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
                 response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
                 return this.ResponseMessage(response);
@@ -268,9 +281,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("File is not printed");
                 }
 
+                byte[] fileContent = file.FileContent;
+
+                if (file.IsSignReq)
+                {
+                    var dbFile = this.UserFileCacheService.FindSignedFile(new DbSearchParameters(id, guid, this.SessionProvider.GetId()));
+
+                    if (dbFile != null)
+                    {
+                        fileContent = dbFile.File.Content;
+                    }
+                }
+
                 using (var imageStream = new MemoryStream())
                 {
-                    using (var pdfStream = new MemoryStream(file.FileContent))
+                    using (var pdfStream = new MemoryStream(fileContent))
                     {
                         this.PrintPdfToImage(pdfStream, imageStream);
 
