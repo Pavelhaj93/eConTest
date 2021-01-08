@@ -20,6 +20,11 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public List<DbUploadGroupFileModel> FindGroups(DbSearchParameters search)
+        {
+            throw new NotImplementedException();
+        }
+
         public DbSignedFileModel FindSignedFile(DbSearchParameters search)
         {
             throw new NotImplementedException();

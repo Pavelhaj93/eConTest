@@ -69,11 +69,15 @@ namespace eContracting.Models
         /// <param name="guid">The unique identifier.</param>
         /// <param name="process">The process.</param>
         /// <param name="processType">Type of the process.</param>
-        public OfferIdentifier(string guid, string process, string processType)
+        /// <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+        /// <param name="textParameters">The text parameters.</param>
+        public OfferIdentifier(string guid, string process, string processType, bool isAccepted, IDictionary<string, string> textParameters)
         {
             this.Guid = guid;
             this.Process = process;
             this.ProcessType = processType;
+            this.IsAccepted = isAccepted;
+            this.TextParameters = textParameters;
         }
     }
 }
