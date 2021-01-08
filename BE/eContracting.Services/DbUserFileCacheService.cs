@@ -116,6 +116,80 @@ namespace eContracting.Services
             }
         }
 
+
+        /// <inheritdoc/>
+        public List<DbUploadGroupFileModel> FindGroups(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.FindGroupsAsync(search));
+            task.Wait();
+            return task.Result;
+        }
+
+        protected async Task<List<DbUploadGroupFileModel>> FindGroupsAsync(DbSearchParameters search)
+        {
+            List<DbUploadGroupFileModel> result = new List<DbUploadGroupFileModel>();
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var query = context.UploadGroups.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                var searchResults = await query.ToListAsync();
+
+                if (searchResults != null)
+                {
+                    foreach (var groupFound in searchResults)
+                    {
+                        var group = groupFound.ToModel();
+
+                        if (groupFound.OutputFileId > 0)
+                        {
+                            var file = await this.FindFileAsync(context, groupFound.OutputFileId);
+
+                            if (file != null)
+                            {
+                                group.OutputFile = file;
+                            }
+                        }
+
+                        var origFiles = context.UploadGroupOriginalFiles.Where(x => x.GroupId == groupFound.Id);
+
+                        if (origFiles.Any())
+                        {
+                            var files = await this.FindFilesAsync(context, origFiles.Select(x => x.FileId));
+
+                            foreach (var file in files)
+                            {
+                                file.Key = origFiles.First(x => x.FileId == file.Id).FileKey;
+                            }
+
+                            group.OriginalFiles.AddRange(files);
+                        }
+
+                        result.Add(group);
+                    }
+
+                    return result;
+                }
+
+                return null;
+            }
+        }
+
+
         /// <inheritdoc/>
         public DbSignedFileModel FindSignedFile(DbSearchParameters search)
         {

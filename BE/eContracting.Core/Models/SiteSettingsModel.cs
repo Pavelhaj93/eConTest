@@ -132,8 +132,10 @@ namespace eContracting.Models
         public int MinImageHeightNoResize { get; set; }
 
         [SitecoreField]
-        public int MaxOptimizationRounds { get; set; }
+        public int MaxGroupOptimizationRounds { get; set; }
 
+        [SitecoreField]
+        public int MaxAllGroupsOptimizationRounds { get; set; }
 
 
 

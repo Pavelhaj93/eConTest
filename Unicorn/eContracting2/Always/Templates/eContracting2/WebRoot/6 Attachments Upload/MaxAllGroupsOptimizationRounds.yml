@@ -1,8 +1,8 @@
 ﻿---
-ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
+ID: "aa1c0e0b-2f5e-4881-b317-d4b16a187913"
 Parent: "4c82e596-05a5-43a0-a662-3225b6d649ed"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/6 Attachments Upload/MaxOptimizationRounds
+Path: /sitecore/templates/eContracting2/WebRoot/6 Attachments Upload/MaxAllGroupsOptimizationRounds
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -20,7 +20,7 @@ Languages:
   Fields:
   - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
     Hint: __Short description
-    Value: max. počet iterací zmenšování obrázků
+    Value: max. počet iterací pokusů o zmenšování obrázků všech skupin dané nabídky
   Versions:
   - Version: 1
     Fields:

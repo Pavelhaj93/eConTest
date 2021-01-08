@@ -74,11 +74,18 @@ namespace eContracting.Services
             }
         }
 
-        protected int CompressionRoundsMax
+        protected int MaxGroupOptimizationRounds
         {
             get
             {
-                return this.SiteSettings.MaxOptimizationRounds;
+                return this.SiteSettings.MaxGroupOptimizationRounds;
+            }
+        }
+        protected int MaxAllGroupsOptimizationRounds
+        {
+            get
+            {
+                return this.SiteSettings.MaxAllGroupsOptimizationRounds;
             }
         }
 
@@ -147,6 +154,33 @@ namespace eContracting.Services
             }
         }
 
+
+        /// <inheritdoc/>
+        public async Task<UploadGroupFileOperationResultModel> EnforceOfferTotalFilesSizeAsync(List<DbUploadGroupFileModel> allGroups, DbUploadGroupFileModel groupLastAdded, string fileIdLastAdded)
+        {
+            UploadGroupFileOperationResultModel result = new UploadGroupFileOperationResultModel() { IsSuccess = true, MadeChanges = false };
+
+            long totalGroupOutputFilesLength = allGroups.Sum(g => g.OutputFile.Content.LongLength);
+            if (totalGroupOutputFilesLength > this.TotalResultingFilesSizeLimit)
+            {
+                if (!this.CompressGroups(allGroups, this.TotalResultingFilesSizeLimit))
+                {
+                    result.ErrorModel = ERROR_CODES.UploadedFilesTotalSizeExceeded(); // $"Group files size limit { this.GroupResultingFileSizeLimit} exceeeded, actual size would be { group.OutputFile.Content.LongLength } bytes.");
+                    result.IsSuccess = false;
+
+                    // nemusi se odstranovat, pokud se v controlleru vrati BadRequest pred tim, nez se zavola SetGroup pro ulozeni do database 
+                    //result.DbUploadGroupFileModel = await this.RemoveFileAsync(groupLastAdded, fileIdLastAdded);
+                }
+                else
+                {
+                    result.MadeChanges = true;
+                    result.DbUploadGroupFileModels = allGroups;
+                }
+            }
+
+            return result;
+        }
+
         protected internal async Task<UploadGroupFileOperationResultModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
         {
             UploadGroupFileOperationResultModel result = new UploadGroupFileOperationResultModel() { IsSuccess = false };
@@ -166,33 +200,42 @@ namespace eContracting.Services
                 {
                     using (var memoryStream = new MemoryStream(content))
                     {
-                        using (Image image = Image.FromStream(memoryStream))
+                        try
                         {
-                            // pokud bylo potreba otocit podle pritomne exif informace 
-                            if (this.NormalizeOrientation(image))
+                            using (Image image = Image.FromStream(memoryStream))
                             {
-                                using (var imageStream = new MemoryStream())
+                                // pokud bylo potreba otocit podle pritomne exif informace 
+                                if (this.NormalizeOrientation(image))
                                 {
-                                    try
+                                    using (var imageStream = new MemoryStream())
                                     {
-                                        image.Save(imageStream, image.RawFormat);
-                                    }
-                                    catch (Exception imgSaveEx)
-                                    {
-                                        // u nekterych obrazku nefgunguje ukladani v jejich originalnim formatu/kodeku, tak zkus ulozit jako jpeg
-                                        var encoderParameters = new EncoderParameters(1);
-                                        encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
-                                        image.Save(imageStream, GetEncoder(ImageFormat.Jpeg), encoderParameters);
-                                    }
+                                        try
+                                        {
+                                            image.Save(imageStream, image.RawFormat);
+                                        }
+                                        catch (Exception imgSaveEx)
+                                        {
+                                            // u nekterych obrazku nefgunguje ukladani v jejich originalnim formatu/kodeku, tak zkus ulozit jako jpeg
+                                            var encoderParameters = new EncoderParameters(1);
+                                            encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
+                                            image.Save(imageStream, GetEncoder(ImageFormat.Jpeg), encoderParameters);
+                                        }
 
-                                    fileByteContent = imageStream.ToArray();
+                                        fileByteContent = imageStream.ToArray();
+                                    }
+                                }
+                                else
+                                {
+                                    // pokud se obrazek neotacel, nech ho, jak je a zbytecne neprevadej na image. Muze narust na velikosti.
+                                    fileByteContent = content;
                                 }
                             }
-                            else
-                            {
-                                // pokud se obrazek neotacel, nech ho, jak je a zbytecne neprevadej na image. Muze narust na velikosti.
-                                fileByteContent = content;
-                            }
+                        }
+                        catch (ArgumentException argex)
+                        {
+                            result.IsSuccess = false;
+                            result.ErrorModel = ERROR_CODES.UploadedFileUnrecognizedFormat();
+                            return result;
                         }
                     }
                 }
@@ -219,39 +262,17 @@ namespace eContracting.Services
                 // ulozim vyslednou podobu OriginalFiles (pridany novy soubor k tem predchazejicim)
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
 
-                // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
-                int compressionRounds = 0;                
+                CompressGroup(group, outputPdfDocument, this.GroupResultingFileSizeLimit);
 
-                while (compressionRounds < this.CompressionRoundsMax)
-                {
-                    if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit && group.OriginalFiles.Any(f=>this.IsCompressable(f.FileName)))
-                    {
-                        using (var newPdfDocumentStream2 = new MemoryStream())
-                        {
-                            outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
-
-                            this.CompressFiles(group.OriginalFiles, compressionRounds, this.CompressionRoundsMax);
-
-                            foreach (var fileInGroup in group.OriginalFiles)
-                            {
-                                AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
-                            }
-
-                            // ulozim novy vysledny pdf a zmensene OriginalFiles 
-                            this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
-                            compressionRounds++;
-                        }
-                    }
-                    else
-                        break;
-                }
 
                 // pokud i po pokusu o kompresi vysledny soubor presahuje limit, odstran tenhle posledni nahrany soubor
                 if (group.OutputFile.Content.LongLength > this.GroupResultingFileSizeLimit)
                 {
-                    result.ErrorModel = ERROR_CODES.UploadedFilesSizeExceeded(); // $"Group files size limit { this.GroupResultingFileSizeLimit} exceeeded, actual size would be { group.OutputFile.Content.LongLength } bytes.");
+                    result.ErrorModel = ERROR_CODES.UploadedFilesGroupSizeExceeded(); // $"Group files size limit { this.GroupResultingFileSizeLimit} exceeeded, actual size would be { group.OutputFile.Content.LongLength } bytes.");
                     result.IsSuccess = false;
-                    await this.RemoveFileAsync(group, fileId);
+
+                    // nemusi se odstranovat, pokud se v controlleru vrati BadRequest pred tim, nez se zavola SetGroup pro ulozeni do database 
+                    //await this.RemoveFileAsync(group, fileId);
                 }
                 else
                 {                    
@@ -261,6 +282,65 @@ namespace eContracting.Services
                 return result;
             }
         }
+
+        protected internal void CompressGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, long groupResultingFileSizeLimit)
+        {
+            // zmensi soubory, pokud ses nevesel do limitu vysledneho pdfka
+            int compressionRounds = 0;
+
+            while (compressionRounds < this.MaxGroupOptimizationRounds)
+            {
+                if (group.OutputFile.Content.LongLength > groupResultingFileSizeLimit && group.OriginalFiles.Any(f => this.IsCompressable(f.FileName)))
+                {
+                    using (var newPdfDocumentStream2 = new MemoryStream())
+                    {
+                        outputPdfDocument = new PdfDocument(newPdfDocumentStream2);
+
+                        this.CompressFiles(group.OriginalFiles, this.GroupResultingFileSizeLimit, compressionRounds, this.MaxGroupOptimizationRounds);
+
+                        foreach (var fileInGroup in group.OriginalFiles)
+                        {
+                            AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                        }
+
+                        // ulozim novy vysledny pdf a zmensene OriginalFiles 
+                        this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
+                        compressionRounds++;
+                    }
+                }
+                else
+                    break;
+            }
+        }
+
+        protected internal bool CompressGroups(List<DbUploadGroupFileModel> groups, long totalSizeLimit)
+        {
+            // zmensi soubory, pokud ses nevesel do celkoveho limitu vyslednych pdfek
+            int compressionRounds = 0;            
+
+            while (compressionRounds < this.MaxGroupOptimizationRounds)
+            {
+                long totalGroupOutputFilesLength = groups.Sum(g => g.OutputFile.Content.LongLength);
+                if (totalGroupOutputFilesLength > totalSizeLimit)
+                {                    
+                    foreach (var group in groups)
+                    {
+                        float ratioToTryCompressThisGroup = ((float)totalSizeLimit / (float)totalGroupOutputFilesLength) / ((float)compressionRounds + (float) 1);
+                                        // this.CompressFiles(group.OriginalFiles, (long)(group.OutputFile.Content.LongLength * ratioToTryCompressThisGroup), compressionRounds, this.MaxAllGroupsOptimizationRounds);
+                        this.CompressGroup(group, null, (long)(group.OutputFile.Content.LongLength * ratioToTryCompressThisGroup));
+                    }
+                }
+                else
+                {
+                    break;                     
+                }
+                compressionRounds++;
+            }
+
+            long resultingTotalGroupOutputFilesLength = groups.Sum(g => g.OutputFile.Content.LongLength);
+            return (resultingTotalGroupOutputFilesLength <= totalSizeLimit);
+        }
+
 
         protected internal void SaveOutputPdfDocumentToGroup(DbUploadGroupFileModel group, PdfDocument outputPdfDocument)
         {
@@ -324,7 +404,7 @@ namespace eContracting.Services
             }
         }
 
-        protected internal void CompressFiles(List<DbFileModel> originalFiles, int compressionRoundsElapsed, int compressionRoundsMax)
+        protected internal void CompressFiles(List<DbFileModel> originalFiles, long totalFileSizeLimit,  int compressionRoundsElapsed, int compressionRoundsMax)
         {
             if (originalFiles.Count == 0)
             {
@@ -333,7 +413,7 @@ namespace eContracting.Services
 
             long compressableFilesSize = originalFiles.Where(f => this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
             long uncompressableFilesSize = originalFiles.Where(f => !this.IsCompressable(f.FileExtension)).Sum(f => f.Size);
-            long totalLimitForCompressableFiles = this.GroupResultingFileSizeLimit - uncompressableFilesSize;
+            long totalLimitForCompressableFiles = totalFileSizeLimit - uncompressableFilesSize;
 
             float needToCompressTimes = 1;
             if (totalLimitForCompressableFiles > 0)

@@ -13,5 +13,9 @@ namespace eContracting.Models
         public bool IsSuccess { get; set; } = false;
 
         public ErrorModel ErrorModel { get; set; }
+
+        public bool MadeChanges { get; set; } = false;
+
+        public List<DbUploadGroupFileModel> DbUploadGroupFileModels { get; set; }
     }
 }

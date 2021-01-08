@@ -233,6 +233,13 @@
             </summary>
             <param name="search">The search parameters.</param>
         </member>
+        <member name="M:eContracting.IUserFileCacheService.FindGroups(eContracting.Models.DbSearchParameters)">
+            <summary>
+            Gets mutliple group data by specific <paramref name="search"/> parameters.
+            </summary>
+            <param name="search">The search parameters.</param>
+            <returns>Data or null.</returns>
+        </member>
         <member name="T:eContracting.Models.BasePageModel">
             <summary>
             Represents common page with <see cref="P:eContracting.Models.BasePageModel.PageTitle"/>.
@@ -1968,6 +1975,14 @@
             <param name="group">Existing group.</param>
             <param name="fileId">The file identifier.</param>
             <returns>Updated group or null if group is empty.</returns>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.EnforceOfferTotalFilesSizeAsync(System.Collections.Generic.List{eContracting.Models.DbUploadGroupFileModel},eContracting.Models.DbUploadGroupFileModel,System.String)">
+            <summary>
+            Checks if the last added file does not cause exceeding the resulting total uploaded files size limit
+            </summary>
+            <param name="allGroups"></param>
+            <param name="groupLastAdded"></param>
+            <param name="fileIdLastAdded"></param>
         </member>
         <member name="T:eContracting.ILoginReportStore">
             <summary>

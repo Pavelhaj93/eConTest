@@ -20,19 +20,22 @@ SharedFields:
   Value: 25600
 - ID: "51654b99-0321-483f-a7bb-6125c30bb567"
   Hint: MinImageWidthNoResize
-  Value: 768
+  Value: 1024
 - ID: "52d1137c-4e99-4f4c-9813-988e5fef5400"
   Hint: MaxImageWidthAfterResize
   Value: 8096
 - ID: "739f3649-8839-4b83-99a6-9dde316af4cb"
   Hint: TotalResultingFilesSizeLimitKBytes
-  Value: 51200
+  Value: 25600
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 
+- ID: "aa1c0e0b-2f5e-4881-b317-d4b16a187913"
+  Hint: MaxAllGroupsOptimizationRounds
+  Value: 2
 - ID: "b0a5f616-ab2b-44cb-8997-95e1411212d1"
   Hint: MinImageHeightNoResize
-  Value: 768
+  Value: 1024
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
@@ -43,8 +46,8 @@ SharedFields:
   Hint: ServiceUser
   Value: 
 - ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
-  Hint: MaxOptimizationRounds
-  Value: 5
+  Hint: MaxGroupOptimizationRounds
+  Value: 3
 Languages:
 - Language: cs
   Versions:

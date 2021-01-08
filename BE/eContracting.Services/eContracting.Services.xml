@@ -109,6 +109,9 @@
         <member name="M:eContracting.Services.FileOptimizer.AddAsync(eContracting.Models.DbUploadGroupFileModel,System.String,System.String,System.String,System.Byte[],System.String,System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.FileOptimizer.EnforceOfferTotalFilesSizeAsync(System.Collections.Generic.List{eContracting.Models.DbUploadGroupFileModel},eContracting.Models.DbUploadGroupFileModel,System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.FileOptimizer.RemoveFileAsync(eContracting.Models.DbUploadGroupFileModel,System.String)">
             <inheritdoc/>
         </member>
@@ -380,6 +383,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.FindGroup(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroups(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFile(eContracting.Models.DbSearchParameters)">

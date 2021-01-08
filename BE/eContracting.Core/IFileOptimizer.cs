@@ -40,5 +40,13 @@ namespace eContracting
         /// <param name="fileId">The file identifier.</param>
         /// <returns>Updated group or null if group is empty.</returns>
         Task<DbUploadGroupFileModel> RemoveFileAsync(DbUploadGroupFileModel group, string fileId);
+
+        /// <summary>
+        /// Checks if the last added file does not cause exceeding the resulting total uploaded files size limit
+        /// </summary>
+        /// <param name="allGroups"></param>
+        /// <param name="groupLastAdded"></param>
+        /// <param name="fileIdLastAdded"></param>
+        Task<UploadGroupFileOperationResultModel> EnforceOfferTotalFilesSizeAsync(List<DbUploadGroupFileModel> allGroups, DbUploadGroupFileModel groupLastAdded, string fileIdLastAdded);
     }
 }

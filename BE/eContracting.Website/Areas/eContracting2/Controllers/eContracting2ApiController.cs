@@ -841,21 +841,51 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                             group = internalOperationResult?.DbUploadGroupFileModel;
                         }
                     }
+
+                    if (internalOperationResult.IsSuccess)
+                    {
+                        if (group == null)
+                        {
+                            return this.InternalServerError();
+                        }
+
+                        // ukladam tu, se kterou se pracovalo
+                        this.SaveToDebug(group);
+                        this.UserFileCacheService.Set(group);
+
+                        // nactu ostatni groups teto nabidky a overim celkovou velikost vyslednych souboru oproti limitu
+                        var allOfferGroupsSearchParams = new DbSearchParameters(null, guid, this.SessionProvider.GetId());
+                        var allOfferGroups = this.UserFileCacheService.FindGroups(allOfferGroupsSearchParams);
+
+                        // provedu overeni
+                        var checkOperationResult = await this.FileOptimizer.EnforceOfferTotalFilesSizeAsync(allOfferGroups, group, fileId);
+
+                        if (!checkOperationResult.IsSuccess)
+                        {
+                            // nepodarilo se dodrzet celkove kriterium, tak ten posledni soubor zase odmaz
+                            var updatedGroup = await this.FileOptimizer.RemoveFileAsync(group, fileId);
+                            this.UserFileCacheService.Set(updatedGroup);
+                            return this.BadRequest(this.TextService.Error(checkOperationResult.ErrorModel));
+                        }
+                        else
+                        {
+                            if (checkOperationResult.MadeChanges)
+                            {
+                                foreach (var modifiedGroup in checkOperationResult.DbUploadGroupFileModels)
+                                {
+                                    //this.SaveToDebug(modifiedGroup);
+                                    this.UserFileCacheService.Set(modifiedGroup);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return this.BadRequest(this.TextService.Error(internalOperationResult.ErrorModel));
+                    }
+
                 }
 
-                if (!internalOperationResult.IsSuccess)
-                {
-                    return this.BadRequest(this.TextService.Error(internalOperationResult.ErrorModel));
-                }
-
-                if (group == null)
-                {
-                    return this.InternalServerError();
-                }
-
-                this.SaveToDebug(group);
-
-                this.UserFileCacheService.Set(group);
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.UPLOAD_ATTACHMENT, group.OutputFile.FileName);
 
                 return this.Json(new GroupUploadViewModel(group));

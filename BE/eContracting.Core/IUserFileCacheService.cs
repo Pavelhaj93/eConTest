@@ -57,5 +57,13 @@ namespace eContracting
         /// </summary>
         /// <param name="search">The search parameters.</param>
         void Clear(DbSearchParameters search);
+
+        /// <summary>
+        /// Gets mutliple group data by specific <paramref name="search"/> parameters.
+        /// </summary>
+        /// <param name="search">The search parameters.</param>
+        /// <returns>Data or null.</returns>
+        List<DbUploadGroupFileModel> FindGroups(DbSearchParameters search);
+
     }
 }
