@@ -5,6 +5,9 @@ Template: "456d5421-a2de-42b4-97e6-a42fc243bf10"
 Path: /sitecore/templates/eContracting2/Pages/Offer/__Standard Values
 DB: master
 SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 1350
@@ -144,7 +147,7 @@ Languages:
       Value: "Podepište se prosím níže:"
     - ID: "bd59ebd7-a382-4828-8fd8-a3eabb4b1955"
       Hint: SignModalWindowGeneralErrorMessage
-      Value: Dokument se nepodařilo podepsat, zkuste to prosím znova.
+      Value: Dokument se nepodařilo podepsat, zkuste to prosím znovu.
     - ID: "c18260e9-e843-4a82-9e17-ab59cdb29c1c"
       Hint: RetentionVoucherText
       Value: |

@@ -6,6 +6,10 @@ Path: /sitecore/templates/eContracting2/Datasources/Header/Header
 DB: master
 Languages:
 - Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Hlavička
   Versions:
   - Version: 1
     Fields:

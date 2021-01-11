@@ -5,6 +5,9 @@ Template: "456d5421-a2de-42b4-97e6-a42fc243bf10"
 Path: /sitecore/content/eContracting2/Web/nabidka
 DB: master
 SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
   Hint: Step
   Value: "{9305D279-B84F-4873-B0CA-53CBAAC343E6}"

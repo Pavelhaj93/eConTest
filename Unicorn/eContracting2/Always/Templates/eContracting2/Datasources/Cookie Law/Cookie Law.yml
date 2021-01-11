@@ -6,6 +6,10 @@ Path: /sitecore/templates/eContracting2/Datasources/Cookie Law/Cookie Law
 DB: master
 Languages:
 - Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: 
   Versions:
   - Version: 1
     Fields:
@@ -17,6 +21,10 @@ Languages:
       Value: |
         sitecore\admin
 - Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Zákon sušenek
   Versions:
   - Version: 1
     Fields:
