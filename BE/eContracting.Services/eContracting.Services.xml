@@ -432,6 +432,9 @@
         <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <inheritdoc/>
+        </member>
         <member name="T:eContracting.Services.UserSessionDataCacheService">
             <inheritdoc/>
         </member>

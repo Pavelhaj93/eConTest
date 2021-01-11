@@ -175,6 +175,14 @@
             <param name="key">The key.</param>
             <returns>Found text or empty string.</returns>
         </member>
+        <member name="M:eContracting.ITextService.FindByKey(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Tries to find text by give <paramref name="key"/> and try to replace tokens from <paramref name="replaceTokens"/> collection.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="replaceTokens">The replace tokens collection. <see cref="!:KeyValuePair.Key"/> is token, <see cref="!:KeyValuePair.Value"/> is replacement.</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.ITextService.ErrorCode(System.String)">
             <summary>
             Translate error code to readable message.
@@ -716,11 +724,19 @@
             </summary>
             <param name="items">The items.</param>
         </member>
-        <member name="T:eContracting.Models.LoginPageModel">
+        <member name="T:eContracting.Models.PageLoginModel">
             <summary>
             Represents login page.
             </summary>
             <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+        </member>
+        <member name="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttemptsTimeSpan">
+            <summary>
+            Gets the delay after failed attempts as <see cref="T:System.TimeSpan"/>
+            </summary>
+            <value>
+            Parsed value from <see cref="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
+            </value>
         </member>
         <member name="T:eContracting.Models.OfferAttachmentModel">
             <summary>
@@ -1073,13 +1089,15 @@
             <param name="process">The process.</param>
             <param name="processType">Type of the process.</param>
         </member>
-        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String,System.String)">
+        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
             </summary>
             <param name="guid">The unique identifier.</param>
             <param name="process">The process.</param>
             <param name="processType">Type of the process.</param>
+            <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+            <param name="textParameters">The text parameters.</param>
         </member>
         <member name="P:eContracting.Models.OfferLoginReportModel.Id">
             <summary>
@@ -1359,14 +1377,6 @@
             </summary>
             <param name="response">The response.</param>
             <exception cref="T:System.ArgumentNullException">response</exception>
-        </member>
-        <member name="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttemptsTimeSpan">
-            <summary>
-            Gets the delay after failed attempts as <see cref="T:System.TimeSpan"/>
-            </summary>
-            <value>
-            Parsed value from <see cref="P:eContracting.Models.SiteSettingsModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
-            </value>
         </member>
         <member name="T:eContracting.Models.DocumentTemplateModel">
             <summary>
@@ -2021,12 +2031,6 @@
             <returns>
               <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
             </returns>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String)">
-            <summary>
-            Determines whether <paramref name="guid"/> can log-in.
-            </summary>
-            <param name="guid">The unique identifier.</param>
         </member>
         <member name="T:eContracting.IOfferAttachmentParserService">
             <summary>
