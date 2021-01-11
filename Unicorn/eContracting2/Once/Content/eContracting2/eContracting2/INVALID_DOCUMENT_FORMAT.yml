@@ -2,7 +2,7 @@
 ID: "853f45bd-a5f9-465d-9300-7f5042b64e77"
 Parent: "77b9cd5a-8feb-4733-bb77-90a0ee53669b"
 Template: "6d1cd897-1936-4a3a-a511-289a94c2a7b1"
-Path: /sitecore/content/eContracting2/eContracting2/Dokument ma spatny format
+Path: /sitecore/content/eContracting2/eContracting2/INVALID_DOCUMENT_FORMAT
 DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
@@ -16,7 +16,10 @@ Languages:
   Fields:
   - ID: "2ba3454a-9a9c-4cdf-a9f8-107fd484eb6e"
     Hint: Phrase
-    Value: Dokument má špatný formát
+    Value: "Špatný formát dokumentu. Povolené typy jsou: {fileTypes}."
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Dokument ma spatny format
   Versions:
   - Version: 1
     Fields:

@@ -116,20 +116,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var datasource = this.GetLayoutItem<PageNewOfferModel>();
-                var definition = this.SettingsReaderService.GetDefinition(offer);
-                var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-                var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
-                viewModel.GdprGuid = offer.GDPRKey;
-                viewModel.GdprUrl = datasource.GDPRUrl;
-                this.FillLabels(viewModel, datasource, definition);
-
-                if (offer.HasGDPR)
-                {
-                    var GDPRGuid = Utils.AesEncrypt(offer.GDPRKey, datasource.AesEncryptKey, datasource.AesEncryptVector);
-                    viewModel.GdprGuid = GDPRGuid;
-                    viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
-                }
-
+                var viewModel = this.GetOfferViewModel(offer, datasource);
                 return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
             }
             catch (Exception ex)
@@ -394,11 +381,30 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal void FillLabels(OfferViewModel viewModel, PageNewOfferModel datasource, DefinitionCombinationModel definition)
+        protected internal OfferViewModel GetOfferViewModel(OfferModel offer, PageNewOfferModel datasource)
         {
-            var settings = this.SettingsReaderService.GetSiteSettings();
-            viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
-            viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+
+            var viewModel = new OfferViewModel(this.SettingsReaderService);
+            viewModel.PageTitle = definition.OfferTitle.Text;
+            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxAllFilesSize = siteSettings.MaxUploadSize;
+            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
+
+            if (offer.HasGDPR)
+            {
+                var GDPRGuid = Utils.AesEncrypt(offer.GDPRKey, datasource.AesEncryptKey, datasource.AesEncryptVector);
+                viewModel.GdprGuid = GDPRGuid;
+                viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
+            }
+
+            viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
+            viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
             viewModel["acceptAll"] = this.TextService.FindByKey("MARK_ALL");
             viewModel["acceptOfferTitle"] = definition.OfferAcceptTitle.Text;
             viewModel["acceptOfferHelptext"] = definition.OfferAcceptText.Text;
@@ -420,15 +426,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["rejectedFiles"] = this.TextService.FindByKey("WRONG_DOCUMENTS");
             viewModel["uploadFile"] = this.TextService.FindByKey("UPLOAD_DOCUMENT");
             viewModel["captureFile"] = this.TextService.FindByKey("PHOTO_&_UPLOAD");
-            viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT");
-            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENT_TOO_BIG");
+            viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT", new Dictionary<string, string>() { { "fileTypes", siteSettings.AllowedDocumentTypesDescription } });
+            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", siteSettings.MaxUploadSizeDescription } });
             viewModel["acceptanceModalTitle"] = datasource.ConfirmModalWindowTitle;
             viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
             viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
             viewModel["acceptanceModalError"] = datasource.ConfirmModalWindowGeneralErrorMessage;
-        }
 
+            return viewModel;
+        }
+        
         protected internal void ClearUserData(string guid)
         {
             try

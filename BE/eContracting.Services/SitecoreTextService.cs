@@ -38,5 +38,21 @@ namespace eContracting.Services
         {
             return Translate.Text(key);
         }
+
+        /// <inheritdoc/>
+        public string FindByKey(string key, IDictionary<string, string> replaceTokens)
+        {
+            var text = this.FindByKey(key);
+
+            if (replaceTokens.Any())
+            {
+                foreach (var item in replaceTokens)
+                {
+                    text = text.Replace("{" + item.Key + "}", item.Value);
+                }
+            }
+
+            return text;
+        }
     }
 }

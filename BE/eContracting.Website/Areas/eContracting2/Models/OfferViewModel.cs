@@ -10,7 +10,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class OfferViewModel : BaseAppConfigViewModel
     {
         [JsonIgnore]
-        public readonly StepsViewModel Steps;
+        public StepsViewModel Steps { get; set; }
 
         [JsonIgnore]
         public string MainText { get; set; }
@@ -65,12 +65,18 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("maxFileSize")]
         public int MaxAllFilesSize { get; set; }
 
+        public OfferViewModel(ISettingsReaderService settingsReader) : base("Offer", settingsReader)
+        {
+        }
+
         public OfferViewModel(DefinitionCombinationModel definition, ProcessStepModel[] steps, ISettingsReaderService settingsReader) : base("Offer", settingsReader)
         {
             this.PageTitle = definition.OfferTitle.Text;
             this.MainText = definition.OfferMainText.Text;
             this.Steps = new StepsViewModel(steps);
             var siteSettings = settingsReader.GetSiteSettings();
+            this.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            this.MaxAllFilesSize = siteSettings.MaxUploadSize;
             this.ThankYouPage = siteSettings.ThankYou.Url;
             this.SessionExpiredPage = siteSettings.SessionExpired.Url;
         }

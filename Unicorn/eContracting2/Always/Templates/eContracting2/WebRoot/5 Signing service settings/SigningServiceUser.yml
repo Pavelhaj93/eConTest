@@ -2,7 +2,7 @@
 ID: "de0feae9-4be9-4021-bdef-f7aa348f77b4"
 Parent: "546bf598-f5a3-490b-9e9b-35011a77ea2f"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/4 Signing service settings/SigningServiceUser
+Path: /sitecore/templates/eContracting2/WebRoot/5 Signing service settings/SigningServiceUser
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"

@@ -77,23 +77,66 @@ namespace eContracting.Models
         [SitecoreChildren(IsLazy = false)]
         public virtual IEnumerable<GeneralTextsSettings> Texts { get; set; }
 
-        [SitecoreField]
-        public string ServiceUrl { get; set; }
+        #region Offer service
 
         [SitecoreField]
-        public string ServiceUser { get; set; }
+        public virtual string ServiceUrl { get; set; }
 
         [SitecoreField]
-        public string ServicePassword { get; set; }
+        public virtual string ServiceUser { get; set; }
 
         [SitecoreField]
-        public string SigningServiceUrl { get; set; }
+        public virtual string ServicePassword { get; set; }
 
         [SitecoreField]
-        public string SigningServiceUser { get; set; }
+        public virtual string AllowedDocumentTypes { get; set; }
+
+        [SitecoreIgnore]
+        public string[] AllowedDocumentTypesList
+        {
+            get
+            {
+                var list = new List<string>();
+
+                var ar = this.AllowedDocumentTypes.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+                for (int i = 0; i < ar.Length; i++)
+                {
+                    var v = ar[i].Trim();
+
+                    if (!string.IsNullOrEmpty(v))
+                    {
+                        list.Add(v);
+                    }
+                }
+
+                return list.ToArray();
+            }
+        }
 
         [SitecoreField]
-        public string SigningServicePassword { get; set; }
+        public virtual string AllowedDocumentTypesDescription { get; set; }
+
+        [SitecoreField]
+        public virtual int MaxUploadSize { get; set; }
+
+        [SitecoreField]
+        public virtual string MaxUploadSizeDescription { get; set; }
+
+        #endregion
+
+        #region Signing service
+
+        [SitecoreField]
+        public virtual string SigningServiceUrl { get; set; }
+
+        [SitecoreField]
+        public virtual string SigningServiceUser { get; set; }
+
+        [SitecoreField]
+        public virtual string SigningServicePassword { get; set; }
+
+        #endregion
 
         [SitecoreField]
         public virtual string ApplicationUnavailableTitle { get; set; }
