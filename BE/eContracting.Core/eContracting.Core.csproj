@@ -189,7 +189,7 @@
     <Compile Include="Models\FailedLoginInfoModel.cs" />
     <Compile Include="Models\FolderItemModel.cs" />
     <Compile Include="Models\GeneralTextsSettings.cs" />
-    <Compile Include="Models\LoginPageModel.cs" />
+    <Compile Include="Models\PageLoginModel.cs" />
     <Compile Include="Models\LoginStates.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
     <Compile Include="Models\OfferAttachmentModel.cs" />

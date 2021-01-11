@@ -132,8 +132,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
                 }
 
+                var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
-                var canLogin = this.CanLogin(guid, offer);
+                var canLogin = this.CanLogin(guid, offer, datasource);
 
                 if (canLogin != LoginStates.OK)
                 {
@@ -154,7 +155,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
                 }
 
-                var datasource = this.GetLayoutItem<LoginPageModel>();
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
                 var steps = this.SettingsReaderService.GetSteps(datasource.Step);
                 var viewModel = this.GetViewModel(datasource, choices, steps, errorString);
@@ -217,8 +217,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    return Redirect(url);
                 //}
 
+                var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
-                var canLogin = this.CanLogin(guid, offer);
+                var canLogin = this.CanLogin(guid, offer, datasource);
 
                 if (canLogin != LoginStates.OK)
                 {
@@ -292,7 +293,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
-            var datasource = this.GetLayoutItem<LoginPageModel>();
+            var datasource = this.GetLayoutItem<PageLoginModel>();
             var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var editModel = this.GetViewModel(datasource, choices, steps);
@@ -374,7 +375,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(LoginPageModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(PageLoginModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
         {
             var viewModel = new LoginViewModel(datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
@@ -392,14 +393,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal LoginStates CanLogin(string guid, OfferModel offer)
+        protected internal LoginStates CanLogin(string guid, OfferModel offer, PageLoginModel datasource)
         {
             if (string.IsNullOrEmpty(guid))
             {
                 return LoginStates.INVALID_GUID;
             }
 
-            if (!this.LoginReportService.CanLogin(guid))
+            if (!this.LoginReportService.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan))
             {
                 return LoginStates.USER_BLOCKED;
             }
@@ -466,7 +467,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
-                var datasource = this.GetLayoutItem<LoginPageModel>();
+                var datasource = this.GetLayoutItem<PageLoginModel>();
                 msg = datasource.BirthDateValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
                 result = Redirect(url);

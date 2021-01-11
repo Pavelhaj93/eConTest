@@ -2,12 +2,12 @@
 ID: "72d2bdc5-e2a7-46f3-b272-3254d663ad00"
 Parent: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting2/WebRoot/4 Cache service settings
+Path: /sitecore/templates/eContracting2/WebRoot/3 Cache service settings
 DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 100
+  Value: 93
 Languages:
 - Language: cs
   Versions:

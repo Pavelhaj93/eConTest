@@ -11,7 +11,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class LoginViewModel : BaseViewModel
     {
         [JsonIgnore]
-        public readonly LoginPageModel Datasource;
+        public readonly PageLoginModel Datasource;
 
         [JsonIgnore]
         public readonly StepsViewModel Steps;
@@ -38,7 +38,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
 
-        public LoginViewModel(LoginPageModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
+        public LoginViewModel(PageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
         {
             this.Datasource = datasource ?? throw new ArgumentNullException(nameof(datasource));
             this.Steps = steps ?? throw new ArgumentNullException(nameof(steps));

@@ -1,8 +1,8 @@
 ﻿---
-ID: "82f06733-902a-497e-8206-ba06b1a34dab"
-Parent: "127e3263-da83-4039-a943-c0ac82d25500"
+ID: "06ffeae0-54ef-4753-8cd5-ff9226378ad5"
+Parent: "218b3bef-e1e7-41bc-ae75-eddd52f60050"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/3 Login Settings/MaxFailedAttempts
+Path: /sitecore/templates/eContracting2/Pages/Login/Settings/MaxFailedAttempts
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -37,6 +37,9 @@ Languages:
     Value: Maximální počet neúspěšných pokusů o přihlášení
   - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
     Hint: __Short description
+    Value: 
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
     Value: 
   Versions:
   - Version: 1

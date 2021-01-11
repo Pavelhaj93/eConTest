@@ -14,7 +14,7 @@ namespace eContracting.Models
     /// <seealso cref="eContracting.Models.BasePageWithStepsModel" />
     [SitecoreType(TemplateId = "{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}", AutoMap = true)]
     [ExcludeFromCodeCoverage]
-    public class LoginPageModel : BasePageWithStepsModel
+    public class PageLoginModel : BasePageWithStepsModel
     {
         [SitecoreField]
         public virtual string BirthDateLabel { get; set; }
@@ -54,5 +54,40 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual string RequiredFields { get; set; }
+
+        #region Settings
+
+        [SitecoreField]
+        public int MaxFailedAttempts { get; set; }
+
+        [SitecoreField]
+        public string DelayAfterFailedAttempts { get; set; }
+
+        /// <summary>
+        /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
+        /// </summary>
+        /// <value>
+        /// Parsed value from <see cref="DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
+        /// </value>
+        [SitecoreIgnore]
+        public TimeSpan DelayAfterFailedAttemptsTimeSpan
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(this.DelayAfterFailedAttempts))
+                {
+                    TimeSpan value;
+
+                    if (TimeSpan.TryParse(this.DelayAfterFailedAttempts, out value))
+                    {
+                        return value;
+                    }
+                }
+
+                return new TimeSpan(0, 15, 0);
+            }
+        }
+
+        #endregion
     }
 }

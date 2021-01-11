@@ -96,12 +96,6 @@ namespace eContracting.Models
         public string SigningServicePassword { get; set; }
 
         [SitecoreField]
-        public int MaxFailedAttempts { get; set; }
-
-        [SitecoreField]
-        public string DelayAfterFailedAttempts { get; set; }
-
-        [SitecoreField]
         public virtual string ApplicationUnavailableTitle { get; set; }
 
         [SitecoreField]
@@ -136,33 +130,5 @@ namespace eContracting.Models
 
         [SitecoreField]
         public int MaxAllGroupsOptimizationRounds { get; set; }
-
-
-
-
-        /// <summary>
-        /// Gets the delay after failed attempts as <see cref="TimeSpan"/>
-        /// </summary>
-        /// <value>
-        /// Parsed value from <see cref="DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
-        /// </value>
-        [SitecoreIgnore]
-        public TimeSpan DelayAfterFailedAttemptsTimeSpan
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(this.DelayAfterFailedAttempts))
-                {
-                    TimeSpan value;
-
-                    if (TimeSpan.TryParse(this.DelayAfterFailedAttempts, out value))
-                    {
-                        return value;
-                    }
-                }
-
-                return new TimeSpan(0, 15, 0);
-            }
-        }
     }
 }
