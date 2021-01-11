@@ -59,10 +59,19 @@ namespace eContracting.Models
         public virtual string ConfirmModalWindowButtonCancelLabel { get; set; }
 
         [SitecoreField]
+        public virtual string ConfirmModalWindowGeneralErrorMessage { get; set; }
+
+        [SitecoreField]
         public virtual string SignModalWindowTitle { get; set; }
 
         [SitecoreField]
         public virtual string SignModalWindowText { get; set; }
+
+        [SitecoreField]
+        public virtual string SignModalWindowThumbnailText { get; set; }
+
+        [SitecoreField]
+        public virtual string SignModalWindowPenArea { get; set; }
 
         [SitecoreField]
         public virtual string SignModalWindowConfirmButtonLabel { get; set; }

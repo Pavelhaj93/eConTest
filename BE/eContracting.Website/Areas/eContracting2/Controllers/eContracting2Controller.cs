@@ -407,9 +407,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["signatureModalConfirm"] = datasource.SignModalWindowConfirmButtonLabel;
             viewModel["signatureModalClear"] = datasource.SignModalWindowClearButtonLabel;
             viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;
+            viewModel["signatureModalThumbnailAlt"] = datasource.SignModalWindowThumbnailText;
+            viewModel["signaturePadAlt"] = datasource.SignModalWindowPenArea;
             viewModel["selectFile"] = Translate.Text("SELECT_DOCUMENT");
             viewModel["selectFileHelpText"] = Translate.Text("DRAG_&_DROP") + " " + Translate.Text("OR");
             viewModel["removeFile"] = Translate.Text("REMOVE_DOCUMENT");
+            viewModel["fileSize"] = Translate.Text("DOCUMENT_SIZE");
             viewModel["selectedFiles"] = Translate.Text("SELECTED_DOCUMENTS");
             viewModel["rejectedFiles"] = Translate.Text("WRONG_DOCUMENTS");
             viewModel["uploadFile"] = Translate.Text("UPLOAD_DOCUMENT");
@@ -420,6 +423,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
             viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
+            viewModel["acceptanceModalError"] = datasource.ConfirmModalWindowGeneralErrorMessage;
         }
 
         protected internal void ClearUserData(string guid)

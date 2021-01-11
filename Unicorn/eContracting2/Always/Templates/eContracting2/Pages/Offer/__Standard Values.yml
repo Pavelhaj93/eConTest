@@ -53,6 +53,9 @@ Languages:
     - ID: "235c8991-f856-451c-9392-1cc9f502f607"
       Hint: ConfirmModalWindowButtonCancelLabel
       Value: Storno
+    - ID: "2381303c-38b1-46d5-8e38-bd5b5e64a384"
+      Hint: ConfirmModalWindowGeneralErrorMessage
+      Value: Nabídku se nepodařilo odeslat, zkuste to prosím znovu.
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200421T112121Z
@@ -101,12 +104,18 @@ Languages:
     - ID: "7b0d9f5a-3c2e-40a6-950d-53d27026cebd"
       Hint: DocumentsToAcceptEANLabel
       Value: EAN
+    - ID: "847366db-e81b-45f8-8f3e-928686a5129b"
+      Hint: SignModalWindowThumbnailText
+      Value: Náhled dokumentu k podepsání
     - ID: "89466e2e-68fd-4fdc-b631-64749ec1f02b"
       Hint: OtherServicesTitle
       Value: Ostatní produkty
     - ID: "8a4e4893-2fa5-4b2f-a25d-4674bcaa474d"
       Hint: SignModalWindowClearButtonLabel
       Value: Smazat
+    - ID: "8a9bd484-f84a-42a1-9b8a-a71a02163709"
+      Hint: SignModalWindowPenArea
+      Value: Zde je podpisová plocha pro váš podpis
     - ID: "98a163db-f5fd-4444-adcd-3993a26c7ba6"
       Hint: BenefitsTitle
       Value: Zvoleným produktem získáte
