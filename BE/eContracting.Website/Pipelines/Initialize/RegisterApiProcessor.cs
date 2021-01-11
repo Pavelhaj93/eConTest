@@ -31,18 +31,18 @@ namespace eContracting.Website.Pipelines.Initialize
         }
     }
 
-    class SessionRouteHandler : IRouteHandler
-    {
-        IHttpHandler IRouteHandler.GetHttpHandler(RequestContext requestContext)
-        {
-            return new SessionControllerHandler(requestContext.RouteData);
-        }
-    }
+    //class SessionRouteHandler : IRouteHandler
+    //{
+    //    IHttpHandler IRouteHandler.GetHttpHandler(RequestContext requestContext)
+    //    {
+    //        return new SessionControllerHandler(requestContext.RouteData);
+    //    }
+    //}
 
-    class SessionControllerHandler : HttpControllerHandler, IRequiresSessionState
-    {
-        public SessionControllerHandler(RouteData routeData) : base(routeData)
-        {
-        }
-    }
+    //class SessionControllerHandler : HttpControllerHandler, IRequiresSessionState
+    //{
+    //    public SessionControllerHandler(RouteData routeData) : base(routeData)
+    //    {
+    //    }
+    //}
 }
