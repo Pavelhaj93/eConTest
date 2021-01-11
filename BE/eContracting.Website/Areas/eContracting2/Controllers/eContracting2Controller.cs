@@ -10,7 +10,6 @@ using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
-using Sitecore.Globalization;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -23,6 +22,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IAuthenticationService AuthenticationService;
         protected readonly IContextWrapper Context;
         protected readonly IUserFileCacheService UserFileCache;
+        protected readonly ITextService TextService;
 
         [ExcludeFromCodeCoverage]
         public eContracting2Controller()
@@ -34,6 +34,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
+            this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -44,7 +45,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISettingsReaderService settingsReaderService,
             IAuthenticationService authService,
             IContextWrapper context,
-            IUserFileCacheService userFileCache)
+            IUserFileCacheService userFileCache,
+            ITextService textService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -53,6 +55,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
+            this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
         }
 
         /// <summary>
@@ -396,12 +399,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var settings = this.SettingsReaderService.GetSiteSettings();
             viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
             viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
-            viewModel["acceptAll"] = Translate.Text("MARK_ALL");
+            viewModel["acceptAll"] = this.TextService.FindByKey("MARK_ALL");
             viewModel["acceptOfferTitle"] = definition.OfferAcceptTitle.Text;
             viewModel["acceptOfferHelptext"] = definition.OfferAcceptText.Text;
-            viewModel["submitBtn"] = Translate.Text("ACCEPTING");
-            viewModel["signatureBtn"] = Translate.Text("SIGN");
-            viewModel["signatureEditBtn"] = Translate.Text("MODIFY_SIGNATURE");
+            viewModel["submitBtn"] = this.TextService.FindByKey("ACCEPTING");
+            viewModel["signatureBtn"] = this.TextService.FindByKey("SIGN");
+            viewModel["signatureEditBtn"] = this.TextService.FindByKey("MODIFY_SIGNATURE");
             viewModel["signatureModalTitle"] = datasource.SignModalWindowTitle;
             viewModel["signatureModalText"] = datasource.SignModalWindowText;
             viewModel["signatureModalConfirm"] = datasource.SignModalWindowConfirmButtonLabel;
@@ -409,16 +412,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;
             viewModel["signatureModalThumbnailAlt"] = datasource.SignModalWindowThumbnailText;
             viewModel["signaturePadAlt"] = datasource.SignModalWindowPenArea;
-            viewModel["selectFile"] = Translate.Text("SELECT_DOCUMENT");
-            viewModel["selectFileHelpText"] = Translate.Text("DRAG_&_DROP") + " " + Translate.Text("OR");
-            viewModel["removeFile"] = Translate.Text("REMOVE_DOCUMENT");
-            viewModel["fileSize"] = Translate.Text("DOCUMENT_SIZE");
-            viewModel["selectedFiles"] = Translate.Text("SELECTED_DOCUMENTS");
-            viewModel["rejectedFiles"] = Translate.Text("WRONG_DOCUMENTS");
-            viewModel["uploadFile"] = Translate.Text("UPLOAD_DOCUMENT");
-            viewModel["captureFile"] = Translate.Text("PHOTO_&_UPLOAD");
-            viewModel["invalidFileTypeError"] = Translate.Text("INVALID_DOCUMENT_FORMAT");
-            viewModel["fileExceedSizeError"] = Translate.Text("DOCUMENT_TOO_BIG");
+            viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
+            viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
+            viewModel["removeFile"] = this.TextService.FindByKey("REMOVE_DOCUMENT");
+            viewModel["fileSize"] = this.TextService.FindByKey("DOCUMENT_SIZE");
+            viewModel["selectedFiles"] = this.TextService.FindByKey("SELECTED_DOCUMENTS");
+            viewModel["rejectedFiles"] = this.TextService.FindByKey("WRONG_DOCUMENTS");
+            viewModel["uploadFile"] = this.TextService.FindByKey("UPLOAD_DOCUMENT");
+            viewModel["captureFile"] = this.TextService.FindByKey("PHOTO_&_UPLOAD");
+            viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT");
+            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENT_TOO_BIG");
             viewModel["acceptanceModalTitle"] = datasource.ConfirmModalWindowTitle;
             viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
