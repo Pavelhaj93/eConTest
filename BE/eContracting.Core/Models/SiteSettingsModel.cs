@@ -14,6 +14,8 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class SiteSettingsModel : BaseSitecoreModel
     {
+        #region Pages
+
         [SitecoreField("SessionExpired", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link SessionExpired { get; set; }
 
@@ -44,38 +46,7 @@ namespace eContracting.Models
         [SitecoreField("Login", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         public virtual Link Login { get; set; }
 
-        [SitecoreField]
-        public virtual string IAmInformed { get; set; }
-
-        [SitecoreField]
-        public virtual string IAgree { get; set; }
-
-        [SitecoreField]
-        public virtual string Accept { get; set; }
-
-        [SitecoreField]
-        public virtual string AppNotAvailable { get; set; }
-
-        [SitecoreField]
-        public virtual string IdentityCardNumber { get; set; }
-
-        [SitecoreField]
-        public virtual string UsedPostalCode { get; set; }
-
-        [SitecoreField]
-        public virtual string PermanentResidencePostalCode { get; set; }
-
-        [SitecoreField]
-        public virtual string AccountNumber { get; set; }
-
-        [SitecoreField]
-        public virtual string DefaultSalutation { get; set; }
-
-        [SitecoreField]
-        public virtual string SignFailure { get; set; }
-
-        [SitecoreChildren(IsLazy = false)]
-        public virtual IEnumerable<GeneralTextsSettings> Texts { get; set; }
+        #endregion
 
         #region Offer service
 
@@ -87,6 +58,10 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual string ServicePassword { get; set; }
+
+        #endregion
+
+        #region Upload settings
 
         [SitecoreField]
         public virtual string AllowedDocumentTypes { get; set; }
@@ -118,10 +93,31 @@ namespace eContracting.Models
         public virtual string AllowedDocumentTypesDescription { get; set; }
 
         [SitecoreField]
-        public virtual int MaxUploadSize { get; set; }
+        public virtual string MaxUploadSizeDescription { get; set; }
 
         [SitecoreField]
-        public virtual string MaxUploadSizeDescription { get; set; }
+        public int GroupResultingFileSizeLimitKBytes { get; set; }
+
+        [SitecoreField]
+        public int TotalResultingFilesSizeLimitKBytes { get; set; }
+
+        [SitecoreField]
+        public int MaxImageWidthAfterResize { get; set; }
+
+        [SitecoreField]
+        public int MaxImageHeightAfterResize { get; set; }
+
+        [SitecoreField]
+        public int MinImageWidthNoResize { get; set; }
+
+        [SitecoreField]
+        public int MinImageHeightNoResize { get; set; }
+
+        [SitecoreField]
+        public int MaxGroupOptimizationRounds { get; set; }
+
+        [SitecoreField]
+        public int MaxAllGroupsOptimizationRounds { get; set; }
 
         #endregion
 
@@ -149,29 +145,5 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual CookieLawSettingsModel CookieLawSettings { get; set; }
-
-        [SitecoreField]
-        public int GroupResultingFileSizeLimitKBytes { get; set; }
-
-        [SitecoreField]
-        public int TotalResultingFilesSizeLimitKBytes { get; set; }
-
-        [SitecoreField]
-        public int MaxImageWidthAfterResize { get; set; }
-
-        [SitecoreField]
-        public int MaxImageHeightAfterResize { get; set; }
-
-        [SitecoreField]
-        public int MinImageWidthNoResize { get; set; }
-
-        [SitecoreField]
-        public int MinImageHeightNoResize { get; set; }
-
-        [SitecoreField]
-        public int MaxGroupOptimizationRounds { get; set; }
-
-        [SitecoreField]
-        public int MaxAllGroupsOptimizationRounds { get; set; }
     }
 }

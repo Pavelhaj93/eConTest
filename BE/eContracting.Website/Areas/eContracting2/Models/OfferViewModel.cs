@@ -68,17 +68,5 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public OfferViewModel(ISettingsReaderService settingsReader) : base("Offer", settingsReader)
         {
         }
-
-        public OfferViewModel(DefinitionCombinationModel definition, ProcessStepModel[] steps, ISettingsReaderService settingsReader) : base("Offer", settingsReader)
-        {
-            this.PageTitle = definition.OfferTitle.Text;
-            this.MainText = definition.OfferMainText.Text;
-            this.Steps = new StepsViewModel(steps);
-            var siteSettings = settingsReader.GetSiteSettings();
-            this.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
-            this.MaxAllFilesSize = siteSettings.MaxUploadSize;
-            this.ThankYouPage = siteSettings.ThankYou.Url;
-            this.SessionExpiredPage = siteSettings.SessionExpired.Url;
-        }
     }
 }

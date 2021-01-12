@@ -1,8 +1,8 @@
 ﻿---
 ID: "52d1137c-4e99-4f4c-9813-988e5fef5400"
-Parent: "4c82e596-05a5-43a0-a662-3225b6d649ed"
+Parent: "3590e025-5c98-4aa2-beb8-c479c2cb6b45"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/6 Attachments Upload/MaxImageWidthAfterResize
+Path: /sitecore/templates/eContracting2/WebRoot/5 Upload settings/MaxImageWidthAfterResize
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"

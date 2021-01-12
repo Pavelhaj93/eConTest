@@ -50,6 +50,7 @@ namespace eContracting.Services
                 return this.SiteSettings.GroupResultingFileSizeLimitKBytes * 1024;
             }
         }
+
         protected long TotalResultingFilesSizeLimit
         {
             get
@@ -81,6 +82,7 @@ namespace eContracting.Services
                 return this.SiteSettings.MaxGroupOptimizationRounds;
             }
         }
+
         protected int MaxAllGroupsOptimizationRounds
         {
             get
@@ -88,8 +90,6 @@ namespace eContracting.Services
                 return this.SiteSettings.MaxAllGroupsOptimizationRounds;
             }
         }
-
-
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FileOptimizer"/> class.

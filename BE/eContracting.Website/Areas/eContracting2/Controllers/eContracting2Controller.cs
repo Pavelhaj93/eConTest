@@ -136,7 +136,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var datasource = this.GetLayoutItem<PageNewOfferModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
-            var viewModel = new OfferViewModel(definition, steps, this.SettingsReaderService);
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var viewModel = new OfferViewModel(this.SettingsReaderService);
+            viewModel.PageTitle = definition.OfferTitle.Text;
+            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
+            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
             return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
         }
 
@@ -392,7 +400,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
-            viewModel.MaxAllFilesSize = siteSettings.MaxUploadSize;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
 

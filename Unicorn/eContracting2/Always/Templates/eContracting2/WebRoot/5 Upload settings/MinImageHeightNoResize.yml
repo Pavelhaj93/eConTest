@@ -1,8 +1,8 @@
 ﻿---
-ID: "51654b99-0321-483f-a7bb-6125c30bb567"
-Parent: "4c82e596-05a5-43a0-a662-3225b6d649ed"
+ID: "b0a5f616-ab2b-44cb-8997-95e1411212d1"
+Parent: "3590e025-5c98-4aa2-beb8-c479c2cb6b45"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/6 Attachments Upload/MinImageWidthNoResize
+Path: /sitecore/templates/eContracting2/WebRoot/5 Upload settings/MinImageHeightNoResize
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,17 +10,13 @@ SharedFields:
   Value: Integer
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 400
+  Value: 500
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
   Value: 1
 Languages:
 - Language: cs
-  Fields:
-  - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
-    Hint: __Short description
-    Value: minimální šířka obrázku (v pixelech), pod ni se už nezmenšuje
   Versions:
   - Version: 1
     Fields:

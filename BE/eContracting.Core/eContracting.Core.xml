@@ -548,6 +548,17 @@
             Gets or sets the file keys.
             </summary>
         </member>
+        <member name="T:eContracting.Models.PageError500Model">
+            <summary>
+            Represents page model for error page 404.
+            </summary>
+            <seealso cref="T:eContracting.Models.BasePageModel" />
+        </member>
+        <member name="P:eContracting.Models.PageError500Model.MainText">
+            <summary>
+            Gets or sets the page title.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.PageSessionExpiredModel.PageTitle">
             <summary>
             Gets or sets the page title.
@@ -573,12 +584,7 @@
             <summary>
             Represents page model for error page 404.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
-        </member>
-        <member name="P:eContracting.Models.PageError404Model.PageTitle">
-            <summary>
-            Gets or sets the page title.
-            </summary>
+            <seealso cref="T:eContracting.Models.BasePageModel" />
         </member>
         <member name="P:eContracting.Models.PageError404Model.MainText">
             <summary>
