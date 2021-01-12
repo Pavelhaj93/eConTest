@@ -231,6 +231,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
+                if (!Sitecore.Context.PageMode.IsNormal)
+                {
+                    return this.GetThankYouPreviewModel();
+                }
+
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
@@ -373,6 +378,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return (eCat, eAct, eLab);
+        }
+
+        protected internal ActionResult GetThankYouPreviewModel()
+        {
+            var datasource = this.GetLayoutItem<PageThankYouModel>();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
+            return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
         }
 
         protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)

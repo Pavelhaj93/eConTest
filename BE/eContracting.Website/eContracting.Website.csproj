@@ -451,6 +451,7 @@
     <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
     <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
     <Content Include="Areas\eContracting2\Views\LoginRichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\ThankYou.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
