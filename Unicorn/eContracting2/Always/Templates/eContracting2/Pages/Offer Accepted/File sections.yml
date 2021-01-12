@@ -4,6 +4,10 @@ Parent: "0f225e4f-aa1e-44cc-91f4-19d4fb5c859c"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
 Path: /sitecore/templates/eContracting2/Pages/Offer Accepted/File sections
 DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 1000
 Languages:
 - Language: cs
   Versions:
