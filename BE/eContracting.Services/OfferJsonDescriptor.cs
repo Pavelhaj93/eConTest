@@ -387,7 +387,7 @@ namespace eContracting.Services
             var model = new JsonDocumentsAcceptModel();
             model.Title = definition.OfferCommoditiesSignTitle.Text;
             model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
-
+            model.Note = null; //TODO: create text
             var list = new List<JsonAcceptFileModel>();
 
             for (int i = 0; i < selectedFiles.Length; i++)

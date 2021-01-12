@@ -36,7 +36,7 @@ Languages:
         ^[0-9]{3}([\s]{0,1}[0-9]{2})$
     - ID: "7ec6871a-a38b-4ade-840d-20828298c57d"
       Hint: HelpText
-      Value: PSČ trvalého bydliště hint
+      Value: Zadejte PSČ trvalého bydliště
     - ID: "a6de5ad7-e9b7-4a76-b070-a5d80eb82324"
       Hint: Placeholder
-      Value: 12345
+      Value: 602 00

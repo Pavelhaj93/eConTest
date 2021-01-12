@@ -36,7 +36,7 @@ Languages:
         ^\d{10}$
     - ID: "7ec6871a-a38b-4ade-840d-20828298c57d"
       Hint: HelpText
-      Value: Vaše číslo smlouvy
+      Value: Zadejte zákaznické číslo
     - ID: "a6de5ad7-e9b7-4a76-b070-a5d80eb82324"
       Hint: Placeholder
-      Value: 123456789
+      Value: 9512345678
