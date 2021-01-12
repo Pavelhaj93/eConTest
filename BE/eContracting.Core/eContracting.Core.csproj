@@ -120,6 +120,7 @@
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
     <Compile Include="Models\PageDisclaimerModel.cs" />
+    <Compile Include="Models\PageError500Model.cs" />
     <Compile Include="Models\PageExpirationModel.cs" />
     <Compile Include="Models\PageFooterModel.cs" />
     <Compile Include="Models\PageHeaderModel.cs" />

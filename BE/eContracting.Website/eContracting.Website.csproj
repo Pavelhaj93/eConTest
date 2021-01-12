@@ -294,7 +294,7 @@
     <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\eContracting2\Views\SystemError.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Error500.cshtml" />
     <Content Include="Areas\eContracting2\Views\ThankYou.cshtml" />
     <Content Include="Areas\eContracting2\Views\UserBlocked.cshtml" />
     <Content Include="Areas\eContracting2\Web.config">

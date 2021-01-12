@@ -10,7 +10,7 @@ SharedFields:
   Value: "Apps/32x32/Magic-cube.png"
 - ID: "51b435bc-f7b9-478a-9c51-52916af96ff5"
   Hint: Path
-  Value: /Areas/eContracting2/Views/SystemError.cshtml
+  Value: /Areas/eContracting2/Views/Error500.cshtml
 Languages:
 - Language: en
   Versions:
