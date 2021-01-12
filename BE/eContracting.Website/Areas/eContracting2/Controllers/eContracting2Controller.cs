@@ -435,7 +435,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["uploadFile"] = this.TextService.FindByKey("UPLOAD_DOCUMENT");
             viewModel["captureFile"] = this.TextService.FindByKey("PHOTO_&_UPLOAD");
             viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT", new Dictionary<string, string>() { { "fileTypes", siteSettings.AllowedDocumentTypesDescription } });
-            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", siteSettings.MaxUploadSizeDescription } });
+            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.TotalResultingFilesSizeLimitKBytes * 1024) } });
             viewModel["acceptanceModalTitle"] = datasource.ConfirmModalWindowTitle;
             viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
