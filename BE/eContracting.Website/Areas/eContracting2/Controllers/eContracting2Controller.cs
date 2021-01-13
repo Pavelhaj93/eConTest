@@ -200,8 +200,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                var datasource = this.GetLayoutItem<PageExpirationModel>();
-
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
@@ -209,10 +207,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var data = this.AuthenticationService.GetCurrentUser();
                 guid = data.Guid;
+                var offer = this.ApiService.GetOffer(guid);
+
+                var definition = this.SettingsReaderService.GetDefinition(offer);
+                var datasource = this.GetLayoutItem<PageExpirationModel>();
 
                 var viewModel = new PageExpirationViewModel();
                 viewModel.Datasource = datasource;
-                viewModel.MainText = Utils.GetReplacedTextTokens(datasource.MainText, data.TextParameters);
+                viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferExpiredMainText.Text, offer.TextParameters);
                 return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
             }
             catch (Exception ex)
