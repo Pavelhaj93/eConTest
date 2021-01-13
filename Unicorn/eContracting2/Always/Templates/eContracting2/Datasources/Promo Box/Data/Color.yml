@@ -1,13 +1,16 @@
 ﻿---
-ID: "08246a48-6e9f-40b8-8141-a541d9ea2cfc"
-Parent: "de8f2e00-18fc-4035-8c26-36a4afd18886"
+ID: "39ca1139-b2ed-4728-9a23-341fb9175239"
+Parent: "2a7c08f3-71ac-419b-80e6-d8bced5b43c8"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Pages/System Error/SystemErrorLinks/Link2
+Path: /sitecore/templates/eContracting2/Datasources/Promo Box/Data/Color
 DB: master
 SharedFields:
+- ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
+  Hint: Source
+  Value: /sitecore/content/eContracting2/Datasources/Colors
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
   Hint: Type
-  Value: General Link
+  Value: Droplink
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 200
@@ -22,7 +25,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201007T173604Z
+      Value: 20210113T113033Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -31,10 +34,10 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Odkaz 2
+    Value: Barva
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20160908T135511Z
+      Value: 20210113T113329Z

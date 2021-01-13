@@ -70,7 +70,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 if (!Sitecore.Context.PageMode.IsNormal)
                 {
-                    return this.OfferPreview();
+                    return this.GetOfferEditView();
                 }
 
                 if (!this.AuthenticationService.IsLoggedIn())
@@ -127,27 +127,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        public ActionResult OfferPreview()
-        {
-            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
-            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
-            var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
-            var datasource = this.GetLayoutItem<PageNewOfferModel>();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new OfferViewModel(this.SettingsReaderService);
-            viewModel.PageTitle = definition.OfferTitle.Text;
-            viewModel.MainText = definition.OfferMainText.Text;
-            viewModel.Steps = new StepsViewModel(steps);
-            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
-            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
-            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
-            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
-            return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
-        }
-
         // AcceptedOfferController
         public ActionResult AcceptedOffer()
         {
@@ -200,6 +179,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
+                if (!this.Context.IsNormalMode())
+                {
+                    return this.GetExpirationEditModel();
+                }
+
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
@@ -238,9 +222,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                if (!Sitecore.Context.PageMode.IsNormal)
+                if (!this.Context.IsNormalMode())
                 {
-                    return this.GetThankYouPreviewModel();
+                    return this.GetThankYouEditModel();
                 }
 
                 if (!this.AuthenticationService.IsLoggedIn())
@@ -312,13 +296,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public ActionResult Disclaimer()
         {
             var datasource = this.GetLayoutItem<PageDisclaimerModel>();
+
+            if (this.Context.IsEditMode())
+            {
+                return View("/Areas/eContracting2/Views/Edit/Disclaimer.cshtml", datasource);
+            }
+
             return View("/Areas/eContracting2/Views/Disclaimer.cshtml", datasource);
         }
 
         public ActionResult Error404()
         {
-            var code = this.Request.QueryString["code"];
+            if (this.Context.IsEditMode())
+            {
+                return this.GetError404EditView();
+            }
 
+            var code = this.Request.QueryString["code"];
             var datasource = this.GetLayoutItem<PageError404Model>();
 
             if (!this.Context.IsEditMode())
@@ -331,9 +325,36 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/Error404.cshtml", datasource);
         }
 
+        public ActionResult Error500()
+        {
+            if (this.Context.IsEditMode())
+            {
+                return this.GetError500EditView();
+            }
+
+            var code = this.Request.QueryString["code"];
+
+            var datasource = this.GetLayoutItem<PageError500Model>();
+
+            if (!this.Context.IsEditMode())
+            {
+                var error = Constants.GetErrorDescription(code);
+                datasource.PageTitle = datasource.PageTitle.Replace("{CODE}", error);
+                datasource.MainText = datasource.MainText.Replace("{CODE}", error);
+            }
+
+            return View("/Areas/eContracting2/Views/Error500.cshtml", datasource);
+        }
+
         public ActionResult SessionExpired()
         {
             var datasouce = this.GetLayoutItem<PageSessionExpiredModel>();
+
+            if (this.Context.IsEditMode())
+            {
+                return View("/Areas/eContracting2/Views/Edit/SessionExpired.cshtml", datasouce);
+            }
+
             return View("/Areas/eContracting2/Views/SessionExpired.cshtml", datasouce);
         }
 
@@ -347,6 +368,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var model = this.GetDataSourceItem<PageFooterModel>();
             return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", model);
+        }
+
+        public ActionResult PromoBox()
+        {
+            var datasource = this.GetDataSourceItem<PromoBoxModel>();
+
+            if (datasource == null)
+            {
+                return new EmptyResult();
+            }
+
+            return this.View("/Areas/eContracting2/Views/PromoBox.cshtml", datasource);
         }
 
         private (string eCat, string eAct, string eLab) GetScriptParameters(OfferModel offer, PageThankYouModel datasource)
@@ -387,12 +420,53 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return (eCat, eAct, eLab);
         }
 
-        protected internal ActionResult GetThankYouPreviewModel()
+        protected ActionResult GetOfferEditView()
+        {
+            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
+            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
+            var fakeAttr = new OfferAttributeModel[] { };
+            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
+            var datasource = this.GetLayoutItem<PageNewOfferModel>();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var viewModel = new OfferViewModel(this.SettingsReaderService);
+            viewModel.PageTitle = definition.OfferTitle.Text;
+            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
+            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
+            return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
+        }
+
+        protected internal ActionResult GetThankYouEditModel()
         {
             var datasource = this.GetLayoutItem<PageThankYouModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
-            return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
+
+            if (this.Context.IsEditMode())
+            {
+                return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
+            }
+
+            return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
+        }
+
+        protected internal ActionResult GetExpirationEditModel()
+        {
+            var datasource = this.GetLayoutItem<PageExpirationModel>();
+            var viewModel = new PageExpirationViewModel();
+            viewModel.Datasource = datasource;
+
+            if (this.Context.IsPreviewMode())
+            {
+                return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
+            }
+
+            return View("/Areas/eContracting2/Views/Edit/Expiration.cshtml", viewModel);
         }
 
         protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
@@ -465,7 +539,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             return viewModel;
         }
-        
+
+        protected internal ActionResult GetError404EditView()
+        {
+            var datasource = this.GetLayoutItem<PageError404Model>();
+            return View("/Areas/eContracting2/Views/Edit/Error404.cshtml", datasource);
+        }
+
+        protected internal ActionResult GetError500EditView()
+        {
+            var datasource = this.GetLayoutItem<PageError500Model>();
+            return View("/Areas/eContracting2/Views/Edit/Error500.cshtml", datasource);
+        }
+
         protected internal void ClearUserData(string guid)
         {
             try

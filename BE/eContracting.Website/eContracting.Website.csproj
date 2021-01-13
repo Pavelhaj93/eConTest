@@ -452,6 +452,12 @@
     <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
     <Content Include="Areas\eContracting2\Views\LoginRichText.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\ThankYou.cshtml" />
+    <Content Include="Areas\eContracting2\Views\PromoBox.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Disclaimer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Expiration.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Error500.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Error404.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\SessionExpired.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

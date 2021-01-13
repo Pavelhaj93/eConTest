@@ -106,6 +106,7 @@
     <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="Models\BasePageModel.cs" />
     <Compile Include="Models\BasePageWithStepsModel.cs" />
+    <Compile Include="Models\ColorModel.cs" />
     <Compile Include="Models\CookieLawSettingsModel.cs" />
     <Compile Include="Models\DbFileAttributeModel.cs" />
     <Compile Include="Models\DbFileModel.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Models\PageSessionExpiredModel.cs" />
     <Compile Include="Models\PageUserBlockedModel.cs" />
     <Compile Include="Models\PageThankYouModel.cs" />
+    <Compile Include="Models\PromoBoxModel.cs" />
     <Compile Include="Models\UploadGroupFileOperationResultModel.cs" />
     <Compile Include="ServiceFactory.cs" />
     <Compile Include="SignApiServiceOptions.cs" />

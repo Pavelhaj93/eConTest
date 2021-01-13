@@ -9,46 +9,8 @@
 <div class="text-center">
     @Html.Raw(Model.MainText)
 </div>
-<div class="row justify-content-center">
-    @if (Model.Datasource.Link1 != null)
-    {
-        <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex flex-column">
-            <div class="box box--action bg--green text-center flex-grow-1">
-                <p>
-                    <a runat="server" href="@Model.Datasource.Link1.Url" class="box__link text-white" target="_blank">@Model.Datasource.Link1.Text</a>
-                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-                        <use xlink:href="#arrow-right-up"></use>
-                    </svg>
-                </p>
-            </div>
-        </div>
-    }
-    @if (Model.Datasource.Link2 != null)
-    {
-        <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex flex-column">
-            <div class="box box--action bg--orange text-center flex-grow-1">
-                <p>
-                    <a runat="server" href="@Model.Datasource.Link2.Url" class="box__link text-white" target="_blank">@Model.Datasource.Link2.Text</a>
-                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-                        <use xlink:href="#arrow-right-up"></use>
-                    </svg>
-                </p>
-            </div>
-        </div>
-    }
-    @if (Model.Datasource.Link3 != null)
-    {
-        <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex flex-column">
-            <div class="box box--action bg--blue-green-light text-center flex-grow-1">
-                <p>
-                    <a runat="server" href="@Model.Datasource.Link3.Url" class="box__link text-white" target="_blank">@Model.Datasource.Link3.Text</a>
-                    <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
-                        <use xlink:href="#arrow-right-up"></use>
-                    </svg>
-                </p>
-            </div>
-        </div>
-    }
+<div>
+    @Html.Sitecore().Placeholder("eContracting2-boxes")
 </div>
 
 <script>

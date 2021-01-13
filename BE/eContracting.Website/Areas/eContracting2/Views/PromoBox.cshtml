@@ -1,0 +1,14 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Models
+@inherits GlassView<PromoBoxModel>
+
+<div class="col-12 col-md-6 col-lg-4 mb-4 d-flex flex-column">
+    <div class="box box--action bg--@Model.GetColor() text-center flex-grow-1">
+        <p>
+            <a runat="server" href="@Model.GetLinkUrl()" class="box__link text-white" target="_blank">@Editable(x => x.Text)</a>
+            <svg class="icon d-block mx-auto mt-3 fill-white" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                <use xlink:href="#arrow-right-up"></use>
+            </svg>
+        </p>
+    </div>
+</div>

@@ -1,13 +1,13 @@
 ﻿---
-ID: "b33b1033-6659-42be-a7ca-a8053a2cb1f3"
-Parent: "7be7daad-f5f8-4317-89a6-9a4a9c246d3b"
+ID: "18803db7-c59e-468a-9316-136614470785"
+Parent: "d9a550e5-98a9-4046-8717-6dfdfa58eb73"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Pages/Offer Expired/ExpirationLinks/Link1
+Path: /sitecore/templates/eContracting2/Datasources/Color/Color/Value
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
   Hint: Type
-  Value: General Link
+  Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
@@ -22,7 +22,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191217T132850Z
+      Value: 20210113T113054Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -31,10 +31,10 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Odkaz 1
+    Value: Hodnota
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20160908T122409Z
+      Value: 20210113T113404Z
