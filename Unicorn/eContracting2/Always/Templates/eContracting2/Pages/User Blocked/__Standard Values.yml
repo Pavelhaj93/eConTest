@@ -1,0 +1,51 @@
+﻿---
+ID: "847cd829-2e85-4a6f-9ccb-85198db30c96"
+Parent: "e4f4a320-3072-4e2d-a13c-eaee2fd09d5a"
+Template: "e4f4a320-3072-4e2d-a13c-eaee2fd09d5a"
+Path: /sitecore/templates/eContracting2/Pages/User Blocked/__Standard Values
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{BB80F8B6-D862-44E5-A911-3EC3F3018F56}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{1908A5F2-615A-4B62-8EA2-ABE628197FC2}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
+    - ID: "1554213a-29a2-4438-ac4b-589d951439a0"
+      Hint: Header
+      Value: Uživatel byl zablokován
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125245Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Zablokovaný uživatel
+    - ID: "cc065759-7f97-48ee-bcab-0f1a671b776d"
+      Hint: MainText
+      Value: |
+        <p style="color: #000000;">V&aacute;žen&yacute; pane/pan&iacute;,</p>
+        <p style="color: #000000;"> chybn&eacute; přihl&aacute;&scaron;en&iacute; způsobilo dočasn&eacute; zablokov&aacute;n&iacute; &uacute;čtu.</p>
+        <p style="color: #000000;">Přihl&aacute;&scaron;en&iacute;  můžete zopakovat za 30 min, kdy dojde k odblokov&aacute;n&iacute; &uacute;čtu.</p>
+        <p style="color: #000000;">Děkujeme</p>
+        <p style="color: #000000;">Va&scaron;e innogy</p>
+        <div>&nbsp;</div>

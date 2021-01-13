@@ -1,0 +1,18 @@
+﻿---
+ID: "9049d175-fd49-49e6-8753-91bbcea11ea1"
+Parent: "aff533bb-2e46-4963-8929-f18d1618084d"
+Template: "709f373b-c774-4fa7-8d78-1ff080c4dcf0"
+Path: /sitecore/content/eContracting2/Settings/Processes
+DB: master
+Languages:
+- Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Procesy
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T121528Z

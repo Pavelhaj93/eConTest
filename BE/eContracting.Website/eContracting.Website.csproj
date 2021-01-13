@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,18 +75,35 @@
       <HintPath>..\packages\MicroCHAP.1.2.2.2\lib\net45\MicroCHAP.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.4.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.4.4\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.4.4\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.4.4\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.4.4\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
       <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
     </Reference>
-    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
     </Reference>
     <Reference Include="Rainbow, Version=2.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rainbow.Core.2.0.5\lib\net452\Rainbow.dll</HintPath>
@@ -126,9 +144,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -136,6 +163,12 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -180,16 +213,42 @@
   <ItemGroup>
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
+    <Compile Include="Areas\eContracting2\Models\AcceptedOfferViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\BaseAppConfigViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\PageExpirationViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginChoiceViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginSubmitViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\OfferViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\SingDataViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.designer.cs">
+      <DependentUpon>Modal.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeRichTextController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
-    <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
     <Compile Include="Areas\eContracting\Controllers\eContractingAuthenticationController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
     <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
     <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
+    <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
+    <Compile Include="Areas\eContracting\Controllers\WelcomeRichTextController.cs" />
     <Compile Include="Areas\eContracting\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting\Models\LoginViewModel.cs" />
     <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
@@ -204,20 +263,106 @@
     <Compile Include="Areas\eContracting\Services\SignFile.ashx.cs">
       <DependentUpon>SignFile.ashx</DependentUpon>
     </Compile>
-    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx.designer.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="eContractingHtmlHelper.cs" />
+    <Compile Include="eContractingServiceConfigurator.cs" />
+    <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Pipelines\Initialize\RegisterApiProcessor.cs" />
+    <Compile Include="Pipelines\Initialize\RunStartupsProcessor.cs" />
+    <Compile Include="Pipelines\SessionEnd\ClearUserCacheProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\eContracting2\Models\Apis\" />
+    <Folder Include="Areas\eContracting2\Views\Base\" />
     <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\eContracting\Views\Content\ModalWindows\Modal.aspx" />
+    <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx" />
+    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\MW01.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Content\WelcomeRichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Error404.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Expiration.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\SessionExpired.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Footer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Header.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Error500.cshtml" />
+    <Content Include="Areas\eContracting2\Views\ThankYou.cshtml" />
+    <Content Include="Areas\eContracting2\Views\UserBlocked.cshtml" />
+    <Content Include="Areas\eContracting2\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
+    <Content Include="Assets\eContracting2\css\econtracting.min.css" />
+    <Content Include="Assets\eContracting2\gfx\favicon\114x114.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\120x120.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\128x128.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\144x144.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\150x150.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\152x152.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\16x16.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\196x196.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\310x150.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\310x310.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\32x32.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\57x57.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\60x60.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\70x70.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\72x72.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\76x76.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\96x96.png" />
+    <Content Include="Assets\eContracting2\gfx\favicon\blob.png" />
+    <Content Include="Assets\eContracting2\gfx\icon\sprite.svg" />
+    <Content Include="Assets\eContracting2\js\econtracting.bundle.js" />
+    <Content Include="Assets\eContracting2\js\polyfills.js" />
+    <Content Include="Assets_legacy\eContracting\css\econtracting.min.css" />
+    <Content Include="Assets_legacy\eContracting\css\main.css" />
+    <Content Include="Assets_legacy\eContracting\css\main.min.css" />
+    <Content Include="Assets_legacy\eContracting\css\popup.css" />
+    <Content Include="Assets_legacy\eContracting\fonts\font-face.css" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-light.svg" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.svg" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\114x114.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\120x120.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\128x128.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\144x144.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\150x150.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\152x152.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\16x16.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\196x196.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\310x150.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\310x310.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\32x32.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\57x57.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\60x60.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\70x70.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\72x72.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\76x76.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\96x96.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\favicon\blob.png" />
+    <Content Include="Assets_legacy\eContracting\gfx\icon\sprite.svg" />
+    <Content Include="Assets_legacy\eContracting\gfx\icon\svg.svg" />
+    <Content Include="Assets_legacy\eContracting\js\app.js" />
+    <Content Include="Assets_legacy\eContracting\js\app.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\bootstrap-datepicker-1.6.4.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\bootstrap.js" />
+    <Content Include="Assets_legacy\eContracting\js\bootstrap.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\econtracting.bundle.js" />
+    <Content Include="Assets_legacy\eContracting\js\jquery-3.1.0.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\polyfills.js" />
+    <Content Include="Assets_legacy\eContracting\js\vendor\bootstrap-datepicker-1.6.4.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\vendor\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\vendor\jquery-3.1.0.min.js" />
+    <Content Include="Assets_legacy\eContracting\js\vendor\jSignature.min.js" />
     <Content Include="Assets\eContracting\css\econtracting.min.css" />
     <Content Include="Assets\eContracting\css\main.css" />
     <Content Include="Assets\eContracting\css\main.min.css" />
@@ -274,6 +419,7 @@
     <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
     <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
     <Content Include="App_Config\Include\zeContracting\Services.config" />
+    <Content Include="App_Config\Include\zeContracting\Pipelines.CM.config" />
     <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
@@ -286,15 +432,49 @@
       <DependentUpon>Unicorn.eContracting.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
     </None>
+    <Content Include="Areas\eContracting2\Views\RichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Preview\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Preview\ProcessTypesSwitcher.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Preview\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Login.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\Steps.cshtml" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-light.eot" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-light.ttf" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-light.woff" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-light.woff2" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.eot" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.ttf" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.woff" />
+    <Content Include="Assets_legacy\eContracting\fonts\innogy-medium.woff2" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff2" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
+    <Content Include="Areas\eContracting2\Views\LoginRichText.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\ThankYou.cshtml" />
+    <Content Include="Areas\eContracting2\Views\PromoBox.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Disclaimer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Expiration.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Error500.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Error404.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\SessionExpired.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <Content Include="Scripts\modernizr-2.6.2.js" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eContracting.Core\eContracting.Core.csproj">
+      <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
+      <Name>eContracting.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\eContracting.Kernel\eContracting.Kernel.csproj">
       <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
       <Name>eContracting.Kernel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
+      <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
+      <Name>eContracting.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -386,6 +566,7 @@
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Properties\PublishProfiles\File system package.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile Ludek.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Stage.pubxml" />
@@ -406,6 +587,15 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Dev|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

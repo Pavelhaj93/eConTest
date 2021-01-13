@@ -8,10 +8,10 @@ import '@icons/{{icon.name}}.svg'
 
 import React from 'react'
 
-type Name = {%- for icon in icons %} {% if not loop.first -%} | {%- endif %} '{{icon.name}}' {%- endfor %}
+export type IconName = {%- for icon in icons %} {% if not loop.first -%} | {%- endif %} '{{icon.name}}' {%- endfor %}
 
 type IconProps = {
-  name: Name,
+  name: IconName,
   /** Set a color for the icon. Hex format is required. */
   color?: string
   /** Size is used for both width and height. */

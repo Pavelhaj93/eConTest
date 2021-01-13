@@ -1,0 +1,18 @@
+﻿---
+ID: "3d73544d-a6fb-478a-96c0-c8fefc963073"
+Parent: "bc28a2a3-7e9d-48a6-98e9-c4e2cc4eeae2"
+Template: "cb01f9fc-c187-46b3-ab0b-97a8468d8303"
+Path: /sitecore/system/Workflows/eContracting Workflow/Awaiting Approval/Approve
+DB: master
+SharedFields:
+- ID: "dcbebc58-6124-4100-a248-fc717d6c78d5"
+  Hint: Next state
+  Value: "{83BF41F9-F720-48F6-B4CE-40B83BC9421B}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201021T113106Z

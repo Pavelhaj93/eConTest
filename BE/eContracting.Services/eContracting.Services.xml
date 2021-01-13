@@ -1,0 +1,741 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>eContracting.Services</name>
+    </assembly>
+    <members>
+        <member name="T:eContracting.Services.AuthenticationService">
+            <inheritdoc/>
+        </member>
+        <member name="F:eContracting.Services.AuthenticationService.SettingsReader">
+            <summary>
+            The settings reader.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.AuthenticationService.Cache">
+            <summary>
+            The cache.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.ISettingsReaderService,eContracting.IUserDataCacheService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.AuthenticationService"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+            <param name="cacheService">The cache service.</param>
+            <exception cref="T:System.ArgumentNullException">
+            settingsReader
+            or
+            cacheService
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.LoginTypeModel,System.String,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Models.AuthDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.IsLoggedIn">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.AuthenticationService.GetCurrentUser">
+            <inheritdoc/>
+        </member>
+        <member name="F:eContracting.Services.DbContextStartup.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbContextStartup.Initialize">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.DbEventLogger">
+            <summary>
+            Database storage for log events.
+            </summary>
+            <seealso cref="T:eContracting.IEventLogger" />
+        </member>
+        <member name="F:eContracting.Services.DbEventLogger.ConnectionString">
+            <summary>
+            The connection string.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.DbEventLogger.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.#ctor(eContracting.ISettingsReaderService,eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbEventLogger"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+            <param name="logger">The logger.</param>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(System.String,System.String,eContracting.EVENT_NAMES,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbEventLogger.Add(eContracting.Models.EventLogModel)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.FileOptimizer">
+            <inheritdoc/>
+            <seealso cref="T:eContracting.IFileOptimizer" />
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.IAuthenticationService,eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.FileOptimizer"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="context">The context.</param>
+            <param name="apiService">The API service.</param>
+            <param name="authService">The authentication service.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <exception cref="T:System.ArgumentNullException">
+            logger
+            or
+            context
+            or
+            apiService
+            or
+            authService
+            or
+            settingsReaderService
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.AddAsync(eContracting.Models.DbUploadGroupFileModel,System.String,System.String,System.String,System.Byte[],System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.EnforceOfferTotalFilesSizeAsync(System.Collections.Generic.List{eContracting.Models.DbUploadGroupFileModel},eContracting.Models.DbUploadGroupFileModel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.RemoveFileAsync(eContracting.Models.DbUploadGroupFileModel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.NormalizeOrientation(System.Drawing.Image)">
+            <summary>
+            Otoci obrazek podle Exif tagu, pokud tam je
+            </summary>
+            <param name="image"></param>
+            <returns>True, pokud Image nejak otocil. Jinak false.</returns>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.ResizeImage(System.Drawing.Image,System.Int32,System.Int32,System.Nullable{System.Single},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Zmensi bitmap obrazek
+            </summary>
+            <param name="image"></param>
+            <param name="minWidth"></param>
+            <param name="minHeight"></param>
+            <param name="ratio">Desetinne cislo, jak moc se ma obrazek zmensit</param>
+            <param name="maxWidth"></param>
+            <param name="maxHeight"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.ResizeImage(System.Drawing.Image,System.Drawing.Size)">
+            <summary>
+            Zmensi bitmap obrazek
+            </summary>
+            <param name="mg"></param>
+            <param name="newSize"></param>        
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.AppendPdfToPdf(System.Byte[],PdfSharp.Pdf.PdfDocument)">
+            <summary>
+            Vlozi pdf do pdf dokumentu
+            </summary>
+            <param name="pdf"></param>
+            <param name="outputDocument"></param>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.CreateBitmap(System.Byte[])">
+            <summary>
+            Vytvori bitmap obrazek z bytoveho pole
+            </summary>
+            <param name="imgBytes"></param>
+        </member>
+        <member name="F:eContracting.Services.FileSignService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.FileSignService.SettingsReaderService">
+            <summary>
+            The settings service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.FileSignService.ServiceFactory">
+            <summary>
+            The service factory.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.FileSignService.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService,eContracting.IServiceFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.FileSignService"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <param name="factory">The factory.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="textService">The text service.</param>
+            <param name="context">The context.</param>
+            <param name="apiService">The API service.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <exception cref="T:System.ArgumentNullException">
+            logger
+            or
+            textService
+            or
+            context
+            or
+            apiService
+            or
+            settingsReaderService
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
+            <summary>
+            Determines whether section <paramref name="key"/> has value 'X' (&lt;SECTION&gt;X&lt;/SECTION&gt;)
+            </summary>
+            <param name="textParameters">The text parameters.</param>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:eContracting.Services.OfferService">
+            <summary>
+            Service wrapper over generated <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.UserDataCache">
+            <summary>
+            The user data cache.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.UserFileCache">
+            <summary>
+            The user file cache.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.SettingsReaderService">
+            <summary>
+            The settings reader service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.ServiceFactory">
+            <summary>
+            The API service factory.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.OfferParser">
+            <summary>
+            The offer parser.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.AttachmentParser">
+            <summary>
+            The attachment parser.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <param name="userDataCache">The user data cache.</param>
+            <param name="userFileCache">The user file cache.</param>
+            <param name="settingsReaderService">The settings reader service.</param>
+            <param name="factory">The factory for <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.</param>
+            <param name="offerParser">The offer parser.</param>
+            <param name="offerAttachmentParser">The offer attachment parser.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.ReadOffer(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.SignInOffer(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetTextParameters(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Gets the text parameters for specific version.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Dictionary or null.</returns>
+            <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetFilesForAccept(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,eContracting.Services.ZCCH_ST_FILE[],System.String)">
+            <summary>
+            Gets all files for accept.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="data">The data.</param>
+            <param name="responsePdfFiles">The response PDF files.</param>
+            <param name="sessionId">The session identifier.</param>
+            <returns>Array of all accepted, signed and uploaded files in <paramref name="offer"/>.</returns>
+            <exception cref="T:System.ApplicationException">
+            Missing required file for sign: {template}
+            or
+            File not found in the cache: key: {uniqueKey}: template: {template}
+            or
+            File matching template ({template}) doesn't exist
+            or
+            File matching template ({template}) doesn't exist
+            or
+            Unknown upload group '{groupKey}'
+            or
+            Cannot find upload for '{groupKey}'
+            or
+            Group '{uploadGroup}' doesn't have content
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetResponse(System.String,eContracting.OFFER_TYPES,System.String)">
+            <summary>
+            Gets data.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <param name="fileType">Type of the file.</param>
+            <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.String)">
+            <summary>
+            Sets the <paramref name="status"/> asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="type">The type.</param>
+            <param name="status">The status.</param>
+            <returns><c>True</c> if status was set.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
+            <summary>
+            Sets the <paramref name="status"/> asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <param name="timestamp">Decimal representation of a timestamp.</param>
+            <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
+            <returns>True if it was successfully set or false.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetFiles(System.String,System.Boolean)">
+            <summary>
+            Gets the files asynchronous.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.OfferService.Put(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Inserts data asynchronously.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="attributes">The attributes.</param>
+            <param name="files">The files.</param>
+            <returns>The response.</returns>
+        </member>
+        <member name="T:eContracting.Services.DbUserFileCacheService">
+            <summary>
+            Database cache for user files.
+            </summary>
+            <seealso cref="T:eContracting.IUserFileCacheService" />
+        </member>
+        <member name="F:eContracting.Services.DbUserFileCacheService.ConnectionString">
+            <summary>
+            The connection string.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.#ctor(eContracting.ISettingsReaderService)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.DbUserFileCacheService"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.Clear(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.ClearAsync(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroup(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindGroups(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFile(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroup(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.RemoveSignedFile(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.Set(eContracting.Models.DbUploadGroupFileModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.Set(eContracting.Models.DbSignedFileModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.SaveAsync(eContracting.Storage.DatabaseContext,eContracting.Storage.File,System.Collections.Generic.IEnumerable{eContracting.Storage.FileAttribute})">
+            <summary>
+            Save <paramref name="file"/> with its <paramref name="attributes"/> in transaction.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="file">The file.</param>
+            <param name="attributes">The attributes.</param>
+        </member>
+        <member name="T:eContracting.Services.SessionProvider">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.GetId">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.GetValue``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.Set``1(System.String,``0,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SessionProvider.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreTextService.ErrorCode(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.UserSessionDataCacheService">
+            <inheritdoc/>
+        </member>
+        <member name="F:eContracting.Services.UserSessionDataCacheService.SessionProvider">
+            <summary>
+            The session provider.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.UserSessionDataCacheService.#ctor(eContracting.ISessionProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.UserSessionDataCacheService"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Set``1(System.String,``0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Get``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserSessionDataCacheService.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.OfferAttachmentParserService">
+            <inheritdoc/>
+            <seealso cref="T:eContracting.IOfferAttachmentParserService" />
+        </member>
+        <member name="F:eContracting.Services.OfferAttachmentParserService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.#ctor(eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferAttachmentParserService"/> class.
+            </summary>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">logger</exception>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Equals(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets IDATTACH value from given <paramref name="file"/>.
+            </summary>
+            <param name="file">The file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileName(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets readable file name.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>File name to display.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetAttributes(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets converted attributes from <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/> to collection of <see cref="T:eContracting.Models.OfferAttributeModel"/>.
+            </summary>
+            <param name="file">The file.</param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Check(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Checks offer templates and files if they are ready and nothing is wrong.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="files">The files.</param>
+            <exception cref="T:eContracting.EcontractingDataException">
+            new ErrorModel("OAPS-MAT", $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})")
+            or
+            new ErrorModel("OAPS-CHECK", $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files")
+            or
+            new ErrorModel("OAPS-EXF", $"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})")
+            </exception>
+            <exception cref="T:eContracting.Models.ErrorModel">
+            OAPS-MAT - Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})
+            or
+            OAPS-CHECK - Attachment {attachment.IdAttach} ({attachment.Description}) not found in files
+            or
+            OAPS-EXF - File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})
+            </exception>
+            <exception cref="T:System.AggregateException">Check of offer templates and offer files failed</exception>
+        </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetModel(eContracting.Models.OfferModel,eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Gets <see cref="T:eContracting.Models.OfferAttachmentModel"/> created from a <paramref name="template"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="template">The template.</param>
+            <param name="files">The files.</param>
+            <returns>Attachment model or null when matching file not found.</returns>
+        </member>
+        <member name="T:eContracting.Services.OfferParserService">
+            <inheritdoc/>
+        </member>
+        <member name="F:eContracting.Services.OfferParserService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferParserService.SettingsReader">
+            <summary>
+            The settings reader.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.#ctor(eContracting.ISettingsReaderService,eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.OfferParserService"/> class.
+            </summary>
+            <param name="settingsReader">The settings reader.</param>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">
+            settingsReader
+            or
+            logger
+            </exception>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GenerateOffer(eContracting.Models.ResponseCacheGetModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetVersion(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatibleParameters(System.Collections.Generic.IDictionary{System.String,System.String},System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetHeader(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets the header from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER"/>.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetAttributes(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets the attributes from <see cref="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB"/>.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Array of attributes.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.ProcessResponse(eContracting.Models.ResponseCacheGetModel)">
+            <summary>
+            Processes the response and create <see cref="T:eContracting.Models.OfferModel"/> or root XML exists.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>Model or null.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCoreFile(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Gets the core file of the offer.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>The file.</returns>
+            <exception cref="T:System.NotSupportedException">Unknow offer version ({version})</exception>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Processes the root file.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Tuple with model and raw XML content.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.IsAccepted(eContracting.Services.ZCCH_CACHE_GETResponse)">
+            <summary>
+            Determines whether the specified response is accepted.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>
+              <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel)">
+            <summary>
+            Set missing required values in <paramref name="offerXml"/>.
+            </summary>
+            <remarks>
+            <para>When missing bus process value, set default '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS"/>'.</para>
+            <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
+            </remarks>
+            <param name="offerXml">The offer XML.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.AddCustomUploadModelWhenNecessary(eContracting.Models.OfferXmlModel)">
+            <summary>
+            Adds the custom upload model when any other upload is required.
+            </summary>
+            <param name="offerXml">The offer XML.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetNodeValue(System.Xml.XmlNode)">
+            <summary>
+            Gets InnerXml from <paramref name="xmlNode"/>. If <paramref name="xmlNode"/> contains "&lt;body&gt;", it returns inner XML of it.
+            </summary>
+            <remarks>Some nodes can contains inner XML with '&lt;body xmlns="http://www.w3.org/1999/xhtml"&gt;'.</remarks>
+            <param name="xmlNode">The XML node.</param>
+            <returns>Inner xml value of <paramref name="xmlNode"/>.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCleanedUpBodyValue(System.Xml.XmlNode)">
+            <summary>
+            Gets <paramref name="xmlNode"/> value with extra, non wanted, data.
+            </summary>
+            <param name="xmlNode">The XML node.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetXmlNodeValue(System.Xml.XmlNode)">
+            <summary>
+            Gets <see cref="P:System.Xml.XmlNode.InnerText"/> or <see cref="P:System.Xml.XmlNode.InnerXml"/> based on 'this.SettingsReader.GetXmlNodeNamesExcludeHtml()'.
+            </summary>
+            <param name="xmlNode">The XML node.</param>
+            <returns>Inner text or inner xml.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetCustomUploadModel">
+            <summary>
+            Creates model for custom, not mandatory, upload.
+            </summary>
+            <returns>The template model.</returns>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
+            <summary>
+            The context.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.ContextWrapper">
+            <summary>
+            The context wrapper.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Rand">
+            <summary>
+            The randomizer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.SaveFilesToDebugFolder">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.ShowDebugMessages">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper,eContracting.ILogger)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllLoginTypes">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllProcesses">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllProcessTypes">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetApiServiceOptions">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSignApiServiceOptions">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetPageLink(eContracting.PAGE_LINK_TYPES)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSiteSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetXmlNodeNamesExcludeHtml">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetCustomDatabaseConnectionString">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetBackCompatibleTextParametersKeys(System.Int32)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

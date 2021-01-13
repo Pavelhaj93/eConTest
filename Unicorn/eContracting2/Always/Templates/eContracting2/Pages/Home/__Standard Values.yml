@@ -1,0 +1,24 @@
+﻿---
+ID: "ac7edda5-b515-4266-867e-1a7fe1160765"
+Parent: "652f8e4f-5a5b-484b-9552-7e1a8650644c"
+Template: "652f8e4f-5a5b-484b-9552-7e1a8650644c"
+Path: /sitecore/templates/eContracting2/Pages/Home/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 500
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T103510Z
+    - ID: "4c346442-e859-4efd-89b2-44aedf467d21"
+      Hint: __Valid to
+      Value: 
+    - ID: "c8f93afe-bfd4-4e8f-9c61-152559854661"
+      Hint: __Valid from
+      Value: 

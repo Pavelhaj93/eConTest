@@ -1,0 +1,127 @@
+﻿@using Sitecore.Mvc.Analytics.Extensions
+@using eContracting.Website
+@using eContracting.Website.Areas.eContracting2.Models
+@model LayoutViewModel
+<!DOCTYPE html>
+
+<html lang="cs">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
+    <title>@Sitecore.Context.Item["PageTitle"]</title>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KTXKW8');
+    </script>
+
+    <link type="image/x-icon" rel="shortcut icon" href="~/Assets/eContracting/gfx/favicon/blob.png" />
+    <link href="~/Assets/eContracting/gfx/favicon/57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/72x72.png" sizes="72x72" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/144x144.png" sizes="144x144" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/60x60.png" sizes="60x60" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/120x120.png" sizes="120x120" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/76x76.png" sizes="76x76" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/152x152.png" sizes="152x152" rel="apple-touch-icon-precomposed" />
+    <link href="~/Assets/eContracting/gfx/favicon/196x196.png" sizes="196x196" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/96x96.png" sizes="96x96" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/32x32.png" sizes="32x32" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/16x16.png" sizes="16x16" type="image/png" rel="icon" />
+    <link href="~/Assets/eContracting/gfx/favicon/128x128.png" sizes="128x128" type="image/png" rel="icon" />
+    <meta content="Innogy" name="application-name" />
+    <meta content="#FFFFFF" name="msapplication-TileColor" />
+    <meta content="~/Assets/eContracting/gfx/favicon/144x144.png" name="msapplication-TileImage" />
+    <meta content="~/Assets/eContracting/gfx/favicon/70x70.png" name="msapplication-square70x70logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/150x150.png" name="msapplication-square150x150logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/310x150.png" name="msapplication-wide310x150logo" />
+    <meta content="~/Assets/eContracting/gfx/favicon/310x310.png" name="msapplication-square310x310logo" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="~/Assets/eContracting/css/main.min.css?version=16">
+    <script src="~/Assets/eContracting/js/jquery-3.1.0.min.js"></script>
+    @Html.Sitecore().VisitorIdentification()
+</head>
+<body>
+    @Html.Action("CookieLaw", "eContracting")
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <a class="logo" href="@Model.ImageLinkUrl" id="imageLink" target="_blank">
+                    <svg class="icon" preserveAspectRatio="none">
+                        <use xlink:href="~/Assets/eContracting/gfx/icon/svg.svg#logo" />
+                    </svg>
+                </a>
+                @if (!string.IsNullOrEmpty(Model.PhoneLinkUrl))
+                {
+                    <a class="phone" href="tel:@Model.PhoneLinkUrl" id="phoneLink">
+                        @Model.PhoneLinkUrlText
+                    </a>
+                }
+            </div>
+        </div>
+    </header>
+    <div class="main">
+        <div class="container">
+            @Html.eContracting().ProcessTypeSwitcher()
+            @Html.Sitecore().Placeholder("eContracting2")
+        </div>
+    </div>
+    <div class="pre-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p>
+                        @Model.CopyrightText
+                    </p>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <div class="contact-info">
+                        @if (!string.IsNullOrEmpty(Model.EmailLink))
+                        {
+                            <a class="email" href="mailto:@Model.EmailLink" id="emailLink">
+                                @Model.EmailText
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.PhoneLinkLowerUrl))
+                        {
+                            <a class="phone" href="tel:@Model.PhoneLinkLowerUrl" id="phoneLinkLower">
+                                @Model.PhoneLinkLowerUrlText
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>
+                @if (!string.IsNullOrEmpty(Model.DisclaimerLink))
+                {
+                    <a href="@Model.DisclaimerLink" id="disclaimerLinkUrl" target="_blank">
+                        @Model.DisclaimerText
+                    </a>
+                }
+            </p>
+        </div>
+    </footer>
+    <script src="~/Assets/eContracting/js/app.min.js?version=16"></script>
+    <script src="~/Assets/eContracting/js/bootstrap-datepicker-1.6.4.min.js"></script>
+    <script src="~/Assets/eContracting/js/bootstrap-datepicker.cs.min.js"></script>
+    <script>
+        var config = {
+            offerPage: typeof offerPageOptions != "undefined" ? offerPageOptions : null
+        };
+        app.start(config);
+    </script>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KTXKW8" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+</body>
+</html>

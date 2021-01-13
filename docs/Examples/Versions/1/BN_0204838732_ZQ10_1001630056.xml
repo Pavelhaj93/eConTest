@@ -1,0 +1,87 @@
+﻿<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>02D67988E24D1EEB88D6103D1752C9BB</GUID>
+            <ISU_CONTRACT>1001630056</ISU_CONTRACT>
+            <CONTSTART>20201222</CONTSTART>
+            <DATE_TO>20201119</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9611052044</PARTNER>
+            <NAME_LAST>Šenk</NAME_LAST>
+            <NAME_FIRST>Michal</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>12.09.1994</BIRTHDT>
+            <IC></IC>
+            <EMAIL>milos.rezanina@innogy.cz</EMAIL>
+            <PHONE>603 280 385</PHONE>
+            <EXT_UI>859182400200478710</EXT_UI>
+            <VSTELLE>9301239413</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>826000610141</BUAG>
+            <PSC_MS>690 02</PSC_MS>
+            <PSC_ADDR>691 51</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS></BUS_PROCESS>
+            <Attachments>
+                <Template>
+                    <SEQNR>001</SEQNR>
+                    <IDATTACH>EPO</IDATTACH>
+                    <DESCRIPTION>Informace pro zákazníka – spotřebitele</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM046E</TEMPL_ALC_ID>
+                </Template>
+                <Template>
+                    <SEQNR>002</SEQNR>
+                    <IDATTACH>EPD</IDATTACH>
+                    <DESCRIPTION>Dodatek</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM008E</TEMPL_ALC_ID>
+                </Template>
+                <Template>
+                    <SEQNR>004</SEQNR>
+                    <IDATTACH>V01</IDATTACH>
+                    <DESCRIPTION>Ceník</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED></PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                </Template>
+                <Template>
+                    <SEQNR>005</SEQNR>
+                    <IDATTACH>V02</IDATTACH>
+                    <DESCRIPTION>Ceník služeb</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED></PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                </Template>
+                <Template>
+                    <SEQNR>006</SEQNR>
+                    <IDATTACH>V03</IDATTACH>
+                    <DESCRIPTION>Obchodní podmínky</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED></PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

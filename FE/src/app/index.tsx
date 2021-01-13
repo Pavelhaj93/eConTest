@@ -3,14 +3,16 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { View as ViewType } from '@types'
 
-import { Authentication } from '@views'
+import { Authentication, Offer, AcceptedOffer } from '@views'
 
 type Views = {
   [index: string]: React.FC<ViewType>
 }
 
 const error = (
-  <h1>The application could not be rendered due to missing or invalid configuration.</h1>
+  <h1 className="text-center">
+    The application could not be rendered due to missing or invalid configuration.
+  </h1>
 )
 
 const App: React.FC = () => {
@@ -23,6 +25,8 @@ const App: React.FC = () => {
 
   const views: Views = {
     Authentication,
+    Offer,
+    AcceptedOffer,
   }
 
   const View = views[config.view]

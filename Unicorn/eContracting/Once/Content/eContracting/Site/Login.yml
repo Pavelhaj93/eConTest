@@ -76,9 +76,6 @@ Languages:
       Value: |
         <p>{CUSTTITLELET},</p>
         <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
-    - ID: "dddd7cb7-0807-4492-b416-6cd27a2023e3"
-      Hint: DateOfBirthValidationMessage
-      Value: 
     - ID: "e661640d-4530-46d9-b14a-581742b51f0d"
       Hint: ContractData
       Value: Smluvní údaj

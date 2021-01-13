@@ -18,17 +18,17 @@
 /* Fixed footer */
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
 }
 
 .main {
-	background: #fff;
-	flex: 1 0 auto;
-	padding: 3rem 0;
+  background: #fff;
+  flex: 1 0 auto;
+  padding: 3rem 0;
 }

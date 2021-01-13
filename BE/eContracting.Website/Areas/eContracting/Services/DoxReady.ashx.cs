@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.SessionState;
 using eContracting.Kernel.Helpers;
@@ -12,6 +13,7 @@ namespace eContracting.Website
     /// <summary>
     /// Summary description for DoxReady
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class DoxReady : IHttpHandler, IRequiresSessionState
     {
         /// <summary>

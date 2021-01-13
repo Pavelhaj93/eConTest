@@ -1,0 +1,25 @@
+﻿---
+ID: "e65354af-42ff-4f8a-82b3-a2ea9b72f219"
+Parent: "526086dc-958d-4738-bd7e-5690c504e188"
+Template: "3406e570-bd83-480f-b4a7-96a681f5e8ae"
+Path: /sitecore/content/eContracting2/Datasources/Cookie Laws/Cookie Law
+DB: master
+SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201218T100242Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: "{83BF41F9-F720-48F6-B4CE-40B83BC9421B}"
+    - ID: "b24d4062-290a-48d6-8b53-6763b00fc727"
+      Hint: Link
+      Value: |
+        <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{3D108B52-E560-468D-BA3B-407C5B4A38F9}" />

@@ -1,0 +1,18 @@
+﻿---
+ID: "1ebb80d7-ae0c-4a0c-8cd4-6efc5f4148c6"
+Parent: "e190dd34-f8cb-4df1-8e00-906df9e6fd13"
+Template: "1c38e7d9-42d9-4c95-9800-89e0069037ba"
+Path: /sitecore/content/eContracting2/Datasources/Footer
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T140155Z

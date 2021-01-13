@@ -1,0 +1,29 @@
+﻿@using System.Linq
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Kernel.GlassItems.Pages
+@using eContracting.Website.Areas.eContracting2.Models
+@model LoginViewModel
+@{
+    var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
+    var choices = Model.Choices.ToArray();
+}
+<div class="row">
+    <div class="col-12">
+        <div id="token">@Html.AntiForgeryToken()</div>
+        <div>
+            @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="info">
+                        @Html.Sitecore().Placeholder("eContracting2-login")
+                    </div>
+                    <div id="app"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var appConfig = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
+</script>

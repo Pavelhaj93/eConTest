@@ -1,0 +1,35 @@
+﻿---
+ID: "6e4d72fd-7e93-4c5b-9358-f82cf45033c7"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "456d5421-a2de-42b4-97e6-a42fc243bf10"
+Path: /sitecore/content/eContracting2/Web/nabidka
+DB: master
+SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
+  Hint: Step
+  Value: "{9305D279-B84F-4873-B0CA-53CBAAC343E6}"
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T124835Z
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T161015Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

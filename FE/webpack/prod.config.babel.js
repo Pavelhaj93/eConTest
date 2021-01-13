@@ -5,37 +5,9 @@ import ReplaceInFilePlugin from 'replace-in-file-webpack-plugin'
 import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
+import { removeDataTestIdTransformer } from 'typescript-transformer-jsx-remove-data-test-id'
 
-const productionPolyfillsPath = '/Assets/eContracting/js/polyfills.js'
-
-// We need to modify path to polyfills and fonts in generated files.
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const replaceProductionPaths = () => {
-  return [0].map(() => {
-    return new ReplaceInFilePlugin([
-      {
-        dir: './build/js/',
-        test: /\.js$/,
-        rules: [
-          {
-            search: /src="\/js\/polyfills\.js"/g,
-            replace: `src="${productionPolyfillsPath}"`,
-          },
-        ],
-      },
-      {
-        dir: './build/css/',
-        test: /\.css$/,
-        rules: [
-          {
-            search: /url\(\/fonts\//g,
-            replace: 'url(../fonts/',
-          },
-        ],
-      },
-    ])
-  })
-}
+const productionPolyfillsPath = '/Assets/eContracting2/js/polyfills.js'
 
 export default merge(baseConfig, {
   mode: 'production',
@@ -43,6 +15,16 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+          getCustomTransformers: () => ({
+            before: [removeDataTestIdTransformer()],
+          }),
+        },
+        exclude: [/node_modules/, /build/],
+      },
       {
         test: /\.scss$/,
         use: [
@@ -59,8 +41,7 @@ export default merge(baseConfig, {
             loader: 'postcss-loader',
             options: {
               ident: 'postcss',
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              plugins: loader => [require('postcss-inline-svg')(), require('autoprefixer')()],
+              plugins: () => [require('postcss-inline-svg')(), require('autoprefixer')()],
             },
           },
           {
@@ -89,9 +70,34 @@ export default merge(baseConfig, {
         },
       ],
     }),
+
+    // we need to modify path to polyfills and fonts in generated files
+    new ReplaceInFilePlugin([
+      {
+        dir: './build/js/',
+        test: /\.js$/,
+        rules: [
+          {
+            search: /src="\/js\/polyfills\.js"/g,
+            replace: `src="${productionPolyfillsPath}"`,
+          },
+        ],
+      },
+      {
+        dir: './build/css/',
+        test: /\.css$/,
+        rules: [
+          {
+            search: /url\(\/fonts\//g,
+            replace: 'url(../fonts/',
+          },
+        ],
+      },
+    ]),
+
     // copy build files to assets directory for BE
     new WebpackShellPlugin({
-      onBuildEnd: ['node ./scripts/copyBuildFiles.js'],
+      onBuildExit: ['node ./scripts/copyBuildFiles.js'],
     }),
-  ].concat(replaceProductionPaths()),
+  ],
 })

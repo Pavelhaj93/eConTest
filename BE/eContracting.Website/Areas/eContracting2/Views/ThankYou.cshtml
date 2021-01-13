@@ -1,0 +1,34 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Website.Areas.eContracting2.Models
+@using Newtonsoft.Json
+
+@inherits GlassView<ThankYouViewModel>
+
+@Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
+
+<div class="text-center">
+    @Html.Raw(Model.MainText)
+</div>
+<div class="row justify-content-center">
+    @Html.Sitecore().Placeholder("eContracting2-boxes")
+</div>
+
+<script>
+    // Disable going back after submission
+    function push() {
+        history.pushState(null, document.title, location.href);
+    }
+
+    var i = 0;
+    while (i++ < 10) push();
+
+    window.addEventListener('popstate', push);
+</script>
+
+<script>
+dataLayer.push(
+{
+    'event': 'gaEvent',
+    'gaEventData': @JsonConvert.SerializeObject(Model.ScriptParameters)
+});
+</script>

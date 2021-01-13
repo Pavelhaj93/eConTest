@@ -1,0 +1,78 @@
+﻿{
+    "groups": [
+        {
+            "title": "Dodatek a přidružené dokumenty",
+            "files": [
+                {
+                    "label": "Informace pro zákaznika.pdf",
+                    "key": "a3f7c50c605da4a8d9493fd456d71b032",
+                    "mime": "application/pdf",
+                    "size": "53 KB"
+                },
+                {
+                    "label": "Dodatek.pdf",
+                    "key": "4257aba221c9452aa9730ea0723e10bf",
+                    "mime": "application/pdf",
+                    "size": "123 KB"
+                },
+                {
+                    "label": "Ceník.pdf",
+                    "key": "edb6a55056c244839b55bd602cabe024",
+                    "mime": "application/pdf",
+                    "size": "98 KB"
+                },
+                {
+                    "label": "Ceník služeb.pdf",
+                    "key": "722f2689b3174f5d9a52cf5df78634b8",
+                    "mime": "application/pdf",
+                    "size": "98 KB"
+                },
+                {
+                    "label": "Obchodní podmínky.pdf",
+                    "key": "c1002f7d13a54fd2b65fae7f8ba52f6f",
+                    "mime": "application/pdf",
+                    "size": "98 KB"
+                }
+            ]
+        },
+        {
+            "title": "Plná moc",
+            "files": [
+                {
+                    "label": "Plná moc.pdf",
+                    "key": "58714d317ebd44b8be5ebbd1ab652741",
+                    "mime": "application/pdf",
+                    "size": "24 KB"
+                }
+            ]
+        },
+        {
+            "title": "Doplňkové služby",
+            "files": [
+                {
+                    "label": "Informace pro zákazníka - spotřebitele.pdf",
+                    "key": "6192db7b65184aefa719126459096abe",
+                    "mime": "application/pdf",
+                    "size": "62 KB"
+                },
+                {
+                    "label": "Dodatek.pdf",
+                    "key": "dff444096f1c4c4c873eabfe3418bea4",
+                    "mime": "application/pdf",
+                    "size": "87 KB"
+                }
+            ]
+        },
+        {
+            "title": "Ostatní produkty",
+            "files": [
+                {
+                    "label": "Pojistná smlouva.pdf",
+                    "key": "5d1a8ed64ae04ccfb5e4fa2da9b031c9",
+                    "mime": "application/pdf",
+                    "size": "132 KB"
+                }
+            ]
+        }
+    ]
+}

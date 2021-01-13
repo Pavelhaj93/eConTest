@@ -1,0 +1,69 @@
+﻿---
+ID: "41ac7dc2-d649-46ec-883f-80b0162e6d7a"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Path: /sitecore/content/eContracting2/Web/dekujeme
+DB: master
+SharedFields:
+- ID: "aa07168b-5469-4e1f-ad6e-a0d05d359327"
+  Hint: Step
+  Value: "{04C12E95-ACB4-4514-860D-C7EA9E1C0B37}"
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 288
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
+        <r
+          ds="{0D693CF7-8B8E-4B2B-A7D8-31008103F2C8}"
+          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+          ph="/eContracting2Main/eContracting2-boxes"
+          uid="{C582800B-48BE-4FA7-B31A-99A9A9FE7F37}" />
+        <r
+          ds="{A01BC65C-E848-467C-892E-58D6F0E0D9D2}"
+          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+          ph="/eContracting2Main/eContracting2-boxes"
+          uid="{ED6FBEAF-CD4B-4EEE-8F32-27B3B41F08FA}" />
+        <r
+          ds="{F5899E01-113E-42E2-85D7-8C32A9A16932}"
+          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+          ph="/eContracting2Main/eContracting2-boxes"
+          uid="{1039325D-A6C8-4C0F-9D8B-6DAAF42446B3}" />
+        <r
+          id="{C9E6964D-A594-4A57-A933-8DBEAE72A896}"
+          ph="eContracting2Top"
+          uid="{E0DE4DAD-AF0D-4CF0-AA70-964E82CC5657}" />
+        <r
+          ds="{FEDC5ECD-CB1B-46FE-838A-859C9BF683FD}"
+          id="{C6B149DB-135E-4A89-B58F-91E6544C10D0}"
+          par=""
+          ph="eContracting2Top"
+          uid="{0B8EA37E-00C7-47C9-9562-C070E573E9A0}" />
+        <r
+          id="{5E67F4C6-DAFB-469B-B6D5-7E5C4837E96B}"
+          ph="eContracting2Main"
+          uid="{D5229F29-973F-4F93-B9CB-46EBD008B4BD}" />
+        <r
+          ds="{1EBB80D7-AE0C-4A0C-8CD4-6EFC5F4148C6}"
+          id="{C2060F07-1E5B-4679-82D9-0114EAC77CF3}"
+          par=""
+          ph="eContracting2Bottom"
+          uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125510Z
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Děkujeme

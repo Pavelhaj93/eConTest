@@ -1,15 +1,20 @@
 .header {
-  flex: none;
   padding: 15px 0;
-  background-color: #000;
-  color: #fff;
+  background-color: #fff;
   text-align: center;
-  min-height: 120px;
-  transition: height 0.3s;
-  will-change: height;
+  border-bottom: 1px solid $color-gray-20;
 
   @include media-breakpoint-down(sm) {
     height: 90px;
+  }
+
+  @include media-breakpoint-up(md) {
+    min-height: 120px;
+  }
+
+  &,
+  a {
+    color: $color-black;
   }
 
   .container {
@@ -17,13 +22,9 @@
   }
 
   .logo {
-    display: inline-block;
-
     .icon {
       height: 90px;
       vertical-align: middle;
-      transition: height 0.3s;
-      will-change: height;
 
       @include media-breakpoint-down(sm) {
         height: 60px;
@@ -40,7 +41,7 @@
     height: 1.25rem;
 
     @include media-breakpoint-down(sm) {
-      right: 1rem;
+      right: $spacer;
     }
 
     @include media-breakpoint-down(xs) {
@@ -48,10 +49,5 @@
         display: none;
       }
     }
-  }
-
-  a {
-    color: #fff;
-    display: inline-block;
   }
 }

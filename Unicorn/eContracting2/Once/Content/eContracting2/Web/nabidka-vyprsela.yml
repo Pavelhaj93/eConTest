@@ -1,0 +1,25 @@
+﻿---
+ID: "5df0da00-9f06-44c2-9d6a-2adaba74e23e"
+Parent: "c37d25fb-6ce7-46ba-bc57-9757e3938eb5"
+Template: "220b964c-ea21-4672-92f1-58cce932bd33"
+Path: "/sitecore/content/eContracting2/Web/nabidka-vyprsela"
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 275
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T124958Z
+    - ID: "3a551ec6-95d7-4318-bfd0-22428030e40e"
+      Hint: MainText
+      Value: |
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum consequat purus, vitae sagittis erat aliquet ac. Vivamus dictum vel enim et iaculis. Morbi sit amet enim vitae erat lobortis viverra. Integer sit amet nisl sapien. Duis quis felis pulvinar, dignissim tortor eget, mollis lacus. Ut quis metus eros. Proin mollis nisi sed vehicula placerat. Curabitur sagittis vel turpis at hendrerit. Suspendisse in velit nunc.</p>
+        <p>Integer vitae felis eget tortor laoreet tempor eget eget augue. Aliquam gravida risus ac ante venenatis imperdiet. Nam diam quam, tempus eget pulvinar vitae, efficitur ultrices quam. Curabitur consequat sapien at ligula commodo ornare. Sed lectus turpis, dignissim eget pellentesque sit amet, congue ac eros. Nunc laoreet dolor mauris, quis efficitur felis tristique et. Phasellus venenatis pretium ante in posuere.</p>
+        <p>Cras nec ipsum justo. Nulla interdum lectus ac arcu viverra aliquet. Donec sed leo egestas, accumsan nisi sit amet, sodales eros. Quisque pharetra semper tellus rhoncus congue. Etiam sit amet accumsan turpis, ac eleifend diam. Ut dapibus eget nibh et convallis. Quisque urna purus, interdum eu consequat a, laoreet et tellus. Suspendisse eget tincidunt neque, vel dignissim purus. Nunc ac lorem a nisi faucibus venenatis at in turpis. Proin eu rutrum massa. Suspendisse viverra dignissim justo vel varius.</p>
+        <br />

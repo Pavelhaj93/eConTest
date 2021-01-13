@@ -1,0 +1,21 @@
+﻿---
+ID: "3af1d736-2c11-4133-9cf9-420e97bbe0d8"
+Parent: "83a7bd72-f19f-4e34-88df-9d8ace5c694e"
+Template: "7691585a-bb36-4ee7-937f-da4de7a3edec"
+Path: /sitecore/content/eContracting2/Datasources/Steps/Default/1 Overeni udaju
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "124ed975-c5c5-48c6-a242-a677d8ef357b"
+      Hint: Label
+      Value: Oveření údajů
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T150242Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

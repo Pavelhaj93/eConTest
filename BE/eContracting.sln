@@ -14,22 +14,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Kernel", "eCon
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{FCE383FF-8571-4051-95F9-6293F4F54522}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SAP", "SAP", "{1A225118-EBA8-4BE0-BD04-DE6BBC8B53BA}"
-	ProjectSection(SolutionItems) = preProject
-		examples\SAP\BN_0203075474_ZQ10_8170105899.xml = examples\SAP\BN_0203075474_ZQ10_8170105899.xml
-		examples\SAP\BN_0203075474_ZQ10_8170105899_EED.xml = examples\SAP\BN_0203075474_ZQ10_8170105899_EED.xml
-		examples\SAP\BN_0203075474_ZQ10_8170105899_EPO.xml = examples\SAP\BN_0203075474_ZQ10_8170105899_EPO.xml
-		examples\SAP\BN_0203075474_ZQ10_8170105899_V01.xml = examples\SAP\BN_0203075474_ZQ10_8170105899_V01.xml
-		examples\SAP\BN_0203075474_ZQ10_8170105899_V02.xml = examples\SAP\BN_0203075474_ZQ10_8170105899_V02.xml
-		examples\SAP\BN_0203075474_ZQ10_8170105899_V03.xml = examples\SAP\BN_0203075474_ZQ10_8170105899_V03.xml
-		examples\SAP\BN_0203696701_ZQ10_1001143839_EPD.xml = examples\SAP\BN_0203696701_ZQ10_1001143839_EPD.xml
-		examples\SAP\BN_0203696701_ZQ10_1001143839_EPO.xml = examples\SAP\BN_0203696701_ZQ10_1001143839_EPO.xml
-		examples\SAP\BN_0203696701_ZQ10_1001143839_V01.xml = examples\SAP\BN_0203696701_ZQ10_1001143839_V01.xml
-		examples\SAP\BN_0203696701_ZQ10_1001143839_V02.xml = examples\SAP\BN_0203696701_ZQ10_1001143839_V02.xml
-		examples\SAP\BN_0203696701_ZQ10_1001143839_V03.xml = examples\SAP\BN_0203696701_ZQ10_1001143839_V03.xml
-		howto.md = howto.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{B40BA044-AF31-4AC5-858D-6A8721FACBF0}"
 	ProjectSection(SolutionItems) = preProject
 		libs\pdfium.dll = libs\pdfium.dll
@@ -42,44 +26,139 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website.Tests"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{705180D5-694C-4CC6-A845-D8CB48A3D8D6}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-CA64-4601-AD61-0188E9BF5F9D}"
 	ProjectSection(SolutionItems) = preProject
-		docs\Guids.md = docs\Guids.md
-		docs\TEMPLATE_Attributes.md = docs\TEMPLATE_Attributes.md
+		..\docs\ATTRIBUTES.md = ..\docs\ATTRIBUTES.md
+		..\docs\ATTRIBUTES_TABLE.md = ..\docs\ATTRIBUTES_TABLE.md
+		..\docs\Build_and_Deploy.md = ..\docs\Build_and_Deploy.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services", "eContracting.Services\eContracting.Services.csproj", "{F532A851-C440-4513-B563-3EB1C3972FFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Core", "eContracting.Core\eContracting.Core.csproj", "{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Core.Tests", "eContracting.Core.Tests\eContracting.Core.Tests.csproj", "{D0894268-9AF5-4958-9EEF-EDF18B02110F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services.Tests", "eContracting.Services.Tests\eContracting.Services.Tests.csproj", "{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Tests", "eContracting.Tests\eContracting.Tests.csproj", "{F1C16540-9450-4A28-BFFF-3F84662F87CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C80BE2D2-3523-43B1-8D9D-A0CCC94C6806}"
+	ProjectSection(SolutionItems) = preProject
+		.runsettings = .runsettings
+		..\docs\API\accepted_offer.json = ..\docs\API\accepted_offer.json
+		..\docs\API\global_config.json = ..\docs\API\global_config.json
+		..\docs\Guids.md = ..\docs\Guids.md
+		..\docs\API\not_accepted_offer.json = ..\docs\API\not_accepted_offer.json
+		..\docs\API\offer_06D969E88C3C1EEB8BE19FC68210B948.json = ..\docs\API\offer_06D969E88C3C1EEB8BE19FC68210B948.json
+		..\docs\API\submit_offer.json = ..\docs\API\submit_offer.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Versions", "Versions", "{B1549BD5-5605-4ED2-906E-3851EC2646AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1", "1", "{05F3A673-E035-4BCB-BE56-5BF6B4700D37}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899.xml
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_EED.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_EED.xml
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_EPO.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_EPO.xml
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V01.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V01.xml
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V02.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V02.xml
+		..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V03.xml = ..\docs\Examples\Versions\1\BN_0203075474_ZQ10_8170105899_V03.xml
+		..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_EPD.xml = ..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_EPD.xml
+		..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_EPO.xml = ..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_EPO.xml
+		..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V01.xml = ..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V01.xml
+		..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V02.xml = ..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V02.xml
+		..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V03.xml = ..\docs\Examples\Versions\1\BN_0203696701_ZQ10_1001143839_V03.xml
+		..\docs\Examples\Versions\1\BN_0204838732_ZQ10_1001630056.xml = ..\docs\Examples\Versions\1\BN_0204838732_ZQ10_1001630056.xml
+		..\docs\Examples\Versions\1\BN_0204838738_ZQ10_3170032327.xml = ..\docs\Examples\Versions\1\BN_0204838738_ZQ10_3170032327.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2", "2", "{8D2ADAF1-4DFE-4D31-BCD4-209349B5CED8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "eContracting.Database", "eContracting.Database\eContracting.Database.sqlproj", "{903B9255-5E08-4128-BF57-D04B9794FA15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Dev|Any CPU = Dev|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5CDFDE6-B465-46F0-A9D8-E69F06416BF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E443FE9-7BFB-4417-A625-9785FEC7F358}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E58C5990-176D-45EB-820D-25DA5D896DF2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{065644DA-6066-45C1-A040-172024550583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{065644DA-6066-45C1-A040-172024550583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{065644DA-6066-45C1-A040-172024550583}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{065644DA-6066-45C1-A040-172024550583}.Dev|Any CPU.Build.0 = Dev|Any CPU
 		{065644DA-6066-45C1-A040-172024550583}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{065644DA-6066-45C1-A040-172024550583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F532A851-C440-4513-B563-3EB1C3972FFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4F7E5E-E665-4837-B3C9-24A1E6B496C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Dev|Any CPU.ActiveCfg = Dev|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Dev|Any CPU.Build.0 = Dev|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0894268-9AF5-4958-9EEF-EDF18B02110F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C3A2D80-6BA9-4342-BCE6-E35B6B4E7B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C16540-9450-4A28-BFFF-3F84662F87CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Dev|Any CPU.ActiveCfg = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Dev|Any CPU.Build.0 = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Dev|Any CPU.Deploy.0 = Debug|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903B9255-5E08-4128-BF57-D04B9794FA15}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1A225118-EBA8-4BE0-BD04-DE6BBC8B53BA} = {FCE383FF-8571-4051-95F9-6293F4F54522}
 		{2C8EC859-CA64-4601-AD61-0188E9BF5F9D} = {705180D5-694C-4CC6-A845-D8CB48A3D8D6}
+		{B1549BD5-5605-4ED2-906E-3851EC2646AB} = {FCE383FF-8571-4051-95F9-6293F4F54522}
+		{05F3A673-E035-4BCB-BE56-5BF6B4700D37} = {B1549BD5-5605-4ED2-906E-3851EC2646AB}
+		{8D2ADAF1-4DFE-4D31-BCD4-209349B5CED8} = {B1549BD5-5605-4ED2-906E-3851EC2646AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}

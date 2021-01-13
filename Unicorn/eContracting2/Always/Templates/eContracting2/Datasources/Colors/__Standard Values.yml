@@ -1,0 +1,23 @@
+﻿---
+ID: "06e6fa61-e299-4d5c-87da-b4a2bf649a14"
+Parent: "fb0d9785-940f-4e79-bfbd-6f5500a05965"
+Template: "fb0d9785-940f-4e79-bfbd-6f5500a05965"
+Path: /sitecore/templates/eContracting2/Datasources/Colors/__Standard Values
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: "{88B6E827-31DB-4974-9A59-A63EDA322527}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210113T113450Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin

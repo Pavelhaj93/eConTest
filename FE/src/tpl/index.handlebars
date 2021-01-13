@@ -1,17 +1,14 @@
-{{> partials/html-header }}
-{{> partials/header }}
+{{> html-header }}
+{{> header }}
 
-<div class="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <h1>Stránky</h1>
-        <ul>
-          <li><a href="authentication.html">Authentication</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+{{#> layout}}
+  <h1>Stránky</h1>
+  <ul>
+    <li><a href="authentication.html">Authentication</a></li>
+    <li><a href="offer.html">Offer</a></li>
+    <li><a href="accepted-offer.html">Accepted offer</a></li>
+    <li><a href="thank-you.html">Thank you</a></li>
+  </ul>
+{{/ layout}}
 
-{{> partials/footer }}
+{{> footer }}

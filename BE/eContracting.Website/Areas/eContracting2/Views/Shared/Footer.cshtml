@@ -1,0 +1,41 @@
+﻿@using eContracting.Models
+@model PageFooterModel
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <div class="text-center text-md-right">
+                @if (!string.IsNullOrEmpty(Model.EmailLink))
+                {
+                    <a href="mailto:@Model.EmailLink" class="v-center mr-4 font-weight-bold" id="emailLink">
+                        <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
+                            <use xlink:href="#email"></use>
+                        </svg>
+                        <span>@Model.EmailText</span>
+                    </a>
+                }
+                @if (!string.IsNullOrEmpty(Model.PhoneNumberLinkFooter))
+                {
+                    <a href="tel:@Model.PhoneNumberLinkFooter" class="v-center font-weight-bold" id="phoneLinkLower">
+                        <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
+                            <use xlink:href="#phone"></use>
+                        </svg>
+                        <span>@Model.PhoneNumberFooter</span>
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="footer__bottom">
+        <div class="container">
+            <div class="row">
+                @if (!string.IsNullOrEmpty(Model.DisclaimerLinkUrl))
+                {
+                    <div class="col-12 col-md-6 text-center text-md-left mb-2">
+                        <a href="@Model.DisclaimerLinkUrl" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
+                    </div>
+                }
+                <div class="col-12 col-md-6 text-center text-md-right mb-2">@Model.CopyrightText</div>
+            </div>
+        </div>
+    </div>
+</footer>

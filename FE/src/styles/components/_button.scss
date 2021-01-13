@@ -1,0 +1,52 @@
+.btn {
+  padding-bottom: rem(9);
+
+  &.disabled,
+  &:disabled,
+  &-inactive {
+    color: #fff;
+    border-color: $btn-disabled-border;
+    background: $btn-disabled-bg;
+  }
+
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &-block-mobile {
+    @include media-breakpoint-down(sm) {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &-primary,
+  &-secondary {
+    color: $white;
+  }
+
+  &-icon {
+    @extend .rounded-circle;
+    padding: $btn-padding-y rem(14);
+
+    @include media-breakpoint-up(sm) {
+      padding-left: rem(15);
+      padding-right: rem(15);
+    }
+
+    @include media-breakpoint-up(md) {
+      padding-left: $spacer;
+      padding-right: $spacer;
+    }
+  }
+
+  &-link {
+    &.disabled,
+    &:disabled {
+      color: $color-gray-60;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  }
+}

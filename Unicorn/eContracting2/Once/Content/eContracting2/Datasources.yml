@@ -1,0 +1,18 @@
+﻿---
+ID: "e190dd34-f8cb-4df1-8e00-906df9e6fd13"
+Parent: "5036f11d-8068-43de-a827-aad2a0cef217"
+Template: "44e1a864-80ee-4e55-8097-afd850949121"
+Path: /sitecore/content/eContracting2/Datasources
+DB: master
+Languages:
+- Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Datove zdroje
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T113746Z

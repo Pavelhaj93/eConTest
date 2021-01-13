@@ -1,0 +1,73 @@
+.v-center {
+  &,
+  &--large {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  > *:not(:last-child) {
+    margin-right: map-get($spacers, 2);
+  }
+
+  &--large {
+    > *:not(:last-child) {
+      margin-right: map-get($spacers, 3);
+    }
+  }
+}
+
+@each $color, $value in $colors {
+  .bg--#{$color} {
+    background-color: $value;
+
+    @if (
+      $color ==
+        'red' or
+        $color ==
+        'red-dark' or
+        $color ==
+        'red-dark-purple' or
+        $color ==
+        'purple' or
+        $color ==
+        'purple-light' or
+        $color ==
+        'blue-dark' or
+        $color ==
+        'blue-green-dark' or
+        $color ==
+        'blue-green-light' or
+        $color ==
+        'green' or
+        $color ==
+        'green-dark' or
+        $color ==
+        'gray-60' or
+        $color ==
+        'gray-80' or
+        $color ==
+        'gray-100'
+    ) {
+      &,
+      .table {
+        color: #fff;
+      }
+    }
+  }
+
+  .fill-#{$color} {
+    fill: $value;
+  }
+}
+
+.fade {
+  &:not(.show) {
+    pointer-events: none;
+  }
+}
+
+.editorial-content {
+  > *:last-child {
+    margin-bottom: 0;
+  }
+}

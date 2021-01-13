@@ -1,0 +1,29 @@
+﻿---
+ID: "445387e0-27da-4880-b909-885b6c238ce1"
+Parent: "b7aa8d70-22cb-47b8-87b4-f070810d168d"
+Template: "b7aa8d70-22cb-47b8-87b4-f070810d168d"
+Path: /sitecore/templates/eContracting2/Datasources/Header/__Standard Values
+DB: master
+SharedFields:
+- ID: "d602b904-8abd-4079-9240-3223a3e5f8db"
+  Hint: ImageLink
+  Value: |
+    <link text="innogy" linktype="external" url="http://www.innogy.cz/" anchor="" target="_blank" />
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T135959Z
+    - ID: "3159bd81-5bbe-4a69-95f9-67c1021ab436"
+      Hint: PhoneNumber
+      Value: 800 11 33 55
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "bd86ae67-3659-4db8-8e71-c5077c679c06"
+      Hint: PhoneNumberLink
+      Value: 800113355

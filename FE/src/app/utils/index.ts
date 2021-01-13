@@ -1,3 +1,6 @@
 export * from './simpleFetch'
 export * from './cookies'
 export * from './mobileDevice'
+export * from './formatBytes'
+export * from './strings'
+export * from './browser'

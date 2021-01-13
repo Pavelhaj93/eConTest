@@ -1,0 +1,35 @@
+﻿---
+ID: "97ebeefa-d6d8-4a5f-8c49-2d73124cf895"
+Parent: "93c41f30-847e-4c82-b42c-77de0b8ae7ee"
+Template: "978f7acc-208e-4926-8313-fb8218500b22"
+Path: /sitecore/content/eContracting2/Datasources/PromoBoxes/Innosvet
+DB: master
+SharedFields:
+- ID: "39ca1139-b2ed-4728-9a23-341fb9175239"
+  Hint: Color
+  Value: "{9213CD46-FE00-48F9-94E3-EC8358622229}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210113T122846Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: "{E857C308-AB27-4E16-9E50-1D0FACC407A0}"
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "6d96ce52-9dae-4c56-b02f-933c38e1a861"
+      Hint: Text
+      Value: Spravujte svůj účet online na portálu innosvět
+    - ID: "ba63c5b0-0763-4ebb-ade6-628b0be9608f"
+      Hint: Link
+      Value: |
+        <link linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />

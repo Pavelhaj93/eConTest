@@ -263,3 +263,4 @@ npm-debug.log
 /src/manifest.json
 /src/mstile-*
 /src/safari-pinned-tab.svg
+*.jfm

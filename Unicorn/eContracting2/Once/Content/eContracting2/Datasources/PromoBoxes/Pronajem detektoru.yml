@@ -1,0 +1,35 @@
+﻿---
+ID: "a01bc65c-e848-467c-892e-58d6f0e0d9d2"
+Parent: "93c41f30-847e-4c82-b42c-77de0b8ae7ee"
+Template: "978f7acc-208e-4926-8313-fb8218500b22"
+Path: /sitecore/content/eContracting2/Datasources/PromoBoxes/Pronajem detektoru
+DB: master
+SharedFields:
+- ID: "39ca1139-b2ed-4728-9a23-341fb9175239"
+  Hint: Color
+  Value: "{3CDA94F7-8D98-42F4-8D44-206F1B9E4832}"
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210113T114239Z
+    - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
+      Hint: __Workflow state
+      Value: "{83BF41F9-F720-48F6-B4CE-40B83BC9421B}"
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "6d96ce52-9dae-4c56-b02f-933c38e1a861"
+      Hint: Text
+      Value: Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz
+    - ID: "ba63c5b0-0763-4ebb-ade6-628b0be9608f"
+      Hint: Link
+      Value: |
+        <link linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />

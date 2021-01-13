@@ -1,0 +1,133 @@
+{
+    "version": 2,
+    "accepted": false,
+    "header": {
+        "CCHTYPE": "NABIDKA",
+        "CCHKEY": "06D969E88C3C1EEB8FC4EF380063745D",
+        "CCHSTAT": "6",
+        "CCHVALTO": "2021-01-29"
+    },
+    "guid": "06D969E88C3C1EEB8FC4EF380063745D",
+    "accepted_date": null,
+    "created_date": "14.12.2020",
+    "has_gdpr": false,
+    "gdpr": null,
+    "campaign": null,
+    "commodity": "27ZG500Z00531488",
+    "isCampaign": false,
+    "state": "6",
+    "templates": [
+        {
+            "idattach": "EPS",
+            "description": "Smlouva o sdruzenych sluzbách dodávky plynu",
+            "obligatory": "X",
+            "printed": "X",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "V01",
+            "description": "Ceník",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "V02",
+            "description": "Ceník sluzeb",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "V03",
+            "description": "Obchodní podmínky",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "V09",
+            "description": "Certifikát zelená elektrina",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "DP3",
+            "description": "Dohoda o sjednání sluzby Predplacenka",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "DSL"
+        },
+        {
+            "idattach": "DP4",
+            "description": "Zádost o nesnízování zálohovych plateb",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "DSL"
+        },
+        {
+            "idattach": "P01",
+            "description": "Prihláska k pojistení",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "NONCOMMODITY"
+        },
+        {
+            "idattach": "P06",
+            "description": "Rámcová smlouva k pojistení",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "NONCOMMODITY"
+        },
+        {
+            "idattach": "P12",
+            "description": "Pojistení - Informacní dokument",
+            "obligatory": "",
+            "printed": "X",
+            "sing_required": "",
+            "group": "NONCOMMODITY"
+        },
+        {
+            "idattach": "PL2",
+            "description": "ZP - Dok. prokazující vztah k nemovitost",
+            "obligatory": "X",
+            "printed": "",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "PRZ",
+            "description": "ZP - Revizní zpráva",
+            "obligatory": "X",
+            "printed": "",
+            "sing_required": "",
+            "group": "COMMODITY"
+        },
+        {
+            "idattach": "PLU",
+            "description": "Ostatní",
+            "obligatory": "",
+            "printed": "",
+            "sing_required": "",
+            "group": "COMMODITY"
+        }
+    ],
+    "birthdate": "25.01.1946",
+    "pn": "9510900404",
+    "zip2": "561 51",
+    "zip": "561 51",
+    "process": "03",
+    "process_type": "J",
+    "expired": false,
+    "has_voucher": false
+}

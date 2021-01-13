@@ -1,0 +1,38 @@
+{
+    "accepted": [
+        "e1c9a5ce583743e6928ee4df91862a91",
+        "8e0ed4754f99464eb2d0155c140a2541",
+        "76868bd607804b9ca6bc5248f99726d3",
+        "2304df60d07448818c8b0b8c074d82a8",
+        "ee68d1a1da63434a9c91643d6b8504cf"
+    ],
+    "signed": [
+        "5e40683abb1441f5a0ec99425c2c6908"
+    ],
+    "uploaded": [
+        {
+            "group": "94758C0F4A75C571955FEC90DAF4284D",
+            "files": [ "syoosidlgj", "yyveq9rfvb", "qsdhp2o7o9k" ]
+        },
+        {
+            "group": "3240C1DC2DBE11537302D933C902F5CD",
+            "files": [ "6hxdphipc09" ]
+        },
+        {
+            "group": "26EA9D7CCD088842E21B63A8F58772B9",
+            "files": [ "9w6kvoapsna" ]
+        },
+        {
+            "group": "FA987AFE403E191D9A469FECAA6FA9D9",
+            "files": [ "v31yqq5ofqb" ]
+        }
+    ],
+    "other": [
+        "729a1d7ba5ce48298b848a3d732f45cd",
+        "b72e43e72c094a47bbc6767274d0b4a5",
+        "2894f4d3c1d14ea4ba4e7ce907b8a449",
+        "9658576e88f1458da13db8f2034476d8",
+        "cc6d047821044adc86b6c811d6cecb0b",
+        "c371d67295ab41e8bc64818c45a10a0f"
+    ]
+}

@@ -1,33 +1,38 @@
-{{> partials/html-header}}
-{{> partials/header}}
+{{> html-header}}
+{{> header}}
 
-<div class="main" role="main">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 offset-lg-2">
-        <div class="info">
-          <p>Vítáme Vás, pane Nováku,</p>
-          <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
-        </div>
-        {{> partials/app}}
-        <div id="token">
-          <input name="__RequestVerificationToken" type="hidden"
-            value="syILVuR3pRQyhW-s-FRQ3D7WLgLK21qtyplHUS34itGwBfYHYwkxlos6yMKXYF8Lt2HujsVHsj1MveXusQ6q0nESucc1" />
-        </div>
+{{#> layout}}
+  {{#> steps}}
+    {{> step content="Ověření údajů" active=true}}
+    {{> step content="Přečtení a potvrzení dokumentů"}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
+
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="info">
+        <p>Vítáme Vás, pane Nováku,</p>
+        <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
       </div>
+      {{> app}}
     </div>
   </div>
-</div>
+
+  <div id="token">
+    <input name="__RequestVerificationToken" type="hidden"
+      value="syILVuR3pRQyhW-s-FRQ3D7WLgLK21qtyplHUS34itGwBfYHYwkxlos6yMKXYF8Lt2HujsVHsj1MveXusQ6q0nESucc1" />
+  </div>
+{{/ layout}}
 
 <script>
   var appConfig = {
     view: 'Authentication',
-    doxReadyUrl: '/documents.json',
+    doxReadyUrl: '/api/documents',
+    errorPageUrl: '/error',
     isAgreed: false,
     isRetention: false,
     isAcquisition: true,
     formAction: '/authentication.html',
-    itemValue: '345678901',
     choices: [
       {
         label: 'PSČ trvalého bydliště',
@@ -59,4 +64,4 @@
   };
 </script>
 
-{{> partials/footer}}
+{{> footer}}

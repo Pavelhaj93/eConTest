@@ -1,11 +1,11 @@
 .alert {
-  $side-padding-small: 1.5em;
-  $side-padding-large: 3.5em;
+  $side-padding-small: 1.5rem;
+  $side-padding-large: 3.5rem;
 
   position: relative;
   margin-top: 2rem;
-  margin: 1.5em 0;
-  padding: 1em $side-padding-large 1em $side-padding-small;
+  margin: 1.5rem 0;
+  padding: $spacer $side-padding-small;
 
   .close {
     $size: 10px;
@@ -47,7 +47,7 @@
       height: $size;
       position: absolute;
       top: 50%;
-      left: 1em;
+      left: 1rem;
       z-index: 1;
       transform: translateY(-50%);
     }
@@ -61,7 +61,7 @@
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        margin-bottom: 1em;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -86,7 +86,7 @@
 
   &.info,
   &-info {
-    background: $color-gray-dimmer;
+    background: $color-gray-5;
   }
 
   h3,

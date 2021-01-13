@@ -64,8 +64,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
 
                     model.ClientId = authenticationDataItem.Identifier;
                     model.IsAccepted = isAccepted;
-                    model.IsRetention = authenticationDataItem.OfferType == OfferTypes.Retention;
-                    model.IsAcquisition = authenticationDataItem.OfferType == OfferTypes.Acquisition;
+                    model.IsRetention = authenticationDataItem.OfferType == Kernel.OfferTypes.Retention;
+                    model.IsAcquisition = authenticationDataItem.OfferType == Kernel.OfferTypes.Acquisition;
 
                     var generalSettings = ConfigHelpers.GetGeneralSettings();
                     ViewData["SelectAll_Text"] = Sitecore.Context.Item["SelectAll_Text"];
@@ -73,19 +73,19 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                     ViewData["IAgree"] = generalSettings.IAgree;
                     ViewData["Accept"] = generalSettings.Accept;
 
-                    GeneralTextsSettings texts = null;
+                    Kernel.GlassItems.Settings.GeneralTextsSettings texts = null;
 
                     if (model.IsRetention)
                     {
-                        texts = generalSettings.GetTexts(OfferTypes.Retention);
+                        texts = generalSettings.GetTexts(Kernel.OfferTypes.Retention);
                     }
                     else if (model.IsAcquisition)
                     {
-                        texts = generalSettings.GetTexts(OfferTypes.Acquisition);
+                        texts = generalSettings.GetTexts(Kernel.OfferTypes.Acquisition);
                     }
                     else
                     {
-                        texts = generalSettings.GetTexts(OfferTypes.Default);
+                        texts = generalSettings.GetTexts(Kernel.OfferTypes.Default);
                     }
 
                     if (texts != null)

@@ -2,80 +2,67 @@
 @include font-face($font-main, innogy-light, normal, normal);
 @include font-face($font-main, innogy-medium, $font-weight-medium, normal);
 
-html {
+body {
+  font-family: $font-main, $font-fallback;
   font-size: $font-size-base;
 
   @include media-breakpoint-up(sm) {
-    font-size: 1.25rem; // 20px
+    font-size: rem(20);
   }
   @include media-breakpoint-up(md) {
-    font-size: 1.375rem; // 22px
+    font-size: rem(22);
   }
-}
-
-body {
-  color: $color-gray;
-  font-family: $font-main, $font-fallback;
-  line-height: 1.5rem;
-  font-size: inherit;
 }
 
 /* Headings */
-h1,
-h2,
-h3,
-h4 {
-  margin-bottom: 0.5em;
-}
 
-h1 {
-  color: $color-gray-dark;
+h1,
+.h1 {
   font-weight: bold;
-  font-size: 1.7rem;
+  font-size: rem(30);
 
   @include media-breakpoint-up(sm) {
-    font-size: 2.5rem;
+    font-size: rem(50);
   }
 }
 
-h2 {
-  color: $color-gray-dark;
-  font-size: 1.3rem;
+h2,
+.h3 {
+  font-size: rem(20);
 
   @include media-breakpoint-up(sm) {
-    font-size: 1.9rem;
+    font-size: rem(30);
   }
   @include media-breakpoint-up(xl) {
-    font-size: 2.1rem;
+    font-size: rem(34);
   }
 }
 
-h3 {
-  // @media (max-width: $screen-sm-max) {
-  //   font-size: 1.15rem;
-  // }
-  // @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
-  //   font-size: 1.9rem;
-  // }
-  // @media (min-width: $screen-lg-min) {
-  //   font-size: 1.2rem;
-  // }
-  font-size: 1.15rem;
+h3,
+.h3 {
+  font-size: rem(20);
 
   @include media-breakpoint-up(sm) {
-    font-size: 1.9rem;
+    font-size: rem(22);
   }
   @include media-breakpoint-up(md) {
-    font-size: 1.2rem;
+    font-size: rem(30);
   }
 }
 
-p {
-  &:last-of-type {
-    margin-bottom: 0;
+h4,
+.h4 {
+  font-size: rem(18);
+
+  @include media-breakpoint-up(sm) {
+    font-size: rem(20);
+  }
+  @include media-breakpoint-up(md) {
+    font-size: rem(22);
   }
 }
 
+b,
 strong {
-  color: $color-gray-dark;
+  font-weight: $font-weight-medium;
 }

@@ -1,0 +1,47 @@
+﻿---
+ID: "a404a396-8a31-421f-ab4d-18c84f8ec6d6"
+Parent: "6ccfef10-7a13-47f8-aaf3-237085b9c556"
+Template: "6ccfef10-7a13-47f8-aaf3-237085b9c556"
+Path: /sitecore/templates/eContracting2/Pages/404/__Standard Values
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{AF831414-ED0C-4A36-B150-67AF96DE8CA9}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{FBCBD837-CCAD-435D-BCC2-6276C4893ADB}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T125300Z
+    - ID: "265db6e1-685e-4a4c-a53a-ca46ff79927a"
+      Hint: Text
+      Value: |
+        <p>V&aacute;žen&yacute; z&aacute;kazn&iacute;ku,</p>
+        <p>omlouv&aacute;me se, ale str&aacute;nku, na kterou směřoval V&aacute;&scaron; požadavek, se nepodařilo naj&iacute;t. Je možn&eacute;, že byla odstraněna, přejmenov&aacute;na nebo je dočasně nedostupn&aacute;.</p>
+        <p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Chyba 404

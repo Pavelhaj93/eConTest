@@ -103,9 +103,9 @@ namespace eContracting.Website.Areas.eContracting.Controllers
                 if (this.Request.QueryString["fromWelcome"] != "1" && !userData.IsAccepted)
                 {
                     if (
-                        (this.Context.WelcomePageEnabled && userData.OfferType == OfferTypes.Default)
-                        || (this.Context.WelcomePageEnabledRetention && userData.OfferType == OfferTypes.Retention)
-                        || (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == OfferTypes.Acquisition))
+                        (this.Context.WelcomePageEnabled && userData.OfferType == Kernel.OfferTypes.Default)
+                        || (this.Context.WelcomePageEnabledRetention && userData.OfferType == Kernel.OfferTypes.Retention)
+                        || (this.Context.WelcomePageEnabledAcquisition && userData.OfferType == Kernel.OfferTypes.Acquisition))
                     {
                         UriBuilder welcomeUri = new UriBuilder(ConfigHelpers.GetPageLink(PageLinkType.Welcome).Url);
                         var query = new SafeDictionary<string>();
@@ -396,8 +396,8 @@ namespace eContracting.Website.Areas.eContracting.Controllers
         private LoginViewModel GetViewModel(AuthenticationDataItem userData, string validationMessage = null)
         {
             var viewModel = new LoginViewModel();
-            viewModel.IsRetention = userData.OfferType == OfferTypes.Retention;
-            viewModel.IsAcquisition = userData.OfferType == OfferTypes.Acquisition;
+            viewModel.IsRetention = userData.OfferType == Kernel.OfferTypes.Retention;
+            viewModel.IsAcquisition = userData.OfferType == Kernel.OfferTypes.Acquisition;
             viewModel.FormAction = this.Request.RawUrl;
 
             viewModel.Labels = new Dictionary<string, string>();

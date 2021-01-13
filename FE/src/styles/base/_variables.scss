@@ -1,16 +1,54 @@
 // Colors
-$color-green: #72c201;
 $color-orange: #f59b00;
-$color-green-blue: #019ba5;
-$color-red: #ea4b0a;
+$color-orange-dark: #d27300;
+$color-red: #eb4b0a;
+$color-red-dark: #b9280a;
+$color-red-purple: #e60055;
+$color-red-purple-dark: #a50032;
+$color-purple: #780a5f;
+$color-purple-light: #c81e82;
+$color-blue: #00aae1;
+$color-blue-dark: #143c8c;
+$color-blue-green-dark: #005f69;
+$color-blue-green-light: #009ba5;
+$color-green: #64b42d;
+$color-green-dark: #00875a;
+$color-yellow: #fff0d9;
+$color-black: #1a1a18;
+$color-white: #fff;
 
-$color-gray-dark: #3c3732;
-$color-gray: #3c3733;
-$color-gray-light: #9b9a98;
-$color-gray-dim: #cdcdcd;
-$color-gray-dimmer: #f8f8f8;
+$color-gray-5: #f7f6f6;
+$color-gray-10: #eeecec;
+$color-gray-20: #dcdbd9;
+$color-gray-40: #b8b5b4;
+$color-gray-60: #928e8c;
+$color-gray-80: #696461;
+$color-gray-100: #3c3732;
 
-$color-border: #e1dfe0;
+$colors: (
+  'orange': $color-orange,
+  'orange-dark': $color-orange-dark,
+  'red': $color-red,
+  'red-dark': $color-red-dark,
+  'red-dark-purple': $color-red-purple,
+  'purple': $color-purple,
+  'purple-light': $color-purple-light,
+  'blue': $color-blue,
+  'blue-dark': $color-blue-dark,
+  'blue-green-dark': $color-blue-green-dark,
+  'blue-green-light': $color-blue-green-light,
+  'green': $color-green,
+  'green-dark': $color-green-dark,
+  'yellow': $color-yellow,
+  'gray-5': $color-gray-5,
+  'gray-10': $color-gray-10,
+  'gray-20': $color-gray-20,
+  'gray-40': $color-gray-40,
+  'gray-60': $color-gray-60,
+  'gray-80': $color-gray-80,
+  'gray-100': $color-gray-100,
+  'white': $color-white,
+);
 
 $transition-duration: 0.2s;
 
@@ -19,46 +57,74 @@ $font-main: Innogy;
 $font-fallback: Arial, Helvetica, sans-serif;
 $custom-font-path: '../fonts/';
 $font-weight-medium: 600;
-$font-size-base: 1.125rem; // 18px
+$font-weight-bold: $font-weight-medium;
+$font-size-base: rem(18);
 
-// Bootstrap variables
-$primary: $color-green;
-$link-color: $color-orange;
+//= Bootstrap variables
+//
+
+// General
+$primary: $color-orange;
+$secondary: $color-green;
+$danger: $color-red;
+$dark: $color-gray-100;
 $red: $color-red;
+$green: $color-green;
+$body-color: $color-gray-100;
+$link-color: $color-orange;
+$border-color: $color-gray-20;
 
+$border-radius: 35px;
+$border-radius-sm: 25px;
+
+// Tooltip
+$tooltip-font-size: rem(18);
 $tooltip-bg: $color-orange;
 $tooltip-color: #fff;
 $tooltip-opacity: 1;
 
-$paragraph-margin-bottom: 10px;
+// Typography
+$headings-font-weight: $font-weight-medium;
+$headings-margin-bottom: 0.5em;
 
-$input-color: $color-gray-dark;
-$input-placeholder-color: darken($color-gray-light, 10%);
-$input-border-color: $color-gray-dim;
+// Inputs + forms
+$input-btn-padding-x: 1.6rem;
+$input-btn-padding-y: 0.9rem;
+$input-color: $body-color;
+$input-placeholder-color: $color-gray-60;
+$input-border-color: $color-gray-80;
 $input-focus-border-color: $color-orange;
-$input-border-radius: 35px;
 $input-focus-box-shadow: none;
-$input-padding-x: 1.5rem;
-$input-padding-y: 0.65rem;
 $input-font-size: inherit;
+$input-disabled-border-color: $color-gray-20;
 
-$form-control-line-height: 1.2rem;
-$form-group-margin-bottom: 1.5rem;
+$form-control-line-height: 1.35rem;
+$form-group-margin-bottom: 1.7rem;
 $label-margin-bottom: 8px;
 $label-padding-y: $label-margin-bottom;
 
-$btn-padding-x: 1.5rem;
-$btn-padding-x: 0.3rem;
+// Buttons
+$btn-font-weight: $font-weight-medium;
 $btn-disabled-opacity: 1;
 $btn-font-size: inherit;
-$btn-line-height: $form-control-line-height;
+$btn-line-height: 1.4;
+$btn-disabled-border: $color-gray-40;
+$btn-disabled-bg: $color-gray-40;
+$btn-padding-x: rem(22);
+$btn-padding-y: rem(10);
 
+// Alerts
 $alert-border-radius: 0;
 $alert-border-width: 0;
 
 // React datepicker variables
+$datepicker__font-size: rem(18);
+$datepicker__item-size: 2.2rem;
+$datepicker__day-margin: 0.25rem;
+$datepicker__margin: 0.5rem;
+$datepicker__navigation-size: 0.55rem;
 $datepicker__font-family: inherit;
-$datepicker__text-color: $color-gray;
+$datepicker__text-color: $body-color;
 $datepicker__border-radius: 5px;
 $datepicker__header-color: #fff;
 $datepicker__selected-color: transparent;

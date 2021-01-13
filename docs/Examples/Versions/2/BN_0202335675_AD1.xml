@@ -1,0 +1,69 @@
+﻿<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>06D969E88C3C1EDB8BE4470051F50215</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>06D969E88C3C1EDB8BE44685F22F0215</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Garance 24]<br />|Platnost nabídky do|: [10.12.2020]<br />|Délka fixace|: [24 měsíců od platnosti smlouvy]<br />|Platnost smlouvy|: [Dnem podpisusmlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [Zatím neurčeno ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Garance 24</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>10.12.2020</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>24 měsíců od platnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem podpisusmlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Zatím neurčeno </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_GARANCE_24</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Garance 24</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy],<br />|Druhé|: [ve druhém i třetím roce garance dalšího cenového snížení]<br />|Třetí|: [férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>ve druhém i třetím roce garance dalšího cenového snížení</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>třída Soukenická 51, 550 01 Broumov</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>12.09.1936</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>milos.rezanina@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Miroslav Macháček</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>603 280 385</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Bouráku Macháčku                                  </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510900403</PERSON_NUMBER>
+        <PERSON_PREMADR>Lužnice 10 / test, 379 01 Lužnice</PERSON_PREMADR>
+        <PERSON_PREMEXT>859182400105583625</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302880294</PERSON_PREMNUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

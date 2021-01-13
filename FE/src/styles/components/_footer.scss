@@ -1,73 +1,20 @@
-.pre-footer,
 .footer {
-  flex: none;
-  padding: 0.7rem 0;
-  font-size: 0.7rem;
+  font-size: rem(13);
+  background-color: #fff;
 
-  @include media-breakpoint-down(sm) {
-    text-align: center;
-
-    [class^='col-'] {
-      width: 100%;
-      flex-basis: 100%;
-      max-width: none;
-    }
-  }
-}
-
-/* Pre-footer */
-.pre-footer {
-  background: $color-gray;
-  color: $color-gray-light;
-
+  &,
   a {
-    color: $color-gray-light;
-
-    &:hover {
-      color: #fff;
-    }
-    &:not(:last-of-type) {
-      margin-right: 2rem;
-    }
+    color: $color-black;
   }
 
-  .phone,
-  .email {
-    &:before {
-      $size: 1rem;
-      height: $size;
-      width: $size;
-    }
+  &__top {
+    font-size: rem(16);
+    border-top: 1px solid $color-gray-20;
+    padding: map-get($spacers, 3) 0 map-get($spacers, 2);
   }
 
-  .phone:before {
-    background-image: svg-load('../icons/svg/phone.svg', fill=$color-gray-light);
+  &__bottom {
+    background-color: $color-gray-40;
+    padding: 20px 0 8px;
   }
-  .email:before {
-    background-image: svg-load('../icons/svg/email.svg', fill=$color-gray-light);
-  }
-
-  @include media-breakpoint-down(sm) {
-    $spacing: 1rem;
-    background: #000;
-
-    &,
-    div:not(:last-child) {
-      border-bottom: 1px solid #262626;
-    }
-
-    div {
-      text-align: inherit !important;
-    }
-
-    div:not(:last-child) {
-      margin-bottom: $spacing / 1.5;
-      padding-bottom: $spacing / 1.5;
-    }
-  }
-}
-
-/* Footer */
-.footer {
-  background: #000;
 }

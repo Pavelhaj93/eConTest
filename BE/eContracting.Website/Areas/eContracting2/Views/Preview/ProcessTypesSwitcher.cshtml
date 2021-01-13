@@ -1,0 +1,38 @@
+﻿@using eContracting
+@using eContracting.Website.Areas.eContracting2.Models
+@model ProcessTypesSwitcherViewModel
+<div class="offer-process-type-switcher">
+    <form method="get" action="@HttpContext.Current.Request.RawUrl">
+        <div class="container">
+            <div class="row">
+                @for (int i = 0; i < Model.Query.Keys.Count; i++)
+                {
+                    <input type="hidden" name="@Model.Query.Keys[i]" value="@Model.Query[Model.Query.Keys[i]]" />
+                }
+                <div class="col-sm-6">
+                    <label>Proces</label>
+                    <select name="@Constants.QueryKeys.PROCESS">
+                        @foreach (var item in Model.Processes)
+                        {
+                            <option value="@item.Code" @(Model.Process == item.Code ? "selected=\"selected\"" : "")>@item.Title</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label>Typ</label>
+                    <select name="@Constants.QueryKeys.PROCESS_TYPE">
+                        @foreach (var item in Model.ProcessTypes)
+                        {
+                            <option value="@item.Code" @(Model.ProcessType == item.Code ? "selected=\"selected\"" : "")>@item.Title</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row text-right">
+                <button type="submit" class="button">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

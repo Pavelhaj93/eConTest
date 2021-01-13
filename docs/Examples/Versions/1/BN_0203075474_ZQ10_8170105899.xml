@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>02D67988E24D1EE8BCE4872B8002AD45</GUID>
+            <ISU_CONTRACT>8170105899</ISU_CONTRACT>
+            <CONTSTART>20200112</CONTSTART>
+            <DATE_TO>20190612</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9510278918</PARTNER>
+            <NAME_LAST>Fanta</NAME_LAST>
+            <NAME_FIRST>Stanislav</NAME_FIRST>
+            <NAME_ORG1/>
+            <BIRTHDT>08.10.1956</BIRTHDT>
+            <IC/>
+            <EMAIL>stanislav.fanta@centrum.cz</EMAIL>
+            <PHONE>724 143 056</PHONE>
+            <EXT_UI>859182400607028266</EXT_UI>
+            <VSTELLE>9300144406</VSTELLE>
+            <ANLAGE/>
+            <BUAG>813000011561</BUAG>
+            <PSC_MS>295 01</PSC_MS>
+            <PSC_ADDR>295 01</PSC_ADDR>
+            <ACCOUNT_NUMBER/>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>A10</IDATTACH>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ />
+                    <ADDINFO />
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

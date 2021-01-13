@@ -1,0 +1,23 @@
+﻿@using eContracting.Models
+@model PageHeaderModel
+
+<header class="header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <a class="logo" href="@Model.ImageLinkUrl" id="imageLink" target="_blank">
+                <svg class="icon" preserveAspectRatio="none">
+                    <use xlink:href="#logo" />
+                </svg>
+            </a>
+            @if (!string.IsNullOrEmpty(Model.PhoneNumberLink))
+            {
+                <a class="phone v-center v-center--large" href="tel:@Model.PhoneNumberLink" id="phoneLink">
+                    <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use class="d-none d-sm-block" xlink:href="#phone"></use>
+                    </svg>
+                    <span>@Model.PhoneNumber</span>
+                </a>
+            }
+        </div>
+    </div>
+</header>

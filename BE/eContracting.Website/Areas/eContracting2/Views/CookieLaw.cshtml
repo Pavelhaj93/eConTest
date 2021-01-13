@@ -1,0 +1,27 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Models
+@inherits GlassView<CookieLawSettingsModel>
+
+<div id="notification">
+	<div class="container-fluid">
+		<p>
+			@Editable(model=>model.Text)
+		</p>
+		<div class="actions">
+			@if (Model.Link != null)
+			{
+				if (Sitecore.Context.PageMode.IsNormal)
+				{
+					<a id="PersonalDataLink" href="@Model.Link.Url" class="external" target="_blank">@Model.Link.Text</a>
+                }
+                else
+                {
+					@Editable(model => model.Link)
+                }
+            }
+			<a class="button agree" href="">
+				@Editable(model => model.ButtonLabel)
+			</a>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,24 @@
+﻿---
+ID: "afb19a60-fb64-4416-a1b1-5f30d24ec2f7"
+Parent: "9049d175-fd49-49e6-8753-91bbcea11ea1"
+Template: "20ec5c2e-616e-493a-892d-c0c1e23721e9"
+Path: /sitecore/content/eContracting2/Settings/Processes/AKVIZICE
+DB: master
+SharedFields:
+- ID: "2975573d-f84c-4ce8-9546-45a35ecb1580"
+  Hint: Code
+  Value: 02
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "1894efda-30dc-49d2-800f-a97e37c68b49"
+      Hint: Title
+      Value: AKVIZICE
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201008T113322Z

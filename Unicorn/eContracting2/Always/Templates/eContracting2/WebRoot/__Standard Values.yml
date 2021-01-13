@@ -1,0 +1,103 @@
+﻿---
+ID: "92f56301-b3dd-47fa-91e6-8752d8ebbbe1"
+Parent: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
+Template: "212c0d14-4bdf-47a6-846a-cdf7a549b169"
+Path: /sitecore/templates/eContracting2/WebRoot/__Standard Values
+DB: master
+SharedFields:
+- ID: "00d77617-a185-479e-945f-11036c04973b"
+  Hint: AllowedDocumentTypes
+  Value: image/jpeg, image/png, application/pdf
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: 
+- ID: "2437fb64-4ff9-460d-848f-77e5adefc249"
+  Hint: MaxUploadSize
+  Value: 26214400
+- ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
+  Hint: ServiceUrl
+  Value: 
+- ID: "453dd7db-cbe4-4962-8c70-2c690163ce7f"
+  Hint: MaxImageHeightAfterResize
+  Value: 8096
+- ID: "462f14a0-b715-4a81-adb2-60b0c66c546c"
+  Hint: GroupResultingFileSizeLimitKBytes
+  Value: 25600
+- ID: "51654b99-0321-483f-a7bb-6125c30bb567"
+  Hint: MinImageWidthNoResize
+  Value: 1024
+- ID: "52d1137c-4e99-4f4c-9813-988e5fef5400"
+  Hint: MaxImageWidthAfterResize
+  Value: 8096
+- ID: "739f3649-8839-4b83-99a6-9dde316af4cb"
+  Hint: TotalResultingFilesSizeLimitKBytes
+  Value: 25600
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
+- ID: "aa1c0e0b-2f5e-4881-b317-d4b16a187913"
+  Hint: MaxAllGroupsOptimizationRounds
+  Value: 2
+- ID: "b0a5f616-ab2b-44cb-8997-95e1411212d1"
+  Hint: MinImageHeightNoResize
+  Value: 1024
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 100
+- ID: "bbb4ed05-200d-4071-8997-4f94bcb1a76b"
+  Hint: ServicePassword
+  Value: 
+- ID: "e82c99c8-ce35-453e-b54e-663e861cd0af"
+  Hint: ServiceUser
+  Value: 
+- ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
+  Hint: MaxGroupOptimizationRounds
+  Value: 3
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "128103da-d6c5-4fa1-a583-b06a2cef3acc"
+      Hint: MaxUploadSizeDescription
+      Value: 25 megabajtů
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200908T082439Z
+    - ID: "2bb6ac42-58b5-4140-b692-b511fe6fe939"
+      Hint: MaxUploadSizeExceededErrorMessage
+      Value: "Překročena maximální velikost všech souborů. Maximální velikost je {maxSize}."
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "68f65bd4-1804-44a7-b962-e21761f2410b"
+      Hint: AllowedDocumentTypesInvalidTypeErrorMessage
+      Value: "Špatný formát dokumentu. Povolené typy jsou: {types}"
+    - ID: "d1084a28-062a-401a-abed-f88ff709021c"
+      Hint: AllowedDocumentTypesDescription
+      Value: JPG, JPEG, PNG, PDF
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "128103da-d6c5-4fa1-a583-b06a2cef3acc"
+      Hint: MaxUploadSizeDescription
+      Value: 25 megabajtů
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210104T153314Z
+    - ID: "2bb6ac42-58b5-4140-b692-b511fe6fe939"
+      Hint: MaxUploadSizeExceededErrorMessage
+      Value: "Překročena maximální velikost všech souborů. Maximální velikost je {maxSize}."
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "68f65bd4-1804-44a7-b962-e21761f2410b"
+      Hint: AllowedDocumentTypesInvalidTypeErrorMessage
+      Value: "Špatná formát dokumentu. Povolené typy jsou: {types}"
+    - ID: "d1084a28-062a-401a-abed-f88ff709021c"
+      Hint: AllowedDocumentTypesDescription
+      Value: JPG, JPEG, PNG, PDF

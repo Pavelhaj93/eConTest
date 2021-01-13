@@ -1,0 +1,15 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Models
+@inherits GlassView<PageError404Model>
+
+<div class="row">
+	<div class="col-12">
+		<div class="text-center">
+			<h1>@Editable(model => model.PageTitle)</h1>
+			@Editable(model => model.MainText)
+		</div>
+	</div>
+</div>
+<div class="row justify-content-center">
+    @Html.Sitecore().Placeholder("eContracting2-boxes")
+</div>

@@ -2,17 +2,26 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import merge from 'webpack-merge'
 import baseConfig from './base.config.babel'
 import path from 'path'
+import apiMocker from 'connect-api-mocker'
 
 export default merge(baseConfig, {
   mode: 'development',
   devtool: 'source-map',
 
   devServer: {
-    host: '0.0.0.0',
+    host: '0.0.0.0', // on Windows use standard localhost
+    before: app => {
+      app.use(apiMocker('/api', '/src/mocks/api'))
+    },
   },
 
   module: {
     rules: [
+      {
+        test: /\.(j|t)sx?$/,
+        loader: 'awesome-typescript-loader',
+        exclude: [/node_modules/, /build/],
+      },
       {
         test: /\.scss$/,
         use: [
@@ -32,8 +41,7 @@ export default merge(baseConfig, {
               ident: 'postcss',
               // 1. encode svg references as base64
               // 2. add browser prefixes
-              // eslint-disable-next-line @typescript-eslint/no-var-requires
-              plugins: loader => [require('postcss-inline-svg')(), require('autoprefixer')()],
+              plugins: () => [require('postcss-inline-svg')(), require('autoprefixer')()],
             },
           },
           {

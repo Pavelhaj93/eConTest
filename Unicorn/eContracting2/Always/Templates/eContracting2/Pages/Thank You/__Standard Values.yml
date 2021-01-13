@@ -1,0 +1,59 @@
+﻿---
+ID: "1e99a256-c63e-43f2-a71a-de28f22a0e46"
+Parent: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
+Path: /sitecore/templates/eContracting2/Pages/Thank You/__Standard Values
+DB: master
+SharedFields:
+- ID: "0e3e873c-6489-47ce-aa20-80a2c72b865c"
+  Hint: Link2
+  Value: |
+    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
+- ID: "6a945352-d28c-4b78-9775-1770bbb6af24"
+  Hint: Link1
+  Value: |
+    <link text="Spravujte svůj účet online na innogy24.cz" linktype="external" url="https://www.innogy24.cz/prihlaseni/index" anchor="" target="_blank" />
+- ID: "833a37dd-f806-4be1-beb4-96a6a71810d4"
+  Hint: Link3
+  Value: |
+    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{D5229F29-973F-4F93-B9CB-46EBD008B4BD}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{5E67F4C6-DAFB-469B-B6D5-7E5C4837E96B}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20200422T090319Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
+    - ID: "e13ea30e-18ec-411d-b27d-51161560b10d"
+      Hint: ServiceUnavailableText
+      Value: |
+        <p>Omlouv&aacute;me se V&aacute;m, ale aplikaci eContracting se nepodařilo spustit. Př&iacute;činou může b&yacute;t pr&aacute;vě prob&iacute;haj&iacute;c&iacute; odst&aacute;vka aplikace.</p>
+        <p>V př&iacute;padě potřeby využijte na&scaron;i z&aacute;kaznickou linku uvedenou v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
+        <p>Děkujeme</p>
+        <p>Va&scaron;e innogy</p>

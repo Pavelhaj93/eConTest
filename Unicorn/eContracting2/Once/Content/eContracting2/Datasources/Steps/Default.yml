@@ -1,0 +1,18 @@
+﻿---
+ID: "83a7bd72-f19f-4e34-88df-9d8ace5c694e"
+Parent: "ff1d39ad-bf6b-48ff-a4eb-3ab9f3b8ef12"
+Template: "6d22f9b3-29ff-4568-8896-5b3cf78569a4"
+Path: /sitecore/content/eContracting2/Datasources/Steps/Default
+DB: master
+Languages:
+- Language: cs
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Výchozí
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20201007T150231Z

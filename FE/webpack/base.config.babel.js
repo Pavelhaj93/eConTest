@@ -48,20 +48,21 @@ export default {
       '@icons': path.resolve(__dirname, '../src/icons/svg'),
       '@views': path.resolve(__dirname, '../src/app/views'),
       '@theme': path.resolve(__dirname, '../src/app/theme'),
+      '@stores': path.resolve(__dirname, '../src/app/stores'),
+      '@context': path.resolve(__dirname, '../src/app/context'),
     },
   },
 
   module: {
     rules: [
       {
-        test: /\.(j|t)sx?$/,
-        loader: 'awesome-typescript-loader',
-        exclude: [/node_modules/, /build/],
-      },
-      {
         test: /\.handlebars$/,
         loader: 'handlebars-loader',
         exclude: [/node_modules/, /build/],
+        query: {
+          partialDirs: [path.resolve(__dirname, '../src/tpl/partials')],
+          helperDirs: [path.resolve(__dirname, '../src/tpl/helpers')],
+        },
       },
       {
         test: /\.woff2?$/,
@@ -81,7 +82,7 @@ export default {
         options: {
           extract: true,
           spriteFilename: 'sprite.svg',
-          outputPath: 'gfx/icon/'
+          outputPath: 'gfx/icon/',
         },
       },
     ],
@@ -101,11 +102,19 @@ export default {
     new PolyfillInjectorPlugin({
       polyfills: [
         'Object.assign',
+        'Object.values',
+        'Object.entries',
         'Array.from',
         'Array.prototype.find',
         'Array.prototype.findIndex',
+        'Array.prototype.fill',
+        'Array.prototype.includes',
         'fetch',
         'Promise',
+        'AbortController',
+        'Number.isFinite',
+        'Math.log10',
+        'String.prototype.startsWith',
       ],
       singleFile: true,
       filename: 'js/polyfills.js',
