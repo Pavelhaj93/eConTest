@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
     <title>@Model.PageMetaTitle</title>
 
-    @if (!string.IsNullOrEmpty(Model.GoogleTagManagerKey))
+    @if (Model.GoogleTagManagerShow)
     {
         <script>
             (function (w, d, s, l, i) {
@@ -61,7 +61,7 @@
     @Html.Sitecore().Placeholder("eContracting2Bottom")
     <script src="/assets/eContracting2/js/econtracting.bundle.js"></script>
 
-    @if (!string.IsNullOrEmpty(Model.GoogleTagManagerKey))
+    @if (Model.GoogleTagManagerShow)
     {
         <noscript>
             <iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerKey" height="0" width="0" style="display:none;visibility:hidden"></iframe>

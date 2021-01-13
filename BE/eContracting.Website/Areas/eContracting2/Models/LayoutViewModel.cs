@@ -22,6 +22,17 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public string GoogleTagManagerKey { get; set; }
 
+        /// <summary>
+        /// Gets true when <see cref="GoogleTagManagerKey"/> is not empty and Sitecore is not in editing mode.
+        /// </summary>
+        public bool GoogleTagManagerShow
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.GoogleTagManagerKey) && !Sitecore.Context.PageMode.IsExperienceEditorEditing;
+            }
+        }
+
         public override void Initialize(Rendering rendering)
         {
             try
