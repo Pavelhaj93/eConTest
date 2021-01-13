@@ -345,7 +345,7 @@ export const Offer: React.FC<View> = observer(
                       id="signBtnDescription"
                       className="editorial-content text-muted small"
                       dangerouslySetInnerHTML={{
-                        __html: store.documents.acceptance.sign?.note ?? '',
+                        __html: t('signatureNote'),
                       }}
                       aria-hidden="true"
                     />
@@ -572,7 +572,6 @@ export const Offer: React.FC<View> = observer(
           {...signatureModalProps}
           onClose={() => setSignatureModalProps({ show: false, id: '' })}
           labels={labels}
-          note={store.documents.acceptance?.sign?.note}
           thumbnailUrl={thumbnailUrl ?? ''}
           signFileUrl={signFileUrl ?? ''}
         />

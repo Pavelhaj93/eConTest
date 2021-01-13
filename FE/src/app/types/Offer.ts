@@ -73,7 +73,6 @@ export type AcceptanceDocuments = {
     subTitle: string
     mandatoryGroups: string[]
     files: OfferDocument[]
-    note: string
   } | null
 }
 
