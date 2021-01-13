@@ -177,8 +177,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
+                var definition = this.SettingsReaderService.GetDefinition(offer);
                 var settings = this.SettingsReaderService.GetSiteSettings();
-                var viewModel = new AcceptedOfferViewModel(datasource, settings.ApplicationUnavailableTitle, settings.ApplicationUnavailableText);
+                var viewModel = new AcceptedOfferViewModel(this.SettingsReaderService);
+                viewModel.Datasource = datasource;
+                viewModel.MainText = definition.OfferAcceptedMainText.Text;
+                viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
+                viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);
             }
             catch (Exception ex)
