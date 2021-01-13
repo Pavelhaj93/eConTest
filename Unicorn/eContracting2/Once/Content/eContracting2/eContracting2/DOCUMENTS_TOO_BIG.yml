@@ -5,6 +5,9 @@ Template: "6d1cd897-1936-4a3a-a511-289a94c2a7b1"
 Path: /sitecore/content/eContracting2/eContracting2/DOCUMENTS_TOO_BIG
 DB: master
 SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: imaging/32x32/zoom_document.png
 - ID: "580c75a8-c01a-4580-83cb-987776ceb3af"
   Hint: Key
   Value: DOCUMENTS_TOO_BIG

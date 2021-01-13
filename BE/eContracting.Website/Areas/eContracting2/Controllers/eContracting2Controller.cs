@@ -434,6 +434,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["signatureEditBtn"] = this.TextService.FindByKey("MODIFY_SIGNATURE");
             viewModel["signatureModalTitle"] = datasource.SignModalWindowTitle;
             viewModel["signatureModalText"] = datasource.SignModalWindowText;
+            viewModel["signatureNote"] = datasource.SignModalWindowNote;
             viewModel["signatureModalConfirm"] = datasource.SignModalWindowConfirmButtonLabel;
             viewModel["signatureModalClear"] = datasource.SignModalWindowClearButtonLabel;
             viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;

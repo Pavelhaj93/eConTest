@@ -34,6 +34,8 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual string AesEncryptVector { get; set; }
 
+        #region Confirm Modal Window
+
         /// <summary>
         /// Gets or sets title for confirm modal window.
         /// </summary>
@@ -61,6 +63,10 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual string ConfirmModalWindowGeneralErrorMessage { get; set; }
 
+        #endregion
+
+        #region Sign Modal Window
+
         [SitecoreField]
         public virtual string SignModalWindowTitle { get; set; }
 
@@ -74,6 +80,9 @@ namespace eContracting.Models
         public virtual string SignModalWindowPenArea { get; set; }
 
         [SitecoreField]
+        public virtual string SignModalWindowNote { get; set; }
+
+        [SitecoreField]
         public virtual string SignModalWindowConfirmButtonLabel { get; set; }
 
         [SitecoreField]
@@ -81,5 +90,7 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual string SignModalWindowGeneralErrorMessage { get; set; }
+
+        #endregion
     }
 }
