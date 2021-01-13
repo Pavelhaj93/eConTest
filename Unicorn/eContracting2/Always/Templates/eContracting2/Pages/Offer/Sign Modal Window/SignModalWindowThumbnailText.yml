@@ -1,8 +1,8 @@
 ﻿---
-ID: "bd59ebd7-a382-4828-8fd8-a3eabb4b1955"
+ID: "847366db-e81b-45f8-8f3e-928686a5129b"
 Parent: "fda282c8-f9f5-47a3-b4ec-958b69dbe5c1"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Pages/Offer/Sign Model Window/SignModalWindowGeneralErrorMessage
+Path: /sitecore/templates/eContracting2/Pages/Offer/Sign Modal Window/SignModalWindowThumbnailText
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,7 @@ SharedFields:
   Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 500
+  Value: 250
 Languages:
 - Language: cs
   Versions:
@@ -18,7 +18,7 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201217T105128Z
+      Value: 20210111T115046Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -27,10 +27,10 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Všeobecná chyba
+    Value: "Náhled dokumentu - popis"
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20201222T084146Z
+      Value: 20210111T115200Z

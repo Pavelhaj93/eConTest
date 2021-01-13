@@ -2,7 +2,7 @@
 ID: "fda282c8-f9f5-47a3-b4ec-958b69dbe5c1"
 Parent: "456d5421-a2de-42b4-97e6-a42fc243bf10"
 Template: "e269fbb5-3750-427a-9149-7aa950b49301"
-Path: /sitecore/templates/eContracting2/Pages/Offer/Sign Model Window
+Path: /sitecore/templates/eContracting2/Pages/Offer/Sign Modal Window
 DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
