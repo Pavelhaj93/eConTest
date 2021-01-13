@@ -23,5 +23,10 @@ namespace eContracting.ConsoleClient
         {
             return key;
         }
+
+        public string FindByKey(string key, IDictionary<string, string> replaceTokens)
+        {
+            return key;
+        }
     }
 }
