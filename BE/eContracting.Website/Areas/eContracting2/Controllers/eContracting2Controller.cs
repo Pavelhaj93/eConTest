@@ -121,7 +121,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{guid}] Error when displaying offer.", ex);
+                this.Logger.Error(guid, $"Error when displaying offer.", ex);
                 var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_EXCEPTION;
                 return this.Redirect(redirectUrl);
             }
