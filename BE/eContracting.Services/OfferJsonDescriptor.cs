@@ -490,7 +490,7 @@ namespace eContracting.Services
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsObligatory;
 
-                if (selectedFile.IsObligatory)
+                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
@@ -528,7 +528,7 @@ namespace eContracting.Services
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsObligatory;
 
-                if (selectedFile.IsObligatory)
+                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
