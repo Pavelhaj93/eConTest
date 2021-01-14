@@ -117,15 +117,11 @@ namespace eContracting.Services
                 var title = definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
-            else if (groupName == "NONCOMMODITY")
-            {
-                var files = attachments.Where(x => x.Group == "NONCOMMODITY");
-                var title = definition.OthersTitle;
-                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
-            }
             else
             {
-                this.Logger.Fatal(offer.Guid, $"Unknown group '{groupName}' found");
+                var files = attachments.Where(x => x.Group != "COMMODITY" && x.Group != "DSL" && x.IsPrinted);
+                var title = definition.AdditionalServicesTitle;
+                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
 
             return list;
