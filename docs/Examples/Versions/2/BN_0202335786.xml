@@ -1,0 +1,48 @@
+﻿<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>CA5FE1E0C1461ED4BFE7A930AD7BDF7A</GUID>
+            <ISU_CONTRACT>5170101520</ISU_CONTRACT>
+            <CONTSTART>20150520</CONTSTART>
+            <DATE_TO>20210120</DATE_TO>
+            <STATUS>Založeno</STATUS>
+            <PARTNER>9510900415</PARTNER>
+            <NAME_LAST>Pavelka</NAME_LAST>
+            <NAME_FIRST>Josef</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>23.12.1942</BIRTHDT>
+            <IC></IC>
+            <EMAIL>milos.rezanina@innogy.cz</EMAIL>
+            <PHONE>603 280 385</PHONE>
+            <EXT_UI>27ZG500Z0054208B</EXT_UI>
+            <VSTELLE>9300525283</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>561000113752</BUAG>
+            <PSC_MS>582 22</PSC_MS>
+            <PSC_ADDR>582 22</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>I</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>022</SEQNR>
+                    <IDATTACH>DSO</IDATTACH>
+                    <DESCRIPTION>Smlouva innogy Karta</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM072E</TEMPL_ALC_ID>
+                    <GROUP>DSL</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>06D969E88C3C1EEB93F2F64027F6107C</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>
