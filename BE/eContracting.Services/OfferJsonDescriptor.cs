@@ -111,9 +111,9 @@ namespace eContracting.Services
                     list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title));
                 }
             }
-            else if (groupName == "DLS")
+            else if (groupName == "DSL")
             {
-                var files = attachments.Where(x => x.Group == "DLS");
+                var files = attachments.Where(x => x.Group == "DSL");
                 var title = definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
