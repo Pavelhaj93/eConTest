@@ -118,7 +118,17 @@ namespace eContracting.ConsoleClient
 
         public KeyValuePair<string, string>[] GetBackCompatibleTextParametersKeys(int version)
         {
-            return new List<KeyValuePair<string, string>>().ToArray();
+            var list = new List<KeyValuePair<string, string>>();
+
+            if (version == 1)
+            {
+                list.Add(new KeyValuePair<string, string>("CUSTTITLELET", "PERSON_CUSTTITLELET"));
+                list.Add(new KeyValuePair<string, string>("CUSTADDRESS", "PERSON_PREMADR"));
+                list.Add(new KeyValuePair<string, string>("PREMLABEL", "PERSON_PREMLABEL"));
+                list.Add(new KeyValuePair<string, string>("PREMEXT", "PERSON_PREMTEXT"));
+            }
+
+            return list.ToArray();
         }
 
         public string GetCustomDatabaseConnectionString()
