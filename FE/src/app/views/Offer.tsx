@@ -309,7 +309,7 @@ export const Offer: React.FC<View> = observer(
                           <span>
                             {prefix}{' '}
                             <a
-                              href={`${getFileUrl}/${key}&t=${new Date().getTime()}`}
+                              href={`${getFileUrl}/${key}?t=${new Date().getTime()}`}
                               download
                               target="_blank"
                               rel="noreferrer"
