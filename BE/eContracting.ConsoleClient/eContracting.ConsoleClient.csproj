@@ -129,6 +129,7 @@
     <Compile Include="Commands\CompareIdAttachCommand.cs" />
     <Compile Include="Commands\FileModel.cs" />
     <Compile Include="Commands\GetFilesCommand.cs" />
+    <Compile Include="Commands\GetTextsCommand.cs" />
     <Compile Include="Commands\GetOfferCommand.cs" />
     <Compile Include="Commands\GetOfferJsonCommand.cs" />
     <Compile Include="Commands\SignFileCommand.cs" />

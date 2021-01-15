@@ -310,6 +310,10 @@ namespace eContracting.Services
             if (version == 1)
             {
                 list.Add(new KeyValuePair<string, string>("CUSTTITLELET", "PERSON_CUSTTITLELET"));
+                list.Add(new KeyValuePair<string, string>("CUSTADDRESS" , "PERSON_CUSTADDRESS"));
+                list.Add(new KeyValuePair<string, string>("PREMADR"     , "PERSON_PREMADR"));
+                list.Add(new KeyValuePair<string, string>("PREMLABEL"   , "PERSON_PREMLABEL"));
+                list.Add(new KeyValuePair<string, string>("PREMEXT"     , "PERSON_PREMTEXT"));
             }
 
             return list.ToArray();

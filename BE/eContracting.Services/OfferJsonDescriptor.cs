@@ -111,21 +111,17 @@ namespace eContracting.Services
                     list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title));
                 }
             }
-            else if (groupName == "DLS")
+            else if (groupName == "DSL")
             {
-                var files = attachments.Where(x => x.Group == "DLS");
+                var files = attachments.Where(x => x.Group == "DSL");
                 var title = definition.AdditionalServicesTitle;
-                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
-            }
-            else if (groupName == "NONCOMMODITY")
-            {
-                var files = attachments.Where(x => x.Group == "NONCOMMODITY");
-                var title = definition.OthersTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
             else
             {
-                this.Logger.Fatal(offer.Guid, $"Unknown group '{groupName}' found");
+                var files = attachments.Where(x => x.Group != "COMMODITY" && x.Group != "DSL" && x.IsPrinted);
+                var title = definition.AdditionalServicesTitle;
+                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
 
             return list;
@@ -494,7 +490,7 @@ namespace eContracting.Services
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsObligatory;
 
-                if (selectedFile.IsObligatory)
+                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
@@ -532,7 +528,7 @@ namespace eContracting.Services
                 file.MimeType = selectedFile.MimeType;
                 file.Mandatory = selectedFile.IsObligatory;
 
-                if (selectedFile.IsObligatory)
+                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }

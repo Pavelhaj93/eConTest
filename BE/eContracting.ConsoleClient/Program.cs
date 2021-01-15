@@ -43,6 +43,7 @@ namespace eContracting.ConsoleClient
                     services.AddScopedCommand<AnalyzeOfferCommand>();
                     services.AddScopedCommand<GetOfferCommand>();
                     services.AddScopedCommand<GetFilesCommand>();
+                    services.AddScopedCommand<GetTextsCommand>();
                     services.AddScopedCommand<CompareIdAttachCommand>();
                     services.AddScopedCommand<GetOfferJsonCommand>();
                 });

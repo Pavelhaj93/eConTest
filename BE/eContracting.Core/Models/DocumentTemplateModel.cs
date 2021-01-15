@@ -54,7 +54,7 @@ namespace eContracting.Models
         public string Group { get; set; }
 
         [XmlElement(Constants.FileAttributes.GROUP_OBLIG)]
-        [JsonIgnore]
+        [JsonProperty("group_obligatory")]
         public string GroupObligatory { get; set; } = string.Empty;
 
         [XmlElement(Constants.FileAttributes.ITEM_GUID)]

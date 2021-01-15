@@ -194,7 +194,16 @@ export const Offer: React.FC<View> = observer(
               {store.singleGiftGroup ? (
                 <Row as="ul" className="justify-content-center list-unstyled mb-0">
                   {store.gifts.groups[0].params.map(({ title, icon, count }, idx) => (
-                    <Col as="li" key={idx} xs={12} sm={6} lg={4} className="mb-3">
+                    <Col
+                      as="li"
+                      key={idx}
+                      xs={12}
+                      // render a different width if there is only one gift
+                      sm={store.gifts?.groups[0].params.length !== 1 ? 6 : undefined}
+                      md={store.gifts?.groups[0].params.length === 1 ? 8 : undefined}
+                      lg={store.gifts?.groups[0].params.length !== 1 ? 4 : undefined}
+                      className="mb-3"
+                    >
                       <Gift
                         type={icon}
                         title={`${count}x ${title}`}
@@ -309,7 +318,7 @@ export const Offer: React.FC<View> = observer(
                           <span>
                             {prefix}{' '}
                             <a
-                              href={`${getFileUrl}/${key}&t=${new Date().getTime()}`}
+                              href={`${getFileUrl}/${key}?t=${new Date().getTime()}`}
                               download
                               target="_blank"
                               rel="noreferrer"
