@@ -134,6 +134,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
+                if (!this.Context.IsNormalMode())
+                {
+                    return this.GetAcceptedOfferEditView();
+                }
+                
                 if (!this.AuthenticationService.IsLoggedIn())
                 {
                     return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
@@ -439,6 +444,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
             return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
+        }
+
+        protected ActionResult GetAcceptedOfferEditView()
+        {
+            var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
+            var definition = this.SettingsReaderService.GetDefinition("X","Y");
+            var viewModel = new AcceptedOfferViewModel(this.SettingsReaderService);
+            viewModel.Datasource = datasource;
+            viewModel.MainText = definition.OfferAcceptedMainText.Text;
+            viewModel["appUnavailableTitle"] = "No available";
+            viewModel["appUnavailableText"] = "Not available in Experience editor";
+            return View("/Areas/eContracting2/Views/Edit/AcceptedOffer.cshtml", viewModel);
         }
 
         protected internal ActionResult GetThankYouEditModel()

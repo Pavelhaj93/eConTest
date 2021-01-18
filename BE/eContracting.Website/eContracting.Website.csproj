@@ -458,6 +458,7 @@
     <Content Include="Areas\eContracting2\Views\Edit\Error500.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Error404.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\SessionExpired.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\AcceptedOffer.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
