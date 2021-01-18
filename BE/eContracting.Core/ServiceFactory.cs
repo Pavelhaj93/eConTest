@@ -42,14 +42,14 @@ namespace eContracting
             return api;
         }
 
-        protected Binding GetBinding(BaseApiServiceOptions options, string name)
+        protected internal Binding GetBinding(BaseApiServiceOptions options, string name)
         {
             if (options.IsHttps)
             {
                 var binding = new BasicHttpsBinding();
                 binding.Name = name;
                 binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
-                binding.Security.Mode = BasicHttpsSecurityMode.TransportWithMessageCredential;
+                binding.Security.Mode = BasicHttpsSecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
                 binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
                 binding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;
