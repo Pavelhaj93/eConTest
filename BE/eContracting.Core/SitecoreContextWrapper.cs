@@ -42,12 +42,6 @@ namespace eContracting
         /// <inheritdoc/>
         public bool IsPreviewMode()
         {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public bool IsPreviewModel()
-        {
             return Sitecore.Context.PageMode.IsPreview;
         }
 

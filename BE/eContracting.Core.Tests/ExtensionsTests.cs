@@ -138,7 +138,8 @@ namespace eContracting.Core.Tests
             Assert.Null(first);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Returns matched IDATTACH value")]
+        [Trait("ZCCH_ST_ATTRIB", "GetIdAttach")]
         public void GetIdAttach_Returns_IdAttach_Value_Based_On_Constants_FileAttributes_TYPE()
         {
             var expected = "XYZ";
@@ -151,6 +152,21 @@ namespace eContracting.Core.Tests
             var result = file.GetIdAttach();
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact(DisplayName = "Returns null when IDATTACH attribute not found")]
+        [Trait("ZCCH_ST_ATTRIB", "GetIdAttach")]
+        public void GetIdAttach_Returns_Null_When_Not_Found()
+        {
+            var attrs = new List<ZCCH_ST_ATTRIB>();
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "unknown", ATTRVAL = "hello" });
+            attrs.Add(new ZCCH_ST_ATTRIB() { ATTRID = "my attribute", ATTRVAL = "ELS" });
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = attrs.ToArray();
+
+            var result = file.GetIdAttach();
+
+            Assert.Null(result);
         }
 
         [Fact]
