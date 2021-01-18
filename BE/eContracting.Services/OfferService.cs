@@ -141,6 +141,12 @@ namespace eContracting.Services
                 return null;
             }
 
+            if (response.Response.EV_RETCODE > 0)
+            {
+                this.Logger.Warn(guid, response.Response.ET_RETURN?.FirstOrDefault()?.MESSAGE ?? "Cannot get offer. Return code: " + response.Response.EV_RETCODE);
+                return null;
+            }
+
             var offer = this.OfferParser.GenerateOffer(response);
 
             if (offer == null)
