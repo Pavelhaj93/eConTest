@@ -119,6 +119,10 @@ namespace eContracting.Models
         [SitecoreField]
         public int MaxAllGroupsOptimizationRounds { get; set; }
 
+        [SitecoreField]
+        public int SingleUploadFileSizeLimitKBytes { get; set; }
+        
+
         #endregion
 
         #region Signing service

@@ -16,7 +16,7 @@ Languages:
   Fields:
   - ID: "2ba3454a-9a9c-4cdf-a9f8-107fd484eb6e"
     Hint: Phrase
-    Value: Dokument je příliš velký
+    Value: "Dokument je příliš velký. Maximální velikost je {maxSize}."
   Versions:
   - Version: 1
     Fields:
