@@ -182,6 +182,11 @@ namespace eContracting.ConsoleClient
             //return this.GetAllDefinitionCombinations().FirstOrDefault(x => x.Process.Code == process && x.ProcessType.Code == processType);
         }
 
+        public DefinitionCombinationModel GetDefinitionDefault()
+        {
+            return this.GetDefinition("default", "default");
+        }
+
         public string GetFileCacheStorageConnectionString()
         {
             throw new NotImplementedException();

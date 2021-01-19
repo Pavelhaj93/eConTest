@@ -351,7 +351,7 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetDefinition")]
-        public void GetDefinition_Throws_ApplicationException_When_NotMatched_Parameters()
+        public void GetDefinition_Throws_EcontractingMissingDatasourceException_When_NotMatched_Parameters()
         {
             var combination = new DefinitionCombinationModel();
             combination.Process = new ProcessModel() { Code = "XYZ" };
@@ -365,7 +365,7 @@ namespace eContracting.Services.Tests
 
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
 
-            Assert.Throws<ApplicationException>(() => { service.GetDefinition("HS623HA", "094JF83"); });
+            Assert.Throws<EcontractingMissingDatasourceException>(() => { service.GetDefinition("HS623HA", "094JF83"); });
         }
 
         [Fact]
