@@ -39,6 +39,7 @@ export const Offer: React.FC<View> = observer(
     errorPageUrl,
     allowedContentTypes,
     maxFileSize,
+    maxGroupFileSize,
     acceptOfferUrl,
     thankYouPageUrl,
     sessionExpiredPageUrl,
@@ -71,8 +72,8 @@ export const Offer: React.FC<View> = observer(
         store.removeDocumentUrl = removeFileUrl
       }
 
-      if (maxFileSize) {
-        store.maxUploadGroupSize = maxFileSize
+      if (maxGroupFileSize) {
+        store.maxUploadGroupSize = maxGroupFileSize
       }
 
       if (acceptOfferUrl) {
