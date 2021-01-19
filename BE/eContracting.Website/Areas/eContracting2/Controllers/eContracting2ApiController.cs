@@ -209,12 +209,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     }
                 }
 
+                var browser = HttpContext.Current.Request.Browser;
+                bool isBrowserIe = (browser != null && browser.Browser.Equals("ie", StringComparison.OrdinalIgnoreCase));
+
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new ByteArrayContent(fileContent);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
                 response.Content.Headers.ContentLength = (long)fileContent.Length;
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = HttpUtility.UrlEncode(file.FileNameExtension);
+                response.Content.Headers.ContentDisposition.FileName = (isBrowserIe)? HttpUtility.UrlEncode(file.FileNameExtension) : file.FileNameExtension;
                 return this.ResponseMessage(response);
             }
             catch (EndpointNotFoundException ex)
