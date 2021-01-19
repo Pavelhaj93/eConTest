@@ -214,7 +214,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
                 response.Content.Headers.ContentLength = (long)fileContent.Length;
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = file.FileNameExtension;
+                response.Content.Headers.ContentDisposition.FileName = HttpUtility.UrlEncode(file.FileNameExtension);
                 return this.ResponseMessage(response);
             }
             catch (EndpointNotFoundException ex)
