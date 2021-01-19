@@ -29,11 +29,12 @@ import '@icons/photo-circle.svg'
 import '@icons/plus-circle.svg'
 import '@icons/question-mark.svg'
 import '@icons/refresh.svg'
+import '@icons/speaker-circle.svg'
 import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'voucher-100'
+export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'question-mark' | 'refresh' | 'speaker-circle' | 'voucher-100'
 
 type IconProps = {
   name: IconName,

@@ -20,7 +20,7 @@ export const Gift: React.FC<Props> = ({ type, title, className, ...rest }) => {
         return 'voucher-100' as IconName
 
       case GiftType.DET:
-        return 'gift' as IconName
+        return 'speaker-circle' as IconName
 
       default:
         return 'gift' as IconName
