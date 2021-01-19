@@ -1,14 +1,14 @@
 ﻿---
-ID: "02738aa4-2227-4ee3-8bf5-1c3ffd269f1b"
-Parent: "1ae4696a-495c-4e3b-83cb-74ad675b8ea9"
-Template: "1ae4696a-495c-4e3b-83cb-74ad675b8ea9"
-Path: /sitecore/templates/eContracting2/Datasources/Content/__Standard Values
+ID: "e5f8827a-527b-40ad-9175-3b0ec4a2ae4b"
+Parent: "d225acbb-ec9a-410d-beab-98ae1df142e0"
+Template: "d225acbb-ec9a-410d-beab-98ae1df142e0"
+Path: /sitecore/templates/eContracting2/Datasources/Content Headers/__Standard Values
 DB: master
 SharedFields:
 - ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
   Hint: __Masters
   Type: TreelistEx
-  Value: 
+  Value: "{D225ACBB-EC9A-410D-BEAB-98AE1DF142E0}"
 Languages:
 - Language: cs
   Versions:

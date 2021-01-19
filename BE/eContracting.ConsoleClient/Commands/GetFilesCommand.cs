@@ -37,6 +37,7 @@ namespace eContracting.ConsoleClient.Commands
             if (offer == null)
             {
                 this.Console.WriteLineError("Offer not found");
+                return;
             }
 
             this.Console.WriteLine("Offer attachments:");

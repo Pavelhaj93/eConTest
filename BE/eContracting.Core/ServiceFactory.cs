@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -11,8 +12,12 @@ using eContracting.SignStamp;
 
 namespace eContracting
 {
+    /// <inheritdoc/>
+    /// <seealso cref="eContracting.IServiceFactory" />
     public class ServiceFactory : IServiceFactory
     {
+        /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public CRM_SIGN_STAMP_MERGEClient CreateApi(SignApiServiceOptions options)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
@@ -28,6 +33,8 @@ namespace eContracting
             return api;
         }
 
+        /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public ZCCH_CACHE_APIClient CreateApi(CacheApiServiceOptions options)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
@@ -42,14 +49,20 @@ namespace eContracting
             return api;
         }
 
-        protected Binding GetBinding(BaseApiServiceOptions options, string name)
+        /// <summary>
+        /// Gets correct binding based on <see cref="BaseApiServiceOptions.Url"/>.
+        /// </summary>
+        /// <param name="options">The options.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>For <c>https</c> <see cref="BasicHttpsBinding"/>, for <c>http</c> <see cref="BasicHttpBinding"/>.</returns>
+        protected internal Binding GetBinding(BaseApiServiceOptions options, string name)
         {
             if (options.IsHttps)
             {
                 var binding = new BasicHttpsBinding();
                 binding.Name = name;
                 binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
-                binding.Security.Mode = BasicHttpsSecurityMode.TransportWithMessageCredential;
+                binding.Security.Mode = BasicHttpsSecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
                 binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
                 binding.Security.Message.ClientCredentialType = BasicHttpMessageCredentialType.UserName;

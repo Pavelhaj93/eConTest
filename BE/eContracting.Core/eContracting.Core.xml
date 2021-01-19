@@ -120,6 +120,19 @@
             </summary>
             <param name="error">The error.</param>
         </member>
+        <member name="T:eContracting.IServiceFactory">
+            <summary>
+            Factory to create correct instances of the services based on input parameters.
+            </summary>
+        </member>
+        <member name="M:eContracting.IServiceFactory.CreateApi(eContracting.CacheApiServiceOptions)">
+            <summary>
+            Creates API for <see cref="T:eContracting.Services.ZCCH_CACHE_APIClient"/> based on input <paramref name="options"/>.
+            </summary>
+            <param name="options">The options.</param>
+            <returns>Instance of API client.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:eContracting.IServiceFactory.CreateApi(eContracting.SignApiServiceOptions)" -->
         <member name="T:eContracting.ISessionProvider">
             <summary>
             Represents wrapper over <see cref="T:System.Web.SessionState.HttpSessionState"/>.
@@ -1408,6 +1421,24 @@
             A <see cref="T:System.String" /> with <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> and <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/>.
             </returns>
         </member>
+        <member name="T:eContracting.ServiceFactory">
+            <inheritdoc/>
+            <seealso cref="T:eContracting.IServiceFactory" />
+        </member>
+        <member name="M:eContracting.ServiceFactory.CreateApi(eContracting.SignApiServiceOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.ServiceFactory.CreateApi(eContracting.CacheApiServiceOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.ServiceFactory.GetBinding(eContracting.BaseApiServiceOptions,System.String)">
+            <summary>
+            Gets correct binding based on <see cref="F:eContracting.BaseApiServiceOptions.Url"/>.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="name">The name.</param>
+            <returns>For <c>https</c> <see cref="T:System.ServiceModel.BasicHttpsBinding"/>, for <c>http</c> <see cref="T:System.ServiceModel.BasicHttpBinding"/>.</returns>
+        </member>
         <member name="T:eContracting.CacheApiServiceOptions">
             <summary>
             Settings for <see cref="T:eContracting.IOfferService"/>.
@@ -2140,6 +2171,13 @@
             Gets a value indicating whether to show debug messages to frontend.
             </summary>
         </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinitionDefault">
+            <summary>
+            Gets <c>default</c> definition. Cannot be null.
+            </summary>
+            <returns>The definition.</returns>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">Default definition combination not found. Cannot proceed with other execution without appropriate data.</exception>
+        </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <summary>
             Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
@@ -2396,9 +2434,6 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.IsPreviewMode">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.SitecoreContextWrapper.IsPreviewModel">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">

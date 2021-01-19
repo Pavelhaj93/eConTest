@@ -14,77 +14,94 @@
             else
             {
                 <div>
-                    <h2>Nadpis</h2>
+                    <h2>Hlavní nadpis</h2>
                     @Editable(Model.Definition.OfferTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>Hlavní text</h2>
+                    <h2>Text pod hlavním nadpisem</h2>
                     @Editable(Model.Definition.OfferMainText, x => x.Text)
                 </div>
                 <div>
-                    <h2>Nadpis benefitů</h2>
+                    <h2>Stručný přehled nabídky - nadpis</h2>
+                    @Editable(Model.Definition.OfferPerexTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>Dárečky - nadpis</h2>
+                    @Editable(Model.Definition.OfferGiftsTitle, x => x.Text)
+                </div>
+                <div>
+                    <h2>Benefity - nadpis</h2>
                     @Editable(Model.Definition.OfferBenefitsTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>Nadpis dokumentů k akceptaci</h2>
-                    @Editable(Model.Definition.OfferDocumentsForAcceptanceTitle, x => x.Text)
+                    <h2>Dokumenty k elektronické akceptaci - nadpis</h2>
+                    @Editable(Model.Definition.OfferCommoditiesTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>Text pro dokumenty k akceptaci</h2>
-                    @Editable(Model.Definition.OfferDocumentsForAcceptanceText, x => x.Text)
+                    <h2>Dokumenty k elektronické akceptaci - text</h2>
+                    @Editable(Model.Definition.OfferCommoditiesText, x => x.Text)
                 </div>
                 <div>
-                    <h2>Text k dodatkům</h2>
-                    @Editable(Model.Definition.OfferDocumentsForAcceptanceSection1, x => x.Text)
+                    <h2>Dokumenty k akceptaci - nadpis</h2>
+                    @Editable(Model.Definition.OfferCommoditiesAcceptTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>Text k plné moci</h2>
-                    @Editable(Model.Definition.OfferDocumentsForAcceptanceSection2, x => x.Text)
+                    <h2>Dokumenty k akceptaci - text</h2>
+                    @Editable(Model.Definition.OfferCommoditiesAcceptText, x => x.Text)
                 </div>
                 <div>
-                    <h2>Nadpis povinný dokumentů k nahrání</h2>
-                    @Editable(Model.Definition.OfferObligatoryDocumentsTitle, x => x.Text)
+                    <h2>Dokumenty k podepsání - nadpis</h2>
+                    @Editable(Model.Definition.OfferCommoditiesSignTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferObligatoryAdditionalDocsText</h2>
-                    @Editable(Model.Definition.OfferObligatoryAdditionalDocsText, x => x.Text)
+                    <h2>Dokumenty k podepsání - text</h2>
+                    @Editable(Model.Definition.OfferCommoditiesSignText, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferObligatoryAdditionalDocsHelp</h2>
-                    @Editable(Model.Definition.OfferObligatoryAdditionalDocsHelp, x => x.Text)
+                    <h2>Dokumenty k nahrání - nadpis</h2>
+                    @Editable(Model.Definition.OfferUploadsTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferObligatoryDocumentsNote</h2>
-                    @Editable(Model.Definition.OfferObligatoryDocumentsNote, x => x.Text)
+                    <h2>Dokumenty k nahrání - poznámka</h2>
+                    @Editable(Model.Definition.OfferUploadsNote, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferSupplementDocumentsTitle</h2>
-                    @Editable(Model.Definition.OfferSupplementDocumentsTitle, x => x.Text)
+                    <h2>Doplňkové služby - nadpis</h2>
+                    @Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferSupplementDocumentsText</h2>
-                    @Editable(Model.Definition.OfferSupplementDocumentsText, x => x.Text)
+                    <h2>Doplňkové služby - text</h2>
+                    @Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferOtherProductsTitle</h2>
+                    <h2>Ostatní produkty - nadpis</h2>
                     @Editable(Model.Definition.OfferOtherProductsTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferOtherProductsAcceptDocumentsText</h2>
-                    @Editable(Model.Definition.OfferOtherProductsAcceptDocumentsText, x => x.Text)
+                    <h2>Ostatní produkty - přehled - nadpis</h2>
+                    @Editable(Model.Definition.OfferOtherProductsSummaryTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferOtherProductsText</h2>
-                    @Editable(Model.Definition.OfferOtherProductsText, x => x.Text)
+                    <h2>Ostatní produkty - dokumenty - nadpis</h2>
+                    @Editable(Model.Definition.OfferOtherProductsDocsTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferAcceptTitle</h2>
+                    <h2>Ostatní produkty - dokumenty - text</h2>
+                    @Editable(Model.Definition.OfferOtherProductsDocsText, x => x.Text)
+                </div>
+                <div>
+                    <h2>Ostatní produkty - dokumenty - poznámka</h2>
+                    @Editable(Model.Definition.OfferOtherProductsNote, x => x.Text)
+                </div>
+                <div>
+                    <h2>Dialog pro akceptování - nadpis</h2>
                     @Editable(Model.Definition.OfferAcceptTitle, x => x.Text)
                 </div>
                 <div>
-                    <h2>OfferAcceptText</h2>
+                    <h2>Dialog pro akceptování - text</h2>
                     @Editable(Model.Definition.OfferAcceptText, x => x.Text)
-                </div>}
+                </div>
+            }
         </div>
     </div>
 </div>

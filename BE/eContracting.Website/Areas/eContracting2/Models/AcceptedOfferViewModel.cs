@@ -21,7 +21,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("getFileUrl")]
         public readonly string FileApi = "/api/econ/file";
 
-        public AcceptedOfferViewModel(ISettingsReaderService settingsService) : base("AcceptedOffer", settingsService)
+        public AcceptedOfferViewModel(SiteSettingsModel siteSettings) : base("AcceptedOffer", siteSettings)
         {
         }
     }
