@@ -163,7 +163,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
                 var settings = this.SettingsReaderService.GetSiteSettings();
-                var viewModel = new AcceptedOfferViewModel(this.SettingsReaderService);
+                var viewModel = new AcceptedOfferViewModel(settings);
                 viewModel.Datasource = datasource;
                 viewModel.MainText = definition.OfferAcceptedMainText.Text;
                 viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
@@ -172,7 +172,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"[{guid}] Error when displaying accepted offer.", ex);
+                this.Logger.Error(guid, $"Error when displaying accepted offer.", ex);
                 return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
             }
         }
@@ -427,15 +427,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected ActionResult GetOfferEditView()
         {
-            var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
-            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
-            var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
             var datasource = this.GetLayoutItem<PageNewOfferModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var definition = this.SettingsReaderService.GetDefinition(fakeOffer);
+            var definition = this.SettingsReaderService.GetDefinitionDefault();
             var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new OfferViewModel(this.SettingsReaderService);
+            var viewModel = new OfferViewModel(siteSettings);
+            viewModel.Definition = definition;
             viewModel.PageTitle = definition.OfferTitle.Text;
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);
@@ -449,8 +446,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected ActionResult GetAcceptedOfferEditView()
         {
             var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
-            var definition = this.SettingsReaderService.GetDefinition("X","Y");
-            var viewModel = new AcceptedOfferViewModel(this.SettingsReaderService);
+            var definition = this.SettingsReaderService.GetDefinitionDefault();
+            var settings = this.SettingsReaderService.GetSiteSettings();
+            var viewModel = new AcceptedOfferViewModel(settings);
             viewModel.Datasource = datasource;
             viewModel.MainText = definition.OfferAcceptedMainText.Text;
             viewModel["appUnavailableTitle"] = "No available";
@@ -505,8 +503,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var siteSettings = this.SettingsReaderService.GetSiteSettings();
-
-            var viewModel = new OfferViewModel(this.SettingsReaderService);
+            var viewModel = new OfferViewModel(siteSettings);
             viewModel.PageTitle = definition.OfferTitle.Text;
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);

@@ -24,6 +24,13 @@ namespace eContracting
         bool ShowDebugMessages { get; }
 
         /// <summary>
+        /// Gets <c>default</c> definition. Cannot be null.
+        /// </summary>
+        /// <returns>The definition.</returns>
+        /// <exception cref="EcontractingMissingDatasourceException">Default definition combination not found. Cannot proceed with other execution without appropriate data.</exception>
+        DefinitionCombinationModel GetDefinitionDefault();
+
+        /// <summary>
         /// Gets definition by <see cref="OfferModel.Process"/> and <see cref="OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
         /// </summary>
         /// <param name="offer">The offer.</param>

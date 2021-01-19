@@ -157,6 +157,19 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public DefinitionCombinationModel GetDefinitionDefault()
+        {
+            var defaultDefinition = this.Context.GetItem<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+
+            if (defaultDefinition == null)
+            {
+                throw new EcontractingMissingDatasourceException("Default definition combination not found. Cannot proceed with other execution without appropriate data.");
+            }
+
+            return defaultDefinition;
+        }
+
+        /// <inheritdoc/>
         public DefinitionCombinationModel GetDefinition(OfferModel offer)
         {
             return this.GetDefinition(offer.Process, offer.ProcessType);
@@ -175,14 +188,7 @@ namespace eContracting.Services
 
             this.Logger.Warn(null, $"Definition combination not found for process '{process}' and process type '{processType}'. Taking default one..");
 
-            var defaultDefinition = this.Context.GetItem<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
-            
-            if (defaultDefinition == null)
-            {
-                throw new ApplicationException("Default definition combination not found. Cannot proceed with other execution without appropriate data.");
-            }
-
-            return defaultDefinition;
+            return this.GetDefinitionDefault();
         }
 
         /// <inheritdoc/>

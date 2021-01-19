@@ -2171,6 +2171,13 @@
             Gets a value indicating whether to show debug messages to frontend.
             </summary>
         </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinitionDefault">
+            <summary>
+            Gets <c>default</c> definition. Cannot be null.
+            </summary>
+            <returns>The definition.</returns>
+            <exception cref="T:eContracting.EcontractingMissingDatasourceException">Default definition combination not found. Cannot proceed with other execution without appropriate data.</exception>
+        </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <summary>
             Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.

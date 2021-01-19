@@ -707,6 +707,9 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSignApiServiceOptions">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinitionDefault">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
