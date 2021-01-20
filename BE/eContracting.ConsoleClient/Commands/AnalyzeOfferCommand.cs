@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
+using eContracting.Models;
 using eContracting.Services;
 
 namespace eContracting.ConsoleClient.Commands
@@ -15,7 +16,7 @@ namespace eContracting.ConsoleClient.Commands
     {
         readonly OfferService ApiService;
         readonly ILogger Logger;
-        readonly IOfferJsonDescriptor OfferDescriptor;
+        readonly OfferJsonDescriptor OfferDescriptor;
 
         public AnalyzeOfferCommand(
             IOfferService apiService,
@@ -25,7 +26,7 @@ namespace eContracting.ConsoleClient.Commands
             : base("analyze", console)
         {
             this.ApiService = apiService as OfferService;
-            this.OfferDescriptor = offerDescriptor;
+            this.OfferDescriptor = offerDescriptor as OfferJsonDescriptor;
             this.Logger = logger;
             this.AliasKey = "a";
             this.Description = "make full analyzis of the offer";
@@ -79,7 +80,7 @@ namespace eContracting.ConsoleClient.Commands
                 this.Console.WriteLine("Loading files ...");
                 this.Console.WriteLine();
 
-                var files = this.ApiService.GetFiles(offer.Guid, false);
+                var files = this.ApiService.GetFiles(offer.Guid, offer.IsAccepted);
 
                 if (files == null)
                 {
@@ -91,7 +92,21 @@ namespace eContracting.ConsoleClient.Commands
 
                 this.Console.WriteLine();
 
-                var model = this.OfferDescriptor.GetNew(offer);
+                OfferAttachmentModel[] attachments = null;
+
+                try
+                {
+                    attachments = this.ApiService.GetAttachments(offer, files);
+                }
+                catch (Exception ex)
+                {
+                    this.Console.WriteLine();
+                    this.Console.WriteLineError(ex.Message);
+                    this.Console.WriteLine();
+                    return;
+                }
+
+                var model = this.OfferDescriptor.GetNew(offer, attachments);
 
                 if (model.Perex != null)
                 {

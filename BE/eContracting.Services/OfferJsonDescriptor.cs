@@ -75,6 +75,12 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public JsonOfferNotAcceptedModel GetNew(OfferModel offer)
         {
+            var attachments = this.ApiService.GetAttachments(offer);
+            return this.GetNew(offer, attachments);
+        }
+
+        protected internal JsonOfferNotAcceptedModel GetNew(OfferModel offer, OfferAttachmentModel[] attachments)
+        {
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var model = new JsonOfferNotAcceptedModel();
 
@@ -85,7 +91,7 @@ namespace eContracting.Services
                 model.Benefits = this.GetCommoditySalesArguments(offer.TextParameters, definition);
             }
 
-            model.Documents = this.GetDocuments(offer, definition);
+            model.Documents = this.GetDocuments(offer, definition, attachments);
             model.AcceptanceDialog = this.GetAcceptance(offer, definition);
             return model;
         }
@@ -289,10 +295,8 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, DefinitionCombinationModel definition)
+        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, DefinitionCombinationModel definition, OfferAttachmentModel[] files)
         {
-            var files = this.ApiService.GetAttachments(offer);
-
             if (files.Length == 0)
             {
                 return null;

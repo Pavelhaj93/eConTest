@@ -185,8 +185,13 @@ namespace eContracting.Services
 
             bool isAccepted = offer.IsAccepted;
             ZCCH_ST_FILE[] files = this.GetFiles(offer.Guid, isAccepted);
+            return this.GetAttachments(offer, files);
+        }
+
+        protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, ZCCH_ST_FILE[] files)
+        {
             var attachments = this.AttachmentParser.Parse(offer, files);
-            this.Logger.LogFiles(attachments, offer.Guid, isAccepted);
+            this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
             return attachments;
         }
 
