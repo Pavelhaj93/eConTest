@@ -210,14 +210,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var browser = HttpContext.Current.Request.Browser;
-                bool isBrowserIe = (browser != null && browser.Browser.Equals("ie", StringComparison.OrdinalIgnoreCase));
+                string fileNameForBrowser = file.FileNameExtension;
+
+                // urlencode client file name for other browsers than Chrome and Firefox, explicitely for IE and older versions of Edge
+                if (browser != null &&
+                    ((browser.IsBrowser("IE")|| browser.IsBrowser("Edge") || browser.IsBrowser("EdgeHTML"))
+                    ||  (!browser.IsBrowser("Chrome") && browser.IsBrowser("Firefox")))
+                    )
+                {
+                    fileNameForBrowser = HttpUtility.UrlEncode(file.FileNameExtension);
+                }
 
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new ByteArrayContent(fileContent);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
                 response.Content.Headers.ContentLength = (long)fileContent.Length;
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = (isBrowserIe)? HttpUtility.UrlEncode(file.FileNameExtension) : file.FileNameExtension;
+                response.Content.Headers.ContentDisposition.FileName = fileNameForBrowser;
                 return this.ResponseMessage(response);
             }
             catch (EndpointNotFoundException ex)
