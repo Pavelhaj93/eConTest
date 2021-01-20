@@ -280,6 +280,66 @@ namespace eContracting.Services.Tests
             Assert.Equal(password, options.Password);
         }
 
+        [Theory]
+        [InlineData("CUSTTITLELET", "PERSON_CUSTTITLELET")]
+        [InlineData("CUSTADDRESS", "PERSON_CUSTADDRESS")]
+        [InlineData("PREMADR", "PERSON_PREMADR")]
+        [InlineData("PREMLABEL", "PERSON_PREMLABEL")]
+        [InlineData("PREMEXT", "PERSON_PREMEXT")]
+        public void GetBackCompatibleTextParametersKeys_Contains_CUSTTITLELET_For_Version_1(string oldKey, string newKey)
+        {
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var logger = new MemoryLogger();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var result = service.GetBackCompatibleTextParametersKeys(1);
+
+            Assert.Contains(result, x => x.Key == oldKey && x.Value == newKey);
+        }
+
+        //[Fact]
+        //public void GetCustomDatabaseConnectionString_Returns_Default_Connection_String()
+        //{
+        //    var expected = "http://localhost/db";
+        //    System.Configuration.ConfigurationManager.ConnectionStrings.Add(new System.Configuration.ConnectionStringSettings(Constants.DatabaseContextConnectionStringName, expected));
+
+        //    var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+        //    var mockContextWrapper = new Mock<IContextWrapper>();
+        //    var logger = new MemoryLogger();
+
+        //    var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+        //    var result = service.GetCustomDatabaseConnectionString();
+
+        //    Assert.Equal(expected, result);
+
+        //    System.Configuration.ConfigurationManager.ConnectionStrings.Clear();
+        //}
+
+        [Fact]
+        public void GetCustomDatabaseConnectionString_Throws_ApplicationException_When_Name_Missing()
+        {
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var logger = new MemoryLogger();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+
+            Assert.Throws<ApplicationException>(() => service.GetCustomDatabaseConnectionString());
+        }
+
+        [Fact]
+        public void GetCustomDatabaseConnectionString_Throws_ApplicationException_When_Connection_String_Not_Found()
+        {
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var logger = new MemoryLogger();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+
+            Assert.Throws<ApplicationException>(() => service.GetCustomDatabaseConnectionString());
+        }
+
         [Fact]
         [Trait("Method", "GetDefinition")]
         public void GetDefinition_Returns_Model_When_Matched_Offer()
@@ -713,6 +773,22 @@ namespace eContracting.Services.Tests
             Assert.False(result[0].IsSelected);
             Assert.True(result[1].IsSelected);
             Assert.False(result[2].IsSelected);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW_INTRO")]
+        [InlineData("BENEFITS_NEXT_SIGN_INTRO")]
+        [InlineData("BENEFITS_NEXT_TZD_INTRO")]
+        public void GetXmlNodeNamesExcludeHtml_Return_Correct_Values(string expected)
+        {
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var logger = new MemoryLogger();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var result = service.GetXmlNodeNamesExcludeHtml();
+
+            Assert.Contains(result, x => x == expected);
         }
     }
 }
