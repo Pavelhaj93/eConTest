@@ -42,6 +42,10 @@ SharedFields:
   Hint: UserBlocked
   Value: |
     <link id="{F69361B4-294D-4F38-9E17-6DA10371E5DE}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/docasne-zablokovany" linktype="internal" />
+- ID: "dec8d2d5-e3cf-48b6-a653-8e69e2716641"
+  Hint: __Security
+  Value: |
+    ar|sitecore\innogy eContracting ChiefEditor|pe|+item:rename|+item:write|+item:create|+item:delete|pd|+item:rename|+item:delete|+item:write|+item:create|
 - ID: "f4ed5a8d-2516-493d-95da-0ee480166948"
   Hint: CookieLawSettings
   Value: "{E65354AF-42FF-4F8A-82B3-A2EA9B72F219}"

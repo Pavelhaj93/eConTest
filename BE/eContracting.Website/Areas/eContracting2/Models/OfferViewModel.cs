@@ -63,6 +63,12 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string[] AllowedContentTypes { get; set; }
 
         [JsonProperty("maxFileSize")]
+        public int MaxFileSize { get; set; }
+
+        [JsonProperty("maxGroupFileSize")]
+        public int MaxGroupFileSize { get; set; }
+
+        [JsonProperty("maxAllFilesSize")]
         public int MaxAllFilesSize { get; set; }
 
         public DefinitionCombinationModel Definition { get; set; }

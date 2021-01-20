@@ -48,6 +48,9 @@ SharedFields:
 - ID: "bbb4ed05-200d-4071-8997-4f94bcb1a76b"
   Hint: ServicePassword
   Value: 
+- ID: "dae523ee-1962-419e-b9c2-cafb00934567"
+  Hint: SingleUploadFileSizeLimitKBytes
+  Value: 10240
 - ID: "e82c99c8-ce35-453e-b54e-663e861cd0af"
   Hint: ServiceUser
   Value: 

@@ -30,6 +30,7 @@ export type AppConfig = {
   sessionExpiredPageUrl: string
   allowedContentTypes?: string[]
   maxFileSize?: number
+  maxGroupFileSize?: number
   debug?: boolean
 }
 

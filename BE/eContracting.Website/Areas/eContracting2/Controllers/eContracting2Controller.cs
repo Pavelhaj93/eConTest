@@ -437,6 +437,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
+            viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
             viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
@@ -508,6 +510,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
+            viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
             viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
@@ -544,7 +548,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["uploadFile"] = this.TextService.FindByKey("UPLOAD_DOCUMENT");
             viewModel["captureFile"] = this.TextService.FindByKey("PHOTO_&_UPLOAD");
             viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT", new Dictionary<string, string>() { { "fileTypes", siteSettings.AllowedDocumentTypesDescription } });
-            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.TotalResultingFilesSizeLimitKBytes * 1024) } });
+            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENT_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.SingleUploadFileSizeLimitKBytes * 1024) } });
+            viewModel["fileExceedGroupSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.GroupResultingFileSizeLimitKBytes * 1024) } });
             viewModel["acceptanceModalTitle"] = definition.OfferAcceptTitle.Text;
             viewModel["acceptanceModalText"] = definition.OfferAcceptText.Text;
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
