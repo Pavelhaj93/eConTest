@@ -319,7 +319,7 @@ namespace eContracting.Services
                 list.Add(new KeyValuePair<string, string>("CUSTADDRESS" , "PERSON_CUSTADDRESS"));
                 list.Add(new KeyValuePair<string, string>("PREMADR"     , "PERSON_PREMADR"));
                 list.Add(new KeyValuePair<string, string>("PREMLABEL"   , "PERSON_PREMLABEL"));
-                list.Add(new KeyValuePair<string, string>("PREMEXT"     , "PERSON_PREMTEXT"));
+                list.Add(new KeyValuePair<string, string>("PREMEXT"     , "PERSON_PREMEXT"));
             }
 
             return list.ToArray();
