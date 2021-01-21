@@ -602,11 +602,12 @@
             <returns>The file.</returns>
             <exception cref="T:System.NotSupportedException">Unknow offer version ({version})</exception>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Services.ZCCH_ST_FILE)">
+        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Services.ZCCH_ST_FILE,System.Int32)">
             <summary>
             Processes the root file.
             </summary>
             <param name="file">The file.</param>
+            <param name="version">Offer version.</param>
             <returns>Tuple with model and raw XML content.</returns>
         </member>
         <member name="M:eContracting.Services.OfferParserService.IsAccepted(eContracting.Services.ZCCH_CACHE_GETResponse)">
@@ -618,7 +619,7 @@
               <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
             </returns>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel)">
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel,System.Int32)">
             <summary>
             Set missing required values in <paramref name="offerXml"/>.
             </summary>
@@ -627,6 +628,7 @@
             <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="F:eContracting.Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
             </remarks>
             <param name="offerXml">The offer XML.</param>
+            <param name="version">Offer version.</param>
         </member>
         <member name="M:eContracting.Services.OfferParserService.AddCustomUploadModelWhenNecessary(eContracting.Models.OfferXmlModel)">
             <summary>
