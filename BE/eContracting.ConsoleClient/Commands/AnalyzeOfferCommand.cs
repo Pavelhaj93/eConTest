@@ -88,7 +88,7 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
-                Utils.CompareIdAttach(this.Console, offer, files);
+                //Utils.CompareIdAttach(this.Console, offer, files);
 
                 this.Console.WriteLine();
 
