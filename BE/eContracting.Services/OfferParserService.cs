@@ -181,10 +181,10 @@ namespace eContracting.Services
 
             var header = this.GetHeader(response.Response);
             var attributes = this.GetAttributes(response.Response);
-            var result = this.ProcessRootFile(file);
             var rawXml = Utils.GetRawXml(file);
             var version = this.GetVersion(response.Response);
             var isAccepted = this.IsAccepted(response.Response);
+            var result = this.ProcessRootFile(file, version);
             var offer = new OfferModel(result, version, header, isAccepted, attributes);
             offer.RawContent.Add(file.FILENAME, rawXml);
             return offer;
@@ -223,15 +223,16 @@ namespace eContracting.Services
         /// Processes the root file.
         /// </summary>
         /// <param name="file">The file.</param>
+        /// <param name="version">Offer version.</param>
         /// <returns>Tuple with model and raw XML content.</returns>
         [ExcludeFromCodeCoverage]
-        protected internal OfferXmlModel ProcessRootFile(ZCCH_ST_FILE file)
+        protected internal OfferXmlModel ProcessRootFile(ZCCH_ST_FILE file, int version)
         {
             using (var stream = new MemoryStream(file.FILECONTENT, false))
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
-                this.MakeCompatible(offerXml);
+                this.MakeCompatible(offerXml, version);
                 //this.AddCustomUploadModelWhenNecessary(offerXml);
                 return offerXml;
             }
@@ -264,7 +265,8 @@ namespace eContracting.Services
         /// <para>When missing bus process type, first checks if campaign is empty, if yes, set '<see cref="Constants.OfferDefaults.BUS_PROCESS_TYPE_A"/>', otherwise set '<see cref="Constants.OfferDefaults.BUS_PROCESS_TYPE_B"/>'.</para>
         /// </remarks>
         /// <param name="offerXml">The offer XML.</param>
-        protected internal void MakeCompatible(OfferXmlModel offerXml)
+        /// <param name="version">Offer version.</param>
+        protected internal void MakeCompatible(OfferXmlModel offerXml, int version)
         {
             if (string.IsNullOrWhiteSpace(offerXml.Content.Body.BusProcess))
             {
@@ -284,6 +286,24 @@ namespace eContracting.Services
                     offerXml.Content.Body.BusProcessType = Constants.OfferDefaults.BUS_PROCESS_TYPE_B;
                     this.Logger.Info(offerXml.Content.Body.Guid, $"Missing value for 'BusProcessType'. Set default: '{Constants.OfferDefaults.BUS_PROCESS_TYPE_B}'");
                 }
+            }
+
+            if (version == 1 && offerXml.Content.Body.Attachments != null)
+            {
+                var list = new List<DocumentTemplateModel>();
+
+                for (int i = 0; i < offerXml.Content.Body.Attachments.Length; i++)
+                {
+                    var d = offerXml.Content.Body.Attachments[i];
+
+                    // exclude AD1 template from the collection because it's prescription for file text parameters and but no real file exist for it
+                    if (d.IdAttach != Constants.FileAttributeValues.TEXT_PARAMETERS)
+                    {
+                        list.Add(d);
+                    }
+                }
+
+                offerXml.Content.Body.Attachments = list.ToArray();
             }
         }
 

@@ -83,7 +83,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml);
+            service.MakeCompatible(offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS, offerXml.Content.Body.BusProcess);
         }
@@ -100,7 +100,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml);
+            service.MakeCompatible(offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_A, offerXml.Content.Body.BusProcessType);
         }
@@ -117,7 +117,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml);
+            service.MakeCompatible(offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_B, offerXml.Content.Body.BusProcessType);
         }
@@ -135,7 +135,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml);
+            service.MakeCompatible(offerXml, 1);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcess);
         }
@@ -153,7 +153,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml);
+            service.MakeCompatible(offerXml, 1);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcessType);
         }
