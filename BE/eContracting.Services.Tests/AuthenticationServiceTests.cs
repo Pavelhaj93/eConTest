@@ -19,13 +19,17 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Empty()
         {
+            var partnerValue = "132546796";
             var loginType = new LoginTypeModel();
+            loginType.Key = "PARTNER";
             var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BIRTHDT = "21.01.2021";
+            offer.Xml.Content.Body.PARTNER = partnerValue;
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, loginType, "", "id", "132546796");
+            var result = service.GetLoginState(offer, loginType, "", loginType.Key, partnerValue);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
         }
@@ -47,7 +51,7 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetLoginState")]
-        public void GetLoginState_Returns_INVALID_VALUE_When_Empty()
+        public void GetLoginState_Returns_INVALID_VALUE_DEFINITION_When_Empty()
         {
             var loginType = new LoginTypeModel();
             var offer = this.CreateOffer();
@@ -57,21 +61,24 @@ namespace eContracting.Services.Tests
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, "23.11.2001", "key", "");
 
-            Assert.Equal(AUTH_RESULT_STATES.MISSING_VALUE, result);
+            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
         }
 
         [Fact]
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Dont_Match()
         {
+            var partnerValue = "132546796";
             var loginType = new LoginTypeModel();
+            loginType.Key = "PARTNER";
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BIRTHDT = "25.06.1971";
+            offer.Xml.Content.Body.PARTNER = partnerValue;
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, loginType, "17.11.2020", "id", "132546796");
+            var result = service.GetLoginState(offer, loginType, "17.11.2020", "id", partnerValue);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
         }
@@ -125,7 +132,7 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetLoginState")]
-        public void GetLoginState_Returns_INVALID_VALUE_FORMAT()
+        public void GetLoginState_Returns_INVALID_VALUE()
         {
             var partnerId1 = "843374421";
             var partnerId2 = "8433x4421";
@@ -148,19 +155,20 @@ namespace eContracting.Services.Tests
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId2);
 
-            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_FORMAT, result);
+            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE, result);
         }
 
         [Fact]
         [Trait("Method", "GetLoginState")]
-        public void GetLoginState_Returns_INVALID_VALUE()
+        public void GetLoginState_Returns_INVALID_BIRTHDATE_AND_VALUE()
         {
             var partnerId1 = "843374421";
             var partnerId2 = "843374422";
             var guid = Guid.NewGuid().ToString("N");
-            var birthdate = "25.06.1971";
+            var birthdate1 = "25.06.1971";
+            var birthdate2 = "03.12.1945";
             var offer = this.CreateOffer(guid);
-            offer.Xml.Content.Body.BIRTHDT = birthdate;
+            offer.Xml.Content.Body.BIRTHDT = birthdate1;
             offer.Xml.Content.Body.PARTNER = partnerId1;
             var id = Guid.NewGuid();
             var loginType = new LoginTypeModel();
@@ -173,9 +181,9 @@ namespace eContracting.Services.Tests
             var mockCache = new Mock<IUserDataCacheService>();
 
             var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId2);
+            var result = service.GetLoginState(offer, loginType, birthdate2, key, partnerId2);
 
-            Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE, result);
+            Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE, result);
         }
 
         [Fact]

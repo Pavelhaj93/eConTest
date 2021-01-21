@@ -134,7 +134,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
-                var canLogin = this.CanLogin(guid, offer, datasource);
+                var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
                 if (canLogin != LoginStates.OK)
                 {
@@ -219,7 +219,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
-                var canLogin = this.CanLogin(guid, offer, datasource);
+                var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
                 if (canLogin != LoginStates.OK)
                 {
@@ -393,7 +393,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal LoginStates CanLogin(string guid, OfferModel offer, PageLoginModel datasource)
+        protected internal LoginStates IsAbleToLogin(string guid, OfferModel offer, PageLoginModel datasource)
         {
             if (string.IsNullOrEmpty(guid))
             {
@@ -472,39 +472,27 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
                 result = Redirect(url);
             }
-            else if (state == AUTH_RESULT_STATES.INVALID_PARTNER || state == AUTH_RESULT_STATES.INVALID_PARTNER_FORMAT)
-            {
-                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_PARTNER);
-                result = Redirect(url);
-            }
-            else if (state == AUTH_RESULT_STATES.MISSING_VALUE)
-            {
-                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.MISSING_VALUE);
-                result = Redirect(url);
-            }
             else if (state == AUTH_RESULT_STATES.INVALID_VALUE)
             {
+                msg = loginType.ValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE);
                 result = Redirect(url);
             }
-            else if (state == AUTH_RESULT_STATES.INVALID_VALUE_FORMAT)
+            else if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE)
             {
-                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_FORMAT);
+                var datasource = this.GetLayoutItem<PageLoginModel>();
+                msg = datasource.ValidationMessage;
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE_AND_VALUE);
+                result = Redirect(url);
+            }
+            else if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE_DEFINITION)
+            {
+                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE_DEFINITION);
                 result = Redirect(url);
             }
             else if (state == AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION)
             {
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_VALUE_DEFINITION);
-                result = Redirect(url);
-            }
-            else if (state == AUTH_RESULT_STATES.INVALID_ZIP1 || state == AUTH_RESULT_STATES.INVALID_ZIP1_FORMAT)
-            {
-                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP1);
-                result = Redirect(url);
-            }
-            else if (state == AUTH_RESULT_STATES.INVALID_ZIP2 || state == AUTH_RESULT_STATES.INVALID_ZIP2_FORMAT)
-            {
-                var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_ZIP2);
                 result = Redirect(url);
             }
             else if (state == AUTH_RESULT_STATES.KEY_MISMATCH)
@@ -526,7 +514,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             this.SessionProvider.Set(SESSION_ERROR_KEY, msg);
-
             return result;
         }
         

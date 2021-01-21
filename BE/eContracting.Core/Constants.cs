@@ -220,15 +220,12 @@ namespace eContracting
         {
             public const string UNKNOWN = "v00";
             public const string INVALID_BIRTHDATE = "v01";
-            public const string MISSING_VALUE = "v50";
-            public const string INVALID_VALUE = "v51";
-            public const string INVALID_VALUE_FORMAT = "v52";
-            public const string INVALID_VALUE_DEFINITION = "v53";
-            public const string INVALID_PARTNER = "v02";
-            public const string INVALID_ZIP1 = "v03";
-            public const string INVALID_ZIP2 = "v04";
-            public const string KEY_MISMATCH = "v91";
-            public const string KEY_VALUE_MISMATCH = "v92";
+            public const string INVALID_VALUE = "v02";
+            public const string INVALID_BIRTHDATE_AND_VALUE = "v03";
+            public const string INVALID_BIRTHDATE_DEFINITION = "v91";
+            public const string INVALID_VALUE_DEFINITION = "v92";
+            public const string KEY_MISMATCH = "v95";
+            public const string KEY_VALUE_MISMATCH = "v96";
         }
 
         public static class SessionKeys
