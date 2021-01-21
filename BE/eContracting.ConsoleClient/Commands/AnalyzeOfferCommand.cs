@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
+using eContracting.Models;
 using eContracting.Services;
 
 namespace eContracting.ConsoleClient.Commands
@@ -15,7 +16,7 @@ namespace eContracting.ConsoleClient.Commands
     {
         readonly OfferService ApiService;
         readonly ILogger Logger;
-        readonly IOfferJsonDescriptor OfferDescriptor;
+        readonly OfferJsonDescriptor OfferDescriptor;
 
         public AnalyzeOfferCommand(
             IOfferService apiService,
@@ -25,20 +26,41 @@ namespace eContracting.ConsoleClient.Commands
             : base("analyze", console)
         {
             this.ApiService = apiService as OfferService;
-            this.OfferDescriptor = offerDescriptor;
+            this.OfferDescriptor = offerDescriptor as OfferJsonDescriptor;
             this.Logger = logger;
-            this.AliasKey = "analyze";
+            this.AliasKey = "a";
             this.Description = "make full analyzis of the offer";
         }
 
         [Execute]
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")] string guid,
-            [Argument] bool debug = false)
+            [Argument] bool debug = true)
         {
-            using (new ConsoleLoggerSuspender(this.Logger))
+            using (new ConsoleLoggerSuspender(this.Logger, !debug))
             {
-                var offer = this.ApiService.GetOffer(guid);
+                this.Console.WriteLine();
+
+                var response = this.ApiService.GetResponse(guid, OFFER_TYPES.NABIDKA);
+
+                this.Console.WriteLine("Header:");
+                this.Console.WriteLine(" CCHKEY = " + response.Response.ES_HEADER.CCHKEY);
+                this.Console.WriteLine(" CCHSTAT = " + response.Response.ES_HEADER.CCHSTAT);
+                this.Console.WriteLine(" CCHTYPE = " + response.Response.ES_HEADER.CCHTYPE);
+                this.Console.WriteLine();
+
+                this.Console.WriteLine("Attributes:");
+
+                for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
+                {
+                    var attr = response.Response.ET_ATTRIB[i];
+
+                    this.Console.WriteLine($" {attr.ATTRID} = {attr.ATTRVAL}");
+                }
+
+                this.Console.WriteLine();
+
+                var offer = this.ApiService.GetOffer(response, true);
 
                 if (offer == null)
                 {
@@ -46,13 +68,19 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
+                this.Console.WriteLine("Version: " + offer.Version);
+
                 if (offer.Documents.Length == 0)
                 {
                     this.Console.WriteLineError("No attachment(s) found");
                     return;
                 }
 
-                var files = this.ApiService.GetFiles(offer.Guid, false);
+                this.Console.WriteLine();
+                this.Console.WriteLine("Loading files ...");
+                this.Console.WriteLine();
+
+                var files = this.ApiService.GetFiles(offer.Guid, offer.IsAccepted);
 
                 if (files == null)
                 {
@@ -60,10 +88,25 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
-                Utils.CompareIdAttach(this.Console, offer, files);
+                //Utils.CompareIdAttach(this.Console, offer, files);
+
                 this.Console.WriteLine();
 
-                var model = this.OfferDescriptor.GetNew(offer);
+                OfferAttachmentModel[] attachments = null;
+
+                try
+                {
+                    attachments = this.ApiService.GetAttachments(offer, files);
+                }
+                catch (Exception ex)
+                {
+                    this.Console.WriteLine();
+                    this.Console.WriteLineError(ex.Message);
+                    this.Console.WriteLine();
+                    return;
+                }
+
+                var model = this.OfferDescriptor.GetNew(offer, attachments);
 
                 if (model.Perex != null)
                 {

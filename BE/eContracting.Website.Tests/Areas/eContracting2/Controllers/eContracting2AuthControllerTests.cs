@@ -62,7 +62,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockRenderingContext = new Mock<IRenderingContext>();
             
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
-            var result = controller.CanLogin(guid, offer, datasource);
+            var result = controller.IsAbleToLogin(guid, offer, datasource);
 
             Assert.Equal(LoginStates.USER_BLOCKED, result);
         }
@@ -88,7 +88,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
-            var result = controller.CanLogin(guid, (OfferModel)null, datasource);
+            var result = controller.IsAbleToLogin(guid, (OfferModel)null, datasource);
 
             Assert.Equal(LoginStates.OFFER_NOT_FOUND, result);
         }
@@ -115,7 +115,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
-            var result = controller.CanLogin(guid, offer, datasource);
+            var result = controller.IsAbleToLogin(guid, offer, datasource);
 
             Assert.Equal(LoginStates.OFFER_STATE_1, result);
         }
@@ -142,7 +142,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
-            var result = controller.CanLogin(guid, offer, datasource);
+            var result = controller.IsAbleToLogin(guid, offer, datasource);
 
             Assert.Equal(LoginStates.MISSING_BIRTHDAY, result);
         }
@@ -170,7 +170,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
-            var result = controller.CanLogin(guid, offer, datasource);
+            var result = controller.IsAbleToLogin(guid, offer, datasource);
 
             Assert.Equal(LoginStates.OK, result);
         }
@@ -706,15 +706,10 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
 
         [Theory]
         [InlineData(AUTH_RESULT_STATES.INVALID_BIRTHDATE, Constants.ValidationCodes.INVALID_BIRTHDATE)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_PARTNER, Constants.ValidationCodes.INVALID_PARTNER)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_PARTNER_FORMAT, Constants.ValidationCodes.INVALID_PARTNER)]
         [InlineData(AUTH_RESULT_STATES.INVALID_VALUE, Constants.ValidationCodes.INVALID_VALUE)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_VALUE_FORMAT, Constants.ValidationCodes.INVALID_VALUE_FORMAT)]
+        [InlineData(AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE, Constants.ValidationCodes.INVALID_BIRTHDATE_AND_VALUE)]
+        [InlineData(AUTH_RESULT_STATES.INVALID_BIRTHDATE_DEFINITION, Constants.ValidationCodes.INVALID_BIRTHDATE_DEFINITION)]
         [InlineData(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, Constants.ValidationCodes.INVALID_VALUE_DEFINITION)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_ZIP1, Constants.ValidationCodes.INVALID_ZIP1)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_ZIP1_FORMAT, Constants.ValidationCodes.INVALID_ZIP1)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_ZIP2, Constants.ValidationCodes.INVALID_ZIP2)]
-        [InlineData(AUTH_RESULT_STATES.INVALID_ZIP2_FORMAT, Constants.ValidationCodes.INVALID_ZIP2)]
         [InlineData(AUTH_RESULT_STATES.KEY_MISMATCH, Constants.ValidationCodes.KEY_MISMATCH)]
         [InlineData(AUTH_RESULT_STATES.KEY_VALUE_MISMATCH, Constants.ValidationCodes.KEY_VALUE_MISMATCH)]
         [InlineData(AUTH_RESULT_STATES.SUCCEEDED, Constants.ValidationCodes.UNKNOWN)]

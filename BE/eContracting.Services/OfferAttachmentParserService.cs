@@ -112,33 +112,48 @@ namespace eContracting.Services
                 {
                     var t = offer.Documents[i];
 
-                    // this is because value IDATTACH in template and in a file is not matching
-                    if (t.IsSignRequired())
+                    var file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+
+                    if (file == null)
                     {
-                        var fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                        this.Logger.Info(offer.Guid, $"No file found with {Constants.FileAttributes.TYPE} = '{t.IdAttach}'");
 
-                        if (fileForSign == null)
+                        // this is because value IDATTACH in template and in a file is not matching
+                        if (t.IsSignRequired())
                         {
-                            this.Logger.Info(offer.Guid, $"No file found with {Constants.FileAttributes.TYPE} = '{t.IdAttach}'. Try to find a compatible file ...");
-
+                            this.Logger.Info(offer.Guid, $"Trying to find file by attribute '{Constants.FileAttributes.TEMPLATE}' with value '{Constants.FileAttributeValues.SIGN_FILE_IDATTACH}'");
                             // find a file by attribute TEMPLATE == "A10"
-                            fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();
+                            file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();                           
+                        }
+                        else
+                        {
+                            this.Logger.Info(offer.Guid, $"Trying to find file by attribute '{Constants.FileAttributes.TEMPLATE}' with value '{t.IdAttach}'");
+                            file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                        }
 
-                            // find a file by attribute IDATTACH from the collection of value variants
-                            //fileForSign = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && Constants.FileAttributeValues.SignFileIdAttachValues.Contains(y.ATTRVAL)) != null).FirstOrDefault();
+                        if (file == null)
+                        {
+                            this.Logger.Fatal(offer.Guid, $"No compatible file found");
+                        }
+                        else
+                        {
+                            this.Logger.Info(offer.Guid, "Compatible file found");
 
-                            if (fileForSign == null)
+                            var attrIdAttach = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
+
+                            if (attrIdAttach != null)
                             {
-                                this.Logger.Fatal(offer.Guid, $"No compatible file found for template with IDATTACH = '{t.IdAttach}'");
+                                var oldValue = t.IdAttach;
+                                t.IdAttach = attrIdAttach.ATTRVAL;
+                                this.Logger.Debug(offer.Guid, $"Template attribute '{Constants.FileAttributes.TYPE}' value '{oldValue}' replaced with '{attrIdAttach.ATTRVAL}'");
                             }
                             else
                             {
-                                var attr = fileForSign.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
-
-                                if (attr != null)
-                                {
-                                    t.IdAttach = attr.ATTRVAL;
-                                }
+                                var newAttrIdAttach = new ZCCH_ST_ATTRIB();
+                                newAttrIdAttach.ATTRID = Constants.FileAttributes.TYPE;
+                                newAttrIdAttach.ATTRVAL = t.IdAttach;
+                                file.ATTRIB = Utils.GetUpdated(file.ATTRIB, newAttrIdAttach);
+                                this.Logger.Warn(offer.Guid, $"Attribute '{Constants.FileAttributes.TYPE}' not found in file. Created new one with value '{t.IdAttach}' and added to file ATTRID collection.");
                             }
                         }
                     }
@@ -260,6 +275,7 @@ namespace eContracting.Services
         protected internal void Check(OfferModel offer, ZCCH_ST_FILE[] files)
         {
             var exceptions = new List<Exception>();
+            var list = new List<ZCCH_ST_FILE>(files);
 
             for (int i = 0; i < offer.Documents.Length; i++)
             {
@@ -302,11 +318,13 @@ namespace eContracting.Services
                 {
                     var file = files[i];
                     var idattach = file.GetIdAttach();
+                    var template = file.GetTemlate();
 
-                    if (!offer.Documents.Any(x => x.IdAttach == idattach))
+                    if (!offer.Documents.Any(x => x.IdAttach == idattach || x.IdAttach == template))
                     {
-                        this.Logger.Fatal(offer.Guid, $"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})");
-                        throw new EcontractingDataException(new ErrorModel("OAPS-EXF", $"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})"));
+                        var msg = $"File {file.FILENAME} doesn't exist in attachments ({Constants.FileAttributes.TYPE} = {idattach}) ({Constants.FileAttributes.TEMPLATE} = {template})";
+                        this.Logger.Fatal(offer.Guid, msg);
+                        throw new EcontractingDataException(new ErrorModel("OAPS-EXF", msg));
                     }
                 }
                 catch (Exception ex)

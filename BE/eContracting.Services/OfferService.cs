@@ -147,6 +147,11 @@ namespace eContracting.Services
                 return null;
             }
 
+            return this.GetOffer(response, includeTextParameters);
+        }
+
+        protected internal OfferModel GetOffer(ResponseCacheGetModel response, bool includeTextParameters)
+        {
             var offer = this.OfferParser.GenerateOffer(response);
 
             if (offer == null)
@@ -180,8 +185,13 @@ namespace eContracting.Services
 
             bool isAccepted = offer.IsAccepted;
             ZCCH_ST_FILE[] files = this.GetFiles(offer.Guid, isAccepted);
+            return this.GetAttachments(offer, files);
+        }
+
+        protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, ZCCH_ST_FILE[] files)
+        {
             var attachments = this.AttachmentParser.Parse(offer, files);
-            this.Logger.LogFiles(attachments, offer.Guid, isAccepted);
+            this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
             return attachments;
         }
 
@@ -226,9 +236,18 @@ namespace eContracting.Services
             else if (version == 2)
             {
                 var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS)).ToArray();
-                var parameters = this.OfferParser.GetTextParameters(files);
-                this.OfferParser.MakeCompatibleParameters(parameters, version);
-                return parameters;
+
+                if (!files.Any())
+                {
+                    this.Logger.Error(response.Guid, $"Additional file with {Constants.FileAttributes.TYPE} == {Constants.FileAttributeValues.TEXT_PARAMETERS} not found. No text parameters are available.");
+                    return new Dictionary<string, string>();
+                }
+                else
+                {
+                    var parameters = this.OfferParser.GetTextParameters(files);
+                    this.OfferParser.MakeCompatibleParameters(parameters, version);
+                    return parameters;
+                }
             }
             else
             {

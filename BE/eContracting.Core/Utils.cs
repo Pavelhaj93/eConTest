@@ -253,5 +253,12 @@ namespace eContracting
 
             return text;
         }
+
+        public static T[] GetUpdated<T>(T[] array, T newItem)
+        {
+            var list = new List<T>(array);
+            list.Add(newItem);
+            return list.ToArray();
+        }
     }
 }

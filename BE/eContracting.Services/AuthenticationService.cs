@@ -41,9 +41,11 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public AUTH_RESULT_STATES GetLoginState(OfferModel offer, LoginTypeModel loginType, string birthDay, string key, string value)
         {
-            if (string.IsNullOrEmpty(birthDay))
+            #region Perform settings check
+
+            if (loginType == null)
             {
-                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
+                return AUTH_RESULT_STATES.MISSING_LOGIN_TYPE;
             }
 
             if (string.IsNullOrEmpty(key))
@@ -51,40 +53,40 @@ namespace eContracting.Services
                 return AUTH_RESULT_STATES.KEY_MISMATCH;
             }
 
-            if (string.IsNullOrEmpty(value))
-            {
-                return AUTH_RESULT_STATES.MISSING_VALUE;
-            }
-
-            var bd1 = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
-            var bd2 = birthDay.Trim().Replace(" ", string.Empty).ToLower();
-
-            if (bd1 != bd2)
-            {
-                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
-            }
-
-            if (loginType == null)
-            {
-                return AUTH_RESULT_STATES.MISSING_LOGIN_TYPE;
-            }
-
-            var val = value.Trim().Replace(" ", string.Empty); //.Replace(" ", string.Empty).ToLower();
-
             // We can do it this way but it strongly depends on editor what he defines as 'loginType.Name'.
-            var xmlValue = offer.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
+            var originalValue = offer.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
 
-            if (string.IsNullOrEmpty(xmlValue))
+            if (string.IsNullOrEmpty(originalValue))
             {
                 return AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION;
             }
 
-            if (!this.IsRegexValid(loginType, val))
+            var originalBirthdate = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
+
+            if (string.IsNullOrEmpty(originalBirthdate))
             {
-                return AUTH_RESULT_STATES.INVALID_VALUE_FORMAT;
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE_DEFINITION;
             }
 
-            if (xmlValue != val)
+            #endregion
+
+            birthDay = birthDay?.Trim().Replace(" ", string.Empty).ToLower();
+            value = value?.Trim().Replace(" ", string.Empty); //.Replace(" ", string.Empty).ToLower();
+
+            var birthdateValid = this.IsBirthDateValid(originalBirthdate, birthDay);
+            var valueValid = this.IsValueValid(loginType, originalValue, value);
+
+            if (!birthdateValid && !valueValid)
+            {
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE;
+            }
+
+            if (!birthdateValid)
+            {
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
+            }
+
+            if (!valueValid)
             {
                 return AUTH_RESULT_STATES.INVALID_VALUE;
             }
@@ -125,6 +127,41 @@ namespace eContracting.Services
             {
                 return false;
             }
+        }
+
+        protected internal bool IsBirthDateValid(string originalValue, string inputValue)
+        {
+            if (string.IsNullOrEmpty(inputValue))
+            {
+                return false;
+            }
+
+            if (originalValue != inputValue)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal bool IsValueValid(LoginTypeModel loginType, string originalValue, string inputValue)
+        {
+            if (string.IsNullOrEmpty(inputValue))
+            {
+                return false;
+            }
+
+            if (!this.IsRegexValid(loginType, inputValue))
+            {
+                return false;
+            }
+
+            if (originalValue != inputValue)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

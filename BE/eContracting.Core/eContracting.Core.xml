@@ -1810,10 +1810,17 @@
         </member>
         <member name="M:eContracting.Extensions.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
-            Gets value of IDATTACH from the <paramref name="file"/> if exists.
+            Gets value of IDATTACH from the <paramref name="file"/> attributes.
             </summary>
             <param name="file">The file.</param>
             <returns>Value or null.</returns>
+        </member>
+        <member name="M:eContracting.Extensions.GetTemlate(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Gets value of TEMPLATE from the <paramref name="file"/> attributes.
+            </summary>
+            <param name="file">The file.</param>
+            <returns>Value or null</returns>
         </member>
         <member name="M:eContracting.Extensions.Merge``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
             <summary>

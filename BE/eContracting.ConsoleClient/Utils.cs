@@ -50,10 +50,11 @@ namespace eContracting.ConsoleClient
             {
                 var file = files[i];
                 var idattach = file.GetIdAttach();
+                var template = file.GetTemlate();
 
                 if (!offer.Documents.Any(x => x.IdAttach == idattach))
                 {
-                    console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})");
+                    console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach}) (TEMPLATE = {template})");
                 }
             }
         }
