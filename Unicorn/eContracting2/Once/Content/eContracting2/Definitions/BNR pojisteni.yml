@@ -19,7 +19,7 @@ SharedFields:
   Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
 - ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
   Hint: OfferOtherProductsTitle
-  Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
+  Value: "{1D0C4D3F-C10F-4564-BA7F-60FF28BDA37F}"
 - ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
   Hint: OfferCommoditiesText
   Value: "{F32E21B4-EF8A-4EE3-B499-BAC073B90D7F}"
@@ -55,7 +55,7 @@ SharedFields:
   Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
 - ID: "70941589-f449-4853-ac06-110f564ef692"
   Hint: OfferOtherProductsNote
-  Value: "{E81F5549-1786-4186-8734-9779F35D38F3}"
+  Value: "{B8FDECA5-6673-4076-B0A3-FBFA3DC4DDDC}"
 - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
   Hint: OfferAcceptText
   Value: "{DD6D7B57-BF5E-48D0-8CE7-C761C584080E}"
@@ -86,7 +86,7 @@ SharedFields:
   Value: "{F35393DD-5C73-4591-AC87-83B68C589496}"
 - ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
   Hint: OfferOtherProductsDocsTitle
-  Value: "{7FC788F6-32AB-49F0-8873-B2832C174C7A}"
+  Value: "{5AE05D40-2A99-44E4-9173-952020B1B9D8}"
 - ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
   Hint: OfferCommoditiesAcceptText
   Value: "{AD326E6A-E3E2-4AC3-97D0-BB97D540B265}"

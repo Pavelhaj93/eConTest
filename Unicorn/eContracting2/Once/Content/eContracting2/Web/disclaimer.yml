@@ -58,6 +58,34 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{FB13EA76-122F-4AA7-85AD-E0154D208C59}"
+              p:before="*"
+              s:ds=""
+              s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+              s:ph="/eContracting2Main/eContracting2-boxes" />
+            <r
+              uid="{B7977920-4D63-4FAF-9098-3BF4E640116B}"
+              p:after="r[@uid='{FB13EA76-122F-4AA7-85AD-E0154D208C59}']"
+              s:ds="{A01BC65C-E848-467C-892E-58D6F0E0D9D2}"
+              s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+              s:ph="/eContracting2Main/eContracting2-boxes" />
+            <r
+              uid="{1F21755E-79FF-4BF4-8227-94C42FC333A7}"
+              p:after="r[@uid='{B7977920-4D63-4FAF-9098-3BF4E640116B}']"
+              s:ds="{F5899E01-113E-42E2-85D7-8C32A9A16932}"
+              s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+              s:ph="/eContracting2Main/eContracting2-boxes" />
+          </d>
+        </r>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125608Z

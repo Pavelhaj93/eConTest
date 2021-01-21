@@ -55,10 +55,10 @@ SharedFields:
   Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
 - ID: "70941589-f449-4853-ac06-110f564ef692"
   Hint: OfferOtherProductsNote
-  Value: "{E81F5549-1786-4186-8734-9779F35D38F3}"
+  Value: "{5B325873-E20F-4B73-BFED-8752ABCB403F}"
 - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
   Hint: OfferAcceptText
-  Value: "{DD6D7B57-BF5E-48D0-8CE7-C761C584080E}"
+  Value: "{F3864F26-719E-48DB-A745-1C0F7050634E}"
 - ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
   Hint: LoginTypes
   Type: Checklist
@@ -86,7 +86,7 @@ SharedFields:
   Value: "{744A8BFE-453F-4916-B13D-12C5102505C5}"
 - ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
   Hint: OfferOtherProductsDocsTitle
-  Value: "{7FC788F6-32AB-49F0-8873-B2832C174C7A}"
+  Value: "{21A21CD7-1634-47FC-B6DA-1B06EAFAC9FC}"
 - ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
   Hint: OfferCommoditiesAcceptText
   Value: "{AD326E6A-E3E2-4AC3-97D0-BB97D540B265}"
