@@ -900,7 +900,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
                 else
                 {
-                    return this.InternalServerError();
+                    return this.InternalServerError(this.TextService.Error(ERROR_CODES.UploadFileError()));
                 }
             }
         }
