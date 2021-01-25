@@ -191,6 +191,14 @@ namespace eContracting.Models
         /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
         /// </summary>
         /// <param name="template">The template.</param>
+        public OfferAttachmentModel(DocumentTemplateModel template) : this(template, null, null, null, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
+        /// </summary>
+        /// <param name="template">The template.</param>
         /// <param name="mimeType">Type of the MIME.</param>
         /// <param name="originalFileName">Name of the original file.</param>
         /// <param name="attributes">The attributes.</param>
