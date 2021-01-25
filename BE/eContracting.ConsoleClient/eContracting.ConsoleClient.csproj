@@ -133,6 +133,7 @@
     <Compile Include="Commands\GetOfferCommand.cs" />
     <Compile Include="Commands\GetOfferJsonCommand.cs" />
     <Compile Include="Commands\SignFileCommand.cs" />
+    <Compile Include="Commands\SwitchServerCommand.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ConsoleLoggerSuspender.cs" />
     <Compile Include="ContextData.cs" />

@@ -17,21 +17,21 @@ namespace eContracting.ConsoleClient
             var fakeSitecoreContent = new Mock<ISitecoreContext>();
             var sitecoreContext = fakeSitecoreContent.Object;
 
+            var configuration = new GlobalConfiguration();
+            // dev
+            //configuration.ServiceUrl = "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            // test
+            //configuration.ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            // test
+            configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            configuration.ServiceUser = "UkZDX1NJVEVDT1JF";
+            configuration.ServicePassword = "QWRIYjI0Nyo=";
+
             using (var consinloop = new ConsinloopRunner(args))
             {
                 consinloop.ConfigureServices((services) =>
                 {
-                    services.AddOptions<GlobalConfiguration>().Configure((config) =>
-                    {
-                        // dev
-                        //config.ServiceUrl = "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-                        // test
-                        //config.ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-                        // test
-                        config.ServiceUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-                        config.ServiceUser = "UkZDX1NJVEVDT1JF";
-                        config.ServicePassword = "QWRIYjI0Nyo=";
-                    });
+                    services.AddSingleton<GlobalConfiguration>(configuration);
                     services.AddSingleton<ContextData>();
                     services.AddScoped<IServiceFactory, ServiceFactory>();
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
@@ -50,6 +50,7 @@ namespace eContracting.ConsoleClient
                     services.AddScopedCommand<GetTextsCommand>();
                     services.AddScopedCommand<CompareIdAttachCommand>();
                     services.AddScopedCommand<GetOfferJsonCommand>();
+                    services.AddScopedCommand<SwitchServerCommand>();
                 });
                 await consinloop.Run();
             }

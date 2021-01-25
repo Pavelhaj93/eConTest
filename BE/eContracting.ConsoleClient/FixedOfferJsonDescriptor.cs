@@ -19,10 +19,5 @@ namespace eContracting.ConsoleClient
             ISettingsReaderService settingsReaderService) : base(logger, textService, context, apiService, settingsReaderService)
         {
         }
-
-        protected internal override PageAcceptedOfferModel GetAcceptedPageModel()
-        {
-            return new PageAcceptedOfferModel();
-        }
     }
 }
