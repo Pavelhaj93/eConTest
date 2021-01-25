@@ -364,7 +364,7 @@ namespace eContracting.Services
             else
             {
                 // this is just a template for file witch is required from a user
-                item = new OfferAttachmentModel(template, null, null, new OfferAttributeModel[] { }, null);
+                item = new OfferAttachmentModel(template);
             }
 
             return item;
