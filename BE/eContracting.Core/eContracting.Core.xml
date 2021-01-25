@@ -2080,6 +2080,18 @@
             </summary>
             <returns>Value from 'Sitecore.Context.Site.RootPath'.</returns>
         </member>
+        <member name="M:eContracting.IContextWrapper.GetBrowserAgent">
+            <summary>
+            Gets current browser agent description.
+            </summary>
+            <returns>Browser agent identifier or null.</returns>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetIpAddress">
+            <summary>
+            Gets current IP address.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.IContextWrapper.IsNormalMode">
             <summary>
             Determines whether Sitecore context page mode is in normal mode.
@@ -2524,6 +2536,12 @@
             Wrapper over 'Sitecore.Context'.
             </summary>
             <seealso cref="T:eContracting.IContextWrapper" />
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetBrowserAgent">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetIpAddress">
+            <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.GetSetting(System.String)">
             <inheritdoc/>

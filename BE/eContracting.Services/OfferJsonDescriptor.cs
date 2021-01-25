@@ -65,7 +65,7 @@ namespace eContracting.Services
 
             foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
             {
-                var g = this.GetSection(fileGroup.Key, fileGroup, page, offer);
+                var g = this.GetSection(fileGroup.Key, fileGroup, definition, offer);
                 groups.AddRange(g);
             }
 
@@ -96,7 +96,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, PageAcceptedOfferModel definition, OfferModel offer)
+        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, DefinitionCombinationModel definition, OfferModel offer)
         {
             var list = new List<JsonFilesSectionModel>();
 
@@ -107,26 +107,26 @@ namespace eContracting.Services
 
                 if (acceptFiles.Any())
                 {
-                    var title = definition.AcceptedDocumentsTitle;
+                    var title = definition.OfferCommoditiesAcceptTitle.Text; //definition.AcceptedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(acceptFiles.Select(x => new JsonFileModel(x)), title));
                 }
 
                 if (signFiles.Any())
                 {
-                    var title = definition.SignedDocumentsTitle;
+                    var title = definition.OfferCommoditiesSignTitle.Text; //definition.SignedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title));
                 }
             }
             else if (groupName == "DSL")
             {
                 var files = attachments.Where(x => x.Group == "DSL");
-                var title = definition.AdditionalServicesTitle;
+                var title = definition.OfferAdditionalServicesTitle.Text; //definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
             else
             {
                 var files = attachments.Where(x => x.Group != "COMMODITY" && x.Group != "DSL" && x.IsPrinted);
-                var title = definition.AdditionalServicesTitle;
+                var title = definition.OfferOtherProductsDocsTitle.Text; //definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
             }
 

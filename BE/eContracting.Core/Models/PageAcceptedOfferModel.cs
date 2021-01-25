@@ -17,17 +17,5 @@ namespace eContracting.Models
         /// </summary>
         [SitecoreField]
         public virtual string PageTitle { get; set; }
-
-        [SitecoreField]
-        public virtual string AcceptedDocumentsTitle { get; set; }
-
-        [SitecoreField]
-        public virtual string SignedDocumentsTitle { get; set; }
-
-        [SitecoreField]
-        public virtual string AdditionalServicesTitle { get; set; }
-
-        [SitecoreField]
-        public virtual string OthersTitle { get; set; }
     }
 }
