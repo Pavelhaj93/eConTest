@@ -55,6 +55,7 @@
     <Compile Include="BaseApiServiceOptionsTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
     <Compile Include="Models\DocumentTemplateModelTests.cs" />
+    <Compile Include="Models\OfferAttachmentModelTests.cs" />
     <Compile Include="Models\OfferAttributeModelTests.cs" />
     <Compile Include="ServiceFactoryTests.cs" />
     <Compile Include="UtilsTests.cs" />

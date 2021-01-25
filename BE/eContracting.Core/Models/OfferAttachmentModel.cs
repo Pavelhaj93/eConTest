@@ -18,7 +18,6 @@ namespace eContracting.Models
     /// Represents file from 'ZCCH_CACHE_API'.
     /// </summary>
     [Serializable]
-    [ExcludeFromCodeCoverage]
     public class OfferAttachmentModel
     {
         /// <summary>
@@ -46,7 +45,7 @@ namespace eContracting.Models
         public readonly string MimeType;
 
         /// <summary>
-        /// The original file name generated from SAP.
+        /// The original file name generated from SAP (technical name).
         /// </summary>
         [JsonIgnore]
         public readonly string OriginalFileName;
@@ -111,17 +110,20 @@ namespace eContracting.Models
         public readonly bool IsObligatory;
 
         /// <summary>
-        /// Gets or sets file content.
+        /// Gets or sets file content. Always returns array.
         /// </summary>
         [JsonIgnore]
         public readonly byte[] FileContent;
 
         /// <summary>
-        /// The file attributes.
+        /// The file attributes. Always returns array.
         /// </summary>
         [JsonIgnore]
         public readonly OfferAttributeModel[] Attributes;
 
+        /// <summary>
+        /// Group in which the template is.
+        /// </summary>
         public readonly string GroupGuid;
 
         /// <summary>
@@ -148,8 +150,14 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// The consent type identifier (expected S or P).
+        /// </summary>
         public readonly string ConsentType;
 
+        /// <summary>
+        /// The template alc identifier
+        /// </summary>
         public readonly string TemplAlcId;
 
         #region Desicion makers where to place a file
@@ -175,6 +183,8 @@ namespace eContracting.Models
         /// </summary>
         private OfferAttachmentModel()
         {
+            this.Attributes = new OfferAttributeModel[] { };
+            this.FileContent = new byte[] { };
         }
 
         /// <summary>
@@ -194,6 +204,18 @@ namespace eContracting.Models
 
             this.DocumentTemplate = template;
 
+            if (string.IsNullOrEmpty(originalFileName))
+            {
+                originalFileName = template.Description;
+            }
+
+            if (string.IsNullOrEmpty(originalFileName))
+            {
+                throw new ArgumentException("Invalid file name (empty name)");
+            }
+
+            this.OriginalFileName = originalFileName;
+
             this.Group = template.Group;
             this.GroupGuid = template.ItemGuid;
             this.FileName = template.Description;
@@ -206,17 +228,11 @@ namespace eContracting.Models
             this.IdAttach = template.IdAttach;
             this.UniqueKey = template.UniqueKey;
 
-            if (string.IsNullOrEmpty(originalFileName))
-            {
-                originalFileName = template.Description;
-            }
-
             this.MimeType = mimeType;
-            this.OriginalFileName = originalFileName;
             this.FileExtension = Path.GetExtension(this.OriginalFileName).TrimStart('.');
             this.FileNameExtension = template.Description + "." + this.FileExtension;
-            this.Attributes = attributes;
-            this.FileContent = content;
+            this.Attributes = attributes ?? new OfferAttributeModel[] { };
+            this.FileContent = content ?? new byte[] { };
         }
 
         /// <summary>

@@ -824,7 +824,7 @@
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.OriginalFileName">
             <summary>
-            The original file name generated from SAP.
+            The original file name generated from SAP (technical name).
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.FileName">
@@ -879,12 +879,17 @@
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.FileContent">
             <summary>
-            Gets or sets file content.
+            Gets or sets file content. Always returns array.
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.Attributes">
             <summary>
-            The file attributes.
+            The file attributes. Always returns array.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.GroupGuid">
+            <summary>
+            Group in which the template is.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.Size">
@@ -895,6 +900,16 @@
         <member name="P:eContracting.Models.OfferAttachmentModel.SizeLabel">
             <summary>
             Gets size description.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.ConsentType">
+            <summary>
+            The consent type identifier (expected S or P).
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.TemplAlcId">
+            <summary>
+            The template alc identifier
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.Template">
