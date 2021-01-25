@@ -59,7 +59,6 @@ namespace eContracting.Services
             var documents = offer.Documents;
             var files = this.ApiService.GetAttachments(offer);
             var definition = this.SettingsReaderService.GetDefinition(offer);
-            var page = this.GetAcceptedPageModel();
             var textParameters = offer.TextParameters;
             var fileGroups = files.GroupBy(x => x.Group);
 
@@ -141,18 +140,6 @@ namespace eContracting.Services
             }
 
             return null;
-        }
-
-        protected virtual internal PageAcceptedOfferModel GetAcceptedPageModel()
-        {
-            Guid guid = this.SettingsReaderService.GetSiteSettings().AcceptedOffer?.TargetId ?? Guid.Empty;
-
-            if (guid == Guid.Empty)
-            {
-                return new PageAcceptedOfferModel();
-            }
-
-            return this.Context.GetItem<PageAcceptedOfferModel>(guid) ?? new PageAcceptedOfferModel();
         }
 
         protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
