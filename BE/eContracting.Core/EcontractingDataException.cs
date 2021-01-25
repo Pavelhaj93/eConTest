@@ -19,5 +19,14 @@ namespace eContracting
         public EcontractingDataException(ErrorModel error) : base(error)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EcontractingDataException"/> class.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public EcontractingDataException(ErrorModel error, Exception innerException) : base(error, innerException)
+        {
+        }
     }
 }

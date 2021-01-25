@@ -11,20 +11,22 @@ namespace eContracting
     public interface IOfferService
     {
         /// <summary>
-        /// Accepts offer synchronously.
+        /// Accepts the <paramref name="offer"/> synchronously. Calls NABIDKA_PRIJ and set status to 5.
         /// </summary>
         /// <param name="offer">Valid offer.</param>
         /// <param name="data">The submitted data.</param>
         /// <param name="sessionId">Current session id.</param>
         /// <returns>True if it was accepted or false.</returns>
-        bool AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId);
+        /// <exception cref="EcontractingApplicationException">When response from remote server was not success.</exception>
+        void AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId);
 
         /// <summary>
         /// Reads offer synchronously.
         /// </summary>
         /// <param name="guid">Guid identifier.</param>
         /// <returns>True if it was set or false.</returns>
-        bool ReadOffer(string guid);
+        /// <exception cref="EcontractingApplicationException">When response from remote server was not success.</exception>
+        void ReadOffer(string guid);
 
         /// <summary>
         /// Gets the files synchronous.
@@ -55,6 +57,7 @@ namespace eContracting
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
-        bool SignInOffer(string guid);
+        /// <exception cref="EcontractingApplicationException">When response from remote server was not success.</exception>
+        void SignInOffer(string guid);
     }
 }

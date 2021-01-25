@@ -82,7 +82,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId)
+        public void AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId)
         {
             var when = DateTime.UtcNow;
             var startingLog = new StringBuilder();
@@ -119,10 +119,15 @@ namespace eContracting.Services
 
             if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
             {
-                throw new ApplicationException("ZCCH_CACHE_PUT request failed. Code: " + putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE);
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OS-AO-CP", putResult.ZCCH_CACHE_PUTResponse));
             }
 
-            return this.SetStatus(offer.Guid, OFFER_TYPES.NABIDKA, "5");
+            var setResult = this.SetStatus(offer.Guid, OFFER_TYPES.NABIDKA, "5");
+
+            if (setResult.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            {
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OS-AO-CSS", setResult.ZCCH_CACHE_STATUS_SETResponse));
+            }
         }
 
         /// <inheritdoc/>
@@ -150,6 +155,12 @@ namespace eContracting.Services
             return this.GetOffer(response, includeTextParameters);
         }
 
+        /// <summary>
+        /// Gets the offer from given <paramref name="response"/>.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="includeTextParameters">if set to <c>true</c> [include text parameters].</param>
+        /// <returns></returns>
         protected internal OfferModel GetOffer(ResponseCacheGetModel response, bool includeTextParameters)
         {
             var offer = this.OfferParser.GenerateOffer(response);
@@ -188,6 +199,12 @@ namespace eContracting.Services
             return this.GetAttachments(offer, files);
         }
 
+        /// <summary>
+        /// Gets offer attachments generated from <paramref name="files"/>.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="files">The files.</param>
+        /// <returns>Array of attachments.</returns>
         protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, ZCCH_ST_FILE[] files)
         {
             var attachments = this.AttachmentParser.Parse(offer, files);
@@ -196,15 +213,25 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool ReadOffer(string guid)
+        public void ReadOffer(string guid)
         {
-            return this.SetStatus(guid, OFFER_TYPES.NABIDKA, "4");
+            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "4");
+
+            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            {
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-RO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+            }
         }
 
         /// <inheritdoc/>
-        public bool SignInOffer(string guid)
+        public void SignInOffer(string guid)
         {
-            return this.SetStatus(guid, OFFER_TYPES.NABIDKA, "6");
+            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "6");
+
+            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            {
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-SIO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+            }
         }
 
         /// <summary>
@@ -425,23 +452,13 @@ namespace eContracting.Services
         /// <param name="guid">The unique identifier.</param>
         /// <param name="type">The type.</param>
         /// <param name="status">The status.</param>
-        /// <returns><c>True</c> if status was set.</returns>
-        protected internal bool SetStatus(string guid, OFFER_TYPES type, string status)
+        /// <returns>Response from inner service.</returns>
+        protected internal ZCCH_CACHE_STATUS_SETResponse1 SetStatus(string guid, OFFER_TYPES type, string status)
         {
             var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
             decimal outValue = 1M;
-
-            if (decimal.TryParse(timestampString, out outValue))
-            {
-                bool result = this.SetStatus(guid, type, outValue, status);
-                return result;
-            }
-            else
-            {
-                this.Logger.Fatal(guid, $"Cannot parse timestamp to decimal ({timestampString})");
-            }
-
-            return false;
+            var response = this.SetStatus(guid, type, outValue, status);
+            return response;
         }
 
         /// <summary>
@@ -451,8 +468,8 @@ namespace eContracting.Services
         /// <param name="type">A type from <see cref="OFFER_TYPES"/> collection.</param>
         /// <param name="timestamp">Decimal representation of a timestamp.</param>
         /// <param name="status">Value for <see cref="ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
-        /// <returns>True if it was successfully set or false.</returns>
-        protected internal bool SetStatus(string guid, OFFER_TYPES type, decimal timestamp, string status)
+        /// <returns>Response from inner service.</returns>
+        protected internal ZCCH_CACHE_STATUS_SETResponse1 SetStatus(string guid, OFFER_TYPES type, decimal timestamp, string status)
         {
             var options = this.SettingsReaderService.GetApiServiceOptions();
 
@@ -473,23 +490,7 @@ namespace eContracting.Services
                 stop.Stop();
                 this.Logger.TimeSpent(model, stop.Elapsed);
 
-                this.Logger.Debug(guid, $"Status changed to {status}");
-
-                if (response != null)
-                {
-                    if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE == 0)
-                    {
-                        return true;
-                    }
-
-                    this.Logger.Error(guid, $"Call to the web service during Accepting returned result {response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE}.");
-                }
-                else
-                {
-                    this.Logger.Fatal(guid, $"Call to the web service during Accepting returned null result.");
-                }
-
-                return false;
+                return response;
             }
         }
 
@@ -528,7 +529,7 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Inserts data asynchronously.
+        /// Inserts data with 'NABIDKA_PRIJ'.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <param name="attributes">The attributes.</param>
@@ -546,6 +547,37 @@ namespace eContracting.Services
                 model.IT_ATTRIB = attributes;
                 model.IT_FILES = files;
 
+                #region Logging
+
+                try
+                {
+                    var log = new StringBuilder();
+                    log.AppendLine($"{nameof(ZCCH_CACHE_PUT)} Preparing request ...");
+                    log.AppendLine($" - IV_CCHKEY: {model.IV_CCHKEY}");
+                    log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
+                    log.AppendLine(" Attributes:");
+
+                    for (int i = 0; i < attributes.Length; i++)
+                    {
+                        log.AppendLine($"  - {attributes[i].ATTRID}: {attributes[i].ATTRVAL}");
+                    }
+
+                    log.AppendLine(" Files:");
+
+                    for (int i = 0; i < files.Length; i++)
+                    {
+                        log.AppendLine($"  - {files[i].FILENAME}");
+                    }
+
+                    this.Logger.Debug(guid, log.ToString());
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(guid, "Cannot log information about 'ZCCH_CACHE_PUT'", ex);
+                }
+
+                #endregion
+
                 var request = new ZCCH_CACHE_PUTRequest(model);
                 var stop = new Stopwatch();
                 stop.Start();
@@ -553,8 +585,7 @@ namespace eContracting.Services
                 task.Wait();
                 var response = task.Result;
                 stop.Stop();
-                //this.Logger.TimeSpent(model, stop.Elapsed);
-
+                this.Logger.TimeSpent(model, response, stop.Elapsed);
                 return response;
             }
         }

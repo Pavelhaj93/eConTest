@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{2C8EC859-C
 		..\docs\ATTRIBUTES.md = ..\docs\ATTRIBUTES.md
 		..\docs\ATTRIBUTES_TABLE.md = ..\docs\ATTRIBUTES_TABLE.md
 		..\docs\Build_and_Deploy.md = ..\docs\Build_and_Deploy.md
+		..\docs\ENDPOINTS.md = ..\docs\ENDPOINTS.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Services", "eContracting.Services\eContracting.Services.csproj", "{F532A851-C440-4513-B563-3EB1C3972FFA}"

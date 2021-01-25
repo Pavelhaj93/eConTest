@@ -28,7 +28,7 @@ namespace eContracting
         /// <inheritdoc/>
         public void Debug(string guid, string message)
         {
-            Log.Info($"[{guid}] {message}", this);
+            Log.Debug($"[{guid}] {message}", this);
         }
 
         /// <inheritdoc/>

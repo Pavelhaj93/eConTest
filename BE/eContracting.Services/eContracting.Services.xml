@@ -272,8 +272,24 @@
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String,System.Boolean)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferService.GetOffer(eContracting.Models.ResponseCacheGetModel,System.Boolean)">
+            <summary>
+            Gets the offer from given <paramref name="response"/>.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="includeTextParameters">if set to <c>true</c> [include text parameters].</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Gets offer attachments generated from <paramref name="files"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="files">The files.</param>
+            <returns>Array of attachments.</returns>
         </member>
         <member name="M:eContracting.Services.OfferService.ReadOffer(System.String)">
             <inheritdoc/>
@@ -330,7 +346,7 @@
             <param name="guid">The unique identifier.</param>
             <param name="type">The type.</param>
             <param name="status">The status.</param>
-            <returns><c>True</c> if status was set.</returns>
+            <returns>Response from inner service.</returns>
         </member>
         <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
             <summary>
@@ -340,7 +356,7 @@
             <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
             <param name="timestamp">Decimal representation of a timestamp.</param>
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
-            <returns>True if it was successfully set or false.</returns>
+            <returns>Response from inner service.</returns>
         </member>
         <member name="M:eContracting.Services.OfferService.GetFiles(System.String,System.Boolean)">
             <summary>
@@ -352,7 +368,7 @@
         </member>
         <member name="M:eContracting.Services.OfferService.Put(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
-            Inserts data asynchronously.
+            Inserts data with 'NABIDKA_PRIJ'.
             </summary>
             <param name="guid">The unique identifier.</param>
             <param name="attributes">The attributes.</param>
