@@ -26,7 +26,7 @@ namespace eContracting.Website
             serviceCollection.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
             serviceCollection.AddScoped<IAuthenticationService, AuthenticationService>();
             serviceCollection.AddScoped<ISettingsReaderService, SitecoreSettingsReaderService>();
-            serviceCollection.AddScoped<ILoginReportStore, DbLoginReportStore>();
+            serviceCollection.AddScoped<ILoginFailedAttemptBlockerStore, DbLoginFailedAttemptBlockerStore>();
             serviceCollection.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
             serviceCollection.AddScoped<ISignService, FileSignService>();
             serviceCollection.AddScoped<IFileOptimizer, FileOptimizer>();

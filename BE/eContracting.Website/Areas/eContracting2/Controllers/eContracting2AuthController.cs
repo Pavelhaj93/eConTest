@@ -28,7 +28,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
         protected readonly IUserDataCacheService UserDataCache;
-        protected readonly ILoginReportStore LoginReportService;
+        protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
@@ -44,7 +44,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
             this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-            this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginReportStore>();
+            this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
@@ -81,7 +81,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISessionProvider sessionProvider,
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
-            ILoginReportStore loginReportService,
+            ILoginFailedAttemptBlockerStore loginReportService,
             ISitecoreContext sitecoreContext,
             IRenderingContext renderingContext,
             IUserDataCacheService userDataCache,
@@ -121,7 +121,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (string.IsNullOrEmpty(guid))
                 {
-                    return this.GetLoginFailReturns(LoginStates.INVALID_GUID, guid);
+                    return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
                 //var msg = Request.QueryString["error"];
@@ -136,9 +136,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
-                if (canLogin != LoginStates.OK)
+                if (canLogin != LOGIN_STATES.OK)
                 {
-                    //TODO: this.ReportLogin()
                     return this.GetLoginFailReturns(canLogin, guid);
                 }
 
@@ -164,7 +163,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.Partner = offer.PartnerNumber;
                 viewModel.Zip1 = offer.PostNumber;
                 viewModel.Zip2 = offer.PostNumberConsumption;
-                //TODO: this.ReportLogin()
                 return View("/Areas/eContracting2/Views/Login.cshtml", viewModel);
             }
             catch (AggregateException ex)
@@ -217,12 +215,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 //    return Redirect(url);
                 //}
 
+                if (string.IsNullOrEmpty(guid))
+                {
+                    this.ReportLogin(LOGIN_STATES.INVALID_GUID, guid);
+                    return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
+                }
+
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
-                if (canLogin != LoginStates.OK)
+                if (canLogin != LOGIN_STATES.OK)
                 {
+                    this.ReportLogin(canLogin, guid);
                     return this.GetLoginFailReturns(canLogin, guid);
                 }
 
@@ -232,6 +237,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
                     this.Logger.Info(guid, $"Log-in failed");
+                    this.ReportLogin(result, loginType, guid);
                     //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
                     //TODO: this.LoginReportService.AddFailedAttempt(guid, this.SessionProvider.GetId(), this.Request.Browser.Browser);
                     return this.GetLoginFailReturns(result, loginType, guid);
@@ -336,42 +342,47 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/LoginRichText.cshtml", dataSource);
         }
 
-        protected internal void ReportLogin(bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        /// <summary>
+        /// Reports invalid login prerequisites.
+        /// </summary>
+        /// <param name="loginState">State of the login.</param>
+        /// <param name="guid">The unique identifier.</param>
+        protected internal void ReportLogin(LOGIN_STATES loginState, string guid)
         {
             
         }
 
-        protected internal void ReportLogin(string reportTime, bool wrongDateOfBirth, bool wrongAdditionalValue, string additionalValueKey, string guid, string type, bool generalError = false)
+        protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, LoginTypeModel loginType, string guid)
         {
-            if (generalError)
+            if (authResultState == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
-                this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, generalError: true);
-                return;
+                var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
+                model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
+                model.LoginType = loginType;
+                model.IsBirthdateValid = false;
+                model.IsValueValid = true;
+
+                this.LoginReportService.Add(model);
             }
-
-            if (wrongAdditionalValue)
+            else if (authResultState == AUTH_RESULT_STATES.INVALID_VALUE)
             {
-                if (additionalValueKey == "identitycardnumber")
-                {
-                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongIdentityCardNumber: true);
-                    return;
-                }
+                var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
+                model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
+                model.LoginType = loginType;
+                model.IsBirthdateValid = true;
+                model.IsValueValid = false;
 
-                if (additionalValueKey == "permanentresidencepostalcode")
-                {
-                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, WrongResidencePostalCode: true);
-                    return;
-                }
-
-                if (additionalValueKey == "postalcode")
-                {
-                    this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth, wrongPostalCode: true);
-                    return;
-                }
+                this.LoginReportService.Add(model);
             }
-            else
+            else if (authResultState == AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE)
             {
-                this.LoginReportService.AddLoginAttempt(this.SessionProvider.GetId(), reportTime, guid, type, birthdayDate: wrongDateOfBirth);
+                var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
+                model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
+                model.LoginType = loginType;
+                model.IsBirthdateValid = false;
+                model.IsValueValid = false;
+
+                this.LoginReportService.Add(model);
             }
         }
 
@@ -393,63 +404,63 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal LoginStates IsAbleToLogin(string guid, OfferModel offer, PageLoginModel datasource)
+        protected internal LOGIN_STATES IsAbleToLogin(string guid, OfferModel offer, PageLoginModel datasource)
         {
             if (string.IsNullOrEmpty(guid))
             {
-                return LoginStates.INVALID_GUID;
+                return LOGIN_STATES.INVALID_GUID;
             }
 
-            if (!this.LoginReportService.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan))
+            if (!this.LoginReportService.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan))
             {
-                return LoginStates.USER_BLOCKED;
+                return LOGIN_STATES.USER_BLOCKED;
             }
 
             if (offer == null)
             {
-                return LoginStates.OFFER_NOT_FOUND;
+                return LOGIN_STATES.OFFER_NOT_FOUND;
             }
 
             if (offer.State == "1")
             {
-                return LoginStates.OFFER_STATE_1;
+                return LOGIN_STATES.OFFER_STATE_1;
             }
 
             if (string.IsNullOrEmpty(offer.Birthday))
             {
-                return LoginStates.MISSING_BIRTHDAY;
+                return LOGIN_STATES.MISSING_BIRTHDAY;
             }
 
-            return LoginStates.OK;
+            return LOGIN_STATES.OK;
         }
 
-        protected internal ActionResult GetLoginFailReturns(LoginStates canLogin, string guid)
+        protected internal ActionResult GetLoginFailReturns(LOGIN_STATES canLogin, string guid)
         {
-            if (canLogin == LoginStates.INVALID_GUID)
+            if (canLogin == LOGIN_STATES.INVALID_GUID)
             {
                 var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.INVALID_GUID;
                 return Redirect(url);
             }
 
-            if (canLogin == LoginStates.OFFER_NOT_FOUND)
+            if (canLogin == LOGIN_STATES.OFFER_NOT_FOUND)
             {
                 var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
                 return Redirect(url);
             }
 
-            if (canLogin == LoginStates.USER_BLOCKED)
+            if (canLogin == LOGIN_STATES.USER_BLOCKED)
             {
                 return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.UserBlocked));
             }
 
-            if (canLogin == LoginStates.OFFER_STATE_1)
+            if (canLogin == LOGIN_STATES.OFFER_STATE_1)
             {
                 this.Logger.Warn(guid, $"Offer with state [1] will be ignored");
                 var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
                 return Redirect(url);
             }
 
-            if (canLogin == LoginStates.MISSING_BIRTHDAY)
+            if (canLogin == LOGIN_STATES.MISSING_BIRTHDAY)
             {
                 this.Logger.Warn(guid, $"Attribute BIRTHDT is offer is empty");
                 var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;

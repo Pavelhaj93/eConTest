@@ -32,6 +32,18 @@ namespace eContracting
         string GetSiteRoot();
 
         /// <summary>
+        /// Gets current browser agent description.
+        /// </summary>
+        /// <returns>Browser agent identifier or null.</returns>
+        string GetBrowserAgent();
+
+        /// <summary>
+        /// Gets current IP address.
+        /// </summary>
+        /// <returns></returns>
+        string GetIpAddress();
+
+        /// <summary>
         /// Determines whether Sitecore context page mode is in normal mode.
         /// </summary>
         bool IsNormalMode();

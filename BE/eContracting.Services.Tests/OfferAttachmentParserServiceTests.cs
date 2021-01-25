@@ -31,24 +31,6 @@ namespace eContracting.Services.Tests
             Assert.Equal(guid, log.Key);
         }
 
-        //TODO: TBI
-        public void Parse_Return_Only_Files_Matching_Offer_Documents()
-        {
-
-        }
-
-        //TODO: TBI
-        public void GetModel_Finds_Printed_File_Matching_To_Template()
-        {
-
-        }
-
-        //TODO: TBI
-        public void GetModel_Return_Only_File_Template_When_No_Real_File_Exists()
-        {
-
-        }
-
         [Fact]
         public void GetFileByTemplate_Returns_First_Match()
         {
@@ -340,6 +322,14 @@ namespace eContracting.Services.Tests
             var changedTemplate = offer.Documents.First();
 
             Assert.Equal(attr1.ATTRVAL, changedTemplate.IdAttach);
+        }
+
+        [Fact]
+        public void Check_Returns_AggregatedException_When_IdAttach_Is_Empty()
+        {
+            var logger = new MemoryLogger();
+
+            var service = new OfferAttachmentParserService(logger);
         }
 
         [Fact]

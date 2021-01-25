@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Sitecore.Sites;
 
 namespace eContracting
@@ -15,6 +16,29 @@ namespace eContracting
     [ExcludeFromCodeCoverage]
     public class SitecoreContextWrapper : IContextWrapper
     {
+        /// <inheritdoc/>
+        public string GetBrowserAgent()
+        {
+            return HttpContext.Current?.Request?.Browser?.Browser;
+        }
+
+        /// <inheritdoc/>
+        public string GetIpAddress()
+        {
+            string value = HttpContext.Current?.Request?.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+            if (!string.IsNullOrEmpty(value))
+            {
+                value = value.Split(',')[0];
+            }
+            else
+            {
+                value = HttpContext.Current?.Request?.ServerVariables["REMOTE_ADDR"];
+            }
+
+            return value;
+        }
+
         /// <inheritdoc/>
         public string GetSetting(string name)
         {

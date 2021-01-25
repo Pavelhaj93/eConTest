@@ -797,6 +797,41 @@
             Parsed value from <see cref="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
             </value>
         </member>
+        <member name="T:eContracting.Models.LOGIN_STATES">
+            <summary>
+            Prerequisites for log-in procedure.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.OK">
+            <summary>
+            Everything is OK.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.OFFER_NOT_FOUND">
+            <summary>
+            The offer not found by given guid.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.INVALID_GUID">
+            <summary>
+            Provided guid identifier by user is invalid.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.USER_BLOCKED">
+            <summary>
+            User is temporaly blocked due to max failed login attempts.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.OFFER_STATE_1">
+            <summary>
+            The offer state in <see cref="P:eContracting.Models.OfferModel.State"/> equals to 1.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.LOGIN_STATES.MISSING_BIRTHDAY">
+            <summary>
+            The missing birthday in <see cref="P:eContracting.Models.OfferModel.Birthday"/>.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.OfferAttachmentModel">
             <summary>
             Represents file from 'ZCCH_CACHE_API'.
@@ -2102,43 +2137,41 @@
             <param name="groupLastAdded"></param>
             <param name="fileIdLastAdded"></param>
         </member>
-        <member name="T:eContracting.ILoginReportStore">
+        <member name="T:eContracting.ILoginFailedAttemptBlockerStore">
             <summary>
-            Stores information about login attemps.
+            Temporary storage for failed login attempts.
             </summary>
         </member>
-        <member name="M:eContracting.ILoginReportStore.AddLoginAttempt(System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:eContracting.ILoginFailedAttemptBlockerStore.Add(eContracting.Models.LoginFailureModel)">
             <summary>
             Adds the login attempt.
             </summary>
-            <param name="sessionId">The session identifier.</param>
-            <param name="timestamp">The timestamp.</param>
-            <param name="guid">The unique identifier.</param>
-            <param name="type">The type.</param>
-            <param name="birthdayDate">if set to <c>true</c> [birthday date].</param>
-            <param name="wrongPostalCode">if set to <c>true</c> [wrong postal code].</param>
-            <param name="WrongResidencePostalCode">if set to <c>true</c> [wrong residence postal code].</param>
-            <param name="WrongIdentityCardNumber">if set to <c>true</c> [wrong identity card number].</param>
-            <param name="generalError">if set to <c>true</c> [general error].</param>
+            <remarks>
+                Both <see cref="P:eContracting.Models.LoginFailureModel.IsBirthdateValid"/> and <see cref="P:eContracting.Models.LoginFailureModel.IsValueValid"/> cannot be true.
+                <para>Do not throw any exception!</para>
+            </remarks>
+            <param name="loginAttemptModel">Data about login attempt.</param>
         </member>
-        <member name="M:eContracting.ILoginReportStore.AddFailedAttempt(System.String,System.String,System.String)">
+        <member name="M:eContracting.ILoginFailedAttemptBlockerStore.IsAllowed(System.String,System.Int32,System.TimeSpan)">
             <summary>
-            Adds the failed login attempt.
+            Determines whether user with <paramref name="guid"/> is allowed to log-in.
             </summary>
-            <param name="guid">The unique identifier.</param>
-            <param name="sessionId">The session identifier.</param>
-            <param name="browserInfo">The browser information.</param>
-        </member>
-        <member name="M:eContracting.ILoginReportStore.CanLogin(System.String,System.Int32,System.TimeSpan)">
-            <summary>
-            Determines whether <paramref name="guid"/> can log-in.
-            </summary>
+            <remarks>
+                Do not throw any exception! Instead returns <c>true</c>.
+            </remarks>
             <param name="guid">The unique identifier.</param>
             <param name="maxFailedAttempts">The maximum failed attempts.</param>
             <param name="delayAfterFailedAttempts">The delay after failed attempts.</param>
             <returns>
-              <c>true</c> if this instance can login the specified unique identifier; otherwise, <c>false</c>.
+              <c>True</c> if <paramref name="guid"/> can log-in, otherwise <c>false</c>.
             </returns>
+        </member>
+        <member name="M:eContracting.ILoginFailedAttemptBlockerStore.Clear(System.String)">
+            <summary>
+            Removes failure login attempts for specific <see cref="P:eContracting.Models.OfferModel.Guid"/> and allows user to log-in.
+            </summary>
+            <remarks>Do not throw any exception!</remarks>
+            <param name="guid">The offer unique identifier.</param>
         </member>
         <member name="T:eContracting.IOfferAttachmentParserService">
             <summary>
