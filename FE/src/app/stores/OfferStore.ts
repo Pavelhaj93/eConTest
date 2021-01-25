@@ -391,6 +391,52 @@ export class OfferStore {
   }
 
   /**
+   * Enrich all the acceptance groups/params with an extra key - `accepted`.
+   * And change the order of the groups to match the order of rendered boxes on the page.
+   */
+  private enrichAndSortAcceptanceParams(acceptance: Acceptance): Acceptance {
+    const accParams: Acceptance = {
+      params: [],
+    }
+
+    if (this.documentsToBeAccepted.length) {
+      // all this documents have the same group, so we can take the first one
+      const accGroup = acceptance.params.find(
+        param => param.group === this.documentsToBeAccepted[0].group,
+      )
+      accGroup && accParams.params.push(accGroup)
+    }
+
+    if (this.documentsToBeSigned.length) {
+      // all this documents have the same group, so we can take the first one
+      const signGroup = acceptance.params.find(
+        param => param.group === this.documentsToBeSigned[0].group,
+      )
+      signGroup && accParams.params.push(signGroup)
+    }
+
+    // this documents have different groups
+    this.documentsServices.forEach(doc => {
+      const serviceGroup = acceptance.params.find(param => param.group === doc.group)
+      serviceGroup && accParams.params.push(serviceGroup)
+    })
+
+    if (this.documentsProducts.length) {
+      // all this documents have the same group, so we can take the first one
+      const productGroup = acceptance.params.find(
+        param => param.group === this.documentsProducts[0].group,
+      )
+      productGroup && accParams.params.push(productGroup)
+    }
+
+    // enrich acceptance groups with `accepted` key
+    return {
+      ...accParams,
+      params: accParams.params.map(p => ({ ...p, accepted: false })),
+    }
+  }
+
+  /**
    * Performs an ajax request to `offerUrl` provided in constructor, fetch and populate documents.
    * @param timeoutMs - number of milliseconds after which the fetch request is canceled.
    */
@@ -429,7 +475,7 @@ export class OfferStore {
 
       // handle 5xx statuses and custom error message
       if (response.status.toString().startsWith('5')) {
-        const { Message } = await(response.json() as Promise<OfferErrorResponse>)
+        const { Message } = await (response.json() as Promise<OfferErrorResponse>)
         this.errorMessage = Message
         throw new Error(Message)
       }
@@ -453,11 +499,7 @@ export class OfferStore {
           this.perex = jsonResponse.perex
           this.gifts = jsonResponse.gifts
           this.benefits = jsonResponse.benefits
-          // enrich acceptance groups with `accepted` key
-          this.acceptance = {
-            ...jsonResponse.acceptance,
-            params: jsonResponse.acceptance.params.map(p => ({ ...p, accepted: false })),
-          }
+          this.acceptance = this.enrichAndSortAcceptanceParams(jsonResponse.acceptance)
           break
 
         case OfferType.ACCEPTED:

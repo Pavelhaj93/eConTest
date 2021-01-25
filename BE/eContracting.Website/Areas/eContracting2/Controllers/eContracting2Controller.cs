@@ -99,12 +99,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                if (!this.ApiService.SignInOffer(guid))
-                {
-                    this.Logger.Debug(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED;
-                    return Redirect(redirectUrl);
-                }
+                this.ApiService.SignInOffer(guid);
 
                 try
                 {
@@ -118,6 +113,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var datasource = this.GetLayoutItem<PageNewOfferModel>();
                 var viewModel = this.GetOfferViewModel(offer, datasource);
                 return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
+            }
+            catch (EcontractingApplicationException ex)
+            {
+                if (ex.Error.Code == "OF-SIO-CSS")
+                {
+                    this.Logger.Error(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})", ex);
+                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED);
+                }
+
+                this.Logger.Fatal(guid, ex);
+                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + ex.Error.Code);
             }
             catch (Exception ex)
             {

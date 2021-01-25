@@ -388,5 +388,74 @@ namespace eContracting.Services.Tests
 
             Assert.Empty(result);
         }
+
+        [Fact]
+        public void GetModel_Returns_Null_When_No_Match_Found()
+        {
+            var logger = new MemoryLogger();
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
+            var attachment = new DocumentTemplateModel();
+            attachment.IdAttach = "BBB";
+            attachment.Printed = "X";
+            attachment.Description = "file.pdf";
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.Attachments = new[] { attachment };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetModel(offer, attachment, new[] { file });
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetModel_Returns_Model_Created_With_File_Data_When_File_Is_Printed()
+        {
+            var logger = new MemoryLogger();
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
+            file.MIMETYPE = "application/pdf-asfbasd";
+            file.FILENAME = "BN_512312414_A10.pdf";
+            var attachment = new DocumentTemplateModel();
+            attachment.IdAttach = "AAA";
+            attachment.Printed = "X";
+            attachment.Description = "file.pdf";
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.Attachments = new[] { attachment };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetModel(offer, attachment, new[] { file });
+
+            Assert.NotNull(result);
+
+            Assert.Equal(file.MIMETYPE, result.MimeType);
+            Assert.True(result.Attributes.Length == file.ATTRIB.Length);
+            Assert.Equal(file.FILENAME, result.OriginalFileName);
+        }
+
+        [Fact]
+        public void GetModel_Returns_Model_As_Template_For_Uploading_Without_File()
+        {
+            var logger = new MemoryLogger();
+            var file = new ZCCH_ST_FILE();
+            file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
+            file.MIMETYPE = "application/pdf-asfbasd";
+            file.FILENAME = "BN_512312414_A10.pdf";
+            var attachment = new DocumentTemplateModel();
+            attachment.IdAttach = "AAA";
+            attachment.Printed = null; // this is important
+            attachment.Description = "file.pdf";
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.Attachments = new[] { attachment };
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetModel(offer, attachment, new[] { file });
+
+            Assert.NotNull(result);
+
+            Assert.Null(result.MimeType);
+            Assert.True(result.Attributes.Length == 0);
+            Assert.Equal(attachment.Description, result.OriginalFileName);
+        }
     }
 }

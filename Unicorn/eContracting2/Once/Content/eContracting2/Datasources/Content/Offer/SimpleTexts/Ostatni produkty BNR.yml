@@ -1,8 +1,8 @@
 ﻿---
-ID: "37f5f5ef-5183-451f-94f6-c67abfbecea6"
+ID: "1d0c4d3f-c10f-4564-ba7f-60ff28bda37f"
 Parent: "6573fb04-0680-4f60-b8f3-2351efa9b443"
 Template: "e97736d1-7dcc-4040-8c54-9be97e4f9d0f"
-Path: "/sitecore/content/eContracting2/Datasources/Content/Offer/SimpleTexts/Ostatni produkty - dokumenty AKVIZICE"
+Path: /sitecore/content/eContracting2/Datasources/Content/Offer/SimpleTexts/Ostatni produkty BNR
 DB: master
 SharedFields:
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
@@ -21,11 +21,11 @@ Languages:
       Value: 20201021T164754Z
     - ID: "3e431de1-525e-47a3-b6b0-1ccbec3a8c98"
       Hint: __Workflow state
-      Value: "{83BF41F9-F720-48F6-B4CE-40B83BC9421B}"
+      Value: "{E857C308-AB27-4E16-9E50-1D0FACC407A0}"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
     - ID: "bee5eaa9-30f4-4a36-bbaf-e2efd658be47"
       Hint: Text
-      Value: Přihláška a přidružené dokumenty
+      Value: Dokumenty k elektronické akceptaci

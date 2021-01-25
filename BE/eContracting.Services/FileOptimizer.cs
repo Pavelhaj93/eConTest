@@ -255,9 +255,25 @@ namespace eContracting.Services
                 };
 
                 group.OriginalFiles.Add(fileModel);
-                
+
                 // zapis file do pdfka v groupe
-                AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+                try
+                {
+                    AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+                }
+                catch (InvalidOperationException invex)
+                {
+                    if (invex.Message != null && invex.Message.Contains("The file is not a valid PDF document."))
+                    {
+                        {
+                            result.IsSuccess = false;
+                            result.ErrorModel = ERROR_CODES.UploadedFileUnrecognizedFormat();
+                            return result;
+                        }
+                    }
+                    else
+                        throw;
+                }
 
                 // ulozim vyslednou podobu OriginalFiles (pridany novy soubor k tem predchazejicim)
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);

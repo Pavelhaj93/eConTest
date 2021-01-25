@@ -144,7 +144,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (offer.State == "3")
                 {
-                    var res = this.ApiService.ReadOffer(guid);
+                    this.ApiService.ReadOffer(guid);
                 }
 
                 var authTypes = this.SettingsReaderService.GetLoginTypes(offer);

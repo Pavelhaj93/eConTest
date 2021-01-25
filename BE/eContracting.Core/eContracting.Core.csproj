@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseApiServiceOptions.cs" />
+    <Compile Include="EcontractingApplicationException.cs" />
     <Compile Include="EcontractingCodeException.cs" />
     <Compile Include="EcontractingSignException.cs" />
     <Compile Include="ERROR_CODES.cs" />

@@ -10,7 +10,7 @@ SharedFields:
   Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 100
+  Value: 3300
 Languages:
 - Language: cs
   Versions:
@@ -29,5 +29,15 @@ Languages:
     - ID: "70299500-6547-4dcf-a5f8-981d926fb58c"
       Hint: Text
       Value: |
-        <p style="text-align: center;">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko "Potvrdit".</p>
-        <p style="text-align: center;">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko "Storno".</p>
+        <p style="text-align: center;">Stisknut&iacute;m tlač&iacute;tka Akceptuji potvrd&iacute;te souhlas se zaji&scaron;těn&iacute;m pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210121T134556Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin_malcikova

@@ -10,14 +10,19 @@ namespace eContracting.Services
 {
     public static class Extensions
     {
+        public static void TimeSpent(this ILogger logger, ZCCH_CACHE_PUT model, ZCCH_CACHE_PUTResponse1 response, TimeSpan time)
+        {
+            logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_PUT)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
+        }
+
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_STATUS_SET model, TimeSpan time)
         {
-            logger.Debug(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_STATUS_SET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
+            logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_STATUS_SET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_GET model, TimeSpan time)
         {
-            logger.Debug(model.IV_CCHKEY, $"[{model.IV_CCHTYPE}] {nameof(ZCCH_CACHE_GET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
+            logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_GET)} ({model.IV_CCHTYPE}) finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
         public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentModel> files, string guid, bool IsAccepted)

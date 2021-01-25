@@ -517,10 +517,9 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
-            mockApiService.Setup(x => x.ReadOffer(guid)).Returns(() =>
+            mockApiService.Setup(x => x.ReadOffer(guid)).Callback(() =>
             {
                 wasRead = true;
-                return true;
             });
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockAuthService = new Mock<IAuthenticationService>();
@@ -574,7 +573,6 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockApiService = new Mock<IOfferService>();
             mockApiService.Setup(x => x.GetOffer(guid)).Returns(offer);
-            mockApiService.Setup(x => x.ReadOffer(guid)).Returns(true);
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();

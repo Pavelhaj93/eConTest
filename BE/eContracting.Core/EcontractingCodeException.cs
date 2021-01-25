@@ -8,6 +8,11 @@ using eContracting.Models;
 
 namespace eContracting
 {
+    /// <summary>
+    /// Represent abstract base error with custom code.
+    /// </summary>
+    /// <seealso cref="System.ApplicationException" />
+    /// <seealso cref="ErrorModel"/>
     [ExcludeFromCodeCoverage]
     public abstract class EcontractingCodeException : ApplicationException
     {
@@ -23,6 +28,16 @@ namespace eContracting
         public EcontractingCodeException(ErrorModel error) : base(error.ToString())
         {
             this.Error = error;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EcontractingCodeException"/> class.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public EcontractingCodeException(ErrorModel error, Exception innerException) : base(error.ToString(), innerException)
+        {
+                
         }
     }
 }

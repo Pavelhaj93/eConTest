@@ -208,25 +208,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         fileContent = dbFile.File.Content;
                     }
                 }
-
-                var browser = HttpContext.Current.Request.Browser;
-                string fileNameForBrowser = file.FileNameExtension;
-
-                // urlencode client file name for other browsers than Chrome and Firefox, explicitely for IE and older versions of Edge
-                if (browser != null &&
-                    ((browser.IsBrowser("IE")|| browser.IsBrowser("Edge") || browser.IsBrowser("EdgeHTML"))
-                    ||  (!browser.IsBrowser("Chrome") && browser.IsBrowser("Firefox")))
-                    )
-                {
-                    fileNameForBrowser = HttpUtility.UrlEncode(file.FileNameExtension);
-                }
-
+                
                 var response = new HttpResponseMessage(HttpStatusCode.OK);
                 response.Content = new ByteArrayContent(fileContent);
                 response.Content.Headers.ContentType = new MediaTypeHeaderValue(file.MimeType);
                 response.Content.Headers.ContentLength = (long)fileContent.Length;
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-                response.Content.Headers.ContentDisposition.FileName = fileNameForBrowser;
+                response.Content.Headers.Add("Content-Disposition", $"attachment; filename*=UTF-8''{ HttpUtility.UrlPathEncode(file.FileNameExtension).Replace(",", "%2C")}");
+
                 return this.ResponseMessage(response);
             }
             catch (EndpointNotFoundException ex)
@@ -912,7 +900,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
                 else
                 {
-                    return this.InternalServerError();
+                    return this.InternalServerError(this.TextService.Error(ERROR_CODES.UploadFileError()));
                 }
             }
         }

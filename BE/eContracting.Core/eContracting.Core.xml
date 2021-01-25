@@ -39,6 +39,32 @@
             Password cannot be empty - base64password
             </exception>
         </member>
+        <member name="T:eContracting.EcontractingApplicationException">
+            <summary>
+            Represents application error (invalid / incomplete data, another uncatched error).
+            </summary>
+            <seealso cref="T:eContracting.EcontractingCodeException" />
+        </member>
+        <member name="M:eContracting.EcontractingApplicationException.#ctor(eContracting.Models.ErrorModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingApplicationException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+        </member>
+        <member name="M:eContracting.EcontractingApplicationException.#ctor(eContracting.Models.ErrorModel,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingApplicationException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+            <param name="innerException">The inner exception.</param>
+        </member>
+        <member name="T:eContracting.EcontractingCodeException">
+            <summary>
+            Represent abstract base error with custom code.
+            </summary>
+            <seealso cref="T:System.ApplicationException" />
+            <seealso cref="T:eContracting.Models.ErrorModel"/>
+        </member>
         <member name="F:eContracting.EcontractingCodeException.Error">
             <summary>
             The error.
@@ -49,6 +75,13 @@
             Initializes a new instance of the <see cref="T:eContracting.EcontractingCodeException"/> class.
             </summary>
             <param name="error">The error.</param>
+        </member>
+        <member name="M:eContracting.EcontractingCodeException.#ctor(eContracting.Models.ErrorModel,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingCodeException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+            <param name="innerException">The inner exception.</param>
         </member>
         <member name="M:eContracting.EcontractingSignException.#ctor(eContracting.Models.ErrorModel)">
             <summary>
@@ -119,6 +152,13 @@
             Initializes a new instance of the <see cref="T:eContracting.EcontractingDataException"/> class.
             </summary>
             <param name="error">The error.</param>
+        </member>
+        <member name="M:eContracting.EcontractingDataException.#ctor(eContracting.Models.ErrorModel,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingDataException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+            <param name="innerException">The inner exception.</param>
         </member>
         <member name="T:eContracting.IServiceFactory">
             <summary>
@@ -784,7 +824,7 @@
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.OriginalFileName">
             <summary>
-            The original file name generated from SAP.
+            The original file name generated from SAP (technical name).
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.FileName">
@@ -839,12 +879,17 @@
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.FileContent">
             <summary>
-            Gets or sets file content.
+            Gets or sets file content. Always returns array.
             </summary>
         </member>
         <member name="F:eContracting.Models.OfferAttachmentModel.Attributes">
             <summary>
-            The file attributes.
+            The file attributes. Always returns array.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.GroupGuid">
+            <summary>
+            Group in which the template is.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.Size">
@@ -857,6 +902,16 @@
             Gets size description.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.ConsentType">
+            <summary>
+            The consent type identifier (expected S or P).
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.TemplAlcId">
+            <summary>
+            The template alc identifier
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.Template">
             <summary>
             Gets value of attribute "TEMPLATE" or null. Expected values: EES, A10, V01, V02, V03, EPO, AD1, ZPE, ED2, EP2X, DS1, DSE, V04, DP6, DP3.
@@ -866,6 +921,12 @@
             <summary>
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
             </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
+            </summary>
+            <param name="template">The template.</param>
         </member>
         <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
@@ -1848,12 +1909,13 @@
         </member>
         <member name="M:eContracting.IOfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <summary>
-            Accepts offer synchronously.
+            Accepts the <paramref name="offer"/> synchronously. Calls NABIDKA_PRIJ and set status to 5.
             </summary>
             <param name="offer">Valid offer.</param>
             <param name="data">The submitted data.</param>
             <param name="sessionId">Current session id.</param>
             <returns>True if it was accepted or false.</returns>
+            <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
         <member name="M:eContracting.IOfferService.ReadOffer(System.String)">
             <summary>
@@ -1861,6 +1923,7 @@
             </summary>
             <param name="guid">Guid identifier.</param>
             <returns>True if it was set or false.</returns>
+            <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
         <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel)">
             <summary>
@@ -1892,6 +1955,7 @@
             </summary>
             <param name="guid">The unique identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
+            <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
         <member name="T:eContracting.IAuthenticationService">
             <summary>
