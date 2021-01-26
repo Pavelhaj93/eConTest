@@ -19,7 +19,7 @@ namespace eContracting
         /// <inheritdoc/>
         public string GetBrowserAgent()
         {
-            return HttpContext.Current?.Request?.Browser?.Browser;
+            return HttpContext.Current?.Request?.UserAgent;
         }
 
         /// <inheritdoc/>
