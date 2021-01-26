@@ -471,14 +471,12 @@ export const Offer: React.FC<View> = observer(
               <Box>
                 <BoxHeading>{store.documents.other.products.subTitle}</BoxHeading>
                 {store.documents.other.products.params.length > 0 && (
-                  <Table size="sm" borderless>
+                  <Table size="sm" className="table-two-columns" borderless>
                     <tbody>
                       {store.documents.other.products.params.map(({ title, value }, idx) => (
                         <tr key={idx}>
-                          <th scope="row" className="w-50 text-right font-weight-normal">
-                            {title}:
-                          </th>
-                          <td className="w-50 text-left font-weight-bold">{value}</td>
+                          <th scope="row">{title}:</th>
+                          <td>{value}</td>
                         </tr>
                       ))}
                     </tbody>
