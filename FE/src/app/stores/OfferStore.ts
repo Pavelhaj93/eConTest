@@ -412,7 +412,11 @@ export class OfferStore {
       const signGroup = acceptance.params.find(
         param => param.group === this.documentsToBeSigned[0].group,
       )
-      signGroup && accParams.params.push(signGroup)
+      // signGroup might have the same ID as accGroup
+      // so first check if we already have such ID
+      if (signGroup && !accParams.params.find(p => p.group === signGroup.group)) {
+        accParams.params.push(signGroup)
+      }
     }
 
     // this documents have different groups
