@@ -1,0 +1,46 @@
+.table {
+  &-two-columns {
+    tbody {
+      th,
+      td {
+        text-align: center;
+
+        @include media-breakpoint-up(sm) {
+          width: 50%;
+        }
+      }
+
+      th {
+        font-weight: $font-weight-normal;
+
+        @include media-breakpoint-down(xs) {
+          padding-bottom: 0;
+        }
+
+        @include media-breakpoint-up(sm) {
+          text-align: right;
+        }
+      }
+
+      td {
+        font-weight: $font-weight-bold;
+
+        @include media-breakpoint-down(xs) {
+          padding-top: 0;
+        }
+
+        @include media-breakpoint-up(sm) {
+          text-align: left;
+        }
+      }
+
+      @include media-breakpoint-down(xs) {
+        tr,
+        th,
+        td {
+          display: block;
+        }
+      }
+    }
+  }
+}

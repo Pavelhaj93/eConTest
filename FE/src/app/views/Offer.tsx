@@ -151,14 +151,17 @@ export const Offer: React.FC<View> = observer(
             <Box backgroundColor="gray-80">
               <BoxHeading>{store.perex.title}</BoxHeading>
               {store.perex.params.length > 0 && (
-                <Table size="sm" borderless data-testid="summaryTable">
+                <Table
+                  size="sm"
+                  borderless
+                  data-testid="summaryTable"
+                  className="table-two-columns"
+                >
                   <tbody>
                     {store.perex.params.map(({ title, value }, idx) => (
                       <tr key={idx}>
-                        <th scope="row" className="w-50 text-right font-weight-normal">
-                          {title}:
-                        </th>
-                        <td className="w-50 text-left font-weight-bold">{value}</td>
+                        <th scope="row">{title}:</th>
+                        <td>{value}</td>
                       </tr>
                     ))}
                   </tbody>
