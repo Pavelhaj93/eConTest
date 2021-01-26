@@ -1293,6 +1293,11 @@
             Gets or sets flag if offer is accepted.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferModel.IsExpired">
+            <summary>
+            Gets a value indicating whether offer already expired.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferModel.AcceptedAt">
             <summary>
             Gets or sets infromation when offer was accepted.
@@ -1341,11 +1346,6 @@
                 </list>
             </remarks>
         </member>
-        <member name="P:eContracting.Models.OfferModel.OfferIsExpired">
-            <summary>
-            Gets a value indicating whether offer already expired.
-            </summary>
-        </member>
         <member name="F:eContracting.Models.OfferModel.Attributes">
             <summary>
             Attributes from the offer.
@@ -1356,13 +1356,15 @@
             Header values from the offer.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,System.Boolean,eContracting.Models.OfferAttributeModel[])">
+        <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,System.Boolean,System.Boolean,eContracting.Models.OfferAttributeModel[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferModel"/> class.
             </summary>
             <param name="xml">The XML.</param>
             <param name="version">The version.</param>
             <param name="header">The header.</param>
+            <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+            <param name="isExpired">if set to <c>true</c> [is expired].</param>
             <param name="attributes">The attributes.</param>
             <exception cref="T:System.ArgumentNullException">
             xml
@@ -2387,6 +2389,20 @@
                 <para><see cref="P:System.Collections.Generic.KeyValuePair`2.Value"/> is what you need.</para>
             </remarks>
             <param name="version">Offer version.</param>
+        </member>
+        <member name="T:eContracting.ISignService">
+            <summary>
+            Represents sign service for documents.
+            </summary>
+        </member>
+        <member name="M:eContracting.ISignService.Sign(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel,System.Byte[])">
+            <summary>
+            Sign specifi <paramref name="file"/> with <paramref name="signature"/>.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="file">The file.</param>
+            <param name="signature">The signature.</param>
+            <returns>New attachment model cloned from <paramref name="file"/> with new <see cref="F:eContracting.Models.OfferAttachmentModel.FileContent"/>.</returns>
         </member>
         <member name="T:eContracting.EcontractingMissingDatasourceException">
             <summary>

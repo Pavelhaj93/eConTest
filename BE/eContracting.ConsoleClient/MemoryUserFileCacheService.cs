@@ -10,6 +10,8 @@ namespace eContracting.ConsoleClient
 {
     class MemoryUserFileCacheService : IUserFileCacheService
     {
+        public readonly List<DbSignedFileModel> SignedFiles = new List<DbSignedFileModel>();
+
         public void Clear(DbSearchParameters search)
         {
             throw new NotImplementedException();
@@ -27,7 +29,7 @@ namespace eContracting.ConsoleClient
 
         public DbSignedFileModel FindSignedFile(DbSearchParameters search)
         {
-            throw new NotImplementedException();
+            return this.SignedFiles.FirstOrDefault(x => x.Key == search.Key);
         }
 
         public void RemoveGroup(DbSearchParameters search)

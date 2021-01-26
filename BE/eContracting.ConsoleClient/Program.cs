@@ -27,6 +27,10 @@ namespace eContracting.ConsoleClient
             configuration.ServiceUser = "UkZDX1NJVEVDT1JF";
             configuration.ServicePassword = "QWRIYjI0Nyo=";
 
+            configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge";
+            configuration.ServiceSignUser = "UkZDX1NJVEVDT1JF";
+            configuration.ServiceSignPassword = "QWRIYjI0Nyo=";
+
             using (var consinloop = new ConsinloopRunner(args))
             {
                 consinloop.ConfigureServices((services) =>
@@ -41,8 +45,10 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
                     services.AddScoped<ITextService, MemoryTextService>();
                     services.AddScoped<IOfferService, OfferService>();
+                    services.AddScoped<ISignService, FileSignService>();
                     services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
-                    services.AddScoped<IOfferJsonDescriptor, FixedOfferJsonDescriptor>();
+                    services.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
+                    services.AddScoped<IContextWrapper, MemoryContextWrapper>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<AnalyzeOfferCommand>();
                     services.AddScopedCommand<GetOfferCommand>();
@@ -51,6 +57,7 @@ namespace eContracting.ConsoleClient
                     services.AddScopedCommand<CompareIdAttachCommand>();
                     services.AddScopedCommand<GetOfferJsonCommand>();
                     services.AddScopedCommand<SwitchServerCommand>();
+                    services.AddScopedCommand<AcceptOfferCommand>();
                 });
                 await consinloop.Run();
             }

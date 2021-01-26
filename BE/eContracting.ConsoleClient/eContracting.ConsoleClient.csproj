@@ -33,14 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.4.4.0\lib\net45\Castle.Core.dll</HintPath>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Consinloop">
       <HintPath>..\libs\Consinloop.dll</HintPath>
     </Reference>
-    <Reference Include="Moq, Version=4.15.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.15.2\lib\net45\Moq.dll</HintPath>
+    <Reference Include="Moq, Version=4.5.30.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.5.30\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Glass.Mapper, Version=4.4.0.199, Culture=neutral, processorArchitecture=MSIL">
@@ -125,6 +125,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AcceptOfferCommand.cs" />
     <Compile Include="Commands\AnalyzeOfferCommand.cs" />
     <Compile Include="Commands\CompareIdAttachCommand.cs" />
     <Compile Include="Commands\FileModel.cs" />
@@ -137,8 +138,8 @@
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="ConsoleLoggerSuspender.cs" />
     <Compile Include="ContextData.cs" />
-    <Compile Include="FixedOfferJsonDescriptor.cs" />
     <Compile Include="GlobalConfiguration.cs" />
+    <Compile Include="MemoryContextWrapper.cs" />
     <Compile Include="MemoryTextService.cs" />
     <Compile Include="MemoryUserDataCacheService.cs" />
     <Compile Include="MemorySettingsReaderService.cs" />

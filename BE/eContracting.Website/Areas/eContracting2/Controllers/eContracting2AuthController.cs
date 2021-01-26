@@ -256,7 +256,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                if (offer.OfferIsExpired)
+                if (offer.IsExpired)
                 {
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
                     this.Logger.Info(guid, $"Offer expired");
@@ -298,7 +298,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, fakeAttr);
+            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, false, fakeAttr);
             var datasource = this.GetLayoutItem<PageLoginModel>();
             var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);

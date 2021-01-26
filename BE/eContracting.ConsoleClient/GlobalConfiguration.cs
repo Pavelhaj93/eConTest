@@ -11,5 +11,9 @@ namespace eContracting.ConsoleClient
         public string ServiceUrl { get; set; }
         public string ServiceUser { get; set; }
         public string ServicePassword { get; set; }
+
+        public string ServiceSignUrl { get; set; }
+        public string ServiceSignUser { get; set; }
+        public string ServiceSignPassword { get; set; }
     }
 }

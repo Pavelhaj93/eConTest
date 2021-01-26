@@ -190,6 +190,9 @@
             <param name="settingsReaderService">The settings reader service.</param>
             <param name="factory">The factory.</param>
         </member>
+        <member name="M:eContracting.Services.FileSignService.Sign(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel,System.Byte[])">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
@@ -264,7 +267,12 @@
             The attachment parser.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService)">
+        <member name="F:eContracting.Services.OfferService.Context">
+            <summary>
+            The context wrapper.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IContextWrapper)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>
@@ -275,6 +283,7 @@
             <param name="factory">The factory for <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.</param>
             <param name="offerParser">The offer parser.</param>
             <param name="offerAttachmentParser">The offer attachment parser.</param>
+            <param name="contextWrapper">The context wrapper.</param>
         </member>
         <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
             <inheritdoc/>
@@ -641,12 +650,17 @@
         </member>
         <member name="M:eContracting.Services.OfferParserService.IsAccepted(eContracting.Services.ZCCH_CACHE_GETResponse)">
             <summary>
-            Determines whether the specified response is accepted.
+            Determines whether an offer from <paramref name="response"/> is accepted.
             </summary>
             <param name="response">The response.</param>
-            <returns>
-              <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
-            </returns>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.IsExpired(eContracting.Services.ZCCH_CACHE_GETResponse,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferXmlModel)">
+            <summary>
+            Determines whether an offer from <paramref name="response"/> is expired.
+            </summary>
+            <param name="response">The response.</param>
+            <param name="headerModel">The header model.</param>
+            <param name="offerXmlModel">The offer XML model.</param>
         </member>
         <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel,System.Int32)">
             <summary>

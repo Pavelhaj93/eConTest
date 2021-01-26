@@ -119,11 +119,11 @@ namespace eContracting.ConsoleClient.Commands
                     this.Console.WriteLine();
                 }
 
-                if (model.Benefits != null)
+                if (model.SalesArguments != null)
                 {
                     this.Console.WriteLineSuccess("Benefits:");
 
-                    var benefits = model.Benefits.Params.ToArray();
+                    var benefits = model.SalesArguments.Params.ToArray();
 
                     for (int i = 0; i < benefits.Length; i++)
                     {

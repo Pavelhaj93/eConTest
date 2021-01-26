@@ -48,7 +48,7 @@ namespace eContracting.ConsoleClient.Commands
             }
             else if (part == "benefits")
             {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.Benefits, Formatting.Indented));
+                this.Console.WriteLine(JsonConvert.SerializeObject(json.SalesArguments, Formatting.Indented));
             }
             else if (part == "gifts")
             {
