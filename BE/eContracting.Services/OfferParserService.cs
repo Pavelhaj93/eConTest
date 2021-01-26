@@ -183,9 +183,10 @@ namespace eContracting.Services
             var attributes = this.GetAttributes(response.Response);
             var rawXml = Utils.GetRawXml(file);
             var version = this.GetVersion(response.Response);
-            var isAccepted = this.IsAccepted(response.Response);
             var result = this.ProcessRootFile(file, version);
-            var offer = new OfferModel(result, version, header, isAccepted, attributes);
+            var isAccepted = this.IsAccepted(response.Response);
+            var isExpired = this.IsExpired(response.Response, header, result);
+            var offer = new OfferModel(result, version, header, isAccepted, isExpired, attributes);
             offer.RawContent.Add(file.FILENAME, rawXml);
             return offer;
         }
@@ -239,12 +240,9 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Determines whether the specified response is accepted.
+        /// Determines whether an offer from <paramref name="response"/> is accepted.
         /// </summary>
         /// <param name="response">The response.</param>
-        /// <returns>
-        ///   <c>true</c> if the specified response is accepted; otherwise, <c>false</c>.
-        /// </returns>
         protected internal bool IsAccepted(ZCCH_CACHE_GETResponse response)
         {
             var attr = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.ACCEPTED_DATE)?.ATTRVAL;
@@ -255,6 +253,41 @@ namespace eContracting.Services
             }
 
             return attr.Any(c => Char.IsDigit(c));
+        }
+
+        /// <summary>
+        /// Determines whether an offer from <paramref name="response"/> is expired.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="headerModel">The header model.</param>
+        /// <param name="offerXmlModel">The offer XML model.</param>
+        protected internal bool IsExpired(ZCCH_CACHE_GETResponse response, OfferHeaderModel headerModel, OfferXmlModel offerXmlModel)
+        {
+            if (headerModel.CCHSTAT == "9")
+            {
+                this.Logger.Debug(response.ES_HEADER.CCHKEY, "Offer is expired (CCHSTAT = 9)");
+                return true;
+            }
+
+            DateTime date = DateTime.Now.AddDays(-1);
+
+            var value = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.VALID_TO)?.ATTRVAL;
+
+            if (string.IsNullOrEmpty(value))
+            {
+                value = offerXmlModel.Content.Body.DATE_TO;
+                this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Attribute {Constants.OfferAttributes.VALID_TO} not found in offer. Using DATE_TO from body instead.");
+            }
+
+            if (DateTime.TryParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+            {
+                return date.Date < DateTime.Now.Date;
+            }
+            else
+            {
+                this.Logger.Warn(response.ES_HEADER.CCHKEY, $"Cannot parse expire date ({value}). Offer set to NOT expired.");
+                return false;
+            }
         }
 
         /// <summary>

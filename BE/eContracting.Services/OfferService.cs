@@ -54,6 +54,11 @@ namespace eContracting.Services
         protected readonly IOfferAttachmentParserService AttachmentParser;
 
         /// <summary>
+        /// The context wrapper.
+        /// </summary>
+        protected readonly IContextWrapper Context;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="OfferService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
@@ -63,6 +68,7 @@ namespace eContracting.Services
         /// <param name="factory">The factory for <see cref="ZCCH_CACHE_API"/>.</param>
         /// <param name="offerParser">The offer parser.</param>
         /// <param name="offerAttachmentParser">The offer attachment parser.</param>
+        /// <param name="contextWrapper">The context wrapper.</param>
         public OfferService(
             ILogger logger,
             IUserDataCacheService userDataCache,
@@ -70,7 +76,8 @@ namespace eContracting.Services
             ISettingsReaderService settingsReaderService,
             IServiceFactory factory,
             IOfferParserService offerParser,
-            IOfferAttachmentParserService offerAttachmentParser)
+            IOfferAttachmentParserService offerAttachmentParser,
+            IContextWrapper contextWrapper)
         {
             this.Logger = logger;
             this.UserDataCache = userDataCache;
@@ -79,6 +86,7 @@ namespace eContracting.Services
             this.OfferParser = offerParser;
             this.ServiceFactory = factory;
             this.AttachmentParser = offerAttachmentParser;
+            this.Context = contextWrapper;
         }
 
         /// <inheritdoc/>
@@ -105,7 +113,7 @@ namespace eContracting.Services
             attributes.Add(new ZCCH_ST_ATTRIB()
             {
                 ATTRID = "IP_ADDRESS",
-                ATTRVAL = Utils.GetIpAddress()
+                ATTRVAL = this.Context.GetIpAddress()
             });
 
             this.Logger.Debug(offer.Guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
@@ -114,6 +122,8 @@ namespace eContracting.Services
             this.AttachmentParser.MakeCompatible(offer, responsePdfFiles);
 
             var files = this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
+
+            throw new Exception("Temporarily blocked");
 
             var putResult = this.Put(offer.Guid, attributes.ToArray(), files.ToArray());
 
@@ -316,7 +326,7 @@ namespace eContracting.Services
             {
                 var uniqueKey = template.UniqueKey;
 
-                if (!data.Signed.Any(x => x == template.UniqueKey))
+                if (!data.Signed.Any(x => x == template.UniqueKey)) // check data.Signed == null
                 {
                     throw new ApplicationException($"Missing required file for sign: {template}");
                 }
@@ -433,16 +443,41 @@ namespace eContracting.Services
                 model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
                 model.IV_GEFILE = fileType;
 
-                var request = new ZCCH_CACHE_GETRequest(model);
+                var log = new StringBuilder();
+                log.AppendLine($"Calling {nameof(ZCCH_CACHE_GET)} with parameters:");
+                log.AppendLine(" IV_CCHKEY: " + model.IV_CCHKEY);
+                log.AppendLine(" IV_CCHTYPE: " + model.IV_CCHTYPE);
+                log.AppendLine(" IV_GEFILE: " + model.IV_GEFILE);
+                this.Logger.Info(guid, log.ToString());
+
                 var stop = new Stopwatch();
                 stop.Start();
-                var task = api.ZCCH_CACHE_GETAsync(request);
-                task.Wait();
-                var response = task.Result;
-                stop.Stop();
-                this.Logger.TimeSpent(model, stop.Elapsed);
-                var result = response.ZCCH_CACHE_GETResponse;
-                return new ResponseCacheGetModel(result);
+
+                var log2 = new StringBuilder();
+                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_GET)} finished:");
+
+                try
+                {
+                    var request = new ZCCH_CACHE_GETRequest(model);
+                    var task = api.ZCCH_CACHE_GETAsync(request);
+                    task.Wait();
+                    var response = task.Result;
+                    stop.Stop();
+
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_GETResponse.EV_RETCODE);
+                    this.Logger.Info(guid, log2.ToString());
+
+                    var result = response.ZCCH_CACHE_GETResponse;
+                    return new ResponseCacheGetModel(result);
+                }
+                catch (Exception ex)
+                {
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: unknown");
+                    this.Logger.Fatal(guid, log2.ToString(), ex);
+                    throw ex;
+                }
             }
         }
 
@@ -481,16 +516,41 @@ namespace eContracting.Services
                 model.IV_STAT = status;
                 model.IV_TIMESTAMP = timestamp;
 
-                var request = new ZCCH_CACHE_STATUS_SETRequest(model);
+                var log = new StringBuilder();
+                log.AppendLine($"Calling {nameof(ZCCH_CACHE_STATUS_SET)} with parameters:");
+                log.AppendLine(" IV_CCHKEY: " + model.IV_CCHKEY);
+                log.AppendLine(" IV_CCHTYPE: " + model.IV_CCHTYPE);
+                log.AppendLine(" IV_STAT: " + model.IV_STAT);
+                log.AppendLine(" IV_TIMESTAMP: " + model.IV_TIMESTAMP);
+                this.Logger.Info(guid, log.ToString());
+
                 var stop = new Stopwatch();
                 stop.Start();
-                var task = api.ZCCH_CACHE_STATUS_SETAsync(request);
-                task.Wait();
-                var response = task.Result;
-                stop.Stop();
-                this.Logger.TimeSpent(model, stop.Elapsed);
 
-                return response;
+                var log2 = new StringBuilder();
+                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_GET)} finished:");
+
+                try
+                {
+                    var request = new ZCCH_CACHE_STATUS_SETRequest(model);
+                    var task = api.ZCCH_CACHE_STATUS_SETAsync(request);
+                    task.Wait();
+                    var response = task.Result;
+                    stop.Stop();
+
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE);
+                    this.Logger.Info(guid, log2.ToString());
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: unknown");
+                    this.Logger.Fatal(guid, log2.ToString(), ex);
+                    throw ex;
+                }
             }
         }
 
@@ -547,14 +607,13 @@ namespace eContracting.Services
                 model.IT_ATTRIB = attributes;
                 model.IT_FILES = files;
 
-                #region Logging
+                var log = new StringBuilder();
+                log.AppendLine($"Calling {nameof(ZCCH_CACHE_PUT)} with parameters:");
+                log.AppendLine($" - IV_CCHKEY: {model.IV_CCHKEY}");
+                log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
 
                 try
                 {
-                    var log = new StringBuilder();
-                    log.AppendLine($"{nameof(ZCCH_CACHE_PUT)} Preparing request ...");
-                    log.AppendLine($" - IV_CCHKEY: {model.IV_CCHKEY}");
-                    log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
                     log.AppendLine(" Attributes:");
 
                     for (int i = 0; i < attributes.Length; i++)
@@ -569,24 +628,40 @@ namespace eContracting.Services
                         log.AppendLine($"  - {files[i].FILENAME}");
                     }
 
-                    this.Logger.Debug(guid, log.ToString());
+                    this.Logger.Info(guid, log.ToString());
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.Error(guid, "Cannot log information about 'ZCCH_CACHE_PUT'", ex);
+                    this.Logger.Error(guid, $"Cannot log information about '{nameof(ZCCH_CACHE_PUT)}'", ex);
                 }
 
-                #endregion
-
-                var request = new ZCCH_CACHE_PUTRequest(model);
                 var stop = new Stopwatch();
                 stop.Start();
-                var task = api.ZCCH_CACHE_PUTAsync(request);
-                task.Wait();
-                var response = task.Result;
-                stop.Stop();
-                this.Logger.TimeSpent(model, response, stop.Elapsed);
-                return response;
+
+                var log2 = new StringBuilder();
+                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_PUT)} finished:");
+
+                try
+                {
+                    var request = new ZCCH_CACHE_PUTRequest(model);
+                    var task = api.ZCCH_CACHE_PUTAsync(request);
+                    task.Wait();
+                    var response = task.Result;
+                    stop.Stop();
+
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_PUTResponse.EV_RETCODE);
+                    this.Logger.Info(guid, log2.ToString());
+
+                    return response;
+                }
+                catch (Exception ex)
+                {
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: unknown");
+                    this.Logger.Fatal(guid, log2.ToString(), ex);
+                    throw ex;
+                }
             }
         }
     }

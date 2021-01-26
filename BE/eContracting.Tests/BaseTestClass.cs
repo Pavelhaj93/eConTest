@@ -19,6 +19,11 @@ namespace eContracting.Tests
             return CreateOffer(guid.ToString("N"));
         }
 
+        public OfferModel CreateOffer(int version)
+        {
+            return CreateOffer(Guid.NewGuid().ToString("N"), false, version, "3");
+        }
+
         public OfferModel CreateOffer(string guid)
         {
             return CreateOffer(guid, false, 2);
@@ -40,7 +45,7 @@ namespace eContracting.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             var offerHeader = new OfferHeaderModel("NABIDKA", guid, state, validTo);
-            var offer = new OfferModel(offerXml, version, offerHeader, isAccepted, attributes ?? new OfferAttributeModel[] { });
+            var offer = new OfferModel(offerXml, version, offerHeader, isAccepted, false, attributes ?? new OfferAttributeModel[] { });
             return offer;
         }
     }

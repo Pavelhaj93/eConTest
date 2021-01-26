@@ -214,7 +214,8 @@ namespace eContracting.ConsoleClient
 
         public SignApiServiceOptions GetSignApiServiceOptions()
         {
-            throw new NotImplementedException();
+            var options = new SignApiServiceOptions(this.Options.ServiceSignUrl, this.Options.ServiceSignUser, this.Options.ServiceSignPassword);
+            return options;
         }
 
         public SiteSettingsModel GetSiteSettings()

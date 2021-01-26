@@ -92,7 +92,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(redirectUrl);
                 }
 
-                if (offer.OfferIsExpired)
+                if (offer.IsExpired)
                 {
                     this.Logger.Debug(guid, $"Offer expired");
                     var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);

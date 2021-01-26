@@ -26,10 +26,12 @@ namespace eContracting.ConsoleClient.Commands
             if (environment == "test")
             {
                 this.Configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             }
             else if (environment == "dev")
             {
                 this.Configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8109/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8109/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             }
             else
             {

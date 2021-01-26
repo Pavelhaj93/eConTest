@@ -55,6 +55,12 @@ namespace eContracting.Models
         public readonly bool IsAccepted;
 
         /// <summary>
+        /// Gets a value indicating whether offer already expired.
+        /// </summary>
+        [JsonProperty("expired")]
+        public readonly bool IsExpired;
+
+        /// <summary>
         /// Gets or sets infromation when offer was accepted.
         /// </summary>
         [JsonProperty("accepted_date")]
@@ -242,28 +248,6 @@ namespace eContracting.Models
             }
         }
 
-        /// <summary>
-        /// Gets a value indicating whether offer already expired.
-        /// </summary>
-        [JsonProperty("expired")]
-        public bool OfferIsExpired
-        {
-            get
-            {
-                if (this.State == "9")
-                {
-                    return true;
-                }
-
-                DateTime outValue = DateTime.Now.AddDays(-1);
-
-                return DateTime.TryParseExact(this.Xml.Content.Body.DATE_TO, "yyyyMMdd",
-                                    CultureInfo.InvariantCulture,
-                                    DateTimeStyles.None,
-                                    out outValue) && (outValue.Date < DateTime.Now.Date);
-            }
-        }
-
         [JsonProperty("has_voucher")]
         public bool OfferHasVoucher
         {
@@ -299,16 +283,18 @@ namespace eContracting.Models
         /// <param name="xml">The XML.</param>
         /// <param name="version">The version.</param>
         /// <param name="header">The header.</param>
+        /// <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
+        /// <param name="isExpired">if set to <c>true</c> [is expired].</param>
         /// <param name="attributes">The attributes.</param>
-        /// <exception cref="System.ArgumentNullException">
+        /// <exception cref="ArgumentNullException">
         /// xml
         /// or
         /// header
         /// or
         /// attributes
         /// </exception>
-        /// <exception cref="System.ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
-        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, bool isAccepted, OfferAttributeModel[] attributes)
+        /// <exception cref="ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
+        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, bool isAccepted, bool isExpired, OfferAttributeModel[] attributes)
         {
             if (xml == null)
             {
@@ -324,6 +310,7 @@ namespace eContracting.Models
             this.Version = version;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
             this.IsAccepted = isAccepted;
+            this.IsExpired = isExpired;
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
         }
 

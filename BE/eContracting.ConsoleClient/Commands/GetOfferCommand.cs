@@ -14,19 +14,13 @@ namespace eContracting.ConsoleClient.Commands
 {
     class GetOfferCommand : BaseCommand
     {
-        readonly ContextData Context;
         readonly IOfferService ApiService;
-        readonly ILogger Logger;
 
         public GetOfferCommand(
             IOfferService apiService,
-            ILogger logger,
-            IConsole console,
-            ContextData contextData) : base("offer", console)
+            IConsole console) : base("offer", console)
         {
             this.ApiService = apiService;
-            this.Logger = logger;
-            this.Context = contextData;
             this.AliasKey = "o";
             this.Description = "get basic data about an offer";
         }

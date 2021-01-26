@@ -16,7 +16,7 @@ namespace eContracting.Models
         public JsonOfferPerexModel Perex { get; set; }
 
         [JsonProperty("benefits", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
-        public JsonSalesArgumentsModel Benefits { get; set; }
+        public JsonSalesArgumentsModel SalesArguments { get; set; }
 
         [JsonProperty("gifts", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
         public JsonAllBenefitsModel Gifts { get; set; }

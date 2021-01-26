@@ -15,6 +15,7 @@ namespace eContracting
             public const string MD5 = "CONTENT_MD5_HASH";
             public const string VERSION = "MODELO_OFERTA";
             public const string ACCEPTED_DATE = "ACCEPTED_AT";
+            public const string VALID_TO = "VALID_TO";
         }
 
         public static class OfferAttributeValues

@@ -383,7 +383,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var base64 = postedSignature.Substring(postedSignature.IndexOf(",", StringComparison.Ordinal) + 1, postedSignature.Length - postedSignature.IndexOf(",", StringComparison.Ordinal) - 1);
                 var signature = Convert.FromBase64String(base64);
-                var signedFile = this.SignService.Sign(file, signature);
+                var signedFile = this.SignService.Sign(offer, file, signature);
 
                 if (signedFile == null)
                 {

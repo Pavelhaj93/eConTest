@@ -86,8 +86,8 @@ namespace eContracting.Services
             if (offer.Version > 1)
             {
                 model.Perex = this.GetPerex(offer.TextParameters, definition);
-                model.Gifts = this.GetBenefits(offer.TextParameters, definition);
-                model.Benefits = this.GetCommoditySalesArguments(offer.TextParameters, definition);
+                model.Gifts = this.GetGifts(offer.TextParameters, definition);
+                model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
             }
 
             model.Documents = this.GetDocuments(offer, definition, attachments);
@@ -130,16 +130,6 @@ namespace eContracting.Services
             }
 
             return list;
-        }
-
-        protected internal string GetGroupTitle(DefinitionCombinationModel definition, OfferAttachmentModel attachment, string groupName)
-        {
-            if (groupName == "COMMODITY")
-            {
-                return definition.OfferCommoditiesAcceptTitle.Text;
-            }
-
-            return null;
         }
 
         protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
@@ -186,7 +176,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonAllBenefitsModel GetBenefits(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        protected internal JsonAllBenefitsModel GetGifts(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
         {
             if (!this.IsSectionChecked(textParameters, "BENEFITS"))
             {
@@ -198,7 +188,8 @@ namespace eContracting.Services
 
             for (int i = 0; i < keys.Length; i++)
             {
-                var g = this.GetBenefitGroup(keys[i], textParameters);
+                var k = keys[i];
+                var g = this.GetBenefitGroup(k, textParameters);
 
                 if (g != null)
                 {

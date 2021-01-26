@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -43,7 +44,8 @@ namespace eContracting.Services
             this.SettingsReaderService = settingsReaderService;
         }
 
-        public OfferAttachmentModel Sign(OfferAttachmentModel file, byte[] signature)
+        /// <inheritdoc/>
+        public OfferAttachmentModel Sign(OfferModel offer, OfferAttachmentModel file, byte[] signature)
         {
             var options = this.SettingsReaderService.GetSignApiServiceOptions();
 
@@ -57,7 +59,17 @@ namespace eContracting.Services
                 invoke.inputPNGSign = inputSignBlob;
                 invoke.overlay = file.TemplAlcId;
 
-                this.Logger.Debug(null, $"Connecting to signig service on '{api.Endpoint.ListenUri.ToString()}' ...");
+                this.Logger.Info(null, $"Connecting to sign service on '{api.Endpoint.ListenUri.ToString()}' ...");
+
+                var log = new StringBuilder();
+                log.AppendLine($"Calling sign service for file '{file.OriginalFileName}'");
+                this.Logger.Info(offer.Guid, log.ToString());
+
+                var stop = new Stopwatch();
+                stop.Start();
+
+                var log2 = new StringBuilder();
+                log2.AppendLine($"Call to sign service finished:");
 
                 try
                 {
@@ -65,8 +77,11 @@ namespace eContracting.Services
                     //var task = api.invokeAsync(request);
                     //task.Wait();
                     //var response = task.Result;
+                    stop.Stop();
 
-                    this.Logger.Debug(null, $"Response received: {response.errCode}");
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: " + response.errCode);
+                    this.Logger.Info(offer.Guid, log2.ToString());
 
                     if (response.errCode != 0)
                     {
@@ -83,8 +98,10 @@ namespace eContracting.Services
                 }
                 catch (Exception ex)
                 {
-                    this.Logger.Fatal(null, "Connection failed", ex);
-                    throw;
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: unknown");
+                    this.Logger.Fatal(offer.Guid, log2.ToString(), ex);
+                    throw ex;
                 }
             }
         }
