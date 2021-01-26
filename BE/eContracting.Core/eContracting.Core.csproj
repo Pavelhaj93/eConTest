@@ -119,6 +119,7 @@
     <Compile Include="Models\DefinitionCombinationDataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
+    <Compile Include="Models\LoginFailureModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
     <Compile Include="Models\PageDisclaimerModel.cs" />
@@ -151,7 +152,7 @@
     <Compile Include="IUserDataCacheService.cs" />
     <Compile Include="IContextWrapper.cs" />
     <Compile Include="IFileOptimizer.cs" />
-    <Compile Include="ILoginReportStore.cs" />
+    <Compile Include="ILoginFailedAttemptBlockerStore.cs" />
     <Compile Include="IOfferAttachmentParserService.cs" />
     <Compile Include="IOfferJsonDescriptor.cs" />
     <Compile Include="IOfferParserService.cs" />
@@ -194,7 +195,7 @@
     <Compile Include="Models\FolderItemModel.cs" />
     <Compile Include="Models\GeneralTextsSettings.cs" />
     <Compile Include="Models\PageLoginModel.cs" />
-    <Compile Include="Models\LoginStates.cs" />
+    <Compile Include="Models\LOGIN_STATES.cs" />
     <Compile Include="Models\LoginTypeModel.cs" />
     <Compile Include="Models\OfferAttachmentModel.cs" />
     <Compile Include="Models\OfferBodyXmlModel.cs" />

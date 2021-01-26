@@ -13,9 +13,9 @@ namespace eContracting.ConsoleClient
 {
     class MemorySettingsReaderService : ISettingsReaderService
     {
-        readonly IOptions<GlobalConfiguration> Options;
+        readonly GlobalConfiguration Options;
 
-        public MemorySettingsReaderService(IOptions<GlobalConfiguration> options)
+        public MemorySettingsReaderService(GlobalConfiguration options)
         {
             this.Options = options;
         }
@@ -112,7 +112,7 @@ namespace eContracting.ConsoleClient
 
         public CacheApiServiceOptions GetApiServiceOptions()
         {
-            var options = new CacheApiServiceOptions(this.Options.Value.ServiceUrl, this.Options.Value.ServiceUser, this.Options.Value.ServicePassword);
+            var options = new CacheApiServiceOptions(this.Options.ServiceUrl, this.Options.ServiceUser, this.Options.ServicePassword);
             return options;
         }
 

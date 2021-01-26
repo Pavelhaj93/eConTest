@@ -56,15 +56,15 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(false);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(false);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
             
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
             var result = controller.IsAbleToLogin(guid, offer, datasource);
 
-            Assert.Equal(LoginStates.USER_BLOCKED, result);
+            Assert.Equal(LOGIN_STATES.USER_BLOCKED, result);
         }
 
         [Fact]
@@ -82,15 +82,15 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
             var result = controller.IsAbleToLogin(guid, (OfferModel)null, datasource);
 
-            Assert.Equal(LoginStates.OFFER_NOT_FOUND, result);
+            Assert.Equal(LOGIN_STATES.OFFER_NOT_FOUND, result);
         }
 
         [Fact]
@@ -109,15 +109,15 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
             var result = controller.IsAbleToLogin(guid, offer, datasource);
 
-            Assert.Equal(LoginStates.OFFER_STATE_1, result);
+            Assert.Equal(LOGIN_STATES.OFFER_STATE_1, result);
         }
 
         [Fact]
@@ -136,15 +136,15 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
             var result = controller.IsAbleToLogin(guid, offer, datasource);
 
-            Assert.Equal(LoginStates.MISSING_BIRTHDAY, result);
+            Assert.Equal(LOGIN_STATES.MISSING_BIRTHDAY, result);
         }
 
         [Fact]
@@ -164,15 +164,15 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
             var controller = new eContracting2AuthController(logger, mockContextWrapper.Object, mockApiService.Object, mockSessionProvider.Object, mockAuthService.Object, mockSettingsReader.Object, mockLoginReportService.Object, mockSitecoreContext.Object, mockRenderingContext.Object, mockUserDataCache.Object, eventLogger, textService);
             var result = controller.IsAbleToLogin(guid, offer, datasource);
 
-            Assert.Equal(LoginStates.OK, result);
+            Assert.Equal(LOGIN_STATES.OK, result);
         }
 
         [Fact]
@@ -193,7 +193,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -235,7 +235,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -280,7 +280,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -327,8 +327,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(loginPageModel);
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -374,8 +374,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.UserBlocked)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(false);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(false);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(loginPageModel);
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -423,8 +423,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(loginPageModel);
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -472,8 +472,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.WrongUrl)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -526,8 +526,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -578,8 +578,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetLoginTypes(offer)).Returns(new LoginTypeModel[] { new LoginTypeModel() });
-            var mockLoginReportService = new Mock<ILoginReportStore>();
-            mockLoginReportService.Setup(x => x.CanLogin(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+            mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan)).Returns(true);
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -629,7 +629,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -678,7 +678,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError)).Returns(redirectUrl);
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -728,7 +728,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             mockSitecoreContext.Setup(x => x.GetCurrentItem<PageLoginModel>(false, false)).Returns(new PageLoginModel());
             var mockRenderingContext = new Mock<IRenderingContext>();
@@ -775,7 +775,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -798,7 +798,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -821,7 +821,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -846,7 +846,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
@@ -872,7 +872,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            var mockLoginReportService = new Mock<ILoginReportStore>();
+            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockSitecoreContext = new Mock<ISitecoreContext>();
             var mockRenderingContext = new Mock<IRenderingContext>();
 
