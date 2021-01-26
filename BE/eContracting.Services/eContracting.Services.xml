@@ -85,6 +85,28 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.ILoginFailedAttemptBlockerStore" />
         </member>
+        <member name="F:eContracting.Services.DbLoginFailedAttemptBlockerStore.ConnectionString">
+            <summary>
+            The connection string.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.DbLoginFailedAttemptBlockerStore.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.DbLoginFailedAttemptBlockerStore.SettingsReaderService">
+            <summary>
+            Settings, needed for database connection string
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.DbLoginFailedAttemptBlockerStore.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService)">
+            <summary>
+                    Initializes a new instance of the <see cref="T:eContracting.Services.DbLoginFailedAttemptBlockerStore"/> class.
+            </summary>
+            <param name="logger">Logger</param>
+            <param name="settingsReaderService">Settings</param>
+        </member>
         <member name="M:eContracting.Services.DbLoginFailedAttemptBlockerStore.Add(eContracting.Models.LoginFailureModel)">
             <inheritdoc/>
         </member>

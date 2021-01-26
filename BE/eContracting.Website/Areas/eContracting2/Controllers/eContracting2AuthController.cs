@@ -224,9 +224,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
-
+                
                 if (canLogin != LOGIN_STATES.OK)
-                {
+                {                    
                     this.ReportLogin(canLogin, guid);
                     return this.GetLoginFailReturns(canLogin, guid);
                 }
@@ -238,8 +238,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     this.Logger.Info(guid, $"Log-in failed");
                     this.ReportLogin(result, loginType, guid);
-                    //TODO: this.ReportLogin(reportTime, reportDateOfBirth, reportAdditionalValue, authenticationModel.SelectedKey, guid, offerTypeIdentifier);
-                    //TODO: this.LoginReportService.AddFailedAttempt(guid, this.SessionProvider.GetId(), this.Request.Browser.Browser);
                     return this.GetLoginFailReturns(result, loginType, guid);
                 }
 
@@ -248,6 +246,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Info(guid, $"Successfully log-ged in");
 
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
+
+                //odblokuj neuspesne pokusy (uspesne prihlaseni restartuje limit)
+                try
+                {
+                    this.LoginReportService.Clear(guid);
+                }
+                catch (Exception clearex)
+                {
+                    this.Logger.Error(guid, $"Error clearing login attempts",clearex);
+                }
+
 
                 if (offer.IsAccepted)
                 {
@@ -348,8 +357,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="loginState">State of the login.</param>
         /// <param name="guid">The unique identifier.</param>
         protected internal void ReportLogin(LOGIN_STATES loginState, string guid)
-        {
-            
+        {            
+            var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
+            model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
+            model.LoginState = loginState;
+
+            this.LoginReportService.Add(model);
         }
 
         protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, LoginTypeModel loginType, string guid)

@@ -16,6 +16,8 @@ namespace eContracting.Models
 
         public DateTime Timestamp { get; set; }
 
+        public LOGIN_STATES LoginState { get; set; }
+
         public LoginTypeModel LoginType { get; set; }
 
         public bool IsBirthdateValid { get; set; }

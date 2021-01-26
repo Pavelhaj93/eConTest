@@ -17,11 +17,22 @@ namespace eContracting.Storage
         public string SessionId { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(255)]      
+        [Index(IsUnique =false)]
         public string Guid { get; set; }
 
-        public short WrongBirthdate { get; set; }
+        public bool IsBirthdateValid { get; set; }
 
-        public short WrongValue { get; set; }
+        [StringLength(255)]
+        public string LoginTypeKey { get; set; }
+
+        public bool IsLoginValueValid { get; set; }
+
+        public string BrowserAgent { get; set; }
+
+        [StringLength(255)]
+        public string LoginState { get; set; }
+
+        public bool IsBlocking { get; set; } = false;
     }
 }
