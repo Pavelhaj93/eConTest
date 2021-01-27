@@ -271,6 +271,9 @@
     <Compile Include="Pipelines\Initialize\RunStartupsProcessor.cs" />
     <Compile Include="Pipelines\SessionEnd\ClearUserCacheProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessCondition.cs" />
+    <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessTypeCondition.cs" />
+    <Compile Include="Rules\Conditions\WhenOfferMatchesMatrixCondition.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\eContracting2\Models\Apis\" />
