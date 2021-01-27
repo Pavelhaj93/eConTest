@@ -11,6 +11,10 @@ SharedFields:
     ar|sitecore\innogy eContracting ChiefEditor|pe|+workflowState:delete|+workflowState:write|+item:read|+workflowCommand:execute|pd|+workflowCommand:execute|+workflowState:write|+item:read|+workflowState:delete|
 Languages:
 - Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: eContracting Workflow 2
   Versions:
   - Version: 1
     Fields:
