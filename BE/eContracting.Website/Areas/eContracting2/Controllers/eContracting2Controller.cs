@@ -171,7 +171,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var settings = this.SettingsReaderService.GetSiteSettings();
                 var viewModel = new AcceptedOfferViewModel(settings);
                 viewModel.Datasource = datasource;
-                viewModel.MainText = definition.OfferAcceptedMainText.Text;
+                viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferAcceptedMainText.Text, offer.TextParameters);
                 viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
                 viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);

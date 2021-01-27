@@ -5,6 +5,9 @@ Template: "0574008b-75be-4c2d-8583-451a67d33e0b"
 Path: /sitecore/content/eContracting2/Datasources/Content/OfferAccepted/Refix indi
 DB: master
 SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 1200
@@ -24,7 +27,7 @@ Languages:
       Hint: Text
       Value: |
         <p><span style="font-size: 13px;">Proces: Refix, Typ: Indi&nbsp;</span></p>
-        <p>{CUSTTITLELET},</p>
+        <p>{PERSON_CUSTTITLELET},</p>
         <p>děkujeme, že jste akceptoval/a na&scaron;i nab&iacute;dku produktu.</p>
         <p>Potvrzujeme přijet&iacute; změny produktu na Va&scaron;&iacute; smlouvě.</p>
         <p>N&iacute;že najdete smluvn&iacute; dokumenty, kter&eacute; jste elektronicky akceptoval/a.</p>
