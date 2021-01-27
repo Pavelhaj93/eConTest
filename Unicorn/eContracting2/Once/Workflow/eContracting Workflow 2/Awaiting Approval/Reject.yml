@@ -2,7 +2,7 @@
 ID: "320c22e9-33cb-4334-af18-dbf6fd278b80"
 Parent: "bc28a2a3-7e9d-48a6-98e9-c4e2cc4eeae2"
 Template: "cb01f9fc-c187-46b3-ab0b-97a8468d8303"
-Path: /sitecore/system/Workflows/eContracting Workflow/Awaiting Approval/Reject
+Path: /sitecore/system/Workflows/eContracting Workflow 2/Awaiting Approval/Reject
 DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"

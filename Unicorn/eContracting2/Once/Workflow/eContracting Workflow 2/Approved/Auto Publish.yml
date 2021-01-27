@@ -2,7 +2,7 @@
 ID: "e14023bf-e638-45a7-bffb-f6068f163dc0"
 Parent: "83bf41f9-f720-48f6-b4ce-40b83bc9421b"
 Template: "66882e97-c8aa-4e37-8901-7a8aa35ed2ed"
-Path: /sitecore/system/Workflows/eContracting Workflow/Approved/Auto Publish
+Path: /sitecore/system/Workflows/eContracting Workflow 2/Approved/Auto Publish
 DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"

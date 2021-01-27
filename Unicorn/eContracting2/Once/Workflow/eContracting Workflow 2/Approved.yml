@@ -2,9 +2,12 @@
 ID: "83bf41f9-f720-48f6-b4ce-40b83bc9421b"
 Parent: "e2425c61-706f-4759-a5d1-a08372576a98"
 Template: "4b7e2da9-de43-4c83-88c3-02f042031d04"
-Path: /sitecore/system/Workflows/eContracting Workflow/Approved
+Path: /sitecore/system/Workflows/eContracting Workflow 2/Approved
 DB: master
 SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Office/32x32/cocktail.png
 - ID: "fb8abc73-7acf-45a0-898c-d3ccb889c3ee"
   Hint: Final
   Type: Checkbox
