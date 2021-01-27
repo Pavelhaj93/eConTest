@@ -430,7 +430,7 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetLoginTypes")]
-        public void GetLoginTypes_Returns_Preselected_Types()
+        public void GetLoginTypes_Returns_All_Preselected_When_Random_False()
         {
             var process = "XYZ";
             var processType = "123";
@@ -445,7 +445,7 @@ namespace eContracting.Services.Tests
             combination.Process = new ProcessModel() { Code = process };
             combination.ProcessType = new ProcessTypeModel() { Code = processType };
             combination.LoginTypes = loginTypes;
-
+            combination.LoginTypesRandom = false;
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
@@ -461,9 +461,47 @@ namespace eContracting.Services.Tests
             Assert.Contains(loginTypes[2], result);
         }
 
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(5)]
+        public void GetLoginTypes_Returns_1_Preseleted_When_Random_True(int preselectedCount)
+        {
+            var process = "XYZ";
+            var processType = "123";
+            var loginTypes = new List<LoginTypeModel>();
+
+            for (int i = 0; i < preselectedCount; i++)
+            {
+                loginTypes.Add(new LoginTypeModel() { Name = $"Login type {i}" });
+            }
+
+            var offer = this.CreateOffer();
+            offer.Xml.Content.Body.BusProcess = process;
+            offer.Xml.Content.Body.BusProcessType = processType;
+            var combination = new DefinitionCombinationModel();
+            combination.Process = new ProcessModel() { Code = process };
+            combination.ProcessType = new ProcessTypeModel() { Code = processType };
+            combination.LoginTypes = loginTypes;
+            combination.LoginTypesRandom = true; // this cause randomization
+
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            var logger = new MemoryLogger();
+
+            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var result = service.GetLoginTypes(offer);
+
+            Assert.Single(result);
+        }
+
         [Fact]
         [Trait("Method", "GetLoginTypes")]
-        public void GetLoginTypes_Returns_1_Type_From_Many()
+        public void GetLoginTypes_Returns_All_When_No_Selected_And_Random_Is_False()
         {
             var process = "XYZ";
             var processType = "123";
@@ -478,6 +516,7 @@ namespace eContracting.Services.Tests
             combination.Process = new ProcessModel() { Code = process };
             combination.ProcessType = new ProcessTypeModel() { Code = processType };
             combination.LoginTypes = Enumerable.Empty<LoginTypeModel>();
+            combination.LoginTypesRandom = false;
             var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
             mockSitecoreContext.Setup(x => x.GetItem<FolderItemModel<DefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new FolderItemModel<DefinitionCombinationModel>(new[] { combination }));
             mockSitecoreContext.Setup(x => x.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
@@ -489,12 +528,12 @@ namespace eContracting.Services.Tests
             var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
             var result = service.GetLoginTypes(offer);
 
-            Assert.Single(result);
+            Assert.Equal(loginTypes, result.ToList());
         }
 
         [Fact]
         [Trait("Method", "GetLoginTypes")]
-        public void GetLoginTypes_Returns_1_Random_Type_When_Only_1_Available()
+        public void GetLoginTypes_Returns_1_When_1_Preselected()
         {
             var process = "XYZ";
             var processType = "123";
