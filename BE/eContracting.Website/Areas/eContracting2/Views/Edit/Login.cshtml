@@ -3,37 +3,52 @@
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
 @inherits GlassView<LoginViewModel>
-@{ 
+@{
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
     var choices = Model.Choices.ToArray();
 }
-<div class="row">
-    @*<div id="token">@@Html.AntiForgeryToken()</div>*@
-    <div class="container">
-        <div class="info">
-            @Html.Sitecore().Placeholder("eContracting2-login-richtext")
-        </div>
-    </div>
-    <div class="container" style="text-align: left; box-sizing: content-box; padding-top: 14px;">
-        <div class="row">
-            <div class="col-sm-6">
-                <label>@Editable(Model.Datasource, x => x.BirthDateLabel):</label>
-                @Html.TextBox("birthdate", "", new { placeholder = birthDatePlaceholder })
-                <p>@Editable(Model.Datasource, x => x.BirthDatePlaceholder)</p>
-            </div>
-            <div class="col-sm-6">
-                @for (int i = 0; i < choices.Length; i++)
-                {
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="c@i" value="@choices[i].Key" />
-                    <label class="form-check-label" for="c@i">
-                        @choices[i].Label
-                    </label>
+<div class="row" style="padding-bottom: 150px">
+    <div class="col-12">
+        <div>
+            @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="info">
+                        <div>@Html.Sitecore().Placeholder("eContracting2-login")</div>
+                    </div>
+                    <div>
+                        <div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-8 col-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="birthDate">@Editable(Model.Datasource, x => x.BirthDateLabel)</label>
+                                        <div class="react-datepicker-wrapper">
+                                            <div class="react-datepicker__input-container">
+                                                <span class="react-datepicker__input form-control">
+                                                    @Editable(Model.Datasource, x => x.BirthDatePlaceholder)
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="like-label">@Editable(Model.Datasource, x => x.VerificationMethodLabel)</div>
+                                @for (int i = 0; i < choices.Length; i++)
+                                {
+                                    <div class="d-md-flex align-items-md-center">
+                                        <div class="custom-control custom-radio">
+                                            <input name="key" type="radio" id="key-0" class="custom-control-input" value="D47D4B80D03FB951A0C49E061CF88D9E">
+                                            <label title="" for="key-0" class="custom-control-label">@choices[i].Label</label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <button type="button" class="btn-block-mobile btn-inactive btn btn-secondary">@Editable(Model.Datasource, x => x.ButtonText)</button>
+                        </div>
+                    </div>
                 </div>
-                }
-                <p>@Html.TextBox("value")</p>
             </div>
         </div>
-        <button type="button">@Editable(Model.Datasource, x => x.ButtonText)</button>
     </div>
 </div>
