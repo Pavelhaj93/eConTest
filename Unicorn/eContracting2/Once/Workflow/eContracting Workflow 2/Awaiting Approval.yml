@@ -2,9 +2,12 @@
 ID: "bc28a2a3-7e9d-48a6-98e9-c4e2cc4eeae2"
 Parent: "e2425c61-706f-4759-a5d1-a08372576a98"
 Template: "4b7e2da9-de43-4c83-88c3-02f042031d04"
-Path: /sitecore/system/Workflows/eContracting Workflow/Awaiting Approval
+Path: /sitecore/system/Workflows/eContracting Workflow 2/Awaiting Approval
 DB: master
 SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Office/32x32/alarmclock.png
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 50

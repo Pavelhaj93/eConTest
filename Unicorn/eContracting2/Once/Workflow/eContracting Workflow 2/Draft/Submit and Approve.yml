@@ -1,22 +1,22 @@
 ﻿---
-ID: "34d43cbb-e8e7-4cf2-b9a2-148a1f62057e"
+ID: "c739779f-533b-4baf-bc99-2a530744c49a"
 Parent: "e857c308-ab27-4e16-9e50-1d0facc407a0"
 Template: "cb01f9fc-c187-46b3-ab0b-97a8468d8303"
-Path: /sitecore/system/Workflows/eContracting Workflow/Draft/Submit
+Path: /sitecore/system/Workflows/eContracting Workflow 2/Draft/Submit and Approve
 DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
-  Value: Applications/32x32/nav_right_blue.png
+  Value: Applications/32x32/nav_up_right_green.png
 - ID: "dcbebc58-6124-4100-a248-fc717d6c78d5"
   Hint: Next state
-  Value: "{BC28A2A3-7E9D-48A6-98E9-C4E2CC4EEAE2}"
+  Value: "{83BF41F9-F720-48F6-B4CE-40B83BC9421B}"
 Languages:
 - Language: en
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Potvrdit změny
+    Value: Potvrdit a schválit
   Versions:
   - Version: 1
     Fields:
