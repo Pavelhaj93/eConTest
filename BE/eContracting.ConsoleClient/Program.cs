@@ -58,6 +58,7 @@ namespace eContracting.ConsoleClient
                     services.AddScopedCommand<GetOfferJsonCommand>();
                     services.AddScopedCommand<SwitchServerCommand>();
                     services.AddScopedCommand<AcceptOfferCommand>();
+                    services.AddScopedCommand<GetLoginValuesCommand>();
                 });
                 await consinloop.Run();
             }

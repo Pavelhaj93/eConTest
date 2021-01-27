@@ -115,10 +115,21 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201012T121642Z
+    - ID: "4e810fb1-110c-4fe0-b6bd-df6ad9b0b990"
+      Hint: LoginTypesRandom
+      Type: Checkbox
+      Value: 0
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
+      Hint: LoginTypes
+      Type: Checklist
+      Value: |
+        {9BE71C02-ABFE-4E99-83C8-C9DD8A3053C3}
+        {552CA02F-13B6-4567-A111-9815A33F540A}
+        {49A2C1EA-B663-4397-A9FA-D48DF957B898}
 - Language: en
   Versions:
   - Version: 1

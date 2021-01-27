@@ -194,26 +194,28 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<LoginTypeModel> GetLoginTypes(OfferModel offer)
         {
+            var list = new List<LoginTypeModel>();
             var definition = this.GetDefinition(offer);
-            var loginTypes = definition.LoginTypes?.ToList() ?? new List<LoginTypeModel>();
+            var availableLoginTypes = definition.LoginTypes?.ToArray() ?? new LoginTypeModel[] { };
 
-            if (loginTypes.Count == 0)
+            // backup option when content configuration is wrong
+            if (availableLoginTypes.Length == 0)
             {
-                var availableLoginTypes = this.GetAllLoginTypes().ToArray();
-                var count = availableLoginTypes.Length;
-
-                if (count > 1)
-                {
-                    var index = Rand.Next(0, count);
-                    loginTypes.Add(availableLoginTypes[index]);
-                }
-                else
-                {
-                    loginTypes.AddRange(availableLoginTypes);
-                }
+                availableLoginTypes = this.GetAllLoginTypes().ToArray();
             }
 
-            return loginTypes;
+            if (definition.LoginTypesRandom && availableLoginTypes.Length > 1)
+            {
+                var count = availableLoginTypes.Length;
+                var index = Rand.Next(0, count);
+                list.Add(availableLoginTypes[index]);
+            }
+            else
+            {
+                list.AddRange(availableLoginTypes);
+            }
+
+            return list;
         }
 
         /// <inheritdoc/>

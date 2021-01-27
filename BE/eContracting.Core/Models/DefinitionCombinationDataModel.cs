@@ -16,11 +16,13 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class DefinitionCombinationDataModel : BaseSitecoreModel
     {
-
         #region Login
 
         [SitecoreField]
         public virtual IEnumerable<LoginTypeModel> LoginTypes { get; set; }
+
+        [SitecoreField]
+        public virtual bool LoginTypesRandom { get; set; }
 
         [SitecoreField]
         public virtual RichTextModel MainTextLogin { get; set; }
