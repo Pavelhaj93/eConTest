@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using eContracting.Models;
+using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore.Data;
 using Sitecore.DependencyInjection;
 using Sitecore.Rules;
 using Sitecore.Rules.Conditions;
@@ -11,7 +14,26 @@ namespace eContracting.Website.Rules.Conditions
 {
     public class WhenOfferMatchesMatrixCondition<T> : WhenCondition<T> where T : RuleContext
     {
-        public string MatrixId { get; set; }
+        public string MatrixId
+        {
+            get
+            {
+                return this.MatrixItemGuid.ToString("N");
+            }
+            set
+            {
+                if (Guid.TryParse(value, out Guid guid))
+                {
+                    this.MatrixItemGuid = guid;
+                }
+                else
+                {
+                    throw new ArgumentException("Value is not valid GUID");
+                }
+            }
+        }
+
+        protected Guid MatrixItemGuid { get; set; }
 
         public WhenOfferMatchesMatrixCondition()
         {
@@ -19,6 +41,26 @@ namespace eContracting.Website.Rules.Conditions
 
         protected override bool Execute(T ruleContext)
         {
+            try
+            {
+                if (Guid.Empty == this.MatrixItemGuid)
+                {
+                    return false;
+                }
+
+                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
+                var matrixItem = context.GetItem<DefinitionCombinationModel>(this.MatrixItemGuid, ruleContext.Item.Language);
+                
+                if (matrixItem == null)
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
+
             return false;
         }
     }
