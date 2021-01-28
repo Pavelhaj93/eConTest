@@ -1018,7 +1018,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 this.ApiService.AcceptOffer(offer, submitModel, this.SessionProvider.GetId());
 
-                var cachedData = new OfferIdentifier(offer.Guid, offer.Process, offer.ProcessType, true, offer.TextParameters);
+                var cachedData = new OfferCacheDataModel(offer.Guid, offer.Process, offer.ProcessType, true, offer.TextParameters);
                 this.UserDataCacheService.Set(Constants.CacheKeys.OFFER_IDENTIFIER, cachedData);
 
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);

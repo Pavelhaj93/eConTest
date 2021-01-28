@@ -335,7 +335,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public ActionResult RichText()
         {
             var dataSource = this.GetDataSourceItem<RichTextModel>();
-            var data = this.UserDataCache.Get<OfferIdentifier>(Constants.CacheKeys.OFFER_IDENTIFIER);
+            var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
 
             if (dataSource == null)
             {

@@ -223,7 +223,7 @@
     <Compile Include="Models\OfferAttributeModel.cs" />
     <Compile Include="Models\OfferHeaderModel.cs" />
     <Compile Include="Models\OfferHeaderXmlModel.cs" />
-    <Compile Include="Models\OfferIdentifier.cs" />
+    <Compile Include="Models\OfferCacheDataModel.cs" />
     <Compile Include="Models\OfferLoginReportModel.cs" />
     <Compile Include="Models\OfferModel.cs" />
     <Compile Include="Models\PageNewOfferModel.cs" />

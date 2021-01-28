@@ -12,7 +12,7 @@ namespace eContracting.Models
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class OfferIdentifier
+    public class OfferCacheDataModel
     {
         /// <summary>
         /// Gets offer GUID identifier.
@@ -40,10 +40,10 @@ namespace eContracting.Models
         public readonly IDictionary<string, string> TextParameters;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OfferIdentifier"/> class.
+        /// Initializes a new instance of the <see cref="OfferCacheDataModel"/> class.
         /// </summary>
         /// <param name="offer">The offer.</param>
-        public OfferIdentifier(OfferModel offer)
+        public OfferCacheDataModel(OfferModel offer)
         {
             this.Guid = offer.Guid;
             this.Process = offer.Process;
@@ -53,25 +53,25 @@ namespace eContracting.Models
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OfferIdentifier"/> class.
+        /// Initializes a new instance of the <see cref="OfferCacheDataModel"/> class.
         /// </summary>
         /// <param name="process">The process.</param>
         /// <param name="processType">Type of the process.</param>
-        public OfferIdentifier(string process, string processType)
+        public OfferCacheDataModel(string process, string processType)
         {
             this.Process = process;
             this.ProcessType = processType;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="OfferIdentifier"/> class.
+        /// Initializes a new instance of the <see cref="OfferCacheDataModel"/> class.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <param name="process">The process.</param>
         /// <param name="processType">Type of the process.</param>
         /// <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
         /// <param name="textParameters">The text parameters.</param>
-        public OfferIdentifier(string guid, string process, string processType, bool isAccepted, IDictionary<string, string> textParameters)
+        public OfferCacheDataModel(string guid, string process, string processType, bool isAccepted, IDictionary<string, string> textParameters)
         {
             this.Guid = guid;
             this.Process = process;

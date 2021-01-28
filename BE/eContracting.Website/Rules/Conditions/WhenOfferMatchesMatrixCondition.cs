@@ -48,6 +48,14 @@ namespace eContracting.Website.Rules.Conditions
                     return false;
                 }
 
+                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+                if (offerData == null)
+                {
+                    return false;
+                }
+
                 var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
                 var matrixItem = context.GetItem<DefinitionCombinationModel>(this.MatrixItemGuid, ruleContext.Item.Language);
                 
