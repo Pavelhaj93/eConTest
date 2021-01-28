@@ -17,22 +17,49 @@ namespace eContracting.Models
         [JsonIgnore]
         public string SequenceNumber { get; set; }
 
+        /// <summary>
+        /// Gets or sets identifier of this template. It's not unique in every cases. If there are more attachment with the same value, uniqueness is compared with <see cref="Product"/>.
+        /// </summary>
+        /// <value>Cannot be empty.</value>
         [XmlElement(Constants.FileAttributes.TYPE)]
         [JsonProperty("idattach")]
         public string IdAttach { get; set; }
 
+        /// <summary>
+        /// Gets or sets additional identifier of this template. Value could be empty. It could be used with <see cref="IdAttach"/>.
+        /// </summary>
+        /// <value>Could be empty.</value>
+        [XmlElement(Constants.FileAttributes.PRODUCT)]
+        [JsonProperty("product")]
+        public string Product { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description. In some cases it's used as file name.
+        /// </summary>
         [XmlElement(Constants.FileAttributes.DESCRIPTION)]
         [JsonProperty("description")]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets if this template is obligatory or not.
+        /// </summary>
+        /// <value><see cref="Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         [XmlElement(Constants.FileAttributes.OBLIGATORY)]
         [JsonProperty("obligatory")]
         public string Obligatory { get; set; }
 
+        /// <summary>
+        /// Gets or sets if real file exists or it's a template for upload.
+        /// </summary>
+        /// <value><see cref="Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         [XmlElement(Constants.FileAttributes.PRINTED)]
         [JsonProperty("printed")]
         public string Printed { get; set; }
 
+        /// <summary>
+        /// Gets or sets sing is required for this template.
+        /// </summary>
+        /// <value><see cref="Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         [XmlElement(Constants.FileAttributes.SIGN_REQ)]
         [JsonProperty("sing_required")]
         public string SignReq { get; set; }
@@ -49,21 +76,36 @@ namespace eContracting.Models
         [JsonIgnore]
         public string TemplAlcId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the group. Expected values: COMMODITY, DSL, NONCOMMODITY.
+        /// </summary>
+        /// <value>Shouldn't be null.</value>
         [XmlElement(Constants.FileAttributes.GROUP)]
         [JsonProperty("group")]
         public string Group { get; set; }
 
+        /// <summary>
+        /// Gets or sets templates with the same group are mandatory or not.
+        /// </summary>
+        /// <value><see cref="Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         [XmlElement(Constants.FileAttributes.GROUP_OBLIG)]
         [JsonProperty("group_obligatory")]
         public string GroupObligatory { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets value to get compare text parameters for a group in accept dialog.
+        /// </summary>
+        /// <value>
+        /// The item unique identifier.
+        /// </value>
         [XmlElement(Constants.FileAttributes.ITEM_GUID)]
         [JsonIgnore]
         public string ItemGuid { get; set; }
 
         /// <summary>
-        /// Gets or sets prefix for the document.
+        /// Gets or sets prefix for the document. Expecetd values: P or S.
         /// </summary>
+        /// <value>Shouldn't be empty.</value>
         [XmlElement(Constants.FileAttributes.CONSENT_TYPE)]
         [JsonIgnore]
         public string ConsentType { get; set; }

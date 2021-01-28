@@ -37,6 +37,7 @@ namespace eContracting
             public const string TEMPLATE = "TEMPLATE";
             public const string CHECK_VALUE = "X";
             public const string TYPE = "IDATTACH";
+            public const string PRODUCT = "PRODUCT";
             public const string GROUP = "GROUP";
             public const string GROUP_OBLIG = "GROUP_OBLIGATORY";
             public const string OBLIGATORY = "OBLIGATORY";

@@ -1161,52 +1161,52 @@
             <param name="stat">The stat.</param>
             <param name="valto">The valto.</param>
         </member>
-        <member name="T:eContracting.Models.OfferIdentifier">
+        <member name="T:eContracting.Models.OfferCacheDataModel">
             <summary>
             Identifier for an offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferIdentifier.Guid">
+        <member name="F:eContracting.Models.OfferCacheDataModel.Guid">
             <summary>
             Gets offer GUID identifier.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferIdentifier.Process">
+        <member name="F:eContracting.Models.OfferCacheDataModel.Process">
             <summary>
             Gets offer's process.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferIdentifier.ProcessType">
+        <member name="F:eContracting.Models.OfferCacheDataModel.ProcessType">
             <summary>
             Gets offer's process type.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferIdentifier.IsAccepted">
+        <member name="F:eContracting.Models.OfferCacheDataModel.IsAccepted">
             <summary>
             Determinates if offer is accepted or not.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferIdentifier.TextParameters">
+        <member name="F:eContracting.Models.OfferCacheDataModel.TextParameters">
             <summary>
             The text parameters from offer.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferIdentifier.#ctor(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Models.OfferCacheDataModel.#ctor(eContracting.Models.OfferModel)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferCacheDataModel"/> class.
             </summary>
             <param name="offer">The offer.</param>
         </member>
-        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String)">
+        <member name="M:eContracting.Models.OfferCacheDataModel.#ctor(System.String,System.String)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferCacheDataModel"/> class.
             </summary>
             <param name="process">The process.</param>
             <param name="processType">Type of the process.</param>
         </member>
-        <member name="M:eContracting.Models.OfferIdentifier.#ctor(System.String,System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String})">
+        <member name="M:eContracting.Models.OfferCacheDataModel.#ctor(System.String,System.String,System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.String})">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.OfferIdentifier"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferCacheDataModel"/> class.
             </summary>
             <param name="guid">The unique identifier.</param>
             <param name="process">The process.</param>
