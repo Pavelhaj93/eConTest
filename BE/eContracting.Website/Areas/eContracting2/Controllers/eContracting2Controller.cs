@@ -273,14 +273,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                if (!this.AuthenticationService.IsLoggedIn())
-                {
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
-                }
-
-                var user = this.AuthenticationService.GetCurrentUser();
-                guid = user.Guid;
-
                 var datasource = this.GetLayoutItem<PageUserBlockedModel>();
                 return View("/Areas/eContracting2/Views/UserBlocked.cshtml", datasource);
             }
