@@ -123,8 +123,6 @@ namespace eContracting.Services
 
             var files = this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
 
-            throw new Exception("Temporarily blocked");
-
             var putResult = this.Put(offer.Guid, attributes.ToArray(), files.ToArray());
 
             if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
