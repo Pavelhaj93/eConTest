@@ -46,12 +46,17 @@ namespace eContracting.Services
 
             foreach (var file in files)
             {
-                builder.AppendLine($"[{counter}] Sign required [{file.IsSignReq}]: {file.FileName} ({file.SizeLabel})");
+                builder.AppendLine($" - [{counter}] {file.OriginalFileName}");
+                builder.AppendLine($"  name: {file.FileName}");
+                builder.AppendLine($"  size: {file.SizeLabel}");
+                builder.AppendLine($"  group: {file.Group}");
+                builder.AppendLine($"  sign: {file.IsSignReq}");
+                builder.AppendLine($"  printed: {file.IsPrinted}");
                 counter++;
                 totalSize += file.Size;
             }
 
-            builder.AppendLine("Total file size: " + Utils.GetReadableFileSize(totalSize));
+            builder.AppendLine(" - Total files size: " + Utils.GetReadableFileSize(totalSize));
             logger.Debug(guid, builder.ToString());
         }
 
