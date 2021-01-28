@@ -1,13 +1,13 @@
 ﻿---
-ID: "89e7d184-f9a4-4473-bb91-62072ca8d8aa"
+ID: "eb0121a0-6bad-4921-96a9-4b77380f1333"
 Parent: "8f6d46b4-f6ea-4466-91a9-923ff4cacd30"
 Template: "f0d16eee-3a05-4e43-a082-795a32b873c0"
-Path: /sitecore/system/Settings/Rules/Definitions/Elements/eContracting/When eCon offer is in process type
+Path: /sitecore/system/Settings/Rules/Definitions/Elements/eContracting/When eCon offer is in matrix
 DB: master
 SharedFields:
 - ID: "ab51c8b2-f0e1-4471-9aae-cc080d774923"
   Hint: Type
-  Value: eContracting.Website.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition, eContracting.Website
+  Value: eContracting.Website.Rules.Conditions.WhenOfferMatchesMatrixCondition, eContracting.Website
 Languages:
 - Language: en
   Versions:
@@ -22,4 +22,4 @@ Languages:
         sitecore\admin
     - ID: "af321234-4eb9-4ef5-9197-65903351939c"
       Hint: Text
-      Value: "when eCon offer is in [ProcessTypeId,Tree,root=/sitecore/content/eContracting2/Settings/ProcessTypes,specified] process type"
+      Value: "when eCon offer compares to [MatrixId,Tree,root=/sitecore/content/eContracting2/Definitions,specified] matrix definition."

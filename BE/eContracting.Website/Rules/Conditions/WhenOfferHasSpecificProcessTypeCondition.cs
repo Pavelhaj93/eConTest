@@ -20,9 +20,28 @@ namespace eContracting.Website.Rules.Conditions
     public class WhenOfferHasSpecificProcessTypeCondition<T> : WhenCondition<T> where T : RuleContext
     {
         /// <summary>
-        /// Gets or sets the process type identifier.
+        /// Gets or sets the process identifier.
         /// </summary>
-        public string ProcessTypeId { get; set; }
+        public string ProcessTypeId
+        {
+            get
+            {
+                return this.ProcessTypeItemGuid.ToString("N");
+            }
+            set
+            {
+                if (Guid.TryParse(value, out Guid guid))
+                {
+                    this.ProcessTypeItemGuid = guid;
+                }
+                else
+                {
+                    throw new ArgumentException("Value is not valid GUID");
+                }
+            }
+        }
+
+        protected Guid ProcessTypeItemGuid { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WhenOfferHasSpecificProcessTypeCondition{T}"/> class.
@@ -41,23 +60,37 @@ namespace eContracting.Website.Rules.Conditions
         /// </returns>
         protected override bool Execute(T ruleContext)
         {
-            var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-            var processType = context.GetItem<ProcessTypeModel>(this.ProcessTypeId);
-
-            if (processType == null)
+            try
             {
-                return false;
+                if (Guid.Empty == this.ProcessTypeItemGuid)
+                {
+                    return false;
+                }
+
+                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
+                var processType = context.GetItem<ProcessTypeModel>(this.ProcessTypeItemGuid);
+
+                if (processType == null)
+                {
+                    return false;
+                }
+
+                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+                if (offerData == null)
+                {
+                    return false;
+                }
+
+                return offerData.ProcessType == processType.Code;
+            }
+            catch (Exception ex)
+            {
+                Sitecore.Diagnostics.Log.Error("Cannot resolve the rule", ex, this);
             }
 
-            var authService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
-            var authData = authService.GetCurrentUser();
-
-            if (authData == null)
-            {
-                return false;
-            }
-
-            return authData.ProcessType == processType.Code;
+            return false;
         }
     }
 }

@@ -35,6 +35,11 @@ namespace eContracting.Models
         public readonly bool IsAccepted;
 
         /// <summary>
+        /// Determinaes if offer is expired or not.
+        /// </summary>
+        public readonly bool IsExpired;
+
+        /// <summary>
         /// The text parameters from offer.
         /// </summary>
         public readonly IDictionary<string, string> TextParameters;
@@ -49,6 +54,7 @@ namespace eContracting.Models
             this.Process = offer.Process;
             this.ProcessType = offer.ProcessType;
             this.IsAccepted = offer.IsAccepted;
+            this.IsExpired = offer.IsExpired;
             this.TextParameters = offer.TextParameters;
         }
 

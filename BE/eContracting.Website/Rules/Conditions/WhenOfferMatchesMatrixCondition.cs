@@ -63,10 +63,12 @@ namespace eContracting.Website.Rules.Conditions
                 {
                     return false;
                 }
+
+                return offerData.Process == matrixItem.Process?.Code && offerData.ProcessType == matrixItem.ProcessType?.Code;
             }
             catch (Exception ex)
             {
-                
+                Sitecore.Diagnostics.Log.Error("Cannot resolve the rule", ex, this);
             }
 
             return false;

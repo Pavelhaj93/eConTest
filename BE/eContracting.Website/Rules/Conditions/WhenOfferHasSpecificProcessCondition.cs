@@ -22,7 +22,26 @@ namespace eContracting.Website.Rules.Conditions
         /// <summary>
         /// Gets or sets the process identifier.
         /// </summary>
-        public string ProcessId { get; set; }
+        public string ProcessId
+        {
+            get
+            {
+                return this.ProcessItemGuid.ToString("N");
+            }
+            set
+            {
+                if (Guid.TryParse(value, out Guid guid))
+                {
+                    this.ProcessItemGuid = guid;
+                }
+                else
+                {
+                    throw new ArgumentException("Value is not valid GUID");
+                }
+            }
+        }
+
+        protected Guid ProcessItemGuid { get; set; }
 
         /// <summary>
         /// Executes the specified rule context.
@@ -34,23 +53,37 @@ namespace eContracting.Website.Rules.Conditions
         /// </returns>
         protected override bool Execute(T ruleContext)
         {
-            var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-            var process = context.GetItem<ProcessModel>(this.ProcessId);
-
-            if (process == null)
+            try
             {
-                return false;
+                if (Guid.Empty == this.ProcessItemGuid)
+                {
+                    return false;
+                }
+
+                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
+                var process = context.GetItem<ProcessModel>(this.ProcessId);
+
+                if (process == null)
+                {
+                    return false;
+                }
+
+                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+                if (offerData == null)
+                {
+                    return false;
+                }
+
+                return offerData.Process == process.Code;
+            }
+            catch (Exception ex)
+            {
+                Sitecore.Diagnostics.Log.Error("Cannot resolve the rule", ex, this);
             }
 
-            var authService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
-            var authData = authService.GetCurrentUser();
-
-            if (authData == null)
-            {
-                return false;
-            }
-
-            return authData.Process == process.Code;
+            return false;
         }
     }
 }
