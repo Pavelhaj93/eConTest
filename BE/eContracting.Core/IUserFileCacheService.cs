@@ -65,5 +65,12 @@ namespace eContracting
         /// <returns>Data or null.</returns>
         List<DbUploadGroupFileModel> FindGroups(DbSearchParameters search);
 
+        /// <summary>
+        /// Gets total size of UploadFileGroup output files (PDFs)
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        int GetTotalOutputFileSize(DbSearchParameters search);
+
     }
 }

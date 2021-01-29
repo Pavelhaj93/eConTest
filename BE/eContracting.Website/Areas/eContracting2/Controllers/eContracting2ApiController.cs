@@ -855,26 +855,32 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                         // nactu ostatni groups teto nabidky a overim celkovou velikost vyslednych souboru oproti limitu
                         var allOfferGroupsSearchParams = new DbSearchParameters(null, guid, this.SessionProvider.GetId());
-                        var allOfferGroups = this.UserFileCacheService.FindGroups(allOfferGroupsSearchParams);
+                        int allOfferGroupsOutFilesSize = this.UserFileCacheService.GetTotalOutputFileSize(allOfferGroupsSearchParams);
 
-                        // provedu overeni
-                        var checkOperationResult = await this.FileOptimizer.EnforceOfferTotalFilesSizeAsync(allOfferGroups, group, fileId);
+                        // celkova velikost vystupnich souboru prekracuje limit
+                        if (!(await this.FileOptimizer.IsOfferTotalFilesSizeInLimitAsync(allOfferGroupsOutFilesSize)))
+                        {
+                            var allOfferGroups = this.UserFileCacheService.FindGroups(allOfferGroupsSearchParams);
 
-                        if (!checkOperationResult.IsSuccess)
-                        {
-                            // nepodarilo se dodrzet celkove kriterium, tak ten posledni soubor zase odmaz
-                            var updatedGroup = await this.FileOptimizer.RemoveFileAsync(group, fileId);
-                            this.UserFileCacheService.Set(updatedGroup);
-                            return this.BadRequest(this.TextService.Error(checkOperationResult.ErrorModel));
-                        }
-                        else
-                        {
-                            if (checkOperationResult.MadeChanges)
+                            // provedu pokus o kompresi
+                            var checkOperationResult = await this.FileOptimizer.EnforceOfferTotalFilesSizeAsync(allOfferGroups, group, fileId);
+
+                            if (!checkOperationResult.IsSuccess)
                             {
-                                foreach (var modifiedGroup in checkOperationResult.DbUploadGroupFileModels)
+                                // nepodarilo se dodrzet celkove kriterium, tak ten posledni soubor zase odmaz
+                                var updatedGroup = await this.FileOptimizer.RemoveFileAsync(group, fileId);
+                                this.UserFileCacheService.Set(updatedGroup);
+                                return this.BadRequest(this.TextService.Error(checkOperationResult.ErrorModel));
+                            }
+                            else
+                            {
+                                if (checkOperationResult.MadeChanges)
                                 {
-                                    //this.SaveToDebug(modifiedGroup);
-                                    this.UserFileCacheService.Set(modifiedGroup);
+                                    foreach (var modifiedGroup in checkOperationResult.DbUploadGroupFileModels)
+                                    {
+                                        //this.SaveToDebug(modifiedGroup);
+                                        this.UserFileCacheService.Set(modifiedGroup);
+                                    }
                                 }
                             }
                         }

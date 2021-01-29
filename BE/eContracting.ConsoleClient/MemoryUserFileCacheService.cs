@@ -27,6 +27,11 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public int GetTotalOutputFileSize(DbSearchParameters search)
+        {
+            throw new NotImplementedException();
+        }
+
         public DbSignedFileModel FindSignedFile(DbSearchParameters search)
         {
             return this.SignedFiles.FirstOrDefault(x => x.Key == search.Key);

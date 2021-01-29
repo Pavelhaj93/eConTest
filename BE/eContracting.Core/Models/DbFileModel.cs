@@ -9,6 +9,9 @@ namespace eContracting.Models
     /// </summary>
     public class DbFileModel
     {
+        private int size = 0;
+        byte[] content = null;
+
         /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
@@ -39,16 +42,21 @@ namespace eContracting.Models
         /// </summary>
         public int Size
         {
-            get
-            {
-                return this.Content?.Length ?? 0;
-            }
+            get { return (size == 0) ? this.Content?.Length ?? 0 : size;}
+            private set { size = value; }
         }
 
         /// <summary>
         /// Gets or sets file content in bytes.
         /// </summary>
-        public byte[] Content { get; set; }
+        public byte[] Content {
+            get { return content; }
+            set
+            {
+                content = value;
+                this.Size = value?.Length ?? 0;
+            }
+        }
 
         [NotMapped]
         public virtual List<DbFileAttributeModel> Attributes { get; } = new List<DbFileAttributeModel>();

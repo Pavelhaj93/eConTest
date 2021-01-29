@@ -189,6 +189,47 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
+        public int GetTotalOutputFileSize(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.GetTotalOutputFileSizeAsync(search));
+            task.Wait();
+            return task.Result;
+        }
+
+        protected async Task<int> GetTotalOutputFileSizeAsync(DbSearchParameters search)
+        {
+            int result = 0;
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var query = context.UploadGroups.AsQueryable();
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                var foundFileIds = await query.Select(g=> g.OutputFileId).ToListAsync();
+
+                if (foundFileIds != null && foundFileIds.Any())
+                {
+                    result += context.Files.Where(x => foundFileIds.Contains( x.Id )).Sum(f=>f.Size);
+                }
+
+                return result;
+            }
+        }
+
 
         /// <inheritdoc/>
         public DbSignedFileModel FindSignedFile(DbSearchParameters search)
@@ -325,6 +366,7 @@ namespace eContracting.Services
                         var file = await context.Files.FirstOrDefaultAsync(x => x.Id == existingDbModel.OutputFileId);
                         // we need to update only content of outputfile
                         file.Content = groupModel.OutputFile.Content;
+                        file.Size = groupModel.OutputFile.Content.Length;
                         var entry = context.Entry(file);
                         entry.State = EntityState.Modified;
                         await context.SaveChangesAsync();

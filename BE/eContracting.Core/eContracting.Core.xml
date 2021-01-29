@@ -301,6 +301,13 @@
             <param name="search">The search parameters.</param>
             <returns>Data or null.</returns>
         </member>
+        <member name="M:eContracting.IUserFileCacheService.GetTotalOutputFileSize(eContracting.Models.DbSearchParameters)">
+            <summary>
+            Gets total size of UploadFileGroup output files (PDFs)
+            </summary>
+            <param name="search"></param>
+            <returns></returns>
+        </member>
         <member name="T:eContracting.Models.BasePageModel">
             <summary>
             Represents common page with <see cref="P:eContracting.Models.BasePageModel.PageTitle"/>.
@@ -1186,6 +1193,11 @@
             Determinates if offer is accepted or not.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferCacheDataModel.IsExpired">
+            <summary>
+            Determinaes if offer is expired or not.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferCacheDataModel.TextParameters">
             <summary>
             The text parameters from offer.
@@ -1501,10 +1513,66 @@
             </summary>
             <remarks>This template doesn't contain a file content.</remarks>
         </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.IdAttach">
+            <summary>
+            Gets or sets identifier of this template. It's not unique in every cases. If there are more attachment with the same value, uniqueness is compared with <see cref="P:eContracting.Models.DocumentTemplateModel.Product"/>.
+            </summary>
+            <value>Cannot be empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.Product">
+            <summary>
+            Gets or sets additional identifier of this template. Value could be empty. It could be used with <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/>.
+            </summary>
+            <value>Could be empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.Description">
+            <summary>
+            Gets or sets the description. In some cases it's used as file name.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.Obligatory">
+            <summary>
+            Gets or sets if this template is obligatory or not.
+            </summary>
+            <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.Printed">
+            <summary>
+            Gets or sets if real file exists or it's a template for upload.
+            </summary>
+            <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.SignReq">
+            <summary>
+            Gets or sets sing is required for this template.
+            </summary>
+            <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.Group">
+            <summary>
+            Gets or sets the group. Expected values: COMMODITY, DSL, NONCOMMODITY.
+            </summary>
+            <value>Shouldn't be null.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.GroupObligatory">
+            <summary>
+            Gets or sets templates with the same group are mandatory or not.
+            </summary>
+            <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
+        </member>
+        <member name="P:eContracting.Models.DocumentTemplateModel.ItemGuid">
+            <summary>
+            Gets or sets value to get compare text parameters for a group in accept dialog.
+            </summary>
+            <value>
+            The item unique identifier.
+            </value>
+        </member>
         <member name="P:eContracting.Models.DocumentTemplateModel.ConsentType">
             <summary>
-            Gets or sets prefix for the document.
+            Gets or sets prefix for the document. Expecetd values: P or S.
             </summary>
+            <value>Shouldn't be empty.</value>
         </member>
         <member name="P:eContracting.Models.DocumentTemplateModel.UniqueKey">
             <summary>
@@ -2150,6 +2218,12 @@
             <param name="allGroups"></param>
             <param name="groupLastAdded"></param>
             <param name="fileIdLastAdded"></param>
+        </member>
+        <member name="M:eContracting.IFileOptimizer.IsOfferTotalFilesSizeInLimitAsync(System.Int32)">
+            <summary>
+            Checks if the last added file does not cause exceeding the resulting total uploaded files size limit
+            </summary>
+            <param name="actualTotalSize">Total group output files size (in bytes)</param>
         </member>
         <member name="T:eContracting.ILoginFailedAttemptBlockerStore">
             <summary>

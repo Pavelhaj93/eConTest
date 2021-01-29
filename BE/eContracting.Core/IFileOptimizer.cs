@@ -48,5 +48,12 @@ namespace eContracting
         /// <param name="groupLastAdded"></param>
         /// <param name="fileIdLastAdded"></param>
         Task<UploadGroupFileOperationResultModel> EnforceOfferTotalFilesSizeAsync(List<DbUploadGroupFileModel> allGroups, DbUploadGroupFileModel groupLastAdded, string fileIdLastAdded);
+
+        /// <summary>
+        /// Checks if the last added file does not cause exceeding the resulting total uploaded files size limit
+        /// </summary>
+        /// <param name="actualTotalSize">Total group output files size (in bytes)</param>
+        Task<bool> IsOfferTotalFilesSizeInLimitAsync(int actualTotalSize);
+
     }
 }

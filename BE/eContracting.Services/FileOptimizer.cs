@@ -154,6 +154,10 @@ namespace eContracting.Services
             }
         }
 
+        public async Task<bool> IsOfferTotalFilesSizeInLimitAsync(int actualTotalSize)
+        {
+            return actualTotalSize <= this.TotalResultingFilesSizeLimit;
+        }
 
         /// <inheritdoc/>
         public async Task<UploadGroupFileOperationResultModel> EnforceOfferTotalFilesSizeAsync(List<DbUploadGroupFileModel> allGroups, DbUploadGroupFileModel groupLastAdded, string fileIdLastAdded)
@@ -367,7 +371,8 @@ namespace eContracting.Services
                     outputPdfDocument.Version = 14;
 
                 outputPdfDocument.Save(outputFileWriteMemoryStream);
-                group.OutputFile.Content = outputFileWriteMemoryStream.ToArray();                
+                group.OutputFile.Content = outputFileWriteMemoryStream.ToArray();
+                //group.OutputFile.Size = group.OutputFile.Content.Length;
             }
         }
 
@@ -461,6 +466,7 @@ namespace eContracting.Services
                                         {
                                             // prepis puvodni obraze jedine pokud je novy datove mensi
                                             originalFile.Content = resizedImageMemoryStream.ToArray();
+                                           // originalFile.Size = originalFile.Content.Length;
                                         }
                                         else
                                         {
@@ -475,6 +481,7 @@ namespace eContracting.Services
                                                 if (resizedImageMemoryStreamJpeg.Length < originalFile.Content.Length)
                                                 {
                                                     originalFile.Content = resizedImageMemoryStreamJpeg.ToArray();
+                                         //           originalFile.Size = originalFile.Content.Length;
                                                 }
                                                 else
                                                 {
