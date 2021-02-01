@@ -548,6 +548,14 @@
         <member name="M:eContracting.Services.OfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferAttachmentParserService.ExcludeDocumentsForAcceptedOffer(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+            <summary>
+            Excludes <see cref="T:eContracting.Models.DocumentTemplateModel"/> from <see cref="P:eContracting.Models.OfferModel.Documents"/> for accepted offer when real <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> doesn't exist.
+            </summary>
+            <remarks>Accepted offer contains only accepted and signed files.</remarks>
+            <param name="offer">The offer.</param>
+            <param name="files">The files.</param>
+        </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
             Gets IDATTACH value from given <paramref name="file"/>.

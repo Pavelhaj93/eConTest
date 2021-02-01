@@ -46,12 +46,7 @@ namespace eContracting.Services
 
             foreach (var file in files)
             {
-                builder.AppendLine($" - [{counter}] {file.OriginalFileName}");
-                builder.AppendLine($"  name: {file.FileName}");
-                builder.AppendLine($"  size: {file.SizeLabel}");
-                builder.AppendLine($"  group: {file.Group}");
-                builder.AppendLine($"  sign: {file.IsSignReq}");
-                builder.AppendLine($"  printed: {file.IsPrinted}");
+                builder.AppendLine($" - [{counter}] {file.OriginalFileName} {file.FileName} ({file.SizeLabel}) => group: {file.Group}, sign: {file.IsSignReq}, printed: {file.IsPrinted}");
                 counter++;
                 totalSize += file.Size;
             }

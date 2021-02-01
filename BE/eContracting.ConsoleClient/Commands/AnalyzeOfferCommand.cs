@@ -106,10 +106,14 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
+                this.Console.WriteLine();
+
                 var model = this.OfferDescriptor.GetNew(offer, attachments);
 
                 if (model.Perex != null)
                 {
+                    this.Console.WriteLineSuccess("Perex:");
+
                     for (int i = 0; i < model.Perex.Parameters.Length; i++)
                     {
                         var p = model.Perex.Parameters[i];
