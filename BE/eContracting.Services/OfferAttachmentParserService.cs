@@ -71,7 +71,7 @@ namespace eContracting.Services
         }
         
         /// <inheritdoc/>
-        public bool Equals(DocumentTemplateModel template, ZCCH_ST_FILE file)
+        public bool Equals(OfferAttachmentXmlModel template, ZCCH_ST_FILE file)
         {
             // IDATTACH cannot be empty!
             if (string.IsNullOrWhiteSpace(template.IdAttach))
@@ -83,7 +83,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public ZCCH_ST_FILE GetFileByTemplate(DocumentTemplateModel template, ZCCH_ST_FILE[] files)
+        public ZCCH_ST_FILE GetFileByTemplate(OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files)
         {
             for (int y = 0; y < files.Length; y++)
             {
@@ -163,7 +163,7 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Excludes <see cref="DocumentTemplateModel"/> from <see cref="OfferModel.Documents"/> for accepted offer when real <see cref="ZCCH_ST_FILE"/> doesn't exist.
+        /// Excludes <see cref="OfferAttachmentXmlModel"/> from <see cref="OfferModel.Documents"/> for accepted offer when real <see cref="ZCCH_ST_FILE"/> doesn't exist.
         /// </summary>
         /// <remarks>Accepted offer contains only accepted and signed files.</remarks>
         /// <param name="offer">The offer.</param>
@@ -172,7 +172,7 @@ namespace eContracting.Services
         {
             if (offer.IsAccepted)
             {
-                var updatedDocuments = new List<DocumentTemplateModel>();
+                var updatedDocuments = new List<OfferAttachmentXmlModel>();
 
                 for (int i = 0; i < offer.Documents.Length; i++)
                 {
@@ -245,7 +245,7 @@ namespace eContracting.Services
             return list.ToArray();
         }
 
-        protected internal void MakeCompatible(OfferModel offer, DocumentTemplateModel template, int index)
+        protected internal void MakeCompatible(OfferModel offer, OfferAttachmentXmlModel template, int index)
         {
             if (string.IsNullOrEmpty(template.Group))
             {
@@ -379,7 +379,7 @@ namespace eContracting.Services
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
         /// <returns>Attachment model or null when matching file not found.</returns>
-        protected internal OfferAttachmentModel GetModel(OfferModel offer, DocumentTemplateModel template, ZCCH_ST_FILE[] files)
+        protected internal OfferAttachmentModel GetModel(OfferModel offer, OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files)
         {
             OfferAttachmentModel item = null;
             // if attachment exists in files

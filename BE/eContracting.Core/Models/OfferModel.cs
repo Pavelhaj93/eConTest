@@ -186,7 +186,7 @@ namespace eContracting.Models
         }
 
         [JsonProperty("templates")]
-        public DocumentTemplateModel[] Documents
+        public OfferAttachmentXmlModel[] Documents
         {
             get
             {

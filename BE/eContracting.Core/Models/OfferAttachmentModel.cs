@@ -189,7 +189,7 @@ namespace eContracting.Models
 
         #endregion
 
-        public readonly DocumentTemplateModel DocumentTemplate;
+        public readonly OfferAttachmentXmlModel DocumentTemplate;
 
         /// <summary>
         /// Prevents a default instance of the <see cref="OfferAttachmentModel"/> class from being created.
@@ -204,7 +204,7 @@ namespace eContracting.Models
         /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
         /// </summary>
         /// <param name="template">The template.</param>
-        public OfferAttachmentModel(DocumentTemplateModel template) : this(template, null, null, null, null)
+        public OfferAttachmentModel(OfferAttachmentXmlModel template) : this(template, null, null, null, null)
         {
         }
 
@@ -216,7 +216,7 @@ namespace eContracting.Models
         /// <param name="originalFileName">Name of the original file.</param>
         /// <param name="attributes">The attributes.</param>
         /// <param name="content">The content.</param>
-        public OfferAttachmentModel(DocumentTemplateModel template, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content)
+        public OfferAttachmentModel(OfferAttachmentXmlModel template, string mimeType, string originalFileName, OfferAttributeModel[] attributes, byte[] content)
         {
             if (template == null)
             {
@@ -277,7 +277,7 @@ namespace eContracting.Models
 
         public OfferAttachmentModel Clone(byte[] newFileContent)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.AddInfo = this.DocumentTemplate.AddInfo;
             template.ConsentType = this.DocumentTemplate.ConsentType;
             template.Description = this.DocumentTemplate.Description;
@@ -296,7 +296,7 @@ namespace eContracting.Models
             return model;
         }
 
-        protected string GetFileNameExtension(DocumentTemplateModel template, string originalFileName)
+        protected string GetFileNameExtension(OfferAttachmentXmlModel template, string originalFileName)
         {
             var ext = Path.GetExtension(originalFileName);
             return template.Description + ext;

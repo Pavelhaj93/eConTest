@@ -11,7 +11,7 @@ namespace eContracting.Models
     /// <remarks>This template doesn't contain a file content.</remarks>
     [Serializable]
     [ExcludeFromCodeCoverage]
-    public class DocumentTemplateModel
+    public class OfferAttachmentXmlModel
     {
         [XmlElement(Constants.FileAttributes.SEQUENCE_NUMBER)]
         [JsonIgnore]

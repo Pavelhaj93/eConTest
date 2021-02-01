@@ -218,7 +218,7 @@ namespace eContracting.Models
 
         [XmlArrayItem("Template")]
         [XmlArray("Attachments")]
-        public DocumentTemplateModel[] Attachments { get; set; }
+        public OfferAttachmentXmlModel[] Attachments { get; set; }
 
         /// <summary>
         /// Gets the specified XML element by <paramref name="xmlElementAttribuName"/> from this object.

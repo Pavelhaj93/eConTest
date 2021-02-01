@@ -80,7 +80,7 @@ namespace eContracting.Models
         {
             var templateValue = this.File.Attributes.FirstOrDefault(x => x.Name == "template")?.Value;
             var fileAttributesValue = this.File.Attributes.FirstOrDefault(x => x.Name == "attributes")?.Value;
-            var template = templateValue != null ? JsonConvert.DeserializeObject<DocumentTemplateModel>(templateValue) : null;
+            var template = templateValue != null ? JsonConvert.DeserializeObject<OfferAttachmentXmlModel>(templateValue) : null;
             var fileAttributes = fileAttributesValue != null ? JsonConvert.DeserializeObject<OfferAttributeModel[]>(fileAttributesValue) : null;
             var model = new OfferAttachmentModel(template, this.File.MimeType, this.File.FileName, fileAttributes, this.File.Content);
             return model;

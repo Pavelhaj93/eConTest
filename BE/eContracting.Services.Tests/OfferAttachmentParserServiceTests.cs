@@ -45,7 +45,7 @@ namespace eContracting.Services.Tests
             var file = new ZCCH_ST_FILE();
             file.ATTRIB = new[] { attr };
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = iddattach;
 
             var service = new OfferAttachmentParserService(logger);
@@ -66,7 +66,7 @@ namespace eContracting.Services.Tests
             var file = new ZCCH_ST_FILE();
             file.ATTRIB = new[] { attr };
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = "BBB";
 
             var service = new OfferAttachmentParserService(logger);
@@ -136,7 +136,7 @@ namespace eContracting.Services.Tests
         public void Equals_Returns_False_When_Template_Idattach_Missing()
         {
             var logger = new MemoryLogger();
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = null;
             var file = new ZCCH_ST_FILE();
 
@@ -150,7 +150,7 @@ namespace eContracting.Services.Tests
         public void Equals_Returns_False_If_Idattach_Not_Matches()
         {
             var logger = new MemoryLogger();
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = "ID1";
             var file = new ZCCH_ST_FILE();
             file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "WRONG" } };
@@ -167,7 +167,7 @@ namespace eContracting.Services.Tests
             var idattach = "A10";
 
             var logger = new MemoryLogger();
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = idattach;
             var file = new ZCCH_ST_FILE();
             file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = idattach } };
@@ -188,7 +188,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, version);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
             template.Group = null;
 
@@ -205,7 +205,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, 1);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
             template.Printed = null;
 
@@ -223,7 +223,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, 2);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
             template.Printed = null;
 
@@ -241,7 +241,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, 1);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Plná moc";
             template.SignReq = Constants.FileAttributeValues.CHECK_VALUE;
             template.ConsentType = null;
@@ -259,7 +259,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, 1);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
             template.ConsentType = null;
 
@@ -276,7 +276,7 @@ namespace eContracting.Services.Tests
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid, false, 1);
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
             template.ConsentType = null;
 
@@ -292,7 +292,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
             var guid = Guid.NewGuid().ToString("N");
 
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Description = "Plná moc";
             template.IdAttach = "A10";
             template.SignReq = Constants.FileAttributeValues.CHECK_VALUE;
@@ -385,7 +385,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
             var file = new ZCCH_ST_FILE();
             file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
-            var attachment = new DocumentTemplateModel();
+            var attachment = new OfferAttachmentXmlModel();
             attachment.IdAttach = "BBB";
             attachment.Printed = "X";
             attachment.Description = "file.pdf";
@@ -406,7 +406,7 @@ namespace eContracting.Services.Tests
             file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
             file.MIMETYPE = "application/pdf-asfbasd";
             file.FILENAME = "BN_512312414_A10.pdf";
-            var attachment = new DocumentTemplateModel();
+            var attachment = new OfferAttachmentXmlModel();
             attachment.IdAttach = "AAA";
             attachment.Printed = "X";
             attachment.Description = "file.pdf";
@@ -431,7 +431,7 @@ namespace eContracting.Services.Tests
             file.ATTRIB = new[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "AAA" } };
             file.MIMETYPE = "application/pdf-asfbasd";
             file.FILENAME = "BN_512312414_A10.pdf";
-            var attachment = new DocumentTemplateModel();
+            var attachment = new OfferAttachmentXmlModel();
             attachment.IdAttach = "AAA";
             attachment.Printed = null; // this is important
             attachment.Description = "file.pdf";

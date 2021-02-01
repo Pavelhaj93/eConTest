@@ -15,7 +15,7 @@ namespace eContracting.Core.Tests.Models
         [InlineData("x")]
         public void IsSignRequired_Returns_True_When_Value_Equals_X(string value)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.SignReq = value;
 
             Assert.True(template.IsSignRequired());
@@ -26,7 +26,7 @@ namespace eContracting.Core.Tests.Models
         [InlineData("x")]
         public void IsPrinted_Returns_True_When_Value_Equals_X(string value)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Printed = value;
 
             Assert.True(template.IsPrinted());
@@ -37,7 +37,7 @@ namespace eContracting.Core.Tests.Models
         [InlineData("x")]
         public void IsObligatory_Returns_True_When_Value_Equals_X(string value)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Obligatory = value;
 
             Assert.True(template.IsObligatory());
@@ -48,7 +48,7 @@ namespace eContracting.Core.Tests.Models
         [InlineData("x")]
         public void IsGroupObligatory_Returns_True_When_Value_Equals_X(string value)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.GroupObligatory = value;
 
             Assert.True(template.IsGroupObligatory());
@@ -57,7 +57,7 @@ namespace eContracting.Core.Tests.Models
         [Fact]
         public void GetUniqueKey()
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = "ABC";
             template.Group = "ACTUM Digital";
             template.Description = "Just to generate MD5 hash";

@@ -21,7 +21,7 @@ namespace eContracting
         /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="file">The file.</param>
-        bool Equals(DocumentTemplateModel template, ZCCH_ST_FILE file);
+        bool Equals(OfferAttachmentXmlModel template, ZCCH_ST_FILE file);
 
         /// <summary>
         /// Find a file which matches to its <paramref name="template"/>.
@@ -29,7 +29,7 @@ namespace eContracting
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
         /// <returns>File or null.</returns>
-        ZCCH_ST_FILE GetFileByTemplate(DocumentTemplateModel template, ZCCH_ST_FILE[] files);
+        ZCCH_ST_FILE GetFileByTemplate(OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files);
 
         /// <summary>
         /// Makes compatible offer templates and offer files.

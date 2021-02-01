@@ -539,10 +539,10 @@
         <member name="M:eContracting.Services.OfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.Equals(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE)">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.Equals(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE[])">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
@@ -550,7 +550,7 @@
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.ExcludeDocumentsForAcceptedOffer(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
-            Excludes <see cref="T:eContracting.Models.DocumentTemplateModel"/> from <see cref="P:eContracting.Models.OfferModel.Documents"/> for accepted offer when real <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> doesn't exist.
+            Excludes <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> from <see cref="P:eContracting.Models.OfferModel.Documents"/> for accepted offer when real <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> doesn't exist.
             </summary>
             <remarks>Accepted offer contains only accepted and signed files.</remarks>
             <param name="offer">The offer.</param>
@@ -599,7 +599,7 @@
             </exception>
             <exception cref="T:System.AggregateException">Check of offer templates and offer files failed</exception>
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.GetModel(eContracting.Models.OfferModel,eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetModel(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
             Gets <see cref="T:eContracting.Models.OfferAttachmentModel"/> created from a <paramref name="template"/>.
             </summary>

@@ -323,7 +323,7 @@ namespace eContracting.Services
 
             if (version == 1 && offerXml.Content.Body.Attachments != null)
             {
-                var list = new List<DocumentTemplateModel>();
+                var list = new List<OfferAttachmentXmlModel>();
 
                 for (int i = 0; i < offerXml.Content.Body.Attachments.Length; i++)
                 {
@@ -348,7 +348,7 @@ namespace eContracting.Services
         {
             if (offerXml.Content.Body.Attachments.Any(x => x.IsPrinted() == false && x.IsObligatory() == true))
             {
-                var list = new List<DocumentTemplateModel>(offerXml.Content.Body.Attachments);
+                var list = new List<OfferAttachmentXmlModel>(offerXml.Content.Body.Attachments);
                 list.Add(this.GetCustomUploadModel());
                 offerXml.Content.Body.Attachments = list.ToArray();
             }
@@ -430,9 +430,9 @@ namespace eContracting.Services
         /// Creates model for custom, not mandatory, upload.
         /// </summary>
         /// <returns>The template model.</returns>
-        protected internal DocumentTemplateModel GetCustomUploadModel()
+        protected internal OfferAttachmentXmlModel GetCustomUploadModel()
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.AddInfo = string.Empty;
             template.Description = "Custom upload"; //TODO: Add label from Sitecore
             template.Group = "COMMODITY";

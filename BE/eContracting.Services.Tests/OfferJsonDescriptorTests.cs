@@ -19,7 +19,7 @@ namespace eContracting.Services.Tests
             var definition = new DefinitionCombinationModel();
             definition.OfferCommoditiesAcceptTitle = new SimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "Dokumenty k akceptaci";
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
             template.SignReq = null;
             var attachment = new OfferAttachmentModel(template, "applicatin/pdf", "asdfas", null, null);
@@ -46,7 +46,7 @@ namespace eContracting.Services.Tests
             var definition = new DefinitionCombinationModel();
             definition.OfferCommoditiesSignTitle = new SimpleTextModel();
             definition.OfferCommoditiesSignTitle.Text = "Plná moc";
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
             template.SignReq = Constants.FileAttributeValues.CHECK_VALUE;
             var attachment = new OfferAttachmentModel(template, "applicatin/pdf", "asdfas", null, null);
@@ -73,7 +73,7 @@ namespace eContracting.Services.Tests
             var definition = new DefinitionCombinationModel();
             definition.OfferAdditionalServicesTitle = new SimpleTextModel();
             definition.OfferAdditionalServicesTitle.Text = "Smlouva o pronájmu";
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Group = "DSL";
             template.SignReq = null;
             var attachment = new OfferAttachmentModel(template, "applicatin/pdf", "asdfas", null, null);
@@ -100,7 +100,7 @@ namespace eContracting.Services.Tests
             var definition = new DefinitionCombinationModel();
             definition.OfferOtherProductsDocsTitle = new SimpleTextModel();
             definition.OfferOtherProductsDocsTitle.Text = "Smlouva o pronájmu";
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.Group = "NONCOMMODITY";
             template.SignReq = null;
             var attachment = new OfferAttachmentModel(template, "applicatin/pdf", "asdfas", null, null);
@@ -129,19 +129,19 @@ namespace eContracting.Services.Tests
             definition.OfferCommoditiesAcceptTitle = new SimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "abc";
 
-            var template1 = new DocumentTemplateModel();
+            var template1 = new OfferAttachmentXmlModel();
             template1.Group = "COMMODITY";
             template1.Printed = Constants.FileAttributeValues.CHECK_VALUE;
             template1.SignReq = null;
             var attachment1 = new OfferAttachmentModel(template1, "applicatin/pdf", "aaa", null, null);
 
-            var template2 = new DocumentTemplateModel();
+            var template2 = new OfferAttachmentXmlModel();
             template2.Group = "DSL";
             template2.Printed = Constants.FileAttributeValues.CHECK_VALUE;
             template1.SignReq = null;
             var attachment2 = new OfferAttachmentModel(template2, "applicatin/pdf", "bbb", null, null);
 
-            var template3 = new DocumentTemplateModel();
+            var template3 = new OfferAttachmentXmlModel();
             template3.Group = "NONCOMMODITY";
             template3.Printed = Constants.FileAttributeValues.CHECK_VALUE;
             template1.SignReq = null;

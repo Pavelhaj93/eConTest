@@ -164,9 +164,9 @@ namespace eContracting
         /// Gets the unique key for template document.
         /// </summary>
         /// <param name="template">The template.</param>
-        /// <returns>Hash of <see cref="DocumentTemplateModel.IdAttach"/> + <see cref="DocumentTemplateModel.Group"/> + <see cref="DocumentTemplateModel.Description"/></returns>
+        /// <returns>Hash of <see cref="OfferAttachmentXmlModel.IdAttach"/> + <see cref="OfferAttachmentXmlModel.Group"/> + <see cref="OfferAttachmentXmlModel.Description"/></returns>
         [ExcludeFromCodeCoverage]
-        public static string GetUniqueKey(DocumentTemplateModel template)
+        public static string GetUniqueKey(OfferAttachmentXmlModel template)
         {
             var data = template.IdAttach + template.Group + template.Description;
             return GetMd5(data);
@@ -214,7 +214,7 @@ namespace eContracting
         /// </summary>
         /// <param name="template">The template.</param>
         /// <returns>Collection with IDATTACH attribute.</returns>
-        public static ZCCH_ST_ATTRIB[] CreateAttributesFromTemplate(DocumentTemplateModel template)
+        public static ZCCH_ST_ATTRIB[] CreateAttributesFromTemplate(OfferAttachmentXmlModel template)
         {
             var attributes = new List<ZCCH_ST_ATTRIB>();
             attributes.Add(new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.SEQUENCE_NUMBER, ATTRVAL = template.SequenceNumber ?? string.Empty });

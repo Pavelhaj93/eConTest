@@ -969,13 +969,13 @@
             Prevents a default instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class from being created.
             </summary>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel)">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.OfferAttachmentXmlModel)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
             <param name="template">The template.</param>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.DocumentTemplateModel,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.OfferAttachmentXmlModel,System.String,System.String,eContracting.Models.OfferAttributeModel[],System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
@@ -1512,60 +1512,60 @@
             <param name="response">The response.</param>
             <exception cref="T:System.ArgumentNullException">response</exception>
         </member>
-        <member name="T:eContracting.Models.DocumentTemplateModel">
+        <member name="T:eContracting.Models.OfferAttachmentXmlModel">
             <summary>
             Represents document template from <see cref="F:eContracting.OFFER_TYPES.NABIDKA"/>.
             </summary>
             <remarks>This template doesn't contain a file content.</remarks>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.IdAttach">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach">
             <summary>
-            Gets or sets identifier of this template. It's not unique in every cases. If there are more attachment with the same value, uniqueness is compared with <see cref="P:eContracting.Models.DocumentTemplateModel.Product"/>.
+            Gets or sets identifier of this template. It's not unique in every cases. If there are more attachment with the same value, uniqueness is compared with <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Product"/>.
             </summary>
             <value>Cannot be empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.Product">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Product">
             <summary>
-            Gets or sets additional identifier of this template. Value could be empty. It could be used with <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/>.
+            Gets or sets additional identifier of this template. Value could be empty. It could be used with <see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/>.
             </summary>
             <value>Could be empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.Description">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Description">
             <summary>
             Gets or sets the description. In some cases it's used as file name.
             </summary>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.Obligatory">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Obligatory">
             <summary>
             Gets or sets if this template is obligatory or not.
             </summary>
             <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.Printed">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Printed">
             <summary>
             Gets or sets if real file exists or it's a template for upload.
             </summary>
             <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.SignReq">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.SignReq">
             <summary>
             Gets or sets sing is required for this template.
             </summary>
             <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.Group">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.Group">
             <summary>
             Gets or sets the group. Expected values: COMMODITY, DSL, NONCOMMODITY.
             </summary>
             <value>Shouldn't be null.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.GroupObligatory">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.GroupObligatory">
             <summary>
             Gets or sets templates with the same group are mandatory or not.
             </summary>
             <value><see cref="F:eContracting.Constants.FileAttributeValues.CHECK_VALUE"/> or empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.ItemGuid">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.ItemGuid">
             <summary>
             Gets or sets value to get compare text parameters for a group in accept dialog.
             </summary>
@@ -1573,23 +1573,23 @@
             The item unique identifier.
             </value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.ConsentType">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.ConsentType">
             <summary>
             Gets or sets prefix for the document. Expecetd values: P or S.
             </summary>
             <value>Shouldn't be empty.</value>
         </member>
-        <member name="P:eContracting.Models.DocumentTemplateModel.UniqueKey">
+        <member name="P:eContracting.Models.OfferAttachmentXmlModel.UniqueKey">
             <summary>
             Gets the unique key for this template.
             </summary>
         </member>
-        <member name="M:eContracting.Models.DocumentTemplateModel.ToString">
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.ToString">
             <summary>
             Converts to string.
             </summary>
             <returns>
-            A <see cref="T:System.String" /> with <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> and <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/>.
+            A <see cref="T:System.String" /> with <see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/> and <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Description"/>.
             </returns>
         </member>
         <member name="T:eContracting.ServiceFactory">
@@ -2279,14 +2279,14 @@
             <param name="files">The files.</param>
             <returns>Array of files.</returns>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.Equals(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE)">
+        <member name="M:eContracting.IOfferAttachmentParserService.Equals(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE)">
             <summary>
             Determinates if <paramref name="template"/> is relevant for this <paramref name="file"/>.
             </summary>
             <param name="template">The template.</param>
             <param name="file">The file.</param>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.DocumentTemplateModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE[])">
             <summary>
             Find a file which matches to its <paramref name="template"/>.
             </summary>
@@ -2688,12 +2688,12 @@
             <param name="offer">The offer.</param>
             <returns>Generated key.</returns>
         </member>
-        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.DocumentTemplateModel)">
+        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.OfferAttachmentXmlModel)">
             <summary>
             Gets the unique key for template document.
             </summary>
             <param name="template">The template.</param>
-            <returns>Hash of <see cref="P:eContracting.Models.DocumentTemplateModel.IdAttach"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Group"/> + <see cref="P:eContracting.Models.DocumentTemplateModel.Description"/></returns>
+            <returns>Hash of <see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Group"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Description"/></returns>
         </member>
         <member name="M:eContracting.Utils.GetRawXml(eContracting.Services.ZCCH_ST_FILE)">
             <summary>
@@ -2714,7 +2714,7 @@
             Gets value from 'HttpContext.Current.Request', first try take it from 'ServerVariables["HTTP_X_FORWARDED_FOR"]', if it's empty, try take it from 'ServerVariables["REMOTE_ADDR"]'.
             </summary>
         </member>
-        <member name="M:eContracting.Utils.CreateAttributesFromTemplate(eContracting.Models.DocumentTemplateModel)">
+        <member name="M:eContracting.Utils.CreateAttributesFromTemplate(eContracting.Models.OfferAttachmentXmlModel)">
             <summary>
             Creates the attribute(s) from template.
             </summary>

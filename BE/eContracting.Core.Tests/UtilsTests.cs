@@ -283,7 +283,7 @@ namespace eContracting.Core.Tests
         public void CreateAttributesFromTemplate_Returns_Attributes_IDATTACH_From_Template()
         {
             var idAttachValue = "XYZ";
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             template.IdAttach = idAttachValue;
 
             var result = Utils.CreateAttributesFromTemplate(template);
@@ -308,7 +308,7 @@ namespace eContracting.Core.Tests
         [InlineData(Constants.FileAttributes.TMST_REQ, "X")]
         public void CreateAttributesFromTemplate_Returns_Attributes_With_All_Properties_From_Template(string key, string value)
         {
-            var template = new DocumentTemplateModel();
+            var template = new OfferAttachmentXmlModel();
             var t = template.GetType();
             var props = t.GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
 
