@@ -40,6 +40,7 @@ namespace eContracting.Services
             }
 
             this.MakeCompatible(offer, files);
+            this.ExcludeDocumentsForAcceptedOffer(offer, files);
             this.Check(offer, files);
 
             var list = new List<OfferAttachmentModel>();
@@ -158,6 +159,38 @@ namespace eContracting.Services
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Excludes <see cref="DocumentTemplateModel"/> from <see cref="OfferModel.Documents"/> for accepted offer when real <see cref="ZCCH_ST_FILE"/> doesn't exist.
+        /// </summary>
+        /// <remarks>Accepted offer contains only accepted and signed files.</remarks>
+        /// <param name="offer">The offer.</param>
+        /// <param name="files">The files.</param>
+        protected internal void ExcludeDocumentsForAcceptedOffer(OfferModel offer, ZCCH_ST_FILE[] files)
+        {
+            if (offer.IsAccepted)
+            {
+                var updatedDocuments = new List<DocumentTemplateModel>();
+
+                for (int i = 0; i < offer.Documents.Length; i++)
+                {
+                    var t = offer.Documents[i];
+
+                    var file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+
+                    if (file != null)
+                    {
+                        updatedDocuments.Add(t);
+                    }
+                    else
+                    {
+                        this.Logger.Info(offer.Guid, $"Attachment {t.IdAttach} excluded from accepted offer because real file doesn't exist");
+                    }
+                }
+
+                offer.Xml.Content.Body.Attachments = updatedDocuments.ToArray();
             }
         }
 
