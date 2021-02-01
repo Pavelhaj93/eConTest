@@ -100,7 +100,7 @@ namespace eContracting.Services
 
             this.Logger.Debug(offer.Guid, startingLog.ToString());
 
-            string timestampString = when.ToString("yyyyMMddHHmmss");
+            string timestampString = when.ToString(Constants.TimeStampFormat);
             Decimal outValue = 1M;
             Decimal.TryParse(timestampString, out outValue);
 
@@ -488,8 +488,9 @@ namespace eContracting.Services
         /// <returns>Response from inner service.</returns>
         protected internal ZCCH_CACHE_STATUS_SETResponse1 SetStatus(string guid, OFFER_TYPES type, string status)
         {
-            var timestampString = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+            var timestampString = DateTime.UtcNow.ToString(Constants.TimeStampFormat);
             decimal outValue = 1M;
+            Decimal.TryParse(timestampString, out outValue);
             var response = this.SetStatus(guid, type, outValue, status);
             return response;
         }

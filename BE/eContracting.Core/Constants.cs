@@ -8,6 +8,7 @@ namespace eContracting
     public static class Constants
     {
         public const string DatabaseContextConnectionStringName = "eContractingContext";
+        public const string TimeStampFormat = "yyyyMMddHHmmss";
 
         public static class OfferAttributes
         {
