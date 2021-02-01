@@ -338,12 +338,12 @@ namespace eContracting.Services
                 file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsGroupOblig;
+                file.Mandatory = selectedFile.IsRequired;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
 
                 list.Add(file);
 
-                if (selectedFile.IsObligatory)
+                if (file.Mandatory)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
@@ -377,11 +377,11 @@ namespace eContracting.Services
                 file.IdAttach = selectedFile.IdAttach;
                 file.Label = selectedFile.FileName;
                 file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsGroupOblig;
+                file.Mandatory = selectedFile.IsRequired;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 list.Add(file);
 
-                if (selectedFile.IsObligatory)
+                if (file.Mandatory)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
@@ -411,9 +411,9 @@ namespace eContracting.Services
                 file.IdAttach = template.IdAttach;
                 file.Title = template.FileName;
                 file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
-                file.Mandatory = template.IsObligatory;
+                file.Mandatory = template.IsRequired;
 
-                if (template.IsObligatory)
+                if (file.Mandatory)
                 {
                     model.MandatoryGroups.Add(template.GroupGuid);
                 }
@@ -470,9 +470,9 @@ namespace eContracting.Services
                 file.Label = selectedFile.FileName;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsObligatory;
+                file.Mandatory = selectedFile.IsRequired;
 
-                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
+                if (file.Mandatory)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
@@ -508,9 +508,9 @@ namespace eContracting.Services
                 file.Label = selectedFile.FileName;
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsObligatory;
+                file.Mandatory = selectedFile.IsRequired;
 
-                if (selectedFile.IsObligatory || selectedFile.IsGroupOblig)
+                if (file.Mandatory)
                 {
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }

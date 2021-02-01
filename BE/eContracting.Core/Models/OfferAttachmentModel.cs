@@ -83,8 +83,14 @@ namespace eContracting.Models
         /// <summary>
         /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.GROUP_OBLIG"/> with value 'X'.
         /// </summary>
-        [JsonProperty("isGroupObl")]
-        public readonly bool IsGroupOblig;
+        [JsonProperty("isGroupObligatory")]
+        public readonly bool IsGroupObligatory;
+
+        /// <summary>
+        /// Determinates if this attachment is obligatory or not.
+        /// </summary>
+        [JsonProperty("isObligatory")]
+        public readonly bool IsObligatory;
 
         /// <summary>
         /// Gets <c>true</c> if there is <see cref="Constants.FileAttributes.PRINTED"/> with value 'X'.
@@ -105,11 +111,6 @@ namespace eContracting.Models
         public readonly bool SignedVersion;
 
         /// <summary>
-        /// Determinates if this attachment is obligatory or not.
-        /// </summary>
-        public readonly bool IsObligatory;
-
-        /// <summary>
         /// Gets or sets file content. Always returns array.
         /// </summary>
         [JsonIgnore]
@@ -125,6 +126,18 @@ namespace eContracting.Models
         /// Group in which the template is.
         /// </summary>
         public readonly string GroupGuid;
+
+        /// <summary>
+        /// Gets <c>true</c> is <see cref="IsObligatory"/> == true OR <see cref="IsGroupObligatory"/> == true.
+        /// </summary>
+        [JsonProperty("isRequired")]
+        public bool IsRequired
+        {
+            get
+            {
+                return this.IsObligatory || this.IsGroupObligatory;
+            }
+        }
 
         /// <summary>
         /// Gets the size.
@@ -230,7 +243,7 @@ namespace eContracting.Models
             this.ConsentType = template.ConsentType;
             this.TemplAlcId = template.TemplAlcId;
             this.IsObligatory = template.IsObligatory();
-            this.IsGroupOblig = template.IsGroupObligatory();
+            this.IsGroupObligatory = template.IsGroupObligatory();
             this.IsPrinted = template.IsPrinted();
             this.IsSignReq = template.IsSignRequired();
             this.IdAttach = template.IdAttach;

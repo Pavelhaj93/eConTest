@@ -154,14 +154,14 @@ namespace eContracting.Core.Tests.Models
         }
 
         [Fact]
-        public void Constructor_Correctly_Sets_Property_IsGroupOblig()
+        public void Constructor_Correctly_Sets_Property_IsGroupObligatory()
         {
             DocumentTemplateModel template = new DocumentTemplateModel();
             template.GroupObligatory = Constants.FileAttributeValues.CHECK_VALUE;
 
             var model = new OfferAttachmentModel(template, null, "BN_512312414_A10.pdf", null, null);
 
-            Assert.True(model.IsGroupOblig);
+            Assert.True(model.IsGroupObligatory);
         }
 
         [Fact]
