@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Col, Form, Row, Table } from 'react-bootstrap'
 import classNames from 'classnames'
+import Media from 'react-media'
 import {
   Box,
   BoxHeading,
@@ -14,9 +15,10 @@ import {
   Gift,
   Icon,
   SignatureModal,
+  SignButton,
   UploadZone,
 } from '@components'
-import { colors } from '@theme'
+import { breakpoints, colors } from '@theme'
 import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { isIE11 } from '@utils'
@@ -331,27 +333,31 @@ export const Offer: React.FC<View> = observer(
                               {label}
                             </a>
                           </span>
-                          {accepted ? (
-                            <Button
-                              variant="primary"
-                              className="btn-icon ml-auto form-item-wrapper__btn"
-                              aria-label={t('signatureEditBtn')}
-                              onClick={() => openSignatureModal(key)}
-                              aria-describedby="signBtnDescription"
-                            >
-                              <Icon name="edit" size={18} color={colors.white} />
-                            </Button>
-                          ) : (
-                            <Button
-                              variant="secondary"
-                              className="ml-auto form-item-wrapper__btn"
-                              onClick={() => openSignatureModal(key)}
-                              aria-describedby="signBtnDescription"
-                            >
-                              {t('signatureBtn')}
-                            </Button>
-                          )}
+                          <SignButton
+                            className="d-none d-sm-block"
+                            signed={accepted}
+                            onClick={() => openSignatureModal(key)}
+                            labelSign={t('signatureBtn')}
+                            labelEdit={t('signatureEditBtn')}
+                            descriptionId={'signBtnDescription'}
+                            showLabelEdit={false}
+                          />
                         </div>
+                        <Media query={{ maxWidth: breakpoints.smMax }}>
+                          {matches =>
+                            matches && (
+                              <SignButton
+                                className="btn-block-mobile mt-3"
+                                signed={accepted}
+                                onClick={() => openSignatureModal(key)}
+                                labelSign={t('signatureBtn')}
+                                labelEdit={t('signatureEditBtn')}
+                                descriptionId={'signBtnDescription'}
+                                showLabelEdit={true}
+                              />
+                            )
+                          }
+                        </Media>
                       </div>
                     ))}
                     <div
