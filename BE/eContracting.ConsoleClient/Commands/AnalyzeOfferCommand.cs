@@ -35,7 +35,8 @@ namespace eContracting.ConsoleClient.Commands
         [Execute]
         public async Task Execute(
             [Argument(Description = "unique identifier for an offer")] string guid,
-            [Argument] bool debug = true)
+            [Argument(Description = "print output as for not accepted version")] bool asNew = true,
+            [Argument(Description = "add log data into output")] bool debug = true)
         {
             using (new ConsoleLoggerSuspender(this.Logger, !debug))
             {
@@ -108,129 +109,160 @@ namespace eContracting.ConsoleClient.Commands
 
                 this.Console.WriteLine();
 
-                var model = this.OfferDescriptor.GetNew(offer, attachments);
-
-                if (model.Perex != null)
+                if (!offer.IsAccepted || asNew)
                 {
-                    this.Console.WriteLineSuccess("Perex:");
+                    this.PrintNewOffer(offer, attachments);
+                }
+                else
+                {
+                    this.PrintAcceptedOffer(offer, attachments);
+                }
+            }
+        }
 
-                    for (int i = 0; i < model.Perex.Parameters.Length; i++)
-                    {
-                        var p = model.Perex.Parameters[i];
-                        this.Console.WriteLine($" - {p.Title}: {p.Value}");
-                    }
+        protected void PrintNewOffer(OfferModel offer, OfferAttachmentModel[] attachments)
+        {
+            var model = this.OfferDescriptor.GetNew(offer, attachments);
 
-                    this.Console.WriteLine();
+            if (model.Perex != null)
+            {
+                this.Console.WriteLineSuccess("Perex:");
+
+                for (int i = 0; i < model.Perex.Parameters.Length; i++)
+                {
+                    var p = model.Perex.Parameters[i];
+                    this.Console.WriteLine($" - {p.Title}: {p.Value}");
                 }
 
-                if (model.SalesArguments != null)
+                this.Console.WriteLine();
+            }
+
+            if (model.SalesArguments != null)
+            {
+                this.Console.WriteLineSuccess("Benefits:");
+
+                var benefits = model.SalesArguments.Params.ToArray();
+
+                for (int i = 0; i < benefits.Length; i++)
                 {
-                    this.Console.WriteLineSuccess("Benefits:");
+                    var b = benefits[i];
 
-                    var benefits = model.SalesArguments.Params.ToArray();
-
-                    for (int i = 0; i < benefits.Length; i++)
-                    {
-                        var b = benefits[i];
-
-                        this.Console.WriteLine($" - {b.Value}");
-                    }
-
-                    this.Console.WriteLine();
+                    this.Console.WriteLine($" - {b.Value}");
                 }
 
-                if (model.Gifts != null)
+                this.Console.WriteLine();
+            }
+
+            if (model.Gifts != null)
+            {
+                this.Console.WriteLineSuccess("Gifts:");
+
+                foreach (var group in model.Gifts.Groups)
                 {
-                    this.Console.WriteLineSuccess("Gifts:");
+                    var parameters = group.Params.ToArray();
 
-                    foreach (var group in model.Gifts.Groups)
+                    for (int i = 0; i < parameters.Length; i++)
                     {
-                        var parameters = group.Params.ToArray();
-
-                        for (int i = 0; i < parameters.Length; i++)
-                        {
-                            var p = parameters[i];
-                            this.Console.WriteLine($" - {p.Count} [{p.Icon}] {p.Title}");
-                        }
+                        var p = parameters[i];
+                        this.Console.WriteLine($" - {p.Count} [{p.Icon}] {p.Title}");
                     }
-
-                    this.Console.WriteLine();
                 }
 
-                if (model.Documents != null)
+                this.Console.WriteLine();
+            }
+
+            if (model.Documents != null)
+            {
+                if (model.Documents.Acceptance != null)
                 {
-                    if (model.Documents.Acceptance != null)
+                    if (model.Documents.Acceptance.Accept != null)
                     {
-                        if (model.Documents.Acceptance.Accept != null)
+                        this.Console.WriteLineSuccess("Documents for accept:");
+
+                        foreach (var file in model.Documents.Acceptance.Accept.Files)
                         {
-                            this.Console.WriteLineSuccess("Documents for accept:");
-
-                            foreach (var file in model.Documents.Acceptance.Accept.Files)
-                            {
-                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
-                            }
-
-                            this.Console.WriteLine();
-                            Thread.Sleep(100);
-                        }
-
-
-                        if (model.Documents.Acceptance.Sign != null)
-                        {
-                            this.Console.WriteLineSuccess("Documents for sign:");
-
-                            foreach (var file in model.Documents.Acceptance.Sign.Files)
-                            {
-                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
-                            }
-
-                            this.Console.WriteLine();
-                            Thread.Sleep(100);
-                        }
-                    }
-
-                    if (model.Documents.Uploads != null)
-                    {
-                        this.Console.WriteLineSuccess("Documents for upload:");
-
-                        foreach (var file in model.Documents.Uploads.Types)
-                        {
-                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Title}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                         }
 
                         this.Console.WriteLine();
                         Thread.Sleep(100);
                     }
 
-                    if (model.Documents.Other != null)
+
+                    if (model.Documents.Acceptance.Sign != null)
                     {
-                        if (model.Documents.Other.AdditionalServices != null)
+                        this.Console.WriteLineSuccess("Documents for sign:");
+
+                        foreach (var file in model.Documents.Acceptance.Sign.Files)
                         {
-                            this.Console.WriteLineSuccess("Documents for additional services:");
-
-                            foreach (var file in model.Documents.Other.AdditionalServices.Files)
-                            {
-                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
-                            }
-
-                            this.Console.WriteLine();
-                            Thread.Sleep(100);
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                         }
 
-                        if (model.Documents.Other.OtherProducts != null)
-                        {
-                            this.Console.WriteLineSuccess("Documents for other files:");
-
-                            foreach (var file in model.Documents.Other.OtherProducts.Files)
-                            {
-                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
-                            }
-
-                            this.Console.WriteLine();
-                            Thread.Sleep(100);
-                        }
+                        this.Console.WriteLine();
+                        Thread.Sleep(100);
                     }
                 }
+
+                if (model.Documents.Uploads != null)
+                {
+                    this.Console.WriteLineSuccess("Documents for upload:");
+
+                    foreach (var file in model.Documents.Uploads.Types)
+                    {
+                        this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Title}");
+                    }
+
+                    this.Console.WriteLine();
+                    Thread.Sleep(100);
+                }
+
+                if (model.Documents.Other != null)
+                {
+                    if (model.Documents.Other.AdditionalServices != null)
+                    {
+                        this.Console.WriteLineSuccess("Documents for additional services:");
+
+                        foreach (var file in model.Documents.Other.AdditionalServices.Files)
+                        {
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                        }
+
+                        this.Console.WriteLine();
+                        Thread.Sleep(100);
+                    }
+
+                    if (model.Documents.Other.OtherProducts != null)
+                    {
+                        this.Console.WriteLineSuccess("Documents for other files:");
+
+                        foreach (var file in model.Documents.Other.OtherProducts.Files)
+                        {
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                        }
+
+                        this.Console.WriteLine();
+                        Thread.Sleep(100);
+                    }
+                }
+            }
+        }
+
+        protected void PrintAcceptedOffer(OfferModel offer, OfferAttachmentModel[] attachments)
+        {
+            var model = this.OfferDescriptor.GetAccepted(offer, attachments);
+
+            this.Console.WriteLine();
+
+            foreach (var group in model.Groups)
+            {
+                this.Console.WriteLineSuccess(group.Title + ":");
+
+                foreach (var file in group.Files)
+                {
+                    this.Console.WriteLine(" - " + file.Label);
+                }
+
+                this.Console.WriteLine();
             }
         }
     }

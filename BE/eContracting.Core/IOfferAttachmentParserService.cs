@@ -29,7 +29,8 @@ namespace eContracting
         /// <param name="offer">The offer.</param>
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
-        /// <returns>File or null.</returns>
+        /// <returns>Always return a file or throws exception.</returns>
+        /// <exception cref="EcontractingDataException">When multiple files matches the rules or no file were found.</exception>
         OfferFileXmlModel GetFileByTemplate(OfferModel offer, OfferAttachmentXmlModel template, OfferFileXmlModel[] files);
 
         /// <summary>

@@ -42,7 +42,6 @@ namespace eContracting.Services
             this.MakeCompatible(offer, files);
             this.ExcludeDocumentsForAcceptedOffer(offer, files);
             this.Check(offer, files);
-
             var list = this.GetAttachments(offer, files);
 
             //if (offer.Documents.Length != list.Length)
@@ -55,23 +54,26 @@ namespace eContracting.Services
 
         protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, OfferFileXmlModel[] files)
         {
+            var exceptions = new List<Exception>();
             var list = new List<OfferAttachmentModel>();
 
             for (int i = 0; i < offer.Documents.Length; i++)
             {
-                var template = offer.Documents[i];
-
-                var item = this.GetModel(offer, template, files);
-
-                // should not happen, it should be handled in Check() method
-                if (item == null)
+                try
                 {
-                    throw new EcontractingDataException(new ErrorModel("OAPS-MF", $"File template with {Constants.FileAttributes.TYPE} '{template.IdAttach}' doesn't match to any file"));
-                }
-                else
-                {
+                    var template = offer.Documents[i];
+                    var item = this.GetModel(offer, template, files);
                     list.Add(item);
                 }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+
+            if (exceptions.Count > 0)
+            {
+                throw new AggregateException("Failed to parse and get all attachment models based on offer and files", exceptions);
             }
 
             return list.ToArray();
@@ -98,8 +100,9 @@ namespace eContracting.Services
 
             if (idAttach.Length == 0)
             {
-                this.Logger.Warn(offer.Guid, $"No file matches to {Constants.FileAttributes.TYPE} ({template.IdAttach})");
-                return null;
+                var msg = $"No file matches to {Constants.FileAttributes.TYPE} ({template.IdAttach})";
+                this.Logger.Warn(offer.Guid, msg);
+                throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
             if (idAttach.Length == 1)
@@ -112,22 +115,25 @@ namespace eContracting.Services
 
             if (string.IsNullOrEmpty(template.Product))
             {
-                this.Logger.Error(offer.Guid, $"Attachment doens't contain value in {Constants.FileAttributes.PRODUCT} and due to this we are not able to determinate differences between {idAttach.Length} the same files with {Constants.FileAttributes.TYPE} {template.IdAttach}");
-                return null;
+                var msg = $"Attachment doens't contain value in {Constants.FileAttributes.PRODUCT} and due to this we are not able to determinate differences between {idAttach.Length} the same files with {Constants.FileAttributes.TYPE} {template.IdAttach}";
+                this.Logger.Error(offer.Guid, msg);
+                throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
             var product = idAttach.Where(x => x.Product == template.Product).ToArray();
 
             if (product.Length == 0)
             {
-                this.Logger.Error(offer.Guid, $"No file found with {Constants.FileAttributes.TYPE} = {template.IdAttach} AND {Constants.FileAttributes.PRODUCT} = {template.Product} and due to this we are not able to determinate differences");
-                return null;
+                var msg = $"No file found with {Constants.FileAttributes.TYPE} = {template.IdAttach} AND {Constants.FileAttributes.PRODUCT} = {template.Product} and due to this we are not able to determinate differences";
+                this.Logger.Error(offer.Guid, msg);
+                throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
             if (product.Length > 1)
             {
-                this.Logger.Error(offer.Guid, $"{product.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) and {Constants.FileAttributes.PRODUCT} ({template.Product}) exists and due to this we are not able to determinate differences");
-                return null;
+                var msg = $"{product.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) and {Constants.FileAttributes.PRODUCT} ({template.Product}) exists and due to this we are not able to determinate differences";
+                this.Logger.Error(offer.Guid, msg);
+                throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
             this.Logger.Info(offer.Guid, $"{idAttach.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) resolved with {Constants.FileAttributes.PRODUCT} ({template.Product})");
@@ -347,36 +353,36 @@ namespace eContracting.Services
             var exceptions = new List<Exception>();
             var list = new List<OfferFileXmlModel>(files);
 
-            for (int i = 0; i < offer.Documents.Length; i++)
-            {
-                try
-                {
-                    var attachment = offer.Documents[i];
+            //for (int i = 0; i < offer.Documents.Length; i++)
+            //{
+            //    try
+            //    {
+            //        var attachment = offer.Documents[i];
 
-                    if (string.IsNullOrEmpty(attachment.IdAttach))
-                    {
-                        throw new EcontractingDataException(new ErrorModel("OAPS-MAT", $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})"));
-                    }
+            //        if (string.IsNullOrEmpty(attachment.IdAttach))
+            //        {
+            //            throw new EcontractingDataException(new ErrorModel("OAPS-MAT", $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})"));
+            //        }
 
-                    if (!attachment.IsPrinted())
-                    {
-                        this.Logger.Debug(offer.Guid, $"Attachment {attachment.IdAttach} not printed (upload)");
-                        continue;
-                    }
+            //        if (!attachment.IsPrinted())
+            //        {
+            //            this.Logger.Debug(offer.Guid, $"Attachment {attachment.IdAttach} not printed (upload)");
+            //            continue;
+            //        }
 
-                    var file = this.GetFileByTemplate(offer, attachment, files);
+            //        var file = this.GetFileByTemplate(offer, attachment, files);
 
-                    if (file == null)
-                    {
-                        this.Logger.Fatal(offer.Guid, $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files");
-                        throw new EcontractingDataException(new ErrorModel("OAPS-CHECK", $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files"));
-                    }
-                }
-                catch (Exception ex)
-                {
-                    exceptions.Add(ex);
-                }
-            }
+            //        if (file == null)
+            //        {
+            //            this.Logger.Fatal(offer.Guid, $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files");
+            //            throw new EcontractingDataException(new ErrorModel("OAPS-CHECK", $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files"));
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        exceptions.Add(ex);
+            //    }
+            //}
 
             for (int i = 0; i < files.Length; i++)
             {
@@ -419,12 +425,8 @@ namespace eContracting.Services
             if (template.Printed == Constants.FileAttributes.CHECK_VALUE)
             {
                 var file = this.GetFileByTemplate(offer, template, files);
-
-                if (file != null)
-                {
-                    var attrs = this.GetAttributes(file);
-                    item = new OfferAttachmentModel(template, file.File.MIMETYPE, file.File.FILENAME, attrs, file.File.FILECONTENT);
-                }
+                var attrs = this.GetAttributes(file);
+                item = new OfferAttachmentModel(template, file.File.MIMETYPE, file.File.FILENAME, attrs, file.File.FILECONTENT);
             }
             // otherwise this file must be uploaded by user
             else

@@ -54,13 +54,18 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public JsonOfferAcceptedModel GetAccepted(OfferModel offer)
         {
+            var attachments = this.ApiService.GetAttachments(offer);
+            return this.GetAccepted(offer, attachments);
+        }
+
+        protected internal JsonOfferAcceptedModel GetAccepted(OfferModel offer, OfferAttachmentModel[] attachments)
+        {
             var groups = new List<JsonFilesSectionModel>();
             var version = offer.Version;
             var documents = offer.Documents;
-            var files = this.ApiService.GetAttachments(offer);
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var textParameters = offer.TextParameters;
-            var fileGroups = files.GroupBy(x => x.Group);
+            var fileGroups = attachments.GroupBy(x => x.Group);
 
             foreach (IGrouping<string, OfferAttachmentModel> fileGroup in fileGroups)
             {

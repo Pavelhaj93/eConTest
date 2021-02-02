@@ -340,11 +340,6 @@ namespace eContracting.Services
 
                 var file = this.AttachmentParser.GetFileByTemplate(offer, template, responsePdfFiles);
 
-                if (file == null)
-                {
-                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
-                }
-
                 // replace original content with signed
                 file.File.FILECONTENT = signedFile.FileContent;
                 file.File.ATTRIB.Where(x => x.ATTRID.StartsWith("$TMP.ARC")).ForEach((x) => { x.ATTRVAL = string.Empty; });
@@ -375,12 +370,6 @@ namespace eContracting.Services
                 }
 
                 var file = this.AttachmentParser.GetFileByTemplate(offer, template, responsePdfFiles);
-
-                if (file == null)
-                {
-                    throw new ApplicationException($"File matching template ({template}) doesn't exist");
-                }
-
                 file.File.FILECONTENT = new byte[] { };
                 files.Add(file);
             }
