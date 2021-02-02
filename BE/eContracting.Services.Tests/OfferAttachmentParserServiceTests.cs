@@ -35,7 +35,7 @@ namespace eContracting.Services.Tests
         public void GetFileByTemplate_Returns_First_Match()
         {
             var iddattach = "X1";
-
+            var offer = this.CreateOffer(2);
             var logger = new MemoryLogger();
 
             var attr = new ZCCH_ST_ATTRIB();
@@ -49,15 +49,16 @@ namespace eContracting.Services.Tests
             template.IdAttach = iddattach;
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetFileByTemplate(template, new[] { new OfferFileXmlModel(file) });
+            var result = service.GetFileByTemplate(offer, template, new[] { new OfferFileXmlModel(file) });
 
             Assert.NotNull(result);
         }
 
         [Fact]
-        public void GetFileByTemplate_Returns_Null_When_Not_Match()
+        public void GetFileByTemplate_Throws_EcontractingDataException_When_Not_Match()
         {
             var logger = new MemoryLogger();
+            var offer = this.CreateOffer(2);
 
             var attr = new ZCCH_ST_ATTRIB();
             attr.ATTRID = Constants.FileAttributes.TYPE;
@@ -70,9 +71,8 @@ namespace eContracting.Services.Tests
             template.IdAttach = "BBB";
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetFileByTemplate(template, new[] { new OfferFileXmlModel(file) });
 
-            Assert.Null(result);
+            Assert.Throws<EcontractingDataException>(() => { service.GetFileByTemplate(offer, template, new[] { new OfferFileXmlModel(file) }); });
         }
 
         [Theory]
@@ -380,7 +380,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
-        public void GetModel_Returns_Null_When_No_Match_Found()
+        public void GetModel_Throws_EcontractingDataException_When_No_Match_Found()
         {
             var logger = new MemoryLogger();
             var file = new ZCCH_ST_FILE();
@@ -393,9 +393,8 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.Attachments = new[] { attachment };
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetModel(offer, attachment, new[] { new OfferFileXmlModel(file) });
 
-            Assert.Null(result);
+            Assert.Throws<EcontractingDataException>(() => { service.GetModel(offer, attachment, new[] { new OfferFileXmlModel(file) }); } );
         }
 
         [Fact]

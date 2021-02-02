@@ -167,7 +167,7 @@ namespace eContracting.ConsoleClient.Commands
 
                             foreach (var file in model.Documents.Acceptance.Accept.Files)
                             {
-                                this.Console.WriteLine($" - ({file.IdAttach}) {file.Label}");
+                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                             }
 
                             this.Console.WriteLine();
@@ -181,7 +181,7 @@ namespace eContracting.ConsoleClient.Commands
 
                             foreach (var file in model.Documents.Acceptance.Sign.Files)
                             {
-                                this.Console.WriteLine($" - ({file.IdAttach}) {file.Label}");
+                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                             }
 
                             this.Console.WriteLine();
@@ -195,7 +195,7 @@ namespace eContracting.ConsoleClient.Commands
 
                         foreach (var file in model.Documents.Uploads.Types)
                         {
-                            this.Console.WriteLine($" - ({file.IdAttach}) {file.Title}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Title}");
                         }
 
                         this.Console.WriteLine();
@@ -210,7 +210,7 @@ namespace eContracting.ConsoleClient.Commands
 
                             foreach (var file in model.Documents.Other.AdditionalServices.Files)
                             {
-                                this.Console.WriteLine($" - ({file.IdAttach}) {file.Label}");
+                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                             }
 
                             this.Console.WriteLine();
@@ -223,7 +223,7 @@ namespace eContracting.ConsoleClient.Commands
 
                             foreach (var file in model.Documents.Other.OtherProducts.Files)
                             {
-                                this.Console.WriteLine($" - ({file.IdAttach}) {file.Label}");
+                                this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
                             }
 
                             this.Console.WriteLine();

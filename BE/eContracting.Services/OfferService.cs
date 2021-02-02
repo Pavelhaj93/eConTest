@@ -338,7 +338,7 @@ namespace eContracting.Services
 
                 var signedFile = cacheModel.ToAttachment();
 
-                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+                var file = this.AttachmentParser.GetFileByTemplate(offer, template, responsePdfFiles);
 
                 if (file == null)
                 {
@@ -374,7 +374,7 @@ namespace eContracting.Services
                     continue;
                 }
 
-                var file = this.AttachmentParser.GetFileByTemplate(template, responsePdfFiles);
+                var file = this.AttachmentParser.GetFileByTemplate(offer, template, responsePdfFiles);
 
                 if (file == null)
                 {

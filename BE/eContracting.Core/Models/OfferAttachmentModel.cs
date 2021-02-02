@@ -32,6 +32,9 @@ namespace eContracting.Models
         [JsonProperty("idattach")]
         public readonly string IdAttach;
 
+        [JsonProperty("product")]
+        public readonly string Product;
+
         /// <summary>
         /// Gets or set index.
         /// </summary>
@@ -247,6 +250,7 @@ namespace eContracting.Models
             this.IsPrinted = template.IsPrinted();
             this.IsSignReq = template.IsSignRequired();
             this.IdAttach = template.IdAttach;
+            this.Product = template.Product;
             this.UniqueKey = template.UniqueKey;
 
             this.MimeType = mimeType;
@@ -284,6 +288,7 @@ namespace eContracting.Models
             template.Group = this.DocumentTemplate.Group;
             template.GroupObligatory = this.DocumentTemplate.GroupObligatory;
             template.IdAttach = this.DocumentTemplate.IdAttach;
+            template.Product = this.DocumentTemplate.Product;
             template.ItemGuid = this.DocumentTemplate.ItemGuid;
             template.Obligatory = this.DocumentTemplate.Obligatory;
             template.Printed = this.DocumentTemplate.Printed;

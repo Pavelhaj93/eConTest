@@ -26,10 +26,11 @@ namespace eContracting
         /// <summary>
         /// Find a file which matches to its <paramref name="template"/>.
         /// </summary>
+        /// <param name="offer">The offer.</param>
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
         /// <returns>File or null.</returns>
-        OfferFileXmlModel GetFileByTemplate(OfferAttachmentXmlModel template, OfferFileXmlModel[] files);
+        OfferFileXmlModel GetFileByTemplate(OfferModel offer, OfferAttachmentXmlModel template, OfferFileXmlModel[] files);
 
         /// <summary>
         /// Makes compatible offer templates and offer files.

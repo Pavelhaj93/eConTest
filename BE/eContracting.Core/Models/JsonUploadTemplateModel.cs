@@ -14,6 +14,9 @@ namespace eContracting.Models
         [JsonIgnore]
         public string IdAttach { get; set; }
 
+        [JsonIgnore]
+        public string Product { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 

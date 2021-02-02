@@ -604,6 +604,12 @@
             </summary>
             <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
         </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.Product">
+            <summary>
+            Gets value of PRODUCT from the <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/> attributes.
+            </summary>
+            <returns>Value or null.</returns>
+        </member>
         <member name="M:eContracting.Models.OfferFileXmlModel.GetRawXml">
             <summary>
             Gets the raw XML from <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.
@@ -699,6 +705,18 @@
             <summary>
             Gets or sets the page title.
             </summary>
+        </member>
+        <member name="M:eContracting.Models.JsonAcceptFileModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonAcceptFileModel"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.JsonAcceptFileModel.#ctor(eContracting.Models.OfferAttachmentModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonAcceptFileModel"/> class.
+            </summary>
+            <param name="attachment">The attachment.</param>
+            <exception cref="T:System.ArgumentNullException">attachment</exception>
         </member>
         <member name="T:eContracting.Models.AuthDataModel">
             <summary>
@@ -2314,10 +2332,11 @@
             <param name="template">The template.</param>
             <param name="file">The file.</param>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel[])">
+        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Find a file which matches to its <paramref name="template"/>.
             </summary>
+            <param name="offer">The offer.</param>
             <param name="template">The template.</param>
             <param name="files">The files.</param>
             <returns>File or null.</returns>

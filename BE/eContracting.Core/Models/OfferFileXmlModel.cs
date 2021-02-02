@@ -69,6 +69,18 @@ namespace eContracting.Models
         }
 
         /// <summary>
+        /// Gets value of PRODUCT from the <see cref="ZCCH_ST_FILE.ATTRIB"/> attributes.
+        /// </summary>
+        /// <returns>Value or null.</returns>
+        public string Product
+        {
+            get
+            {
+                return this.File.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.PRODUCT)?.ATTRVAL;
+            }
+        }
+
+        /// <summary>
         /// Gets the raw XML from <see cref="ZCCH_ST_FILE.FILECONTENT"/>.
         /// </summary>
         /// <returns>String representation of <see cref="ZCCH_ST_FILE.FILECONTENT"/> or null.</returns>

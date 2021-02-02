@@ -542,7 +542,7 @@
         <member name="M:eContracting.Services.OfferAttachmentParserService.Equals(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel[])">
+        <member name="M:eContracting.Services.OfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel[])">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Models.OfferFileXmlModel[])">

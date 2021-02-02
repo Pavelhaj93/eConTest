@@ -332,13 +332,7 @@ namespace eContracting.Services
             for (int i = 0; i < selectedFiles.Length; i++)
             {
                 var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel();
-                file.Key = selectedFile.UniqueKey;
-                file.Group = selectedFile.GroupGuid;
-                file.IdAttach = selectedFile.IdAttach;
-                file.Label = selectedFile.FileName;
-                file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsRequired;
+                var file = new JsonAcceptFileModel(selectedFile);
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
 
                 list.Add(file);
@@ -371,13 +365,7 @@ namespace eContracting.Services
             for (int i = 0; i < selectedFiles.Length; i++)
             {
                 var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel();
-                file.Key = selectedFile.UniqueKey;
-                file.Group = selectedFile.GroupGuid;
-                file.IdAttach = selectedFile.IdAttach;
-                file.Label = selectedFile.FileName;
-                file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsRequired;
+                var file = new JsonAcceptFileModel(selectedFile);
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
                 list.Add(file);
 
@@ -409,6 +397,7 @@ namespace eContracting.Services
                 var file = new JsonUploadTemplateModel();
                 file.GroupId = template.UniqueKey;
                 file.IdAttach = template.IdAttach;
+                file.Product = template.Product;
                 file.Title = template.FileName;
                 file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
                 file.Mandatory = template.IsRequired;
@@ -463,14 +452,8 @@ namespace eContracting.Services
             for (int i = 0; i < selectedFiles.Length; i++)
             {
                 var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel();
-                file.Key = selectedFile.UniqueKey;
-                file.Group = selectedFile.GroupGuid;
-                file.IdAttach = selectedFile.IdAttach;
-                file.Label = selectedFile.FileName;
+                var file = new JsonAcceptFileModel(selectedFile);
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
-                file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsRequired;
 
                 if (file.Mandatory)
                 {
@@ -501,14 +484,8 @@ namespace eContracting.Services
             for (int i = 0; i < selectedFiles.Length; i++)
             {
                 var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel();
-                file.Key = selectedFile.UniqueKey;
-                file.Group = selectedFile.GroupGuid;
-                file.IdAttach = selectedFile.IdAttach;
-                file.Label = selectedFile.FileName;
+                var file = new JsonAcceptFileModel(selectedFile);
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
-                file.MimeType = selectedFile.MimeType;
-                file.Mandatory = selectedFile.IsRequired;
 
                 if (file.Mandatory)
                 {

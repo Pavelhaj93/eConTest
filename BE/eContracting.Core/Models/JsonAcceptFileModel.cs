@@ -17,6 +17,9 @@ namespace eContracting.Models
         [JsonIgnore]
         public string IdAttach { get; set; }
 
+        [JsonIgnore]
+        public string Product { get; set; }
+
         [JsonProperty("label")]
         public string Label { get; set; }
 
@@ -28,5 +31,33 @@ namespace eContracting.Models
 
         [JsonProperty("mandatory")]
         public bool Mandatory { get; set; } = true;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonAcceptFileModel"/> class.
+        /// </summary>
+        public JsonAcceptFileModel()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonAcceptFileModel"/> class.
+        /// </summary>
+        /// <param name="attachment">The attachment.</param>
+        /// <exception cref="ArgumentNullException">attachment</exception>
+        public JsonAcceptFileModel(OfferAttachmentModel attachment)
+        {
+            if (attachment == null)
+            {
+                throw new ArgumentNullException(nameof(attachment));
+            }
+
+            this.Key = attachment.UniqueKey;
+            this.Group = attachment.GroupGuid;
+            this.IdAttach = attachment.IdAttach;
+            this.Product = attachment.Product;
+            this.Label = attachment.FileName;
+            this.MimeType = attachment.MimeType;
+            this.Mandatory = attachment.IsRequired;
+        }
     }
 }
