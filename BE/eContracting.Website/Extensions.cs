@@ -22,6 +22,10 @@ namespace eContracting.Website
         {
             return new eContractingHtmlHelper(htmlHelper);
         }
+        public static AssetsHtmlHelper Assets(this HtmlHelper htmlHelper)
+        {
+            return new AssetsHtmlHelper(htmlHelper);
+        }
 
         public static NegotiatedContentResult<HttpError> InternalServerError(this ApiController controller, string message)
         {

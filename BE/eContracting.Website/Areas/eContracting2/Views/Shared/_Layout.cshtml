@@ -50,7 +50,7 @@
     <meta content="~/Assets/eContracting2/gfx/favicon/310x150.png" name="msapplication-wide310x150logo" />
     <meta content="~/Assets/eContracting2/gfx/favicon/310x310.png" name="msapplication-square310x310logo" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/assets/eContracting2/css/econtracting.min.css" />
+    <link rel="stylesheet" href="@Html.Assets().PathWithHash("/assets/eContracting2/css/econtracting.min.css")"/>
     @Html.Sitecore().VisitorIdentification()
 </head>
 <body data-sprite="/assets/eContracting2/gfx/icon/sprite.svg">
@@ -62,7 +62,7 @@
         </div>
     </main>
     @Html.Sitecore().Placeholder("eContracting2Bottom")
-    <script src="/assets/eContracting2/js/econtracting.bundle.js"></script>
+    <script src="@Html.Assets().PathWithHash("/assets/eContracting2/js/econtracting.bundle.js")"></script>
 
     @if (Model.GoogleTagManagerShow)
     {
