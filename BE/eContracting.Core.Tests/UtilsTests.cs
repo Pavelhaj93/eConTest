@@ -187,54 +187,6 @@ namespace eContracting.Core.Tests
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey(loginType, (OfferModel)null); });
         }
 
-        [Fact(DisplayName = "Returns null when ZCCH_ST_FILE is null")]
-        [Trait("Utils", "GetRawXml")]
-        public void GetRawXml_Returns_Null_When_Given_File_Is_Null()
-        {
-            ZCCH_ST_FILE file = null;
-
-            var result = Utils.GetRawXml(file);
-
-            Assert.Null(result);
-        }
-
-        [Fact(DisplayName = "Returns null when given file content is null. Do not throws an exception.")]
-        [Trait("Utils", "GetRawXml")]
-        public void GetRawXml_Returns_Null_When_Given_File_Content_Is_Null()
-        {
-            var file = new ZCCH_ST_FILE();
-            file.FILECONTENT = null;
-
-            var result = Utils.GetRawXml(file);
-
-            Assert.Null(result);
-        }
-
-        [Fact(DisplayName = "Returns null when given file content is empty (0). Do not throws an exception.")]
-        [Trait("Utils", "GetRawXml")]
-        public void GetRawXml_Returns_Null_When_Given_File_Content_Is_0()
-        {
-            var file = new ZCCH_ST_FILE();
-            file.FILECONTENT = new byte[] { };
-
-            var result = Utils.GetRawXml(file);
-
-            Assert.Null(result);
-        }
-
-        [Fact]
-        [Trait("Utils", "GetRawXml")]
-        public void GetRawXml_Returns_String_Representation()
-        {
-            var expected = "Lorem ipsum dolor sit amet, consectetur adipiscing elit";
-            var file = new ZCCH_ST_FILE();
-            file.FILECONTENT = Encoding.UTF8.GetBytes(expected);
-
-            var result = Utils.GetRawXml(file);
-
-            Assert.Equal(expected, result);
-        }
-
         [Theory(DisplayName = "Return unmodified input text")]
         [Trait("Utils", "GetReplacedTextTokens")]
         [InlineData(null)]

@@ -173,21 +173,6 @@ namespace eContracting
         }
 
         /// <summary>
-        /// Gets the raw XML from <see cref="ZCCH_ST_FILE.FILECONTENT"/>.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>String representation of <see cref="ZCCH_ST_FILE.FILECONTENT"/>.</returns>
-        public static string GetRawXml(ZCCH_ST_FILE file)
-        {
-            if ((file?.FILECONTENT?.Length ?? 0) < 1)
-            {
-                return null;
-            }
-
-            return Encoding.UTF8.GetString(file.FILECONTENT);
-        }
-
-        /// <summary>
         /// Replaces the HTML attribute <c>style</c> and XML attribute <c>xmlns</c> from given <paramref name="input"/> string.
         /// </summary>
         /// <param name="input">The input.</param>

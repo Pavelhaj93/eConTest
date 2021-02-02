@@ -14,14 +14,14 @@ namespace eContracting
         /// <param name="offer">The offer.</param>
         /// <param name="files">The files.</param>
         /// <returns>Array of files.</returns>
-        OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files);
+        OfferAttachmentModel[] Parse(OfferModel offer, OfferFileXmlModel[] files);
 
         /// <summary>
         /// Determinates if <paramref name="template"/> is relevant for this <paramref name="file"/>.
         /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="file">The file.</param>
-        bool Equals(OfferAttachmentXmlModel template, ZCCH_ST_FILE file);
+        bool Equals(OfferAttachmentXmlModel template, OfferFileXmlModel file);
 
         /// <summary>
         /// Find a file which matches to its <paramref name="template"/>.
@@ -29,13 +29,13 @@ namespace eContracting
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
         /// <returns>File or null.</returns>
-        ZCCH_ST_FILE GetFileByTemplate(OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files);
+        OfferFileXmlModel GetFileByTemplate(OfferAttachmentXmlModel template, OfferFileXmlModel[] files);
 
         /// <summary>
         /// Makes compatible offer templates and offer files.
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <param name="files">The files.</param>
-        void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files);
+        void MakeCompatible(OfferModel offer, OfferFileXmlModel[] files);
     }
 }

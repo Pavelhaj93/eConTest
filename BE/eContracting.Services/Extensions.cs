@@ -55,7 +55,7 @@ namespace eContracting.Services
             logger.Debug(guid, builder.ToString());
         }
 
-        public static void LogFiles(this ILogger logger, IEnumerable<ZCCH_ST_FILE> files, string guid, bool IsAccepted, OFFER_TYPES type)
+        public static void LogFiles(this ILogger logger, IEnumerable<OfferFileXmlModel> files, string guid, bool IsAccepted, OFFER_TYPES type)
         {
             var accept = IsAccepted ? "accepted" : "not accepted";
 
@@ -76,7 +76,7 @@ namespace eContracting.Services
 
             foreach (var file in files)
             {
-                builder.AppendLine($"[{counter}] {file.FILENAME}");
+                builder.AppendLine($"[{counter}] {file.File.FILENAME}");
                 counter++;
             }
 

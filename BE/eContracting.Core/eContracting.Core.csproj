@@ -140,6 +140,7 @@
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
     <Compile Include="Models\LoginFailureModel.cs" />
+    <Compile Include="Models\OfferFileXmlModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
     <Compile Include="Models\PageDisclaimerModel.cs" />

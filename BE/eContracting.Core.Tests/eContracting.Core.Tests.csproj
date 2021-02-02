@@ -48,6 +48,7 @@
     <Compile Include="Models\DocumentTemplateModelTests.cs" />
     <Compile Include="Models\OfferAttachmentModelTests.cs" />
     <Compile Include="Models\OfferAttributeModelTests.cs" />
+    <Compile Include="Models\OfferFileXmlModelTests.cs" />
     <Compile Include="ServiceFactoryTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace eContracting.Models
 {
     /// <summary>
-    /// Represents document template from <see cref="OFFER_TYPES.NABIDKA"/>.
+    /// Represents file template from <see cref="OFFER_TYPES.NABIDKA"/>.
     /// </summary>
     /// <remarks>This template doesn't contain a file content.</remarks>
     [Serializable]

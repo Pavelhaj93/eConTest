@@ -27,43 +27,6 @@ namespace eContracting
         }
 
         /// <summary>
-        /// Gets the counter integer value. If attribute <see cref="Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>Position from <see cref="Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
-        public static int GetCounter(this ZCCH_ST_FILE file)
-        {
-            var attr = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.COUNTER);
-
-            if (attr != null && int.TryParse(attr.ATTRVAL, out int position))
-            {
-                return position;
-            }
-
-            return Constants.FileAttributeDefaults.COUNTER;
-        }
-
-        /// <summary>
-        /// Gets value of IDATTACH from the <paramref name="file"/> attributes.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>Value or null.</returns>
-        public static string GetIdAttach(this ZCCH_ST_FILE file)
-        {
-            return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE)?.ATTRVAL;
-        }
-
-        /// <summary>
-        /// Gets value of TEMPLATE from the <paramref name="file"/> attributes.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>Value or null</returns>
-        public static string GetTemlate(this ZCCH_ST_FILE file)
-        {
-            return file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TEMPLATE)?.ATTRVAL;
-        }
-
-        /// <summary>
         /// Merges two dictionaries.
         /// </summary>
         /// <typeparam name="TKey">The type of the key.</typeparam>

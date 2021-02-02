@@ -203,7 +203,7 @@ namespace eContracting.Services
             }
 
             bool isAccepted = offer.IsAccepted;
-            ZCCH_ST_FILE[] files = this.GetFiles(offer.Guid, isAccepted);
+            var files = this.GetFiles(offer.Guid, isAccepted);
             return this.GetAttachments(offer, files);
         }
 
@@ -213,7 +213,7 @@ namespace eContracting.Services
         /// <param name="offer">The offer.</param>
         /// <param name="files">The files.</param>
         /// <returns>Array of attachments.</returns>
-        protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, ZCCH_ST_FILE[] files)
+        protected internal OfferAttachmentModel[] GetAttachments(OfferModel offer, OfferFileXmlModel[] files)
         {
             var attachments = this.AttachmentParser.Parse(offer, files);
             this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
@@ -256,9 +256,9 @@ namespace eContracting.Services
             {
                 var response2 = this.GetResponse(response.Guid, OFFER_TYPES.NABIDKA_XML);
 
-                if (response2 != null)
+                if (response2 != null && response2.Response.ET_FILES?.Length > 0)
                 {
-                    var response2Files = response2.Response.ET_FILES;
+                    var response2Files = response2.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)).ToArray();
                     var parameters = this.OfferParser.GetTextParameters(response2Files);
                     this.OfferParser.MakeCompatibleParameters(parameters, version);
                     return parameters;
@@ -279,7 +279,7 @@ namespace eContracting.Services
                 }
                 else
                 {
-                    var parameters = this.OfferParser.GetTextParameters(files);
+                    var parameters = this.OfferParser.GetTextParameters(files.Select(x => new OfferFileXmlModel(x)).ToArray());
                     this.OfferParser.MakeCompatibleParameters(parameters, version);
                     return parameters;
                 }
@@ -313,9 +313,9 @@ namespace eContracting.Services
         /// or
         /// Group '{uploadGroup}' doesn't have content
         /// </exception>
-        protected internal ZCCH_ST_FILE[] GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, ZCCH_ST_FILE[] responsePdfFiles, string sessionId)
+        protected internal OfferFileXmlModel[] GetFilesForAccept(OfferModel offer, OfferSubmitDataModel data, OfferFileXmlModel[] responsePdfFiles, string sessionId)
         {
-            var files = new List<ZCCH_ST_FILE>();
+            var files = new List<OfferFileXmlModel>();
 
             // templates for sign
             var templatesRequiredForSign = offer.Documents.Where(x => x.IsSignRequired() == true && x.IsPrinted());
@@ -346,8 +346,8 @@ namespace eContracting.Services
                 }
 
                 // replace original content with signed
-                file.FILECONTENT = signedFile.FileContent;
-                file.ATTRIB.Where(x => x.ATTRID.StartsWith("$TMP.ARC")).ForEach((x) => { x.ATTRVAL = string.Empty; });
+                file.File.FILECONTENT = signedFile.FileContent;
+                file.File.ATTRIB.Where(x => x.ATTRID.StartsWith("$TMP.ARC")).ForEach((x) => { x.ATTRVAL = string.Empty; });
 
                 //var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
                 //var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");
@@ -381,7 +381,7 @@ namespace eContracting.Services
                     throw new ApplicationException($"File matching template ({template}) doesn't exist");
                 }
 
-                file.FILECONTENT = new byte[] { };
+                file.File.FILECONTENT = new byte[] { };
                 files.Add(file);
             }
 
@@ -417,7 +417,7 @@ namespace eContracting.Services
                 file.FILENAME = template.Description + "." + uploadedFileGroup.OutputFile.FileExtension;
                 file.FILECONTENT = uploadedFileGroup.OutputFile.Content;
                 file.MIMETYPE = uploadedFileGroup.OutputFile.MimeType;
-                files.Add(file);
+                files.Add(new OfferFileXmlModel(file));
             }
 
             return files.ToArray();
@@ -559,26 +559,36 @@ namespace eContracting.Services
         /// <param name="guid">The unique identifier.</param>
         /// <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
         /// <returns></returns>
-        protected internal ZCCH_ST_FILE[] GetFiles(string guid, bool isAccepted)
+        protected internal OfferFileXmlModel[] GetFiles(string guid, bool isAccepted)
         {
-            List<ZCCH_ST_FILE> files = new List<ZCCH_ST_FILE>();
+            var files = new List<OfferFileXmlModel>();
 
             if (isAccepted)
             {
                 var result = this.GetResponse(guid, OFFER_TYPES.NABIDKA_ARCH);
-                files.AddRange(result.Response.ET_FILES);
+
+                if (result.Response.ET_FILES?.Length > 0)
+                {
+                    files.AddRange(result.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)));
+                }
+
                 var filenames = result.Response.ET_FILES.Select(file => file.FILENAME);
-                files.RemoveAll(file => filenames.Contains(file.FILENAME));
-                files.AddRange(result.Response.ET_FILES);
+                files.RemoveAll(file => filenames.Contains(file.File.FILENAME));
+
+                if (result.Response.ET_FILES?.Length > 0)
+                {
+                    files.AddRange(result.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)));
+                }
+
                 this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_ARCH);
             }
             else
             {
                 var result = this.GetResponse(guid, OFFER_TYPES.NABIDKA_PDF);
 
-                if (result.Response?.ET_FILES?.Any() ?? false)
+                if (result.Response.ET_FILES?.Length > 0)
                 {
-                    files.AddRange(result.Response.ET_FILES);
+                    files.AddRange(result.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)));
                 }
 
                 this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_PDF);
@@ -594,7 +604,7 @@ namespace eContracting.Services
         /// <param name="attributes">The attributes.</param>
         /// <param name="files">The files.</param>
         /// <returns>The response.</returns>
-        protected internal ZCCH_CACHE_PUTResponse1 Put(string guid, ZCCH_ST_ATTRIB[] attributes, ZCCH_ST_FILE[] files)
+        protected internal ZCCH_CACHE_PUTResponse1 Put(string guid, ZCCH_ST_ATTRIB[] attributes, OfferFileXmlModel[] files)
         {
             var options = this.SettingsReaderService.GetApiServiceOptions();
 
@@ -604,7 +614,7 @@ namespace eContracting.Services
                 model.IV_CCHKEY = guid;
                 model.IV_CCHTYPE = "NABIDKA_PRIJ";
                 model.IT_ATTRIB = attributes;
-                model.IT_FILES = files;
+                model.IT_FILES = files.Select(x => x.File).ToArray();
 
                 var log = new StringBuilder();
                 log.AppendLine($"Calling {nameof(ZCCH_CACHE_PUT)} with parameters:");
@@ -624,7 +634,7 @@ namespace eContracting.Services
 
                     for (int i = 0; i < files.Length; i++)
                     {
-                        log.AppendLine($"  - {files[i].FILENAME}");
+                        log.AppendLine($"  - {files[i].File.FILENAME}");
                     }
 
                     this.Logger.Info(guid, log.ToString());

@@ -568,6 +568,55 @@
             Value cannot be empty - guid
             </exception>
         </member>
+        <member name="T:eContracting.Models.OfferFileXmlModel">
+            <summary>
+            Wrapper over <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> with extra properties.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferFileXmlModel.File">
+            <summary>
+            Real file from SAP. Cannot be null.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.Attachment">
+            <summary>
+            Gets or sets related <see cref="T:eContracting.Models.OfferAttachmentXmlModel"/> to this file.
+            </summary>
+            <value>
+            The attachment.
+            </value>
+        </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.IdAttach">
+            <summary>
+            Gets value of IDATTACH from the <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/> attributes.
+            </summary>
+            <returns>Value or null.</returns>
+        </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.Template">
+            <summary>
+            Gets value of TEMPLATE from the <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/> attributes.
+            </summary>
+            <returns>Value or null</returns>
+        </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.Counter">
+            <summary>
+            Gets the counter integer value from <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/>. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
+            </summary>
+            <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
+        </member>
+        <member name="M:eContracting.Models.OfferFileXmlModel.GetRawXml">
+            <summary>
+            Gets the raw XML from <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.
+            </summary>
+            <returns>String representation of <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.Models.OfferFileXmlModel.#ctor(eContracting.Services.ZCCH_ST_FILE)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferFileXmlModel"/> class.
+            </summary>
+            <param name="file">The file.</param>
+            <exception cref="T:System.ArgumentNullException">file</exception>
+        </member>
         <member name="T:eContracting.Models.OfferSubmitDataModel">
             <summary>
             Represent set of accepted, signed and uploaded documents for an offer.
@@ -1514,7 +1563,7 @@
         </member>
         <member name="T:eContracting.Models.OfferAttachmentXmlModel">
             <summary>
-            Represents document template from <see cref="F:eContracting.OFFER_TYPES.NABIDKA"/>.
+            Represents file template from <see cref="F:eContracting.OFFER_TYPES.NABIDKA"/>.
             </summary>
             <remarks>This template doesn't contain a file content.</remarks>
         </member>
@@ -1972,27 +2021,6 @@
             <param name="path">The path.</param>
             <returns>List of found children or empty list.</returns>
         </member>
-        <member name="M:eContracting.Extensions.GetCounter(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Gets the counter integer value. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
-            </summary>
-            <param name="file">The file.</param>
-            <returns>Position from <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>
-        </member>
-        <member name="M:eContracting.Extensions.GetIdAttach(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Gets value of IDATTACH from the <paramref name="file"/> attributes.
-            </summary>
-            <param name="file">The file.</param>
-            <returns>Value or null.</returns>
-        </member>
-        <member name="M:eContracting.Extensions.GetTemlate(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Gets value of TEMPLATE from the <paramref name="file"/> attributes.
-            </summary>
-            <param name="file">The file.</param>
-            <returns>Value or null</returns>
-        </member>
         <member name="M:eContracting.Extensions.Merge``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
             <summary>
             Merges two dictionaries.
@@ -2271,7 +2299,7 @@
             Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentModel"/> object.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.IOfferAttachmentParserService.Parse(eContracting.Models.OfferModel,eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Parses raw <paramref name="files"/> into serializable format.
             </summary>
@@ -2279,14 +2307,14 @@
             <param name="files">The files.</param>
             <returns>Array of files.</returns>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.Equals(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE)">
+        <member name="M:eContracting.IOfferAttachmentParserService.Equals(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel)">
             <summary>
             Determinates if <paramref name="template"/> is relevant for this <paramref name="file"/>.
             </summary>
             <param name="template">The template.</param>
             <param name="file">The file.</param>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.IOfferAttachmentParserService.GetFileByTemplate(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Find a file which matches to its <paramref name="template"/>.
             </summary>
@@ -2294,7 +2322,7 @@
             <param name="files">The files.</param>
             <returns>File or null.</returns>
         </member>
-        <member name="M:eContracting.IOfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.IOfferAttachmentParserService.MakeCompatible(eContracting.Models.OfferModel,eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Makes compatible offer templates and offer files.
             </summary>
@@ -2338,7 +2366,7 @@
             <param name="response">The response.</param>
             <returns>Numbered version starting at 1.</returns>
         </member>
-        <member name="M:eContracting.IOfferParserService.GetTextParameters(eContracting.Services.ZCCH_ST_FILE[])">
+        <member name="M:eContracting.IOfferParserService.GetTextParameters(eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Gets the text parameters from given <paramref name="files"/>.
             </summary>
@@ -2694,13 +2722,6 @@
             </summary>
             <param name="template">The template.</param>
             <returns>Hash of <see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Group"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Description"/></returns>
-        </member>
-        <member name="M:eContracting.Utils.GetRawXml(eContracting.Services.ZCCH_ST_FILE)">
-            <summary>
-            Gets the raw XML from <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.
-            </summary>
-            <param name="file">The file.</param>
-            <returns>String representation of <see cref="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT"/>.</returns>
         </member>
         <member name="M:eContracting.Utils.ReplaceXmlAttributes(System.String)">
             <summary>

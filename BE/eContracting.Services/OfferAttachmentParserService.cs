@@ -30,7 +30,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferAttachmentModel[] Parse(OfferModel offer, ZCCH_ST_FILE[] files)
+        public OfferAttachmentModel[] Parse(OfferModel offer, OfferFileXmlModel[] files)
         {
             if ((offer.Documents?.Length ?? 0) == 0)
             {
@@ -71,7 +71,7 @@ namespace eContracting.Services
         }
         
         /// <inheritdoc/>
-        public bool Equals(OfferAttachmentXmlModel template, ZCCH_ST_FILE file)
+        public bool Equals(OfferAttachmentXmlModel template, OfferFileXmlModel file)
         {
             // IDATTACH cannot be empty!
             if (string.IsNullOrWhiteSpace(template.IdAttach))
@@ -79,11 +79,11 @@ namespace eContracting.Services
                 return false;
             }
 
-            return template.IdAttach == this.GetIdAttach(file);
+            return template.IdAttach == file.IdAttach;
         }
 
         /// <inheritdoc/>
-        public ZCCH_ST_FILE GetFileByTemplate(OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files)
+        public OfferFileXmlModel GetFileByTemplate(OfferAttachmentXmlModel template, OfferFileXmlModel[] files)
         {
             for (int y = 0; y < files.Length; y++)
             {
@@ -99,7 +99,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public void MakeCompatible(OfferModel offer, ZCCH_ST_FILE[] files)
+        public void MakeCompatible(OfferModel offer, OfferFileXmlModel[] files)
         {
             for (int i = 0; i < offer.Documents.Length; i++)
             {
@@ -113,7 +113,7 @@ namespace eContracting.Services
                 {
                     var t = offer.Documents[i];
 
-                    var file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                    var file = files.Where(x => x.File.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
 
                     if (file == null)
                     {
@@ -124,12 +124,12 @@ namespace eContracting.Services
                         {
                             this.Logger.Info(offer.Guid, $"Trying to find file by attribute '{Constants.FileAttributes.TEMPLATE}' with value '{Constants.FileAttributeValues.SIGN_FILE_IDATTACH}'");
                             // find a file by attribute TEMPLATE == "A10"
-                            file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();                           
+                            file = files.Where(x => x.File.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == Constants.FileAttributeValues.SIGN_FILE_IDATTACH) != null).FirstOrDefault();                           
                         }
                         else
                         {
                             this.Logger.Info(offer.Guid, $"Trying to find file by attribute '{Constants.FileAttributes.TEMPLATE}' with value '{t.IdAttach}'");
-                            file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                            file = files.Where(x => x.File.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TEMPLATE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
                         }
 
                         if (file == null)
@@ -140,7 +140,7 @@ namespace eContracting.Services
                         {
                             this.Logger.Info(offer.Guid, "Compatible file found");
 
-                            var attrIdAttach = file.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
+                            var attrIdAttach = file.File.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.TYPE);
 
                             if (attrIdAttach != null)
                             {
@@ -153,7 +153,7 @@ namespace eContracting.Services
                                 var newAttrIdAttach = new ZCCH_ST_ATTRIB();
                                 newAttrIdAttach.ATTRID = Constants.FileAttributes.TYPE;
                                 newAttrIdAttach.ATTRVAL = t.IdAttach;
-                                file.ATTRIB = Utils.GetUpdated(file.ATTRIB, newAttrIdAttach);
+                                file.File.ATTRIB = Utils.GetUpdated(file.File.ATTRIB, newAttrIdAttach);
                                 this.Logger.Warn(offer.Guid, $"Attribute '{Constants.FileAttributes.TYPE}' not found in file. Created new one with value '{t.IdAttach}' and added to file ATTRID collection.");
                             }
                         }
@@ -163,12 +163,12 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Excludes <see cref="OfferAttachmentXmlModel"/> from <see cref="OfferModel.Documents"/> for accepted offer when real <see cref="ZCCH_ST_FILE"/> doesn't exist.
+        /// Excludes <see cref="OfferAttachmentXmlModel"/> from <see cref="OfferModel.Documents"/> for accepted offer when real <see cref="OfferFileXmlModel"/> doesn't exist.
         /// </summary>
         /// <remarks>Accepted offer contains only accepted and signed files.</remarks>
         /// <param name="offer">The offer.</param>
         /// <param name="files">The files.</param>
-        protected internal void ExcludeDocumentsForAcceptedOffer(OfferModel offer, ZCCH_ST_FILE[] files)
+        protected internal void ExcludeDocumentsForAcceptedOffer(OfferModel offer, OfferFileXmlModel[] files)
         {
             if (offer.IsAccepted)
             {
@@ -178,7 +178,7 @@ namespace eContracting.Services
                 {
                     var t = offer.Documents[i];
 
-                    var file = files.Where(x => x.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                    var file = files.Where(x => x.File.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
 
                     if (file != null)
                     {
@@ -229,15 +229,15 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="file">The file.</param>
         /// <returns></returns>
-        protected internal OfferAttributeModel[] GetAttributes(ZCCH_ST_FILE file)
+        protected internal OfferAttributeModel[] GetAttributes(OfferFileXmlModel file)
         {
             var list = new List<OfferAttributeModel>();
 
-            if (file.ATTRIB?.Length > 0)
+            if (file.File.ATTRIB?.Length > 0)
             {
-                for (int i = 0; i < file.ATTRIB.Length; i++)
+                for (int i = 0; i < file.File.ATTRIB.Length; i++)
                 {
-                    var attr = file.ATTRIB[i];
+                    var attr = file.File.ATTRIB[i];
                     list.Add(new OfferAttributeModel(attr));
                 }
             }
@@ -305,10 +305,10 @@ namespace eContracting.Services
         /// OAPS-EXF - File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach})
         /// </exception>
         /// <exception cref="AggregateException">Check of offer templates and offer files failed</exception>
-        protected internal void Check(OfferModel offer, ZCCH_ST_FILE[] files)
+        protected internal void Check(OfferModel offer, OfferFileXmlModel[] files)
         {
             var exceptions = new List<Exception>();
-            var list = new List<ZCCH_ST_FILE>(files);
+            var list = new List<OfferFileXmlModel>(files);
 
             for (int i = 0; i < offer.Documents.Length; i++)
             {
@@ -350,12 +350,12 @@ namespace eContracting.Services
                 try
                 {
                     var file = files[i];
-                    var idattach = file.GetIdAttach();
-                    var template = file.GetTemlate();
+                    var idattach = file.IdAttach;
+                    var template = file.Template;
 
                     if (!offer.Documents.Any(x => x.IdAttach == idattach || x.IdAttach == template))
                     {
-                        var msg = $"File {file.FILENAME} doesn't exist in attachments ({Constants.FileAttributes.TYPE} = {idattach}) ({Constants.FileAttributes.TEMPLATE} = {template})";
+                        var msg = $"File {file.File.FILENAME} doesn't exist in attachments ({Constants.FileAttributes.TYPE} = {idattach}) ({Constants.FileAttributes.TEMPLATE} = {template})";
                         this.Logger.Fatal(offer.Guid, msg);
                         throw new EcontractingDataException(new ErrorModel("OAPS-EXF", msg));
                     }
@@ -379,7 +379,7 @@ namespace eContracting.Services
         /// <param name="template">The template.</param>
         /// <param name="files">The files.</param>
         /// <returns>Attachment model or null when matching file not found.</returns>
-        protected internal OfferAttachmentModel GetModel(OfferModel offer, OfferAttachmentXmlModel template, ZCCH_ST_FILE[] files)
+        protected internal OfferAttachmentModel GetModel(OfferModel offer, OfferAttachmentXmlModel template, OfferFileXmlModel[] files)
         {
             OfferAttachmentModel item = null;
             // if attachment exists in files
@@ -390,7 +390,7 @@ namespace eContracting.Services
                 if (file != null)
                 {
                     var attrs = this.GetAttributes(file);
-                    item = new OfferAttachmentModel(template, file.MIMETYPE, file.FILENAME, attrs, file.FILECONTENT);
+                    item = new OfferAttachmentModel(template, file.File.MIMETYPE, file.File.FILENAME, attrs, file.File.FILECONTENT);
                 }
             }
             // otherwise this file must be uploaded by user

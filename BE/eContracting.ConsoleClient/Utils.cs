@@ -11,7 +11,7 @@ namespace eContracting.ConsoleClient
 {
     public static class Utils
     {
-        public static void CompareIdAttach(IConsole console, OfferModel offer, ZCCH_ST_FILE[] files)
+        public static void CompareIdAttach(IConsole console, OfferModel offer, OfferFileXmlModel[] files)
         {
             for (int i = 0; i < offer.Documents.Length; i++)
             {
@@ -28,7 +28,7 @@ namespace eContracting.ConsoleClient
                 for (int y = 0; y < files.Length; y++)
                 {
                     var file = files[y];
-                    var fileIdAttach = file.GetIdAttach();
+                    var fileIdAttach = file.IdAttach;
 
                     if (fileIdAttach == attachment.IdAttach)
                     {
@@ -49,12 +49,12 @@ namespace eContracting.ConsoleClient
             for (int i = 0; i < files.Length; i++)
             {
                 var file = files[i];
-                var idattach = file.GetIdAttach();
-                var template = file.GetTemlate();
+                var idattach = file.IdAttach;
+                var template = file.Template;
 
                 if (!offer.Documents.Any(x => x.IdAttach == idattach))
                 {
-                    console.WriteLineError($"File {file.FILENAME} doesn't exist in attachments (IDATTACH = {idattach}) (TEMPLATE = {template})");
+                    console.WriteLineError($"File {file.File.FILENAME} doesn't exist in attachments (IDATTACH = {idattach}) (TEMPLATE = {template})");
                 }
             }
         }

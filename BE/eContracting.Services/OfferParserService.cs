@@ -74,13 +74,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IDictionary<string, string> GetTextParameters(ZCCH_ST_FILE[] files)
+        public IDictionary<string, string> GetTextParameters(OfferFileXmlModel[] files)
         {
             var parameters = new Dictionary<string, string>();
 
             for (int i = 0; i < files.Length; i++)
             {
-                var xml = Encoding.UTF8.GetString(files[i].FILECONTENT);
+                var xml = Encoding.UTF8.GetString(files[i].File.FILECONTENT);
                 var doc = new XmlDocument();
                 doc.LoadXml(xml);
                 var xmlParameters = doc.SelectSingleNode("form/parameters")?.ChildNodes;
@@ -181,13 +181,13 @@ namespace eContracting.Services
 
             var header = this.GetHeader(response.Response);
             var attributes = this.GetAttributes(response.Response);
-            var rawXml = Utils.GetRawXml(file);
+            var rawXml = file.GetRawXml();
             var version = this.GetVersion(response.Response);
             var result = this.ProcessRootFile(file, version);
             var isAccepted = this.IsAccepted(response.Response);
             var isExpired = this.IsExpired(response.Response, header, result);
             var offer = new OfferModel(result, version, header, isAccepted, isExpired, attributes);
-            offer.RawContent.Add(file.FILENAME, rawXml);
+            offer.RawContent.Add(file.File.FILENAME, rawXml);
             return offer;
         }
 
@@ -197,22 +197,31 @@ namespace eContracting.Services
         /// <param name="response">The response.</param>
         /// <returns>The file.</returns>
         /// <exception cref="System.NotSupportedException">Unknow offer version ({version})</exception>
-        protected internal ZCCH_ST_FILE GetCoreFile(ZCCH_CACHE_GETResponse response)
+        protected internal OfferFileXmlModel GetCoreFile(ZCCH_CACHE_GETResponse response)
         {
             if (response.ET_FILES.Length == 1)
             {
-                return response.ET_FILES[0];
+                var file = response.ET_FILES[0];
+                return new OfferFileXmlModel(file);
             }
 
             var version = this.GetVersion(response);
 
             if (version == 1)
             {
-                return response.ET_FILES[0];
+                var file = response.ET_FILES[0];
+                return new OfferFileXmlModel(file);
             }
             else if (version == 2)
             {
-                return response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS));
+                var file = response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS));
+
+                if (file != null)
+                {
+                    return new OfferFileXmlModel(file);
+                }
+
+                return null;
             }
             else
             {
@@ -227,9 +236,9 @@ namespace eContracting.Services
         /// <param name="version">Offer version.</param>
         /// <returns>Tuple with model and raw XML content.</returns>
         [ExcludeFromCodeCoverage]
-        protected internal OfferXmlModel ProcessRootFile(ZCCH_ST_FILE file, int version)
+        protected internal OfferXmlModel ProcessRootFile(OfferFileXmlModel file, int version)
         {
-            using (var stream = new MemoryStream(file.FILECONTENT, false))
+            using (var stream = new MemoryStream(file.File.FILECONTENT, false))
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);

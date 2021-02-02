@@ -29,7 +29,7 @@ namespace eContracting
         /// <remarks>There files needs to have XML path 'form/parameters'.</remarks>
         /// <param name="files">The files.</param>
         /// <returns>Dictionary or null.</returns>
-        IDictionary<string, string> GetTextParameters(ZCCH_ST_FILE[] files);
+        IDictionary<string, string> GetTextParameters(OfferFileXmlModel[] files);
 
         /// <summary>
         /// Makes <paramref name="textParameters"/> compatible in respect to offer <paramref name="version"/>.

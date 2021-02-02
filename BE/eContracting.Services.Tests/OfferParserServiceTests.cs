@@ -222,7 +222,7 @@ namespace eContracting.Services.Tests
             var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
-            Assert.Equal(result, file);
+            Assert.Equal(file, result.File);
         }
 
         [Fact]
@@ -242,7 +242,7 @@ namespace eContracting.Services.Tests
             var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
-            Assert.Equal(result, file1);
+            Assert.Equal(file1, result.File);
         }
 
         [Fact]
@@ -265,7 +265,7 @@ namespace eContracting.Services.Tests
             var service = new OfferParserService(settingsService, logger);
             var result = service.GetCoreFile(response);
 
-            Assert.Equal(coreFile, result);
+            Assert.Equal(coreFile, result.File);
         }
 
         [Fact]
@@ -281,7 +281,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetTextParameters(new[] { file });
+            var result = service.GetTextParameters(new[] { new OfferFileXmlModel(file) });
 
             Assert.Empty(result);
         }
@@ -310,7 +310,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetTextParameters(new[] { file1, file2 });
+            var result = service.GetTextParameters(new[] { new OfferFileXmlModel(file1), new OfferFileXmlModel(file2) });
 
             Assert.Equal("TEXT_B", result["PARAM"]);
         }
