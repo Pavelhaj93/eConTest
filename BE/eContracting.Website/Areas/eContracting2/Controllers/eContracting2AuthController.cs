@@ -163,6 +163,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.Partner = offer.PartnerNumber;
                 viewModel.Zip1 = offer.PostNumber;
                 viewModel.Zip2 = offer.PostNumberConsumption;
+
+                viewModel.Placeholders.Add("_" + offer.Process + "_" + offer.ProcessType);
+
                 return View("/Areas/eContracting2/Views/Login.cshtml", viewModel);
             }
             catch (AggregateException ex)
@@ -319,6 +322,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             editModel.Partner = "1234567890";
             editModel.Zip1 = "190 000";
             editModel.Zip2 = "190 000";
+
+            var processes = this.SettingsReaderService.GetAllProcesses();
+            var processTypes = this.SettingsReaderService.GetAllProcessTypes();
+
+            foreach (var process in processes)
+            {
+                foreach (var type in processTypes)
+                {
+                    editModel.Placeholders.Add("_" + process.Code + "_" + type.Code);
+                }
+            }
 
             if (this.ContextWrapper.IsEditMode())
             {

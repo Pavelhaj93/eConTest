@@ -22,6 +22,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("choices")]
         public readonly IEnumerable<LoginChoiceViewModel> Choices;
 
+        public readonly List<string> Placeholders = new List<string>();
+
         [JsonProperty("formAction")]
         public string FormAction { get; set; }
 
