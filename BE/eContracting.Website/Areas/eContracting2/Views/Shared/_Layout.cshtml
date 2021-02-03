@@ -70,5 +70,14 @@
             <iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerKey" height="0" width="0" style="display:none;visibility:hidden"></iframe>
         </noscript>
     }
+
+    @if (!Sitecore.Context.PageMode.IsNormal)
+    {
+        <style type="text/css">
+            iframe.scFixedRibbon {
+                position: unset;
+            }
+        </style>
+    }
 </body>
 </html>
