@@ -256,18 +256,24 @@ namespace eContracting.Services
 
                 var iconKey = keys.FirstOrDefault(x => x == nameKey.Replace(keyName, keyImage));
 
-                if (textParameters.TryGetValue(iconKey, out string iconValue))
+                if (!string.IsNullOrEmpty(iconKey))
                 {
-                    benefit.Icon = iconValue;
+                    if (textParameters.TryGetValue(iconKey, out string iconValue))
+                    {
+                        benefit.Icon = iconValue;
+                    }
                 }
 
                 var countKey = keys.FirstOrDefault(x => x == nameKey.Replace(keyName, keyCount));
 
-                if (textParameters.TryGetValue(countKey, out string countValue))
+                if (!string.IsNullOrEmpty(countKey))
                 {
-                    if (int.TryParse(countValue, out int c))
+                    if (textParameters.TryGetValue(countKey, out string countValue))
                     {
-                        benefit.Count = c;
+                        if (int.TryParse(countValue, out int c))
+                        {
+                            benefit.Count = c;
+                        }
                     }
                 }
 
