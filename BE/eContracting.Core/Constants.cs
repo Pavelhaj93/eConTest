@@ -9,6 +9,7 @@ namespace eContracting
     {
         public const string DatabaseContextConnectionStringName = "eContractingContext";
         public const string TimeStampFormat = "yyyyMMddHHmmss";
+        public const string GTMElectricityIdentifier = "8591824";
 
         public static class OfferAttributes
         {

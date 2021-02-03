@@ -16,6 +16,9 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "14a30ccf-d094-4ad9-9088-90400a5c8ebb"
+      Hint: eAct
+      Value: "Akvizice - Prihlaseni nove/stavajici OM"
     - ID: "1894efda-30dc-49d2-800f-a97e37c68b49"
       Hint: Title
       Value: 8003

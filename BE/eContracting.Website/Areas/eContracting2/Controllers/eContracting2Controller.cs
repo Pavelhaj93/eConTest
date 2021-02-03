@@ -385,119 +385,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.View("/Areas/eContracting2/Views/PromoBox.cshtml", datasource);
         }
 
-        private (string eCat, string eAct, string eLab) GetScriptParameters(OfferModel offer, PageThankYouModel datasource)
-        {
-            const string electricityIdentifier = "8591824";
-            var eCat = string.Empty;
-            var eAct = string.Empty;
-            var eLab = string.Empty;
-
-            try
-            {
-                var type = offer.IsCampaign ? datasource.CampaignLabel : datasource.IndividualLabel;
-                var code = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
-                var commodity = string.Empty;
-
-                if (string.IsNullOrEmpty(offer.Commodity))
-                {
-                    commodity = "NotDefined";
-                }
-                else if (offer.Commodity.StartsWith(electricityIdentifier))
-                {
-                    commodity = "Electricity";
-                }
-                else
-                {
-                    commodity = "Gas";
-                }
-
-                eCat = string.Format(datasource.CatText, type);
-                eAct = string.Format(datasource.ActText, type, commodity);
-                eLab = string.Format(datasource.LabText, eAct, code);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error($"[{offer.Guid}] Can not process Google script parameters", ex);
-            }
-
-            return (eCat, eAct, eLab);
-        }
-
-        protected ActionResult GetOfferEditView()
-        {
-            var datasource = this.GetLayoutItem<PageNewOfferModel>();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var definition = this.SettingsReaderService.GetDefinitionDefault();
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new OfferViewModel(siteSettings);
-            viewModel.Definition = definition;
-            viewModel.PageTitle = definition.OfferTitle.Text;
-            viewModel.MainText = definition.OfferMainText.Text;
-            viewModel.Steps = new StepsViewModel(steps);
-            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
-            viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
-            viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
-            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
-            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
-            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
-            return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
-        }
-
-        protected ActionResult GetAcceptedOfferEditView()
-        {
-            var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
-            var definition = this.SettingsReaderService.GetDefinitionDefault();
-            var settings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new AcceptedOfferViewModel(settings);
-            viewModel.Datasource = datasource;
-            viewModel.MainText = definition.OfferAcceptedMainText.Text;
-            viewModel["appUnavailableTitle"] = "No available";
-            viewModel["appUnavailableText"] = "Not available in Experience editor";
-            return View("/Areas/eContracting2/Views/Edit/AcceptedOffer.cshtml", viewModel);
-        }
-
-        protected internal ActionResult GetThankYouEditModel()
-        {
-            var datasource = this.GetLayoutItem<PageThankYouModel>();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
-
-            if (this.Context.IsEditMode())
-            {
-                return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
-            }
-
-            return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
-        }
-
-        protected internal ActionResult GetExpirationEditModel()
-        {
-            var datasource = this.GetLayoutItem<PageExpirationModel>();
-            var viewModel = new PageExpirationViewModel();
-            viewModel.Datasource = datasource;
-
-            if (this.Context.IsPreviewMode())
-            {
-                return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
-            }
-
-            return View("/Areas/eContracting2/Views/Edit/Expiration.cshtml", viewModel);
-        }
-
-        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
-        {
-            var datasource = this.GetLayoutItem<PageThankYouModel>();
-            var definition = this.SettingsReaderService.GetDefinition(offer);
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
-            viewModel.MainText = Utils.GetReplacedTextTokens(definition.MainTextThankYou.Text, offer.TextParameters);
-            var scriptParameters = this.GetScriptParameters(offer, datasource);
-            viewModel.ScriptParameters["eCat"] = scriptParameters.eCat;
-            viewModel.ScriptParameters["eAct"] = scriptParameters.eAct;
-            viewModel.ScriptParameters["eLab"] = scriptParameters.eLab;
-            return viewModel;
-        }
-
         protected internal OfferViewModel GetOfferViewModel(OfferModel offer, PageNewOfferModel datasource)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
@@ -557,6 +444,81 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
+        protected internal ActionResult GetOfferEditView()
+        {
+            var datasource = this.GetLayoutItem<PageNewOfferModel>();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var definition = this.SettingsReaderService.GetDefinitionDefault();
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var viewModel = new OfferViewModel(siteSettings);
+            viewModel.Definition = definition;
+            viewModel.PageTitle = definition.OfferTitle.Text;
+            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList;
+            viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
+            viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
+            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
+            return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
+        }
+
+        protected internal ActionResult GetAcceptedOfferEditView()
+        {
+            var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
+            var definition = this.SettingsReaderService.GetDefinitionDefault();
+            var settings = this.SettingsReaderService.GetSiteSettings();
+            var viewModel = new AcceptedOfferViewModel(settings);
+            viewModel.Datasource = datasource;
+            viewModel.MainText = definition.OfferAcceptedMainText.Text;
+            viewModel["appUnavailableTitle"] = "No available";
+            viewModel["appUnavailableText"] = "Not available in Experience editor";
+            return View("/Areas/eContracting2/Views/Edit/AcceptedOffer.cshtml", viewModel);
+        }
+
+        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
+        {
+            var datasource = this.GetLayoutItem<PageThankYouModel>();
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
+            viewModel.MainText = Utils.GetReplacedTextTokens(definition.MainTextThankYou.Text, offer.TextParameters);
+            var scriptParameters = this.GetScriptParameters(offer, datasource, definition);
+            viewModel.ScriptParameters["eCat"] = scriptParameters.eCat;
+            viewModel.ScriptParameters["eAct"] = scriptParameters.eAct;
+            viewModel.ScriptParameters["eLab"] = scriptParameters.eLab;
+            return viewModel;
+        }
+
+        protected internal ActionResult GetThankYouEditModel()
+        {
+            var datasource = this.GetLayoutItem<PageThankYouModel>();
+            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
+
+            if (this.Context.IsEditMode())
+            {
+                return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
+            }
+
+            return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
+        }
+
+        protected internal ActionResult GetExpirationEditModel()
+        {
+            var datasource = this.GetLayoutItem<PageExpirationModel>();
+            var viewModel = new PageExpirationViewModel();
+            viewModel.Datasource = datasource;
+
+            if (this.Context.IsPreviewMode())
+            {
+                return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
+            }
+
+            return View("/Areas/eContracting2/Views/Edit/Expiration.cshtml", viewModel);
+        }
+
         protected internal ActionResult GetError404EditView()
         {
             var datasource = this.GetLayoutItem<PageError404Model>();
@@ -580,6 +542,44 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 this.Logger.Error(guid, "Cannot clear user file cache", ex);
             }
+        }
+
+        protected internal (string eCat, string eAct, string eLab) GetScriptParameters(OfferModel offer, PageThankYouModel datasource, DefinitionCombinationModel definition)
+        {
+            var eCat = string.Empty;
+            var eAct = string.Empty;
+            var eLab = string.Empty;
+
+            try
+            {
+                var type = offer.IsCampaign ? datasource.CampaignLabel : datasource.IndividualLabel;
+                var code = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
+                var commodity = string.Empty;
+
+                if (offer.Commodity.StartsWith(Constants.GTMElectricityIdentifier))
+                {
+                    commodity = datasource.ElectricityLabel;
+                }
+                else
+                {
+                    commodity = datasource.GasLabel;
+                }
+
+                var tokens = new Dictionary<string, string>();
+                tokens.Add("TYPE", type);
+                tokens.Add("CAMPAIGN", code);
+                tokens.Add("COMMODITY", commodity);
+
+                eCat = Utils.GetReplacedTextTokens(datasource.GoogleAnalytics_eCat, tokens);
+                eAct = Utils.GetReplacedTextTokens(definition.Process.GoogleAnalytics_eAct, tokens);
+                eLab = Utils.GetReplacedTextTokens(definition.ProcessType.GoogleAnalytics_eLab, tokens);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(offer.Guid, $"Cannot create data for Google Tag Manager (eCat, eAct, eLab)", ex);
+            }
+
+            return (eCat, eAct, eLab);
         }
     }
 }

@@ -26,3 +26,6 @@ Languages:
     - ID: "aa001007-385f-4365-a220-ceeca389714c"
       Hint: Title
       Value: "NC - Pojištění"
+    - ID: "d05db966-9429-4edb-86f0-017da16236cb"
+      Hint: eLab
+      Value: "NC - Pojisteni - {CAMPAIGN}"
