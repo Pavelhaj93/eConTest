@@ -871,6 +871,11 @@
             Parsed value from <see cref="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
             </value>
         </member>
+        <member name="P:eContracting.Models.PageLoginModel.AutoGenerateTestableCombinationPlaceholders">
+            <summary>
+            Gets switch if placeholders of every matrix combination (like /eContracting2Main/eContracting2-login_02_K) for A/B testing headertexts should be added automatically when this page is opened in Edit mode.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.LOGIN_STATES">
             <summary>
             Prerequisites for log-in procedure.

@@ -89,5 +89,16 @@ namespace eContracting.Models
         }
 
         #endregion
+
+        #region 	AB Testing Settings
+
+        /// <summary>
+        /// Gets switch if placeholders of every matrix combination (like /eContracting2Main/eContracting2-login_02_K) for A/B testing headertexts should be added automatically when this page is opened in Edit mode.
+        /// </summary>
+        [SitecoreField]
+        public bool AutoGenerateTestableCombinationPlaceholders { get; set; }
+
+
+        #endregion
     }
 }

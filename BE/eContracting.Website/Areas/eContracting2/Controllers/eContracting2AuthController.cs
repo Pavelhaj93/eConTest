@@ -11,7 +11,10 @@ using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore;
+using Sitecore.Data.Fields;
 using Sitecore.DependencyInjection;
+using Sitecore.Layouts;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -326,16 +329,63 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var processes = this.SettingsReaderService.GetAllProcesses();
             var processTypes = this.SettingsReaderService.GetAllProcessTypes();
 
+            var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+
+
+                            //var layoutField = new LayoutField(this.ContextItem); tohle funguje            
+            var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+            LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
+            DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
+
+            string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; // TODO: sc config?
+
             foreach (var process in processes)
             {
                 foreach (var type in processTypes)
                 {
-                    editModel.Placeholders.Add("_" + process.Code + "_" + type.Code);
-                }
+                    string combinationIdentifier = "_" + process.Code + "_" + type.Code;
+                    editModel.Placeholders.Add(combinationPlaceholderPrefix + combinationIdentifier);
+                }                
             }
 
             if (this.ContextWrapper.IsEditMode())
             {
+                try
+                {
+                    if (datasource.AutoGenerateTestableCombinationPlaceholders)
+                    {
+                        foreach (var process in processes)
+                        {
+                            foreach (var type in processTypes)
+                            {
+                                string combinationIdentifier = "_" + process.Code + "_" + type.Code;
+                                
+                                var combinationRendering = renderings.FirstOrDefault(rend => rend.Placeholder.Equals(combinationPlaceholderPrefix + combinationIdentifier));
+                                if (combinationRendering == null)
+                                {
+                                    var contextItem = this.ContextItem;
+
+                                    RenderingDefinition newRenderingDefinition = new RenderingDefinition();
+                                    newRenderingDefinition.ItemID = "{994F14EA-C859-4055-BB0E-523CE476057A}"; // TODO: sc config?  	Rich Text for login page
+                                    newRenderingDefinition.Placeholder = combinationPlaceholderPrefix + combinationIdentifier;
+
+                                    deviceDef.AddRendering(newRenderingDefinition);
+                                }
+                            }
+                        }
+                        //using (new SecurityDisabler())
+                        {
+                            this.ContextItem.Editing.BeginEdit();
+                            layoutField.Value = layoutDef.ToXml();
+                            this.ContextItem.Editing.EndEdit();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Sitecore.Diagnostics.Log.Error("Error autogenerating Login page placeholders for A/B testing for missing matrix combinations. ", ex, this);                    
+                }
+
                 return View("/Areas/eContracting2/Views/Edit/Login.cshtml", editModel);
             }
 
@@ -347,7 +397,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Rendering for '/sitecore/layout/Renderings/eContracting2/Rich Text for login page'.
         /// </summary>
         public ActionResult RichText()
-        {
+        {            
             var dataSource = this.GetDataSourceItem<RichTextModel>();
             var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
 
