@@ -258,10 +258,22 @@ namespace eContracting.Services
 
             if (attr == null)
             {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Offer is not accepted due to missing attribute {Constants.OfferAttributes.ACCEPTED_DATE}");
                 return false;
             }
 
-            return attr.Any(c => Char.IsDigit(c));
+            var result = attr.Any(c => Char.IsDigit(c));
+
+            if (result)
+            {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Offer is accepted ({Constants.OfferAttributes.ACCEPTED_DATE} = {attr})");
+            }
+            else
+            {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Offer is not accepted ({Constants.OfferAttributes.ACCEPTED_DATE} = {attr})");
+            }
+
+            return result;
         }
 
         /// <summary>
@@ -290,11 +302,22 @@ namespace eContracting.Services
 
             if (DateTime.TryParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
             {
-                return date.Date < DateTime.Now.Date;
+                var result = date.Date < DateTime.Now.Date;
+
+                if (result)
+                {
+                    this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is expired (date = {value})");
+                }
+                else
+                {
+                    this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is not expired (date = {value})");
+                }
+
+                return result;
             }
             else
             {
-                this.Logger.Warn(response.ES_HEADER.CCHKEY, $"Cannot parse expire date ({value}). Offer set to NOT expired.");
+                this.Logger.Warn(response.ES_HEADER.CCHKEY, $"Offer is not expired because we cannot parse expire date ({value})");
                 return false;
             }
         }

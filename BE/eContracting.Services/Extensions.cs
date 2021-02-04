@@ -27,15 +27,11 @@ namespace eContracting.Services
 
         public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentModel> files, string guid, bool IsAccepted)
         {
-            var accept = IsAccepted ? "accepted" : "not accepted";
-
             var builder = new StringBuilder();
-            builder.Append($"Offer is {accept}");
-            builder.AppendLine();
 
             if (files == null || !files.Any())
             {
-                builder.AppendLine("0 files received");
+                builder.Append("0 files received");
                 logger.Debug(guid, builder.ToString());
                 return;
             }
@@ -57,16 +53,12 @@ namespace eContracting.Services
 
         public static void LogFiles(this ILogger logger, IEnumerable<OfferFileXmlModel> files, string guid, bool IsAccepted, OFFER_TYPES type)
         {
-            var accept = IsAccepted ? "accepted" : "not accepted";
-
             var builder = new StringBuilder();
             builder.Append($"[{Enum.GetName(typeof(OFFER_TYPES), type)}] ");
-            builder.Append($"Offer is {accept}");
-            builder.AppendLine();
 
             if (files == null || !files.Any())
             {
-                builder.AppendLine("0 files received");
+                builder.Append("0 files received");
                 logger.Debug(guid, builder.ToString());
                 return;
             }
