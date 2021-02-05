@@ -170,6 +170,7 @@ namespace eContracting.Services.Tests
         {
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -188,6 +189,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "01";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
