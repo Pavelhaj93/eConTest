@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
 using eContracting.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Sitecore.DependencyInjection;
 
 namespace eContracting.Website.Areas.eContracting2.Models
 {
@@ -22,6 +24,19 @@ namespace eContracting.Website.Areas.eContracting2.Models
             this.Query = query;
             this.Processes = processes;
             this.ProcessTypes = processTypes;
+        }
+
+        public ProcessTypesSwitcherViewModel()
+        {
+            var settingsReader = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+            var data = cache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+
+            this.Process = data.Process;
+            this.ProcessType = data.ProcessType;
+            this.Processes = settingsReader.GetAllProcesses().ToArray();
+            this.ProcessTypes = settingsReader.GetAllProcessTypes().ToArray();
+            this.Query = HttpContext.Current.Request.QueryString;
         }
     }
 }
