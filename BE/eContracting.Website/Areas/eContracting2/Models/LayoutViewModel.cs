@@ -93,13 +93,30 @@ namespace eContracting.Website.Areas.eContracting2.Models
                             }
                         }
                     }
+                    else
+                    {
+                        this.DisableCaching();
+                    }
                 }
-
             }
             catch (Exception ex)
             {
                 var logger = ServiceLocator.ServiceProvider.GetService<ILogger>();
                 logger?.Error("Preparing layout model failed", ex);
+            }
+        }
+
+        protected void DisableCaching()
+        {
+            try
+            {
+                HttpContext.Current.Response.Cache.SetNoStore();
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Current.Response.Cache.SetLastModified(DateTime.Now.AddDays(-1));
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
