@@ -42,7 +42,7 @@ namespace eContracting.Services
 
             foreach (var file in files)
             {
-                builder.AppendLine($" - [{counter}] [{file.IdAttach}] {file.OriginalFileName} {file.FileName} ({file.SizeLabel}) => group: {file.Group}, sign: {file.IsSignReq}, printed: {file.IsPrinted}");
+                builder.AppendLine($" - [{counter}] [{file.IdAttach} - {file.Product}] {file.OriginalFileName} {file.FileName} ({file.SizeLabel}) => group: {file.Group}, sign: {file.IsSignReq}, printed: {file.IsPrinted}");
                 counter++;
                 totalSize += file.Size;
             }
