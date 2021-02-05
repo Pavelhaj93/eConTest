@@ -388,6 +388,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected internal OfferViewModel GetOfferViewModel(OfferModel offer, PageNewOfferModel datasource)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
+            this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var siteSettings = this.SettingsReaderService.GetSiteSettings();
             var viewModel = new OfferViewModel(siteSettings);

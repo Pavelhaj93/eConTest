@@ -62,11 +62,13 @@ namespace eContracting.Services
 
             if (attr == null)
             {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Version 1 (attribute {Constants.OfferAttributes.VERSION} not found)");
                 return 1;
             }
 
             if (attr.ATTRVAL == Constants.OfferAttributeValues.VERSION_2)
             {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Version 2 (attribute {Constants.OfferAttributes.VERSION} = {Constants.OfferAttributeValues.VERSION_2})");
                 return 2;
             }
 
@@ -172,7 +174,8 @@ namespace eContracting.Services
         /// <returns>Model or null.</returns>
         protected internal OfferModel ProcessResponse(ResponseCacheGetModel response)
         {
-            var file = this.GetCoreFile(response.Response);
+            var version = this.GetVersion(response.Response);
+            var file = this.GetCoreFile(response.Response, version);
 
             if (file == null)
             {
@@ -182,12 +185,13 @@ namespace eContracting.Services
             var header = this.GetHeader(response.Response);
             var attributes = this.GetAttributes(response.Response);
             var rawXml = file.GetRawXml();
-            var version = this.GetVersion(response.Response);
             var result = this.ProcessRootFile(file, version);
             var isAccepted = this.IsAccepted(response.Response);
             var isExpired = this.IsExpired(response.Response, header, result);
             var offer = new OfferModel(result, version, header, isAccepted, isExpired, attributes);
             offer.RawContent.Add(file.File.FILENAME, rawXml);
+            this.Logger.Info(offer.Guid, "Process: " + offer.Process);
+            this.Logger.Info(offer.Guid, "Process type: " + offer.ProcessType);
             return offer;
         }
 
@@ -195,17 +199,16 @@ namespace eContracting.Services
         /// Gets the core file of the offer.
         /// </summary>
         /// <param name="response">The response.</param>
+        /// <param name="version">The offer version.</param>
         /// <returns>The file.</returns>
         /// <exception cref="System.NotSupportedException">Unknow offer version ({version})</exception>
-        protected internal OfferFileXmlModel GetCoreFile(ZCCH_CACHE_GETResponse response)
+        protected internal OfferFileXmlModel GetCoreFile(ZCCH_CACHE_GETResponse response, int version)
         {
             if (response.ET_FILES.Length == 1)
             {
                 var file = response.ET_FILES[0];
                 return new OfferFileXmlModel(file);
             }
-
-            var version = this.GetVersion(response);
 
             if (version == 1)
             {

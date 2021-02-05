@@ -226,7 +226,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 1);
 
             Assert.Equal(file, result.File);
         }
@@ -246,7 +246,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 1);
 
             Assert.Equal(file1, result.File);
         }
@@ -269,7 +269,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 2);
 
             Assert.Equal(coreFile, result.File);
         }

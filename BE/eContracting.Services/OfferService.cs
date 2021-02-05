@@ -182,7 +182,7 @@ namespace eContracting.Services
             {
                 try
                 {
-                    var textParameters = this.GetTextParameters(response);
+                    var textParameters = this.GetTextParameters(offer, response);
                     offer.TextParameters.Merge(textParameters);
                 }
                 catch (XmlException ex)
@@ -245,14 +245,13 @@ namespace eContracting.Services
         /// <summary>
         /// Gets the text parameters for specific version.
         /// </summary>
+        /// <param name="offer">The offer.</param>
         /// <param name="response">The response.</param>
         /// <returns>Dictionary or null.</returns>
         /// <exception cref="ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
-        protected internal IDictionary<string, string> GetTextParameters(ResponseCacheGetModel response)
+        protected internal IDictionary<string, string> GetTextParameters(OfferModel offer, ResponseCacheGetModel response)
         {
-            var version = this.OfferParser.GetVersion(response.Response);
-
-            if (version == 1)
+            if (offer.Version == 1)
             {
                 var response2 = this.GetResponse(response.Guid, OFFER_TYPES.NABIDKA_XML);
 
@@ -260,7 +259,7 @@ namespace eContracting.Services
                 {
                     var response2Files = response2.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)).ToArray();
                     var parameters = this.OfferParser.GetTextParameters(response2Files);
-                    this.OfferParser.MakeCompatibleParameters(parameters, version);
+                    this.OfferParser.MakeCompatibleParameters(parameters, offer.Version);
                     return parameters;
                 }
                 else
@@ -268,7 +267,7 @@ namespace eContracting.Services
                     return new Dictionary<string, string>();
                 }
             }
-            else if (version == 2)
+            else if (offer.Version == 2)
             {
                 var files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS)).ToArray();
 
@@ -280,13 +279,13 @@ namespace eContracting.Services
                 else
                 {
                     var parameters = this.OfferParser.GetTextParameters(files.Select(x => new OfferFileXmlModel(x)).ToArray());
-                    this.OfferParser.MakeCompatibleParameters(parameters, version);
+                    this.OfferParser.MakeCompatibleParameters(parameters, offer.Version);
                     return parameters;
                 }
             }
             else
             {
-                throw new ApplicationException($"Cannot get text parameters. Unknown version {version}");
+                throw new ApplicationException($"Cannot get text parameters. Unknown version {offer.Version}");
             }
         }
 
