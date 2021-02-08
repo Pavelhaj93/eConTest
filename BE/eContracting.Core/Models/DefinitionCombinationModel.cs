@@ -39,7 +39,7 @@ namespace eContracting.Models
         {
             get
             {
-                return this.Process == null || this.ProcessType == null;
+                return string.IsNullOrEmpty(this.Process?.Code) || string.IsNullOrEmpty(this.ProcessType?.Code);
             }
         }
     }
