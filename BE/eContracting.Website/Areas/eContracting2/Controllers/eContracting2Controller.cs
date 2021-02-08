@@ -68,7 +68,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                if (!Sitecore.Context.PageMode.IsNormal)
+                if (!this.Context.IsNormalMode())
                 {
                     return this.GetOfferEditView();
                 }
@@ -449,7 +449,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var datasource = this.GetLayoutItem<PageNewOfferModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var definition = this.SettingsReaderService.GetDefinitionDefault();
+
+            var data = this.Cache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+            var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+
             var siteSettings = this.SettingsReaderService.GetSiteSettings();
             var viewModel = new OfferViewModel(siteSettings);
             viewModel.Definition = definition;
@@ -462,6 +465,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
+
+            if (this.Context.IsEditMode())
+            {
+                return this.View("/Areas/eContracting2/Views/Edit/Offer.cshtml", viewModel);
+            }
+
             return this.View("/Areas/eContracting2/Views/Preview/Offer.cshtml", viewModel);
         }
 

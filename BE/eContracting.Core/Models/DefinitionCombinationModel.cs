@@ -28,5 +28,19 @@ namespace eContracting.Models
         /// </summary>
         [SitecoreField]
         public virtual ProcessTypeModel ProcessType { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this definition is default.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is default; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsDefault
+        {
+            get
+            {
+                return this.Process == null || this.ProcessType == null;
+            }
+        }
     }
 }
