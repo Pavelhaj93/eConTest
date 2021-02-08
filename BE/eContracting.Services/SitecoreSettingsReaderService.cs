@@ -166,6 +166,9 @@ namespace eContracting.Services
                 throw new EcontractingMissingDatasourceException("Default definition combination not found. Cannot proceed with other execution without appropriate data.");
             }
 
+            //defaultDefinition.Process = new ProcessModel() { Code = "" };
+            //defaultDefinition.ProcessType = new ProcessTypeModel() { Code = "" };
+
             return defaultDefinition;
         }
 
@@ -178,12 +181,15 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public DefinitionCombinationModel GetDefinition(string process, string processType)
         {
-            var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
-            var definition = definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
-
-            if (definition != null)
+            if (!string.IsNullOrEmpty(process) && !string.IsNullOrEmpty(processType))
             {
-                return definition;
+                var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+                var definition = definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
+
+                if (definition != null)
+                {
+                    return definition;
+                }
             }
 
             this.Logger.Warn(null, $"Definition combination not found for process '{process}' and process type '{processType}'. Taking default one..");

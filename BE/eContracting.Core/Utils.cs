@@ -116,6 +116,15 @@ namespace eContracting
             return SetQuery(new Uri(url), key, value);
         }
 
+        public static Uri RemoveQuery(Uri url, string key)
+        {
+            var uriBuilder = new UriBuilder(url);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query.Remove(key);
+            uriBuilder.Query = GetQueryString(query);
+            return uriBuilder.Uri;
+        }
+
         /// <summary>
         /// Gets the query string from <paramref name="collection"/>.
         /// </summary>

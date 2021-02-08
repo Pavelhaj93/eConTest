@@ -1,0 +1,252 @@
+{
+  "perex": {
+    "title": "",
+    "params": [
+      {
+        "title": "Produkt",
+        "value": "elektrina Optimal"
+      },
+      {
+        "title": "Platnost nabídky do",
+        "value": "20.03.2021"
+      },
+      {
+        "title": "Délka fixace",
+        "value": "30 mesícu od úcinnosti smlouvy"
+      },
+      {
+        "title": "Platnost smlouvy",
+        "value": "Dnem akceptace smlouvy zákazníkem"
+      },
+      {
+        "title": "Predpokládaná úcinnost smlouvy",
+        "value": "Montází meridla"
+      }
+    ]
+  },
+  "gifts": {
+    "title": "",
+    "note": "<p>\nZpusob dorucení: korespondencne na zasílací adresu<br /></p>",
+    "groups": [
+      {
+        "title": "Dekujeme za vás cas venovany nasí nabídce a jako pozornost Vám zasíláme",
+        "params": [
+          {
+            "title": "Dárek - IT testy",
+            "icon": "LED",
+            "count": 1
+          },
+          {
+            "title": "KASA.cz",
+            "icon": "PKZ",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "title": "Veríme, ze Vás nabídka zaujala a jejím prijetím od nás získáte",
+        "params": [
+          {
+            "title": "Dárek - IT testy",
+            "icon": "LED",
+            "count": 1
+          },
+          {
+            "title": "Detektor",
+            "icon": "DET",
+            "count": 1
+          }
+        ]
+      }
+    ]
+  },
+  "documents": {
+    "acceptance": {
+      "title": "",
+      "text": "",
+      "accept": {
+        "title": "Accepted documents",
+        "subTitle": "",
+        "mandatoryGroups": [
+          "02D67988E24D1EEB99F9E2A492CDA611"
+        ],
+        "files": [
+          {
+            "key": "5228DE31250A5A7C32DE9BF48D4A69B3",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Informace pro zákazníka - spotrebitele",
+            "prefix": "DOCUMENT_PREFIX_S",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "D57ED39EB03EE77A264007CA4BB1020E",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Smlouva o sdruzenych sluzbách dodávky elektriny",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "E3FBF9A09AEBE0DC90D7907E753EEFA7",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Ceník",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "CA85B78621F82DCAC24DD4FD47D2647A",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Ceník sluzeb",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "E394D18FB39239239A9271B3193CF698",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Obchodní podmínky",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "71946EDBA6B141422444BCFF24112C43",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Certifikát zelená elektrina",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          },
+          {
+            "key": "69E74E7411AA534EF4C1131BC994F95B",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Potvrzení o priznání individuální slevy",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": false
+          }
+        ]
+      },
+      "sign": {
+        "title": "Signed documents",
+        "subTitle": "",
+        "mandatoryGroups": [
+          "02D67988E24D1EEB99F9E2A492CDA611"
+        ],
+        "files": [
+          {
+            "key": "02E17AC65CC67E2E655D3AA8A1455AC2",
+            "group": "02D67988E24D1EEB99F9E2A492CDA611",
+            "label": "Plná moc",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": true
+          }
+        ]
+      }
+    },
+    "uploads": {
+      "title": "Upload",
+      "note": "",
+      "mandatoryGroups": [
+        "02D67988E24D1EEB99F9E2A492CDA611"
+      ],
+      "types": [
+        {
+          "id": "2B64B58BC2EC1B5FC26DFA35151744DD",
+          "title": "Revizní zpráva",
+          "info": "<p><b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vase elektrického zarízení. Soucástí zprávy musí byt oznacení odberného místa (u bytovych domu vc. císla bytu a podlazí).<br /></p>",
+          "mandatory": true
+        }
+      ]
+    },
+    "other": {
+      "services": {
+        "title": "Additional services",
+        "text": "",
+        "mandatoryGroups": [],
+        "files": [
+          {
+            "key": "36A9DB4D7C4CC65D389849B8C3EFAB75",
+            "group": "02D67988E24D1EEB99F9E30CE7DA0611",
+            "label": "Zádost o nesnízování zálohovych plateb",
+            "prefix": "DOCUMENT_PREFIX_S",
+            "mime": "application/pdf",
+            "mandatory": false
+          }
+        ]
+      },
+      "products": {
+        "title": "Other products",
+        "subTitle": "",
+        "params": [
+          {
+            "title": "Sluzba",
+            "value": "Servis plynovych spotrebicu"
+          },
+          {
+            "title": "Znacka kotle",
+            "value": "Kotel Junkers"
+          },
+          {
+            "title": "Adresa místa plnení",
+            "value": "Sternberk, Smetanova 732 / 44, 785 01"
+          },
+          {
+            "title": "Platnost nabídky do",
+            "value": "20.03.2021"
+          }
+        ],
+        "arguments": [],
+        "subTitle2": "Other products",
+        "text": "",
+        "mandatoryGroups": [],
+        "files": [
+          {
+            "key": "0EFF080E10F2ED72F5085CF6FD1AEE02",
+            "group": "02D67988E24D1EEB99F9E33CE7936611",
+            "label": "Smlouva o zajistení sluzby servis plynovych spotrebicu",
+            "prefix": "DOCUMENT_PREFIX_S",
+            "mime": "application/pdf",
+            "mandatory": false
+          },
+          {
+            "key": "525ACBE15035DC3E89B54A408D8DDA28",
+            "group": "02D67988E24D1EEB99F9E33CE7936611",
+            "label": "Informace pro zákazníka - spotrebitele",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": false
+          },
+          {
+            "key": "E2F599BBD7B23B0B20F1224D4443CCC4",
+            "group": "02D67988E24D1EEB99F9E33CE7936611",
+            "label": "Ceník",
+            "prefix": "DOCUMENT_PREFIX_P",
+            "mime": "application/pdf",
+            "mandatory": false
+          }
+        ],
+        "note": ""
+      }
+    }
+  },
+  "acceptance": {
+    "params": [
+      {
+        "title": "Nesnizování záloh",
+        "group": "02D67988E24D1EEB99F9E30CE7DA0611"
+      },
+      {
+        "title": "Smlouva / dodatek",
+        "group": "02D67988E24D1EEB99F9E2A492CDA611"
+      },
+      {
+        "title": "Servis plynovych spotrebicu",
+        "group": "02D67988E24D1EEB99F9E33CE7936611"
+      }
+    ]
+  }
+}

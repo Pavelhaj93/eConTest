@@ -3,8 +3,6 @@
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
 @inherits GlassView<OfferViewModel> 
-
-@Html.Partial("/Areas/eContracting2/Views/Shared/ProcessTypesSwitcher.cshtml", new ProcessTypesSwitcherViewModel())
 <div class="row">
     <div>
         <div class="info">
@@ -14,6 +12,9 @@
             }
             else
             {
+                <p>Matrix: @Model.Definition.Path</p>
+                <p><i>Pokud chcete vidět hodnoty z jiné kombinace, běžte do Preview módu, nastavte hodnoty a vraťte se zpět do Edit módu.</i></p>
+                <hr />
                 <div>
                     <h2>Hlavní nadpis</h2>
                     @Editable(Model.Definition.OfferTitle, x => x.Text)

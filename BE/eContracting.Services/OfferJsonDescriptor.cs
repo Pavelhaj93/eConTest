@@ -208,7 +208,7 @@ namespace eContracting.Services
             }
 
             var model = new JsonAllBenefitsModel();
-            model.Title = definition.OfferBenefitsTitle.Text;
+            model.Title = definition.OfferGiftsTitle.Text;
 
             if (textParameters.HasValue("BENEFITS_CLOSE"))
             {

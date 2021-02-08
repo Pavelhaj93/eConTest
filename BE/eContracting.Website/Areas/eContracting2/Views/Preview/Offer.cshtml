@@ -1,8 +1,12 @@
 ﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
+@using eContracting
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
-@inherits GlassView<OfferViewModel> 
+@inherits GlassView<OfferViewModel>
+@{
+    bool defaultDefinition = Model.Definition.Path != Constants.SitecorePaths.DEFINITIONS;
+}
 
 @Html.Partial("/Areas/eContracting2/Views/Shared/ProcessTypesSwitcher.cshtml", new ProcessTypesSwitcherViewModel())
 <div class="row">
@@ -14,6 +18,7 @@
             }
             else
             {
+                <p>Matrix: @Model.Definition.Path</p>
                 <div>
                     <h2>Hlavní nadpis</h2>
                     @Editable(Model.Definition.OfferTitle, x => x.Text)
