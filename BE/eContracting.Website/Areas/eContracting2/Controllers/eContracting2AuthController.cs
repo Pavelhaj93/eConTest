@@ -15,6 +15,7 @@ using Sitecore;
 using Sitecore.Data.Fields;
 using Sitecore.DependencyInjection;
 using Sitecore.Layouts;
+using Sitecore.SecurityModel;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
@@ -331,14 +332,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
 
-
-                            //var layoutField = new LayoutField(this.ContextItem); tohle funguje            
             var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
             LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
             DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
 
+            
             string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; // TODO: sc config?
-
+            editModel.Placeholders.Add(combinationPlaceholderPrefix);
             foreach (var process in processes)
             {
                 foreach (var type in processTypes)
@@ -373,7 +373,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                                 }
                             }
                         }
-                        //using (new SecurityDisabler())
+                        using (new SecurityDisabler())
                         {
                             this.ContextItem.Editing.BeginEdit();
                             layoutField.Value = layoutDef.ToXml();
