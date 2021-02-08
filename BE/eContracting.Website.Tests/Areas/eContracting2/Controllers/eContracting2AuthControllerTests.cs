@@ -180,6 +180,10 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var loginPageModel = new PageLoginModel();
             loginPageModel.Step = new ProcessStepModel();
+            var userCacheData = new OfferCacheDataModel("A", "B");
+            var definition = new DefinitionCombinationModel();
+            definition.Process = new ProcessModel() { Code = userCacheData.Process };
+            definition.ProcessType = new ProcessTypeModel() { Code = userCacheData.ProcessType };
             var logger = new MemoryLogger();
             var eventLogger = new MemoryEventLogger();
             var textService = new MemoryTextService();
@@ -190,7 +194,9 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
+            mockUserDataCache.Setup(x => x.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER)).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetDefinition(userCacheData.Process, userCacheData.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
@@ -222,6 +228,10 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         {
             var loginPageModel = new PageLoginModel();
             loginPageModel.Step = new ProcessStepModel();
+            var userCacheData = new OfferCacheDataModel("A", "B");
+            var definition = new DefinitionCombinationModel();
+            definition.Process = new ProcessModel() { Code = userCacheData.Process };
+            definition.ProcessType = new ProcessTypeModel() { Code = userCacheData.ProcessType };
             var logger = new MemoryLogger();
             var eventLogger = new MemoryEventLogger();
             var textService = new MemoryTextService();
@@ -232,7 +242,9 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockAuthService = new Mock<IAuthenticationService>();
             var mockUserDataCache = new Mock<IUserDataCacheService>();
+            mockUserDataCache.Setup(x => x.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER)).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
+            mockSettingsReader.Setup(x => x.GetDefinition(userCacheData.Process, userCacheData.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new LoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new ProcessStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
