@@ -166,8 +166,8 @@ namespace eContracting.Services
                 throw new EcontractingMissingDatasourceException("Default definition combination not found. Cannot proceed with other execution without appropriate data.");
             }
 
-            //defaultDefinition.Process = new ProcessModel() { Code = "" };
-            //defaultDefinition.ProcessType = new ProcessTypeModel() { Code = "" };
+            defaultDefinition.Process = new ProcessModel() { Code = "" };
+            defaultDefinition.ProcessType = new ProcessTypeModel() { Code = "" };
 
             return defaultDefinition;
         }

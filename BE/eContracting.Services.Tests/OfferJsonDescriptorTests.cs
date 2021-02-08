@@ -222,8 +222,8 @@ namespace eContracting.Services.Tests
             offer.TextParameters.Add(imageKey, imageValue);
             offer.TextParameters.Add(introKey, introValue);
             var definition = new DefinitionCombinationModel();
-            definition.OfferBenefitsTitle = new SimpleTextModel();
-            definition.OfferBenefitsTitle.Text = "Dárečky";
+            definition.OfferGiftsTitle = new SimpleTextModel();
+            definition.OfferGiftsTitle.Text = "Dárečky";
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -406,8 +406,8 @@ namespace eContracting.Services.Tests
             textParameters.Add(group + "_NAME", "custom group");
             textParameters.Add("BENEFITS_CLOSE", expected);
             var definition = new DefinitionCombinationModel();
-            definition.OfferBenefitsTitle = new SimpleTextModel();
-            definition.OfferBenefitsTitle.Text = "Title";
+            definition.OfferGiftsTitle = new SimpleTextModel();
+            definition.OfferGiftsTitle.Text = "Title";
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
