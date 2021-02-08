@@ -344,16 +344,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
 
             
-            string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; // TODO: sc config?
+            string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; 
             editModel.Placeholders.Add(combinationPlaceholderPrefix);
-            foreach (var process in processes)
-            {
-                foreach (var type in processTypes)
-                {
-                    string combinationIdentifier = "_" + process.Code + "_" + type.Code;
-                    editModel.Placeholders.Add(combinationPlaceholderPrefix + combinationIdentifier);
-                }                
-            }
 
             if (this.ContextWrapper.IsEditMode())
             {
