@@ -217,20 +217,45 @@ namespace eContracting.Services
             {
                 var updatedDocuments = new List<OfferAttachmentXmlModel>();
 
-                for (int i = 0; i < offer.Documents.Length; i++)
+                for (int i = 0; i < files.Length; i++)
                 {
-                    var t = offer.Documents[i];
+                    var f = files[i];
 
-                    var file = files.Where(x => x.File.ATTRIB.FirstOrDefault(y => y.ATTRID == Constants.FileAttributes.TYPE && y.ATTRVAL == t.IdAttach) != null).FirstOrDefault();
+                    var attachments = offer.Documents.Where(x => x.IdAttach == f.IdAttach).ToArray();
 
-                    if (file != null)
+                    if (attachments.Length == 1)
                     {
-                        updatedDocuments.Add(t);
+                        updatedDocuments.Add(attachments.First());
+                    }
+                    else if (attachments.Length > 1)
+                    {
+                        var attachments2 = attachments.Where(x => x.Product == f.Product).ToArray();
+
+                        if (attachments2.Length == 0)
+                        {
+                            this.Logger.Error(offer.Guid, $"Cannot find attachment by {Constants.FileAttributes.TYPE} = {f.IdAttach} and {Constants.FileAttributes.PRODUCT} = {f.Product}");
+                        }
+                        else if (attachments2.Length == 1)
+                        {
+                            updatedDocuments.Add(attachments.First());
+                        }
+                        else
+                        {
+                            this.Logger.Error(offer.Guid, $"Cannot find attachment by {Constants.FileAttributes.TYPE} = {f.IdAttach} and {Constants.FileAttributes.PRODUCT} = {f.Product}");
+                        }
                     }
                     else
                     {
-                        this.Logger.Info(offer.Guid, $"Attachment {t.IdAttach} excluded from accepted offer because real file doesn't exist");
+                        this.Logger.Error(offer.Guid, $"Attachment {f.IdAttach} not found but real file exists");
                     }
+                }
+
+                var excluded = offer.Documents.Except(updatedDocuments).ToArray();
+
+                for (int i = 0; i < excluded.Length; i++)
+                {
+                    var t = excluded[i];
+                    this.Logger.Info(offer.Guid, $"Attachment {t.IdAttach} ({Constants.FileAttributes.PRODUCT} = {t.Product}) excluded from accepted offer because real file doesn't exist");
                 }
 
                 offer.Xml.Content.Body.Attachments = updatedDocuments.ToArray();

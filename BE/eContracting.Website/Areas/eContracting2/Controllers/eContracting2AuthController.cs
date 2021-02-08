@@ -158,9 +158,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
                 }
 
+                var definition = this.SettingsReaderService.GetDefinition(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
                 var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-                var viewModel = this.GetViewModel(datasource, choices, steps, errorString);
+                var viewModel = this.GetViewModel(definition, datasource, choices, steps, errorString);
                 viewModel.Birthdate = offer.Birthday;
                 viewModel.BussProcess = offer.Process;
                 viewModel.BussProcessType = offer.ProcessType;
@@ -311,21 +312,27 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
+            var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+            var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
-            var fateXml = new OfferXmlModel() { Content = new OfferContentXmlModel() };
+            var fakeXml = new OfferXmlModel();
+            fakeXml.Content = new OfferContentXmlModel();
+            fakeXml.Content.Body = new OfferBodyXmlModel();
+            fakeXml.Content.Body.BusProcess = definition.Process.Code;
+            fakeXml.Content.Body.BusProcessType = definition.ProcessType.Code;
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fateXml, 1, fakeHeader, true, false, fakeAttr);
+            var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, fakeAttr);
             var datasource = this.GetLayoutItem<PageLoginModel>();
-            var choices = this.SettingsReaderService.GetAllLoginTypes().Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
+            var loginTypes = this.SettingsReaderService.GetLoginTypes(fakeOffer);
+            var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var editModel = this.GetViewModel(datasource, choices, steps);
+            var editModel = this.GetViewModel(definition, datasource, choices, steps);
             editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
-            editModel.BussProcess = "XX";
-            editModel.BussProcessType = "YY";
             editModel.PageTitle = datasource.PageTitle;
             editModel.Partner = "1234567890";
-            editModel.Zip1 = "190 000";
-            editModel.Zip2 = "190 000";
+            editModel.Zip1 = "191 000";
+            editModel.Zip2 = "192 000";
 
             var processes = this.SettingsReaderService.GetAllProcesses();
             var processTypes = this.SettingsReaderService.GetAllProcessTypes();
@@ -463,9 +470,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(PageLoginModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(DefinitionCombinationModel definition, PageLoginModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
         {
-            var viewModel = new LoginViewModel(datasource, new StepsViewModel(steps), choices);
+            var viewModel = new LoginViewModel(definition, datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
             viewModel.Labels = new Dictionary<string, string>();
             viewModel.Labels["requiredFields"] = datasource.RequiredFields;

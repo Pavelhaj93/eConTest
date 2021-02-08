@@ -41,14 +41,14 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual string GasLabel { get; set; }
 
-        [SitecoreField]
-        public virtual string CatText { get; set; }
+        [SitecoreField("eCat")]
+        public virtual string GoogleAnalytics_eCat { get; set; }
 
-        [SitecoreField]
-        public virtual string ActText { get; set; }
+        [SitecoreField("eAct")]
+        public virtual string GoogleAnalytics_eAct { get; set; }
 
-        [SitecoreField]
-        public virtual string LabText { get; set; }
+        [SitecoreField("eLab")]
+        public virtual string GoogleAnalytics_eLab { get; set; }
 
         #endregion
     }

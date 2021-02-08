@@ -31,6 +31,6 @@
 dataLayer.push(
 {
     'event': 'gaEvent',
-    'gaEventData': @JsonConvert.SerializeObject(Model.ScriptParameters)
+    'gaEventData': @Html.Raw(JsonConvert.SerializeObject(Model.ScriptParameters))
 });
 </script>

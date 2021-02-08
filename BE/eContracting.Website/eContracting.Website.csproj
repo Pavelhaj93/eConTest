@@ -264,7 +264,6 @@
       <DependentUpon>SignFile.ashx</DependentUpon>
     </Compile>
     <Compile Include="AssetsHtmlHelper.cs" />
-    <Compile Include="eContractingHtmlHelper.cs" />
     <Compile Include="eContractingServiceConfigurator.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
     <Compile Include="Extensions.cs" />
@@ -438,7 +437,7 @@
     </None>
     <Content Include="Areas\eContracting2\Views\RichText.cshtml" />
     <Content Include="Areas\eContracting2\Views\Preview\Login.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Preview\ProcessTypesSwitcher.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\ProcessTypesSwitcher.cshtml" />
     <Content Include="Areas\eContracting2\Views\Preview\Offer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Login.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\Steps.cshtml" />
@@ -463,6 +462,7 @@
     <Content Include="Areas\eContracting2\Views\Edit\Error404.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\SessionExpired.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\AcceptedOffer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Offer.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

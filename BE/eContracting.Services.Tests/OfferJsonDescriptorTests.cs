@@ -392,5 +392,165 @@ namespace eContracting.Services.Tests
 
             Assert.Null(result);
         }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetGifts_Returns_Note(string group)
+        {
+            var expected = "Donec imperdiet lorem orci";
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("BENEFITS", "X");
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_NAME", "custom group");
+            textParameters.Add("BENEFITS_CLOSE", expected);
+            var definition = new DefinitionCombinationModel();
+            definition.OfferBenefitsTitle = new SimpleTextModel();
+            definition.OfferBenefitsTitle.Text = "Title";
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetGifts(textParameters, definition);
+
+            Assert.Equal(expected, result.Note);
+        }
+
+        [Theory(DisplayName = "Skip BENEFITS section when not equals X")]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Null_When_Section_Key_Not_Equals_X(string section)
+        {
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(section, new Dictionary<string, string>());
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Title(string group)
+        {
+            var expected = "Lorem ipsum dolor sit amet";
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_INTRO", expected);
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(group, textParameters);
+
+            Assert.NotNull(result);
+            Assert.Equal(expected, result.Title);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Empty_Params_When_Name_Missing(string group)
+        {
+            var expected = 25;
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_COUNT", $"{expected}");
+            // textParameters.Add(group + "_NAME", "abc"); // this is important
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(group, textParameters);
+
+            Assert.Empty(result.Params);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Params_Count(string group)
+        {
+            var expected = 25;
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_COUNT", $"{expected}");
+            textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(group, textParameters);
+
+            Assert.Equal(expected, result.Params.First().Count);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Params_Title(string group)
+        {
+            var expected = "Vaše innogy";
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_NAME", expected);
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(group, textParameters);
+
+            Assert.Equal(expected, result.Params.First().Title);
+        }
+
+        [Theory]
+        [InlineData("BENEFITS_NOW")]
+        [InlineData("BENEFITS_NEXT_SIGN")]
+        [InlineData("BENEFITS_NEXT_TZD")]
+        public void GetBenefitGroup_Returns_Params_Icon(string group)
+        {
+            var expected = "PKZ";
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(group, "X");
+            textParameters.Add(group + "_IMAGE", expected);
+            textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetBenefitGroup(group, textParameters);
+
+            Assert.Equal(expected, result.Params.First().Icon);
+        }
     }
 }

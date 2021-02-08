@@ -333,6 +333,83 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
+        public void GetAttachments_Returns_All()
+        {
+            var attachments = new List<OfferAttachmentXmlModel>();
+            attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "V01", Printed = Constants.FileAttributeValues.CHECK_VALUE });
+            attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "V02", Printed = Constants.FileAttributeValues.CHECK_VALUE });
+            attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "V03", Printed = Constants.FileAttributeValues.CHECK_VALUE });
+            attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "EPS", Printed = Constants.FileAttributeValues.CHECK_VALUE });
+            var offer = this.CreateOffer(2);
+            offer.Xml.Content.Body.Attachments = attachments.ToArray();
+            var files = new List<OfferFileXmlModel>();
+            files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V01" } }, FILENAME = "BN_0204840714_ZQ10__V01" }));
+            files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V02" } }, FILENAME = "BN_0204840714_ZQ10__V02" }));
+            files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V03" } }, FILENAME = "BN_0204840714_ZQ10__V03" }));
+            files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "EPS" } }, FILENAME = "BN_0204840714_ZQ10__EPS" }));
+            var logger = new MemoryLogger();
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetAttachments(offer, files.ToArray());
+
+            Assert.True(files.Count == result.Length);
+        }
+
+        [Fact]
+        public void GetAttachments_Solves_Duplicate_Idattach()
+        {
+            var xmlAttachment1 = new OfferAttachmentXmlModel() { Description = "Ceník A", IdAttach = "V01", Product = "E_GARANCE_24", Printed = Constants.FileAttributeValues.CHECK_VALUE };
+            var xmlAttachment2 = new OfferAttachmentXmlModel() { Description = "Ceník B", IdAttach = "V01", Product = "20000160", Printed = Constants.FileAttributeValues.CHECK_VALUE };
+            var xmlAttachment3 = new OfferAttachmentXmlModel() { Description = "Sdruženky", IdAttach = "EPS", Printed = Constants.FileAttributeValues.CHECK_VALUE };
+            var attachments = new List<OfferAttachmentXmlModel>();
+            attachments.Add(xmlAttachment1);
+            attachments.Add(xmlAttachment2);
+            attachments.Add(xmlAttachment3);
+            var offer = this.CreateOffer(2);
+            offer.Xml.Content.Body.Attachments = attachments.ToArray();
+            var file1 = new ZCCH_ST_FILE()
+            {
+                ATTRIB = new ZCCH_ST_ATTRIB[]
+                    {
+                        new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V01" },
+                        new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.PRODUCT, ATTRVAL = "E_GARANCE_24" },
+                        new ZCCH_ST_ATTRIB() { ATTRID = "SPOILER", ATTRVAL = "This is what I want" }
+                    },
+                FILENAME = "BN_0204840714_ZQ10__V01.pdf"
+            };
+            var file2 = new ZCCH_ST_FILE()
+            {
+                ATTRIB = new ZCCH_ST_ATTRIB[]
+                    {
+                        new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V01" },
+                        new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.PRODUCT, ATTRVAL = "20000160" }
+                    },
+                FILENAME = "0204840540_ZTLQ__V01.pdf"
+            };
+            var file3 = new ZCCH_ST_FILE()
+            {
+                ATTRIB = new ZCCH_ST_ATTRIB[]
+                    {
+                        new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "EPS" }
+                    },
+                FILENAME = "BN_0204840714_ZQ10__EPS.pdf"
+            };
+            var files = new List<OfferFileXmlModel>();
+            files.Add(new OfferFileXmlModel(file1));
+            files.Add(new OfferFileXmlModel(file2));
+            files.Add(new OfferFileXmlModel(file3));
+            var logger = new MemoryLogger();
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetAttachments(offer, files.ToArray());
+
+            Assert.Equal(xmlAttachment1.Description, result[0].FileName);
+            Assert.Equal(xmlAttachment1.Product, result[0].Product);
+            Assert.Equal("BN_0204840714_ZQ10__V01.pdf", result[0].OriginalFileName);
+            Assert.Contains(result[0].Attributes, x => x.Key == "SPOILER");
+            Assert.Contains(result[0].Attributes, x => x.Value == "This is what I want");
+        }
+
+        [Fact]
         public void GetAttributes_Just_Converts_Data_To_Custom_Model_One_To_One()
         {
             var logger = new MemoryLogger();

@@ -341,10 +341,11 @@
         <member name="M:eContracting.Services.OfferService.SignInOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetTextParameters(eContracting.Models.ResponseCacheGetModel)">
+        <member name="M:eContracting.Services.OfferService.GetTextParameters(eContracting.Models.OfferModel,eContracting.Models.ResponseCacheGetModel)">
             <summary>
             Gets the text parameters for specific version.
             </summary>
+            <param name="offer">The offer.</param>
             <param name="response">The response.</param>
             <returns>Dictionary or null.</returns>
             <exception cref="T:System.ApplicationException">Cannot get text parameters. Unknown version {version}</exception>
@@ -665,11 +666,12 @@
             <param name="response">The response.</param>
             <returns>Model or null.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.GetCoreFile(eContracting.Services.ZCCH_CACHE_GETResponse)">
+        <member name="M:eContracting.Services.OfferParserService.GetCoreFile(eContracting.Services.ZCCH_CACHE_GETResponse,System.Int32)">
             <summary>
             Gets the core file of the offer.
             </summary>
             <param name="response">The response.</param>
+            <param name="version">The offer version.</param>
             <returns>The file.</returns>
             <exception cref="T:System.NotSupportedException">Unknow offer version ({version})</exception>
         </member>

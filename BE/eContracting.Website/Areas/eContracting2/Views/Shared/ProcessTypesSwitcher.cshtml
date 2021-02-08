@@ -1,0 +1,58 @@
+﻿@using eContracting
+@using eContracting.Website.Areas.eContracting2.Models
+@model ProcessTypesSwitcherViewModel
+@{ 
+    var url = HttpContext.Current.Request.Url;
+    url = Utils.RemoveQuery(url, Constants.QueryKeys.PROCESS);
+    url = Utils.RemoveQuery(url, Constants.QueryKeys.PROCESS_TYPE);
+    var query = HttpUtility.ParseQueryString(url.Query);
+}
+<div class="row" style="padding-bottom: 50px">
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <form method="get" action="@url.ToString()" id="processTypesSwitcher">
+                    <div>
+                        <div class="row">
+                            @for (int i = 0; i < query.Keys.Count; i++)
+                            {
+                                <input type="hidden" name="@query.Keys[i]" value="@query[query.Keys[i]]" />
+                            }
+                            <div class="col-lg-6 col-md-8 col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Proces</label>
+                                    <div>
+                                        <select name="@Constants.QueryKeys.PROCESS" class="form-control">
+                                            @foreach (var item in Model.Processes)
+                                            {
+                                                <option value="@item.Code" @(Model.Process == item.Code ? "selected=\"selected\"" : "")>@item.Title</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-8 col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Typ</label>
+                                    <div>
+                                        <select name="@Constants.QueryKeys.PROCESS_TYPE" class="form-control">
+                                            @foreach (var item in Model.ProcessTypes)
+                                            {
+                                                <option value="@item.Code" @(Model.ProcessType == item.Code ? "selected=\"selected\"" : "")>@item.Title</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="row text-right">
+                            <button type="submit" class="btn btn-secondary">Select and refresh</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

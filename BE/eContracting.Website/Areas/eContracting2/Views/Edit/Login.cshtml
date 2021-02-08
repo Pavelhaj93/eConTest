@@ -7,7 +7,10 @@
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
     var choices = Model.Choices.ToArray();
 }
-<div class="row" style="padding-bottom: 150px">
+<p>Matrix: @Model.Definition.Path</p>
+<p><i>Pokud chcete vidět hodnoty z jiné kombinace, běžte do Preview módu, nastavte hodnoty a vraťte se zpět do Edit módu.</i></p>
+<hr />
+<div class="row">
     <div class="col-12">
         <div>
             @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)

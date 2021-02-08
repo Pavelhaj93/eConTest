@@ -119,6 +119,9 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "70941589-f449-4853-ac06-110f564ef692"
+      Hint: OfferOtherProductsNote
+      Value: "{B8FDECA5-6673-4076-B0A3-FBFA3DC4DDDC}"
 - Language: en
   Versions:
   - Version: 1

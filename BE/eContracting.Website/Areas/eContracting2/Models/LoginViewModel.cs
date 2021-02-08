@@ -24,6 +24,27 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public readonly List<string> Placeholders = new List<string>();
 
+        public readonly DefinitionCombinationModel Definition;
+
+        /// <summary>
+        /// Gets placeholder sufix with process and process type ("_{<see cref="DefinitionCombinationModel.Process"/>}_{<see cref="DefinitionCombinationModel.ProcessType"/>}")
+        /// or empty string when <see cref="DefinitionCombinationModel.IsDefault"/> equals true.
+        /// </summary>
+        public string PlaceholderSufix
+        {
+            get
+            {
+                if (this.Definition.IsDefault)
+                {
+                    return "";
+                }
+                else
+                {
+                    return "_" + this.Definition.Process.Code + "_" + this.Definition.ProcessType.Code;
+                }
+            }
+        }
+
         [JsonProperty("formAction")]
         public string FormAction { get; set; }
 
@@ -40,8 +61,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
 
-        public LoginViewModel(PageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
+        public LoginViewModel(DefinitionCombinationModel definition, PageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
         {
+            this.Definition = definition;
             this.Datasource = datasource ?? throw new ArgumentNullException(nameof(datasource));
             this.Steps = steps ?? throw new ArgumentNullException(nameof(steps));
             this.Choices = choices ?? throw new ArgumentNullException(nameof(choices));

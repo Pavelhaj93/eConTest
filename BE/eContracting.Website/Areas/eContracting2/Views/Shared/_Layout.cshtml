@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="@Html.Assets().PathWithHash("/assets/eContracting2/css/econtracting.min.css")"/>
     @Html.Sitecore().VisitorIdentification()
 </head>
-<body data-sprite="/assets/eContracting2/gfx/icon/sprite.svg">
+<body data-sprite="@Html.Assets().PathWithHash("/assets/eContracting2/gfx/icon/sprite.svg")">
     <script>!function () { var e = new XMLHttpRequest; e.open("GET", document.body.dataset.sprite, !0), e.send(), e.onload = (function () { var t = document.createElement("div"); t.style.display = "none", t.innerHTML = e.responseText, document.body.insertBefore(t, document.body.childNodes[0]) }) }();</script>
     @Html.Sitecore().Placeholder("eContracting2Top")
     <main class="main">
@@ -69,6 +69,15 @@
         <noscript>
             <iframe src="https://www.googletagmanager.com/ns.html?id=@Model.GoogleTagManagerKey" height="0" width="0" style="display:none;visibility:hidden"></iframe>
         </noscript>
+    }
+
+    @if (!Sitecore.Context.PageMode.IsNormal)
+    {
+        <style type="text/css">
+            iframe.scFixedRibbon {
+                position: unset;
+            }
+        </style>
     }
 </body>
 </html>

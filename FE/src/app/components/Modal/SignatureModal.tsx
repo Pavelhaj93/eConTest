@@ -99,7 +99,7 @@ export const SignatureModal: React.FC<Props> = observer(
             </div>
             <p>{t('signatureModalText')}</p>
             <div className="signature mb-1">
-              <SignaturePad height={140} ref={signatureRef} />
+              <SignaturePad height={140} ref={signatureRef} redrawOnResize={true} />
             </div>
             <div
               className="editorial-content text-muted small mb-2"

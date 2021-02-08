@@ -23,6 +23,8 @@ namespace eContracting.Services.Tests
         {
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
+            response.ES_HEADER.CCHKEY = "BD540583CB134FC297139FDD6773DA60";
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -41,6 +43,8 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
+            response.ES_HEADER.CCHKEY = "3562A7B150484AC280E83E40F9B9A71C";
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -59,6 +63,8 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "20201015225809";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new[] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
+            response.ES_HEADER.CCHKEY = "8F74AA9622244827A4086A9977313B0B";
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -164,6 +170,7 @@ namespace eContracting.Services.Tests
         {
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -182,6 +189,7 @@ namespace eContracting.Services.Tests
             attr.ATTRVAL = "01";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
@@ -220,7 +228,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 1);
 
             Assert.Equal(file, result.File);
         }
@@ -240,7 +248,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 1);
 
             Assert.Equal(file1, result.File);
         }
@@ -263,7 +271,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response);
+            var result = service.GetCoreFile(response, 2);
 
             Assert.Equal(coreFile, result.File);
         }

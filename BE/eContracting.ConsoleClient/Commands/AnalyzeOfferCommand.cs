@@ -44,6 +44,28 @@ namespace eContracting.ConsoleClient.Commands
 
                 var response = this.ApiService.GetResponse(guid, OFFER_TYPES.NABIDKA);
 
+                if (response.Response.EV_RETCODE != 0)
+                {
+                    var error = response.Response.ET_RETURN.First();
+
+                    this.Console.WriteLine();
+                    this.Console.WriteLineError(response.Response.ET_RETURN.First().MESSAGE);
+                    this.Console.WriteLineWarning(" - ID: " + error.ID);
+                    this.Console.WriteLineWarning(" - FIELD: " + error.FIELD);
+                    this.Console.WriteLineWarning(" - LOG_MSG_NO: " + error.LOG_MSG_NO);
+                    this.Console.WriteLineWarning(" - LOG_NO: " + error.LOG_NO);
+                    this.Console.WriteLineWarning(" - MESSAGE_V1: " + error.MESSAGE_V1);
+                    this.Console.WriteLineWarning(" - MESSAGE_V2: " + error.MESSAGE_V2);
+                    this.Console.WriteLineWarning(" - MESSAGE_V3: " + error.MESSAGE_V3);
+                    this.Console.WriteLineWarning(" - MESSAGE_V4: " + error.MESSAGE_V4);
+                    this.Console.WriteLineWarning(" - NUMBER: " + error.NUMBER);
+                    this.Console.WriteLineWarning(" - PARAMETER: " + error.PARAMETER);
+                    this.Console.WriteLineWarning(" - ROW: " + error.ROW);
+                    this.Console.WriteLineWarning(" - SYSTEM: " + error.SYSTEM);
+                    this.Console.WriteLineWarning(" - TYPE: " + error.TYPE);
+                    return;
+                }
+
                 this.Console.WriteLine("Header:");
                 this.Console.WriteLine(" CCHKEY = " + response.Response.ES_HEADER.CCHKEY);
                 this.Console.WriteLine(" CCHSTAT = " + response.Response.ES_HEADER.CCHSTAT);
@@ -68,8 +90,6 @@ namespace eContracting.ConsoleClient.Commands
                     this.Console.WriteLineError("Offer not found");
                     return;
                 }
-
-                this.Console.WriteLine("Version: " + offer.Version);
 
                 if (offer.Documents.Length == 0)
                 {
@@ -181,7 +201,7 @@ namespace eContracting.ConsoleClient.Commands
 
                         foreach (var file in model.Documents.Acceptance.Accept.Files)
                         {
-                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label} (group: {file.Group}, required: {file.Mandatory})");
                         }
 
                         this.Console.WriteLine();
@@ -195,7 +215,7 @@ namespace eContracting.ConsoleClient.Commands
 
                         foreach (var file in model.Documents.Acceptance.Sign.Files)
                         {
-                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label} (group: {file.Group}, required: {file.Mandatory})");
                         }
 
                         this.Console.WriteLine();
@@ -209,7 +229,7 @@ namespace eContracting.ConsoleClient.Commands
 
                     foreach (var file in model.Documents.Uploads.Types)
                     {
-                        this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Title}");
+                        this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Title} (group: {file.GroupId}, required: {file.Mandatory})");
                     }
 
                     this.Console.WriteLine();
@@ -224,7 +244,7 @@ namespace eContracting.ConsoleClient.Commands
 
                         foreach (var file in model.Documents.Other.AdditionalServices.Files)
                         {
-                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label} (group: {file.Group}, required: {file.Mandatory})");
                         }
 
                         this.Console.WriteLine();
@@ -237,7 +257,7 @@ namespace eContracting.ConsoleClient.Commands
 
                         foreach (var file in model.Documents.Other.OtherProducts.Files)
                         {
-                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label}");
+                            this.Console.WriteLine($" - ({file.IdAttach}) ({file.Product}) {file.Label} (group: {file.Group}, required: {file.Mandatory})");
                         }
 
                         this.Console.WriteLine();

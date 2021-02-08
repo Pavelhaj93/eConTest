@@ -796,6 +796,14 @@
             Gets or sets related process type definition.
             </summary>
         </member>
+        <member name="P:eContracting.Models.DefinitionCombinationModel.IsDefault">
+            <summary>
+            Gets a value indicating whether this definition is default.
+            </summary>
+            <value>
+              <c>true</c> if this instance is default; otherwise, <c>false</c>.
+            </value>
+        </member>
         <member name="T:eContracting.Models.FailedLoginInfoDetailModel">
             <summary>
             Represents detail about failed login

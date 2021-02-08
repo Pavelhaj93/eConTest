@@ -44,37 +44,53 @@ namespace eContracting.Website
 
         public HtmlString PathWithHash(string virtualPath)
         {
+            string result = virtualPath;
+
             if (virtualPath == null)
-                throw new ArgumentNullException(nameof(virtualPath));
-
-            string physicalPath = HostingEnvironment.MapPath(virtualPath);
-            FileInfo file = new FileInfo(physicalPath);
-
-            if (!file.Exists)
             {
-                Sitecore.Diagnostics.Log.Error($"File '{physicalPath}' referenced as '{virtualPath}' does not exist.",this);
-                return new HtmlString(virtualPath);
+                Sitecore.Diagnostics.Log.Warn($"Virtual path provided to PathWithHash is null.", this);
             }
-
-            long timeStamp = file.LastWriteTimeUtc.ToBinary();
-
-            CacheValue value;
-            if (!_hashedPathCache.TryGetValue(file.FullName, out value) || value.TimeStamp != timeStamp)
+            else
             {
-                lock (_hashedPathCache)
+                try
                 {
-                    if (!_hashedPathCache.TryGetValue(file.FullName, out value) || value.TimeStamp != timeStamp)
+                    string physicalPath = HostingEnvironment.MapPath(virtualPath);
+                    FileInfo file = new FileInfo(physicalPath);
+
+                    if (!file.Exists)
                     {
-                        // generate hash
-                        string hash = ComputeFileHash(file);
-                        string hashedPath = virtualPath + (virtualPath.Contains('?') ? '&' : '?') + "h=" + Uri.EscapeDataString(hash);
-                        value = new CacheValue(hashedPath, timeStamp);
-                        _hashedPathCache[file.FullName] = value;
+                        Sitecore.Diagnostics.Log.Error($"File '{physicalPath}' referenced as '{virtualPath}' does not exist.", this);
                     }
+                    else
+                    {
+                        long timeStamp = file.LastWriteTimeUtc.ToBinary();
+
+                        CacheValue value;
+                        if (!_hashedPathCache.TryGetValue(file.FullName, out value) || value.TimeStamp != timeStamp)
+                        {
+                            lock (_hashedPathCache)
+                            {
+                                if (!_hashedPathCache.TryGetValue(file.FullName, out value) || value.TimeStamp != timeStamp)
+                                {
+                                    // generate hash
+                                    string hash = ComputeFileHash(file);
+                                    string hashedPath = virtualPath + (virtualPath.Contains('?') ? '&' : '?') + "t=" + Uri.EscapeDataString(hash);
+                                    value = new CacheValue(hashedPath, timeStamp);
+                                    _hashedPathCache[file.FullName] = value;
+                                }
+                            }
+                        }
+
+                        result = value.FilePath;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Sitecore.Diagnostics.Log.Error($"Error adding hash to file path '{virtualPath}'.", ex, this);
                 }
             }
 
-            return new HtmlString(value.FilePath);
+            return new HtmlString(result ?? string.Empty);
         }
 
         private static string ComputeFileHash(FileInfo file)

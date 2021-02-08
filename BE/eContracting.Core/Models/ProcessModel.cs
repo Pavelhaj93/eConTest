@@ -17,5 +17,8 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual string Code { get; set; }
+
+        [SitecoreField("eAct")]
+        public virtual string GoogleAnalytics_eAct { get; set; }
     }
 }
