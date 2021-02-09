@@ -333,6 +333,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             editModel.Partner = "1234567890";
             editModel.Zip1 = "191 000";
             editModel.Zip2 = "192 000";
+            editModel.BussProcess = definition.Process.Code;
+            editModel.BussProcessType = definition.ProcessType.Code;
 
             var processes = this.SettingsReaderService.GetAllProcesses();
             var processTypes = this.SettingsReaderService.GetAllProcessTypes();

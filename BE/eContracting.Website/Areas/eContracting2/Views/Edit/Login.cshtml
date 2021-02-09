@@ -2,10 +2,12 @@
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
+
 @inherits GlassView<LoginViewModel>
 @{
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
     var choices = Model.Choices.ToArray();
+
     string matrixCombinationSuffix = (string.IsNullOrEmpty(Model.BussProcess) || string.IsNullOrEmpty(Model.BussProcessType)) ? string.Empty : $"_{Model.BussProcess}_{Model.BussProcessType}" ;
 }
 <p>Matrix: @Model.Definition.Path</p>
@@ -18,7 +20,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="info">
-                        <div>@Html.Sitecore().Placeholder($"eContracting2-login{matrixCombinationSuffix}")</div>
+                        <div>@Html.Sitecore().Placeholder($"/eContracting2Main/eContracting2-login{matrixCombinationSuffix}")</div>
                     </div>
                     <div>
                         <div>
