@@ -323,15 +323,12 @@ export const Offer: React.FC<View> = observer(
                           )}
                           <span>
                             {prefix}{' '}
-                            <a
-                              href={`${getFileUrl}/${key}?t=${new Date().getTime()}`}
-                              download
-                              target="_blank"
-                              rel="noreferrer"
+                            <DocumentLink
+                              url={`${getFileUrl}/${key}?t=${new Date().getTime()}`}
+                              label={label}
                               onClick={handleDownload}
-                            >
-                              {label}
-                            </a>
+                              noIcon
+                            />
                           </span>
                           <SignButton
                             className="d-none d-sm-block"
