@@ -339,11 +339,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var processes = this.SettingsReaderService.GetAllProcesses();
             var processTypes = this.SettingsReaderService.GetAllProcessTypes();
 
-            var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
-
-            var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
-            LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
-            DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
 
             
             string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; 
@@ -355,6 +350,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     if (datasource.AutoGenerateTestableCombinationPlaceholders)
                     {
+                        var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+                        var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+                        LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
+                        DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
+
+
                         foreach (var process in processes)
                         {
                             foreach (var type in processTypes)
