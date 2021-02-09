@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import classNames from 'classnames'
 import { Alert, Button, Modal } from 'react-bootstrap'
 import SignaturePad from 'react-signature-pad-wrapper'
@@ -22,6 +22,7 @@ export const SignatureModal: React.FC<Props> = observer(
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
+    const [hasSignature, setHasSignature] = useState(false)
 
     if (!(store instanceof OfferStore)) {
       return null
@@ -52,7 +53,19 @@ export const SignatureModal: React.FC<Props> = observer(
 
     const handleClear = useCallback(() => {
       signatureRef.current?.clear()
+      setHasSignature(false)
     }, [])
+
+    const handleDrawEnd = useCallback(() => {
+      if (!signatureRef.current?.isEmpty()) {
+        setHasSignature(true)
+      }
+    }, [])
+
+    const closeModal = useCallback(() => {
+      onClose() // callback from parent component
+      setHasSignature(false) // next opening starts with an empty signature
+    }, [onClose])
 
     const handleSubmit = useCallback(async () => {
       const signature = signatureRef.current
@@ -70,12 +83,12 @@ export const SignatureModal: React.FC<Props> = observer(
 
       // if request was successful => close the modal, otherwise display error
       if (signed) {
-        onClose()
+        closeModal()
       }
-    }, [id, signFileUrl, store, onClose])
+    }, [id, signFileUrl, store, closeModal])
 
     return (
-      <Modal size="lg" show={show} onHide={onClose}>
+      <Modal size="lg" show={show} onHide={closeModal}>
         <div className={classNames({ loading: store.isSigning })}>
           <Modal.Header closeButton closeLabel={t('modalClose')}>
             <Modal.Title>{t('signatureModalTitle')}</Modal.Title>
@@ -99,7 +112,12 @@ export const SignatureModal: React.FC<Props> = observer(
             </div>
             <p>{t('signatureModalText')}</p>
             <div className="signature mb-1">
-              <SignaturePad height={140} ref={signatureRef} redrawOnResize={true} />
+              <SignaturePad
+                height={140}
+                ref={signatureRef}
+                redrawOnResize={true}
+                options={{ onEnd: handleDrawEnd }}
+              />
             </div>
             <div
               className="editorial-content text-muted small mb-2"
@@ -110,7 +128,11 @@ export const SignatureModal: React.FC<Props> = observer(
             />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleSubmit} disabled={store.isSigning}>
+            <Button
+              variant="secondary"
+              onClick={handleSubmit}
+              disabled={store.isSigning || !hasSignature}
+            >
               {t('signatureModalConfirm')}
             </Button>
             <Button variant="dark" onClick={handleClear}>
