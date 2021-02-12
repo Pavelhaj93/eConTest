@@ -6,6 +6,7 @@
 @{
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
     var choices = Model.Choices.ToArray();
+    var matrix = Model.Placeholders != null ? Model.Placeholders.First() : string.Empty;
 }
 <div class="row">
     <div class="col-12">
@@ -15,7 +16,7 @@
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="info">
-                        @Html.Sitecore().Placeholder("eContracting2-login")
+                        @Html.Sitecore().Placeholder("eContracting2-login" + matrix)
                     </div>
                     <div id="app"></div>
                 </div>

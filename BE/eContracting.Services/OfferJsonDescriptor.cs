@@ -73,7 +73,7 @@ namespace eContracting.Services
                 groups.AddRange(g);
             }
 
-            return new JsonOfferAcceptedModel(groups);
+            return new JsonOfferAcceptedModel(groups.OrderBy(x => x.Position));
         }
 
         /// <inheritdoc/>
@@ -112,26 +112,26 @@ namespace eContracting.Services
                 if (acceptFiles.Any())
                 {
                     var title = definition.OfferCommoditiesAcceptTitle.Text; //definition.AcceptedDocumentsTitle;
-                    list.Add(new JsonFilesSectionModel(acceptFiles.Select(x => new JsonFileModel(x)), title));
+                    list.Add(new JsonFilesSectionModel(acceptFiles.Select(x => new JsonFileModel(x)), title, 0));
                 }
 
                 if (signFiles.Any())
                 {
                     var title = definition.OfferCommoditiesSignTitle.Text; //definition.SignedDocumentsTitle;
-                    list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title));
+                    list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title, 1));
                 }
             }
             else if (groupName == "DSL")
             {
                 var files = attachments.Where(x => x.Group == "DSL");
                 var title = definition.OfferAdditionalServicesTitle.Text; //definition.AdditionalServicesTitle;
-                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
+                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title, 2));
             }
             else
             {
                 var files = attachments.Where(x => x.Group != "COMMODITY" && x.Group != "DSL" && x.IsPrinted);
                 var title = definition.OfferOtherProductsDocsTitle.Text; //definition.AdditionalServicesTitle;
-                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title));
+                list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title, 3));
             }
 
             return list;

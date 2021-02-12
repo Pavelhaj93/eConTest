@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<form>
+  <parameters>
+    <ADD_SERVICES>X</ADD_SERVICES>
+    <ADD_SERVICES_ACCEPT_LABEL>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          Investor<br/>
+        </p>
+      </body>
+    </ADD_SERVICES_ACCEPT_LABEL>
+    <ADD_SERVICES_ACCEPT_LABEL_GUID>02D67988E24D1EDB9B8D71585E8BB366</ADD_SERVICES_ACCEPT_LABEL_GUID>
+    <ADD_SERVICES_OFFER_SUMMARY>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |Služba|: [1. Investor, Nesnižování záloh, Innogy Karta]<br/>|Platnost nabídky do|: []<br/>
+        </p>
+      </body>
+    </ADD_SERVICES_OFFER_SUMMARY>
+    <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Služba</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+    <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>1. Investor, Nesnižování záloh, Innogy Karta</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+    <ADD_SERVICES_SALES_ARGUMENTS>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |První|: [Se službou Investor si ušetříte nejen starosti se zálohami, ale navíc si snížíte náklady na energie až o 4 %]<br/>|Druhé|: [Plaťte za energie jen jednou ročně a ušetřete čas i peníze]<br/>
+        </p>
+      </body>
+    </ADD_SERVICES_SALES_ARGUMENTS>
+    <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+    <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>
+    <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Se službou Investor si ušetříte nejen starosti se zálohami, ale navíc si snížíte náklady na energie až o 4 %</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+    <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>Plaťte za energie jen jednou ročně a ušetřete čas i peníze</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>
+    <BENEFITS/>
+    <COMMODITY/>
+    <NONCOMMODITY/>
+    <PERSON>X</PERSON>
+    <PERSON_CUSTADDRESS>Gorkého 2567 / 12, 767 01 Kroměříž</PERSON_CUSTADDRESS>
+    <PERSON_CUSTBIRTHDATE>09.07.1974</PERSON_CUSTBIRTHDATE>
+    <PERSON_CUSTEMAIL>petra.kovarova@innogy.cz</PERSON_CUSTEMAIL>
+    <PERSON_CUSTNAME>Boris Koukal</PERSON_CUSTNAME>
+    <PERSON_CUSTTEL1>739 536 030</PERSON_CUSTTEL1>
+    <PERSON_CUSTTITLELET>Vážený pane Koukale                                           </PERSON_CUSTTITLELET>
+    <PERSON_NUMBER>9512027544</PERSON_NUMBER>
+    <PERSON_PREMADR>Gorkého 2567 / 12, 767 01 Kroměříž</PERSON_PREMADR>
+    <PERSON_PREMEXT>27ZG600Z06113105</PERSON_PREMEXT>
+    <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+    <PERSON_PREMNUMBER>9301604854</PERSON_PREMNUMBER>
+    <USER_ATTACH/>
+  </parameters>
+</form>

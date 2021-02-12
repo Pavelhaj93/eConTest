@@ -74,7 +74,7 @@ namespace eContracting.Website
                                 {
                                     // generate hash
                                     string hash = ComputeFileHash(file);
-                                    string hashedPath = virtualPath + (virtualPath.Contains('?') ? '&' : '?') + "t=" + Uri.EscapeDataString(hash);
+                                    string hashedPath = virtualPath + (virtualPath.Contains('?') ? '&' : '?') + "h=" + Uri.EscapeDataString(hash);
                                     value = new CacheValue(hashedPath, timeStamp);
                                     _hashedPathCache[file.FullName] = value;
                                 }
