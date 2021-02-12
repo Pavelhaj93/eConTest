@@ -775,6 +775,26 @@
             Gets or sets full path of the item.
             </summary>
         </member>
+        <member name="M:eContracting.Models.JsonFilesSectionModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonFilesSectionModel"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.JsonFilesSectionModel.#ctor(System.Collections.Generic.IEnumerable{eContracting.Models.JsonFileModel},System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonFilesSectionModel"/> class.
+            </summary>
+            <param name="files">The files.</param>
+            <param name="title">The title.</param>
+        </member>
+        <member name="M:eContracting.Models.JsonFilesSectionModel.#ctor(System.Collections.Generic.IEnumerable{eContracting.Models.JsonFileModel},System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonFilesSectionModel"/> class.
+            </summary>
+            <param name="files">The files.</param>
+            <param name="title">The title.</param>
+            <param name="position">The position.</param>
+        </member>
         <member name="T:eContracting.Models.JsonOfferPerexModel">
             <summary>
             Contains data from AD1 - <c>COMMODITY_OFFER_SUMMARY</c>.

@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<form>
+  <parameters>
+    <ADD_SERVICES>X</ADD_SERVICES>
+    <ADD_SERVICES_ACCEPT_LABEL>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          Investor<br/>
+        </p>
+      </body>
+    </ADD_SERVICES_ACCEPT_LABEL>
+    <ADD_SERVICES_ACCEPT_LABEL_GUID>02D67988E24D1EEB9B90E8900D6F21ED</ADD_SERVICES_ACCEPT_LABEL_GUID>
+    <BENEFITS/>
+    <COMMODITY>X</COMMODITY>
+    <COMMODITY_ACCEPT_LABEL>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          Smlouva / dodatek<br/>
+        </p>
+      </body>
+    </COMMODITY_ACCEPT_LABEL>
+    <COMMODITY_ACCEPT_LABEL_GUID>02D67988E24D1EEB9B90E80C4B8741ED</COMMODITY_ACCEPT_LABEL_GUID>
+    <COMMODITY_OFFER_SUMMARY>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |Produkt|: [plyn Standard]<br/>|Platnost nabídky do|: [26.03.2021]<br/>|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br/>|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br/>|Předpokládaná účinnost smlouvy|: [Montáží měřidla ]<br/>
+        </p>
+      </body>
+    </COMMODITY_OFFER_SUMMARY>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>26.03.2021</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Montáží měřidla </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+    <COMMODITY_PRODUCT>G_STANDARD</COMMODITY_PRODUCT>
+    <COMMODITY_PRODUCT_DESC>plyn Standard</COMMODITY_PRODUCT_DESC>
+    <COMMODITY_SALES_ARGUMENTS>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |První|: [svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku]<br/>|Druhé|: [navíc finanční odměna dle Ceníku služeb]<br/>
+        </p>
+      </body>
+    </COMMODITY_SALES_ARGUMENTS>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>navíc finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+    <NONCOMMODITY/>
+    <PERSON>X</PERSON>
+    <PERSON_CUSTADDRESS>Msgr. Šrámka 1064 / 31, 741 01 Nový Jičín</PERSON_CUSTADDRESS>
+    <PERSON_CUSTBIRTHDATE>29.03.1982</PERSON_CUSTBIRTHDATE>
+    <PERSON_CUSTEMAIL>milos.rezanina@innogy.cz</PERSON_CUSTEMAIL>
+    <PERSON_CUSTNAME>Zuzana Jurková</PERSON_CUSTNAME>
+    <PERSON_CUSTTEL1>603 280 385</PERSON_CUSTTEL1>
+    <PERSON_CUSTTITLELET>Vážená paní Jurková                                           </PERSON_CUSTTITLELET>
+    <PERSON_NUMBER>9511111181</PERSON_NUMBER>
+    <PERSON_PREMADR>Hlavní třída 704 / 80, 708 00 Poruba</PERSON_PREMADR>
+    <PERSON_PREMEXT>27ZG700Z0412651D</PERSON_PREMEXT>
+    <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+    <PERSON_PREMNUMBER>9300935431</PERSON_PREMNUMBER>
+    <USER_ATTACH>X</USER_ATTACH>
+    <USER_ATTACH_PL2_HELP>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          <b>Doklad o vlastnictví nemovitosti</b><br/>Výpis z katastru nemovitostí, případně nájemní smlouva.<br/>
+        </p>
+      </body>
+    </USER_ATTACH_PL2_HELP>
+  </parameters>
+</form>
