@@ -111,26 +111,26 @@ namespace eContracting.Services
 
                 if (acceptFiles.Any())
                 {
-                    var title = definition.OfferCommoditiesAcceptTitle.Text; //definition.AcceptedDocumentsTitle;
+                    var title = definition.OfferCommoditiesAcceptTitle?.Text.Trim(); //definition.AcceptedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(acceptFiles.Select(x => new JsonFileModel(x)), title, 0));
                 }
 
                 if (signFiles.Any())
                 {
-                    var title = definition.OfferCommoditiesSignTitle.Text; //definition.SignedDocumentsTitle;
+                    var title = definition.OfferCommoditiesSignTitle?.Text.Trim(); //definition.SignedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title, 1));
                 }
             }
             else if (groupName == "DSL")
             {
                 var files = attachments.Where(x => x.Group == "DSL");
-                var title = definition.OfferAdditionalServicesTitle.Text; //definition.AdditionalServicesTitle;
+                var title = definition.OfferAdditionalServicesTitle?.Text.Trim(); //definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title, 2));
             }
             else
             {
                 var files = attachments.Where(x => x.Group != "COMMODITY" && x.Group != "DSL" && x.IsPrinted);
-                var title = definition.OfferOtherProductsDocsTitle.Text; //definition.AdditionalServicesTitle;
+                var title = definition.OfferOtherProductsDocsTitle?.Text.Trim(); //definition.AdditionalServicesTitle;
                 list.Add(new JsonFilesSectionModel(files.Select(x => new JsonFileModel(x)), title, 3));
             }
 
@@ -158,7 +158,7 @@ namespace eContracting.Services
             if (parameters.Count > 0)
             {
                 var model = new JsonOfferPerexModel();
-                model.Title = definition.OfferPerexTitle.Text;
+                model.Title = definition.OfferPerexTitle?.Text.Trim();
                 model.Parameters = parameters.ToArray();
                 return model;
             }
@@ -169,6 +169,21 @@ namespace eContracting.Services
         protected internal JsonSalesArgumentsModel GetCommoditySalesArguments(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
         {
             var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
+
+            if (values.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new JsonSalesArgumentsModel();
+            model.Title = definition.OfferBenefitsTitle?.Text.Trim();
+            model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
+            return model;
+        }
+
+        protected internal JsonSalesArgumentsModel GetAdditionalServiceSalesArguments(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        {
+            var values = textParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
 
             if (values.Length == 0)
             {
@@ -208,7 +223,7 @@ namespace eContracting.Services
             }
 
             var model = new JsonAllBenefitsModel();
-            model.Title = definition.OfferGiftsTitle.Text;
+            model.Title = definition.OfferGiftsTitle?.Text.Trim();
 
             if (textParameters.HasValue("BENEFITS_CLOSE"))
             {
@@ -318,8 +333,8 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptanceModel();
-            model.Title = definition.OfferCommoditiesTitle.Text;
-            model.Text = Utils.GetReplacedTextTokens(definition.OfferCommoditiesText.Text, offer.TextParameters);
+            model.Title = definition.OfferCommoditiesTitle?.Text.Trim();
+            model.Text = Utils.GetReplacedTextTokens(definition.OfferCommoditiesText?.Text, offer.TextParameters);
             model.Accept = accept;
             model.Sign = sign;
             return model;
@@ -335,8 +350,8 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferCommoditiesAcceptTitle.Text;
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesAcceptText.Text, offer.TextParameters);
+            model.Title = definition.OfferCommoditiesAcceptTitle?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesAcceptText?.Text, offer.TextParameters);
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -368,8 +383,8 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferCommoditiesSignTitle.Text;
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesSignText.Text, offer.TextParameters);
+            model.Title = definition.OfferCommoditiesSignTitle?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesSignText?.Text, offer.TextParameters);
             model.Note = null; //TODO: create text
             var list = new List<JsonAcceptFileModel>();
 
@@ -429,8 +444,8 @@ namespace eContracting.Services
             //customFile.Mandatory = false;
             //list.Add(customFile);
 
-            model.Title = definition.OfferUploadsTitle.Text;
-            model.Note = definition.OfferUploadsNote.Text;
+            model.Title = definition.OfferUploadsTitle?.Text.Trim();
+            model.Note = definition.OfferUploadsNote?.Text.Trim();
             model.Types = list;
             return model;
         }
@@ -474,8 +489,28 @@ namespace eContracting.Services
                 list.Add(file);
             }
 
-            model.Title = definition.OfferAdditionalServicesTitle.Text;
-            model.Text = definition.OfferAdditionalServicesText.Text;
+            var parameters = new List<JsonParamModel>();
+            var salesArguments = new List<JsonArgumentModel>();
+
+            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
+            {
+                var key = item.Value;
+                var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+                parameters.Add(new JsonParamModel(key, value));
+            }
+
+            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
+            {
+                salesArguments.Add(new JsonArgumentModel(item.Value));
+            }
+
+            model.Title = definition.OfferAdditionalServicesTitle?.Text.Trim();
+            model.Note = definition.OfferAdditionalServicesNote?.Text.Trim();
+            model.SalesArguments = salesArguments;
+            model.Params = parameters;
+            model.SubTitle = definition.OfferAdditionalServicesSummaryTitle?.Text.Trim();
+            model.SubTitle2 = definition.OfferAdditionalServicesDocsTitle?.Text.Trim();
+            model.Text = definition.OfferAdditionalServicesDocsText?.Text.Trim();
             model.Files = list;
             return model;
         }
@@ -521,13 +556,13 @@ namespace eContracting.Services
                 salesArguments.Add(new JsonArgumentModel(item.Value));
             }
 
-            model.Title = definition.OfferOtherProductsTitle.Text;
-            model.Note = definition.OfferOtherProductsNote.Text;
+            model.Title = definition.OfferOtherProductsTitle?.Text.Trim();
+            model.Note = definition.OfferOtherProductsNote?.Text.Trim();
             model.SalesArguments = salesArguments;
             model.Params = parameters;
             model.SubTitle = definition.OfferOtherProductsSummaryTitle.Text;
-            model.SubTitle2 = definition.OfferOtherProductsDocsTitle.Text;
-            model.Text = definition.OfferOtherProductsDocsText.Text;
+            model.SubTitle2 = definition.OfferOtherProductsDocsTitle?.Text.Trim();
+            model.Text = definition.OfferOtherProductsDocsText?.Text.Trim();
             model.Files = list;
             return model;
         }
