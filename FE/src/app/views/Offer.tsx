@@ -19,7 +19,7 @@ import {
   UploadZone,
 } from '@components'
 import { breakpoints, colors } from '@theme'
-import { useKeepAlive, useLabels, useUnload } from '@hooks'
+import { useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { isIE11 } from '@utils'
 
@@ -46,7 +46,6 @@ export const Offer: React.FC<View> = observer(
     thankYouPageUrl,
     sessionExpiredPageUrl,
     debug,
-    keepAliveUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -58,7 +57,7 @@ export const Offer: React.FC<View> = observer(
     const formRef = useRef<HTMLFormElement>(null)
 
     // keep session alive
-    useKeepAlive(30 * 1000, keepAliveUrl)
+    // useKeepAlive(30 * 1000, keepAliveUrl)
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
