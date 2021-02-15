@@ -99,9 +99,17 @@ export type OtherDocuments = {
   }
   services?: {
     title: string
+    subTitle?: string
+    params?: OfferParams<{
+      title: string
+      value: string
+    }>
     text: string
+    arguments?: Array<{ value: string }>
+    subTitle2?: string
     mandatoryGroups: string[]
     files: OfferDocument[]
+    note?: string
   }
 }
 
