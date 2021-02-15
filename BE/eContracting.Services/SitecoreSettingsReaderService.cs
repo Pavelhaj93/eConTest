@@ -51,6 +51,15 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
+        public int SessionTimeout
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.SessionTimeout", 30);
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SitecoreSettingsReaderService"/> class.
         /// </summary>

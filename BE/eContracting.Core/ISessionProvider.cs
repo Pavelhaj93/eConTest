@@ -41,5 +41,11 @@ namespace eContracting
         /// </summary>
         /// <param name="key">The key.</param>
         void Remove(string key);
+
+        /// <summary>
+        /// Sets the timeout in minutes.
+        /// </summary>
+        /// <param name="minutes">The minutes.</param>
+        void SetTimeout(int minutes);
     }
 }

@@ -24,6 +24,11 @@ namespace eContracting
         bool ShowDebugMessages { get; }
 
         /// <summary>
+        /// Gets the session timeout in minutes.
+        /// </summary>
+        int SessionTimeout { get; }
+
+        /// <summary>
         /// Gets <c>default</c> definition. Cannot be null.
         /// </summary>
         /// <returns>The definition.</returns>
