@@ -31,7 +31,7 @@ namespace eContracting.Models
 
             if (string.IsNullOrEmpty(value))
             {
-                value = "00875a";
+                value = "64b42d";
             }
 
             return "#" + value;
