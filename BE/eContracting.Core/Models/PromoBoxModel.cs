@@ -22,16 +22,19 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual Link Link { get; set; }
 
+        /// <summary>
+        /// Gets the color in hexadecimal format with leading <c>#</c>.
+        /// </summary>
         public string GetColor()
         {
             var value = this.Color?.Value;
 
             if (string.IsNullOrEmpty(value))
             {
-                value = "green";
+                value = "00875a";
             }
 
-            return value;
+            return "#" + value;
         }
 
         public string GetLinkUrl()
