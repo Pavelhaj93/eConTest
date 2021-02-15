@@ -32,7 +32,6 @@ namespace eContracting.Models
         /// <param name="title">The title.</param>
         public JsonFilesSectionModel(IEnumerable<JsonFileModel> files, string title) : this(files, title, 100)
         {
-            
         }
 
         /// <summary>

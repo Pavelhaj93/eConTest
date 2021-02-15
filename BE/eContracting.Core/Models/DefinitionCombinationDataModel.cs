@@ -97,7 +97,16 @@ namespace eContracting.Models
         public virtual SimpleTextModel OfferAdditionalServicesTitle { get; set; }
 
         [SitecoreField]
-        public virtual RichTextModel OfferAdditionalServicesText { get; set; }
+        public virtual SimpleTextModel OfferAdditionalServicesSummaryTitle { get; set; }
+
+        [SitecoreField]
+        public virtual SimpleTextModel OfferAdditionalServicesDocsTitle { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferAdditionalServicesDocsText { get; set; }
+
+        [SitecoreField]
+        public virtual RichTextModel OfferAdditionalServicesNote { get; set; }
 
         #endregion
 
