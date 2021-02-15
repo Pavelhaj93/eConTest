@@ -41,5 +41,14 @@ namespace eContracting.Services
         {
             HttpContext.Current?.Session?.Remove(key);
         }
+
+        /// <inheritdoc/>
+        public void SetTimeout(int minutes)
+        {
+            if (HttpContext.Current?.Session != null)
+            {
+                HttpContext.Current.Session.Timeout = minutes;
+            }
+        }
     }
 }

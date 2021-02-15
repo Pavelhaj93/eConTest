@@ -22,6 +22,7 @@ namespace eContracting.ConsoleClient
 
         public bool SaveFilesToDebugFolder { get; } = false;
         public bool ShowDebugMessages { get; } = true;
+        public int SessionTimeout { get; } = 20;
 
         public IEnumerable<LoginTypeModel> GetAllLoginTypes()
         {
@@ -155,8 +156,6 @@ namespace eContracting.ConsoleClient
             model.OfferAcceptedMainText = new RichTextModel() { Text = "" };
             model.OfferAcceptText = new RichTextModel() { Text = "" };
             model.OfferAcceptTitle = new SimpleTextModel() { Text = "" };
-            model.OfferAdditionalServicesText = new RichTextModel() { Text = "" };
-            model.OfferAdditionalServicesTitle = new SimpleTextModel() { Text = "Additional services" };
             model.OfferBenefitsTitle = new SimpleTextModel() { Text = "" };
             model.OfferCommoditiesAcceptText = new RichTextModel() { Text = "" };
             model.OfferCommoditiesAcceptTitle = new SimpleTextModel() { Text = "Accepted documents" };
@@ -167,6 +166,11 @@ namespace eContracting.ConsoleClient
             model.OfferExpiredMainText = new RichTextModel() { Text = "" };
             model.OfferGiftsTitle = new SimpleTextModel() { Text = "Gifts" };
             model.OfferMainText = new RichTextModel() { Text = "" };
+            model.OfferAdditionalServicesDocsText = new RichTextModel() { Text = "" };
+            model.OfferAdditionalServicesDocsTitle = new SimpleTextModel() { Text = "Additional services" };
+            model.OfferAdditionalServicesNote = new RichTextModel() { Text = "" };
+            model.OfferAdditionalServicesSummaryTitle = new SimpleTextModel() { Text = "" };
+            model.OfferAdditionalServicesTitle = new SimpleTextModel() { Text = "Additional services" };
             model.OfferOtherProductsDocsText = new RichTextModel() { Text = "" };
             model.OfferOtherProductsDocsTitle = new SimpleTextModel() { Text = "Other products" };
             model.OfferOtherProductsNote = new RichTextModel() { Text = "" };

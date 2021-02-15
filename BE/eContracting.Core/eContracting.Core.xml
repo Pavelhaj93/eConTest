@@ -208,6 +208,12 @@
             </summary>
             <param name="key">The key.</param>
         </member>
+        <member name="M:eContracting.ISessionProvider.SetTimeout(System.Int32)">
+            <summary>
+            Sets the timeout in minutes.
+            </summary>
+            <param name="minutes">The minutes.</param>
+        </member>
         <member name="T:eContracting.IStartup">
             <summary>
             Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
@@ -328,6 +334,17 @@
         <member name="P:eContracting.Models.BasePageWithStepsModel.Step">
             <summary>
             Gets or sets the step.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.ColorModel">
+            <summary>
+            A color definition used from RWE collection <c>/sitecore/system/Modules/innogy/components/code-lists/color-themes</c>.
+            </summary>
+            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+        </member>
+        <member name="P:eContracting.Models.ColorModel.Value">
+            <summary>
+            Gets or sets hexadecimal value.
             </summary>
         </member>
         <member name="T:eContracting.Models.DbFileAttributeModel">
@@ -689,6 +706,11 @@
             Represents model for thank you page.
             </summary>
             <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+        </member>
+        <member name="M:eContracting.Models.PromoBoxModel.GetColor">
+            <summary>
+            Gets the color in hexadecimal format with leading <c>#</c>.
+            </summary>
         </member>
         <member name="P:eContracting.Models.PageAcceptedOfferModel.PageTitle">
             <summary>
@@ -2447,6 +2469,11 @@
         <member name="P:eContracting.ISettingsReaderService.ShowDebugMessages">
             <summary>
             Gets a value indicating whether to show debug messages to frontend.
+            </summary>
+        </member>
+        <member name="P:eContracting.ISettingsReaderService.SessionTimeout">
+            <summary>
+            Gets the session timeout in minutes.
             </summary>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinitionDefault">

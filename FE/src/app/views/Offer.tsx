@@ -19,7 +19,7 @@ import {
   UploadZone,
 } from '@components'
 import { breakpoints, colors } from '@theme'
-import { useKeepAlive, useLabels, useUnload } from '@hooks'
+import { useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { isIE11 } from '@utils'
 
@@ -46,7 +46,6 @@ export const Offer: React.FC<View> = observer(
     thankYouPageUrl,
     sessionExpiredPageUrl,
     debug,
-    keepAliveUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -58,7 +57,7 @@ export const Offer: React.FC<View> = observer(
     const formRef = useRef<HTMLFormElement>(null)
 
     // keep session alive
-    useKeepAlive(30 * 1000, keepAliveUrl)
+    // useKeepAlive(30 * 1000, keepAliveUrl)
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
@@ -429,6 +428,47 @@ export const Offer: React.FC<View> = observer(
             <>
               <h2 className="mt-5">{store.documents.other.services.title}</h2>
               <Box>
+                {store.documents.other.services.subTitle &&
+                  (store.documents.other.services.params ||
+                    store.documents.other.services.arguments) && (
+                    <BoxHeading>{store.documents.other.services.subTitle}</BoxHeading>
+                  )}
+
+                {store.documents.other.services.params &&
+                  store.documents.other.services.params.length > 0 && (
+                    <Table size="sm" className="table-two-columns" borderless>
+                      <tbody>
+                        {store.documents.other.services.params.map(({ title, value }, idx) => (
+                          <tr key={idx}>
+                            <th scope="row">{title}:</th>
+                            <td>{value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  )}
+
+                {store.documents.other.services.arguments &&
+                  store.documents.other.services.arguments.length > 0 && (
+                    <Box backgroundColor="blue-green-light">
+                      <Row
+                        as="ul"
+                        className="justify-content-center list-unstyled mb-0"
+                        aria-label={t('productBenefits')}
+                      >
+                        {store.documents.other.services.arguments.map(({ value }, idx) => (
+                          <Col as="li" key={idx} xs={12} sm={6} lg={4} className="my-3 text-center">
+                            <Icon name="check-circle" size={40} color={colors.white} />
+                            <span className="d-block mt-2 font-weight-bold">{value}</span>
+                          </Col>
+                        ))}
+                      </Row>
+                    </Box>
+                  )}
+
+                {store.documents.other.services.subTitle2 && (
+                  <BoxHeading>{store.documents.other.services.subTitle2}</BoxHeading>
+                )}
                 <div
                   className="text-center editorial-content mt-2 mb-4"
                   dangerouslySetInnerHTML={{ __html: store.documents.other.services.text }}
@@ -462,6 +502,21 @@ export const Offer: React.FC<View> = observer(
                     </Form.Check.Label>
                   </FormCheckWrapper>
                 ))}
+                {/* info text */}
+                {store.documents.other.services.note && (
+                  <div className="text-center mt-4">
+                    <Icon
+                      name="info-circle"
+                      size={40}
+                      color={colors.gray100}
+                      className="d-block mx-auto mb-3"
+                    />
+                    <div
+                      className="editorial-content"
+                      dangerouslySetInnerHTML={{ __html: store.documents.other.services.note }}
+                    />
+                  </div>
+                )}
               </Box>
             </>
           )}
@@ -537,6 +592,7 @@ export const Offer: React.FC<View> = observer(
                     </Form.Check.Label>
                   </FormCheckWrapper>
                 ))}
+                {/* info text */}
                 <div className="text-center mt-4">
                   <Icon
                     name="info-circle"

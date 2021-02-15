@@ -35,9 +35,10 @@
       display: block;
       width: calc(94% - #{$number-size});
       height: 1px;
-      background-color: $color-gray-60;
+      // border is used instead of background color due to zoom issue in IE 11
+      border-bottom: 1px solid $color-gray-60;
       position: absolute;
-      top: 25px;
+      top: ($number-size / 2);
       left: calc(-47% + #{$number-size / 2});
       z-index: 1;
     }
