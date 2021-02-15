@@ -23,6 +23,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IContextWrapper Context;
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
+        protected readonly ISessionProvider SessionProvider;
 
         [ExcludeFromCodeCoverage]
         public eContracting2Controller()
@@ -35,6 +36,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
+            this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -46,7 +48,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IAuthenticationService authService,
             IContextWrapper context,
             IUserFileCacheService userFileCache,
-            ITextService textService)
+            ITextService textService,
+            ISessionProvider sessionProvider)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -56,6 +59,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
+            this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
         }
 
         /// <summary>
@@ -100,6 +104,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 this.ApiService.SignInOffer(guid);
+                this.SessionProvider.SetTimeout(this.SettingsReaderService.SessionTimeout);
 
                 try
                 {
