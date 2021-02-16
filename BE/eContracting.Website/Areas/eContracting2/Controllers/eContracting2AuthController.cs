@@ -172,15 +172,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 // check if there already is an component in place for this matrix combination (possibly generated whenever an editor opens the page in edit mode)
                 // if it is not there, do not place a "Placeholders" element with matrix combination and let the view render the default component
-                var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
-                var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
-                LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
-                DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
-                string combinationIdentifier = "_" + offer.Process + "_" + offer.ProcessType;
-
-                if (renderings.Any(rend => rend.Placeholder.Equals(loginMatrixCombinationPlaceholderPrefix + combinationIdentifier)))
+                // checking ContextItem which is null when running tests
+                if (this.ContextItem != null)
                 {
-                    viewModel.Placeholders.Add(combinationIdentifier);
+                    var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+                    var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+                    LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
+                    DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
+                    string combinationIdentifier = "_" + offer.Process + "_" + offer.ProcessType;
+
+                    if (renderings.Any(rend => rend.Placeholder.Equals(loginMatrixCombinationPlaceholderPrefix + combinationIdentifier)))
+                    {
+                        viewModel.Placeholders.Add(combinationIdentifier);
+                    }
                 }
 
                 return View("/Areas/eContracting2/Views/Login.cshtml", viewModel);
