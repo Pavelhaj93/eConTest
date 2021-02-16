@@ -5,6 +5,10 @@ Template: "c8c58d58-c5d9-47c2-aef3-f4defca62a2c"
 Path: /sitecore/templates/eContracting2/Pages/Login/__Standard Values
 DB: master
 SharedFields:
+- ID: "344ba390-9f68-4c6e-bdde-4debd7fe9dad"
+  Hint: AutoGenerateTestableCombinationPlaceholders
+  Type: Checkbox
+  Value: 1
 - ID: "78bd6f65-7c1c-4877-a068-d3dd7120aa87"
   Hint: UserChoiceAuthenticationEnabled
   Type: Checkbox
