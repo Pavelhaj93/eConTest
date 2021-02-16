@@ -37,6 +37,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
         private const string SESSION_ERROR_KEY = "INVALID_LOGIN";
+        private const string loginMatrixCombinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login";
 
         [ExcludeFromCodeCoverage]
         public eContracting2AuthController()
@@ -169,7 +170,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.Zip1 = offer.PostNumber;
                 viewModel.Zip2 = offer.PostNumberConsumption;
 
-                viewModel.Placeholders.Add("_" + offer.Process + "_" + offer.ProcessType);
+                // check if there already is an component in place for this matrix combination (possibly generated whenever an editor opens the page in edit mode)
+                // if it is not there, do not place a "Placeholders" element with matrix combination and let the view render the default component
+                var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+                var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+                LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
+                DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
+                string combinationIdentifier = "_" + offer.Process + "_" + offer.ProcessType;
+
+                if (renderings.Any(rend => rend.Placeholder.Equals(loginMatrixCombinationPlaceholderPrefix + combinationIdentifier)))
+                {
+                    viewModel.Placeholders.Add(combinationIdentifier);
+                }
 
                 return View("/Areas/eContracting2/Views/Login.cshtml", viewModel);
             }
@@ -341,8 +353,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
 
             
-            string combinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login"; 
-            editModel.Placeholders.Add(combinationPlaceholderPrefix);
+
+            editModel.Placeholders.Add(loginMatrixCombinationPlaceholderPrefix);
 
             if (this.ContextWrapper.IsEditMode())
             {
@@ -362,14 +374,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                             {
                                 string combinationIdentifier = "_" + process.Code + "_" + type.Code;
                                 
-                                var combinationRendering = renderings.FirstOrDefault(rend => rend.Placeholder.Equals(combinationPlaceholderPrefix + combinationIdentifier));
+                                var combinationRendering = renderings.FirstOrDefault(rend => rend.Placeholder.Equals(loginMatrixCombinationPlaceholderPrefix + combinationIdentifier));
                                 if (combinationRendering == null)
                                 {
                                     var contextItem = this.ContextItem;
 
                                     RenderingDefinition newRenderingDefinition = new RenderingDefinition();
                                     newRenderingDefinition.ItemID = "{994F14EA-C859-4055-BB0E-523CE476057A}"; // TODO: sc config?  	Rich Text for login page
-                                    newRenderingDefinition.Placeholder = combinationPlaceholderPrefix + combinationIdentifier;
+                                    newRenderingDefinition.Placeholder = loginMatrixCombinationPlaceholderPrefix + combinationIdentifier;
 
                                     deviceDef.AddRendering(newRenderingDefinition);
                                 }
