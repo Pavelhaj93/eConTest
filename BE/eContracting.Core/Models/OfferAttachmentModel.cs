@@ -131,6 +131,18 @@ namespace eContracting.Models
         public readonly string GroupGuid;
 
         /// <summary>
+        /// The consent type identifier (expected S or P).
+        /// </summary>
+        public readonly string ConsentType;
+
+        /// <summary>
+        /// The template alc identifier
+        /// </summary>
+        public readonly string TemplAlcId;
+
+        public readonly OfferAttachmentXmlModel DocumentTemplate;
+
+        /// <summary>
         /// Gets <c>true</c> is <see cref="IsObligatory"/> == true OR <see cref="IsGroupObligatory"/> == true.
         /// </summary>
         [JsonProperty("isRequired")]
@@ -166,15 +178,19 @@ namespace eContracting.Models
             }
         }
 
-        /// <summary>
-        /// The consent type identifier (expected S or P).
-        /// </summary>
-        public readonly string ConsentType;
+        [JsonProperty("position")]
+        public int Position
+        {
+            get
+            {
+                if (int.TryParse(this.DocumentTemplate.SequenceNumber, out int pos))
+                {
+                    return pos;
+                }
 
-        /// <summary>
-        /// The template alc identifier
-        /// </summary>
-        public readonly string TemplAlcId;
+                return 0;
+            }
+        }
 
         #region Desicion makers where to place a file
 
@@ -191,8 +207,6 @@ namespace eContracting.Models
         }
 
         #endregion
-
-        public readonly OfferAttachmentXmlModel DocumentTemplate;
 
         /// <summary>
         /// Prevents a default instance of the <see cref="OfferAttachmentModel"/> class from being created.
@@ -258,6 +272,57 @@ namespace eContracting.Models
             this.FileNameExtension = template.Description + "." + this.FileExtension;
             this.Attributes = attributes ?? new OfferAttributeModel[] { };
             this.FileContent = content ?? new byte[] { };
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OfferAttachmentModel"/> class.
+        /// </summary>
+        /// <param name="template">The template.</param>
+        /// <param name="file">The file.</param>
+        /// <param name="attributes">The attributes.</param>
+        /// <exception cref="ArgumentNullException">template</exception>
+        /// <exception cref="ArgumentException">Invalid file name (empty name)</exception>
+        public OfferAttachmentModel(OfferAttachmentXmlModel template, OfferFileXmlModel file, OfferAttributeModel[] attributes)
+        {
+            if (template == null)
+            {
+                throw new ArgumentNullException(nameof(template));
+            }
+
+            this.DocumentTemplate = template;
+            var originalFileName = file.File.FILENAME;
+
+            if (string.IsNullOrEmpty(originalFileName))
+            {
+                originalFileName = template.Description;
+            }
+
+            if (string.IsNullOrEmpty(originalFileName))
+            {
+                throw new ArgumentException("Invalid file name (empty name)");
+            }
+
+            this.OriginalFileName = originalFileName;
+
+            this.Group = template.Group;
+            this.GroupGuid = template.ItemGuid;
+            this.FileName = template.Description;
+            this.ConsentType = template.ConsentType;
+            this.TemplAlcId = template.TemplAlcId;
+            this.IsObligatory = template.IsObligatory();
+            this.IsGroupObligatory = template.IsGroupObligatory();
+            this.IsPrinted = template.IsPrinted();
+            this.IsSignReq = template.IsSignRequired();
+            this.IdAttach = template.IdAttach;
+            this.Product = template.Product;
+            this.UniqueKey = template.UniqueKey;
+
+            this.MimeType = file.File.MIMETYPE;
+            this.FileExtension = Path.GetExtension(this.OriginalFileName).TrimStart('.');
+            this.FileNameExtension = template.Description + "." + this.FileExtension;
+            this.Attributes = attributes ?? new OfferAttributeModel[] { };
+            this.FileContent = file.File.FILECONTENT ?? new byte[] { };
+
         }
 
         /// <summary>
