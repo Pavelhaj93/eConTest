@@ -32,6 +32,9 @@ namespace eContracting.Models
         [JsonProperty("mandatory")]
         public bool Mandatory { get; set; } = true;
 
+        [JsonProperty("idx")]
+        public int Position { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonAcceptFileModel"/> class.
         /// </summary>
@@ -58,6 +61,7 @@ namespace eContracting.Models
             this.Label = attachment.FileName;
             this.MimeType = attachment.MimeType;
             this.Mandatory = attachment.IsRequired;
+            this.Position = attachment.Position;
         }
     }
 }

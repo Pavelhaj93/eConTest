@@ -822,6 +822,13 @@
             Contains data from AD1 - <c>COMMODITY_OFFER_SUMMARY</c>.
             </summary>
         </member>
+        <member name="M:eContracting.Models.JsonUploadTemplateModel.#ctor(eContracting.Models.OfferAttachmentModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonUploadTemplateModel"/> class.
+            </summary>
+            <param name="template">The template.</param>
+            <exception cref="T:System.ArgumentNullException">template</exception>
+        </member>
         <member name="T:eContracting.Models.DefinitionCombinationModel">
             <summary>
             Represents combination of <see cref="P:eContracting.Models.DefinitionCombinationModel.Process"/> and <see cref="P:eContracting.Models.DefinitionCombinationModel.ProcessType"/> with their relevant settings.
@@ -1056,6 +1063,16 @@
             Group in which the template is.
             </summary>
         </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.ConsentType">
+            <summary>
+            The consent type identifier (expected S or P).
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.OfferAttachmentModel.TemplAlcId">
+            <summary>
+            The template alc identifier
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.IsRequired">
             <summary>
             Gets <c>true</c> is <see cref="F:eContracting.Models.OfferAttachmentModel.IsObligatory"/> == true OR <see cref="F:eContracting.Models.OfferAttachmentModel.IsGroupObligatory"/> == true.
@@ -1069,16 +1086,6 @@
         <member name="P:eContracting.Models.OfferAttachmentModel.SizeLabel">
             <summary>
             Gets size description.
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentModel.ConsentType">
-            <summary>
-            The consent type identifier (expected S or P).
-            </summary>
-        </member>
-        <member name="F:eContracting.Models.OfferAttachmentModel.TemplAlcId">
-            <summary>
-            The template alc identifier
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferAttachmentModel.Template">
@@ -1106,6 +1113,16 @@
             <param name="originalFileName">Name of the original file.</param>
             <param name="attributes">The attributes.</param>
             <param name="content">The content.</param>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel,eContracting.Models.OfferAttributeModel[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
+            </summary>
+            <param name="template">The template.</param>
+            <param name="file">The file.</param>
+            <param name="attributes">The attributes.</param>
+            <exception cref="T:System.ArgumentNullException">template</exception>
+            <exception cref="T:System.ArgumentException">Invalid file name (empty name)</exception>
         </member>
         <member name="M:eContracting.Models.OfferAttachmentModel.IsAttributeChecked(System.String)">
             <summary>

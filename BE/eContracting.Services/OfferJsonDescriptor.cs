@@ -420,13 +420,8 @@ namespace eContracting.Services
             for (int i = 0; i < fileTemplates.Length; i++)
             {
                 var template = fileTemplates[i];
-                var file = new JsonUploadTemplateModel();
-                file.GroupId = template.UniqueKey;
-                file.IdAttach = template.IdAttach;
-                file.Product = template.Product;
-                file.Title = template.FileName;
+                var file = new JsonUploadTemplateModel(template);
                 file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
-                file.Mandatory = template.IsRequired;
 
                 if (file.Mandatory)
                 {

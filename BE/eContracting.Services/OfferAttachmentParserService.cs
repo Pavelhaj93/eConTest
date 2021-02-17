@@ -76,7 +76,7 @@ namespace eContracting.Services
                 throw new AggregateException("Failed to parse and get all attachment models based on offer and files", exceptions);
             }
 
-            return list.ToArray();
+            return list.OrderBy(x => x.Position).ToArray();
         }
 
         /// <inheritdoc/>
@@ -451,7 +451,7 @@ namespace eContracting.Services
             {
                 var file = this.GetFileByTemplate(offer, template, files);
                 var attrs = this.GetAttributes(file);
-                item = new OfferAttachmentModel(template, file.File.MIMETYPE, file.File.FILENAME, attrs, file.File.FILECONTENT);
+                item = new OfferAttachmentModel(template, file, attrs);
             }
             // otherwise this file must be uploaded by user
             else
