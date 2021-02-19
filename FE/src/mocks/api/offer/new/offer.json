@@ -246,6 +246,8 @@
       "services": {
         "title": "Doplňkové služby",
         "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
+        "arguments": [],
+        "params": [],
         "mandatoryGroups": [],
         "files": [
           {

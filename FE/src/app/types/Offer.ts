@@ -100,12 +100,12 @@ export type OtherDocuments = {
   services?: {
     title: string
     subTitle?: string | null
-    params?: OfferParams<{
+    params: OfferParams<{
       title: string
       value: string
     }>
     text: string
-    arguments?: Array<{ value: string }>
+    arguments: Array<{ value: string }>
     subTitle2?: string | null
     mandatoryGroups: string[]
     files: OfferDocument[]
