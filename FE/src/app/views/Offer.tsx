@@ -413,42 +413,40 @@ export const Offer: React.FC<View> = observer(
               <h2 className="mt-5">{store.documents.other.services.title}</h2>
               <Box>
                 {store.documents.other.services.subTitle &&
-                  (store.documents.other.services.params ||
-                    store.documents.other.services.arguments) && (
+                  (store.documents.other.services.params.length > 0 ||
+                    store.documents.other.services.arguments.length > 0) && (
                     <BoxHeading>{store.documents.other.services.subTitle}</BoxHeading>
                   )}
 
-                {store.documents.other.services.params &&
-                  store.documents.other.services.params.length > 0 && (
-                    <Table size="sm" className="table-two-columns" borderless>
-                      <tbody>
-                        {store.documents.other.services.params.map(({ title, value }, idx) => (
-                          <tr key={idx}>
-                            <th scope="row">{title}:</th>
-                            <td>{value}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                  )}
+                {store.documents.other.services.params.length > 0 && (
+                  <Table size="sm" className="table-two-columns" borderless>
+                    <tbody>
+                      {store.documents.other.services.params.map(({ title, value }, idx) => (
+                        <tr key={idx}>
+                          <th scope="row">{title}:</th>
+                          <td>{value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
+                )}
 
-                {store.documents.other.services.arguments &&
-                  store.documents.other.services.arguments.length > 0 && (
-                    <Box backgroundColor="blue-green-light">
-                      <Row
-                        as="ul"
-                        className="justify-content-center list-unstyled mb-0"
-                        aria-label={t('productBenefits')}
-                      >
-                        {store.documents.other.services.arguments.map(({ value }, idx) => (
-                          <Col as="li" key={idx} xs={12} sm={6} lg={4} className="my-3 text-center">
-                            <Icon name="check-circle" size={40} color={colors.white} />
-                            <span className="d-block mt-2 font-weight-bold">{value}</span>
-                          </Col>
-                        ))}
-                      </Row>
-                    </Box>
-                  )}
+                {store.documents.other.services.arguments.length > 0 && (
+                  <Box backgroundColor="blue-green-light">
+                    <Row
+                      as="ul"
+                      className="justify-content-center list-unstyled mb-0"
+                      aria-label={t('productBenefits')}
+                    >
+                      {store.documents.other.services.arguments.map(({ value }, idx) => (
+                        <Col as="li" key={idx} xs={12} sm={6} lg={4} className="my-3 text-center">
+                          <Icon name="check-circle" size={40} color={colors.white} />
+                          <span className="d-block mt-2 font-weight-bold">{value}</span>
+                        </Col>
+                      ))}
+                    </Row>
+                  </Box>
+                )}
 
                 {store.documents.other.services.subTitle2 && (
                   <BoxHeading>{store.documents.other.services.subTitle2}</BoxHeading>
