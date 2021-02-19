@@ -58,6 +58,10 @@
   .fill-#{$color} {
     fill: $value;
   }
+
+  .text-#{$color} {
+    color: $value;
+  }
 }
 
 .fade {
