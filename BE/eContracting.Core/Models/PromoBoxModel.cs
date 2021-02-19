@@ -41,5 +41,11 @@ namespace eContracting.Models
         {
             return this.Link?.Url;
         }
+
+        public string GetLinkTitle()
+        {
+            return this.Link?.Title;
+        }
+
     }
 }
