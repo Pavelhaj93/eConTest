@@ -31,7 +31,6 @@ export type AppConfig = {
   allowedContentTypes?: string[]
   maxFileSize?: number
   maxGroupFileSize?: number
-  debug?: boolean
 }
 
 declare global {
