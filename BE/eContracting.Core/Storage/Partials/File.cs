@@ -27,6 +27,7 @@ namespace eContracting.Storage
             this.MimeType = model.MimeType;
             this.Size = model.Size;
             this.Content = model.Content;
+            this.CreateDate = model.CreateDate;
         }
 
         public DbFileModel ToModel(IEnumerable<FileAttribute> attributes)
@@ -38,6 +39,7 @@ namespace eContracting.Storage
             model.MimeType = this.MimeType;
             model.Content = this.Content;
             model.Attributes.AddRange(attributes.Select(x => x.ToModel()));
+            model.CreateDate = this.CreateDate;
             return model;
         }
     }

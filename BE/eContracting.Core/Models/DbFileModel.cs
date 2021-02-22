@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,6 +12,14 @@ namespace eContracting.Models
     {
         private int size = 0;
         byte[] content = null;
+
+        /// <summary>
+        /// Public constructor, sets the CreateDate
+        /// </summary>
+        public DbFileModel()
+        {
+            this.CreateDate = DateTime.UtcNow;
+        }
 
         /// <summary>
         /// Gets or sets the identifier.
@@ -57,6 +66,12 @@ namespace eContracting.Models
                 this.Size = value?.Length ?? 0;
             }
         }
+
+        /// <summary>
+        /// Gets or sets datetime when the file was saved into our database
+        /// </summary>
+        public DateTime? CreateDate { get; set; }
+        
 
         [NotMapped]
         public virtual List<DbFileAttributeModel> Attributes { get; } = new List<DbFileAttributeModel>();

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -39,10 +40,17 @@ namespace eContracting.Models
         public virtual DbFileModel File { get; set; }
 
         /// <summary>
+        /// Gets or sets datetime when the file was saved into our database
+        /// </summary>
+        public DateTime? CreateDate { get; set; }
+
+
+        /// <summary>
         /// Prevents a default instance of the <see cref="DbSignedFileModel"/> class from being created.
         /// </summary>
         public DbSignedFileModel()
         {
+            this.CreateDate = DateTime.UtcNow;
         }
 
         /// <summary>
@@ -70,6 +78,7 @@ namespace eContracting.Models
             file.Attributes.Add(new DbFileAttributeModel("attributes", attributes));
 
             this.File = file;
+            this.CreateDate = DateTime.UtcNow;
         }
 
         /// <summary>

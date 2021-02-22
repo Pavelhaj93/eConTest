@@ -23,5 +23,7 @@ namespace eContracting.Storage
         public string Guid { get; set; }
 
         public int OutputFileId { get; set; }
+
+        public DateTime? CreateDate { get; set; }
     }
 }

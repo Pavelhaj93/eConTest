@@ -15,6 +15,7 @@ namespace eContracting.Storage
 
         public UploadGroup()
         {
+            this.CreateDate = DateTime.UtcNow;
         }
 
         public UploadGroup(DbUploadGroupFileModel model)
@@ -24,6 +25,7 @@ namespace eContracting.Storage
             this.Key = model.Key;
             this.Guid = model.Guid;
             this.SessionId = model.SessionId;
+            this.CreateDate = (model.CreateDate.HasValue)? model.CreateDate : DateTime.UtcNow;
         }
 
         public DbUploadGroupFileModel ToModel()
@@ -33,6 +35,7 @@ namespace eContracting.Storage
             model.Key = this.Key;
             model.Guid = this.Guid;
             model.SessionId = this.SessionId;
+            model.CreateDate = this.CreateDate;
             return model;
         }
     }

@@ -14,11 +14,18 @@ namespace eContracting.Models
 
         public string SessionId { get; set; }
 
+        public DateTime CreateDateMax { get; set; }
+
         public DbSearchParameters(string key, string guid, string sessionId)
         {
             this.Key = key;
             this.Guid = guid;
             this.SessionId = sessionId;
+        }
+
+        public DbSearchParameters(DateTime createDateMax)
+        {
+            this.CreateDateMax = createDateMax;
         }
     }
 }

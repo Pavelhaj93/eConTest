@@ -149,5 +149,16 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual CookieLawSettingsModel CookieLawSettings { get; set; }
+
+
+        #region Cleanup settings
+        [SitecoreField]
+        public virtual bool EnableCleanupApiTrigger { get; set; }
+
+        [SitecoreField]
+        public virtual double CleanupFilesOlderThanDays { get; set; }
+
+
+        #endregion
     }
 }

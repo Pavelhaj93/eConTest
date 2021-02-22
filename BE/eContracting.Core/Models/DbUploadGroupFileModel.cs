@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -38,5 +39,11 @@ namespace eContracting.Models
         /// Gets or sets original uploaded files.
         /// </summary>
         public virtual List<DbFileModel> OriginalFiles { get; } = new List<DbFileModel>();
+
+        /// <summary>
+        /// Gets or sets datetime when the file was saved into our database
+        /// </summary>
+        public DateTime? CreateDate { get; set; }
+
     }
 }

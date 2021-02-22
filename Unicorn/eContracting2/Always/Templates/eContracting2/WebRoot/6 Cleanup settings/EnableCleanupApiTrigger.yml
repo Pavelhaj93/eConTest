@@ -1,16 +1,16 @@
 ﻿---
-ID: "dae523ee-1962-419e-b9c2-cafb00934567"
-Parent: "3590e025-5c98-4aa2-beb8-c479c2cb6b45"
+ID: "ec77cc83-aab7-4f29-b36c-bdda58c98d44"
+Parent: "a4c77c77-ebbf-413b-bfc2-eaa27d769653"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/5 Upload settings/SingleUploadFileSizeLimitKBytes
+Path: /sitecore/templates/eContracting2/WebRoot/6 Cleanup settings/EnableCleanupApiTrigger
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
   Hint: Type
-  Value: Integer
+  Value: Checkbox
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 44
+  Value: 100
 - ID: "be351a73-fcb0-4213-93fa-c302d8ab4f51"
   Hint: Shared
   Type: Checkbox
@@ -22,19 +22,19 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20210220T214523Z
+      Value: 20210220T214524Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
 - Language: en
   Fields:
-  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
-    Hint: Title
-    Value: Maximální velikost každého nahrávaného soubrou
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Povolit úklid přes API endpoint
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20210118T150554Z
+      Value: 20210220T215419Z
