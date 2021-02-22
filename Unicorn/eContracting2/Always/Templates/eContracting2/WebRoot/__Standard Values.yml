@@ -54,6 +54,9 @@ SharedFields:
 - ID: "e82c99c8-ce35-453e-b54e-663e861cd0af"
   Hint: ServiceUser
   Value: 
+- ID: "fc6edff1-8056-4931-a922-f880356092af"
+  Hint: CleanupFilesOlderThanDays
+  Value: 7
 - ID: "fe28d1f5-ef64-486c-bb6e-11f01d5e30ae"
   Hint: MaxGroupOptimizationRounds
   Value: 3

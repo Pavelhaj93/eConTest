@@ -37,6 +37,11 @@ namespace eContracting.ConsoleClient
             return this.SignedFiles.FirstOrDefault(x => x.Key == search.Key);
         }
 
+        public List<DbSignedFileModel> FindSignedFiles(DbSearchParameters search)
+        {
+            throw new NotImplementedException();
+        }
+
         public void RemoveGroup(DbSearchParameters search)
         {
             throw new NotImplementedException();

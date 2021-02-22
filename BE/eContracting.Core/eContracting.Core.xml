@@ -275,6 +275,13 @@
             <param name="search">The search parameters.</param>
             <returns>File or null.</returns>
         </member>
+        <member name="M:eContracting.IUserFileCacheService.FindSignedFiles(eContracting.Models.DbSearchParameters)">
+            <summary>
+            Gets a list of signed files by specific <paramref name="search"/> parameters.
+            </summary>
+            <param name="search">The search parameters.</param>
+            <returns>List of Files or null.</returns>
+        </member>
         <member name="M:eContracting.IUserFileCacheService.FindGroup(eContracting.Models.DbSearchParameters)">
             <summary>
             Gets the group data by specific <paramref name="search"/> parameters.
@@ -372,6 +379,11 @@
             Represents physical file.
             </summary>
         </member>
+        <member name="M:eContracting.Models.DbFileModel.#ctor">
+            <summary>
+            Public constructor, sets the CreateDate
+            </summary>
+        </member>
         <member name="P:eContracting.Models.DbFileModel.Id">
             <summary>
             Gets or sets the identifier.
@@ -407,6 +419,11 @@
             Gets or sets file content in bytes.
             </summary>
         </member>
+        <member name="P:eContracting.Models.DbFileModel.CreateDate">
+            <summary>
+            Gets or sets datetime when the file was saved into our database
+            </summary>
+        </member>
         <member name="T:eContracting.Models.DbSignedFileModel">
             <summary>
             Represents signed file like 'Plná moc.pdf'
@@ -435,6 +452,11 @@
         <member name="P:eContracting.Models.DbSignedFileModel.File">
             <summary>
             Gets or sets the file.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.DbSignedFileModel.CreateDate">
+            <summary>
+            Gets or sets datetime when the file was saved into our database
             </summary>
         </member>
         <member name="M:eContracting.Models.DbSignedFileModel.#ctor">
@@ -490,6 +512,11 @@
         <member name="P:eContracting.Models.DbUploadGroupFileModel.OriginalFiles">
             <summary>
             Gets or sets original uploaded files.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.DbUploadGroupFileModel.CreateDate">
+            <summary>
+            Gets or sets datetime when the file was saved into our database
             </summary>
         </member>
         <member name="T:eContracting.Models.DefinitionCombinationContainerModel">

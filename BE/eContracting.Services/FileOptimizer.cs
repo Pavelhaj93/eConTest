@@ -148,6 +148,7 @@ namespace eContracting.Services
                     group.SessionId = sessionId;
                     group.Guid = guid;
                     group.OutputFile = new DbFileModel() { Key = groupKey, FileName = groupKey, FileExtension = "pdf", MimeType = "application/pdf" }; // attributes?   
+                    group.CreateDate = DateTime.UtcNow;
                 }
 
                 return await this.ProcessFilesAsync(group, outputPdfDocument, fileId, name, content, groupKey);

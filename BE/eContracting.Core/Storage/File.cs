@@ -26,5 +26,8 @@ namespace eContracting.Storage
 
         [Required]
         public byte[] Content { get; set; }
+
+        public DateTime? CreateDate { get; set; }
+
     }
 }

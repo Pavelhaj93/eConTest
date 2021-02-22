@@ -34,6 +34,13 @@ namespace eContracting
         DbSignedFileModel FindSignedFile(DbSearchParameters search);
 
         /// <summary>
+        /// Gets a list of signed files by specific <paramref name="search"/> parameters.
+        /// </summary>
+        /// <param name="search">The search parameters.</param>
+        /// <returns>List of Files or null.</returns>
+        List<DbSignedFileModel> FindSignedFiles(DbSearchParameters search);
+
+        /// <summary>
         /// Gets the group data by specific <paramref name="search"/> parameters.
         /// </summary>
         /// <param name="search">The search parameters.</param>

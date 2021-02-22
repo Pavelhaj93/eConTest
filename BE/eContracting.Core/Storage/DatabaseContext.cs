@@ -97,6 +97,7 @@ namespace eContracting.Storage
             modelBuilder.Entity<UploadGroup>()
                 .Property(e => e.Guid)
                 .IsUnicode(false);
+
         }
     }
 }

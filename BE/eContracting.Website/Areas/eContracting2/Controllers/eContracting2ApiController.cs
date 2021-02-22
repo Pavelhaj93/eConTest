@@ -1043,11 +1043,63 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+
         /// <summary>
-        /// Converts PDF file to the PNG stream
+        /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
-        /// <param name="memoryStream"></param>
-        protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        [HttpGet]
+        [Route("deleteoldfiles/{mode}")]
+        public async Task<IHttpActionResult> DeleteOldFiles(string mode)
+        {
+            bool previewOnly = mode != "delete";
+            List<string> outputMsgs = new List<string>();
+
+            if (!this.SettingsReaderService.GetSiteSettings().EnableCleanupApiTrigger)
+                return this.BadRequest("Cleanup not enabled through api endpont. Check EnableCleanupApiTrigger field.");
+
+            var cleanupFilesOlderThanDays = SettingsReaderService.GetSiteSettings().CleanupFilesOlderThanDays;
+            if (cleanupFilesOlderThanDays == null || cleanupFilesOlderThanDays <= 0)
+            {
+                return this.BadRequest("Invalid value of CleanupFilesOlderThanDays field. Positive number expected, 1 or bigger recommended.");
+            }
+
+            var filesSearchParams = new DbSearchParameters(DateTime.UtcNow.AddDays(-1 * cleanupFilesOlderThanDays));
+            var groupsToDelete = this.UserFileCacheService.FindGroups(filesSearchParams);
+            if (groupsToDelete != null && groupsToDelete.Any())
+            {
+                foreach (var group in groupsToDelete)
+                {
+                    string msg = $"{(previewOnly ? "Would delete" : "Deleted")} obsolete UploadGroup {group.Key} for offer {group.Guid}, session { group.SessionId}, created at {group.CreateDate}";
+                    outputMsgs.Add(msg);
+                    Sitecore.Diagnostics.Log.Info(msg, this);
+                    if (!previewOnly)
+                    {
+                        this.UserFileCacheService.RemoveGroup(new DbSearchParameters(group.Key, group.Guid, group.SessionId));
+                    }
+                }
+            }
+            var signedFilesToDelete = this.UserFileCacheService.FindSignedFiles(filesSearchParams);
+            if (signedFilesToDelete != null && signedFilesToDelete.Any())
+            {
+                foreach (var signedFile in signedFilesToDelete)
+                {
+                    string msg = $"{(previewOnly ? "Would delete" : "Deleted")} obsolete SignedFile {signedFile.Key} for offer {signedFile.Guid}, session { signedFile.SessionId}, created at {signedFile.CreateDate}";
+                    outputMsgs.Add(msg);
+                    Sitecore.Diagnostics.Log.Info(msg, this);
+                    if (!previewOnly)
+                    {
+                        this.UserFileCacheService.RemoveSignedFile(new DbSearchParameters(signedFile.Key, signedFile.Guid, signedFile.SessionId));
+                    }
+                }
+            }
+            return this.Ok(outputMsgs);
+        }
+
+            /// <summary>
+            /// Converts PDF file to the PNG stream
+            /// </summary>
+            /// <param name="memoryStream"></param>
+            protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
         {
             var pdfImages = new List<Image>();
 

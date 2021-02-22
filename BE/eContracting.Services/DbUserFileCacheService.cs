@@ -147,6 +147,11 @@ namespace eContracting.Services
                     query = query.Where(x => x.SessionId == search.SessionId);
                 }
 
+                if (search.CreateDateMax != null)
+                {
+                    query = query.Where(x => x.CreateDate<= search.CreateDateMax);
+                }
+
                 var searchResults = await query.ToListAsync();
 
                 if (searchResults != null)
@@ -265,6 +270,67 @@ namespace eContracting.Services
 
             return null;
         }
+
+        /// <inheritdoc/>
+        public List<DbSignedFileModel> FindSignedFiles(DbSearchParameters search)
+        {
+            var task = Task.Run(() => this.FindSignedFilesAsync(search));
+            task.Wait();
+            return task.Result;
+        }
+
+
+        protected async Task<List<DbSignedFileModel>> FindSignedFilesAsync(DbSearchParameters search)
+        {
+            using (var context = new DatabaseContext(this.ConnectionString))
+            {
+                var query = context.SignedFiles.AsQueryable();
+
+
+                if (!string.IsNullOrEmpty(search.Key))
+                {
+                    query = query.Where(x => x.Key == search.Key);
+                }
+
+                if (!string.IsNullOrEmpty(search.Guid))
+                {
+                    query = query.Where(x => x.Guid == search.Guid);
+                }
+
+                if (!string.IsNullOrEmpty(search.SessionId))
+                {
+                    query = query.Where(x => x.SessionId == search.SessionId);
+                }
+
+                if (search.CreateDateMax != null)
+                {
+                    query = query.Where(x => x.CreateDate <= search.CreateDateMax);
+                }
+
+                var qresult = await query.ToListAsync();
+                List<DbSignedFileModel> result = new List<DbSignedFileModel>();
+
+                if (qresult != null && qresult.Any())
+                {
+                    foreach (var qr in qresult)
+                    {
+                        var signedFile = qr.ToModel();
+
+                        if (qr.FileId > 0)
+                        {
+                            var file = await this.FindFileAsync(context, qr.FileId);
+                            signedFile.File = file;
+                        }
+
+                        result.Add( signedFile);
+                    }
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
 
         /// <inheritdoc/>
         public void RemoveGroup(DbSearchParameters search)

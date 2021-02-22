@@ -19,6 +19,7 @@ namespace eContracting.Storage
 
         public SignedFile()
         {
+            this.CreateDate = DateTime.UtcNow;
         }
 
         public SignedFile(string key, string guid, string sessionId, OfferAttachmentModel attachment)
@@ -26,6 +27,7 @@ namespace eContracting.Storage
             this.Key = key;
             this.Guid = guid;
             this.SessionId = sessionId;
+            this.CreateDate = DateTime.UtcNow;
 
             //var template = JsonConvert.SerializeObject(attachment.DocumentTemplate);
             //var attributes = attachment.Attributes != null ? JsonConvert.SerializeObject(attachment.Attributes) : null;
@@ -49,6 +51,7 @@ namespace eContracting.Storage
             this.Guid = model.Guid;
             this.SessionId = model.SessionId;
             this.FileId = model.File.Id;
+            this.CreateDate = (model.CreateDate.HasValue) ? model.CreateDate : DateTime.UtcNow;
         }
 
         public DbSignedFileModel ToModel()
@@ -58,6 +61,7 @@ namespace eContracting.Storage
             model.Key = this.Key;
             model.Guid = this.Guid;
             model.SessionId = this.SessionId;
+            model.CreateDate = this.CreateDate;
             return model;
         }
     }

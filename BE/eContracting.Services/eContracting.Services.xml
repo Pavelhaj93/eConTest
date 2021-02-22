@@ -455,6 +455,9 @@
         <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFile(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.DbUserFileCacheService.FindSignedFiles(eContracting.Models.DbSearchParameters)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.DbUserFileCacheService.RemoveGroup(eContracting.Models.DbSearchParameters)">
             <inheritdoc/>
         </member>
