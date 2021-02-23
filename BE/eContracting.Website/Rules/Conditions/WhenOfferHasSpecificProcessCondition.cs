@@ -61,7 +61,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
 
                 var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var process = context.GetItem<ProcessModel>(this.ProcessId);
+                var process = context.GetItem<ProcessModel>(this.ProcessItemGuid, ruleContext.Item.Language);
 
                 if (process == null)
                 {
