@@ -94,12 +94,14 @@ namespace eContracting.Services
                         }
                     }
                 }
+
+                return result;
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, "Cannot check failed log-in attempts saved in database", ex);
+                return true; // do not block visitor due to an internal exception
             }
-            return result;
         }
 
         /// <inheritdoc/>
