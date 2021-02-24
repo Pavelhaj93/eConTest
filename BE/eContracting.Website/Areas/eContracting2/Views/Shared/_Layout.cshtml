@@ -71,13 +71,16 @@
         </noscript>
     }
 
-    @*@if (!Sitecore.Context.PageMode.IsNormal)
+    @if (!Sitecore.Context.PageMode.IsNormal)
     {
         <style type="text/css">
             iframe.scFixedRibbon {
                 position: unset;
             }
+            footer {
+                padding-top: 25vh;
+            }
         </style>
-    }*@
+    }
 </body>
 </html>
