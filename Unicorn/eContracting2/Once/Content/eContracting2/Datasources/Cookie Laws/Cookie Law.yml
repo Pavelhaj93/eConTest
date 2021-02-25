@@ -22,4 +22,4 @@ Languages:
     - ID: "b24d4062-290a-48d6-8b53-6763b00fc727"
       Hint: Link
       Value: |
-        <link text="" anchor="" linktype="internal" class="" title="" target="" querystring="" id="{3D108B52-E560-468D-BA3B-407C5B4A38F9}" />
+        <link id="{3D108B52-E560-468D-BA3B-407C5B4A38F9}" querystring="" target="" text="" anchor="" title="" class="" url="/eContracting2/Web/disclaimer" linktype="internal" />

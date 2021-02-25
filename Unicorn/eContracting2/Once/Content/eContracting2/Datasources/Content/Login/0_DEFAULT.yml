@@ -34,7 +34,7 @@ Languages:
       Hint: Text
       Value: |
         <p>{PERSON_CUSTTITLELET},</p>
-        <p>děkujeme za Váš zájem o naši nabídku. Pro ověření Vaší totožnosti a pro zobrazení nabídky zadejte, prosím, následující údaje:</p>
+        <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
 - Language: en
   Versions:
   - Version: 1

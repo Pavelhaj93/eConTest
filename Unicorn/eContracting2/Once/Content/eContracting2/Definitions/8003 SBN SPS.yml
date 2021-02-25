@@ -5,131 +5,230 @@ Template: "b9b48c83-1724-43b5-8200-9cde955d6835"
 Path: /sitecore/content/eContracting2/Definitions/8003 SBN SPS
 DB: master
 SharedFields:
-- ID: "0602663a-9590-4902-ad69-4687dd0003c0"
-  Hint: OfferAdditionalServicesText
-  Value: "{BE931A3F-E88E-49B1-8022-7F3451568885}"
-- ID: "0c8cce0d-32cc-4d7c-b14f-5c7c75d4a13f"
-  Hint: OfferUploadsTitle
-  Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
-- ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
-  Hint: OfferTitle
-  Value: "{EC49198A-0C60-472C-BF75-2E81AE8B1212}"
-- ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
-  Hint: OfferAdditionalServicesTitle
-  Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
-- ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
-  Hint: OfferOtherProductsTitle
-  Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
-- ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
-  Hint: OfferCommoditiesText
-  Value: "{2226C47F-D466-4FD6-9913-19B4B91AB42C}"
 - ID: "2edfe793-a0a9-4c77-b784-e37ef1f083d6"
   Hint: Process
   Value: "{B8869935-BA0F-4AC6-80A4-23611A6AD632}"
-- ID: "3002b81c-2648-44b1-aae8-49eb6e5167ca"
-  Hint: OfferCommoditiesAcceptTitle
-  Value: "{38019107-BA5E-4064-82AD-B502BF220B37}"
-- ID: "384dd170-ec45-46a5-9d20-40a66c6471ab"
-  Hint: OfferOtherProductsDocsText
-  Value: "{E00A892D-3943-4B6A-A1B0-273DEC6FF500}"
-- ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
-  Hint: OfferExpiredMainText
-  Value: "{54900F28-F002-41B6-A129-D11D6F7E5479}"
-- ID: "4825c7b5-e299-4dfa-b9e0-f6369eda5fd8"
-  Hint: OfferUploadsExtraText
-  Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
-- ID: "58934276-4619-4696-85f4-eda6be9e6c76"
-  Hint: OfferCommoditiesTitle
-  Value: "{15FF9F03-E066-4EF9-BA64-999D0135091A}"
 - ID: "59c7f0ab-e8c2-4ba8-98aa-1435d740bdf8"
   Hint: ProcessType
   Value: "{C3C146E6-F5D4-4731-AF45-6A250B83EBCE}"
-- ID: "5aff18e0-aedf-48b8-84c0-bda2f11646a3"
-  Hint: OfferAcceptTitle
-  Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
-- ID: "5fb9c684-4353-4677-b32d-7e7a06fe7076"
-  Hint: MainTextLoginAccepted
-  Value: "{49C6EFB7-8BA8-4A85-B395-1AEB2B12D40A}"
-- ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
-  Hint: OfferUploadsExtraHelp
-  Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
-- ID: "70941589-f449-4853-ac06-110f564ef692"
-  Hint: OfferOtherProductsNote
-  Value: "{265BA3E3-EC59-470C-A9AC-EFDBF2E1DECF}"
-- ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
-  Hint: OfferAcceptText
-  Value: "{531E9499-A10E-46B2-B27B-A69CB0C9AEDC}"
-- ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
-  Hint: LoginTypes
-  Type: Checklist
-  Value: |
-    {552CA02F-13B6-4567-A111-9815A33F540A}
-    {49A2C1EA-B663-4397-A9FA-D48DF957B898}
-- ID: "985bbc27-0a52-4303-8a21-75d2778ff137"
-  Hint: OfferGiftsTitle
-  Value: "{F28B8991-4D1E-4AAA-B456-1E41C64DECFA}"
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 
-- ID: "a6fe0df7-c9a6-4bda-9bd9-1d05544dc3b0"
-  Hint: OfferUploadsNote
-  Value: "{CD30BFB0-4AFA-4489-9FA1-1DAF2236C52B}"
-- ID: "b774cee3-3575-44a3-8405-d6af8aed1cbb"
-  Hint: OfferBenefitsTitle
-  Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
-- ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
-  Hint: OfferMainText
-  Value: "{838E8CBE-5475-4D5A-9872-EA00BC7FD7F6}"
-- ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
-  Hint: OfferAcceptedMainText
-  Value: "{60147EC0-34ED-42DA-AE1F-BC383FF004BB}"
-- ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
-  Hint: OfferOtherProductsDocsTitle
-  Value: "{37F5F5EF-5183-451F-94F6-C67ABFBECEA6}"
-- ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
-  Hint: OfferCommoditiesAcceptText
-  Value: "{B088C567-5E43-44A0-8BAA-EDDF94829D1F}"
-- ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
-  Hint: MainTextLogin
-  Value: "{49C6EFB7-8BA8-4A85-B395-1AEB2B12D40A}"
-- ID: "d9367ba4-b4fd-4854-86a5-971d8074cb0a"
-  Hint: OfferCommoditiesSignText
-  Value: "{6574D378-8AB4-4004-A2DD-41DA29D35438}"
-- ID: "da3fb39b-f38b-4815-92c7-9a3a7bd2d541"
-  Hint: OfferPerexTitle
-  Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
-- ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
-  Hint: OfferCommoditiesSignTitle
-  Value: "{8657CC3F-9E63-45A7-A5E6-7A370B6B8824}"
-- ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
-  Hint: MainTextThankYou
-  Value: "{355916AE-CEAA-48B7-A73F-B46DBE5325E5}"
-- ID: "fd643dd9-94ce-4a65-9648-4efdd32b63cc"
-  Hint: OfferOtherProductsSummaryTitle
-  Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
+    - ID: "0602663a-9590-4902-ad69-4687dd0003c0"
+      Hint: OfferAdditionalServicesDocsText
+      Value: "{BE931A3F-E88E-49B1-8022-7F3451568885}"
+    - ID: "0c8cce0d-32cc-4d7c-b14f-5c7c75d4a13f"
+      Hint: OfferUploadsTitle
+      Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
+    - ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
+      Hint: OfferTitle
+      Value: "{EC49198A-0C60-472C-BF75-2E81AE8B1212}"
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201012T121752Z
+    - ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
+      Hint: OfferAdditionalServicesTitle
+      Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
+    - ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
+      Hint: OfferOtherProductsTitle
+      Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
+    - ID: "2de1d6ec-f93c-4725-ac80-4b7855d2b516"
+      Hint: OfferAdditionalServicesDocsTitle
+      Value: 
+    - ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
+      Hint: OfferCommoditiesText
+      Value: "{2226C47F-D466-4FD6-9913-19B4B91AB42C}"
+    - ID: "3002b81c-2648-44b1-aae8-49eb6e5167ca"
+      Hint: OfferCommoditiesAcceptTitle
+      Value: "{38019107-BA5E-4064-82AD-B502BF220B37}"
+    - ID: "384dd170-ec45-46a5-9d20-40a66c6471ab"
+      Hint: OfferOtherProductsDocsText
+      Value: "{E00A892D-3943-4B6A-A1B0-273DEC6FF500}"
+    - ID: "3ba61a75-24b5-49d6-a777-b12dedb704e8"
+      Hint: OfferAdditionalServicesNote
+      Value: 
+    - ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+      Hint: OfferExpiredMainText
+      Value: "{71437041-C814-4291-A193-235A8064F8C6}"
+    - ID: "4825c7b5-e299-4dfa-b9e0-f6369eda5fd8"
+      Hint: OfferUploadsExtraText
+      Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
+    - ID: "58934276-4619-4696-85f4-eda6be9e6c76"
+      Hint: OfferCommoditiesTitle
+      Value: "{15FF9F03-E066-4EF9-BA64-999D0135091A}"
+    - ID: "5aff18e0-aedf-48b8-84c0-bda2f11646a3"
+      Hint: OfferAcceptTitle
+      Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "5fb9c684-4353-4677-b32d-7e7a06fe7076"
+      Hint: MainTextLoginAccepted
+      Value: "{78815660-E6FF-4471-B0AA-49D2ABBB70C4}"
+    - ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
+      Hint: OfferUploadsExtraHelp
+      Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
     - ID: "70941589-f449-4853-ac06-110f564ef692"
       Hint: OfferOtherProductsNote
-      Value: "{B8FDECA5-6673-4076-B0A3-FBFA3DC4DDDC}"
+      Value: "{D96E32AE-12C5-4966-9360-186E6CE62641}"
+    - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
+      Hint: OfferAcceptText
+      Value: "{531E9499-A10E-46B2-B27B-A69CB0C9AEDC}"
+    - ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
+      Hint: LoginTypes
+      Type: Checklist
+      Value: |
+        {552CA02F-13B6-4567-A111-9815A33F540A}
+        {49A2C1EA-B663-4397-A9FA-D48DF957B898}
+    - ID: "985bbc27-0a52-4303-8a21-75d2778ff137"
+      Hint: OfferGiftsTitle
+      Value: "{F28B8991-4D1E-4AAA-B456-1E41C64DECFA}"
+    - ID: "a6fe0df7-c9a6-4bda-9bd9-1d05544dc3b0"
+      Hint: OfferUploadsNote
+      Value: "{CD30BFB0-4AFA-4489-9FA1-1DAF2236C52B}"
+    - ID: "b774cee3-3575-44a3-8405-d6af8aed1cbb"
+      Hint: OfferBenefitsTitle
+      Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
+    - ID: "bb3c944e-81cf-47c2-a92e-63ef7e1629c9"
+      Hint: OfferAdditionalServicesSummaryTitle
+      Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
+    - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+      Hint: OfferMainText
+      Value: "{838E8CBE-5475-4D5A-9872-EA00BC7FD7F6}"
+    - ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+      Hint: OfferAcceptedMainText
+      Value: "{60147EC0-34ED-42DA-AE1F-BC383FF004BB}"
+    - ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
+      Hint: OfferOtherProductsDocsTitle
+      Value: "{7FC788F6-32AB-49F0-8873-B2832C174C7A}"
+    - ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
+      Hint: OfferCommoditiesAcceptText
+      Value: "{B088C567-5E43-44A0-8BAA-EDDF94829D1F}"
+    - ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+      Hint: MainTextLogin
+      Value: "{49C6EFB7-8BA8-4A85-B395-1AEB2B12D40A}"
+    - ID: "d9367ba4-b4fd-4854-86a5-971d8074cb0a"
+      Hint: OfferCommoditiesSignText
+      Value: "{6574D378-8AB4-4004-A2DD-41DA29D35438}"
+    - ID: "da3fb39b-f38b-4815-92c7-9a3a7bd2d541"
+      Hint: OfferPerexTitle
+      Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
+    - ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
+      Hint: OfferCommoditiesSignTitle
+      Value: "{8657CC3F-9E63-45A7-A5E6-7A370B6B8824}"
+    - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+      Hint: MainTextThankYou
+      Value: "{355916AE-CEAA-48B7-A73F-B46DBE5325E5}"
+    - ID: "fd643dd9-94ce-4a65-9648-4efdd32b63cc"
+      Hint: OfferOtherProductsSummaryTitle
+      Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
 - Language: en
   Versions:
   - Version: 1
     Fields:
+    - ID: "0602663a-9590-4902-ad69-4687dd0003c0"
+      Hint: OfferAdditionalServicesDocsText
+      Value: "{BE931A3F-E88E-49B1-8022-7F3451568885}"
+    - ID: "0c8cce0d-32cc-4d7c-b14f-5c7c75d4a13f"
+      Hint: OfferUploadsTitle
+      Value: "{4ADF1485-082F-4B44-920B-41D76FFB3A8F}"
+    - ID: "181f799d-1412-4bf9-b438-7f01f76c7baf"
+      Hint: OfferTitle
+      Value: "{EC49198A-0C60-472C-BF75-2E81AE8B1212}"
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201124T151013Z
+    - ID: "2b20db31-54f4-4d6a-8894-49bddf46ed13"
+      Hint: OfferAdditionalServicesTitle
+      Value: "{69E6845B-F634-4F83-A6A6-75DF59F35AC9}"
+    - ID: "2c5b6a10-a313-4a42-bd5b-eda7bf033914"
+      Hint: OfferOtherProductsTitle
+      Value: "{0C0D625D-458B-483C-8A2A-2FE8CD803DD3}"
+    - ID: "2ede94dc-80bd-4e73-87d2-a99e6e4cf66f"
+      Hint: OfferCommoditiesText
+      Value: "{2226C47F-D466-4FD6-9913-19B4B91AB42C}"
+    - ID: "3002b81c-2648-44b1-aae8-49eb6e5167ca"
+      Hint: OfferCommoditiesAcceptTitle
+      Value: "{38019107-BA5E-4064-82AD-B502BF220B37}"
+    - ID: "384dd170-ec45-46a5-9d20-40a66c6471ab"
+      Hint: OfferOtherProductsDocsText
+      Value: "{E00A892D-3943-4B6A-A1B0-273DEC6FF500}"
+    - ID: "3bb1ed92-503a-4115-9773-eb4c89f1a5bb"
+      Hint: OfferExpiredMainText
+      Value: "{71437041-C814-4291-A193-235A8064F8C6}"
+    - ID: "4825c7b5-e299-4dfa-b9e0-f6369eda5fd8"
+      Hint: OfferUploadsExtraText
+      Value: "{852B5B76-84EA-437A-947B-58A4C683F1A3}"
+    - ID: "58934276-4619-4696-85f4-eda6be9e6c76"
+      Hint: OfferCommoditiesTitle
+      Value: "{15FF9F03-E066-4EF9-BA64-999D0135091A}"
+    - ID: "5aff18e0-aedf-48b8-84c0-bda2f11646a3"
+      Hint: OfferAcceptTitle
+      Value: "{2B76217E-9B04-4EA4-82D3-857CAFCADFB8}"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "5fb9c684-4353-4677-b32d-7e7a06fe7076"
+      Hint: MainTextLoginAccepted
+      Value: "{78815660-E6FF-4471-B0AA-49D2ABBB70C4}"
+    - ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
+      Hint: OfferUploadsExtraHelp
+      Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
+    - ID: "70941589-f449-4853-ac06-110f564ef692"
+      Hint: OfferOtherProductsNote
+      Value: "{265BA3E3-EC59-470C-A9AC-EFDBF2E1DECF}"
+    - ID: "79519b7e-63a1-4ea6-bea6-5376638aa3f6"
+      Hint: OfferAcceptText
+      Value: "{531E9499-A10E-46B2-B27B-A69CB0C9AEDC}"
+    - ID: "8feeaf74-00a5-4310-a7f7-020e02962e2e"
+      Hint: LoginTypes
+      Type: Checklist
+      Value: |
+        {552CA02F-13B6-4567-A111-9815A33F540A}
+        {49A2C1EA-B663-4397-A9FA-D48DF957B898}
+    - ID: "985bbc27-0a52-4303-8a21-75d2778ff137"
+      Hint: OfferGiftsTitle
+      Value: "{F28B8991-4D1E-4AAA-B456-1E41C64DECFA}"
+    - ID: "a6fe0df7-c9a6-4bda-9bd9-1d05544dc3b0"
+      Hint: OfferUploadsNote
+      Value: "{CD30BFB0-4AFA-4489-9FA1-1DAF2236C52B}"
+    - ID: "b774cee3-3575-44a3-8405-d6af8aed1cbb"
+      Hint: OfferBenefitsTitle
+      Value: "{6DDAA8FE-818B-411A-AC1C-62AD5158A360}"
+    - ID: "c2b3bf08-aa94-44bf-ac8e-27bb2540ad8e"
+      Hint: OfferMainText
+      Value: "{838E8CBE-5475-4D5A-9872-EA00BC7FD7F6}"
+    - ID: "c34ea6de-f03d-45c2-891f-587585725dc3"
+      Hint: OfferAcceptedMainText
+      Value: "{60147EC0-34ED-42DA-AE1F-BC383FF004BB}"
+    - ID: "c4932ace-2a7c-4ac9-ad28-222fb2252755"
+      Hint: OfferOtherProductsDocsTitle
+      Value: "{37F5F5EF-5183-451F-94F6-C67ABFBECEA6}"
+    - ID: "c49610d6-8cf8-4d3a-a070-d91600b2a3d5"
+      Hint: OfferCommoditiesAcceptText
+      Value: "{B088C567-5E43-44A0-8BAA-EDDF94829D1F}"
+    - ID: "d0c140ae-4957-4b6c-866e-e60b4c814d1a"
+      Hint: MainTextLogin
+      Value: "{49C6EFB7-8BA8-4A85-B395-1AEB2B12D40A}"
+    - ID: "d9367ba4-b4fd-4854-86a5-971d8074cb0a"
+      Hint: OfferCommoditiesSignText
+      Value: "{6574D378-8AB4-4004-A2DD-41DA29D35438}"
+    - ID: "da3fb39b-f38b-4815-92c7-9a3a7bd2d541"
+      Hint: OfferPerexTitle
+      Value: "{843B562A-8043-40E7-995A-69E357A5746D}"
+    - ID: "e6c2260e-8062-4b28-9fce-6ffa9868cde6"
+      Hint: OfferCommoditiesSignTitle
+      Value: "{8657CC3F-9E63-45A7-A5E6-7A370B6B8824}"
+    - ID: "fa05d7d2-2c91-4601-aa38-8daa9e0f9861"
+      Hint: MainTextThankYou
+      Value: "{355916AE-CEAA-48B7-A73F-B46DBE5325E5}"
+    - ID: "fd643dd9-94ce-4a65-9648-4efdd32b63cc"
+      Hint: OfferOtherProductsSummaryTitle
+      Value: "{843B562A-8043-40E7-995A-69E357A5746D}"

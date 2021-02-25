@@ -6,10 +6,6 @@ Path: /sitecore/content/eContracting2/Datasources/Content/Offer
 DB: master
 Languages:
 - Language: cs
-  Fields:
-  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
-    Hint: __Display name
-    Value: Nabidka
   Versions:
   - Version: 1
     Fields:

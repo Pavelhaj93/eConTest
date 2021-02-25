@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "39ca1139-b2ed-4728-9a23-341fb9175239"
   Hint: Color
-  Value: "{64EC7414-B4C2-4066-9442-FC2649F5D5A2}"
+  Value: "{671E71BD-867E-4B4E-8C04-16BA6042EA8B}"
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"

@@ -5,6 +5,9 @@ Template: "220b964c-ea21-4672-92f1-58cce932bd33"
 Path: "/sitecore/content/eContracting2/Web/nabidka-vyprsela"
 DB: master
 SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 275
@@ -13,13 +16,30 @@ Languages:
   Versions:
   - Version: 1
     Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{C3C92499-16C0-4A85-918D-C099F76842DE}"
+              p:before="*"
+              s:ds="{97EBEEFA-D6D8-4A5F-8C49-2D73124CF895}"
+              s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+              s:par=""
+              s:ph="/eContracting2Main/eContracting2-boxes" />
+            <r
+              uid="{F6C58BC2-332D-43B2-B050-6AF9B12A5E77}"
+              p:after="r[@uid='{C3C92499-16C0-4A85-918D-C099F76842DE}']"
+              s:ds="{C68C1B24-EBAA-45CA-BCD9-97EA3F0DC484}"
+              s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
+              s:par=""
+              s:ph="/eContracting2Main/eContracting2-boxes" />
+          </d>
+        </r>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T124958Z
-    - ID: "3a551ec6-95d7-4318-bfd0-22428030e40e"
-      Hint: MainText
-      Value: |
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent rutrum consequat purus, vitae sagittis erat aliquet ac. Vivamus dictum vel enim et iaculis. Morbi sit amet enim vitae erat lobortis viverra. Integer sit amet nisl sapien. Duis quis felis pulvinar, dignissim tortor eget, mollis lacus. Ut quis metus eros. Proin mollis nisi sed vehicula placerat. Curabitur sagittis vel turpis at hendrerit. Suspendisse in velit nunc.</p>
-        <p>Integer vitae felis eget tortor laoreet tempor eget eget augue. Aliquam gravida risus ac ante venenatis imperdiet. Nam diam quam, tempus eget pulvinar vitae, efficitur ultrices quam. Curabitur consequat sapien at ligula commodo ornare. Sed lectus turpis, dignissim eget pellentesque sit amet, congue ac eros. Nunc laoreet dolor mauris, quis efficitur felis tristique et. Phasellus venenatis pretium ante in posuere.</p>
-        <p>Cras nec ipsum justo. Nulla interdum lectus ac arcu viverra aliquet. Donec sed leo egestas, accumsan nisi sit amet, sodales eros. Quisque pharetra semper tellus rhoncus congue. Etiam sit amet accumsan turpis, ac eleifend diam. Ut dapibus eget nibh et convallis. Quisque urna purus, interdum eu consequat a, laoreet et tellus. Suspendisse eget tincidunt neque, vel dignissim purus. Nunc ac lorem a nisi faucibus venenatis at in turpis. Proin eu rutrum massa. Suspendisse viverra dignissim justo vel varius.</p>
-        <br />

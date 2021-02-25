@@ -1,15 +1,11 @@
 ﻿---
 ID: "187191d8-3178-47b1-9da0-932b419e8596"
 Parent: "79ebb159-bb42-4143-abe7-1a39ff2088d1"
-Template: "6ed8f9fb-b712-43c5-8a86-9222e9b661c4"
+Template: "1ae4696a-495c-4e3b-83cb-74ad675b8ea9"
 Path: /sitecore/content/eContracting2/Datasources/Content/ThankYou
 DB: master
 Languages:
 - Language: cs
-  Fields:
-  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
-    Hint: __Display name
-    Value: Dekujeme
   Versions:
   - Version: 1
     Fields:

@@ -8,51 +8,6 @@ SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 900
-- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
-  Hint: __Renderings
-  Type: layout
-  Value: |
-    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-      <d
-        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
-        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
-        <r
-          ds="{97EBEEFA-D6D8-4A5F-8C49-2D73124CF895}"
-          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
-          ph="/eContracting2Main/eContracting2-boxes"
-          uid="{B01C6BF4-0C8A-43CC-9DE4-36F81B8BAC48}" />
-        <r
-          ds="{A01BC65C-E848-467C-892E-58D6F0E0D9D2}"
-          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
-          ph="/eContracting2Main/eContracting2-boxes"
-          uid="{FDF2FA5B-E349-4C1F-851B-DC5090B8D095}" />
-        <r
-          ds="{F5899E01-113E-42E2-85D7-8C32A9A16932}"
-          id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
-          ph="/eContracting2Main/eContracting2-boxes"
-          uid="{C14285F7-1271-416A-962B-37368A8B06EE}" />
-        <r
-          id="{C9E6964D-A594-4A57-A933-8DBEAE72A896}"
-          ph="eContracting2Top"
-          uid="{E0DE4DAD-AF0D-4CF0-AA70-964E82CC5657}" />
-        <r
-          ds="{FEDC5ECD-CB1B-46FE-838A-859C9BF683FD}"
-          id="{C6B149DB-135E-4A89-B58F-91E6544C10D0}"
-          par=""
-          ph="eContracting2Top"
-          uid="{0B8EA37E-00C7-47C9-9562-C070E573E9A0}" />
-        <r
-          id="{07AB0B85-A327-477F-84D3-47D5CC518A2F}"
-          ph="eContracting2Main"
-          uid="{866838F2-F70D-4FF1-90DB-8EC6598DDBFC}" />
-        <r
-          ds="{1EBB80D7-AE0C-4A0C-8CD4-6EFC5F4148C6}"
-          id="{C2060F07-1E5B-4679-82D9-0114EAC77CF3}"
-          par=""
-          ph="eContracting2Bottom"
-          uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}" />
-      </d>
-    </r>
 Languages:
 - Language: cs
   Versions:
@@ -75,13 +30,13 @@ Languages:
             <r
               uid="{60F12919-4AF3-4047-9C7E-2DF4E69439C3}"
               p:after="r[@uid='{C43D4C6D-02D1-47CF-8211-E9B60EEF3D95}']"
-              s:ds="{A01BC65C-E848-467C-892E-58D6F0E0D9D2}"
+              s:ds="{97EBEEFA-D6D8-4A5F-8C49-2D73124CF895}"
               s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
               s:ph="/eContracting2Main/eContracting2-boxes" />
             <r
               uid="{69FD8831-0A8F-499B-BC77-B80B658301D6}"
               p:after="r[@uid='{60F12919-4AF3-4047-9C7E-2DF4E69439C3}']"
-              s:ds="{F5899E01-113E-42E2-85D7-8C32A9A16932}"
+              s:ds="{C68C1B24-EBAA-45CA-BCD9-97EA3F0DC484}"
               s:id="{17AC3292-D26E-4BAD-A484-E12B9FFEB96E}"
               s:ph="/eContracting2Main/eContracting2-boxes" />
           </d>

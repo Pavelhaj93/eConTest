@@ -2,12 +2,12 @@
 ID: "97ebeefa-d6d8-4a5f-8c49-2d73124cf895"
 Parent: "93c41f30-847e-4c82-b42c-77de0b8ae7ee"
 Template: "978f7acc-208e-4926-8313-fb8218500b22"
-Path: /sitecore/content/eContracting2/Datasources/PromoBoxes/Innosvet
+Path: /sitecore/content/eContracting2/Datasources/PromoBoxes/innosvet
 DB: master
 SharedFields:
 - ID: "39ca1139-b2ed-4728-9a23-341fb9175239"
   Hint: Color
-  Value: "{64EC7414-B4C2-4066-9442-FC2649F5D5A2}"
+  Value: "{C0FEACCC-138D-4707-873F-3288E9628FE9}"
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
@@ -28,8 +28,8 @@ Languages:
         sitecore\admin
     - ID: "6d96ce52-9dae-4c56-b02f-933c38e1a861"
       Hint: Text
-      Value: Spravujte svůj účet online na portálu innosvět
+      Value: Kontrolujte spotřebu energií, sledujte své platby a faktury, upravujte zálohy a smluvní údaje kdykoliv online
     - ID: "ba63c5b0-0763-4ebb-ade6-628b0be9608f"
       Hint: Link
       Value: |
-        <link linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
+        <link text="Jít na innosvet.cz" linktype="external" url="https://www.innosvet.cz/" anchor="" title="innosvět" target="_blank" />

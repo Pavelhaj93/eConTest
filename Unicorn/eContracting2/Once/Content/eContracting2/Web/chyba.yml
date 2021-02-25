@@ -5,6 +5,9 @@ Template: "6ccfef10-7a13-47f8-aaf3-237085b9c556"
 Path: /sitecore/content/eContracting2/Web/chyba
 DB: master
 SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 1000
@@ -24,5 +27,3 @@ Languages:
         <p>Využijte na&scaron;i z&aacute;kaznickou linku v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
         <p>Děkujeme</p>
         <p>Va&scaron;e innogy</p>
-        <p>&nbsp;</p>
-        <p><em>Chyba: {CODE}</em></p>

@@ -4,6 +4,10 @@ Parent: "83a7bd72-f19f-4e34-88df-9d8ace5c694e"
 Template: "7691585a-bb36-4ee7-937f-da4de7a3edec"
 Path: /sitecore/content/eContracting2/Datasources/Steps/Default/3 Hotovo
 DB: master
+SharedFields:
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: "{E2425C61-706F-4759-A5D1-A08372576A98}"
 Languages:
 - Language: cs
   Versions:
