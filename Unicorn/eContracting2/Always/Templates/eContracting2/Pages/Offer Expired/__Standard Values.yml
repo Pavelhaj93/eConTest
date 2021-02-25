@@ -4,19 +4,6 @@ Parent: "220b964c-ea21-4672-92f1-58cce932bd33"
 Template: "220b964c-ea21-4672-92f1-58cce932bd33"
 Path: /sitecore/templates/eContracting2/Pages/Offer Expired/__Standard Values
 DB: master
-SharedFields:
-- ID: "0d2f7497-f4d4-4bb4-acae-beed1f15e3ca"
-  Hint: Link3
-  Value: |
-    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
-- ID: "7460ab88-08e8-4a3f-b76a-909f9e6bc4e3"
-  Hint: Link2
-  Value: |
-    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
-- ID: "b33b1033-6659-42be-a7ca-a8053a2cb1f3"
-  Hint: Link1
-  Value: |
-    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
 Languages:
 - Language: cs
   Versions:

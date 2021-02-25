@@ -12,9 +12,6 @@ SharedFields:
   Hint: __Masters
   Type: TreelistEx
   Value: 
-- ID: "2437fb64-4ff9-460d-848f-77e5adefc249"
-  Hint: MaxUploadSize
-  Value: 26214400
 - ID: "3918f7e2-753d-4c52-a8c2-367152eb04ea"
   Hint: ServiceUrl
   Value: 
@@ -65,22 +62,13 @@ Languages:
   Versions:
   - Version: 1
     Fields:
-    - ID: "128103da-d6c5-4fa1-a583-b06a2cef3acc"
-      Hint: MaxUploadSizeDescription
-      Value: 25 megabajtů
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200908T082439Z
-    - ID: "2bb6ac42-58b5-4140-b692-b511fe6fe939"
-      Hint: MaxUploadSizeExceededErrorMessage
-      Value: "Překročena maximální velikost všech souborů. Maximální velikost je {maxSize}."
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "68f65bd4-1804-44a7-b962-e21761f2410b"
-      Hint: AllowedDocumentTypesInvalidTypeErrorMessage
-      Value: "Špatný formát dokumentu. Povolené typy jsou: {types}"
     - ID: "d1084a28-062a-401a-abed-f88ff709021c"
       Hint: AllowedDocumentTypesDescription
       Value: JPG, JPEG, PNG, PDF
@@ -88,22 +76,13 @@ Languages:
   Versions:
   - Version: 1
     Fields:
-    - ID: "128103da-d6c5-4fa1-a583-b06a2cef3acc"
-      Hint: MaxUploadSizeDescription
-      Value: 25 megabajtů
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20210104T153314Z
-    - ID: "2bb6ac42-58b5-4140-b692-b511fe6fe939"
-      Hint: MaxUploadSizeExceededErrorMessage
-      Value: "Překročena maximální velikost všech souborů. Maximální velikost je {maxSize}."
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "68f65bd4-1804-44a7-b962-e21761f2410b"
-      Hint: AllowedDocumentTypesInvalidTypeErrorMessage
-      Value: "Špatná formát dokumentu. Povolené typy jsou: {types}"
     - ID: "d1084a28-062a-401a-abed-f88ff709021c"
       Hint: AllowedDocumentTypesDescription
       Value: JPG, JPEG, PNG, PDF

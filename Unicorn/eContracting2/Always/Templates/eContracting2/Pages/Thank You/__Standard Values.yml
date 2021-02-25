@@ -5,18 +5,6 @@ Template: "4f3b54ba-3dbc-408c-9573-f9f86ac0c3c7"
 Path: /sitecore/templates/eContracting2/Pages/Thank You/__Standard Values
 DB: master
 SharedFields:
-- ID: "0e3e873c-6489-47ce-aa20-80a2c72b865c"
-  Hint: Link2
-  Value: |
-    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
-- ID: "6a945352-d28c-4b78-9775-1770bbb6af24"
-  Hint: Link1
-  Value: |
-    <link text="Spravujte svůj účet online na innogy24.cz" linktype="external" url="https://www.innogy24.cz/prihlaseni/index" anchor="" target="_blank" />
-- ID: "833a37dd-f806-4be1-beb4-96a6a71810d4"
-  Hint: Link3
-  Value: |
-    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 300
@@ -46,20 +34,7 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090319Z
-    - ID: "29cb2b55-55ce-4eb5-adaf-8ab39443b2f3"
-      Hint: eAct
-      Value: "{0}"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "98524f38-c332-4c35-ae25-421ed9884786"
-      Hint: eLab
-      Value: "{0}"
-    - ID: "e13ea30e-18ec-411d-b27d-51161560b10d"
-      Hint: ServiceUnavailableText
-      Value: |
-        <p>Omlouv&aacute;me se V&aacute;m, ale aplikaci eContracting se nepodařilo spustit. Př&iacute;činou může b&yacute;t pr&aacute;vě prob&iacute;haj&iacute;c&iacute; odst&aacute;vka aplikace.</p>
-        <p>V př&iacute;padě potřeby využijte na&scaron;i z&aacute;kaznickou linku uvedenou v prav&eacute;m horn&iacute;m rohu str&aacute;nky.</p>
-        <p>Děkujeme</p>
-        <p>Va&scaron;e innogy</p>

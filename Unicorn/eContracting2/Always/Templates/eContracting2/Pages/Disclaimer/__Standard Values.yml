@@ -4,19 +4,6 @@ Parent: "aea91936-870e-40df-b18a-0e949c0ad3d6"
 Template: "aea91936-870e-40df-b18a-0e949c0ad3d6"
 Path: /sitecore/templates/eContracting2/Pages/Disclaimer/__Standard Values
 DB: master
-SharedFields:
-- ID: "108756e5-d125-49dc-8449-1a0b2b60d2c9"
-  Hint: Link1
-  Value: |
-    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
-- ID: "39c8d58d-f125-4df8-87f2-07e5e24d4ee8"
-  Hint: Link2
-  Value: |
-    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
-- ID: "c156095d-2210-4c15-9c3c-d45bbee64944"
-  Hint: Link3
-  Value: |
-    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
 Languages:
 - Language: cs
   Versions:
@@ -47,9 +34,6 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "81429110-3920-478f-92cc-63a153a78bc9"
-      Hint: Header
-      Value: Ochrana osobních údajů
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Ochrana osobních údajů

@@ -9,14 +9,6 @@ SharedFields:
   Hint: AutoGenerateTestableCombinationPlaceholders
   Type: Checkbox
   Value: 1
-- ID: "78bd6f65-7c1c-4877-a068-d3dd7120aa87"
-  Hint: UserChoiceAuthenticationEnabled
-  Type: Checkbox
-  Value: 1
-- ID: "937e800f-c799-4092-9b24-02ee947ffffe"
-  Hint: UserChoiceAuthenticationEnabledRetention
-  Type: Checkbox
-  Value: 1
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
@@ -50,10 +42,6 @@ SharedFields:
           uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}" />
       </d>
     </r>
-- ID: "f5fce8e0-0930-4d43-8f90-c06da4ececed"
-  Hint: UserChoiceAuthenticationEnabledAcquisition
-  Type: Checkbox
-  Value: 1
 Languages:
 - Language: cs
   Versions:
@@ -124,9 +112,6 @@ Languages:
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Ověření totožnosti
-    - ID: "d9f6f47a-2a3b-4a0b-994d-bc3a638403f5"
-      Hint: ContractDataPlaceholder
-      Value: "{0}"
     - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
       Hint: AcceptedOfferText
       Value: |

@@ -27,9 +27,6 @@ Languages:
               p:after="*[1=2]" />
           </d>
         </r>
-    - ID: "1554213a-29a2-4438-ac4b-589d951439a0"
-      Hint: Header
-      Value: Uživatel byl zablokován
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T125245Z

@@ -4,19 +4,6 @@ Parent: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
 Template: "33ad756e-abd4-4260-98c8-9f5dbbbe5636"
 Path: /sitecore/templates/eContracting2/Pages/System Error/__Standard Values
 DB: master
-SharedFields:
-- ID: "08246a48-6e9f-40b8-8141-a541d9ea2cfc"
-  Hint: Link2
-  Value: |
-    <link text="Chraňte svou rodinu před požárem a otravou oxidem uhelnatým více na pronajemdetektoru.cz" linktype="external" url="https://www.pronajemdetektoru.cz/" anchor="" target="_blank" />
-- ID: "2bd70caf-2380-4fb2-8cc8-99dcf235de80"
-  Hint: Link3
-  Value: |
-    <link text="Do domácností dodáváme i jistotu více na pojisteniinnogy.cz" linktype="external" url="http://www.pojisteniinnogy.cz/" anchor="" target="_blank" />
-- ID: "5054f116-3d64-48b4-9ef7-9779751e7a77"
-  Hint: Link1
-  Value: |
-    <link text="Spravujte svůj účet online na portálu innosvět" linktype="external" url="https://www.innosvet.cz/" anchor="" target="_blank" />
 Languages:
 - Language: cs
   Versions:
@@ -56,7 +43,4 @@ Languages:
         sitecore\admin
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
-      Value: Aplikace eContracting je nedostupná
-    - ID: "f2051388-4338-4933-bbd8-38134af70d8f"
-      Hint: Header
       Value: Aplikace eContracting je nedostupná
