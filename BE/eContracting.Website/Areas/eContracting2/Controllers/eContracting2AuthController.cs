@@ -163,6 +163,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
                 var steps = this.SettingsReaderService.GetSteps(datasource.Step);
                 var viewModel = this.GetViewModel(definition, datasource, choices, steps, errorString);
+                viewModel.OfferAccepted = offer.IsAccepted;
                 viewModel.Birthdate = offer.Birthday;
                 viewModel.BussProcess = offer.Process;
                 viewModel.BussProcessType = offer.ProcessType;

@@ -57,6 +57,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public string Partner { get; set; }
         public string Zip1 { get; set; }
         public string Zip2 { get; set; }
+        public bool OfferAccepted { get; set; }
 
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
