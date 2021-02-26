@@ -279,10 +279,11 @@ namespace eContracting.Models
         /// </summary>
         /// <param name="template">The template.</param>
         /// <param name="file">The file.</param>
+        /// <param name="fileName">Readable file name.</param>
         /// <param name="attributes">The attributes.</param>
         /// <exception cref="ArgumentNullException">template</exception>
         /// <exception cref="ArgumentException">Invalid file name (empty name)</exception>
-        public OfferAttachmentModel(OfferAttachmentXmlModel template, OfferFileXmlModel file, OfferAttributeModel[] attributes)
+        public OfferAttachmentModel(OfferAttachmentXmlModel template, OfferFileXmlModel file, string fileName, OfferAttributeModel[] attributes)
         {
             if (template == null)
             {
@@ -303,10 +304,10 @@ namespace eContracting.Models
             }
 
             this.OriginalFileName = originalFileName;
+            this.FileName = fileName;
 
             this.Group = template.Group;
             this.GroupGuid = template.ItemGuid;
-            this.FileName = template.Description;
             this.ConsentType = template.ConsentType;
             this.TemplAlcId = template.TemplAlcId;
             this.IsObligatory = template.IsObligatory();

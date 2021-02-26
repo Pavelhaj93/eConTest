@@ -1141,12 +1141,13 @@
             <param name="attributes">The attributes.</param>
             <param name="content">The content.</param>
         </member>
-        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel,eContracting.Models.OfferAttributeModel[])">
+        <member name="M:eContracting.Models.OfferAttachmentModel.#ctor(eContracting.Models.OfferAttachmentXmlModel,eContracting.Models.OfferFileXmlModel,System.String,eContracting.Models.OfferAttributeModel[])">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Models.OfferAttachmentModel"/> class.
             </summary>
             <param name="template">The template.</param>
             <param name="file">The file.</param>
+            <param name="fileName">Readable file name.</param>
             <param name="attributes">The attributes.</param>
             <exception cref="T:System.ArgumentNullException">template</exception>
             <exception cref="T:System.ArgumentException">Invalid file name (empty name)</exception>

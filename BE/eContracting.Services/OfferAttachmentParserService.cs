@@ -451,7 +451,8 @@ namespace eContracting.Services
             {
                 var file = this.GetFileByTemplate(offer, template, files);
                 var attrs = this.GetAttributes(file);
-                item = new OfferAttachmentModel(template, file, attrs);
+                var fileName = this.GetFileName(offer, template, file);
+                item = new OfferAttachmentModel(template, file, fileName, attrs);
             }
             // otherwise this file must be uploaded by user
             else
@@ -461,6 +462,16 @@ namespace eContracting.Services
             }
 
             return item;
+        }
+
+        protected internal string GetFileName(OfferModel offer, OfferAttachmentXmlModel template, OfferFileXmlModel file)
+        {
+            if (offer.Version == 1)
+            {
+                return this.GetFileName(file.File);
+            }
+
+            return template.Description;
         }
     }
 }
