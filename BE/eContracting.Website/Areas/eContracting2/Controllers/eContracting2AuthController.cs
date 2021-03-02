@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using eContracting.Models;
@@ -268,7 +269,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 //TODO: this.DataSessionStorage.Login(userData);
                 this.AuthService.Login(new AuthDataModel(offer));
-                this.Logger.Info(guid, $"Successfully log-ged in");
+
+                var log = new StringBuilder();
+                log.AppendLine("Successfully log-ged in");
+                log.AppendLine(" - Browser agent: " + this.ContextWrapper.GetBrowserAgent());
+                this.Logger.Info(guid, log.ToString());
 
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
 
