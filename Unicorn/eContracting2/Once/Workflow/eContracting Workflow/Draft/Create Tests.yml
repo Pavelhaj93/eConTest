@@ -1,0 +1,28 @@
+﻿---
+ID: "a5e007c2-3861-4ad7-8bff-2cc568e005d3"
+Parent: "e857c308-ab27-4e16-9e50-1d0facc407a0"
+Template: "cb01f9fc-c187-46b3-ab0b-97a8468d8303"
+Path: /sitecore/system/Workflows/eContracting Workflow/Draft/Create Tests
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
+- ID: "dcbebc58-6124-4100-a248-fc717d6c78d5"
+  Hint: Next state
+  Value: "{E857C308-AB27-4E16-9E50-1D0FACC407A0}"
+- ID: "df36505e-a70a-4414-a9ae-ae26db86fe19"
+  Hint: Appearance Evaluator Type
+  Value: Sitecore.ContentTesting.Workflows.TestCandidatesCommandStateEvaluator, Sitecore.ContentTesting
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Vytvořit testy
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210225T213627Z
