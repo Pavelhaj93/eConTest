@@ -360,10 +360,9 @@ export const Offer: React.FC<View> = observer(
             <>
               <h2 className="mt-5">{store.documents.uploads.title}</h2>
               <Box>
-                {store.documents.uploads.types.map(({ id: categoryId, info, title, mandatory }) => (
+                {store.documents.uploads.types.map(({ id: categoryId, info, title }) => (
                   <div key={categoryId} className="mb-5">
                     <UploadZone
-                      mandatory={mandatory}
                       label={title}
                       labelTooltip={info}
                       labels={labels}

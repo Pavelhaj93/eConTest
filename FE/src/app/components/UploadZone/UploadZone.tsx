@@ -10,7 +10,6 @@ type Props = {
   onFilesAccepted?: (files: CustomFile[]) => void
   label?: string
   labelTooltip?: string
-  mandatory: boolean
   disabled?: boolean
 }
 
@@ -21,7 +20,6 @@ export const UploadZone: React.FC<Props> = ({
   onFilesAccepted,
   label,
   labelTooltip,
-  mandatory,
   disabled,
 }) => {
   const [rejectedFiles, setRejectedFiles] = useState<CustomFile[]>([])
@@ -30,7 +28,7 @@ export const UploadZone: React.FC<Props> = ({
   return (
     <>
       <FileDropZone
-        label={mandatory ? `${label}*` : label}
+        label={label}
         labelTooltip={labelTooltip}
         accept={allowedContentTypes}
         maxFileSize={maxFileSize}
