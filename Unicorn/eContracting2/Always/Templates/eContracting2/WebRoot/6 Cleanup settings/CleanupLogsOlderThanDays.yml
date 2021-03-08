@@ -1,8 +1,8 @@
 ﻿---
-ID: "fc6edff1-8056-4931-a922-f880356092af"
+ID: "f86c1554-fc9a-4305-989b-13670d558003"
 Parent: "a4c77c77-ebbf-413b-bfc2-eaa27d769653"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/WebRoot/6 Cleanup settings/CleanupFilesOlderThanDays
+Path: /sitecore/templates/eContracting2/WebRoot/6 Cleanup settings/CleanupLogsOlderThanDays
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -20,7 +20,7 @@ Languages:
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Mazat soubory starší než dnů
+    Value: Mazat pokusy o přihlášení starší než dnů
   Versions:
   - Version: 1
     Fields:
@@ -35,7 +35,7 @@ Languages:
   Fields:
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Mazat soubory starší než dnů
+    Value: Mazat pokusy o přihlášení starší než dnů
   Versions:
   - Version: 1
     Fields:

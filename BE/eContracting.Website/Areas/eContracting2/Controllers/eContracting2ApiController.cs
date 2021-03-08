@@ -38,6 +38,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IUserFileCacheService UserFileCacheService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
+        protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
 
         private static Random KeepAliveRandomizer = new Random();
 
@@ -57,6 +58,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.FileOptimizer = ServiceLocator.ServiceProvider.GetRequiredService<IFileOptimizer>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
+            this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -73,7 +75,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IUserFileCacheService userFileCache,
             IFileOptimizer fileOptimizer,
             IEventLogger eventLogger,
-            ITextService textService)
+            ITextService textService,
+            ILoginFailedAttemptBlockerStore loginReportService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Context = context ?? throw new ArgumentNullException(nameof(context));
@@ -88,8 +91,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.FileOptimizer = fileOptimizer ?? throw new ArgumentNullException(nameof(fileOptimizer));
             this.EventLogger = eventLogger ?? throw new ArgumentNullException(nameof(eventLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
-
-           // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");            
+            this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
+            // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");            
         }
 
         [HttpGet]
@@ -1095,11 +1098,37 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Ok(outputMsgs);
         }
 
-            /// <summary>
-            /// Converts PDF file to the PNG stream
-            /// </summary>
-            /// <param name="memoryStream"></param>
-            protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        /// <summary>
+        /// Delete obsolete files from database that have not been disposed correctly at the end of a session
+        /// </summary>
+        [HttpGet]
+        [Route("deleteoldlogs/{mode}")]
+        public async Task<IHttpActionResult> DeleteOldLogs(string mode)
+        {
+            bool previewOnly = mode != "delete";
+            List<string> outputMsgs = new List<string>();
+
+            if (!this.SettingsReaderService.GetSiteSettings().EnableCleanupApiTrigger)
+                return this.BadRequest("Cleanup not enabled through api endpont. Check EnableCleanupApiTrigger field.");
+
+            var cleanupLogsOlderThanDays = SettingsReaderService.GetSiteSettings().CleanupLogsOlderThanDays;
+            if (cleanupLogsOlderThanDays == null || cleanupLogsOlderThanDays <= 0)
+            {
+                return this.BadRequest("Invalid value of CleanupLogsOlderThanDays field. Positive number expected, 1 or bigger recommended.");
+            }
+
+            DateTime removeLogsOlderThanDate =  DateTime.UtcNow.AddDays(-1 * cleanupLogsOlderThanDays);
+            int loginAttemptsCount = this.LoginReportService.DeleteAllOlderThan(removeLogsOlderThanDate, previewOnly);
+            outputMsgs.Add((previewOnly ? "Would delete " : "Deleted ") + loginAttemptsCount + " login attempts records.");
+
+            return this.Ok(outputMsgs);
+        }
+
+        /// <summary>
+        /// Converts PDF file to the PNG stream
+        /// </summary>
+        /// <param name="memoryStream"></param>
+        protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
         {
             var pdfImages = new List<Image>();
 

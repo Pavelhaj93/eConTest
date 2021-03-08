@@ -51,6 +51,9 @@ SharedFields:
 - ID: "e82c99c8-ce35-453e-b54e-663e861cd0af"
   Hint: ServiceUser
   Value: 
+- ID: "f86c1554-fc9a-4305-989b-13670d558003"
+  Hint: CleanupLogsOlderThanDays
+  Value: 90
 - ID: "fc6edff1-8056-4931-a922-f880356092af"
   Hint: CleanupFilesOlderThanDays
   Value: 7

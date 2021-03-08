@@ -38,5 +38,14 @@ namespace eContracting
         /// <remarks>Do not throw any exception!</remarks>
         /// <param name="guid">The offer unique identifier.</param>
         void Clear(string guid);
+
+        /// <summary>
+        /// Removes all records older than a specified date from the database.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="previewOnly">if true, just counts the records older than the date</param>
+        /// <returns></returns>
+        int DeleteAllOlderThan(DateTime date, bool previewOnly);
+
     }
 }

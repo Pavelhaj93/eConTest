@@ -124,5 +124,34 @@ namespace eContracting.Services
                 this.Logger.Error(guid, "Cannot Clear failed log-in attempts from database", ex);
             }
         }
+
+        /// <inheritdoc/>
+        public int DeleteAllOlderThan(DateTime date, bool previewOnly)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var context = new DatabaseContext(this.ConnectionString))
+                {
+                    var attemptsToClear = context.LoginAttempts.Where(a => a.Time <date).ToList();
+                    if (attemptsToClear != null && attemptsToClear.Any())
+                    {
+                        result = attemptsToClear.Count;
+                        if (!previewOnly)
+                        {
+                            attemptsToClear.ForEach(at => { context.LoginAttempts.Remove(at); });
+                        }
+                        context.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(String.Empty, "Cannot DeleteAllOlderThan failed log-in attempts from database", ex);
+            }
+
+            return result;
+        }
     }
 }

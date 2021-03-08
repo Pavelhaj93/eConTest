@@ -2412,6 +2412,14 @@
             <remarks>Do not throw any exception!</remarks>
             <param name="guid">The offer unique identifier.</param>
         </member>
+        <member name="M:eContracting.ILoginFailedAttemptBlockerStore.DeleteAllOlderThan(System.DateTime,System.Boolean)">
+            <summary>
+            Removes all records older than a specified date from the database.
+            </summary>
+            <param name="date"></param>
+            <param name="previewOnly">if true, just counts the records older than the date</param>
+            <returns></returns>
+        </member>
         <member name="T:eContracting.IOfferAttachmentParserService">
             <summary>
             Represents parser from <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> to <see cref="T:eContracting.Models.OfferAttachmentModel"/> object.

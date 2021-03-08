@@ -158,7 +158,10 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual double CleanupFilesOlderThanDays { get; set; }
 
+        [SitecoreField]
+        public virtual double CleanupLogsOlderThanDays { get; set; }
 
+        
         #endregion
     }
 }
