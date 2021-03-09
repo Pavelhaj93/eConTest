@@ -29,7 +29,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
       return (
         <>
           <FormControl
-            type="text"
+            type="tel"
             ref={ref}
             {...rest}
             className={classNames({
@@ -60,7 +60,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
       id={id}
       name={name || id}
       locale={cs}
-      dateFormat={['dd. MM. yyyy', 'dd.MM.yyyy']}
+      dateFormat="dd.MM.yyyy"
       autoComplete="off"
       popperPlacement="top-start"
       customInput={<CustomDatepickerInput />}
