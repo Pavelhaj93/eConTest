@@ -29,9 +29,12 @@ Languages:
         sitecore\admin
 - Language: en
   Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Povolit úklid přes API endpoint
   - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
     Hint: __Display name
-    Value: Povolit úklid přes API endpoint
+    Value: 
   Versions:
   - Version: 1
     Fields:
