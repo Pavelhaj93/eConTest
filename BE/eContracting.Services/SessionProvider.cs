@@ -50,5 +50,15 @@ namespace eContracting.Services
                 HttpContext.Current.Session.Timeout = minutes;
             }
         }
+
+        /// <inheritdoc/>
+        public void Abandon()
+        {
+            if (HttpContext.Current?.Session != null)
+            {
+                HttpContext.Current.Session.Abandon();
+            }
+        }
+
     }
 }

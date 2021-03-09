@@ -214,6 +214,11 @@
             </summary>
             <param name="minutes">The minutes.</param>
         </member>
+        <member name="M:eContracting.ISessionProvider.Abandon">
+            <summary>
+            Destroys the session
+            </summary>
+        </member>
         <member name="T:eContracting.IStartup">
             <summary>
             Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).

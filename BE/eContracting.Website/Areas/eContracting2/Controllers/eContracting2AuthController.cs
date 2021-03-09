@@ -138,6 +138,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
                 }
 
+                // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
+                this.SessionProvider.Abandon();                
+
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);

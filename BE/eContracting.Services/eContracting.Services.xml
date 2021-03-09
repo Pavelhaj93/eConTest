@@ -499,6 +499,9 @@
         <member name="M:eContracting.Services.SessionProvider.SetTimeout(System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SessionProvider.Abandon">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreTextService.ErrorCode(System.String)">
             <inheritdoc/>
         </member>

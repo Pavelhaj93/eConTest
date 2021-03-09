@@ -47,5 +47,10 @@ namespace eContracting
         /// </summary>
         /// <param name="minutes">The minutes.</param>
         void SetTimeout(int minutes);
+
+        /// <summary>
+        /// Destroys the session
+        /// </summary>
+        void Abandon();
     }
 }
