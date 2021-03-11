@@ -9,6 +9,11 @@ export enum GiftType {
   PKZ = 'PKZ',
 }
 
+export enum CommodityProductType {
+  ELECTRICITY = 'E',
+  GAS = 'G',
+}
+
 export type OfferDocument = {
   label: string
   prefix: string
@@ -44,6 +49,10 @@ export type OfferBox = {
     title: string
     value: string
   }>
+}
+
+export type BenefitsBox = OfferBox & {
+  commodityProductType?: CommodityProductType | null
 }
 
 export type GiftsBox = {
@@ -131,7 +140,7 @@ export type Acceptance = {
 
 export type NewOfferResponse = {
   perex?: OfferBox
-  benefits?: OfferBox
+  benefits?: BenefitsBox
   gifts?: GiftsBox
   documents: OfferDocuments
   acceptance: Acceptance

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
-import { OfferType, View } from '@types'
+import React, { useEffect, useState, useCallback, useRef, FormEvent, useMemo } from 'react'
+import { CommodityProductType, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button, Col, Form, Row, Table } from 'react-bootstrap'
@@ -105,6 +105,20 @@ export const Offer: React.FC<View> = observer(
       }
     }, [store])
 
+    // each commodity has a different background color
+    const benefitsBoxBgColor = useMemo(() => {
+      switch (store.benefits?.commodityProductType) {
+        case CommodityProductType.ELECTRICITY:
+          return 'purple-light'
+
+        case CommodityProductType.GAS:
+          return 'blue'
+
+        default:
+          return 'purple-light'
+      }
+    }, [store.benefits?.commodityProductType])
+
     return (
       <OfferStoreContext.Provider value={store}>
         {/* error state */}
@@ -158,7 +172,7 @@ export const Offer: React.FC<View> = observer(
 
           {/* benefits box */}
           {store.benefits && (
-            <Box backgroundColor="purple-light">
+            <Box backgroundColor={benefitsBoxBgColor} className="text-white">
               <BoxHeading>{store.benefits.title}</BoxHeading>
               {store.benefits.params.length > 0 && (
                 <Row as="ul" className="justify-content-center list-unstyled mb-0">

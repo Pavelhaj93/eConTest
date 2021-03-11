@@ -14,6 +14,7 @@ import {
   AcceptanceGroup,
   OfferErrorResponse,
   UploadDocumentErrorResponse,
+  BenefitsBox,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
@@ -57,7 +58,7 @@ export class OfferStore {
   public perex: OfferBox | undefined
 
   @observable
-  public benefits: OfferBox | undefined
+  public benefits: BenefitsBox | undefined
 
   @observable
   public gifts: GiftsBox | undefined
