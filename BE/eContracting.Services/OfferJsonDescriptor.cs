@@ -178,6 +178,20 @@ namespace eContracting.Services
             var model = new JsonSalesArgumentsModel();
             model.Title = definition.OfferBenefitsTitle?.Text.Trim();
             model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
+
+            var commodityProductTypeAttribute = textParameters.FirstOrDefault(x => x.Key.StartsWith("COMMODITY_PRODUCT"));
+            if (!commodityProductTypeAttribute.Equals(default(KeyValuePair<string, string>)))
+            {
+                string commodityProductTypeAttributeValue = commodityProductTypeAttribute.Value;
+                if (!string.IsNullOrEmpty(commodityProductTypeAttributeValue))
+                {
+                    if (commodityProductTypeAttributeValue.StartsWith("G_"))
+                        model.CommodityProductType = "G";
+                    else if (commodityProductTypeAttributeValue.StartsWith("E_") || commodityProductTypeAttributeValue.StartsWith("EE_") || commodityProductTypeAttributeValue.EndsWith("_EE") || commodityProductTypeAttributeValue.EndsWith("_E"))
+                        model.CommodityProductType = "E";
+                }
+            }
+
             return model;
         }
 

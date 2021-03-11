@@ -14,5 +14,9 @@ namespace eContracting.Models
 
         [JsonProperty("params")]
         public JsonArgumentModel[] Params { get; set; }
+
+        [JsonProperty("commodityProductType")]
+        public string CommodityProductType { get; set; }
+
     }
 }
