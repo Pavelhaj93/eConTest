@@ -29,7 +29,7 @@ export const Datepicker: React.FC<DatepickerProps & ReactDatePickerProps> = ({
       return (
         <>
           <FormControl
-            type="tel"
+            type="text"
             ref={ref}
             {...rest}
             className={classNames({
