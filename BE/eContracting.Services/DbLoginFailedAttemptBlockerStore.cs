@@ -54,7 +54,8 @@ namespace eContracting.Services
                         IsLoginValueValid = loginAttemptModel.IsValueValid,
                         BrowserAgent = loginAttemptModel.BrowserAgent,
                         LoginState = loginAttemptModel.LoginState.ToString(),
-                        IsBlocking = (loginAttemptModel.IsBirthdateValid == false || loginAttemptModel.IsValueValid == false)
+                        IsBlocking = (loginAttemptModel.IsBirthdateValid == false || loginAttemptModel.IsValueValid == false),
+                        CampaignCode = loginAttemptModel.CampaignCode
                     };
                     context.LoginAttempts.Add(record);
                     context.SaveChanges();

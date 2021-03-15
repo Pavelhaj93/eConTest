@@ -139,10 +139,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
-                this.SessionProvider.Abandon();                
+                this.SessionProvider.Abandon();
 
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
+
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
                 if (canLogin != LOGIN_STATES.OK)
@@ -246,17 +247,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (string.IsNullOrEmpty(guid))
                 {
-                    this.ReportLogin(LOGIN_STATES.INVALID_GUID, guid);
+                    this.ReportLogin(LOGIN_STATES.INVALID_GUID, guid, Request.QueryString["utm_campaign"]);
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
                 var datasource = this.GetLayoutItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
+                var campaignCode = (offer != null) ? (offer.IsCampaign ? offer.Campaign : offer.CreatedAt) : Request.QueryString["utm_campaign"];
+
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
                 
                 if (canLogin != LOGIN_STATES.OK)
                 {                    
-                    this.ReportLogin(canLogin, guid);
+                    this.ReportLogin(canLogin, guid, campaignCode);
                     return this.GetLoginFailReturns(canLogin, guid);
                 }
 
@@ -266,7 +269,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
                     this.Logger.Info(guid, $"Log-in failed");
-                    this.ReportLogin(result, loginType, guid);
+                    this.ReportLogin(result, loginType, guid, campaignCode);
                     return this.GetLoginFailReturns(result, loginType, guid);
                 }
 
@@ -284,6 +287,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 try
                 {
                     this.LoginReportService.Clear(guid);
+                    this.ReportLogin(result, loginType, guid, campaignCode);
                 }
                 catch (Exception clearex)
                 {
@@ -447,16 +451,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="loginState">State of the login.</param>
         /// <param name="guid">The unique identifier.</param>
-        protected internal void ReportLogin(LOGIN_STATES loginState, string guid)
+        protected internal void ReportLogin(LOGIN_STATES loginState, string guid, string campaignCode)
         {            
             var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
             model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
             model.LoginState = loginState;
+            model.CampaignCode = campaignCode;
 
             this.LoginReportService.Add(model);
         }
 
-        protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, LoginTypeModel loginType, string guid)
+        protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, LoginTypeModel loginType, string guid, string campaignCode)
         {
             if (authResultState == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
@@ -465,6 +470,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 model.LoginType = loginType;
                 model.IsBirthdateValid = false;
                 model.IsValueValid = true;
+                model.CampaignCode = campaignCode;
 
                 this.LoginReportService.Add(model);
             }
@@ -475,6 +481,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 model.LoginType = loginType;
                 model.IsBirthdateValid = true;
                 model.IsValueValid = false;
+                model.CampaignCode = campaignCode;
 
                 this.LoginReportService.Add(model);
             }
@@ -485,6 +492,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 model.LoginType = loginType;
                 model.IsBirthdateValid = false;
                 model.IsValueValid = false;
+                model.CampaignCode = campaignCode;
+
+                this.LoginReportService.Add(model);
+            }
+            else if (authResultState == AUTH_RESULT_STATES.SUCCEEDED)
+            {
+                var model = new LoginFailureModel(guid, this.SessionProvider.GetId());
+                model.BrowserAgent = this.ContextWrapper.GetBrowserAgent();
+                model.LoginType = loginType;
+                model.IsBirthdateValid = true;
+                model.IsValueValid = true;
+                model.CampaignCode = campaignCode;
 
                 this.LoginReportService.Add(model);
             }

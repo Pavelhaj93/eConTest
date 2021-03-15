@@ -34,5 +34,9 @@ namespace eContracting.Storage
         public string LoginState { get; set; }
 
         public bool IsBlocking { get; set; } = false;
+
+        [StringLength(255)]
+        public string CampaignCode { get; set; }
+
     }
 }

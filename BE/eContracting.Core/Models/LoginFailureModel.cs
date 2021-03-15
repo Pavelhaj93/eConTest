@@ -24,6 +24,8 @@ namespace eContracting.Models
 
         public bool IsValueValid { get; set; }
 
+        public string CampaignCode { get; set; }
+
         public LoginFailureModel(string guid, string sessionId)
         {
             this.Guid = guid;
