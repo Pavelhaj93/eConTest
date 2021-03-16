@@ -83,7 +83,7 @@ export const SignatureModal: React.FC<Props> = observer(
       // sign the document with user signature
       console.log('before sign')
       const signed = await store.signDocument(id, signatureData, signFileUrl)
-      console.log('signed', signed)
+      console.log('after sign, signed = ', signed)
 
       // if request was successful => close the modal, otherwise display error
       if (signed) {

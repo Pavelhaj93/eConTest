@@ -564,20 +564,23 @@ export class OfferStore {
     this.isSigning = true
     this.signError = false
 
-    return this.signDocumentRequest(key, signature, signFileUrl)
+    let signed = false
+
+    await this.signDocumentRequest(key, signature, signFileUrl)
       .then(() => {
         document.accepted = true
         console.log('document signed')
-        return true
+        signed = true
       })
       .catch(() => {
         this.signError = true
-        return false
+        signed = false
       })
-      .finally(() => {
-        this.isSigning = false
-        console.log('this.isSigning', this.isSigning)
-      })
+
+    this.isSigning = false
+    console.log('this.isSigning', this.isSigning)
+
+    return signed
   }
 
   /**
