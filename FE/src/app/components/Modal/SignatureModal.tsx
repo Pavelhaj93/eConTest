@@ -63,6 +63,8 @@ export const SignatureModal: React.FC<Props> = observer(
     }, [])
 
     const closeModal = useCallback(() => {
+      console.log('onClose', onClose)
+      console.log('closing dialog')
       onClose() // callback from parent component
       setHasSignature(false) // next opening starts with an empty signature
     }, [onClose])
@@ -79,7 +81,9 @@ export const SignatureModal: React.FC<Props> = observer(
       const signatureData = signature.toDataURL()
 
       // sign the document with user signature
+      console.log('before sign')
       const signed = await store.signDocument(id, signatureData, signFileUrl)
+      console.log('signed', signed)
 
       // if request was successful => close the modal, otherwise display error
       if (signed) {
