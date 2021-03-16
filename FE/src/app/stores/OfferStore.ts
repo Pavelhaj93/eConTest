@@ -569,7 +569,6 @@ export class OfferStore {
     await this.signDocumentRequest(key, signature, signFileUrl)
       .then(() => {
         document.accepted = true
-        console.log('document signed')
         signed = true
       })
       .catch(() => {
@@ -578,7 +577,6 @@ export class OfferStore {
       })
 
     this.isSigning = false
-    console.log('this.isSigning', this.isSigning)
 
     return signed
   }
