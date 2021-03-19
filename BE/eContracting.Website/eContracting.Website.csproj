@@ -232,37 +232,6 @@
     <Compile Include="Areas\eContracting2\Models\SingDataViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
-    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx.designer.cs">
-      <DependentUpon>Modal.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\eContracting\Controllers\AcceptedOfferController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\BaseController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\eContractingController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\eContractingAuthenticationController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\ExpirationController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\OfferController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\ThankYouController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\UserBlockedController.cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeController .cs" />
-    <Compile Include="Areas\eContracting\Controllers\WelcomeRichTextController.cs" />
-    <Compile Include="Areas\eContracting\Models\BaseViewModel.cs" />
-    <Compile Include="Areas\eContracting\Models\LoginViewModel.cs" />
-    <Compile Include="Areas\eContracting\Services\DoxReady.ashx.cs">
-      <DependentUpon>DoxReady.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\eContracting\Services\GetFileImage.ashx.cs">
-      <DependentUpon>GetFileImage.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\eContracting\Services\GetFile.ashx.cs">
-      <DependentUpon>GetFile.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="Areas\eContracting\Services\SignFile.ashx.cs">
-      <DependentUpon>SignFile.ashx</DependentUpon>
-    </Compile>
     <Compile Include="AssetsHtmlHelper.cs" />
     <Compile Include="eContractingServiceConfigurator.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
@@ -276,16 +245,10 @@
     <Compile Include="Rules\Conditions\WhenOfferMatchesMatrixCondition.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\eContracting2\Models\Apis\" />
-    <Folder Include="Areas\eContracting2\Views\Base\" />
-    <Folder Include="Areas\eContracting\Views\Base\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\Modal.aspx" />
-    <Content Include="Areas\eContracting2\Views\Content\ModalWindows\MW01.cshtml" />
-    <Content Include="Areas\eContracting2\Views\Content\WelcomeRichText.cshtml" />
     <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
     <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
     <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
@@ -366,61 +329,11 @@
     <Content Include="Assets_legacy\eContracting\js\vendor\bootstrap-datepicker.cs.min.js" />
     <Content Include="Assets_legacy\eContracting\js\vendor\jquery-3.1.0.min.js" />
     <Content Include="Assets_legacy\eContracting\js\vendor\jSignature.min.js" />
-    <Content Include="Assets\eContracting\css\econtracting.min.css" />
-    <Content Include="Assets\eContracting\css\main.css" />
-    <Content Include="Assets\eContracting\css\main.min.css" />
-    <Content Include="Assets\eContracting\css\popup.css" />
-    <Content Include="Assets\eContracting\fonts\font-face.css" />
-    <Content Include="Assets\eContracting\fonts\innogy-light.eot" />
-    <Content Include="Assets\eContracting\fonts\innogy-light.svg" />
-    <Content Include="Assets\eContracting\fonts\innogy-light.ttf" />
-    <Content Include="Assets\eContracting\fonts\innogy-light.woff" />
-    <Content Include="Assets\eContracting\fonts\innogy-light.woff2" />
-    <Content Include="Assets\eContracting\fonts\innogy-medium.eot" />
-    <Content Include="Assets\eContracting\fonts\innogy-medium.svg" />
-    <Content Include="Assets\eContracting\fonts\innogy-medium.ttf" />
-    <Content Include="Assets\eContracting\fonts\innogy-medium.woff" />
-    <Content Include="Assets\eContracting\fonts\innogy-medium.woff2" />
-    <Content Include="Assets\eContracting\gfx\favicon\114x114.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\120x120.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\128x128.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\144x144.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\150x150.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\152x152.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\16x16.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\196x196.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\310x150.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\310x310.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\32x32.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\57x57.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\60x60.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\70x70.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\72x72.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\76x76.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\96x96.png" />
-    <Content Include="Assets\eContracting\gfx\favicon\blob.png" />
-    <Content Include="Assets\eContracting\gfx\icon\sprite.svg" />
-    <Content Include="Assets\eContracting\gfx\icon\svg.svg" />
-    <Content Include="Assets\eContracting\js\app.js" />
-    <Content Include="Assets\eContracting\js\app.min.js" />
-    <Content Include="Assets\eContracting\js\bootstrap-datepicker-1.6.4.min.js" />
-    <Content Include="Assets\eContracting\js\bootstrap-datepicker.cs.min.js" />
-    <Content Include="Assets\eContracting\js\bootstrap.js" />
-    <Content Include="Assets\eContracting\js\bootstrap.min.js" />
-    <Content Include="Assets\eContracting\js\econtracting.bundle.js" />
-    <Content Include="Assets\eContracting\js\jquery-3.1.0.min.js" />
-    <Content Include="Assets\eContracting\js\polyfills.js" />
-    <Content Include="Assets\eContracting\js\vendor\bootstrap-datepicker-1.6.4.min.js" />
-    <Content Include="Assets\eContracting\js\vendor\bootstrap-datepicker.cs.min.js" />
-    <Content Include="Assets\eContracting\js\vendor\jquery-3.1.0.min.js" />
-    <Content Include="Assets\eContracting\js\vendor\jSignature.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="App_Config\Include\zeContracting\Logging.config" />
-    <Content Include="Areas\eContracting\Views\Shared\Footer.cshtml" />
-    <Content Include="Areas\eContracting\Views\Shared\Header.cshtml" />
     <Content Include="App_Config\Include\zeContracting\Services.config" />
     <Content Include="App_Config\Include\zeContracting\Pipelines.CM.config" />
     <None Include="App_Config\Include\zeContracting\Unicorn.eContracting.Dev.config">
@@ -473,10 +386,6 @@
       <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
       <Name>eContracting.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\eContracting.Kernel\eContracting.Kernel.csproj">
-      <Project>{8e443fe9-7bfb-4417-a625-9785fec7f358}</Project>
-      <Name>eContracting.Kernel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
       <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
       <Name>eContracting.Services</Name>
@@ -489,28 +398,10 @@
     </Content>
     <Content Include="App_Config\Include\zeContracting\Glass.Mapper.Sc.Start.config" />
     <Content Include="App_Config\Include\zeContracting\Glass.Mapper.Sc.config" />
-    <Content Include="Areas\eContracting\Views\Shared\eContractingLayout.cshtml" />
-    <Content Include="Areas\eContracting\Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Areas\eContracting\Services\DoxReady.ashx" />
-    <Content Include="Areas\eContracting\Services\GetFile.ashx" />
-    <Content Include="Areas\eContracting\Views\Error404.cshtml" />
-    <Content Include="Areas\eContracting\Views\CookieLaw.cshtml" />
-    <Content Include="Areas\eContracting\Views\Disclaimer.cshtml" />
-    <Content Include="Areas\eContracting\Views\SystemError.cshtml" />
-    <Content Include="Areas\eContracting\Views\SessionExpired.cshtml" />
-    <Content Include="Areas\eContracting\Views\UserBlocked.cshtml" />
-    <Content Include="Areas\eContracting\Views\ThankYou.cshtml" />
-    <Content Include="Areas\eContracting\Views\Expiration.cshtml" />
     <Content Include="App_Config\Include\zeContracting\ApplicationConfiguration.config">
       <TransformOnBuild>true</TransformOnBuild>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\eContracting\Views\Authentication.cshtml" />
-    <Content Include="Areas\eContracting\Views\DocumentPanel.cshtml" />
-    <Content Include="Areas\eContracting\Views\Offer.cshtml" />
-    <Content Include="Areas\eContracting\Views\AcceptedOffer.cshtml" />
     <Content Include="App_Config\Include\zeContracting\Unicorn.eContracting.config">
       <SubType>Designer</SubType>
       <TransformOnBuild>true</TransformOnBuild>
@@ -552,15 +443,9 @@
       <IsTransformFile>true</IsTransformFile>
     </None>
     <Content Include="App_Config\Include\ZzzRweConfiguration\AcceptanceLogger.config" />
-    <Content Include="Areas\eContracting\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\eContracting\Views\Content\ModalWindows\MW01.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Areas\eContracting\Views\Welcome.cshtml" />
-    <Content Include="Areas\eContracting\Views\Content\WelcomeRichText.cshtml" />
-    <Content Include="Areas\eContracting\Services\SignFile.ashx" />
-    <Content Include="Areas\eContracting\Services\GetFileImage.ashx" />
     <Content Include="App_Config\Include\zeContracting\Unicorn.Developer.config.example">
       <SubType>Designer</SubType>
     </Content>

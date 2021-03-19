@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Castle.Core.Logging;
-using eContracting.Kernel;
-using eContracting.Kernel.GlassItems.Settings;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
