@@ -239,7 +239,6 @@
     <Content Include="Areas\eContracting2\Views\AcceptedOffer.cshtml" />
     <Content Include="Areas\eContracting2\Views\CookieLaw.cshtml" />
     <Content Include="Areas\eContracting2\Views\Disclaimer.cshtml" />
-    <Content Include="Areas\eContracting2\Views\DocumentPanel.cshtml" />
     <Content Include="Areas\eContracting2\Views\Error404.cshtml" />
     <Content Include="Areas\eContracting2\Views\Expiration.cshtml" />
     <Content Include="Areas\eContracting2\Views\Login.cshtml" />
@@ -254,7 +253,6 @@
     <Content Include="Areas\eContracting2\Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Areas\eContracting2\Views\Welcome.cshtml" />
     <Content Include="Assets\eContracting2\css\econtracting.min.css" />
     <Content Include="Assets\eContracting2\gfx\favicon\114x114.png" />
     <Content Include="Assets\eContracting2\gfx\favicon\120x120.png" />
