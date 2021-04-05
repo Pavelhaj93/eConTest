@@ -44,12 +44,6 @@ namespace eContracting.Models
         public virtual string ButtonText { get; set; }
 
         [SitecoreField]
-        public virtual string AcceptedOfferText { get; set; }
-
-        [SitecoreField]
-        public virtual string NotAcceptedOfferText { get; set; }
-
-        [SitecoreField]
         public virtual string ValidationMessage { get; set; }
 
         [SitecoreField]
