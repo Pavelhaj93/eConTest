@@ -26,6 +26,9 @@ namespace eContracting.Models
         public virtual string BirthDateValidationMessage { get; set; }
 
         [SitecoreField]
+        public virtual string BirthDateHelpMessage { get; set; }       
+
+        [SitecoreField]
         public virtual string VerificationMethodLabel { get; set; }
 
         [SitecoreField]
