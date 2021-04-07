@@ -432,10 +432,31 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var dataSource = this.GetDataSourceItem<RichTextModel>();
             var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
 
-            if (dataSource == null)
+            if (dataSource == null || data.IsAccepted)
             {
                 var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
-                dataSource = data.IsAccepted ? definition.MainTextLoginAccepted : definition.MainTextLogin;
+
+                if (!data.IsAccepted)
+                {
+                    dataSource = definition.MainTextLogin;
+                }
+                else
+                {
+                    if (dataSource != null)
+                    {
+                        // in case that this matrix combination has an active AB test (indended for non-accepted offer login text),
+                        // variants of the component with specified datasource are rendered even when the offer is accepted, these are different variants of non-accepted text (MainTextLogin)
+                        // but we dont want to AB test the MainTextLoginAccepted. 
+                        // recognize if the placeholder name is something like /eContracting2Main/eContracting2-login_00_B (ends with 00_B) and if the offer is accepted, ignore the explicitely set datasource then
+                        string placeholderName = Sitecore.Mvc.Presentation.RenderingContext.CurrentOrNull?.Rendering?.Placeholder ?? string.Empty;
+                        if (!placeholderName.EndsWith($"{data.Process}_{data.ProcessType}"))
+                            dataSource = definition.MainTextLoginAccepted;
+                    }
+                    else
+                    {
+                        dataSource = definition.MainTextLoginAccepted;
+                    }                     
+                }                
             }
 
             if (this.ContextWrapper.IsNormalMode())
