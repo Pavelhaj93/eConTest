@@ -449,7 +449,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         // but we dont want to AB test the MainTextLoginAccepted. 
                         // recognize if the placeholder name is something like /eContracting2Main/eContracting2-login_00_B (ends with 00_B) and if the offer is accepted, ignore the explicitely set datasource then
                         string placeholderName = Sitecore.Mvc.Presentation.RenderingContext.CurrentOrNull?.Rendering?.Placeholder ?? string.Empty;
-                        if (!placeholderName.EndsWith($"{data.Process}_{data.ProcessType}"))
+                        if (placeholderName.EndsWith($"{data.Process}_{data.ProcessType}"))
                             dataSource = definition.MainTextLoginAccepted;
                     }
                     else
