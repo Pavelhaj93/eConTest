@@ -9,6 +9,9 @@ SharedFields:
   Hint: AutoGenerateTestableCombinationPlaceholders
   Type: Checkbox
   Value: 1
+- ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
+  Hint: __Workflow
+  Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
   Value: 100
@@ -112,6 +115,15 @@ Languages:
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Ověření totožnosti
+    - ID: "d0347707-54d7-4e06-8d3a-afac3c8b4af3"
+      Hint: BirthDateHelpMessage
+      Value: |
+        Datum narození můžete zadat ve formátu:<br />
+        D.M.RRRR<br />
+        D.MM.RRRR<br />
+        DD.M.RRRR<br />
+        DD.MM.RRRR
+        
     - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
       Hint: AcceptedOfferText
       Value: |

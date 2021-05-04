@@ -1,8 +1,8 @@
 ﻿---
-ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
+ID: "d0347707-54d7-4e06-8d3a-afac3c8b4af3"
 Parent: "349dca74-4b00-46d9-87a3-2c1b5f72c13e"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Pages/Login/Form/AcceptedOfferText
+Path: /sitecore/templates/eContracting2/Pages/Login/Form/BirthDateHelpMessage
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,15 +10,19 @@ SharedFields:
   Value: Rich Text
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 2025
+  Value: 319
 Languages:
 - Language: cs
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Text nápovědy pro datum narození
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20191218T121802Z
+      Value: 20210405T204334Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
@@ -27,10 +31,10 @@ Languages:
   Fields:
   - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
     Hint: Title
-    Value: Text pro akceptovanou nabídku
+    Value: Text nápovědy pro datum narození
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20170112T135001Z
+      Value: 20210405T204654Z

@@ -19,15 +19,15 @@ namespace eContracting.ConsoleClient
 
             var configuration = new GlobalConfiguration();
             // dev
-            //configuration.ServiceUrl = "http://lv423075.aci3.rwegroup.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            //configuration.ServiceUrl = "https://wti.rwe-services.cz:51018/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             // test
-            //configuration.ServiceUrl = "http://wd-wcc.rwe-services.cz:8112/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            //configuration.ServiceUrl = "https://wti.rwe-services.cz:51012/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             // test
-            configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            configuration.ServiceUrl = "https://wti.rwe-services.cz:51018/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             configuration.ServiceUser = "UkZDX1NJVEVDT1JF";
             configuration.ServicePassword = "QWRIYjI0Nyo=";
 
-            configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge";
+            configuration.ServiceSignUrl = "https://wti.rwe-services.cz:51018/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merg";
             configuration.ServiceSignUser = "UkZDX1NJVEVDT1JF";
             configuration.ServiceSignPassword = "QWRIYjI0Nyo=";
 

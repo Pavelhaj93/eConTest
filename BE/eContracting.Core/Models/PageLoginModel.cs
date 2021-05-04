@@ -26,6 +26,9 @@ namespace eContracting.Models
         public virtual string BirthDateValidationMessage { get; set; }
 
         [SitecoreField]
+        public virtual string BirthDateHelpMessage { get; set; }       
+
+        [SitecoreField]
         public virtual string VerificationMethodLabel { get; set; }
 
         [SitecoreField]
@@ -42,12 +45,6 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual string ButtonText { get; set; }
-
-        [SitecoreField]
-        public virtual string AcceptedOfferText { get; set; }
-
-        [SitecoreField]
-        public virtual string NotAcceptedOfferText { get; set; }
 
         [SitecoreField]
         public virtual string ValidationMessage { get; set; }
