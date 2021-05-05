@@ -58,11 +58,11 @@ namespace eContracting.Services.Tests
         {
             yield return new object[] {
                 (
-                    correct: (idAttach: "AA", template: "AA", product: "AA"),
+                    correct: (idAttach: "AA", group: "AA", product: "AA"),
                     other: new [] {
-                        (idAttach: "AA", template: "AA", product: "AA"),
-                        (idAttach: "AA", template: "AA", product: "BB"),
-                        (idAttach: "AA", template: "BB", product: "AA")
+                        (idAttach: "AA", group: "AA", product: "AA"),
+                        (idAttach: "AA", group: "AA", product: "BB"),
+                        (idAttach: "AA", group: "BB", product: "AA")
                     }
                 )
             };
@@ -72,8 +72,8 @@ namespace eContracting.Services.Tests
         [MemberData(nameof(GetFileByTemplate_Find_Unique_Match_Data))]
         public void GetFileByTemplate_Find_Unique_Match(
             (
-                (string idAttach, string template, string product) correct,
-                (string idAttach, string template, string product)[] other
+                (string idAttach, string group, string product) correct,
+                (string idAttach, string group, string product)[] other
             ) data)
         {
             var offer = this.CreateOffer(2);
@@ -87,8 +87,8 @@ namespace eContracting.Services.Tests
                 attr1.ATTRVAL = data.other[i].idAttach;
 
                 var attr2 = new ZCCH_ST_ATTRIB();
-                attr2.ATTRID = Constants.FileAttributes.TEMPLATE;
-                attr2.ATTRVAL = data.other[i].template;
+                attr2.ATTRID = Constants.FileAttributes.GROUP;
+                attr2.ATTRVAL = data.other[i].group;
 
                 var attr3 = new ZCCH_ST_ATTRIB();
                 attr3.ATTRID = Constants.FileAttributes.PRODUCT;
@@ -104,7 +104,7 @@ namespace eContracting.Services.Tests
 
             var attachment = new OfferAttachmentXmlModel();
             attachment.IdAttach = data.correct.idAttach;
-            attachment.Template = data.correct.template;
+            attachment.Group = data.correct.group;
             attachment.Product = data.correct.product;
 
             var service = new OfferAttachmentParserService(logger);
