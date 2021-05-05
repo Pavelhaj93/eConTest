@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<form>
+  <parameters>
+    <ADD_SERVICES></ADD_SERVICES>
+    <BENEFITS></BENEFITS>
+    <COMMODITY>X</COMMODITY>
+    <COMMODITY_ACCEPT_LABEL>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          Smlouva / dodatek<br />
+        </p>
+      </body>
+    </COMMODITY_ACCEPT_LABEL>
+    <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEBAB9A5E9923213A52</COMMODITY_ACCEPT_LABEL_GUID>
+    <COMMODITY_OFFER_SUMMARY>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |Produkt|: [plyn Extra+]<br />|Platnost nabídky do|: [19.06.2021]<br />|Délka fixace|: [24 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [25.09.2021 ]<br />
+        </p>
+      </body>
+    </COMMODITY_OFFER_SUMMARY>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Extra+</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>19.06.2021</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>24 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+    <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>25.09.2021 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+    <COMMODITY_PRODUCT>G_EXTRA+</COMMODITY_PRODUCT>
+    <COMMODITY_PRODUCT_DESC>plyn Extra+</COMMODITY_PRODUCT_DESC>
+    <COMMODITY_SALES_ARGUMENTS>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |První|: [výhodná cena plynu]<br />|Druhé|: [garance její neměnnosti]<br />|Třetí|: [navíc finanční odměna dle Ceníku služeb]<br />|Čtrvté|: [smlouva na dobu určitou na 24 měsíců]<br />
+        </p>
+      </body>
+    </COMMODITY_SALES_ARGUMENTS>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtrvté</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>výhodná cena plynu</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garance její neměnnosti</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>navíc finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+    <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>smlouva na dobu určitou na 24 měsíců</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+    <NONCOMMODITY>X</NONCOMMODITY>
+    <NONCOMMODITY_ACCEPT_LABEL>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          Průběžný monitoring spotřeby<br />
+        </p>
+      </body>
+    </NONCOMMODITY_ACCEPT_LABEL>
+    <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEBAB9A5F74D121DA52</NONCOMMODITY_ACCEPT_LABEL_GUID>
+    <NONCOMMODITY_OFFER_SUMMARY>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |Služba|: [Průběžný monitoring spotřeby]<br />|Senzor|: [Senzor spotřeby Codea]<br />|Platnost nabídky do|: [19.06.2021]<br />
+        </p>
+      </body>
+    </NONCOMMODITY_OFFER_SUMMARY>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Senzor</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Průběžný monitoring spotřeby</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Senzor spotřeby Codea</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+    <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>19.06.2021</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+    <NONCOMMODITY_PRODUCT>10275757</NONCOMMODITY_PRODUCT>
+    <NONCOMMODITY_PRODUCT_DESC>Senzor spotřeby Codea FL-SG-bk</NONCOMMODITY_PRODUCT_DESC>
+    <NONCOMMODITY_SALES_ARGUMENTS>
+      <body xmlns="http://www.w3.org/1999/xhtml">
+        <p style="margin-top:0pt;margin-bottom:0pt">
+          |První|: [Automaticky monitoruje stav plynoměru za Vás]<br />|Druhé|: [Přehled o denní spotřebě plynu v innosvětě]<br />|Třetí|: [Už žádný nečekaný nedoplatek za plyn]<br />
+        </p>
+      </body>
+    </NONCOMMODITY_SALES_ARGUMENTS>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Automaticky monitoruje stav plynoměru za Vás</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Přehled o denní spotřebě plynu v innosvětě</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+    <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Už žádný nečekaný nedoplatek za plyn</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+    <PERSON>X</PERSON>
+    <PERSON_CUSTADDRESS>Kollárova 816 / 7, 250 01 Brandýs n/L-Stará Boleslav</PERSON_CUSTADDRESS>
+    <PERSON_CUSTBIRTHDATE>20.03.1951</PERSON_CUSTBIRTHDATE>
+    <PERSON_CUSTEMAIL>daniela.hruzkova@innogy.cz</PERSON_CUSTEMAIL>
+    <PERSON_CUSTNAME>Vladimír Emr</PERSON_CUSTNAME>
+    <PERSON_CUSTTEL1>777 607 295</PERSON_CUSTTEL1>
+    <PERSON_CUSTTITLELET>Vážený pane Emře                                              </PERSON_CUSTTITLELET>
+    <PERSON_NUMBER>9510267058</PERSON_NUMBER>
+    <PERSON_PREMADR>Kollárova 483 / 8, 250 01 Brandýs nad Labem-Stará Boleslav</PERSON_PREMADR>
+    <PERSON_PREMEXT>27ZG200Z0105611N</PERSON_PREMEXT>
+    <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+    <PERSON_PREMNUMBER>9300151499</PERSON_PREMNUMBER>
+    <USER_ATTACH></USER_ATTACH>
+  </parameters>
+</form>

@@ -54,6 +54,65 @@ namespace eContracting.Services.Tests
             Assert.NotNull(result);
         }
 
+        public static IEnumerable<object[]> GetFileByTemplate_Find_Unique_Match_Data()
+        {
+            yield return new object[] {
+                (
+                    correct: (idAttach: "AA", template: "AA", product: "AA"),
+                    other: new [] {
+                        (idAttach: "AA", template: "AA", product: "AA"),
+                        (idAttach: "AA", template: "AA", product: "BB"),
+                        (idAttach: "AA", template: "BB", product: "AA")
+                    }
+                )
+            };
+        }
+
+        [Theory]
+        [MemberData(nameof(GetFileByTemplate_Find_Unique_Match_Data))]
+        public void GetFileByTemplate_Find_Unique_Match(
+            (
+                (string idAttach, string template, string product) correct,
+                (string idAttach, string template, string product)[] other
+            ) data)
+        {
+            var offer = this.CreateOffer(2);
+            var logger = new MemoryLogger();
+            var files = new List<OfferFileXmlModel>();
+
+            for (int i = 0; i < data.other.Length; i++)
+            {
+                var attr1 = new ZCCH_ST_ATTRIB();
+                attr1.ATTRID = Constants.FileAttributes.TYPE;
+                attr1.ATTRVAL = data.other[i].idAttach;
+
+                var attr2 = new ZCCH_ST_ATTRIB();
+                attr2.ATTRID = Constants.FileAttributes.TEMPLATE;
+                attr2.ATTRVAL = data.other[i].template;
+
+                var attr3 = new ZCCH_ST_ATTRIB();
+                attr3.ATTRID = Constants.FileAttributes.PRODUCT;
+                attr3.ATTRVAL = data.other[i].product;
+
+                var file = new ZCCH_ST_FILE();
+                file.ATTRIB = new[] { attr1, attr2, attr3 };
+
+                var fileXml = new OfferFileXmlModel(file);
+
+                files.Add(fileXml);
+            }
+
+            var attachment = new OfferAttachmentXmlModel();
+            attachment.IdAttach = data.correct.idAttach;
+            attachment.Template = data.correct.template;
+            attachment.Product = data.correct.product;
+
+            var service = new OfferAttachmentParserService(logger);
+            var result = service.GetFileByTemplate(offer, attachment, files.ToArray());
+
+            Assert.NotNull(result);
+        }
+
         [Fact]
         public void GetFileByTemplate_Throws_EcontractingDataException_When_Not_Match()
         {
