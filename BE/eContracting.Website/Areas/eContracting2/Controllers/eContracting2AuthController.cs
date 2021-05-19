@@ -537,7 +537,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.Labels = new Dictionary<string, string>();
             viewModel.Labels["requiredFields"] = datasource.RequiredFields;
             viewModel.Labels["birthDate"] = datasource.BirthDateLabel;
-            viewModel.Labels["birthDateHelpMessage"] = datasource.BirthDateHelpMessage;
+            viewModel.Labels["birthDateHelpText"] = datasource.BirthDateHelpMessage;
             viewModel.Labels["birthDatePlaceholder"] = datasource.BirthDatePlaceholder;
             viewModel.Labels["verificationMethod"] = datasource.VerificationMethodLabel;
             viewModel.Labels["submitBtn"] = datasource.ButtonText;
