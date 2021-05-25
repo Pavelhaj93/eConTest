@@ -72,6 +72,10 @@ namespace eContracting.Models
         [JsonIgnore]
         public string AddInfo { get; set; }
 
+        [XmlElement(Constants.FileAttributes.TEMPLATE)]
+        [JsonProperty("template")]
+        public string Template { get; set; }
+
         [XmlElement(Constants.FileAttributes.TEMPL_ALC_ID)]
         [JsonIgnore]
         public string TemplAlcId { get; set; }
@@ -122,21 +126,33 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Determines whether sign required or not for this file.
+        /// </summary>
         public bool IsSignRequired()
         {
             return this.SignReq?.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
+        /// <summary>
+        /// Determines whether this file is printed or it's required for upload.
+        /// </summary>
         public bool IsPrinted()
         {
             return this.Printed?.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
+        /// <summary>
+        /// Determines whether this file is obligatory.
+        /// </summary>
         public bool IsObligatory()
         {
             return this.Obligatory?.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) ?? false;
         }
 
+        /// <summary>
+        /// Determines whether group for this file obligatory.
+        /// </summary>
         public bool IsGroupObligatory()
         {
             return this.GroupObligatory?.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase) ?? false;

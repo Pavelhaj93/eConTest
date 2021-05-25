@@ -647,6 +647,12 @@
             </summary>
             <returns>Value or null</returns>
         </member>
+        <member name="P:eContracting.Models.OfferFileXmlModel.Group">
+            <summary>
+            Gets value of GROUP from the <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/> attributes.
+            </summary>
+            <returns>Value or null</returns>
+        </member>
         <member name="P:eContracting.Models.OfferFileXmlModel.Counter">
             <summary>
             Gets the counter integer value from <see cref="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB"/>. If attribute <see cref="F:eContracting.Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
@@ -1649,6 +1655,26 @@
         <member name="P:eContracting.Models.OfferAttachmentXmlModel.UniqueKey">
             <summary>
             Gets the unique key for this template.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsSignRequired">
+            <summary>
+            Determines whether sign required or not for this file.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsPrinted">
+            <summary>
+            Determines whether this file is printed or it's required for upload.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsObligatory">
+            <summary>
+            Determines whether this file is obligatory.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OfferAttachmentXmlModel.IsGroupObligatory">
+            <summary>
+            Determines whether group for this file obligatory.
             </summary>
         </member>
         <member name="M:eContracting.Models.OfferAttachmentXmlModel.ToString">
@@ -2751,10 +2777,10 @@
         </member>
         <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.OfferAttachmentXmlModel)">
             <summary>
-            Gets the unique key for template document.
+            Gets the unique MD5 hash for template document.
             </summary>
             <param name="template">The template.</param>
-            <returns>Hash of <see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Group"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Description"/></returns>
+            <returns>Hash from merged values: "<see cref="P:eContracting.Models.OfferAttachmentXmlModel.IdAttach"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Group"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Template"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Product"/> + <see cref="P:eContracting.Models.OfferAttachmentXmlModel.Description"/>".</returns>
         </member>
         <member name="M:eContracting.Utils.ReplaceXmlAttributes(System.String)">
             <summary>

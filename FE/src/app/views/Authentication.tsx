@@ -151,7 +151,7 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices = [
       )}
 
       <Row>
-        <Col xs={12} md={8} lg={6}>
+        <Col xs={12} md={8} lg={7}>
           <Form.Group>
             <Form.Label
               htmlFor="birthDate"
@@ -159,20 +159,23 @@ export const Authentication: React.FC<View> = ({ labels, formAction, choices = [
             >
               {labels.birthDate}
             </Form.Label>
-            <Datepicker
-              id="birthDate"
-              placeholderText={labels.birthDatePlaceholder}
-              maxDate={subDays(new Date(), 1)}
-              onChange={(date: Date) => setDate(date)}
-              selected={date}
-              showYearDropdown
-              dropdownMode="select"
-              ariaLabelOpen={labels.ariaOpenCalendar}
-              isInvalid={!date && wasValidated}
-              nextMonthButtonLabel={labels.ariaNextMonth}
-              previousMonthButtonLabel={labels.ariaPreviousMonth}
-              chooseDayAriaLabelPrefix={labels.ariaChooseDay}
-            />
+            <FormControlTooltipWrapper>
+              <Datepicker
+                id="birthDate"
+                placeholderText={labels.birthDatePlaceholder}
+                maxDate={subDays(new Date(), 1)}
+                onChange={(date: Date) => setDate(date)}
+                selected={date}
+                showYearDropdown
+                dropdownMode="select"
+                ariaLabelOpen={labels.ariaOpenCalendar}
+                isInvalid={!date && wasValidated}
+                nextMonthButtonLabel={labels.ariaNextMonth}
+                previousMonthButtonLabel={labels.ariaPreviousMonth}
+                chooseDayAriaLabelPrefix={labels.ariaChooseDay}
+              />
+              {labels.birthDateHelpText && <Tooltip>{labels.birthDateHelpText}</Tooltip>}
+            </FormControlTooltipWrapper>
           </Form.Group>
         </Col>
       </Row>

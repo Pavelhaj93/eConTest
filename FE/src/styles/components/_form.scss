@@ -237,7 +237,6 @@ select {
     position: relative;
 
     .form-control {
-      margin-right: $spacer;
       padding-right: calc(#{$input-padding-x} + #{$icon-size});
     }
 
@@ -253,14 +252,27 @@ select {
       width: $icon-size;
       height: $icon-size;
     }
+
+    .react-datepicker__button-calendar {
+      right: calc(1.5rem + #{$icon-size});
+    }
+
+    .react-datepicker__input {
+      padding-right: calc(2.5rem + #{$input-padding-x} + #{$icon-size});
+    }
   }
 
   @include media-breakpoint-up(md) {
     display: flex;
     align-items: center;
 
-    .form-control {
+    .form-control,
+    .react-datepicker-wrapper {
       margin-right: $spacer;
+    }
+
+    .react-datepicker__input {
+      margin-right: 0;
     }
   }
 }

@@ -98,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationServiceTests.cs" />
+    <Compile Include="FileAttributes.cs" />
     <Compile Include="OfferAttachmentParserServiceTests.cs" />
     <Compile Include="OfferJsonDescriptorTests.cs" />
     <Compile Include="OfferParserServiceTests.cs" />

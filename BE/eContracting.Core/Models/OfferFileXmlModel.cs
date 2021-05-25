@@ -50,6 +50,18 @@ namespace eContracting.Models
         }
 
         /// <summary>
+        /// Gets value of GROUP from the <see cref="ZCCH_ST_FILE.ATTRIB"/> attributes.
+        /// </summary>
+        /// <returns>Value or null</returns>
+        public string Group
+        {
+            get
+            {
+                return this.File.ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.FileAttributes.GROUP)?.ATTRVAL;
+            }
+        }
+
+        /// <summary>
         /// Gets the counter integer value from <see cref="ZCCH_ST_FILE.ATTRIB"/>. If attribute <see cref="Constants.OfferAttributes.COUNTER"/> is not valid, returns 100;
         /// </summary>
         /// <returns>Position from <see cref="Constants.OfferAttributes.COUNTER"/>, otherwise 100</returns>

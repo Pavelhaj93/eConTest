@@ -170,14 +170,14 @@ namespace eContracting
         }
 
         /// <summary>
-        /// Gets the unique key for template document.
+        /// Gets the unique MD5 hash for template document.
         /// </summary>
         /// <param name="template">The template.</param>
-        /// <returns>Hash of <see cref="OfferAttachmentXmlModel.IdAttach"/> + <see cref="OfferAttachmentXmlModel.Group"/> + <see cref="OfferAttachmentXmlModel.Description"/></returns>
+        /// <returns>Hash from merged values: "<see cref="OfferAttachmentXmlModel.IdAttach"/> + <see cref="OfferAttachmentXmlModel.Group"/> + <see cref="OfferAttachmentXmlModel.Template"/> + <see cref="OfferAttachmentXmlModel.Product"/> + <see cref="OfferAttachmentXmlModel.Description"/>".</returns>
         [ExcludeFromCodeCoverage]
         public static string GetUniqueKey(OfferAttachmentXmlModel template)
         {
-            var data = template.IdAttach + template.Group + template.Description;
+            var data = template.IdAttach + template.Group + template.Template + template.Product + template.Description;
             return GetMd5(data);
         }
 

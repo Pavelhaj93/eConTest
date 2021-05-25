@@ -96,49 +96,61 @@ namespace eContracting.Services
         {
             this.Logger.Debug(offer.Guid, $"Trying to match file with {Constants.FileAttributes.TYPE} ({template.IdAttach}) ...");
 
-            var idAttach = files.Where(x => x.IdAttach == template.IdAttach).ToArray();
+            var filesByIdAttach = files.Where(x => x.IdAttach == template.IdAttach).ToArray();
 
-            if (idAttach.Length == 0)
+            if (filesByIdAttach.Length == 0)
             {
                 var msg = $"No file matches to {Constants.FileAttributes.TYPE} ({template.IdAttach})";
                 this.Logger.Warn(offer.Guid, msg);
                 throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
-            if (idAttach.Length == 1)
+            if (filesByIdAttach.Length == 1)
             {
                 this.Logger.Debug(offer.Guid, $"1 file matches to {Constants.FileAttributes.TYPE} ({template.IdAttach})");
-                return idAttach.First();
+                return filesByIdAttach.First();
             }
 
-            this.Logger.Warn(offer.Guid, $"{idAttach.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) found. Trying to resolve ...");
+            this.Logger.Warn(offer.Guid, $"{filesByIdAttach.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) found. Trying to resolve ...");
 
             if (string.IsNullOrEmpty(template.Product))
             {
-                var msg = $"Attachment doens't contain value in {Constants.FileAttributes.PRODUCT} and due to this we are not able to determinate differences between {idAttach.Length} the same files with {Constants.FileAttributes.TYPE} {template.IdAttach}";
+                var msg = $"Attachment doens't contain value in {Constants.FileAttributes.PRODUCT} and due to this we are not able to determinate differences between {filesByIdAttach.Length} the same files with {Constants.FileAttributes.TYPE} {template.IdAttach}";
                 this.Logger.Error(offer.Guid, msg);
                 throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
-            var product = idAttach.Where(x => x.Product == template.Product).ToArray();
+            var filesByProduct = filesByIdAttach.Where(x => x.Product == template.Product).ToArray();
 
-            if (product.Length == 0)
+            if (filesByProduct.Length == 0)
             {
                 var msg = $"No file found with {Constants.FileAttributes.TYPE} = {template.IdAttach} AND {Constants.FileAttributes.PRODUCT} = {template.Product} and due to this we are not able to determinate differences";
                 this.Logger.Error(offer.Guid, msg);
                 throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
-            if (product.Length > 1)
+            if (filesByProduct.Length == 1)
             {
-                var msg = $"{product.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) and {Constants.FileAttributes.PRODUCT} ({template.Product}) exists and due to this we are not able to determinate differences";
+                return filesByProduct.First();
+            }
+
+            var filesByGroup = filesByProduct.Where(x => x.Group == template.Group).ToArray();
+
+            if (filesByGroup.Length == 0)
+            {
+                var msg = $"{filesByProduct.Length} files with the same {Constants.FileAttributes.TYPE} = {template.IdAttach} and {Constants.FileAttributes.PRODUCT} ({template.Product}) exists and due to this we are not able to determinate differences";
                 this.Logger.Error(offer.Guid, msg);
                 throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
             }
 
-            this.Logger.Info(offer.Guid, $"{idAttach.Length} files with the same {Constants.FileAttributes.TYPE} ({template.IdAttach}) resolved with {Constants.FileAttributes.PRODUCT} ({template.Product})");
+            if (filesByGroup.Length > 1)
+            {
+                var msg = $"{filesByProduct.Length} files with the same {Constants.FileAttributes.TYPE} = {template.IdAttach} and {Constants.FileAttributes.PRODUCT} ({template.Product}) and {Constants.FileAttributes.GROUP} ({template.Group}) exists and due to this we are not able to determinate differences";
+                this.Logger.Error(offer.Guid, msg);
+                throw new EcontractingDataException(new ErrorModel("OAPS-GFBT", msg));
+            }
 
-            return product.First();
+            return filesByGroup.First();
         }
 
         /// <inheritdoc/>
@@ -377,37 +389,6 @@ namespace eContracting.Services
         {
             var exceptions = new List<Exception>();
             var list = new List<OfferFileXmlModel>(files);
-
-            //for (int i = 0; i < offer.Documents.Length; i++)
-            //{
-            //    try
-            //    {
-            //        var attachment = offer.Documents[i];
-
-            //        if (string.IsNullOrEmpty(attachment.IdAttach))
-            //        {
-            //            throw new EcontractingDataException(new ErrorModel("OAPS-MAT", $"Missing {Constants.FileAttributes.TYPE} in attachment collection (filename: {attachment.Description})"));
-            //        }
-
-            //        if (!attachment.IsPrinted())
-            //        {
-            //            this.Logger.Debug(offer.Guid, $"Attachment {attachment.IdAttach} not printed (upload)");
-            //            continue;
-            //        }
-
-            //        var file = this.GetFileByTemplate(offer, attachment, files);
-
-            //        if (file == null)
-            //        {
-            //            this.Logger.Fatal(offer.Guid, $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files");
-            //            throw new EcontractingDataException(new ErrorModel("OAPS-CHECK", $"Attachment {attachment.IdAttach} ({attachment.Description}) not found in files"));
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        exceptions.Add(ex);
-            //    }
-            //}
 
             for (int i = 0; i < files.Length; i++)
             {
