@@ -179,6 +179,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferAcceptedMainText.Text, offer.TextParameters);
                 viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
                 viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
+                viewModel.AbMatrixCombinationPixelUrl = definition.OfferAcceptedAbMatrixPixel?.Src;
+
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);
             }
             catch (Exception ex)
@@ -446,6 +448,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
             viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
             viewModel["acceptanceModalError"] = datasource.ConfirmModalWindowGeneralErrorMessage;
+            
+            viewModel.AbMatrixCombinationPixelUrl = definition.OfferVisitedAbMatrixPixel?.Src;
 
             return viewModel;
         }
@@ -503,6 +507,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.ScriptParameters["eCat"] = scriptParameters.eCat;
             viewModel.ScriptParameters["eAct"] = scriptParameters.eAct;
             viewModel.ScriptParameters["eLab"] = scriptParameters.eLab;
+
+            viewModel.AbMatrixCombinationPixelUrl = definition.ThankYouAbMatrixPixel?.Src;
+
             return viewModel;
         }
 

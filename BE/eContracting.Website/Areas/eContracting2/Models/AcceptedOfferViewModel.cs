@@ -21,6 +21,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("getFileUrl")]
         public readonly string FileApi = "/api/econ/file";
 
+        [JsonProperty("abMatrixCombinationPixelUrl")]
+        public string AbMatrixCombinationPixelUrl { get; set; }
+
         public AcceptedOfferViewModel(SiteSettingsModel siteSettings) : base("AcceptedOffer", siteSettings)
         {
         }
