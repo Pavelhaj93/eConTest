@@ -5,11 +5,15 @@
 <div class="row">
     <div class="col-12">
         <div class="text-center">
-          <h1>@Editable(model => model.Datasource.PageTitle)</h1>
-          @Html.Raw(Model.MainText)
+            <h1>@Editable(model => model.Datasource.PageTitle)</h1>
+            @Html.Raw(Model.MainText)
         </div>
     </div>
 </div>
 <div class="row justify-content-center">
     @Html.Sitecore().Placeholder("eContracting2-boxes")
 </div>
+
+@if (!string.IsNullOrEmpty(Model.AbMatrixCombinationPixelUrl))
+{
+<img src="@Model.AbMatrixCombinationPixelUrl" alt="pixel" hidden aria-hidden="true" />}

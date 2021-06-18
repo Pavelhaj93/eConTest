@@ -217,6 +217,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var viewModel = new PageExpirationViewModel();
                 viewModel.Datasource = datasource;
                 viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferExpiredMainText.Text, offer.TextParameters);
+                viewModel.AbMatrixCombinationPixelUrl = definition.OfferVisitedAbMatrixPixel?.Src;
                 return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
             }
             catch (Exception ex)
