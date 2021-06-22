@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -812,11 +813,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 string root = HttpContext.Current.Server.MapPath("~/App_Data");
                 var provider = new MultipartFormDataStreamProvider(root);
                 var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
-                var fileId = multipartData.FormData["key"];
+                var fileId = GetSafeUploadedFileName(multipartData.FormData["key"]);
 
                 if (string.IsNullOrWhiteSpace(fileId))
                 {
                     return this.BadRequest("File key cannot be empty");
+                }
+                
+                //alphanumeric keys only
+                if (Regex.IsMatch(fileId, @"^[a-zA-Z0-9]*$"))
+                {
+                    return this.BadRequest("File key can contain alphanumeric chracters only.");
                 }
 
                 if (multipartData.FileData.Count < 1)
@@ -832,7 +839,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     var file = multipartData.FileData[i];
                     var localFile = new FileInfo(file.LocalFileName);
-                    var originalFileName = file.Headers.ContentDisposition.FileName.Trim('"');
+                    var originalFileName = this.GetSafeUploadedFileName(file.Headers.ContentDisposition.FileName.Trim('"'));
 
                     using (var stream = localFile.OpenRead())
                     {
@@ -1262,5 +1269,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.InternalServerError(message);
             }
         }
+
+        protected string GetSafeUploadedFileName(string fileIdFromRequest)
+        {
+            if (string.IsNullOrEmpty(fileIdFromRequest))
+                return fileIdFromRequest;
+
+            string fileName = System.IO.Path.GetFileName(fileIdFromRequest);
+            return fileName;
+        }
+
     }
 }
