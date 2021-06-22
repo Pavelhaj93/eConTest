@@ -152,10 +152,12 @@ namespace eContracting.Models
         public virtual RichTextModel OfferExpiredMainText { get; set; }
 
         [SitecoreField]
+        public virtual Image OfferExpiredAbMatrixPixel { get; set; }
+
+        [SitecoreField]
         public virtual RichTextModel MainTextThankYou { get; set; }
 
         [SitecoreField]
         public virtual Image ThankYouAbMatrixPixel { get; set; }
-
     }
 }
