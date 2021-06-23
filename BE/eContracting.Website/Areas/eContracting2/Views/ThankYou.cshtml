@@ -14,7 +14,10 @@
 <div class="row justify-content-center">
     @Html.Sitecore().Placeholder("eContracting2-boxes")
 </div>
-
+@if (!string.IsNullOrEmpty(Model.AbMatrixCombinationPixelUrl))
+{
+    <img src="@Model.AbMatrixCombinationPixelUrl" alt="pixel" hidden aria-hidden="true" />
+}
 <script>
     // Disable going back after submission
     function push() {

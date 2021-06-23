@@ -11,5 +11,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public PageExpirationModel Datasource { get; set; }
 
         public string MainText { get; set; }
+        
+        public string AbMatrixCombinationPixelUrl { get; set; }
     }
 }

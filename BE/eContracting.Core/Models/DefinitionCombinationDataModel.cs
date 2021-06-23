@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Glass.Mapper.Sc.Configuration.Attributes;
+using Glass.Mapper.Sc.Fields;
 
 namespace eContracting.Models
 {
@@ -54,6 +55,10 @@ namespace eContracting.Models
 
         [SitecoreField]
         public virtual RichTextModel OfferCommoditiesText { get; set; }
+
+        [SitecoreField]
+        public virtual Image OfferVisitedAbMatrixPixel { get; set; }
+
 
         #region Documents for accept
 
@@ -135,6 +140,9 @@ namespace eContracting.Models
         [SitecoreField]
         public virtual RichTextModel OfferAcceptText { get; set; }
 
+        [SitecoreField]
+        public virtual Image OfferAcceptedAbMatrixPixel { get; set; }
+
         #endregion
 
         [SitecoreField]
@@ -144,6 +152,12 @@ namespace eContracting.Models
         public virtual RichTextModel OfferExpiredMainText { get; set; }
 
         [SitecoreField]
+        public virtual Image OfferExpiredAbMatrixPixel { get; set; }
+
+        [SitecoreField]
         public virtual RichTextModel MainTextThankYou { get; set; }
+
+        [SitecoreField]
+        public virtual Image ThankYouAbMatrixPixel { get; set; }
     }
 }

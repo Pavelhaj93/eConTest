@@ -23,7 +23,7 @@ namespace eContracting.ConsoleClient
             // test
             //configuration.ServiceUrl = "https://wti.rwe-services.cz:51012/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             // test
-            configuration.ServiceUrl = "https://wti.rwe-services.cz:51018/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+            configuration.ServiceUrl = "https://wti.rwe-services.cz:51012/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
             configuration.ServiceUser = "UkZDX1NJVEVDT1JF";
             configuration.ServicePassword = "QWRIYjI0Nyo=";
 

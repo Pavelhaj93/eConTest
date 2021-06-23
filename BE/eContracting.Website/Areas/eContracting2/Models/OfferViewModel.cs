@@ -57,6 +57,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("sessionExpiredPageUrl")]
         public string SessionExpiredPage { get; set; }
 
+        [JsonProperty("abMatrixCombinationPixelUrl")]
+        public string AbMatrixCombinationPixelUrl { get; set; }
+
         #endregion
 
         [JsonProperty("allowedContentTypes")]

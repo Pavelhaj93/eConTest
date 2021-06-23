@@ -68,6 +68,10 @@ Languages:
     - ID: "62cd7b34-9c67-4cac-8438-02c118a80fc0"
       Hint: OfferUploadsExtraHelp
       Value: "{00A8C18D-5470-4517-AF22-442A7E075411}"
+    - ID: "66e5ff8f-6920-4b5b-86ee-fb80349a9dda"
+      Hint: OfferVisitedAbMatrixPixel
+      Value: |
+        <image mediaid="{0D7CE63A-9BBE-4B8C-9B03-E9E46801556B}" />
     - ID: "70941589-f449-4853-ac06-110f564ef692"
       Hint: OfferOtherProductsNote
       Value: "{E81F5549-1786-4186-8734-9779F35D38F3}"
@@ -81,6 +85,10 @@ Languages:
         {9BE71C02-ABFE-4E99-83C8-C9DD8A3053C3}
         {552CA02F-13B6-4567-A111-9815A33F540A}
         {49A2C1EA-B663-4397-A9FA-D48DF957B898}
+    - ID: "976e1e6b-d787-4deb-b768-14ad3cbdd3b6"
+      Hint: ThankYouAbMatrixPixel
+      Value: |
+        <image mediaid="{694B3611-045B-464C-A9D5-6508FEB032B9}" />
     - ID: "985bbc27-0a52-4303-8a21-75d2778ff137"
       Hint: OfferGiftsTitle
       Value: "{F28B8991-4D1E-4AAA-B456-1E41C64DECFA}"
