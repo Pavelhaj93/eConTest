@@ -58,6 +58,21 @@ namespace eContracting.Services
                 return this.SiteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             }
         }
+        protected long GroupFileCountLimit
+        {
+            get
+            {
+                return this.SiteSettings.GroupFileCountLimit;
+            }
+        }
+
+        protected long TotalFileCountLimit
+        {
+            get
+            {
+                return this.SiteSettings.TotalFileCountLimit;
+            }
+        }
 
         protected Size MaxImageSizeAfterResize
         {
