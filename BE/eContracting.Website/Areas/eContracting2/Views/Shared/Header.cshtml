@@ -18,6 +18,16 @@
                     <span>@Model.PhoneNumber</span>
                 </a>
             }
+            @if (Model.LogoutLink !=null)
+            {
+                <p />
+                <a class="" href="@Model.LogoutLinkUrl" id="logoutLink">
+                    <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
+                        <use class="d-none d-sm-block" xlink:href="#logout"></use>
+                    </svg>
+                    <span>@Model.LogoutLink.Title</span>
+                </a>
+            }
         </div>
     </div>
 </header>
