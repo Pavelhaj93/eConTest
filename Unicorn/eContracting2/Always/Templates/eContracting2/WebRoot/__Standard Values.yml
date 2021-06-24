@@ -32,7 +32,7 @@ SharedFields:
   Value: 25600
 - ID: "830a2a51-0149-4608-99cc-733bbfd97338"
   Hint: GroupFileCountLimit
-  Value: 200
+  Value: 100
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 
