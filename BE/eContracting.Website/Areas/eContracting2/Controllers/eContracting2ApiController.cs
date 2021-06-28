@@ -821,7 +821,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
                 
                 //alphanumeric keys only
-                if (Regex.IsMatch(fileId, @"^[a-zA-Z0-9]*$"))
+                if (!Regex.IsMatch(fileId, @"^[a-zA-Z0-9]*$"))
                 {
                     return this.BadRequest("File key can contain alphanumeric chracters only.");
                 }
