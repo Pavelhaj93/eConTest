@@ -10,10 +10,11 @@ using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
+using Sitecore.Mvc.Controllers;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
-    public class eContracting2Controller : GlassController
+    public class eContracting2Controller : Controller
     {
         protected readonly ILogger Logger;
         protected readonly IUserDataCacheService Cache;
@@ -24,6 +25,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
         protected readonly ISessionProvider SessionProvider;
+        protected readonly IMvcContext MvcContext;
 
         [ExcludeFromCodeCoverage]
         public eContracting2Controller()
@@ -37,6 +39,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
             this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
+            this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -49,7 +52,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IContextWrapper context,
             IUserFileCacheService userFileCache,
             ITextService textService,
-            ISessionProvider sessionProvider)
+            ISessionProvider sessionProvider,
+            IMvcContext mvcContext)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -60,6 +64,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
             this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
+            this.MvcContext = mvcContext ?? throw new ArgumentNullException(nameof(mvcContext));
         }
 
         /// <summary>
@@ -115,7 +120,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.Logger.Error(guid, "Cannot clear user file cache", ex);
                 }
 
-                var datasource = this.GetLayoutItem<PageNewOfferModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageNewOfferModel>();
                 var viewModel = this.GetOfferViewModel(offer, datasource);
                 return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
             }
@@ -171,7 +176,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(url);
                 }
 
-                var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageAcceptedOfferModel>();
                 var definition = this.SettingsReaderService.GetDefinition(offer);
                 var settings = this.SettingsReaderService.GetSiteSettings();
                 var viewModel = new AcceptedOfferViewModel(settings);
@@ -212,7 +217,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var offer = this.ApiService.GetOffer(guid);
 
                 var definition = this.SettingsReaderService.GetDefinition(offer);
-                var datasource = this.GetLayoutItem<PageExpirationModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageExpirationModel>();
 
                 var viewModel = new PageExpirationViewModel();
                 viewModel.Datasource = datasource;
@@ -230,7 +235,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         // WelcomeRichTextController
         public ActionResult RichText()
         {
-            var dataSource = this.GetLayoutItem<RichTextModel>();
+            var dataSource = this.MvcContext.GetPageContextItem<RichTextModel>();
             return View("/Areas/eContracting2/Views/RichText.cshtml", dataSource);
         }
 
@@ -281,7 +286,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                var datasource = this.GetLayoutItem<PageUserBlockedModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageUserBlockedModel>();
                 return View("/Areas/eContracting2/Views/UserBlocked.cshtml", datasource);
             }
             catch (Exception ex)
@@ -306,7 +311,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         
         public ActionResult Disclaimer()
         {
-            var datasource = this.GetLayoutItem<PageDisclaimerModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageDisclaimerModel>();
 
             if (this.Context.IsEditMode())
             {
@@ -324,7 +329,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             var code = this.Request.QueryString["code"];
-            var datasource = this.GetLayoutItem<PageError404Model>();
+            var datasource = this.MvcContext.GetPageContextItem<PageError404Model>();
 
             if (!this.Context.IsEditMode())
             {
@@ -345,7 +350,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             var code = this.Request.QueryString["code"];
 
-            var datasource = this.GetLayoutItem<PageError500Model>();
+            var datasource = this.MvcContext.GetPageContextItem<PageError500Model>();
 
             if (!this.Context.IsEditMode())
             {
@@ -361,7 +366,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             string logoutParm = this.Request.QueryString["logout"];
            
-            var datasouce = this.GetLayoutItem<PageSessionExpiredModel>();
+            var datasouce = this.MvcContext.GetPageContextItem<PageSessionExpiredModel>();
 
             if (this.Context.IsEditMode())
             {
@@ -379,19 +384,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Header()
         {
-            var model = this.GetDataSourceItem<PageHeaderModel>();
+            var model = this.MvcContext.GetDataSourceItem<PageHeaderModel>();
             return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", model);
         }
 
         public ActionResult Footer()
         {
-            var model = this.GetDataSourceItem<PageFooterModel>();
+            var model = this.MvcContext.GetDataSourceItem<PageFooterModel>();
             return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", model);
         }
 
         public ActionResult PromoBox()
         {
-            var datasource = this.GetDataSourceItem<PromoBoxModel>();
+            var datasource = this.MvcContext.GetDataSourceItem<PromoBoxModel>();
 
             if (datasource == null)
             {
@@ -465,7 +470,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetOfferEditView()
         {
-            var datasource = this.GetLayoutItem<PageNewOfferModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageNewOfferModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
 
             var data = this.Cache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
@@ -494,7 +499,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetAcceptedOfferEditView()
         {
-            var datasource = this.GetLayoutItem<PageAcceptedOfferModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageAcceptedOfferModel>();
             var definition = this.SettingsReaderService.GetDefinitionDefault();
             var settings = this.SettingsReaderService.GetSiteSettings();
             var viewModel = new AcceptedOfferViewModel(settings);
@@ -507,7 +512,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
         {
-            var datasource = this.GetLayoutItem<PageThankYouModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageThankYouModel>();
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
@@ -524,7 +529,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetThankYouEditModel()
         {
-            var datasource = this.GetLayoutItem<PageThankYouModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageThankYouModel>();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
 
@@ -538,7 +543,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetExpirationEditModel()
         {
-            var datasource = this.GetLayoutItem<PageExpirationModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageExpirationModel>();
             var viewModel = new PageExpirationViewModel();
             viewModel.Datasource = datasource;
 
@@ -552,13 +557,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetError404EditView()
         {
-            var datasource = this.GetLayoutItem<PageError404Model>();
+            var datasource = this.MvcContext.GetPageContextItem<PageError404Model>();
             return View("/Areas/eContracting2/Views/Edit/Error404.cshtml", datasource);
         }
 
         protected internal ActionResult GetError500EditView()
         {
-            var datasource = this.GetLayoutItem<PageError500Model>();
+            var datasource = this.MvcContext.GetPageContextItem<PageError500Model>();
             return View("/Areas/eContracting2/Views/Edit/Error500.cshtml", datasource);
         }
 

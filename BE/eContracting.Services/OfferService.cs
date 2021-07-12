@@ -341,7 +341,11 @@ namespace eContracting.Services
 
                 // replace original content with signed
                 file.File.FILECONTENT = signedFile.FileContent;
-                file.File.ATTRIB.Where(x => x.ATTRID.StartsWith("$TMP.ARC")).ForEach((x) => { x.ATTRVAL = string.Empty; });
+
+                foreach(var x in file.File.ATTRIB.Where(x => x.ATTRID.StartsWith("$TMP.ARC")))
+                {
+                    x.ATTRVAL = string.Empty;
+                }
 
                 //var arccIdAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCCID$");
                 //var arcDocAttribute = file.ATTRIB.FirstOrDefault(attribute => attribute.ATTRID == "$TMP.ARCDOC$");

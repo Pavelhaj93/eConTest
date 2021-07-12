@@ -591,7 +591,12 @@ namespace eContracting.Services
             var attributes = file.Attributes.Select(x => new FileAttribute(x)).ToArray();
             await this.SaveAsync(context, transaction, dbFile, attributes);
             file.Id = dbFile.Id;
-            attributes.ForEach(x => { x.Model.Id = x.Id; });
+            
+            foreach (var attr in attributes)
+            {
+                attr.Model.Id = attr.Id;
+            }
+
             return (dbFile, attributes);
         }
 
@@ -644,7 +649,11 @@ namespace eContracting.Services
 
                 if (attributes.Any())
                 {
-                    attributes.ForEach(x => { x.FileId = file.Id; });
+                    foreach (var attr in attributes)
+                    {
+                        attr.FileId = file.Id;
+                    }
+
                     context.FileAttributes.AddRange(attributes);
                     await context.SaveChangesAsync();
                 }

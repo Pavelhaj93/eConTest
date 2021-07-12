@@ -16,6 +16,7 @@ using Sitecore;
 using Sitecore.Data.Fields;
 using Sitecore.DependencyInjection;
 using Sitecore.Layouts;
+using Sitecore.Mvc.Controllers;
 using Sitecore.SecurityModel;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
@@ -23,7 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class eContracting2AuthController : GlassController
+    public class eContracting2AuthController : Controller
     {
         [Obsolete]
         private const string salt = "228357";
@@ -37,6 +38,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
+        protected readonly IMvcContext MvcContext;
         private const string SESSION_ERROR_KEY = "INVALID_LOGIN";
         private const string loginMatrixCombinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login";
 
@@ -53,6 +55,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
+            this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
         /// <summary>
@@ -64,8 +67,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="authService">The authentication service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <param name="loginReportService">The login report service.</param>
-        /// <param name="sitecoreContext">The sitecore context.</param>
-        /// <param name="renderingContext">The rendering context.</param>
+        /// <param name="mvcContext">The rendering context.</param>
         /// <exception cref="System.ArgumentNullException">
         /// logger
         /// or
@@ -88,11 +90,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IAuthenticationService authService,
             ISettingsReaderService settingsReaderService,
             ILoginFailedAttemptBlockerStore loginReportService,
-            ISitecoreContext sitecoreContext,
-            IRenderingContext renderingContext,
+            IMvcContext mvcContext,
             IUserDataCacheService userDataCache,
             IEventLogger evetLogger,
-            ITextService textService) : base(sitecoreContext, renderingContext)
+            ITextService textService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
@@ -104,6 +105,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
+            this.MvcContext = mvcContext ?? throw new ArgumentNullException(nameof(mvcContext));
         }
 
         /// <summary>
@@ -140,8 +142,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
                 this.SessionProvider.Abandon();
-
-                var datasource = this.GetLayoutItem<PageLoginModel>();
+                
+                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
 
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
@@ -179,10 +181,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 // check if there already is an component in place for this matrix combination (possibly generated whenever an editor opens the page in edit mode)
                 // if it is not there, do not place a "Placeholders" element with matrix combination and let the view render the default component
                 // checking ContextItem which is null when running tests
-                if (this.ContextItem != null)
+                if (this.MvcContext.ContextItem != null)
                 {
-                    var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
-                    var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+                    var renderings = this.MvcContext.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+                    var layoutField = new LayoutField(this.MvcContext.ContextItem.Fields[FieldIDs.LayoutField]);
                     LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
                     DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
                     string combinationIdentifier = "_" + offer.Process + "_" + offer.ProcessType;
@@ -251,7 +253,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
-                var datasource = this.GetLayoutItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
                 var campaignCode = (offer != null) ? (offer.IsCampaign ? offer.Campaign : offer.CreatedAt) : Request.QueryString["utm_campaign"];
 
@@ -352,7 +354,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             fakeXml.Content.Body.BusProcessType = definition.ProcessType.Code;
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, fakeAttr);
-            var datasource = this.GetLayoutItem<PageLoginModel>();
+            var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
             var loginTypes = this.SettingsReaderService.GetLoginTypes(fakeOffer);
             var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
@@ -379,8 +381,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     if (datasource.AutoGenerateTestableCombinationPlaceholders)
                     {
-                        var renderings = this.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
-                        var layoutField = new LayoutField(this.ContextItem.Fields[FieldIDs.LayoutField]);
+                        var renderings = this.MvcContext.ContextItem.Visualization.GetRenderings(Sitecore.Context.Device, true);
+                        var layoutField = new LayoutField(this.MvcContext.ContextItem.Fields[FieldIDs.LayoutField]);
                         LayoutDefinition layoutDef = LayoutDefinition.Parse(layoutField.Value);
                         DeviceDefinition deviceDef = layoutDef.GetDevice(Sitecore.Context.Device.ID.ToString());
 
@@ -394,7 +396,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                                 var combinationRendering = renderings.FirstOrDefault(rend => rend.Placeholder.Equals(loginMatrixCombinationPlaceholderPrefix + combinationIdentifier));
                                 if (combinationRendering == null)
                                 {
-                                    var contextItem = this.ContextItem;
+                                    var contextItem = this.MvcContext.ContextItem;
 
                                     RenderingDefinition newRenderingDefinition = new RenderingDefinition();
                                     newRenderingDefinition.ItemID = "{994F14EA-C859-4055-BB0E-523CE476057A}"; // TODO: sc config?  	Rich Text for login page
@@ -406,9 +408,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         }
                         using (new SecurityDisabler())
                         {
-                            this.ContextItem.Editing.BeginEdit();
+                            this.MvcContext.ContextItem.Editing.BeginEdit();
                             layoutField.Value = layoutDef.ToXml();
-                            this.ContextItem.Editing.EndEdit();
+                            this.MvcContext.ContextItem.Editing.EndEdit();
                         }
                     }
                 }
@@ -429,7 +431,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         public ActionResult RichText()
         {            
-            var dataSource = this.GetDataSourceItem<RichTextModel>();
+            var dataSource = this.MvcContext.GetDataSourceItem<RichTextModel>();
             var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
 
             if (dataSource == null || data.IsAccepted)
@@ -623,7 +625,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
-                var datasource = this.GetLayoutItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
                 msg = datasource.BirthDateValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
                 result = Redirect(url);
@@ -636,7 +638,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             else if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE)
             {
-                var datasource = this.GetLayoutItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
                 msg = datasource.ValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE_AND_VALUE);
                 result = Redirect(url);
