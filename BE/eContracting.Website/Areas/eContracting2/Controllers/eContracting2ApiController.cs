@@ -93,7 +93,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.EventLogger = eventLogger ?? throw new ArgumentNullException(nameof(eventLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
-            // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");            
+            // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
         }
 
         [HttpGet]
@@ -106,7 +106,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        [Route("files")]
         public async Task<IHttpActionResult> Files()
         {
             string guid = null;
@@ -171,7 +170,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         [HttpGet]
-        [Route("file/{id}")]
         public async Task<IHttpActionResult> File([FromUri] string id)
         {
             string guid = null;
@@ -250,7 +248,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        [Route("thumbnail/{id}")]
         public async Task<IHttpActionResult> Thumbnail([FromUri] string id)
         {
             string guid = null;
@@ -337,7 +334,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpPost]
-        [Route("sign/{id}")]
         public async Task<IHttpActionResult> Sign([FromUri] string id)
         {
             string guid = null;
@@ -449,7 +445,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("offer")]
+        [HttpPost]
         public async Task<IHttpActionResult> Offer()
         {
             string guid = null;
@@ -459,6 +455,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (!this.AuthService.IsLoggedIn())
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (this.Request.Method == HttpMethod.Post)
+                {
+                    return await this.Submit();
                 }
 
                 var user = this.AuthService.GetCurrentUser();
@@ -527,7 +528,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Get JSON model for accepted offer.
         /// </summary>
         [HttpGet]
-        [Route("accepted")]
         public async Task<IHttpActionResult> Accepted()
         {
             string guid = null;
@@ -590,17 +590,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpOptions]
         public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
-            if (this.Request.Method.Method == "POST")
+            if (this.Request.Method == HttpMethod.Post)
             {
                 return await this.AddToUpload(id);
             }
 
-            if (this.Request.Method.Method == "DELETE")
+            if (this.Request.Method == HttpMethod.Delete)
             {
                 return await this.DeleteFromUpload(id);
             }
 
-            if (this.Request.Method.Method == "GET")
+            if (this.Request.Method == HttpMethod.Get)
             {
                 return await this.GetUpload(id);
             }
@@ -993,7 +993,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Submit an offer (model not defined yet).
         /// </summary>
         [HttpPost]
-        [Route("offer")]
         public async Task<IHttpActionResult> Submit()
         {
             string guid = null;
@@ -1058,7 +1057,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
         [HttpGet]
-        [Route("deleteoldfiles/{mode}")]
         public async Task<IHttpActionResult> DeleteOldFiles(string mode)
         {
             bool previewOnly = mode != "delete";
@@ -1109,7 +1107,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
         [HttpGet]
-        [Route("deleteoldlogs/{mode}")]
         public async Task<IHttpActionResult> DeleteOldLogs(string mode)
         {
             bool previewOnly = mode != "delete";
@@ -1135,7 +1132,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Converts PDF file to the PNG stream
         /// </summary>
         /// <param name="memoryStream"></param>
-        protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
         {
             var pdfImages = new List<Image>();
 
@@ -1158,7 +1155,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        protected internal Bitmap CombineBitmap(IEnumerable<Image> files)
+        internal Bitmap CombineBitmap(IEnumerable<Image> files)
         {
             //read all images into memory
             var images = new List<Bitmap>();
@@ -1216,7 +1213,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal void SaveToDebug(DbUploadGroupFileModel group)
+        internal void SaveToDebug(DbUploadGroupFileModel group)
         {
             try
             {
@@ -1270,7 +1267,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected string GetSafeUploadedFileName(string fileIdFromRequest)
+        internal string GetSafeUploadedFileName(string fileIdFromRequest)
         {
             if (string.IsNullOrEmpty(fileIdFromRequest))
                 return fileIdFromRequest;
