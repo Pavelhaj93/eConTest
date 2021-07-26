@@ -1,5 +1,6 @@
-﻿@using eContracting.Models
-@model PageFooterModel
+﻿@using eContracting
+@using eContracting.Models
+@model IPageFooterModel
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
@@ -28,10 +29,10 @@
     <div class="footer__bottom">
         <div class="container">
             <div class="row">
-                @if (!string.IsNullOrEmpty(Model.DisclaimerLinkUrl))
+                @if (!string.IsNullOrEmpty(Model.GetDisclaimerLinkUrl()))
                 {
                     <div class="col-12 col-md-6 text-center text-md-left mb-2">
-                        <a href="@Model.DisclaimerLinkUrl" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
+                        <a href="@Model.GetDisclaimerLinkUrl()" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
                     </div>
                 }
                 <div class="col-12 col-md-6 text-center text-md-right mb-2">@Model.CopyrightText</div>

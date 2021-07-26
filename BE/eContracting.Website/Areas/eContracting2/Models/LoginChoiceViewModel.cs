@@ -43,7 +43,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         /// <param name="model">The model.</param>
         /// <param name="key">The key.</param>
         /// <exception cref="ArgumentNullException">model</exception>
-        public LoginChoiceViewModel(LoginTypeModel model, string key)
+        public LoginChoiceViewModel(ILoginTypeModel model, string key)
         {
             if (model == null)
             {

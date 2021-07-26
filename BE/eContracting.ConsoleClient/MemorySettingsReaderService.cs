@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
+using eContracting.Tests;
 using Microsoft.Extensions.Options;
 
 namespace eContracting.ConsoleClient
@@ -24,35 +25,35 @@ namespace eContracting.ConsoleClient
         public bool ShowDebugMessages { get; } = true;
         public int SessionTimeout { get; } = 20;
 
-        public IEnumerable<LoginTypeModel> GetAllLoginTypes()
+        public IEnumerable<ILoginTypeModel> GetAllLoginTypes()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ProcessModel> GetAllProcesses()
+        public IEnumerable<IProcessModel> GetAllProcesses()
         {
-            var list = new List<ProcessModel>();
-            list.Add(new ProcessModel()
+            var list = new List<MemoryProcessModel>();
+            list.Add(new MemoryProcessModel()
             {
                 Title = "REFIX",
                 Code = "00"
             });
-            list.Add(new ProcessModel()
+            list.Add(new MemoryProcessModel()
             {
                 Title = "RETENCE/LastCall",
                 Code = "01"
             });
-            list.Add(new ProcessModel()
+            list.Add(new MemoryProcessModel()
             {
                 Title = "AKVIZICE",
                 Code = "02"
             });
-            list.Add(new ProcessModel()
+            list.Add(new MemoryProcessModel()
             {
                 Title = "8003",
                 Code = "03"
             });
-            list.Add(new ProcessModel()
+            list.Add(new MemoryProcessModel()
             {
                 Title = "BNR",
                 Code = "04"
@@ -60,50 +61,50 @@ namespace eContracting.ConsoleClient
             return list;
         }
 
-        public IEnumerable<ProcessTypeModel> GetAllProcessTypes()
+        public IEnumerable<IProcessTypeModel> GetAllProcessTypes()
         {
-            var list = new List<ProcessTypeModel>();
-            list.Add(new ProcessTypeModel()
+            var list = new List<MemoryProcessTypeModel>();
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "Individuální",
                 Code = "A"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "Kampaň",
                 Code = "B"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "Sdružená BN",
                 Code = "C"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "NC - Pojištění",
                 Code = "D"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "NC - Senzor",
                 Code = "E"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "NC - SPS",
                 Code = "F"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "DSL - Investor",
                 Code = "G"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "DSL - NSZ",
                 Code = "H"
             });
-            list.Add(new ProcessTypeModel()
+            list.Add(new MemoryProcessTypeModel()
             {
                 Title = "DSL - iKarta",
                 Code = "I"
@@ -137,56 +138,56 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public DefinitionCombinationModel GetDefinition(OfferModel offer)
+        public IDefinitionCombinationModel GetDefinition(OfferModel offer)
         {
             return this.GetDefinition(offer.Process, offer.ProcessType);
         }
 
-        public DefinitionCombinationModel GetDefinition(string process, string processType)
+        public IDefinitionCombinationModel GetDefinition(string process, string processType)
         {
-            var model = new DefinitionCombinationModel()
+            var model = new MemoryDefinitionCombinationModel()
             {
-                Process = new ProcessModel() { Code = process },
-                ProcessType = new ProcessTypeModel() { Code = processType }
+                Process = new MemoryProcessModel() { Code = process },
+                ProcessType = new MemoryProcessTypeModel() { Code = processType }
             };
-            model.LoginTypes = new List<LoginTypeModel>() { new LoginTypeModel() { Name = "dummy" } };
-            model.MainTextLogin = new RichTextModel() { Text = "" };
-            model.MainTextLoginAccepted = new RichTextModel() { Text = "" };
-            model.MainTextThankYou = new RichTextModel() { Text = "" };
-            model.OfferAcceptedMainText = new RichTextModel() { Text = "" };
-            model.OfferAcceptText = new RichTextModel() { Text = "" };
-            model.OfferAcceptTitle = new SimpleTextModel() { Text = "" };
-            model.OfferBenefitsTitle = new SimpleTextModel() { Text = "" };
-            model.OfferCommoditiesAcceptText = new RichTextModel() { Text = "" };
-            model.OfferCommoditiesAcceptTitle = new SimpleTextModel() { Text = "Accepted documents" };
-            model.OfferCommoditiesSignText = new RichTextModel() { Text = "" };
-            model.OfferCommoditiesSignTitle = new SimpleTextModel() { Text = "Signed documents" };
-            model.OfferCommoditiesText = new RichTextModel() { Text = "" };
-            model.OfferCommoditiesTitle = new SimpleTextModel() { Text = "" };
-            model.OfferExpiredMainText = new RichTextModel() { Text = "" };
-            model.OfferGiftsTitle = new SimpleTextModel() { Text = "Gifts" };
-            model.OfferMainText = new RichTextModel() { Text = "" };
-            model.OfferAdditionalServicesDocsText = new RichTextModel() { Text = "" };
-            model.OfferAdditionalServicesDocsTitle = new SimpleTextModel() { Text = "Additional services" };
-            model.OfferAdditionalServicesNote = new RichTextModel() { Text = "" };
-            model.OfferAdditionalServicesSummaryTitle = new SimpleTextModel() { Text = "" };
-            model.OfferAdditionalServicesTitle = new SimpleTextModel() { Text = "Additional services" };
-            model.OfferOtherProductsDocsText = new RichTextModel() { Text = "" };
-            model.OfferOtherProductsDocsTitle = new SimpleTextModel() { Text = "Other products" };
-            model.OfferOtherProductsNote = new RichTextModel() { Text = "" };
-            model.OfferOtherProductsSummaryTitle = new SimpleTextModel() { Text = "" };
-            model.OfferOtherProductsTitle = new SimpleTextModel() { Text = "Other products" };
-            model.OfferPerexTitle = new SimpleTextModel() { Text = "" };
-            model.OfferTitle = new SimpleTextModel() { Text = "" };
-            model.OfferUploadsExtraHelp = new SimpleTextModel() { Text = "" };
-            model.OfferUploadsExtraText = new RichTextModel() { Text = "" };
-            model.OfferUploadsNote = new RichTextModel() { Text = "" };
-            model.OfferUploadsTitle = new SimpleTextModel() { Text = "Upload" };
+            model.LoginTypes = new List<MemoryLoginTypeModel>() { new MemoryLoginTypeModel() { Name = "dummy" } };
+            model.MainTextLogin = new MemoryRichTextModel() { Text = "" };
+            model.MainTextLoginAccepted = new MemoryRichTextModel() { Text = "" };
+            model.MainTextThankYou = new MemoryRichTextModel() { Text = "" };
+            model.OfferAcceptedMainText = new MemoryRichTextModel() { Text = "" };
+            model.OfferAcceptText = new MemoryRichTextModel() { Text = "" };
+            model.OfferAcceptTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferBenefitsTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferCommoditiesAcceptText = new MemoryRichTextModel() { Text = "" };
+            model.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel() { Text = "Accepted documents" };
+            model.OfferCommoditiesSignText = new MemoryRichTextModel() { Text = "" };
+            model.OfferCommoditiesSignTitle = new MemorySimpleTextModel() { Text = "Signed documents" };
+            model.OfferCommoditiesText = new MemoryRichTextModel() { Text = "" };
+            model.OfferCommoditiesTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferExpiredMainText = new MemoryRichTextModel() { Text = "" };
+            model.OfferGiftsTitle = new MemorySimpleTextModel() { Text = "Gifts" };
+            model.OfferMainText = new MemoryRichTextModel() { Text = "" };
+            model.OfferAdditionalServicesDocsText = new MemoryRichTextModel() { Text = "" };
+            model.OfferAdditionalServicesDocsTitle = new MemorySimpleTextModel() { Text = "Additional services" };
+            model.OfferAdditionalServicesNote = new MemoryRichTextModel() { Text = "" };
+            model.OfferAdditionalServicesSummaryTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferAdditionalServicesTitle = new MemorySimpleTextModel() { Text = "Additional services" };
+            model.OfferOtherProductsDocsText = new MemoryRichTextModel() { Text = "" };
+            model.OfferOtherProductsDocsTitle = new MemorySimpleTextModel() { Text = "Other products" };
+            model.OfferOtherProductsNote = new MemoryRichTextModel() { Text = "" };
+            model.OfferOtherProductsSummaryTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferOtherProductsTitle = new MemorySimpleTextModel() { Text = "Other products" };
+            model.OfferPerexTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferUploadsExtraHelp = new MemorySimpleTextModel() { Text = "" };
+            model.OfferUploadsExtraText = new MemoryRichTextModel() { Text = "" };
+            model.OfferUploadsNote = new MemoryRichTextModel() { Text = "" };
+            model.OfferUploadsTitle = new MemorySimpleTextModel() { Text = "Upload" };
             return model;
             //return this.GetAllDefinitionCombinations().FirstOrDefault(x => x.Process.Code == process && x.ProcessType.Code == processType);
         }
 
-        public DefinitionCombinationModel GetDefinitionDefault()
+        public IDefinitionCombinationModel GetDefinitionDefault()
         {
             return this.GetDefinition("default", "default");
         }
@@ -196,17 +197,17 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public SiteSettingsModel GetGeneralSettings()
+        public ISiteSettingsModel GetGeneralSettings()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<LoginTypeModel> GetLoginTypes(OfferModel offer)
+        public IEnumerable<ILoginTypeModel> GetLoginTypes(OfferModel offer)
         {
             throw new NotImplementedException();
         }
 
-        public RichTextModel GetMainTextForLogin(OfferModel offer)
+        public IRichTextModel GetMainTextForLogin(OfferModel offer)
         {
             throw new NotImplementedException();
         }
@@ -222,12 +223,12 @@ namespace eContracting.ConsoleClient
             return options;
         }
 
-        public SiteSettingsModel GetSiteSettings()
+        public ISiteSettingsModel GetSiteSettings()
         {
             throw new NotImplementedException();
         }
 
-        public ProcessStepModel[] GetSteps(ProcessStepModel currentStep)
+        public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
         {
             throw new NotImplementedException();
         }
@@ -241,110 +242,110 @@ namespace eContracting.ConsoleClient
             return list.ToArray();
         }
 
-        protected IEnumerable<DefinitionCombinationModel> GetAllDefinitionCombinations()
+        protected IEnumerable<IDefinitionCombinationModel> GetAllDefinitionCombinations()
         {
-            var list = new List<DefinitionCombinationModel>();
+            var list = new List<IDefinitionCombinationModel>();
             // 8003 Indi
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "8003");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "A");
                 list.Add(def);
             }
             // 8003 SBN
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "8003");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "C");
                 list.Add(def);
             }
             // Akvizice indi
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "02");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "A");
                 list.Add(def);
             }
             // Akvizice kampan
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "02");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "B");
                 list.Add(def);
             }
             // Akvizice kampan
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "02");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "C");
                 list.Add(def);
             }
             // BNR ikarta
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "I");
                 list.Add(def);
             }
             // BNR investor
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "G");
                 list.Add(def);
             }
             // BNR NSZ
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "H");
                 list.Add(def);
             }
             // BNR pojisteni
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "D");
                 list.Add(def);
             }
             // BNR senzor
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "E");
                 list.Add(def);
             }
             // BNR SPS
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "04");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "F");
                 list.Add(def);
             }
             // Refix indi
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "00");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "A");
                 list.Add(def);
             }
             // Refix kampan
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "00");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "B");
                 list.Add(def);
             }
             // Retence indi
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "01");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "A");
                 list.Add(def);
             }
             // Retence kampan
             {
-                var def = new DefinitionCombinationModel();
+                var def = new MemoryDefinitionCombinationModel();
                 def.Process = this.GetAllProcesses().First(x => x.Code == "01");
                 def.ProcessType = this.GetAllProcessTypes().First(x => x.Code == "B");
                 list.Add(def);

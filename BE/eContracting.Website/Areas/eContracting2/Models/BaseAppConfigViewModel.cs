@@ -49,7 +49,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
         }
 
-        protected BaseAppConfigViewModel(string view, SiteSettingsModel siteSettings)
+        protected BaseAppConfigViewModel(string view, ISiteSettingsModel siteSettings)
         {
             this.View = view;
             this.ErrorPage = siteSettings.SystemError.Url;

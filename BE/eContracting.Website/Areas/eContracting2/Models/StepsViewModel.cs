@@ -8,9 +8,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class StepsViewModel
     {
-        public ProcessStepModel[] Steps { get; }
+        public IProcessStepModel[] Steps { get; }
 
-        public StepsViewModel(IEnumerable<ProcessStepModel> steps)
+        public StepsViewModel(IEnumerable<IProcessStepModel> steps)
         {
             this.Steps = steps.ToArray();
         }

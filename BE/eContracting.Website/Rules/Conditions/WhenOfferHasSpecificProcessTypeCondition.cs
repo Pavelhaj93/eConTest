@@ -68,7 +68,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
 
                 var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var processType = context.GetItem<ProcessTypeModel>(this.ProcessTypeItemGuid, ruleContext.Item.Language);
+                var processType = context.GetItem<IProcessTypeModel>(this.ProcessTypeItemGuid, ruleContext.Item.Language);
 
                 if (processType == null)
                 {

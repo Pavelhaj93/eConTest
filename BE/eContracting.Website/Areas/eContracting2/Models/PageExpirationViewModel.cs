@@ -8,7 +8,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class PageExpirationViewModel
     {
-        public PageExpirationModel Datasource { get; set; }
+        public IPageExpirationModel Datasource { get; set; }
 
         public string MainText { get; set; }
         

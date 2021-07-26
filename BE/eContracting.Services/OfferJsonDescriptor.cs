@@ -100,7 +100,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, DefinitionCombinationModel definition, OfferModel offer)
+        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, IDefinitionCombinationModel definition, OfferModel offer)
         {
             var list = new List<JsonFilesSectionModel>();
 
@@ -137,7 +137,7 @@ namespace eContracting.Services
             return list;
         }
 
-        protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             var parameters = new List<JsonParamModel>();
             var keys = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_NAME")).ToArray();
@@ -166,7 +166,7 @@ namespace eContracting.Services
             return null;
         }
 
-        protected internal JsonSalesArgumentsModel GetCommoditySalesArguments(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        protected internal JsonSalesArgumentsModel GetCommoditySalesArguments(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
 
@@ -195,7 +195,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonSalesArgumentsModel GetAdditionalServiceSalesArguments(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        protected internal JsonSalesArgumentsModel GetAdditionalServiceSalesArguments(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             var values = textParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
 
@@ -210,7 +210,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonAllBenefitsModel GetGifts(IDictionary<string, string> textParameters, DefinitionCombinationModel definition)
+        protected internal JsonAllBenefitsModel GetGifts(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             if (!this.IsSectionChecked(textParameters, "BENEFITS"))
             {
@@ -313,7 +313,7 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, DefinitionCombinationModel definition, OfferAttachmentModel[] files)
+        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, IDefinitionCombinationModel definition, OfferAttachmentModel[] files)
         {
             if (files.Length == 0)
             {
@@ -336,7 +336,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition);
             var sign = this.GetAcceptanceDocumentsSign(offer, files, definition);
@@ -354,7 +354,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -387,7 +387,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == true).ToArray();
 
@@ -419,7 +419,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsUploadsModel GetUploads(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsUploadsModel GetUploads(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
 
@@ -459,7 +459,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var products = this.GetOtherProducts(offer, files, definition);
             var services = this.GetAdditionalServices(offer, files, definition);
@@ -472,7 +472,7 @@ namespace eContracting.Services
             return new JsonDocumentsOthersModel(products, services);
         }
 
-        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var selectedFiles = files.Where(x => x.Group == "DSL" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -524,7 +524,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, DefinitionCombinationModel definition)
+        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
 
@@ -576,7 +576,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonAcceptanceDialogViewModel GetAcceptance(OfferModel offer, DefinitionCombinationModel definition)
+        protected internal JsonAcceptanceDialogViewModel GetAcceptance(OfferModel offer, IDefinitionCombinationModel definition)
         {
             var acceptGuids = offer.TextParameters.Where(x => x.Key.Contains("_ACCEPT_LABEL_GUID")).ToArray();
 

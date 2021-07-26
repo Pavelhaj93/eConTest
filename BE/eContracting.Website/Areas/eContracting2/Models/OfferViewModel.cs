@@ -74,9 +74,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("maxAllFilesSize")]
         public int MaxAllFilesSize { get; set; }
 
-        public DefinitionCombinationModel Definition { get; set; }
+        public IDefinitionCombinationModel Definition { get; set; }
 
-        public OfferViewModel(SiteSettingsModel siteSettings) : base("Offer", siteSettings)
+        public OfferViewModel(ISiteSettingsModel siteSettings) : base("Offer", siteSettings)
         {
         }
     }

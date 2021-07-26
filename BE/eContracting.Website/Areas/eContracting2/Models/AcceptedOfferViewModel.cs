@@ -10,7 +10,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class AcceptedOfferViewModel : BaseAppConfigViewModel
     {
         [JsonIgnore]
-        public PageAcceptedOfferModel Datasource { get; set; }
+        public IPageAcceptedOfferModel Datasource { get; set; }
 
         [JsonIgnore]
         public string MainText { get; set; }
@@ -24,7 +24,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("abMatrixCombinationPixelUrl")]
         public string AbMatrixCombinationPixelUrl { get; set; }
 
-        public AcceptedOfferViewModel(SiteSettingsModel siteSettings) : base("AcceptedOffer", siteSettings)
+        public AcceptedOfferViewModel(ISiteSettingsModel siteSettings) : base("AcceptedOffer", siteSettings)
         {
         }
     }

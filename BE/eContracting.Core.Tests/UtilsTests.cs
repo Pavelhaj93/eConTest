@@ -137,7 +137,7 @@ namespace eContracting.Core.Tests
             var offerId = Guid.NewGuid();
             var loginTypeId = Guid.NewGuid();
 
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = loginTypeId;
 
             var offer = this.CreateOffer();
@@ -157,7 +157,7 @@ namespace eContracting.Core.Tests
             var offerId = new Guid(offerGuid);
             var loginTypeId = new Guid(login);
 
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = loginTypeId;
 
             var offer = this.CreateOffer(offerId);
@@ -174,14 +174,14 @@ namespace eContracting.Core.Tests
 
             var offer = this.CreateOffer(offerId);
 
-            Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((LoginTypeModel)null, offer); });
+            Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((MemoryLoginTypeModel)null, offer); });
         }
 
         [Fact(DisplayName = "Throws ArgumentNullException when OfferModel is empty")]
         [Trait("Utils", "GetUniqueKey")]
         public void GetUniqueKey_Throws_ArgumentNullException_When_Offer_Null()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
 
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey(loginType, (OfferModel)null); });

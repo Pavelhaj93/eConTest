@@ -57,7 +57,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
 
                 var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var matrixItem = context.GetItem<DefinitionCombinationModel>(this.MatrixItemGuid, ruleContext.Item.Language);
+                var matrixItem = context.GetItem<IDefinitionCombinationModel>(this.MatrixItemGuid, ruleContext.Item.Language);
                 
                 if (matrixItem == null)
                 {

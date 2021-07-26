@@ -42,7 +42,7 @@ namespace eContracting.Rules.Conditions
         protected override bool Execute(T ruleContext)
         {
             var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-            var processType = context.GetItem<ProcessTypeModel>(this.ProcessTypeId);
+            var processType = context.GetItem<IProcessTypeModel>(this.ProcessTypeId);
 
             if (processType == null)
             {

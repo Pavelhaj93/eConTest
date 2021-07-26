@@ -16,8 +16,8 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferCommoditiesAcceptTitle_When_Group_COMMODITY_And_File_For_Accept()
         {
             var offer = this.CreateOffer();
-            var definition = new DefinitionCombinationModel();
-            definition.OfferCommoditiesAcceptTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "Dokumenty k akceptaci";
             var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
@@ -43,8 +43,8 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferCommoditiesSignTitle_When_Group_COMMODITY_And_File_For_Sign()
         {
             var offer = this.CreateOffer();
-            var definition = new DefinitionCombinationModel();
-            definition.OfferCommoditiesSignTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferCommoditiesSignTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesSignTitle.Text = "Plná moc";
             var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
@@ -70,8 +70,8 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferAdditionalServicesTitle_When_Group_DSL()
         {
             var offer = this.CreateOffer();
-            var definition = new DefinitionCombinationModel();
-            definition.OfferAdditionalServicesTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferAdditionalServicesTitle = new MemorySimpleTextModel();
             definition.OfferAdditionalServicesTitle.Text = "Smlouva o pronájmu";
             var template = new OfferAttachmentXmlModel();
             template.Group = "DSL";
@@ -97,8 +97,8 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferOtherProductsDocsTitle_When_Group_Not_COMMODITY_Or_DSL()
         {
             var offer = this.CreateOffer();
-            var definition = new DefinitionCombinationModel();
-            definition.OfferOtherProductsDocsTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferOtherProductsDocsTitle = new MemorySimpleTextModel();
             definition.OfferOtherProductsDocsTitle.Text = "Smlouva o pronájmu";
             var template = new OfferAttachmentXmlModel();
             template.Group = "NONCOMMODITY";
@@ -125,8 +125,8 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_COMMODITY_Attachments()
         {
             var offer = this.CreateOffer();
-            var definition = new DefinitionCombinationModel();
-            definition.OfferCommoditiesAcceptTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "abc";
 
             var template1 = new OfferAttachmentXmlModel();
@@ -178,8 +178,8 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(version);
             offer.TextParameters.Add(nameKey, nameValue);
             offer.TextParameters.Add(valueKey, valueValue);
-            var definition = new DefinitionCombinationModel();
-            definition.OfferPerexTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferPerexTitle = new MemorySimpleTextModel();
             definition.OfferPerexTitle.Text = "Perex";
 
             var logger = new MemoryLogger();
@@ -221,8 +221,8 @@ namespace eContracting.Services.Tests
             offer.TextParameters.Add(countKey, countValue);
             offer.TextParameters.Add(imageKey, imageValue);
             offer.TextParameters.Add(introKey, introValue);
-            var definition = new DefinitionCombinationModel();
-            definition.OfferGiftsTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferGiftsTitle = new MemorySimpleTextModel();
             definition.OfferGiftsTitle.Text = "Dárečky";
 
             var logger = new MemoryLogger();
@@ -266,8 +266,8 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(version);
             offer.TextParameters.Add(argKey, argValue);
 
-            var definition = new DefinitionCombinationModel();
-            definition.OfferBenefitsTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferBenefitsTitle = new MemorySimpleTextModel();
             definition.OfferBenefitsTitle.Text = "Dárečky";
 
             var logger = new MemoryLogger();
@@ -353,8 +353,8 @@ namespace eContracting.Services.Tests
                 offer.TextParameters.Add(value, "elektřina Garance 26");
             }
 
-            var definition = new DefinitionCombinationModel();
-            definition.OfferPerexTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferPerexTitle = new MemorySimpleTextModel();
             definition.OfferPerexTitle.Text = "Perex";
 
             var logger = new MemoryLogger();
@@ -376,8 +376,8 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(2);
             // this is missing: offer.TextParameters.Add("BENEFITS", "X");
 
-            var definition = new DefinitionCombinationModel();
-            definition.OfferPerexTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferPerexTitle = new MemorySimpleTextModel();
             definition.OfferPerexTitle.Text = "Perex";
 
             var logger = new MemoryLogger();
@@ -405,8 +405,8 @@ namespace eContracting.Services.Tests
             textParameters.Add(group, "X");
             textParameters.Add(group + "_NAME", "custom group");
             textParameters.Add("BENEFITS_CLOSE", expected);
-            var definition = new DefinitionCombinationModel();
-            definition.OfferGiftsTitle = new SimpleTextModel();
+            var definition = new MemoryDefinitionCombinationModel();
+            definition.OfferGiftsTitle = new MemorySimpleTextModel();
             definition.OfferGiftsTitle.Text = "Title";
 
             var logger = new MemoryLogger();

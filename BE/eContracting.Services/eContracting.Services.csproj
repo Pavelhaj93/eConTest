@@ -272,6 +272,10 @@
     <Compile Include="DbLoginFailedAttemptBlockerStore.cs" />
     <Compile Include="FileOptimizer.cs" />
     <Compile Include="FileSignService.cs" />
+    <Compile Include="Migrations\202107230717301_Initial.cs" />
+    <Compile Include="Migrations\202107230717301_Initial.Designer.cs">
+      <DependentUpon>202107230717301_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OfferJsonDescriptor.cs" />
     <Compile Include="OfferService.cs" />
@@ -297,6 +301,11 @@
       <Project>{3b4f7e5e-e665-4837-b3c9-24a1e6b496c3}</Project>
       <Name>eContracting.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202107230717301_Initial.resx">
+      <DependentUpon>202107230717301_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

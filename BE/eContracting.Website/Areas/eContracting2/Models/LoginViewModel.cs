@@ -11,7 +11,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
     public class LoginViewModel : BaseViewModel
     {
         [JsonIgnore]
-        public readonly PageLoginModel Datasource;
+        public readonly IPageLoginModel Datasource;
 
         [JsonIgnore]
         public readonly StepsViewModel Steps;
@@ -24,17 +24,17 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public readonly List<string> Placeholders = new List<string>();
 
-        public readonly DefinitionCombinationModel Definition;
+        public readonly IDefinitionCombinationModel Definition;
 
         /// <summary>
-        /// Gets placeholder sufix with process and process type ("_{<see cref="DefinitionCombinationModel.Process"/>}_{<see cref="DefinitionCombinationModel.ProcessType"/>}")
-        /// or empty string when <see cref="DefinitionCombinationModel.IsDefault"/> equals true.
+        /// Gets placeholder sufix with process and process type ("_{<see cref="IDefinitionCombinationModel.Process"/>}_{<see cref="IDefinitionCombinationModel.ProcessType"/>}")
+        /// or empty string when <see cref="IDefinitionCombinationModel.IsDefault"/> equals true.
         /// </summary>
         public string PlaceholderSufix
         {
             get
             {
-                if (this.Definition.IsDefault)
+                if (this.Definition.IsDefault())
                 {
                     return "";
                 }
@@ -62,7 +62,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; set; }
 
-        public LoginViewModel(DefinitionCombinationModel definition, PageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
+        public LoginViewModel(IDefinitionCombinationModel definition, IPageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
         {
             this.Definition = definition;
             this.Datasource = datasource ?? throw new ArgumentNullException(nameof(datasource));

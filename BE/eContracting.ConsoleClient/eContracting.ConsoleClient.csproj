@@ -282,6 +282,10 @@
       <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
       <Name>eContracting.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\eContracting.Tests\eContracting.Tests.csproj">
+      <Project>{F1C16540-9450-4A28-BFFF-3F84662F87CD}</Project>
+      <Name>eContracting.Tests</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -20,7 +20,7 @@ namespace eContracting.Services.Tests
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Empty()
         {
             var partnerValue = "132546796";
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.Key = "PARTNER";
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BIRTHDT = "21.01.2021";
@@ -38,7 +38,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_KEY_MISMATCH_When_Empty()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
@@ -53,7 +53,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetLoginState")]
         public void GetLoginState_Returns_INVALID_VALUE_DEFINITION_When_Empty()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             var offer = this.CreateOffer();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
@@ -69,7 +69,7 @@ namespace eContracting.Services.Tests
         public void GetLoginState_Returns_INVALID_BIRTHDATE_When_Dont_Match()
         {
             var partnerValue = "132546796";
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.Key = "PARTNER";
             var offer = this.CreateOffer();
             offer.Xml.Content.Body.BIRTHDT = "25.06.1971";
@@ -92,7 +92,7 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(guid);
             offer.Xml.Content.Body.BIRTHDT = birthdate;
             var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             var key = Utils.GetUniqueKey(loginType, offer);
@@ -116,7 +116,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BIRTHDT = birthdate;
 
             var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             var key = Utils.GetUniqueKey(loginType, offer);
@@ -143,7 +143,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.PARTNER = partnerId1;
 
             var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
@@ -171,7 +171,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BIRTHDT = birthdate1;
             offer.Xml.Content.Body.PARTNER = partnerId1;
             var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
@@ -197,7 +197,7 @@ namespace eContracting.Services.Tests
             offer.Xml.Content.Body.BIRTHDT = birthdate;
             offer.Xml.Content.Body.PARTNER = partnerId;
             var id = Guid.NewGuid();
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ID = Guid.NewGuid();
             loginType.Key = "PARTNER";
             loginType.ValidationRegex = "^[0-9]*$";
@@ -216,7 +216,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_True()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ValidationRegex = "^[0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
@@ -231,7 +231,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Valid_Regex_And_Returns_False()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ValidationRegex = "^[0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
@@ -246,7 +246,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_No_Regex_And_Returns_True()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
@@ -260,7 +260,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "IsRegexValid")]
         public void IsRegexValid_LoginType_Has_Invalid_Regex_And_Returns_False()
         {
-            var loginType = new LoginTypeModel();
+            var loginType = new MemoryLoginTypeModel();
             loginType.ValidationRegex = "?^![0-9]*$";
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();

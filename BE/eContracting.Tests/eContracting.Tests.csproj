@@ -54,10 +54,20 @@
     <Compile Include="BaseTestClass.cs" />
     <Compile Include="ISitecoreContextExtended.cs" />
     <Compile Include="MemoryApiServiceOptions.cs" />
+    <Compile Include="MemoryDefinitionCombinationModel.cs" />
     <Compile Include="MemoryEventLogger.cs" />
+    <Compile Include="MemoryFolderItemModel.cs" />
     <Compile Include="MemoryLogger.cs" />
+    <Compile Include="MemoryLoginTypeModel.cs" />
+    <Compile Include="MemoryPageLoginModel.cs" />
+    <Compile Include="MemoryProcessModel.cs" />
+    <Compile Include="MemoryProcessStepModel.cs" />
+    <Compile Include="MemoryProcessTypeModel.cs" />
+    <Compile Include="MemoryRichTextModel.cs" />
+    <Compile Include="MemorySimpleTextModel.cs" />
     <Compile Include="MemoryTextService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestSiteSettingsModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

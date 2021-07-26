@@ -15,14 +15,14 @@ namespace eContracting
         /// <summary>
         /// Logins the specified offer.
         /// </summary>
-        /// <seealso cref="LoginTypeModel"/>
+        /// <seealso cref="ILoginTypeModel"/>
         /// <param name="offer">The offer.</param>
         /// <param name="loginType">The login type.</param>
         /// <param name="birthDay">The birth day.</param>
         /// <param name="key">The key of login type.</param>
         /// <param name="value">The value by login type.</param>
         /// <returns></returns>
-        AUTH_RESULT_STATES GetLoginState(OfferModel offer, LoginTypeModel loginType, string birthDay, string key, string value);
+        AUTH_RESULT_STATES GetLoginState(OfferModel offer, ILoginTypeModel loginType, string birthDay, string key, string value);
 
         /// <summary>
         /// Log-in user with <paramref name="authData"/>.

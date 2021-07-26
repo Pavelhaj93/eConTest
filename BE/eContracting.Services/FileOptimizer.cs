@@ -28,9 +28,9 @@ namespace eContracting.Services
         protected readonly IAuthenticationService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
-        private SiteSettingsModel _siteSettings { get; set; }
+        private ISiteSettingsModel _siteSettings { get; set; }
 
-        protected SiteSettingsModel SiteSettings
+        protected ISiteSettingsModel SiteSettings
         {
             get
             {

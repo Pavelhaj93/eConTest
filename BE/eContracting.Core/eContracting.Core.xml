@@ -326,35 +326,35 @@
             <param name="search"></param>
             <returns></returns>
         </member>
-        <member name="T:eContracting.Models.BasePageModel">
+        <member name="T:eContracting.Models.IBasePageModel">
             <summary>
-            Represents common page with <see cref="P:eContracting.Models.BasePageModel.PageTitle"/>.
+            Represents common page with <see cref="P:eContracting.Models.IBasePageModel.PageTitle"/>.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+            <seealso cref="T:eContracting.Models.IBaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.BasePageModel.PageTitle">
+        <member name="P:eContracting.Models.IBasePageModel.PageTitle">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="T:eContracting.Models.BasePageWithStepsModel">
+        <member name="T:eContracting.Models.IBasePageWithStepsModel">
             <summary>
-            Represents common page with <see cref="P:eContracting.Models.BasePageWithStepsModel.Step"/>.
+            Represents common page with <see cref="P:eContracting.Models.IBasePageWithStepsModel.Step"/>.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageModel" />
+            <seealso cref="T:eContracting.Models.IBasePageModel" />
         </member>
-        <member name="P:eContracting.Models.BasePageWithStepsModel.Step">
+        <member name="P:eContracting.Models.IBasePageWithStepsModel.Step">
             <summary>
             Gets or sets the step.
             </summary>
         </member>
-        <member name="T:eContracting.Models.ColorModel">
+        <member name="T:eContracting.Models.IColorModel">
             <summary>
             A color definition used from RWE collection <c>/sitecore/system/Modules/innogy/components/code-lists/color-themes</c>.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+            <seealso cref="T:eContracting.Models.IBaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.ColorModel.Value">
+        <member name="P:eContracting.Models.IColorModel.Value">
             <summary>
             Gets or sets hexadecimal value.
             </summary>
@@ -524,17 +524,17 @@
             Gets or sets datetime when the file was saved into our database
             </summary>
         </member>
-        <member name="T:eContracting.Models.DefinitionCombinationContainerModel">
+        <member name="T:eContracting.Models.IDefinitionCombinationContainerModel">
             <summary>
             Represent container for all definition including data for default values.
             </summary>
-            <seealso cref="T:eContracting.Models.DefinitionCombinationDataModel" />
+            <seealso cref="T:eContracting.Models.IDefinitionCombinationDataModel" />
         </member>
-        <member name="T:eContracting.Models.DefinitionCombinationDataModel">
+        <member name="T:eContracting.Models.IDefinitionCombinationDataModel">
             <summary>
             Represents data for combination.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+            <seealso cref="T:eContracting.Models.IBaseSitecoreModel" />
         </member>
         <member name="T:eContracting.Models.ErrorModel">
             <summary>
@@ -718,50 +718,45 @@
             Gets or sets the file keys.
             </summary>
         </member>
-        <member name="T:eContracting.Models.PageError500Model">
+        <member name="T:eContracting.Models.IPageError500Model">
             <summary>
             Represents page model for error page 404.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageModel" />
+            <seealso cref="T:eContracting.Models.IBasePageModel" />
         </member>
-        <member name="P:eContracting.Models.PageError500Model.MainText">
+        <member name="P:eContracting.Models.IPageError500Model.MainText">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageSessionExpiredModel.PageTitle">
+        <member name="P:eContracting.Models.IPageSessionExpiredModel.PageTitle">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageSessionExpiredModel.MainText">
+        <member name="P:eContracting.Models.IPageSessionExpiredModel.MainText">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="T:eContracting.Models.PageThankYouModel">
+        <member name="T:eContracting.Models.IPageThankYouModel">
             <summary>
             Represents model for thank you page.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+            <seealso cref="T:eContracting.Models.IBasePageWithStepsModel" />
         </member>
-        <member name="M:eContracting.Models.PromoBoxModel.GetColor">
-            <summary>
-            Gets the color in hexadecimal format with leading <c>#</c>.
-            </summary>
-        </member>
-        <member name="P:eContracting.Models.PageAcceptedOfferModel.PageTitle">
+        <member name="P:eContracting.Models.IPageAcceptedOfferModel.PageTitle">
             <summary>
             Gets or sets the page title.
             </summary>
         </member>
-        <member name="T:eContracting.Models.PageError404Model">
+        <member name="T:eContracting.Models.IPageError404Model">
             <summary>
             Represents page model for error page 404.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageModel" />
+            <seealso cref="T:eContracting.Models.IBasePageModel" />
         </member>
-        <member name="P:eContracting.Models.PageError404Model.MainText">
+        <member name="P:eContracting.Models.IPageError404Model.MainText">
             <summary>
             Gets or sets the page title.
             </summary>
@@ -814,23 +809,23 @@
             </summary>
             <param name="offer">The offer.</param>
         </member>
-        <member name="T:eContracting.Models.BaseSitecoreModel">
+        <member name="T:eContracting.Models.IBaseSitecoreModel">
             <summary>
             Base model for Sitecore item.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:eContracting.Models.BaseSitecoreModel.ID" -->
-        <member name="P:eContracting.Models.BaseSitecoreModel.Name">
+        <!-- Badly formed XML comment ignored for member "P:eContracting.Models.IBaseSitecoreModel.ID" -->
+        <member name="P:eContracting.Models.IBaseSitecoreModel.Name">
             <summary>
             Gets or sets Sitecore item name.
             </summary>
         </member>
-        <member name="P:eContracting.Models.BaseSitecoreModel.DisplayName">
+        <member name="P:eContracting.Models.IBaseSitecoreModel.DisplayName">
             <summary>
             Gets or sets Sitecore item display name.
             </summary>
         </member>
-        <member name="P:eContracting.Models.BaseSitecoreModel.Path">
+        <member name="P:eContracting.Models.IBaseSitecoreModel.Path">
             <summary>
             Gets or sets full path of the item.
             </summary>
@@ -867,56 +862,29 @@
             <param name="template">The template.</param>
             <exception cref="T:System.ArgumentNullException">template</exception>
         </member>
-        <member name="T:eContracting.Models.DefinitionCombinationModel">
+        <member name="T:eContracting.Models.IDefinitionCombinationModel">
             <summary>
-            Represents combination of <see cref="P:eContracting.Models.DefinitionCombinationModel.Process"/> and <see cref="P:eContracting.Models.DefinitionCombinationModel.ProcessType"/> with their relevant settings.
+            Represents combination of <see cref="P:eContracting.Models.IDefinitionCombinationModel.Process"/> and <see cref="P:eContracting.Models.IDefinitionCombinationModel.ProcessType"/> with their relevant settings.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+            <seealso cref="T:eContracting.Models.IBaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.DefinitionCombinationModel.Process">
+        <member name="P:eContracting.Models.IDefinitionCombinationModel.Process">
             <summary>
             Gets or sets related process definition.
             </summary>
         </member>
-        <member name="P:eContracting.Models.DefinitionCombinationModel.ProcessType">
+        <member name="P:eContracting.Models.IDefinitionCombinationModel.ProcessType">
             <summary>
             Gets or sets related process type definition.
             </summary>
         </member>
-        <member name="P:eContracting.Models.DefinitionCombinationModel.IsDefault">
-            <summary>
-            Gets a value indicating whether this definition is default.
-            </summary>
-            <value>
-              <c>true</c> if this instance is default; otherwise, <c>false</c>.
-            </value>
-        </member>
-        <member name="M:eContracting.Models.FolderItemModel`1.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.FolderItemModel`1"/> class.
-            </summary>
-        </member>
-        <member name="M:eContracting.Models.FolderItemModel`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.FolderItemModel`1"/> class.
-            </summary>
-            <param name="items">The items.</param>
-        </member>
-        <member name="T:eContracting.Models.PageLoginModel">
+        <member name="T:eContracting.Models.IPageLoginModel">
             <summary>
             Represents login page.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+            <seealso cref="T:eContracting.Models.IBasePageWithStepsModel" />
         </member>
-        <member name="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttemptsTimeSpan">
-            <summary>
-            Gets the delay after failed attempts as <see cref="T:System.TimeSpan"/>
-            </summary>
-            <value>
-            Parsed value from <see cref="P:eContracting.Models.PageLoginModel.DelayAfterFailedAttempts"/>. If parsing failed, return default value '00:15:00'
-            </value>
-        </member>
-        <member name="P:eContracting.Models.PageLoginModel.AutoGenerateTestableCombinationPlaceholders">
+        <member name="P:eContracting.Models.IPageLoginModel.AutoGenerateTestableCombinationPlaceholders">
             <summary>
             Gets switch if placeholders of every matrix combination (like /eContracting2Main/eContracting2-login_02_K) for A/B testing headertexts should be added automatically when this page is opened in Edit mode.
             </summary>
@@ -1472,43 +1440,43 @@
             <param name="xmlElementName">Name of the XML element.</param>
             <returns>Value or null.</returns>
         </member>
-        <member name="T:eContracting.Models.PageNewOfferModel">
+        <member name="T:eContracting.Models.IPageNewOfferModel">
             <summary>
             Represents model for offer page.
             </summary>
-            <seealso cref="T:eContracting.Models.BasePageWithStepsModel" />
+            <seealso cref="T:eContracting.Models.IBasePageWithStepsModel" />
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.GDPRUrl">
+        <member name="P:eContracting.Models.IPageNewOfferModel.GDPRUrl">
             <summary>
             Gets or sets the GDPR URL.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.AesEncryptKey">
+        <member name="P:eContracting.Models.IPageNewOfferModel.AesEncryptKey">
             <summary>
             Gets or sets the aes encrypt key.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.AesEncryptVector">
+        <member name="P:eContracting.Models.IPageNewOfferModel.AesEncryptVector">
             <summary>
             Gets or sets the aes encrypt vector.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowTitle">
+        <member name="P:eContracting.Models.IPageNewOfferModel.ConfirmModalWindowTitle">
             <summary>
             Gets or sets title for confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowText">
+        <member name="P:eContracting.Models.IPageNewOfferModel.ConfirmModalWindowText">
             <summary>
             Gets or sets text for confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowButtonAcceptLabel">
+        <member name="P:eContracting.Models.IPageNewOfferModel.ConfirmModalWindowButtonAcceptLabel">
             <summary>
             Gets or sets label for accept button in confirm modal window.
             </summary>
         </member>
-        <member name="P:eContracting.Models.PageNewOfferModel.ConfirmModalWindowButtonCancelLabel">
+        <member name="P:eContracting.Models.IPageNewOfferModel.ConfirmModalWindowButtonCancelLabel">
             <summary>
             Gets or sets label for cancel button in confirm modal window.
             </summary>
@@ -1552,13 +1520,13 @@
             Gets or sets inner content.
             </summary>
         </member>
-        <member name="T:eContracting.Models.ProcessStepModel">
+        <member name="T:eContracting.Models.IProcessStepModel">
             <summary>
             Model for step model.
             </summary>
-            <seealso cref="T:eContracting.Models.BaseSitecoreModel" />
+            <seealso cref="T:eContracting.Models.IBaseSitecoreModel" />
         </member>
-        <member name="P:eContracting.Models.ProcessStepModel.Label">
+        <member name="P:eContracting.Models.IProcessStepModel.Label">
             <summary>
             Gets or sets the label.
             </summary>
@@ -2084,6 +2052,19 @@
               <c>true</c> if the specified key has value; otherwise, <c>false</c>.
             </returns>
         </member>
+        <member name="M:eContracting.Extensions.IsDefault(eContracting.Models.IDefinitionCombinationModel)">
+            <summary>
+            Gets a value indicating whether this definition is default.
+            </summary>
+            <value>
+              <c>true</c> if this instance is default; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:eContracting.Extensions.GetColor(eContracting.Models.IPromoBoxModel)">
+            <summary>
+            Gets the color in hexadecimal format with leading <c>#</c>.
+            </summary>
+        </member>
         <member name="T:eContracting.IOfferService">
             <summary>
             Service with direct communication to SAP / CACHE.
@@ -2144,11 +2125,11 @@
             Represents collection of actions for authentication operation.
             </summary>
         </member>
-        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.LoginTypeModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.ILoginTypeModel,System.String,System.String,System.String)">
             <summary>
             Logins the specified offer.
             </summary>
-            <seealso cref="T:eContracting.Models.LoginTypeModel"/>
+            <seealso cref="T:eContracting.Models.ILoginTypeModel"/>
             <param name="offer">The offer.</param>
             <param name="loginType">The login type.</param>
             <param name="birthDay">The birth day.</param>
@@ -2480,7 +2461,7 @@
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <summary>
-            Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.DefinitionCombinationModel"/>.
+            Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.IDefinitionCombinationModel"/>.
             </summary>
             <param name="offer">The offer.</param>
             <returns>List of defined login types or if there is not defined any, one random login type from all of them.</returns>
@@ -2533,9 +2514,9 @@
             <returns>Model or exception.</returns>
             <exception cref="T:eContracting.EcontractingMissingDatasourceException">When settings cannot be found.</exception>
         </member>
-        <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+        <member name="M:eContracting.ISettingsReaderService.GetSteps(eContracting.Models.IProcessStepModel)">
             <summary>
-            Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="P:eContracting.Models.ProcessStepModel.IsSelected"/> = <c>true</c>'.
+            Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="P:eContracting.Models.IProcessStepModel.IsSelected"/> = <c>true</c>'.
             </summary>
             <param name="currentStep">The current step.</param>
             <returns>Array of all related steps.</returns>
@@ -2767,7 +2748,7 @@
             <param name="collection">The collection.</param>
             <returns>Query string representation from <paramref name="collection"/> items.</returns>
         </member>
-        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.LoginTypeModel,eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Utils.GetUniqueKey(eContracting.Models.ILoginTypeModel,eContracting.Models.OfferModel)">
             <summary>
             Gets the unique key for login type in a login view.
             </summary>

@@ -143,7 +143,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
                 this.SessionProvider.Abandon();
                 
-                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
 
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
@@ -253,7 +253,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
-                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 var offer = this.ApiService.GetOffer(guid);
                 var campaignCode = (offer != null) ? (offer.IsCampaign ? offer.Campaign : offer.CreatedAt) : Request.QueryString["utm_campaign"];
 
@@ -354,7 +354,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             fakeXml.Content.Body.BusProcessType = definition.ProcessType.Code;
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, fakeAttr);
-            var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
+            var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
             var loginTypes = this.SettingsReaderService.GetLoginTypes(fakeOffer);
             var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
             var steps = this.SettingsReaderService.GetSteps(datasource.Step);
@@ -431,7 +431,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         public ActionResult RichText()
         {            
-            var dataSource = this.MvcContext.GetDataSourceItem<RichTextModel>();
+            var dataSource = this.MvcContext.GetDataSourceItem<IRichTextModel>();
             var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
 
             if (dataSource == null || data.IsAccepted)
@@ -484,7 +484,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.LoginReportService.Add(model);
         }
 
-        protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, LoginTypeModel loginType, string guid, string campaignCode)
+        protected internal void ReportLogin(AUTH_RESULT_STATES authResultState, ILoginTypeModel loginType, string guid, string campaignCode)
         {
             if (authResultState == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
@@ -532,7 +532,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(DefinitionCombinationModel definition, PageLoginModel datasource, LoginChoiceViewModel[] choices, ProcessStepModel[] steps, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(IDefinitionCombinationModel definition, IPageLoginModel datasource, LoginChoiceViewModel[] choices, IProcessStepModel[] steps, string validationMessage = null)
         {
             var viewModel = new LoginViewModel(definition, datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
@@ -551,14 +551,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal LOGIN_STATES IsAbleToLogin(string guid, OfferModel offer, PageLoginModel datasource)
+        protected internal LOGIN_STATES IsAbleToLogin(string guid, OfferModel offer, IPageLoginModel datasource)
         {
             if (string.IsNullOrEmpty(guid))
             {
                 return LOGIN_STATES.INVALID_GUID;
             }
 
-            if (!this.LoginReportService.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.DelayAfterFailedAttemptsTimeSpan))
+            if (!this.LoginReportService.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan()))
             {
                 return LOGIN_STATES.USER_BLOCKED;
             }
@@ -618,14 +618,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return Redirect(url1);
         }
 
-        protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, LoginTypeModel loginType, string guid)
+        protected internal ActionResult GetLoginFailReturns(AUTH_RESULT_STATES state, ILoginTypeModel loginType, string guid)
         {
             var msg = loginType.ValidationMessage;
             ActionResult result = null;
 
             if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE)
             {
-                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 msg = datasource.BirthDateValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE);
                 result = Redirect(url);
@@ -638,7 +638,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             else if (state == AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE)
             {
-                var datasource = this.MvcContext.GetPageContextItem<PageLoginModel>();
+                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 msg = datasource.ValidationMessage;
                 var url = Utils.SetQuery(this.Request.Url, "error", Constants.ValidationCodes.INVALID_BIRTHDATE_AND_VALUE);
                 result = Redirect(url);
@@ -675,7 +675,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return result;
         }
         
-        protected internal LoginChoiceViewModel GetChoiceViewModel(LoginTypeModel model, OfferModel offer)
+        protected internal LoginChoiceViewModel GetChoiceViewModel(ILoginTypeModel model, OfferModel offer)
         {
             string key = Utils.GetUniqueKey(model, offer);
             var login = new LoginChoiceViewModel(model, key);
@@ -683,12 +683,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Find <see cref="LoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
+        /// Find <see cref="ILoginTypeModel"/> by <paramref name="offer"/> and <paramref name="key"/>.
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <param name="key">The key.</param>
         /// <returns>Login type or null.</returns>
-        protected internal LoginTypeModel GetLoginType(OfferModel offer, string key)
+        protected internal ILoginTypeModel GetLoginType(OfferModel offer, string key)
         {
             var loginTypes = this.SettingsReaderService.GetAllLoginTypes();
 

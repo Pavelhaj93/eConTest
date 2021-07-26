@@ -18,7 +18,7 @@ namespace eContracting.Models
 
         public LOGIN_STATES LoginState { get; set; }
 
-        public LoginTypeModel LoginType { get; set; }
+        public ILoginTypeModel LoginType { get; set; }
 
         public bool IsBirthdateValid { get; set; }
 

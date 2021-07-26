@@ -154,7 +154,7 @@ namespace eContracting
         /// <param name="loginType">Type of the login.</param>
         /// <param name="offer">The offer.</param>
         /// <returns>Generated key.</returns>
-        public static string GetUniqueKey(LoginTypeModel loginType, OfferModel offer)
+        public static string GetUniqueKey(ILoginTypeModel loginType, OfferModel offer)
         {
             if (loginType == null)
             {

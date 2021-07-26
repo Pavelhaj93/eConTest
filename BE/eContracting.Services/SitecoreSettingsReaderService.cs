@@ -71,9 +71,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<LoginTypeModel> GetAllLoginTypes()
+        public IEnumerable<ILoginTypeModel> GetAllLoginTypes()
         {
-            var items = this.Context.GetItems<LoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
+            var items = this.Context.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
 
             if (!items.Any())
             {
@@ -84,9 +84,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ProcessModel> GetAllProcesses()
+        public IEnumerable<IProcessModel> GetAllProcesses()
         {
-            var items =  this.Context.GetItems<ProcessModel>(Constants.SitecorePaths.PROCESSES);
+            var items =  this.Context.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES);
 
             if (!items.Any())
             {
@@ -97,9 +97,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ProcessTypeModel> GetAllProcessTypes()
+        public IEnumerable<IProcessTypeModel> GetAllProcessTypes()
         {
-            var items = this.Context.GetItems<ProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
+            var items = this.Context.GetItems<IProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
 
             if (!items.Any())
             {
@@ -166,9 +166,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public DefinitionCombinationModel GetDefinitionDefault()
+        public IDefinitionCombinationModel GetDefinitionDefault()
         {
-            var defaultDefinition = this.Context.GetItem<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+            var defaultDefinition = this.Context.GetItem<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
 
             if (defaultDefinition == null)
             {
@@ -182,17 +182,17 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public DefinitionCombinationModel GetDefinition(OfferModel offer)
+        public IDefinitionCombinationModel GetDefinition(OfferModel offer)
         {
             return this.GetDefinition(offer.Process, offer.ProcessType);
         }
 
         /// <inheritdoc/>
-        public DefinitionCombinationModel GetDefinition(string process, string processType)
+        public IDefinitionCombinationModel GetDefinition(string process, string processType)
         {
             if (!string.IsNullOrEmpty(process) && !string.IsNullOrEmpty(processType))
             {
-                var definitions = this.Context.GetItems<DefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+                var definitions = this.Context.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
                 var definition = definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
 
                 if (definition != null)
@@ -207,11 +207,11 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<LoginTypeModel> GetLoginTypes(OfferModel offer)
+        public IEnumerable<ILoginTypeModel> GetLoginTypes(OfferModel offer)
         {
-            var list = new List<LoginTypeModel>();
+            var list = new List<ILoginTypeModel>();
             var definition = this.GetDefinition(offer);
-            var availableLoginTypes = definition.LoginTypes?.ToArray() ?? new LoginTypeModel[] { };
+            var availableLoginTypes = definition.LoginTypes?.ToArray() ?? new ILoginTypeModel[] { };
 
             // backup option when content configuration is wrong
             if (availableLoginTypes.Length == 0)
@@ -234,7 +234,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public RichTextModel GetMainTextForLogin(OfferModel offer)
+        public IRichTextModel GetMainTextForLogin(OfferModel offer)
         {
             var definition = this.GetDefinition(offer);
             return offer.IsAccepted ? definition.MainTextLoginAccepted : definition.MainTextLogin;
@@ -271,10 +271,10 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public SiteSettingsModel GetSiteSettings()
+        public ISiteSettingsModel GetSiteSettings()
         {
             //TODO: sometimes this.Context.Database = null when calling it from api controller.
-            var settings = this.Context.GetItem<SiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
+            var settings = this.Context.GetItem<ISiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
             return settings ?? throw new EcontractingMissingDatasourceException("Site settings could not be resolved.");
         }
 
@@ -289,10 +289,10 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public ProcessStepModel[] GetSteps(ProcessStepModel currentStep)
+        public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
         {
             var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
-            var items = this.Context.GetItems<ProcessStepModel>(parentPath);
+            var items = this.Context.GetItems<IProcessStepModel>(parentPath);
 
             foreach (var item in items)
             {

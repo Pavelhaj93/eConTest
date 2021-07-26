@@ -29,7 +29,7 @@
             cacheService
             </exception>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.LoginTypeModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.ILoginTypeModel,System.String,System.String,System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Models.AuthDataModel)">
@@ -826,7 +826,7 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetXmlNodeNamesExcludeHtml">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.ProcessStepModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.IProcessStepModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetCustomDatabaseConnectionString">

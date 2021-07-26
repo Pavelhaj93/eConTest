@@ -39,7 +39,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public AUTH_RESULT_STATES GetLoginState(OfferModel offer, LoginTypeModel loginType, string birthDay, string key, string value)
+        public AUTH_RESULT_STATES GetLoginState(OfferModel offer, ILoginTypeModel loginType, string birthDay, string key, string value)
         {
             #region Perform settings check
 
@@ -112,7 +112,7 @@ namespace eContracting.Services
             return this.Cache.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA);
         }
 
-        protected internal bool IsRegexValid(LoginTypeModel loginType, string value)
+        protected internal bool IsRegexValid(ILoginTypeModel loginType, string value)
         {
             if (string.IsNullOrEmpty(loginType.ValidationRegex))
             {
@@ -144,7 +144,7 @@ namespace eContracting.Services
             return true;
         }
 
-        protected internal bool IsValueValid(LoginTypeModel loginType, string originalValue, string inputValue)
+        protected internal bool IsValueValid(ILoginTypeModel loginType, string originalValue, string inputValue)
         {
             if (string.IsNullOrEmpty(inputValue))
             {

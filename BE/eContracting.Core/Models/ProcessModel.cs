@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Glass.Mapper.Sc.Configuration.Attributes;
 
 namespace eContracting.Models
 {
-    [SitecoreType(TemplateId = "{20EC5C2E-616E-493A-892D-C0C1E23721E9}", AutoMap = true)]
-    [ExcludeFromCodeCoverage]
-    public class ProcessModel : BaseSitecoreModel
+    public class ProcessModel : IProcessModel
     {
-        [SitecoreField]
-        public virtual string Title { get; set; }
-
-        [SitecoreField]
-        public virtual string Code { get; set; }
-
-        [SitecoreField("eAct")]
-        public virtual string GoogleAnalytics_eAct { get; set; }
+        public string Title { get; set; }
+        public string Code { get; set; }
+        public string GoogleAnalytics_eAct { get; set; }
+        public Guid ID { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
+        public string Path { get; set; }
     }
 }

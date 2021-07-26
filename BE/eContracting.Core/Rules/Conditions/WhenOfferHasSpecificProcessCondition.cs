@@ -35,7 +35,7 @@ namespace eContracting.Rules.Conditions
         protected override bool Execute(T ruleContext)
         {
             var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-            var process = context.GetItem<ProcessModel>(this.ProcessId);
+            var process = context.GetItem<IProcessModel>(this.ProcessId);
 
             if (process == null)
             {

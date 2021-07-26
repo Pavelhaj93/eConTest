@@ -343,6 +343,7 @@
     <Compile Include="eContractingServiceConfigurator.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="Pipelines\Initialize\GlassMapperConfigurator.cs" />
     <Compile Include="Pipelines\Initialize\RegisterApiProcessor.cs" />
     <Compile Include="Pipelines\Initialize\RunStartupsProcessor.cs" />
     <Compile Include="Pipelines\SessionEnd\ClearUserCacheProcessor.cs" />
