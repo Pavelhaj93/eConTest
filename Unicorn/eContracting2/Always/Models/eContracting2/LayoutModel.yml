@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "ee9e23d2-181d-4172-a929-0e0b8d10313c"
   Hint: Model Type
-  Value: eContracting.Website.Areas.eContracting2.Models.LayoutModel, eContracting.Website
+  Value: eContracting.Website.Areas.eContracting2.Models.LayoutViewModel, eContracting.Website
 Languages:
 - Language: en
   Versions:
