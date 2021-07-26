@@ -7,7 +7,7 @@ using Glass.Mapper.Sc;
 
 namespace eContracting
 {
-    public interface ISitecoreContextExtended : ISitecoreContext
+    public interface ISitecoreServiceExtended : ISitecoreService
     {
         /// <summary>
         /// Gets children of <typeparamref name="T"/> from folder <paramref name="path"/>.

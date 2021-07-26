@@ -14,7 +14,7 @@ namespace eContracting.Services
     {
         protected readonly ILogger Logger;
         protected readonly ITextService TextService;
-        protected readonly ISitecoreContext Context;
+        protected readonly ISitecoreService SitecoreService;
         protected readonly IOfferService ApiService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
@@ -23,7 +23,7 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="logger">The logger.</param>
         /// <param name="textService">The text service.</param>
-        /// <param name="context">The context.</param>
+        /// <param name="sitecoreService">The context.</param>
         /// <param name="apiService">The API service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <exception cref="ArgumentNullException">
@@ -40,13 +40,13 @@ namespace eContracting.Services
         public OfferJsonDescriptor(
             ILogger logger,
             ITextService textService,
-            ISitecoreContext context,
+            ISitecoreService sitecoreService,
             IOfferService apiService,
             ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
-            this.Context = context ?? throw new ArgumentNullException(nameof(context));
+            this.SitecoreService = sitecoreService ?? throw new ArgumentNullException(nameof(sitecoreService));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
         }

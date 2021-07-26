@@ -252,7 +252,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new MemoryProcessStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {
@@ -310,7 +310,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step)).Returns(new MemoryProcessStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {
@@ -423,7 +423,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(loginPageModel);
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
 
             using (var writter = new StringWriter())
             {
@@ -480,7 +480,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(false);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(loginPageModel);
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
 
             using (var writter = new StringWriter())
             {
@@ -539,7 +539,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(loginPageModel);
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
 
             using (var writter = new StringWriter())
             {
@@ -598,7 +598,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {
@@ -662,7 +662,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {
@@ -724,7 +724,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {
@@ -903,7 +903,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<MemoryPageLoginModel>()).Returns(new MemoryPageLoginModel());
+            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new MemoryPageLoginModel());
 
             using (var writter = new StringWriter())
             {

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTestClass.cs" />
-    <Compile Include="ISitecoreContextExtended.cs" />
+    <Compile Include="ISitecoreServiceExtended.cs" />
     <Compile Include="MemoryApiServiceOptions.cs" />
     <Compile Include="MemoryDefinitionCombinationModel.cs" />
     <Compile Include="MemoryEventLogger.cs" />

@@ -26,13 +26,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAccepted(offer);
 
             Assert.True(result.Groups.Count() == 1);
@@ -53,13 +53,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAccepted(offer);
 
             Assert.True(result.Groups.Count() == 1);
@@ -80,13 +80,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAccepted(offer);
 
             Assert.True(result.Groups.Count() == 1);
@@ -107,13 +107,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAccepted(offer);
 
             Assert.True(result.Groups.Count() == 1);
@@ -149,13 +149,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment1, attachment2, attachment3 });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAccepted(offer);
 
             Assert.True(result.Groups.Count() == 1);
@@ -184,13 +184,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetNew(offer);
 
             if (expectedPerex)
@@ -227,13 +227,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetNew(offer);
 
             if (expectedGifts)
@@ -272,13 +272,13 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetNew(offer);
 
             if (expectedArguments)
@@ -299,12 +299,12 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetPerex(offer.TextParameters, null);
 
             Assert.Null(result);
@@ -319,12 +319,12 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetPerex(offer.TextParameters, null);
 
             Assert.Null(result);
@@ -359,12 +359,12 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetPerex(offer.TextParameters, definition);
 
             Assert.Equal(count, result.Parameters.Length);
@@ -382,12 +382,12 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetGifts(offer.TextParameters, definition);
 
             Assert.Null(result);
@@ -411,11 +411,11 @@ namespace eContracting.Services.Tests
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetGifts(textParameters, definition);
 
             Assert.Equal(expected, result.Note);
@@ -429,11 +429,11 @@ namespace eContracting.Services.Tests
         {
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(section, new Dictionary<string, string>());
 
             Assert.Null(result);
@@ -451,11 +451,11 @@ namespace eContracting.Services.Tests
             textParameters.Add(group + "_INTRO", expected);
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.NotNull(result);
@@ -475,11 +475,11 @@ namespace eContracting.Services.Tests
             // textParameters.Add(group + "_NAME", "abc"); // this is important
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.Empty(result.Params);
@@ -498,11 +498,11 @@ namespace eContracting.Services.Tests
             textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.Equal(expected, result.Params.First().Count);
@@ -520,11 +520,11 @@ namespace eContracting.Services.Tests
             textParameters.Add(group + "_NAME", expected);
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.Equal(expected, result.Params.First().Title);
@@ -543,11 +543,11 @@ namespace eContracting.Services.Tests
             textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreContext.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.Equal(expected, result.Params.First().Icon);

@@ -218,13 +218,13 @@
         <member name="M:eContracting.Services.FileSignService.Sign(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel,System.Byte[])">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.#ctor(eContracting.ILogger,eContracting.ITextService,Glass.Mapper.Sc.ISitecoreService,eContracting.IOfferService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferJsonDescriptor"/> class.
             </summary>
             <param name="logger">The logger.</param>
             <param name="textService">The text service.</param>
-            <param name="context">The context.</param>
+            <param name="sitecoreService">The context.</param>
             <param name="apiService">The API service.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <exception cref="T:System.ArgumentNullException">
@@ -753,7 +753,7 @@
             </summary>
             <returns>The template model.</returns>
         </member>
-        <member name="F:eContracting.Services.SitecoreSettingsReaderService.Context">
+        <member name="F:eContracting.Services.SitecoreSettingsReaderService.SitecoreService">
             <summary>
             The context.
             </summary>
@@ -782,7 +782,7 @@
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.SessionTimeout">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreContext,eContracting.IContextWrapper,eContracting.ILogger)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreService,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
             </summary>

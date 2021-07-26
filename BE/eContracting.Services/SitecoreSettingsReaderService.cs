@@ -16,7 +16,7 @@ namespace eContracting.Services
         /// <summary>
         /// The context.
         /// </summary>
-        protected readonly ISitecoreContext Context;
+        protected readonly ISitecoreService SitecoreService;
 
         /// <summary>
         /// The context wrapper.
@@ -63,9 +63,9 @@ namespace eContracting.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="SitecoreSettingsReaderService"/> class.
         /// </summary>
-        public SitecoreSettingsReaderService(ISitecoreContext sitecoreContext, IContextWrapper contextWrapper, ILogger logger)
+        public SitecoreSettingsReaderService(ISitecoreService sitecoreService, IContextWrapper contextWrapper, ILogger logger)
         {
-            this.Context = sitecoreContext ?? throw new ArgumentNullException(nameof(sitecoreContext));
+            this.SitecoreService = sitecoreService ?? throw new ArgumentNullException(nameof(sitecoreService));
             this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
@@ -73,7 +73,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<ILoginTypeModel> GetAllLoginTypes()
         {
-            var items = this.Context.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
+            var items = this.SitecoreService.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES);
 
             if (!items.Any())
             {
@@ -86,7 +86,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<IProcessModel> GetAllProcesses()
         {
-            var items =  this.Context.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES);
+            var items =  this.SitecoreService.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES);
 
             if (!items.Any())
             {
@@ -99,7 +99,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<IProcessTypeModel> GetAllProcessTypes()
         {
-            var items = this.Context.GetItems<IProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
+            var items = this.SitecoreService.GetItems<IProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES);
 
             if (!items.Any())
             {
@@ -168,7 +168,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IDefinitionCombinationModel GetDefinitionDefault()
         {
-            var defaultDefinition = this.Context.GetItem<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+            var defaultDefinition = this.SitecoreService.GetItem<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
 
             if (defaultDefinition == null)
             {
@@ -192,7 +192,7 @@ namespace eContracting.Services
         {
             if (!string.IsNullOrEmpty(process) && !string.IsNullOrEmpty(processType))
             {
-                var definitions = this.Context.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+                var definitions = this.SitecoreService.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
                 var definition = definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
 
                 if (definition != null)
@@ -274,7 +274,7 @@ namespace eContracting.Services
         public ISiteSettingsModel GetSiteSettings()
         {
             //TODO: sometimes this.Context.Database = null when calling it from api controller.
-            var settings = this.Context.GetItem<ISiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
+            var settings = this.SitecoreService.GetItem<ISiteSettingsModel>(this.ContextWrapper.GetSiteRoot());
             return settings ?? throw new EcontractingMissingDatasourceException("Site settings could not be resolved.");
         }
 
@@ -292,7 +292,7 @@ namespace eContracting.Services
         public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
         {
             var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
-            var items = this.Context.GetItems<IProcessStepModel>(parentPath);
+            var items = this.SitecoreService.GetItems<IProcessStepModel>(parentPath);
 
             foreach (var item in items)
             {

@@ -18,9 +18,13 @@ namespace eContracting.Website.Pipelines.Initialize
     {
         protected readonly ILogger Logger;
 
-        public RegisterApiProcessor()
+        public RegisterApiProcessor() : this(ServiceLocator.ServiceProvider.GetRequiredService<ILogger>())
         {
-            this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
+        }
+
+        public RegisterApiProcessor(ILogger logger)
+        {
+            this.Logger = logger;
         }
 
         public void Process(PipelineArgs args)

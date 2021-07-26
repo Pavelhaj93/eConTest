@@ -27,7 +27,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     public class eContracting2ApiController : ApiController, IRequiresSessionState
     {
         protected readonly ILogger Logger;
-        protected readonly ISitecoreContext Context;
         protected readonly ISessionProvider SessionProvider;
         protected readonly IOfferService ApiService;
         protected readonly IAuthenticationService AuthService;
@@ -47,7 +46,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2ApiController()
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
-            this.Context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
             this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
             this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
@@ -65,7 +63,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [ExcludeFromCodeCoverage]
         public eContracting2ApiController(
             ILogger logger,
-            ISitecoreContext context,
             ISessionProvider sessionProvider,
             IOfferService apiService,
             IAuthenticationService authService,
@@ -80,7 +77,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ILoginFailedAttemptBlockerStore loginReportService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.Context = context ?? throw new ArgumentNullException(nameof(context));
             this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
             this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
             this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));

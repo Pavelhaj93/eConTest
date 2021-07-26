@@ -37,12 +37,12 @@ namespace eContracting.Services.Tests
         public void GetSiteSettings_Throws_MissingDatasourceException_When_Not_Found()
         {
             var siteRoot = "/site";
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns((TestSiteSettingsModel)null);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot)).Returns((TestSiteSettingsModel)null);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
 
             Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetSiteSettings());
         }
@@ -51,13 +51,13 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetAllLoginTypes")]
         public void GetAllLoginTypes_Throws_MissingDatasourceException_When_No_Items_Found()
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryLoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryLoginTypeModel>());
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryLoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<MemoryLoginTypeModel>());
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryLoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryLoginTypeModel>());
+            mockSitecoreService.Setup(x => x.GetItems<MemoryLoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<MemoryLoginTypeModel>());
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllLoginTypes());
         }
 
@@ -65,13 +65,13 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetAllProcesses")]
         public void GetAllProcesses_Throws_MissingDatasourceException_When_No_Items_Found()
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessModel>>(Constants.SitecorePaths.PROCESSES, false, false)).Returns(new MemoryFolderItemModel<MemoryProcessModel>());
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(Enumerable.Empty<MemoryProcessModel>());
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessModel>>(Constants.SitecorePaths.PROCESSES)).Returns(new MemoryFolderItemModel<MemoryProcessModel>());
+            mockSitecoreService.Setup(x => x.GetItems<MemoryProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(Enumerable.Empty<MemoryProcessModel>());
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllProcesses());
         }
 
@@ -83,13 +83,13 @@ namespace eContracting.Services.Tests
             list.Add(new Mock<MemoryProcessModel>().Object);
             list.Add(new Mock<MemoryProcessModel>().Object);
             list.Add(new Mock<MemoryProcessModel>().Object);
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessModel>>(Constants.SitecorePaths.PROCESSES, false, false)).Returns(new MemoryFolderItemModel<MemoryProcessModel>(list));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(list);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IProcessModel>>(Constants.SitecorePaths.PROCESSES)).Returns(new MemoryFolderItemModel<IProcessModel>(list));
+            mockSitecoreService.Setup(x => x.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES)).Returns(list);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetAllProcesses();
 
             Assert.True(result.Count() == 3);
@@ -99,13 +99,13 @@ namespace eContracting.Services.Tests
         [Trait("Method", "GetAllProcessTypes")]
         public void GetAllProcessTypes_Throws_MissingDatasourceException_When_No_Items_Found()
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryLoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryLoginTypeModel>());
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryLoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<MemoryLoginTypeModel>());
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<ILoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(new MemoryFolderItemModel<ILoginTypeModel>());
+            mockSitecoreService.Setup(x => x.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(Enumerable.Empty<ILoginTypeModel>());
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             Assert.Throws<EcontractingMissingDatasourceException>(() => service.GetAllProcessTypes());
         }
 
@@ -117,13 +117,13 @@ namespace eContracting.Services.Tests
             list.Add(new Mock<MemoryProcessTypeModel>().Object);
             list.Add(new Mock<MemoryProcessTypeModel>().Object);
             list.Add(new Mock<MemoryProcessTypeModel>().Object);
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessTypeModel>>(Constants.SitecorePaths.PROCESS_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryProcessTypeModel>(list));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(list);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IProcessTypeModel>>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(new MemoryFolderItemModel<IProcessTypeModel>(list));
+            mockSitecoreService.Setup(x => x.GetItems<IProcessTypeModel>(Constants.SitecorePaths.PROCESS_TYPES)).Returns(list);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetAllProcessTypes();
 
             Assert.True(result.Count() == 3);
@@ -143,8 +143,8 @@ namespace eContracting.Services.Tests
             siteSettings.ServiceUser = Convert.ToBase64String(Encoding.UTF8.GetBytes(user));
             siteSettings.ServicePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(url);
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(string.Empty);
@@ -152,7 +152,7 @@ namespace eContracting.Services.Tests
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var options = service.GetApiServiceOptions();
 
             Assert.Equal(new Uri(url), options.Url);
@@ -174,8 +174,8 @@ namespace eContracting.Services.Tests
             siteSettings.ServiceUser = "";
             siteSettings.ServicePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(string.Empty);
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(user)));
@@ -183,7 +183,7 @@ namespace eContracting.Services.Tests
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var options = service.GetApiServiceOptions();
 
             Assert.Equal(new Uri(url), options.Url);
@@ -206,8 +206,8 @@ namespace eContracting.Services.Tests
             siteSettings.ServiceUser = Convert.ToBase64String(Encoding.UTF8.GetBytes(user));
             siteSettings.ServicePassword = "";
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(string.Empty);
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(string.Empty);
@@ -215,7 +215,7 @@ namespace eContracting.Services.Tests
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var options = service.GetApiServiceOptions();
 
             Assert.Equal(new Uri(url), options.Url);
@@ -233,8 +233,8 @@ namespace eContracting.Services.Tests
 
             var siteSettings = new TestSiteSettingsModel();
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>("/sitecore/content", false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/sitecore/content")).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/sitecore/content");
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(url);
@@ -242,7 +242,7 @@ namespace eContracting.Services.Tests
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(password)));
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var options = service.GetApiServiceOptions();
 
             Assert.Equal(new Uri(url), options.Url);
@@ -263,8 +263,8 @@ namespace eContracting.Services.Tests
             siteSettings.ServiceUrl = url;
             siteSettings.ServiceUser = Convert.ToBase64String(Encoding.UTF8.GetBytes(user));
             siteSettings.ServicePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(string.Empty);
             mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(string.Empty);
@@ -272,7 +272,7 @@ namespace eContracting.Services.Tests
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var options = service.GetApiServiceOptions();
 
             Assert.Equal(new Uri(url), options.Url);
@@ -288,11 +288,11 @@ namespace eContracting.Services.Tests
         [InlineData("PREMEXT", "PERSON_PREMEXT")]
         public void GetBackCompatibleTextParametersKeys_Contains_CUSTTITLELET_For_Version_1(string oldKey, string newKey)
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetBackCompatibleTextParametersKeys(1);
 
             Assert.Contains(result, x => x.Key == oldKey && x.Value == newKey);
@@ -304,11 +304,11 @@ namespace eContracting.Services.Tests
         //    var expected = "http://localhost/db";
         //    System.Configuration.ConfigurationManager.ConnectionStrings.Add(new System.Configuration.ConnectionStringSettings(Constants.DatabaseContextConnectionStringName, expected));
 
-        //    var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+        //    var mockSitecoreService = new Mock<ISitecoreContextExtended>();
         //    var mockContextWrapper = new Mock<IContextWrapper>();
         //    var logger = new MemoryLogger();
 
-        //    var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+        //    var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
         //    var result = service.GetCustomDatabaseConnectionString();
 
         //    Assert.Equal(expected, result);
@@ -319,11 +319,11 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetCustomDatabaseConnectionString_Throws_ApplicationException_When_Name_Missing()
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
 
             Assert.Throws<ApplicationException>(() => service.GetCustomDatabaseConnectionString());
         }
@@ -331,11 +331,11 @@ namespace eContracting.Services.Tests
         [Fact]
         public void GetCustomDatabaseConnectionString_Throws_ApplicationException_When_Connection_String_Not_Found()
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
 
             Assert.Throws<ApplicationException>(() => service.GetCustomDatabaseConnectionString());
         }
@@ -352,13 +352,13 @@ namespace eContracting.Services.Tests
             var combination = new MemoryDefinitionCombinationModel();
             combination.Process = new MemoryProcessModel() { Code = process };
             combination.ProcessType = new MemoryProcessTypeModel() { Code = processType };
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetDefinition(offer);
 
             Assert.NotNull(result);
@@ -376,14 +376,14 @@ namespace eContracting.Services.Tests
             combination.ProcessType = new MemoryProcessTypeModel() { Code = "09988" };
             var defaultCombination = new MemoryDefinitionCombinationModel();
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(defaultCombination);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            mockSitecoreService.Setup(x => x.GetItem<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(defaultCombination);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetDefinition(offer);
 
             Assert.Equal(result, defaultCombination);
@@ -397,13 +397,13 @@ namespace eContracting.Services.Tests
             combination.Process = new MemoryProcessModel() { Code = "XYZ" };
             combination.ProcessType = new MemoryProcessTypeModel() { Code = "123" };
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetDefinition("XYZ", "123");
 
             Assert.NotNull(result);
@@ -417,13 +417,13 @@ namespace eContracting.Services.Tests
             combination.Process = new MemoryProcessModel() { Code = "XYZ" };
             combination.ProcessType = new MemoryProcessTypeModel() { Code = "123" };
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
 
             Assert.Throws<EcontractingMissingDatasourceException>(() => { service.GetDefinition("HS623HA", "094JF83"); });
         }
@@ -446,13 +446,13 @@ namespace eContracting.Services.Tests
             combination.ProcessType = new MemoryProcessTypeModel() { Code = processType };
             combination.LoginTypes = loginTypes;
             combination.LoginTypesRandom = false;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetLoginTypes(offer);
 
             Assert.Equal(result.Count(), loginTypes.Count);
@@ -487,13 +487,13 @@ namespace eContracting.Services.Tests
             combination.LoginTypes = loginTypes;
             combination.LoginTypesRandom = true; // this cause randomization
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetLoginTypes(offer);
 
             Assert.Single(result);
@@ -517,15 +517,15 @@ namespace eContracting.Services.Tests
             combination.ProcessType = new MemoryProcessTypeModel() { Code = processType };
             combination.LoginTypes = Enumerable.Empty<MemoryLoginTypeModel>();
             combination.LoginTypesRandom = false;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryLoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryLoginTypeModel>(loginTypes));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryLoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(loginTypes);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<ILoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(new MemoryFolderItemModel<ILoginTypeModel>(loginTypes));
+            mockSitecoreService.Setup(x => x.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(loginTypes);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetLoginTypes(offer);
 
             Assert.Equal(loginTypes, result.ToList());
@@ -546,15 +546,15 @@ namespace eContracting.Services.Tests
             combination.Process = new MemoryProcessModel() { Code = process };
             combination.ProcessType = new MemoryProcessTypeModel() { Code = processType };
             combination.LoginTypes = new MemoryLoginTypeModel[] { };
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS, false, false)).Returns(new MemoryFolderItemModel<MemoryDefinitionCombinationModel>(new[] { combination }));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryLoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES, false, false)).Returns(new MemoryFolderItemModel<MemoryLoginTypeModel>(loginTypes));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryLoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(loginTypes);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IDefinitionCombinationModel>>(Constants.SitecorePaths.DEFINITIONS)).Returns(new MemoryFolderItemModel<IDefinitionCombinationModel>(new[] { combination }));
+            mockSitecoreService.Setup(x => x.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS)).Returns(new[] { combination });
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<ILoginTypeModel>>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(new MemoryFolderItemModel<ILoginTypeModel>(loginTypes));
+            mockSitecoreService.Setup(x => x.GetItems<ILoginTypeModel>(Constants.SitecorePaths.LOGIN_TYPES)).Returns(loginTypes);
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetLoginTypes(offer);
 
             Assert.Single(result);
@@ -570,13 +570,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.Login = new Link();
             siteSettings.Login.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.Login);
 
             Assert.Equal(expected, result);
@@ -591,13 +591,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.Offer = new Link();
             siteSettings.Offer.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.Offer);
 
             Assert.Equal(expected, result);
@@ -612,13 +612,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.ExpiredOffer = new Link();
             siteSettings.ExpiredOffer.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
 
             Assert.Equal(expected, result);
@@ -633,13 +633,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.AcceptedOffer = new Link();
             siteSettings.AcceptedOffer.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
 
             Assert.Equal(expected, result);
@@ -654,13 +654,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.SessionExpired = new Link();
             siteSettings.SessionExpired.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.SessionExpired);
 
             Assert.Equal(expected, result);
@@ -675,13 +675,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.SystemError = new Link();
             siteSettings.SystemError.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.SystemError);
 
             Assert.Equal(expected, result);
@@ -696,13 +696,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.ThankYou = new Link();
             siteSettings.ThankYou.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.ThankYou);
 
             Assert.Equal(expected, result);
@@ -717,13 +717,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.UserBlocked = new Link();
             siteSettings.UserBlocked.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.UserBlocked);
 
             Assert.Equal(expected, result);
@@ -738,13 +738,13 @@ namespace eContracting.Services.Tests
             var siteSettings = new TestSiteSettingsModel();
             siteSettings.WrongUrl = new Link();
             siteSettings.WrongUrl.Url = expected;
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<TestSiteSettingsModel>(siteRoot, false, false)).Returns(siteSettings);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>(siteRoot)).Returns(siteSettings);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns(siteRoot);
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetPageLink(PAGE_LINK_TYPES.WrongUrl);
 
             Assert.Equal(expected, result);
@@ -764,14 +764,14 @@ namespace eContracting.Services.Tests
             steps.Add(currentStep);
             steps.Add(new MemoryProcessStepModel() { Name = "C" });
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessStepModel>>(parentPath, false, false)).Returns(new MemoryFolderItemModel<MemoryProcessStepModel>(steps));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryProcessStepModel>(parentPath)).Returns(steps);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IProcessStepModel>>(parentPath)).Returns(new MemoryFolderItemModel<IProcessStepModel>(steps));
+            mockSitecoreService.Setup(x => x.GetItems<IProcessStepModel>(parentPath)).Returns(steps);
             var logger = new MemoryLogger();
 
             var mockContextWrapper = new Mock<IContextWrapper>();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetSteps(currentStep);
 
             Assert.Equal(steps, result);
@@ -797,14 +797,14 @@ namespace eContracting.Services.Tests
             steps.Add(currentStep);
             steps.Add(new MemoryProcessStepModel() { ID = Guid.NewGuid(), Name = "C" });
 
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
-            mockSitecoreContext.Setup(x => x.GetItem<MemoryFolderItemModel<MemoryProcessStepModel>>(parentPath, false, false)).Returns(new MemoryFolderItemModel<MemoryProcessStepModel>(steps));
-            mockSitecoreContext.Setup(x => x.GetItems<MemoryProcessStepModel>(parentPath)).Returns(steps);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IFolderItemModel<IProcessStepModel>>(parentPath)).Returns(new MemoryFolderItemModel<IProcessStepModel>(steps));
+            mockSitecoreService.Setup(x => x.GetItems<IProcessStepModel>(parentPath)).Returns(steps);
             var logger = new MemoryLogger();
 
             var mockContextWrapper = new Mock<IContextWrapper>();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetSteps(currentStep);
 
             Assert.Equal(steps, result);
@@ -820,11 +820,11 @@ namespace eContracting.Services.Tests
         [InlineData("BENEFITS_NEXT_TZD_INTRO")]
         public void GetXmlNodeNamesExcludeHtml_Return_Correct_Values(string expected)
         {
-            var mockSitecoreContext = new Mock<ISitecoreContextExtended>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var logger = new MemoryLogger();
 
-            var service = new SitecoreSettingsReaderService(mockSitecoreContext.Object, mockContextWrapper.Object, logger);
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
             var result = service.GetXmlNodeNamesExcludeHtml();
 
             Assert.Contains(result, x => x == expected);
