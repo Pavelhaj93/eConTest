@@ -5,7 +5,8 @@
     [FileExtension] VARCHAR(10) NOT NULL, 
     [MimeType] VARCHAR(30) NOT NULL, 
     [Size] INT NOT NULL, 
-    [Content] VARBINARY(MAX) NOT NULL
+    [Content] VARBINARY(MAX) NOT NULL,
+	[CreateDate] DATETIME NULL
 )
 
 GO
