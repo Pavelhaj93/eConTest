@@ -30,6 +30,9 @@ SharedFields:
 - ID: "739f3649-8839-4b83-99a6-9dde316af4cb"
   Hint: TotalResultingFilesSizeLimitKBytes
   Value: 25600
+- ID: "830a2a51-0149-4608-99cc-733bbfd97338"
+  Hint: GroupFileCountLimit
+  Value: 100
 - ID: "a4f985d9-98b3-4b52-aaaf-4344f6e747c6"
   Hint: __Workflow
   Value: 

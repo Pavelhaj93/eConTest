@@ -58,6 +58,13 @@ namespace eContracting.Services
                 return this.SiteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
             }
         }
+        protected long GroupFileCountLimit
+        {
+            get
+            {
+                return this.SiteSettings.GroupFileCountLimit;
+            }
+        }
 
         protected Size MaxImageSizeAfterResize
         {
@@ -127,14 +134,17 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public async Task<UploadGroupFileOperationResultModel> AddAsync(DbUploadGroupFileModel group, string groupKey, string fileId, string name, byte[] content, string sessionId, string guid)
         {
-            //DbFileModel outputFile = null;
             PdfDocument outputPdfDocument = null;
 
             using (var existingPdfStream = new MemoryStream())
             {
                 if (group != null)
                 {
-                    //outputFile = group.OutputFile;
+                    if (this.GroupFileCountLimit > 0 && group.OriginalFiles?.Count >= this.GroupFileCountLimit)
+                    {
+                        return new UploadGroupFileOperationResultModel() { IsSuccess = false, ErrorModel = ERROR_CODES.UploadedFilesGroupCountExceeded() };
+                    }
+
                     if (group.OutputFile?.Content.Length > 0)
                     {
                         await existingPdfStream.WriteAsync(group.OutputFile.Content, 0, group.OutputFile.Content.Length);

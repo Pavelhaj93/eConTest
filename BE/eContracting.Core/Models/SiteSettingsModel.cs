@@ -102,6 +102,9 @@ namespace eContracting.Models
         public int TotalResultingFilesSizeLimitKBytes { get; set; }
 
         [SitecoreField]
+        public int GroupFileCountLimit { get; set; }
+
+        [SitecoreField]
         public int MaxImageWidthAfterResize { get; set; }
 
         [SitecoreField]

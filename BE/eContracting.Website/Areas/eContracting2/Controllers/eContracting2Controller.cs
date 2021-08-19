@@ -359,11 +359,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult SessionExpired()
         {
+            string logoutParm = this.Request.QueryString["logout"];
+           
             var datasouce = this.GetLayoutItem<PageSessionExpiredModel>();
 
             if (this.Context.IsEditMode())
             {
                 return View("/Areas/eContracting2/Views/Edit/SessionExpired.cshtml", datasouce);
+            }
+
+            if (!string.IsNullOrEmpty(logoutParm) && logoutParm.ToLower()!="false")
+            {
+                // on demand (link from header) clear any user login session, eg. ensuring privacy on a publicly shared computer
+                this.SessionProvider.Abandon();
             }
 
             return View("/Areas/eContracting2/Views/SessionExpired.cshtml", datasouce);

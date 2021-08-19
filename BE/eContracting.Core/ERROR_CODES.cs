@@ -27,6 +27,8 @@ namespace eContracting
 
         public static ErrorModel UploadFileError() => new ErrorModel("UPLOAD-ERROR", $"Error uploading file");
 
+        public static ErrorModel UploadedFilesGroupCountExceeded() => new ErrorModel("UPLOAD-GROUPCOUNT", $"Uploaded files group count limit exceeded");
+
         public static ErrorModel FromResponse(string code, ZCCH_CACHE_PUTResponse response)
         {
             var msg = new StringBuilder();
