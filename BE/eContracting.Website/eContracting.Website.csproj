@@ -517,6 +517,7 @@
     <None Include="Properties\PublishProfiles\IISProfile Ludek.pubxml" />
     <None Include="Properties\PublishProfiles\IISProfile Lukas.pubxml" />
     <None Include="Properties\PublishProfiles\Local deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Properties\PublishProfiles\Stage.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
