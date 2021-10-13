@@ -19,7 +19,7 @@
                     <use xlink:href="#logo"></use>
                 </svg>
             </a>
-            @if (Model.LogoutLink != null)
+            @if (Model.LogoutLink != null && Model.ShowLogoutButton)
             {
                 <a class="logout v-center v-center--large" href="@Model.LogoutLinkUrl" id="logoutLink">
                     <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
