@@ -8,3 +8,9 @@
 .modal-footer {
   justify-content: center;
 }
+
+.modal-signature {
+  @include media-breakpoint-down(md) {
+    max-width: 98%;
+  }
+}

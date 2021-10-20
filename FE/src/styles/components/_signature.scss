@@ -1,6 +1,21 @@
 .signature {
+  // keep 4:1 aspect ratio on smaller viewports
+  @include media-breakpoint-down(md) {
+    position: relative;
+    overflow: hidden;
+    padding-top: 25%; // 1/4 = 0.25
+  }
+
   canvas {
     cursor: crosshair;
     border: 1px dotted $color-gray-100;
+
+    @include media-breakpoint-down(md) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
