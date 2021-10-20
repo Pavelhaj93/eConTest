@@ -56,6 +56,9 @@ Languages:
     - ID: "4542333b-3ec7-4e59-aa7d-a8b62d2ba2e5"
       Hint: AesEncryptVector
       Value: l0W0jlqCwVQrWLSa
+    - ID: "562e864b-65a5-44c8-af25-1b59db2c39ee"
+      Hint: SignModalWindowClose
+      Value: Zavřít
     - ID: "59fa2d18-799f-482d-88e3-c37a37e76444"
       Hint: AesEncryptKey
       Value: oEdvEcn24ofUe3gjXpFHYCd22ygalbXw
@@ -78,6 +81,9 @@ Languages:
     - ID: "8a9bd484-f84a-42a1-9b8a-a71a02163709"
       Hint: SignModalWindowPenArea
       Value: Zde je podpisová plocha pro váš podpis
+    - ID: "9b6d9082-37d2-42ed-a411-8818829f7262"
+      Hint: SignModalWindowSign
+      Value: Podepsat
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Nabídka

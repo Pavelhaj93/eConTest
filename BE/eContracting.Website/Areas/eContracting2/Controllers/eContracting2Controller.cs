@@ -445,6 +445,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["signatureModalClear"] = datasource.SignModalWindowClearButtonLabel;
             viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;
             viewModel["signatureModalThumbnailAlt"] = datasource.SignModalWindowThumbnailText;
+            viewModel["signatureModalSign"] = datasource.SignModalWindowSign;
+            viewModel["signatureModalClose"] = datasource.SignModalWindowClose;
             viewModel["signaturePadAlt"] = datasource.SignModalWindowPenArea;
             viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
             viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
