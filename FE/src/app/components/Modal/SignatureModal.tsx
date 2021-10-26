@@ -128,7 +128,7 @@ export const SignatureModal: React.FC<Props> = observer(
                 <p>{t('signatureModalText')}</p>
                 <div className="signature mb-1">
                   <SignaturePad
-                    height={140}
+                    height={isMobileDevice() ? 180 : 140}
                     ref={signatureRef}
                     redrawOnResize={true}
                     options={{ onEnd: handleDrawEnd }}
