@@ -45,6 +45,7 @@ export const Offer: React.FC<View> = observer(
     acceptOfferUrl,
     thankYouPageUrl,
     sessionExpiredPageUrl,
+    suppliers,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -78,6 +79,10 @@ export const Offer: React.FC<View> = observer(
 
       if (acceptOfferUrl) {
         store.acceptOfferUrl = acceptOfferUrl
+      }
+
+      if (suppliers) {
+        store.isSupplierMandatory = true
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -615,19 +620,38 @@ export const Offer: React.FC<View> = observer(
             })}
           >
             <h2 className="mt-5">{t('acceptOfferTitle')}</h2>
-            <Box className="text-center">
-              <div
-                className="editorial-content mb-3"
-                dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
-              />
-              <Button
-                variant="secondary"
-                type="submit"
-                onClick={() => setConfirmationModal(true)}
-                disabled={!store.isOfferReadyToAccept}
-              >
-                {t('submitBtn')}
-              </Button>
+            <Box>
+              {suppliers && (
+                <Form.Group>
+                  <Form.Label htmlFor="supplier">{suppliers.label}</Form.Label>
+                  <Form.Control
+                    as="select"
+                    id="supplier"
+                    value={store.supplier}
+                    onChange={event => store.selectSupplier(event.target.value)}
+                  >
+                    {[{ label: '', value: '' }, ...suppliers.items].map(({ label, value }, idx) => (
+                      <option key={idx} value={value}>
+                        {label}
+                      </option>
+                    ))}
+                  </Form.Control>
+                </Form.Group>
+              )}
+              <div className="text-center">
+                <div
+                  className="editorial-content mb-3"
+                  dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
+                />
+                <Button
+                  variant="secondary"
+                  type="submit"
+                  onClick={() => setConfirmationModal(true)}
+                  disabled={!store.isOfferReadyToAccept}
+                >
+                  {t('submitBtn')}
+                </Button>
+              </div>
             </Box>
           </div>
           {/* submit zone */}

@@ -28,6 +28,7 @@ export class OfferStore {
   public sessionExpiredPageUrl = ''
   public acceptOfferUrl = ''
   public maxUploadGroupSize = 0
+  public isSupplierMandatory = false
   private type: OfferType
 
   @observable
@@ -71,6 +72,9 @@ export class OfferStore {
 
   @observable
   public forceReload = false
+
+  @observable
+  public supplier = ''
 
   constructor(type: OfferType, offerUrl: string) {
     this.offerUrl = offerUrl
@@ -288,7 +292,8 @@ export class OfferStore {
       this.allDocumentsAreSigned &&
       this.allProductsDocumentsAreAccepted &&
       this.allServicesDocumentsAreAccepted &&
-      this.allDocumentsUploaded
+      this.allDocumentsUploaded &&
+      this.isSupplierSelected
     )
   }
 
@@ -318,6 +323,18 @@ export class OfferStore {
     }
 
     return false
+  }
+
+  /**
+   * Returns true if the current supplier has been already selected.
+   */
+  @computed public get isSupplierSelected(): boolean {
+    // skip validation if a supplier is not mandatory
+    if (!this.isSupplierMandatory) {
+      return true
+    }
+
+    return this.supplier !== ''
   }
 
   /**
@@ -675,6 +692,10 @@ export class OfferStore {
     }
   }
 
+  @action public selectSupplier(supplier: string): void {
+    this.supplier = supplier
+  }
+
   /**
    * Get user document by its id and category.
    * @param id - document id
@@ -836,6 +857,7 @@ export class OfferStore {
         ...this.getAcceptedKeys(this.documentsProducts),
         ...this.getAcceptedKeys(this.documentsServices),
       ],
+      supplier: this.supplier ? this.supplier : null,
     }
 
     this.isAccepting = true
