@@ -116,6 +116,15 @@ namespace eContracting.Services
                 ATTRVAL = this.Context.GetIpAddress()
             });
 
+            if (!string.IsNullOrEmpty(data.Supplier))
+            {
+                attributes.Add(new ZCCH_ST_ATTRIB()
+                {
+                    ATTRID = "SERVPROV_OLD",
+                    ATTRVAL = data.Supplier
+                });
+            }
+
             this.Logger.Debug(offer.Guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
 
             var responsePdfFiles = this.GetFiles(offer.Guid, false);

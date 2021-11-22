@@ -328,6 +328,8 @@
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ListItemViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ListViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\PageExpirationViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />

@@ -1,0 +1,26 @@
+﻿---
+ID: "e7cdcaa8-0630-46e6-a537-c271d62d868c"
+Parent: "9333cb51-1d24-4c67-90e8-fb229e92fbce"
+Template: "9333cb51-1d24-4c67-90e8-fb229e92fbce"
+Path: /sitecore/templates/eContracting2/Datasources/List Collection/__Standard Values
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: "{65303073-7AE5-450B-A8B4-722893F6BF86}"
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211122T084211Z
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211122T084339Z
