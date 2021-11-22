@@ -220,7 +220,7 @@ select {
   &.form-control {
     @extend %form-element;
     appearance: none;
-    background: svg-load('../icons/svg/chevron-down.svg', fill=$color-orange) no-repeat right 1.3rem
+    background: $color-white svg-load('../icons/svg/chevron-down.svg', fill=$color-orange) no-repeat right 1.3rem
       center/28px 14px;
 
     // Hides the default caret in IE11

@@ -31,6 +31,10 @@ export type AppConfig = {
   allowedContentTypes?: string[]
   maxFileSize?: number
   maxGroupFileSize?: number
+  suppliers?: {
+    label: string
+    items: Supplier[]
+  }
 }
 
 declare global {
@@ -72,4 +76,9 @@ export enum FileError {
 export type CustomFile = {
   file: File
   error?: FileError
+}
+
+export type Supplier = {
+  label: string
+  value: string
 }
