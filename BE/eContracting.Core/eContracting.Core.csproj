@@ -283,8 +283,8 @@
     <Compile Include="Models\IDefinitionCombinationDataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
-    <Compile Include="Models\ListCollectionModel.cs" />
-    <Compile Include="Models\ListItemModel.cs" />
+    <Compile Include="Models\IListCollectionModel.cs" />
+    <Compile Include="Models\IListItemModel.cs" />
     <Compile Include="Models\LoginFailureModel.cs" />
     <Compile Include="Models\OfferFileXmlModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />

@@ -9,10 +9,9 @@ using Glass.Mapper.Sc.Configuration.Attributes;
 namespace eContracting.Models
 {
     [SitecoreType(TemplateId = "{9333CB51-1D24-4C67-90E8-FB229E92FBCE}", AutoMap = true)]
-    [ExcludeFromCodeCoverage]
-    public class ListCollectionModel
+    public interface IListCollectionModel
     {
         [SitecoreChildren]
-        public virtual IEnumerable<ListItemModel> Items { get; set; }
+        IEnumerable<IListItemModel> Items { get; set; }
     }
 }
