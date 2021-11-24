@@ -33,6 +33,9 @@ namespace eContracting.Models
         [JsonProperty("other")]
         public IEnumerable<string> Other { get; set; }
 
+        [JsonProperty("supplier")]
+        public string Supplier { get; set; }
+
         public string[] GetCheckedFiles()
         {
             var list = new List<string>();

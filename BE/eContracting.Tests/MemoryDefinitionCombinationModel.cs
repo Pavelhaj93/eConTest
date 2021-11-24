@@ -54,5 +54,7 @@ namespace eContracting.Tests
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Path { get; set; }
+        public string OfferSelectedListLabel { get; set; }
+        public IListCollectionModel OfferSelectedList { get; set; }
     }
 }

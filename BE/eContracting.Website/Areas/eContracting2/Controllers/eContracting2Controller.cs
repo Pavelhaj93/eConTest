@@ -430,6 +430,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
             }
 
+            if (definition.OfferSelectedList != null)
+            {
+                viewModel.List = new ListViewModel(definition.OfferSelectedList);
+                viewModel.List.Label = definition.OfferSelectedListLabel;
+            }
+
             viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
             viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
             viewModel["acceptAll"] = this.TextService.FindByKey("MARK_ALL");

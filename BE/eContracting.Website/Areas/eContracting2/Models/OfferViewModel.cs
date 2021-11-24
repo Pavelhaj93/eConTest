@@ -76,6 +76,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public IDefinitionCombinationModel Definition { get; set; }
 
+        [JsonProperty("suppliers")]
+        public ListViewModel List { get; set; }
+
         public OfferViewModel(ISiteSettingsModel siteSettings) : base("Offer", siteSettings)
         {
         }
