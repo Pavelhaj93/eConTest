@@ -19,7 +19,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
         }
 
-        public ListItemViewModel(ListItemModel model)
+        public ListItemViewModel(IListItemModel model)
         {
             this.Label = model.Text;
             this.Value = model.Value;
