@@ -19,7 +19,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
         }
 
-        public ListViewModel(ListCollectionModel model)
+        public ListViewModel(IListCollectionModel model)
         {
             this.Items = model.Items.Select(x => new ListItemViewModel(x));
         }

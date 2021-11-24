@@ -158,5 +158,11 @@ namespace eContracting.Models
 
         [SitecoreField]
         Image ThankYouAbMatrixPixel { get; set; }
+
+        [SitecoreField]
+        string OfferSelectedListLabel { get; set; }
+
+        [SitecoreField]
+        IListCollectionModel OfferSelectedList { get; set; }
     }
 }
