@@ -364,7 +364,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult SessionExpired()
         {
-            var datasouce = this.GetLayoutItem<PageSessionExpiredModel>();
+            var datasouce = this.MvcContext.GetPageContextItem<IPageSessionExpiredModel>();
 
             if (this.Context.IsEditMode())
             {
@@ -382,7 +382,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Header()
         {
-            var model = this.GetDataSourceItem<PageHeaderModel>();
+            var model = this.MvcContext.GetPageContextItem<IPageHeaderModel>();
             // show the logout button whenever the user is logged in, except of the logout action likely used on SessionExpired page to logout just after rendering the header component
             model.ShowLogoutButton = this.AuthenticationService.IsLoggedIn() && !this.IsLogoutParam();
             return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", model);

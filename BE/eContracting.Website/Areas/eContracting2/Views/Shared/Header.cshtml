@@ -14,14 +14,14 @@
                     <span>@Model.PhoneNumber</span>
                 </a>
             }
-            <a class="logo" href="@Model.ImageLinkUrl" id="imageLink" target="_blank">
+            <a class="logo" href="@Model.GetImageLinkUrl()" id="imageLink" target="_blank">
                 <svg class="icon" preserveAspectRatio="none">
                     <use xlink:href="#logo"></use>
                 </svg>
             </a>
             @if (Model.LogoutLink != null && Model.ShowLogoutButton)
             {
-                <a class="logout v-center v-center--large" href="@Model.LogoutLinkUrl" id="logoutLink">
+                <a class="logout v-center v-center--large" href="@Model.GetLogoutLinkUrl()" id="logoutLink">
                     <svg class="icon" preserveAspectRatio="none" width="32" height="32" focusable="false" aria-hidden="true">
                         <use class="d-none d-sm-block" xlink:href="#power-on-off"></use>
                     </svg>
