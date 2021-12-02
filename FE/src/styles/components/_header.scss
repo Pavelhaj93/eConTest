@@ -36,6 +36,25 @@
     position: absolute;
     top: 0;
     bottom: 0;
+    left: $grid-gutter-width / 2;
+    margin: auto;
+    height: 1.25rem;
+
+    @include media-breakpoint-down(sm) {
+      right: $spacer;
+    }
+
+    @include media-breakpoint-down(xs) {
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .logout {
+    position: absolute;
+    top: 0;
+    bottom: 0;
     right: $grid-gutter-width / 2;
     margin: auto;
     height: 1.25rem;

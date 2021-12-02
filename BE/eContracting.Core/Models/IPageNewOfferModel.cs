@@ -90,6 +90,12 @@ namespace eContracting.Models
         [SitecoreField]
         string SignModalWindowGeneralErrorMessage { get; set; }
 
+        [SitecoreField]
+        string SignModalWindowSign { get; set; }
+
+        [SitecoreField]
+        string SignModalWindowClose { get; set; }
+
         #endregion
     }
 }

@@ -24,5 +24,8 @@ namespace eContracting.Models
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link LogoutLink { get; set; }
+
+        [SitecoreIgnore]
+        bool ShowLogoutButton { get; set; }
     }
 }

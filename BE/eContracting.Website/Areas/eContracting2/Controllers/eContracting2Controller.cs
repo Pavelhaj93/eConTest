@@ -364,8 +364,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult SessionExpired()
         {
-            string logoutParm = this.Request.QueryString["logout"];
-           
             var datasouce = this.MvcContext.GetPageContextItem<IPageSessionExpiredModel>();
 
             if (this.Context.IsEditMode())
@@ -373,7 +371,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return View("/Areas/eContracting2/Views/Edit/SessionExpired.cshtml", datasouce);
             }
 
-            if (!string.IsNullOrEmpty(logoutParm) && logoutParm.ToLower()!="false")
+            if (this.IsLogoutParam())
             {
                 // on demand (link from header) clear any user login session, eg. ensuring privacy on a publicly shared computer
                 this.SessionProvider.Abandon();
@@ -384,7 +382,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Header()
         {
-            var model = this.MvcContext.GetDataSourceItem<IPageHeaderModel>();
+            var model = this.MvcContext.GetPageContextItem<IPageHeaderModel>();
+            // show the logout button whenever the user is logged in, except of the logout action likely used on SessionExpired page to logout just after rendering the header component
+            model.ShowLogoutButton = this.AuthenticationService.IsLoggedIn() && !this.IsLogoutParam();
             return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", model);
         }
 
@@ -451,6 +451,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["signatureModalClear"] = datasource.SignModalWindowClearButtonLabel;
             viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;
             viewModel["signatureModalThumbnailAlt"] = datasource.SignModalWindowThumbnailText;
+            viewModel["signatureModalSign"] = datasource.SignModalWindowSign;
+            viewModel["signatureModalClose"] = datasource.SignModalWindowClose;
             viewModel["signaturePadAlt"] = datasource.SignModalWindowPenArea;
             viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
             viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
@@ -622,6 +624,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return (eCat, eAct, eLab);
+        }
+
+        protected internal bool IsLogoutParam()
+        {
+            string logoutParm = this.Request.QueryString["logout"];
+            return !string.IsNullOrEmpty(logoutParm) && logoutParm.ToLower() != "false";
         }
     }
 }

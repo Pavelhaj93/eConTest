@@ -7,6 +7,7 @@ import { OfferStoreContext } from '@context'
 import { PreloadImage } from '@components'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
+import { isMobileDevice } from '@utils'
 
 type Props = {
   id: string
@@ -23,6 +24,7 @@ export const SignatureModal: React.FC<Props> = observer(
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
     const [hasSignature, setHasSignature] = useState(false)
+    const [step, setStep] = useState(1)
 
     if (!(store instanceof OfferStore)) {
       return null
@@ -34,10 +36,16 @@ export const SignatureModal: React.FC<Props> = observer(
       return `${thumbnailUrl}/${id}?t=${time}`
     }, [id, thumbnailUrl])
 
+    // steps are relevant only for mobile devices
+    const isFirstStep = useMemo(() => step === 1 && isMobileDevice(), [step])
+    const showSignaturePad = useMemo(() => (step === 2 && isMobileDevice()) || !isMobileDevice(), [
+      step,
+    ])
+
     // 0. when the modal is shown => trigger `resize` event on window,
     // so signature canvas will fit into the parent container
     useEffect(() => {
-      if (show) {
+      if (show && showSignaturePad) {
         const event = document.createEvent('HTMLEvents')
         event.initEvent('resize', true, false)
         window.dispatchEvent(event)
@@ -49,7 +57,7 @@ export const SignatureModal: React.FC<Props> = observer(
           canvas.setAttribute('aria-label', t('signaturePadAlt'))
         }
       }
-    }, [show, t])
+    }, [show, t, showSignaturePad])
 
     const handleClear = useCallback(() => {
       signatureRef.current?.clear()
@@ -65,6 +73,7 @@ export const SignatureModal: React.FC<Props> = observer(
     const closeModal = useCallback(() => {
       onClose() // callback from parent component
       setHasSignature(false) // next opening starts with an empty signature
+      setStep(1) // clear the current progress
     }, [onClose])
 
     const handleSubmit = useCallback(async () => {
@@ -88,7 +97,7 @@ export const SignatureModal: React.FC<Props> = observer(
     }, [id, signFileUrl, store, closeModal])
 
     return (
-      <Modal size="lg" show={show} onHide={closeModal}>
+      <Modal size="lg" show={show} onHide={closeModal} dialogClassName="modal-signature">
         <div className={classNames({ loading: store.isSigning })}>
           <Modal.Header closeButton closeLabel={t('modalClose')}>
             <Modal.Title>{t('signatureModalTitle')}</Modal.Title>
@@ -99,45 +108,69 @@ export const SignatureModal: React.FC<Props> = observer(
                 {t('signatureModalError')}
               </Alert>
             )}
-            {/* Add tabindex on scrollable element causes the element scrollable by a keyboard. */}
-            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
-            <div className="document-wrapper mb-3" tabIndex={0}>
-              {show && (
-                <PreloadImage
-                  src={documentUrl}
-                  className="img-fluid d-block mx-auto"
-                  alt={t('signatureModalThumbnailAlt')}
+
+            {show && (isFirstStep || !isMobileDevice()) && (
+              <>
+                {/* Add tabindex on scrollable element causes the element scrollable by a keyboard. */}
+                {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
+                <div className="document-wrapper mb-3" tabIndex={0}>
+                  <PreloadImage
+                    src={documentUrl}
+                    className="img-fluid d-block mx-auto"
+                    alt={t('signatureModalThumbnailAlt')}
+                  />
+                </div>
+              </>
+            )}
+
+            {showSignaturePad && (
+              <>
+                <p>{t('signatureModalText')}</p>
+                <div className="signature mb-1">
+                  <SignaturePad
+                    height={isMobileDevice() ? 180 : 140}
+                    ref={signatureRef}
+                    redrawOnResize={true}
+                    options={{ onEnd: handleDrawEnd }}
+                  />
+                </div>
+                <div
+                  className="editorial-content text-muted small mb-2"
+                  dangerouslySetInnerHTML={{
+                    __html: t('signatureNote'),
+                  }}
+                  aria-hidden="true"
                 />
-              )}
-            </div>
-            <p>{t('signatureModalText')}</p>
-            <div className="signature mb-1">
-              <SignaturePad
-                height={140}
-                ref={signatureRef}
-                redrawOnResize={true}
-                options={{ onEnd: handleDrawEnd }}
-              />
-            </div>
-            <div
-              className="editorial-content text-muted small mb-2"
-              dangerouslySetInnerHTML={{
-                __html: t('signatureNote'),
-              }}
-              aria-hidden="true"
-            />
+              </>
+            )}
           </Modal.Body>
           <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={handleSubmit}
-              disabled={store.isSigning || !hasSignature}
-            >
-              {t('signatureModalConfirm')}
-            </Button>
-            <Button variant="dark" onClick={handleClear}>
-              {t('signatureModalClear')}
-            </Button>
+            {/* within the first mobile step show just `Sign` button */}
+            {isFirstStep && (
+              <Button variant="secondary" onClick={() => setStep(2)}>
+                {t('signatureModalSign')}
+              </Button>
+            )}
+            {/* within the second mobile step or on desktop, show the `Confirm` button */}
+            {showSignaturePad && (
+              <Button
+                variant="secondary"
+                onClick={handleSubmit}
+                disabled={store.isSigning || !hasSignature}
+              >
+                {t('signatureModalConfirm')}
+              </Button>
+            )}
+            {isFirstStep && (
+              <Button variant="dark" onClick={closeModal}>
+                {t('signatureModalClose')}
+              </Button>
+            )}
+            {showSignaturePad && (
+              <Button variant="dark" onClick={handleClear}>
+                {t('signatureModalClear')}
+              </Button>
+            )}
           </Modal.Footer>
         </div>
       </Modal>
