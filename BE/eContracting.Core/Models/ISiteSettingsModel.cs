@@ -129,6 +129,8 @@ namespace eContracting.Models
         [SitecoreField]
         ICookieLawSettingsModel CookieLawSettings { get; set; }
 
+        [SitecoreField]
+        string CookieBotId { get; set; }
 
         #region Cleanup settings
         [SitecoreField]

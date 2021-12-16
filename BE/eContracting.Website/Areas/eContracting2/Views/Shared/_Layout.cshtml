@@ -10,21 +10,20 @@
     <meta name="viewport" content="initial-scale=1, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge;" />
     <title>@Model.PageMetaTitle</title>
-
+    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="@Model.CookieBotId" data-blockingmode="auto" type="text/javascript"></script>
     @if (Model.GoogleTagManagerShow)
     {
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', '@Model.GoogleTagManagerKey');
-        </script>
+    <script>
+    (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', '@Model.GoogleTagManagerKey');
+    </script>
     }
-
     <link type="image/x-icon" rel="shortcut icon" href="~/Assets/eContracting2/gfx/favicon/blob.png" />
     <link href="~/Assets/eContracting2/gfx/favicon/57x57.png" sizes="57x57" rel="apple-touch-icon-precomposed" />
     <link href="~/Assets/eContracting2/gfx/favicon/114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed" />
@@ -50,7 +49,7 @@
     <meta content="~/Assets/eContracting2/gfx/favicon/310x150.png" name="msapplication-wide310x150logo" />
     <meta content="~/Assets/eContracting2/gfx/favicon/310x310.png" name="msapplication-square310x310logo" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="@Html.Assets().PathWithHash("/assets/eContracting2/css/econtracting.min.css")"/>
+    <link rel="stylesheet" href="@Html.Assets().PathWithHash("/assets/eContracting2/css/econtracting.min.css")" />
     @Html.Sitecore().VisitorIdentification()
 </head>
 <body data-sprite="@Html.Assets().PathWithHash("/assets/eContracting2/gfx/icon/sprite.svg")">

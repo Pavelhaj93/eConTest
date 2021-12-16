@@ -31,6 +31,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
         }
 
+        public string CookieBotId { get; protected set; }
+
         public override void Initialize(Rendering rendering)
         {
             try
@@ -48,6 +50,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 base.Initialize(rendering);
 
                 this.GoogleTagManagerKey = settings.GoogleTagManager;
+                this.CookieBotId = settings.CookieBotId;
 
                 //this.ProcessErrorDescription(rendering);
                 //this.PageMetaTitle = Sitecore.Context.Item["PageTitle"] + (this.ErrorCodeDescription != null ? " - " + this.ErrorCodeDescription : "");
