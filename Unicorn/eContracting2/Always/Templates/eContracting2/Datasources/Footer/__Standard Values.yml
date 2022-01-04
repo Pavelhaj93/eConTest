@@ -23,6 +23,13 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20201007T135824Z
+    - ID: "3149631d-f6c1-4790-90a0-c5d266f08fcb"
+      Hint: CookieSettingsLink
+      Value: |
+        <link text="Nastavení cookies" linktype="javascript" url="javascript:CookieConsent.renew();" anchor="" />
+    - ID: "3b0d0eb8-010c-4980-bd12-deddc04d8297"
+      Hint: CookiePolicyLinkLabel
+      Value: Cookie policy
     - ID: "4c6d627a-ee09-4f7c-a19c-08bd41761ead"
       Hint: EmailText
       Value: info@innogy.cz
@@ -39,3 +46,10 @@ Languages:
     - ID: "95ae4851-7dd2-487d-b626-ef85efe4fbc6"
       Hint: PhoneNumberFooter
       Value: 800 11 33 55
+    - ID: "ca5b621b-4952-4f5f-90f8-c39add634c0c"
+      Hint: CookiePolicyLink
+      Value: |
+        <link text="Cookie policy" linktype="external" url="https://www.innogy.cz/cookie-policy/" anchor="" target="_blank" />
+    - ID: "e9cec94d-62d1-452c-893c-561c8ef9e188"
+      Hint: CookieSettingsLinkLabel
+      Value: Nastavení cookies

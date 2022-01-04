@@ -30,5 +30,11 @@ namespace eContracting.Models
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link DisclaimerLink { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        Link CookiePolicyLink { get; set; }
+
+        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        Link CookieSettingsLink { get; set; }
     }
 }

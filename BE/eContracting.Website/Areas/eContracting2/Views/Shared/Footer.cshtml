@@ -1,6 +1,11 @@
 ﻿@using eContracting
 @using eContracting.Models
 @model IPageFooterModel
+@{ 
+    var disclaimerUrl = Model.DisclaimerLink != null ? Model.DisclaimerLink.Url : string.Empty;
+    var cookiePolicyUrl = Model.CookiePolicyLink != null ? Model.CookiePolicyLink.Url : string.Empty;
+    var cookieSettingsUrl = Model.CookieSettingsLink != null ? Model.CookieSettingsLink.Url : string.Empty;
+}
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
@@ -29,13 +34,25 @@
     <div class="footer__bottom">
         <div class="container">
             <div class="row">
-                @if (!string.IsNullOrEmpty(Model.GetDisclaimerLinkUrl()))
+                @if (!string.IsNullOrEmpty(disclaimerUrl))
                 {
-                    <div class="col-12 col-md-6 text-center text-md-left mb-2">
-                        <a href="@Model.GetDisclaimerLinkUrl()" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
+                    <div class="col-12 col-md-3 text-center text-md-left mb-2">
+                        <a href="@disclaimerUrl" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
                     </div>
                 }
-                <div class="col-12 col-md-6 text-center text-md-right mb-2">@Model.CopyrightText</div>
+                @if (!string.IsNullOrEmpty(cookiePolicyUrl))
+                {
+                    <div class="col-12 col-md-3 text-center text-md-center mb-2">
+                        <a href="@cookiePolicyUrl" target="_blank">@Model.CookiePolicyLink.Text</a>
+                    </div>
+                }
+                @if (!string.IsNullOrEmpty(cookieSettingsUrl))
+                {
+                    <div class="col-12 col-md-3 text-center text-md-center mb-2">
+                        <a href="@cookieSettingsUrl">@Model.CookieSettingsLink.Text</a>
+                    </div>
+                }
+                <div class="col-12 col-md-3 text-center text-md-right mb-2">@Model.CopyrightText</div>
             </div>
         </div>
     </div>
