@@ -1,0 +1,49 @@
+﻿---
+ID: "eb87c940-1afc-4ab4-95b0-0a0cb2f6c8af"
+Parent: "b19cea4e-99be-424e-ac3a-5a47423b640c"
+Template: "b19cea4e-99be-424e-ac3a-5a47423b640c"
+Path: /sitecore/templates/eContracting2/Datasources/GoogleAnalytics/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "07b21e19-92df-407b-885b-1fd3b7d28032"
+      Hint: GasLabel
+      Value: ZP
+    - ID: "117f616c-c80b-443d-8654-1b15b438bea8"
+      Hint: IndividualLabel
+      Value: INDI
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220210T163900Z
+    - ID: "596438bf-3a09-4d8c-aeac-b93252862f50"
+      Hint: LoginView_eCat
+      Value: Runway
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "7185bee2-1570-4d26-9e9a-cb47b15ade23"
+      Hint: ElectricityLabel
+      Value: EE
+    - ID: "97281050-bce5-4cba-b777-72305d29b268"
+      Hint: ThankYouView_eCat
+      Value: "eCon - Akceptace nabidky"
+    - ID: "a2a19faf-37b2-4c50-84e9-ced2419b6e0f"
+      Hint: LoginClick_eCat
+      Value: Runway
+    - ID: "d4496087-77dd-4a26-9b59-d8b4d59c7db2"
+      Hint: LoginClick_eAct
+      Value: "Proklik-eCon-login"
+    - ID: "e91f73f5-65ff-448f-bc98-2bd8f132dbbe"
+      Hint: LoginView_eAct
+      Value: "Zobrazeni-eCon-login"
+    - ID: "f3bc6a03-e7d5-4c08-bf3e-5054bc44d30e"
+      Hint: CampaignLabel
+      Value: KAMPAN

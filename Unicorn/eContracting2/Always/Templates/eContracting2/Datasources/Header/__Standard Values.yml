@@ -5,6 +5,9 @@ Template: "b7aa8d70-22cb-47b8-87b4-f070810d168d"
 Path: /sitecore/templates/eContracting2/Datasources/Header/__Standard Values
 DB: master
 SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 300
 - ID: "d602b904-8abd-4079-9240-3223a3e5f8db"
   Hint: ImageLink
   Value: |
@@ -24,6 +27,12 @@ Languages:
       Hint: __Created by
       Value: |
         sitecore\admin
+    - ID: "8aaf6049-726a-4cb9-8d1e-29192af105e5"
+      Hint: LogoutLinkCognitoLabel
+      Value: Odhlásit innosvět
+    - ID: "933066d3-623f-4e50-862f-e063521859c7"
+      Hint: LogoutLinkLabel
+      Value: Odhlásit eContracting
     - ID: "bd86ae67-3659-4db8-8e71-c5077c679c06"
       Hint: PhoneNumberLink
       Value: 800113355

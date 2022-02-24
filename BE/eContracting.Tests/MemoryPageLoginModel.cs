@@ -30,5 +30,17 @@ namespace eContracting.Tests
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Path { get; set; }
+        public IInfoBoxModel InfoLoginBox { get; set; }
+        public string WarningDontHaveAccess { get; set; }
+        public string CampaignLabel { get; set; }
+        public string IndividualLabel { get; set; }
+        public string ElectricityLabel { get; set; }
+        public string GasLabel { get; set; }
+        public string LoginView_eCat { get; set; }
+        public string LoginView_eAct { get; set; }
+        public string LoginView_eLab { get; set; }
+        public string LoginClick_eCat { get; set; }
+        public string LoginClick_eAct { get; set; }
+        public string LoginClick_eLab { get; set; }
     }
 }

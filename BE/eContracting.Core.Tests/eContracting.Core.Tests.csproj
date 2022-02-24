@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="BaseApiServiceOptionsTests.cs" />
     <Compile Include="ExtensionsTests.cs" />
+    <Compile Include="Models\CognitoSettingsModelTests.cs" />
+    <Compile Include="Models\CognitoTokensModelTests.cs" />
+    <Compile Include="Models\CognitoUserModelTests.cs" />
     <Compile Include="Models\DocumentTemplateModelTests.cs" />
     <Compile Include="Models\OfferAttachmentModelTests.cs" />
     <Compile Include="Models\OfferAttributeModelTests.cs" />

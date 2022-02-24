@@ -2,26 +2,4 @@
 @using eContracting.Models
 @model ICookieLawSettingsModel
 
-<div id="notification">
-	<div class="container-fluid">
-        <p>
-            @Html.Glass().Editable(Model, x => x.Text)
-        </p>
-        <div class="actions">
-            @if (Model.Link != null)
-            {
-                if (Sitecore.Context.PageMode.IsNormal)
-                {
-                    <a id="PersonalDataLink" href="@Model.Link.Url" class="external" target="_blank">@Model.Link.Text</a>
-                }
-                else
-                {
-                    @Html.Glass().Editable(Model, x => x.Link)
-                }
-            }
-        <a class="button agree" href="">
-            @Html.Glass().Editable(Model, x => x.ButtonLabel)
-        </a>
-        </div>
-	</div>
-</div>
+@Html.Sitecore().Placeholder("eContracting2-components")

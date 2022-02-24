@@ -19,5 +19,8 @@ namespace eContracting.Models
 
         [SitecoreField("eAct")]
         string GoogleAnalytics_eAct { get; set; }
+
+        [SitecoreField("e_Name")]
+        string e_Name { get; set; }
     }
 }

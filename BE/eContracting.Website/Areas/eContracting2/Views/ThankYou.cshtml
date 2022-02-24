@@ -31,9 +31,11 @@
 </script>
 
 <script>
-dataLayer.push(
-{
-    'event': 'gaEvent',
-    'gaEventData': @Html.Raw(JsonConvert.SerializeObject(Model.ScriptParameters))
-});
+if (dataLayer !== undefined) {
+    dataLayer.push(
+    {
+        'event': 'gaEvent',
+        'gaEventData': @Html.Raw(JsonConvert.SerializeObject(Model.ScriptParameters))
+    });
+}
 </script>

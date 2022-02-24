@@ -6,13 +6,13 @@ import { OfferStore } from './'
 
 describe('Accepted offer', () => {
   it('should have zero documents after init', () => {
-    const store = new OfferStore(OfferType.ACCEPTED, '')
+    const store = new OfferStore(OfferType.ACCEPTED, '', '')
 
     expect(store.documentGroups.length).toBe(0)
   })
 
   it('should fetch documents', async () => {
-    const store = new OfferStore(OfferType.ACCEPTED, '')
+    const store = new OfferStore(OfferType.ACCEPTED, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(mockDocumentGroups))
     await store.fetchOffer()
@@ -21,7 +21,7 @@ describe('Accepted offer', () => {
   })
 
   it('should set error when fetch fails', async () => {
-    const store = new OfferStore(OfferType.ACCEPTED, '')
+    const store = new OfferStore(OfferType.ACCEPTED, '', '')
 
     fetch.mockReject(() => Promise.reject('API is unavailable'))
     await store.fetchOffer()
@@ -38,7 +38,7 @@ describe('General offer', () => {
       mimeType: 'text/plain',
     })
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     store.addUserFiles([{ file }], category)
 
@@ -58,7 +58,7 @@ describe('General offer', () => {
       mimeType: 'text/plain',
     })
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     store.addUserFiles([{ file }], category)
 
@@ -90,7 +90,7 @@ describe('General offer', () => {
       mimeType: 'text/plain',
     })
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     store.addUserFiles([{ file }], category)
 
@@ -116,7 +116,7 @@ describe('General offer', () => {
       mimeType: 'application/pdf',
     })
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     store.addUserFiles([{ file: file1 }, { file: file2 }], category)
 
@@ -167,7 +167,7 @@ describe('Offer with documents for acceptance', () => {
   }
 
   it('fetches documents', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -179,7 +179,7 @@ describe('Offer with documents for acceptance', () => {
 
   it('accepts single document', async () => {
     const key = offerResponse.documents.acceptance.accept.files[0].key
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -191,7 +191,7 @@ describe('Offer with documents for acceptance', () => {
   })
 
   it('accepts all documents', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -202,7 +202,7 @@ describe('Offer with documents for acceptance', () => {
   })
 
   it('allows to accept the offer', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -213,7 +213,7 @@ describe('Offer with documents for acceptance', () => {
   })
 
   it('marks the acceptance group as accepted', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -224,7 +224,7 @@ describe('Offer with documents for acceptance', () => {
   })
 
   it('marks the offer as dirty after accepting document', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -258,7 +258,7 @@ describe('Offer with documents for signing', () => {
   }
 
   it('fetches documents', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -270,7 +270,7 @@ describe('Offer with documents for signing', () => {
 
   it('signs the document', async () => {
     const key = offerResponse.documents.acceptance.sign.files[0].key
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -284,7 +284,7 @@ describe('Offer with documents for signing', () => {
 
   it('fails to sign the document', async () => {
     const key = offerResponse.documents.acceptance.sign.files[0].key
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -298,7 +298,7 @@ describe('Offer with documents for signing', () => {
 
   it('allows to accept the offer', async () => {
     const key = offerResponse.documents.acceptance.sign.files[0].key
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -352,7 +352,7 @@ describe('Offer with both documents for acceptance and signing', () => {
 
   it('allows to accept the offer', async () => {
     const key = offerResponse.documents.acceptance.sign.files[0].key
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -388,7 +388,7 @@ describe('Offer with documents for upload', () => {
       mimeType: 'text/plain',
     })
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetchMock.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -422,7 +422,7 @@ describe('Offer with documents for upload', () => {
     })
     const fileSize = 2049
     const category = 'testCategory'
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     store.maxUploadGroupSize = 2048
 
@@ -486,7 +486,7 @@ describe('Offer with product documents', () => {
   }
 
   it('allows to accept the offer (no mandatory group)', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -495,7 +495,7 @@ describe('Offer with product documents', () => {
   })
 
   it("doesn't allow to accept the offer (single document from shared group is accepted)", async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -507,7 +507,7 @@ describe('Offer with product documents', () => {
   })
 
   it('allows to accept the offer (both documents from shared group are accepted)', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     fetch.mockResponseOnce(JSON.stringify(offerResponse))
     await store.fetchOffer()
@@ -521,7 +521,7 @@ describe('Offer with product documents', () => {
   })
 
   it('allows to accept the offer (documents from mandatory groups must be accepted)', async () => {
-    const store = new OfferStore(OfferType.NEW, '')
+    const store = new OfferStore(OfferType.NEW, '', '')
 
     offerResponse.documents.other.products.mandatoryGroups = ['group2' as never]
     fetch.mockResponseOnce(JSON.stringify(offerResponse))

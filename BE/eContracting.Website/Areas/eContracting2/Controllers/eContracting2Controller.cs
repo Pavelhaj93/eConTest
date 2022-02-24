@@ -14,56 +14,48 @@ using Sitecore.Mvc.Controllers;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
 {
-    public class eContracting2Controller : Controller
+    public class eContracting2Controller : eContracting2MvcController
     {
-        protected readonly ILogger Logger;
-        protected readonly IUserDataCacheService Cache;
-        protected readonly IOfferService ApiService;
-        protected readonly ISettingsReaderService SettingsReaderService;
-        protected readonly IAuthenticationService AuthenticationService;
-        protected readonly IContextWrapper Context;
+        protected readonly IDataSessionCacheService Cache;
+        protected readonly IOfferService OfferService;
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
-        protected readonly ISessionProvider SessionProvider;
         protected readonly IMvcContext MvcContext;
 
         [ExcludeFromCodeCoverage]
-        public eContracting2Controller()
+        public eContracting2Controller() : base(
+            ServiceLocator.ServiceProvider.GetRequiredService<ILogger>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>())
         {
-            this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
-            this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
-            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-            this.AuthenticationService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
-            this.Context = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
+            this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
+            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
-            this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
             this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
         [ExcludeFromCodeCoverage]
         public eContracting2Controller(
             ILogger logger,
-            IUserDataCacheService cache,
-            IOfferService apiService,
-            ISettingsReaderService settingsReaderService,
-            IAuthenticationService authService,
-            IContextWrapper context,
+            IDataSessionCacheService cache,
+            IOfferService offerService,
+            ISettingsReaderService settingsReader,
+            IUserService userService,
+            IContextWrapper contextWrapper,
             IUserFileCacheService userFileCache,
             ITextService textService,
             ISessionProvider sessionProvider,
-            IMvcContext mvcContext)
+            IDataRequestCacheService dataRequestCacheService,
+            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService)
         {
-            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
-            this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
-            this.AuthenticationService = authService ?? throw new ArgumentNullException(nameof(authService));
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
-            this.Context = context ?? throw new ArgumentNullException(nameof(context));
+            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
-            this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
             this.MvcContext = mvcContext ?? throw new ArgumentNullException(nameof(mvcContext));
         }
 
@@ -73,43 +65,50 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public ActionResult Offer()
         {
-            string guid = string.Empty;
+            string guid = this.GetGuid();
 
             try
             {
-                if (!this.Context.IsNormalMode())
+                if (!this.ContextWrapper.IsNormalMode())
                 {
                     return this.GetOfferEditView();
                 }
 
-                if (!this.AuthenticationService.IsLoggedIn())
+                if (!this.UserService.IsAuthorizedFor(guid))
                 {
-                    this.Logger.Debug(guid, $"Session expired");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired);
-                    return Redirect(redirectUrl);
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
                 }
 
-                var user = this.AuthenticationService.GetCurrentUser();
-                guid = user.Guid;
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(null, $"Session expired");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+                
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
-                var offer = this.ApiService.GetOffer(guid); //TODO: Or NABIDKA_PDF ?
+                if (offer == null)
+                {
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
 
                 if (offer.IsAccepted)
                 {
                     this.Logger.Debug(guid, $"Offer already accepted");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
-                    return Redirect(redirectUrl);
+                    return Redirect(PAGE_LINK_TYPES.AcceptedOffer, guid, null, true);
                 }
 
                 if (offer.IsExpired)
                 {
                     this.Logger.Debug(guid, $"Offer expired");
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
-                    return Redirect(redirectUrl);
+                    return Redirect(PAGE_LINK_TYPES.OfferExpired, guid, null, true);
                 }
 
-                this.ApiService.SignInOffer(guid);
-                this.SessionProvider.SetTimeout(this.SettingsReaderService.SessionTimeout);
+                this.OfferService.SignInOffer(guid, user);
+                this.SessionProvider.SetTimeout(this.SettingsService.SessionTimeout);
 
                 try
                 {
@@ -129,106 +128,179 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (ex.Error.Code == "OF-SIO-CSS")
                 {
                     this.Logger.Error(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})", ex);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_NOT_SIGNED);
+                    return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_NOT_SIGNED);
                 }
 
                 this.Logger.Fatal(guid, ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + ex.Error.Code);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, ex.Error.Code);
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Error when displaying offer.", ex);
-                var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.OFFER_EXCEPTION;
-                return this.Redirect(redirectUrl);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_EXCEPTION);
             }
         }
 
         // AcceptedOfferController
         public ActionResult AcceptedOffer()
         {
-            string guid = string.Empty;
+            string guid = this.GetGuid();
 
             try
             {
-                if (!this.Context.IsNormalMode())
+                if (!this.ContextWrapper.IsNormalMode())
                 {
                     return this.GetAcceptedOfferEditView();
                 }
-                
-                if (!this.AuthenticationService.IsLoggedIn())
+
+                if (!this.UserService.IsAuthorizedFor(guid))
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return this.Redirect(PAGE_LINK_TYPES.Login, guid);
                 }
 
-                var user = this.AuthenticationService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(guid);
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(guid, $"User cannot read offer");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
-                    var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
-                    return Redirect(url);
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
                 }
 
                 if (!offer.IsAccepted)
                 {
-                    var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer);
-                    return Redirect(url);
+                    return Redirect(PAGE_LINK_TYPES.Offer, guid);
                 }
 
                 var datasource = this.MvcContext.GetPageContextItem<IPageAcceptedOfferModel>();
-                var definition = this.SettingsReaderService.GetDefinition(offer);
-                var settings = this.SettingsReaderService.GetSiteSettings();
-                var viewModel = new AcceptedOfferViewModel(settings);
+                var definition = this.SettingsService.GetDefinition(offer);
+                var settings = this.SettingsService.GetSiteSettings();
+                var viewModel = new AcceptedOfferViewModel(settings, guid);
                 viewModel.Datasource = datasource;
                 viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferAcceptedMainText.Text, offer.TextParameters);
                 viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
                 viewModel["appUnavailableText"] = settings.ApplicationUnavailableText;
                 viewModel.AbMatrixCombinationPixelUrl = definition.OfferAcceptedAbMatrixPixel?.Src;
 
+                if (user.IsCognitoGuid(guid))
+                {
+                    var cognitoSettings = this.SettingsService.GetCognitoSettings();
+                    viewModel.ShowDashboardButton = true;
+                    viewModel.ButtonDashboardUrl = Utils.SetQuery(cognitoSettings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity);
+                }
+
                 return View("/Areas/eContracting2/Views/AcceptedOffer.cshtml", viewModel);
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Error when displaying accepted offer.", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid);
             }
         }
 
         // ExpirationController
         public ActionResult Expiration()
         {
-            string guid = string.Empty;
+            string guid = this.GetGuid();
 
             try
             {
-                if (!this.Context.IsNormalMode())
+                if (!this.ContextWrapper.IsNormalMode())
                 {
                     return this.GetExpirationEditModel();
                 }
 
-                if (!this.AuthenticationService.IsLoggedIn())
+                if (!this.UserService.IsAuthorizedFor(guid))
                 {
-                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return Redirect(PAGE_LINK_TYPES.SessionExpired, guid);
                 }
 
-                var data = this.AuthenticationService.GetCurrentUser();
-                guid = data.Guid;
-                var offer = this.ApiService.GetOffer(guid);
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(null, $"Session expired");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
 
-                var definition = this.SettingsReaderService.GetDefinition(offer);
+                var data = this.RequestCacheService.GetOffer(guid);
+
+                if (data == null)
+                {
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
                 var datasource = this.MvcContext.GetPageContextItem<IPageExpirationModel>();
 
                 var viewModel = new PageExpirationViewModel();
                 viewModel.Datasource = datasource;
-                viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferExpiredMainText.Text, offer.TextParameters);
+                viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferExpiredMainText.Text, data.TextParameters);
                 viewModel.AbMatrixCombinationPixelUrl = definition.OfferExpiredAbMatrixPixel?.Src;
                 return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Error when displaying expiration page", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid);
+            }
+        }
+
+        // ThankYouController
+        public ActionResult ThankYou()
+        {
+            var guid = this.GetGuid();
+
+            try
+            {
+                if (!this.ContextWrapper.IsNormalMode())
+                {
+                    return this.GetThankYouEditModel();
+                }
+
+                if (!this.UserService.IsAuthorizedFor(guid))
+                {
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return Redirect(PAGE_LINK_TYPES.SessionExpired, guid);
+                }
+
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(null, $"Session expired");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+
+                if (offer == null)
+                {
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                if (!offer.IsAccepted)
+                {
+                    this.Logger.Info(guid, $"Offer is not accepted");
+                    return this.Redirect(PAGE_LINK_TYPES.Offer, guid);
+                }
+
+                this.ClearUserData(guid);
+
+                var viewModel = this.GetThankYouViewModel(offer, user);
+                return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(guid, $"Error when displaying thank you page", ex);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid);
             }
         }
 
@@ -239,50 +311,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/RichText.cshtml", dataSource);
         }
 
-        // ThankYouController
-        public ActionResult ThankYou()
-        {
-            var guid = string.Empty;
-
-            try
-            {
-                if (!this.Context.IsNormalMode())
-                {
-                    return this.GetThankYouEditModel();
-                }
-
-                if (!this.AuthenticationService.IsLoggedIn())
-                {
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SessionExpired));
-                }
-
-                var user = this.AuthenticationService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(guid);
-
-                if (!offer.IsAccepted)
-                {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer);
-                    this.Logger.Info(guid, $"Offer is not accepted");
-                    return this.Redirect(redirectUrl);
-                }
-
-                this.ClearUserData(guid);
-
-                var viewModel = this.GetThankYouViewModel(offer);
-                return this.View("/Areas/eContracting2/Views/ThankYou.cshtml", viewModel);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(guid, $"Error when displaying thank you page", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
-            }
-        }
-
         // UserBlockedController
         public ActionResult UserBlocked()
         {
-            var guid = string.Empty;
+            var guid = this.GetGuid();
 
             try
             {
@@ -292,14 +324,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             catch (Exception ex)
             {
                 this.Logger.Error(guid, "Error when displaying user blocked page", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError));
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid);
             }
         }
 
         // eContractingController
         public ActionResult CookieLaw()
         {
-            var model = this.SettingsReaderService.GetSiteSettings().CookieLawSettings;
+            var model = this.SettingsService.GetSiteSettings().CookieLawSettings;
 
             if (model != null)
             {
@@ -313,7 +345,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageDisclaimerModel>();
 
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return View("/Areas/eContracting2/Views/Edit/Disclaimer.cshtml", datasource);
             }
@@ -323,7 +355,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Error404()
         {
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return this.GetError404EditView();
             }
@@ -331,7 +363,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var code = this.Request.QueryString["code"];
             var datasource = this.MvcContext.GetPageContextItem<IPageError404Model>();
 
-            if (!this.Context.IsEditMode())
+            if (!this.ContextWrapper.IsEditMode())
             {
                 var error = Constants.GetErrorDescription(code);
                 datasource.PageTitle = datasource.PageTitle.Replace("{CODE}", error);
@@ -343,7 +375,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Error500()
         {
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return this.GetError500EditView();
             }
@@ -352,7 +384,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             var datasource = this.MvcContext.GetPageContextItem<IPageError500Model>();
 
-            if (!this.Context.IsEditMode())
+            if (!this.ContextWrapper.IsEditMode())
             {
                 var error = Constants.GetErrorDescription(code);
                 datasource.PageTitle = datasource.PageTitle.Replace("{CODE}", error);
@@ -366,7 +398,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var datasouce = this.MvcContext.GetPageContextItem<IPageSessionExpiredModel>();
 
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return View("/Areas/eContracting2/Views/Edit/SessionExpired.cshtml", datasouce);
             }
@@ -382,10 +414,51 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Header()
         {
-            var model = this.MvcContext.GetPageContextItem<IPageHeaderModel>();
-            // show the logout button whenever the user is logged in, except of the logout action likely used on SessionExpired page to logout just after rendering the header component
-            model.ShowLogoutButton = this.AuthenticationService.IsLoggedIn() && !this.IsLogoutParam();
-            return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", model);
+            var guid = this.GetGuid();
+            bool authorized = this.UserService.IsAuthorized();
+            var datasource = this.MvcContext.GetDataSourceItem<IPageHeaderModel>();
+            var viewModel = new HeaderViewModel();
+            viewModel.Datasource = datasource;
+
+            if (authorized)
+            {
+                viewModel.ShowLogoutButton = true;
+                var siteSettings = this.SettingsService.GetSiteSettings();
+                string redirectUrl = string.Empty;
+
+                var authType = AUTH_METHODS.TWO_SECRETS;
+                var user = this.UserService.GetUser();
+
+                if (user.AuthorizedGuids.ContainsKey(guid))
+                {
+                    authType = user.AuthorizedGuids[guid];
+                }
+                else
+                {
+                    authType = AUTH_METHODS.COGNITO;
+                }
+
+                if (authType == AUTH_METHODS.TWO_SECRETS)
+                {
+                    var url = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Login, guid);
+                    redirectUrl = $"{this.Request.Url.Scheme}://{this.Request.Url.Host}/logout?{Constants.QueryKeys.REDIRECT}=" + HttpUtility.UrlEncode(url);
+                    redirectUrl = Utils.SetQuery(redirectUrl, Constants.QueryKeys.GUID, guid);
+                    viewModel.LogoutUrlLabel = datasource.LogoutLinkLabel;
+                }
+                else
+                {
+                    var logout = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Logout, guid);
+                    logout = Utils.SetQuery(logout, Constants.QueryKeys.GUID, guid);
+                    var url = this.SettingsService.GetCognitoSettings().InnogyLogoutUrl;
+                    redirectUrl = Utils.SetQuery(url, Constants.QueryKeys.REDIRECT, logout);
+                    viewModel.LogoutUrlLabel = datasource.LogoutLinkCognitoLabel;
+                }
+
+                // show the logout button whenever the user is logged in, except of the logout action likely used on SessionExpired page to logout just after rendering the header component
+                viewModel.LogoutUrl = redirectUrl;
+            }
+
+            return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", viewModel);
         }
 
         public ActionResult Footer()
@@ -406,13 +479,38 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.View("/Areas/eContracting2/Views/PromoBox.cshtml", datasource);
         }
 
+        public ActionResult AccountButtons()
+        {
+            var guid = this.GetGuid();
+            var offer = this.RequestCacheService.GetOffer(guid);
+            var settings = this.SettingsService.GetCognitoSettings();
+            var datasource = this.MvcContext.GetDataSourceItem<IAccountButtonsModel>();
+            var user = this.UserService.GetUser();
+            var viewModel = new ButtonsViewModel();
+            viewModel.Datasource = datasource;
+            viewModel.ShowRegistrationButtons = !user.HasAuth(AUTH_METHODS.COGNITO);
+            viewModel.HasTooltip = !string.IsNullOrEmpty(datasource.ButtonLoginAccountTooltip);
+
+            if (viewModel.ShowRegistrationButtons)
+            {
+                viewModel.ButtonLoginAccountUrl = Utils.SetQuery(settings.InnogyLoginUrl, Constants.QueryKeys.REDIRECT, settings.InnogyDashboardUrl);
+                viewModel.ButtonNewAccountUrl = settings.InnogyRegistrationUrl;
+            }
+            else
+            {
+                viewModel.ButtonDashboardUrl = Utils.SetQuery(settings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity);
+            }
+
+            return View("/Areas/eContracting2/Views/AccountButtons.cshtml", viewModel);
+        }
+
         protected internal OfferViewModel GetOfferViewModel(OfferModel offer, IPageNewOfferModel datasource)
         {
-            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var definition = this.SettingsService.GetDefinition(offer);
             this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new OfferViewModel(siteSettings);
+            var steps = this.SettingsService.GetSteps(datasource.Step);
+            var siteSettings = this.SettingsService.GetSiteSettings();
+            var viewModel = new OfferViewModel(siteSettings, offer.Guid);
             viewModel.PageTitle = definition.OfferTitle.Text;
             viewModel.MainText = definition.OfferMainText.Text;
             viewModel.Steps = new StepsViewModel(steps);
@@ -420,7 +518,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
             viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
             viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
-            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.ThankYouPage = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.ThankYou, offer.Guid);
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
 
             if (offer.HasGDPR)
@@ -479,16 +577,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected internal ActionResult GetOfferEditView()
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageNewOfferModel>();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var steps = this.SettingsService.GetSteps(datasource.Step);
 
-            var data = this.Cache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
-            var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
 
-            var siteSettings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new OfferViewModel(siteSettings);
+            var siteSettings = this.SettingsService.GetSiteSettings();
+            var viewModel = new OfferViewModel(siteSettings, Constants.FakeOfferGuid);
             viewModel.Definition = definition;
-            viewModel.PageTitle = definition.OfferTitle.Text;
-            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.PageTitle = definition.OfferTitle?.Text;
+            viewModel.MainText = definition.OfferMainText?.Text;
             viewModel.Steps = new StepsViewModel(steps);
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList();
             viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
@@ -497,7 +595,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.ThankYouPage = siteSettings.ThankYou.Url;
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
 
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return this.View("/Areas/eContracting2/Views/Edit/Offer.cshtml", viewModel);
             }
@@ -508,9 +606,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected internal ActionResult GetAcceptedOfferEditView()
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageAcceptedOfferModel>();
-            var definition = this.SettingsReaderService.GetDefinitionDefault();
-            var settings = this.SettingsReaderService.GetSiteSettings();
-            var viewModel = new AcceptedOfferViewModel(settings);
+            var definition = this.SettingsService.GetDefinitionDefault();
+            var settings = this.SettingsService.GetSiteSettings();
+            var viewModel = new AcceptedOfferViewModel(settings, Constants.FakeOfferGuid);
             viewModel.Datasource = datasource;
             viewModel.MainText = definition.OfferAcceptedMainText.Text;
             viewModel["appUnavailableTitle"] = "No available";
@@ -518,17 +616,29 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/Edit/AcceptedOffer.cshtml", viewModel);
         }
 
-        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer)
+        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer, UserCacheDataModel user)
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
-            var definition = this.SettingsReaderService.GetDefinition(offer);
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var definition = this.SettingsService.GetDefinition(offer);
+            var steps = this.SettingsService.GetSteps(datasource.Step);
+            var settings = this.SettingsService.GetCognitoSettings();
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
-            viewModel.MainText = Utils.GetReplacedTextTokens(definition.MainTextThankYou.Text, offer.TextParameters);
-            var scriptParameters = this.GetScriptParameters(offer, datasource, definition);
-            viewModel.ScriptParameters["eCat"] = scriptParameters.eCat;
-            viewModel.ScriptParameters["eAct"] = scriptParameters.eAct;
-            viewModel.ScriptParameters["eLab"] = scriptParameters.eLab;
+
+            var mainText = definition.MainTextThankYou.Text;
+
+            if (user.IsCognitoGuid(offer.Guid) && definition.MainTextThankYou2?.Text != null)
+            {
+                var withoutHtml = Utils.StripHtml(definition.MainTextThankYou2.Text);
+
+                if (!string.IsNullOrEmpty(withoutHtml))
+                {
+                    mainText = definition.MainTextThankYou2.Text;
+                }
+            }
+
+            viewModel.MainText = Utils.GetReplacedTextTokens(mainText, offer.TextParameters);
+            var googleEvendData = this.GetGoogleEventData(offer, datasource, definition);
+            viewModel.ScriptParameters = googleEvendData;
 
             viewModel.AbMatrixCombinationPixelUrl = definition.ThankYouAbMatrixPixel?.Src;
 
@@ -537,11 +647,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetThankYouEditModel()
         {
+            var offer = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var definition = this.SettingsService.GetDefinition(offer.Process, offer.ProcessType);
+            var steps = this.SettingsService.GetSteps(datasource.Step);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
+            viewModel.MainText = definition.MainTextThankYou.Text;
 
-            if (this.Context.IsEditMode())
+            if (this.ContextWrapper.IsEditMode())
             {
                 return this.View("/Areas/eContracting2/Views/Edit/ThankYou.cshtml", viewModel);
             }
@@ -555,7 +668,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var viewModel = new PageExpirationViewModel();
             viewModel.Datasource = datasource;
 
-            if (this.Context.IsPreviewMode())
+            if (this.ContextWrapper.IsPreviewMode())
             {
                 return View("/Areas/eContracting2/Views/Expiration.cshtml", viewModel);
             }
@@ -588,42 +701,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal (string eCat, string eAct, string eLab) GetScriptParameters(OfferModel offer, IPageThankYouModel datasource, IDefinitionCombinationModel definition)
+        protected internal GoogleAnalyticsEvendDataModel GetGoogleEventData(OfferModel offer, IPageThankYouModel datasource, IDefinitionCombinationModel definition)
         {
-            var eCat = string.Empty;
-            var eAct = string.Empty;
-            var eLab = string.Empty;
-
-            try
-            {
-                var type = offer.IsCampaign ? datasource.CampaignLabel : datasource.IndividualLabel;
-                var code = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
-                var commodity = string.Empty;
-
-                if (offer.Commodity.StartsWith(Constants.GTMElectricityIdentifier))
-                {
-                    commodity = datasource.ElectricityLabel;
-                }
-                else
-                {
-                    commodity = datasource.GasLabel;
-                }
-
-                var tokens = new Dictionary<string, string>();
-                tokens.Add("TYPE", type);
-                tokens.Add("CAMPAIGN", code);
-                tokens.Add("COMMODITY", commodity);
-
-                eCat = Utils.GetReplacedTextTokens(datasource.GoogleAnalytics_eCat, tokens);
-                eAct = Utils.GetReplacedTextTokens(definition.Process.GoogleAnalytics_eAct, tokens);
-                eLab = Utils.GetReplacedTextTokens(definition.ProcessType.GoogleAnalytics_eLab, tokens);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(offer.Guid, $"Cannot create data for Google Tag Manager (eCat, eAct, eLab)", ex);
-            }
-
-            return (eCat, eAct, eLab);
+            return this.GetGoogleEventData(
+                offer,
+                datasource.CampaignLabel,
+                datasource.IndividualLabel,
+                datasource.ElectricityLabel,
+                datasource.GasLabel,
+                datasource.GoogleAnalytics_eCat,
+                definition.Process.GoogleAnalytics_eAct,
+                definition.ProcessType.GoogleAnalytics_eLab,
+                definition);
         }
 
         protected internal bool IsLogoutParam()

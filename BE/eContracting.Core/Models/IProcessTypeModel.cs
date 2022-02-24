@@ -19,5 +19,8 @@ namespace eContracting.Models
 
         [SitecoreField("eLab")]
         string GoogleAnalytics_eLab { get; set; }
+
+        [SitecoreField("e_Name")]
+        string e_Name { get; set; }
     }
 }

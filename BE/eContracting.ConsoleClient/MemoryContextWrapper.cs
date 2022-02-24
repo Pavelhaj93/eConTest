@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Sitecore.Sites;
 
 namespace eContracting.ConsoleClient
@@ -14,9 +15,19 @@ namespace eContracting.ConsoleClient
             return "Console client";
         }
 
+        public HttpCookieCollection GetCookies()
+        {
+            return new HttpCookieCollection();
+        }
+
         public string GetIpAddress()
         {
             return "10.0.0.0";
+        }
+
+        public string GetQueryValue(string key)
+        {
+            return "value";
         }
 
         public string GetSetting(string name)

@@ -27,9 +27,6 @@ Languages:
       Hint: CookieSettingsLink
       Value: |
         <link text="Nastavení cookies" linktype="javascript" url="javascript:CookieConsent.renew();" anchor="" />
-    - ID: "3b0d0eb8-010c-4980-bd12-deddc04d8297"
-      Hint: CookiePolicyLinkLabel
-      Value: Cookie policy
     - ID: "4c6d627a-ee09-4f7c-a19c-08bd41761ead"
       Hint: EmailText
       Value: info@innogy.cz
@@ -50,6 +47,3 @@ Languages:
       Hint: CookiePolicyLink
       Value: |
         <link text="Cookie policy" linktype="external" url="https://www.innogy.cz/cookie-policy/" anchor="" target="_blank" />
-    - ID: "e9cec94d-62d1-452c-893c-561c8ef9e188"
-      Hint: CookieSettingsLinkLabel
-      Value: Nastavení cookies

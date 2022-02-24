@@ -11,3 +11,12 @@
 @mixin transition($property, $duration: $transition-duration, $easing: ease) {
   transition: $property $transition-duration $easing;
 }
+
+// Set the both width and height with the same values
+// @param {Unit} width - Width to be set
+// @param {Unit} height - Height to be set
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}

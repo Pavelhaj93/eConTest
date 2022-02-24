@@ -48,6 +48,11 @@ namespace eContracting
         /// <summary>
         /// Login page.
         /// </summary>
-        Login
+        Login,
+
+        /// <summary>
+        /// Logout page.
+        /// </summary>
+        Logout
     }
 }

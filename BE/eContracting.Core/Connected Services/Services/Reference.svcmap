@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="c:\Users\ldvorak\OneDrive - WMCGroup\Projects\Innogy CZ\eContracting\PaperLess\zcch_cache_api.xml" Protocol="file" SourceId="1" />
+    <MetadataSource Address="c:/Repos/DevOps/InnogyCZ/eContracting/BE/Wsdl/zcch_cache_api.wsdl" Protocol="file" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="zcch_cache_api.wsdl" MetadataType="Wsdl" ID="5c6effea-a50f-44e4-a716-3da142a85f4f" SourceId="1" SourceUrl="file:///c:/Users/ldvorak/OneDrive - WMCGroup/Projects/Innogy CZ/eContracting/PaperLess/zcch_cache_api.xml" />
+    <MetadataFile FileName="zcch_cache_api.wsdl" MetadataType="Wsdl" ID="5c6effea-a50f-44e4-a716-3da142a85f4f" SourceId="1" SourceUrl="file:///c:/Repos/DevOps/InnogyCZ/eContracting/BE/Wsdl/zcch_cache_api.wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

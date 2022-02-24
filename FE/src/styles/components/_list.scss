@@ -1,0 +1,27 @@
+$icon-size: 40px;
+
+.list-icon {
+  @include list-unstyled;
+
+  li {
+    min-height: $icon-size;
+    padding-left: calc(#{$icon-size} + #{$spacer});
+    margin-bottom: $spacer;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      @include size($icon-size);
+      position: absolute;
+      top: -4px;
+      left: 0;
+    }
+  }
+
+  &--check {
+    li::before {
+      background: svg-load('../icons/svg/check-circle.svg', fill=$color-orange) no-repeat 0 0;
+    }
+  }
+}

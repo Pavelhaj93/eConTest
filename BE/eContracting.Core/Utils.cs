@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Web;
 using eContracting.Models;
 using eContracting.Services;
+using Newtonsoft.Json;
 using Sitecore.Web;
 
 namespace eContracting
@@ -27,6 +28,8 @@ namespace eContracting
         /// Regular expression for XML attribute ' xmlns="..."'.
         /// </summary>
         private static Regex RegexAttrXmlNamespace = new Regex("( xmlns=\"[^\"]*\")", RegexOptions.Compiled);
+
+        private static Regex RegexHtml = new Regex("<(.|\n)*?>", RegexOptions.Compiled);
 
         /// <summary>
         /// Gers readable size.
@@ -65,23 +68,58 @@ namespace eContracting
                 rijAlg.Key = Encoding.UTF8.GetBytes(key);
                 rijAlg.IV = Encoding.UTF8.GetBytes(vector);
 
-                var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV);
-
-                using (var msEncrypt = new MemoryStream())
+                using (var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV))
                 {
-                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    using (var msEncrypt = new MemoryStream())
                     {
-                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                         {
-                            swEncrypt.Write(input);
-                        }
+                            using (var swEncrypt = new StreamWriter(csEncrypt))
+                            {
+                                swEncrypt.Write(input);
+                            }
 
-                        encrypted = msEncrypt.ToArray();
+                            encrypted = msEncrypt.ToArray();
+                        }
                     }
                 }
             }
 
             return Convert.ToBase64String(encrypted);
+        }
+
+        public static T AesDecrypt<T>(string input, string key, string vector)
+        {
+            using (var rijAlg = new RijndaelManaged())
+            {
+                rijAlg.Key = Encoding.UTF8.GetBytes(key);
+                rijAlg.IV = Encoding.UTF8.GetBytes(vector);
+
+                using (var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV))
+                {
+                    using (var msEncrypt = new MemoryStream())
+                    {
+                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Read))
+                        {
+                            using (var swEncrypt = new StreamReader(csEncrypt))
+                            {
+                                var output = swEncrypt.ReadToEnd();
+
+                                var tt = typeof(T);
+
+                                if (tt == typeof(object))
+                                {
+                                    return JsonConvert.DeserializeObject<T>(output);
+                                }
+                                else
+                                {
+                                    return (T)(object)output;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public static string GetMd5(string input)
@@ -102,6 +140,14 @@ namespace eContracting
             }
         }
 
+        /// <summary>
+        /// Add query <paramref name="key"/> and <paramref name="value"/> to <paramref name="url"/>. 
+        /// </summary>
+        /// <remarks>Parameter <paramref name="value"/> will be encoded.</remarks>
+        /// <param name="url">The source url.</param>
+        /// <param name="key">The query key.</param>
+        /// <param name="value">The query value.</param>
+        /// <returns><paramref name="url"/> with added query param.</returns>
         public static string SetQuery(Uri url, string key, string value)
         {
             var uriBuilder = new UriBuilder(url);
@@ -111,9 +157,32 @@ namespace eContracting
             return uriBuilder.Uri.ToString();
         }
 
+        /// <summary>
+        /// Add query <paramref name="key"/> and <paramref name="value"/> to <paramref name="url"/>. 
+        /// </summary>
+        /// <remarks>Parameter <paramref name="value"/> will be encoded.</remarks>
+        /// <param name="url">The source url.</param>
+        /// <param name="key">The query key.</param>
+        /// <param name="value">The query value.</param>
+        /// <returns><paramref name="url"/> with added query param.</returns>
         public static string SetQuery(string url, string key, string value)
         {
             return SetQuery(new Uri(url), key, value);
+        }
+
+        public static string SetQuery(string url, NameValueCollection query)
+        {
+            var newUrl = url;
+
+            if (query?.Count > 0)
+            {
+                foreach (var key in query.AllKeys)
+                {
+                    newUrl = SetQuery(newUrl, key, query[key]);
+                }
+            }
+
+            return newUrl;
         }
 
         public static Uri RemoveQuery(Uri url, string key)
@@ -193,6 +262,17 @@ namespace eContracting
             return input;
         }
 
+        public static string StripHtml(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                return input;
+            }
+
+            var output = RegexHtml.Replace(input, string.Empty);
+            return output;
+        }
+
         /// <summary>
         /// Gets value from 'HttpContext.Current.Request', first try take it from 'ServerVariables["HTTP_X_FORWARDED_FOR"]', if it's empty, try take it from 'ServerVariables["REMOTE_ADDR"]'.
         /// </summary>
@@ -253,6 +333,21 @@ namespace eContracting
             var list = new List<T>(array);
             list.Add(newItem);
             return list.ToArray();
+        }
+
+        public static NameValueCollection GetUtmQueryParams(NameValueCollection query)
+        {
+            var filteredQuery = new NameValueCollection();
+
+            foreach (var k in query.AllKeys)
+            {
+                if (k.StartsWith("utm_"))
+                {
+                    filteredQuery.Add(k, query[k]);
+                }
+            }
+
+            return filteredQuery;
         }
     }
 }

@@ -24,11 +24,3 @@
 
     window.addEventListener('popstate', push);
 </script>
-
-<script>
-dataLayer.push(
-{
-    'event': 'gaEvent',
-    'gaEventData': @JsonConvert.SerializeObject(Model.ScriptParameters)
-});
-</script>

@@ -14,7 +14,7 @@ using Sitecore.Reflection.Emit;
 namespace eContracting.Models
 {
     [ExcludeFromCodeCoverage]
-    public class OfferModel
+    public class OfferModel : IOfferDataModel
     {
         /// <summary>
         /// Inner XML with content from SAP.
@@ -52,13 +52,13 @@ namespace eContracting.Models
         /// Gets or sets flag if offer is accepted.
         /// </summary>
         [JsonProperty("accepted")]
-        public readonly bool IsAccepted;
+        public bool IsAccepted { get; }
 
         /// <summary>
         /// Gets a value indicating whether offer already expired.
         /// </summary>
         [JsonProperty("expired")]
-        public readonly bool IsExpired;
+        public bool IsExpired { get; }
 
         /// <summary>
         /// Gets or sets infromation when offer was accepted.
@@ -259,6 +259,44 @@ namespace eContracting.Models
                 }
 
                 return this.Documents.Any(attachment => !string.IsNullOrEmpty(attachment.AddInfo) && attachment.AddInfo.ToLower() == "x");
+            }
+        }
+
+        /// <summary>
+        /// Actual value of customer GRPD identity number from <see cref="Constants.OfferAttributes.ZIDENTITYID"/>.
+        /// </summary>
+        [JsonProperty("gdrp")]
+        public string GdprIdentity
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == Constants.OfferAttributes.ZIDENTITYID)?.Value;
+            }
+        }
+
+        /// <summary>
+        /// Gets status of customer registration in app portal. 
+        /// </summary>
+        /// <value>Possible values: PORTAL, PORTAL|APP, APP</value>
+        /// <remarks>If attribute <see cref="Constants.OfferAttributes.MCFU_REG_STAT"/>  doesn't exist or is empty, customer is not able to log in via innosvet login.</remarks>
+        [JsonProperty("mcfu")]  
+        public string McfuRegStat
+        {
+            get
+            {
+                return this.Attributes.FirstOrDefault(x => x.Key == Constants.OfferAttributes.MCFU_REG_STAT)?.Value;
+            }
+        }
+
+        /// <summary>
+        /// Determinates if user has attribute <see cref="Constants.OfferAttributes.MCFU_REG_STAT"/> or not.
+        /// </summary>
+        [JsonProperty("has_mcfu")]
+        public bool HasMcfu
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(this.McfuRegStat);
             }
         }
 

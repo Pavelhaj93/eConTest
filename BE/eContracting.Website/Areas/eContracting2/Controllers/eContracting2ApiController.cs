@@ -28,13 +28,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     {
         protected readonly ILogger Logger;
         protected readonly ISessionProvider SessionProvider;
-        protected readonly IOfferService ApiService;
-        protected readonly IAuthenticationService AuthService;
+        protected readonly IOfferService OfferService;
+        protected readonly IUserService UserService;
         protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IOfferJsonDescriptor OfferJsonDescriptor;
         protected readonly IFileOptimizer FileOptimizer;
         protected readonly ISignService SignService;
-        protected readonly IUserDataCacheService UserDataCacheService;
+        protected readonly IDataSessionCacheService UserDataCacheService;
         protected readonly IUserFileCacheService UserFileCacheService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
@@ -47,12 +47,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
-            this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
+            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
+            this.UserService = ServiceLocator.ServiceProvider.GetRequiredService<IUserService>();
             this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.OfferJsonDescriptor = ServiceLocator.ServiceProvider.GetRequiredService<IOfferJsonDescriptor>();
             this.SignService = ServiceLocator.ServiceProvider.GetRequiredService<ISignService>();
-            this.UserDataCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
+            this.UserDataCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
             this.UserFileCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.FileOptimizer = ServiceLocator.ServiceProvider.GetRequiredService<IFileOptimizer>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
@@ -64,12 +64,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public eContracting2ApiController(
             ILogger logger,
             ISessionProvider sessionProvider,
-            IOfferService apiService,
-            IAuthenticationService authService,
+            IOfferService offerService,
+            IUserService userService,
             ISettingsReaderService settingsReaderService,
             IOfferJsonDescriptor offerJsonDescriptor,
             ISignService signService,
-            IUserDataCacheService userDataCache,
+            IDataSessionCacheService userDataCache,
             IUserFileCacheService userFileCache,
             IFileOptimizer fileOptimizer,
             IEventLogger eventLogger,
@@ -78,8 +78,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
-            this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
-            this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
+            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
+            this.UserService = userService ?? throw new ArgumentNullException(nameof(userService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
             this.SignService = signService ?? throw new ArgumentNullException(nameof(signService));
             this.OfferJsonDescriptor = offerJsonDescriptor ?? throw new ArgumentNullException(nameof(offerJsonDescriptor));
@@ -104,26 +104,30 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Files()
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
                 // needs to check like this because info about it is only as custom session property :-(
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = this.ApiService.GetAttachments(offer);
+                var attachments = this.OfferService.GetAttachments(offer, user);
 
                 if ((attachments?.Length ?? 0) == 0)
                 {
@@ -168,26 +172,30 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> File([FromUri] string id)
         {
-            string guid = null;
+            var guid = this.GetGuid();
 
             try
             {
                 // needs to check like this because info about it is only as custom session property :-(
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = this.ApiService.GetAttachments(offer);
+                var attachments = this.OfferService.GetAttachments(offer, user);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -246,26 +254,30 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Thumbnail([FromUri] string id)
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
                 // needs to check like this because info about it is only as custom session property :-(
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = this.ApiService.GetAttachments(offer);
+                var attachments = this.OfferService.GetAttachments(offer, user);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -332,26 +344,30 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Sign([FromUri] string id)
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
                 // needs to check like this because info about it is only as custom session property :-(
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var attachments = this.ApiService.GetAttachments(offer);
+                var attachments = this.OfferService.GetAttachments(offer, user);
                 var file = attachments.FirstOrDefault(x => x.UniqueKey == id);
 
                 if (file == null)
@@ -444,13 +460,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Offer()
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
                 }
 
                 if (this.Request.Method == HttpMethod.Post)
@@ -458,9 +479,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return await this.Submit();
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
@@ -472,7 +492,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                var model = this.OfferJsonDescriptor.GetNew(offer);
+                var model = this.OfferJsonDescriptor.GetNew(offer, user);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)
@@ -526,18 +546,22 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public async Task<IHttpActionResult> Accepted()
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
-                var offer = this.ApiService.GetOffer(user.Guid);
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
 
                 if (offer == null)
                 {
@@ -549,7 +573,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest();
                 }
 
-                var model = this.OfferJsonDescriptor.GetAccepted(offer);
+                var model = this.OfferJsonDescriptor.GetAccepted(offer, user);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)
@@ -586,6 +610,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpOptions]
         public async Task<IHttpActionResult> Upload([FromUri] string id)
         {
+            var guid = this.GetGuid();
+
+            if (!this.CanRead(guid))
+            {
+                return this.StatusCode(HttpStatusCode.Unauthorized);
+            }
+
             if (this.Request.Method == HttpMethod.Post)
             {
                 return await this.AddToUpload(id);
@@ -717,9 +748,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             try
             {
                 this.SessionProvider.Set("D2DKeepAlive", DateTime.Now);
-
                 var index = KeepAliveRandomizer.Next(0, catchphrases.Count);
                 var phrase = catchphrases[index];
+
+                var user = this.UserService.GetUser();
+                this.UserService.RefreshAuthorizationIfNeeded(null, user);
+
                 return this.Ok(phrase);
             }
             catch { }
@@ -734,22 +768,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns><see cref="GroupUploadViewModel"/> with current status of the group.</returns>
         protected async Task<IHttpActionResult> GetUpload([FromUri] string id)
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     return this.BadRequest("Invalid id");
                 }
 
-                if (!this.AuthService.IsLoggedIn())
-                {
-                    return this.StatusCode(HttpStatusCode.Unauthorized);
-                }
-
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
+                var user = this.UserService.GetUser();
 
                 var searchGroupParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
                 var result = this.UserFileCacheService.FindGroup(searchGroupParams);
@@ -784,22 +822,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected async Task<IHttpActionResult> AddToUpload([FromUri] string id)
         {
             UploadGroupFileOperationResultModel internalOperationResult= new UploadGroupFileOperationResultModel();
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
                 if (string.IsNullOrWhiteSpace(id))
                 {
                     return this.BadRequest("Invalid id");
                 }
 
-                if (!this.AuthService.IsLoggedIn())
-                {
-                    return this.StatusCode(HttpStatusCode.Unauthorized);
-                }
-
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
+                var user = this.UserService.GetUser();
 
                 if (!this.Request.Content.IsMimeMultipartContent())
                 {
@@ -925,10 +967,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns><see cref="GroupUploadViewModel"/> with current status of related files.</returns>
         protected async Task<IHttpActionResult> DeleteFromUpload([FromUri] string id)
         {
-            string guid = null;
+            string guid = this.GetGuid();
 
             try
             {
+
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
                 string groupId = id;
 
                 if (string.IsNullOrWhiteSpace(groupId))
@@ -943,13 +996,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Invalid file id");
                 }
 
-                if (!this.AuthService.IsLoggedIn())
-                {
-                    return this.StatusCode(HttpStatusCode.Unauthorized);
-                }
-
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
+                var user = this.UserService.GetUser();
                 var groupSearchParams = new DbSearchParameters(groupId, guid, this.SessionProvider.GetId());
                 var group = this.UserFileCacheService.FindGroup(groupSearchParams);
 
@@ -991,7 +1038,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpPost]
         public async Task<IHttpActionResult> Submit()
         {
-            string guid = null;
+            string guid = this.GetGuid();
             
             try
             {
@@ -1000,13 +1047,17 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.Ok();
                 }
 
-                if (!this.AuthService.IsLoggedIn())
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                if (!this.CanRead(guid))
                 {
                     return this.StatusCode(HttpStatusCode.Unauthorized);
                 }
 
-                var user = this.AuthService.GetCurrentUser();
-                guid = user.Guid;
+                var user = this.UserService.GetUser();
 
                 var submitModel = await this.Request.Content.ReadAsAsync<OfferSubmitDataModel>();
 
@@ -1015,7 +1066,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Invalid submit data");
                 }
 
-                var offer = this.ApiService.GetOffer(guid, false);
+                var offer = this.OfferService.GetOffer(guid, user, false);
 
                 if (offer == null)
                 {
@@ -1027,11 +1078,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                this.ApiService.AcceptOffer(offer, submitModel, this.SessionProvider.GetId());
+                this.OfferService.AcceptOffer(offer, submitModel, user, this.SessionProvider.GetId());
 
-                var cachedData = new OfferCacheDataModel(offer.Guid, offer.Process, offer.ProcessType, true, offer.TextParameters);
-                this.UserDataCacheService.Set(Constants.CacheKeys.OFFER_IDENTIFIER, cachedData);
-
+                this.UserService.SaveUser(guid, user);
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);
 
                 return this.Ok();
@@ -1047,7 +1096,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.InternalServerError();
             }
         }
-
 
         /// <summary>
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
@@ -1122,6 +1170,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             outputMsgs.Add((previewOnly ? "Would delete " : "Deleted ") + loginAttemptsCount + " login attempts records.");
 
             return this.Ok(outputMsgs);
+        }
+
+        internal bool CanRead(string guid)
+        {
+            return this.UserService.IsAuthorizedFor(guid);
         }
 
         /// <summary>
@@ -1263,6 +1316,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+        protected IHttpActionResult InvalidGuid(string guid)
+        {
+            return this.BadRequest("Invalid guid");
+        }
+
         internal string GetSafeUploadedFileName(string fileIdFromRequest)
         {
             if (string.IsNullOrEmpty(fileIdFromRequest))
@@ -1272,5 +1330,27 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return fileName;
         }
 
+        /// <summary>
+        /// Gets guid value from query string.
+        /// </summary>
+        protected string GetGuid()
+        {
+            return HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+        }
+
+        protected bool IsValidGuid(string guid)
+        {
+            if (string.IsNullOrEmpty(guid))
+            {
+                return false;
+            }
+
+            if (guid == Constants.FakeOfferGuid)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

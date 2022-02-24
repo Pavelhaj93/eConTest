@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
-using eContracting.Tests;
 using Microsoft.Extensions.Options;
 
 namespace eContracting.ConsoleClient
@@ -24,6 +23,12 @@ namespace eContracting.ConsoleClient
         public bool SaveFilesToDebugFolder { get; } = false;
         public bool ShowDebugMessages { get; } = true;
         public int SessionTimeout { get; } = 20;
+        public int CognitoMinSecondsToRefreshToken { get; }
+
+        public IDefinitionCombinationModel[] GetAllDefinitions()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEnumerable<ILoginTypeModel> GetAllLoginTypes()
         {
@@ -133,6 +138,11 @@ namespace eContracting.ConsoleClient
             return list.ToArray();
         }
 
+        public CognitoSettingsModel GetCognitoSettings()
+        {
+            throw new NotImplementedException();
+        }
+
         public string GetCustomDatabaseConnectionString()
         {
             throw new NotImplementedException();
@@ -213,6 +223,11 @@ namespace eContracting.ConsoleClient
         }
 
         public string GetPageLink(PAGE_LINK_TYPES type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetPageLink(PAGE_LINK_TYPES type, string guid)
         {
             throw new NotImplementedException();
         }

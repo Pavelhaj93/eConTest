@@ -7,7 +7,7 @@ import { OfferStoreContext } from '@context'
 import { PreloadImage } from '@components'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
-import { isMobileDevice } from '@utils'
+import { isMobileDevice, parseUrl } from '@utils'
 
 type Props = {
   id: string
@@ -16,10 +16,11 @@ type Props = {
   labels: Record<string, any>
   thumbnailUrl: string
   signFileUrl: string
+  guid: string
 }
 
 export const SignatureModal: React.FC<Props> = observer(
-  ({ id, show, onClose, labels, thumbnailUrl, signFileUrl }) => {
+  ({ id, show, onClose, labels, thumbnailUrl, signFileUrl, guid }) => {
     const store = useContext(OfferStoreContext)
     const t = useLabels(labels)
     const signatureRef = useRef<SignaturePad>()
@@ -115,7 +116,7 @@ export const SignatureModal: React.FC<Props> = observer(
                 {/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
                 <div className="document-wrapper mb-3" tabIndex={0}>
                   <PreloadImage
-                    src={documentUrl}
+                    src={parseUrl(documentUrl, { guid })}
                     className="img-fluid d-block mx-auto"
                     alt={t('signatureModalThumbnailAlt')}
                   />

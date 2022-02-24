@@ -1,6 +1,7 @@
 ﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Website.Areas.eContracting2.Models
+@using Newtonsoft.Json
 @model LoginViewModel
 @{
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
@@ -16,10 +17,16 @@
                 @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
             }
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-xl-10">
                     <div class="info">
                         @Html.Sitecore().Placeholder("eContracting2-login" + matrix)
                     </div>
+                    @if (Model.ShowInnogyAccountHideInfo)
+                    {
+                        <div class="info text-center">
+                            @Html.Raw(Model.Datasource.WarningDontHaveAccess)
+                        </div>
+                    }
                     <div id="app"></div>
                 </div>
             </div>
@@ -30,3 +37,16 @@
 <script>
     var appConfig = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
 </script>
+
+@if (Model.ViewEventData != null)
+{
+    <script>
+if (dataLayer !== undefined) {
+    dataLayer.push(
+    {
+        'event': 'gaEvent',
+        'gaEventData': @Html.Raw(JsonConvert.SerializeObject(Model.ViewEventData))
+    });
+}
+    </script>
+}

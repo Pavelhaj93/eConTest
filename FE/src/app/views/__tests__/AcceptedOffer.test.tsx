@@ -4,12 +4,13 @@ import fetch from 'jest-fetch-mock'
 import { AcceptedOffer } from '../'
 
 const mockProps = {
+  guid: '0635F899B3111EDC9BC4A505A628FCED',
   view: 'Offer',
   offerUrl: '',
   errorPageUrl: '',
   thankYouPageUrl: '',
   sessionExpiredPageUrl: '',
-  getFileUrl: '/',
+  getFileUrl: '',
   getFileForSignUrl: '',
   signFileUrl: '',
   labels: {},

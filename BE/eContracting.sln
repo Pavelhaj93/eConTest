@@ -108,6 +108,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Tests", "eCont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eContracting.Website.Tests", "eContracting.Website.Tests\eContracting.Website.Tests.csproj", "{065644DA-6066-45C1-A040-172024550583}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cognito", "Cognito", "{A2AACBCC-4AD9-4E2A-9E58-3655D6CFE3B8}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\Examples\Cognito\userData.json = ..\docs\Examples\Cognito\userData.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -211,6 +216,7 @@ Global
 		{F0C6260D-2E17-4D1B-ADC5-B85762E8CF78} = {FCE383FF-8571-4051-95F9-6293F4F54522}
 		{8B0BFC61-FD5E-4629-8F1E-3DDD620F73F1} = {F0C6260D-2E17-4D1B-ADC5-B85762E8CF78}
 		{9728E0BC-DD58-4415-AB32-C6B3E3CED71C} = {F0C6260D-2E17-4D1B-ADC5-B85762E8CF78}
+		{A2AACBCC-4AD9-4E2A-9E58-3655D6CFE3B8} = {FCE383FF-8571-4051-95F9-6293F4F54522}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}

@@ -52,9 +52,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferAcceptedModel GetAccepted(OfferModel offer)
+        public JsonOfferAcceptedModel GetAccepted(OfferModel offer, UserCacheDataModel user)
         {
-            var attachments = this.ApiService.GetAttachments(offer);
+            var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetAccepted(offer, attachments);
         }
 
@@ -77,9 +77,9 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OfferModel offer)
+        public JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user)
         {
-            var attachments = this.ApiService.GetAttachments(offer);
+            var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetNew(offer, attachments);
         }
 

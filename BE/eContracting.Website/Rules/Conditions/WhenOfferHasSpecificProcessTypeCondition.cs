@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,11 +44,22 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid ProcessTypeItemGuid { get; set; }
 
+        protected readonly IDataRequestCacheService CacheService;
+        protected readonly ISitecoreService SitecoreService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="WhenOfferHasSpecificProcessTypeCondition{T}"/> class.
         /// </summary>
-        public WhenOfferHasSpecificProcessTypeCondition()
+        public WhenOfferHasSpecificProcessTypeCondition() : this(
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
         {
+        }
+
+        public WhenOfferHasSpecificProcessTypeCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        {
+            this.CacheService = cacheService;
+            this.SitecoreService = sitecoreService;
         }
 
         /// <summary>
@@ -55,7 +67,7 @@ namespace eContracting.Website.Rules.Conditions
         /// </summary>
         /// <param name="ruleContext">The rule context.</param>
         /// <returns>
-        ///     <c>True</c> if match found in <see cref="AuthDataModel"/>, otherwise <c>false</c>.
+        ///     <c>True</c> if match found in <see cref="UserCacheDataModel"/>, otherwise <c>false</c>.
         ///     Also <c>false</c> if <see cref="ProcessTypeId"/> doesn't exist or user is not logged in.
         /// </returns>
         protected override bool Execute(T ruleContext)
@@ -67,23 +79,22 @@ namespace eContracting.Website.Rules.Conditions
                     return false;
                 }
 
-                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var processType = context.GetItem<IProcessTypeModel>(this.ProcessTypeItemGuid, ruleContext.Item.Language);
+                var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+                var user = this.CacheService.GetOffer(guid);
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                var processType = this.SitecoreService.GetItem<IProcessTypeModel>(this.ProcessTypeItemGuid, builder => builder.Language(ruleContext.Item.Language));
 
                 if (processType == null)
                 {
                     return false;
                 }
 
-                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
-
-                if (offerData == null)
-                {
-                    return false;
-                }
-
-                return offerData.ProcessType == processType.Code;
+                return user.ProcessType == processType.Code;
             }
             catch (Exception ex)
             {

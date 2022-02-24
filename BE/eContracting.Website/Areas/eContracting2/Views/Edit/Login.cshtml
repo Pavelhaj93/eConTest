@@ -1,23 +1,20 @@
 ﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
 @using eContracting.Website.Areas.eContracting2.Models
-
-@inherits GlassView<LoginViewModel>
+@model LoginViewModel
 @{
     var birthDatePlaceholder = Model.Datasource.BirthDatePlaceholder;
     var choices = Model.Choices.ToArray();
 
     string matrixCombinationSuffix = (string.IsNullOrEmpty(Model.BussProcess) || string.IsNullOrEmpty(Model.BussProcessType)) ? string.Empty : "_" + Model.BussProcess + "_" + Model.BussProcessType;
 }
-<p>Matrix: @Model.Definition.Path</p>
-<p><i>Pokud chcete vidět hodnoty z jiné kombinace, běžte do Preview módu, nastavte hodnoty a vraťte se zpět do Edit módu.</i></p>
-<hr />
+@Html.Action("MatrixSwitcher")
 <div class="row">
     <div class="col-12">
         <div>
             @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
             <div class="row justify-content-center">
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-xl-10">
                     <div class="info">
                         <div>@Html.Sitecore().Placeholder("/eContracting2Main/eContracting2-login" + matrixCombinationSuffix)</div>
                     </div>
@@ -26,11 +23,11 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-8 col-12">
                                     <div class="form-group">
-                                        <label class="form-label" for="birthDate">@Editable(Model.Datasource, x => x.BirthDateLabel)</label>
+                                        <label class="form-label" for="birthDate">@Html.Glass().Editable(Model.Datasource, x => x.BirthDateLabel)</label>
                                         <div class="react-datepicker-wrapper">
                                             <div class="react-datepicker__input-container">
                                                 <span class="react-datepicker__input form-control">
-                                                    @Editable(Model.Datasource, x => x.BirthDatePlaceholder)
+                                                    @Html.Glass().Editable(Model.Datasource, x => x.BirthDatePlaceholder)
                                                 </span>
                                             </div>
                                         </div>
@@ -38,10 +35,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="like-label">@Editable(Model.Datasource, x => x.VerificationMethodLabel)</div>
+                                <div class="like-label">@Html.Glass().Editable(Model.Datasource, x => x.VerificationMethodLabel)</div>
                                 @for (int i = 0; i < choices.Length; i++)
                                 {
-                                    <div class="d-md-flex align-items-md-center">
+                                    <div>
                                         <div class="custom-control custom-radio">
                                             <input name="key" type="radio" id="key-0" class="custom-control-input" value="D47D4B80D03FB951A0C49E061CF88D9E">
                                             <label title="" for="key-0" class="custom-control-label">@choices[i].Label</label>
@@ -49,7 +46,7 @@
                                     </div>
                                 }
                             </div>
-                            <button type="button" class="btn-block-mobile btn-inactive btn btn-secondary">@Editable(Model.Datasource, x => x.ButtonText)</button>
+                            <button type="button" class="btn-block-mobile btn-inactive btn btn-secondary">@Html.Glass().Editable(Model.Datasource, x => x.ButtonText)</button>
                         </div>
                     </div>
                 </div>

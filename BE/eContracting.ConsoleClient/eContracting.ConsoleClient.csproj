@@ -261,8 +261,14 @@
     <Compile Include="ContextData.cs" />
     <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="MemoryContextWrapper.cs" />
+    <Compile Include="MemoryDefinitionCombinationModel.cs" />
+    <Compile Include="MemoryLoginTypeModel.cs" />
+    <Compile Include="MemoryProcessModel.cs" />
+    <Compile Include="MemoryProcessTypeModel.cs" />
+    <Compile Include="MemoryRichTextModel.cs" />
+    <Compile Include="MemorySimpleTextModel.cs" />
     <Compile Include="MemoryTextService.cs" />
-    <Compile Include="MemoryUserDataCacheService.cs" />
+    <Compile Include="MemoryDataCacheService.cs" />
     <Compile Include="MemorySettingsReaderService.cs" />
     <Compile Include="MemoryUserFileCacheService.cs" />
     <Compile Include="Program.cs" />
@@ -281,10 +287,6 @@
     <ProjectReference Include="..\eContracting.Services\eContracting.Services.csproj">
       <Project>{f532a851-c440-4513-b563-3eb1c3972ffa}</Project>
       <Name>eContracting.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eContracting.Tests\eContracting.Tests.csproj">
-      <Project>{F1C16540-9450-4A28-BFFF-3F84662F87CD}</Project>
-      <Name>eContracting.Tests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

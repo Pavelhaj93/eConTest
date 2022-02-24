@@ -15,6 +15,8 @@ namespace eContracting.Models
     [SitecoreType(TemplateId = "{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}", AutoMap = true)]
     public interface IPageLoginModel : IBasePageWithStepsModel
     {
+        #region Form
+
         [SitecoreField]
         string BirthDateLabel { get; set; }
 
@@ -51,6 +53,18 @@ namespace eContracting.Models
         [SitecoreField]
         string RequiredFields { get; set; }
 
+        #endregion
+
+        #region Extra Box
+
+        [SitecoreField]
+        IInfoBoxModel InfoLoginBox { get; set; }
+
+        [SitecoreField]
+        string WarningDontHaveAccess { get; set; }
+
+        #endregion
+
         #region Settings
 
         [SitecoreField]
@@ -69,6 +83,30 @@ namespace eContracting.Models
         [SitecoreField]
         bool AutoGenerateTestableCombinationPlaceholders { get; set; }
 
+
+        #endregion
+
+        #region Google Tag Manager Data
+
+        string CampaignLabel { get; set; }
+
+        string IndividualLabel { get; set; }
+
+        string ElectricityLabel { get; set; }
+
+        string GasLabel { get; set; }
+
+        string LoginView_eCat { get; set; }
+
+        string LoginView_eAct { get; set; }
+
+        string LoginView_eLab { get; set; }
+
+        string LoginClick_eCat { get; set; }
+
+        string LoginClick_eAct { get; set; }
+
+        string LoginClick_eLab { get; set; }
 
         #endregion
     }

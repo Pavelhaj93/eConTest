@@ -28,7 +28,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, "", loginType.Key, partnerValue);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
@@ -43,7 +43,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, "23.11.2001", "", "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.KEY_MISMATCH, result);
@@ -58,7 +58,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, "23.11.2001", "key", "");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
@@ -77,7 +77,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, "17.11.2020", "id", partnerValue);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE, result);
@@ -100,7 +100,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate, "invalidkey", "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
@@ -124,7 +124,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate, key, "132546796");
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION, result);
@@ -152,7 +152,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId2);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_VALUE, result);
@@ -180,7 +180,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate2, key, partnerId2);
 
             Assert.Equal(AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE, result);
@@ -206,7 +206,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.GetLoginState(offer, loginType, birthdate, key, partnerId);
 
             Assert.Equal(AUTH_RESULT_STATES.SUCCEEDED, result);
@@ -221,7 +221,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "486937476");
 
             Assert.True(result);
@@ -236,7 +236,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "4869x7476");
 
             Assert.False(result);
@@ -250,7 +250,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "4869x7476");
 
             Assert.True(result);
@@ -265,7 +265,7 @@ namespace eContracting.Services.Tests
             var mockReaderSettings = new Mock<ISettingsReaderService>();
             var mockCache = new Mock<IUserDataCacheService>();
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsRegexValid(loginType, "486937476");
 
             Assert.False(result);
@@ -283,8 +283,8 @@ namespace eContracting.Services.Tests
             var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Set(Constants.CacheKeys.AUTH_DATA, authData)).Callback(() => { inserted = true; });
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
-            service.Login(authData);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
+            service.Authenticate(authData);
 
             Assert.True(inserted);
         }
@@ -300,7 +300,7 @@ namespace eContracting.Services.Tests
             var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns(authData);
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsLoggedIn();
 
             Assert.True(result);
@@ -314,7 +314,7 @@ namespace eContracting.Services.Tests
             var mockCache = new Mock<IUserDataCacheService>();
             mockCache.Setup(x => x.Get<AuthDataModel>(Constants.CacheKeys.AUTH_DATA)).Returns((AuthDataModel)null);
 
-            var service = new AuthenticationService(mockReaderSettings.Object, mockCache.Object);
+            var service = new TwoSecrectsAuthService(mockReaderSettings.Object, mockCache.Object);
             var result = service.IsLoggedIn();
 
             Assert.False(result);

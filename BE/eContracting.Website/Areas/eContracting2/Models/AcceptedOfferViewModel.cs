@@ -24,7 +24,12 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("abMatrixCombinationPixelUrl")]
         public string AbMatrixCombinationPixelUrl { get; set; }
 
-        public AcceptedOfferViewModel(ISiteSettingsModel siteSettings) : base("AcceptedOffer", siteSettings)
+        [JsonIgnore]
+        public bool ShowDashboardButton { get; set; }
+
+        public string ButtonDashboardUrl { get; set; }
+
+        public AcceptedOfferViewModel(ISiteSettingsModel siteSettings, string guid) : base("AcceptedOffer", siteSettings, guid)
         {
         }
     }

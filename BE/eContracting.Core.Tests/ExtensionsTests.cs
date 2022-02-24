@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
+using Glass.Mapper.Sc;
 using Moq;
 using Xunit;
 
@@ -140,6 +141,56 @@ namespace eContracting.Core.Tests
             var result = dic.HasValue(key);
 
             Assert.True(result);
+        }
+
+        [Fact]
+        public void GetItems_Returns_Collection()
+        {
+            var path = "/sitecore/content";
+            var collection = new List<IBaseSitecoreModel>();
+            collection.Add(new Mock<IBaseSitecoreModel>().Object);
+            collection.Add(new Mock<IBaseSitecoreModel>().Object);
+            collection.Add(new Mock<IBaseSitecoreModel>().Object);
+
+            var mockFolder = new Mock<IFolderItemModel<IBaseSitecoreModel>>();
+            mockFolder.Setup(x => x.Children).Returns(collection);
+
+            var mock = new Mock<ISitecoreService>();
+            mock.Setup(x => x.GetItem<IFolderItemModel<IBaseSitecoreModel>>(path)).Returns(mockFolder.Object);
+            var result = mock.Object.GetItems<IBaseSitecoreModel>(path);
+
+            Assert.Equal(collection, result.ToList());
+        }
+
+        [Fact]
+        public void GetItems_Returns_Empty_Collection_When_Path_Incorrect()
+        {
+            var path = "/sitecore/content";
+            var collection = new List<IBaseSitecoreModel>();
+
+            var mock = new Mock<ISitecoreService>();
+            mock.Setup(x => x.GetItem<IFolderItemModel<IBaseSitecoreModel>>(path)).Returns((IFolderItemModel<IBaseSitecoreModel>)null);
+            var result = mock.Object.GetItems<IBaseSitecoreModel>(path);
+
+            Assert.Equal(collection, result.ToList());
+        }
+
+        [Fact]
+        public void AllowedDocumentTypesList_Returns_All_Items()
+        {
+            var list = new List<string>();
+            list.Add("a");
+            list.Add("b");
+            list.Add("c");
+
+            var raw = "a, b,c";
+
+            var mock = new Mock<ISiteSettingsModel>();
+            mock.Setup(x => x.AllowedDocumentTypes).Returns(raw);
+
+            var result = mock.Object.AllowedDocumentTypesList();
+
+            Assert.Equal(list, result);
         }
     }
 }

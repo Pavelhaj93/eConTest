@@ -64,6 +64,7 @@
     <Compile Include="MemoryProcessStepModel.cs" />
     <Compile Include="MemoryProcessTypeModel.cs" />
     <Compile Include="MemoryRichTextModel.cs" />
+    <Compile Include="MemorySettingsReaderService.cs" />
     <Compile Include="MemorySimpleTextModel.cs" />
     <Compile Include="MemoryTextService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -25,7 +25,7 @@ namespace eContracting.Services
         protected readonly ILogger Logger;
         protected readonly ISitecoreContext Context;
         protected readonly IOfferService ApiService;
-        protected readonly IAuthenticationService AuthService;
+        protected readonly IUserService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
         private ISiteSettingsModel _siteSettings { get; set; }
@@ -121,7 +121,7 @@ namespace eContracting.Services
             ILogger logger,
             ISitecoreContext context,
             IOfferService apiService,
-            IAuthenticationService authService,
+            IUserService authService,
             ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));

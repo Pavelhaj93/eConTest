@@ -16,5 +16,6 @@ namespace eContracting.Tests
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Path { get; set; }
+        public string e_Name { get; set; }
     }
 }

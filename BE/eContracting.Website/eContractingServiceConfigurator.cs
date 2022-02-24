@@ -18,13 +18,13 @@ namespace eContracting.Website
         {
             serviceCollection.AddScoped<ILogger, SitecoreLogger>();
             serviceCollection.AddScoped<IContextWrapper, SitecoreContextWrapper>();
-            serviceCollection.AddScoped<IUserDataCacheService, UserSessionDataCacheService>();
+            serviceCollection.AddScoped<IDataSessionCacheService, SessionDataCacheService>();
             serviceCollection.AddScoped<IUserFileCacheService, DbUserFileCacheService>();
             serviceCollection.AddScoped<IOfferService, OfferService>();
             serviceCollection.AddScoped<IServiceFactory, ServiceFactory>();
             serviceCollection.AddScoped<IOfferParserService, OfferParserService>();
             serviceCollection.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
-            serviceCollection.AddScoped<IAuthenticationService, AuthenticationService>();
+            serviceCollection.AddScoped<ITwoSecrectsAuthService, TwoSecrectsAuthService>();
             serviceCollection.AddScoped<ISettingsReaderService, SitecoreSettingsReaderService>();
             serviceCollection.AddScoped<ILoginFailedAttemptBlockerStore, DbLoginFailedAttemptBlockerStore>();
             serviceCollection.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();

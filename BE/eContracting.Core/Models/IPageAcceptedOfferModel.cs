@@ -16,5 +16,8 @@ namespace eContracting.Models
         /// </summary>
         [SitecoreField]
         string PageTitle { get; set; }
+
+        [SitecoreField]
+        string ButtonDashboardLabel { get; set; }
     }
 }

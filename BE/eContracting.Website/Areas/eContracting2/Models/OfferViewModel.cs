@@ -79,7 +79,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("suppliers")]
         public ListViewModel List { get; set; }
 
-        public OfferViewModel(ISiteSettingsModel siteSettings) : base("Offer", siteSettings)
+        public OfferViewModel(ISiteSettingsModel siteSettings, string guid) : base("Offer", siteSettings, guid)
         {
         }
     }

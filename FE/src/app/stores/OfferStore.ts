@@ -15,10 +15,11 @@ import {
   OfferErrorResponse,
   UploadDocumentErrorResponse,
   BenefitsBox,
+  QueryParams,
 } from '@types'
 import { UserDocument } from './'
 import { action, computed, observable } from 'mobx'
-import { generateId } from '@utils'
+import { generateId, parseUrl } from '@utils'
 
 export class OfferStore {
   public offerUrl = ''
@@ -29,6 +30,7 @@ export class OfferStore {
   public acceptOfferUrl = ''
   public maxUploadGroupSize = 0
   public isSupplierMandatory = false
+  private globalQueryParams: QueryParams
   private type: OfferType
 
   @observable
@@ -76,9 +78,10 @@ export class OfferStore {
   @observable
   public supplier = ''
 
-  constructor(type: OfferType, offerUrl: string) {
+  constructor(type: OfferType, offerUrl: string, guid: string) {
     this.offerUrl = offerUrl
     this.type = type
+    this.globalQueryParams = { guid }
   }
 
   @computed public get offerFetched(): boolean {
@@ -477,7 +480,7 @@ export class OfferStore {
         }, timeoutMs)
       }
 
-      const response = await fetch(this.offerUrl, {
+      const response = await fetch(parseUrl(this.offerUrl, this.globalQueryParams), {
         headers: { Accept: 'application/json' },
         signal: controller?.signal || null,
       })
@@ -614,7 +617,7 @@ export class OfferStore {
       signature,
     }
 
-    const response = await fetch(`${signFileUrl}/${key}`, {
+    const response = await fetch(parseUrl(`${signFileUrl}/${key}`, this.globalQueryParams), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -725,10 +728,13 @@ export class OfferStore {
     }
 
     // if document has been successfully uploaded => sends a request to remove it
-    const response = await fetch(`${this.removeDocumentUrl}/${category}?f=${key}`, {
-      method: 'DELETE',
-      headers: { Accept: 'application/json' },
-    })
+    const response = await fetch(
+      parseUrl(`${this.removeDocumentUrl}/${category}`, { ...this.globalQueryParams, f: key }),
+      {
+        method: 'DELETE',
+        headers: { Accept: 'application/json' },
+      },
+    )
 
     if (!response.ok) {
       return
@@ -759,12 +765,15 @@ export class OfferStore {
     document.uploading = true
 
     try {
-      const response = await fetch(`${this.uploadDocumentUrl}/${category}`, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: formData,
-        signal: controller.signal,
-      })
+      const response = await fetch(
+        parseUrl(`${this.uploadDocumentUrl}/${category}`, this.globalQueryParams),
+        {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: formData,
+          signal: controller.signal,
+        },
+      )
 
       // handle unexpected statuses
       if (response.status !== 200 && response.status !== 400 && response.status !== 401) {
@@ -863,7 +872,7 @@ export class OfferStore {
     this.isAccepting = true
 
     try {
-      const response = await fetch(url, {
+      const response = await fetch(parseUrl(url, this.globalQueryParams), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

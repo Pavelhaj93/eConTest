@@ -130,6 +130,19 @@ namespace eContracting.Core.Tests
             Assert.Equal(expected, result);
         }
 
+        [Fact(DisplayName = "Checks if removes key and value from query by key")]
+        [Trait("Utils", "RemoveQuery")]
+        public void RemoveQuery_Removes_Key_And_Value()
+        {
+            var query = "key1=value2&key2=value2&key3=value3";
+            var expected = new Uri("http://localhost?key1=value2&key3=value3");
+            var uri = new Uri("http://localhost?" + query);
+
+            var result = Utils.RemoveQuery(uri, "key2");
+
+            Assert.Equal(expected, result);
+        }
+
         [Fact(DisplayName = "Returns non empty result with 32 characters")]
         [Trait("Utils", "GetUniqueKey")]
         public void GetUniqueKey_With_Random_Ids()
@@ -151,7 +164,7 @@ namespace eContracting.Core.Tests
 
         [Theory(DisplayName = "Check correct generated unique key")]
         [Trait("Utils", "GetUniqueKey")]
-        [InlineData("{ACF3043C-3BC3-4C86-BE4B-FEF58392E7F0}", "D38F03D409B14241BABC405AC2FD17F0", "E058CE5015129A38475164266A21DDDA")]
+        [InlineData("{ACF3043C-3BC3-4C86-BE4B-FEF58392E7F0}", "D38F03D409B14241BABC405AC2FD17F0", "51DDBEA68238BB6CB66BF1EBBCFBC140")]
         public void GetUniqueKey(string login, string offerGuid, string expected)
         {
             var offerId = new Guid(offerGuid);
@@ -298,6 +311,19 @@ namespace eContracting.Core.Tests
             var result = Utils.ReplaceXmlAttributes(input);
 
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetUpdated_Add_Item_To_Array_As_Last()
+        {
+            var list = new List<string>();
+            list.Add("first");
+            list.Add("second");
+
+            var result = Utils.GetUpdated(list.ToArray(), "third");
+
+            Assert.Equal(3, result.Length);
+            Assert.Equal("third", result.Last());
         }
     }
 }

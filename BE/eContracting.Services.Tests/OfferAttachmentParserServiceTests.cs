@@ -244,8 +244,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Sets_Default_Group_When_Empty_For_Any_Version(int version)
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, version);
+            var offer = this.CreateOffer(false, version);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
@@ -261,8 +260,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Sets_Printed_To_Templates_In_Version_1()
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 1);
+            var offer = this.CreateOffer(false, 1);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
@@ -279,8 +277,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Doesnt_Set_Printed_To_Templates_In_Version_2()
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 2);
+            var offer = this.CreateOffer(false, 2);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
@@ -297,8 +294,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Sets_Missing_Consent_Type_To_S_For_Sign_File_In_Version_1()
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 1);
+            var offer = this.CreateOffer(false, 1);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Plná moc";
@@ -315,8 +311,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Sets_Missing_Consent_Type_To_S_When_Index_Equals_0()
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 1);
+            var offer = this.CreateOffer(false, 1);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";
@@ -332,8 +327,7 @@ namespace eContracting.Services.Tests
         public void MakeCompatible_Sets_Missing_Consent_Type_To_S_When_Index_More_Than_0()
         {
             var logger = new MemoryLogger();
-            var guid = Guid.NewGuid().ToString("N");
-            var offer = this.CreateOffer(guid, false, 1);
+            var offer = this.CreateOffer(false, 1);
 
             var template = new OfferAttachmentXmlModel();
             template.Description = "Obchodní podmínky";

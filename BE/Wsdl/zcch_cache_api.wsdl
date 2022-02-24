@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions targetNamespace="urn:sap-com:document:sap:rfc:functions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsoap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="urn:sap-com:document:sap:rfc:functions">
+    <wsdl:documentation>
+        <sidl:sidl xmlns:sidl="http://www.sap.com/2007/03/sidl"/>
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema attributeFormDefault="qualified" targetNamespace="urn:sap-com:document:sap:rfc:functions">
+            <xsd:simpleType name="char1">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="1"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char10">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char128">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="128"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char20">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="20"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char220">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="220"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char255">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="255"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char30">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="30"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char32">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="32"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char50">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="50"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char60">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="60"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="char70">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="70"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="date10">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="10"/>
+                    <xsd:pattern value="\d\d\d\d-\d\d-\d\d"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="decimal15.0">
+                <xsd:restriction base="xsd:decimal">
+                    <xsd:totalDigits value="15"/>
+                    <xsd:fractionDigits value="0"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="numeric3">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="3"/>
+                    <xsd:pattern value="\d*"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="numeric6">
+                <xsd:restriction base="xsd:string">
+                    <xsd:maxLength value="6"/>
+                    <xsd:pattern value="\d*"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="BAPIRET2">
+                <xsd:sequence>
+                    <xsd:element name="TYPE" type="tns:char1"/>
+                    <xsd:element name="ID" type="tns:char20"/>
+                    <xsd:element name="NUMBER" type="tns:numeric3"/>
+                    <xsd:element name="MESSAGE" type="tns:char220"/>
+                    <xsd:element name="LOG_NO" type="tns:char20"/>
+                    <xsd:element name="LOG_MSG_NO" type="tns:numeric6"/>
+                    <xsd:element name="MESSAGE_V1" type="tns:char50"/>
+                    <xsd:element name="MESSAGE_V2" type="tns:char50"/>
+                    <xsd:element name="MESSAGE_V3" type="tns:char50"/>
+                    <xsd:element name="MESSAGE_V4" type="tns:char50"/>
+                    <xsd:element name="PARAMETER" type="tns:char32"/>
+                    <xsd:element name="ROW" type="xsd:int"/>
+                    <xsd:element name="FIELD" type="tns:char30"/>
+                    <xsd:element name="SYSTEM" type="tns:char10"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ZCCH_ST_ATTRIB">
+                <xsd:sequence>
+                    <xsd:element name="ATTRID" type="tns:char30"/>
+                    <xsd:element name="ATTRINDX" type="tns:numeric3"/>
+                    <xsd:element name="ATTRVAL" type="tns:char255"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ZCCH_ST_FILE">
+                <xsd:sequence>
+                    <xsd:element name="FILEINDX" type="tns:numeric3"/>
+                    <xsd:element name="FILENAME" type="tns:char70"/>
+                    <xsd:element name="MIMETYPE" type="tns:char128"/>
+                    <xsd:element name="FILECONTENT" type="xsd:base64Binary"/>
+                    <xsd:element name="ATTRIB" type="tns:ZCCH_TT_ATTRIB"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ZCCH_ST_HEADER">
+                <xsd:sequence>
+                    <xsd:element name="CCHTYPE" type="tns:char20"/>
+                    <xsd:element name="CCHKEY" type="tns:char60"/>
+                    <xsd:element name="CCHSTAT" type="tns:char1"/>
+                    <xsd:element name="CCHVALTO" type="tns:date10"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="BAPIRET2_T">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:BAPIRET2" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ZCCH_TT_ATTRIB">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ZCCH_ST_ATTRIB" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ZCCH_TT_FILE">
+                <xsd:sequence>
+                    <xsd:element name="item" type="tns:ZCCH_ST_FILE" minOccurs="0" maxOccurs="unbounded"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="ZCCH_CACHE_STATUS_SET">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IV_CCHKEY" type="tns:char60"/>
+                        <xsd:element name="IV_CCHTYPE" type="tns:char20"/>
+                        <xsd:element name="IV_COMMIT" type="tns:char1" minOccurs="0"/>
+                        <xsd:element name="IV_SAVE" type="tns:char1" minOccurs="0"/>
+                        <xsd:element name="IV_STAT" type="tns:char1"/>
+                        <xsd:element name="IV_TIMESTAMP" type="tns:decimal15.0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_STATUS_SETResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ET_RETURN" type="tns:BAPIRET2_T"/>
+                        <xsd:element name="EV_RETCODE" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_DEL">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IV_CCHKEY" type="tns:char60"/>
+                        <xsd:element name="IV_CCHTYPE" type="tns:char20"/>
+                        <xsd:element name="IV_COMMIT" type="tns:char1" minOccurs="0"/>
+                        <xsd:element name="IV_DEL_FILES" type="tns:char1"/>
+                        <xsd:element name="IV_SAVE" type="tns:char1" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_DELResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ET_RETURN" type="tns:BAPIRET2_T"/>
+                        <xsd:element name="EV_RETCODE" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_ACCESS_CHECK">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IT_ATTRIB" type="tns:ZCCH_TT_ATTRIB" minOccurs="0"/>
+                        <xsd:element name="IV_CCHKEY" type="tns:char60"/>
+                        <xsd:element name="IV_CCHTYPE" type="tns:char20"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_ACCESS_CHECKResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ET_RETURN" type="tns:BAPIRET2_T"/>
+                        <xsd:element name="EV_RETCODE" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_PUT">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IT_ATTRIB" type="tns:ZCCH_TT_ATTRIB" minOccurs="0"/>
+                        <xsd:element name="IT_FILES" type="tns:ZCCH_TT_FILE" minOccurs="0"/>
+                        <xsd:element name="IV_CCHKEY" type="tns:char60"/>
+                        <xsd:element name="IV_CCHTYPE" type="tns:char20"/>
+                        <xsd:element name="IV_COMMIT" type="tns:char1" minOccurs="0"/>
+                        <xsd:element name="IV_SAVE" type="tns:char1" minOccurs="0"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_PUTResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ET_ATTRIB" type="tns:ZCCH_TT_ATTRIB"/>
+                        <xsd:element name="ET_FILES" type="tns:ZCCH_TT_FILE"/>
+                        <xsd:element name="ET_RETURN" type="tns:BAPIRET2_T"/>
+                        <xsd:element name="EV_RETCODE" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_GET">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="IV_CCHKEY" type="tns:char60"/>
+                        <xsd:element name="IV_CCHTYPE" type="tns:char20"/>
+                        <xsd:element name="IV_GEFILE" type="tns:char1"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ZCCH_CACHE_GETResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="ES_HEADER" type="tns:ZCCH_ST_HEADER"/>
+                        <xsd:element name="ET_ATTRIB" type="tns:ZCCH_TT_ATTRIB"/>
+                        <xsd:element name="ET_FILES" type="tns:ZCCH_TT_FILE"/>
+                        <xsd:element name="ET_RETURN" type="tns:BAPIRET2_T"/>
+                        <xsd:element name="EV_RETCODE" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="ZCCH_CACHE_STATUS_SET">
+        <wsdl:part name="parameters" element="tns:ZCCH_CACHE_STATUS_SET"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_STATUS_SETResponse">
+        <wsdl:part name="parameter" element="tns:ZCCH_CACHE_STATUS_SETResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_DEL">
+        <wsdl:part name="parameters" element="tns:ZCCH_CACHE_DEL"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_DELResponse">
+        <wsdl:part name="parameter" element="tns:ZCCH_CACHE_DELResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_ACCESS_CHECK">
+        <wsdl:part name="parameters" element="tns:ZCCH_CACHE_ACCESS_CHECK"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_ACCESS_CHECKResponse">
+        <wsdl:part name="parameter" element="tns:ZCCH_CACHE_ACCESS_CHECKResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_PUT">
+        <wsdl:part name="parameters" element="tns:ZCCH_CACHE_PUT"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_PUTResponse">
+        <wsdl:part name="parameter" element="tns:ZCCH_CACHE_PUTResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_GET">
+        <wsdl:part name="parameters" element="tns:ZCCH_CACHE_GET"/>
+    </wsdl:message>
+    <wsdl:message name="ZCCH_CACHE_GETResponse">
+        <wsdl:part name="parameter" element="tns:ZCCH_CACHE_GETResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ZCCH_CACHE_API">
+        <wsdl:operation name="ZCCH_CACHE_STATUS_SET">
+            <wsdl:input message="tns:ZCCH_CACHE_STATUS_SET"/>
+            <wsdl:output message="tns:ZCCH_CACHE_STATUS_SETResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_DEL">
+            <wsdl:input message="tns:ZCCH_CACHE_DEL"/>
+            <wsdl:output message="tns:ZCCH_CACHE_DELResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_ACCESS_CHECK">
+            <wsdl:input message="tns:ZCCH_CACHE_ACCESS_CHECK"/>
+            <wsdl:output message="tns:ZCCH_CACHE_ACCESS_CHECKResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_PUT">
+            <wsdl:input message="tns:ZCCH_CACHE_PUT"/>
+            <wsdl:output message="tns:ZCCH_CACHE_PUTResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_GET">
+            <wsdl:input message="tns:ZCCH_CACHE_GET"/>
+            <wsdl:output message="tns:ZCCH_CACHE_GETResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ZCCH_CACHE_API" type="tns:ZCCH_CACHE_API">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="ZCCH_CACHE_STATUS_SET">
+            <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_STATUS_SETRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_DEL">
+            <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_DELRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_ACCESS_CHECK">
+            <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_ACCESS_CHECKRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_PUT">
+            <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_PUTRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ZCCH_CACHE_GET">
+            <soap:operation soapAction="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="ZCCH_CACHE_API">
+        <wsdl:port name="ZCCH_CACHE_API" binding="tns:ZCCH_CACHE_API">
+            <soap:address location="http://nsdas01.rwe-services.cz:8001/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

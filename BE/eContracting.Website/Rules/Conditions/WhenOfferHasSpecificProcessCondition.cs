@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using eContracting.Models;
 using Glass.Mapper.Sc;
+using Glass.Mapper.Sc.Web;
+using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 using Sitecore.Rules;
@@ -13,7 +16,7 @@ using Sitecore.Rules.Conditions;
 namespace eContracting.Website.Rules.Conditions
 {
     /// <summary>
-    /// Evaluates if current logged-in user's offer has required process.
+    /// Evaluates if current logged-in user has specific authentication method assigned.
     /// </summary>
     /// <typeparam name="T">The rule context.</typeparam>
     /// <seealso cref="Sitecore.Rules.Conditions.WhenCondition{T}" />
@@ -43,12 +46,27 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid ProcessItemGuid { get; set; }
 
+        protected readonly IDataRequestCacheService CacheService;
+        protected readonly ISitecoreService SitecoreService;
+
+        public WhenOfferHasSpecificProcessCondition() : this(
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
+        {
+        }
+
+        public WhenOfferHasSpecificProcessCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        {
+            this.CacheService = cacheService;
+            this.SitecoreService = sitecoreService;
+        }
+
         /// <summary>
         /// Executes the specified rule context.
         /// </summary>
         /// <param name="ruleContext">The rule context.</param>
         /// <returns>
-        ///     <c>True</c> if match found in <see cref="AuthDataModel"/>, otherwise <c>false</c>.
+        ///     <c>True</c> if match found in <see cref="UserCacheDataModel"/>, otherwise <c>false</c>.
         ///     Also <c>false</c> if <see cref="ProcessId"/> doesn't exist or user is not logged in.
         /// </returns>
         protected override bool Execute(T ruleContext)
@@ -60,23 +78,22 @@ namespace eContracting.Website.Rules.Conditions
                     return false;
                 }
 
-                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var process = context.GetItem<IProcessModel>(this.ProcessItemGuid, ruleContext.Item.Language);
+                var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+                var user = this.CacheService.GetOffer(guid);
+
+                if (user == null)
+                {
+                    return false;
+                }
+
+                var process = this.SitecoreService.GetItem<IProcessModel>(this.ProcessItemGuid, builder => builder.Language(ruleContext.Item.Language));
 
                 if (process == null)
                 {
                     return false;
                 }
 
-                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
-
-                if (offerData == null)
-                {
-                    return false;
-                }
-
-                return offerData.Process == process.Code;
+                return user.Process == process.Code;
             }
             catch (Exception ex)
             {

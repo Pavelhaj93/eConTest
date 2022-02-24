@@ -141,7 +141,7 @@ namespace eContracting.Models
 
         [SitecoreField]
         double CleanupLogsOlderThanDays { get; set; }
-        
+
         #endregion
     }
 }

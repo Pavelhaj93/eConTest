@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { Authentication } from '../'
 
 const mockProps = {
+  guid: '0635F899B3111EDC9BC4A505A628FCED',
   view: 'Authentication',
   offerUrl: '/api/documents',
   errorPageUrl: '/error',
@@ -33,6 +34,7 @@ const mockProps = {
 }
 
 const mockPropsSingleChoice = {
+  guid: '0635F899B3111EDC9BC4A505A628FCED',
   view: 'Authentication',
   offerUrl: '/api/documents',
   errorPageUrl: '/error',

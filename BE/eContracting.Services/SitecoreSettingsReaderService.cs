@@ -34,6 +34,7 @@ namespace eContracting.Services
         protected readonly static Random Rand = new Random();
 
         /// <inheritdoc/>
+        /// <remarks>Default value is false.</remarks>
         public bool SaveFilesToDebugFolder
         {
             get
@@ -43,6 +44,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        /// <remarks>Default value is false.</remarks>
         public bool ShowDebugMessages
         {
             get
@@ -52,11 +54,22 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        /// <remarks>Default value is 30 minutes.</remarks>
         public int SessionTimeout
         {
             get
             {
                 return Sitecore.Configuration.Settings.GetIntSetting("eContracting.SessionTimeout", 30);
+            }
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>Default value is 60 minutes.</remarks>
+        public int CognitoMinSecondsToRefreshToken
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.Cognito.MinimumSecondsToRefreshToken", 60);
             }
         }
 
@@ -86,7 +99,7 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IEnumerable<IProcessModel> GetAllProcesses()
         {
-            var items =  this.SitecoreService.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES);
+            var items = this.SitecoreService.GetItems<IProcessModel>(Constants.SitecorePaths.PROCESSES);
 
             if (!items.Any())
             {
@@ -184,6 +197,11 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public IDefinitionCombinationModel GetDefinition(OfferModel offer)
         {
+            if (offer == null)
+            {
+                throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF", "Offer is null, cannot retrieve matrix information."));
+            }
+
             return this.GetDefinition(offer.Process, offer.ProcessType);
         }
 
@@ -192,7 +210,7 @@ namespace eContracting.Services
         {
             if (!string.IsNullOrEmpty(process) && !string.IsNullOrEmpty(processType))
             {
-                var definitions = this.SitecoreService.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS);
+                var definitions = this.GetAllDefinitions();
                 var definition = definitions.FirstOrDefault(x => x.Process.Code.Equals(process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(processType, StringComparison.InvariantCultureIgnoreCase));
 
                 if (definition != null)
@@ -204,6 +222,12 @@ namespace eContracting.Services
             this.Logger.Warn(null, $"Definition combination not found for process '{process}' and process type '{processType}'. Taking default one..");
 
             return this.GetDefinitionDefault();
+        }
+
+        /// <inheritdoc/>
+        public IDefinitionCombinationModel[] GetAllDefinitions()
+        {
+            return this.SitecoreService.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS).ToArray();
         }
 
         /// <inheritdoc/>
@@ -265,9 +289,22 @@ namespace eContracting.Services
                     return settings.SystemError.Url;
                 case PAGE_LINK_TYPES.Login:
                     return settings.Login.Url;
+                case PAGE_LINK_TYPES.Logout:
+                    {
+                        var builder = new UriBuilder(settings.Login.Url);
+                        builder.Path = "logout";
+                        return builder.Uri.ToString();
+                    }
                 default:
                     throw new InvalidOperationException($"Invalid page type ({Enum.GetName(typeof(PAGE_LINK_TYPES), type)}).");
             }
+        }
+
+        public string GetPageLink(PAGE_LINK_TYPES type, string guid)
+        {
+            var url = this.GetPageLink(type);
+            url = Utils.SetQuery(url, Constants.QueryKeys.GUID, guid ?? string.Empty);
+            return url;
         }
 
         /// <inheritdoc/>
@@ -333,13 +370,28 @@ namespace eContracting.Services
             if (version == 1)
             {
                 list.Add(new KeyValuePair<string, string>("CUSTTITLELET", "PERSON_CUSTTITLELET"));
-                list.Add(new KeyValuePair<string, string>("CUSTADDRESS" , "PERSON_CUSTADDRESS"));
-                list.Add(new KeyValuePair<string, string>("PREMADR"     , "PERSON_PREMADR"));
-                list.Add(new KeyValuePair<string, string>("PREMLABEL"   , "PERSON_PREMLABEL"));
-                list.Add(new KeyValuePair<string, string>("PREMEXT"     , "PERSON_PREMEXT"));
+                list.Add(new KeyValuePair<string, string>("CUSTADDRESS", "PERSON_CUSTADDRESS"));
+                list.Add(new KeyValuePair<string, string>("PREMADR", "PERSON_PREMADR"));
+                list.Add(new KeyValuePair<string, string>("PREMLABEL", "PERSON_PREMLABEL"));
+                list.Add(new KeyValuePair<string, string>("PREMEXT", "PERSON_PREMEXT"));
             }
 
             return list.ToArray();
+        }
+
+        /// <inheritdoc/>
+        public CognitoSettingsModel GetCognitoSettings()
+        {
+            var cognitoBaseUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.OAuth.BaseUrl");
+            var cognitoClientId = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.ClientId");
+            var cognitoCookiePrefix = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.CookiePrefix", "CognitoIdentityServiceProvider");
+            var cognitoCookieUser = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.CookieUser", "LastAuthUser");
+            var innogyLoginUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.LoginUrl");
+            var innogyLogoutUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.LogoutUrl");
+            var innogyRegistrationUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.RegistrationUrl");
+            var innogyDashboardUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.DashboardUrl");
+
+            return new CognitoSettingsModel(cognitoBaseUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
         }
     }
 }

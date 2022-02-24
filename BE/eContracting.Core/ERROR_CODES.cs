@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ using eContracting.Services;
 
 namespace eContracting
 {
+
+    [ExcludeFromCodeCoverage]
     public static class ERROR_CODES
     {
         /// <summary>
@@ -42,6 +45,15 @@ namespace eContracting
         {
             var msg = new StringBuilder();
             msg.AppendLine("ZCCH_CACHE_STATUS_SET request failed");
+            msg.AppendLine("EV_RETCODE: " + response.EV_RETCODE);
+            msg.AppendLine(GetDescription(response.ET_RETURN));
+            return new ErrorModel(code, msg.ToString());
+        }
+
+        public static ErrorModel FromResponse(string code, ZCCH_CACHE_ACCESS_CHECKResponse response)
+        {
+            var msg = new StringBuilder();
+            msg.AppendLine("ZCCH_CACHE_ACCESS_CHECK request failed");
             msg.AppendLine("EV_RETCODE: " + response.EV_RETCODE);
             msg.AppendLine(GetDescription(response.ET_RETURN));
             return new ErrorModel(code, msg.ToString());

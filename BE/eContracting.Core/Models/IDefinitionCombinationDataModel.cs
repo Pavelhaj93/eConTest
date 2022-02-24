@@ -157,6 +157,9 @@ namespace eContracting.Models
         IRichTextModel MainTextThankYou { get; set; }
 
         [SitecoreField]
+        IRichTextModel MainTextThankYou2 { get; set; }
+
+        [SitecoreField]
         Image ThankYouAbMatrixPixel { get; set; }
 
         [SitecoreField]

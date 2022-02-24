@@ -21,8 +21,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonIgnore]
         public string AbMatrixCombinationPixelUrl { get; set; }
 
-
-        public Dictionary<string, string> ScriptParameters { get; } = new Dictionary<string, string>();
+        public GoogleAnalyticsEvendDataModel ScriptParameters { get; set; }
 
         public ThankYouViewModel(IPageThankYouModel datasource, StepsViewModel steps)
         {

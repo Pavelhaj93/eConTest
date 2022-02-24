@@ -1,14 +1,17 @@
-import { Choice } from './Authentication'
+import { Choice, GaEventClickData } from './Authentication'
 
 export * from './Offer'
 export * from './Authentication'
 
 export type AppConfig = {
+  guid: string
   view: string
+
   offerUrl: string
   labels: {
     [key: string]: any
   }
+  gaEventClickData?: GaEventClickData
   formAction?: string
   choices?: Choice[]
   /** URL that returns the document itself. Need to append file ID. */
@@ -35,6 +38,10 @@ export type AppConfig = {
     label: string
     items: Supplier[]
   }
+  /** URl for innogy account button on login screen. */
+  innogyAccountUrl?: string
+  /** Controls whether or not the Innogy account login option is enabled. */
+  hideInnogyAccount?: boolean
 }
 
 declare global {
@@ -81,4 +88,7 @@ export type CustomFile = {
 export type Supplier = {
   label: string
   value: string
+}
+export interface QueryParams {
+  [key: string]: string
 }

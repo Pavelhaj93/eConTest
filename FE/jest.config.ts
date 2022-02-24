@@ -91,6 +91,7 @@ export default {
     '@context': '<rootDir>/app/context',
     '@stores': '<rootDir>/app/stores',
     '@types': '<rootDir>/app/types',
+    '@ui': '<rootDir>/app/ui',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

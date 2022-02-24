@@ -16,6 +16,7 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferCommoditiesAcceptTitle_When_Group_COMMODITY_And_File_For_Accept()
         {
             var offer = this.CreateOffer();
+            var user = this.CreateAnonymousUser(offer);
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "Dokumenty k akceptaci";
@@ -28,12 +29,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAccepted(offer);
+            var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
             Assert.Equal(definition.OfferCommoditiesAcceptTitle.Text, result.Groups.First().Title);
@@ -43,6 +44,7 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferCommoditiesSignTitle_When_Group_COMMODITY_And_File_For_Sign()
         {
             var offer = this.CreateOffer();
+            var user = this.CreateAnonymousUser(offer);
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferCommoditiesSignTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesSignTitle.Text = "Plná moc";
@@ -55,12 +57,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAccepted(offer);
+            var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
             Assert.Equal(definition.OfferCommoditiesSignTitle.Text, result.Groups.First().Title);
@@ -70,6 +72,7 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferAdditionalServicesTitle_When_Group_DSL()
         {
             var offer = this.CreateOffer();
+            var user = this.CreateAnonymousUser(offer);
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferAdditionalServicesTitle = new MemorySimpleTextModel();
             definition.OfferAdditionalServicesTitle.Text = "Smlouva o pronájmu";
@@ -82,12 +85,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAccepted(offer);
+            var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
             Assert.Equal(definition.OfferAdditionalServicesTitle.Text, result.Groups.First().Title);
@@ -97,6 +100,7 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_OfferOtherProductsDocsTitle_When_Group_Not_COMMODITY_Or_DSL()
         {
             var offer = this.CreateOffer();
+            var user = this.CreateAnonymousUser(offer);
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferOtherProductsDocsTitle = new MemorySimpleTextModel();
             definition.OfferOtherProductsDocsTitle.Text = "Smlouva o pronájmu";
@@ -109,12 +113,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAccepted(offer);
+            var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
             Assert.Equal(definition.OfferOtherProductsDocsTitle.Text, result.Groups.First().Title);
@@ -125,6 +129,7 @@ namespace eContracting.Services.Tests
         public void GetAccepted_Returns_COMMODITY_Attachments()
         {
             var offer = this.CreateOffer();
+            var user = this.CreateAnonymousUser(offer);
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
             definition.OfferCommoditiesAcceptTitle.Text = "abc";
@@ -151,12 +156,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new[] { attachment1, attachment2, attachment3 });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment1, attachment2, attachment3 });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAccepted(offer);
+            var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
             Assert.Equal(definition.OfferCommoditiesAcceptTitle.Text, result.Groups.First().Title);
@@ -176,6 +181,7 @@ namespace eContracting.Services.Tests
         public void GetNew_Calls_GetPerex_In_Version_Greater_Than_1(int version, bool expectedPerex, string nameKey, string nameValue, string valueKey, string valueValue)
         {
             var offer = this.CreateOffer(version);
+            var user = this.CreateAnonymousUser(offer);
             offer.TextParameters.Add(nameKey, nameValue);
             offer.TextParameters.Add(valueKey, valueValue);
             var definition = new MemoryDefinitionCombinationModel();
@@ -186,12 +192,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer);
+            var result = service.GetNew(offer, user);
 
             if (expectedPerex)
             {
@@ -215,6 +221,7 @@ namespace eContracting.Services.Tests
         public void GetNew_Calls_GetGifts_In_Version_Greater_Than_1(int version, bool expectedGifts, string checkKey, string checkValue, string nameKey, string nameValue, string countKey, string countValue, string imageKey, string imageValue, string introKey, string introValue)
         {
             var offer = this.CreateOffer(version);
+            var user = this.CreateAnonymousUser(offer);
             offer.TextParameters.Add("BENEFITS", "X");
             offer.TextParameters.Add(checkKey, checkValue);
             offer.TextParameters.Add(nameKey, nameValue);
@@ -229,12 +236,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer);
+            var result = service.GetNew(offer, user);
 
             if (expectedGifts)
             {
@@ -265,6 +272,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer(version);
             offer.TextParameters.Add(argKey, argValue);
+            var user = this.CreateAnonymousUser(offer);
 
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferBenefitsTitle = new MemorySimpleTextModel();
@@ -274,12 +282,12 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer);
+            var result = service.GetNew(offer, user);
 
             if (expectedArguments)
             {
@@ -296,12 +304,13 @@ namespace eContracting.Services.Tests
         public void GetPerex_Returns_Null_When_Parameters_Not_Found()
         {
             var offer = this.CreateOffer(2);
+            var user = this.CreateAnonymousUser(offer);
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
@@ -316,12 +325,13 @@ namespace eContracting.Services.Tests
             var offer = this.CreateOffer(2);
             offer.TextParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME", "Produkt");
             // COMMODITY_OFFER_SUMMARY_ATRIB_VALUE not included
+            var user = this.CreateAnonymousUser(offer);
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
@@ -353,6 +363,8 @@ namespace eContracting.Services.Tests
                 offer.TextParameters.Add(value, "elektřina Garance 26");
             }
 
+            var user = this.CreateAnonymousUser(offer);
+
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferPerexTitle = new MemorySimpleTextModel();
             definition.OfferPerexTitle.Text = "Perex";
@@ -361,7 +373,7 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
@@ -375,6 +387,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer(2);
             // this is missing: offer.TextParameters.Add("BENEFITS", "X");
+            var user = this.CreateAnonymousUser(offer);
 
             var definition = new MemoryDefinitionCombinationModel();
             definition.OfferPerexTitle = new MemorySimpleTextModel();
@@ -384,7 +397,7 @@ namespace eContracting.Services.Tests
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer)).Returns(new OfferAttachmentModel[] { });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);

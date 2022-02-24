@@ -1,0 +1,18 @@
+﻿---
+ID: "ec164788-4e47-4bb9-bf67-c07e2423747e"
+Parent: "2133a4a0-0f53-425e-a010-fdbdf9d8a96b"
+Template: "2133a4a0-0f53-425e-a010-fdbdf9d8a96b"
+Path: /sitecore/templates/eContracting2/Settings/Authentication Type/__Standard Values
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211206T080728Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

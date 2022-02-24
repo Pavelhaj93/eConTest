@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Sitecore.Data;
 
@@ -10,6 +11,7 @@ namespace eContracting
         public const string DatabaseContextConnectionStringName = "eContractingContext";
         public const string TimeStampFormat = "yyyyMMddHHmmss";
         public const string GTMElectricityIdentifier = "8591824";
+        public static string FakeOfferGuid => Guid.Empty.ToString("B");
 
         public static class OfferAttributes
         {
@@ -18,6 +20,8 @@ namespace eContracting
             public const string VERSION = "MODELO_OFERTA";
             public const string ACCEPTED_DATE = "ACCEPTED_AT";
             public const string VALID_TO = "VALID_TO";
+            public const string ZIDENTITYID = "ZIDENTITYID";
+            public const string MCFU_REG_STAT = "MCFU_REG_STAT";
         }
 
         public static class OfferAttributeValues
@@ -85,13 +89,34 @@ namespace eContracting
 
         public static class ErrorCodes
         {
+            /// <summary>
+            /// User access homepage which technically doesn't exist.
+            /// </summary>
             public const string HOMEPAGE = "000";
+            /// <summary>
+            /// Unknown error.
+            /// </summary>
             public const string UNKNOWN = "999";
-            public const string USER_BLOCKED = "001";
-            public const string INVALID_GUID = "002";
-            public const string OFFER_NOT_FOUND = "010";
-            public const string OFFER_STATE_1 = "011";
-            public const string MISSING_BIRTDATE = "012";
+            /// <summary>
+            /// User is blocked for login.
+            /// </summary>
+            public const string USER_BLOCKED = "UB1";
+            /// <summary>
+            /// Invalid guid provided (usually empty).
+            /// </summary>
+            public const string INVALID_GUID = "IG1";
+            /// <summary>
+            /// Offer not retrieved from SAP.
+            /// </summary>
+            public const string OFFER_NOT_FOUND = "ONF";
+            /// <summary>
+            /// Offer state equals to 1 - invalid offer.
+            /// </summary>
+            public const string OFFER_STATE_1 = "OS1";
+            /// <summary>
+            /// Missing birtdate in offer (it's required).
+            /// </summary>
+            public const string MISSING_BIRTDATE = "OMB";
 
             /// <summary>
             /// The authentication process - unknown exception.
@@ -241,6 +266,7 @@ namespace eContracting
         {
             public static ID PageHome { get; } = new ID("{652F8E4F-5A5B-484B-9552-7E1A8650644C}");
             public static ID PageLogin { get; } = new ID("{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}");
+            public static ID PageLogout { get; } = new ID("{F6611407-BC55-499F-9E03-1E58AC434335}");
             public static ID PageOffer { get; } = new ID("{456D5421-A2DE-42B4-97E6-A42FC243BF10}");
             public static ID PageOfferAccepted { get; } = new ID("{0F225E4F-AA1E-44CC-91F4-19D4FB5C859C}");
             public static ID PageOfferExpired { get; } = new ID("{220B964C-EA21-4672-92F1-58CCE932BD33}");
@@ -260,14 +286,26 @@ namespace eContracting
         public static class CacheKeys
         {
             public const string OFFER_IDENTIFIER = "eContracting.OFFER_IDENTIFIER";
-            public const string AUTH_DATA = "eContracting.AUTH_DATA";
+            public const string USER_DATA = "eContracting.USER_DATA";
+            public const string OFFER_DATA = "eContracting.OFFER_DATA";
         }
 
         public static class QueryKeys
         {
             public const string GUID = "guid";
+            public const string ERROR_CODE = "code";
             public const string PROCESS = "econ_p";
             public const string PROCESS_TYPE = "econ_pt";
+            public const string MATRIX = "econ_m";
+            public const string CAMPAIGN = "utm_campaign";
+            public const string IDENTITY = "idi";
+            public const string DO_NOT_AUTO_LOGIN = "dnat";
+            public const string REDIRECT = "redirect";
+        }
+
+        public static class QueryValues
+        {
+            public const string DO_NOT_AUTO_LOGIN_TRUE = "1";
         }
     }
 }

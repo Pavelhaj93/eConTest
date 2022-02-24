@@ -189,9 +189,10 @@ namespace eContracting.Services
             var isAccepted = this.IsAccepted(response.Response);
             var isExpired = this.IsExpired(response.Response, header, result);
             var offer = new OfferModel(result, version, header, isAccepted, isExpired, attributes);
-            offer.RawContent.Add(file.File.FILENAME, rawXml);
-            this.Logger.Info(offer.Guid, "Process: " + offer.Process);
-            this.Logger.Info(offer.Guid, "Process type: " + offer.ProcessType);
+            offer.RawContent.Add(file.File.FILENAME, rawXml);            
+            this.Logger.Info(offer.Guid, $"Process: {offer.Process}");
+            this.Logger.Info(offer.Guid, $"Process type: {offer.ProcessType}");
+            this.Logger.Debug(offer.Guid, this.GetLogMessage(attributes));
             return offer;
         }
 
@@ -475,6 +476,23 @@ namespace eContracting.Services
             template.ItemGuid = "11111111111111111111111111111111";
             template.SequenceNumber = "999";
             return template;
+        }
+
+        protected internal string GetLogMessage(OfferAttributeModel[] attributes)
+        {
+            var log = new StringBuilder();
+
+            if (attributes?.Length > 0)
+            {
+                log.AppendLine("Attributes:");
+
+                for (int i = 0; i < attributes.Length; i++)
+                {
+                    log.AppendLine($" - {attributes[i].Key}: {attributes[i].Value}");
+                }
+            }
+
+            return log.ToString();
         }
     }
 }

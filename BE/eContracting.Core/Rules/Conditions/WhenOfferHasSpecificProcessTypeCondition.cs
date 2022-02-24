@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +37,7 @@ namespace eContracting.Rules.Conditions
         /// </summary>
         /// <param name="ruleContext">The rule context.</param>
         /// <returns>
-        ///     <c>True</c> if match found in <see cref="AuthDataModel"/>, otherwise <c>false</c>.
+        ///     <c>True</c> if match found in <see cref="UserCacheDataModel"/>, otherwise <c>false</c>.
         ///     Also <c>false</c> if <see cref="ProcessTypeId"/> doesn't exist or user is not logged in.
         /// </returns>
         protected override bool Execute(T ruleContext)
@@ -49,15 +50,16 @@ namespace eContracting.Rules.Conditions
                 return false;
             }
 
-            var authService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
-            var authData = authService.GetCurrentUser();
+            var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
+            var offer = cache.GetOffer(guid);
 
-            if (authData == null)
+            if (offer == null)
             {
                 return false;
             }
 
-            return authData.ProcessType == processType.Code;
+            return offer.ProcessType == processType.Code;
         }
     }
 }

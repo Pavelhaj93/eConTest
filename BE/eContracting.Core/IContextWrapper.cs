@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Sitecore.Sites;
 
 namespace eContracting
 {
     /// <summary>
-    /// Represents wrapper over context (static) values.
+    /// Represents wrapper over context values.
     /// </summary>
     public interface IContextWrapper
     {
@@ -44,6 +46,13 @@ namespace eContracting
         string GetIpAddress();
 
         /// <summary>
+        /// Gets query value from current context request.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        string GetQueryValue(string key);
+
+        /// <summary>
         /// Determines whether Sitecore context page mode is in normal mode.
         /// </summary>
         bool IsNormalMode();
@@ -57,5 +66,16 @@ namespace eContracting
         /// Determines whether Sitecore context page mode is in editing mode.
         /// </summary>
         bool IsEditMode();
+
+        /// <summary>
+        /// Gets cookies from current request.
+        /// </summary>
+        /// <returns>Cookie or null if request is not available.</returns>
+        HttpCookieCollection GetCookies();
+
+        /// <summary>
+        /// Gets query parameters from current request.
+        /// </summary>
+        NameValueCollection GetQueryParams();
     }
 }

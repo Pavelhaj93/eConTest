@@ -16,13 +16,15 @@ namespace eContracting
         /// Gets prescription for not accepted offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
-        JsonOfferNotAcceptedModel GetNew(OfferModel offer);
+        /// <param name="user">The user.</param>
+        JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user);
 
         /// <summary>
         /// Gets prescription for accepted offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
+        /// /// <param name="user">The user.</param>
         /// <returns></returns>
-        JsonOfferAcceptedModel GetAccepted(OfferModel offer);
+        JsonOfferAcceptedModel GetAccepted(OfferModel offer, UserCacheDataModel user);
     }
 }

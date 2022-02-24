@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
+using eContracting.Models;
 using Newtonsoft.Json;
 
 namespace eContracting.ConsoleClient.Commands
@@ -32,7 +33,8 @@ namespace eContracting.ConsoleClient.Commands
             [Argument(Description = "unique identifier for an offer")] string guid,
             [Argument(Description = "what part to render")] string part = "all")
         {
-            var offer = this.ApiService.GetOffer(guid);
+            var user = new UserCacheDataModel();
+            var offer = this.ApiService.GetOffer(guid, user);
 
             if (offer == null)
             {
@@ -40,7 +42,7 @@ namespace eContracting.ConsoleClient.Commands
                 return;
             }
 
-            var json = this.JsonDescriptor.GetNew(offer);
+            var json = this.JsonDescriptor.GetNew(offer, user);
 
             if (part == "perex")
             {

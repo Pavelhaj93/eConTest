@@ -2,6 +2,12 @@ import 'what-input'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { View as ViewType } from '@types'
+import { TooltipUI } from '@ui'
+
+// for non React pages, init some UI components when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  TooltipUI()
+})
 
 import { Authentication, Offer, AcceptedOffer } from '@views'
 

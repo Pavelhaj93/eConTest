@@ -149,34 +149,7 @@ namespace eContracting
         {
             return model.DisclaimerLink?.Url;
         }
-
-        public static string GetLogoutLinkUrl(this IPageHeaderModel model)
-        {
-            if (Uri.TryCreate(model.LogoutLink?.Url, UriKind.RelativeOrAbsolute, out Uri linkUrl))
-            {
-                try
-                {
-                    if (!string.IsNullOrEmpty(model.LogoutLink.Query))
-                    {
-                        if (linkUrl.ToString().Contains("?"))
-                            linkUrl = new Uri($"{linkUrl}&{model.LogoutLink.Query}");
-                        else
-                            linkUrl = new Uri($"{linkUrl}?{model.LogoutLink.Query}");
-                    }
-                    return linkUrl.ToString();
-                }
-                catch (Exception ex)
-                {
-                    Sitecore.Diagnostics.Log.Error("PageHeaderModel: Error when processing LogoutLink.", ex, model);
-                    return null;
-                }
-            }
-            else
-            {
-                return null;
-            }
-        }
-
+        
         public static string GetImageLinkUrl(this IPageHeaderModel model)
         {
             return model.ImageLink?.Url;

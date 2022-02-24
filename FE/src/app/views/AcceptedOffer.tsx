@@ -7,10 +7,11 @@ import { useLabels } from '@hooks'
 import { Alert } from 'react-bootstrap'
 import { Box, BoxHeading, Icon } from '@components'
 import { colors } from '@theme'
+import { parseUrl } from '@utils'
 
 export const AcceptedOffer: React.FC<View> = observer(
-  ({ offerUrl, labels, getFileUrl, timeout }) => {
-    const [store] = useState(() => new OfferStore(OfferType.ACCEPTED, offerUrl))
+  ({ guid, offerUrl, labels, getFileUrl, timeout }) => {
+    const [store] = useState(() => new OfferStore(OfferType.ACCEPTED, offerUrl, guid))
     const t = useLabels(labels)
 
     useEffect(() => {
@@ -44,7 +45,10 @@ export const AcceptedOffer: React.FC<View> = observer(
                   <ul className="list-unstyled" aria-labelledby={`heading${idx}`}>
                     {files.map(({ label, key }) => (
                       <li key={key} className="form-item-wrapper mb-3">
-                        <a href={`${getFileUrl}/${key}`} className="like-custom-control-label">
+                        <a
+                          href={parseUrl(`${getFileUrl}/${key}`, { guid })}
+                          className="like-custom-control-label"
+                        >
                           <span>{label}</span>
                           <Icon name="pdf" size={36} color={colors.orange} className="ml-auto" />
                         </a>

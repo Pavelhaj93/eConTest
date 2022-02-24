@@ -35,8 +35,19 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid MatrixItemGuid { get; set; }
 
-        public WhenOfferMatchesMatrixCondition()
+        protected readonly IDataRequestCacheService CacheService;
+        protected readonly ISitecoreService SitecoreService;
+
+        public WhenOfferMatchesMatrixCondition() : this(
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
         {
+        }
+
+        public WhenOfferMatchesMatrixCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        {
+            this.CacheService = cacheService;
+            this.SitecoreService = sitecoreService;
         }
 
         protected override bool Execute(T ruleContext)
@@ -48,23 +59,22 @@ namespace eContracting.Website.Rules.Conditions
                     return false;
                 }
 
-                var cacheService = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-                var offerData = cacheService.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+                var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
+                var user = this.CacheService.GetOffer(guid);
 
-                if (offerData == null)
+                if (user == null)
                 {
                     return false;
                 }
 
-                var context = ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreContext>();
-                var matrixItem = context.GetItem<IDefinitionCombinationModel>(this.MatrixItemGuid, ruleContext.Item.Language);
+                var matrixItem = this.SitecoreService.GetItem<IDefinitionCombinationModel>(this.MatrixItemGuid, builder => builder.Language(ruleContext.Item.Language));
                 
                 if (matrixItem == null)
                 {
                     return false;
                 }
 
-                return offerData.Process == matrixItem.Process?.Code && offerData.ProcessType == matrixItem.ProcessType?.Code;
+                return user.Process == matrixItem.Process?.Code && user.ProcessType == matrixItem.ProcessType?.Code;
             }
             catch (Exception ex)
             {

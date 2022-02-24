@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using eContracting.Models;
@@ -24,18 +25,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     /// <summary>
     /// Handles authentication process for user.
     /// </summary>
-    public class eContracting2AuthController : Controller
+    public class eContracting2AuthController : eContracting2MvcController
     {
         [Obsolete]
         private const string salt = "228357";
-        protected readonly ILogger Logger;
-        protected readonly IContextWrapper ContextWrapper;
-        protected readonly ISessionProvider SessionProvider;
-        protected readonly IOfferService ApiService;
-        protected readonly IAuthenticationService AuthService;
-        protected readonly IUserDataCacheService UserDataCache;
+
+        protected readonly IOfferService OfferService;
+        protected readonly IDataSessionCacheService SessionCacheService;
         protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
-        protected readonly ISettingsReaderService SettingsReaderService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
         protected readonly IMvcContext MvcContext;
@@ -43,65 +40,36 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         private const string loginMatrixCombinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login";
 
         [ExcludeFromCodeCoverage]
-        public eContracting2AuthController()
+        public eContracting2AuthController() : base(
+            ServiceLocator.ServiceProvider.GetRequiredService<ILogger>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>())
         {
-            this.Logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
-            this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
-            this.SessionProvider = ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>();
-            this.ApiService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
-            this.AuthService = ServiceLocator.ServiceProvider.GetRequiredService<IAuthenticationService>();
-            this.UserDataCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserDataCacheService>();
-            this.SettingsReaderService = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
+            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
             this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="eContracting2AuthController"/> class.
-        /// </summary>
-        /// <param name="logger">The logger.</param>
-        /// <param name="contextWrapper">The context wrapper.</param>
-        /// <param name="apiService">The API service.</param>
-        /// <param name="authService">The authentication service.</param>
-        /// <param name="settingsReaderService">The settings reader service.</param>
-        /// <param name="loginReportService">The login report service.</param>
-        /// <param name="mvcContext">The rendering context.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// logger
-        /// or
-        /// contextWrapper
-        /// or
-        /// apiService
-        /// or
-        /// authService
-        /// or
-        /// settingsReaderService
-        /// or
-        /// loginReportService
-        /// </exception>
         [ExcludeFromCodeCoverage]
         public eContracting2AuthController(
             ILogger logger,
             IContextWrapper contextWrapper,
-            IOfferService apiService,
+            IOfferService offerService,
             ISessionProvider sessionProvider,
-            IAuthenticationService authService,
-            ISettingsReaderService settingsReaderService,
+            IUserService userService,
+            ISettingsReaderService settingsReader,
             ILoginFailedAttemptBlockerStore loginReportService,
             IMvcContext mvcContext,
-            IUserDataCacheService userDataCache,
             IEventLogger evetLogger,
-            ITextService textService)
+            ITextService textService,
+            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService)
         {
-            this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            this.ContextWrapper = contextWrapper ?? throw new ArgumentNullException(nameof(contextWrapper));
-            this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
-            this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
-            this.AuthService = authService ?? throw new ArgumentNullException(nameof(authService));
-            this.UserDataCache = userDataCache ?? throw new ArgumentNullException(nameof(userDataCache));
-            this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
+            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
@@ -109,13 +77,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Authentication GET action.
+        /// Authentication GET action. For authentication Cognito user, see <see cref="LayoutViewModel.InitializeUser(string, Sitecore.Mvc.Presentation.Rendering, bool)"/>.
         /// </summary>
+        /// <seealso cref="LayoutViewModel"/>
         /// <returns>Instance result.</returns>
         [HttpGet]
         public ActionResult Login()
         {
-            var guid = string.Empty;
+            var guid = this.GetGuid();
             var errorString = string.Empty;
 
             try
@@ -124,8 +93,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.LoginEdit();
                 }
-
-                guid = Request.QueryString["guid"];
 
                 if (string.IsNullOrEmpty(guid))
                 {
@@ -140,12 +107,54 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
                 }
 
-                // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
-                this.SessionProvider.Abandon();
-                
-                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
-                var offer = this.ApiService.GetOffer(guid);
+                var user = this.UserService.GetUser(); // Data were set in LayoutViewModel.Initialize()
 
+                if (user == null)
+                {
+                    user = new UserCacheDataModel();
+                    this.UserService.SaveUser(guid, user);
+                    this.Logger.Debug(guid, "User doesn't exist. New anonymous user created and saved.");
+                }
+
+                var offer = this.OfferService.GetOffer(guid);
+
+                if (offer == null)
+                {
+                    this.Logger.Info(guid, "Offer doesn't exist (invalid guid)");
+                    return this.GetLoginFailReturns(LOGIN_STATES.OFFER_NOT_FOUND, guid);
+                }
+
+                var hideInnogyAccount = !offer.HasMcfu;
+                var showInnogyAccountHideInfo = user.IsCognito;
+                var canReadOffer = this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.NABIDKA);
+
+                if (!canReadOffer)
+                {
+                    hideInnogyAccount = true;
+                }
+                else
+                {
+                    showInnogyAccountHideInfo = false;
+                }
+
+                if (!hideInnogyAccount && this.CanReadOfferWithoutLogin(user, offer))
+                {
+                    user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.COGNITO;
+                    var campaignCode = this.GetCampaignCode(offer);
+                    this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
+                    this.ClearFailedAttempts(guid, user, AUTH_RESULT_STATES.SUCCEEDED, null, campaignCode);
+                    return this.Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+                }
+
+                if (user.AuthorizedGuids.ContainsKey(guid))
+                {
+                    user.AuthorizedGuids.Remove(guid);
+                    this.Logger.Debug(guid, "Removing current guid as orphan from AuthorizedGuids");
+                }
+
+                // continue on login page
+
+                var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
 
                 if (canLogin != LOGIN_STATES.OK)
@@ -155,20 +164,20 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (offer.State == "3")
                 {
-                    this.ApiService.ReadOffer(guid);
+                    this.OfferService.ReadOffer(guid, user);
                 }
 
-                var authTypes = this.SettingsReaderService.GetLoginTypes(offer);
+                var authTypes = this.SettingsService.GetLoginTypes(offer);
 
                 if (!authTypes.Any())
                 {
                     this.Logger.Fatal(guid, $"No authentication types found ({Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES})");
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
+                    return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_MISSING_AUTH_TYPES);
                 }
 
-                var definition = this.SettingsReaderService.GetDefinition(offer);
+                var definition = this.SettingsService.GetDefinition(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
-                var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+                var steps = this.SettingsService.GetSteps(datasource.Step);
                 var viewModel = this.GetViewModel(definition, datasource, choices, steps, errorString);
                 viewModel.OfferAccepted = offer.IsAccepted;
                 viewModel.Birthdate = offer.Birthday;
@@ -177,6 +186,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.Partner = offer.PartnerNumber;
                 viewModel.Zip1 = offer.PostNumber;
                 viewModel.Zip2 = offer.PostNumberConsumption;
+                viewModel.HideInnogyAccount = hideInnogyAccount;
+                viewModel.ShowInnogyAccountHideInfo = showInnogyAccountHideInfo;
+
+                if (!viewModel.HideInnogyAccount)
+                {
+                    viewModel.ViewEventData = this.GetViewData(offer, datasource, definition);
+                    viewModel.ClickEventData = this.GetClickData(offer, datasource, definition);
+                }
 
                 // check if there already is an component in place for this matrix combination (possibly generated whenever an editor opens the page in edit mode)
                 // if it is not there, do not place a "Placeholders" element with matrix combination and let the view render the default component
@@ -202,26 +219,26 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 if (ex.InnerException is EndpointNotFoundException)
                 {
                     this.Logger.Fatal(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH1_CACHE})", ex);
-                    return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE);
+                    return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_CACHE);
                 }
 
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_CACHE2})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_CACHE2);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_CACHE2);
             }
             catch (ApplicationException ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_APP})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_APP);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_APP);
             }
             catch (InvalidOperationException ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_INV_OP})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_INV_OP);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_INV_OP);
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH1_UNKNOWN})", ex);
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH1_UNKNOWN);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH1_UNKNOWN);
             }
         }
 
@@ -234,7 +251,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginSubmitViewModel authenticationModel)
         {
-            var guid = Request.QueryString.Get("guid");
+            var guid = this.GetGuid();
             //var datasource = this.GetLayoutItem<LoginComponentModel>();
 
             try
@@ -253,9 +270,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
+                this.UserService.Logout(guid);
+                var user = this.UserService.GetUser();
+
                 var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
-                var offer = this.ApiService.GetOffer(guid);
-                var campaignCode = (offer != null) ? (offer.IsCampaign ? offer.Campaign : offer.CreatedAt) : Request.QueryString["utm_campaign"];
+                var offer = this.OfferService.GetOffer(guid);
+                var campaignCode = this.GetCampaignCode(offer);
 
                 var canLogin = this.IsAbleToLogin(guid, offer, datasource);
                 
@@ -266,7 +286,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var loginType = this.GetLoginType(offer, authenticationModel.Key);
-                var result = this.AuthService.GetLoginState(offer, loginType, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
+                var result = this.GetLoginState(offer, loginType, authenticationModel.BirthDate, authenticationModel.Key, authenticationModel.Value);
 
                 if (result != AUTH_RESULT_STATES.SUCCEEDED)
                 {
@@ -275,76 +295,86 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(result, loginType, guid);
                 }
 
-                //TODO: this.DataSessionStorage.Login(userData);
-                this.AuthService.Login(new AuthDataModel(offer));
-
-                var log = new StringBuilder();
-                log.AppendLine("Successfully log-ged in");
-                log.AppendLine(" - Browser agent: " + this.ContextWrapper.GetBrowserAgent());
-                this.Logger.Info(guid, log.ToString());
-
+                user.AuthorizedGuids[guid] = AUTH_METHODS.TWO_SECRETS;
+                this.UserService.Authenticate(guid, user); // overwrites current store user
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
-
-                //odblokuj neuspesne pokusy (uspesne prihlaseni restartuje limit)
-                try
-                {
-                    this.LoginReportService.Clear(guid);
-                    this.ReportLogin(result, loginType, guid, campaignCode);
-                }
-                catch (Exception clearex)
-                {
-                    this.Logger.Error(guid, $"Error clearing login attempts",clearex);
-                }
-
-
-                if (offer.IsAccepted)
-                {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.AcceptedOffer);
-                    this.Logger.Info(guid, $"Offer already accepted");
-                    return Redirect(redirectUrl);
-                }
-
-                if (offer.IsExpired)
-                {
-                    var redirectUrl = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.OfferExpired);
-                    this.Logger.Info(guid, $"Offer expired");
-                    return this.Redirect(redirectUrl);
-                }
-
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.Offer));
+                this.ClearFailedAttempts(guid, user, result, loginType, campaignCode);
+                return this.Redirect(PAGE_LINK_TYPES.Offer, guid);
             }
             catch (AggregateException ex)
             {
                 if (ex.InnerException is EndpointNotFoundException)
                 {
                     this.Logger.Error(guid, $"Connection to CACHE failed ({Constants.ErrorCodes.AUTH2_CACHE})", ex);
-                    return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE);
+                    return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_CACHE);
                 }
 
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_CACHE2})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_CACHE2);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_CACHE2);
             }
             catch (ApplicationException ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_APP);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_APP);
             }
             catch (InvalidOperationException ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_INV_OP);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_INV_OP);
             }
             catch (Exception ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_UNKNOWN})", ex);
-                return this.Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.SystemError) + "?code=" + Constants.ErrorCodes.AUTH2_UNKNOWN);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_UNKNOWN);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            var guid = this.GetGuid();
+
+            try
+            {
+                this.UserService.Logout(guid);
+
+                var redirectUrl = this.Request.QueryString.Get(Constants.QueryKeys.REDIRECT);
+
+                if (!string.IsNullOrEmpty(redirectUrl))
+                {
+                    redirectUrl = HttpUtility.UrlDecode(redirectUrl);
+                }
+
+                if (Uri.IsWellFormedUriString(redirectUrl, UriKind.RelativeOrAbsolute))
+                {
+                    return this.Redirect(redirectUrl);
+                }
+                else if (string.IsNullOrEmpty(guid))
+                {
+                    return this.Redirect(PAGE_LINK_TYPES.SessionExpired, null);
+                }
+                else
+                {
+                    return this.Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+            }
+            catch (EcontractingMissingDatasourceException ex)
+            {
+                var redirectUrl = "/login";
+                this.Logger.Error(guid, ex);
+                return this.Redirect(redirectUrl);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(guid, ex);
+                return this.Redirect(PAGE_LINK_TYPES.SessionExpired, guid);
             }
         }
 
         private ActionResult LoginEdit()
         {
-            var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
-            var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
 
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fakeXml = new OfferXmlModel();
@@ -355,9 +385,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var fakeAttr = new OfferAttributeModel[] { };
             var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, fakeAttr);
             var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
-            var loginTypes = this.SettingsReaderService.GetLoginTypes(fakeOffer);
+            var loginTypes = this.SettingsService.GetLoginTypes(fakeOffer);
             var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
-            var steps = this.SettingsReaderService.GetSteps(datasource.Step);
+            var steps = this.SettingsService.GetSteps(datasource.Step);
             var editModel = this.GetViewModel(definition, datasource, choices, steps);
             editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
             editModel.PageTitle = datasource.PageTitle;
@@ -367,11 +397,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             editModel.BussProcess = definition.Process.Code;
             editModel.BussProcessType = definition.ProcessType.Code;
 
-            var processes = this.SettingsReaderService.GetAllProcesses();
-            var processTypes = this.SettingsReaderService.GetAllProcessTypes();
-
-
-            
+            var processes = this.SettingsService.GetAllProcesses();
+            var processTypes = this.SettingsService.GetAllProcessTypes();
 
             editModel.Placeholders.Add(loginMatrixCombinationPlaceholderPrefix);
 
@@ -425,18 +452,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/Preview/Login.cshtml", editModel);
         }
 
-
         /// <summary>
         /// Rendering for '/sitecore/layout/Renderings/eContracting2/Rich Text for login page'.
         /// </summary>
         public ActionResult RichText()
-        {            
+        {
+            var guid = this.GetGuid();
             var dataSource = this.MvcContext.GetDataSourceItem<IRichTextModel>();
-            var data = this.UserDataCache.Get<OfferCacheDataModel>(Constants.CacheKeys.OFFER_IDENTIFIER);
+            var data = this.RequestCacheService.GetOffer(guid);
 
             if (dataSource == null || data.IsAccepted)
             {
-                var definition = this.SettingsReaderService.GetDefinition(data.Process, data.ProcessType);
+                var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
 
                 if (!data.IsAccepted)
                 {
@@ -536,7 +563,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var viewModel = new LoginViewModel(definition, datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
-            viewModel.Labels = new Dictionary<string, string>();
+            viewModel.Labels = new Dictionary<string, object>();
             viewModel.Labels["requiredFields"] = datasource.RequiredFields;
             viewModel.Labels["birthDate"] = datasource.BirthDateLabel;
             viewModel.Labels["birthDateHelpText"] = datasource.BirthDateHelpMessage;
@@ -548,6 +575,35 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.Labels["ariaPreviousMonth"] = datasource.CalendarPreviousMonth;
             viewModel.Labels["ariaChooseDay"] = datasource.CalendarSelectDay;
             viewModel.Labels["validationError"] = validationMessage;
+
+            if (datasource.InfoLoginBox != null)
+            {
+                var buttonUrl = datasource.InfoLoginBox.ButtonUrl?.Url;
+
+                if (string.IsNullOrEmpty(buttonUrl) || !Uri.IsWellFormedUriString(buttonUrl, UriKind.Absolute))
+                {
+                    buttonUrl = this.SettingsService.GetCognitoSettings().InnogyLoginUrl;
+                }
+
+                if (Uri.IsWellFormedUriString(buttonUrl, UriKind.RelativeOrAbsolute))
+                {
+                    viewModel.Labels["innogyAccountHeading"] = datasource.InfoLoginBox.Title;
+                    viewModel.Labels["innogyAccountBenefits"] = datasource.InfoLoginBox.Items.Select(x => x.Text).ToArray();
+                    viewModel.Labels["innogyAccountBtn"] = datasource.InfoLoginBox.ButtonLabel;
+
+                    var clientId = this.SettingsService.GetCognitoSettings().CognitoClientId;
+                    var redirectUrl = this.Request.Url.ToString();
+                    var uriBuilder = new UriBuilder(buttonUrl);
+                    buttonUrl = Utils.SetQuery(buttonUrl, Constants.QueryKeys.REDIRECT, redirectUrl);
+                    buttonUrl = Utils.SetQuery(buttonUrl, "client_id", clientId);
+                    viewModel.ExtraInfoBoxButtonUrl = buttonUrl;
+                }
+                else
+                {
+                    this.Logger.Error(null, "URL for external login not well formatted");
+                }
+            }
+
             return viewModel;
         }
 
@@ -581,37 +637,34 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return LOGIN_STATES.OK;
         }
 
-        protected internal ActionResult GetLoginFailReturns(LOGIN_STATES canLogin, string guid)
+        protected internal ActionResult GetLoginFailReturns(LOGIN_STATES state, string guid)
         {
-            if (canLogin == LOGIN_STATES.INVALID_GUID)
+            if (state == LOGIN_STATES.INVALID_GUID)
             {
-                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.INVALID_GUID;
-                return Redirect(url);
+                return Redirect(PAGE_LINK_TYPES.WrongUrl, guid, Constants.ErrorCodes.INVALID_GUID);
             }
 
-            if (canLogin == LOGIN_STATES.OFFER_NOT_FOUND)
+            if (state == LOGIN_STATES.OFFER_NOT_FOUND)
             {
-                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
-                return Redirect(url);
+                var url = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_NOT_FOUND;
+                return Redirect(PAGE_LINK_TYPES.WrongUrl, guid, Constants.ErrorCodes.OFFER_NOT_FOUND);
             }
 
-            if (canLogin == LOGIN_STATES.USER_BLOCKED)
+            if (state == LOGIN_STATES.USER_BLOCKED)
             {
-                return Redirect(this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.UserBlocked));
+                return Redirect(PAGE_LINK_TYPES.UserBlocked, guid);
             }
 
-            if (canLogin == LOGIN_STATES.OFFER_STATE_1)
+            if (state == LOGIN_STATES.OFFER_STATE_1)
             {
                 this.Logger.Warn(guid, $"Offer with state [1] will be ignored");
-                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.OFFER_STATE_1;
-                return Redirect(url);
+                return Redirect(PAGE_LINK_TYPES.WrongUrl, guid, Constants.ErrorCodes.OFFER_STATE_1);
             }
 
-            if (canLogin == LOGIN_STATES.MISSING_BIRTHDAY)
+            if (state == LOGIN_STATES.MISSING_BIRTHDAY)
             {
                 this.Logger.Warn(guid, $"Attribute BIRTHDT is offer is empty");
-                var url = this.SettingsReaderService.GetPageLink(PAGE_LINK_TYPES.WrongUrl) + "?code=" + Constants.ErrorCodes.MISSING_BIRTDATE;
-                return Redirect(url);
+                return Redirect(PAGE_LINK_TYPES.WrongUrl, guid, Constants.ErrorCodes.MISSING_BIRTDATE);
             }
 
             var url1 = Utils.SetQuery(this.Request.Url, "error", Constants.ErrorCodes.UNKNOWN);
@@ -674,7 +727,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SessionProvider.Set(SESSION_ERROR_KEY, msg);
             return result;
         }
-        
+
         protected internal LoginChoiceViewModel GetChoiceViewModel(ILoginTypeModel model, OfferModel offer)
         {
             string key = Utils.GetUniqueKey(model, offer);
@@ -690,7 +743,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns>Login type or null.</returns>
         protected internal ILoginTypeModel GetLoginType(OfferModel offer, string key)
         {
-            var loginTypes = this.SettingsReaderService.GetAllLoginTypes();
+            var loginTypes = this.SettingsService.GetAllLoginTypes();
 
             foreach (var loginType in loginTypes)
             {
@@ -701,6 +754,212 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Logins the specified offer.
+        /// </summary>
+        /// <seealso cref="ILoginTypeModel"/>
+        /// <param name="offer">The offer.</param>
+        /// <param name="loginType">The login type.</param>
+        /// <param name="birthDay">The birth day.</param>
+        /// <param name="key">The key of login type.</param>
+        /// <param name="value">The value by login type.</param>
+        protected internal AUTH_RESULT_STATES GetLoginState(OfferModel offer, ILoginTypeModel loginType, string birthDay, string key, string value)
+        {
+            #region Perform settings check
+
+            if (loginType == null)
+            {
+                return AUTH_RESULT_STATES.MISSING_LOGIN_TYPE;
+            }
+
+            if (string.IsNullOrEmpty(key))
+            {
+                return AUTH_RESULT_STATES.KEY_MISMATCH;
+            }
+
+            // We can do it this way but it strongly depends on editor what he defines as 'loginType.Name'.
+            var originalValue = offer.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
+
+            if (string.IsNullOrEmpty(originalValue))
+            {
+                return AUTH_RESULT_STATES.INVALID_VALUE_DEFINITION;
+            }
+
+            var originalBirthdate = offer.Birthday.Trim().Replace(" ", string.Empty).ToLower();
+
+            if (string.IsNullOrEmpty(originalBirthdate))
+            {
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE_DEFINITION;
+            }
+
+            #endregion
+
+            birthDay = birthDay?.Trim().Replace(" ", string.Empty).ToLower();
+            value = value?.Trim().Replace(" ", string.Empty); //.Replace(" ", string.Empty).ToLower();
+
+            var birthdateValid = this.IsBirthDateValid(originalBirthdate, birthDay);
+            var valueValid = this.IsValueValid(loginType, originalValue, value);
+
+            if (!birthdateValid && !valueValid)
+            {
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE_AND_VALUE;
+            }
+
+            if (!birthdateValid)
+            {
+                return AUTH_RESULT_STATES.INVALID_BIRTHDATE;
+            }
+
+            if (!valueValid)
+            {
+                return AUTH_RESULT_STATES.INVALID_VALUE;
+            }
+
+            return AUTH_RESULT_STATES.SUCCEEDED;
+        }
+
+        protected internal void ClearFailedAttempts(string guid, UserCacheDataModel user, AUTH_RESULT_STATES result, ILoginTypeModel loginType, string campaignCode)
+        {
+            //odblokuj neuspesne pokusy (uspesne prihlaseni restartuje limit)
+            try
+            {
+                this.LoginReportService.Clear(guid);
+                this.ReportLogin(result, loginType, guid, campaignCode);
+            }
+            catch (Exception clearex)
+            {
+                this.Logger.Error(guid, $"Error clearing login attempts", clearex);
+            }
+        }
+
+        protected internal bool IsRegexValid(ILoginTypeModel loginType, string value)
+        {
+            if (string.IsNullOrEmpty(loginType.ValidationRegex))
+            {
+                return true;
+            }
+
+            try
+            {
+                return Regex.IsMatch(value, loginType.ValidationRegex);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        protected internal bool IsBirthDateValid(string originalValue, string inputValue)
+        {
+            if (string.IsNullOrEmpty(inputValue))
+            {
+                return false;
+            }
+
+            if (originalValue != inputValue)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal bool IsValueValid(ILoginTypeModel loginType, string originalValue, string inputValue)
+        {
+            if (string.IsNullOrEmpty(inputValue))
+            {
+                return false;
+            }
+
+            if (!this.IsRegexValid(loginType, inputValue))
+            {
+                return false;
+            }
+
+            if (originalValue != inputValue)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal bool CanReadOfferWithoutLogin(UserCacheDataModel user, OfferModel offer)
+        {
+            if (offer == null)
+            {
+                return false;
+            }
+
+            if (!this.UserService.IsAuthorized(user, offer.Guid))
+            {
+                return false;
+            }
+
+            if (!this.OfferService.CanReadOffer(offer.Guid, user, OFFER_TYPES.NABIDKA))
+            {
+                return false;
+            }
+
+            if (!user.IsCognito)
+            {
+                return false;
+            }
+
+            if (this.Request.QueryString[Constants.QueryKeys.DO_NOT_AUTO_LOGIN] == Constants.QueryValues.DO_NOT_AUTO_LOGIN_TRUE)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal string GetCampaignCode(OfferModel offer)
+        {
+            string campaignCode = string.Empty;
+
+            if (offer != null)
+            {
+                campaignCode = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
+            }
+            else
+            {
+                campaignCode = this.Request.QueryString[Constants.QueryKeys.CAMPAIGN];
+            }
+
+            return campaignCode;
+        }
+
+        protected internal GoogleAnalyticsEvendDataModel GetViewData(OfferModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
+        {
+            return this.GetGoogleEventData(
+                offer,
+                datasource.CampaignLabel,
+                datasource.IndividualLabel,
+                datasource.ElectricityLabel,
+                datasource.GasLabel,
+                datasource.LoginView_eCat,
+                datasource.LoginView_eAct,
+                datasource.LoginView_eLab,
+                definition
+            );
+        }
+
+        protected internal GoogleAnalyticsEvendDataModel GetClickData(OfferModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
+        {
+            return this.GetGoogleEventData(
+                offer,
+                datasource.CampaignLabel,
+                datasource.IndividualLabel,
+                datasource.ElectricityLabel,
+                datasource.GasLabel,
+                datasource.LoginClick_eCat,
+                datasource.LoginClick_eAct,
+                datasource.LoginClick_eLab,
+                definition
+            );
         }
     }
 }

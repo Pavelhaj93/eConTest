@@ -22,10 +22,10 @@ namespace eContracting.Models
         [SitecoreField]
         string PhoneNumberLink { get; set; }
 
-        [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
-        Link LogoutLink { get; set; }
+        [SitecoreField]
+        string LogoutLinkLabel { get; set; }
 
-        [SitecoreIgnore]
-        bool ShowLogoutButton { get; set; }
+        [SitecoreField]
+        string LogoutLinkCognitoLabel { get; set; }
     }
 }

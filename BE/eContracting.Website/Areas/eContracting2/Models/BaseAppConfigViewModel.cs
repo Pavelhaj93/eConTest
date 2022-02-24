@@ -9,6 +9,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class BaseAppConfigViewModel
     {
+        [JsonProperty("guid")]
+        public readonly string Guid;
+
         [JsonIgnore]
         public string PageTitle { get; set; }
 
@@ -19,7 +22,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public int Timeout { get; set; }
 
         [JsonProperty("errorPageUrl")]
-        public readonly string ErrorPage;
+        public string ErrorPage { get; set; }
 
         [JsonProperty("labels")]
         public Dictionary<string, string> Labels { get; } = new Dictionary<string, string>();
@@ -49,8 +52,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
         }
 
-        protected BaseAppConfigViewModel(string view, ISiteSettingsModel siteSettings)
+        protected BaseAppConfigViewModel(string view, ISiteSettingsModel siteSettings, string guid)
         {
+            this.Guid = guid;
             this.View = view;
             this.ErrorPage = siteSettings.SystemError.Url;
         }

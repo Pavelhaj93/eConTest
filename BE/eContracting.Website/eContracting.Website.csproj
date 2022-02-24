@@ -321,16 +321,21 @@
   <ItemGroup>
     <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2ApiController.cs" />
+    <Compile Include="Areas\eContracting2\Controllers\eContracting2MvcController.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2Controller.cs" />
     <Compile Include="Areas\eContracting2\Controllers\eContracting2AuthController.cs" />
     <Compile Include="Areas\eContracting2\Models\AcceptedOfferViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseAppConfigViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ButtonsViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\HeaderViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\InfoBoxViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListItemViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\PageExpirationViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\MatrixSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
@@ -342,7 +347,6 @@
     <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
     <Compile Include="AssetsHtmlHelper.cs" />
-    <Compile Include="eContractingServiceConfigurator.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Pipelines\Initialize\GlassMapperConfigurator.cs" />
@@ -350,6 +354,7 @@
     <Compile Include="Pipelines\Initialize\RunStartupsProcessor.cs" />
     <Compile Include="Pipelines\SessionEnd\ClearUserCacheProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rules\Conditions\WhenUserIsAuthorizedBySpecificTypeCondition.cs" />
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessCondition.cs" />
     <Compile Include="Rules\Conditions\WhenOfferHasSpecificProcessTypeCondition.cs" />
     <Compile Include="Rules\Conditions\WhenOfferMatchesMatrixCondition.cs" />
@@ -451,6 +456,10 @@
     <Content Include="Areas\eContracting2\Views\Edit\SessionExpired.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\AcceptedOffer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Offer.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\MatrixSwitcher.cshtml" />
+    <Content Include="Areas\eContracting2\Views\AccountButtons.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Components.cshtml" />
+    <Content Include="Areas\eContracting2\Views\PromoBoxes.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

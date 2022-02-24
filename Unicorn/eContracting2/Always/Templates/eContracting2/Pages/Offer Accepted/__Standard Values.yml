@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 100
+  Value: 300
 Languages:
 - Language: cs
   Versions:
@@ -34,6 +34,9 @@ Languages:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200422T090019Z
+    - ID: "3bb4d3cb-fed7-42e1-a067-f41f0e5f2b9b"
+      Hint: ButtonDashboardLabel
+      Value: Zobrazit přehled
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

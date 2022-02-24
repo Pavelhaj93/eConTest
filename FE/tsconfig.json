@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["es5", "esnext", "dom"],
+    "lib": ["es5", "esnext", "dom", "dom.iterable"],
     "removeComments": true,
     "rootDir": "src",
     "allowJs": true,
@@ -28,7 +28,8 @@
       "@views": ["src/app/views"],
       "@theme": ["src/app/theme"],
       "@stores": ["src/app/stores"],
-      "@context": ["src/app/context"]
+      "@context": ["src/app/context"],
+      "@ui": ["src/ui"]
     }
   },
   "include": ["./src/app", "custom.d.ts"],

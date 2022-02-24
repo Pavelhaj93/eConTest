@@ -5,12 +5,13 @@ import userEvent from '@testing-library/user-event'
 import { Offer } from '../'
 
 const mockProps = {
+  guid: '0635F899B3111EDC9BC4A505A628FCED',
   view: 'Offer',
   offerUrl: '',
   errorPageUrl: '',
   thankYouPageUrl: '',
   sessionExpiredPageUrl: '',
-  getFileUrl: '/',
+  getFileUrl: '',
   getFileForSignUrl: '',
   signFileUrl: '',
   labels: {

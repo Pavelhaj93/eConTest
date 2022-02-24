@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
+using eContracting.Models;
 using eContracting.Services;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -32,7 +33,8 @@ namespace eContracting.ConsoleClient.Commands
         [Execute]
         public async Task Execute([Argument(Description = "unique identifier for an offer")] string guid)
         {
-            var offer = this.ApiService.GetOffer(guid);
+            var user = new UserCacheDataModel();
+            var offer = this.ApiService.GetOffer(guid, user);
 
             if (offer == null)
             {
@@ -50,7 +52,7 @@ namespace eContracting.ConsoleClient.Commands
 
             this.Console.WriteLine(JsonConvert.SerializeObject(list1, Formatting.Indented));
 
-            var files = this.ApiService.GetAttachments(offer);
+            var files = this.ApiService.GetAttachments(offer, user);
 
             if (files == null)
             {

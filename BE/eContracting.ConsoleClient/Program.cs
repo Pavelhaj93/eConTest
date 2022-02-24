@@ -14,8 +14,8 @@ namespace eContracting.ConsoleClient
     {
         public static async Task Main(string[] args)
         {
-            var fakeSitecoreContent = new Mock<ISitecoreContext>();
-            var sitecoreContext = fakeSitecoreContent.Object;
+            var fakeSitecoreContent = new Mock<ISitecoreService>();
+            var sitecoreService = fakeSitecoreContent.Object;
 
             var configuration = new GlobalConfiguration();
             // dev
@@ -41,12 +41,13 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
-                    services.AddScoped<IUserDataCacheService, MemoryUserDataCacheService>();
+                    services.AddScoped<IDataRequestCacheService, MemoryDataCacheService>();
+                    services.AddScoped<IDataSessionCacheService, MemoryDataCacheService>();
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
                     services.AddScoped<ITextService, MemoryTextService>();
                     services.AddScoped<IOfferService, OfferService>();
                     services.AddScoped<ISignService, FileSignService>();
-                    services.AddScoped<ISitecoreContext>(service => { return sitecoreContext; });
+                    services.AddScoped<ISitecoreService>(service => { return sitecoreService; });
                     services.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
                     services.AddScoped<IContextWrapper, MemoryContextWrapper>();
                     services.AddSingleton<ILogger, ConsoleLogger>();

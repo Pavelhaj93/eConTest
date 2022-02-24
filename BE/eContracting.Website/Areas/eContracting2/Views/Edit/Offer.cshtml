@@ -1,109 +1,99 @@
 ﻿@using System.Linq
 @using Glass.Mapper.Sc.Web.Mvc
-@using eContracting.Kernel.GlassItems.Pages
 @using eContracting.Website.Areas.eContracting2.Models
-@inherits GlassView<OfferViewModel> 
+@model OfferViewModel
+@Html.Action("MatrixSwitcher")
 <div class="row">
     <div>
         <div class="info">
-            @if (Model.Definition == null)
-            {
-                <div><p>No combination found</p></div>
-            }
-            else
-            {
-                <p>Matrix: @Model.Definition.Path</p>
-                <p><i>Pokud chcete vidět hodnoty z jiné kombinace, běžte do Preview módu, nastavte hodnoty a vraťte se zpět do Edit módu.</i></p>
-                <hr />
-                <div>
-                    <h2>Hlavní nadpis</h2>
-                    @Editable(Model.Definition.OfferTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Text pod hlavním nadpisem</h2>
-                    @Editable(Model.Definition.OfferMainText, x => x.Text)
-                </div>
-                <div>
-                    <h2>Stručný přehled nabídky - nadpis</h2>
-                    @Editable(Model.Definition.OfferPerexTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dárečky - nadpis</h2>
-                    @Editable(Model.Definition.OfferGiftsTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Benefity - nadpis</h2>
-                    @Editable(Model.Definition.OfferBenefitsTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k elektronické akceptaci - nadpis</h2>
-                    @Editable(Model.Definition.OfferCommoditiesTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k elektronické akceptaci - text</h2>
-                    @Editable(Model.Definition.OfferCommoditiesText, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k akceptaci - nadpis</h2>
-                    @Editable(Model.Definition.OfferCommoditiesAcceptTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k akceptaci - text</h2>
-                    @Editable(Model.Definition.OfferCommoditiesAcceptText, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k podepsání - nadpis</h2>
-                    @Editable(Model.Definition.OfferCommoditiesSignTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k podepsání - text</h2>
-                    @Editable(Model.Definition.OfferCommoditiesSignText, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k nahrání - nadpis</h2>
-                    @Editable(Model.Definition.OfferUploadsTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dokumenty k nahrání - poznámka</h2>
-                    @Editable(Model.Definition.OfferUploadsNote, x => x.Text)
-                </div>
-                <div>
-                    <h2>Doplňkové služby - nadpis</h2>
-                    @Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Doplňkové služby - text</h2>
-                    @Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Ostatní produkty - nadpis</h2>
-                    @Editable(Model.Definition.OfferOtherProductsTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Ostatní produkty - přehled - nadpis</h2>
-                    @Editable(Model.Definition.OfferOtherProductsSummaryTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Ostatní produkty - dokumenty - nadpis</h2>
-                    @Editable(Model.Definition.OfferOtherProductsDocsTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Ostatní produkty - dokumenty - text</h2>
-                    @Editable(Model.Definition.OfferOtherProductsDocsText, x => x.Text)
-                </div>
-                <div>
-                    <h2>Ostatní produkty - dokumenty - poznámka</h2>
-                    @Editable(Model.Definition.OfferOtherProductsNote, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dialog pro akceptování - nadpis</h2>
-                    @Editable(Model.Definition.OfferAcceptTitle, x => x.Text)
-                </div>
-                <div>
-                    <h2>Dialog pro akceptování - text</h2>
-                    @Editable(Model.Definition.OfferAcceptText, x => x.Text)
-                </div>
-            }
+            <div>
+                <h2>Hlavní nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Text pod hlavním nadpisem</h2>
+                @Html.Glass().Editable(Model.Definition.OfferMainText, x => x.Text)
+            </div>
+            <div>
+                <h2>Stručný přehled nabídky - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferPerexTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dárečky - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferGiftsTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Benefity - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferBenefitsTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k elektronické akceptaci - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k elektronické akceptaci - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesText, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k akceptaci - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesAcceptTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k akceptaci - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesAcceptText, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k podepsání - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesSignTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k podepsání - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferCommoditiesSignText, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k nahrání - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferUploadsTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dokumenty k nahrání - poznámka</h2>
+                @Html.Glass().Editable(Model.Definition.OfferUploadsNote, x => x.Text)
+            </div>
+            <div>
+                <h2>Doplňkové služby - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Doplňkové služby - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferAdditionalServicesTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Ostatní produkty - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferOtherProductsTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Ostatní produkty - přehled - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferOtherProductsSummaryTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Ostatní produkty - dokumenty - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferOtherProductsDocsTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Ostatní produkty - dokumenty - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferOtherProductsDocsText, x => x.Text)
+            </div>
+            <div>
+                <h2>Ostatní produkty - dokumenty - poznámka</h2>
+                @Html.Glass().Editable(Model.Definition.OfferOtherProductsNote, x => x.Text)
+            </div>
+            <div>
+                <h2>Dialog pro akceptování - nadpis</h2>
+                @Html.Glass().Editable(Model.Definition.OfferAcceptTitle, x => x.Text)
+            </div>
+            <div>
+                <h2>Dialog pro akceptování - text</h2>
+                @Html.Glass().Editable(Model.Definition.OfferAcceptText, x => x.Text)
+            </div>
         </div>
     </div>
 </div>

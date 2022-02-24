@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -52,6 +53,12 @@ namespace eContracting
         }
 
         /// <inheritdoc/>
+        public string GetQueryValue(string key)
+        {
+            return Sitecore.Context.Request.GetQueryString(key);
+        }
+
+        /// <inheritdoc/>
         public bool IsEditMode()
         {
             return Sitecore.Context.PageMode.IsExperienceEditorEditing;
@@ -73,6 +80,18 @@ namespace eContracting
         public void SetDisplayMode(DisplayMode model)
         {
             throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public HttpCookieCollection GetCookies()
+        {
+            return HttpContext.Current?.Request?.Cookies;
+        }
+
+        /// <inheritdoc/>
+        public NameValueCollection GetQueryParams()
+        {
+            return HttpContext.Current?.Request?.QueryString ?? new NameValueCollection();
         }
     }
 }

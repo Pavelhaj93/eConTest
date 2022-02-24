@@ -22,8 +22,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("choices")]
         public readonly IEnumerable<LoginChoiceViewModel> Choices;
 
+        [JsonIgnore]
         public readonly List<string> Placeholders = new List<string>();
 
+        [JsonIgnore]
         public readonly IDefinitionCombinationModel Definition;
 
         /// <summary>
@@ -60,7 +62,25 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public bool OfferAccepted { get; set; }
 
         [JsonProperty("labels")]
-        public Dictionary<string, string> Labels { get; set; }
+        public Dictionary<string, object> Labels { get; set; }
+
+        [JsonProperty("innogyAccountUrl")]
+        public string ExtraInfoBoxButtonUrl { get; set; }
+
+        /// <summary>
+        /// User doesn't have rights to read the offer.
+        /// </summary>
+        [JsonProperty("hideInnogyAccount")]
+        public bool HideInnogyAccount { get; set; }
+
+        [JsonIgnore]
+        public bool ShowInnogyAccountHideInfo { get; set; }
+
+        [JsonIgnore]
+        public GoogleAnalyticsEvendDataModel ViewEventData { get; set; }
+
+        [JsonProperty("gaEventClickData")]
+        public GoogleAnalyticsEvendDataModel ClickEventData { get; set; }
 
         public LoginViewModel(IDefinitionCombinationModel definition, IPageLoginModel datasource, StepsViewModel steps, LoginChoiceViewModel[] choices) : base("Authentication")
         {

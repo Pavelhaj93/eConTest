@@ -19,9 +19,9 @@ import {
   UploadZone,
 } from '@components'
 import { breakpoints, colors } from '@theme'
-import { useLabels, useUnload } from '@hooks'
+import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
-import { isIE11 } from '@utils'
+import { isIE11, parseUrl } from '@utils'
 
 type SignatureModalType = {
   id: string
@@ -30,8 +30,10 @@ type SignatureModalType = {
 
 export const Offer: React.FC<View> = observer(
   ({
+    guid,
     offerUrl,
     labels,
+    keepAliveUrl,
     getFileUrl,
     thumbnailUrl,
     signFileUrl,
@@ -47,7 +49,7 @@ export const Offer: React.FC<View> = observer(
     sessionExpiredPageUrl,
     suppliers,
   }) => {
-    const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl))
+    const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl, guid))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
       id: '',
       show: false,
@@ -57,7 +59,7 @@ export const Offer: React.FC<View> = observer(
     const formRef = useRef<HTMLFormElement>(null)
 
     // keep session alive
-    // useKeepAlive(30 * 1000, keepAliveUrl)
+    useKeepAlive(30 * 1000, keepAliveUrl ? parseUrl(keepAliveUrl, { guid }) : keepAliveUrl)
 
     useEffect(() => {
       store.errorPageUrl = errorPageUrl
@@ -293,7 +295,7 @@ export const Offer: React.FC<View> = observer(
                         <Form.Check.Label>
                           <span className="mr-1">{prefix}</span>
                           <DocumentLink
-                            url={`${getFileUrl}/${key}`}
+                            url={parseUrl(`${getFileUrl}/${key}`, { guid })}
                             label={label}
                             onClick={handleDownload}
                           />
@@ -326,7 +328,9 @@ export const Offer: React.FC<View> = observer(
                           <span>
                             {prefix}{' '}
                             <DocumentLink
-                              url={`${getFileUrl}/${key}?t=${new Date().getTime()}`}
+                              url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
+                                guid,
+                              })}
                               label={label}
                               onClick={handleDownload}
                               noIcon
@@ -495,7 +499,7 @@ export const Offer: React.FC<View> = observer(
                     <Form.Check.Label>
                       <span className="mr-1">{prefix}</span>
                       <DocumentLink
-                        url={`${getFileUrl}/${key}`}
+                        url={parseUrl(`${getFileUrl}/${key}`, { guid })}
                         label={label}
                         onClick={handleDownload}
                       />
@@ -585,7 +589,7 @@ export const Offer: React.FC<View> = observer(
                     <Form.Check.Label>
                       <span className="mr-1">{prefix}</span>
                       <DocumentLink
-                        url={`${getFileUrl}/${key}`}
+                        url={parseUrl(`${getFileUrl}/${key}`, { guid })}
                         label={label}
                         onClick={handleDownload}
                       />
@@ -663,6 +667,7 @@ export const Offer: React.FC<View> = observer(
           labels={labels}
           thumbnailUrl={thumbnailUrl ?? ''}
           signFileUrl={signFileUrl ?? ''}
+          guid={guid}
         />
 
         <ConfirmationModal

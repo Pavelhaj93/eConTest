@@ -21,5 +21,7 @@ namespace eContracting
         MISSING_LOGIN_TYPE,
         MISSING_VALUE,
         KEY_MISMATCH,
+        NOT_PREAUTHENTICATED,
+        CANNOT_READ_OFFER
     }
 }

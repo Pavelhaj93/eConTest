@@ -14,7 +14,7 @@ SharedFields:
   Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 100
+  Value: 387
 - ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
   Hint: __Renderings
   Type: layout
@@ -79,21 +79,37 @@ Languages:
     - ID: "09e5f8e2-f7b8-4a74-ad09-a16fc95123cc"
       Hint: ValidationMessage
       Value: Ověřen&iacute; Va&scaron;ich &uacute;dajů se nezdařilo. Zadejte, pros&iacute;m, spr&aacute;vn&eacute; &uacute;daje. V př&iacute;padě pot&iacute;ž&iacute; se, pros&iacute;m, obraťte na na&scaron;i z&aacute;kaznickou linku 800 11 33 55.
+    - ID: "151df2b3-8e47-4a63-8f2a-5b166c8226ac"
+      Hint: CampaignLabel
+      Value: KAMPAN
     - ID: "17eccf1c-7206-4211-a367-309c2c3f09c6"
       Hint: CalendarSelectDay
       Value: Vybrat
+    - ID: "1e1ac363-df62-478b-9e0f-9567b429d6ae"
+      Hint: WarningDontHaveAccess
+      Value: |
+        <p style="text-align: center;"><strong><span>Je n&aacute;m l&iacute;to, ale V&aacute;&scaron; aktu&aacute;lně přihl&aacute;&scaron;en&yacute; innogy &uacute;čet nem&aacute; př&iacute;stup k dan&eacute; nab&iacute;dce. Pros&iacute;m, použijte tuto možnost ověřen&iacute;.</span></strong></p>
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200818T094403Z
     - ID: "26908a98-0ab1-47bd-a38a-db6b282dd9c5"
       Hint: BirthDatePlaceholder
       Value: např. 26. 12. 1966
+    - ID: "2f6761a0-295f-48fd-95f8-7a3aa75fd93a"
+      Hint: IndividualLabel
+      Value: INDI
     - ID: "31a8a6a1-820d-44c9-842d-6052c4fdc69e"
       Hint: CalendarOpen
       Value: Otevřít kalendář
     - ID: "35e1dac4-5051-4200-a3f2-d33b4dd43095"
       Hint: RequiredFields
       Value: Vyplňte pros&iacute;m v&scaron;echna požadovan&aacute; pole.
+    - ID: "39dd7778-79b9-48bc-9318-c22bd3e09595"
+      Hint: LoginView_eCat
+      Value: Runway
+    - ID: "417e461e-a119-4cee-84d9-5d6193337e33"
+      Hint: LoginClick_eCat
+      Value: Runway
     - ID: "450560cf-4b56-4824-8df0-e6041ec6f072"
       Hint: BirthDateValidationMessage
       Value: Zadáno chybné datum narození.
@@ -107,14 +123,24 @@ Languages:
     - ID: "6305a328-3ac5-4e35-b716-94ddc3a26340"
       Hint: ButtonText
       Value: Potvrdit údaje a zobrazit nabídku
-    - ID: "9643c067-b188-45b7-9576-a310dd01f87f"
-      Hint: NotAcceptedOfferText
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme za V&aacute;&scaron; z&aacute;jem o na&scaron;i nab&iacute;dku. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a pro zobrazen&iacute; nab&iacute;dky zadejte, pros&iacute;m, n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
+    - ID: "679e4219-6b12-4070-a067-86a6cd60079c"
+      Hint: LoginView_eAct
+      Value: "Zobrazeni-eCon-login"
+    - ID: "7a86ecaf-d3a9-4116-aaa3-4e9b50b21f73"
+      Hint: ElectricityLabel
+      Value: elektrina
+    - ID: "7fd9b68e-9184-4334-b147-854889749672"
+      Hint: LoginView_eLab
+      Value: "{TYPE}_Start_15-{BUS_PROCESS}"
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Ověření totožnosti
+    - ID: "aa080911-981e-4a37-b765-cefff6c6d30d"
+      Hint: LoginClick_eLab
+      Value: "{TYPE}_Start_15-{BUS_PROCESS}"
+    - ID: "b52ff037-5b18-4a5a-ab6f-ef4852af9646"
+      Hint: GasLabel
+      Value: plyn
     - ID: "d0347707-54d7-4e06-8d3a-afac3c8b4af3"
       Hint: BirthDateHelpMessage
       Value: |
@@ -124,11 +150,9 @@ Languages:
         DD.M.RRRR<br />
         DD.MM.RRRR
         
-    - ID: "dcc7103f-fb26-46aa-8e69-6ec222015a20"
-      Hint: AcceptedOfferText
-      Value: |
-        <p>{CUSTTITLELET},</p>
-        <p>děkujeme V&aacute;m za akceptaci dokumentů. Pro ověřen&iacute; Va&scaron;&iacute; totožnosti a zobrazen&iacute; smluvn&iacute;ch dokumentů, kter&eacute; byly elektronicky akceptov&aacute;ny, pros&iacute;m, zadejte n&aacute;sleduj&iacute;c&iacute; &uacute;daje:</p>
     - ID: "e973d772-5286-40ec-b678-2c13dea139e9"
       Hint: CalendarPreviousMonth
       Value: Předchozí měsíc
+    - ID: "eb6c2fc3-7f83-4798-afff-f9b5e5dc1402"
+      Hint: LoginClick_eAct
+      Value: "Proklik-eCon-login"

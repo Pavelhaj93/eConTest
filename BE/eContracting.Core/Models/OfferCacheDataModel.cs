@@ -39,6 +39,12 @@ namespace eContracting.Models
         /// </summary>
         public readonly bool IsExpired;
 
+        public readonly string State;
+
+        public readonly string Birthday;
+
+        public readonly string GdprIdentity;
+
         /// <summary>
         /// The text parameters from offer.
         /// </summary>
@@ -55,7 +61,14 @@ namespace eContracting.Models
             this.ProcessType = offer.ProcessType;
             this.IsAccepted = offer.IsAccepted;
             this.IsExpired = offer.IsExpired;
-            this.TextParameters = offer.TextParameters;
+            this.State = offer.State;
+            this.Birthday = offer.Birthday;
+            this.GdprIdentity = offer.GdprIdentity;
+
+            if (offer.TextParameters != null)
+            {
+                this.TextParameters = offer.TextParameters;
+            }
         }
 
         /// <summary>

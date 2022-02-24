@@ -2,14 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.ServiceModel;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
-using Castle.Core.Internal;
 using eContracting.Models;
-using Sitecore.Data.Events;
 
 namespace eContracting.Services
 {
@@ -22,11 +17,6 @@ namespace eContracting.Services
         /// The logger.
         /// </summary>
         protected readonly ILogger Logger;
-
-        /// <summary>
-        /// The user data cache.
-        /// </summary>
-        protected readonly IUserDataCacheService UserDataCache;
 
         /// <summary>
         /// The user file cache.
@@ -58,11 +48,13 @@ namespace eContracting.Services
         /// </summary>
         protected readonly IContextWrapper Context;
 
+        protected readonly IDataRequestCacheService CacheService;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferService"/> class.
         /// </summary>
         /// <param name="logger">The logger.</param>
-        /// <param name="userDataCache">The user data cache.</param>
+        /// <param name="userService">The user data service.</param>
         /// <param name="userFileCache">The user file cache.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <param name="factory">The factory for <see cref="ZCCH_CACHE_API"/>.</param>
@@ -71,26 +63,28 @@ namespace eContracting.Services
         /// <param name="contextWrapper">The context wrapper.</param>
         public OfferService(
             ILogger logger,
-            IUserDataCacheService userDataCache,
             IUserFileCacheService userFileCache,
             ISettingsReaderService settingsReaderService,
             IServiceFactory factory,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser,
+            IDataRequestCacheService cacheService,
             IContextWrapper contextWrapper)
         {
             this.Logger = logger;
-            this.UserDataCache = userDataCache;
             this.UserFileCache = userFileCache;
             this.SettingsReaderService = settingsReaderService;
             this.OfferParser = offerParser;
             this.ServiceFactory = factory;
             this.AttachmentParser = offerAttachmentParser;
             this.Context = contextWrapper;
+            this.CacheService = cacheService;
         }
 
+        #region IOfferService
+
         /// <inheritdoc/>
-        public void AcceptOffer(OfferModel offer, OfferSubmitDataModel data, string sessionId)
+        public void AcceptOffer(OfferModel offer, OfferSubmitDataModel data, UserCacheDataModel user, string sessionId)
         {
             var when = DateTime.UtcNow;
             var startingLog = new StringBuilder();
@@ -100,38 +94,13 @@ namespace eContracting.Services
 
             this.Logger.Debug(offer.Guid, startingLog.ToString());
 
-            string timestampString = when.ToString(Constants.TimeStampFormat);
-            Decimal outValue = 1M;
-            Decimal.TryParse(timestampString, out outValue);
-
-            List<ZCCH_ST_ATTRIB> attributes = new List<ZCCH_ST_ATTRIB>();
-            attributes.Add(new ZCCH_ST_ATTRIB()
-            {
-                ATTRID = "ACCEPTED_AT",
-                ATTRVAL = outValue.ToString()
-            });
-            attributes.Add(new ZCCH_ST_ATTRIB()
-            {
-                ATTRID = "IP_ADDRESS",
-                ATTRVAL = this.Context.GetIpAddress()
-            });
-
-            if (!string.IsNullOrEmpty(data.Supplier))
-            {
-                attributes.Add(new ZCCH_ST_ATTRIB()
-                {
-                    ATTRID = "SERVPROV_OLD",
-                    ATTRVAL = data.Supplier
-                });
-            }
+            var attributes = this.GetAttributesForAccept(offer, data, user, when);
 
             this.Logger.Debug(offer.Guid, $"[LogAcceptance] Getting information about PDF files by type 'NABIDKA_PDF' ...");
 
             var responsePdfFiles = this.GetFiles(offer.Guid, false);
             this.AttachmentParser.MakeCompatible(offer, responsePdfFiles);
-
             var files = this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
-
             var putResult = this.Put(offer.Guid, attributes.ToArray(), files.ToArray());
 
             if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
@@ -148,18 +117,97 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferModel GetOffer(string guid)
+        public bool CanReadOffer(string guid, UserCacheDataModel user, OFFER_TYPES type)
         {
-            return this.GetOffer(guid, true);
+            // this is check for anonymous user
+            if (!user.IsCognito)
+            {
+                this.Logger.Debug(guid, $"'{user}' doens't have {AUTH_METHODS.COGNITO} data, can read offer.");
+                return true;
+            }
+
+            if (user.AuthorizedGuids.ContainsKey(guid))
+            {
+                if (user.AuthorizedGuids[guid] != AUTH_METHODS.COGNITO)
+                {
+                    this.Logger.Debug(guid, $"'{user}' have Cognito data, but offer was authenticated not via {AUTH_METHODS.COGNITO}, can read offer");
+                    return true;
+                }
+            }
+
+            var userId = user.CognitoUser?.PreferredUsername;
+            var response = this.UserAccessCheck(guid, userId, type);
+
+            // this happens when user is not logged in
+            if (response == null)
+            {
+                this.Logger.Info(guid, $"[{nameof(OfferService)}] User can read offer because UserAccessCheck returns null (no auth check).");
+                return true;
+            }
+
+            if (response.Response.EV_RETCODE == 0)
+            {
+                this.Logger.Debug(guid, $"[{nameof(OfferService)}] User can read offer");
+                return true;
+            }
+
+            if (response.Response.EV_RETCODE == 4)
+            {
+                var log = new StringBuilder();
+                log.AppendLine($"[{nameof(OfferService)}] Uživatel nemá autorizaci / neexistuje Cache záznam / Neexistuje user alias");
+                log.AppendLine(ERROR_CODES.FromResponse("", response.Response).Description);
+                this.Logger.Info(guid, log.ToString());
+                return false;
+            }
+
+            if (response.Response.EV_RETCODE == 8)
+            {
+                var log = new StringBuilder();
+                log.AppendLine("Chyba připojení (RFC)");
+                log.AppendLine(ERROR_CODES.FromResponse("", response.Response).Description);
+                this.Logger.Error(guid, log.ToString());
+                return false;
+            }
+
+            this.Logger.Error(guid, ERROR_CODES.FromResponse("", response.Response).Description);
+            return false;
         }
 
         /// <inheritdoc/>
-        public OfferModel GetOffer(string guid, bool includeTextParameters)
+        public OfferModel GetOffer(string guid)
         {
+            return this.GetOffer(guid, null);
+        }
+
+        /// <inheritdoc/>
+        public OfferModel GetOffer(string guid, UserCacheDataModel user)
+        {
+            return this.GetOffer(guid, user, true);
+        }
+
+        /// <inheritdoc/>
+        public OfferModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters)
+        {
+            if (user == null)
+            {
+                this.Logger.Info(guid, "User is null, reading offer as anonymouse.");
+            }
+            else
+            {
+                var canRead = this.CanReadOffer(guid, user, OFFER_TYPES.NABIDKA);
+
+                if (!canRead)
+                {
+                    this.Logger.Info(guid, $"{user} cannot read offer");
+                    return null;
+                }
+            }
+
             var response = this.GetResponse(guid, OFFER_TYPES.NABIDKA);
 
             if (response == null)
             {
+                this.Logger.Warn(guid, "Response is null");
                 return null;
             }
 
@@ -171,6 +219,50 @@ namespace eContracting.Services
 
             return this.GetOffer(response, includeTextParameters);
         }
+
+        /// <inheritdoc/>
+        public void ReadOffer(string guid, UserCacheDataModel user)
+        {
+            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "4");
+
+            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            {
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-RO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+            }
+        }
+
+        /// <inheritdoc/>
+        public void SignInOffer(string guid, UserCacheDataModel user)
+        {
+            var status = "6";
+            
+            if (user?.IsCognitoGuid(guid) ?? false)
+            {
+                status = "I";
+            }
+
+            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, status);
+
+            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            {
+                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-SIO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+            }
+        }
+
+        /// <inheritdoc/>
+        public OfferAttachmentModel[] GetAttachments(OfferModel offer, UserCacheDataModel user)
+        {
+            if (offer == null)
+            {
+                throw new ApplicationException("Offer is null");
+            }
+
+            bool isAccepted = offer.IsAccepted;
+            var files = this.GetFiles(offer.Guid, isAccepted);
+            return this.GetAttachments(offer, files);
+        }
+
+        #endregion
 
         /// <summary>
         /// Gets the offer from given <paramref name="response"/>.
@@ -203,19 +295,6 @@ namespace eContracting.Services
             return offer;
         }
 
-        /// <inheritdoc/>
-        public OfferAttachmentModel[] GetAttachments(OfferModel offer)
-        {
-            if (offer == null)
-            {
-                throw new ApplicationException("Offer is null");
-            }
-
-            bool isAccepted = offer.IsAccepted;
-            var files = this.GetFiles(offer.Guid, isAccepted);
-            return this.GetAttachments(offer, files);
-        }
-
         /// <summary>
         /// Gets offer attachments generated from <paramref name="files"/>.
         /// </summary>
@@ -227,28 +306,6 @@ namespace eContracting.Services
             var attachments = this.AttachmentParser.Parse(offer, files);
             this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
             return attachments;
-        }
-
-        /// <inheritdoc/>
-        public void ReadOffer(string guid)
-        {
-            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "4");
-
-            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
-            {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-RO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
-            }
-        }
-
-        /// <inheritdoc/>
-        public void SignInOffer(string guid)
-        {
-            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "6");
-
-            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
-            {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-SIO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
-            }
         }
 
         /// <summary>
@@ -424,6 +481,50 @@ namespace eContracting.Services
             return files.ToArray();
         }
 
+        protected internal ZCCH_ST_ATTRIB[] GetAttributesForAccept(OfferModel offer, OfferSubmitDataModel data, UserCacheDataModel user, DateTime when)
+        {
+            string timestampString = when.ToString(Constants.TimeStampFormat);
+            Decimal outValue = 1M;
+            Decimal.TryParse(timestampString, out outValue);
+
+            var attributes = new List<ZCCH_ST_ATTRIB>();
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "ACCEPTED_AT",
+                ATTRVAL = outValue.ToString()
+            });
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = "IP_ADDRESS",
+                ATTRVAL = this.Context.GetIpAddress()
+            });
+            attributes.Add(new ZCCH_ST_ATTRIB()
+            {
+                ATTRID = Constants.OfferAttributes.ZIDENTITYID,
+                ATTRVAL = offer.GdprIdentity
+            });
+
+            if (!string.IsNullOrEmpty(data.Supplier))
+            {
+                attributes.Add(new ZCCH_ST_ATTRIB()
+                {
+                    ATTRID = "SERVPROV_OLD",
+                    ATTRVAL = data.Supplier
+                });
+            }
+
+            if (user.HasAuth(AUTH_METHODS.COGNITO))
+            {
+                attributes.Add(new ZCCH_ST_ATTRIB()
+                {
+                    ATTRID = "ACCEPTED_BY_ALIAS",
+                    ATTRVAL = user.CognitoUser.PreferredUsername
+                });
+            }
+
+            return attributes.ToArray();
+        }
+
         /// <summary>
         /// Gets data.
         /// </summary>
@@ -442,12 +543,7 @@ namespace eContracting.Services
                 model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
                 model.IV_GEFILE = fileType;
 
-                var log = new StringBuilder();
-                log.AppendLine($"Calling {nameof(ZCCH_CACHE_GET)} with parameters:");
-                log.AppendLine(" IV_CCHKEY: " + model.IV_CCHKEY);
-                log.AppendLine(" IV_CCHTYPE: " + model.IV_CCHTYPE);
-                log.AppendLine(" IV_GEFILE: " + model.IV_GEFILE);
-                this.Logger.Info(guid, log.ToString());
+                this.Logger.Info(guid, this.GetLogMessage(model));
 
                 var stop = new Stopwatch();
                 stop.Start();
@@ -468,6 +564,13 @@ namespace eContracting.Services
                     this.Logger.Info(guid, log2.ToString());
 
                     var result = response.ZCCH_CACHE_GETResponse;
+
+                    if (result == null)
+                    {
+                        this.Logger.Error(guid, "Response ZCCH_CACHE_GETResponse1 is null");
+                        return null;
+                    }
+
                     return new ResponseCacheGetModel(result);
                 }
                 catch (Exception ex)
@@ -516,13 +619,7 @@ namespace eContracting.Services
                 model.IV_STAT = status;
                 model.IV_TIMESTAMP = timestamp;
 
-                var log = new StringBuilder();
-                log.AppendLine($"Calling {nameof(ZCCH_CACHE_STATUS_SET)} with parameters:");
-                log.AppendLine(" IV_CCHKEY: " + model.IV_CCHKEY);
-                log.AppendLine(" IV_CCHTYPE: " + model.IV_CCHTYPE);
-                log.AppendLine(" IV_STAT: " + model.IV_STAT);
-                log.AppendLine(" IV_TIMESTAMP: " + model.IV_TIMESTAMP);
-                this.Logger.Info(guid, log.ToString());
+                this.Logger.Info(guid, this.GetLogMessage(model));
 
                 var stop = new Stopwatch();
                 stop.Start();
@@ -550,6 +647,65 @@ namespace eContracting.Services
                     log2.AppendLine(" Response code: unknown");
                     this.Logger.Fatal(guid, log2.ToString(), ex);
                     throw ex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Calling <see cref="ZCCH_CACHE_ACCESS_CHECK"/> to check if Cognito user has access to offer with <paramref name="guid"/>.
+        /// </summary>
+        /// <param name="user">User data with <see cref="UserCacheDataModel.Guid"/>.</param>
+        /// <param name="type">A type from <see cref="OFFER_TYPES"/> collection.</param>
+        /// <returns><see cref="ResponseAccessCheckModel"/> model when request was successful. If user is not Cognito, returns <c>null</c>.</returns>
+        /// <exception cref="EcontractingDataException">When call to <see cref="ZCCH_CACHE_ACCESS_CHECKRequest"/> failed.</exception>
+        protected internal ResponseAccessCheckModel UserAccessCheck(string guid, string userId, OFFER_TYPES type)
+        {
+            var options = this.SettingsReaderService.GetApiServiceOptions();
+
+            using (var api = this.ServiceFactory.CreateApi(options))
+            {
+                var model = new ZCCH_CACHE_ACCESS_CHECK();
+                model.IV_CCHKEY = guid;
+                model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
+
+                var attributes = new List<ZCCH_ST_ATTRIB>();
+                attributes.Add(new ZCCH_ST_ATTRIB()
+                {
+                    ATTRID = "USER_ALIAS",
+                    ATTRVAL = userId
+                });
+
+                model.IT_ATTRIB = attributes.ToArray();
+
+                this.Logger.Info(guid, this.GetLogMessage(model));
+
+                var stop = new Stopwatch();
+                stop.Start();
+
+                var log2 = new StringBuilder();
+                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_ACCESS_CHECK)} finished:");
+
+                try
+                {
+                    var request = new ZCCH_CACHE_ACCESS_CHECKRequest(model);
+                    var task = api.ZCCH_CACHE_ACCESS_CHECKAsync(request);
+                    task.Wait();
+                    var response = task.Result;
+                    stop.Stop();
+
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_ACCESS_CHECKResponse.EV_RETCODE);
+                    this.Logger.Info(guid, log2.ToString());
+
+                    var result = response.ZCCH_CACHE_ACCESS_CHECKResponse;
+                    return new ResponseAccessCheckModel(result);
+                }
+                catch (Exception ex)
+                {
+                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
+                    log2.AppendLine(" Response code: unknown");
+                    this.Logger.Fatal(guid, log2.ToString(), ex);
+                    throw new EcontractingDataException(new ErrorModel("ZCCH_CACHE_ACCESS_CHECK", "Cannot check user"), ex);
                 }
             }
         }
@@ -608,6 +764,7 @@ namespace eContracting.Services
         protected internal ZCCH_CACHE_PUTResponse1 Put(string guid, ZCCH_ST_ATTRIB[] attributes, OfferFileXmlModel[] files)
         {
             var options = this.SettingsReaderService.GetApiServiceOptions();
+            //TODO: var user = this.AuthService.GetCurrentUser();
 
             using (var api = this.ServiceFactory.CreateApi(options))
             {
@@ -617,33 +774,7 @@ namespace eContracting.Services
                 model.IT_ATTRIB = attributes;
                 model.IT_FILES = files.Select(x => x.File).ToArray();
 
-                var log = new StringBuilder();
-                log.AppendLine($"Calling {nameof(ZCCH_CACHE_PUT)} with parameters:");
-                log.AppendLine($" - IV_CCHKEY: {model.IV_CCHKEY}");
-                log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
-
-                try
-                {
-                    log.AppendLine(" Attributes:");
-
-                    for (int i = 0; i < attributes.Length; i++)
-                    {
-                        log.AppendLine($"  - {attributes[i].ATTRID}: {attributes[i].ATTRVAL}");
-                    }
-
-                    log.AppendLine(" Files:");
-
-                    for (int i = 0; i < files.Length; i++)
-                    {
-                        log.AppendLine($"  - {files[i].File.FILENAME}");
-                    }
-
-                    this.Logger.Info(guid, log.ToString());
-                }
-                catch (Exception ex)
-                {
-                    this.Logger.Error(guid, $"Cannot log information about '{nameof(ZCCH_CACHE_PUT)}'", ex);
-                }
+                this.Logger.Info(guid, this.GetLogMessage(model));
 
                 var stop = new Stopwatch();
                 stop.Start();
@@ -673,6 +804,88 @@ namespace eContracting.Services
                     throw ex;
                 }
             }
+        }
+
+        private string GetLogMessage(ZCCH_CACHE_GET model)
+        {
+            var log = new StringBuilder();
+            log.AppendLine($"Calling {nameof(ZCCH_CACHE_GET)} with parameters:");
+            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
+            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
+            log.AppendLine($" - IV_GEFILE:  {model.IV_GEFILE}");
+            return log.ToString();
+        }
+
+        private string GetLogMessage(ZCCH_CACHE_PUT model)
+        {
+            var log = new StringBuilder();
+            log.AppendLine($"Calling {nameof(ZCCH_CACHE_PUT)} with parameters:");
+            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
+            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
+            log.Append(this.GetLogMessage(model.IT_ATTRIB));
+            log.Append(this.GetLogMessage(model.IT_FILES));
+            return log.ToString();
+        }
+
+        private string GetLogMessage(ZCCH_CACHE_STATUS_SET model)
+        {
+            var log = new StringBuilder();
+            log.AppendLine($"Calling {nameof(ZCCH_CACHE_STATUS_SET)} with parameters:");
+            log.AppendLine($" - IV_CCHKEY:    {model.IV_CCHKEY}");
+            log.AppendLine($" - IV_CCHTYPE:   {model.IV_CCHTYPE}");
+            log.AppendLine($" - IV_STAT:      {model.IV_STAT}");
+            log.AppendLine($" - IV_TIMESTAMP: {model.IV_TIMESTAMP}");
+            return log.ToString();
+        }
+
+        private string GetLogMessage(ZCCH_CACHE_ACCESS_CHECK model)
+        {
+            var log = new StringBuilder();
+            log.AppendLine($"Calling {nameof(ZCCH_CACHE_ACCESS_CHECK)} with parameters:");
+            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
+            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
+            log.Append(this.GetLogMessage(model.IT_ATTRIB));
+            return log.ToString();
+        }
+
+        private string GetLogMessage(ZCCH_ST_ATTRIB[] attributes)
+        {
+            var log = new StringBuilder();
+
+            if (attributes != null && attributes.Length > 0)
+            {
+                for (int i = 0; i < attributes.Length; i++)
+                {
+                    var attr = attributes[i];
+
+                    if (attr != null)
+                    {
+                        log.AppendLine($" - IT_ATTRIB[{i}]{attr.ATTRID}: {attr.ATTRVAL}");
+                    }
+                }
+            }
+
+            return log.ToString();
+        }
+
+        private string GetLogMessage(ZCCH_ST_FILE[] files)
+        {
+            var log = new StringBuilder();
+
+            if (files != null && files.Length > 0)
+            {
+                for (int i = 0; i < files.Length; i++)
+                {
+                    var f = files[i];
+
+                    if (f != null)
+                    {
+                        log.AppendLine($" - IT_FILES[{i}]FILENAME:  {f.FILENAME}");
+                    }
+                }
+            }
+
+            return log.ToString();
         }
     }
 }

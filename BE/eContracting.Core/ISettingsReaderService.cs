@@ -29,6 +29,12 @@ namespace eContracting
         int SessionTimeout { get; }
 
         /// <summary>
+        /// Gets minimum seconds to refresh access token.
+        /// </summary>
+        /// <returns>Number of seconds.</returns>
+        int CognitoMinSecondsToRefreshToken { get; }
+
+        /// <summary>
         /// Gets <c>default</c> definition. Cannot be null.
         /// </summary>
         /// <returns>The definition.</returns>
@@ -50,6 +56,11 @@ namespace eContracting
         /// <returns>Definition matched by <paramref name="process"/> and <paramref name="processType"/> or default one.</returns>
         /// <exception cref="ApplicationException">When even default definition was not found.</exception>
         IDefinitionCombinationModel GetDefinition(string process, string processType);
+
+        /// <summary>
+        /// Gets all defined matrix definitions.
+        /// </summary>
+        IDefinitionCombinationModel[] GetAllDefinitions();
 
         /// <summary>
         /// Gets available login types for <paramref name="offer"/> defined in <see cref="IDefinitionCombinationModel"/>.
@@ -102,6 +113,8 @@ namespace eContracting
         /// <exception cref="InvalidOperationException">When <see cref="PAGE_LINK_TYPES"/> cannot be resolved.</exception>
         string GetPageLink(PAGE_LINK_TYPES type);
 
+        string GetPageLink(PAGE_LINK_TYPES type, string guid);
+
         /// <summary>
         /// Gets the site settings.
         /// </summary>
@@ -133,5 +146,10 @@ namespace eContracting
         /// </remarks>
         /// <param name="version">Offer version.</param>
         KeyValuePair<string, string>[] GetBackCompatibleTextParametersKeys(int version);
+
+        /// <summary>
+        /// Gets settings for Cognito Auth service.
+        /// </summary>
+        CognitoSettingsModel GetCognitoSettings();
     }
 }

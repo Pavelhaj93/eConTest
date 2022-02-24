@@ -12,6 +12,17 @@
     </div>
 </div>
 
+@if (Model.ShowDashboardButton)
+{
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 col-lg-7 col-xl-6">
+            <div class="text-center mb-4">
+                <a href="@Model.ButtonDashboardUrl" class="btn btn-primary btn-block">@Model.Datasource.ButtonDashboardLabel</a>
+            </div>
+        </div>
+    </div>
+}
+
 <script>
     var appConfig = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
 </script>

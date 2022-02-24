@@ -10,3 +10,9 @@ export type Choice = {
   /** Regex used for user input validation. */
   regex?: string | null
 }
+
+export interface GaEventClickData {
+  eCat: string
+  eAct: string
+  eLab: string
+}

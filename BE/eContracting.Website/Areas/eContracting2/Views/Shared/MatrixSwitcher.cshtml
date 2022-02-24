@@ -1,0 +1,70 @@
+﻿@using eContracting
+@using eContracting.Website.Areas.eContracting2.Models
+@using Newtonsoft.Json
+@model MatrixSwitcherViewModel
+@if (!Model.IsPreview)
+{
+<div class="row" style="padding-bottom: 50px">
+    <div class="col-12">
+        <p>Matrix: <strong>@Model.CurrentDefinition.Name</strong> (@Model.CurrentDefinition.Process.Code | @Model.CurrentDefinition.ProcessType.Code)</p>
+        <p>Pokud chcete vidět hodnoty z jiné kombinace, běžte do <strong>Preview módu</strong>, nastavte hodnoty a vraťte se zpět do Edit módu.</p>
+    </div>
+</div>
+}
+else
+{
+<div class="row" style="padding-bottom: 50px">
+    <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <form method="get" action="@Model.SubmitUrl" id="processTypesSwitcher">
+                    <div>
+                        <div class="row">
+                            @for (int i = 0; i < Model.Query.Keys.Count; i++)
+                            {
+                                <input type="hidden" name="@Model.Query.Keys[i]" value="@Model.Query[Model.Query.Keys[i]]" />
+                            }
+                            <div class="col-lg-6 col-md-8 col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Matrix definice</label>
+                                    <div>
+                                        <select class="form-control" id="select-matrix">
+                                            @foreach (var item in Model.Definitions)
+                                            {
+                                                <option value="@item.ID" @(Model.CurrentDefinition.ID == item.ID ? "selected=\"selected\"" : "")>@item.Name (@item.Process.Code | @item.ProcessType.Code)</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="matrix-process" name="@Constants.QueryKeys.PROCESS" value="@Model.CurrentDefinition.Process.Code" />
+                                <input type="hidden" id="matrix-process-type" name="@Constants.QueryKeys.PROCESS_TYPE" value="@Model.CurrentDefinition.ProcessType.Code" />
+                            </div>
+                            <div class="col-lg-6 col-md-8 col-12">
+                                <div class="form-group">
+                                    <label class="form-label">&nbsp;</label>
+                                    <button type="submit" class="btn btn-secondary">Select and refresh</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var matrixDefinitions = @Html.Raw(JsonConvert.SerializeObject(Model.Definitions, Formatting.Indented));
+    jQuery("#select-matrix").change(function () {
+        var selectedValue = jQuery(this).val();
+
+        for (var i = 0; i < matrixDefinitions.length; i++) {
+            var matrix = matrixDefinitions[i];
+
+            if (matrix.id == selectedValue) {
+                jQuery("#matrix-process").val(matrix.process.code);
+                jQuery("#matrix-process-type").val(matrix.processType.code);
+            }
+        }
+    });
+</script>
+}

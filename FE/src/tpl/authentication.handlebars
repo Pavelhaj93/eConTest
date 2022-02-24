@@ -9,7 +9,7 @@
   {{/ steps}}
 
   <div class="row justify-content-center">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-xl-10">
       <div class="info">
         <p>Vítáme Vás, pane Nováku,</p>
         <p>pro zobrazení nabídky právě pro Vás bychom potřebovali ověřit níže uvedené údaje.</p>
@@ -26,12 +26,20 @@
 
 <script>
   var appConfig = {
+    guid: "0635F899B3111EDC9BC4A505A628FCED",
     view: 'Authentication',
     doxReadyUrl: '/api/documents',
     errorPageUrl: '/error',
     isAgreed: false,
     isRetention: false,
     isAcquisition: true,
+    // Parameter for analytics
+    gaEventClickData: 
+      {
+        eCat:"Runway",
+        eAct:"Proklik-Dashboard",
+        eLab:"INDI - 5.1.2022 - ZP"
+       },
     formAction: '/authentication.html',
     choices: [
       {
@@ -49,6 +57,7 @@
         regex: '^\\d{10}$',
       },
     ],
+    innogyAccountUrl: 'https://www.innogy.cz/innosvet/',
     labels: {
       requiredFields: 'Prosím, vyplňte všechna požadovaná pole.',
       validationError: null,
@@ -61,6 +70,9 @@
       ariaNextMonth: 'Další měsíc',
       ariaPreviousMonth: 'Předchozí měsíc',
       ariaChooseDay: 'Vybrat',
+      innogyAccountHeading: 'Mám innogy účet',
+      innogyAccountBenefits: ['Rychlé ověření', 'Všechny nabídky na jednom místě', 'Možnost provádění změn online'],
+      innogyAccountBtn: 'Pokračovat do innosvěta',
     }
   };
 </script>

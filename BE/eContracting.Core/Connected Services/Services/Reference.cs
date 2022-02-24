@@ -15,20 +15,6 @@ namespace eContracting.Services {
     [System.ServiceModel.ServiceContractAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", ConfigurationName="Services.ZCCH_CACHE_API")]
     public interface ZCCH_CACHE_API {
         
-        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        eContracting.Services.ZCCH_CACHE_GETResponse1 ZCCH_CACHE_GET(eContracting.Services.ZCCH_CACHE_GETRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", ReplyAction="*")]
-        System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_GETResponse1> ZCCH_CACHE_GETAsync(eContracting.Services.ZCCH_CACHE_GETRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_DELRequest", ReplyAction="*")]
-        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        eContracting.Services.ZCCH_CACHE_DELResponse1 ZCCH_CACHE_DEL(eContracting.Services.ZCCH_CACHE_DELRequest request);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_DELRequest", ReplyAction="*")]
-        System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_DELResponse1> ZCCH_CACHE_DELAsync(eContracting.Services.ZCCH_CACHE_DELRequest request);
-        
         [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_STATUS_SETReques" +
             "t", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -38,12 +24,35 @@ namespace eContracting.Services {
             "t", ReplyAction="*")]
         System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1> ZCCH_CACHE_STATUS_SETAsync(eContracting.Services.ZCCH_CACHE_STATUS_SETRequest request);
         
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_DELRequest", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        eContracting.Services.ZCCH_CACHE_DELResponse1 ZCCH_CACHE_DEL(eContracting.Services.ZCCH_CACHE_DELRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_DELRequest", ReplyAction="*")]
+        System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_DELResponse1> ZCCH_CACHE_DELAsync(eContracting.Services.ZCCH_CACHE_DELRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_ACCESS_CHECKRequ" +
+            "est", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse1 ZCCH_CACHE_ACCESS_CHECK(eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_ACCESS_CHECKRequ" +
+            "est", ReplyAction="*")]
+        System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse1> ZCCH_CACHE_ACCESS_CHECKAsync(eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest request);
+        
         [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_PUTRequest", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         eContracting.Services.ZCCH_CACHE_PUTResponse1 ZCCH_CACHE_PUT(eContracting.Services.ZCCH_CACHE_PUTRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_PUTRequest", ReplyAction="*")]
         System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_PUTResponse1> ZCCH_CACHE_PUTAsync(eContracting.Services.ZCCH_CACHE_PUTRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        eContracting.Services.ZCCH_CACHE_GETResponse1 ZCCH_CACHE_GET(eContracting.Services.ZCCH_CACHE_GETRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="urn:sap-com:document:sap:rfc:functions:ZCCH_CACHE_API:ZCCH_CACHE_GETRequest", ReplyAction="*")]
+        System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_GETResponse1> ZCCH_CACHE_GETAsync(eContracting.Services.ZCCH_CACHE_GETRequest request);
     }
     
     /// <remarks/>
@@ -52,13 +61,19 @@ namespace eContracting.Services {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_GET : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class ZCCH_CACHE_STATUS_SET : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string iV_CCHKEYField;
         
         private string iV_CCHTYPEField;
         
-        private string iV_GEFILEField;
+        private string iV_COMMITField;
+        
+        private string iV_SAVEField;
+        
+        private string iV_STATField;
+        
+        private decimal iV_TIMESTAMPField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -86,13 +101,272 @@ namespace eContracting.Services {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string IV_GEFILE {
+        public string IV_COMMIT {
             get {
-                return this.iV_GEFILEField;
+                return this.iV_COMMITField;
             }
             set {
-                this.iV_GEFILEField = value;
-                this.RaisePropertyChanged("IV_GEFILE");
+                this.iV_COMMITField = value;
+                this.RaisePropertyChanged("IV_COMMIT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string IV_SAVE {
+            get {
+                return this.iV_SAVEField;
+            }
+            set {
+                this.iV_SAVEField = value;
+                this.RaisePropertyChanged("IV_SAVE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public string IV_STAT {
+            get {
+                return this.iV_STATField;
+            }
+            set {
+                this.iV_STATField = value;
+                this.RaisePropertyChanged("IV_STAT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public decimal IV_TIMESTAMP {
+            get {
+                return this.iV_TIMESTAMPField;
+            }
+            set {
+                this.iV_TIMESTAMPField = value;
+                this.RaisePropertyChanged("IV_TIMESTAMP");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_ST_HEADER : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string cCHTYPEField;
+        
+        private string cCHKEYField;
+        
+        private string cCHSTATField;
+        
+        private string cCHVALTOField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string CCHTYPE {
+            get {
+                return this.cCHTYPEField;
+            }
+            set {
+                this.cCHTYPEField = value;
+                this.RaisePropertyChanged("CCHTYPE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string CCHKEY {
+            get {
+                return this.cCHKEYField;
+            }
+            set {
+                this.cCHKEYField = value;
+                this.RaisePropertyChanged("CCHKEY");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string CCHSTAT {
+            get {
+                return this.cCHSTATField;
+            }
+            set {
+                this.cCHSTATField = value;
+                this.RaisePropertyChanged("CCHSTAT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string CCHVALTO {
+            get {
+                return this.cCHVALTOField;
+            }
+            set {
+                this.cCHVALTOField = value;
+                this.RaisePropertyChanged("CCHVALTO");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_ST_FILE : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string fILEINDXField;
+        
+        private string fILENAMEField;
+        
+        private string mIMETYPEField;
+        
+        private byte[] fILECONTENTField;
+        
+        private ZCCH_ST_ATTRIB[] aTTRIBField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string FILEINDX {
+            get {
+                return this.fILEINDXField;
+            }
+            set {
+                this.fILEINDXField = value;
+                this.RaisePropertyChanged("FILEINDX");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string FILENAME {
+            get {
+                return this.fILENAMEField;
+            }
+            set {
+                this.fILENAMEField = value;
+                this.RaisePropertyChanged("FILENAME");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string MIMETYPE {
+            get {
+                return this.mIMETYPEField;
+            }
+            set {
+                this.mIMETYPEField = value;
+                this.RaisePropertyChanged("MIMETYPE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="base64Binary", Order=3)]
+        public byte[] FILECONTENT {
+            get {
+                return this.fILECONTENTField;
+            }
+            set {
+                this.fILECONTENTField = value;
+                this.RaisePropertyChanged("FILECONTENT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_ATTRIB[] ATTRIB {
+            get {
+                return this.aTTRIBField;
+            }
+            set {
+                this.aTTRIBField = value;
+                this.RaisePropertyChanged("ATTRIB");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_ST_ATTRIB : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string aTTRIDField;
+        
+        private string aTTRINDXField;
+        
+        private string aTTRVALField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string ATTRID {
+            get {
+                return this.aTTRIDField;
+            }
+            set {
+                this.aTTRIDField = value;
+                this.RaisePropertyChanged("ATTRID");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string ATTRINDX {
+            get {
+                return this.aTTRINDXField;
+            }
+            set {
+                this.aTTRINDXField = value;
+                this.RaisePropertyChanged("ATTRINDX");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string ATTRVAL {
+            get {
+                return this.aTTRVALField;
+            }
+            set {
+                this.aTTRVALField = value;
+                this.RaisePropertyChanged("ATTRVAL");
             }
         }
         
@@ -325,77 +599,35 @@ namespace eContracting.Services {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_ST_FILE : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_STATUS_SETResponse : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string fILEINDXField;
+        private BAPIRET2[] eT_RETURNField;
         
-        private string fILENAMEField;
-        
-        private string mIMETYPEField;
-        
-        private byte[] fILECONTENTField;
-        
-        private ZCCH_ST_ATTRIB[] aTTRIBField;
+        private int eV_RETCODEField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public string FILEINDX {
-            get {
-                return this.fILEINDXField;
-            }
-            set {
-                this.fILEINDXField = value;
-                this.RaisePropertyChanged("FILEINDX");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string FILENAME {
-            get {
-                return this.fILENAMEField;
-            }
-            set {
-                this.fILENAMEField = value;
-                this.RaisePropertyChanged("FILENAME");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string MIMETYPE {
-            get {
-                return this.mIMETYPEField;
-            }
-            set {
-                this.mIMETYPEField = value;
-                this.RaisePropertyChanged("MIMETYPE");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, DataType="base64Binary", Order=3)]
-        public byte[] FILECONTENT {
-            get {
-                return this.fILECONTENTField;
-            }
-            set {
-                this.fILECONTENTField = value;
-                this.RaisePropertyChanged("FILECONTENT");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public ZCCH_ST_ATTRIB[] ATTRIB {
+        public BAPIRET2[] ET_RETURN {
             get {
-                return this.aTTRIBField;
+                return this.eT_RETURNField;
             }
             set {
-                this.aTTRIBField = value;
-                this.RaisePropertyChanged("ATTRIB");
+                this.eT_RETURNField = value;
+                this.RaisePropertyChanged("ET_RETURN");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public int EV_RETCODE {
+            get {
+                return this.eV_RETCODEField;
+            }
+            set {
+                this.eV_RETCODEField = value;
+                this.RaisePropertyChanged("EV_RETCODE");
             }
         }
         
@@ -409,63 +641,35 @@ namespace eContracting.Services {
         }
     }
     
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_ST_ATTRIB : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_STATUS_SETRequest {
         
-        private string aTTRIDField;
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET;
         
-        private string aTTRINDXField;
-        
-        private string aTTRVALField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public string ATTRID {
-            get {
-                return this.aTTRIDField;
-            }
-            set {
-                this.aTTRIDField = value;
-                this.RaisePropertyChanged("ATTRID");
-            }
+        public ZCCH_CACHE_STATUS_SETRequest() {
         }
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string ATTRINDX {
-            get {
-                return this.aTTRINDXField;
-            }
-            set {
-                this.aTTRINDXField = value;
-                this.RaisePropertyChanged("ATTRINDX");
-            }
+        public ZCCH_CACHE_STATUS_SETRequest(eContracting.Services.ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET) {
+            this.ZCCH_CACHE_STATUS_SET = ZCCH_CACHE_STATUS_SET;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_STATUS_SETResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SETResponse;
+        
+        public ZCCH_CACHE_STATUS_SETResponse1() {
         }
         
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string ATTRVAL {
-            get {
-                return this.aTTRVALField;
-            }
-            set {
-                this.aTTRVALField = value;
-                this.RaisePropertyChanged("ATTRVAL");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
+        public ZCCH_CACHE_STATUS_SETResponse1(eContracting.Services.ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SETResponse) {
+            this.ZCCH_CACHE_STATUS_SETResponse = ZCCH_CACHE_STATUS_SETResponse;
         }
     }
     
@@ -474,62 +678,568 @@ namespace eContracting.Services {
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_ST_HEADER : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_DEL : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string cCHTYPEField;
+        private string iV_CCHKEYField;
         
-        private string cCHKEYField;
+        private string iV_CCHTYPEField;
         
-        private string cCHSTATField;
+        private string iV_COMMITField;
         
-        private string cCHVALTOField;
+        private string iV_DEL_FILESField;
+        
+        private string iV_SAVEField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public string CCHTYPE {
+        public string IV_CCHKEY {
             get {
-                return this.cCHTYPEField;
+                return this.iV_CCHKEYField;
             }
             set {
-                this.cCHTYPEField = value;
-                this.RaisePropertyChanged("CCHTYPE");
+                this.iV_CCHKEYField = value;
+                this.RaisePropertyChanged("IV_CCHKEY");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string CCHKEY {
+        public string IV_CCHTYPE {
             get {
-                return this.cCHKEYField;
+                return this.iV_CCHTYPEField;
             }
             set {
-                this.cCHKEYField = value;
-                this.RaisePropertyChanged("CCHKEY");
+                this.iV_CCHTYPEField = value;
+                this.RaisePropertyChanged("IV_CCHTYPE");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string CCHSTAT {
+        public string IV_COMMIT {
             get {
-                return this.cCHSTATField;
+                return this.iV_COMMITField;
             }
             set {
-                this.cCHSTATField = value;
-                this.RaisePropertyChanged("CCHSTAT");
+                this.iV_COMMITField = value;
+                this.RaisePropertyChanged("IV_COMMIT");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string CCHVALTO {
+        public string IV_DEL_FILES {
             get {
-                return this.cCHVALTOField;
+                return this.iV_DEL_FILESField;
             }
             set {
-                this.cCHVALTOField = value;
-                this.RaisePropertyChanged("CCHVALTO");
+                this.iV_DEL_FILESField = value;
+                this.RaisePropertyChanged("IV_DEL_FILES");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public string IV_SAVE {
+            get {
+                return this.iV_SAVEField;
+            }
+            set {
+                this.iV_SAVEField = value;
+                this.RaisePropertyChanged("IV_SAVE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_DELResponse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private BAPIRET2[] eT_RETURNField;
+        
+        private int eV_RETCODEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public BAPIRET2[] ET_RETURN {
+            get {
+                return this.eT_RETURNField;
+            }
+            set {
+                this.eT_RETURNField = value;
+                this.RaisePropertyChanged("ET_RETURN");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public int EV_RETCODE {
+            get {
+                return this.eV_RETCODEField;
+            }
+            set {
+                this.eV_RETCODEField = value;
+                this.RaisePropertyChanged("EV_RETCODE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_DELRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_DEL ZCCH_CACHE_DEL;
+        
+        public ZCCH_CACHE_DELRequest() {
+        }
+        
+        public ZCCH_CACHE_DELRequest(eContracting.Services.ZCCH_CACHE_DEL ZCCH_CACHE_DEL) {
+            this.ZCCH_CACHE_DEL = ZCCH_CACHE_DEL;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_DELResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_DELResponse ZCCH_CACHE_DELResponse;
+        
+        public ZCCH_CACHE_DELResponse1() {
+        }
+        
+        public ZCCH_CACHE_DELResponse1(eContracting.Services.ZCCH_CACHE_DELResponse ZCCH_CACHE_DELResponse) {
+            this.ZCCH_CACHE_DELResponse = ZCCH_CACHE_DELResponse;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_ACCESS_CHECK : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private ZCCH_ST_ATTRIB[] iT_ATTRIBField;
+        
+        private string iV_CCHKEYField;
+        
+        private string iV_CCHTYPEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_ATTRIB[] IT_ATTRIB {
+            get {
+                return this.iT_ATTRIBField;
+            }
+            set {
+                this.iT_ATTRIBField = value;
+                this.RaisePropertyChanged("IT_ATTRIB");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string IV_CCHKEY {
+            get {
+                return this.iV_CCHKEYField;
+            }
+            set {
+                this.iV_CCHKEYField = value;
+                this.RaisePropertyChanged("IV_CCHKEY");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string IV_CCHTYPE {
+            get {
+                return this.iV_CCHTYPEField;
+            }
+            set {
+                this.iV_CCHTYPEField = value;
+                this.RaisePropertyChanged("IV_CCHTYPE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_ACCESS_CHECKResponse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private BAPIRET2[] eT_RETURNField;
+        
+        private int eV_RETCODEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public BAPIRET2[] ET_RETURN {
+            get {
+                return this.eT_RETURNField;
+            }
+            set {
+                this.eT_RETURNField = value;
+                this.RaisePropertyChanged("ET_RETURN");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public int EV_RETCODE {
+            get {
+                return this.eV_RETCODEField;
+            }
+            set {
+                this.eV_RETCODEField = value;
+                this.RaisePropertyChanged("EV_RETCODE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_ACCESS_CHECKRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_ACCESS_CHECK ZCCH_CACHE_ACCESS_CHECK;
+        
+        public ZCCH_CACHE_ACCESS_CHECKRequest() {
+        }
+        
+        public ZCCH_CACHE_ACCESS_CHECKRequest(eContracting.Services.ZCCH_CACHE_ACCESS_CHECK ZCCH_CACHE_ACCESS_CHECK) {
+            this.ZCCH_CACHE_ACCESS_CHECK = ZCCH_CACHE_ACCESS_CHECK;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_ACCESS_CHECKResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse ZCCH_CACHE_ACCESS_CHECKResponse;
+        
+        public ZCCH_CACHE_ACCESS_CHECKResponse1() {
+        }
+        
+        public ZCCH_CACHE_ACCESS_CHECKResponse1(eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse ZCCH_CACHE_ACCESS_CHECKResponse) {
+            this.ZCCH_CACHE_ACCESS_CHECKResponse = ZCCH_CACHE_ACCESS_CHECKResponse;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_PUT : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private ZCCH_ST_ATTRIB[] iT_ATTRIBField;
+        
+        private ZCCH_ST_FILE[] iT_FILESField;
+        
+        private string iV_CCHKEYField;
+        
+        private string iV_CCHTYPEField;
+        
+        private string iV_COMMITField;
+        
+        private string iV_SAVEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_ATTRIB[] IT_ATTRIB {
+            get {
+                return this.iT_ATTRIBField;
+            }
+            set {
+                this.iT_ATTRIBField = value;
+                this.RaisePropertyChanged("IT_ATTRIB");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_FILE[] IT_FILES {
+            get {
+                return this.iT_FILESField;
+            }
+            set {
+                this.iT_FILESField = value;
+                this.RaisePropertyChanged("IT_FILES");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string IV_CCHKEY {
+            get {
+                return this.iV_CCHKEYField;
+            }
+            set {
+                this.iV_CCHKEYField = value;
+                this.RaisePropertyChanged("IV_CCHKEY");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string IV_CCHTYPE {
+            get {
+                return this.iV_CCHTYPEField;
+            }
+            set {
+                this.iV_CCHTYPEField = value;
+                this.RaisePropertyChanged("IV_CCHTYPE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public string IV_COMMIT {
+            get {
+                return this.iV_COMMITField;
+            }
+            set {
+                this.iV_COMMITField = value;
+                this.RaisePropertyChanged("IV_COMMIT");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public string IV_SAVE {
+            get {
+                return this.iV_SAVEField;
+            }
+            set {
+                this.iV_SAVEField = value;
+                this.RaisePropertyChanged("IV_SAVE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_PUTResponse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private ZCCH_ST_ATTRIB[] eT_ATTRIBField;
+        
+        private ZCCH_ST_FILE[] eT_FILESField;
+        
+        private BAPIRET2[] eT_RETURNField;
+        
+        private int eV_RETCODEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_ATTRIB[] ET_ATTRIB {
+            get {
+                return this.eT_ATTRIBField;
+            }
+            set {
+                this.eT_ATTRIBField = value;
+                this.RaisePropertyChanged("ET_ATTRIB");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public ZCCH_ST_FILE[] ET_FILES {
+            get {
+                return this.eT_FILESField;
+            }
+            set {
+                this.eT_FILESField = value;
+                this.RaisePropertyChanged("ET_FILES");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
+        public BAPIRET2[] ET_RETURN {
+            get {
+                return this.eT_RETURNField;
+            }
+            set {
+                this.eT_RETURNField = value;
+                this.RaisePropertyChanged("ET_RETURN");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public int EV_RETCODE {
+            get {
+                return this.eV_RETCODEField;
+            }
+            set {
+                this.eV_RETCODEField = value;
+                this.RaisePropertyChanged("EV_RETCODE");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_PUTRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_PUT ZCCH_CACHE_PUT;
+        
+        public ZCCH_CACHE_PUTRequest() {
+        }
+        
+        public ZCCH_CACHE_PUTRequest(eContracting.Services.ZCCH_CACHE_PUT ZCCH_CACHE_PUT) {
+            this.ZCCH_CACHE_PUT = ZCCH_CACHE_PUT;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ZCCH_CACHE_PUTResponse1 {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
+        public eContracting.Services.ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUTResponse;
+        
+        public ZCCH_CACHE_PUTResponse1() {
+        }
+        
+        public ZCCH_CACHE_PUTResponse1(eContracting.Services.ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUTResponse) {
+            this.ZCCH_CACHE_PUTResponse = ZCCH_CACHE_PUTResponse;
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
+    public partial class ZCCH_CACHE_GET : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string iV_CCHKEYField;
+        
+        private string iV_CCHTYPEField;
+        
+        private string iV_GEFILEField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string IV_CCHKEY {
+            get {
+                return this.iV_CCHKEYField;
+            }
+            set {
+                this.iV_CCHKEYField = value;
+                this.RaisePropertyChanged("IV_CCHKEY");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string IV_CCHTYPE {
+            get {
+                return this.iV_CCHTYPEField;
+            }
+            set {
+                this.iV_CCHTYPEField = value;
+                this.RaisePropertyChanged("IV_CCHTYPE");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string IV_GEFILE {
+            get {
+                return this.iV_GEFILEField;
+            }
+            set {
+                this.iV_GEFILEField = value;
+                this.RaisePropertyChanged("IV_GEFILE");
             }
         }
         
@@ -666,525 +1376,6 @@ namespace eContracting.Services {
         }
     }
     
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_DEL : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string iV_CCHKEYField;
-        
-        private string iV_CCHTYPEField;
-        
-        private string iV_COMMITField;
-        
-        private string iV_DEL_FILESField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public string IV_CCHKEY {
-            get {
-                return this.iV_CCHKEYField;
-            }
-            set {
-                this.iV_CCHKEYField = value;
-                this.RaisePropertyChanged("IV_CCHKEY");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string IV_CCHTYPE {
-            get {
-                return this.iV_CCHTYPEField;
-            }
-            set {
-                this.iV_CCHTYPEField = value;
-                this.RaisePropertyChanged("IV_CCHTYPE");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string IV_COMMIT {
-            get {
-                return this.iV_COMMITField;
-            }
-            set {
-                this.iV_COMMITField = value;
-                this.RaisePropertyChanged("IV_COMMIT");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string IV_DEL_FILES {
-            get {
-                return this.iV_DEL_FILESField;
-            }
-            set {
-                this.iV_DEL_FILESField = value;
-                this.RaisePropertyChanged("IV_DEL_FILES");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_DELResponse : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private BAPIRET2[] eT_RETURNField;
-        
-        private int eV_RETCODEField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public BAPIRET2[] ET_RETURN {
-            get {
-                return this.eT_RETURNField;
-            }
-            set {
-                this.eT_RETURNField = value;
-                this.RaisePropertyChanged("ET_RETURN");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public int EV_RETCODE {
-            get {
-                return this.eV_RETCODEField;
-            }
-            set {
-                this.eV_RETCODEField = value;
-                this.RaisePropertyChanged("EV_RETCODE");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_DELRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_DEL ZCCH_CACHE_DEL;
-        
-        public ZCCH_CACHE_DELRequest() {
-        }
-        
-        public ZCCH_CACHE_DELRequest(eContracting.Services.ZCCH_CACHE_DEL ZCCH_CACHE_DEL) {
-            this.ZCCH_CACHE_DEL = ZCCH_CACHE_DEL;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_DELResponse1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_DELResponse ZCCH_CACHE_DELResponse;
-        
-        public ZCCH_CACHE_DELResponse1() {
-        }
-        
-        public ZCCH_CACHE_DELResponse1(eContracting.Services.ZCCH_CACHE_DELResponse ZCCH_CACHE_DELResponse) {
-            this.ZCCH_CACHE_DELResponse = ZCCH_CACHE_DELResponse;
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_STATUS_SET : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string iV_CCHKEYField;
-        
-        private string iV_CCHTYPEField;
-        
-        private string iV_COMMITField;
-        
-        private string iV_STATField;
-        
-        private decimal iV_TIMESTAMPField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        public string IV_CCHKEY {
-            get {
-                return this.iV_CCHKEYField;
-            }
-            set {
-                this.iV_CCHKEYField = value;
-                this.RaisePropertyChanged("IV_CCHKEY");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public string IV_CCHTYPE {
-            get {
-                return this.iV_CCHTYPEField;
-            }
-            set {
-                this.iV_CCHTYPEField = value;
-                this.RaisePropertyChanged("IV_CCHTYPE");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string IV_COMMIT {
-            get {
-                return this.iV_COMMITField;
-            }
-            set {
-                this.iV_COMMITField = value;
-                this.RaisePropertyChanged("IV_COMMIT");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string IV_STAT {
-            get {
-                return this.iV_STATField;
-            }
-            set {
-                this.iV_STATField = value;
-                this.RaisePropertyChanged("IV_STAT");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public decimal IV_TIMESTAMP {
-            get {
-                return this.iV_TIMESTAMPField;
-            }
-            set {
-                this.iV_TIMESTAMPField = value;
-                this.RaisePropertyChanged("IV_TIMESTAMP");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_STATUS_SETResponse : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private BAPIRET2[] eT_RETURNField;
-        
-        private int eV_RETCODEField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public BAPIRET2[] ET_RETURN {
-            get {
-                return this.eT_RETURNField;
-            }
-            set {
-                this.eT_RETURNField = value;
-                this.RaisePropertyChanged("ET_RETURN");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        public int EV_RETCODE {
-            get {
-                return this.eV_RETCODEField;
-            }
-            set {
-                this.eV_RETCODEField = value;
-                this.RaisePropertyChanged("EV_RETCODE");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_STATUS_SETRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET;
-        
-        public ZCCH_CACHE_STATUS_SETRequest() {
-        }
-        
-        public ZCCH_CACHE_STATUS_SETRequest(eContracting.Services.ZCCH_CACHE_STATUS_SET ZCCH_CACHE_STATUS_SET) {
-            this.ZCCH_CACHE_STATUS_SET = ZCCH_CACHE_STATUS_SET;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_STATUS_SETResponse1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SETResponse;
-        
-        public ZCCH_CACHE_STATUS_SETResponse1() {
-        }
-        
-        public ZCCH_CACHE_STATUS_SETResponse1(eContracting.Services.ZCCH_CACHE_STATUS_SETResponse ZCCH_CACHE_STATUS_SETResponse) {
-            this.ZCCH_CACHE_STATUS_SETResponse = ZCCH_CACHE_STATUS_SETResponse;
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_PUT : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private ZCCH_ST_ATTRIB[] iT_ATTRIBField;
-        
-        private ZCCH_ST_FILE[] iT_FILESField;
-        
-        private string iV_CCHKEYField;
-        
-        private string iV_CCHTYPEField;
-        
-        private string iV_COMMITField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public ZCCH_ST_ATTRIB[] IT_ATTRIB {
-            get {
-                return this.iT_ATTRIBField;
-            }
-            set {
-                this.iT_ATTRIBField = value;
-                this.RaisePropertyChanged("IT_ATTRIB");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public ZCCH_ST_FILE[] IT_FILES {
-            get {
-                return this.iT_FILESField;
-            }
-            set {
-                this.iT_FILESField = value;
-                this.RaisePropertyChanged("IT_FILES");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        public string IV_CCHKEY {
-            get {
-                return this.iV_CCHKEYField;
-            }
-            set {
-                this.iV_CCHKEYField = value;
-                this.RaisePropertyChanged("IV_CCHKEY");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public string IV_CCHTYPE {
-            get {
-                return this.iV_CCHTYPEField;
-            }
-            set {
-                this.iV_CCHTYPEField = value;
-                this.RaisePropertyChanged("IV_CCHTYPE");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
-        public string IV_COMMIT {
-            get {
-                return this.iV_COMMITField;
-            }
-            set {
-                this.iV_COMMITField = value;
-                this.RaisePropertyChanged("IV_COMMIT");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.4084.0")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="urn:sap-com:document:sap:rfc:functions")]
-    public partial class ZCCH_CACHE_PUTResponse : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private ZCCH_ST_ATTRIB[] eT_ATTRIBField;
-        
-        private ZCCH_ST_FILE[] eT_FILESField;
-        
-        private BAPIRET2[] eT_RETURNField;
-        
-        private int eV_RETCODEField;
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public ZCCH_ST_ATTRIB[] ET_ATTRIB {
-            get {
-                return this.eT_ATTRIBField;
-            }
-            set {
-                this.eT_ATTRIBField = value;
-                this.RaisePropertyChanged("ET_ATTRIB");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public ZCCH_ST_FILE[] ET_FILES {
-            get {
-                return this.eT_FILESField;
-            }
-            set {
-                this.eT_FILESField = value;
-                this.RaisePropertyChanged("ET_FILES");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
-        [System.Xml.Serialization.XmlArrayItemAttribute("item", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=false)]
-        public BAPIRET2[] ET_RETURN {
-            get {
-                return this.eT_RETURNField;
-            }
-            set {
-                this.eT_RETURNField = value;
-                this.RaisePropertyChanged("ET_RETURN");
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
-        public int EV_RETCODE {
-            get {
-                return this.eV_RETCODEField;
-            }
-            set {
-                this.eV_RETCODEField = value;
-                this.RaisePropertyChanged("EV_RETCODE");
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_PUTRequest {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_PUT ZCCH_CACHE_PUT;
-        
-        public ZCCH_CACHE_PUTRequest() {
-        }
-        
-        public ZCCH_CACHE_PUTRequest(eContracting.Services.ZCCH_CACHE_PUT ZCCH_CACHE_PUT) {
-            this.ZCCH_CACHE_PUT = ZCCH_CACHE_PUT;
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    public partial class ZCCH_CACHE_PUTResponse1 {
-        
-        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="urn:sap-com:document:sap:rfc:functions", Order=0)]
-        public eContracting.Services.ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUTResponse;
-        
-        public ZCCH_CACHE_PUTResponse1() {
-        }
-        
-        public ZCCH_CACHE_PUTResponse1(eContracting.Services.ZCCH_CACHE_PUTResponse ZCCH_CACHE_PUTResponse) {
-            this.ZCCH_CACHE_PUTResponse = ZCCH_CACHE_PUTResponse;
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface ZCCH_CACHE_APIChannel : eContracting.Services.ZCCH_CACHE_API, System.ServiceModel.IClientChannel {
     }
@@ -1212,12 +1403,12 @@ namespace eContracting.Services {
                 base(binding, remoteAddress) {
         }
         
-        public eContracting.Services.ZCCH_CACHE_GETResponse1 ZCCH_CACHE_GET(eContracting.Services.ZCCH_CACHE_GETRequest request) {
-            return base.Channel.ZCCH_CACHE_GET(request);
+        public eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1 ZCCH_CACHE_STATUS_SET(eContracting.Services.ZCCH_CACHE_STATUS_SETRequest request) {
+            return base.Channel.ZCCH_CACHE_STATUS_SET(request);
         }
         
-        public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_GETResponse1> ZCCH_CACHE_GETAsync(eContracting.Services.ZCCH_CACHE_GETRequest request) {
-            return base.Channel.ZCCH_CACHE_GETAsync(request);
+        public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1> ZCCH_CACHE_STATUS_SETAsync(eContracting.Services.ZCCH_CACHE_STATUS_SETRequest request) {
+            return base.Channel.ZCCH_CACHE_STATUS_SETAsync(request);
         }
         
         public eContracting.Services.ZCCH_CACHE_DELResponse1 ZCCH_CACHE_DEL(eContracting.Services.ZCCH_CACHE_DELRequest request) {
@@ -1228,12 +1419,12 @@ namespace eContracting.Services {
             return base.Channel.ZCCH_CACHE_DELAsync(request);
         }
         
-        public eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1 ZCCH_CACHE_STATUS_SET(eContracting.Services.ZCCH_CACHE_STATUS_SETRequest request) {
-            return base.Channel.ZCCH_CACHE_STATUS_SET(request);
+        public eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse1 ZCCH_CACHE_ACCESS_CHECK(eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest request) {
+            return base.Channel.ZCCH_CACHE_ACCESS_CHECK(request);
         }
         
-        public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_STATUS_SETResponse1> ZCCH_CACHE_STATUS_SETAsync(eContracting.Services.ZCCH_CACHE_STATUS_SETRequest request) {
-            return base.Channel.ZCCH_CACHE_STATUS_SETAsync(request);
+        public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse1> ZCCH_CACHE_ACCESS_CHECKAsync(eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest request) {
+            return base.Channel.ZCCH_CACHE_ACCESS_CHECKAsync(request);
         }
         
         public eContracting.Services.ZCCH_CACHE_PUTResponse1 ZCCH_CACHE_PUT(eContracting.Services.ZCCH_CACHE_PUTRequest request) {
@@ -1242,6 +1433,14 @@ namespace eContracting.Services {
         
         public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_PUTResponse1> ZCCH_CACHE_PUTAsync(eContracting.Services.ZCCH_CACHE_PUTRequest request) {
             return base.Channel.ZCCH_CACHE_PUTAsync(request);
+        }
+        
+        public eContracting.Services.ZCCH_CACHE_GETResponse1 ZCCH_CACHE_GET(eContracting.Services.ZCCH_CACHE_GETRequest request) {
+            return base.Channel.ZCCH_CACHE_GET(request);
+        }
+        
+        public System.Threading.Tasks.Task<eContracting.Services.ZCCH_CACHE_GETResponse1> ZCCH_CACHE_GETAsync(eContracting.Services.ZCCH_CACHE_GETRequest request) {
+            return base.Channel.ZCCH_CACHE_GETAsync(request);
         }
     }
 }

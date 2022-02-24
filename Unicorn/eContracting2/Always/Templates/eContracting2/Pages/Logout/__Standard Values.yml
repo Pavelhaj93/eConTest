@@ -1,0 +1,44 @@
+﻿---
+ID: "a382402c-e618-4812-9652-3379762cc3c7"
+Parent: "f6611407-bc55-499f-9e03-1e58ac434335"
+Template: "f6611407-bc55-499f-9e03-1e58ac434335"
+Path: /sitecore/templates/eContracting2/Pages/Logout/__Standard Values
+DB: master
+SharedFields:
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Type: layout
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{37DC70FC-BEB9-4179-9FCC-F2E35CC61BCA}">
+        <r
+          id="{478F8175-FF61-4DE4-BE4B-1F5178099DC4}"
+          ph="eContracting2Main"
+          uid="{87CD50EE-51CA-4AA8-A260-BA7B427D9732}" />
+      </d>
+    </r>
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211207T115533Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20211207T104730Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

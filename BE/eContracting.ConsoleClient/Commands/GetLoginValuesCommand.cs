@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
+using eContracting.Models;
 
 namespace eContracting.ConsoleClient.Commands
 {
@@ -29,7 +30,8 @@ namespace eContracting.ConsoleClient.Commands
 
             using (new ConsoleLoggerSuspender(this.Logger))
             {
-                var offer = this.ApiService.GetOffer(guid, false);
+                var user = new UserCacheDataModel();
+                var offer = this.ApiService.GetOffer(guid, user, false);
 
                 if (offer == null)
                 {

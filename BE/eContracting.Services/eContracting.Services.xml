@@ -4,22 +4,67 @@
         <name>eContracting.Services</name>
     </assembly>
     <members>
-        <member name="T:eContracting.Services.AuthenticationService">
+        <member name="M:eContracting.Services.UserService.SaveUser(System.String,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="F:eContracting.Services.AuthenticationService.SettingsReader">
+        <member name="M:eContracting.Services.UserService.CanAuthenticate(System.String)">
+            <inheritdoc/>
+            <remarks>Only checks cookies for Cognito user.</remarks>
+        </member>
+        <member name="M:eContracting.Services.UserService.Authenticate(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.TryUpdateUserFromContext(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.Logout(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.Logout(System.String,eContracting.Models.UserCacheDataModel,eContracting.AUTH_METHODS)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.Abandon(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.GetUser">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.IsAuthorized">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.IsAuthorizedFor(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.IsAuthorized(eContracting.Models.UserCacheDataModel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.IsUserValid(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.RefreshAuthorizationIfNeeded(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.GeneralRestApiService">
+            <summary>
+            Represents REST API client to use only one instance of <see cref="T:System.Net.Http.HttpClient"/>.
+            </summary>
+        </member>
+        <member name="T:eContracting.Services.TwoSecrectsAuthService">
+            <inheritdoc/>
+        </member>
+        <member name="F:eContracting.Services.TwoSecrectsAuthService.SettingsReader">
             <summary>
             The settings reader.
             </summary>
         </member>
-        <member name="F:eContracting.Services.AuthenticationService.Cache">
+        <member name="F:eContracting.Services.TwoSecrectsAuthService.Cache">
             <summary>
             The cache.
             </summary>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.#ctor(eContracting.ISettingsReaderService,eContracting.IUserDataCacheService)">
+        <member name="M:eContracting.Services.TwoSecrectsAuthService.#ctor(eContracting.ISettingsReaderService,eContracting.IDataSessionCacheService)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.AuthenticationService"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Services.TwoSecrectsAuthService"/> class.
             </summary>
             <param name="settingsReader">The settings reader.</param>
             <param name="cacheService">The cache service.</param>
@@ -29,16 +74,37 @@
             cacheService
             </exception>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.ILoginTypeModel,System.String,System.String,System.String)">
+        <member name="M:eContracting.Services.TwoSecrectsAuthService.Authenticate(eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.Login(eContracting.Models.AuthDataModel)">
+        <member name="M:eContracting.Services.TwoSecrectsAuthService.IsAuthenticated(System.Web.HttpRequestBase)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.IsLoggedIn">
+        <member name="M:eContracting.Services.TwoSecrectsAuthService.IsAuthenticated(System.Web.Http.Controllers.HttpRequestContext)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.AuthenticationService.GetCurrentUser">
+        <member name="M:eContracting.Services.TwoSecrectsAuthService.GetCurrentUser">
+            <inheritdoc/>
+        </member>
+        <member name="T:eContracting.Services.CognitoAuthService">
+            <summary>
+            AWS Cognito service.
+            </summary>
+            <seealso cref="!:https://docs.aws.amazon.com/cognito/latest/developerguide/token-endpoint.html"/>
+        </member>
+        <member name="M:eContracting.Services.CognitoAuthService.GetSettings">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CognitoAuthService.GetTokens(System.Web.HttpCookieCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CognitoAuthService.GetUser(System.Web.HttpCookieCollection)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CognitoAuthService.GetVerifiedUser(eContracting.Models.OAuthTokensModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.CognitoAuthService.GetRefreshedTokens(eContracting.Models.OAuthTokensModel)">
             <inheritdoc/>
         </member>
         <member name="F:eContracting.Services.DbContextStartup.Logger">
@@ -123,7 +189,7 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
         </member>
-        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.IAuthenticationService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.IUserService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.FileOptimizer"/> class.
             </summary>
@@ -239,10 +305,10 @@
             settingsReaderService
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
@@ -260,11 +326,6 @@
         <member name="F:eContracting.Services.OfferService.Logger">
             <summary>
             The logger.
-            </summary>
-        </member>
-        <member name="F:eContracting.Services.OfferService.UserDataCache">
-            <summary>
-            The user data cache.
             </summary>
         </member>
         <member name="F:eContracting.Services.OfferService.UserFileCache">
@@ -297,12 +358,12 @@
             The context wrapper.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserDataCacheService,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IContextWrapper)">
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IDataRequestCacheService,eContracting.IContextWrapper)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>
             <param name="logger">The logger.</param>
-            <param name="userDataCache">The user data cache.</param>
+            <param name="userService">The user data service.</param>
             <param name="userFileCache">The user file cache.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <param name="factory">The factory for <see cref="T:eContracting.Services.ZCCH_CACHE_API"/>.</param>
@@ -310,13 +371,28 @@
             <param name="offerAttachmentParser">The offer attachment parser.</param>
             <param name="contextWrapper">The context wrapper.</param>
         </member>
-        <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.Services.OfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,eContracting.Models.UserCacheDataModel,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.CanReadOffer(System.String,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetOffer(System.String,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.ReadOffer(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.SignInOffer(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(eContracting.Models.ResponseCacheGetModel,System.Boolean)">
@@ -327,9 +403,6 @@
             <param name="includeTextParameters">if set to <c>true</c> [include text parameters].</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.OfferFileXmlModel[])">
             <summary>
             Gets offer attachments generated from <paramref name="files"/>.
@@ -337,12 +410,6 @@
             <param name="offer">The offer.</param>
             <param name="files">The files.</param>
             <returns>Array of attachments.</returns>
-        </member>
-        <member name="M:eContracting.Services.OfferService.ReadOffer(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferService.SignInOffer(System.String)">
-            <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetTextParameters(eContracting.Models.OfferModel,eContracting.Models.ResponseCacheGetModel)">
             <summary>
@@ -405,6 +472,15 @@
             <param name="timestamp">Decimal representation of a timestamp.</param>
             <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
             <returns>Response from inner service.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferService.UserAccessCheck(System.String,System.String,eContracting.OFFER_TYPES)">
+            <summary>
+            Calling <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK"/> to check if Cognito user has access to offer with <paramref name="guid"/>.
+            </summary>
+            <param name="user">User data with <see cref="!:UserCacheDataModel.Guid"/>.</param>
+            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <returns><see cref="T:eContracting.Models.ResponseAccessCheckModel"/> model when request was successful. If user is not Cognito, returns <c>null</c>.</returns>
+            <exception cref="T:eContracting.EcontractingDataException">When call to <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest"/> failed.</exception>
         </member>
         <member name="M:eContracting.Services.OfferService.GetFiles(System.String,System.Boolean)">
             <summary>
@@ -511,26 +587,26 @@
         <member name="M:eContracting.Services.SitecoreTextService.FindByKey(System.String,System.Collections.Generic.IDictionary{System.String,System.String})">
             <inheritdoc/>
         </member>
-        <member name="T:eContracting.Services.UserSessionDataCacheService">
+        <member name="T:eContracting.Services.SessionDataCacheService">
             <inheritdoc/>
         </member>
-        <member name="F:eContracting.Services.UserSessionDataCacheService.SessionProvider">
+        <member name="F:eContracting.Services.SessionDataCacheService.SessionProvider">
             <summary>
             The session provider.
             </summary>
         </member>
-        <member name="M:eContracting.Services.UserSessionDataCacheService.#ctor(eContracting.ISessionProvider)">
+        <member name="M:eContracting.Services.SessionDataCacheService.#ctor(eContracting.ISessionProvider)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Services.UserSessionDataCacheService"/> class.
+            Initializes a new instance of the <see cref="T:eContracting.Services.SessionDataCacheService"/> class.
             </summary>
         </member>
-        <member name="M:eContracting.Services.UserSessionDataCacheService.Set``1(System.String,``0)">
+        <member name="M:eContracting.Services.SessionDataCacheService.Set``1(System.String,``0)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.UserSessionDataCacheService.Get``1(System.String)">
+        <member name="M:eContracting.Services.SessionDataCacheService.Get``1(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.UserSessionDataCacheService.Remove(System.String)">
+        <member name="M:eContracting.Services.SessionDataCacheService.Remove(System.String)">
             <inheritdoc/>
         </member>
         <member name="T:eContracting.Services.OfferAttachmentParserService">
@@ -775,12 +851,19 @@
         </member>
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.SaveFilesToDebugFolder">
             <inheritdoc/>
+            <remarks>Default value is false.</remarks>
         </member>
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.ShowDebugMessages">
             <inheritdoc/>
+            <remarks>Default value is false.</remarks>
         </member>
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.SessionTimeout">
             <inheritdoc/>
+            <remarks>Default value is 30 minutes.</remarks>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CognitoMinSecondsToRefreshToken">
+            <inheritdoc/>
+            <remarks>Default value is 60 minutes.</remarks>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreService,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>
@@ -811,6 +894,9 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(System.String,System.String)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllDefinitions">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
@@ -833,6 +919,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetBackCompatibleTextParametersKeys(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetCognitoSettings">
             <inheritdoc/>
         </member>
     </members>

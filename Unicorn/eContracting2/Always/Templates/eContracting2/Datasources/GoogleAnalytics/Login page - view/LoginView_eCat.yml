@@ -1,0 +1,20 @@
+﻿---
+ID: "596438bf-3a09-4d8c-aeac-b93252862f50"
+Parent: "f320f02d-392d-4847-a664-8cdf5274c106"
+Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
+Path: "/sitecore/templates/eContracting2/Datasources/GoogleAnalytics/Login page - view/LoginView_eCat"
+DB: master
+Languages:
+- Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Předpis pro hodnotu eCat
+  - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
+    Hint: __Short description
+    Value: "lze použít hodnoty {TYPE}, {CAMPAIGN} and {COMMODITY}"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Value: "20220210T164341:637801082213460792Z"

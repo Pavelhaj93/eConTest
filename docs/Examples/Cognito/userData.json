@@ -1,0 +1,33 @@
+﻿{
+    "UserAttributes": [
+        {
+            "Name": "sub",
+            "Value": "ae974d48-7307-4228-a623-3ce3a1070091"
+        },
+        {
+            "Name": "custom:segment",
+            "Value": "B2C_Customers"
+        },
+        {
+            "Name": "email_verified",
+            "Value": "true"
+        },
+        {
+            "Name": "preferred_username",
+            "Value": "ae974d48-7307-4228-a623-3ce3a1070091"
+        },
+        {
+            "Name": "given_name",
+            "Value": "Lukáš"
+        },
+        {
+            "Name": "family_name",
+            "Value": "Dvořák"
+        },
+        {
+            "Name": "email",
+            "Value": "lukas.dvorak@actumdigital.com"
+        }
+    ],
+    "Username": "ae974d48-7307-4228-a623-3ce3a1070091"
+}

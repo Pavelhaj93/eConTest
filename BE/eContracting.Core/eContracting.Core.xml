@@ -4,6 +4,26 @@
         <name>eContracting.Core</name>
     </assembly>
     <members>
+        <member name="T:eContracting.AUTH_METHODS">
+            <summary>
+            List of available authentication methods.
+            </summary>
+        </member>
+        <member name="F:eContracting.AUTH_METHODS.NONE">
+            <summary>
+            Not authorized yet.
+            </summary>
+        </member>
+        <member name="F:eContracting.AUTH_METHODS.TWO_SECRETS">
+            <summary>
+            Classic login type with birth date and secret value.
+            </summary>
+        </member>
+        <member name="F:eContracting.AUTH_METHODS.COGNITO">
+            <summary>
+            Cognite authentication method.
+            </summary>
+        </member>
         <member name="F:eContracting.BaseApiServiceOptions.User">
             <summary>
             The user.
@@ -118,6 +138,155 @@
             <summary>
             When user submitted an offer.
             </summary>
+        </member>
+        <member name="T:eContracting.IDataCacheService">
+            <summary>
+            Cache for simple user data relevant only for current user. Data cannot be shared among sessions.
+            </summary>
+        </member>
+        <member name="M:eContracting.IDataCacheService.Set``1(System.String,``0)">
+            <summary>
+            Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <param name="data">The data.</param>
+        </member>
+        <member name="M:eContracting.IDataCacheService.Get``1(System.String)">
+            <summary>
+            Gets data by <paramref name="key"/>.
+            </summary>
+            <typeparam name="T">Type of data.</typeparam>
+            <param name="key">The key.</param>
+            <returns>Object of type <typeparamref name="T"/> or null.</returns>
+        </member>
+        <member name="M:eContracting.IDataCacheService.Remove(System.String)">
+            <summary>
+            Removes data under specific <paramref name="key"/>.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="T:eContracting.IUserService">
+            <summary>
+            Represents user storage and authentication / authorization service.
+            </summary>
+        </member>
+        <member name="M:eContracting.IUserService.SaveUser(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Saves data about current (not authorized user). This is used for first load to store data about offer.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="user">The user data.</param>
+        </member>
+        <member name="M:eContracting.IUserService.CanAuthenticate(System.String)">
+            <summary>
+            Determinates is user could be authenticated from current context data.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="M:eContracting.IUserService.Authenticate(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Authenticate <paramref name="user"/> and store data.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="user"></param>
+        </member>
+        <member name="M:eContracting.IUserService.TryUpdateUserFromContext(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Try to update <paramref name="user"/> auth data from current request.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="user"></param>
+        </member>
+        <member name="M:eContracting.IUserService.Logout(System.String)">
+            <summary>
+            Removes auth data from current user.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="M:eContracting.IUserService.Logout(System.String,eContracting.Models.UserCacheDataModel,eContracting.AUTH_METHODS)">
+            <summary>
+            Removes auth data from <paramref name="user"/> for specific <paramref name="authMethod"/>.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="user">The user.</param>
+            <param name="authMethod">Authentication method.</param>
+        </member>
+        <member name="M:eContracting.IUserService.Abandon(System.String)">
+            <summary>
+            Removes current user from cache.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="M:eContracting.IUserService.IsAuthorized">
+            <summary>
+            Determinates if user is authenticated for current request.
+            </summary>
+        </member>
+        <member name="M:eContracting.IUserService.IsAuthorizedFor(System.String)">
+            <summary>
+            Determinates is current user is authorized for given <paramref name="guid"/>.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="M:eContracting.IUserService.IsAuthorized(eContracting.Models.UserCacheDataModel,System.String)">
+            <summary>
+            Determinates if <paramref name="user"/> is authorized or not.
+            </summary>
+            <param name="user">Cache model with user data.</param>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="M:eContracting.IUserService.IsUserValid(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Checks if current user is valid in current context.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="user">Cache model with user data.</param>
+        </member>
+        <member name="M:eContracting.IUserService.GetUser">
+            <summary>
+            Gets the current user data or new anonymous.
+            </summary>
+            <returns>Always returns the instance.</returns>
+        </member>
+        <member name="M:eContracting.IUserService.RefreshAuthorizationIfNeeded(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Refreshes authorization data if it's necessary.
+            </summary>
+            <param name="user">Cache model with user data.</param>
+            <param name="guid">The unique offer identifier.</param>
+        </member>
+        <member name="T:eContracting.ICognitoAuthService">
+            <summary>
+            Cognito authorization service.
+            </summary>
+            <seealso cref="!:https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-user-pool-oauth-2-0-grants/"/>
+        </member>
+        <member name="M:eContracting.ICognitoAuthService.GetSettings">
+            <summary>
+            Gets settings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.ICognitoAuthService.GetTokens(System.Web.HttpCookieCollection)">
+            <summary>
+            Gets model with available tokens.
+            </summary>
+            <param name="cookies"></param>
+            <returns>Model or null if cookies are not available.</returns>
+        </member>
+        <member name="M:eContracting.ICognitoAuthService.GetUser(System.Web.HttpCookieCollection)">
+            <summary>
+            Gets user data Cognito model.
+            </summary>
+            <param name="cookies"></param>
+            <returns>Model or null if cookie are not available.</returns>
+        </member>
+        <member name="M:eContracting.ICognitoAuthService.GetVerifiedUser(eContracting.Models.OAuthTokensModel)">
+            <summary>
+            Gets user data from Cognito remote service.
+            </summary>
+            <param name="tokens">Cognito authorization tokens.</param>
         </member>
         <member name="T:eContracting.IEventLogger">
             <summary>
@@ -325,6 +494,78 @@
             </summary>
             <param name="search"></param>
             <returns></returns>
+        </member>
+        <member name="F:eContracting.Models.CognitoSettingsModel.CognitoBaseUrl">
+            <summary>
+            Base URL for Cognito service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoSettingsModel.CognitoClientId">
+            <summary>
+            OAuth Client ID for Cognito service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoSettingsModel.InnogyLoginUrl">
+            <summary>
+            Base URL for login page on innogy.cz.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoSettingsModel.InnogyLogoutUrl">
+            <summary>
+            Base URL for logout page on innogy.cz.
+            </summary>
+        </member>
+        <member name="T:eContracting.Models.CognitoUserDataModel">
+            <summary>
+            Represents JSON model from userData cookie.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.Sub">
+            <summary>
+            ID of the user.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.CustomSegments">
+            <summary>
+            List of segments where use is signed in.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.EmailVerified">
+            <summary>
+            Determinates if email was verified.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.PreferredUsername">
+            <summary>
+            Real user ID.
+            </summary>
+            <remarks>
+            Could be:
+            <list type="bullet">
+                <item>ID from iWelcome for early registered user</item>
+                <item>ID from Cognito for newly registerd user</item>
+            </list>
+            </remarks>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.GivenName">
+            <summary>
+            Firstname of the user.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.FamilyName">
+            <summary>
+            Surname of the user.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.Email">
+            <summary>
+            Email of the user.
+            </summary>
+        </member>
+        <member name="F:eContracting.Models.CognitoUserModel.Username">
+            <summary>
+            ID of the user. Should be the same as <see cref="F:eContracting.Models.CognitoUserModel.Sub"/>.
+            </summary>
         </member>
         <member name="T:eContracting.Models.IBasePageModel">
             <summary>
@@ -617,6 +858,69 @@
             Value cannot be empty - guid
             </exception>
         </member>
+        <member name="P:eContracting.Models.IOfferDataModel.Guid">
+            <summary>
+            The unique offer identifier.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.Process">
+            <summary>
+            The process.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.ProcessType">
+            <summary>
+            The process type.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.TextParameters">
+            <summary>
+            The text parameters from offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.IsAccepted">
+            <summary>
+            Determinates if offer is accepted or not.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.IsExpired">
+            <summary>
+            Determinaes if offer is expired or not.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.State">
+            <summary>
+            Gets or sets state of the offer - <see cref="P:eContracting.Models.OfferModel.State"/>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.IOfferDataModel.Birthday">
+            <summary>
+            Gets or sets birthday of offer owner - <see cref="P:eContracting.Models.OfferModel.Birthday"/>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OAuthTokensModel.AccessToken">
+            <summary>
+            A valid user pool access token.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OAuthTokensModel.IdToken">
+            <summary>
+            A valid user pool ID token. Note that an ID token is only provided if the openid scope was requested.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OAuthTokensModel.RefreshToken">
+            <summary>
+            A valid user pool refresh token.
+            </summary>
+            <remarks>
+             This can be used to retrieve new tokens by sending it through a POST request to https://AUTH_DOMAIN/oauth2/token, specifying the refresh_token and client_id parameters, and setting the grant_type parameter to “refresh_token“.
+            </remarks>
+        </member>
+        <member name="P:eContracting.Models.OAuthTokensModel.LastAuthUser">
+            <summary>
+            User identifier.
+            </summary>
+        </member>
         <member name="T:eContracting.Models.OfferFileXmlModel">
             <summary>
             Wrapper over <see cref="T:eContracting.Services.ZCCH_ST_FILE"/> with extra properties.
@@ -745,6 +1049,11 @@
             </summary>
             <seealso cref="T:eContracting.Models.IBasePageWithStepsModel" />
         </member>
+        <member name="F:eContracting.Models.ResponseAccessCheckModel.Response">
+            <summary>
+            Raw response from SAP.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.IPageAcceptedOfferModel.PageTitle">
             <summary>
             Gets or sets the page title.
@@ -773,41 +1082,62 @@
             <param name="attachment">The attachment.</param>
             <exception cref="T:System.ArgumentNullException">attachment</exception>
         </member>
-        <member name="T:eContracting.Models.AuthDataModel">
+        <member name="T:eContracting.Models.UserCacheDataModel">
             <summary>
-            Authentication data model to log-in a visitor.
+            Authorization data model.
             </summary>
         </member>
-        <member name="F:eContracting.Models.AuthDataModel.Guid">
+        <member name="P:eContracting.Models.UserCacheDataModel.Tokens">
             <summary>
-            The unique offer identifier.
+            The authorization rokens.
             </summary>
         </member>
-        <member name="F:eContracting.Models.AuthDataModel.Process">
+        <member name="P:eContracting.Models.UserCacheDataModel.CognitoUser">
             <summary>
-            The process.
+            The Cognito user data.
             </summary>
         </member>
-        <member name="F:eContracting.Models.AuthDataModel.ProcessType">
+        <member name="P:eContracting.Models.UserCacheDataModel.AuthorizedGuids">
             <summary>
-            The process type.
+            Gets pairs of guids and how they were authenticated.
             </summary>
         </member>
-        <member name="F:eContracting.Models.AuthDataModel.TextParameters">
+        <member name="P:eContracting.Models.UserCacheDataModel.IsCognito">
             <summary>
-            The text parameters from offer.
+            Determinates is user has Cognito data.
             </summary>
         </member>
-        <member name="M:eContracting.Models.AuthDataModel.#ctor">
+        <member name="M:eContracting.Models.UserCacheDataModel.#ctor">
             <summary>
-            Prevents a default instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class from being created.
+            Initializes a new instance of the <see cref="T:eContracting.Models.UserCacheDataModel"/> class.
             </summary>
+            <remarks>Creates anonymous instance of the user.</remarks>
         </member>
-        <member name="M:eContracting.Models.AuthDataModel.#ctor(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Models.UserCacheDataModel.HasAuth(eContracting.AUTH_METHODS)">
             <summary>
-            Initializes a new instance of the <see cref="T:eContracting.Models.AuthDataModel"/> class.
+            Determinates if user is authorized with <paramref name="authType"/> method.
             </summary>
-            <param name="offer">The offer.</param>
+            <param name="authType">The authentication method type.</param>
+            <returns><c>True</c> is <see cref="P:eContracting.Models.UserCacheDataModel.AuthorizedGuids"/> contains value with <paramref name="authType"/>.</returns>
+        </member>
+        <member name="M:eContracting.Models.UserCacheDataModel.IsCognitoGuid(System.String)">
+            <summary>
+            Determinates if <paramref name="guid"/> is authorized with <see cref="F:eContracting.AUTH_METHODS.COGNITO"/> or not.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+        </member>
+        <member name="M:eContracting.Models.UserCacheDataModel.ClearAuthData">
+            <summary>
+            Clears authentication data.
+            </summary>
+            <remarks>
+            Clears these data:
+            <list type="bullet">
+            <item><see cref="P:eContracting.Models.UserCacheDataModel.CognitoUser"/></item>
+            <item><see cref="P:eContracting.Models.UserCacheDataModel.Tokens"/></item>
+            <item><see cref="P:eContracting.Models.UserCacheDataModel.AuthorizedGuids"/></item>
+            </list>
+            </remarks>
         </member>
         <member name="T:eContracting.Models.IBaseSitecoreModel">
             <summary>
@@ -1346,12 +1676,12 @@
             Gets or sets the unique GUID of this offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferModel.IsAccepted">
+        <member name="P:eContracting.Models.OfferModel.IsAccepted">
             <summary>
             Gets or sets flag if offer is accepted.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferModel.IsExpired">
+        <member name="P:eContracting.Models.OfferModel.IsExpired">
             <summary>
             Gets a value indicating whether offer already expired.
             </summary>
@@ -1403,6 +1733,23 @@
                     <item>9 - Zastaralé (když je to stornované (prošlost se totiž ve skutečnosti podle mě kontrolovala podle data)</item>
                 </list>
             </remarks>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.GdprIdentity">
+            <summary>
+            Actual value of customer GRPD identity number from <see cref="F:eContracting.Constants.OfferAttributes.ZIDENTITYID"/>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.McfuRegStat">
+            <summary>
+            Gets status of customer registration in app portal. 
+            </summary>
+            <value>Possible values: PORTAL, PORTAL|APP, APP</value>
+            <remarks>If attribute <see cref="F:eContracting.Constants.OfferAttributes.MCFU_REG_STAT"/>  doesn't exist or is empty, customer is not able to log in via innosvet login.</remarks>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.HasMcfu">
+            <summary>
+            Determinates if user has attribute <see cref="F:eContracting.Constants.OfferAttributes.MCFU_REG_STAT"/> or not.
+            </summary>
         </member>
         <member name="F:eContracting.Models.OfferModel.Attributes">
             <summary>
@@ -1697,16 +2044,70 @@
             <param name="base64Username">The base64 username.</param>
             <param name="base64password">The base64password.</param>
         </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_GET">
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SET">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHKEY">
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHTYPE">
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_GEFILE">
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_SAVE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHSTAT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHVALTO">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_FILE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILEINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILENAME">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.MIMETYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_ST_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL">
             <remarks/>
         </member>
         <member name="T:eContracting.Services.BAPIRET2">
@@ -1754,67 +2155,13 @@
         <member name="P:eContracting.Services.BAPIRET2.SYSTEM">
             <remarks/>
         </member>
-        <member name="T:eContracting.Services.ZCCH_ST_FILE">
+        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILEINDX">
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILENAME">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.MIMETYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.FILECONTENT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_FILE.ATTRIB">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_ST_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRID">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRINDX">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_ATTRIB.ATTRVAL">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_ST_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHTYPE">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHKEY">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHSTAT">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_ST_HEADER.CCHVALTO">
-            <remarks/>
-        </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_GETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_FILES">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.EV_RETCODE">
+        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
             <remarks/>
         </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_DEL">
@@ -1832,6 +2179,9 @@
         <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_DEL_FILES">
             <remarks/>
         </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_DEL.IV_SAVE">
+            <remarks/>
+        </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_DELResponse">
             <remarks/>
         </member>
@@ -1841,31 +2191,25 @@
         <member name="P:eContracting.Services.ZCCH_CACHE_DELResponse.EV_RETCODE">
             <remarks/>
         </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SET">
+        <member name="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHKEY">
+        <member name="P:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK.IT_ATTRIB">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_CCHTYPE">
+        <member name="P:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK.IV_CCHKEY">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_COMMIT">
+        <member name="P:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK.IV_CCHTYPE">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT">
+        <member name="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse">
             <remarks/>
         </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_TIMESTAMP">
+        <member name="P:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse.ET_RETURN">
             <remarks/>
         </member>
-        <member name="T:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.ET_RETURN">
-            <remarks/>
-        </member>
-        <member name="P:eContracting.Services.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE">
+        <member name="P:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse.EV_RETCODE">
             <remarks/>
         </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_PUT">
@@ -1886,6 +2230,9 @@
         <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_COMMIT">
             <remarks/>
         </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_PUT.IV_SAVE">
+            <remarks/>
+        </member>
         <member name="T:eContracting.Services.ZCCH_CACHE_PUTResponse">
             <remarks/>
         </member>
@@ -1899,6 +2246,36 @@
             <remarks/>
         </member>
         <member name="P:eContracting.Services.ZCCH_CACHE_PUTResponse.EV_RETCODE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GET">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHKEY">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_CCHTYPE">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GET.IV_GEFILE">
+            <remarks/>
+        </member>
+        <member name="T:eContracting.Services.ZCCH_CACHE_GETResponse">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ES_HEADER">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_ATTRIB">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_FILES">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.ET_RETURN">
+            <remarks/>
+        </member>
+        <member name="P:eContracting.Services.ZCCH_CACHE_GETResponse.EV_RETCODE">
             <remarks/>
         </member>
         <member name="T:eContracting.SignStamp.invoke">
@@ -1961,6 +2338,41 @@
         <member name="F:eContracting.Constants.FileAttributeValues.SignFileIdAttachValues">
             <summary>
             IDATTACH values for old offers where the value doesn't match with file template.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.HOMEPAGE">
+            <summary>
+            User access homepage which technically doesn't exist.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.UNKNOWN">
+            <summary>
+            Unknown error.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.USER_BLOCKED">
+            <summary>
+            User is blocked for login.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.INVALID_GUID">
+            <summary>
+            Invalid guid provided (usually empty).
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.OFFER_NOT_FOUND">
+            <summary>
+            Offer not retrieved from SAP.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.OFFER_STATE_1">
+            <summary>
+            Offer state equals to 1 - invalid offer.
+            </summary>
+        </member>
+        <member name="F:eContracting.Constants.ErrorCodes.MISSING_BIRTDATE">
+            <summary>
+            Missing birtdate in offer (it's required).
             </summary>
         </member>
         <member name="F:eContracting.Constants.ErrorCodes.AUTH1_UNKNOWN">
@@ -2070,7 +2482,7 @@
             Service with direct communication to SAP / CACHE.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,System.String)">
+        <member name="M:eContracting.IOfferService.AcceptOffer(eContracting.Models.OfferModel,eContracting.Models.OfferSubmitDataModel,eContracting.Models.UserCacheDataModel,System.String)">
             <summary>
             Accepts the <paramref name="offer"/> synchronously. Calls NABIDKA_PRIJ and set status to 5.
             </summary>
@@ -2080,15 +2492,23 @@
             <returns>True if it was accepted or false.</returns>
             <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.ReadOffer(System.String)">
+        <member name="M:eContracting.IOfferService.ReadOffer(System.String,eContracting.Models.UserCacheDataModel)">
             <summary>
             Reads offer synchronously.
             </summary>
-            <param name="guid">Guid identifier.</param>
+            <param name="guid">The unique offer identifier.</param>
             <returns>True if it was set or false.</returns>
             <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferService.CanReadOffer(System.String,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
+            <summary>
+            Determinates if a user can read the offer.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets the files synchronous.
             </summary>
@@ -2097,96 +2517,66 @@
         </member>
         <member name="M:eContracting.IOfferService.GetOffer(System.String)">
             <summary>
+            Gets the offer by <paramref name="guid"/> as <c>anonymous user</c> with text parameters synchronously.
+            </summary>
+            <param name="guid">The unique offer identifier.</param>
+            <returns>The offer or null.</returns>
+        </member>
+        <member name="M:eContracting.IOfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel)">
+            <summary>
             Gets the offer by <paramref name="guid"/> with text parameters synchronously.
             </summary>
-            <param name="guid">Guid identifier.</param>
+            <param name="guid">The unique offer identifier.</param>
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.GetOffer(System.String,System.Boolean)">
+        <member name="M:eContracting.IOfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
             <summary>
             Gets the offer by <paramref name="guid"/> asynchronously.
             </summary>
-            <param name="guid">Guid identifier.</param>
+            <param name="guid">The unique offer identifier.</param>
             <param name="includeTextParameters">When you need to get <see cref="P:eContracting.Models.OfferModel.TextParameters"/>.</param>
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.SignInOffer(System.String)">
+        <member name="M:eContracting.IOfferService.SignInOffer(System.String,eContracting.Models.UserCacheDataModel)">
             <summary>
             Make offer <paramref name="guid"/> signed.
             </summary>
-            <param name="guid">The unique identifier.</param>
+            <param name="guid">The unique offer identifier.</param>
             <returns><c>True</c> if response was OK, otherwise <c>false</c>.</returns>
             <exception cref="T:eContracting.EcontractingApplicationException">When response from remote server was not success.</exception>
         </member>
-        <member name="T:eContracting.IAuthenticationService">
+        <member name="T:eContracting.ITwoSecrectsAuthService">
             <summary>
             Represents collection of actions for authentication operation.
             </summary>
         </member>
-        <member name="M:eContracting.IAuthenticationService.GetLoginState(eContracting.Models.OfferModel,eContracting.Models.ILoginTypeModel,System.String,System.String,System.String)">
-            <summary>
-            Logins the specified offer.
-            </summary>
-            <seealso cref="T:eContracting.Models.ILoginTypeModel"/>
-            <param name="offer">The offer.</param>
-            <param name="loginType">The login type.</param>
-            <param name="birthDay">The birth day.</param>
-            <param name="key">The key of login type.</param>
-            <param name="value">The value by login type.</param>
-            <returns></returns>
-        </member>
-        <member name="M:eContracting.IAuthenticationService.Login(eContracting.Models.AuthDataModel)">
+        <member name="M:eContracting.ITwoSecrectsAuthService.Authenticate(eContracting.Models.UserCacheDataModel)">
             <summary>
             Log-in user with <paramref name="authData"/>.
             </summary>
             <param name="authData">Authentication data.</param>
         </member>
-        <member name="M:eContracting.IAuthenticationService.IsLoggedIn">
+        <member name="M:eContracting.ITwoSecrectsAuthService.IsAuthenticated(System.Web.HttpRequestBase)">
             <summary>
-            Determines whether user is logged in.
+            Determines whether user is logged in via cookies or not.
             </summary>
-            <returns>
-              <c>true</c> if is logged in; otherwise, <c>false</c>.
-            </returns>
         </member>
-        <member name="M:eContracting.IAuthenticationService.GetCurrentUser">
+        <member name="M:eContracting.ITwoSecrectsAuthService.IsAuthenticated(System.Web.Http.Controllers.HttpRequestContext)">
+            <summary>
+            Determines whether user is logged in via cookies or not.
+            </summary>
+        </member>
+        <member name="M:eContracting.ITwoSecrectsAuthService.GetCurrentUser">
             <summary>
             Gets the current user.
             </summary>
             <returns>Data or null.</returns>
         </member>
-        <member name="T:eContracting.IUserDataCacheService">
-            <summary>
-            Cache for simple user data relevant only for current user. Data cannot be shared among sessions.
-            </summary>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Set``1(System.String,``0)">
-            <summary>
-            Adds or rewrite <paramref name="data"/> under specific <paramref name="key"/>.
-            </summary>
-            <typeparam name="T">Type of data.</typeparam>
-            <param name="key">The key.</param>
-            <param name="data">The data.</param>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Get``1(System.String)">
-            <summary>
-            Gets data by <paramref name="key"/>.
-            </summary>
-            <typeparam name="T">Type of data.</typeparam>
-            <param name="key">The key.</param>
-            <returns>Object of type <typeparamref name="T"/> or null.</returns>
-        </member>
-        <member name="M:eContracting.IUserDataCacheService.Remove(System.String)">
-            <summary>
-            Removes data under specific <paramref name="key"/>.
-            </summary>
-            <param name="key">The key.</param>
-        </member>
         <member name="T:eContracting.IContextWrapper">
             <summary>
-            Represents wrapper over context (static) values.
+            Represents wrapper over context values.
             </summary>
         </member>
         <member name="M:eContracting.IContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
@@ -2220,6 +2610,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:eContracting.IContextWrapper.GetQueryValue(System.String)">
+            <summary>
+            Gets query value from current context request.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.IContextWrapper.IsNormalMode">
             <summary>
             Determines whether Sitecore context page mode is in normal mode.
@@ -2233,6 +2630,17 @@
         <member name="M:eContracting.IContextWrapper.IsEditMode">
             <summary>
             Determines whether Sitecore context page mode is in editing mode.
+            </summary>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetCookies">
+            <summary>
+            Gets cookies from current request.
+            </summary>
+            <returns>Cookie or null if request is not available.</returns>
+        </member>
+        <member name="M:eContracting.IContextWrapper.GetQueryParams">
+            <summary>
+            Gets query parameters from current request.
             </summary>
         </member>
         <member name="T:eContracting.IFileOptimizer">
@@ -2369,17 +2777,19 @@
             Creates prescription for JSON / API for not accepted offer and accepted offer.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for not accepted offer.
             </summary>
             <param name="offer">The offer.</param>
+            <param name="user">The user.</param>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for accepted offer.
             </summary>
             <param name="offer">The offer.</param>
+            /// <param name="user">The user.</param>
             <returns></returns>
         </member>
         <member name="T:eContracting.IOfferParserService">
@@ -2436,6 +2846,12 @@
             Gets the session timeout in minutes.
             </summary>
         </member>
+        <member name="P:eContracting.ISettingsReaderService.CognitoMinSecondsToRefreshToken">
+            <summary>
+            Gets minimum seconds to refresh access token.
+            </summary>
+            <returns>Number of seconds.</returns>
+        </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinitionDefault">
             <summary>
             Gets <c>default</c> definition. Cannot be null.
@@ -2458,6 +2874,11 @@
             <param name="processType">Type of the process.</param>
             <returns>Definition matched by <paramref name="process"/> and <paramref name="processType"/> or default one.</returns>
             <exception cref="T:System.ApplicationException">When even default definition was not found.</exception>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetAllDefinitions">
+            <summary>
+            Gets all defined matrix definitions.
+            </summary>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <summary>
@@ -2536,6 +2957,11 @@
                 <para><see cref="P:System.Collections.Generic.KeyValuePair`2.Value"/> is what you need.</para>
             </remarks>
             <param name="version">Offer version.</param>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetCognitoSettings">
+            <summary>
+            Gets settings for Cognito Auth service.
+            </summary>
         </member>
         <member name="T:eContracting.ISignService">
             <summary>
@@ -2645,6 +3071,11 @@
             Login page.
             </summary>
         </member>
+        <member name="F:eContracting.PAGE_LINK_TYPES.Logout">
+            <summary>
+            Logout page.
+            </summary>
+        </member>
         <member name="T:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1">
             <summary>
             Evaluates if current logged-in user's offer has required process.
@@ -2663,7 +3094,7 @@
             </summary>
             <param name="ruleContext">The rule context.</param>
             <returns>
-                <c>True</c> if match found in <see cref="T:eContracting.Models.AuthDataModel"/>, otherwise <c>false</c>.
+                <c>True</c> if match found in <see cref="T:eContracting.Models.UserCacheDataModel"/>, otherwise <c>false</c>.
                 Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1.ProcessId"/> doesn't exist or user is not logged in.
             </returns>
         </member>
@@ -2690,7 +3121,7 @@
             </summary>
             <param name="ruleContext">The rule context.</param>
             <returns>
-                <c>True</c> if match found in <see cref="T:eContracting.Models.AuthDataModel"/>, otherwise <c>false</c>.
+                <c>True</c> if match found in <see cref="T:eContracting.Models.UserCacheDataModel"/>, otherwise <c>false</c>.
                 Also <c>false</c> if <see cref="P:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessTypeCondition`1.ProcessTypeId"/> doesn't exist or user is not logged in.
             </returns>
         </member>
@@ -2712,6 +3143,9 @@
         <member name="M:eContracting.SitecoreContextWrapper.GetSiteRoot">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetQueryValue(System.String)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.SitecoreContextWrapper.IsEditMode">
             <inheritdoc/>
         </member>
@@ -2722,6 +3156,12 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.SitecoreContextWrapper.SetDisplayMode(Sitecore.Sites.DisplayMode)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetCookies">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.SitecoreContextWrapper.GetQueryParams">
             <inheritdoc/>
         </member>
         <member name="F:eContracting.Utils.RegexAttrStyle">
@@ -2740,6 +3180,26 @@
             </summary>
             <seealso cref="!:https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
             <param name="size">The size.</param>
+        </member>
+        <member name="M:eContracting.Utils.SetQuery(System.Uri,System.String,System.String)">
+            <summary>
+            Add query <paramref name="key"/> and <paramref name="value"/> to <paramref name="url"/>. 
+            </summary>
+            <remarks>Parameter <paramref name="value"/> will be encoded.</remarks>
+            <param name="url">The source url.</param>
+            <param name="key">The query key.</param>
+            <param name="value">The query value.</param>
+            <returns><paramref name="url"/> with added query param.</returns>
+        </member>
+        <member name="M:eContracting.Utils.SetQuery(System.String,System.String,System.String)">
+            <summary>
+            Add query <paramref name="key"/> and <paramref name="value"/> to <paramref name="url"/>. 
+            </summary>
+            <remarks>Parameter <paramref name="value"/> will be encoded.</remarks>
+            <param name="url">The source url.</param>
+            <param name="key">The query key.</param>
+            <param name="value">The query value.</param>
+            <returns><paramref name="url"/> with added query param.</returns>
         </member>
         <member name="M:eContracting.Utils.GetQueryString(System.Collections.Specialized.NameValueCollection)">
             <summary>

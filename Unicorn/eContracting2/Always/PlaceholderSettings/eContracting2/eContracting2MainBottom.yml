@@ -1,0 +1,29 @@
+﻿---
+ID: "14d73d61-a4c6-41b1-b5f4-f546e6cdd91e"
+Parent: "c4225c5d-d6fe-49aa-b899-3883fc5ecbef"
+Template: "5c547d4e-7111-4995-95b0-6b561751bf2e"
+Path: /sitecore/layout/Placeholder Settings/eContracting2/eContracting2MainBottom
+DB: master
+SharedFields:
+- ID: "7256bdab-1fd2-49dd-b205-cb4873d2917c"
+  Hint: Placeholder Key
+  Value: eContracting2MainBottom
+- ID: "e391b526-d0c5-439d-803e-17512eae6222"
+  Hint: Allowed Controls
+  Type: TreelistEx
+  Value: |
+    {F527FD3D-42C9-423A-958B-BC1064C1A890}
+    {AE838346-B0FD-4F00-9BDC-68E7DC8348DE}
+    {4CEF4551-AA4E-4AEA-AEAA-5EA1A1CC27A5}
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220126T164537Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

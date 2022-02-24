@@ -56,5 +56,6 @@ namespace eContracting.Tests
         public string Path { get; set; }
         public string OfferSelectedListLabel { get; set; }
         public IListCollectionModel OfferSelectedList { get; set; }
+        public IRichTextModel MainTextThankYou2 { get; set; }
     }
 }

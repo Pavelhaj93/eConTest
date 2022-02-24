@@ -122,6 +122,15 @@
     <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IdentityModel.JsonWebTokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.JsonWebTokens.5.4.0\lib\net461\Microsoft.IdentityModel.JsonWebTokens.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.5.4.0\lib\net461\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.4.0\lib\net461\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
@@ -191,6 +200,9 @@
     <Reference Include="System.Design" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.4.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Linq" />
@@ -255,20 +267,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AUTH_METHODS.cs" />
     <Compile Include="BaseApiServiceOptions.cs" />
     <Compile Include="EcontractingApplicationException.cs" />
     <Compile Include="EcontractingCodeException.cs" />
     <Compile Include="EcontractingSignException.cs" />
     <Compile Include="ERROR_CODES.cs" />
     <Compile Include="EVENT_NAMES.cs" />
+    <Compile Include="IDataCacheService.cs" />
+    <Compile Include="IDataRequestCacheService.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="ICognitoAuthService.cs" />
     <Compile Include="IEventLogger.cs" />
     <Compile Include="EcontractingDataException.cs" />
+    <Compile Include="IRespApiService.cs" />
     <Compile Include="IServiceFactory.cs" />
     <Compile Include="ISessionProvider.cs" />
     <Compile Include="IStartup.cs" />
     <Compile Include="ITextService.cs" />
+    <Compile Include="ITokenParser.cs" />
     <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
+    <Compile Include="Models\CognitoSettingsModel.cs" />
+    <Compile Include="Models\CognitoUserDataModel.cs" />
+    <Compile Include="Models\CognitoUserModel.cs" />
+    <Compile Include="Models\GoogleAnalyticsEvendDataModel.cs" />
+    <Compile Include="Models\IAccountButtonsModel.cs" />
     <Compile Include="Models\IBasePageModel.cs" />
     <Compile Include="Models\IBasePageWithStepsModel.cs" />
     <Compile Include="Models\IColorModel.cs" />
@@ -283,9 +307,14 @@
     <Compile Include="Models\IDefinitionCombinationDataModel.cs" />
     <Compile Include="Models\ErrorModel.cs" />
     <Compile Include="Models\EventLogModel.cs" />
+    <Compile Include="Models\IInfoBoxItemModel.cs" />
+    <Compile Include="Models\IInfoBoxModel.cs" />
     <Compile Include="Models\IListCollectionModel.cs" />
     <Compile Include="Models\IListItemModel.cs" />
+    <Compile Include="Models\IOfferDataModel.cs" />
+    <Compile Include="Models\JwtRefreshTokenModel.cs" />
     <Compile Include="Models\LoginFailureModel.cs" />
+    <Compile Include="Models\OAuthTokensModel.cs" />
     <Compile Include="Models\OfferFileXmlModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
     <Compile Include="Models\OfferSubmitDataUploadsModel.cs" />
@@ -300,10 +329,13 @@
     <Compile Include="Models\IPromoBoxModel.cs" />
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />
+    <Compile Include="Models\ResponseAccessCheckModel.cs" />
+    <Compile Include="Models\RestApiResponseModel.cs" />
+    <Compile Include="Models\OfferTokenModel.cs" />
     <Compile Include="Models\UploadGroupFileOperationResultModel.cs" />
     <Compile Include="ServiceFactory.cs" />
-    <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
+    <Compile Include="SignApiServiceOptions.cs" />
     <Compile Include="Connected Services\Services\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -317,8 +349,8 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IOfferService.cs" />
-    <Compile Include="IAuthenticationService.cs" />
-    <Compile Include="IUserDataCacheService.cs" />
+    <Compile Include="ITwoSecrectsAuthService.cs" />
+    <Compile Include="IDataSessionCacheService.cs" />
     <Compile Include="IContextWrapper.cs" />
     <Compile Include="IFileOptimizer.cs" />
     <Compile Include="ILoginFailedAttemptBlockerStore.cs" />
@@ -334,7 +366,7 @@
     <Compile Include="Models\JsonAcceptanceDialogButtonViewModel.cs" />
     <Compile Include="Models\JsonAcceptanceDialogParamViewModel.cs" />
     <Compile Include="Models\JsonAcceptFileModel.cs" />
-    <Compile Include="Models\AuthDataModel.cs" />
+    <Compile Include="Models\UserCacheDataModel.cs" />
     <Compile Include="Models\AuthenticationTypeModel.cs" />
     <Compile Include="AUTH_RESULT_STATES.cs" />
     <Compile Include="Models\IBaseSitecoreModel.cs" />
@@ -411,6 +443,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_ACCESS_CHECKResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Services\eContracting.Services.ZCCH_CACHE_DELResponse1.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
