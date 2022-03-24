@@ -86,10 +86,11 @@ export const Authentication: React.FC<View> = ({
     window.dataLayer.push({
       event: 'gaEvent',
       gaEventData: gaEventClickData,
-      eventCallback: function () {
-        window.location.href = innogyAccountUrl as string
-      },
     })
+
+    setTimeout(() => {
+      window.location.href = innogyAccountUrl as string
+    }, 200)
   }
 
   /**
