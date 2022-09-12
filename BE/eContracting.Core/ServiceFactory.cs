@@ -61,7 +61,7 @@ namespace eContracting
             {
                 var binding = new BasicHttpsBinding();
                 binding.Name = name;
-                binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
+                binding.MaxReceivedMessageSize = 13107200; // this is necessary for "NABIDKA_PDF"
                 binding.Security.Mode = BasicHttpsSecurityMode.Transport;
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
                 binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
@@ -72,7 +72,7 @@ namespace eContracting
             {
                 var binding = new BasicHttpBinding();
                 binding.Name = name;
-                binding.MaxReceivedMessageSize = 65536 * 100; // this is necessary for "NABIDKA_PDF"
+                binding.MaxReceivedMessageSize = 13107200; // this is necessary for "NABIDKA_PDF"
                 binding.Security.Mode = BasicHttpSecurityMode.TransportCredentialOnly;
                 binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
                 binding.Security.Transport.ProxyCredentialType = HttpProxyCredentialType.None;
