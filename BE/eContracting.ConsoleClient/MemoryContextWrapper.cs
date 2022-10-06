@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,11 @@ namespace eContracting.ConsoleClient
         public string GetIpAddress()
         {
             return "10.0.0.0";
+        }
+
+        public NameValueCollection GetQueryParams()
+        {
+            throw new NotImplementedException();
         }
 
         public string GetQueryValue(string key)

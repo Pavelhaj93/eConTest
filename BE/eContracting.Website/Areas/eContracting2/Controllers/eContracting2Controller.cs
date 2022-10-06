@@ -450,6 +450,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     var logout = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Logout, guid);
                     logout = Utils.SetQuery(logout, Constants.QueryKeys.GUID, guid);
                     var url = this.SettingsService.GetCognitoSettings().InnogyLogoutUrl;
+                    url = Utils.SetQuery(url, Constants.QueryKeys.GLOBAL_LOGOUT, "true");
                     redirectUrl = Utils.SetQuery(url, Constants.QueryKeys.REDIRECT, logout);
                     viewModel.LogoutUrlLabel = datasource.LogoutLinkCognitoLabel;
                 }

@@ -301,6 +301,7 @@ namespace eContracting
             public const string IDENTITY = "idi";
             public const string DO_NOT_AUTO_LOGIN = "dnat";
             public const string REDIRECT = "redirect";
+            public const string GLOBAL_LOGOUT = "global";
         }
 
         public static class QueryValues
