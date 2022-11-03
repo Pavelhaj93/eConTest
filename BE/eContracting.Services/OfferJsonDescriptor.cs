@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eContracting.Models;
 using Glass.Mapper.Sc;
+using JSNLog.Infrastructure;
+using Sitecore.ApplicationCenter.Applications;
 using Sitecore.Shell.Applications.ContentEditor;
+using Sitecore.StringExtensions;
 using Sitecore.Web;
+using static eContracting.Models.JsonOfferPersonalDataModel;
+using static eContracting.Models.JsonOfferProductModel;
 
 namespace eContracting.Services
 {
@@ -52,12 +60,201 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public JsonOfferSummaryModel GetSummary(OfferModel offer, UserCacheDataModel user)
+        {
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var model = new JsonOfferSummaryModel();
+            model.User = this.GetPersonalData(offer);
+            model.DistributorChange = this.GetDistributorChange(offer);
+            model.Product = this.GetProductData(offer);
+            model.Gifts = this.GetGifts(offer.TextParameters, definition);
+            model.SalesArguments = this.GetAllSalesArguments(offer.TextParameters, model.Product != null);
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user)
+        {
+            var attachments = this.ApiService.GetAttachments(offer, user);
+            return this.GetNew(offer, attachments);
+        }
+
+        /// <inheritdoc/>
         public JsonOfferAcceptedModel GetAccepted(OfferModel offer, UserCacheDataModel user)
         {
             var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetAccepted(offer, attachments);
         }
 
+        /// <summary>
+        /// Gets personal data.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <returns></returns>
+        protected internal JsonOfferPersonalDataModel GetPersonalData(OfferModel offer)
+        {
+            if (!this.IsSectionChecked(offer.TextParameters, "PERSON"))
+            {
+                this.Logger.Warn(offer.Guid, "Missing PERSON data in text parameters (<PERSON></PERSON>)");
+                return null;
+            }
+
+            var model = new JsonOfferPersonalDataModel();
+            model.Title = this.TextService.FindByKey("CONTRACTUAL_DATA");
+
+            var infos = new List<JsonOfferPersonalDataModel.PersonalDataInfo>();
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTNAME"))
+            {
+                var info = new JsonOfferPersonalDataModel.PersonalDataInfo();
+                info.Title = this.TextService.FindByKey("PERSONAL_INFORMATION");
+                var lines = new List<string>();
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTNAME"));
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTEMAIL"));
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTTEL1"));
+                info.Lines = lines;
+                infos.Add(info);
+            }
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTADDRESS"))
+            {
+                var info = new JsonOfferPersonalDataModel.PersonalDataInfo();
+                info.Title = this.TextService.FindByKey("PERMANENT_ADDRESS");
+                var lines = new List<string>();
+                var streetName = offer.TextParameters.HasValue("PERSON_CUSTSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY");
+                lines.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET_NUMBER"));
+                lines.Add(offer.TextParameters["PERSON_CUSTCITY"]);
+
+                if (offer.TextParameters.HasValue("PERSON_CUSTCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY")))
+                {
+                    lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART"));
+                }
+
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTPOSTAL_CODE"));
+                info.Lines = lines;
+                infos.Add(info);
+            }
+
+            if (offer.TextParameters.HasValue("PERSON_CORADDRESS"))
+            {
+                var info = new JsonOfferPersonalDataModel.PersonalDataInfo();
+                info.Title = this.TextService.FindByKey("MAILING_ADDRESS");
+                var lines = new List<string>();
+                var streetName = offer.TextParameters.HasValue("PERSON_CORSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CORCITY");
+                lines.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET_NUMBER"));
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY"));
+
+                if (offer.TextParameters.HasValue("PERSON_CORCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CORCITY")))
+                {
+                    lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART"));
+                }
+
+                lines.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORPOSTAL_CODE"));
+                info.Lines = lines;
+                infos.Add(info);
+            }
+
+            CommunicationMethodInfo communicationMethod = null;
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTSZK"))
+            {
+                communicationMethod = new CommunicationMethodInfo();
+                communicationMethod.Title = this.TextService.FindByKey("AGREED_WAY_OF_COMMUNICATION");
+                communicationMethod.Value = offer.TextParameters.GetValueOrDefault("PERSON_CUSTSZK");
+                model.AgreedCommunicationMethod = communicationMethod;
+            }
+
+            if (infos.Count == 0 && communicationMethod == null)
+            {
+                this.Logger.Warn(offer.Guid, "No PERSON data gathered from text parameters");
+                return null;
+            }
+
+            model.Infos = infos;
+            model.AgreedCommunicationMethod = communicationMethod;
+
+            return model;
+        }
+
+        /// <summary>
+        /// Gets product data with all prices.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
+        protected internal JsonOfferProductModel GetProductData(OfferModel offer)
+        {
+            if (!offer.ShowPrices)
+            {
+                return null;
+            }
+
+            var model = new JsonOfferProductModel();
+            model.Header = this.GetHeaderData(model, offer);
+            model.ProductInfos = this.GetProductInfos(offer);
+            model.Type = this.GetProductType(offer);
+            model.Header.Note = this.GetProductNote(model.Type);
+            model.MiddleTexts = this.GetMiddleTexts(offer);
+
+            if (model.MiddleTexts.Count() > 0 && offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
+            {
+                model.MiddleTextsHelp = offer.TextParameters["SA06_MIDDLE_TEXT"];
+            }
+
+            model.Benefits = this.GetBenefits(offer);
+
+            if (!model.ProductInfos.Any() && !model.MiddleTexts.Any() && !model.Benefits.Any())
+            {
+                return null;
+            }
+
+            if (!string.IsNullOrEmpty(model.Type))
+            {
+                var productsRoot = this.SitecoreService.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS);
+
+                if (productsRoot != null)
+                {
+                    
+                }
+            }
+
+            return model;
+        }
+
+        /// <summary>
+        /// Gets data when user / offer changes a distributor (dismissal previous dealer).
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
+        protected internal JsonOfferDistributorChangeModel GetDistributorChange(OfferModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME doesn't exist");
+                return null;
+            }
+
+            if (offer.Process != "01")
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME exists, but is hidden because BUS_PROCESS != 01");
+                return null;
+            }
+
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var summaryPageId = siteSettings.Summary.TargetId;
+            var summaryPage = this.SitecoreService.GetItem<IPageSummaryOfferModel>(summaryPageId);
+            var model = new JsonOfferDistributorChangeModel();
+            model.Title = summaryPage.DistributorChange_Title;
+            model.Name = offer.TextParameters["PERSON_COMPETITOR_NAME"];
+            model.Description = summaryPage.DistributorChange_Text;
+            return model;
+        }
+
+        /// <summary>
+        /// Gets data for accepted offer.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <param name="attachments"></param>
+        /// <returns>Always returns the object.</returns>
         protected internal JsonOfferAcceptedModel GetAccepted(OfferModel offer, OfferAttachmentModel[] attachments)
         {
             var groups = new List<JsonFilesSectionModel>();
@@ -76,26 +273,39 @@ namespace eContracting.Services
             return new JsonOfferAcceptedModel(groups.OrderBy(x => x.Position));
         }
 
-        /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user)
-        {
-            var attachments = this.ApiService.GetAttachments(offer, user);
-            return this.GetNew(offer, attachments);
-        }
-
+        /// <summary>
+        /// Gets data for new non-accepted offer.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <param name="attachments"></param>
+        /// <returns>Always returns the object.</returns>
         protected internal JsonOfferNotAcceptedModel GetNew(OfferModel offer, OfferAttachmentModel[] attachments)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
+            var productInfos = this.SettingsReaderService.GetAllProductInfos();
             var model = new JsonOfferNotAcceptedModel();
 
             if (offer.Version > 1)
             {
-                model.Perex = this.GetPerex(offer.TextParameters, definition);
-                model.Gifts = this.GetGifts(offer.TextParameters, definition);
-                model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
+                if (definition.OfferPerexShow)
+                {
+                    model.Perex = this.GetPerex(offer.TextParameters, definition);
+                }
+
+                // disabled by https://jira.innogy.cz/browse/TRUNW-475
+                //if (definition.OfferGiftsShow)
+                //{
+                //    model.Gifts = this.GetGifts(offer.TextParameters, definition);
+                //}
+
+                // for version 3 data are picked up by GetSummary method
+                if (offer.Version == 2)
+                {
+                    model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
+                }
             }
 
-            model.Documents = this.GetDocuments(offer, definition, attachments);
+            model.Documents = this.GetDocuments(offer, definition, productInfos, attachments);
             model.AcceptanceDialog = this.GetAcceptance(offer, definition);
             return model;
         }
@@ -111,13 +321,13 @@ namespace eContracting.Services
 
                 if (acceptFiles.Any())
                 {
-                    var title = definition.OfferCommoditiesAcceptTitle?.Text.Trim(); //definition.AcceptedDocumentsTitle;
+                    var title = definition.OfferDocumentsForAcceptanceTitle?.Text.Trim(); //definition.AcceptedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(acceptFiles.Select(x => new JsonFileModel(x)), title, 0));
                 }
 
                 if (signFiles.Any())
                 {
-                    var title = definition.OfferCommoditiesSignTitle?.Text.Trim(); //definition.SignedDocumentsTitle;
+                    var title = definition.OfferDocumentsForSignTitle?.Text.Trim(); //definition.SignedDocumentsTitle;
                     list.Add(new JsonFilesSectionModel(signFiles.Select(x => new JsonFileModel(x)), title, 1));
                 }
             }
@@ -166,6 +376,48 @@ namespace eContracting.Services
             return null;
         }
 
+        /// <summary>
+        /// Gets all sales arguments.
+        /// </summary>
+        /// <param name="textParameters">Text parameters.</param>
+        /// <returns>All sales arguments or empty array.</returns>
+        protected internal IEnumerable<JsonSalesArgumentsModel> GetAllSalesArguments(IDictionary<string, string> textParameters, bool excludeCommodity)
+        {
+            var list = new List<JsonSalesArgumentsModel>();
+
+            var addServices = this.GetSalesArgumentsWithPrefix(textParameters, "ADD_SERVICES");
+
+            if (addServices.Any())
+            {
+                list.AddRange(addServices);
+            }
+
+            var nonCommodities = this.GetSalesArgumentsWithPrefix(textParameters, "NONCOMMODITY");
+
+            if (nonCommodities.Any())
+            {
+                list.AddRange(nonCommodities);
+            }
+
+            if (!excludeCommodity)
+            {
+                var commodities = this.GetSalesArgumentsWithPrefix(textParameters, "COMMODITY");
+
+                if (commodities.Any())
+                {
+                    list.AddRange(commodities);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets sales arguments from <c>_SALES_ARGUMENTS_</c> text parameters.
+        /// </summary>
+        /// <param name="textParameters">Text parameters.</param>
+        /// <param name="definition">The matrix definition.</param>
+        /// <returns>All sales arguments or null.</returns>
         protected internal JsonSalesArgumentsModel GetCommoditySalesArguments(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
@@ -177,7 +429,7 @@ namespace eContracting.Services
 
             var model = new JsonSalesArgumentsModel();
             model.Title = definition.OfferBenefitsTitle?.Text.Trim();
-            model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
+            model.Arguments = values.Select(x => new JsonArgumentModel(x)).ToArray();
 
             var commodityProductTypeAttribute = textParameters.FirstOrDefault(x => x.Key.StartsWith("COMMODITY_PRODUCT"));
             if (!commodityProductTypeAttribute.Equals(default(KeyValuePair<string, string>)))
@@ -206,10 +458,16 @@ namespace eContracting.Services
 
             var model = new JsonSalesArgumentsModel();
             model.Title = definition.OfferBenefitsTitle.Text;
-            model.Params = values.Select(x => new JsonArgumentModel(x)).ToArray();
+            model.Arguments = values.Select(x => new JsonArgumentModel(x)).ToArray();
             return model;
         }
 
+        /// <summary>
+        /// Gets gifts from <c>BENEFITS</c> parameters.
+        /// </summary>
+        /// <param name="textParameters">Text parameters.</param>
+        /// <param name="definition">The matrix combination.</param>
+        /// <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
         protected internal JsonAllBenefitsModel GetGifts(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             if (!this.IsSectionChecked(textParameters, "BENEFITS"))
@@ -313,16 +571,16 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, IDefinitionCombinationModel definition, OfferAttachmentModel[] files)
+        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
         {
             if (files.Length == 0)
             {
                 return null;
             }
 
-            var acceptance = this.GetDocumentsAcceptance(offer, files, definition);
+            var acceptance = this.GetDocumentsAcceptance(offer, files, definition, productInfos);
             var uploads = this.GetUploads(offer, files, definition);
-            var other = this.GetOther(offer, files, definition);
+            var other = this.GetOther(offer, files, definition, productInfos);
 
             if (acceptance == null && uploads == null && other == null)
             {
@@ -330,16 +588,17 @@ namespace eContracting.Services
             }
 
             var model = new JsonOfferDocumentsModel();
+            model.Description = definition.OfferDocumentsDescription?.Text;
             model.Acceptance = acceptance;
             model.Uploads = uploads;
             model.Other = other;
             return model;
         }
 
-        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
-            var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition);
-            var sign = this.GetAcceptanceDocumentsSign(offer, files, definition);
+            var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition, productInfos);
+            var sign = this.GetAcceptanceDocumentsSign(offer, files, definition, productInfos);
 
             if (accept == null && sign == null)
             {
@@ -347,14 +606,19 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptanceModel();
-            model.Title = definition.OfferCommoditiesTitle?.Text.Trim();
-            model.Text = Utils.GetReplacedTextTokens(definition.OfferCommoditiesText?.Text, offer.TextParameters);
+            model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
+            model.AcceptanceInfoBox.Title = definition.OfferDocumentsForElectronicAcceptanceTitle?.Text.Trim();
+            model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForElectronicAcceptanceText?.Text, offer.TextParameters);
+            model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferDocumentsDescription?.Text, offer.TextParameters);
+            model.Title = model.AcceptanceInfoBox.Title;
+            model.Text = model.AcceptanceInfoBox.Text;
             model.Accept = accept;
             model.Sign = sign;
+
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -364,8 +628,8 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferCommoditiesAcceptTitle?.Text.Trim();
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesAcceptText?.Text, offer.TextParameters);
+            model.Title = definition.OfferDocumentsForAcceptanceTitle?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferDocumentsForAcceptanceText?.Text, offer.TextParameters);
 
             var list = new List<JsonAcceptFileModel>();
 
@@ -374,7 +638,6 @@ namespace eContracting.Services
                 var selectedFile = selectedFiles[i];
                 var file = new JsonAcceptFileModel(selectedFile);
                 file.Prefix = this.GetFileLabelPrefix(selectedFile);
-
                 list.Add(file);
 
                 if (file.Mandatory)
@@ -383,11 +646,13 @@ namespace eContracting.Services
                 }
             }
 
+            this.UpdateProductInfo(list, productInfos);
+
             model.Files = list;
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == true).ToArray();
 
@@ -397,8 +662,8 @@ namespace eContracting.Services
             }
 
             var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferCommoditiesSignTitle?.Text.Trim();
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferCommoditiesSignText?.Text, offer.TextParameters);
+            model.Title = definition.OfferDocumentsForSignTitle?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferDocumentsForSignText?.Text, offer.TextParameters);
             model.Note = null; //TODO: create text
             var list = new List<JsonAcceptFileModel>();
 
@@ -414,6 +679,8 @@ namespace eContracting.Services
                     model.MandatoryGroups.Add(selectedFile.GroupGuid);
                 }
             }
+
+            this.UpdateProductInfo(list, productInfos);
 
             model.Files = list;
             return model;
@@ -453,16 +720,16 @@ namespace eContracting.Services
             //customFile.Mandatory = false;
             //list.Add(customFile);
 
-            model.Title = definition.OfferUploadsTitle?.Text.Trim();
-            model.Note = definition.OfferUploadsNote?.Text.Trim();
+            model.Title = Utils.GetReplacedTextTokens(definition.OfferUploadsTitle?.Text.Trim(), offer.TextParameters);
+            model.Note = Utils.GetReplacedTextTokens(definition.OfferUploadsNote?.Text.Trim(), offer.TextParameters);
             model.Types = list;
             return model;
         }
 
-        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
-            var products = this.GetOtherProducts(offer, files, definition);
-            var services = this.GetAdditionalServices(offer, files, definition);
+            var products = this.GetOtherProducts(offer, files, definition, productInfos);
+            var services = this.GetAdditionalServices(offer, files, definition, productInfos);
 
             if (products == null && services == null)
             {
@@ -472,7 +739,7 @@ namespace eContracting.Services
             return new JsonDocumentsOthersModel(products, services);
         }
 
-        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "DSL" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -498,33 +765,46 @@ namespace eContracting.Services
                 list.Add(file);
             }
 
+            this.UpdateProductInfo(list, productInfos);
+
             var parameters = new List<JsonParamModel>();
             var salesArguments = new List<JsonArgumentModel>();
 
-            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
+            if (offer.Version < 3)
             {
-                var key = item.Value;
-                var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
-                parameters.Add(new JsonParamModel(key, value));
+                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
+                {
+                    var key = item.Value;
+                    var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+                    parameters.Add(new JsonParamModel(key, value));
+                }
+
+                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
+                {
+                    salesArguments.Add(new JsonArgumentModel(item.Value));
+                }
             }
 
-            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
+            if (definition.OfferAdditionalServicesDescription != null)
             {
-                salesArguments.Add(new JsonArgumentModel(item.Value));
+                model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
+                model.AcceptanceInfoBox.Title = definition.OfferAdditionalServicesTitle?.Text.Trim();
+                model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryText?.Text, offer.TextParameters);
+                model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDescription?.Text, offer.TextParameters);
             }
 
-            model.Title = definition.OfferAdditionalServicesTitle?.Text.Trim();
-            model.Note = definition.OfferAdditionalServicesNote?.Text.Trim();
+            model.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesTitle?.Text.Trim(), offer.TextParameters);
+            model.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesNote?.Text.Trim(), offer.TextParameters);
             model.SalesArguments = salesArguments;
             model.Params = parameters;
-            model.SubTitle = definition.OfferAdditionalServicesSummaryTitle?.Text.Trim();
-            model.SubTitle2 = definition.OfferAdditionalServicesDocsTitle?.Text.Trim();
-            model.Text = definition.OfferAdditionalServicesDocsText?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryTitle?.Text.Trim(), offer.TextParameters);
+            model.SubTitle2 = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsTitle?.Text.Trim(), offer.TextParameters);
+            model.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsText?.Text.Trim(), offer.TextParameters);
             model.Files = list;
             return model;
         }
 
-        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
 
@@ -550,29 +830,40 @@ namespace eContracting.Services
                 list.Add(file);
             }
 
+            this.UpdateProductInfo(list, productInfos);
+
             var parameters = new List<JsonParamModel>();
             var salesArguments = new List<JsonArgumentModel>();
 
-            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME")))
+            if (offer.Version < 3)
             {
-                var key = item.Value;
-                var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
-                parameters.Add(new JsonParamModel(key, value));
+                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME")))
+                {
+                    var key = item.Value;
+                    var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+                    parameters.Add(new JsonParamModel(key, value));
+                }
+
+                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")))
+                {
+                    salesArguments.Add(new JsonArgumentModel(item.Value));
+                }
             }
 
-            foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")))
-            {
-                salesArguments.Add(new JsonArgumentModel(item.Value));
-            }
-
-            model.Title = definition.OfferOtherProductsTitle?.Text.Trim();
-            model.Note = definition.OfferOtherProductsNote?.Text.Trim();
+            model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
+            model.AcceptanceInfoBox.Title = definition.OfferOtherProductsTitle?.Text.Trim();
+            model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryText?.Text, offer.TextParameters);
+            model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDescription?.Text, offer.TextParameters);
+            model.Title = Utils.GetReplacedTextTokens(model.AcceptanceInfoBox.Title, offer.TextParameters);
+            model.Description = Utils.GetReplacedTextTokens(model.AcceptanceInfoBox.Note, offer.TextParameters);
+            model.Note = Utils.GetReplacedTextTokens(definition.OfferOtherProductsNote?.Text.Trim(), offer.TextParameters);
             model.SalesArguments = salesArguments;
             model.Params = parameters;
-            model.SubTitle = definition.OfferOtherProductsSummaryTitle.Text;
-            model.SubTitle2 = definition.OfferOtherProductsDocsTitle?.Text.Trim();
-            model.Text = definition.OfferOtherProductsDocsText?.Text.Trim();
+            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryTitle.Text, offer.TextParameters);
+            model.SubTitle2 = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsTitle?.Text.Trim(), offer.TextParameters);
+            model.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsText?.Text.Trim(), offer.TextParameters);
             model.Files = list;
+
             return model;
         }
 
@@ -587,12 +878,326 @@ namespace eContracting.Services
                 var group = acceptGuids[i].Value;
                 var labelKey = acceptGuids[i].Key.Replace("_GUID", "");
                 var title = offer.TextParameters.FirstOrDefault(x => x.Key == labelKey).Value;
-                list.Add(new JsonAcceptanceDialogParamViewModel(group, title));
+
+                if (!string.IsNullOrEmpty(title))
+                {
+                    list.Add(new JsonAcceptanceDialogParamViewModel(group, title));
+                }
             }
 
             var model = new JsonAcceptanceDialogViewModel();
             model.Parameters = list;
             return model;
+        }
+
+        protected internal HeaderData GetHeaderData(JsonOfferProductModel model, OfferModel offer)
+        {
+            var header = new HeaderData();
+            header.Name = offer.TextParameters.GetValueOrDefault("CALC_PROD_DESC");
+
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_TOTAL_SAVE"))
+            {
+                header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
+                header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
+            }
+            else
+            {
+                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE_SHOW' is 'X' but 'CALC_TOTAL_SAVE' has no price");
+            }
+
+            if (string.IsNullOrEmpty(header.Price1Value)/* && this.IsSectionChecked(offer.TextParameters, "CALC_DEP_VALUE_SHOW")*/)
+            {
+                if (this.CanDisplayPrice(offer.TextParameters, "CALC_DEP_VALUE"))
+                {
+                    header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DESCRIPTION");
+                    header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE") + " " + offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DISPLAY_UNIT");
+                }
+                else
+                {
+                    this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE' and 'CALC_DEP_VALUE' is missing / empty.");
+                }
+            }
+
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_FIN_REW"))
+            {
+                header.Price2Description = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DESCRIPTION");
+                header.Price2Value = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW") + " " + offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DISPLAY_UNIT");
+            }
+            else
+            {
+                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_FIN_REW_SHOW' is 'X' but 'CALC_FIN_REW' has no price");
+            }
+
+            //if (offer.TextParameters.HasValue("CALC_TOTAL_SAVE", 0.1))
+            //{
+            //    header.Price2Description = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
+            //    header.Price2Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
+            //}
+
+            return header;
+        }
+
+        protected internal ProductInfoPrice[] GetProductInfos(OfferModel offer)
+        {
+            var infoPrices = new List<ProductInfoPrice>();
+            var productType = string.Empty;
+
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_GAS"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("CONSUMED_GAS");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_GAS", "CALC_COMP_GAS_PRICE"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "G";
+            }
+            else if (this.CanDisplayPrice(offer.TextParameters, "CALC_CAP_PRICE"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("ANNUAL_PRICE_FOR_RESERVED_CAPACITY");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_CAP_PRICE", "CALC_CAP_PRICE_DISC"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC") + " " + offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "G";
+            }
+
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_FIX"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("STANDING_PAYMENT");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_FIX", "CALC_COMP_FIX_PRICE"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "G";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_VT"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("HIGH_TARIFF");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_VT", "CALC_COMP_VT_PRICE"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "E";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_NT"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("LOW_TARIFF");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_NT", "CALC_COMP_NT_PRICE"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "E";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_KC"))
+            {
+                var infoPrice = new ProductInfoPrice();
+                infoPrice.Title = this.TextService.FindByKey("STANDING_PAYMENT");
+                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC");
+                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_KC", "CALC_COMP_KC_PRICE"))
+                {
+                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE_DISPLAY_UNIT");
+                }
+
+                infoPrices.Add(infoPrice);
+                productType = "E";
+            }
+
+            return infoPrices.ToArray();
+        }
+
+        /// <summary>
+        /// Gets <c>G</c> for gas, <c>E</c> for electricity.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <returns></returns>
+        protected internal string GetProductType(OfferModel offer)
+        {
+            if (offer.Xml.Content.Body.EanOrAndEic.StartsWith("859182400"))
+            {
+                return "E";
+            }
+
+            if (offer.Xml.Content.Body.EanOrAndEic.StartsWith("27ZG"))
+            {
+                return "G";
+            }
+
+            if (offer.TextParameters.ContainsKey("PERSON_PREMLABEL"))
+            {
+                if (offer.TextParameters["PERSON_PREMLABEL"] == "EIC")
+                {
+                    return "G";
+                }
+                
+                if (offer.TextParameters["PERSON_PREMLABEL"] == "EAN")
+                {
+                    return "E";
+                }
+            }
+
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_GAS"))
+            {
+                return "G";
+            }
+            else if (this.CanDisplayPrice(offer.TextParameters, "CALC_CAP_PRICE"))
+            {
+                return "G";
+            }
+
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_FIX"))
+            {
+                return "G";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_VT"))
+            {
+                return "E";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_NT"))
+            {
+                return "E";
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_KC"))
+            {
+                return "E";
+            }
+
+            return String.Empty;
+        }
+
+        protected internal string GetProductNote(string type)
+        {
+            if (string.IsNullOrEmpty(type))
+            {
+                return null;
+            }
+
+            var productsRoot = this.SitecoreService.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS);
+
+            if (productsRoot == null)
+            {
+                return null;
+            }
+
+            if (type == "G")
+            {
+                var value = productsRoot.InfoGas?.Trim();
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    return null;
+                }
+
+                return value;
+            }
+
+            if (type == "E")
+            {
+                var value = productsRoot.InfoElectricity?.Trim();
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    return null;
+                }
+
+                return value;
+            }
+
+            return null;
+        }
+
+        protected internal string[] GetMiddleTexts(OfferModel offer)
+        {
+            var middleTexts = new List<string>();
+
+            if (offer.TextParameters.HasValue("SA04_MIDDLE_TEXT"))
+            {
+                middleTexts.Add(offer.TextParameters["SA04_MIDDLE_TEXT"]);
+            }
+
+            if (offer.TextParameters.HasValue("SA05_MIDDLE_TEXT"))
+            {
+                middleTexts.Add(offer.TextParameters["SA05_MIDDLE_TEXT"]);
+            }
+
+            if (offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
+            {
+                if (middleTexts.Count == 0)
+                {
+                    middleTexts.Add(offer.TextParameters["SA06_MIDDLE_TEXT"]);
+                }
+            }
+
+            return middleTexts.ToArray();
+        }
+
+        protected internal string[] GetBenefits(OfferModel offer)
+        {
+            var benefits = new List<string>();
+
+            if (offer.TextParameters.HasValue("SA01_MIDDLE_TEXT"))
+            {
+                benefits.Add(offer.TextParameters["SA01_MIDDLE_TEXT"]);
+            }
+
+            if (offer.TextParameters.HasValue("SA02_MIDDLE_TEXT"))
+            {
+                benefits.Add(offer.TextParameters["SA02_MIDDLE_TEXT"]);
+            }
+
+            if (offer.TextParameters.HasValue("SA03_MIDDLE_TEXT"))
+            {
+                benefits.Add(offer.TextParameters["SA03_MIDDLE_TEXT"]);
+            }
+
+            return benefits.ToArray();
         }
 
         protected internal string GetEnumPairValue(string key, IDictionary<string, string> textParameters)
@@ -639,6 +1244,270 @@ namespace eContracting.Services
             var value = textParameters[key];
 
             return value.Equals(Constants.FileAttributeValues.CHECK_VALUE, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        protected internal IEnumerable<JsonSalesArgumentsModel> GetSalesArgumentsWithPrefix(IDictionary<string, string> textParameters, string prefix)
+        {
+            var list = new List<JsonSalesArgumentsModel>();
+
+            if (!this.IsSectionChecked(textParameters, prefix))
+            {
+                return list;
+            }
+
+            var regex = new Regex($"^{prefix}_ACCEPT_LABEL(_[0-9])?$");
+            var labels = textParameters.Where(x => regex.Match(x.Key).Success);
+
+            if (!labels.Any())
+            {
+                return list;
+            }
+
+            foreach (var label in labels)
+            { 
+                var model = new JsonSalesArgumentsExtendedModel();
+                model.Title = Utils.StripHtml(label.Value);
+
+                // ADD_SERVICES_ACCEPT_LABEL
+                // ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE
+                // ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1
+
+                // ADD_SERVICES_ACCEPT_LABEL_1
+                // ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE
+                // ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE_1
+
+                // ADD_SERVICES_ACCEPT_LABEL_2
+                // ADD_SERVICES_SALES_ARGUMENTS_2_ATRIB_VALUE
+                // ADD_SERVICES_SALES_ARGUMENTS_2_ATRIB_VALUE_1
+
+                var parameterName = label.Key.Replace("_ACCEPT_LABEL", "_OFFER_SUMMARY") + "_ATRIB_NAME";
+                var parameterNames = textParameters.Where(x => x.Key.StartsWith(parameterName));
+
+                if (parameterNames.Any())
+                {
+                    var parameters = new List<JsonParamModel>();
+
+                    foreach (var item in parameterNames)
+                    {
+                        var name = item.Value;
+                        var value = textParameters[item.Key.Replace("_ATRIB_NAME", "_ATRIB_VALUE")];
+                        parameters.Add(new JsonParamModel(name, value));
+                    }
+
+                    model.Summary = parameters;
+                }
+
+                var attributeName = label.Key.Replace("_ACCEPT_LABEL", "_SALES_ARGUMENTS") + "_ATRIB_VALUE";
+                var saleArgumentValues = textParameters.Where(x => x.Key.StartsWith(attributeName));
+
+                if (saleArgumentValues.Any())
+                {
+                    var salesArguments = new List<JsonArgumentModel>();
+
+                    foreach (var item in saleArgumentValues)
+                    {
+                        salesArguments.Add(new JsonArgumentModel(item.Value));
+                    }
+
+                    model.Arguments = salesArguments;
+                }
+
+                if (model.Summary?.Count() > 0 || model.Arguments?.Count() > 0)
+                {
+                    list.Add(model);
+                }
+            }
+
+            return list;
+        }
+
+        protected internal bool HasValue(IDictionary<string, string> textParameters, string key, double minValue)
+        {
+            if (!textParameters.HasValue(key))
+            {
+                return false;
+            }
+
+            var d = textParameters[key].Replace(" ", string.Empty).Replace(',', '.');
+
+            if (double.TryParse(d, NumberStyles.Any, CultureInfo.InvariantCulture, out double value))
+            {
+                if (value >= minValue)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        protected internal bool IsVisible(IDictionary<string, string> textParameters, string keyPrefix)
+        {
+            var key = keyPrefix + "_VISIBILITY";
+
+            if (!textParameters.ContainsKey(key))
+            {
+                return true;
+            }
+
+            return textParameters[key] != Constants.HIDDEN;
+        }
+
+        protected internal bool CanDisplayPrice(IDictionary<string, string> textParameters, string prefix)
+        {
+            if (!this.IsVisible(textParameters, prefix))
+            {
+                return false;
+            }
+
+            if (!this.HasValue(textParameters, prefix, 0.1))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal bool CanDisplayPreviousPrice(IDictionary<string, string> textParameters, string currentPriceKey, string previousPriceKey)
+        {
+            if (!this.IsVisible(textParameters, previousPriceKey))
+            {
+                return false;
+            }
+
+            if (!this.HasValue(textParameters, previousPriceKey, 0.1))
+            {
+                return false;
+            }
+
+            if (!textParameters.IsDifferentDoubleValue(currentPriceKey, previousPriceKey))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
+        /// If match found, a <see cref="JsonAcceptFileModel"/> is enriched with <see cref="IProductInfoModel"/> data.
+        /// </summary>
+        /// <param name="files">Collection of files in one group.</param>
+        /// <param name="productInfos">Collection of all product information.</param>
+        protected internal void UpdateProductInfo(IEnumerable<JsonAcceptFileModel> files, IProductInfoModel[] productInfos)
+        {
+            if (!(files?.Any() ?? false))
+            {
+                return;
+            }
+
+            var filesArray = files.ToArray();
+
+            for (int i = 0; i < filesArray.Length; i++)
+            {
+                var file = filesArray[i];
+                var productInfo = this.GetMatchedProductInfo(file, productInfos);
+
+                if (productInfo != null)
+                {
+                    var note = productInfo.Note;
+                    file.Note = note;
+                    file.MatchedProductInfo = productInfo;
+
+                    if (i > 0)
+                    {
+                        var previousFile = filesArray[i - 1];
+
+                        if (file.MatchedProductInfo == productInfo && previousFile.Note == note)
+                        {
+                            previousFile.Note = null;
+                            previousFile.MatchedProductInfo = null;
+                        }
+                    }
+                }
+            }
+
+            //var filesArray = files.ToArray();
+            //var productGroup = filesArray.First().Product;
+
+            //for (int i = 0; i < filesArray.Length; i++)
+            //{
+            //    var file = filesArray[i];
+
+            //    if (filesArray.Length == 1)
+            //    {
+            //        var info = productInfos.FirstOrDefault(x => x.Key == file.Product);
+            //        file.Note = info?.Note;
+            //    }
+            //    else if (i >= 1)
+            //    {
+            //        if (filesArray[i - 1].Product != file.Product)
+            //        {
+            //            var previousFile = filesArray[i - 1];
+            //            var info = productInfos.FirstOrDefault(x => x.Key == previousFile.Product);
+            //            previousFile.Note = info?.Note;
+            //        }
+
+            //        if (i == filesArray.Length - 1)
+            //        {
+            //            var info = productInfos.FirstOrDefault(x => x.Key == file.Product);
+            //            file.Note = info?.Note;
+            //        }
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
+        /// </summary>
+        /// <param name="file">A file to find match with <see cref="IProductInfoModel"/>.</param>
+        /// <param name="productInfos">Collection of all product information.</param>
+        /// <returns>If match found, returns <see cref="IProductInfoModel"/>, otherwise null.</returns>
+        protected internal IProductInfoModel GetMatchedProductInfo(JsonAcceptFileModel file, IProductInfoModel[] productInfos)
+        {
+            var matchedProductInfos = new List<KeyValuePair<IProductInfoModel, string[]>>();
+
+            foreach (var productInfo in productInfos)
+            {
+                int matches = 0;
+                var matchesKeys = new List<string>();
+                var attributes = productInfo.XmlAttributes;
+
+                foreach (var key in attributes.AllKeys)
+                {
+                    var value = attributes[key];
+
+                    if (value == "-" || value == "–")
+                    {
+                        value = string.Empty;
+                    }
+
+                    if (file.XmlAttributes.ContainsKey(key) && file.XmlAttributes[key] == value)
+                    {
+                        matches++;
+                        matchesKeys.Add(key);
+                    }
+                }
+
+                if (matches == productInfo.XmlAttributes.Count)
+                {
+                    matchedProductInfos.Add(new KeyValuePair<IProductInfoModel, string[]>(productInfo, matchesKeys.ToArray()));
+                }
+            }
+
+            if (matchedProductInfos.Count == 0)
+            {
+                return null;
+            }
+
+            if (matchedProductInfos.Count == 1)
+            {
+                return matchedProductInfos.First().Key;
+            }
+
+            var mostMatchesProductInfoKeys = matchedProductInfos.OrderByDescending(x => x.Value.Length).First().Key;
+
+            return mostMatchesProductInfoKeys;
         }
     }
 }

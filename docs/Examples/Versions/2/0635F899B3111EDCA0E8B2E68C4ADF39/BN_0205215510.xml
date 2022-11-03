@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0635F899B3111EDCA0E8B2B175237F39</GUID>
+            <ISU_CONTRACT>1001494876</ISU_CONTRACT>
+            <CONTSTART>20220601</CONTSTART>
+            <DATE_TO>20220301</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9510309724</PARTNER>
+            <NAME_LAST>Štěrba</NAME_LAST>
+            <NAME_FIRST>Stanislav</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>22.12.1964</BIRTHDT>
+            <IC></IC>
+            <EMAIL>runway.r1sc@yopmail.com</EMAIL>
+            <PHONE>776 765 682</PHONE>
+            <EXT_UI>27ZG200Z0021148Z</EXT_UI>
+            <VSTELLE>9300090861</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>826000550482</BUAG>
+            <PSC_MS>289 03</PSC_MS>
+            <PSC_ADDR>289 03</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>01</BUS_PROCESS>
+            <BUS_TYPE>A</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>PLH</IDATTACH>
+                    <TEMPLATE>A10</TEMPLATE>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <PRODUCT>STAVAJICI_PROD_ZP</PRODUCT>
+                    <GROUP>COMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDCA0E8B2B175237F39</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

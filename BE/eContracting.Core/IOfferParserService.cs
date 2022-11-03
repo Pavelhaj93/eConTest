@@ -28,7 +28,7 @@ namespace eContracting
         /// </summary>
         /// <remarks>There files needs to have XML path 'form/parameters'.</remarks>
         /// <param name="files">The files.</param>
-        /// <returns>Dictionary or null.</returns>
+        /// <returns>Always returns dictionary instance.</returns>
         IDictionary<string, string> GetTextParameters(OfferFileXmlModel[] files);
 
         /// <summary>

@@ -328,15 +328,19 @@
     <Compile Include="Areas\eContracting2\Models\BaseAppConfigViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ButtonsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\CallMeBackResponseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\FooterViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\HeaderViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\ImageViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\InfoBoxViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListItemViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\PageExpirationViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\MatrixSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\SelectionViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SessionExpiredViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LayoutViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\LoginChoiceViewModel.cs" />
@@ -345,6 +349,7 @@
     <Compile Include="Areas\eContracting2\Models\OfferViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SingDataViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\SummaryViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
     <Compile Include="AssetsHtmlHelper.cs" />
     <Compile Include="Events\PublishEnd\ClearDictionaryCacheHandler.cs" />
@@ -381,6 +386,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Assets\eContracting2\css\econtracting.min.css" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-light.woff2" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
+    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
     <Content Include="Assets\eContracting2\gfx\favicon\114x114.png" />
     <Content Include="Assets\eContracting2\gfx\favicon\120x120.png" />
     <Content Include="Assets\eContracting2\gfx\favicon\128x128.png" />
@@ -442,10 +451,6 @@
     <Content Include="Areas\eContracting2\Views\Preview\Offer.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Login.cshtml" />
     <Content Include="Areas\eContracting2\Views\Shared\Steps.cshtml" />
-    <Content Include="Assets\eContracting2\fonts\innogy-light.woff" />
-    <Content Include="Assets\eContracting2\fonts\innogy-light.woff2" />
-    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff" />
-    <Content Include="Assets\eContracting2\fonts\innogy-medium.woff2" />
     <Content Include="Areas\eContracting2\Views\LoginRichText.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\ThankYou.cshtml" />
     <Content Include="Areas\eContracting2\Views\PromoBox.cshtml" />
@@ -460,6 +465,10 @@
     <Content Include="Areas\eContracting2\Views\AccountButtons.cshtml" />
     <Content Include="Areas\eContracting2\Views\Components.cshtml" />
     <Content Include="Areas\eContracting2\Views\PromoBoxes.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\FooterInnogy.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Shared\HeaderInnogy.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Edit\Header.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Summary.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

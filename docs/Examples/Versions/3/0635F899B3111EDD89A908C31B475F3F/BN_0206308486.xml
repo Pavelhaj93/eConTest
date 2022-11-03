@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0635F899B3111EDD89A908C31B55DF3F</GUID>
+            <ISU_CONTRACT>1000954584</ISU_CONTRACT>
+            <CONTSTART>20220827</CONTSTART>
+            <DATE_TO>20220910</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9610587860</PARTNER>
+            <NAME_LAST>Jelínková</NAME_LAST>
+            <NAME_FIRST>Hana</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>18.05.1989</BIRTHDT>
+            <IC></IC>
+            <EMAIL>hanulkajelinkova@seznam.cz</EMAIL>
+            <PHONE>604 741 101</PHONE>
+            <EXT_UI>27ZG700Z0397200H</EXT_UI>
+            <VSTELLE>9300930271</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>826000315203</BUAG>
+            <PSC_MS>708 00</PSC_MS>
+            <PSC_ADDR>708 00</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>01</BUS_PROCESS>
+            <BUS_TYPE>A</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>PLH</IDATTACH>
+                    <TEMPLATE>A10</TEMPLATE>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <PRODUCT>STAVAJICI_PROD_ZP</PRODUCT>
+                    <GROUP>COMMODITY</GROUP>
+                    <GROUP_OBLIGATORY></GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD89A908C31B55DF3F</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

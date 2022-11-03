@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Services;
 using Glass.Mapper.Sc;
+using JSNLog.Infrastructure;
 using Moq;
 using Xunit;
 
@@ -143,6 +144,58 @@ namespace eContracting.Core.Tests
             Assert.True(result);
         }
 
+        [Theory]
+        [InlineData("0,10", 0.1)]
+        [InlineData("1 535,00", 0.1)]
+        [InlineData("18 573,50", 0.1)]
+        public void HasValue_Returns_True(string value, double minValue)
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add(key, value);
+
+            var result = dic.HasValue(key, minValue);
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("0,00", 0.1)]
+        [InlineData("10,49", 10.5)]
+        public void HasValue_Returns_False(string value, double minValue)
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add(key, value);
+
+            var result = dic.HasValue(key, minValue);
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GetDoubleValue_Returns_0_When_Key_Does_Not_Exist()
+        {
+            var dic = new Dictionary<string, string>();
+            dic.Add("A", "value");
+
+            var result = dic.GetDoubleValue("B");
+
+            Assert.Equal(0.0, result);
+        }
+
+        [Theory]
+        [InlineData("1 234,56", 1234.56)]
+        [InlineData("123 456,78", 123456.78)]
+        public void GetDoubleValue_Works_With_Spaces_And_Commas(string value, double expected)
+        {
+            var key = "key";
+            var dic = new Dictionary<string, string>();
+            dic.Add(key, value);
+
+            var result = dic.GetDoubleValue(key);
+
+            Assert.Equal(expected, result);
+        }
+
         [Fact]
         public void GetItems_Returns_Collection()
         {
@@ -191,6 +244,109 @@ namespace eContracting.Core.Tests
             var result = mock.Object.AllowedDocumentTypesList();
 
             Assert.Equal(list, result);
+        }
+
+        [Fact]
+        public void GetFieldValueByName_Returns_Default_When_Extended_Object_Is_Null()
+        {
+            IBaseSitecoreModel model = null;
+
+            var result = model.GetFieldValueByName<string>("field");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetFieldValueByName_Returns_Default_When_FieldName_Is_Null()
+        {
+            var mockModel = new Mock<IBaseSitecoreModel>();
+
+            var result = mockModel.Object.GetFieldValueByName<string>("");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetFieldValueByName_Returns_Default_When_Property_Doesnt_Exist()
+        {
+            var mockModel = new Mock<IBaseSitecoreModel>();
+
+            var result = mockModel.Object.GetFieldValueByName<string>("doesnotexist");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetFieldValueByName_Returns_Value()
+        {
+            var expected = "eContracting";
+            var mockModel = new Mock<IBaseSitecoreModel>();
+            mockModel.SetupProperty(x => x.DisplayName, expected);
+
+            var result = mockModel.Object.GetFieldValueByName<string>("DisplayName");
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetValueOrDefault_Returns_Value()
+        {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("TEXT_PARAMETER", "My value");
+
+            var result = dictionary.GetValueOrDefault("TEXT_PARAMETER");
+
+            Assert.Equal("My value", result);
+        }
+
+        [Fact]
+        public void GetValueOrDefault_Returns_Default_Value()
+        {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("TEXT_PARAMETER", "My value");
+
+            var result = dictionary.GetValueOrDefault("INVALID");
+
+            Assert.Equal(default(string), result);
+        }
+
+        [Fact]
+        public void IsDifferentDoubleValue_Returns_True()
+        {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("LEFT", "10.5");
+            dictionary.Add("RIGHT", "5.1");
+
+            var result = dictionary.IsDifferentDoubleValue("LEFT", "RIGHT");
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("10.5", "10.5")]
+        [InlineData("10.5", "10.50")]
+        [InlineData("10.50", "10.5")]
+        [InlineData("10.5", "10.50000")]
+        public void IsDifferentDoubleValue_Returns_False(string left, string right)
+        {
+            var dictionary = new Dictionary<string, string>();
+            dictionary.Add("LEFT", left);
+            dictionary.Add("RIGHT", right);
+
+            var result = dictionary.IsDifferentDoubleValue("LEFT", "RIGHT");
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void IsDefault_Returns_True_With_Empty_Process()
+        {
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            var definition = mockDefinition.Object;
+
+            var result = definition.IsDefault();
+
+            Assert.True(result);
         }
     }
 }

@@ -45,11 +45,13 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<IDataSessionCacheService, MemoryDataCacheService>();
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
                     services.AddScoped<ITextService, MemoryTextService>();
-                    services.AddScoped<IOfferService, OfferService>();
+                    services.AddScoped<IOfferDataService, OfferDataSapService>();
+                    services.AddScoped<IOfferService, OfferServiceExtended>();
                     services.AddScoped<ISignService, FileSignService>();
                     services.AddScoped<ISitecoreService>(service => { return sitecoreService; });
                     services.AddScoped<IOfferJsonDescriptor, OfferJsonDescriptor>();
                     services.AddScoped<IContextWrapper, MemoryContextWrapper>();
+                    services.AddScoped<IRespApiService, GeneralRestApiService>();
                     services.AddSingleton<ILogger, ConsoleLogger>();
                     services.AddScopedCommand<AnalyzeOfferCommand>();
                     services.AddScopedCommand<GetOfferCommand>();
@@ -57,9 +59,12 @@ namespace eContracting.ConsoleClient
                     services.AddScopedCommand<GetTextsCommand>();
                     services.AddScopedCommand<CompareIdAttachCommand>();
                     services.AddScopedCommand<GetOfferJsonCommand>();
+                    services.AddScopedCommand<GetOfferJsonSummaryCommand>();
                     services.AddScopedCommand<SwitchServerCommand>();
                     services.AddScopedCommand<AcceptOfferCommand>();
                     services.AddScopedCommand<GetLoginValuesCommand>();
+                    services.AddScopedCommand<CognitoRefreshTokenCommand>();
+                    services.AddScopedCommand<DownloadOfferCommand>();
                 });
                 await consinloop.Run();
             }

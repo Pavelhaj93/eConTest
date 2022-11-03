@@ -1,0 +1,65 @@
+﻿@using eContracting
+@using eContracting.Models
+@model FooterViewModel
+@{
+    var disclaimerUrl = Model.Datasource.DisclaimerLink != null ? Model.Datasource.DisclaimerLink.Url : string.Empty;
+    var cookiePolicyUrl = Model.Datasource.CookiePolicyLink != null ? Model.Datasource.CookiePolicyLink.Url : string.Empty;
+    var cookieSettingsUrl = Model.Datasource.CookieSettingsLink != null ? Model.Datasource.CookieSettingsLink.Url : string.Empty;
+}
+<footer class="footer footer--innosvet">
+    <div class="footer__wrapper container d-flex flex-column flex-lg-row justify-content-lg-between">
+        <div class="d-flex flex-column align-items-center flex-md-row justify-content-between">
+            <div class="phone__wrapper d-flex align-items-center">
+                <span class="d-none d-md-block">Volejte zdarma</span>
+                <a class="phone d-inline-flex flex-column align-items-center flex-md-row" href="tel:800113355">
+                    <svg class="icon"
+                         preserveAspectRatio="none"
+                         width="30"
+                         height="30"
+                         fill="currentColor"
+                         focusable="false"
+                         aria-hidden="true">
+                        <use xlink:href="#phone"></use>
+                    </svg>
+                    <span class="number">800 11 33 55</span>
+                </a>
+            </div>
+            <div class="footer__links">
+                <a class="footer__link d-flex align-items-center" href="#">
+                    <svg class="icon footer__links__icon"
+                         preserveAspectRatio="none"
+                         width="22"
+                         height="22"
+                         fill="currentColor"
+                         focusable="false"
+                         aria-hidden="true">
+                        <use xlink:href="#arrow-right-up"></use>
+                    </svg>
+                    <span>Obchodní podmínky</span>
+                </a><a class="footer__link d-flex align-items-center" href="#">
+                    <svg class="icon footer__links__icon"
+                         preserveAspectRatio="none"
+                         width="22"
+                         height="22"
+                         fill="currentColor"
+                         focusable="false"
+                         aria-hidden="true">
+                        <use xlink:href="#arrow-right-up"></use>
+                    </svg>
+                    <span>innogy.cz</span>
+                </a>
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center align-items-lg-end">
+            <svg class="icon"
+                 preserveAspectRatio="none"
+                 width="175"
+                 height="135"
+                 focusable="false"
+                 aria-hidden="true">
+                <use xlink:href="#innogy_logo"></use>
+            </svg>
+            <div class="footer__copyright">&copy; 2022 innogy - všechna práva vyhrazena -</div>
+        </div>
+    </div>
+</footer>

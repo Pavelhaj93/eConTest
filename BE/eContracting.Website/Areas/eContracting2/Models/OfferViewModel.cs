@@ -74,10 +74,16 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("maxAllFilesSize")]
         public int MaxAllFilesSize { get; set; }
 
+        [JsonProperty("backToOfferUrl", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public string BackToSummary { get; set; }
+
         public IDefinitionCombinationModel Definition { get; set; }
 
         [JsonProperty("suppliers")]
         public ListViewModel List { get; set; }
+
+        [JsonProperty("cancelDialog", NullValueHandling = NullValueHandling.Ignore)]
+        public CancelOfferViewModel CancelDialog { get; set; }
 
         public OfferViewModel(ISiteSettingsModel siteSettings, string guid) : base("Offer", siteSettings, guid)
         {

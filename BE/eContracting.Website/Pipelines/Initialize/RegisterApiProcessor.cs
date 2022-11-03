@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -27,6 +28,7 @@ namespace eContracting.Website.Pipelines.Initialize
             this.Logger = logger;
         }
 
+        [ExcludeFromCodeCoverage]
         public void Process(PipelineArgs args)
         {
             this.RegisterApiRoutes();
@@ -47,6 +49,7 @@ namespace eContracting.Website.Pipelines.Initialize
         }
     }
 
+    [ExcludeFromCodeCoverage]
     class SessionRouteHandler : IRouteHandler
     {
         IHttpHandler IRouteHandler.GetHttpHandler(RequestContext requestContext)
@@ -55,6 +58,7 @@ namespace eContracting.Website.Pipelines.Initialize
         }
     }
 
+    [ExcludeFromCodeCoverage]
     class SessionControllerHandler : HttpControllerHandler, IRequiresSessionState
     {
         public SessionControllerHandler(RouteData routeData) : base(routeData)

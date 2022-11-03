@@ -13,23 +13,28 @@ namespace eContracting
     public enum OFFER_TYPES
     {
         /// <summary>
-        /// Type "NABIDKA" contains basic information with textations.
+        /// Type "QUOTPRX" contains basic information with textations.
         /// </summary>
-        NABIDKA,
+        QUOTPRX,
 
         /// <summary>
-        /// Legacy type "NABIDKA_XML" contains only textations.
+        /// Legacy type "QUOTPRX_XML" contains only textations.
         /// </summary>
-        NABIDKA_XML,
+        QUOTPRX_XML,
 
         /// <summary>
-        /// The "NABIDKA_PDF" contains attached files for new offer.
+        /// The "QUOTPRX_PDF" contains attached files for new offer.
         /// </summary>
-        NABIDKA_PDF,
+        QUOTPRX_PDF,
 
         /// <summary>
         /// Type "NABIDKA_ARCH" contains attached files for accepted offer.
         /// </summary>
-        NABIDKA_ARCH
+        QUOTPRX_ARCH,
+
+        /// <summary>
+        /// Type "NABIDKA_PRIJ" is used to accept an offer.
+        /// </summary>
+        QUOTPRX_PRIJ
     }
 }

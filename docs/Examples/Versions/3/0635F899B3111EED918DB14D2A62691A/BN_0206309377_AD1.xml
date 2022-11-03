@@ -1,0 +1,83 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED918DB16E565EA91A</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa plnění|: [Šumperk, Šumavská 2169 / 33, 787 01]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa plnění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Šumperk, Šumavská 2169 / 33, 787 01</NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Značka kotle|: [Kotel Viessmann - řada 100]<br />|Platnost nabídky do|: [20.10.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Kotel Viessmann - řada 100</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>20.10.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Pravidelná roční údržba vašeho kotle.]<br />|Druhé|: [Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.]<br />|Třetí|: [Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Pravidelná roční údržba vašeho kotle.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Šumavská 2169 / 33, 787 01 Šumperk</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Šumperk</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Šumperk</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>787 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Šumavská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2169 / 33</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Šumavská 2169 / 33, 787 01 Šumperk</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>16.08.1936</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Šumperk</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Šumperk</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>jarmila.janisova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Jozef Opatovský</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>787 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Šumavská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2169 / 33</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK></PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>606 773 704</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Opatovský                                         </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichNjnnsdMPYbv2bk5C1VsVUAGnTHjTnGMpTD</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511200107</PERSON_NUMBER>
+        <PERSON_PREMADR>Šumavská 2169 / 33, 787 01 Šumperk</PERSON_PREMADR>
+        <PERSON_PREMCITY>Šumperk</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Šumperk</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z00870403</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300618262</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>787 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Šumavská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>2169 / 33</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

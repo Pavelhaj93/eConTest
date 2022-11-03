@@ -21,13 +21,13 @@ namespace eContracting.ConsoleClient
         public ISimpleTextModel OfferPerexTitle { get; set; }
         public ISimpleTextModel OfferGiftsTitle { get; set; }
         public ISimpleTextModel OfferBenefitsTitle { get; set; }
-        public ISimpleTextModel OfferCommoditiesTitle { get; set; }
-        public IRichTextModel OfferCommoditiesText { get; set; }
+        public ISimpleTextModel OfferDocumentsForElectronicAcceptanceTitle { get; set; }
+        public IRichTextModel OfferDocumentsForElectronicAcceptanceText { get; set; }
         public Image OfferVisitedAbMatrixPixel { get; set; }
-        public ISimpleTextModel OfferCommoditiesAcceptTitle { get; set; }
-        public IRichTextModel OfferCommoditiesAcceptText { get; set; }
-        public ISimpleTextModel OfferCommoditiesSignTitle { get; set; }
-        public IRichTextModel OfferCommoditiesSignText { get; set; }
+        public ISimpleTextModel OfferDocumentsForAcceptanceTitle { get; set; }
+        public IRichTextModel OfferDocumentsForAcceptanceText { get; set; }
+        public ISimpleTextModel OfferDocumentsForSignTitle { get; set; }
+        public IRichTextModel OfferDocumentsForSignText { get; set; }
         public ISimpleTextModel OfferUploadsTitle { get; set; }
         public IRichTextModel OfferUploadsExtraText { get; set; }
         public ISimpleTextModel OfferUploadsExtraHelp { get; set; }
@@ -57,5 +57,23 @@ namespace eContracting.ConsoleClient
         public string OfferSelectedListLabel { get; set; }
         public IListCollectionModel OfferSelectedList { get; set; }
         public IRichTextModel MainTextThankYou2 { get; set; }
+        public Guid TemplateId { get; set; }
+        public ISimpleTextModel SummaryTitle { get; set; }
+        public IRichTextModel SummaryMainText { get; set; }
+        public ISimpleTextModel SummaryUnfinishedOfferTitle { get; set; }
+        public IRichTextModel SummaryUnfinishedOfferText { get; set; }
+        public Guid PreferredSteps { get; set; }
+        public IRichTextModel OfferDocumentsDescription { get; set; }
+        public bool OfferPerexShow { get; set; }
+        public bool OfferGiftsShow { get; set; }
+        public IRichTextModel OfferOtherProductsDescription { get; set; }
+        public IRichTextModel OfferOtherProductsSummaryText { get; set; }
+        public bool IsOrderOrigin { get; set; }
+        public bool IsNoProductChange { get; set; }
+        public IStepsModel StepsDefault { get; set; }
+        public IStepsModel Steps { get; set; }
+        public IRichTextModel OfferAdditionalServicesSummaryText { get; set; }
+        public IRichTextModel OfferAdditionalServicesDescription { get; set; }
+        public ICallMeBackModalWindow SummaryCallMeBack { get; set; }
     }
 }

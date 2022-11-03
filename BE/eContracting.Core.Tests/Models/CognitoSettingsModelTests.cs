@@ -14,6 +14,7 @@ namespace eContracting.Core.Tests.Models
         public void When_Constructed_All_Properties_Are_Correctly_Set()
         {
             string cognitoBaseUrl = "https://cognito-idp.eu-west-1.amazonaws.com";
+            string cognitoTokensUrl = "https://wednesday-hosteduiname.auth.eu-west-1.amazoncognito.com";
             string cognitoClientId = "432fgjg483202jgn29023";
             string cognitoCookiePrefix = "CognitoIdentityServiceProvider";
             string cognitoCookieUser = "LastAuthUser";
@@ -22,9 +23,10 @@ namespace eContracting.Core.Tests.Models
             string innogyRegistrationUrl = "https://test-prihlaseni.innogy.cz/signup.html";
             string innogyDashboardUrl = "https://test-innosvet.innogy.cz/dashboard";
 
-            var model = new CognitoSettingsModel(cognitoBaseUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
+            var model = new CognitoSettingsModel(cognitoBaseUrl, cognitoTokensUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
 
             Assert.Equal(cognitoBaseUrl, model.CognitoBaseUrl);
+            Assert.Equal(cognitoTokensUrl, model.CognitoTokensUrl);
             Assert.Equal(cognitoClientId, model.CognitoClientId);
             Assert.Equal(cognitoCookiePrefix, model.CognitoCookiePrefix);
             Assert.Equal(cognitoCookieUser, model.CognitoCookieUser);

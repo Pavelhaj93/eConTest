@@ -1,0 +1,57 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Pojištění domácnosti<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEC9B93D3A0F6F5FFF6</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [innogy Pojištění domácnosti]<br />|Varianta|: [Komfort Plus]<br />|Platnost nabídky do|: [18.01.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Varianta</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>innogy Pojištění domácnosti</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Komfort Plus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>18.01.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_PRODUCT>20000040</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Pojištění Komfort (750 tis.Kč)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Pojištění domácnosti pro případ živelní pohromy, poruchy či nehody nebo krádeže a poničení]<br />|Druhé|: [Pojištění odpovědnosti pro všechny členy domácnosti včetně domácích mazlíčků, platné po celé EU]<br />|Třetí|: [Asistenční služby pro případ havárie, zabouchnutých dveří i další služby]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Pojištění domácnosti pro případ živelní pohromy, poruchy či nehody nebo krádeže a poničení</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Pojištění odpovědnosti pro všechny členy domácnosti včetně domácích mazlíčků, platné po celé EU</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Asistenční služby pro případ havárie, zabouchnutých dveří i další služby</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>Baarova 1161 / 15, 709 00 Mariánské Hory a Hulváky - Mariánské Hory</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>07.07.1960</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>paul.remi@seznam.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Ing. Pavel Remiáš</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>603 179 141</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Remiáši                                           </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511307386</PERSON_NUMBER>
+        <PERSON_PREMADR>Baarova 1161 / 15, 709 00 Mariánské Hory a Hulváky</PERSON_PREMADR>
+        <PERSON_PREMEXT>859182400507442506</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300630955</PERSON_PREMNUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

@@ -8,11 +8,16 @@ namespace eContracting.Website.Areas.eContracting2.Models
 {
     public class StepsViewModel
     {
-        public IProcessStepModel[] Steps { get; }
+        public IStepModel[] Steps { get; }
 
-        public StepsViewModel(IEnumerable<IProcessStepModel> steps)
+        public StepsViewModel(IEnumerable<IStepModel> steps)
         {
             this.Steps = steps.ToArray();
+        }
+
+        public StepsViewModel(IStepsModel steps)
+        {
+            this.Steps = steps?.Steps.ToArray();
         }
     }
 }

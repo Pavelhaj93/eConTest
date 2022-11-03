@@ -1,0 +1,81 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Pojištění domácnosti<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED92D824C98368AD6B</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa pojištění|: [Horní 1434/72 ,  700 30 Ostrava-Jih  ]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa pojištění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Horní 1434/72 ,  700 30 Ostrava-Jih  </NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Varianta:|: [Basic Plus]<br />|Platnost nabídky do|: [28.10.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Varianta:</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Basic Plus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>28.10.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000330</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Pojištění Basic Plus</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Výhodný balíček pojištění domácnosti, odpovědnosti i asistenčních služeb ochrání vaši rodinu.]<br />|Druhé|: [Cokoliv se stane, jsme zde pro vás 24 hodin denně.]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Výhodný balíček pojištění domácnosti, odpovědnosti i asistenčních služeb ochrání vaši rodinu.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Cokoliv se stane, jsme zde pro vás 24 hodin denně.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Peškova 507, 403 31 Ústí nad Labem - Neš - Neštěmice</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ústí nad Labem - Neš</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Neštěmice</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>403 31</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Peškova</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>507</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Peškova 507, 403 31 Ústí nad Labem - Neš</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>22.03.1969</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ústí nad Labem - Neš</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Neštěmice</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>klara.elblova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Romana Kvapilová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>403 31</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Peškova</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>507</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>606 622 569</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Kvapilová                                         </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichcN2JSDNoWrwK7EoAUTwCcCkALZqZtwRmGj</PERSON_MMB_URL>
+        <PERSON_NUMBER>9512622583</PERSON_NUMBER>
+        <PERSON_PREMADR>Peškova 507, 403 31 Ústí nad Labem-Neštěmice</PERSON_PREMADR>
+        <PERSON_PREMCITY>Ústí nad Labem-Neštěmice</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Mojžíř</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG400Z0239980Y</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302173349</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>403 31</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Peškova</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>507</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

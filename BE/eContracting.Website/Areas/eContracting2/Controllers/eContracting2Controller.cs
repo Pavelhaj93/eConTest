@@ -7,8 +7,11 @@ using System.Web.Mvc;
 using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
+using Glass.Mapper.Sc.Pipelines.Response;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore.ApplicationCenter.Applications;
+using Sitecore.Data;
 using Sitecore.DependencyInjection;
 using Sitecore.Mvc.Controllers;
 
@@ -20,7 +23,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IOfferService OfferService;
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
-        protected readonly IMvcContext MvcContext;
 
         [ExcludeFromCodeCoverage]
         public eContracting2Controller() : base(
@@ -29,13 +31,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>())
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
             this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
-            this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -50,13 +52,90 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ITextService textService,
             ISessionProvider sessionProvider,
             IDataRequestCacheService dataRequestCacheService,
-            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService)
+            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, mvcContext)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
-            this.MvcContext = mvcContext ?? throw new ArgumentNullException(nameof(mvcContext));
+        }
+
+        [HttpGet]
+        public ActionResult Summary()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (!this.UserService.IsAuthorizedFor(guid))
+                {
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(null, $"Session expired");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+
+                if (offer == null)
+                {
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    this.Logger.Debug(guid, $"Offer already accepted");
+                    return Redirect(PAGE_LINK_TYPES.AcceptedOffer, guid, null, true);
+                }
+
+                if (offer.IsExpired)
+                {
+                    this.Logger.Debug(guid, $"Offer expired");
+                    return Redirect(PAGE_LINK_TYPES.OfferExpired, guid, null, true);
+                }
+
+                this.OfferService.SignInOffer(guid, user);
+
+                try
+                {
+                    this.UserFileCache.Clear(new DbSearchParameters(null, guid, null));
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(guid, "Cannot clear user file cache", ex);
+                }
+
+                if (offer.Version < 3)
+                {
+                    return Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+                }
+
+                var datasource = this.MvcContext.GetPageContextItem<IPageSummaryOfferModel>();
+                var viewModel = this.GetSummaryViewModel(offer, user, datasource);
+                return this.View("/Areas/eContracting2/Views/Summary.cshtml", viewModel);
+            }
+            catch (EcontractingApplicationException ex)
+            {
+                if (ex.Error.Code == "OF-SIO-CSS")
+                {
+                    this.Logger.Error(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})", ex);
+                    return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_NOT_SIGNED);
+                }
+
+                this.Logger.Fatal(guid, ex);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, ex.Error.Code);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(guid, $"Error when displaying offer.", ex);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_EXCEPTION);
+            }
         }
 
         /// <summary>
@@ -120,7 +199,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var datasource = this.MvcContext.GetPageContextItem<IPageNewOfferModel>();
-                var viewModel = this.GetOfferViewModel(offer, datasource);
+                var viewModel = this.GetOfferViewModel(user, offer, datasource);
                 return this.View("/Areas/eContracting2/Views/Offer.cshtml", viewModel);
             }
             catch (EcontractingApplicationException ex)
@@ -183,6 +262,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var definition = this.SettingsService.GetDefinition(offer);
                 var settings = this.SettingsService.GetSiteSettings();
                 var viewModel = new AcceptedOfferViewModel(settings, guid);
+                viewModel.Version = offer.Version;
                 viewModel.Datasource = datasource;
                 viewModel.MainText = Utils.GetReplacedTextTokens(definition.OfferAcceptedMainText.Text, offer.TextParameters);
                 viewModel["appUnavailableTitle"] = settings.ApplicationUnavailableTitle;
@@ -340,7 +420,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             return new EmptyResult();
         }
-        
+
         public ActionResult Disclaimer()
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageDisclaimerModel>();
@@ -414,6 +494,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         public ActionResult Header()
         {
+            if (!this.ContextWrapper.IsNormalMode())
+            {
+                return this.GetHeaderEditView();
+            }
+
             var guid = this.GetGuid();
             bool authorized = this.UserService.IsAuthorized();
             var datasource = this.MvcContext.GetDataSourceItem<IPageHeaderModel>();
@@ -422,38 +507,47 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (authorized)
             {
+                var logoutGuid = guid;
                 viewModel.ShowLogoutButton = true;
-                var siteSettings = this.SettingsService.GetSiteSettings();
-                string redirectUrl = string.Empty;
 
                 var authType = AUTH_METHODS.TWO_SECRETS;
                 var user = this.UserService.GetUser();
 
-                if (user.AuthorizedGuids.ContainsKey(guid))
+                if (user.IsCognito)
                 {
-                    authType = user.AuthorizedGuids[guid];
+                    authType = AUTH_METHODS.COGNITO;
+                    var settings = this.SettingsService.GetCognitoSettings();
+                    var offer = this.RequestCacheService.GetOffer(guid);
+                    viewModel.LogoUrl = offer != null ? Utils.SetQuery(settings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity) : settings.InnogyDashboardUrl;
                 }
                 else
                 {
-                    authType = AUTH_METHODS.COGNITO;
+                    authType = AUTH_METHODS.TWO_SECRETS;
+                    viewModel.LogoUrl = datasource.GetImageLinkUrl();
                 }
 
                 if (authType == AUTH_METHODS.TWO_SECRETS)
                 {
-                    var url = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Login, guid);
-                    redirectUrl = $"{this.Request.Url.Scheme}://{this.Request.Url.Host}/logout?{Constants.QueryKeys.REDIRECT}=" + HttpUtility.UrlEncode(url);
-                    redirectUrl = Utils.SetQuery(redirectUrl, Constants.QueryKeys.GUID, guid);
                     viewModel.LogoutUrlLabel = datasource.LogoutLinkLabel;
+
+                    var currentPage = this.MvcContext.GetContextItem<IBasePageModel>();
+
+                    if (currentPage.TemplateId == Constants.TemplateIds.PageLogin.Guid)
+                    {
+                        var twoSecretsGuid = user.AuthorizedGuids.FirstOrDefault(x => x.Value == AUTH_METHODS.TWO_SECRETS);
+
+                        if (!string.IsNullOrEmpty(twoSecretsGuid.Key))
+                        {
+                            logoutGuid = twoSecretsGuid.Key;
+                        }
+                    }
                 }
                 else
                 {
-                    var logout = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Logout, guid);
-                    logout = Utils.SetQuery(logout, Constants.QueryKeys.GUID, guid);
-                    var url = this.SettingsService.GetCognitoSettings().InnogyLogoutUrl;
-                    url = Utils.SetQuery(url, Constants.QueryKeys.GLOBAL_LOGOUT, "true");
-                    redirectUrl = Utils.SetQuery(url, Constants.QueryKeys.REDIRECT, logout);
                     viewModel.LogoutUrlLabel = datasource.LogoutLinkCognitoLabel;
                 }
+
+                string redirectUrl = this.GetLogoutUrl(authType, logoutGuid, guid);
 
                 // show the logout button whenever the user is logged in, except of the logout action likely used on SessionExpired page to logout just after rendering the header component
                 viewModel.LogoutUrl = redirectUrl;
@@ -462,10 +556,29 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", viewModel);
         }
 
+        public ActionResult HeaderInnogy()
+        {
+            var datasource = this.MvcContext.GetDataSourceItem<IPageHeaderModel>();
+            var viewModel = new HeaderViewModel();
+            viewModel.Datasource = datasource;
+            return this.View("/Areas/eContracting2/Views/Shared/HeaderInnogy.cshtml", viewModel);
+        }
+
         public ActionResult Footer()
         {
-            var model = this.MvcContext.GetDataSourceItem<IPageFooterModel>();
-            return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", model);
+            var datasource = this.MvcContext.GetDataSourceItem<IPageFooterModel>();
+            var viewModel = new FooterViewModel();
+            viewModel.Datasource = datasource;
+
+            return this.View("/Areas/eContracting2/Views/Shared/Footer.cshtml", viewModel);
+        }
+
+        public ActionResult FooterInnogy()
+        {
+            var datasource = this.MvcContext.GetDataSourceItem<IPageFooterModel>();
+            var viewModel = new FooterViewModel();
+            viewModel.Datasource = datasource;
+            return this.View("/Areas/eContracting2/Views/Shared/FooterInnogy.cshtml", viewModel);
         }
 
         public ActionResult PromoBox()
@@ -489,13 +602,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var user = this.UserService.GetUser();
             var viewModel = new ButtonsViewModel();
             viewModel.Datasource = datasource;
-            viewModel.ShowRegistrationButtons = !user.HasAuth(AUTH_METHODS.COGNITO);
+            viewModel.ShowRegistrationButtons = user.IsCognito == false;
             viewModel.HasTooltip = !string.IsNullOrEmpty(datasource.ButtonLoginAccountTooltip);
 
             if (viewModel.ShowRegistrationButtons)
             {
                 viewModel.ButtonLoginAccountUrl = Utils.SetQuery(settings.InnogyLoginUrl, Constants.QueryKeys.REDIRECT, settings.InnogyDashboardUrl);
-                viewModel.ButtonNewAccountUrl = settings.InnogyRegistrationUrl;
+
+                if (!string.IsNullOrEmpty(offer.RegistrationLink))
+                {
+                    viewModel.ButtonNewAccountUrl = offer.RegistrationLink;
+                }
+                else
+                {
+                    viewModel.ButtonNewAccountUrl = settings.InnogyRegistrationUrl;
+                }
             }
             else
             {
@@ -505,15 +626,58 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/AccountButtons.cshtml", viewModel);
         }
 
-        protected internal OfferViewModel GetOfferViewModel(OfferModel offer, IPageNewOfferModel datasource)
+        protected internal SummaryViewModel GetSummaryViewModel(OfferModel offer, UserCacheDataModel user, IPageSummaryOfferModel datasource)
+        {
+            var authType = user.AuthorizedGuids[offer.Guid];
+            var definition = this.SettingsService.GetDefinition(offer);
+            this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
+            var steps = this.GetSteps(user, offer, datasource, definition);
+            var siteSettings = this.SettingsService.GetSiteSettings();
+            var viewModel = new SummaryViewModel(siteSettings, offer.Guid);
+            viewModel.Version = offer.Version;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.OfferPage = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Offer, offer.Guid);
+            viewModel.LoginPage = this.GetLogoutUrl(authType, offer.Guid);
+            viewModel.PageTitle = definition.SummaryTitle?.Text;
+            viewModel.MainText = Utils.GetReplacedTextTokens(definition.SummaryMainText?.Text, offer.TextParameters, offer.ExpirationDate);
+            viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
+            viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
+            viewModel["continueBtn"] = datasource.ButtonContinueLabel;
+
+            if (datasource.ModalWindowUnfinishedOffer != null)
+            {
+                viewModel["unfinishedOfferSummary"] = datasource.ModalWindowUnfinishedOffer.Title;
+                viewModel["unfinishedOfferTextSummary"] = datasource.ModalWindowUnfinishedOffer.Text;
+                viewModel["continueInOfferSummary"] = datasource.ModalWindowUnfinishedOffer.ConfirmButtonLabel;
+                viewModel["quitOfferSummary"] = datasource.ModalWindowUnfinishedOffer.CancelButtonLabel;
+            }
+            else
+            {
+                this.Logger.Fatal(offer.Guid, "Missing 'Nedokončená nabídka' dialog on summary page");
+            }
+
+            if (definition.SummaryCallMeBack != null)
+            {
+                // shows button to open CMB
+                //viewModel.ShowCmb = true;
+                //viewModel.CmbGetUrl = viewModel.CmbGetUrl.Replace("{guid}", offer.Guid);
+                //viewModel.CmbPostUrl = viewModel.CmbPostUrl.Replace("{guid}", offer.Guid);
+                //viewModel["cmbBtn"] = definition.SummaryCallMeBack.OpenDialogButtonLabel;
+            }
+
+            return viewModel;
+        }
+
+        protected internal OfferViewModel GetOfferViewModel(UserCacheDataModel user, OfferModel offer, IPageNewOfferModel datasource)
         {
             var definition = this.SettingsService.GetDefinition(offer);
             this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
-            var steps = this.SettingsService.GetSteps(datasource.Step);
+            var steps = this.GetSteps(user, offer, datasource, definition);
             var siteSettings = this.SettingsService.GetSiteSettings();
             var viewModel = new OfferViewModel(siteSettings, offer.Guid);
-            viewModel.PageTitle = definition.OfferTitle.Text;
-            viewModel.MainText = definition.OfferMainText.Text;
+            viewModel.Version = offer.Version;
+            viewModel.PageTitle = definition.OfferTitle?.Text;
+            viewModel.MainText = definition.OfferMainText?.Text;
             viewModel.Steps = new StepsViewModel(steps);
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList();
             viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
@@ -538,21 +702,28 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
             viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
             viewModel["acceptAll"] = this.TextService.FindByKey("MARK_ALL");
-            viewModel["acceptOfferTitle"] = definition.OfferAcceptTitle.Text;
-            viewModel["acceptOfferHelptext"] = definition.OfferAcceptText.Text;
+            viewModel["acceptOfferTitle"] = definition.OfferAcceptTitle?.Text;
+            viewModel["acceptOfferHelptext"] = definition.OfferAcceptText?.Text;
             viewModel["submitBtn"] = this.TextService.FindByKey("ACCEPTING");
             viewModel["signatureBtn"] = this.TextService.FindByKey("SIGN");
             viewModel["signatureEditBtn"] = this.TextService.FindByKey("MODIFY_SIGNATURE");
-            viewModel["signatureModalTitle"] = datasource.SignModalWindowTitle;
-            viewModel["signatureModalText"] = datasource.SignModalWindowText;
-            viewModel["signatureNote"] = datasource.SignModalWindowNote;
-            viewModel["signatureModalConfirm"] = datasource.SignModalWindowConfirmButtonLabel;
-            viewModel["signatureModalClear"] = datasource.SignModalWindowClearButtonLabel;
-            viewModel["signatureModalError"] = datasource.SignModalWindowGeneralErrorMessage;
-            viewModel["signatureModalThumbnailAlt"] = datasource.SignModalWindowThumbnailText;
-            viewModel["signatureModalSign"] = datasource.SignModalWindowSign;
-            viewModel["signatureModalClose"] = datasource.SignModalWindowClose;
-            viewModel["signaturePadAlt"] = datasource.SignModalWindowPenArea;
+
+            if (datasource.ModalWindowSignOffer == null)
+            {
+                throw new EcontractingMissingDatasourceException("Missing 'Podepsání nabídky' dialog on offer page");
+            }
+
+            viewModel["signatureModalTitle"] = datasource.ModalWindowSignOffer.Title;
+            viewModel["signatureModalText"] = datasource.ModalWindowSignOffer.Text;
+            viewModel["signatureNote"] = datasource.ModalWindowSignOffer.Note;
+            viewModel["signatureModalConfirm"] = datasource.ModalWindowSignOffer.ConfirmButtonLabel;
+            viewModel["signatureModalClear"] = datasource.ModalWindowSignOffer.CancelButtonLabel;
+            viewModel["signatureModalError"] = datasource.ModalWindowSignOffer.GeneralErrorMessage;
+            viewModel["signatureModalThumbnailAlt"] = datasource.ModalWindowSignOffer.ThumbnailText;
+            viewModel["signatureModalSign"] = datasource.ModalWindowSignOffer.Sign;
+            viewModel["signatureModalClose"] = datasource.ModalWindowSignOffer.Close;
+            viewModel["signaturePadAlt"] = datasource.ModalWindowSignOffer.PenArea;
+
             viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
             viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
             viewModel["removeFile"] = this.TextService.FindByKey("REMOVE_DOCUMENT");
@@ -564,12 +735,64 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT", new Dictionary<string, string>() { { "fileTypes", siteSettings.AllowedDocumentTypesDescription } });
             viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENT_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.SingleUploadFileSizeLimitKBytes * 1024) } });
             viewModel["fileExceedGroupSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.GroupResultingFileSizeLimitKBytes * 1024) } });
-            viewModel["acceptanceModalTitle"] = datasource.ConfirmModalWindowTitle;
-            viewModel["acceptanceModalText"] = datasource.ConfirmModalWindowText;
-            viewModel["acceptanceModalAccept"] = datasource.ConfirmModalWindowButtonAcceptLabel;
-            viewModel["acceptanceModalCancel"] = datasource.ConfirmModalWindowButtonCancelLabel;
-            viewModel["acceptanceModalError"] = datasource.ConfirmModalWindowGeneralErrorMessage;
-            
+
+            if (datasource.ModalWindowAcceptOffer == null)
+            {
+                throw new EcontractingMissingDatasourceException("Missing 'Akceptování nabídky' dialog on offer page");
+            }
+
+            viewModel["acceptanceModalTitle"] = datasource.ModalWindowAcceptOffer.Title;
+            viewModel["acceptanceModalText"] = datasource.ModalWindowAcceptOffer.Text;
+            viewModel["acceptanceModalAccept"] = datasource.ModalWindowAcceptOffer.ConfirmButtonLabel;
+            viewModel["acceptanceModalCancel"] = datasource.ModalWindowAcceptOffer.CancelButtonLabel;
+            viewModel["acceptanceModalError"] = datasource.ModalWindowAcceptOffer.GeneralErrorMessage;
+            viewModel["cancelOffer"] = datasource.ModalWindowAcceptOffer.CancelOfferLabel;
+
+            if (datasource.ModalWindowUnfinishedOffer != null)
+            {
+                viewModel["unfinishedOfferSummary"] = datasource.ModalWindowUnfinishedOffer.Title;
+                viewModel["unfinishedOfferTextSummary"] = datasource.ModalWindowUnfinishedOffer.Text;
+                viewModel["continueInOfferSummary"] = datasource.ModalWindowUnfinishedOffer.ConfirmButtonLabel;
+                viewModel["quitOfferSummary"] = datasource.ModalWindowUnfinishedOffer.CancelButtonLabel;
+            }
+            else
+            {
+                this.Logger.Fatal(offer.Guid, "Missing 'Nedokončená nabídka' dialog on offer page");
+            }
+
+            if (offer.Version >= 3)
+            {
+                viewModel.BackToSummary = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Summary, offer.Guid);
+                viewModel["backToOffer"] = datasource.BackToSummaryLinkLabel;
+            }
+
+            if (offer.CanBeCanceled)
+            {
+                if (datasource.ModalWindowCancelOffer == null)
+                {
+                    this.Logger.Fatal(offer.Guid, $"Missing 'Zrušení nabídky' on offer page");
+                }
+                else
+                {
+                    viewModel["startOver"] = datasource.StartAgainLinkLabel;
+                    viewModel["unfinishedOffer"] = datasource.ModalWindowCancelOffer.Title;
+                    viewModel["unfinishedOfferText"] = datasource.ModalWindowCancelOffer.Text;
+                    viewModel["continueInOffer"] = datasource.ModalWindowCancelOffer.CancelButtonLabel;
+                    viewModel["quitOffer"] = datasource.ModalWindowCancelOffer.ConfirmButtonLabel;
+                    viewModel.CancelDialog = new CancelOfferViewModel();
+
+                    if (user.IsCognito)
+                    {
+                        var cognitoSettings = this.SettingsService.GetCognitoSettings();
+                        viewModel.CancelDialog.RedirectUrl = Utils.SetQuery(cognitoSettings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity);
+                    }
+                    else
+                    {
+                        viewModel.CancelDialog.RedirectUrl = this.GetLogoutUrl(AUTH_METHODS.TWO_SECRETS, offer.Guid);
+                    }
+                }
+            }
+
             viewModel.AbMatrixCombinationPixelUrl = definition.OfferVisitedAbMatrixPixel?.Src;
 
             return viewModel;
@@ -578,13 +801,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected internal ActionResult GetOfferEditView()
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageNewOfferModel>();
-            var steps = this.SettingsService.GetSteps(datasource.Step);
 
             var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
             var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
 
+            var steps = this.GetSteps(data, datasource);
             var siteSettings = this.SettingsService.GetSiteSettings();
             var viewModel = new OfferViewModel(siteSettings, Constants.FakeOfferGuid);
+            viewModel.Version = 3;
             viewModel.Definition = definition;
             viewModel.PageTitle = definition.OfferTitle?.Text;
             viewModel.MainText = definition.OfferMainText?.Text;
@@ -610,6 +834,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var definition = this.SettingsService.GetDefinitionDefault();
             var settings = this.SettingsService.GetSiteSettings();
             var viewModel = new AcceptedOfferViewModel(settings, Constants.FakeOfferGuid);
+            viewModel.Version = 3;
             viewModel.Datasource = datasource;
             viewModel.MainText = definition.OfferAcceptedMainText.Text;
             viewModel["appUnavailableTitle"] = "No available";
@@ -621,8 +846,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
             var definition = this.SettingsService.GetDefinition(offer);
-            var steps = this.SettingsService.GetSteps(datasource.Step);
-            var settings = this.SettingsService.GetCognitoSettings();
+            var steps = this.GetSteps(user, offer, datasource, definition);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
 
             var mainText = definition.MainTextThankYou.Text;
@@ -651,7 +875,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             var offer = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
             var definition = this.SettingsService.GetDefinition(offer.Process, offer.ProcessType);
-            var steps = this.SettingsService.GetSteps(datasource.Step);
+            var steps = this.GetSteps(offer, datasource);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
             viewModel.MainText = definition.MainTextThankYou.Text;
 
@@ -675,6 +899,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return View("/Areas/eContracting2/Views/Edit/Expiration.cshtml", viewModel);
+        }
+
+        protected internal ActionResult GetHeaderEditView()
+        {
+            var datasource = this.MvcContext.GetDataSourceItem<IPageHeaderModel>();
+            var viewModel = new HeaderViewModel();
+            viewModel.Datasource = datasource;
+            return this.View("/Areas/eContracting2/Views/Shared/Header.cshtml", viewModel);
         }
 
         protected internal ActionResult GetError404EditView()

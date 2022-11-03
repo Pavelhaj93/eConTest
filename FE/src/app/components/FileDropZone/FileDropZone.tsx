@@ -153,11 +153,7 @@ export const FileDropZone: React.FC<Props> = ({
           >
             {label}
           </span>{' '}
-          {labelTooltip && (
-            <Tooltip>
-              <div dangerouslySetInnerHTML={{ __html: labelTooltip }} />
-            </Tooltip>
-          )}
+          {labelTooltip && <Tooltip>{labelTooltip}</Tooltip>}
         </div>
       )
     }

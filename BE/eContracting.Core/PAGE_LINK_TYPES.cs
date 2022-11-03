@@ -16,6 +16,11 @@ namespace eContracting
         UserBlocked,
 
         /// <summary>
+        /// The summary of the offer.
+        /// </summary>
+        Summary,
+
+        /// <summary>
         /// The offer.
         /// </summary>
         Offer,

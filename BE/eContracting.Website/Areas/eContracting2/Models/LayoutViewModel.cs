@@ -192,7 +192,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                         {
                             this.UserService.SaveUser(guid, user);
 
-                            if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.NABIDKA))
+                            if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
                             {
                                 user.AuthorizedGuids[guid] = AUTH_METHODS.COGNITO;
                                 this.UserService.Authenticate(guid, user);

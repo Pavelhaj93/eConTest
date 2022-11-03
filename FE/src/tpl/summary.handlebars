@@ -1,0 +1,48 @@
+{{> html-header }}
+{{> header }}
+
+{{#> layout}}
+  {{#> steps}}
+    {{> step content="Nabídka" active=true}}
+    {{> step content="Přečtení a potvrzení dokumentů"}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
+  <div class="text-center mb-5">
+    <h1 class="h3 mb-0">Nabídka</h1>
+    <p>platnost nabídky do XX.XX. XXX</p>
+  </div>
+  <h2 class="text-center h3">Stručný přehled vaší nabídky</h2>
+  {{> app}}
+{{/ layout}}
+
+<script>
+  var appConfig = {
+    guid: "0635F899B3111EDC9BC4A505A628FCEA",
+    view: 'Summary',
+    timeout: 0,
+    unfinishedOfferTimeout: 0,
+    getSummaryUrl: '/api/summary',
+    errorPageUrl: '/error',
+    authUrl: '/authentication.html',
+    offerUrl: '/offer.html',
+    getCallMeBackUrl: '/api/cmb/get',
+    postCallMeBackUrl: '/api/cmb/post',
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: 'Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.',
+      continueBtn: 'Pokračovat',
+      unfinishedOffer: 'Nedokončená nabídka',
+      unfinishedOfferSummary: 'Nedokončená nabídka',
+      unfinishedOfferText: 'Vážený zákazníku, ukončením procesu nedochází k akceptaci nabídky a bude nutné v případě zájmu znovu spustit celý proces akceptace.',
+      unfinishedOfferTextSummary: 'Vážený zákazníku, ukončením procesu nedochází k akceptaci nabídky a bude nutné v případě zájmu znovu spustit celý proces akceptace.',
+      continueInOffer: "Pokračovat v nabídce",
+      continueInOfferSummary: "Pokračovat v nabídce",
+      quitOffer: "Odejít z nabídky",
+      quitOfferSummary: "Odejít z nabídky",
+      cmbBtn: "Zavolejte mi",
+    },
+    showCmbModal: true
+  };
+</script>
+
+{{> footer }}

@@ -1,0 +1,46 @@
+﻿---
+ID: "47ae3865-50ad-483b-a4b8-0446fa07034d"
+Parent: "c8084e60-3a02-4da4-b9c3-9f3fbc2d8110"
+Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
+Path: /sitecore/templates/eContracting2/Datasources/Step/Step/TargetPage
+DB: master
+SharedFields:
+- ID: "1eb8ae32-e190-44a6-968d-ed904c794ebf"
+  Hint: Source
+  Value: "query:/sitecore/content/eContracting2/Web/*[@@templateid != '{6CCFEF10-7A13-47F8-AAF3-237085B9C556}' and @@templateid != '{AEA91936-870E-40DF-B18A-0E949C0AD3D6}' and @@templateid != '{1740614A-9025-4491-A63A-14CBE7CCDFC6}' and @@templateid != '{33AD756E-ABD4-4260-98C8-9F5DBBBE5636}' and @@templateid != '{E4F4A320-3072-4E2D-A13C-EAEE2FD09D5A}' and @@templateid != '{F6611407-BC55-499F-9E03-1E58AC434335}' and @@templateid != '{220B964C-EA21-4672-92F1-58CCE932BD33}']"
+- ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
+  Hint: Type
+  Value: Droplink
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 200
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20221019T082145Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+- Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: Stránka
+  - ID: "9541e67d-ce8c-4225-803d-33f7f29f09ef"
+    Hint: __Short description
+    Value: kde bude tento krok označený jako aktivní
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20221019T083110Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

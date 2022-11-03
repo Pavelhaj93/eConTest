@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>06566B2A37091EE9818A43666D241079</GUID>
+            <ISU_CONTRACT>1001409110</ISU_CONTRACT>
+            <CONTSTART>20190120</CONTSTART>
+            <DATE_TO>20220118</DATE_TO>
+            <STATUS>Založeno Změna dodavatele probíhá (OTE)</STATUS>
+            <PARTNER>9511307386</PARTNER>
+            <NAME_LAST>Remiáš</NAME_LAST>
+            <NAME_FIRST>Pavel</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>07.07.1960</BIRTHDT>
+            <IC></IC>
+            <EMAIL>paul.remi@seznam.cz</EMAIL>
+            <PHONE>603 179 141</PHONE>
+            <EXT_UI>859182400507442506</EXT_UI>
+            <VSTELLE>9300630955</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>823000627561</BUAG>
+            <PSC_MS>709 00</PSC_MS>
+            <PSC_ADDR>709 00</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>D</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>010</SEQNR>
+                    <IDATTACH>P01</IDATTACH>
+                    <TEMPLATE>P01</TEMPLATE>
+                    <DESCRIPTION>Přihláška k pojištění</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM078</TEMPL_ALC_ID>
+                    <PRODUCT>20000040</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EEC9B93D3A0F6F5FFF6</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>011</SEQNR>
+                    <IDATTACH>P06</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Pojistná smlouva</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000040</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EEC9B93D3A0F6F5FFF6</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>012</SEQNR>
+                    <IDATTACH>P12</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Informační dokument o pojistném produktu</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000040</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EEC9B93D3A0F6F5FFF6</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

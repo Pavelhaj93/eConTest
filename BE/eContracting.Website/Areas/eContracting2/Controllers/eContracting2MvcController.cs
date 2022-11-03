@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Models;
+using Glass.Mapper.Sc.Web.Mvc;
+using Sitecore.Data;
 using static eContracting.Website.Areas.eContracting2.Models.MatrixSwitcherViewModel;
 
 namespace eContracting.Website.Areas.eContracting2.Controllers
@@ -17,6 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsService;
         protected readonly ISessionProvider SessionProvider;
         protected readonly IDataRequestCacheService RequestCacheService;
+        protected readonly IMvcContext MvcContext;
 
         protected eContracting2MvcController(
             ILogger logger,
@@ -24,7 +28,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IUserService userService,
             ISettingsReaderService settingsReader,
             ISessionProvider sessionProvider,
-            IDataRequestCacheService requestCacheService)
+            IDataRequestCacheService requestCacheService,
+            IMvcContext mvcContext)
         {
             this.Logger = logger;
             this.ContextWrapper = contextWrapper;
@@ -32,8 +37,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsService = settingsReader;
             this.SessionProvider = sessionProvider;
             this.RequestCacheService = requestCacheService;
+            this.MvcContext = mvcContext;
         }
 
+        [ExcludeFromCodeCoverage]
         public ActionResult MatrixSwitcher()
         {
             if (this.ContextWrapper.IsNormalMode())
@@ -71,12 +78,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <summary>
         /// Gets guid value from query string.
         /// </summary>
-        protected string GetGuid()
+        protected internal string GetGuid()
         {
             return this.Request.QueryString[Constants.QueryKeys.GUID];
         }
 
-        protected RedirectResult Redirect(PAGE_LINK_TYPES pageType, string guid, string code = null, bool includeUtm = false)
+        protected internal RedirectResult Redirect(PAGE_LINK_TYPES pageType, string guid, string code = null, bool includeUtm = false)
         {
             var url = this.SettingsService.GetPageLink(pageType, guid);
 
@@ -95,34 +102,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Redirect(url);
         }
 
-        protected RedirectResult Redirect(OfferModel offer)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected string GetUrlWithGuid(PAGE_LINK_TYPES pageType, string guid)
-        {
-            var url = this.SettingsService.GetPageLink(pageType, guid);
-
-            if (!string.IsNullOrEmpty(guid))
-            {
-                url = Utils.SetQuery(url, Constants.QueryKeys.GUID, guid);
-            }
-
-            return url;
-        }
-
-        protected bool CanRead(string guid)
+        protected internal bool CanRead(string guid)
         {
             return this.UserService.IsAuthorizedFor(guid);
-        }
-
-        protected void ClearCurrentUser(string guid)
-        {
-            this.UserService.Logout(guid);
-            //this.UserService.Abandon(guid);
-            // clear any user login, always establish a new session, when the user visits the login page - in order that he cannot slide among ThankYou, Offer and Login pages freely
-            //this.SessionProvider.Abandon();
         }
 
         protected internal GoogleAnalyticsEvendDataModel GetGoogleEventData(
@@ -179,20 +161,96 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new GoogleAnalyticsEvendDataModel(eCat, eAct, eLab);
         }
 
-        protected string GetProductName(OfferModel offer)
+        protected internal string GetProductName(OfferModel offer)
         {
             var product = "UNKNOWN";
 
-            if (offer.TextParameters.ContainsKey("COMMODITY_PRODUCT") && !string.IsNullOrEmpty(offer.TextParameters["COMMODITY_PRODUCT"]))
+            if (offer.TextParameters.HasValue("COMMODITY_PRODUCT"))
             {
                 product = offer.TextParameters["COMMODITY_PRODUCT"];
             }
-            else if (offer.TextParameters.ContainsKey("NONCOMMODITY_PRODUCT") && !string.IsNullOrEmpty(offer.TextParameters["NONCOMMODITY_PRODUCT"]))
+            else if (offer.TextParameters.HasValue("NONCOMMODITY_PRODUCT"))
             {
                 product = offer.TextParameters["NONCOMMODITY_PRODUCT"];
             }
 
             return product;
+        }
+
+        protected internal string GetLogoutUrl(AUTH_METHODS authType, string logoutGuid, string returnGuid = null)
+        {
+            string redirectUrl = string.Empty;
+
+            if (string.IsNullOrEmpty(returnGuid))
+            {
+                returnGuid = logoutGuid;
+            }
+
+            if (authType == AUTH_METHODS.TWO_SECRETS)
+            {
+                var url = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Login, returnGuid);
+                redirectUrl = $"{this.Request.Url.Scheme}://{this.Request.Url.Host}/logout?{Constants.QueryKeys.REDIRECT}=" + HttpUtility.UrlEncode(url);
+                redirectUrl = Utils.SetQuery(redirectUrl, Constants.QueryKeys.GUID, logoutGuid);
+            }
+            else
+            {
+                var logout = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Logout, logoutGuid);
+                logout = Utils.SetQuery(logout, Constants.QueryKeys.GUID, returnGuid);
+                var url = this.SettingsService.GetCognitoSettings().InnogyLogoutUrl;
+                url = Utils.SetQuery(url, Constants.QueryKeys.GLOBAL_LOGOUT, "true");
+                redirectUrl = Utils.SetQuery(url, Constants.QueryKeys.REDIRECT, logout);
+            }
+
+            return redirectUrl;
+        }
+
+        protected internal IStepsModel GetSteps(OfferCacheDataModel offer, IBasePageWithStepsModel page)
+        {
+            return this.GetSteps(new UserCacheDataModel(), (OfferModel)null, page, null);
+        }
+
+        protected internal IStepsModel GetSteps(UserCacheDataModel user, OfferModel offer, IBasePageModel page, IDefinitionCombinationModel definition)
+        {
+            IStepsModel steps = null;
+
+            if (offer.Version < 3)
+            {
+                steps = definition.StepsDefault;
+            }
+            else
+            {
+                steps = definition.Steps;
+            }
+
+            if (steps == null)
+            {
+                this.Logger.Debug(offer.Guid, "No steps defined");
+                return null;
+            }
+
+            if (!steps.Steps.Any())
+            {
+                this.Logger.Debug(offer.Guid, $"Steps definition '{steps.Path}' does not have any child");
+                return null;
+            }
+
+            this.Logger.Debug(offer.Guid, $"Steps definition '{steps.Path}' used");
+
+            foreach (var step in steps.Steps)
+            {
+                if (step.TargetPage != null && step.TargetPage.ID == page.ID)
+                {
+                    step.IsSelected = true;
+                    this.Logger.Debug(offer.Guid, $"Step '{step.Path}' marked as selected");
+                }
+            }
+
+            if (!steps.AnySelected())
+            {
+                return null;
+            }
+
+            return steps;
         }
     }
 }

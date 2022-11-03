@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,13 +11,14 @@ namespace eContracting.Website.Pipelines.Initialize
 {
     public class RunStartupsProcessor
     {
+        [ExcludeFromCodeCoverage]
         public void Process(PipelineArgs args)
         {
             var logger = ServiceLocator.ServiceProvider.GetRequiredService<ILogger>();
             this.RunStartups(logger);
         }
 
-        protected void RunStartups(ILogger logger)
+        protected internal void RunStartups(ILogger logger)
         {
             var startups = ServiceLocator.ServiceProvider.GetServices<IStartup>();
 

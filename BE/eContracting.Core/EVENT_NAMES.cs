@@ -26,6 +26,10 @@ namespace eContracting
         /// <summary>
         /// When user submitted an offer.
         /// </summary>
-        SUBMIT_OFFER
+        SUBMIT_OFFER,
+        /// <summary>
+        /// When user cancels an offer.
+        /// </summary>
+        CANCEL_OFFER
     }
 }

@@ -301,21 +301,11 @@ namespace eContracting.Services
             }
         }
 
-        [Obsolete("Getting tokens from stored UserCacheDataModel")]
-        protected OAuthTokensModel GetRefreshTokens(HttpCookieCollection cookies)
-        {
-            var userData = this.GetUser();
-
-            if (userData == null || !userData.HasAuth(AUTH_METHODS.COGNITO))
-            {
-                return null;
-            }
-
-            var tokens = this.CognitoAuthService.GetTokens(cookies);
-            return this.GetRefreshTokens(tokens);
-        }
-
-        protected OAuthTokensModel GetRefreshTokens(OAuthTokensModel tokens)
+        /// <summary>
+        /// Gets new refresh token only when validity of current <paramref name="tokens"/> is less than <see cref="ISettingsReaderService.CognitoMinSecondsToRefreshToken"/>.
+        /// </summary>
+        /// <param name="tokens">The actual tokens.</param>
+        protected internal OAuthTokensModel GetRefreshTokens(OAuthTokensModel tokens)
         {
             var validTo = this.CognitoAuthService.GetTokenValidity(tokens);
 

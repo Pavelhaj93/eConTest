@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using System.Xml.Serialization;
 using eContracting.Models;
@@ -72,7 +73,13 @@ namespace eContracting.Services
                 return 2;
             }
 
-            throw new ApplicationException("Cannot determinate offer version");
+            if (attr.ATTRVAL == Constants.OfferAttributeValues.VERSION_3)
+            {
+                this.Logger.Info(response.ES_HEADER.CCHKEY, $"Version 3 (attribute {Constants.OfferAttributes.VERSION} = {Constants.OfferAttributeValues.VERSION_3})");
+                return 3;
+            }
+
+            throw new EcontractingApplicationException(new ErrorModel("OP_GV_X", "Cannot determinate offer version"));
         }
 
         /// <inheritdoc/>
@@ -138,6 +145,30 @@ namespace eContracting.Services
                     textParameters[oldKey] = textParameters[newKey];
                 }
             }
+
+            // this is backup variant when PERSON_PREMADR is empty because it's used in rich text
+            if (!textParameters.HasValue("PERSON_PREMADR"))
+            {
+                var address = new StringBuilder();
+
+                if (textParameters.HasValue("PERSON_PREMSTREET"))
+                {
+                    address.Append(textParameters.GetValueOrDefault("PERSON_PREMSTREET"));
+                }
+                else
+                {
+                    address.Append(textParameters.GetValueOrDefault("PERSON_PREMCITY_PART"));
+                }
+
+                address.Append(" ");
+                address.Append(textParameters.GetValueOrDefault("PERSON_PREMSTREET_NUMBER"));
+                address.Append(", ");
+                address.Append(textParameters.GetValueOrDefault("PERSON_PREMCITY"));
+                address.Append(", ");
+                address.Append(textParameters.GetValueOrDefault("PERSON_PREMPOSTAL_CODE"));
+
+                textParameters["PERSON_PREMADR"] = address.ToString();
+            }
         }
 
         /// <summary>
@@ -187,8 +218,9 @@ namespace eContracting.Services
             var rawXml = file.GetRawXml();
             var result = this.ProcessRootFile(file, version);
             var isAccepted = this.IsAccepted(response.Response);
-            var isExpired = this.IsExpired(response.Response, header, result);
-            var offer = new OfferModel(result, version, header, isAccepted, isExpired, attributes);
+            var expirationDate = this.GetExpirationDate(response.Response, result);
+            var isExpired = this.IsExpired(response.Response, header, expirationDate);
+            var offer = new OfferModel(result, version, header, isAccepted, isExpired, expirationDate, attributes);
             offer.RawContent.Add(file.File.FILENAME, rawXml);            
             this.Logger.Info(offer.Guid, $"Process: {offer.Process}");
             this.Logger.Info(offer.Guid, $"Process type: {offer.ProcessType}");
@@ -213,12 +245,29 @@ namespace eContracting.Services
 
             if (version == 1)
             {
-                var file = response.ET_FILES[0];
-                return new OfferFileXmlModel(file);
+                var file = response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE));
+
+                if (file != null)
+                {
+                    return new OfferFileXmlModel(file);
+                }
+
+                return null;
             }
             else if (version == 2)
             {
                 var file = response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS));
+
+                if (file != null)
+                {
+                    return new OfferFileXmlModel(file);
+                }
+
+                return null;
+            }
+            else if (version == 3)
+            {
+                var file = response.ET_FILES.FirstOrDefault(x => !x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE));
 
                 if (file != null)
                 {
@@ -285,8 +334,8 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="response">The response.</param>
         /// <param name="headerModel">The header model.</param>
-        /// <param name="offerXmlModel">The offer XML model.</param>
-        protected internal bool IsExpired(ZCCH_CACHE_GETResponse response, OfferHeaderModel headerModel, OfferXmlModel offerXmlModel)
+        /// <param name="expirationDate">The expiration date.</param>
+        protected internal bool IsExpired(ZCCH_CACHE_GETResponse response, OfferHeaderModel headerModel, DateTime expirationDate)
         {
             if (headerModel.CCHSTAT == "9")
             {
@@ -294,6 +343,28 @@ namespace eContracting.Services
                 return true;
             }
 
+            var result = expirationDate.Date < DateTime.Now.Date;
+
+            if (result)
+            {
+                this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is expired (date = {expirationDate.Date.ToString("dd. MM. yyyy")})");
+            }
+            else
+            {
+                this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is not expired (date = {expirationDate.Date.ToString("dd. MM. yyyy")})");
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets expiration date from <paramref name="response"/> or from <paramref name="offerXmlModel"/>.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="offerXmlModel"></param>
+        /// <returns>If date not found, returns '<c>DateTime.Now.AddDays(-1)</c>' as default.</returns>
+        protected internal DateTime GetExpirationDate(ZCCH_CACHE_GETResponse response, OfferXmlModel offerXmlModel)
+        {
             DateTime date = DateTime.Now.AddDays(-1);
 
             var value = response.ET_ATTRIB.FirstOrDefault(x => x.ATTRID == Constants.OfferAttributes.VALID_TO)?.ATTRVAL;
@@ -304,26 +375,12 @@ namespace eContracting.Services
                 this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Attribute {Constants.OfferAttributes.VALID_TO} not found in offer. Using DATE_TO from body instead.");
             }
 
-            if (DateTime.TryParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
+            if (!DateTime.TryParseExact(value, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date))
             {
-                var result = date.Date < DateTime.Now.Date;
-
-                if (result)
-                {
-                    this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is expired (date = {value})");
-                }
-                else
-                {
-                    this.Logger.Debug(response.ES_HEADER.CCHKEY, $"Offer is not expired (date = {value})");
-                }
-
-                return result;
+                this.Logger.Error(response.ES_HEADER.CCHKEY, $"Cannot parse expiration date from '{value}'");
             }
-            else
-            {
-                this.Logger.Warn(response.ES_HEADER.CCHKEY, $"Offer is not expired because we cannot parse expire date ({value})");
-                return false;
-            }
+
+            return date;
         }
 
         /// <summary>
@@ -459,7 +516,17 @@ namespace eContracting.Services
                 return string.Empty;
             }
 
-            return xmlNode.InnerXml;
+            var innerXml = xmlNode.InnerXml;
+
+            if (innerXml.Contains("&amp;"))
+            {
+                // value is 2x encoded
+                innerXml = HttpUtility.HtmlDecode(innerXml);
+            }
+
+            innerXml = HttpUtility.HtmlDecode(innerXml);
+
+            return innerXml;
         }
 
         /// <summary>

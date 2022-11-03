@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0274740027C71EDA80936FA943648AFC</GUID>
+            <ISU_CONTRACT>1001590546</ISU_CONTRACT>
+            <CONTSTART>20200920</CONTSTART>
+            <DATE_TO>20221004</DATE_TO>
+            <STATUS>Založeno Změna dodavatele probíhá (OTE)</STATUS>
+            <PARTNER>9510751961</PARTNER>
+            <NAME_LAST>Kníže</NAME_LAST>
+            <NAME_FIRST>Ilja</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>17.05.1955</BIRTHDT>
+            <IC></IC>
+            <EMAIL>test-rwy2@yopmail.com</EMAIL>
+            <PHONE>735 156 262</PHONE>
+            <EXT_UI>859182400705909009</EXT_UI>
+            <VSTELLE>9300508225</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>823000702478</BUAG>
+            <PSC_MS>541 01</PSC_MS>
+            <PSC_ADDR>541 01</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>M</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>010</SEQNR>
+                    <IDATTACH>PA1</IDATTACH>
+                    <TEMPLATE>PA1</TEMPLATE>
+                    <DESCRIPTION>Přihláška Domácí asistence</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM117</TEMPL_ALC_ID>
+                    <PRODUCT>20000321</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D16368BABD</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>011</SEQNR>
+                    <IDATTACH>PA6</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Pojistná smlouva Domácí asistence</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000321</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D16368BABD</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>012</SEQNR>
+                    <IDATTACH>PAB</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Informační dokument Domácí asistence</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000321</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D16368BABD</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>013</SEQNR>
+                    <IDATTACH>PAC</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Předsmluvní informace Domácí asistence</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000321</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D16368BABD</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>014</SEQNR>
+                    <IDATTACH>PAD</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Produktové podmínky Domácí asistence</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000321</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D16368BABD</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>017</SEQNR>
+                    <IDATTACH>DP6</IDATTACH>
+                    <TEMPLATE>DP6</TEMPLATE>
+                    <DESCRIPTION>Potvrzení o přiznání individuální slevy</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM082</TEMPL_ALC_ID>
+                    <PRODUCT>ASIST_SLEVA_25_NEOM</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY></GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8DFDD3D163797ABD</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

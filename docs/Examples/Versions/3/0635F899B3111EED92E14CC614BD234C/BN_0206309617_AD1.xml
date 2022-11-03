@@ -1,0 +1,78 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED92E14CE38A86834C</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Optimal]<br />|Platnost nabídky do|: [15.10.2022]<br />|Délka fixace|: [36 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [03.11.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Optimal</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>15.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>36 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>03.11.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_OPTIMAL2</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Optimal</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [naše ceny energií i smlouvy jsou závazné]<br />|Druhé|: [garance cenového snížení v průběhu trvání smlouvy]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>naše ceny energií i smlouvy jsou závazné</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garance cenového snížení v průběhu trvání smlouvy</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Kostelní 63, 751 31 Týn nad Bečvou</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Týn nad Bečvou</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Týn nad Bečvou</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>751 31</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Kostelní</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>63</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Kostelní 63, 751 31 Týn nad Bečvou</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>29.07.1941</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Týn nad Bečvou</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Týn nad Bečvou</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>zedkovavlasta@seznam.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Vladimír Zedek</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>751 31</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Kostelní</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>63</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK></PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>725 371 711</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Zedku                                             </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichczvNPni5S5E7j3FDxegEVDnJuVye1Jh6cu</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511056943</PERSON_NUMBER>
+        <PERSON_PREMADR>Kostelní 63, 751 31 Týn nad Bečvou</PERSON_PREMADR>
+        <PERSON_PREMCITY>Týn nad Bečvou</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Týn nad Bečvou</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z0295578M</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301100493</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>751 31</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Kostelní</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>63</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

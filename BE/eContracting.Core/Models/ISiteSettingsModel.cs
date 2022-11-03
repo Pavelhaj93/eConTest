@@ -27,6 +27,9 @@ namespace eContracting.Models
         [SitecoreField("WrongUrl", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link WrongUrl { get; set; }
 
+        [SitecoreField("Summary", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        Link Summary { get; set; }
+
         [SitecoreField("Offer", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link Offer { get; set; }
 
@@ -143,5 +146,14 @@ namespace eContracting.Models
         double CleanupLogsOlderThanDays { get; set; }
 
         #endregion
+
+        [SitecoreField]
+        IStepsModel Steps_Default { get; set; }
+
+        [SitecoreField]
+        IStepsModel Steps_NoLogin { get; set; }
+
+        [SitecoreField]
+        IStepsModel Steps_ProductChange { get; set; }
     }
 }

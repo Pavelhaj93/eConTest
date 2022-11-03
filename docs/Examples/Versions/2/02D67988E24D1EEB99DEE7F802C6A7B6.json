@@ -7,29 +7,29 @@
         "value": "elektrina Optimal"
       },
       {
-        "title": "Platnost nabÌdky do",
+        "title": "Platnost nab√≠dky do",
         "value": "19.02.2021"
       },
       {
-        "title": "DÈlka fixace",
-        "value": "30 mesÌcu od ˙cinnosti smlouvy"
+        "title": "D√©lka fixace",
+        "value": "30 mes√≠cu od √∫cinnosti smlouvy"
       },
       {
         "title": "Platnost smlouvy",
-        "value": "Dnem akceptace smlouvy z·kaznÌkem"
+        "value": "Dnem akceptace smlouvy z√°kazn√≠kem"
       },
       {
-        "title": "Predpokl·dan· ˙cinnost smlouvy",
-        "value": "Mont·zÌ meridla"
+        "title": "Predpokl√°dan√° √∫cinnost smlouvy",
+        "value": "Mont√°z√≠ meridla"
       }
     ]
   },
   "gifts": {
     "title": "",
-    "note": "<p>\nZpusob dorucenÌ: korespondencne na zasÌlacÌ adresu<br /></p>",
+    "note": "<p>\nZpusob dorucen√≠: korespondencne na zas√≠lac√≠ adresu<br /></p>",
     "groups": [
       {
-        "title": "VerÌme, ze V·s nabÌdka zaujala a jejÌm prijetÌm od n·s zÌsk·te",
+        "title": "Ver√≠me, ze V√°s nab√≠dka zaujala a jej√≠m prijet√≠m od n√°s z√≠sk√°te",
         "params": [
           {
             "title": "Detektor",
@@ -54,7 +54,7 @@
           {
             "key": "71946EDBA6B141422444BCFF24112C43",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "Certifik·t zelen· elektrina",
+            "label": "Certifik√°t zelen√° elektrina",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -62,7 +62,7 @@
           {
             "key": "E394D18FB39239239A9271B3193CF698",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "ObchodnÌ podmÌnky",
+            "label": "Obchodn√≠ podm√≠nky",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -70,7 +70,7 @@
           {
             "key": "CA85B78621F82DCAC24DD4FD47D2647A",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "CenÌk sluzeb",
+            "label": "Cen√≠k sluzeb",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -78,7 +78,7 @@
           {
             "key": "E3FBF9A09AEBE0DC90D7907E753EEFA7",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "CenÌk",
+            "label": "Cen√≠k",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -86,7 +86,7 @@
           {
             "key": "E3FBF9A09AEBE0DC90D7907E753EEFA7",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "CenÌk",
+            "label": "Cen√≠k",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -94,7 +94,7 @@
           {
             "key": "5228DE31250A5A7C32DE9BF48D4A69B3",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "Informace pro z·kaznÌka - spotrebitele",
+            "label": "Informace pro z√°kazn√≠ka - spotrebitele",
             "prefix": "DOCUMENT_PREFIX_S",
             "mime": "application/pdf",
             "mandatory": true
@@ -102,7 +102,7 @@
           {
             "key": "D57ED39EB03EE77A264007CA4BB1020E",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "Smlouva o sdruzenych sluzb·ch dod·vky elektriny",
+            "label": "Smlouva o sdruzenych sluzb√°ch dod√°vky elektriny",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -119,7 +119,7 @@
           {
             "key": "02E17AC65CC67E2E655D3AA8A1455AC2",
             "group": "02D67988E24D1EEB99DEE7AA956A27B6",
-            "label": "Pln· moc",
+            "label": "Pln√° moc",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": true
@@ -136,8 +136,8 @@
       "types": [
         {
           "id": "2B64B58BC2EC1B5FC26DFA35151744DD",
-          "title": "ReviznÌ zpr·va",
-          "info": "<p><b>ReviznÌ zpr·va</b><br />Zpr·va, kterou vystavil reviznÌ technik pro vase elektrickÈho zarÌzenÌ. Souc·stÌ zpr·vy musÌ byt oznacenÌ odbernÈho mÌsta (u bytovych domu vc. cÌsla bytu a podlazÌ).<br /></p>",
+          "title": "Revizn√≠ zpr√°va",
+          "info": "<p><b>Revizn√≠ zpr√°va</b><br />Zpr√°va, kterou vystavil revizn√≠ technik pro vase elektrick√©ho zar√≠zen√≠. Souc√°st√≠ zpr√°vy mus√≠ byt oznacen√≠ odbern√©ho m√≠sta (u bytovych domu vc. c√≠sla bytu a podlaz√≠).<br /></p>",
           "mandatory": true
         }
       ]
@@ -156,11 +156,11 @@
             "value": "Kotel Junkers"
           },
           {
-            "title": "Adresa mÌsta plnenÌ",
+            "title": "Adresa m√≠sta plnen√≠",
             "value": "Sternberk, Smetanova 732 / 44, 785 01"
           },
           {
-            "title": "Platnost nabÌdky do",
+            "title": "Platnost nab√≠dky do",
             "value": "19.02.2021"
           }
         ],
@@ -172,7 +172,7 @@
           {
             "key": "525ACBE15035DC3E89B54A408D8DDA28",
             "group": "02D67988E24D1EEB99DEE85C57D107B6",
-            "label": "Informace pro z·kaznÌka - spotrebitele",
+            "label": "Informace pro z√°kazn√≠ka - spotrebitele",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": false
@@ -180,7 +180,7 @@
           {
             "key": "AE8EF6E2B04063F3C3C57041BAB8B4D4",
             "group": "02D67988E24D1EEB99DEE85C57E9C7B6",
-            "label": "PotvrzenÌ o prizn·nÌ individu·lnÌ slevy",
+            "label": "Potvrzen√≠ o prizn√°n√≠ individu√°ln√≠ slevy",
             "prefix": "DOCUMENT_PREFIX_P",
             "mime": "application/pdf",
             "mandatory": false
@@ -188,7 +188,7 @@
           {
             "key": "0EFF080E10F2ED72F5085CF6FD1AEE02",
             "group": "02D67988E24D1EEB99DEE85C57D107B6",
-            "label": "Smlouva o zajistenÌ sluzby servis plynovych spotrebicu",
+            "label": "Smlouva o zajisten√≠ sluzby servis plynovych spotrebicu",
             "prefix": "DOCUMENT_PREFIX_S",
             "mime": "application/pdf",
             "mandatory": false
@@ -201,7 +201,7 @@
   "acceptance": {
     "params": [
       {
-        "title": "Nesnizov·nÌ z·loh",
+        "title": "Nesnizov√°n√≠ z√°loh",
         "group": "02D67988E24D1EEB99DEE83653CCA7B6"
       },
       {

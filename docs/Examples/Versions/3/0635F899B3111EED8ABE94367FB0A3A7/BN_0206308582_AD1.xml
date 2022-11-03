@@ -1,0 +1,78 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8ABE94609B2423A7</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Standard]<br />|Platnost nabídky do|: [16.09.2022]<br />|Délka fixace|: [Bez fixace - Dodatek na dobu neurčitou]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [02.07.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>16.09.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Dodatek na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>02.07.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nižší cena silové elektřiny než u vašeho regionálního dodavatele]<br />|Druhé|: [smlouva bez závazku, lze ji kdykoliv vypovědět]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nižší cena silové elektřiny než u vašeho regionálního dodavatele</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>smlouva bez závazku, lze ji kdykoliv vypovědět</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Františka Hajdy 1230 / 10, 700 30 Ostrava-Jih - Hrabůvka</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ostrava-Jih</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Hrabůvka</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>700 30</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Františka Hajdy</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1230 / 10</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Františka Hajdy 1230 / 10, 700 30 Ostrava-Jih</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>08.02.1952</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ostrava-Jih</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Hrabůvka</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>rrunway@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Libor Ševčík</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>700 30</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Františka Hajdy</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1230 / 10</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mailem</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>776 230 003</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Ševčíku                                           </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichhZxA5qurUU4icGb8mrT3MxpdRM3CHNnVZ7</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511233814</PERSON_NUMBER>
+        <PERSON_PREMADR>Bohumínská 440 / 48, 710 00 Slezská Ostrava</PERSON_PREMADR>
+        <PERSON_PREMCITY>Slezská Ostrava</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Slezská Ostrava</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400506916978</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301123414</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>710 00</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Bohumínská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>440 / 48</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

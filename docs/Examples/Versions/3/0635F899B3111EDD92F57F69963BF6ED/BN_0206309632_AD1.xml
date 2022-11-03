@@ -1,0 +1,67 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EDD92F57F84E26196EF</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [29.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>29.10.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Polní 374, 747 19 Bohuslavice</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Bohuslavice</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Bohuslavice</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>747 19</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Polní</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>374</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Polní 374, 747 19 Bohuslavice</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>19.08.1979</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Bohuslavice</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Bohuslavice</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>olga.havrilova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Michal Richter</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>747 19</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Polní</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>374</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>735 156 024</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Richtere                                          </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichcQPXgnnBdALwYRewMHQDq6vZdCE8dv1K4q</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511194861</PERSON_NUMBER>
+        <PERSON_PREMADR>Polní 374, 747 19 Bohuslavice</PERSON_PREMADR>
+        <PERSON_PREMCITY>Bohuslavice</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Bohuslavice</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400502996523</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300726902</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>747 19</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Polní</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>374</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

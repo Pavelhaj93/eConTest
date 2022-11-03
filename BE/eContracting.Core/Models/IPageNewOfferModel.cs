@@ -33,69 +33,26 @@ namespace eContracting.Models
         [SitecoreField]
         string AesEncryptVector { get; set; }
 
-        #region Confirm Modal Window
-
-        /// <summary>
-        /// Gets or sets title for confirm modal window.
-        /// </summary>
-        [SitecoreField]
-        string ConfirmModalWindowTitle { get; set; }
-
-        /// <summary>
-        /// Gets or sets text for confirm modal window.
-        /// </summary>
-        [SitecoreField]
-        string ConfirmModalWindowText { get; set; }
-
-        /// <summary>
-        /// Gets or sets label for accept button in confirm modal window.
-        /// </summary>
-        [SitecoreField]
-        string ConfirmModalWindowButtonAcceptLabel { get; set; }
-
-        /// <summary>
-        /// Gets or sets label for cancel button in confirm modal window.
-        /// </summary>
-        [SitecoreField]
-        string ConfirmModalWindowButtonCancelLabel { get; set; }
+        #region Modal windows
 
         [SitecoreField]
-        string ConfirmModalWindowGeneralErrorMessage { get; set; }
+        IModalDialogSignOfferModel ModalWindowSignOffer { get; set; }
+
+        [SitecoreField]
+        IModalDialogAcceptOfferModel ModalWindowAcceptOffer { get; set; }
+
+        [SitecoreField]
+        IModalDialogSimpleModel ModalWindowUnfinishedOffer { get; set; }
+
+        [SitecoreField]
+        IModalDialogSimpleModel ModalWindowCancelOffer { get; set; }
 
         #endregion
 
-        #region Sign Modal Window
+        [SitecoreField]
+        string BackToSummaryLinkLabel { get; set; }
 
         [SitecoreField]
-        string SignModalWindowTitle { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowText { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowThumbnailText { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowPenArea { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowNote { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowConfirmButtonLabel { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowClearButtonLabel { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowGeneralErrorMessage { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowSign { get; set; }
-
-        [SitecoreField]
-        string SignModalWindowClose { get; set; }
-
-        #endregion
+        string StartAgainLinkLabel { get; set; }
     }
 }

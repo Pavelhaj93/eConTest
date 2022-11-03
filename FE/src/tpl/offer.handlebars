@@ -20,6 +20,10 @@
     guid: "0635F899B3111EDC9BC4A505A628FCED",
     view: 'Offer',
     offerUrl: '/api/offer/new',
+    cancelDialog: {
+      cancelOfferUrl: '/api/offer/cancel',
+      redirectUrl: '/',
+    },
     timeout: 0,
     formAction: 'offer.html',
     getFileUrl: '/api/document-image',
@@ -32,6 +36,7 @@
     keepAliveUrl: '/api/keepalive',
     thankYouPageUrl: '/thank-you.html',
     sessionExpiredPageUrl: '/session-expired.html',
+    backToOfferUrl: '/offer.html',
     allowedContentTypes: ['image/png', 'image/jpeg', 'application/pdf'],
     maxFileSize: 3695293,
     maxGroupFileSize: 1048576,
@@ -82,7 +87,15 @@
       productBenefits: 'Výhody služby',
       accepted: 'Akceptováno',
       notAccepted: 'Neakceptováno',
+      backToOffer:'Zpět na nabídku',
+      startOver: 'Začít znovu',
+      unfinishedOffer: 'Nedokončená nabídka',
+      unfinishedOfferText: 'Vážený zákazníku, opravdu chcete stornovat celou nabídku a ponechat vaši smlouvu ve výpovědi?',
+      continueInOffer: "Zavřít",
+      quitOffer: "Potvrdit",
+      cancelOffer: "Anulovat nabidku",
     },
+    version: 3
   };
 </script>
 

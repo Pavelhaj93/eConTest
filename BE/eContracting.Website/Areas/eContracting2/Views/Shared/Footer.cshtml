@@ -1,31 +1,31 @@
 ﻿@using eContracting
 @using eContracting.Models
-@model IPageFooterModel
+@model FooterViewModel
 @{ 
-    var disclaimerUrl = Model.DisclaimerLink != null ? Model.DisclaimerLink.Url : string.Empty;
-    var cookiePolicyUrl = Model.CookiePolicyLink != null ? Model.CookiePolicyLink.Url : string.Empty;
-    var cookieSettingsUrl = Model.CookieSettingsLink != null ? Model.CookieSettingsLink.Url : string.Empty;
+    var disclaimerUrl = Model.Datasource.DisclaimerLink != null ? Model.Datasource.DisclaimerLink.Url : string.Empty;
+    var cookiePolicyUrl = Model.Datasource.CookiePolicyLink != null ? Model.Datasource.CookiePolicyLink.Url : string.Empty;
+    var cookieSettingsUrl = Model.Datasource.CookieSettingsLink != null ? Model.Datasource.CookieSettingsLink.Url : string.Empty;
 }
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
             <div class="text-center text-md-right">
-                @if (!string.IsNullOrEmpty(Model.EmailLink))
+                @if (!string.IsNullOrEmpty(Model.Datasource.EmailLink))
                 {
-                    <a href="mailto:@Model.EmailLink" class="v-center mr-4 font-weight-bold" id="emailLink">
+                    <a href="mailto:@Model.Datasource.EmailLink" class="v-center mr-4 font-weight-bold" id="emailLink">
                         <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
                             <use xlink:href="#email"></use>
                         </svg>
-                        <span>@Model.EmailText</span>
+                        <span>@Model.Datasource.EmailText</span>
                     </a>
                 }
-                @if (!string.IsNullOrEmpty(Model.PhoneNumberLinkFooter))
+                @if (!string.IsNullOrEmpty(Model.Datasource.PhoneNumberLinkFooter))
                 {
-                    <a href="tel:@Model.PhoneNumberLinkFooter" class="v-center font-weight-bold" id="phoneLinkLower">
+                    <a href="tel:@Model.Datasource.PhoneNumberLinkFooter" class="v-center font-weight-bold" id="phoneLinkLower">
                         <svg class="icon" preserveAspectRatio="none" width="22" height="22" focusable="false" aria-hidden="true">
                             <use xlink:href="#phone"></use>
                         </svg>
-                        <span>@Model.PhoneNumberFooter</span>
+                        <span>@Model.Datasource.PhoneNumberFooter</span>
                     </a>
                 }
             </div>
@@ -37,22 +37,22 @@
                 @if (!string.IsNullOrEmpty(disclaimerUrl))
                 {
                     <div class="col-12 col-md-3 text-center text-md-left mb-2">
-                        <a href="@disclaimerUrl" id="disclaimerLinkUrl" target="_blank">@Model.DisclaimerLink.Text</a>
+                        <a href="@disclaimerUrl" id="disclaimerLinkUrl" target="_blank">@Model.Datasource.DisclaimerLink.Text</a>
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(cookiePolicyUrl))
                 {
                     <div class="col-12 col-md-3 text-center text-md-center mb-2">
-                        <a href="@cookiePolicyUrl" target="_blank">@Model.CookiePolicyLink.Text</a>
+                        <a href="@cookiePolicyUrl" target="_blank">@Model.Datasource.CookiePolicyLink.Text</a>
                     </div>
                 }
                 @if (!string.IsNullOrEmpty(cookieSettingsUrl))
                 {
                     <div class="col-12 col-md-3 text-center text-md-center mb-2">
-                        <a href="@cookieSettingsUrl">@Model.CookieSettingsLink.Text</a>
+                        <a href="@cookieSettingsUrl">@Model.Datasource.CookieSettingsLink.Text</a>
                     </div>
                 }
-                <div class="col-12 col-md-3 text-center text-md-right mb-2">@Model.CopyrightText</div>
+                <div class="col-12 col-md-3 text-center text-md-right mb-2">@Model.Datasource.CopyrightText</div>
             </div>
         </div>
     </div>

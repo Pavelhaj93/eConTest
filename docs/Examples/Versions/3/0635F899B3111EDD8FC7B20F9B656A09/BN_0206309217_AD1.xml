@@ -1,0 +1,122 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD8FC7B20F9B57AA09</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [12.10.2022]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.11.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>12.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.11.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD8FC7B2540E2A2A09</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa plnění|: [Habry, Frýdnava 43, 582 82]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa plnění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Habry, Frýdnava 43, 582 82</NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [Servis plynových spotřebičů]<br />|Platnost nabídky do|: [12.10.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Servis plynových spotřebičů</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>12.10.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Cena servisu rozdělena do měsíčních záloh]<br />|Druhé|: [Zajištění technika v případě poruchy do dvou pracovních dnů]<br />|Třetí|: [Servisní protokol jako standardní výstup každé servisní prohlídky]<br />|Čtvrté|: [Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Cena servisu rozdělena do měsíčních záloh</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Zajištění technika v případě poruchy do dvou pracovních dnů</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Servisní protokol jako standardní výstup každé servisní prohlídky</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>innogy Energie, s.r.o.</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Pavlovická 31 / 30, 772 00 Olomouc - Pavlovičky</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Olomouc</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Pavlovičky</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>772 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Pavlovická</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>31 / 30</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Pavlovická 31 / 30, 772 00 Olomouc</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>20.10.1964</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Olomouc</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Pavlovičky</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>jan.kovarik@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Renáta Zdařilová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>772 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Pavlovická</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>31 / 30</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>innosvět</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>724 153 093</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Zdařilová                                         </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511182175</PERSON_NUMBER>
+        <PERSON_PREMADR>Frýdnava 43, 582 82 Habry</PERSON_PREMADR>
+        <PERSON_PREMCITY>Habry</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Frýdnava</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG500Z0035591U</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300552129</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>582 82</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET></PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>43</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0673EDB7E5F51EDC919C326B78192325</GUID>
+            <ISU_CONTRACT>1000996907</ISU_CONTRACT>
+            <CONTSTART>20211114</CONTSTART>
+            <DATE_TO>20220930</DATE_TO>
+            <STATUS>Založeno</STATUS>
+            <PARTNER>9513601375</PARTNER>
+            <NAME_LAST>Navrátil</NAME_LAST>
+            <NAME_FIRST>Petr</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>02.11.1973</BIRTHDT>
+            <IC></IC>
+            <EMAIL>jarmila.janisova@innogy.cz</EMAIL>
+            <PHONE>606 773 704</PHONE>
+            <EXT_UI>27ZG600Z0708120B</EXT_UI>
+            <VSTELLE>9302680601</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>826000335122</BUAG>
+            <PSC_MS>769 01</PSC_MS>
+            <PSC_ADDR>769 01</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>F</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>010</SEQNR>
+                    <IDATTACH>DST</IDATTACH>
+                    <TEMPLATE>DST</TEMPLATE>
+                    <DESCRIPTION>Smlouva o zajištění služby servis plynových spotřebičů</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM015</TEMPL_ALC_ID>
+                    <PRODUCT>20000160</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8D9C9C595BBF48FA</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>011</SEQNR>
+                    <IDATTACH>DSU</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Informace pro zákazníka – spotřebitele</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000160</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8D9C9C595BBF48FA</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>015</SEQNR>
+                    <IDATTACH>V01</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Ceník</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000160</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD8D9C9C595BBF48FA</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

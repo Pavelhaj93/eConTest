@@ -13,6 +13,8 @@ namespace eContracting.Tests
         public bool ShowDebugMessages { get; }
         public int SessionTimeout { get; }
         public int CognitoMinSecondsToRefreshToken { get; }
+        public int SubmitOfferDelay { get; } = 0;
+        public int CancelOfferDelay { get; } = 0;
 
         public IDefinitionCombinationModel[] GetAllDefinitions()
         {
@@ -89,6 +91,16 @@ namespace eContracting.Tests
             throw new NotImplementedException();
         }
 
+        public IProductInfoModel GetProductInfo(OfferAttachmentModel attachmentModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IProductInfoModel[] GetAllProductInfos()
+        {
+            return new IProductInfoModel[] { };
+        }
+
         public SignApiServiceOptions GetSignApiServiceOptions()
         {
             throw new NotImplementedException();
@@ -99,7 +111,7 @@ namespace eContracting.Tests
             throw new NotImplementedException();
         }
 
-        public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
+        public IStepModel[] GetSteps(IStepModel currentStep)
         {
             throw new NotImplementedException();
         }

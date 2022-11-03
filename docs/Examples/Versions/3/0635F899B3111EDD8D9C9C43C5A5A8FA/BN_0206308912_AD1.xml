@@ -1,0 +1,80 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD8D9C9C595BBF48FA</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [Servis plynových spotřebičů]<br />|Značka kotle|: [Kotel Viessmann - řada 100]<br />|Adresa místa plnění|: [Holešov, U Rusavy 277 / 6, 769 01]<br />|Platnost nabídky do|: [30.09.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Adresa místa plnění</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Servis plynových spotřebičů</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Kotel Viessmann - řada 100</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Holešov, U Rusavy 277 / 6, 769 01</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>30.09.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Cena servisu rozdělena do měsíčních záloh]<br />|Druhé|: [Zajištění technika v případě poruchy do dvou pracovních dnů]<br />|Třetí|: [Servisní protokol jako standardní výstup každé servisní prohlídky]<br />|Čtvrté|: [Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Cena servisu rozdělena do měsíčních záloh</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Zajištění technika v případě poruchy do dvou pracovních dnů</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Servisní protokol jako standardní výstup každé servisní prohlídky</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>U Rusavy 277 / 6, 769 01 Holešov</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Holešov</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Holešov</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>769 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>U Rusavy</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>277 / 6</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>U Rusavy 277 / 6, 769 01 Holešov</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>02.11.1973</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Holešov</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Holešov</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>jarmila.janisova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Petr Navrátil</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>769 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>U Rusavy</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>277 / 6</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK></PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>606 773 704</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Navrátile                                         </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichsLtveXz7xMZwEaLk7Ke9WJoMoVyY2PyVz1</PERSON_MMB_URL>
+        <PERSON_NUMBER>9513601375</PERSON_NUMBER>
+        <PERSON_PREMADR>U Rusavy 277 / 6, 769 01 Holešov</PERSON_PREMADR>
+        <PERSON_PREMCITY>Holešov</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Holešov</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG600Z0708120B</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302680601</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>769 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>U Rusavy</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>277 / 6</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH>X</USER_ATTACH>
+    </parameters>
+</form>

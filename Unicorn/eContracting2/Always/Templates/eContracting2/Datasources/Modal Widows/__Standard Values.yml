@@ -1,0 +1,27 @@
+﻿---
+ID: "f71ced1e-e657-47dc-8892-6841a0ac6385"
+Parent: "bc9ab4f0-633e-4be4-8520-e37fa2fe2a84"
+Template: "bc9ab4f0-633e-4be4-8520-e37fa2fe2a84"
+Path: /sitecore/templates/eContracting2/Datasources/Modal Widows/__Standard Values
+DB: master
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Type: TreelistEx
+  Value: |
+    {F0DDBD64-C980-4A16-AF12-4A5BA63DCDAB}
+    {3DCA57C1-AACA-496F-9368-5F42DA5FB244}
+    {64A979C7-3F85-49C5-A53C-93CE66A68DA5}
+    {97B25FDB-9468-47B3-8053-D4F758EC5E5F}
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220909T124620Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin

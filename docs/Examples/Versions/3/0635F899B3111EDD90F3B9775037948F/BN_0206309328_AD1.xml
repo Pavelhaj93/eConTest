@@ -1,0 +1,177 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_1>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Karta<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL_1>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EDD90F3B9BEFEDAD48F</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID_1>0635F899B3111EDD90F3B9BEFEE1B48F</ADD_SERVICES_ACCEPT_LABEL_GUID_1>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [03.11.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_1>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [19.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY_1>
+        <ADD_SERVICES_OFFER_SUMMARY_1_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_1_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_1_ATRIB_VALUE>19.10.2022</ADD_SERVICES_OFFER_SUMMARY_1_ATRIB_VALUE>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>03.11.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_PRODUCT_1>INNOGY_KARTA</ADD_SERVICES_PRODUCT_1>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_1>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Objednejte si kartu plnou slev]<br />|Druhé|: [Ušetřete za vstupné do kina, lyžování nebo dovolenou]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS_1>
+        <ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_NAME_1>Druhé</ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_NAME_1>
+        <ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE>Objednejte si kartu plnou slev</ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE>
+        <ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE_1>Ušetřete za vstupné do kina, lyžování nebo dovolenou</ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE_1>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD90F3B9775029F48F</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [19.10.2022]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [06.11.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>19.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>06.11.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD90F3B9EE790C148F</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa plnění|: [Libchavy, Dolní Libchavy 277, 561 16]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa plnění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Libchavy, Dolní Libchavy 277, 561 16</NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Značka kotle|: [Kotel Viessmann - řada 100]<br />|Platnost nabídky do|: [19.10.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Kotel Viessmann - řada 100</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>19.10.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Pravidelná roční údržba vašeho kotle.]<br />|Druhé|: [Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.]<br />|Třetí|: [Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Pravidelná roční údržba vašeho kotle.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Hýsly 6, 696 50 Hýsly</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Hýsly</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Hýsly</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>696 50</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET></PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>6</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Hýsly 6, 696 50 Hýsly</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>19.03.1961</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Hýsly</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Hýsly</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>jarmila.janisova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Vlastimila Hlavinková</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>696 50</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET></PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>6</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>776 712 540</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Hlavinková                                        </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichN8pyAs3mA9ymGSvP2fxk18Xt53vcmJe6Eo</PERSON_MMB_URL>
+        <PERSON_NUMBER>9512866400</PERSON_NUMBER>
+        <PERSON_PREMADR>Dolní Libchavy 277, 561 16 Libchavy</PERSON_PREMADR>
+        <PERSON_PREMCITY>Libchavy</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Dolní Libchavy</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG500Z0023364K</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300551818</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>561 16</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET></PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>277</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

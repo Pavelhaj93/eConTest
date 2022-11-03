@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+using System.Diagnostics.CodeAnalysis;
 using eContracting.Models;
 using Glass.Mapper.Sc;
-using Glass.Mapper.Sc.Web;
-using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 using Sitecore.Rules;
@@ -48,17 +42,24 @@ namespace eContracting.Website.Rules.Conditions
 
         protected readonly IDataRequestCacheService CacheService;
         protected readonly ISitecoreService SitecoreService;
+        protected readonly IContextWrapper ContextWrapper;
 
+        [ExcludeFromCodeCoverage]
         public WhenOfferHasSpecificProcessCondition() : this(
             ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
+            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>())
         {
         }
 
-        public WhenOfferHasSpecificProcessCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        public WhenOfferHasSpecificProcessCondition(
+            IDataRequestCacheService cacheService,
+            ISitecoreService sitecoreService,
+            IContextWrapper contextWrapper)
         {
             this.CacheService = cacheService;
             this.SitecoreService = sitecoreService;
+            this.ContextWrapper = contextWrapper;
         }
 
         /// <summary>
@@ -77,11 +78,11 @@ namespace eContracting.Website.Rules.Conditions
                 {
                     return false;
                 }
+                
+                var guid = this.ContextWrapper.GetQueryValue(Constants.QueryKeys.GUID);
+                var offer = this.CacheService.GetOffer(guid);
 
-                var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
-                var user = this.CacheService.GetOffer(guid);
-
-                if (user == null)
+                if (offer == null)
                 {
                     return false;
                 }
@@ -93,7 +94,7 @@ namespace eContracting.Website.Rules.Conditions
                     return false;
                 }
 
-                return user.Process == process.Code;
+                return offer.Process == process.Code;
             }
             catch (Exception ex)
             {

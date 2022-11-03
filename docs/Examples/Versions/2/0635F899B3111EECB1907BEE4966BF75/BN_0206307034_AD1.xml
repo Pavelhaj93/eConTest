@@ -1,0 +1,76 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECB1907BEE49543F75</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Optimal]<br />|Platnost nabídky do|: [31.12.2024]<br />|Délka fixace|: [36 měsíců od účinnosti dodatku]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [01.01.2025 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Optimal</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>31.12.2024</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>36 měsíců od účinnosti dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.01.2025 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_OPTIMAL2</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Optimal</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [naše ceny energií i smlouvy jsou závazné]<br />|Druhé|: [garance cenového snížení v průběhu trvání smlouvy]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>naše ceny energií i smlouvy jsou závazné</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garance cenového snížení v průběhu trvání smlouvy</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Karvinská 1275 / 37, 736 01 Havířov - Město</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Havířov</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Město</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>736 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Karvinská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1275 / 37</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Karvinská 1275 / 37, 736 01 Havířov</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>22.02.1960</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Havířov</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Město</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>renata.jeziorska@seznam.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Renata Jeziorská</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>736 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Karvinská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1275 / 37</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Papírový tisk</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>605 918 191</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Jeziorská                                         </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511328318</PERSON_NUMBER>
+        <PERSON_PREMADR>Karvinská 1275 / 37, 736 01 Havířov</PERSON_PREMADR>
+        <PERSON_PREMCITY>Havířov</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Město</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z00501366</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300691013</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>736 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Karvinská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1275 / 37</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

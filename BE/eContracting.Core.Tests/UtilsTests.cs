@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using eContracting.Models;
 using eContracting.Services;
 using eContracting.Tests;
+using Moq;
 using Xunit;
 
 namespace eContracting.Core.Tests
@@ -150,9 +151,9 @@ namespace eContracting.Core.Tests
             var offerId = Guid.NewGuid();
             var loginTypeId = Guid.NewGuid();
 
-            var loginType = new MemoryLoginTypeModel();
-            loginType.ID = loginTypeId;
-
+            var mockLoginType = new Mock<ILoginTypeModel>();
+            mockLoginType.SetupProperty(x => x.ID, loginTypeId);
+            var loginType = mockLoginType.Object;
             var offer = this.CreateOffer();
 
             var result = Utils.GetUniqueKey(loginType, offer);
@@ -170,8 +171,9 @@ namespace eContracting.Core.Tests
             var offerId = new Guid(offerGuid);
             var loginTypeId = new Guid(login);
 
-            var loginType = new MemoryLoginTypeModel();
-            loginType.ID = loginTypeId;
+            var mockLoginType = new Mock<ILoginTypeModel>();
+            mockLoginType.SetupProperty(x => x.ID, loginTypeId);
+            var loginType = mockLoginType.Object;
 
             var offer = this.CreateOffer(offerId);
             var result = Utils.GetUniqueKey(loginType, offer);
@@ -187,43 +189,18 @@ namespace eContracting.Core.Tests
 
             var offer = this.CreateOffer(offerId);
 
-            Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((MemoryLoginTypeModel)null, offer); });
+            Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey((ILoginTypeModel)null, offer); });
         }
 
         [Fact(DisplayName = "Throws ArgumentNullException when OfferModel is empty")]
         [Trait("Utils", "GetUniqueKey")]
         public void GetUniqueKey_Throws_ArgumentNullException_When_Offer_Null()
         {
-            var loginType = new MemoryLoginTypeModel();
-            loginType.ID = Guid.NewGuid();
+            var mockLoginType = new Mock<ILoginTypeModel>();
+            mockLoginType.SetupProperty(x => x.ID, Guid.NewGuid());
+            var loginType = mockLoginType.Object;
 
             Assert.Throws<ArgumentNullException>(() => { Utils.GetUniqueKey(loginType, (OfferModel)null); });
-        }
-
-        [Theory(DisplayName = "Return unmodified input text")]
-        [Trait("Utils", "GetReplacedTextTokens")]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void GetReplacedTextTokens_Returns_Not_Modified_Given_Text_Because_Text_Is_Empty(string text)
-        {
-            var dic = new Dictionary<string, string>();
-
-            var result = Utils.GetReplacedTextTokens(text, dic);
-
-            Assert.Equal(text, result);
-        }
-
-        [Fact(DisplayName = "Do NOT replace {text} token when value doesn't exist")]
-        [Trait("Utils", "GetReplacedTextTokens")]
-        public void GetReplacedTextTokens_Returns_Not_Modified_Given_Text_With_Input_Dictionary_Is_Null()
-        {
-            var expected = "Hello {FIRSTNAME}";
-            Dictionary<string, string> dic = null;
-
-            var result = Utils.GetReplacedTextTokens(expected, dic);
-
-            Assert.Equal(expected, result);
         }
 
         [Fact(DisplayName = "Replace {text} token with real value")]
@@ -325,5 +302,58 @@ namespace eContracting.Core.Tests
             Assert.Equal(3, result.Length);
             Assert.Equal("third", result.Last());
         }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void StripHtml_Returns_Original_Input_When_Empty(string input)
+        {
+            var result = Utils.StripHtml(input);
+
+            Assert.Equal(input, result);
+        }
+
+        [Theory]
+        [InlineData("<span>clean</span>", "clean")]
+        [InlineData("<span>cl<strong>e</strong>an</span>", "clean")]
+        public void StripHtml_Returns_Input_Without_Html(string input, string stripped)
+        {
+            var result = Utils.StripHtml(input);
+            Assert.Equal(stripped, result);
+        }
+
+        [Fact]
+        public void GetNonEmptyStringOrNull_Returns_Null_When_Input_Null()
+        {
+            var result = Utils.GetNonEmptyStringOrNull((string)null);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetNonEmptyStringOrNull_Returns_Null_When_Input_Empty(string input)
+        {
+            var result = Utils.GetNonEmptyStringOrNull(input);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("<u></u>")]
+        [InlineData("<u> </u>")]
+        [InlineData("<u>&nbsp;</u>")]
+        [InlineData("<div style=\"color: red\"></div>")]
+        [InlineData("<div style=\"color: red\"> </div>")]
+        [InlineData("<div style=\"color: red\">&nbsp;</div>")]
+        public void GetNonEmptyStringOrNull_Returns_Null_When_Input_Is_Empty_Html(string input)
+        {
+            var result = Utils.GetNonEmptyStringOrNull(input);
+
+            Assert.Null(result);
+        }
     }
 }
+

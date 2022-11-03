@@ -55,15 +55,21 @@ Returns JSON in shape of `NewOfferResponse`. Check `@types/Offer.ts` for more de
 
 Returns PNG image.
 
+#### `GET` /api/summary
+
+Returns JSON in shape of `SummaryResponse`. Check `@types/Summary.ts` for more details.
+
 #### `POST` /api/upload-document/{groupId}
 
 Request body params:
+
 - `file` - an actual file
 - `key` - unique key of the uploading file
 
 Params need to be sent as `FormData`.
 
 Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when upload is successful, `400` when fails.
+
 ```json
 {
   "id": "4310a9b78dbb4b2fbf77c1502f420ecb", // group identifier
@@ -89,6 +95,7 @@ Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is ret
 #### `DELETE` /api/remove-document/{groupId}
 
 Query string params:
+
 - `f` - unique key of the file
 
 Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is returned when removal of the file is successful, `400` when fails.
@@ -96,6 +103,7 @@ Returns JSON in shape of `UploadDocumentResponse`. HTTP status code `200` is ret
 #### `POST` /api/sign-document/{key}
 
 Request body params:
+
 - `signature` - PNG representation of signature encoded as base64 (string)
 
 HTTP status code `200` is returned when sign process is successful, `400` when fails.
@@ -103,6 +111,7 @@ HTTP status code `200` is returned when sign process is successful, `400` when f
 #### `POST` /api/offer/accept
 
 Request body JSON:
+
 ```json
 {
   "accepted": [], // array of keys

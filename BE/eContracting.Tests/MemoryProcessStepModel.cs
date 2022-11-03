@@ -7,7 +7,7 @@ using eContracting.Models;
 
 namespace eContracting.Tests
 {
-    public class MemoryProcessStepModel : IProcessStepModel
+    public class MemoryProcessStepModel : IStepModel
     {
         public string Label { get; set; }
         public bool IsSelected { get; set; }

@@ -13,6 +13,7 @@ $color-blue-green-dark: #005f69;
 $color-blue-green-light: #009ba5;
 $color-green: #64b42d;
 $color-green-dark: #00875a;
+$color-green-cmb: #7ab144;
 $color-yellow: #fff0d9;
 $color-black: #1a1a18;
 $color-white: #fff;
@@ -39,6 +40,7 @@ $colors: (
   'blue-green-light': $color-blue-green-light,
   'green': $color-green,
   'green-dark': $color-green-dark,
+  'green-cmb': $color-green-cmb,
   'yellow': $color-yellow,
   'gray-5': $color-gray-5,
   'gray-10': $color-gray-10,
@@ -48,6 +50,7 @@ $colors: (
   'gray-80': $color-gray-80,
   'gray-100': $color-gray-100,
   'white': $color-white,
+  'black': $color-black,
 );
 
 $transition-duration: 0.2s;

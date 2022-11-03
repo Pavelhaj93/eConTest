@@ -30,8 +30,11 @@ namespace eContracting.Models
         /// Gets the version of the offer.
         /// </summary>
         /// <remarks>
-        ///     1 - old offer without bus process type and with text parameters
-        ///     2 - new offer with bus process type and 
+        ///     <list type="table">
+        ///         <item>1 - old offer without bus process type and with text parameters</item>
+        ///         <item>2 - new offer MODELO_OFERTA = 01</item>
+        ///         <item>3 - new offer MODELO_OFERTA = 02</item>
+        ///     </list>
         /// </remarks>
         [JsonProperty("version")]
         public readonly int Version;
@@ -53,6 +56,9 @@ namespace eContracting.Models
         /// </summary>
         [JsonProperty("accepted")]
         public bool IsAccepted { get; }
+
+        [JsonProperty("expiration_date")]
+        public DateTime ExpirationDate { get; }
 
         /// <summary>
         /// Gets a value indicating whether offer already expired.
@@ -230,6 +236,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets value of BUS_PROCESS.
+        /// </summary>
         [JsonProperty("process")]
         public string Process
         {
@@ -239,6 +248,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets value of BUS_TYPE.
+        /// </summary>
         [JsonProperty("process_type")]
         public string ProcessType
         {
@@ -300,11 +312,45 @@ namespace eContracting.Models
             }
         }
 
+        public string RegistrationLink
+        {
+            get
+            {
+                if (this.TextParameters.HasValue("PERSON_MMB_URL"))
+                {
+                    return this.TextParameters["PERSON_MMB_URL"];
+                }
+
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Determinates if user can cancel the offer.
+        /// </summary>
+        [JsonProperty("cancelable")]
+        public bool CanBeCanceled
+        {
+            get
+            {
+                return this.Process == "01" && this.Attributes.Any(x => x.Key == Constants.OfferAttributes.ORDER_ORIGIN && x.Value == "2");
+            }
+        }
+
+        [JsonProperty("show_prices")]
+        public bool ShowPrices
+        {
+            get
+            {
+                return !this.Attributes.Any(x => x.Key == Constants.OfferAttributes.NO_PROD_CHNG && x.Value == Constants.CHECKED);
+            }
+        }
+
         /// <summary>
         /// Attributes from the offer.
         /// </summary>
         [JsonIgnore]
-        protected readonly OfferAttributeModel[] Attributes;
+        public readonly OfferAttributeModel[] Attributes;
 
         /// <summary>
         /// Header values from the offer.
@@ -332,7 +378,7 @@ namespace eContracting.Models
         /// attributes
         /// </exception>
         /// <exception cref="ArgumentException">Inner content of {nameof(xml)} cannot be null</exception>
-        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, bool isAccepted, bool isExpired, OfferAttributeModel[] attributes)
+        public OfferModel(OfferXmlModel xml, int version, OfferHeaderModel header, bool isAccepted, bool isExpired, DateTime expirationDate, OfferAttributeModel[] attributes)
         {
             if (xml == null)
             {
@@ -348,6 +394,7 @@ namespace eContracting.Models
             this.Version = version;
             this.Header = header ?? throw new ArgumentNullException(nameof(header));
             this.IsAccepted = isAccepted;
+            this.ExpirationDate = expirationDate;
             this.IsExpired = isExpired;
             this.Attributes = attributes ?? throw new ArgumentNullException(nameof(attributes));
         }

@@ -13,10 +13,9 @@ namespace eContracting.Models
         public string Title { get; set; }
 
         [JsonProperty("params")]
-        public JsonArgumentModel[] Params { get; set; }
+        public IEnumerable<JsonArgumentModel> Arguments { get; set; } = Enumerable.Empty<JsonArgumentModel>();
 
-        [JsonProperty("commodityProductType")]
-        public string CommodityProductType { get; set; }
-
+        [JsonProperty("commodityProductType", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public virtual string CommodityProductType { get; set; }
     }
 }

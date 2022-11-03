@@ -19,6 +19,7 @@ import '@icons/exclamation-mark-circle.svg'
 import '@icons/gift.svg'
 import '@icons/info-circle.svg'
 import '@icons/info-inversed-circle.svg'
+import '@icons/innogy_logo.svg'
 import '@icons/key.svg'
 import '@icons/leaf-circle.svg'
 import '@icons/logo.svg'
@@ -36,7 +37,7 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'key' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'power-on-off' | 'question-mark' | 'refresh' | 'speaker-circle' | 'voucher-100'
+export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'innogy_logo' | 'key' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'power-on-off' | 'question-mark' | 'refresh' | 'speaker-circle' | 'voucher-100'
 
 type IconProps = {
   name: IconName,

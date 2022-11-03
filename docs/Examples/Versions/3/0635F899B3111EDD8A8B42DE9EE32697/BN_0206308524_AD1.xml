@@ -1,0 +1,77 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD8A8B42DE9EF1A697</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Standard]<br />|Platnost nabídky do|: [14.09.2022]<br />|Délka fixace|: [Bez fixace - Dodatek na dobu neurčitou]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [31.03.2024 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>14.09.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Dodatek na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>31.03.2024 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku]<br />|Druhé|: [pro nové smlouvy finanční odměna dle Ceníku služeb]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>pro nové smlouvy finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Dukelských bojovníků 2874 / 145, 671 81 Znojmo</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Znojmo</PERSON_CORCITY>
+        <PERSON_CORCITY_PART></PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>671 81</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Dukelských bojovníků</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2874 / 145</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Dukelských bojovníků 2874 / 145, 671 81 Znojmo</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>15.07.1949</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Znojmo</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART></PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL></PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Marie Vrtná</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>671 81</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Dukelských bojovníků</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2874 / 145</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Papírový tisk</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>605 006 604</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Vrtná                                             </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511683242</PERSON_NUMBER>
+        <PERSON_PREMADR>Dukelských bojovníků 2874 / 145, 671 81 Znojmo</PERSON_PREMADR>
+        <PERSON_PREMCITY>Znojmo</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Znojmo</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG600Z0249507U</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301211733</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>671 81</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Dukelských bojovníků</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>2874 / 145</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Services;
+using Sitecore.Data;
+using Sitecore.Data.Items;
+using Sitecore.Globalization;
 
 namespace eContracting.Tests
 {
@@ -60,7 +65,7 @@ namespace eContracting.Tests
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
             var offerHeader = new OfferHeaderModel("NABIDKA", guid, state, validTo);
-            var offer = new OfferModel(offerXml, version, offerHeader, isAccepted, false, attributes ?? new OfferAttributeModel[] { });
+            var offer = new OfferModel(offerXml, version, offerHeader, isAccepted, false, DateTime.Now.AddDays(1), attributes ?? new OfferAttributeModel[] { });
             return offer;
         }
 
@@ -111,6 +116,7 @@ namespace eContracting.Tests
         public CognitoSettingsModel CreateCognitoSettings()
         {
             string cognitoBaseUrl = "http://cognito.amazon.com";
+            string cognitoTokensUrl = "http://cognito-tokens.amazon.com";
             string cognitoClientId = "jfm40b2mlsagh822g"; 
             string cognitoCookiePrefix = "CognitoCookie"; 
             string cognitoCookieUser = "LastAuthUser"; 
@@ -119,7 +125,7 @@ namespace eContracting.Tests
             string innogyRegistrationUrl = "http://test.innogy.cz/registration";
             string innogyDashboardUrl = "http://test.innogy.cz/dashboard";
 
-            var model = new CognitoSettingsModel(cognitoBaseUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
+            var model = new CognitoSettingsModel(cognitoBaseUrl, cognitoTokensUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
             return model;
         }
 
@@ -153,6 +159,26 @@ namespace eContracting.Tests
             }.ToArray();
             model.Username = "ae974d48-7307-4228-a623-3ce3a1070093";
             return model;
+        }
+
+        public Item CreateItem(ID id)
+        {
+            var itemDefinition = new ItemDefinition(id, "item", ID.NewID, ID.NewID);
+            var itemData = new ItemData(itemDefinition, Language.Parse("en"), Sitecore.Data.Version.First, new FieldList());
+            var item = new Item(id, itemData, new MemoryDatabase());
+            return item;
+        }
+
+        public ZCCH_ST_FILE CreateRootFile()
+        {
+            string content = "<?xml version=\"1.0\"?><asx:abap xmlns:asx=\"http://www.sap.com/abapxml\" version=\"1.0\"><Nabidka><Header/><Body><GUID>0635F899B3111EED8C8B323695A6A453</GUID><ISU_CONTRACT></ISU_CONTRACT><CONTSTART>20221001</CONTSTART><DATE_TO>20220924</DATE_TO><STATUS>Uvolněno</STATUS><PARTNER>9513257699</PARTNER><NAME_LAST>Pechánek</NAME_LAST><NAME_FIRST>Lukáš</NAME_FIRST><NAME_ORG1></NAME_ORG1><BIRTHDT>11.05.1984</BIRTHDT><IC></IC><EMAIL>pechaneklukas@seznam.cz</EMAIL><PHONE>775633873</PHONE><EXT_UI>27ZG500Z0256975I</EXT_UI><VSTELLE>9300338163</VSTELLE><ANLAGE></ANLAGE><BUAG>826000848849</BUAG><PSC_MS>503 11</PSC_MS><PSC_ADDR>503 11</PSC_ADDR><ACCOUNT_NUMBER></ACCOUNT_NUMBER><GUID_GDPR></GUID_GDPR><BUS_PROCESS>02</BUS_PROCESS><BUS_TYPE>L</BUS_TYPE><Attachments>    <Template><SEQNR>001</SEQNR><IDATTACH>EPO</IDATTACH><TEMPLATE>EPO</TEMPLATE><DESCRIPTION>Informace pro zákazníka – spotřebitele</DESCRIPTION><OBLIGATORY></OBLIGATORY><PRINTED>X</PRINTED><SIGN_REQ></SIGN_REQ><TMST_REQ></TMST_REQ><ADDINFO></ADDINFO><TEMPL_ALC_ID>CRM046E</TEMPL_ALC_ID><PRODUCT>G_START12</PRODUCT><GROUP>COMMODITY</GROUP><GROUP_OBLIGATORY>X</GROUP_OBLIGATORY><ITEM_GUID>0635F899B3111EED8C8B323695A6A453</ITEM_GUID><CONSENT_TYPE>S</CONSENT_TYPE></Template></Attachments></Body></Nabidka></asx:abap>";
+            
+            var rootFile = new ZCCH_ST_FILE();
+            rootFile.MIMETYPE = "text/xml";
+            rootFile.FILENAME = "BN_0206308752.xml";
+            rootFile.FILECONTENT = Encoding.ASCII.GetBytes(content);
+            
+            return rootFile;
         }
     }
 }

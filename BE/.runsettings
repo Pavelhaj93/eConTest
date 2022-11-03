@@ -36,6 +36,9 @@ Included items must then not match any entries in the exclude list to remain inc
                                 <ModulePath>.*\.tests\.dll$</ModulePath>
                                 <ModulePath>.*glass.*</ModulePath>
                                 <ModulePath>.*xunit.*</ModulePath>
+                                <ModulePath>^microsoft.*</ModulePath>
+                                <ModulePath>^system.*</ModulePath>
+                                <ModulePath>moq.dll</ModulePath>
                             </Exclude>
                         </ModulePaths>
 
@@ -47,7 +50,6 @@ Included items must then not match any entries in the exclude list to remain inc
                                 <Function>^xunit.*</Function>
                                 <Function>^eContracting\.Models\..*</Function>
                                 <Function>^eContracting\.Storage\..*</Function>
-                                <Function>^eContracting\.Website\.Areas\.eContracting\..*</Function>
                                 <Function>^eContracting\.Website\.App_Start\..*</Function>
                                 <Function>^eContracting\.Website\.Areas\.eContracting2\.Models\..*</Function>
                             </Exclude>

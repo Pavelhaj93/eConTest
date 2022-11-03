@@ -1,0 +1,30 @@
+﻿---
+ID: "d05aea30-5b68-46d7-bb8c-58e0c104bf7c"
+Parent: "3dca57c1-aaca-496f-9368-5f42da5fb244"
+Template: "3dca57c1-aaca-496f-9368-5f42da5fb244"
+Path: /sitecore/templates/eContracting2/Datasources/Accept Offer Modal Dialog/__Standard Values
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "253de93f-16b7-4514-8e14-88aeec14d33a"
+      Hint: Title
+      Value: Potvrzení akceptace
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220916T141322Z
+    - ID: "4bc14de7-b277-400b-bf04-89004a07deb7"
+      Hint: CancelButtonLabel
+      Value: Storno
+    - ID: "70992114-dd55-4c9c-8fc3-43fb73730368"
+      Hint: Text
+      Value: |
+        Pro konečný a závazný projev Vaší vůle, prosím, stiskněte tlačítko "Potvrdit". Pokud si přejete vrátit se zpět, stiskněte tlačítko "Storno".
+    - ID: "7414935c-b421-43a7-9ddc-fda21484a31e"
+      Hint: CancelOfferLabel
+      Value: Anulovat nabídku
+    - ID: "f83ca1a4-e437-42de-b4c8-24be483eafce"
+      Hint: GeneralErrorMessage
+      Value: Nabídku se nepodařilo odeslat, zkuste to prosím znovu.

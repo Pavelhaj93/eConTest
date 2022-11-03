@@ -355,7 +355,7 @@ namespace eContracting.Services.Tests
             offerXml.Content.Body = new OfferBodyXmlModel();
             offerXml.Content.Body.Attachments = new[] { template };
             var offerHeader = new OfferHeaderModel("NABIDKA", guid, "3", "04.01.2021");
-            var offer = new OfferModel(offerXml, 1, offerHeader, false, false, new OfferAttributeModel[] { });
+            var offer = new OfferModel(offerXml, 1, offerHeader, false, false, DateTime.Now.AddDays(1), new OfferAttributeModel[] { });
 
             var attr1 = new ZCCH_ST_ATTRIB();
             attr1.ATTRID = Constants.FileAttributes.TYPE;

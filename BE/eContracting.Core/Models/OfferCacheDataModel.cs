@@ -45,6 +45,8 @@ namespace eContracting.Models
 
         public readonly string GdprIdentity;
 
+        public readonly string RegistrationLink;
+
         /// <summary>
         /// The text parameters from offer.
         /// </summary>
@@ -64,11 +66,13 @@ namespace eContracting.Models
             this.State = offer.State;
             this.Birthday = offer.Birthday;
             this.GdprIdentity = offer.GdprIdentity;
+            this.RegistrationLink = offer.RegistrationLink;
 
             if (offer.TextParameters != null)
             {
                 this.TextParameters = offer.TextParameters;
             }
+
         }
 
         /// <summary>

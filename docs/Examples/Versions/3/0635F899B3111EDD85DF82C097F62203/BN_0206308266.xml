@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0635F899B3111EDD85DF82C09804A203</GUID>
+            <ISU_CONTRACT>8170119557</ISU_CONTRACT>
+            <CONTSTART>20220808</CONTSTART>
+            <DATE_TO>20220808</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9513243920</PARTNER>
+            <NAME_LAST>Samešová</NAME_LAST>
+            <NAME_FIRST>Jana</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>27.10.1948</BIRTHDT>
+            <IC></IC>
+            <EMAIL>jan.sames@gmail.com</EMAIL>
+            <PHONE>739 536 906</PHONE>
+            <EXT_UI>859182400891447477</EXT_UI>
+            <VSTELLE>9302500810</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>813000016486</BUAG>
+            <PSC_MS>321 00</PSC_MS>
+            <PSC_ADDR>323 00</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>01</BUS_PROCESS>
+            <BUS_TYPE>A</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>003</SEQNR>
+                    <IDATTACH>ELH</IDATTACH>
+                    <TEMPLATE>A10</TEMPLATE>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <PRODUCT>STAVAJICI_PROD_EE</PRODUCT>
+                    <GROUP>COMMODITY</GROUP>
+                    <GROUP_OBLIGATORY></GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD85DF82C09804A203</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

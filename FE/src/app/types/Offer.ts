@@ -14,6 +14,12 @@ export enum CommodityProductType {
   GAS = 'G',
 }
 
+export type SectionInfo = {
+  text: string
+  title: string
+  note: string
+}
+
 export type OfferDocument = {
   label: string
   prefix: string
@@ -22,6 +28,7 @@ export type OfferDocument = {
   accepted: boolean
   mime: string
   group: string
+  note: string
 }
 
 export type Group = {
@@ -83,6 +90,8 @@ export type AcceptanceDocuments = {
     mandatoryGroups: string[]
     files: OfferDocument[]
   } | null
+  /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
+  sectionInfo: SectionInfo
 }
 
 export type UploadDocuments = {
@@ -105,6 +114,8 @@ export type OtherDocuments = {
     files: OfferDocument[]
     note: string
     text: string
+    /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
+    sectionInfo: SectionInfo
   }
   services?: {
     title: string
@@ -119,6 +130,8 @@ export type OtherDocuments = {
     mandatoryGroups: string[]
     files: OfferDocument[]
     note?: string
+    /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
+    sectionInfo: SectionInfo
   }
 }
 
@@ -126,6 +139,7 @@ export type OfferDocuments = {
   acceptance?: AcceptanceDocuments | null
   uploads?: UploadDocuments | null
   other?: OtherDocuments | null
+  description?: string | ''
 }
 
 export type AcceptanceGroup = {

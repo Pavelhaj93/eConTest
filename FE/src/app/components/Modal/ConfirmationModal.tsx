@@ -12,11 +12,13 @@ type Props = {
   show: boolean
   labels: Record<string, any>
   onClose: () => void
+  openUnfinishedModal?: () => void
   thankYouPageUrl: string
+  cancelDialog?: boolean
 }
 
 export const ConfirmationModal: React.FC<Props> = observer(
-  ({ show, labels, onClose, thankYouPageUrl }) => {
+  ({ show, labels, onClose, thankYouPageUrl, cancelDialog, openUnfinishedModal }) => {
     const [error, setError] = useState(false)
     const t = useLabels(labels)
     const store = useContext(OfferStoreContext)
@@ -98,21 +100,26 @@ export const ConfirmationModal: React.FC<Props> = observer(
             dangerouslySetInnerHTML={{ __html: t('acceptanceModalText') }}
           />
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={handleAcceptOffer}
-            disabled={store.isAccepting}
-          >
-            {t('acceptanceModalAccept')}
-          </Button>
-          <Button
-            variant="outline-dark"
-            onClick={onClose}
-            disabled={store.isAccepting}
-          >
-            {t('acceptanceModalCancel')}
-          </Button>
+        <Modal.Footer className="flex-column">
+          <div>
+            <Button variant="secondary" onClick={handleAcceptOffer} disabled={store.isAccepting}>
+              {t('acceptanceModalAccept')}
+            </Button>
+            <Button
+              className="ml-3"
+              variant="outline-dark"
+              onClick={onClose}
+              disabled={store.isAccepting}
+            >
+              {t('acceptanceModalCancel')}
+            </Button>
+          </div>
+          {/* If a user wants to start again, the following button will be visible */}
+          {cancelDialog && openUnfinishedModal && (
+            <Button variant="link" type="submit" onClick={openUnfinishedModal}>
+              {t('cancelOffer')}
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     )

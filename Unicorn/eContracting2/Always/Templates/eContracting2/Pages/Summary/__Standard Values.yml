@@ -1,0 +1,53 @@
+﻿---
+ID: "13e21d53-9a6f-45bb-8ba3-aea7b580c73e"
+Parent: "f6909b18-2f78-459b-866b-3cc82f308ba7"
+Template: "f6909b18-2f78-459b-866b-3cc82f308ba7"
+Path: /sitecore/templates/eContracting2/Pages/Summary/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{70E787BF-0866-4C37-A7B3-67EA0502B3C8}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:id="{40D077BA-F944-47C6-A0C3-988649B7231E}"
+              s:ph="eContracting2Main" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
+    - ID: "1a773b71-bd13-493b-9677-09a85f92e378"
+      Hint: ButtonContinueLabel
+      Value: Pokračovat
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220509T120809Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "9895210f-20e4-4444-9dfb-b3f58e8d6407"
+      Hint: DistributorChange_Text
+      Value: |
+        V případě, že jste podepsal smlouvu více obchodníkům (případně je obchodník neznámý), klikněte prosím níže na tlačítko "Zavolejte mi" a využijte pomoci našich specialistů, kteří s vámi vše zdarma vyřídí.
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Nabídka
+    - ID: "a74a8af4-70ab-4537-bd04-e53bc943f747"
+      Hint: DistributorChange_Title
+      Value: Níže je uveden obchodník, kterému innogy zašle výpověď

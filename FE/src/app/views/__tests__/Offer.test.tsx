@@ -235,7 +235,7 @@ describe('Offer view', () => {
     expect(modal).toBeInTheDocument()
   })
 
-  it('allows to accept the offer', async () => {
+  it.skip('allows to accept the offer', async () => {
     const offerResponse = {
       documents: {
         acceptance: {
@@ -280,7 +280,7 @@ describe('Offer view', () => {
     expect(alert).toBeInTheDocument()
   })
 
-  it('renders custom error message from API', async () => {
+  it.skip('renders custom error message from API', async () => {
     const errorMessage = 'Offer is not ready.'
 
     fetch.mockResponseOnce(JSON.stringify({ Message: errorMessage }), {

@@ -12,6 +12,13 @@ namespace eContracting
         public const string TimeStampFormat = "yyyyMMddHHmmss";
         public const string GTMElectricityIdentifier = "8591824";
         public static string FakeOfferGuid => Guid.Empty.ToString("B");
+        public static string RootSitePath = "/sitecore/content/eContracting2";
+        public const string CHECKED = "X";
+
+        /// <summary>
+        /// Used for *_VISIBILITY postfix in text parameters.
+        /// </summary>
+        public const string HIDDEN = "S";
 
         public static class OfferAttributes
         {
@@ -22,11 +29,33 @@ namespace eContracting
             public const string VALID_TO = "VALID_TO";
             public const string ZIDENTITYID = "ZIDENTITYID";
             public const string MCFU_REG_STAT = "MCFU_REG_STAT";
+
+            /// <summary>
+            /// Attribute to determinate if show prices (with value X) or not.
+            /// </summary>
+            public const string NO_PROD_CHNG = "NO_PROD_CHNG";
+            /// <summary>
+            /// Where the offer comes from.
+            /// </summary>
+            /// <remarks>
+            /// Possible values for this attribute:
+            /// <list type="bullet">
+            /// <item>1 = from CRM</item>
+            /// <item>2 = user created the offer by himself</item>
+            /// </list>
+            /// </remarks>
+            public const string ORDER_ORIGIN = "ORDER_ORIGIN";
+
+            /// <summary>
+            /// Different type of offer.
+            /// </summary>
+            public const string OPPORTUNITY = "OPPTACQ";
         }
 
         public static class OfferAttributeValues
         {
             public const string VERSION_2 = "01";
+            public const string VERSION_3 = "02";
         }
 
         public static class OfferDefaults
@@ -62,6 +91,8 @@ namespace eContracting
         public static class FileAttributeValues
         {
             public const string TEXT_PARAMETERS = "AD1";
+            public const string EXTRA_PARAMETERS_E = "CBE";
+            public const string EXTRA_PARAMETERS_P = "CBP";
             public const string SIGN_FILE_IDATTACH = "A10";
             public const string CHECK_VALUE = "X";
             public const string CONSENT_TYPE_P = "P";
@@ -85,6 +116,7 @@ namespace eContracting
             public const string PROCESSES = "/sitecore/content/eContracting2/Settings/Processes";
             public const string PROCESS_TYPES = "/sitecore/content/eContracting2/Settings/ProcessTypes";
             public const string DEFINITIONS = "/sitecore/content/eContracting2/Definitions";
+            public const string PRODUCT_INFOS = "/sitecore/content/eContracting2/Settings/Products";
         }
 
         public static class ErrorCodes
@@ -265,6 +297,7 @@ namespace eContracting
         public static class TemplateIds
         {
             public static ID PageHome { get; } = new ID("{652F8E4F-5A5B-484B-9552-7E1A8650644C}");
+            public static ID PageSummary { get; } = new ID("{F6909B18-2F78-459B-866B-3CC82F308BA7}");
             public static ID PageLogin { get; } = new ID("{C8C58D58-C5D9-47C2-AEF3-F4DEFCA62A2C}");
             public static ID PageLogout { get; } = new ID("{F6611407-BC55-499F-9E03-1E58AC434335}");
             public static ID PageOffer { get; } = new ID("{456D5421-A2DE-42B4-97E6-A42FC243BF10}");
@@ -280,6 +313,17 @@ namespace eContracting
             {
                 var ids = new[] { PageLogin, PageOffer, PageOfferAccepted, PageOfferExpired, PageThankYou };
                 return ids.Contains(templateId);
+            }
+        }
+
+        public static class TemplateFields
+        {
+            public static class Steps
+            {
+                public static ID Step_Default { get; } = new ID("{AA07168B-5469-4E1F-AD6E-A0D05D359327}");
+                public static ID Step_NoLogin { get; } = new ID("{E50A95B7-9FCC-4F81-86AF-8BF2192BE8D4}");
+                public static ID Step_DistributorChange { get; } = new ID("{FAF10978-ADE1-4A95-A937-4DFD1AE90E8F}");
+                public static ID Step_ProductChange { get; } = new ID("{66AB9C32-C130-4793-A0D8-146CDB36FA0A}");
             }
         }
 

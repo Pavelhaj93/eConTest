@@ -7,6 +7,7 @@ using eContracting.Models;
 
 namespace eContracting.Tests
 {
+    [Obsolete]
     public class MemoryProcessModel : IProcessModel
     {
         public string Title { get; set; }

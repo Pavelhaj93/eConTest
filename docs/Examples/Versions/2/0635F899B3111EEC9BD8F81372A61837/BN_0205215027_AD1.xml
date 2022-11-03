@@ -1,0 +1,31 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Plná moc<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEC9BD8F81372B4B837</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_PRODUCT>STAVAJICI_PROD_EE</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>Stávající produkt EE</COMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>Kostelec 35, 588 61 Kostelec</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>27.07.1952</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>milena.machanova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Zdeněk Maštera</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>728 089 957</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Maštero                                           </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9512163445</PERSON_NUMBER>
+        <PERSON_PREMADR>Kostelec 35, 588 61 Kostelec</PERSON_PREMADR>
+        <PERSON_PREMEXT>859182400206997963</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301389467</PERSON_PREMNUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0673EDB7E5F51EEBBBBB32C9302C1C31</GUID>
+            <ISU_CONTRACT>1001938151</ISU_CONTRACT>
+            <CONTSTART>20211201</CONTSTART>
+            <DATE_TO>20221020</DATE_TO>
+            <STATUS>Založeno Změna dodavatele probíhá (OTE)</STATUS>
+            <PARTNER>9510254093</PARTNER>
+            <NAME_LAST>Loskot</NAME_LAST>
+            <NAME_FIRST>Lubor</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>11.02.1956</BIRTHDT>
+            <IC></IC>
+            <EMAIL>petra.kovarova@innogy.cz</EMAIL>
+            <PHONE>739 536 030</PHONE>
+            <EXT_UI>859182400608867246</EXT_UI>
+            <VSTELLE>9302404546</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>823000923777</BUAG>
+            <PSC_MS>293 01</PSC_MS>
+            <PSC_ADDR>293 01</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>I</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>022</SEQNR>
+                    <IDATTACH>DSO</IDATTACH>
+                    <TEMPLATE>DSO</TEMPLATE>
+                    <DESCRIPTION>Smlouva o využívání innogy karty</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM072E</TEMPL_ALC_ID>
+                    <PRODUCT>INNOGY_KARTA</PRODUCT>
+                    <GROUP>DSL</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EED919798DE54E4C3C1</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

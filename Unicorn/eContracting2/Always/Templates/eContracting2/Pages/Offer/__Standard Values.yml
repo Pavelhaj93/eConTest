@@ -10,15 +10,12 @@ SharedFields:
   Value: 
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 1350
+  Value: 600
 Languages:
 - Language: cs
   Versions:
   - Version: 1
     Fields:
-    - ID: "00503bc4-0ff5-48b4-a092-2150a57e622d"
-      Hint: SignModalWindowTitle
-      Value: Podepsat dokument
     - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
       Hint: __Final Renderings
       Type: Layout
@@ -40,62 +37,25 @@ Languages:
     - ID: "0dcae80e-05f3-4a1b-92f2-dd14251e2cb1"
       Hint: GDPRUrl
       Value: "https://test-optin.innogy.cz/auth"
-    - ID: "1ec04110-8160-489b-859a-5f67ca1c1e4b"
-      Hint: ConfirmModalWindowText
-      Value: |
-        Pro konečný a závazný projev Vaší vůle, prosím, stiskněte tlačítko "Potvrdit". Pokud si přejete vrátit se zpět, stiskněte tlačítko "Storno".
-    - ID: "235c8991-f856-451c-9392-1cc9f502f607"
-      Hint: ConfirmModalWindowButtonCancelLabel
-      Value: Storno
-    - ID: "2381303c-38b1-46d5-8e38-bd5b5e64a384"
-      Hint: ConfirmModalWindowGeneralErrorMessage
-      Value: Nabídku se nepodařilo odeslat, zkuste to prosím znovu.
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
       Value: 20200421T112121Z
     - ID: "4542333b-3ec7-4e59-aa7d-a8b62d2ba2e5"
       Hint: AesEncryptVector
       Value: l0W0jlqCwVQrWLSa
-    - ID: "562e864b-65a5-44c8-af25-1b59db2c39ee"
-      Hint: SignModalWindowClose
-      Value: Zavřít
     - ID: "59fa2d18-799f-482d-88e3-c37a37e76444"
       Hint: AesEncryptKey
       Value: oEdvEcn24ofUe3gjXpFHYCd22ygalbXw
-    - ID: "5bcef6b4-0736-4dcb-9df3-0ef0ad0e2cd8"
-      Hint: SignModalWindowNote
-      Value: Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\admin
-    - ID: "671928a1-b83d-454c-919d-bd840dccf133"
-      Hint: SignModalWindowConfirmButtonLabel
-      Value: Potvrdit
-    - ID: "847366db-e81b-45f8-8f3e-928686a5129b"
-      Hint: SignModalWindowThumbnailText
-      Value: Náhled dokumentu k podepsání
-    - ID: "8a4e4893-2fa5-4b2f-a25d-4674bcaa474d"
-      Hint: SignModalWindowClearButtonLabel
-      Value: Smazat
-    - ID: "8a9bd484-f84a-42a1-9b8a-a71a02163709"
-      Hint: SignModalWindowPenArea
-      Value: Zde je podpisová plocha pro váš podpis
-    - ID: "9b6d9082-37d2-42ed-a411-8818829f7262"
-      Hint: SignModalWindowSign
-      Value: Podepsat
+    - ID: "5f47da54-a894-47cd-b382-f9fca25ffba0"
+      Hint: BackToSummaryLinkLabel
+      Value: Zpět na nabídku
+    - ID: "8d060b74-635e-4fe1-83e1-84b3c2f279d5"
+      Hint: StartAgainLinkLabel
+      Value: Začít znovu
     - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
       Hint: PageTitle
       Value: Nabídka
-    - ID: "a4a1f4d2-d1e1-471b-aefe-af5c543de9b2"
-      Hint: ConfirmModalWindowTitle
-      Value: Potvrzení akceptace
-    - ID: "ad5dce56-824b-4fb0-b11a-1dd759ef8d04"
-      Hint: ConfirmModalWindowButtonAcceptLabel
-      Value: Potvrdit
-    - ID: "b73d03a3-0e48-48ab-987d-020515e9270e"
-      Hint: SignModalWindowText
-      Value: "Podepište se prosím níže:"
-    - ID: "bd59ebd7-a382-4828-8fd8-a3eabb4b1955"
-      Hint: SignModalWindowGeneralErrorMessage
-      Value: Dokument se nepodařilo podepsat, zkuste to prosím znovu.

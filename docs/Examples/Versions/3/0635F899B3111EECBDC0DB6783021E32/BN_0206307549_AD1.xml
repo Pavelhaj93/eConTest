@@ -1,0 +1,80 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECBDC0DB4E63C9BE32</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Optimal]<br />|Platnost nabídky do|: [01.07.2022]<br />|Délka fixace|: [30 měsíců od účinnosti dodatku]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [10.07.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Optimal</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>01.07.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>30 měsíců od účinnosti dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>10.07.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_OPTIMAL7/16</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Optimal</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [naše ceny energií i smlouvy jsou závazné]<br />|Druhé|: [ve druhém i třetím roce garance dalšího cenového snížení]<br />|Třetí|:  [pevná cena silové elektřiny po dobu 30 měsíců]<br />|Čtvrté|: [v základním období trvání smlouvy je spotřeba zajištěna nákupem záruk původu z obnovitelných zdrojů]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>naše ceny energií i smlouvy jsou závazné</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>ve druhém i třetím roce garance dalšího cenového snížení</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>pevná cena silové elektřiny po dobu 30 měsíců</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>v základním období trvání smlouvy je spotřeba zajištěna nákupem záruk původu z obnovitelných zdrojů</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Horní Česká 205 / 33, 669 02 Znojmo</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Znojmo</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Znojmo</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>669 02</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Horní Česká</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>205 / 33</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Horní Česká 205 / 33, 669 02 Znojmo</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>16.08.1971</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Znojmo</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Znojmo</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>milena.machanova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Antonín Krul</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>669 02</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Horní Česká</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>205 / 33</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mailem</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>735 156 698</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Krule                                             </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9610175603</PERSON_NUMBER>
+        <PERSON_PREMADR></PERSON_PREMADR>
+        <PERSON_PREMCITY>Znojmo</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Znojmo</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400212202808</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302867527</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>669 02</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Smutného</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>3828 / 2</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

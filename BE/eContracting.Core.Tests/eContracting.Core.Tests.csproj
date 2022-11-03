@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +54,8 @@
     <Compile Include="Models\OfferAttributeModelTests.cs" />
     <Compile Include="Models\OfferFileXmlModelTests.cs" />
     <Compile Include="ServiceFactoryTests.cs" />
+    <Compile Include="Storage\FileAttributeTests.cs" />
+    <Compile Include="Storage\FileTests.cs" />
     <Compile Include="UtilsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -71,7 +74,7 @@
       <Version>5.8.177</Version>
     </PackageReference>
     <PackageReference Include="Moq">
-      <Version>4.5.30</Version>
+      <Version>4.18.1</Version>
     </PackageReference>
     <PackageReference Include="Sitecore.Kernel">
       <Version>10.1.1</Version>
@@ -80,10 +83,13 @@
       <Version>2.4.1</Version>
     </PackageReference>
     <PackageReference Include="xunit.runner.visualstudio">
-      <Version>2.4.3</Version>
+      <Version>2.4.5</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

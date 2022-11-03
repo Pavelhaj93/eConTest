@@ -1,0 +1,24 @@
+﻿---
+ID: "aa89ce8c-8914-4d3d-a972-8662b15fad3d"
+Parent: "f0ddbd64-c980-4a16-af12-4a5ba63dcdab"
+Template: "f0ddbd64-c980-4a16-af12-4a5ba63dcdab"
+Path: /sitecore/templates/eContracting2/Datasources/Simple Modal Dialog/__Standard Values
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220909T124540Z
+    - ID: "4bc14de7-b277-400b-bf04-89004a07deb7"
+      Hint: CancelButtonLabel
+      Value: Zavřít
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "db30f1e6-d2b1-4050-acfa-9727fa621416"
+      Hint: ConfirmButtonLabel
+      Value: Potvrdit

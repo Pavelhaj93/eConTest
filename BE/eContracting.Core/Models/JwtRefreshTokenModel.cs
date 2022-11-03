@@ -12,9 +12,6 @@ namespace eContracting.Models
         [JsonProperty("access_token")]
         public string AccessToken { get; private set; }
 
-        [JsonProperty("refresh_token")]
-        public string RefreshToken { get; private set; }
-
         [JsonProperty("id_token")]
         public string IdToken { get; private set; }
 

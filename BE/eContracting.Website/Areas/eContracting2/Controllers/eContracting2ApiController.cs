@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -19,6 +20,7 @@ using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
+using Sitecore.Data.DataProviders.Sql.FastQuery;
 using Sitecore.DependencyInjection;
 using Sitecore.IO;
 
@@ -605,6 +607,79 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
+        public async Task<IHttpActionResult> Summary()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var model = this.OfferJsonDescriptor.GetSummary(offer, user);
+                return this.Json(model);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
+            }
+            catch (EcontractingDataException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                var message = this.TextService.Error(ex.Error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                var error = ERROR_CODES.UNKNOWN;
+
+                var message = this.TextService.Error(error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
+                }
+            }
+        }
+
+        [HttpGet]
         [HttpPost]
         [HttpDelete]
         [HttpOptions]
@@ -633,6 +708,186 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return this.Ok();
+        }
+
+        /// <summary>
+        /// Submit an offer.
+        /// </summary>
+        [HttpPost]
+        public async Task<IHttpActionResult> Submit()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (this.Request.Method.Method == "OPTIONS")
+                {
+                    return this.Ok();
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.UserService.GetUser();
+
+                var submitModel = await this.Request.Content.ReadAsAsync<OfferSubmitDataModel>();
+
+                if (submitModel == null)
+                {
+                    return this.BadRequest("Invalid submit data");
+                }
+
+                var offer = this.OfferService.GetOffer(guid, user, false);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    return this.BadRequest("Offer is already accepted");
+                }
+
+                this.OfferService.AcceptOffer(offer, submitModel, user, this.SessionProvider.GetId());
+                this.UserService.SaveUser(guid, user);
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);
+
+                if (this.SettingsReaderService.SubmitOfferDelay > 0)
+                {
+                    Thread.Sleep(this.SettingsReaderService.SubmitOfferDelay * 1000);
+                }
+
+                return this.Ok();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Cancels an offer
+        /// </summary>
+        /// <returns></returns>
+        [HttpOptions]
+        [HttpGet]
+        public async Task<IHttpActionResult> Cancel()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (this.Request.Method.Method == "OPTIONS")
+                {
+                    return this.Ok();
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user, false);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    return this.BadRequest("Offer is already accepted");
+                }
+
+                if (!offer.CanBeCanceled)
+                {
+                    return this.BadRequest("Offer cannot be cancelled.");
+                }
+
+                this.OfferService.CancelOffer(guid);
+                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.CANCEL_OFFER);
+
+                if (this.SettingsReaderService.CancelOfferDelay > 0)
+                {
+                    Thread.Sleep(this.SettingsReaderService.CancelOfferDelay * 1000);
+                }
+
+                return this.Ok();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+        }
+
+        [HttpOptions]
+        [HttpGet]
+        public async Task<IHttpActionResult> Cmb()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (this.Request.Method.Method == "OPTIONS")
+                {
+                    return this.Ok();
+                }
+
+                var offer = this.OfferService.GetOffer(guid);
+                var definition = this.SettingsReaderService.GetDefinition(offer);
+                
+                if (definition.SummaryCallMeBack == null)
+                {
+                    return this.NotFound();
+                }
+
+                var model = new CallMeBackResponseViewModel();
+                model.Title = definition.SummaryCallMeBack.Title;
+                model.Phone = offer.Xml.Content.Body.PHONE;
+                model.MaxFiles = 0;
+                model.MaxFileSize = 0;
+                model.AllowedFileTypes = new string[] { };
+
+                if (definition.SummaryCallMeBack.Image != null)
+                {
+                    model.Image = new ImageViewModel() { Url = definition.SummaryCallMeBack.Image.Src };
+                }
+
+                this.UpdateWorkingHours(model, definition.SummaryCallMeBack);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                return this.InternalServerError();
+            }
+
+            throw new NotImplementedException();
         }
 
         [HttpGet]
@@ -1033,71 +1288,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Submit an offer (model not defined yet).
-        /// </summary>
-        [HttpPost]
-        public async Task<IHttpActionResult> Submit()
-        {
-            string guid = this.GetGuid();
-            
-            try
-            {
-                if (this.Request.Method.Method == "OPTIONS")
-                {
-                    return this.Ok();
-                }
-
-                if (!this.IsValidGuid(guid))
-                {
-                    return this.InvalidGuid(guid);
-                }
-
-                if (!this.CanRead(guid))
-                {
-                    return this.StatusCode(HttpStatusCode.Unauthorized);
-                }
-
-                var user = this.UserService.GetUser();
-
-                var submitModel = await this.Request.Content.ReadAsAsync<OfferSubmitDataModel>();
-
-                if (submitModel == null)
-                {
-                    return this.BadRequest("Invalid submit data");
-                }
-
-                var offer = this.OfferService.GetOffer(guid, user, false);
-
-                if (offer == null)
-                {
-                    return this.StatusCode(HttpStatusCode.NoContent);
-                }
-
-                if (offer.IsAccepted)
-                {
-                    return this.BadRequest("Offer is already accepted");
-                }
-
-                this.OfferService.AcceptOffer(offer, submitModel, user, this.SessionProvider.GetId());
-
-                this.UserService.SaveUser(guid, user);
-                this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.SUBMIT_OFFER);
-
-                return this.Ok();
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
-            }
-        }
-
-        /// <summary>
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
         [HttpGet]
@@ -1172,7 +1362,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Ok(outputMsgs);
         }
 
-        internal bool CanRead(string guid)
+        protected internal bool CanRead(string guid)
         {
             return this.UserService.IsAuthorizedFor(guid);
         }
@@ -1181,7 +1371,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Converts PDF file to the PNG stream
         /// </summary>
         /// <param name="memoryStream"></param>
-        internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
+        protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
         {
             var pdfImages = new List<Image>();
 
@@ -1204,7 +1394,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="files"></param>
         /// <returns></returns>
-        internal Bitmap CombineBitmap(IEnumerable<Image> files)
+        protected internal Bitmap CombineBitmap(IEnumerable<Image> files)
         {
             //read all images into memory
             var images = new List<Bitmap>();
@@ -1262,7 +1452,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        internal void SaveToDebug(DbUploadGroupFileModel group)
+        protected internal void SaveToDebug(DbUploadGroupFileModel group)
         {
             try
             {
@@ -1321,7 +1511,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.BadRequest("Invalid guid");
         }
 
-        internal string GetSafeUploadedFileName(string fileIdFromRequest)
+        protected internal string GetSafeUploadedFileName(string fileIdFromRequest)
         {
             if (string.IsNullOrEmpty(fileIdFromRequest))
                 return fileIdFromRequest;
@@ -1351,6 +1541,58 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return true;
+        }
+
+        protected SelectionViewModel UpdateWorkingHours(CallMeBackResponseViewModel model, ICallMeBackModalWindow cmb)
+        {
+            var currentDay = (DateTime.Now.DayOfWeek == 0) ? 7 : (int)DateTime.Now.DayOfWeek;
+            IWorkingDay workingDay = null;
+
+            if (currentDay == cmb.AvailabilityMonday.DayInWeek)
+            {
+                workingDay = cmb.AvailabilityMonday;
+            }
+            else if (currentDay == cmb.AvailabilityThuesday.DayInWeek)
+            {
+                workingDay = cmb.AvailabilityThuesday;
+            }
+            else if (currentDay == cmb.AvailabilityWednesday.DayInWeek)
+            {
+                workingDay = cmb.AvailabilityWednesday;
+            }
+            else if (currentDay == cmb.AvailabilityThursday.DayInWeek)
+            {
+                workingDay = cmb.AvailabilityThursday;
+            }
+            else if (currentDay == cmb.AvailabilityFriday.DayInWeek)
+            {
+                workingDay = cmb.AvailabilityFriday;
+            }
+            else
+            {
+                return null;
+            }
+
+            return null;
+        }
+
+        protected SelectionViewModel GetWorkingHours(IWorkingDay workingDay)
+        {
+            if (workingDay == null)
+            {
+                return null;
+            }
+
+            var model = new SelectionViewModel();
+
+            if (string.IsNullOrEmpty(workingDay.OperatorHoursFrom) && string.IsNullOrEmpty(workingDay.OperatorHoursTo))
+            {
+                model.Label = workingDay.OperatorHoursFrom + " - " + workingDay.OperatorHoursTo;
+                model.Value = model.Label;
+                return model;
+            }
+
+            return null;
         }
     }
 }

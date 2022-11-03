@@ -1,0 +1,115 @@
+.cmb {
+  display: flex;
+  padding: $spacer;
+  background-color: $color-green-cmb;
+  border: 1px solid $color-gray-60;
+  color: $color-white;
+  text-align: center;
+  font-size: rem(20);
+  line-height: normal;
+  min-height: 350px;
+
+  @include media-breakpoint-up(sm) {
+    padding: $spacer * 2.5 $spacer * 1.5;
+  }
+
+  &__close {
+    position: absolute;
+    border-bottom: none;
+    top: -15px;
+    right: -10px;
+
+    @include media-breakpoint-up(sm) {
+      top: 0;
+      right: 0;
+    }
+
+    & > .close {
+      color: $color-white;
+      text-shadow: none;
+      font-size: 2.5rem;
+      opacity: 1;
+    }
+  }
+
+  &__submitBtn {
+    margin-bottom: $spacer + .5;
+    width: 100%;
+  }
+
+  &__additionalCloseBtn {
+    position: absolute;
+    padding: 0;
+    top: 7px;
+    right: -35px;
+    color: $color-white;
+    font-size:  2.5rem;
+    opacity: 1;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  &__errorMessage {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    color: $color-red-dark;
+    padding: $spacer * 2;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacer + .5;
+    border: 1px solid $color-gray-60;
+    background-color: $color-white;
+  }
+
+  &__iconWrapper {
+    display: flex;
+    align-self: center;
+    padding: $spacer;
+    background-color: $color-white;
+    border-radius: 100%;
+    width: fit-content;
+    margin-bottom: $spacer + .5;
+  }
+
+  &__additional {
+    padding: 0;
+    margin-bottom: $spacer + .5;
+    color: $color-white;
+    text-decoration: underline;
+
+    &:hover {
+      color: $color-orange;
+    }
+  }
+
+  &__heading {
+    line-height: normal;
+    margin-bottom: $spacer + .5;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__image {
+    @include size(100px);
+    margin-bottom: $spacer + .5;
+
+    @include media-breakpoint-up(sm) {
+      @include size(120px)
+    }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: $spacer + .5;
+
+    & > label {
+      margin-bottom: $spacer / 2;
+      font-weight: $font-weight-bold;
+    }
+  }
+}

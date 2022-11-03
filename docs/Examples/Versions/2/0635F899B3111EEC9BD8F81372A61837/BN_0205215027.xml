@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0635F899B3111EEC9BD8F81372B4B837</GUID>
+            <ISU_CONTRACT>2170954243</ISU_CONTRACT>
+            <CONTSTART>20230314</CONTSTART>
+            <DATE_TO>20220119</DATE_TO>
+            <STATUS>Uvolněno</STATUS>
+            <PARTNER>9512163445</PARTNER>
+            <NAME_LAST>Maštera</NAME_LAST>
+            <NAME_FIRST>Zdeněk</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>27.07.1952</BIRTHDT>
+            <IC></IC>
+            <EMAIL>milena.machanova@innogy.cz</EMAIL>
+            <PHONE>728 089 957</PHONE>
+            <EXT_UI>859182400206997963</EXT_UI>
+            <VSTELLE>9301389467</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>263000041515</BUAG>
+            <PSC_MS>588 61</PSC_MS>
+            <PSC_ADDR>588 61</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>01</BUS_PROCESS>
+            <BUS_TYPE>B</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>001</SEQNR>
+                    <IDATTACH>ELH</IDATTACH>
+                    <TEMPLATE>A10</TEMPLATE>
+                    <DESCRIPTION>Plná moc</DESCRIPTION>
+                    <OBLIGATORY>X</OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ>X</SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM010</TEMPL_ALC_ID>
+                    <PRODUCT>STAVAJICI_PROD_EE</PRODUCT>
+                    <GROUP>COMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EEC9BD8F81372B4B837</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

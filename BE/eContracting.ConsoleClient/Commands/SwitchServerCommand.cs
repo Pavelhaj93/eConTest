@@ -25,13 +25,18 @@ namespace eContracting.ConsoleClient.Commands
         {
             if (environment == "test")
             {
-                this.Configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-                this.Configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8110/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceUrl = "https://wti.rwe-services.cz:51012/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceSignUrl = "https://wti.rwe-services.cz:51012/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge";
             }
             else if (environment == "dev")
             {
-                this.Configuration.ServiceUrl = "https://wd-wcc.rwe-services.cz:8109/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
-                this.Configuration.ServiceSignUrl = "https://wd-wcc.rwe-services.cz:8109/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceUrl = "https://wti.rwe-services.cz:51018/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceSignUrl = "https://wti.rwe-services.cz:51026/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge";
+            }
+            else if (environment == "prod")
+            {
+                this.Configuration.ServiceUrl = "https://wpi.rwe-services.cz:41007/sap/bc/srt/rfc/sap/zcch_cache_api/100/zcch_cache_api/zcch_cache_api";
+                this.Configuration.ServiceSignUrl = "https://wti.rwe-services.cz:41007/sap/bc/srt/xip/sap/zcrm_sign_stamp_merge/100/crm_sign_stamp_merge/crm_sign_stamp_merge";
             }
             else
             {

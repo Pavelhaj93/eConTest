@@ -14,17 +14,20 @@ namespace eContracting.ConsoleClient.Commands
 {
     class AnalyzeOfferCommand : BaseCommand
     {
+        readonly IOfferDataService OfferDataService;
         readonly OfferService ApiService;
         readonly ILogger Logger;
         readonly OfferJsonDescriptor OfferDescriptor;
 
         public AnalyzeOfferCommand(
+            IOfferDataService offerDataService,
             IOfferService apiService,
             IOfferJsonDescriptor offerDescriptor,
             ILogger logger,
             IConsole console)
             : base("analyze", console)
         {
+            this.OfferDataService = offerDataService;
             this.ApiService = apiService as OfferService;
             this.OfferDescriptor = offerDescriptor as OfferJsonDescriptor;
             this.Logger = logger;
@@ -42,7 +45,7 @@ namespace eContracting.ConsoleClient.Commands
             {
                 this.Console.WriteLine();
 
-                var response = this.ApiService.GetResponse(guid, OFFER_TYPES.NABIDKA);
+                var response = this.OfferDataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
 
                 if (response.Response.EV_RETCODE != 0)
                 {
@@ -72,17 +75,26 @@ namespace eContracting.ConsoleClient.Commands
                 this.Console.WriteLine(" CCHTYPE = " + response.Response.ES_HEADER.CCHTYPE);
                 this.Console.WriteLine();
 
-                this.Console.WriteLine("Attributes:");
+                //this.Console.WriteLine("Attributes:");
 
-                for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
+                //for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
+                //{
+                //    var attr = response.Response.ET_ATTRIB[i];
+
+                //    this.Console.WriteLine($" {attr.ATTRID} = {attr.ATTRVAL}");
+                //}
+
+                //this.Console.WriteLine();
+
+                this.Console.WriteLine("Text files");
+
+                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
                 {
-                    var attr = response.Response.ET_ATTRIB[i];
-
-                    this.Console.WriteLine($" {attr.ATTRID} = {attr.ATTRVAL}");
+                    var file = response.Response.ET_FILES[i];
+                    this.Console.WriteLine(" - " + file.FILENAME);
                 }
 
                 this.Console.WriteLine();
-
                 var offer = this.ApiService.GetOffer(response, true);
 
                 if (offer == null)
@@ -161,7 +173,7 @@ namespace eContracting.ConsoleClient.Commands
             {
                 this.Console.WriteLineSuccess("Benefits:");
 
-                var benefits = model.SalesArguments.Params.ToArray();
+                var benefits = model.SalesArguments.Arguments.ToArray();
 
                 for (int i = 0; i < benefits.Length; i++)
                 {

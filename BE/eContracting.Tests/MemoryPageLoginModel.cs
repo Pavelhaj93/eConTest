@@ -24,7 +24,7 @@ namespace eContracting.Tests
         public int MaxFailedAttempts { get; set; }
         public string DelayAfterFailedAttempts { get; set; }
         public bool AutoGenerateTestableCombinationPlaceholders { get; set; }
-        public IProcessStepModel Step { get; set; }
+        public IStepModel Step_Default { get; set; }
         public string PageTitle { get; set; }
         public Guid ID { get; set; }
         public string Name { get; set; }
@@ -42,5 +42,8 @@ namespace eContracting.Tests
         public string LoginClick_eCat { get; set; }
         public string LoginClick_eAct { get; set; }
         public string LoginClick_eLab { get; set; }
+        public IStepModel Step_NoLogin { get; set; }
+        public IStepModel Step_ProductChange { get; set; }
+        public Guid TemplateId { get; set; }
     }
 }

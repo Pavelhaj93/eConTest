@@ -28,6 +28,7 @@ export class OfferStore {
   public errorPageUrl = ''
   public sessionExpiredPageUrl = ''
   public acceptOfferUrl = ''
+  public cancelOfferUrl = ''
   public maxUploadGroupSize = 0
   public isSupplierMandatory = false
   private globalQueryParams: QueryParams
@@ -77,6 +78,12 @@ export class OfferStore {
 
   @observable
   public supplier = ''
+
+  @observable
+  public isCancelling = false
+
+  @observable
+  public isUnfinishedOfferModalOpen = false
 
   constructor(type: OfferType, offerUrl: string, guid: string) {
     this.offerUrl = offerUrl
@@ -400,10 +407,13 @@ export class OfferStore {
           })),
         })
 
+    const description = documents.description ? documents.description : ''
+
     return {
       uploads,
       acceptance,
       other,
+      description,
     }
   }
 
@@ -699,6 +709,11 @@ export class OfferStore {
     this.supplier = supplier
   }
 
+  /** Set state of "unfinishedOfferModal" */
+  @action public setIsUnfinishedOfferModalOpen(isUnfinishedOfferModalOpen: boolean): void {
+    this.isUnfinishedOfferModalOpen = isUnfinishedOfferModalOpen
+  }
+
   /**
    * Get user document by its id and category.
    * @param id - document id
@@ -887,6 +902,30 @@ export class OfferStore {
       return true
     } catch (error) {
       this.isAccepting = false
+
+      // eslint-disable-next-line no-console
+      console.error(error.toString())
+      return false
+    }
+  }
+
+  /**
+   * Performs an ajax request to `cancelOfferUrl`.
+   * @returns Promise<boolean> - true if offer was successfully canceled, false otherwise.
+   */
+  public async cancelOffer(url = this.cancelOfferUrl): Promise<boolean> {
+    this.isCancelling = true
+
+    try {
+      const response = await fetch(parseUrl(url, this.globalQueryParams))
+
+      if (!response.ok) {
+        throw new Error(`FAILED TO CANCEL OFFER - ${response.statusText}`)
+      }
+
+      return true
+    } catch (error) {
+      this.isCancelling = false
 
       // eslint-disable-next-line no-console
       console.error(error.toString())

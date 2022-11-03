@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0635f899-b311-1eec-b783-6ab0d5dd15b7</GUID>
+            <ISU_CONTRACT></ISU_CONTRACT>
+            <CONTSTART></CONTSTART>
+            <DATE_TO></DATE_TO>
+            <STATUS></STATUS>
+            <PARTNER>9610909649</PARTNER>
+            <NAME_LAST>Kovařík</NAME_LAST>
+            <NAME_FIRST>Jan</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>30.11.1980</BIRTHDT>
+            <IC></IC>
+            <EMAIL>Jan.Kovarik@innogy.cz</EMAIL>
+            <PHONE>724 153 093</PHONE>
+            <EXT_UI></EXT_UI>
+            <VSTELLE></VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG></BUAG>
+            <PSC_MS></PSC_MS>
+            <PSC_ADDR>338 08</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS></BUS_PROCESS>
+            <BUS_TYPE></BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH>EA3</IDATTACH>
+                    <DESCRIPTION>Smlouva o sdružených službách dodávky elektřiny</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ/>
+                    <TEMPL_ALC_ID>CRM001</TEMPL_ALC_ID>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

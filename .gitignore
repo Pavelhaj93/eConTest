@@ -28,6 +28,9 @@ BE/deployed-version-*
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
+# Idea cache/options directory
+.idea/
+
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*

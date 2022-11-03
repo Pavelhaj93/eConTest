@@ -124,31 +124,36 @@
             "label": "Informace pro zákazníka - spotřebitele",
             "prefix": "Souhlasím s",
             "key": "e1c9a5ce583743e6928ee4df91862a91",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Dodatek",
             "prefix": "Jsem poučen o",
             "key": "8e0ed4754f99464eb2d0155c140a2541",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Ceník",
             "prefix": "Jsem poučen o",
             "key": "76868bd607804b9ca6bc5248f99726d3",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Ceník služeb",
             "prefix": "Jsem poučen o",
             "key": "2304df60d07448818c8b0b8c074d82a8",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Obchodní podmínky",
             "prefix": "Jsem poučen o",
             "key": "ee68d1a1da63434a9c91643d6b8504cf",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           }
         ]
       },
@@ -161,9 +166,15 @@
             "label": "Plná moc",
             "prefix": "Jsem poučen o",
             "key": "5e40683abb1441f5a0ec99425c2c6908",
-            "group": "06D969E88C3C1EDB8BD27637116827D8"
+            "group": "06D969E88C3C1EDB8BD27637116827D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           }
         ]
+      },
+      "sectionInfo": {
+        "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+        "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
+        "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
       }
     },
     "uploads": {
@@ -227,13 +238,15 @@
             "label": "Pojištění - Informační dokument 1",
             "prefix": "Jsem poučen o",
             "key": "729a1d7ba5ce48298b848a3d732f45cd",
-            "group": "06D969E88C3C1EDB8BD27637117787D8"
+            "group": "06D969E88C3C1EDB8BD27637117787D8",
+            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
           },
           {
             "label": "Pojištění - Informační dokument 2",
             "key": "b72e43e72c094a47bbc6767274d0b4a5",
             "prefix": "Jsem poučen o",
-            "group": "06D969E88C3C1EDB8BD27637117787D8"
+            "group": "06D969E88C3C1EDB8BD27637117787D8",
+            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
           },
           {
             "label": "Pojištění - Informační dokument 3",
@@ -242,10 +255,16 @@
             "group": "06D969E88C3C1EDB8BD27637117787D8"
           }
         ],
-        "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>"
+        "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>",
+        "sectionInfo": {
+          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+          "title": "Ostatní produkty",
+          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+        }
       },
       "services": {
         "title": "Doplňkové služby",
+        "subTitle": "Stručný přehled Vaší nabídky",
         "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
         "arguments": [],
         "params": [],
@@ -254,21 +273,29 @@
           {
             "label": "Dohoda o sjednání doplňkové služby investor",
             "key": "9658576e88f1458da13db8f2034476d8",
-            "group": "2780ca707bbb4eb58645135d17fea86a"
+            "group": "2780ca707bbb4eb58645135d17fea86a",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Žádost o nesnižování zálohových plateb",
             "key": "cc6d047821044adc86b6c811d6cecb0b",
-            "group": "06D969E88C3C1EDB8BD27637116D07D8"
+            "group": "06D969E88C3C1EDB8BD27637116D07D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
           },
           {
             "label": "Smlouva o využívání innogy Karty",
             "key": "c371d67295ab41e8bc64818c45a10a0f",
             "group": "8784531c0fcc4aa28a92b5a847d7eeff"
           }
-        ]
+        ],
+        "sectionInfo": {
+          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+          "title": "Doplňkové služby",
+          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+        }
       }
-    }
+    },
+    "description": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
   },
   "acceptance": {
     "params": [

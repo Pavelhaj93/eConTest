@@ -4,6 +4,117 @@
         <name>eContracting.Services</name>
     </assembly>
     <members>
+        <member name="T:eContracting.Services.LocalOfferDataService">
+            <summary>
+              <para>Local / offline provider for offers. It only reads data, it's not updating them.</para>
+              <para>How to run it:</para>
+              <para>Create local folder <c>[site root]\App_Data\eContracting\ZCCH_CACHE_API</c> and copy there folders from [git root]/docs/Examples/Versions/1|2|3.</para>
+              <para>Create patch file in your running site to use this service (is must be loaded as last!) - see examples. NEVER commit this file to repository!</para>
+              <para>If you want to download new offer, run project <c>eContracting.ConsoleClient</c>, write <c>download</c>, enter and put there a guid. If will download it to <c>[git root]/docs/Examples/Versions/1|2|3</c>.</para>
+            </summary>
+            <remarks>
+              <para>If an offer is expired, you need to overwrite valid date. Go to <c>ZCCH_ST_ATTRIB.xml</c>, find attribute <c>VALID_TO</c> and overwrite <c>ATTRVAL</c> to future date.</para>
+              <para>If an offer is accepted, you can invalidate it. Go to <c>ZCCH_ST_ATTRIB.xml</c>, find <c>ATTRID</c> with <c>ACCEPTED_AT</c> and delete parent element <c>ZCCH_ST_ATTRIB</c> from the file.</para>
+            </remarks>
+            <example>
+            Patch file:
+            <code>
+              <configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+                <sitecore>
+                  <services>
+                    <register serviceType="eContracting.IOfferDataService, eContracting.Core">
+                      <patch:attribute name="implementationType">eContracting.Services.LocalOfferDataService, eContracting.Services</patch:attribute>
+                    </register>
+                  </services>
+                </sitecore>
+              </configuration>
+            </code>
+            Change valid date for expired offer in <c>ZCCH_ST_ATTRIB.xml</c>:
+            <code>
+              <ZCCH_ST_ATTRIB>
+                <ATTRID>VALID_TO</ATTRID>
+                <ATTRINDX>000</ATTRINDX>
+                <ATTRVAL>20300101</ATTRVAL>
+              </ZCCH_ST_ATTRIB>
+            </code>
+            Remove accepted date in <c>ZCCH_ST_ATTRIB.xml</c> - delete element <c>ZCCH_ST_ATTRIB</c> where <c>ATTRID</c> has value <c>ACCEPTED_AT</c>.
+            <code>
+              <ZCCH_ST_ATTRIB>
+                <ATTRID>ACCEPTED_AT</ATTRID>
+                <ATTRINDX>000</ATTRINDX>
+                <ATTRVAL>20220816125421</ATTRVAL>
+              </ZCCH_ST_ATTRIB>
+            </code>
+            </example>
+        </member>
+        <member name="F:eContracting.Services.OfferDataSapService.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferDataSapService.SettingsReaderService">
+            <summary>
+            The settings reader service.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferDataSapService.ServiceFactory">
+            <summary>
+            The API service factory.
+            </summary>
+        </member>
+        <member name="M:eContracting.Services.OfferDataSapService.GetResponse(System.String,eContracting.OFFER_TYPES,System.String)">
+            <summary>
+            Gets data.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">Type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <param name="fileType">Type of the file.</param>
+            <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferDataSapService.Put(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Models.OfferFileXmlModel[])">
+            <summary>
+            Inserts data with 'NABIDKA_PRIJ'.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="attributes">The attributes.</param>
+            <param name="files">The files.</param>
+            <returns>The response.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferDataSapService.SetStatus(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
+            <summary>
+            Sets the <paramref name="status"/> asynchronously.
+            </summary>
+            <param name="guid">Guid identifier.</param>
+            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <param name="timestamp">Decimal representation of a timestamp.</param>
+            <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
+            <returns>Response from inner service.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferDataSapService.UserAccessCheck(System.String,System.String,eContracting.OFFER_TYPES)">
+            <summary>
+            Calling <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK"/> to check if Cognito user has access to offer with <paramref name="guid"/>.
+            </summary>
+            <param name="user">User data with <see cref="!:UserCacheDataModel.Guid"/>.</param>
+            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
+            <returns><see cref="T:eContracting.Models.ResponseAccessCheckModel"/> model when request was successful. If user is not Cognito, returns <c>null</c>.</returns>
+            <exception cref="T:eContracting.EcontractingDataException">When call to <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest"/> failed.</exception>
+        </member>
+        <member name="T:eContracting.Services.Resource">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:eContracting.Services.Resource.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:eContracting.Services.Resource.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
         <member name="M:eContracting.Services.UserService.SaveUser(System.String,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
@@ -43,6 +154,12 @@
         </member>
         <member name="M:eContracting.Services.UserService.RefreshAuthorizationIfNeeded(System.String,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.UserService.GetRefreshTokens(eContracting.Models.OAuthTokensModel)">
+            <summary>
+            Gets new refresh token only when validity of current <paramref name="tokens"/> is less than <see cref="P:eContracting.ISettingsReaderService.CognitoMinSecondsToRefreshToken"/>.
+            </summary>
+            <param name="tokens">The actual tokens.</param>
         </member>
         <member name="T:eContracting.Services.GeneralRestApiService">
             <summary>
@@ -305,11 +422,81 @@
             settingsReaderService
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetPersonalData(eContracting.Models.OfferModel)">
+            <summary>
+            Gets personal data.
+            </summary>
+            <param name="offer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData(eContracting.Models.OfferModel)">
+            <summary>
+            Gets product data with all prices.
+            </summary>
+            <param name="offer"></param>
+            <returns>Null when <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetDistributorChange(eContracting.Models.OfferModel)">
+            <summary>
+            Gets data when user / offer changes a distributor (dismissal previous dealer).
+            </summary>
+            <param name="offer"></param>
+            <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="P:eContracting.Models.OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel[])">
+            <summary>
+            Gets data for accepted offer.
+            </summary>
+            <param name="offer"></param>
+            <param name="attachments"></param>
+            <returns>Always returns the object.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel[])">
+            <summary>
+            Gets data for new non-accepted offer.
+            </summary>
+            <param name="offer"></param>
+            <param name="attachments"></param>
+            <returns>Always returns the object.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAllSalesArguments(System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)">
+            <summary>
+            Gets all sales arguments.
+            </summary>
+            <param name="textParameters">Text parameters.</param>
+            <returns>All sales arguments or empty array.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetCommoditySalesArguments(System.Collections.Generic.IDictionary{System.String,System.String},eContracting.Models.IDefinitionCombinationModel)">
+            <summary>
+            Gets sales arguments from <c>_SALES_ARGUMENTS_</c> text parameters.
+            </summary>
+            <param name="textParameters">Text parameters.</param>
+            <param name="definition">The matrix definition.</param>
+            <returns>All sales arguments or null.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetGifts(System.Collections.Generic.IDictionary{System.String,System.String},eContracting.Models.IDefinitionCombinationModel)">
+            <summary>
+            Gets gifts from <c>BENEFITS</c> parameters.
+            </summary>
+            <param name="textParameters">Text parameters.</param>
+            <param name="definition">The matrix combination.</param>
+            <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductType(eContracting.Models.OfferModel)">
+            <summary>
+            Gets <c>G</c> for gas, <c>E</c> for electricity.
+            </summary>
+            <param name="offer"></param>
+            <returns></returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.IsSectionChecked(System.Collections.Generic.IDictionary{System.String,System.String},System.String)">
             <summary>
@@ -317,6 +504,22 @@
             </summary>
             <param name="textParameters">The text parameters.</param>
             <param name="key">The key.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.UpdateProductInfo(System.Collections.Generic.IEnumerable{eContracting.Models.JsonAcceptFileModel},eContracting.Models.IProductInfoModel[])">
+            <summary>
+            Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
+            If match found, a <see cref="T:eContracting.Models.JsonAcceptFileModel"/> is enriched with <see cref="T:eContracting.Models.IProductInfoModel"/> data.
+            </summary>
+            <param name="files">Collection of files in one group.</param>
+            <param name="productInfos">Collection of all product information.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetMatchedProductInfo(eContracting.Models.JsonAcceptFileModel,eContracting.Models.IProductInfoModel[])">
+            <summary>
+            Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
+            </summary>
+            <param name="file">A file to find match with <see cref="T:eContracting.Models.IProductInfoModel"/>.</param>
+            <param name="productInfos">Collection of all product information.</param>
+            <returns>If match found, returns <see cref="T:eContracting.Models.IProductInfoModel"/>, otherwise null.</returns>
         </member>
         <member name="T:eContracting.Services.OfferService">
             <summary>
@@ -358,7 +561,7 @@
             The context wrapper.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IDataRequestCacheService,eContracting.IContextWrapper)">
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferDataService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IDataRequestCacheService,eContracting.IContextWrapper)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>
@@ -390,6 +593,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.SignInOffer(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.CancelOffer(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
@@ -445,15 +651,6 @@
             Group '{uploadGroup}' doesn't have content
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetResponse(System.String,eContracting.OFFER_TYPES,System.String)">
-            <summary>
-            Gets data.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <param name="type">Type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
-            <param name="fileType">Type of the file.</param>
-            <returns>Instance of <see cref="T:eContracting.Models.ResponseCacheGetModel"/> or an exception.</returns>
-        </member>
         <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.String)">
             <summary>
             Sets the <paramref name="status"/> asynchronously.
@@ -463,25 +660,6 @@
             <param name="status">The status.</param>
             <returns>Response from inner service.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferService.SetStatus(System.String,eContracting.OFFER_TYPES,System.Decimal,System.String)">
-            <summary>
-            Sets the <paramref name="status"/> asynchronously.
-            </summary>
-            <param name="guid">Guid identifier.</param>
-            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
-            <param name="timestamp">Decimal representation of a timestamp.</param>
-            <param name="status">Value for <see cref="P:eContracting.Services.ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
-            <returns>Response from inner service.</returns>
-        </member>
-        <member name="M:eContracting.Services.OfferService.UserAccessCheck(System.String,System.String,eContracting.OFFER_TYPES)">
-            <summary>
-            Calling <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECK"/> to check if Cognito user has access to offer with <paramref name="guid"/>.
-            </summary>
-            <param name="user">User data with <see cref="!:UserCacheDataModel.Guid"/>.</param>
-            <param name="type">A type from <see cref="T:eContracting.OFFER_TYPES"/> collection.</param>
-            <returns><see cref="T:eContracting.Models.ResponseAccessCheckModel"/> model when request was successful. If user is not Cognito, returns <c>null</c>.</returns>
-            <exception cref="T:eContracting.EcontractingDataException">When call to <see cref="T:eContracting.Services.ZCCH_CACHE_ACCESS_CHECKRequest"/> failed.</exception>
-        </member>
         <member name="M:eContracting.Services.OfferService.GetFiles(System.String,System.Boolean)">
             <summary>
             Gets the files asynchronous.
@@ -489,15 +667,6 @@
             <param name="guid">The unique identifier.</param>
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <returns></returns>
-        </member>
-        <member name="M:eContracting.Services.OfferService.Put(System.String,eContracting.Services.ZCCH_ST_ATTRIB[],eContracting.Models.OfferFileXmlModel[])">
-            <summary>
-            Inserts data with 'NABIDKA_PRIJ'.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <param name="attributes">The attributes.</param>
-            <param name="files">The files.</param>
-            <returns>The response.</returns>
         </member>
         <member name="T:eContracting.Services.DbUserFileCacheService">
             <summary>
@@ -777,13 +946,21 @@
             </summary>
             <param name="response">The response.</param>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.IsExpired(eContracting.Services.ZCCH_CACHE_GETResponse,eContracting.Models.OfferHeaderModel,eContracting.Models.OfferXmlModel)">
+        <member name="M:eContracting.Services.OfferParserService.IsExpired(eContracting.Services.ZCCH_CACHE_GETResponse,eContracting.Models.OfferHeaderModel,System.DateTime)">
             <summary>
             Determines whether an offer from <paramref name="response"/> is expired.
             </summary>
             <param name="response">The response.</param>
             <param name="headerModel">The header model.</param>
-            <param name="offerXmlModel">The offer XML model.</param>
+            <param name="expirationDate">The expiration date.</param>
+        </member>
+        <member name="M:eContracting.Services.OfferParserService.GetExpirationDate(eContracting.Services.ZCCH_CACHE_GETResponse,eContracting.Models.OfferXmlModel)">
+            <summary>
+            Gets expiration date from <paramref name="response"/> or from <paramref name="offerXmlModel"/>.
+            </summary>
+            <param name="response"></param>
+            <param name="offerXmlModel"></param>
+            <returns>If date not found, returns '<c>DateTime.Now.AddDays(-1)</c>' as default.</returns>
         </member>
         <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel,System.Int32)">
             <summary>
@@ -865,6 +1042,14 @@
             <inheritdoc/>
             <remarks>Default value is 60 minutes.</remarks>
         </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.SubmitOfferDelay">
+            <inheritdoc/>
+            <remarks>Default value is 5 seconds.</remarks>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CancelOfferDelay">
+            <inheritdoc/>
+            <remarks>Default value is 5 seconds.</remarks>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreService,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.SitecoreSettingsReaderService"/> class.
@@ -897,6 +1082,12 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllDefinitions">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetProductInfo(eContracting.Models.OfferAttachmentModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllProductInfos">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
@@ -912,7 +1103,7 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetXmlNodeNamesExcludeHtml">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.IProcessStepModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetSteps(eContracting.Models.IStepModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetCustomDatabaseConnectionString">

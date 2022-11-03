@@ -10,6 +10,8 @@ namespace eContracting.Website.Areas.eContracting2.Models
     {
         public IPageHeaderModel Datasource { get; set; }
 
+        public string LogoUrl { get; set; }
+
         public bool ShowLogoutButton { get; set; }
 
         public string LogoutUrl { get; set; }

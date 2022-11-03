@@ -23,6 +23,9 @@ namespace eContracting.Models
         [JsonProperty("label")]
         public string Label { get; set; }
 
+        [JsonProperty("note")]
+        public string Note { get; set; }
+
         [JsonProperty("prefix")]
         public string Prefix { get; set; }
 
@@ -35,11 +38,22 @@ namespace eContracting.Models
         [JsonProperty("idx")]
         public int Position { get; set; }
 
+        [JsonIgnore]
+        public IProductInfoModel MatchedProductInfo { get; set; }
+
+        /// <summary>
+        /// Gets all XML template file attributes as collection.
+        /// </summary>
+        /// <see cref="OfferAttachmentXmlModel.XmlTemplateAttributes"/>
+        [JsonIgnore]
+        public readonly IDictionary<string, string> XmlAttributes;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonAcceptFileModel"/> class.
         /// </summary>
         public JsonAcceptFileModel()
         {
+            this.XmlAttributes = new Dictionary<string, string>();
         }
 
         /// <summary>
@@ -62,6 +76,8 @@ namespace eContracting.Models
             this.MimeType = attachment.MimeType;
             this.Mandatory = attachment.IsRequired;
             this.Position = attachment.Position;
+
+            this.XmlAttributes = attachment.DocumentTemplate.XmlTemplateAttributes;
         }
     }
 }

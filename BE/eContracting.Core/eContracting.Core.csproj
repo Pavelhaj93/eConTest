@@ -92,6 +92,15 @@
     <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Environment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Environment.1.0.2\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Environment.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.5\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.5\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.5\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.5\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
     </Reference>
@@ -241,6 +250,9 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Spatial, Version=5.8.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.5\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -276,6 +288,7 @@
     <Compile Include="EVENT_NAMES.cs" />
     <Compile Include="IDataCacheService.cs" />
     <Compile Include="IDataRequestCacheService.cs" />
+    <Compile Include="IOfferDataService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="ICognitoAuthService.cs" />
     <Compile Include="IEventLogger.cs" />
@@ -288,6 +301,7 @@
     <Compile Include="ITokenParser.cs" />
     <Compile Include="IUserFileCacheService.cs" />
     <Compile Include="Models\BaseSitecoreModel.cs" />
+    <Compile Include="Models\CallMeBackModel.cs" />
     <Compile Include="Models\CognitoSettingsModel.cs" />
     <Compile Include="Models\CognitoUserDataModel.cs" />
     <Compile Include="Models\CognitoUserModel.cs" />
@@ -295,6 +309,7 @@
     <Compile Include="Models\IAccountButtonsModel.cs" />
     <Compile Include="Models\IBasePageModel.cs" />
     <Compile Include="Models\IBasePageWithStepsModel.cs" />
+    <Compile Include="Models\ICallMeBackModalWindow.cs" />
     <Compile Include="Models\IColorModel.cs" />
     <Compile Include="Models\ICookieLawSettingsModel.cs" />
     <Compile Include="Models\DbFileAttributeModel.cs" />
@@ -311,7 +326,23 @@
     <Compile Include="Models\IInfoBoxModel.cs" />
     <Compile Include="Models\IListCollectionModel.cs" />
     <Compile Include="Models\IListItemModel.cs" />
+    <Compile Include="Models\IModalDialogAcceptOfferModel.cs" />
+    <Compile Include="Models\IModalDialogBaseModel.cs" />
+    <Compile Include="Models\IModalDialogSignOfferModel.cs" />
     <Compile Include="Models\IOfferDataModel.cs" />
+    <Compile Include="Models\IPageSummaryOfferModel.cs" />
+    <Compile Include="Models\IModalDialogSimpleModel.cs" />
+    <Compile Include="Models\IProductInfoModel.cs" />
+    <Compile Include="Models\IProductInfoRootModel.cs" />
+    <Compile Include="Models\IStepsModel.cs" />
+    <Compile Include="Models\CancelOfferViewModel.cs" />
+    <Compile Include="Models\IWorkingDay.cs" />
+    <Compile Include="Models\JsonOfferDistributorChangeModel.cs" />
+    <Compile Include="Models\JsonOfferProductModel.cs" />
+    <Compile Include="Models\JsonOfferSummaryModel.cs" />
+    <Compile Include="Models\JsonOfferPersonalDataModel.cs" />
+    <Compile Include="Models\JsonSalesArgumentsExtendedModel.cs" />
+    <Compile Include="Models\JsonSectionAcceptanceBoxModel.cs" />
     <Compile Include="Models\JwtRefreshTokenModel.cs" />
     <Compile Include="Models\LoginFailureModel.cs" />
     <Compile Include="Models\OAuthTokensModel.cs" />
@@ -330,9 +361,13 @@
     <Compile Include="Models\ProcessModel.cs" />
     <Compile Include="Models\ProcessTypeModel.cs" />
     <Compile Include="Models\ResponseAccessCheckModel.cs" />
+    <Compile Include="Models\ResponsePutModel.cs" />
+    <Compile Include="Models\ResponseStatusSetModel.cs" />
     <Compile Include="Models\RestApiResponseModel.cs" />
     <Compile Include="Models\OfferTokenModel.cs" />
     <Compile Include="Models\UploadGroupFileOperationResultModel.cs" />
+    <Compile Include="SAP\CrmUtilitiesUmc\CRM_UTILITIES_UMC.cs" />
+    <Compile Include="SAP\Partials\ZCCH_ST_ATTRIB.cs" />
     <Compile Include="ServiceFactory.cs" />
     <Compile Include="CacheApiServiceOptions.cs" />
     <Compile Include="SignApiServiceOptions.cs" />
@@ -408,7 +443,7 @@
     <Compile Include="Models\OfferTextModel.cs" />
     <Compile Include="Models\OfferXmlModel.cs" />
     <Compile Include="Models\IProcessModel.cs" />
-    <Compile Include="Models\IProcessStepModel.cs" />
+    <Compile Include="Models\IStepModel.cs" />
     <Compile Include="Models\IProcessTypeModel.cs" />
     <Compile Include="Models\ResponseCacheGetModel.cs" />
     <Compile Include="Models\IRichTextModel.cs" />

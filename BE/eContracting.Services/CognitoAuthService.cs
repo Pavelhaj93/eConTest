@@ -53,22 +53,27 @@ namespace eContracting.Services
 
             if (string.IsNullOrWhiteSpace(settings.CognitoBaseUrl))
             {
-                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-1", "Missing Cognito base URL"));
+                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-BASE", "Missing Cognito base URL"));
+            }
+
+            if (string.IsNullOrWhiteSpace(settings.CognitoTokensUrl))
+            {
+                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-TOKENS", "Missing Cognito tokens URL"));
             }
 
             if (string.IsNullOrWhiteSpace(settings.CognitoClientId))
             {
-                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-2", "Missing Cognito Client ID"));
+                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-CLIENT", "Missing Cognito Client ID"));
             }
 
             if (string.IsNullOrWhiteSpace(settings.InnogyLoginUrl))
             {
-                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-3", "Missing innogy login URL"));
+                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-LOGIN", "Missing innogy login URL"));
             }
 
             if (string.IsNullOrWhiteSpace(settings.InnogyLogoutUrl))
             {
-                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-4", "Missing innogy logout URL"));
+                throw new EcontractingApplicationException(new ErrorModel("AUTH-COG-LOGOUT", "Missing innogy logout URL"));
             }
 
             this._settings = settings;
@@ -166,7 +171,7 @@ namespace eContracting.Services
                 return null;
             }
 
-            return new OAuthTokensModel(result.AccessToken, result.IdToken, result.RefreshToken, tokens.LastAuthUser);
+            return new OAuthTokensModel(result.AccessToken, result.IdToken, tokens.RefreshToken, tokens.LastAuthUser);
         }
 
         protected string GetCookieValue(HttpCookieCollection cookies, string name)
@@ -212,23 +217,21 @@ namespace eContracting.Services
 
         protected JwtRefreshTokenModel GetNewAccessToken(CognitoSettingsModel settings, OAuthTokensModel tokens)
         {
-            var data = new List<KeyValuePair<string, string>>();
-            data.Add(new KeyValuePair<string, string>("client_id", settings.CognitoClientId));
-            data.Add(new KeyValuePair<string, string>("grant_type", "refresh_token"));
-            data.Add(new KeyValuePair<string, string>("refresh_token", tokens.RefreshToken));
-            data.Add(new KeyValuePair<string, string>("scope", "openid profile"));
+            var data = new Dictionary<string, string>();
+            data.Add("grant_type", "refresh_token");
+            data.Add("client_id", settings.CognitoClientId);
+            data.Add("refresh_token", tokens.RefreshToken);
+            data.Add("scope", "openid profile");
             
             var content = new FormUrlEncodedContent(data);
             content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
 
-            var basicToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(settings.CognitoClientId + ":" + tokens.AccessToken));
-
-            var url = new UriBuilder(settings.CognitoBaseUrl);
+            var url = new UriBuilder(settings.CognitoTokensUrl);
             url.Path = "/oauth2/token";
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url.Uri);
-            request.Headers.Authorization = new AuthenticationHeaderValue("Basic", basicToken);
             request.Content = content;
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             var response = this.RestApiService.GetResponse<JwtRefreshTokenModel>(request);
             return response?.Data;

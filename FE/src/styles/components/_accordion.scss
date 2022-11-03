@@ -1,0 +1,51 @@
+.accordion {
+  &__header {
+    &[aria-expanded='true'] .icon {
+      transform: rotateZ(180deg);
+    }
+
+    &[aria-expanded='true'] .icon-tooltip {
+      transform: none;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    margin-bottom: 0 !important;
+    color: $color-white;
+
+    .icon {
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &__panel {
+    margin-top: -1px;
+    padding: map-get($spacers, 4);
+    border: 2px solid $color-purple-light;
+
+    .special {
+      color: $color-purple-light;
+    }
+
+    &--blue {
+      border: 2px solid $color-blue;
+
+      .special {
+        color: $color-blue;
+      }
+    }
+
+    &--orange {
+      border: 2px solid $color-orange;
+
+      .special {
+        color: $color-orange;
+      }
+    }
+  }
+
+  &__divider {
+    border-bottom: 1px solid currentColor;
+  }
+}

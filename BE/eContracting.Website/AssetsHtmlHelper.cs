@@ -17,7 +17,8 @@ using Sitecore.Mvc;
 using Sitecore.Web.UI.HtmlControls;
 
 namespace eContracting.Website
-{    
+{
+    [ExcludeFromCodeCoverage]
     public class AssetsHtmlHelper
     {
         protected readonly HtmlHelper HtmlHelper;
@@ -29,6 +30,7 @@ namespace eContracting.Website
             this.HtmlHelper = htmlHelper;
         }
 
+        [ExcludeFromCodeCoverage]
         private struct CacheValue
         {
             public string FilePath { get; }

@@ -14,6 +14,9 @@ namespace eContracting.Models
         [JsonProperty("subTitle")]
         public string SubTitle { get; set; }
 
+        [JsonProperty("sectionInfo")]
+        public JsonSectionAcceptanceBoxModel AcceptanceInfoBox { get; set; }
+
         [JsonProperty("params")]
         public IEnumerable<JsonParamModel> Params { get; set; }
 

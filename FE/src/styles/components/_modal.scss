@@ -14,3 +14,40 @@
     max-width: 98%;
   }
 }
+
+.backdrop {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  z-index: 999;
+
+  background: #000c;
+}
+
+.backdrop--hidden {
+  display: none;
+}
+
+.unfinished-offer-modal {
+  // position: relative;
+  // background-color: $color-white;
+  // text-align: center;
+  // padding: map-get($spacers, 5);
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+
+  .button-group {
+    gap: map-get($spacers, 4);
+  }
+
+  .close-button {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    background-color: transparent;
+    border: none;
+  }
+}

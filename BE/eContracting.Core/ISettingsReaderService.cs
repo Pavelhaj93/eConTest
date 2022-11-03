@@ -35,6 +35,16 @@ namespace eContracting
         int CognitoMinSecondsToRefreshToken { get; }
 
         /// <summary>
+        /// Gets delay in seconds after submit process to SAP is done, so user wait for extra time.
+        /// </summary>
+        int SubmitOfferDelay { get; }
+
+        /// <summary>
+        /// Gets delay in seconds after cancel process to SAP is done, so user wait for extra time.
+        /// </summary>
+        int CancelOfferDelay { get; }
+
+        /// <summary>
         /// Gets <c>default</c> definition. Cannot be null.
         /// </summary>
         /// <returns>The definition.</returns>
@@ -61,6 +71,12 @@ namespace eContracting
         /// Gets all defined matrix definitions.
         /// </summary>
         IDefinitionCombinationModel[] GetAllDefinitions();
+
+        /// <summary>
+        /// Gets all define product information.
+        /// </summary>
+        /// <returns></returns>
+        IProductInfoModel[] GetAllProductInfos();
 
         /// <summary>
         /// Gets available login types for <paramref name="offer"/> defined in <see cref="IDefinitionCombinationModel"/>.
@@ -123,11 +139,12 @@ namespace eContracting
         ISiteSettingsModel GetSiteSettings();
 
         /// <summary>
-        /// Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="IProcessStepModel.IsSelected"/> = <c>true</c>'.
+        /// Get all steps from collection where <paramref name="currentStep"/> is in and mark current as '<see cref="IStepModel.IsSelected"/> = <c>true</c>'.
         /// </summary>
         /// <param name="currentStep">The current step.</param>
         /// <returns>Array of all related steps.</returns>
-        IProcessStepModel[] GetSteps(IProcessStepModel currentStep);
+        [Obsolete]
+        IStepModel[] GetSteps(IStepModel currentStep);
 
         string[] GetXmlNodeNamesExcludeHtml();
 

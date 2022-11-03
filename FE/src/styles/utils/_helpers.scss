@@ -46,7 +46,9 @@
         $color ==
         'gray-80' or
         $color ==
-        'gray-100'
+        'gray-100' or
+        $color ==
+        'black'
     ) {
       &,
       .table {
@@ -74,4 +76,27 @@
   > *:last-child {
     margin-bottom: 0;
   }
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.hr {
+  border-top: 2px solid $color-black;
+}
+.hr-sm {
+  border-top: 1px solid $color-black;
+}
+
+.pe-none {
+  pointer-events: none;
+}
+
+.w-content {
+  width: fit-content;
+}
+
+.underline {
+  text-decoration: underline;
 }

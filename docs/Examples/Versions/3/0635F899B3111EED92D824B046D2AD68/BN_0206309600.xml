@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0274740027C71EDB92F7C63091E26D62</GUID>
+            <ISU_CONTRACT>1170230992</ISU_CONTRACT>
+            <CONTSTART>20210101</CONTSTART>
+            <DATE_TO>20221028</DATE_TO>
+            <STATUS>Založeno</STATUS>
+            <PARTNER>9512622583</PARTNER>
+            <NAME_LAST>Kvapilová</NAME_LAST>
+            <NAME_FIRST>Romana</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>22.03.1969</BIRTHDT>
+            <IC></IC>
+            <EMAIL>klara.elblova@innogy.cz</EMAIL>
+            <PHONE>606 622 569</PHONE>
+            <EXT_UI>27ZG400Z0239980Y</EXT_UI>
+            <VSTELLE>9302173349</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>161000193252</BUAG>
+            <PSC_MS>403 31</PSC_MS>
+            <PSC_ADDR>403 31</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>D</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>010</SEQNR>
+                    <IDATTACH>P01</IDATTACH>
+                    <TEMPLATE>P01</TEMPLATE>
+                    <DESCRIPTION>Přihláška k pojištění</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM078</TEMPL_ALC_ID>
+                    <PRODUCT>20000330</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EED92D824C98368AD6B</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>011</SEQNR>
+                    <IDATTACH>P06</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Pojistná smlouva</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000330</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EED92D824C98368AD6B</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+                <Template>
+                    <SEQNR>012</SEQNR>
+                    <IDATTACH>P12</IDATTACH>
+                    <TEMPLATE></TEMPLATE>
+                    <DESCRIPTION>Informační dokument o pojistném produktu</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ></TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM037</TEMPL_ALC_ID>
+                    <PRODUCT>20000330</PRODUCT>
+                    <GROUP>NONCOMMODITY</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EED92D824C98368AD6B</ITEM_GUID>
+                    <CONSENT_TYPE>P</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

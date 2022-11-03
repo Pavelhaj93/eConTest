@@ -1,0 +1,312 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    iKARTA<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B327D07532453</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_PRODUCT>INNOGY_KARTA</ADD_SERVICES_PRODUCT>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B323695A6A453</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [24.09.2022]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.10.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>24.09.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.10.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Pojištění domácnosti<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B32B1EEFE0453</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID_1>0635F899B3111EED8C8B32C9599FA453</NONCOMMODITY_ACCEPT_LABEL_GUID_1>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [innogy Pojištění domácnosti]<br />|Varianta|: [Komfort Plus]<br />|Platnost nabídky do|: [24.09.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [Servis plynových spotřebičů]<br />|Značka kotle|: [Kotel Bosch]<br />|Adresa místa plnění|: [Hradec Králové, Zahrádkářská 295 / 37, 503 11]<br />|Platnost nabídky do|: [24.09.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Varianta</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_5>Adresa místa plnění</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_5>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_6>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_6>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>innogy Pojištění domácnosti</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Komfort Plus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>24.09.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Servis plynových spotřebičů</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Kotel Bosch</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_5>Hradec Králové, Zahrádkářská 295 / 37, 503 11</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_5>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_6>24.09.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_6>
+        <NONCOMMODITY_PRODUCT>20000331</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_1>20000160</NONCOMMODITY_PRODUCT_1>
+        <NONCOMMODITY_PRODUCT_DESC>Pojištění Komfort Plus</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_PRODUCT_DESC_1>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC_1>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Cena servisu rozdělena do měsíčních záloh]<br />|Druhé|: [Zajištění technika v případě poruchy do dvou pracovních dnů]<br />|Třetí|: [Servisní protokol jako standardní výstup každé servisní prohlídky]<br />|Čtvrté|: [Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Cena servisu rozdělena do měsíčních záloh</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Zajištění technika v případě poruchy do dvou pracovních dnů</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Servisní protokol jako standardní výstup každé servisní prohlídky</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Zahrádkářská 295 / 37, 503 11 Hradec Králové - Svobodné Dvory</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Hradec Králové</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Svobodné Dvory</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>503 11</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Zahrádkářská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>295 / 37</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Zahrádkářská 295 / 37, 503 11 Hradec Králové</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>11.05.1984</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Hradec Králové</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Svobodné Dvory</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>pechaneklukas@seznam.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lukáš Pechánek</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>503 11</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Zahrádkářská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>295 / 37</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Korespondenčně</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>775633873</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Pechánku                                          </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichho4oCK94U2B2EvroCBnQRFLbduMTPpAKAJ</PERSON_MMB_URL>
+        <PERSON_NUMBER>9513257699</PERSON_NUMBER>
+        <PERSON_PREMADR>Zahrádkářská 295 / 37, 503 11 Hradec Králové</PERSON_PREMADR>
+        <PERSON_PREMCITY>Hradec Králové</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Svobodné Dvory</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG500Z0256975I</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300338163</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>503 11</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Zahrádkářská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>295 / 37</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    iKARTA<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B327D07532453</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_PRODUCT>INNOGY_KARTA</ADD_SERVICES_PRODUCT>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B323695A6A453</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [24.09.2022]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.10.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>24.09.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.10.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Pojištění domácnosti<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8C8B32B1EEFE0453</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID_1>0635F899B3111EED8C8B32C9599FA453</NONCOMMODITY_ACCEPT_LABEL_GUID_1>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [innogy Pojištění domácnosti]<br />|Varianta|: [Komfort Plus]<br />|Platnost nabídky do|: [24.09.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [Servis plynových spotřebičů]<br />|Značka kotle|: [Kotel Bosch]<br />|Adresa místa plnění|: [Hradec Králové, Zahrádkářská 295 / 37, 503 11]<br />|Platnost nabídky do|: [24.09.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Varianta</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_5>Adresa místa plnění</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_5>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_6>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_6>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>innogy Pojištění domácnosti</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Komfort Plus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>24.09.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Servis plynových spotřebičů</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Kotel Bosch</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_5>Hradec Králové, Zahrádkářská 295 / 37, 503 11</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_5>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_6>24.09.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_6>
+        <NONCOMMODITY_PRODUCT>20000331</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_1>20000160</NONCOMMODITY_PRODUCT_1>
+        <NONCOMMODITY_PRODUCT_DESC>Pojištění Komfort Plus</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_PRODUCT_DESC_1>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC_1>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Cena servisu rozdělena do měsíčních záloh]<br />|Druhé|: [Zajištění technika v případě poruchy do dvou pracovních dnů]<br />|Třetí|: [Servisní protokol jako standardní výstup každé servisní prohlídky]<br />|Čtvrté|: [Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Cena servisu rozdělena do měsíčních záloh</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Zajištění technika v případě poruchy do dvou pracovních dnů</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Servisní protokol jako standardní výstup každé servisní prohlídky</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Zahrádkářská 295 / 37, 503 11 Hradec Králové - Svobodné Dvory</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Hradec Králové</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Svobodné Dvory</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>503 11</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Zahrádkářská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>295 / 37</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Zahrádkářská 295 / 37, 503 11 Hradec Králové</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>11.05.1984</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Hradec Králové</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Svobodné Dvory</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>pechaneklukas@seznam.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lukáš Pechánek</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>503 11</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Zahrádkářská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>295 / 37</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Korespondenčně</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>775633873</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Pechánku                                          </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichho4oCK94U2B2EvroCBnQRFLbduMTPpAKAJ</PERSON_MMB_URL>
+        <PERSON_NUMBER>9513257699</PERSON_NUMBER>
+        <PERSON_PREMADR>Zahrádkářská 295 / 37, 503 11 Hradec Králové</PERSON_PREMADR>
+        <PERSON_PREMCITY>Hradec Králové</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Svobodné Dvory</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG500Z0256975I</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300338163</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>503 11</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Zahrádkářská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>295 / 37</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

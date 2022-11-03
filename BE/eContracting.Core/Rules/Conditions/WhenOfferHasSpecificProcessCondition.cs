@@ -18,6 +18,7 @@ namespace eContracting.Rules.Conditions
     /// </summary>
     /// <typeparam name="T">The rule context.</typeparam>
     /// <seealso cref="Sitecore.Rules.Conditions.WhenCondition{T}" />
+    [Obsolete]
     public class WhenOfferHasSpecificProcessCondition<T> : WhenCondition<T> where T : RuleContext
     {
         /// <summary>

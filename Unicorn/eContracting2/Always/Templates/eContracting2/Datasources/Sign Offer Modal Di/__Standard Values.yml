@@ -1,0 +1,41 @@
+﻿---
+ID: "44e04e0d-0d60-41e2-9d5e-663884eaf419"
+Parent: "64a979c7-3f85-49c5-a53c-93ce66a68da5"
+Template: "64a979c7-3f85-49c5-a53c-93ce66a68da5"
+Path: /sitecore/templates/eContracting2/Datasources/Sign Offer Modal Dialog/__Standard Values
+DB: master
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "01471baf-bd8d-4669-ac3a-54f4f011ddf3"
+      Hint: Text
+      Value: "Podepište se prosím níže:"
+    - ID: "03c1a78e-5473-4973-94f1-ab9fa35d2d3d"
+      Hint: GeneralErrorMessage
+      Value: Dokument se nepodařilo podepsat, zkuste to prosím znovu.
+    - ID: "13bf626c-bc09-46d7-b3d8-5de1c664f6ba"
+      Hint: ThumbnailText
+      Value: Náhled dokumentu k podepsání
+    - ID: "253de93f-16b7-4514-8e14-88aeec14d33a"
+      Hint: Title
+      Value: Podepsat dokument
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220916T150932Z
+    - ID: "4bc14de7-b277-400b-bf04-89004a07deb7"
+      Hint: CancelButtonLabel
+      Value: Smazat
+    - ID: "78e39635-4213-4ebc-8858-849bc353b128"
+      Hint: Note
+      Value: Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu
+    - ID: "99831f14-b82d-4b55-9745-5e95b77c2dde"
+      Hint: Close
+      Value: Zavřít
+    - ID: "a0551b61-0186-4774-8c97-5cfaa6d7aff2"
+      Hint: PenArea
+      Value: Zde je podpisová plocha pro váš podpis
+    - ID: "ebfb2a12-fccb-4782-a2e6-55493f8c2323"
+      Hint: Sign
+      Value: Podepsat

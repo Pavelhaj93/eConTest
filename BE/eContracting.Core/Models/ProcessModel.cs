@@ -16,5 +16,6 @@ namespace eContracting.Models
         public string DisplayName { get; set; }
         public string Path { get; set; }
         public string e_Name { get; set; }
+        public Guid TemplateId { get; set; }
     }
 }

@@ -113,6 +113,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cognito", "Cognito", "{A2AA
 		..\docs\Examples\Cognito\userData.json = ..\docs\Examples\Cognito\userData.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3", "3", "{F8E4EC14-67B6-477F-8E2D-A72829DEA331}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\Examples\Versions\3\BN_0205207940_CBE.xml = ..\docs\Examples\Versions\3\BN_0205207940_CBE.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,8 +222,10 @@ Global
 		{8B0BFC61-FD5E-4629-8F1E-3DDD620F73F1} = {F0C6260D-2E17-4D1B-ADC5-B85762E8CF78}
 		{9728E0BC-DD58-4415-AB32-C6B3E3CED71C} = {F0C6260D-2E17-4D1B-ADC5-B85762E8CF78}
 		{A2AACBCC-4AD9-4E2A-9E58-3655D6CFE3B8} = {FCE383FF-8571-4051-95F9-6293F4F54522}
+		{F8E4EC14-67B6-477F-8E2D-A72829DEA331} = {F0C6260D-2E17-4D1B-ADC5-B85762E8CF78}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Configuration.6.0.1304.0\lib\NET45
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,15 @@
+﻿@using eContracting
+@using eContracting.Models
+@model HeaderViewModel
+
+<header class="header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <a class="logo" href="@Model.Datasource.GetImageLinkUrl()" aria-label="Homepage">
+                <svg class="icon" preserveAspectRatio="none" focusable="false" aria-hidden="true">
+                    <use xlink:href="#logo"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+</header>

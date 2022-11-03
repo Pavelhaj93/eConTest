@@ -1,0 +1,76 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDCBDC3DC1563AD4FBD</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Standard]<br />|Platnost nabídky do|: [12.07.2022]<br />|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.08.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>12.07.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.08.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nižší cena silové elektřiny než u vašeho regionálního dodavatele]<br />|Druhé|: [smlouva bez závazku, lze ji kdykoliv vypovědět]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nižší cena silové elektřiny než u vašeho regionálního dodavatele</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>smlouva bez závazku, lze ji kdykoliv vypovědět</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Políkno 1, 364 01 Toužim - Políkno</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Toužim</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Políkno</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>364 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET></PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Políkno 1, 364 01 Toužim</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>01.01.2000</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Toužim</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Políkno</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>kovarik5@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Tomáš Fuk</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>364 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET></PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Papírový tisk</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>724 153 093</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený zákazníku</PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9611409571</PERSON_NUMBER>
+        <PERSON_PREMADR></PERSON_PREMADR>
+        <PERSON_PREMCITY>Dolní Benešov</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Dolní Benešov</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400510351079</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302733748</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>747 22</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Osada míru</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>415</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

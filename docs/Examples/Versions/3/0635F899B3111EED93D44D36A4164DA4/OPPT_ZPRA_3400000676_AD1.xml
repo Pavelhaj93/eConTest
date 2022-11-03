@@ -1,0 +1,79 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED93D44D36A4166DA4</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Optimal]<br />|Platnost nabídky do|: [25.10.2022]<br />|Délka fixace|: [30 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.02.2023 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Optimal</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>25.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>30 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.02.2023 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_OPTIMAL7/16</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Optimal</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [naše ceny energií i smlouvy jsou závazné]<br />|Druhé|: [ve druhém i třetím roce garance dalšího cenového snížení]<br />|Třetí|:  [pevná cena silové elektřiny po dobu 30 měsíců]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>naše ceny energií i smlouvy jsou závazné</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>ve druhém i třetím roce garance dalšího cenového snížení</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>pevná cena silové elektřiny po dobu 30 měsíců</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>ČEZ Prodej, a.s.</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Plynární 2748 / 6, 702 00 Moravská Ostrava a Přívoz - Moravská Ostrava</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Moravská Ostrava a Přívoz</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Moravská Ostrava</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>702 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Plynární</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2748 / 6</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Plynární 2748 / 6, 702 00 Moravská Ostrava a Přívoz</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>06.04.1973</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Moravská Ostrava a Přívoz</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Moravská Ostrava</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>lukas.noska@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Ing. Martin Trubka</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>702 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Plynární</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2748 / 6</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>innosvět</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>730 814 493</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Trubko                                            </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511800339</PERSON_NUMBER>
+        <PERSON_PREMADR>Masarykovo nám. 183/5, 693 01 Hustopeče</PERSON_PREMADR>
+        <PERSON_PREMCITY>Hustopeče</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Hustopeče</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400208750108</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301483630</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>693 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Masarykovo nám.</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>183/5</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

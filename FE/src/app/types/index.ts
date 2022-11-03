@@ -8,6 +8,11 @@ export type AppConfig = {
   view: string
 
   offerUrl: string
+  cancelDialog?: {
+    cancelOfferUrl: string
+    redirectUrl: string
+  }
+
   labels: {
     [key: string]: any
   }
@@ -22,15 +27,19 @@ export type AppConfig = {
   signFileUrl?: string
   /** After how many milliseconds the documents request will be canceled. */
   timeout?: number
+  unfinishedOfferTimeout?: number
   /** URL where to upload user files. */
   uploadFileUrl?: string
   /** URL that accepts document id to remove the uploaded document. */
   removeFileUrl?: string
   errorPageUrl: string
+  authUrl?: string
   acceptOfferUrl?: string
   keepAliveUrl?: string
   thankYouPageUrl: string
   sessionExpiredPageUrl: string
+  getSummaryUrl?: string
+  backToOfferUrl?: string
   allowedContentTypes?: string[]
   maxFileSize?: number
   maxGroupFileSize?: number
@@ -42,6 +51,11 @@ export type AppConfig = {
   innogyAccountUrl?: string
   /** Controls whether or not the Innogy account login option is enabled. */
   hideInnogyAccount?: boolean
+  /** Property to control version of the application */
+  version?: 1 | 2 | 3
+  getCallMeBackUrl?: string
+  postCallMeBackUrl?: string
+  showCmbModal?: boolean
 }
 
 declare global {

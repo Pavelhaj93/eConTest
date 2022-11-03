@@ -33,6 +33,8 @@ namespace eContracting.Services
         /// </summary>
         protected readonly IServiceFactory ServiceFactory;
 
+        protected readonly IOfferDataService DataService;
+
         /// <summary>
         /// The offer parser.
         /// </summary>
@@ -66,6 +68,7 @@ namespace eContracting.Services
             IUserFileCacheService userFileCache,
             ISettingsReaderService settingsReaderService,
             IServiceFactory factory,
+            IOfferDataService offerDataService,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser,
             IDataRequestCacheService cacheService,
@@ -74,6 +77,7 @@ namespace eContracting.Services
             this.Logger = logger;
             this.UserFileCache = userFileCache;
             this.SettingsReaderService = settingsReaderService;
+            this.DataService = offerDataService;
             this.OfferParser = offerParser;
             this.ServiceFactory = factory;
             this.AttachmentParser = offerAttachmentParser;
@@ -101,18 +105,18 @@ namespace eContracting.Services
             var responsePdfFiles = this.GetFiles(offer.Guid, false);
             this.AttachmentParser.MakeCompatible(offer, responsePdfFiles);
             var files = this.GetFilesForAccept(offer, data, responsePdfFiles, sessionId);
-            var putResult = this.Put(offer.Guid, attributes.ToArray(), files.ToArray());
+            var putResult = this.DataService.Put(offer.Guid, attributes.ToArray(), files.ToArray());
 
-            if (putResult.ZCCH_CACHE_PUTResponse.EV_RETCODE != 0)
+            if (putResult.ErrorCode != 0)
             {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OS-AO-CP", putResult.ZCCH_CACHE_PUTResponse));
+                throw new EcontractingApplicationException(putResult.GetError("OS-AO-CP"));
             }
 
-            var setResult = this.SetStatus(offer.Guid, OFFER_TYPES.NABIDKA, "5");
+            var setResult = this.SetStatus(offer.Guid, OFFER_TYPES.QUOTPRX, "5");
 
-            if (setResult.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            if (setResult.ErrorCode != 0)
             {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OS-AO-CSS", setResult.ZCCH_CACHE_STATUS_SETResponse));
+                throw new EcontractingApplicationException(setResult.GetError("OS-AO-CSS"));
             }
         }
 
@@ -136,7 +140,7 @@ namespace eContracting.Services
             }
 
             var userId = user.CognitoUser?.PreferredUsername;
-            var response = this.UserAccessCheck(guid, userId, type);
+            var response = this.DataService.UserAccessCheck(guid, userId, type);
 
             // this happens when user is not logged in
             if (response == null)
@@ -194,7 +198,7 @@ namespace eContracting.Services
             }
             else
             {
-                var canRead = this.CanReadOffer(guid, user, OFFER_TYPES.NABIDKA);
+                var canRead = this.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX);
 
                 if (!canRead)
                 {
@@ -203,7 +207,7 @@ namespace eContracting.Services
                 }
             }
 
-            var response = this.GetResponse(guid, OFFER_TYPES.NABIDKA);
+            var response = this.DataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
 
             if (response == null)
             {
@@ -223,11 +227,11 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public void ReadOffer(string guid, UserCacheDataModel user)
         {
-            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, "4");
+            var response = this.SetStatus(guid, OFFER_TYPES.QUOTPRX, "4");
 
-            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            if (response.ErrorCode != 0)
             {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-RO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+                throw new EcontractingApplicationException(response.GetError("OF-RO-CSS"));
             }
         }
 
@@ -241,11 +245,22 @@ namespace eContracting.Services
                 status = "I";
             }
 
-            var response = this.SetStatus(guid, OFFER_TYPES.NABIDKA, status);
+            var response = this.SetStatus(guid, OFFER_TYPES.QUOTPRX, status);
 
-            if (response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE != 0)
+            if (response.ErrorCode != 0)
             {
-                throw new EcontractingApplicationException(ERROR_CODES.FromResponse("OF-SIO-CSS", response.ZCCH_CACHE_STATUS_SETResponse));
+                throw new EcontractingApplicationException(response.GetError("OF-SIO-CSS"));
+            }
+        }
+
+        /// <inheritdoc/>
+        public void CancelOffer(string guid)
+        {
+            var response = this.SetStatus(guid, OFFER_TYPES.QUOTPRX, "9");
+
+            if (response.ErrorCode != 0)
+            {
+                throw new EcontractingApplicationException(response.GetError("OF-RO-CAN"));
             }
         }
 
@@ -319,7 +334,7 @@ namespace eContracting.Services
         {
             if (offer.Version == 1)
             {
-                var response2 = this.GetResponse(response.Guid, OFFER_TYPES.NABIDKA_XML);
+                var response2 = this.DataService.GetResponse(response.Guid, OFFER_TYPES.QUOTPRX_XML);
 
                 if (response2 != null && response2.Response.ET_FILES?.Length > 0)
                 {
@@ -346,6 +361,47 @@ namespace eContracting.Services
                 {
                     var parameters = this.OfferParser.GetTextParameters(files.Select(x => new OfferFileXmlModel(x)).ToArray());
                     this.OfferParser.MakeCompatibleParameters(parameters, offer.Version);
+                    return parameters;
+                }
+            }
+            else if (offer.Version == 3)
+            {
+                var parameters = new Dictionary<string, string>();
+                var ad1files = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && a.ATTRVAL == Constants.FileAttributeValues.TEXT_PARAMETERS)).ToArray();
+
+                if (!ad1files.Any())
+                {
+                    this.Logger.Error(response.Guid, $"Additional file with {Constants.FileAttributes.TYPE} == {Constants.FileAttributeValues.TEXT_PARAMETERS} not found. No text parameters are available.");
+                    return new Dictionary<string, string>();
+                }
+                else
+                {
+                    parameters.Merge(this.OfferParser.GetTextParameters(ad1files.Select(x => new OfferFileXmlModel(x)).ToArray()));
+                    this.OfferParser.MakeCompatibleParameters(parameters, offer.Version);
+
+                    var cbFiles = response.Response.ET_FILES.Where(x => x.ATTRIB.Any(a => a.ATTRID == Constants.FileAttributes.TYPE && (a.ATTRVAL == Constants.FileAttributeValues.EXTRA_PARAMETERS_E || a.ATTRVAL == Constants.FileAttributeValues.EXTRA_PARAMETERS_P))).ToArray();
+
+                    if (cbFiles.Length == 0)
+                    {
+                        this.Logger.Error(response.Guid, $"Missing file '{Constants.FileAttributeValues.EXTRA_PARAMETERS_E}' for version {offer.Version}.");
+                        //throw new EcontractingApplicationException(new ErrorModel("OF_AT_CB", $"Missing file '{Constants.FileAttributeValues.EXTRA_PARAMETERS_E}/{Constants.FileAttributeValues.EXTRA_PARAMETERS_P}' for version {offer.Version}."));
+                    }
+                    else
+                    {
+                        var preferred = cbFiles.FirstOrDefault(x => x.FILENAME.EndsWith("_PREFERRED.xml"));
+                        
+                        if (preferred != null)
+                        {
+                            parameters.Merge(this.OfferParser.GetTextParameters(new[] { new OfferFileXmlModel(preferred) }));
+                            this.Logger.Debug(response.Guid, $"Additional text parameters merged from '{preferred.FILENAME}'");
+                        }
+                        else
+                        {
+                            parameters.Merge(this.OfferParser.GetTextParameters(cbFiles.Select(x => new OfferFileXmlModel(x)).ToArray()));
+                            this.Logger.Debug(response.Guid, $"Additional text parameters merged from '{string.Join(", ", cbFiles.Select(x => x.FILENAME).ToArray())}'");
+                        }
+                    }
+
                     return parameters;
                 }
             }
@@ -526,188 +582,19 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Gets data.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">Type from <see cref="OFFER_TYPES"/> collection.</param>
-        /// <param name="fileType">Type of the file.</param>
-        /// <returns>Instance of <see cref="ResponseCacheGetModel"/> or an exception.</returns>
-        protected internal ResponseCacheGetModel GetResponse(string guid, OFFER_TYPES type, string fileType = "B")
-        {
-            var options = this.SettingsReaderService.GetApiServiceOptions();
-
-            using (var api = this.ServiceFactory.CreateApi(options))
-            {
-                var model = new ZCCH_CACHE_GET();
-                model.IV_CCHKEY = guid;
-                model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
-                model.IV_GEFILE = fileType;
-
-                this.Logger.Info(guid, this.GetLogMessage(model));
-
-                var stop = new Stopwatch();
-                stop.Start();
-
-                var log2 = new StringBuilder();
-                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_GET)} finished:");
-
-                try
-                {
-                    var request = new ZCCH_CACHE_GETRequest(model);
-                    var task = api.ZCCH_CACHE_GETAsync(request);
-                    task.Wait();
-                    var response = task.Result;
-                    stop.Stop();
-
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_GETResponse.EV_RETCODE);
-                    this.Logger.Info(guid, log2.ToString());
-
-                    var result = response.ZCCH_CACHE_GETResponse;
-
-                    if (result == null)
-                    {
-                        this.Logger.Error(guid, "Response ZCCH_CACHE_GETResponse1 is null");
-                        return null;
-                    }
-
-                    return new ResponseCacheGetModel(result);
-                }
-                catch (Exception ex)
-                {
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: unknown");
-                    this.Logger.Fatal(guid, log2.ToString(), ex);
-                    throw ex;
-                }
-            }
-        }
-
-        /// <summary>
         /// Sets the <paramref name="status"/> asynchronously.
         /// </summary>
         /// <param name="guid">The unique identifier.</param>
         /// <param name="type">The type.</param>
         /// <param name="status">The status.</param>
         /// <returns>Response from inner service.</returns>
-        protected internal ZCCH_CACHE_STATUS_SETResponse1 SetStatus(string guid, OFFER_TYPES type, string status)
+        protected internal ResponseStatusSetModel SetStatus(string guid, OFFER_TYPES type, string status)
         {
             var timestampString = DateTime.UtcNow.ToString(Constants.TimeStampFormat);
             decimal outValue = 1M;
             Decimal.TryParse(timestampString, out outValue);
-            var response = this.SetStatus(guid, type, outValue, status);
+            var response = this.DataService.SetStatus(guid, type, outValue, status);
             return response;
-        }
-
-        /// <summary>
-        /// Sets the <paramref name="status"/> asynchronously.
-        /// </summary>
-        /// <param name="guid">Guid identifier.</param>
-        /// <param name="type">A type from <see cref="OFFER_TYPES"/> collection.</param>
-        /// <param name="timestamp">Decimal representation of a timestamp.</param>
-        /// <param name="status">Value for <see cref="ZCCH_CACHE_STATUS_SET.IV_STAT"/>.</param>
-        /// <returns>Response from inner service.</returns>
-        protected internal ZCCH_CACHE_STATUS_SETResponse1 SetStatus(string guid, OFFER_TYPES type, decimal timestamp, string status)
-        {
-            var options = this.SettingsReaderService.GetApiServiceOptions();
-
-            using (var api = this.ServiceFactory.CreateApi(options))
-            {
-                var model = new ZCCH_CACHE_STATUS_SET();
-                model.IV_CCHKEY = guid;
-                model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
-                model.IV_STAT = status;
-                model.IV_TIMESTAMP = timestamp;
-
-                this.Logger.Info(guid, this.GetLogMessage(model));
-
-                var stop = new Stopwatch();
-                stop.Start();
-
-                var log2 = new StringBuilder();
-                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_GET)} finished:");
-
-                try
-                {
-                    var request = new ZCCH_CACHE_STATUS_SETRequest(model);
-                    var task = api.ZCCH_CACHE_STATUS_SETAsync(request);
-                    task.Wait();
-                    var response = task.Result;
-                    stop.Stop();
-
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_STATUS_SETResponse.EV_RETCODE);
-                    this.Logger.Info(guid, log2.ToString());
-
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: unknown");
-                    this.Logger.Fatal(guid, log2.ToString(), ex);
-                    throw ex;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Calling <see cref="ZCCH_CACHE_ACCESS_CHECK"/> to check if Cognito user has access to offer with <paramref name="guid"/>.
-        /// </summary>
-        /// <param name="user">User data with <see cref="UserCacheDataModel.Guid"/>.</param>
-        /// <param name="type">A type from <see cref="OFFER_TYPES"/> collection.</param>
-        /// <returns><see cref="ResponseAccessCheckModel"/> model when request was successful. If user is not Cognito, returns <c>null</c>.</returns>
-        /// <exception cref="EcontractingDataException">When call to <see cref="ZCCH_CACHE_ACCESS_CHECKRequest"/> failed.</exception>
-        protected internal ResponseAccessCheckModel UserAccessCheck(string guid, string userId, OFFER_TYPES type)
-        {
-            var options = this.SettingsReaderService.GetApiServiceOptions();
-
-            using (var api = this.ServiceFactory.CreateApi(options))
-            {
-                var model = new ZCCH_CACHE_ACCESS_CHECK();
-                model.IV_CCHKEY = guid;
-                model.IV_CCHTYPE = Enum.GetName(typeof(OFFER_TYPES), type);
-
-                var attributes = new List<ZCCH_ST_ATTRIB>();
-                attributes.Add(new ZCCH_ST_ATTRIB()
-                {
-                    ATTRID = "USER_ALIAS",
-                    ATTRVAL = userId
-                });
-
-                model.IT_ATTRIB = attributes.ToArray();
-
-                this.Logger.Info(guid, this.GetLogMessage(model));
-
-                var stop = new Stopwatch();
-                stop.Start();
-
-                var log2 = new StringBuilder();
-                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_ACCESS_CHECK)} finished:");
-
-                try
-                {
-                    var request = new ZCCH_CACHE_ACCESS_CHECKRequest(model);
-                    var task = api.ZCCH_CACHE_ACCESS_CHECKAsync(request);
-                    task.Wait();
-                    var response = task.Result;
-                    stop.Stop();
-
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_ACCESS_CHECKResponse.EV_RETCODE);
-                    this.Logger.Info(guid, log2.ToString());
-
-                    var result = response.ZCCH_CACHE_ACCESS_CHECKResponse;
-                    return new ResponseAccessCheckModel(result);
-                }
-                catch (Exception ex)
-                {
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: unknown");
-                    this.Logger.Fatal(guid, log2.ToString(), ex);
-                    throw new EcontractingDataException(new ErrorModel("ZCCH_CACHE_ACCESS_CHECK", "Cannot check user"), ex);
-                }
-            }
         }
 
         /// <summary>
@@ -722,7 +609,7 @@ namespace eContracting.Services
 
             if (isAccepted)
             {
-                var result = this.GetResponse(guid, OFFER_TYPES.NABIDKA_ARCH);
+                var result = this.DataService.GetResponse(guid, OFFER_TYPES.QUOTPRX_ARCH);
 
                 if (result.Response.ET_FILES?.Length > 0)
                 {
@@ -737,155 +624,21 @@ namespace eContracting.Services
                     files.AddRange(result.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)));
                 }
 
-                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_ARCH);
+                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.QUOTPRX_ARCH);
             }
             else
             {
-                var result = this.GetResponse(guid, OFFER_TYPES.NABIDKA_PDF);
+                var result = this.DataService.GetResponse(guid, OFFER_TYPES.QUOTPRX_PDF);
 
                 if (result.Response.ET_FILES?.Length > 0)
                 {
                     files.AddRange(result.Response.ET_FILES.Select(x => new OfferFileXmlModel(x)));
                 }
 
-                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.NABIDKA_PDF);
+                this.Logger.LogFiles(files, guid, isAccepted, OFFER_TYPES.QUOTPRX_PDF);
             }
 
             return files.ToArray();
-        }
-
-        /// <summary>
-        /// Inserts data with 'NABIDKA_PRIJ'.
-        /// </summary>
-        /// <param name="guid">The unique identifier.</param>
-        /// <param name="attributes">The attributes.</param>
-        /// <param name="files">The files.</param>
-        /// <returns>The response.</returns>
-        protected internal ZCCH_CACHE_PUTResponse1 Put(string guid, ZCCH_ST_ATTRIB[] attributes, OfferFileXmlModel[] files)
-        {
-            var options = this.SettingsReaderService.GetApiServiceOptions();
-            //TODO: var user = this.AuthService.GetCurrentUser();
-
-            using (var api = this.ServiceFactory.CreateApi(options))
-            {
-                var model = new ZCCH_CACHE_PUT();
-                model.IV_CCHKEY = guid;
-                model.IV_CCHTYPE = "NABIDKA_PRIJ";
-                model.IT_ATTRIB = attributes;
-                model.IT_FILES = files.Select(x => x.File).ToArray();
-
-                this.Logger.Info(guid, this.GetLogMessage(model));
-
-                var stop = new Stopwatch();
-                stop.Start();
-
-                var log2 = new StringBuilder();
-                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_PUT)} finished:");
-
-                try
-                {
-                    var request = new ZCCH_CACHE_PUTRequest(model);
-                    var task = api.ZCCH_CACHE_PUTAsync(request);
-                    task.Wait();
-                    var response = task.Result;
-                    stop.Stop();
-
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: " + response.ZCCH_CACHE_PUTResponse.EV_RETCODE);
-                    this.Logger.Info(guid, log2.ToString());
-
-                    return response;
-                }
-                catch (Exception ex)
-                {
-                    log2.AppendLine(" Finished in: " + stop.Elapsed.ToString("hh\\:mm\\:ss\\:fff"));
-                    log2.AppendLine(" Response code: unknown");
-                    this.Logger.Fatal(guid, log2.ToString(), ex);
-                    throw ex;
-                }
-            }
-        }
-
-        private string GetLogMessage(ZCCH_CACHE_GET model)
-        {
-            var log = new StringBuilder();
-            log.AppendLine($"Calling {nameof(ZCCH_CACHE_GET)} with parameters:");
-            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
-            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
-            log.AppendLine($" - IV_GEFILE:  {model.IV_GEFILE}");
-            return log.ToString();
-        }
-
-        private string GetLogMessage(ZCCH_CACHE_PUT model)
-        {
-            var log = new StringBuilder();
-            log.AppendLine($"Calling {nameof(ZCCH_CACHE_PUT)} with parameters:");
-            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
-            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
-            log.Append(this.GetLogMessage(model.IT_ATTRIB));
-            log.Append(this.GetLogMessage(model.IT_FILES));
-            return log.ToString();
-        }
-
-        private string GetLogMessage(ZCCH_CACHE_STATUS_SET model)
-        {
-            var log = new StringBuilder();
-            log.AppendLine($"Calling {nameof(ZCCH_CACHE_STATUS_SET)} with parameters:");
-            log.AppendLine($" - IV_CCHKEY:    {model.IV_CCHKEY}");
-            log.AppendLine($" - IV_CCHTYPE:   {model.IV_CCHTYPE}");
-            log.AppendLine($" - IV_STAT:      {model.IV_STAT}");
-            log.AppendLine($" - IV_TIMESTAMP: {model.IV_TIMESTAMP}");
-            return log.ToString();
-        }
-
-        private string GetLogMessage(ZCCH_CACHE_ACCESS_CHECK model)
-        {
-            var log = new StringBuilder();
-            log.AppendLine($"Calling {nameof(ZCCH_CACHE_ACCESS_CHECK)} with parameters:");
-            log.AppendLine($" - IV_CCHKEY:  {model.IV_CCHKEY}");
-            log.AppendLine($" - IV_CCHTYPE: {model.IV_CCHTYPE}");
-            log.Append(this.GetLogMessage(model.IT_ATTRIB));
-            return log.ToString();
-        }
-
-        private string GetLogMessage(ZCCH_ST_ATTRIB[] attributes)
-        {
-            var log = new StringBuilder();
-
-            if (attributes != null && attributes.Length > 0)
-            {
-                for (int i = 0; i < attributes.Length; i++)
-                {
-                    var attr = attributes[i];
-
-                    if (attr != null)
-                    {
-                        log.AppendLine($" - IT_ATTRIB[{i}]{attr.ATTRID}: {attr.ATTRVAL}");
-                    }
-                }
-            }
-
-            return log.ToString();
-        }
-
-        private string GetLogMessage(ZCCH_ST_FILE[] files)
-        {
-            var log = new StringBuilder();
-
-            if (files != null && files.Length > 0)
-            {
-                for (int i = 0; i < files.Length; i++)
-                {
-                    var f = files[i];
-
-                    if (f != null)
-                    {
-                        log.AppendLine($" - IT_FILES[{i}]FILENAME:  {f.FILENAME}");
-                    }
-                }
-            }
-
-            return log.ToString();
         }
     }
 }

@@ -1,0 +1,73 @@
+﻿---
+ID: "76ebb191-e88c-462d-8dec-b53b48c693be"
+Parent: "97b25fdb-9468-47b3-8053-d4f758ec5e5f"
+Template: "97b25fdb-9468-47b3-8053-d4f758ec5e5f"
+Path: /sitecore/templates/eContracting2/Datasources/Call Me Back Modal Dialog/__Standard Values
+DB: master
+SharedFields:
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 500
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "00ccc3c5-3b27-4dcf-94d3-1046b7e9432d"
+      Hint: NoteLabel
+      Value: Poznámka
+    - ID: "04f09f98-7573-4602-b6fb-121fef6aecad"
+      Hint: AddAttachmentLabel
+      Value: Přidat přílohu
+    - ID: "0cd9288a-88b3-4871-9ac5-95e306e13305"
+      Hint: ThankYouTitle
+      Value: Děkujeme za kontakt
+    - ID: "123e34f5-9bbb-4d9d-b6cb-acf977f6f8d3"
+      Hint: FilesNote
+      Value: |
+        <p style="text-align: center;">Velikost každ&eacute;ho souboru nesm&iacute; překročit 2 MB.</p>
+        <p style="text-align: center;">Povolen&yacute; form&aacute;t je pdf, png, jpg/jpeg a tif/tiff.</p>
+    - ID: "253de93f-16b7-4514-8e14-88aeec14d33a"
+      Hint: Title
+      Value: Co nejdříve vám zavoláme zpět na uvedené telefonní číslo a vyřídíme s vámi vše potřebné k pokračování smlouvy u innogy.
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20221018T085808Z
+    - ID: "2789edc6-492f-418b-8aba-75e582de2d1f"
+      Hint: ThankYouText
+      Value: Zavoláme Vám
+    - ID: "545479ad-38be-4099-a47b-a67ae7dec628"
+      Hint: WhenWeCanCallYouBackLabel
+      Value: "Kdy vám máme zavolat?"
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "7bf93276-18da-4bc3-a42f-f31a95ef966d"
+      Hint: OpenDialogButtonLabel
+      Value: Zavolejte mi
+    - ID: "8b19aa8a-8585-4232-bb2f-b30a6979ee95"
+      Hint: AddAnotherFileLabel
+      Value: Přidat další přílohu
+    - ID: "8e0a9537-3f08-4cb1-b3b9-f46410b34fea"
+      Hint: MyPhoneNumberLabel
+      Value: Telefon
+    - ID: "c0a09ca6-9677-4422-831d-6a3e809be5cf"
+      Hint: ErrorInvalidFile
+      Value: Soubor není ve správném formátu
+    - ID: "d027cec8-492a-43c1-9b65-5b0cc67c7fd3"
+      Hint: AddNoteLabel
+      Value: Přidat poznámku
+    - ID: "db30f1e6-d2b1-4050-acfa-9727fa621416"
+      Hint: ConfirmButtonLabel
+      Value: Zavolejte mi
+    - ID: "f1c569de-3e9a-465b-b2bf-deee08e0d973"
+      Hint: BottomNote
+      Value: |
+        <p style="text-align: center;">Ucelen&yacute; v&yacute;čet pr&aacute;v a povinnost&iacute; ve vztahu se zpracov&aacute;n&iacute;m osobn&iacute;ch &uacute;dajů a seznam zpracovatelů je zveřejněn na webov&eacute; str&aacute;nce <a rel="noopener noreferrer" href="https://www.innogy.cz/sluzby/ochrana-osobnich-udaju/" target="_blank">ochrana osobn&iacute;ch &uacute;dajů</a>.</p>
+    - ID: "f86c2073-8802-447a-a83e-b81581d1f7b3"
+      Hint: ThankYouButtonLabel
+      Value: Zavřít
+    - ID: "fce99c91-7679-4313-b038-a071eb0d1006"
+      Hint: ErrorTooBigFile
+      Value: Soubor je příliš velký

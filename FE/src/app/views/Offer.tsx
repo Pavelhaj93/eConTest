@@ -9,6 +9,7 @@ import {
   Box,
   BoxHeading,
   ConfirmationModal,
+  UnfinishedOfferModal,
   DocumentLink,
   FileUpload,
   FormCheckWrapper,
@@ -32,6 +33,7 @@ export const Offer: React.FC<View> = observer(
   ({
     guid,
     offerUrl,
+    cancelDialog,
     labels,
     keepAliveUrl,
     getFileUrl,
@@ -47,14 +49,16 @@ export const Offer: React.FC<View> = observer(
     acceptOfferUrl,
     thankYouPageUrl,
     sessionExpiredPageUrl,
+    backToOfferUrl,
     suppliers,
+    version = 3,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl, guid))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
       id: '',
       show: false,
     })
-    const [confirmationModal, setConfirmationModal] = useState(false)
+    const [confirmationModal, setConfirmationModal] = useState<boolean>(false)
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)
 
@@ -83,6 +87,10 @@ export const Offer: React.FC<View> = observer(
         store.acceptOfferUrl = acceptOfferUrl
       }
 
+      if (cancelDialog) {
+        store.cancelOfferUrl = cancelDialog.cancelOfferUrl
+      }
+
       if (suppliers) {
         store.isSupplierMandatory = true
       }
@@ -91,7 +99,12 @@ export const Offer: React.FC<View> = observer(
 
     // show warning to user when trying to refresh or leave the page once he did some changes
     useUnload(ev => {
-      if (store.isOfferDirty && !store.isAccepting && !store.forceReload) {
+      if (
+        store.isOfferDirty &&
+        !store.isAccepting &&
+        !store.forceReload &&
+        !store.isUnfinishedOfferModalOpen
+      ) {
         ev.preventDefault()
         ev.returnValue = ''
       }
@@ -125,6 +138,19 @@ export const Offer: React.FC<View> = observer(
           return 'purple-light'
       }
     }, [store.benefits?.commodityProductType])
+
+    const renderInfoElement = (value: string | undefined, className?: string) =>
+      value && (
+        <div className={classNames('text-center mt-4', className)}>
+          <Icon
+            name="info-circle"
+            size={40}
+            color={colors.gray100}
+            className="d-block mx-auto mb-3"
+          />
+          <div className="editorial-content" dangerouslySetInnerHTML={{ __html: value }} />
+        </div>
+      )
 
     return (
       <OfferStoreContext.Provider value={store}>
@@ -223,7 +249,7 @@ export const Offer: React.FC<View> = observer(
                   ))}
                 </Row>
               ) : (
-                <Row>
+                <Row className="justify-content-xl-center">
                   {store.gifts.groups.map(({ title, params }, idx) => (
                     <Col
                       key={idx}
@@ -231,9 +257,9 @@ export const Offer: React.FC<View> = observer(
                       md={6}
                       // show a different number of columns based on groups length
                       xl={store.gifts && store.gifts.groups.length > 2 ? 4 : undefined}
-                      className="d-flex flex-column mb-5"
+                      className="d-flex flex-column align-items-xl-center mb-5"
                     >
-                      <h4 className="mb-4 gift__group-title">{title}</h4>
+                      <h4 className="mb-4 gift__group-title text-xl-center">{title}</h4>
                       {params.length > 0 && (
                         <ul className="list-unstyled mb-0">
                           {params.map(({ title, icon, count }, idx) => (
@@ -258,11 +284,31 @@ export const Offer: React.FC<View> = observer(
           {/* box with documents to be accepted or signed */}
           {(store.documents.acceptance?.accept || store.documents.acceptance?.sign) && (
             <>
-              <h2 className="mt-5">{store.documents.acceptance.title}</h2>
-              <div
-                className="editorial-content"
-                dangerouslySetInnerHTML={{ __html: store.documents.acceptance.text }}
-              />
+              <Box>
+                <BoxHeading>
+                  {store.documents.acceptance?.sectionInfo?.title ||
+                    store.documents.acceptance.title}
+                </BoxHeading>
+                <div
+                  className="editorial-content text-center"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      store.documents.acceptance?.sectionInfo?.text ||
+                      store.documents.acceptance.text,
+                  }}
+                />
+              </Box>
+              {(store.documents.acceptance?.sectionInfo?.note || store.documents.description) && (
+                <div
+                  className="py-1 px-3 editorial-content text-center mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      store.documents.acceptance?.sectionInfo?.note ||
+                      store.documents?.description ||
+                      '',
+                  }}
+                />
+              )}
               <Box data-testid="boxDocumentsToBeAccepted">
                 {store.documentsToBeAccepted.length > 0 && (
                   <>
@@ -282,25 +328,29 @@ export const Offer: React.FC<View> = observer(
                         {t('acceptAll')}
                       </Button>
                     </div>
-                    {store.documentsToBeAccepted.map(({ key, prefix, accepted, label }) => (
-                      <FormCheckWrapper
-                        key={key}
-                        type="checkbox"
-                        name="acceptedDocuments"
-                        id={`document-${key}`}
-                        value={key}
-                        checked={accepted !== undefined ? accepted : false}
-                        onChange={() => store.acceptDocument(key)}
-                      >
-                        <Form.Check.Label>
-                          <span className="mr-1">{prefix}</span>
-                          <DocumentLink
-                            url={parseUrl(`${getFileUrl}/${key}`, { guid })}
-                            label={label}
-                            onClick={handleDownload}
-                          />
-                        </Form.Check.Label>
-                      </FormCheckWrapper>
+                    {store.documentsToBeAccepted.map(({ key, prefix, accepted, label, note }) => (
+                      <>
+                        <FormCheckWrapper
+                          key={key}
+                          type="checkbox"
+                          name="acceptedDocuments"
+                          id={`document-${key}`}
+                          value={key}
+                          checked={accepted !== undefined ? accepted : false}
+                          onChange={() => store.acceptDocument(key)}
+                        >
+                          <Form.Check.Label>
+                            <span className="mr-1">{prefix}</span>
+                            <DocumentLink
+                              url={parseUrl(`${getFileUrl}/${key}`, { guid })}
+                              label={label}
+                              onClick={handleDownload}
+                            />
+                          </Form.Check.Label>
+                        </FormCheckWrapper>
+                        {/* info text */}
+                        {renderInfoElement(note, 'mb-5')}
+                      </>
                     ))}
                   </>
                 )}
@@ -314,54 +364,58 @@ export const Offer: React.FC<View> = observer(
                         __html: store.documents.acceptance?.sign?.subTitle ?? '',
                       }}
                     />
-                    {store.documentsToBeSigned.map(({ key, prefix, label, accepted }) => (
-                      <div key={key} className="form-item-wrapper mb-3">
-                        <div className="like-custom-control-label">
-                          {accepted && (
-                            <Icon
-                              name="check-circle"
-                              size={36}
-                              color={colors.green}
-                              className="form-item-wrapper__icon mr-2"
-                            />
-                          )}
-                          <span>
-                            {prefix}{' '}
-                            <DocumentLink
-                              url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
-                                guid,
-                              })}
-                              label={label}
-                              onClick={handleDownload}
-                              noIcon
-                            />
-                          </span>
-                          <SignButton
-                            className="d-none d-sm-block"
-                            signed={accepted}
-                            onClick={() => openSignatureModal(key)}
-                            labelSign={t('signatureBtn')}
-                            labelEdit={t('signatureEditBtn')}
-                            descriptionId={'signBtnDescription'}
-                            showLabelEdit={false}
-                          />
-                        </div>
-                        <Media query={{ maxWidth: breakpoints.smMax }}>
-                          {matches =>
-                            matches && (
-                              <SignButton
-                                className="btn-block-mobile mt-3"
-                                signed={accepted}
-                                onClick={() => openSignatureModal(key)}
-                                labelSign={t('signatureBtn')}
-                                labelEdit={t('signatureEditBtn')}
-                                descriptionId={'signBtnDescription'}
-                                showLabelEdit={true}
+                    {store.documentsToBeSigned.map(({ key, prefix, label, accepted, note }) => (
+                      <>
+                        <div key={key} className="form-item-wrapper mb-3">
+                          <div className="like-custom-control-label">
+                            {accepted && (
+                              <Icon
+                                name="check-circle"
+                                size={36}
+                                color={colors.green}
+                                className="form-item-wrapper__icon mr-2"
                               />
-                            )
-                          }
-                        </Media>
-                      </div>
+                            )}
+                            <span>
+                              {prefix}{' '}
+                              <DocumentLink
+                                url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
+                                  guid,
+                                })}
+                                label={label}
+                                onClick={handleDownload}
+                                noIcon
+                              />
+                            </span>
+                            <SignButton
+                              className="d-none d-sm-block"
+                              signed={accepted}
+                              onClick={() => openSignatureModal(key)}
+                              labelSign={t('signatureBtn')}
+                              labelEdit={t('signatureEditBtn')}
+                              descriptionId={'signBtnDescription'}
+                              showLabelEdit={false}
+                            />
+                          </div>
+                          <Media query={{ maxWidth: breakpoints.smMax }}>
+                            {matches =>
+                              matches && (
+                                <SignButton
+                                  className="btn-block-mobile mt-3"
+                                  signed={accepted}
+                                  onClick={() => openSignatureModal(key)}
+                                  labelSign={t('signatureBtn')}
+                                  labelEdit={t('signatureEditBtn')}
+                                  descriptionId={'signBtnDescription'}
+                                  showLabelEdit={true}
+                                />
+                              )
+                            }
+                          </Media>
+                        </div>
+                        {/* info text */}
+                        {renderInfoElement(note, 'mb-4')}
+                      </>
                     ))}
                     <div
                       id="signBtnDescription"
@@ -381,7 +435,7 @@ export const Offer: React.FC<View> = observer(
           {/* uploads box */}
           {store.documents.uploads && (
             <>
-              <h2 className="mt-5">{store.documents.uploads.title}</h2>
+              <h2 className="mt-5 text-center">{store.documents.uploads.title}</h2>
               <Box>
                 {store.documents.uploads.types.map(({ id: categoryId, info, title }) => (
                   <div key={categoryId} className="mb-5">
@@ -432,7 +486,44 @@ export const Offer: React.FC<View> = observer(
           {/* services box */}
           {store.documents.other?.services && (
             <>
-              <h2 className="mt-5">{store.documents.other.services.title}</h2>
+              <h2 className="mt-5 text-center">
+                {store.documents.other.services?.sectionInfo?.title ||
+                  store.documents.other.services.title}
+              </h2>
+              {store.documents.other.services?.sectionInfo && (
+                <Box>
+                  <BoxHeading>{store.documents.other.services?.subTitle}</BoxHeading>
+                  {store.documents.other.services?.sectionInfo?.text ? (
+                    <div
+                      className="editorial-content text-center"
+                      dangerouslySetInnerHTML={{
+                        __html: store.documents.other.services?.sectionInfo?.text,
+                      }}
+                    />
+                  ) : (
+                    store.documents.other.services.params.length > 0 && (
+                      <Table size="sm" className="table-two-columns" borderless>
+                        <tbody>
+                          {store.documents.other.services.params.map(({ title, value }, idx) => (
+                            <tr key={idx}>
+                              <th scope="row">{title}:</th>
+                              <td>{value}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </Table>
+                    )
+                  )}
+                </Box>
+              )}
+              {store.documents.other.services?.sectionInfo?.note && (
+                <div
+                  className="py-1 px-3 editorial-content text-center mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html: store.documents.other.services?.sectionInfo?.note,
+                  }}
+                />
+              )}
               <Box>
                 {store.documents.other.services.subTitle &&
                   (store.documents.other.services.params.length > 0 ||
@@ -486,41 +577,32 @@ export const Offer: React.FC<View> = observer(
                     {t('acceptAll')}
                   </Button>
                 </div>
-                {store.documentsServices.map(({ key, prefix, label, accepted }) => (
-                  <FormCheckWrapper
-                    key={key}
-                    type="checkbox"
-                    name="commoditiesDocuments"
-                    id={`document-${key}`}
-                    value={key}
-                    checked={accepted !== undefined ? accepted : false}
-                    onChange={() => store.acceptDocument(key)}
-                  >
-                    <Form.Check.Label>
-                      <span className="mr-1">{prefix}</span>
-                      <DocumentLink
-                        url={parseUrl(`${getFileUrl}/${key}`, { guid })}
-                        label={label}
-                        onClick={handleDownload}
-                      />
-                    </Form.Check.Label>
-                  </FormCheckWrapper>
+                {store.documentsServices.map(({ key, prefix, label, accepted, note }) => (
+                  <>
+                    <FormCheckWrapper
+                      key={key}
+                      type="checkbox"
+                      name="commoditiesDocuments"
+                      id={`document-${key}`}
+                      value={key}
+                      checked={accepted !== undefined ? accepted : false}
+                      onChange={() => store.acceptDocument(key)}
+                    >
+                      <Form.Check.Label>
+                        <span className="mr-1">{prefix}</span>
+                        <DocumentLink
+                          url={parseUrl(`${getFileUrl}/${key}`, { guid })}
+                          label={label}
+                          onClick={handleDownload}
+                        />
+                      </Form.Check.Label>
+                    </FormCheckWrapper>
+                    {/* info text */}
+                    {renderInfoElement(note, 'mb-5')}
+                  </>
                 ))}
                 {/* info text */}
-                {store.documents.other.services.note && (
-                  <div className="text-center mt-4">
-                    <Icon
-                      name="info-circle"
-                      size={40}
-                      color={colors.gray100}
-                      className="d-block mx-auto mb-3"
-                    />
-                    <div
-                      className="editorial-content"
-                      dangerouslySetInnerHTML={{ __html: store.documents.other.services.note }}
-                    />
-                  </div>
-                )}
+                {renderInfoElement(store.documents.other.services.note)}
               </Box>
             </>
           )}
@@ -529,23 +611,35 @@ export const Offer: React.FC<View> = observer(
           {/* products box */}
           {store.documents.other?.products && (
             <>
-              <h2 className="mt-5">{store.documents.other.products.title}</h2>
+              <h2 className="mt-5 text-center">
+                {store.documents.other.products?.sectionInfo?.title ||
+                  store.documents.other.products.title}
+              </h2>
               <Box>
                 <BoxHeading>{store.documents.other.products.subTitle}</BoxHeading>
-                {store.documents.other.products.params.length > 0 && (
-                  <Table size="sm" className="table-two-columns" borderless>
-                    <tbody>
-                      {store.documents.other.products.params.map(({ title, value }, idx) => (
-                        <tr key={idx}>
-                          <th scope="row">{title}:</th>
-                          <td>{value}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
+                {store.documents.other.products?.sectionInfo?.text ? (
+                  <div
+                    className="editorial-content text-center"
+                    dangerouslySetInnerHTML={{
+                      __html: store.documents.other.products?.sectionInfo?.text,
+                    }}
+                  />
+                ) : (
+                  store.documents.other.products.params.length > 0 && (
+                    <Table size="sm" className="table-two-columns" borderless>
+                      <tbody>
+                        {store.documents.other.products.params.map(({ title, value }, idx) => (
+                          <tr key={idx}>
+                            <th scope="row">{title}:</th>
+                            <td>{value}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  )
                 )}
 
-                {store.documents.other.products.arguments.length > 0 && (
+                {version === 2 && store.documents.other.products.arguments.length > 0 && (
                   <Box backgroundColor="blue-green-light">
                     <Row
                       as="ul"
@@ -561,7 +655,16 @@ export const Offer: React.FC<View> = observer(
                     </Row>
                   </Box>
                 )}
-
+              </Box>
+              {version === 3 && store.documents.other.products?.sectionInfo?.note && (
+                <div
+                  className="py-1 px-3 editorial-content text-center mb-4"
+                  dangerouslySetInnerHTML={{
+                    __html: store.documents.other.products?.sectionInfo?.note,
+                  }}
+                />
+              )}
+              <Box className={version === 2 ? 'mt-n4' : ''}>
                 <BoxHeading>{store.documents.other.products.subTitle2}</BoxHeading>
                 <div
                   className="text-center editorial-content my-4"
@@ -576,39 +679,32 @@ export const Offer: React.FC<View> = observer(
                     {t('acceptAll')}
                   </Button>
                 </div>
-                {store.documentsProducts.map(({ key, prefix, label, accepted }) => (
-                  <FormCheckWrapper
-                    key={key}
-                    type="checkbox"
-                    name="commoditiesDocuments"
-                    id={`document-${key}`}
-                    value={key}
-                    checked={accepted !== undefined ? accepted : false}
-                    onChange={() => store.acceptDocument(key)}
-                  >
-                    <Form.Check.Label>
-                      <span className="mr-1">{prefix}</span>
-                      <DocumentLink
-                        url={parseUrl(`${getFileUrl}/${key}`, { guid })}
-                        label={label}
-                        onClick={handleDownload}
-                      />
-                    </Form.Check.Label>
-                  </FormCheckWrapper>
+                {store.documentsProducts.map(({ key, prefix, label, accepted, note }) => (
+                  <>
+                    <FormCheckWrapper
+                      key={key}
+                      type="checkbox"
+                      name="commoditiesDocuments"
+                      id={`document-${key}`}
+                      value={key}
+                      checked={accepted !== undefined ? accepted : false}
+                      onChange={() => store.acceptDocument(key)}
+                    >
+                      <Form.Check.Label>
+                        <span className="mr-1">{prefix}</span>
+                        <DocumentLink
+                          url={parseUrl(`${getFileUrl}/${key}`, { guid })}
+                          label={label}
+                          onClick={handleDownload}
+                        />
+                      </Form.Check.Label>
+                    </FormCheckWrapper>
+                    {/* info text */}
+                    {renderInfoElement(note, 'mb-5')}
+                  </>
                 ))}
                 {/* info text */}
-                <div className="text-center mt-4">
-                  <Icon
-                    name="info-circle"
-                    size={40}
-                    color={colors.gray100}
-                    className="d-block mx-auto mb-3"
-                  />
-                  <div
-                    className="editorial-content"
-                    dangerouslySetInnerHTML={{ __html: store.documents.other.products.note }}
-                  />
-                </div>
+                {renderInfoElement(store.documents.other.products.note)}
               </Box>
             </>
           )}
@@ -623,7 +719,7 @@ export const Offer: React.FC<View> = observer(
               'd-none': (!store.isLoading && store.error) || !store.offerFetched,
             })}
           >
-            <h2 className="mt-5">{t('acceptOfferTitle')}</h2>
+            <h2 className="mt-5 text-center">{t('acceptOfferTitle')}</h2>
             <Box>
               {suppliers && (
                 <Form.Group>
@@ -655,12 +751,31 @@ export const Offer: React.FC<View> = observer(
                 >
                   {t('submitBtn')}
                 </Button>
+                {/* If a user wants to start again, the following button will be visible */}
+                {cancelDialog && (
+                  <Button
+                    className="ml-3"
+                    variant="outline-primary"
+                    type="submit"
+                    onClick={() => store.setIsUnfinishedOfferModalOpen(true)}
+                  >
+                    {t('startOver')}
+                  </Button>
+                )}
               </div>
             </Box>
           </div>
           {/* submit zone */}
         </form>
-
+        {backToOfferUrl && (
+          <Button
+            variant="link"
+            className="underline text-black m-auto w-content d-flex"
+            href={backToOfferUrl}
+          >
+            {t('backToOffer', 'Zpět na nabídku')}
+          </Button>
+        )}
         <SignatureModal
           {...signatureModalProps}
           onClose={() => setSignatureModalProps({ show: false, id: '' })}
@@ -671,10 +786,19 @@ export const Offer: React.FC<View> = observer(
         />
 
         <ConfirmationModal
-          show={confirmationModal}
+          show={confirmationModal && !store.isUnfinishedOfferModalOpen}
           onClose={() => setConfirmationModal(false)}
           labels={labels}
           thankYouPageUrl={thankYouPageUrl}
+          cancelDialog={!!cancelDialog}
+          openUnfinishedModal={() => store.setIsUnfinishedOfferModalOpen(true)}
+        />
+
+        <UnfinishedOfferModal
+          show={store.isUnfinishedOfferModalOpen}
+          onClose={() => store.setIsUnfinishedOfferModalOpen(false)}
+          redirectUrl={cancelDialog?.redirectUrl ?? ''}
+          labels={labels}
         />
       </OfferStoreContext.Provider>
     )

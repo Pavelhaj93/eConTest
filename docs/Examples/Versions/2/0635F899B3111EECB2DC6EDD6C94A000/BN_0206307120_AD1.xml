@@ -1,0 +1,76 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECB2DC6EB718A0C000</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Standard]<br />|Platnost nabídky do|: [31.12.2024]<br />|Délka fixace|: [Bez fixace - Dodatek na dobu neurčitou]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [01.01.2025 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>31.12.2024</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Dodatek na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.01.2025 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nižší cena silové elektřiny než u vašeho regionálního dodavatele]<br />|Druhé|: [smlouva bez závazku, lze ji kdykoliv vypovědět]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nižší cena silové elektřiny než u vašeho regionálního dodavatele</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>smlouva bez závazku, lze ji kdykoliv vypovědět</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Sokolská 161, 747 92 Háj ve Slezsku - Smolkov</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Háj ve Slezsku</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Smolkov</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>747 92</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Sokolská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>161</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Sokolská 161, 747 92 Háj ve Slezsku</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>23.03.1975</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Háj ve Slezsku</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Smolkov</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>pochyla.m@gmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Martin Pochyla</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>747 92</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Sokolská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>161</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mailem</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>776 765 684</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane                                                   </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9611127115</PERSON_NUMBER>
+        <PERSON_PREMADR>Sokolská 161, 747 92 Háj ve Slezsku</PERSON_PREMADR>
+        <PERSON_PREMCITY>Háj ve Slezsku</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Smolkov</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400502451589</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300749179</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>747 92</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Sokolská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>161</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

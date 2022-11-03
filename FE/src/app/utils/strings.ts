@@ -44,3 +44,6 @@ export const parseUrl = (url: string, params: QueryParams): string => {
 
   return `${origin}${pathname === '/' ? '' : pathname}${search ? search + '&' : '?'}${queryString}`
 }
+
+/* Remove last element from array of strings. */
+export const removeLastElement = (array: string[]): string | undefined => array.pop()

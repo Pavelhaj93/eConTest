@@ -1,0 +1,161 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_1>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    iKARTA<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL_1>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EED8794EBF5F8531FB1</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID_1>0635F899B3111EED8794EBF5F859FFB1</ADD_SERVICES_ACCEPT_LABEL_GUID_1>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_PRODUCT_1>INNOGY_KARTA</ADD_SERVICES_PRODUCT_1>
+        <BENEFITS>X</BENEFITS>
+        <BENEFITS_CLOSE>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Způsob doručení: korespondenčně na zasílací adresu<br />
+                </p>
+            </body>
+        </BENEFITS_CLOSE>
+        <BENEFITS_NEXT_SIGN>X</BENEFITS_NEXT_SIGN>
+        <BENEFITS_NEXT_SIGN_COUNT>1</BENEFITS_NEXT_SIGN_COUNT>
+        <BENEFITS_NEXT_SIGN_IMAGE>KNI</BENEFITS_NEXT_SIGN_IMAGE>
+        <BENEFITS_NEXT_SIGN_INTRO>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte<br />
+                </p>
+            </body>
+        </BENEFITS_NEXT_SIGN_INTRO>
+        <BENEFITS_NEXT_SIGN_NAME>Kuchařka</BENEFITS_NEXT_SIGN_NAME>
+        <BENEFITS_NEXT_TZD>X</BENEFITS_NEXT_TZD>
+        <BENEFITS_NEXT_TZD_COUNT>1</BENEFITS_NEXT_TZD_COUNT>
+        <BENEFITS_NEXT_TZD_IMAGE>DET</BENEFITS_NEXT_TZD_IMAGE>
+        <BENEFITS_NEXT_TZD_INTRO>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Po zahájení dodávky na Vás čeká<br />
+                </p>
+            </body>
+        </BENEFITS_NEXT_TZD_INTRO>
+        <BENEFITS_NEXT_TZD_NAME>Detektor</BENEFITS_NEXT_TZD_NAME>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8794EBA49C507FB1</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Standard]<br />|Platnost nabídky do|: [30.12.2022]<br />|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [01.05.2023 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>30.12.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>01.05.2023 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku]<br />|Druhé|: [pro nové smlouvy finanční odměna dle Ceníku služeb]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>pro nové smlouvy finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Domácí asistence<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED8794EC16321D9FB1</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [innogy Domácí asistence]<br />|Varianta|: [Premium]<br />|Platnost nabídky do|: [30.12.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Služba</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Varianta</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>innogy Domácí asistence</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>Premium</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>30.12.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <NONCOMMODITY_PRODUCT>20000321</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Domácí asistence Premium</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [limit plnění až 10 000 Kč]<br />|Druhé|: [doprava hrazená v plné výši]<br />|Třetí|: [drobný spotřební materiál v ceně služby]<br />|Čtvrté|: [non-stop telefonická podpora]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>Čtvrté</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>limit plnění až 10 000 Kč</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>doprava hrazená v plné výši</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>drobný spotřební materiál v ceně služby</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>non-stop telefonická podpora</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Hoděšovice 99, 534 01 Býšť - Hoděšovice</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Býšť</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Hoděšovice</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>534 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Hoděšovice</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>99</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Hoděšovice 155, 534 01 Býšť</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>17.06.1977</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Býšť</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Hoděšovice</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>tereza.netopilova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lucie Netopilová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>534 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET></PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>155</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Papírový tisk</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>721 413 132</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Netopilová                                        </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510759203</PERSON_NUMBER>
+        <PERSON_PREMADR></PERSON_PREMADR>
+        <PERSON_PREMCITY>Říčany</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Říčany</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG100Z0501989F</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9303074953</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>664 82</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Brněnská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>66</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

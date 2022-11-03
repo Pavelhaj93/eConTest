@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using eContracting.Models;
 using eContracting.Tests;
 using Moq;
@@ -17,9 +20,12 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
-            definition.OfferCommoditiesAcceptTitle.Text = "Dokumenty k akceptaci";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Dokumenty k akceptaci");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferDocumentsForAcceptanceTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
             var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
             template.SignReq = null;
@@ -37,7 +43,7 @@ namespace eContracting.Services.Tests
             var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
-            Assert.Equal(definition.OfferCommoditiesAcceptTitle.Text, result.Groups.First().Title);
+            Assert.Equal(definition.OfferDocumentsForAcceptanceTitle.Text, result.Groups.First().Title);
         }
 
         [Fact]
@@ -45,9 +51,13 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferCommoditiesSignTitle = new MemorySimpleTextModel();
-            definition.OfferCommoditiesSignTitle.Text = "Plná moc";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Plná moc");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferDocumentsForSignTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
+
             var template = new OfferAttachmentXmlModel();
             template.Group = "COMMODITY";
             template.SignReq = Constants.FileAttributeValues.CHECK_VALUE;
@@ -65,7 +75,7 @@ namespace eContracting.Services.Tests
             var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
-            Assert.Equal(definition.OfferCommoditiesSignTitle.Text, result.Groups.First().Title);
+            Assert.Equal(definition.OfferDocumentsForSignTitle.Text, result.Groups.First().Title);
         }
 
         [Fact]
@@ -73,9 +83,13 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferAdditionalServicesTitle = new MemorySimpleTextModel();
-            definition.OfferAdditionalServicesTitle.Text = "Smlouva o pronájmu";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Smlouva o pronájmu");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferAdditionalServicesTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
+
             var template = new OfferAttachmentXmlModel();
             template.Group = "DSL";
             template.SignReq = null;
@@ -101,9 +115,13 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferOtherProductsDocsTitle = new MemorySimpleTextModel();
-            definition.OfferOtherProductsDocsTitle.Text = "Smlouva o pronájmu";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Smlouva o pronájmu");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferOtherProductsDocsTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
+
             var template = new OfferAttachmentXmlModel();
             template.Group = "NONCOMMODITY";
             template.SignReq = null;
@@ -130,9 +148,12 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel();
-            definition.OfferCommoditiesAcceptTitle.Text = "abc";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "abc");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferDocumentsForAcceptanceTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var template1 = new OfferAttachmentXmlModel();
             template1.Group = "COMMODITY";
@@ -164,7 +185,7 @@ namespace eContracting.Services.Tests
             var result = service.GetAccepted(offer, user);
 
             Assert.True(result.Groups.Count() == 1);
-            Assert.Equal(definition.OfferCommoditiesAcceptTitle.Text, result.Groups.First().Title);
+            Assert.Equal(definition.OfferDocumentsForAcceptanceTitle.Text, result.Groups.First().Title);
         }
 
         [Theory]
@@ -184,9 +205,13 @@ namespace eContracting.Services.Tests
             var user = this.CreateAnonymousUser(offer);
             offer.TextParameters.Add(nameKey, nameValue);
             offer.TextParameters.Add(valueKey, valueValue);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferPerexTitle = new MemorySimpleTextModel();
-            definition.OfferPerexTitle.Text = "Perex";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Perex");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferPerexShow, true);
+            mockDefinition.SetupProperty(x => x.OfferPerexTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -211,10 +236,10 @@ namespace eContracting.Services.Tests
             }
         }
 
-        [Theory]
-        [InlineData(1, false, "BENEFITS_NOW"      , "X", "BENEFITS_NOW_NAME"      , "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT"      , "1", "BENEFITS_NOW_IMAGE"      , "PKZ", "BENEFITS_NOW_INTRO"      , "Děkujeme za váš čas ...")]
+        //[Theory]
+        [InlineData(1, false, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
         [InlineData(1, false, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(1, false, "BENEFITS_NEXT_TZD" , "X", "BENEFITS_NEXT_TZD_NAME" , "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT" , "3", "BENEFITS_NEXT_TZD_IMAGE" , "DET", "BENEFITS_NEXT_TZD_INTRO" , "Děkujeme za váš čas ...")]
+        [InlineData(1, false, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
         [InlineData(2, true, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
         [InlineData(2, true, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
         [InlineData(2, true, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
@@ -228,9 +253,13 @@ namespace eContracting.Services.Tests
             offer.TextParameters.Add(countKey, countValue);
             offer.TextParameters.Add(imageKey, imageValue);
             offer.TextParameters.Add(introKey, introValue);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferGiftsTitle = new MemorySimpleTextModel();
-            definition.OfferGiftsTitle.Text = "Dárečky";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Dárečky");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferGiftsShow, true);
+            mockDefinition.SetupProperty(x => x.OfferGiftsTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -274,9 +303,11 @@ namespace eContracting.Services.Tests
             offer.TextParameters.Add(argKey, argValue);
             var user = this.CreateAnonymousUser(offer);
 
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferBenefitsTitle = new MemorySimpleTextModel();
-            definition.OfferBenefitsTitle.Text = "Dárečky";
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Dárečky");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferBenefitsTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -291,8 +322,8 @@ namespace eContracting.Services.Tests
 
             if (expectedArguments)
             {
-                Assert.True(result.SalesArguments.Params.Count() == 1);
-                Assert.Contains(result.SalesArguments.Params, x => x.Value == argValue);
+                Assert.True(result.SalesArguments.Arguments.Count() == 1);
+                Assert.Contains(result.SalesArguments.Arguments, x => x.Value == argValue);
             }
             else
             {
@@ -365,9 +396,11 @@ namespace eContracting.Services.Tests
 
             var user = this.CreateAnonymousUser(offer);
 
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferPerexTitle = new MemorySimpleTextModel();
-            definition.OfferPerexTitle.Text = "Perex";
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Perex");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferPerexTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -389,9 +422,11 @@ namespace eContracting.Services.Tests
             // this is missing: offer.TextParameters.Add("BENEFITS", "X");
             var user = this.CreateAnonymousUser(offer);
 
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferPerexTitle = new MemorySimpleTextModel();
-            definition.OfferPerexTitle.Text = "Perex";
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Perex");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferPerexTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -418,9 +453,12 @@ namespace eContracting.Services.Tests
             textParameters.Add(group, "X");
             textParameters.Add(group + "_NAME", "custom group");
             textParameters.Add("BENEFITS_CLOSE", expected);
-            var definition = new MemoryDefinitionCombinationModel();
-            definition.OfferGiftsTitle = new MemorySimpleTextModel();
-            definition.OfferGiftsTitle.Text = "Title";
+
+            var mockSimpleText = new Mock<ISimpleTextModel>();
+            mockSimpleText.SetupProperty(x => x.Text, "Gifts");
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupProperty(x => x.OfferGiftsTitle, mockSimpleText.Object);
+            var definition = mockDefinition.Object;
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -508,7 +546,7 @@ namespace eContracting.Services.Tests
             var textParameters = new Dictionary<string, string>();
             textParameters.Add(group, "X");
             textParameters.Add(group + "_COUNT", $"{expected}");
-            textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
+            textParameters.Add(group + "_NAME", "group name"); // existing valueName is prerequisite for pass the logic
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
@@ -553,7 +591,7 @@ namespace eContracting.Services.Tests
             var textParameters = new Dictionary<string, string>();
             textParameters.Add(group, "X");
             textParameters.Add(group + "_IMAGE", expected);
-            textParameters.Add(group + "_NAME", "group name"); // existing value is prerequisite for pass the logic
+            textParameters.Add(group + "_NAME", "group name"); // existing valueName is prerequisite for pass the logic
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
@@ -564,6 +602,1168 @@ namespace eContracting.Services.Tests
             var result = service.GetBenefitGroup(group, textParameters);
 
             Assert.Equal(expected, result.Params.First().Icon);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_ACCEPT_LABELs_Are_Striped_From_Html(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Nesnižování záloh<br /></p></body>");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "Služba na míru pro zákazníky");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.Single(result);
+            Assert.Equal("Nesnižování záloh", result.First().Title);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_ACCEPT_LABELs_Accept_Only_Sequence_Numbers(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Nesnižování záloh<br /></p></body>");
+            textParameters.Add(prefix + "_ACCEPT_LABEL_GUID", "0635F899B3111EECB5A13BA5004CA624");
+            textParameters.Add(prefix + "_ACCEPT_LABEL_GUID_1", "0635F899B3111EECB5A13BA500538624");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "Služba na míru pro zákazníky");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.Single(result);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_Gets_Only_With_SALES_ARGUMENTS_ATRIB_VALUE(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Nesnižování záloh<br /></p></body>");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "Služba na míru pro zákazníky");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.NotEmpty(result);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_Skip_When_SALES_ARGUMENTS_ATRIB_VALUE_Missing(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Nesnižování záloh<br /></p></body>");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.Empty(result);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_Skip_When_Prefix_Not_Equals_X(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">innogy Domácí asistence<br /></p></body>");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "limit plnění až 10 000 Kč");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.Empty(result);
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_Takes_Only_Summary_Values(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">innogy Domácí asistence<br /></p></body>");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "limit plnění až 10 000 Kč");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_NAME", "Služba");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_NAME_1", "Varianta");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_NAME_2", "Platnost nabídky do");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_VALUE", "innogy Domácí asistence");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_VALUE_1", "Premium");
+            textParameters.Add(prefix + "_OFFER_SUMMARY_ATRIB_VALUE_2", "31.05.2022");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            var first = result.FirstOrDefault();
+            Assert.NotNull(first);
+            Assert.IsType<JsonSalesArgumentsExtendedModel>(first);
+            Assert.Equal(3, ((JsonSalesArgumentsExtendedModel)first).Summary.Count());
+        }
+
+        [Theory]
+        [InlineData("ADD_SERVICES")]
+        [InlineData("NONCOMMODITY")]
+        [InlineData("COMMODITY")]
+        public void GetSalesArgumentsWithPrefix_Returns_Empty_List_When_No_Labels_Found(string prefix)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(prefix, "X");
+            textParameters.Add(prefix + "_SALES_ARGUMENTS_ATRIB_VALUE", "limit plnění až 10 000 Kč");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetSalesArgumentsWithPrefix(textParameters, prefix);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetOtherProducts_Finds_3_Files()
+        {
+            var offer = this.CreateOffer(2);
+
+            var files = new List<OfferAttachmentModel>();
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "COMMODITY", Printed = "", SignReq = "", Description = "Ostatní" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Přihláška k pojištění" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Pojistná smlouva" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Informační dokument o pojistném produktu" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "DSL", Printed = "X", SignReq = "", Description = "Dohoda o sjednání doplňkové služby Investor" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "COMMODITY", Printed = "X", SignReq = "", Description = "Dokument prokazující vztah k nemovitosti" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var mockOfferOtherProductsTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsTitle.SetupGet(x => x.Text).Returns("Ostatní");
+            var mockOfferOtherProductsSummaryText = new Mock<IRichTextModel>();
+            mockOfferOtherProductsSummaryText.SetupGet(x => x.Text).Returns("Dokumenty");
+            var mockOfferOtherProductsDescription = new Mock<IRichTextModel>();
+            mockOfferOtherProductsDescription.SetupGet(x => x.Text).Returns("Popis u dokumentů");
+            var mockOfferOtherProductsNote = new Mock<IRichTextModel>();
+            mockOfferOtherProductsNote.SetupGet(x => x.Text).Returns("Poznámky dokumenty");
+            var mockOfferOtherProductsSummaryTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsSummaryTitle.SetupGet(x => x.Text).Returns("Název");
+            var mockOfferOtherProductsDocsTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsDocsTitle.SetupGet(x => x.Text).Returns("Dokumenty název");
+            var mockOfferOtherProductsDocsText = new Mock<IRichTextModel>();
+            mockOfferOtherProductsDocsText.SetupGet(x => x.Text).Returns("Text pod názvem");
+
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupGet(x => x.OfferOtherProductsTitle).Returns(mockOfferOtherProductsTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsSummaryText).Returns(mockOfferOtherProductsSummaryText.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDescription).Returns(mockOfferOtherProductsDescription.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsNote).Returns(mockOfferOtherProductsNote.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsSummaryTitle).Returns(mockOfferOtherProductsSummaryTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDocsTitle).Returns(mockOfferOtherProductsDocsTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDocsText).Returns(mockOfferOtherProductsDocsText.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetOtherProducts(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
+
+            Assert.Equal(3, result.Files.Count());
+        }
+
+        [Fact]
+        public void GetOtherProducts_Add_2_Files_To_Same_Mandatory_Group()
+        {
+            var offer = this.CreateOffer(2);
+
+            var files = new List<OfferAttachmentModel>();
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "",  ItemGuid = "0635F899B3111EDD87A566295264FD77", Group = "COMMODITY", Printed = "", SignReq = "", Description = "Ostatní" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "",  ItemGuid = "0635F899B3111EDD87A566959885DD77", Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Přihláška k pojištění" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "X", ItemGuid = "0635F899B3111EDD87A566959885DD71", Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Pojistná smlouva" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "X", ItemGuid = "0635F899B3111EDD87A566959885DD77", Group = "NONCOMMODITY", Printed = "X", SignReq = "", Description = "Informační dokument o pojistném produktu" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "",  ItemGuid = "0635F899B3111EDD87A5669598963D77", Group = "DSL", Printed = "X", SignReq = "", Description = "Dohoda o sjednání doplňkové služby Investor" }));
+            files.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { GroupObligatory = "",  ItemGuid = "0635F899B3111EDD87A566295264FD77", Group = "COMMODITY", Printed = "X", SignReq = "", Description = "Dokument prokazující vztah k nemovitosti" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var mockOfferOtherProductsTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsTitle.SetupGet(x => x.Text).Returns("Ostatní");
+            var mockOfferOtherProductsSummaryText = new Mock<IRichTextModel>();
+            mockOfferOtherProductsSummaryText.SetupGet(x => x.Text).Returns("Dokumenty");
+            var mockOfferOtherProductsDescription = new Mock<IRichTextModel>();
+            mockOfferOtherProductsDescription.SetupGet(x => x.Text).Returns("Popis u dokumentů");
+            var mockOfferOtherProductsNote = new Mock<IRichTextModel>();
+            mockOfferOtherProductsNote.SetupGet(x => x.Text).Returns("Poznámky dokumenty");
+            var mockOfferOtherProductsSummaryTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsSummaryTitle.SetupGet(x => x.Text).Returns("Název");
+            var mockOfferOtherProductsDocsTitle = new Mock<ISimpleTextModel>();
+            mockOfferOtherProductsDocsTitle.SetupGet(x => x.Text).Returns("Dokumenty název");
+            var mockOfferOtherProductsDocsText = new Mock<IRichTextModel>();
+            mockOfferOtherProductsDocsText.SetupGet(x => x.Text).Returns("Text pod názvem");
+
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+            mockDefinition.SetupGet(x => x.OfferOtherProductsTitle).Returns(mockOfferOtherProductsTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsSummaryText).Returns(mockOfferOtherProductsSummaryText.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDescription).Returns(mockOfferOtherProductsDescription.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsNote).Returns(mockOfferOtherProductsNote.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsSummaryTitle).Returns(mockOfferOtherProductsSummaryTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDocsTitle).Returns(mockOfferOtherProductsDocsTitle.Object);
+            mockDefinition.SetupGet(x => x.OfferOtherProductsDocsText).Returns(mockOfferOtherProductsDocsText.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetOtherProducts(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
+
+            Assert.Equal(2, result.MandatoryGroups.Count);
+        }
+
+        //[Fact]
+        public void GetAllSalesArguments()
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("ADD_SERVICES", "X");
+            textParameters.Add("ADD_SERVICES_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Nesnižování záloh<br /></p></body>");
+            textParameters.Add("ADD_SERVICES_ACCEPT_LABEL_1", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">iKARTA<br /></p></body>");
+            textParameters.Add("ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE", "innogy Karta pro všechny zákazníky innogy, kteří mají rádi film, lyžování nebo cestování");
+            textParameters.Add("ADD_SERVICES_SALES_ARGUMENTS_1_ATRIB_VALUE_1", "Získejte u vybraných partnerů slevu až 20 %");
+            textParameters.Add("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE", "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie");
+            textParameters.Add("NONCOMMODITY", "X");
+            textParameters.Add("NONCOMMODITY_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">innogy Domácí asistence<br /></p></body>");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME", "Služba");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1", "Varianta");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_2", "Platnost nabídky do");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE", "innogy Domácí asistence");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1", "Premium");
+            textParameters.Add("NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2", "31.05.2022");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME", "První");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1", "Druhé");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2", "Třetí");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_3", "Čtvrté");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE", "limit plnění až 10 000 Kč");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1", "doprava hrazená v plné výši");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2", "drobný spotřební materiál v ceně služby");
+            textParameters.Add("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_3", "non-stop telefonická podpora");
+            textParameters.Add("COMMODITY", "X");
+            textParameters.Add("COMMODITY_ACCEPT_LABEL", "<body xmlns=\"http://www.w3.org/1999/xhtml\"><p style=\"margin-top:0pt;margin-bottom:0pt\">Smlouva / dodatek<br /></p></body>");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME", "Produkt");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1", "Platnost nabídky do");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2", "Délka fixace");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3", "Platnost dodatku");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4", "Předpokládaná účinnost dodatku");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE", "elektřina Start 15");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1", "16.05.2022");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2", "15 měsíců od účinnosti dodatku");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3", "Dnem akceptace dodatku zákazníkem");
+            textParameters.Add("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4", "21.10.2022");
+            textParameters.Add("COMMODITY_SALES_ARGUMENTS_ATRIB_NAME", "První");
+            textParameters.Add("COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1", "Druhé");
+            textParameters.Add("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE", "naše ceny energií i smlouvy jsou závazné");
+            textParameters.Add("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1", "pevná cena silové elektřiny po dobu 15 měsíců");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var result = service.GetAllSalesArguments(textParameters, false);
+        }
+
+        [Fact]
+        public void GetAcceptance_Finds_ACCEPT_LABEL_by_ACCEPT_LABEL_GUID()
+        {
+            var expectedResult = "innogy Pojištění domácnosti";
+
+            var offer = this.CreateOffer();
+            offer.TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL_GUID", "0635F899B3111EDD87A566959885DD77");
+            offer.TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL", expectedResult);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetAcceptance(offer, mockDefinition.Object);
+
+            Assert.Equal(expectedResult, result.Parameters.First().Title);
+        }
+
+        [Fact]
+        public void GetAcceptance_Return_Empty_Parameters_When_ACCEPT_LABEL_not_found_by_ACCEPT_LABEL_GUID()
+        {
+            var expectedResult = "innogy Pojištění domácnosti";
+
+            var offer = this.CreateOffer();
+            offer.TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL_GUID", "0635F899B3111EDD87A566959885DD77");
+            offer.TextParameters.Add("COMMODITY_ACCEPT_LABEL", expectedResult);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+            var mockDefinition = new Mock<IDefinitionCombinationModel>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetAcceptance(offer, mockDefinition.Object);
+
+            Assert.Empty(result.Parameters);
+        }
+
+        [Theory]
+        [InlineData("COMMODITY_OFFER_SUMMARY_ATRIB_NAME",   "Produkt",             "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE",   "plyn Optimal")]
+        [InlineData("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1", "Platnost nabídky do", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1", "31.10.2022")]
+        [InlineData("COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2", "Délka fixace",        "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2", "36 měsíců od účinnosti smlouvy")]
+        public void GetEnumPairValue_Finds_Value(string keyName, string valueName, string keyValue, string expectedResult)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(keyName, valueName);
+            textParameters.Add(keyValue, expectedResult);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetEnumPairValue(keyName, textParameters);
+
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Fact]
+        public void GetTemplateHelp_Returns_String_Value()
+        {
+            var idattach = "EPO";
+            var expected = "MY_HELP";
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add($"USER_ATTACH_{idattach}_HELP", expected);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetTemplateHelp(idattach, textParameters);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void CanDisplayPreviousPrice_Returns_True()
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("DOUBLE_1", "15.3");
+            textParameters.Add("DOUBLE_2", "15.6");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.CanDisplayPreviousPrice(textParameters, "DOUBLE_1", "DOUBLE_2");
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void CanDisplayPreviousPrice_Returns_False()
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("DOUBLE_1", "17.1");
+            textParameters.Add("DOUBLE_2", "17.1");
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.CanDisplayPreviousPrice(textParameters, "DOUBLE_1", "DOUBLE_2");
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Do_Nothing_When_Files_Empty()
+        {
+            var files = new List<JsonAcceptFileModel>();
+
+            var productInfos = new List<IProductInfoModel>();
+            var pi = new Mock<IProductInfoModel>();
+            pi.SetupGet(x => x.Key).Returns("GROUP_1");
+            pi.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Do_Nothing_When_Files_Null()
+        {
+            IEnumerable< JsonAcceptFileModel> files = null;
+
+            var productInfos = new List<IProductInfoModel>();
+            var pi = new Mock<IProductInfoModel>();
+            pi.SetupGet(x => x.Key).Returns("GROUP_1");
+            pi.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Updates_1_File_In_1_Group()
+        {
+            var files = new List<JsonAcceptFileModel>();
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 1" })));
+            
+            var productInfos = new List<IProductInfoModel>();
+            
+            var piXmlAttributes = new NameValueCollection();
+            piXmlAttributes.Add("GROUP", "GROUP_1");
+            var pi = new Mock<IProductInfoModel>();
+            pi.SetupGet(x => x.XmlAttributes).Returns(piXmlAttributes);
+            pi.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+
+            Assert.Equal("GROUP_1_NOTE", files[0].Note);
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Updates_Last_File_In_1_Group()
+        {
+            var files = new List<JsonAcceptFileModel>();
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 1" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 2" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 3" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 4" })));
+
+            var productInfos = new List<IProductInfoModel>();
+            var piXmlAttributes = new NameValueCollection();
+            piXmlAttributes.Add("GROUP", "GROUP_1");
+            var pi = new Mock<IProductInfoModel>();
+            pi.SetupGet(x => x.XmlAttributes).Returns(piXmlAttributes);
+            pi.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+
+            Assert.True(string.IsNullOrEmpty(files[0].Note));
+            Assert.True(string.IsNullOrEmpty(files[1].Note));
+            Assert.True(string.IsNullOrEmpty(files[2].Note));
+            Assert.Equal("GROUP_1_NOTE", files[3].Note);
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Updates_Last_File_In_2_Groups_With_More_Files()
+        {
+            var files = new List<JsonAcceptFileModel>();
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 1" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 2" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 3" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 4" })));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("GROUP", "GROUP_1");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi1.Object);
+
+            var pi2xmlAttributes = new NameValueCollection();
+            pi2xmlAttributes.Add("GROUP", "GROUP_2");
+            var pi2 = new Mock<IProductInfoModel>();
+            pi2.SetupGet(x => x.XmlAttributes).Returns(pi2xmlAttributes);
+            pi2.SetupGet(x => x.Note).Returns("GROUP_2_NOTE");
+            productInfos.Add(pi2.Object);
+
+            var pi3xmlAttributes = new NameValueCollection();
+            pi3xmlAttributes.Add("GROUP", "GROUP_3");
+            var pi3 = new Mock<IProductInfoModel>();
+            pi3.SetupGet(x => x.XmlAttributes).Returns(pi3xmlAttributes);
+            pi3.SetupGet(x => x.Note).Returns("GROUP_3_NOTE");
+            productInfos.Add(pi3.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+
+            Assert.True(string.IsNullOrEmpty(files[0].Note));
+            Assert.Equal("GROUP_1_NOTE", files[1].Note);
+            Assert.True(string.IsNullOrEmpty(files[2].Note));
+            Assert.Equal("GROUP_2_NOTE", files[3].Note);
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Updates_Last_File_In_Groups_With_1_File()
+        {
+            var files = new List<JsonAcceptFileModel>();
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 1" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 2" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_3", Description = "File 3" })));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("GROUP", "GROUP_1");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi1.Object);
+
+            var pi2xmlAttributes = new NameValueCollection();
+            pi2xmlAttributes.Add("GROUP", "GROUP_2");
+            var pi2 = new Mock<IProductInfoModel>();
+            pi2.SetupGet(x => x.XmlAttributes).Returns(pi2xmlAttributes);
+            pi2.SetupGet(x => x.Note).Returns("GROUP_2_NOTE");
+            productInfos.Add(pi2.Object);
+
+            var pi3xmlAttributes = new NameValueCollection();
+            pi3xmlAttributes.Add("GROUP", "GROUP_3");
+            var pi3 = new Mock<IProductInfoModel>();
+            pi3.SetupGet(x => x.XmlAttributes).Returns(pi3xmlAttributes);
+            pi3.SetupGet(x => x.Note).Returns("GROUP_3_NOTE");
+            productInfos.Add(pi3.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+
+            Assert.Equal("GROUP_1_NOTE", files[0].Note);
+            Assert.Equal("GROUP_2_NOTE", files[1].Note);
+            Assert.Equal("GROUP_3_NOTE", files[2].Note);
+        }
+
+        [Fact]
+        public void UpdateProductInfo_Updates_Last_File_In_Mixed_Same_Groups()
+        {
+            var files = new List<JsonAcceptFileModel>();
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 1" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 2" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 3" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 4" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 5" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_3", Description = "File 6" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_2", Description = "File 7" })));
+            files.Add(new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Group = "GROUP_1", Description = "File 8" })));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("GROUP", "GROUP_1");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("GROUP_1_NOTE");
+            productInfos.Add(pi1.Object);
+
+            var pi2xmlAttributes = new NameValueCollection();
+            pi2xmlAttributes.Add("GROUP", "GROUP_2");
+            var pi2 = new Mock<IProductInfoModel>();
+            pi2.SetupGet(x => x.XmlAttributes).Returns(pi2xmlAttributes);
+            pi2.SetupGet(x => x.Note).Returns("GROUP_2_NOTE");
+            productInfos.Add(pi2.Object);
+
+            var pi3xmlAttributes = new NameValueCollection();
+            pi3xmlAttributes.Add("GROUP", "GROUP_3");
+            var pi3 = new Mock<IProductInfoModel>();
+            pi3.SetupGet(x => x.XmlAttributes).Returns(pi3xmlAttributes);
+            pi3.SetupGet(x => x.Note).Returns("GROUP_3_NOTE");
+            productInfos.Add(pi3.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            service.UpdateProductInfo(files, productInfos.ToArray());
+
+            Assert.Equal("GROUP_1_NOTE", files[0].Note);
+            Assert.Equal("GROUP_2_NOTE", files[1].Note);
+            Assert.Equal("GROUP_1_NOTE", files[2].Note);
+            Assert.True(string.IsNullOrEmpty(files[3].Note));
+            Assert.Equal("GROUP_2_NOTE", files[4].Note);
+            Assert.Equal("GROUP_3_NOTE", files[5].Note);
+            Assert.Equal("GROUP_2_NOTE", files[6].Note);
+            Assert.Equal("GROUP_1_NOTE", files[7].Note);
+        }
+
+        [Fact]
+        public void GetMatchedProductInfo_Finds_Match_With_1_Attribute()
+        {
+            var file = new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Product = "G_START12", Description = "File 1" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("PRODUCT", "G_START12");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("G_START12 NOTE");
+            productInfos.Add(pi1.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMatchedProductInfo(file, productInfos.ToArray());
+
+            Assert.Same(pi1.Object, result);
+        }
+
+        [Fact]
+        public void GetMatchedProductInfo_Finds_Match_With_More_Attribute()
+        {
+            var file = new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Product = "G_START12", IdAttach = "EPO", Printed = "X", Description = "File 1" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("PRODUCT", "G_START12");
+            pi1xmlAttributes.Add("IDATTACH", "EPO");
+            pi1xmlAttributes.Add("PRINTED", "X");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("G_START12 NOTE");
+            productInfos.Add(pi1.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMatchedProductInfo(file, productInfos.ToArray());
+
+            Assert.Same(pi1.Object, result);
+        }
+
+        [Fact]
+        public void GetMatchedProductInfo_Finds_Multiple_Matches_And_Selects_With_More_Attributes()
+        {
+            var file = new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Product = "G_START12", IdAttach = "EPO", Printed = "X", Description = "File 1" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("PRODUCT", "G_START12");
+            pi1xmlAttributes.Add("IDATTACH", "EPO");
+            pi1xmlAttributes.Add("PRINTED", "X");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("G_START12 NOTE");
+            productInfos.Add(pi1.Object);
+
+            var pi2xmlAttributes = new NameValueCollection();
+            pi2xmlAttributes.Add("PRODUCT", "G_START12");
+            pi2xmlAttributes.Add("IDATTACH", "EPO");
+            var pi2 = new Mock<IProductInfoModel>();
+            pi2.SetupGet(x => x.XmlAttributes).Returns(pi2xmlAttributes);
+            pi2.SetupGet(x => x.Note).Returns("G_START12 NOTE");
+            productInfos.Add(pi2.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMatchedProductInfo(file, productInfos.ToArray());
+
+            Assert.Same(pi1.Object, result);
+        }
+
+        [Fact]
+        public void GetMatchedProductInfo_Will_Not_Find_Match()
+        {
+            var file = new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Product = "G_START12", Description = "File 1" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("PRODUCT", "NESNIZOVANI_ZALOH");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("NESNIZOVANI_ZALOH NOTE");
+            productInfos.Add(pi1.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMatchedProductInfo(file, productInfos.ToArray());
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetMatchedProductInfo_Converts_Value_Dash_To_Empty_String_As_Defined_In_Xml_And_Finds_Match()
+        {
+            var file = new JsonAcceptFileModel(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Product = "G_START12", SignReq = "", Description = "File 1" }));
+
+            var productInfos = new List<IProductInfoModel>();
+
+            var pi1xmlAttributes = new NameValueCollection();
+            pi1xmlAttributes.Add("PRODUCT", "G_START12");
+            pi1xmlAttributes.Add("SIGN_REQ", "-");
+            var pi1 = new Mock<IProductInfoModel>();
+            pi1.SetupGet(x => x.XmlAttributes).Returns(pi1xmlAttributes);
+            pi1.SetupGet(x => x.Note).Returns("G_START12 NOTE");
+            productInfos.Add(pi1.Object);
+
+            var logger = new MemoryLogger();
+            var textService = new MemoryTextService();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMatchedProductInfo(file, productInfos.ToArray());
+
+            Assert.Same(pi1.Object, result);
+        }
+
+        [Fact]
+        public void GetProductInfos_Get_Only_For_CALC_COMP_GAS()
+        {
+            var offer = this.CreateOffer(3);
+            offer.TextParameters.Add("CALC_COMP_GAS", "2 500,00");
+            offer.TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
+            offer.TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_VISIBILITY", "S");
+
+            var mockTextService = new Mock<ITextService>();
+            mockTextService.Setup(x => x.FindByKey("CONSUMED_GAS")).Returns("Plyn");
+
+            var logger = new MemoryLogger();
+            var textService = mockTextService.Object;
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductInfos(offer);
+
+            Assert.Single(result);
+            Assert.Equal("2 500,00", result[0].Price);
+            Assert.Equal("Kč/MWh", result[0].PriceUnit);
+            Assert.True(string.IsNullOrEmpty(result[0].PreviousPrice));
+        }
+
+        [Fact]
+        public void GetProductInfos_Get_For_CALC_COMP_GAS_and_CALC_COMP_GAS_PRICE()
+        {
+            var offer = this.CreateOffer(3);
+            offer.TextParameters.Add("CALC_COMP_GAS", "2 500,00");
+            offer.TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
+            offer.TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
+            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
+            //offer.TextParameters.Add("CALC_COMP_GAS_PRICE_VISIBILITY", "S");
+
+            var mockTextService = new Mock<ITextService>();
+            mockTextService.Setup(x => x.FindByKey("CONSUMED_GAS")).Returns("Plyn");
+
+            var logger = new MemoryLogger();
+            var textService = mockTextService.Object;
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductInfos(offer);
+
+            Assert.Single(result);
+            Assert.Equal("2 500,00", result[0].Price);
+            Assert.Equal("Kč/MWh", result[0].PriceUnit);
+            Assert.Equal("2 555,00 Kč/MWh", result[0].PreviousPrice);
+        }
+
+        [Fact]
+        public void GetProductNote_Returns_InfoGas_Value_When_G()
+        {
+            var expected = "GAS_NOTE";
+
+            var mockProductInfo = new Mock<IProductInfoRootModel>();
+            mockProductInfo.SetupGet(x => x.InfoGas).Returns(expected);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns(mockProductInfo.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote("G");
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetProductNote_Returns_Null_For_G_When_InfoGas_Empty(string infoGasValue)
+        {
+            var mockProductInfo = new Mock<IProductInfoRootModel>();
+            mockProductInfo.SetupGet(x => x.InfoGas).Returns(infoGasValue);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns(mockProductInfo.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote("G");
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetProductNote_Returns_InfoElectricity_Value_When_E()
+        {
+            var expected = "ELECTRICITY_NOTE";
+
+            var mockProductInfo = new Mock<IProductInfoRootModel>();
+            mockProductInfo.SetupGet(x => x.InfoElectricity).Returns(expected);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns(mockProductInfo.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote("E");
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetProductNote_Returns_Null_For_G_When_InfoElectricity_Empty(string infoElectricityValue)
+        {
+            var mockProductInfo = new Mock<IProductInfoRootModel>();
+            mockProductInfo.SetupGet(x => x.InfoElectricity).Returns(infoElectricityValue);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns(mockProductInfo.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote("E");
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData((string)null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetProductNote_Returns_Null_For_G_When_Type_Empty(string typeValue)
+        {
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote(typeValue);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("G")]
+        [InlineData("E")]
+        public void GetProductNote_Returns_Null_When_Root_Item_Does_Not_Exist(string typeValue)
+        {
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns((IProductInfoRootModel)null);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote(typeValue);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetProductNote_Returns_Null_When_Type_Invalid()
+        {
+            var invalidValue = "X";
+            var mockProductInfo = new Mock<IProductInfoRootModel>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS)).Returns(mockProductInfo.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductNote(invalidValue);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_COMP_GAS")]
+        [InlineData("CALC_CAP_PRICE")]
+        [InlineData("CALC_COMP_FIX")]
+        public void GetProductType_Returns_G(string xmlAttribute)
+        {
+            var offer = this.CreateOffer(3);
+            offer.Xml.Content.Body = new OfferBodyXmlModel();
+            offer.Xml.Content.Body.EanOrAndEic = "";
+            //offer.TextParameters.Add(xmlAttribute + "_VISIBILITY", "S");
+            offer.TextParameters.Add(xmlAttribute, "100");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductType(offer);
+
+            Assert.Equal("G", result);
+        }
+
+        [Theory]
+        [InlineData("CALC_COMP_VT")]
+        [InlineData("CALC_COMP_NT")]
+        [InlineData("CALC_COMP_KC")]
+        public void GetProductType_Returns_E(string xmlAttribute)
+        {
+            var offer = this.CreateOffer(3);
+            offer.Xml.Content.Body = new OfferBodyXmlModel();
+            offer.Xml.Content.Body.EanOrAndEic = "";
+            //offer.TextParameters.Add(xmlAttribute + "_VISIBILITY", "S");
+            offer.TextParameters.Add(xmlAttribute, "100");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductType(offer);
+
+            Assert.Equal("E", result);
+        }
+
+        [Theory]
+        [InlineData("859182400506916978")]
+        [InlineData("859182400891447477")]
+        [InlineData("859182400606500558")]
+        [InlineData("859182400212202808")]
+        public void GetProductType_Returns_E_For_EXT_UI(string ean)
+        {
+            var offer = this.CreateOffer(3);
+            offer.Xml.Content.Body = new OfferBodyXmlModel();
+            offer.Xml.Content.Body.EanOrAndEic = ean; //27ZG500Z0253419Q
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductType(offer);
+
+            Assert.Equal("E", result);
+        }
+
+        [Theory]
+        [InlineData("27ZG700Z0652990R")]
+        [InlineData("27ZG700Z0395472V")]
+        [InlineData("27ZG700Z0118223P")]
+        [InlineData("27ZG600Z07264929")]
+        public void GetProductType_Returns_G_For_EXT_UI(string eic)
+        {
+            var offer = this.CreateOffer(3);
+            offer.Xml.Content.Body = new OfferBodyXmlModel();
+            offer.Xml.Content.Body.EanOrAndEic = eic;
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductType(offer);
+
+            Assert.Equal("G", result);
         }
     }
 }

@@ -1,0 +1,31 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Plná moc<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDCA0E8B2B175237F39</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_PRODUCT>STAVAJICI_PROD_ZP</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>Stávající produkt ZP</COMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CUSTADDRESS>Záhorská 103, 289 03 Sloveč</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>22.12.1964</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTEMAIL>runway.r1sc@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Stanislav Štěrba</PERSON_CUSTNAME>
+        <PERSON_CUSTTEL1>776 765 682</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Štěrbo                                            </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510309724</PERSON_NUMBER>
+        <PERSON_PREMADR>Sloveč 103, 289 03 Sloveč</PERSON_PREMADR>
+        <PERSON_PREMEXT>27ZG200Z0021148Z</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300090861</PERSON_PREMNUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

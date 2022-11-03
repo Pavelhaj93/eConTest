@@ -1,0 +1,76 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECB9E654A6B598B648</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Standard]<br />|Platnost nabídky do|: [15.06.2022]<br />|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [08.06.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>15.06.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>08.06.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku]<br />|Druhé|: [pro nové smlouvy finanční odměna dle Ceníku služeb]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>pro nové smlouvy finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Ludvíka Podéště 1887 / 13, 708 00 Poruba</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Poruba</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Poruba</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>708 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Ludvíka Podéště</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1887 / 13</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Ludvíka Podéště 1887 / 13, 708 00 Poruba</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>21.03.1984</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Poruba</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Poruba</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>runway.show@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lucie Adámková</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>708 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Ludvíka Podéště</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1887 / 13</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mailem</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>776 765 682</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Adámková                                          </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9513292608</PERSON_NUMBER>
+        <PERSON_PREMADR>Na Hrázi 129, 252 18 Úhonice</PERSON_PREMADR>
+        <PERSON_PREMCITY>Úhonice</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Úhonice</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG200Z0022737B</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300088770</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>252 18</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Na Hrázi</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>129</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

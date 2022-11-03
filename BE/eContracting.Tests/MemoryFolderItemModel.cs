@@ -7,6 +7,7 @@ using eContracting.Models;
 
 namespace eContracting.Tests
 {
+    [Obsolete]
     public class MemoryFolderItemModel<T> : IFolderItemModel<T> where T : IBaseSitecoreModel
     {
         public IEnumerable<T> Children { get; set; }
@@ -14,6 +15,7 @@ namespace eContracting.Tests
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string Path { get; set; }
+        public Guid TemplateId { get; set; }
 
         public MemoryFolderItemModel()
         {

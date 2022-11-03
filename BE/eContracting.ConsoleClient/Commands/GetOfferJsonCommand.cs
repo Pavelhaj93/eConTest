@@ -11,17 +11,17 @@ using Newtonsoft.Json;
 
 namespace eContracting.ConsoleClient.Commands
 {
-    class GetOfferJsonCommand : BaseCommand
+    class GetOfferJsonSummaryCommand : BaseCommand
     {
         readonly IOfferService ApiService;
         readonly IOfferJsonDescriptor JsonDescriptor;
         readonly ILogger Logger;
 
-        public GetOfferJsonCommand(
+        public GetOfferJsonSummaryCommand(
             IOfferService apiService,
             IOfferJsonDescriptor jsonDescriptor,
             ILogger logger,
-            IConsole console) : base("json", console)
+            IConsole console) : base("json-summary", console)
         {
             this.ApiService = apiService;
             this.JsonDescriptor = jsonDescriptor;
@@ -30,8 +30,7 @@ namespace eContracting.ConsoleClient.Commands
 
         [Execute]
         public void Execute(
-            [Argument(Description = "unique identifier for an offer")] string guid,
-            [Argument(Description = "what part to render")] string part = "all")
+            [Argument(Description = "unique identifier for an offer")] string guid)
         {
             var user = new UserCacheDataModel();
             var offer = this.ApiService.GetOffer(guid, user);
@@ -42,32 +41,8 @@ namespace eContracting.ConsoleClient.Commands
                 return;
             }
 
-            var json = this.JsonDescriptor.GetNew(offer, user);
-
-            if (part == "perex")
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.Perex, Formatting.Indented));
-            }
-            else if (part == "benefits")
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.SalesArguments, Formatting.Indented));
-            }
-            else if (part == "gifts")
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.Gifts, Formatting.Indented));
-            }
-            else if (part == "documents")
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.Documents, Formatting.Indented));
-            }
-            else if (part == "acceptance")
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.AcceptanceDialog, Formatting.Indented));
-            }
-            else
-            {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json, Formatting.Indented));
-            }
+            var json = this.JsonDescriptor.GetSummary(offer, user);
+            this.Console.WriteLine(JsonConvert.SerializeObject(json, Formatting.Indented));
         }
     }
 }

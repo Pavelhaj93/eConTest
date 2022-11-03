@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+    <Nabidka>
+        <Header/>
+        <Body>
+            <GUID>0274740027C71EDA98CB58DA09859DD7</GUID>
+            <ISU_CONTRACT>1000400403</ISU_CONTRACT>
+            <CONTSTART>20200310</CONTSTART>
+            <DATE_TO>20221029</DATE_TO>
+            <STATUS>Založeno</STATUS>
+            <PARTNER>9511194861</PARTNER>
+            <NAME_LAST>Richter</NAME_LAST>
+            <NAME_FIRST>Michal</NAME_FIRST>
+            <NAME_ORG1></NAME_ORG1>
+            <BIRTHDT>19.08.1979</BIRTHDT>
+            <IC></IC>
+            <EMAIL>olga.havrilova@innogy.cz</EMAIL>
+            <PHONE>735 156 024</PHONE>
+            <EXT_UI>859182400502996523</EXT_UI>
+            <VSTELLE>9300726902</VSTELLE>
+            <ANLAGE></ANLAGE>
+            <BUAG>823000106300</BUAG>
+            <PSC_MS>747 19</PSC_MS>
+            <PSC_ADDR>747 19</PSC_ADDR>
+            <ACCOUNT_NUMBER></ACCOUNT_NUMBER>
+            <GUID_GDPR></GUID_GDPR>
+            <BUS_PROCESS>04</BUS_PROCESS>
+            <BUS_TYPE>H</BUS_TYPE>
+            <Attachments>
+                <Template>
+                    <SEQNR>000</SEQNR>
+                    <IDATTACH>DP4</IDATTACH>
+                    <TEMPLATE>DP4</TEMPLATE>
+                    <DESCRIPTION>Žádost o nesnižování zálohových plateb</DESCRIPTION>
+                    <OBLIGATORY></OBLIGATORY>
+                    <PRINTED>X</PRINTED>
+                    <SIGN_REQ></SIGN_REQ>
+                    <TMST_REQ>X</TMST_REQ>
+                    <ADDINFO></ADDINFO>
+                    <TEMPL_ALC_ID>CRM077</TEMPL_ALC_ID>
+                    <PRODUCT>NESNIZOVANI_ZALOH</PRODUCT>
+                    <GROUP>DSL</GROUP>
+                    <GROUP_OBLIGATORY>X</GROUP_OBLIGATORY>
+                    <ITEM_GUID>0635F899B3111EDD92F57F84E26196EF</ITEM_GUID>
+                    <CONSENT_TYPE>S</CONSENT_TYPE>
+                </Template>
+            </Attachments>
+        </Body>
+    </Nabidka>
+</asx:abap>

@@ -24,6 +24,8 @@ namespace eContracting.ConsoleClient
         public bool ShowDebugMessages { get; } = true;
         public int SessionTimeout { get; } = 20;
         public int CognitoMinSecondsToRefreshToken { get; }
+        public int SubmitOfferDelay { get; } = 0;
+        public int CancelOfferDelay { get; } = 0;
 
         public IDefinitionCombinationModel[] GetAllDefinitions()
         {
@@ -140,7 +142,7 @@ namespace eContracting.ConsoleClient
 
         public CognitoSettingsModel GetCognitoSettings()
         {
-            throw new NotImplementedException();
+            return new MemoryCognitoSettingsModel();
         }
 
         public string GetCustomDatabaseConnectionString()
@@ -168,12 +170,12 @@ namespace eContracting.ConsoleClient
             model.OfferAcceptText = new MemoryRichTextModel() { Text = "" };
             model.OfferAcceptTitle = new MemorySimpleTextModel() { Text = "" };
             model.OfferBenefitsTitle = new MemorySimpleTextModel() { Text = "" };
-            model.OfferCommoditiesAcceptText = new MemoryRichTextModel() { Text = "" };
-            model.OfferCommoditiesAcceptTitle = new MemorySimpleTextModel() { Text = "Accepted documents" };
-            model.OfferCommoditiesSignText = new MemoryRichTextModel() { Text = "" };
-            model.OfferCommoditiesSignTitle = new MemorySimpleTextModel() { Text = "Signed documents" };
-            model.OfferCommoditiesText = new MemoryRichTextModel() { Text = "" };
-            model.OfferCommoditiesTitle = new MemorySimpleTextModel() { Text = "" };
+            model.OfferDocumentsForAcceptanceText = new MemoryRichTextModel() { Text = "" };
+            model.OfferDocumentsForAcceptanceTitle = new MemorySimpleTextModel() { Text = "Accepted documents" };
+            model.OfferDocumentsForSignText = new MemoryRichTextModel() { Text = "" };
+            model.OfferDocumentsForSignTitle = new MemorySimpleTextModel() { Text = "Signed documents" };
+            model.OfferDocumentsForElectronicAcceptanceText = new MemoryRichTextModel() { Text = "" };
+            model.OfferDocumentsForElectronicAcceptanceTitle = new MemorySimpleTextModel() { Text = "" };
             model.OfferExpiredMainText = new MemoryRichTextModel() { Text = "" };
             model.OfferGiftsTitle = new MemorySimpleTextModel() { Text = "Gifts" };
             model.OfferMainText = new MemoryRichTextModel() { Text = "" };
@@ -232,6 +234,18 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
+        public IProductInfoModel GetProductInfo(OfferAttachmentModel attachmentModel)
+        {
+            return null;
+        }
+
+
+        public IProductInfoModel[] GetAllProductInfos()
+        {
+            return new IProductInfoModel[] { };
+        }
+
+
         public SignApiServiceOptions GetSignApiServiceOptions()
         {
             var options = new SignApiServiceOptions(this.Options.ServiceSignUrl, this.Options.ServiceSignUser, this.Options.ServiceSignPassword);
@@ -243,7 +257,7 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
+        public IStepModel[] GetSteps(IStepModel currentStep)
         {
             throw new NotImplementedException();
         }

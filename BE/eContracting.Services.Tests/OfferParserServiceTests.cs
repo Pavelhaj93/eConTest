@@ -15,7 +15,7 @@ namespace eContracting.Services.Tests
 {
     [ExcludeFromCodeCoverage]
     [Trait("Service", "OfferParserService")]
-    public class OfferParserServiceTests
+    public class OfferParserServiceTests : BaseTestClass
     {
         [Fact]
         [Trait("Method", "IsAccepted")]
@@ -201,19 +201,40 @@ namespace eContracting.Services.Tests
 
         [Fact]
         [Trait("Method", "GetVersion")]
+        public void GetVersion_Returns_2_When_Attribute_MODELO_OFERTA_Exists_With_Value_02()
+        {
+            var attr = new ZCCH_ST_ATTRIB();
+            attr.ATTRID = Constants.OfferAttributes.VERSION;
+            attr.ATTRVAL = "01";
+            var response = new ZCCH_CACHE_GETResponse();
+            response.ET_ATTRIB = new[] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
+            var logger = new MemoryLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+
+            var service = new OfferParserService(settingsService, logger);
+            var result = service.GetVersion(response);
+
+            Assert.Equal(2, result);
+        }
+
+        [Fact]
+        [Trait("Method", "GetVersion")]
         public void GetVersion_Throws_ApplicationException_When_Attribute_MODELO_OFERTA_Doesnt_Have_Value_01()
         {
             var attr = new ZCCH_ST_ATTRIB();
             attr.ATTRID = Constants.OfferAttributes.VERSION;
-            attr.ATTRVAL = "02";
+            attr.ATTRVAL = "99";
             var response = new ZCCH_CACHE_GETResponse();
             response.ET_ATTRIB = new [] { attr };
+            response.ES_HEADER = new ZCCH_ST_HEADER();
+            response.ES_HEADER.CCHKEY = this.CreateGuid();
             var logger = new MemoryLogger();
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
 
-            Assert.Throws<ApplicationException>(() => { service.GetVersion(response); });
+            Assert.Throws<EcontractingApplicationException>(() => { service.GetVersion(response); });
         }
 
         [Fact]
@@ -231,26 +252,6 @@ namespace eContracting.Services.Tests
             var result = service.GetCoreFile(response, 1);
 
             Assert.Equal(file, result.File);
-        }
-
-        [Fact]
-        [Trait("Method", "GetCoreFile")]
-        public void GetCoreFile_Returns_First_When_Version_1()
-        {
-            var file1 = new ZCCH_ST_FILE();
-            file1.FILENAME = "file1";
-            var file2 = new ZCCH_ST_FILE();
-            file2.FILENAME = "file2";
-            var response = new ZCCH_CACHE_GETResponse();
-            response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
-            response.ET_FILES = new[] { file1, file2 };
-            var logger = new MemoryLogger();
-            var settingsService = new Mock<ISettingsReaderService>().Object;
-
-            var service = new OfferParserService(settingsService, logger);
-            var result = service.GetCoreFile(response, 1);
-
-            Assert.Equal(file1, result.File);
         }
 
         [Fact]
@@ -274,6 +275,51 @@ namespace eContracting.Services.Tests
             var result = service.GetCoreFile(response, 2);
 
             Assert.Equal(coreFile, result.File);
+        }
+
+        [Fact]
+        [Trait("Method", "GetCoreFile")]
+        public void GetCoreFile_Returns_File_Without_IDATTACH_For_Version_2()
+        {
+            var coreFile = new ZCCH_ST_FILE();
+            coreFile.FILENAME = "BN_1231415.xml";
+            coreFile.ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            var response = new ZCCH_CACHE_GETResponse();
+            // defines version 2
+            response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.VERSION, ATTRVAL = Constants.OfferAttributeValues.VERSION_2 } };
+            response.ET_FILES = new[] { coreFile };
+            var logger = new MemoryLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+
+            var service = new OfferParserService(settingsService, logger);
+            var result = service.GetCoreFile(response, 2);
+
+            Assert.Equal(coreFile, result.File);
+        }
+
+        [Fact]
+        [Trait("Method", "GetCoreFile")]
+        public void GetCoreFile_Returns_Correct_File_For_Version_1_When_More_Files_Exist()
+        {
+            var coreFile1 = new ZCCH_ST_FILE();
+            coreFile1.FILENAME = "BN_1231415_AD1_INVALID_FILE.xml";
+            coreFile1.ATTRIB = new ZCCH_ST_ATTRIB[]
+            {
+                new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE }
+            };
+            var coreFile2 = new ZCCH_ST_FILE();
+            coreFile2.FILENAME = "BN_1231415.xml";
+            coreFile2.ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            var response = new ZCCH_CACHE_GETResponse();
+            response.ET_ATTRIB = new ZCCH_ST_ATTRIB[] { };
+            response.ET_FILES = new[] { coreFile1, coreFile2 };
+            var logger = new MemoryLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+            var service = new OfferParserService(settingsService, logger);
+            
+            var result = service.GetCoreFile(response, 1);
+
+            Assert.Equal(coreFile2, result.File);
         }
 
         [Fact]
@@ -423,9 +469,79 @@ namespace eContracting.Services.Tests
             Assert.Contains(result, x => x.Value == attr2.ATTRVAL);
         }
 
-        public void ProcessResponse()
+        [Fact(DisplayName = "Offer should be expired. Maybe hardcoded in the code!")]
+        public void ProcessResponse_Offer_Is_Expired()
         {
-            throw new NotImplementedException();
+            var zzcacheResponse = new ZCCH_CACHE_GETResponse();
+            zzcacheResponse.ET_ATTRIB = new[]
+            {
+                new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.VERSION, ATTRVAL = Constants.OfferAttributeValues.VERSION_3 }
+            };
+            zzcacheResponse.ET_FILES = new[]
+            {
+                this.CreateRootFile()
+            };
+            zzcacheResponse.ES_HEADER = new ZCCH_ST_HEADER();
+            zzcacheResponse.ES_HEADER.CCHKEY = "0635F899B3111EED8C8B323695B46453";
+            zzcacheResponse.ES_HEADER.CCHSTAT = "9"; // 9 = cancelled
+            zzcacheResponse.ES_HEADER.CCHTYPE = "NABIDKA";
+            zzcacheResponse.ES_HEADER.CCHVALTO = "20201122";
+
+            var response = new ResponseCacheGetModel(zzcacheResponse);
+            var logger = new MemoryLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+
+            var service = new OfferParserService(settingsService, logger);
+            var offerModel = service.ProcessResponse(response);
+
+            Assert.True(offerModel.IsExpired);
+        }
+
+        [Fact(DisplayName = "Offer should be accepted. Maybe hardcoded in the code!")]
+        public void ProcessResponse_Offer_Is_Accepted()
+        {
+            var zzcacheResponse = new ZCCH_CACHE_GETResponse();
+            zzcacheResponse.ET_ATTRIB = new[]
+            {
+                new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.VERSION, ATTRVAL = Constants.OfferAttributeValues.VERSION_3 },
+                new ZCCH_ST_ATTRIB() { ATTRID = Constants.OfferAttributes.ACCEPTED_DATE, ATTRVAL = "20201123" }
+            };
+            zzcacheResponse.ET_FILES = new[]
+            {
+                this.CreateRootFile()
+            };
+            zzcacheResponse.ES_HEADER = new ZCCH_ST_HEADER();
+            zzcacheResponse.ES_HEADER.CCHKEY = "0635F899B3111EED8C8B323695B46453";
+            zzcacheResponse.ES_HEADER.CCHSTAT = "9"; // 9 = cancelled
+            zzcacheResponse.ES_HEADER.CCHTYPE = "NABIDKA";
+            zzcacheResponse.ES_HEADER.CCHVALTO = "20201122";
+
+            var response = new ResponseCacheGetModel(zzcacheResponse);
+            var logger = new MemoryLogger();
+            var settingsService = new Mock<ISettingsReaderService>().Object;
+
+            var service = new OfferParserService(settingsService, logger);
+            var offerModel = service.ProcessResponse(response);
+
+            Assert.True(offerModel.IsAccepted);
+        }
+
+        //[Theory]
+        //[InlineData("0635F899B3111EED8C8B323695B46453")]
+        public void LoadLocalOffer(string guid)
+        {
+            var dataService = new LocalOfferDataService();
+            dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
+            dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
+        }
+
+        //[Theory]
+        //[InlineData("0635F899B3111EED8C8B323695B46453")]
+        public void LoadLocalFiles(string guid)
+        {
+            var dataService = new LocalOfferDataService();
+            dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
+            dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX_PDF);
         }
     }
 }

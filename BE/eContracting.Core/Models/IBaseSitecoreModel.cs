@@ -38,5 +38,11 @@ namespace eContracting.Models
         /// </summary>
         [SitecoreInfo(Type = SitecoreInfoType.FullPath)]
         string Path { get; set; }
+
+        /// <summary>
+        /// Gets or sets current template ID.
+        /// </summary>
+        [SitecoreInfo(Type = SitecoreInfoType.TemplateId)]
+        Guid TemplateId { get; set; }
     }
 }

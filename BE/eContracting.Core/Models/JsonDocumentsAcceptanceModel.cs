@@ -8,6 +8,9 @@ namespace eContracting.Models
 {
     public class JsonDocumentsAcceptanceModel
     {
+        [JsonProperty("sectionInfo", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
+        public JsonSectionAcceptanceBoxModel AcceptanceInfoBox { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 

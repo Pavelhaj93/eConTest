@@ -1,0 +1,69 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Karta<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EDD92F5759BDD1736B7</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [29.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>29.10.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>INNOGY_KARTA</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Objednejte si kartu plnou slev]<br />|Druhé|: [Ušetřete za vstupné do kina, lyžování nebo dovolenou]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Objednejte si kartu plnou slev</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>Ušetřete za vstupné do kina, lyžování nebo dovolenou</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Žilinská 1304 / 24, 708 00 Poruba</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Poruba</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Poruba</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>708 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Žilinská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1304 / 24</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Žilinská 1304 / 24, 708 00 Poruba</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>03.10.1977</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Poruba</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Poruba</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>olga.havrilova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>David Neděla</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>708 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Žilinská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1304 / 24</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>735 156 024</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Nedělo                                            </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichcwXECHzbu5yzC73wmYKJfACewiLAxBAWYp</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511056787</PERSON_NUMBER>
+        <PERSON_PREMADR>Žilinská 1304 / 24, 708 00 Poruba</PERSON_PREMADR>
+        <PERSON_PREMCITY>Poruba</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Poruba</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z0395472V</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300876731</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>708 00</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Žilinská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1304 / 24</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

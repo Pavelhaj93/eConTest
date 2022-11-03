@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Web;
 using Glass.Mapper.Sc;
@@ -11,6 +12,7 @@ using Sitecore.DependencyInjection;
 
 namespace eContracting.Website.Pipelines.Initialize
 {
+    [ExcludeFromCodeCoverage]
     public class GlassMapperConfigurator : IServicesConfigurator
     {
         public void Configure(IServiceCollection serviceCollection)

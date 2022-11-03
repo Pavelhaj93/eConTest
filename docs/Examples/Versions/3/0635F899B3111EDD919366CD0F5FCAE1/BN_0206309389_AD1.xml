@@ -1,0 +1,165 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EDD919366EFCF89CAE1</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [20.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>20.10.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <BENEFITS>X</BENEFITS>
+        <BENEFITS_CLOSE>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Způsob doručení: korespondenčně na zasílací adresu<br />
+                </p>
+            </body>
+        </BENEFITS_CLOSE>
+        <BENEFITS_NEXT_TZD>X</BENEFITS_NEXT_TZD>
+        <BENEFITS_NEXT_TZD_COUNT>1</BENEFITS_NEXT_TZD_COUNT>
+        <BENEFITS_NEXT_TZD_IMAGE>DET</BENEFITS_NEXT_TZD_IMAGE>
+        <BENEFITS_NEXT_TZD_INTRO>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Po zahájení dodávky na Vás čeká<br />
+                </p>
+            </body>
+        </BENEFITS_NEXT_TZD_INTRO>
+        <BENEFITS_NEXT_TZD_NAME>Detektor</BENEFITS_NEXT_TZD_NAME>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD919366CD0F522AE1</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [20.10.2022]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [12.03.2023 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>20.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>12.03.2023 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD91936719C56C4AE1</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa plnění|: [Plzeň 3, Tělocvičná 2422 / 18, 301 00]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa plnění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Plzeň 3, Tělocvičná 2422 / 18, 301 00</NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Značka kotle|: [Kotel Viadrus]<br />|Platnost nabídky do|: [20.10.2022]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Kotel Viadrus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>20.10.2022</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Pravidelná roční údržba vašeho kotle.]<br />|Druhé|: [Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.]<br />|Třetí|: [Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Pravidelná roční údržba vašeho kotle.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Ivana Sekaniny 1805 / 1, 708 00 Poruba</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Poruba</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Poruba</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>708 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Ivana Sekaniny</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1805 / 1</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Ivana Sekaniny 1805 / 1, 708 00 Poruba</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>19.04.1964</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Poruba</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Poruba</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>lukas.noska@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Danuše Rieglová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>708 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Ivana Sekaniny</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1805 / 1</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>730 814 493</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Rieglová                                          </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9610862078</PERSON_NUMBER>
+        <PERSON_PREMADR>Tělocvičná 2422 / 18, 301 00 Plzeň 3</PERSON_PREMADR>
+        <PERSON_PREMCITY>Plzeň 3</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Jižní Předměstí</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG300Z0037308S</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301810481</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>301 00</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Tělocvičná</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>2422 / 18</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

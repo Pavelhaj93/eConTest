@@ -19,17 +19,24 @@ namespace eContracting
 {
     public static class Utils
     {
+        static Utils()
+        {
+            RegexAttrStyle = new Regex("( style=\"[\\d\\w\\s\\-\\:\\;]*\")", RegexOptions.Compiled);
+            RegexAttrXmlNamespace = new Regex("( xmlns=\"[^\"]*\")", RegexOptions.Compiled);
+            RegexHtml = new Regex("<(.|\n)*?>", RegexOptions.Compiled);
+        }
+
         /// <summary>
         /// Regular expression for HTML attribute ' style="..."'.
         /// </summary>
-        private static Regex RegexAttrStyle = new Regex("( style=\"[\\d\\w\\s\\-\\:\\;]*\")", RegexOptions.Compiled);
+        private static readonly Regex RegexAttrStyle;
 
         /// <summary>
         /// Regular expression for XML attribute ' xmlns="..."'.
         /// </summary>
-        private static Regex RegexAttrXmlNamespace = new Regex("( xmlns=\"[^\"]*\")", RegexOptions.Compiled);
+        private static readonly Regex RegexAttrXmlNamespace;
 
-        private static Regex RegexHtml = new Regex("<(.|\n)*?>", RegexOptions.Compiled);
+        private static readonly Regex RegexHtml;
 
         /// <summary>
         /// Gers readable size.
@@ -315,6 +322,8 @@ namespace eContracting
         /// <returns>Modified string.</returns>
         public static string GetReplacedTextTokens(string text, IDictionary<string, string> textParameters)
         {
+            text = GetNonEmptyStringOrNull(text);
+
             if (string.IsNullOrWhiteSpace(text) || (textParameters?.Count ?? 0) < 1)
             {
                 return text;
@@ -326,6 +335,14 @@ namespace eContracting
             }
 
             return text;
+        }
+
+        public static string GetReplacedTextTokens(string text, IDictionary<string, string> textParameters, DateTime expirationDate)
+        {
+            var result = GetReplacedTextTokens(text, textParameters);
+            var date = expirationDate.ToString("dd. MM. yyyy");
+            result = result?.Replace("{EXPIRATION_DATE}", date);
+            return result;
         }
 
         public static T[] GetUpdated<T>(T[] array, T newItem)
@@ -348,6 +365,30 @@ namespace eContracting
             }
 
             return filteredQuery;
+        }
+
+        public static string GetNonEmptyStringOrNull(string input)
+        {
+            if (input == null)
+            {
+                return null;
+            }
+
+            var noSpaces = input.Replace(" ", string.Empty);
+
+            if (string.IsNullOrEmpty(noSpaces))
+            {
+                return null;
+            }
+
+            var strippedInput = Utils.StripHtml(input)?.Replace("&nbsp;", string.Empty).Replace(" ", string.Empty);
+
+            if (string.IsNullOrEmpty(strippedInput))
+            {
+                return null;
+            }
+
+            return input;
         }
     }
 }

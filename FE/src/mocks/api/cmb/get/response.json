@@ -1,0 +1,69 @@
+{
+  "title": "Co nejdříve vám zavoláme zpět na uvedené telefonní číslo a vyřídíme s vámi vše potřebné k pokračování smlouvy u innogy.",
+  "image": {
+    "url": "https://d1icd6shlvmxi6.cloudfront.net/gsc/288F19/8a/d0/03/8ad00337bcc34e0daa701122d6ecd83b/images/ret95_-_cmb/u64.png?pageId=3ca2d3cf-1f9d-4ba3-bd43-71a030517ddd"
+  },
+  "phone": "721 138 545",
+  "maxFileSize": 2000000,
+  "maxFiles": 2,
+  "allowedFiles": [
+    "image/jpeg",
+    "application/pdf"
+  ],
+  "times": [
+    {
+      "label": "8:00 - 9:00",
+      "value": "08:00"
+    },
+    {
+      "label": "9:00 - 10:00",
+      "value": "09:00"
+    },
+    {
+      "label": "10:00 - 11:00",
+      "value": "10:00"
+    },
+    {
+      "label": "11:00 - 12:00",
+      "value": "11:00"
+    },
+    {
+      "label": "12:00 - 13:00",
+      "value": "12:00"
+    },
+    {
+      "label": "13:00 - 14:00",
+      "value": "13:00"
+    },
+    {
+      "label": "14:00 - 15:00",
+      "value": "14:00"
+    },
+    {
+      "label": "15:00 - 16:00",
+      "value": "15:00"
+    },
+    {
+      "label": "16:00 - 17:00",
+      "value": "16:00"
+    },
+    {
+      "label": "17:00 - 18:00",
+      "value": "17:00"
+    }
+  ],
+  "labels": {
+    "PHONE": "Telefon",
+    "TIME_LABEL": "Kdy Vám mohu zavolat",
+    "TIME_PLACEHOLDER": "Preferuji čas",
+    "NOTE": "Poznámka",
+    "ADD_NOTE": "Přidat poznámku",
+    "ADD_FILE": "Přidat přílohu",
+    "INSERT_FILE": "Vložit soubor",
+    "FILES_NOTE": "<p style=\"text-align: center;\">Velikost každ&eacute;ho souboru nesm&iacute; překročit 2 MB.</p><p style=\"text-align: center;\">Povolen&yacute; form&aacute;t je pdf, png, jpg/jpeg a tif/tiff.</p>",
+    "SUBMIT_BUTTON": "Zavolejte mi",
+    "CLOSE_BUTTON": "Zavřít",
+    "VALIDATION_ERROR": "Telefonní číslo musí obsahovat 9 znaků, může být bez mezinárodní předvolby (+420)",
+    "BOTTOM_TEXT": "<p style=\"text-align: center;\">Ucelen&yacute; v&yacute;čet pr&aacute;v a povinnost&iacute; ve vztahu se zpracov&aacute;n&iacute;m osobn&iacute;ch &uacute;dajů a seznam zpracovatelů je zveřejněn na webov&eacute; str&aacute;nce <a rel=\"noopener noreferrer\" href=\"https://www.innogy.cz/sluzby/ochrana-osobnich-udaju/\" target=\"_blank\">ochrana osobn&iacute;ch &uacute;dajů</a>.</p>"
+  }
+}

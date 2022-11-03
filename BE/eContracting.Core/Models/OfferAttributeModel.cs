@@ -12,6 +12,7 @@ namespace eContracting.Models
     /// <summary>
     /// Represent an attribute anywhere in an offer.
     /// </summary>
+    [Serializable]
     [DebuggerDisplay("{Key} = {Value}")]
     public class OfferAttributeModel
     {

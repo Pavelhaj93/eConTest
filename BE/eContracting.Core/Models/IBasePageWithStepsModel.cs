@@ -9,7 +9,7 @@ using Glass.Mapper.Sc.Configuration.Attributes;
 namespace eContracting.Models
 {
     /// <summary>
-    /// Represents common page with <see cref="Step"/>.
+    /// Represents common page with <see cref="Step_Default"/>.
     /// </summary>
     /// <seealso cref="eContracting.Models.IBasePageModel" />
     public interface IBasePageWithStepsModel : IBasePageModel
@@ -18,6 +18,15 @@ namespace eContracting.Models
         /// Gets or sets the step.
         /// </summary>
         [SitecoreField]
-        IProcessStepModel Step { get; set; }
+        IStepModel Step_Default { get; set; }
+
+        [SitecoreField]
+        IStepModel Step_NoLogin { get; set; }
+
+        [SitecoreField]
+        IStepModel Step_DistributorChange { get; set; }
+        
+        [SitecoreField]
+        IStepModel Step_ProductChange { get; set; }
     }
 }

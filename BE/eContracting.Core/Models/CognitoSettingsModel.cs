@@ -13,6 +13,8 @@ namespace eContracting.Models
         /// </summary>
         public readonly string CognitoBaseUrl;
 
+        public readonly string CognitoTokensUrl;
+
         /// <summary>
         /// OAuth Client ID for Cognito service.
         /// </summary>
@@ -36,9 +38,10 @@ namespace eContracting.Models
 
         public readonly string InnogyDashboardUrl;
 
-        public CognitoSettingsModel(string cognitoBaseUrl, string cognitoClientId, string cognitoCookiePrefix, string cognitoCookieUser, string innogyLoginUrl, string innogyLogoutUrl, string innogyRegistrationUrl, string innogyDashboardUrl)
+        public CognitoSettingsModel(string cognitoBaseUrl, string cognitoTokensUrl, string cognitoClientId, string cognitoCookiePrefix, string cognitoCookieUser, string innogyLoginUrl, string innogyLogoutUrl, string innogyRegistrationUrl, string innogyDashboardUrl)
         {
             this.CognitoBaseUrl = cognitoBaseUrl;
+            this.CognitoTokensUrl = cognitoTokensUrl;
             this.CognitoClientId = cognitoClientId;
             this.CognitoCookiePrefix = cognitoCookiePrefix;
             this.CognitoCookieUser = cognitoCookieUser;

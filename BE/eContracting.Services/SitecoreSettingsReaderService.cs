@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,7 +71,27 @@ namespace eContracting.Services
         {
             get
             {
-                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.Cognito.MinimumSecondsToRefreshToken", 60);
+                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.Cognito.MinimumSecondsToRefreshToken", 180);
+            }
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>Default value is 5 seconds.</remarks>
+        public int SubmitOfferDelay
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.SubmitOfferDelay", 5);
+            }
+        }
+
+        /// <inheritdoc/>
+        /// <remarks>Default value is 5 seconds.</remarks>
+        public int CancelOfferDelay
+        {
+            get
+            {
+                return Sitecore.Configuration.Settings.GetIntSetting("eContracting.CancelOfferDelay", 5);
             }
         }
 
@@ -202,7 +224,67 @@ namespace eContracting.Services
                 throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF", "Offer is null, cannot retrieve matrix information."));
             }
 
-            return this.GetDefinition(offer.Process, offer.ProcessType);
+            if (!string.IsNullOrEmpty(offer.Process) && !string.IsNullOrEmpty(offer.ProcessType))
+            {
+                var allDefinitions = this.GetAllDefinitions();
+                var definitions = allDefinitions.Where(x => x.Process.Code.Equals(offer.Process, StringComparison.InvariantCultureIgnoreCase) && x.ProcessType.Code.Equals(offer.ProcessType, StringComparison.InvariantCultureIgnoreCase));
+
+                if (definitions.Any())
+                {
+                    var count = definitions.Count();
+
+                    this.Logger.Debug(offer.Guid, $"{count} matrix definitions found for process '{offer.Process}' and process type '{offer.ProcessType}'");
+                    
+                    if (count == 1)
+                    {
+                        return definitions.First();
+                    }
+
+                    var offerAttributes = new NameValueCollection();
+
+                    foreach (var attr in offer.Attributes)
+                    {
+                        offerAttributes.Add(attr.Key, attr.Value);
+                    }
+
+                    var orderedDefinitions = definitions.OrderByDescending(x => x.GetXmlAttributes().Count).ToArray();
+
+                    var logBuilder = new StringBuilder();
+                    logBuilder.AppendLine($"Looking for matrix definition (more definitions found) matching for:");
+                    logBuilder.AppendLine($" - process = {offer.Process}");
+                    logBuilder.AppendLine($" - process type = {offer.ProcessType}");
+                    logBuilder.AppendLine("Matrix definitions found (ordered by attributes count):");
+
+                    for (int i = 0; i < orderedDefinitions.Length; i++)
+                    {
+                        logBuilder.AppendLine($" - {orderedDefinitions[i].Path}");
+                    }
+
+                    for (int i = 0; i < orderedDefinitions.Length; i++)
+                    {
+                        var definition = orderedDefinitions[i];
+                        var definitionAttributes = definition.GetXmlAttributes();
+
+                        if (offerAttributes.Contains(definitionAttributes))
+                        {
+                            this.Logger.Debug(offer.Guid, $"Matrix definition found ({definition.Path}) for '{offer.Process}', process type '{offer.ProcessType}' and attributes {Utils.GetQueryString(definitionAttributes)}");
+                            return definition;
+                        }
+                    }
+
+                    var lastDefinition = orderedDefinitions.Last(); // Because matrix definitions were ordered by attributes count, last is taken
+                    this.Logger.Debug(offer.Guid, $"No matrix definition matched to attributes. Taking last in row ({lastDefinition.Path})");
+                    return lastDefinition;
+                }
+            }
+            else
+            {
+                this.Logger.Warn(offer.Guid, $"Cannot determinate matrix definition because process and process type are missing");
+            }
+
+            this.Logger.Warn(null, $"Matrix definition not found for process '{offer.Process}' and process type '{offer.ProcessType}'. Taking default one..");
+
+            return this.GetDefinitionDefault();
         }
 
         /// <inheritdoc/>
@@ -228,6 +310,26 @@ namespace eContracting.Services
         public IDefinitionCombinationModel[] GetAllDefinitions()
         {
             return this.SitecoreService.GetItems<IDefinitionCombinationModel>(Constants.SitecorePaths.DEFINITIONS).ToArray();
+        }
+
+        /// <inheritdoc/>
+        public IProductInfoModel GetProductInfo(OfferAttachmentModel attachmentModel)
+        {
+            if (attachmentModel == null)
+            {
+                return null;
+            }
+
+            var definitions = this.SitecoreService.GetItems<IProductInfoModel>(Constants.SitecorePaths.PRODUCT_INFOS).ToArray();
+            var model = definitions.FirstOrDefault(x => x.Key == attachmentModel.Product);
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public IProductInfoModel[] GetAllProductInfos()
+        {
+            var definitions = this.SitecoreService.GetItems<IProductInfoModel>(Constants.SitecorePaths.PRODUCT_INFOS).ToArray();
+            return definitions;
         }
 
         /// <inheritdoc/>
@@ -271,6 +373,8 @@ namespace eContracting.Services
 
             switch (type)
             {
+                case PAGE_LINK_TYPES.Summary:
+                    return settings.Summary.Url;
                 case PAGE_LINK_TYPES.Offer:
                     return settings.Offer.Url;
                 case PAGE_LINK_TYPES.SessionExpired:
@@ -326,10 +430,10 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IProcessStepModel[] GetSteps(IProcessStepModel currentStep)
+        public IStepModel[] GetSteps(IStepModel currentStep)
         {
             var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
-            var items = this.SitecoreService.GetItems<IProcessStepModel>(parentPath);
+            var items = this.SitecoreService.GetItems<IStepModel>(parentPath);
 
             foreach (var item in items)
             {
@@ -383,6 +487,7 @@ namespace eContracting.Services
         public CognitoSettingsModel GetCognitoSettings()
         {
             var cognitoBaseUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.OAuth.BaseUrl");
+            var cognitoTokensUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.OAuth.TokensUrl");
             var cognitoClientId = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.ClientId");
             var cognitoCookiePrefix = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.CookiePrefix", "CognitoIdentityServiceProvider");
             var cognitoCookieUser = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.CookieUser", "LastAuthUser");
@@ -391,7 +496,7 @@ namespace eContracting.Services
             var innogyRegistrationUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.RegistrationUrl");
             var innogyDashboardUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Innogy.DashboardUrl");
 
-            return new CognitoSettingsModel(cognitoBaseUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
+            return new CognitoSettingsModel(cognitoBaseUrl, cognitoTokensUrl, cognitoClientId, cognitoCookiePrefix, cognitoCookieUser, innogyLoginUrl, innogyLogoutUrl, innogyRegistrationUrl, innogyDashboardUrl);
         }
     }
 }

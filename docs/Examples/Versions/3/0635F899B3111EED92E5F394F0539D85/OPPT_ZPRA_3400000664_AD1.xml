@@ -1,0 +1,77 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EED92E5F394F053BD85</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Garance 36]<br />|Platnost nabídky do|: [20.10.2022]<br />|Délka fixace|: [36 měsíců od platnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [02.01.2023 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Garance 36</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>20.10.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>36 měsíců od platnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>02.01.2023 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_GARANCE36</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Garance 36</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [výhodná cena elektřiny],<br />|Druhé|: [garance její neměnnosti po dobu 36 měsíců od uzavření smlouvy]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>výhodná cena elektřiny</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garance její neměnnosti po dobu 36 měsíců od uzavření smlouvy</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Jugoslávská 2773 / 4, 700 30 Ostrava - Zábřeh</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ostrava</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Zábřeh</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>700 30</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Jugoslávská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2773 / 4</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Jugoslávská 2773 / 4, 700 30 Ostrava</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>18.11.1948</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ostrava</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Zábřeh</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>jg@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Jarmila Gottesmanová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>700 30</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Jugoslávská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2773 / 4</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>724 508 511</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Gottesmanová                                      </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9611293905</PERSON_NUMBER>
+        <PERSON_PREMADR>Puklicova 1040/30, 370 04 České Budějovice</PERSON_PREMADR>
+        <PERSON_PREMCITY>České Budějovice</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>České Budějovice 3</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400102265685</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302826881</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>370 04</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Puklicova</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1040/30</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

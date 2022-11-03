@@ -1,0 +1,75 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EED8D82F5B3EF479AF4</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Služba|: [Nesnižování záloh]<br />|Platnost nabídky do|: [14.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Služba</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME_1>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>Nesnižování záloh</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE_1>14.10.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Zelená 2097 / 61, 702 00 Ostrava - Moravská Ostrava</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ostrava</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Moravská Ostrava</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>702 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Zelená</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2097 / 61</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Zelená 2097 / 61, 702 00 Ostrava</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>06.05.1958</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ostrava</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Moravská Ostrava</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>anna.breska@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Božena Hájková</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>702 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Zelená</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2097 / 61</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK></PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>724 059 526</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Hájková                                           </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9611153266</PERSON_NUMBER>
+        <PERSON_PREMADR>Zelená 2097 / 61, 702 00 Moravská Ostrava a Přívoz</PERSON_PREMADR>
+        <PERSON_PREMCITY>Moravská Ostrava a Přívoz</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Moravská Ostrava</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z0030229B</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300588141</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>702 00</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Zelená</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>2097 / 61</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

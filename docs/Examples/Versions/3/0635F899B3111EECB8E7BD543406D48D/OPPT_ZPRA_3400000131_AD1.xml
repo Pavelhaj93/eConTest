@@ -1,0 +1,76 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECB8E7BD543406F48D</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Standard]<br />|Platnost nabídky do|: [10.06.2022]<br />|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [03.06.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>10.06.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>03.06.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku]<br />|Druhé|: [pro nové smlouvy finanční odměna dle Ceníku služeb]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>svoboda ve vašem rozhodování - smlouva bez dlouhodobého závazku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>pro nové smlouvy finanční odměna dle Ceníku služeb</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_CORADDRESS>Pod Čihadlem ev. č. 1, 285 06 Sázava</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Sázava</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Sázava</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>285 06</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Pod Čihadlem</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>ev. č. 1</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Sídliště 458, 382 32 Velešín</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>29.06.1992</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Velešín</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Velešín</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>runway.r2fix@yopmail.com</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Ing. Marie Jirkalová Ph.D.</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>382 32</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Sídliště</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>458</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>innosvět</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>776 765 682</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Jirkalová                                         </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9611127112</PERSON_NUMBER>
+        <PERSON_PREMADR>Jestřebí 45, 789 01 Jestřebí</PERSON_PREMADR>
+        <PERSON_PREMCITY>Jestřebí</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Jestřebí</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG700Z0626776R</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302596057</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>789 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET></PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>45</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

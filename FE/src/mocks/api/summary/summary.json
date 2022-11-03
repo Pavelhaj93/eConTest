@@ -1,0 +1,101 @@
+{
+  "personal": {
+    "title": "Smluvní údaje",
+    "data": [
+      {
+        "title": "Osobní údaje",
+        "lines": ["Tereza Tlachová", "milos.rezanina@innogy.cz", "774 647 560"]
+      },
+      {
+        "title": "Adresa trvalého bydliště",
+        "lines": ["Hutník 1426", "Veselí nad Moravou", "698 01"]
+      },
+      { "title": "Korespondenční adresa", "lines": ["Hutník 1426", "Veselí nad Moravou", "698 01"] }
+    ],
+    "communication": { "Title": "Sjednaný způsob komunikace", "Value": "Papírový tisk" }
+  },
+  "product": {
+    "type": "E",
+    "header": {
+      "name": "elektřina Start 15",
+      "price1_description": "Uspora",
+      "price1": "2420 Kc/rok",
+      "price2_description": "Rocni odmena",
+      "price2": "50 Kc",
+      "info": "Tady bude ta napoveda"
+    },
+    "info_prices": [
+      {
+        "title": "Stálá platba",
+        "previous_price": "79,00 Kč/měsíc",
+        "value": "79,00",
+        "value_unit": "Kč/měsíc"
+      }
+    ],
+    "middle_texts": [
+      "Plyn OPTIM prvni argument",
+      "Plyn OPTIM druhy argument"
+    ],
+    "middle_texts_help": "Plyn OPTIM treti argument",
+    "benefits": [
+      "Ele standardni prvni argument",
+      "Ele standardni druhy argument",
+      "Ele standardni treti argument"
+    ]
+  },
+  "benefits": [
+    {
+      "title": "Nesnižování záloh",
+      "params": [
+        { "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie" }
+      ]
+    },
+    {
+      "title": "iKARTA",
+      "params": [
+        {
+          "value": "innogy Karta pro všechny zákazníky innogy, kteří mají rádi film, lyžování nebo cestování"
+        },
+        { "value": "Získejte u vybraných partnerů slevu až 20 %" }
+      ]
+    },
+    {
+      "summary": [
+        { "title": "Služba", "value": "innogy Domácí asistence" },
+        { "title": "Varianta", "value": "Premium" },
+        { "title": "Platnost nabídky do", "value": "31.05.2022" }
+      ],
+      "title": "innogy Domácí asistence",
+      "params": [
+        { "value": "limit plnění až 10 000 Kč" },
+        { "value": "doprava hrazená v plné výši" },
+        { "value": "drobný spotřební materiál v ceně služby" },
+        { "value": "non-stop telefonická podpora" }
+      ]
+    },
+    {
+      "summary": [
+        { "title": "Produkt", "value": "elektřina Start 15" },
+        { "title": "Platnost nabídky do", "value": "31.05.2022" },
+        { "title": "Délka fixace", "value": "15 měsíců od účinnosti smlouvy" },
+        { "title": "Platnost smlouvy", "value": "Dnem akceptace smlouvy zákazníkem" },
+        { "title": "Předpokládaná účinnost smlouvy", "value": "26.11.2022" }
+      ],
+      "title": "Smlouva / dodatek",
+      "params": [
+        { "value": "naše ceny energií i smlouvy jsou závazné" },
+        { "value": "pevná cena silové elektřiny po dobu 15 měsíců" }
+      ]
+    }
+  ],
+  "gifts": {
+    "title": "Máme pro Vás nachystané dárky",
+    "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
+    "groups": [
+      {
+        "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
+        "params": [{ "title": "Detektor", "icon": "DET", "count": 1 }]
+      }
+    ]
+  }
+}

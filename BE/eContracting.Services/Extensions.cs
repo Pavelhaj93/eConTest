@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,21 +11,25 @@ namespace eContracting.Services
 {
     public static class Extensions
     {
+        [ExcludeFromCodeCoverage]
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_PUT model, ZCCH_CACHE_PUTResponse1 response, TimeSpan time)
         {
             logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_PUT)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
+        [ExcludeFromCodeCoverage]
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_STATUS_SET model, TimeSpan time)
         {
             logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_STATUS_SET)} finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
+        [ExcludeFromCodeCoverage]
         public static void TimeSpent(this ILogger logger, ZCCH_CACHE_GET model, TimeSpan time)
         {
             logger.Info(model.IV_CCHKEY, $"{nameof(ZCCH_CACHE_GET)} ({model.IV_CCHTYPE}) finished in " + time.ToString("hh\\:mm\\:ss\\:fff"));
         }
 
+        [ExcludeFromCodeCoverage]
         public static void LogFiles(this ILogger logger, IEnumerable<OfferAttachmentModel> files, string guid, bool IsAccepted)
         {
             var builder = new StringBuilder();
@@ -51,6 +56,7 @@ namespace eContracting.Services
             logger.Debug(guid, builder.ToString());
         }
 
+        [ExcludeFromCodeCoverage]
         public static void LogFiles(this ILogger logger, IEnumerable<OfferFileXmlModel> files, string guid, bool IsAccepted, OFFER_TYPES type)
         {
             var builder = new StringBuilder();

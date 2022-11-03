@@ -12,6 +12,9 @@ namespace eContracting.Website.Areas.eContracting2.Models
         [JsonProperty("guid")]
         public readonly string Guid;
 
+        [JsonProperty("version")]
+        public int Version { get; set; }
+
         [JsonIgnore]
         public string PageTitle { get; set; }
 
@@ -19,7 +22,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public readonly string View;
 
         [JsonProperty("timeout")]
-        public int Timeout { get; set; }
+        public int Timeout { get; set; } = 5000;
+
+        [JsonProperty("showCmbModal")]
+        public bool ShowCmb { get; set; } = false;
+
+        [JsonProperty("unfinishedOfferTimeout")]
+        public int UnfinishedOfferTimeout { get; set; } = 120000;
 
         [JsonProperty("errorPageUrl")]
         public string ErrorPage { get; set; }

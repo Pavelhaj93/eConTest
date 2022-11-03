@@ -1,0 +1,68 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    innogy Karta<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EED919798DE54E4C3C1</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [20.10.2022]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>20.10.2022</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>INNOGY_KARTA</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Objednejte si kartu plnou slev]<br />|Druhé|: [Ušetřete za vstupné do kina, lyžování nebo dovolenou]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Objednejte si kartu plnou slev</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>Ušetřete za vstupné do kina, lyžování nebo dovolenou</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <BENEFITS></BENEFITS>
+        <COMMODITY></COMMODITY>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Vančurova 1431, 293 01 Mladá Boleslav - Mladá Boleslav III</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Mladá Boleslav</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Mladá Boleslav III</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>293 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Vančurova</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1431</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Vančurova 1431, 293 01 Mladá Boleslav</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>11.02.1956</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Mladá Boleslav</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Mladá Boleslav III</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>petra.kovarova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lubor Loskot</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>293 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Vančurova</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1431</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>739 536 030</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Loskote                                           </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9510254093</PERSON_NUMBER>
+        <PERSON_PREMADR>Vančurova 1431, 293 01 Mladá Boleslav</PERSON_PREMADR>
+        <PERSON_PREMCITY>Mladá Boleslav</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Mladá Boleslav III</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400608867246</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302404546</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>293 01</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Vančurova</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1431</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

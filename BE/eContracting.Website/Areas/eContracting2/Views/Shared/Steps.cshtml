@@ -1,6 +1,12 @@
 ﻿@using eContracting.Models
 @using eContracting.Website.Areas.eContracting2.Models
 @model StepsViewModel
+
+@if (Model.Steps == null || Model.Steps.Length == 0)
+{
+    return;
+}
+
 <ol class="list-steps">
     @foreach (var step in Model.Steps)
     {

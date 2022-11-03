@@ -1,0 +1,95 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS>X</BENEFITS>
+        <BENEFITS_CLOSE>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Způsob doručení: korespondenčně na zasílací adresu<br />
+                </p>
+            </body>
+        </BENEFITS_CLOSE>
+        <BENEFITS_NEXT_TZD>X</BENEFITS_NEXT_TZD>
+        <BENEFITS_NEXT_TZD_COUNT>1</BENEFITS_NEXT_TZD_COUNT>
+        <BENEFITS_NEXT_TZD_IMAGE>PKZ</BENEFITS_NEXT_TZD_IMAGE>
+        <BENEFITS_NEXT_TZD_INTRO>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Rozhodnutím zůstat u innogy získáte<br />
+                </p>
+            </body>
+        </BENEFITS_NEXT_TZD_INTRO>
+        <BENEFITS_NEXT_TZD_NAME>Poukázka Kaufland 100 Kč</BENEFITS_NEXT_TZD_NAME>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EECB5A3E8CF4A43D501</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Start 15]<br />|Platnost nabídky do|: [16.05.2022]<br />|Délka fixace|: [15 měsíců od účinnosti dodatku]<br />|Platnost dodatku|: [Dnem akceptace dodatku zákazníkem]<br />|Předpokládaná účinnost dodatku|: [21.10.2022 ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Start 15</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>16.05.2022</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>15 měsíců od účinnosti dodatku</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace dodatku zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>21.10.2022 </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_START15</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Start 15</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [naše ceny energií i smlouvy jsou závazné]<br />|Druhé|: [pevná cena silové elektřiny po dobu 15 měsíců]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>naše ceny energií i smlouvy jsou závazné</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>pevná cena silové elektřiny po dobu 15 měsíců</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>eYello CZ, k.s.</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Vranovská 645 / 112, 614 00 Brno-sever - Husovice</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Brno-sever</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Husovice</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>614 00</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Vranovská</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>645 / 112</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Vranovská 645 / 112, 614 00 Brno-sever</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>09.03.1954</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Brno-sever</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Husovice</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>leblochova.al@volny.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Alena Leblochová</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>614 00</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Vranovská</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>645 / 112</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>innosvět</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>728 211 333</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Leblochová                                        </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9511630692</PERSON_NUMBER>
+        <PERSON_PREMADR>Vranovská 645 / 112, 614 00 Brno-sever</PERSON_PREMADR>
+        <PERSON_PREMCITY>Brno-sever</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Husovice</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400203298933</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9301508409</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>614 00</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Vranovská</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>645 / 112</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

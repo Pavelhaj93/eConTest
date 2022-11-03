@@ -21,5 +21,8 @@ namespace eContracting.Models
 
         [SitecoreInfo(Type = SitecoreInfoType.FullPath)]
         public string Path { get; set; }
+
+        [SitecoreInfo(Type = SitecoreInfoType.TemplateId)]
+        public Guid TemplateId { get; set; }
     }
 }

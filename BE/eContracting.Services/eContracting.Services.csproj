@@ -277,7 +277,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CmbService.cs" />
+    <Compile Include="CrmUtilitiesUmcService.cs" />
+    <Compile Include="LocalOfferDataService.cs" />
+    <Compile Include="OfferDataSapService.cs" />
     <Compile Include="RequestDataCacheService.cs" />
+    <Compile Include="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="UserService.cs" />
     <Compile Include="GeneralRestApiService.cs" />
     <Compile Include="TokenParserService.cs" />
@@ -321,6 +330,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202107230717301_Initial.resx">
       <DependentUpon>202107230717301_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

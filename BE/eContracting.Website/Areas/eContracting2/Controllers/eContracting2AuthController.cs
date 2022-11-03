@@ -35,7 +35,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
-        protected readonly IMvcContext MvcContext;
         private const string SESSION_ERROR_KEY = "INVALID_LOGIN";
         private const string loginMatrixCombinationPlaceholderPrefix = "/eContracting2Main/eContracting2-login";
 
@@ -46,13 +45,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>())
+            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
-            this.MvcContext = ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -67,13 +66,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IMvcContext mvcContext,
             IEventLogger evetLogger,
             ITextService textService,
-            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService)
+            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
         {
             this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
-            this.MvcContext = mvcContext ?? throw new ArgumentNullException(nameof(mvcContext));
         }
 
         /// <summary>
@@ -126,7 +124,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var hideInnogyAccount = !offer.HasMcfu;
                 var showInnogyAccountHideInfo = user.IsCognito;
-                var canReadOffer = this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.NABIDKA);
+                var canReadOffer = this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX);
 
                 if (!canReadOffer)
                 {
@@ -143,7 +141,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     var campaignCode = this.GetCampaignCode(offer);
                     this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
                     this.ClearFailedAttempts(guid, user, AUTH_RESULT_STATES.SUCCEEDED, null, campaignCode);
-                    return this.Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+
+                    if (this.ContextWrapper.GetQueryValue("s") == "o" || offer.Version < 3)
+                    {
+                        return this.Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+                    }
+
+                    return this.Redirect(PAGE_LINK_TYPES.Summary, guid, null, true);
                 }
 
                 if (user.AuthorizedGuids.ContainsKey(guid))
@@ -177,7 +181,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 var definition = this.SettingsService.GetDefinition(offer);
                 var choices = authTypes.Select(x => this.GetChoiceViewModel(x, offer)).ToArray();
-                var steps = this.SettingsService.GetSteps(datasource.Step);
+                var steps = this.GetSteps(user, offer, datasource, definition);
                 var viewModel = this.GetViewModel(definition, datasource, choices, steps, errorString);
                 viewModel.OfferAccepted = offer.IsAccepted;
                 viewModel.Birthdate = offer.Birthday;
@@ -299,7 +303,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.UserService.Authenticate(guid, user); // overwrites current store user
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
                 this.ClearFailedAttempts(guid, user, result, loginType, campaignCode);
-                return this.Redirect(PAGE_LINK_TYPES.Offer, guid);
+
+                if (offer.Version < 3)
+                {
+                    return this.Redirect(PAGE_LINK_TYPES.Offer, guid);
+                }
+
+                return this.Redirect(PAGE_LINK_TYPES.Summary, guid);
+
             }
             catch (AggregateException ex)
             {
@@ -317,7 +328,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_APP})", ex);
                 return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_APP);
             }
-            catch (InvalidOperationException ex)
+            catch (EcontractingMissingDatasourceException ex)
             {
                 this.Logger.Error(guid, $"Authenticating failed ({Constants.ErrorCodes.AUTH2_INV_OP})", ex);
                 return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.AUTH2_INV_OP);
@@ -375,7 +386,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
             var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
-
+            var user = new UserCacheDataModel();
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fakeXml = new OfferXmlModel();
             fakeXml.Content = new OfferContentXmlModel();
@@ -383,11 +394,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             fakeXml.Content.Body.BusProcess = definition.Process.Code;
             fakeXml.Content.Body.BusProcessType = definition.ProcessType.Code;
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, fakeAttr);
+            var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, DateTime.Now.AddDays(-1), fakeAttr);
             var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
             var loginTypes = this.SettingsService.GetLoginTypes(fakeOffer);
             var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
-            var steps = this.SettingsService.GetSteps(datasource.Step);
+            var steps = this.GetSteps(user, fakeOffer, datasource, definition);
             var editModel = this.GetViewModel(definition, datasource, choices, steps);
             editModel.Birthdate = DateTime.Now.ToString("dd.MM.yyyy");
             editModel.PageTitle = datasource.PageTitle;
@@ -559,7 +570,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal LoginViewModel GetViewModel(IDefinitionCombinationModel definition, IPageLoginModel datasource, LoginChoiceViewModel[] choices, IProcessStepModel[] steps, string validationMessage = null)
+        protected internal LoginViewModel GetViewModel(IDefinitionCombinationModel definition, IPageLoginModel datasource, LoginChoiceViewModel[] choices, IStepsModel steps, string validationMessage = null)
         {
             var viewModel = new LoginViewModel(definition, datasource, new StepsViewModel(steps), choices);
             viewModel.FormAction = this.Request.RawUrl;
@@ -898,7 +909,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return false;
             }
 
-            if (!this.OfferService.CanReadOffer(offer.Guid, user, OFFER_TYPES.NABIDKA))
+            if (!this.OfferService.CanReadOffer(offer.Guid, user, OFFER_TYPES.QUOTPRX))
             {
                 return false;
             }

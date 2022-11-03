@@ -49,13 +49,14 @@ namespace eContracting
         /// <inheritdoc/>
         public string GetSiteRoot()
         {
-            return Sitecore.Context.Site.RootPath;
+            //return Sitecore.Context.Site.RootPath;
+            return Constants.RootSitePath; // this will change only when another site will be created
         }
 
         /// <inheritdoc/>
         public string GetQueryValue(string key)
         {
-            return Sitecore.Context.Request.GetQueryString(key);
+            return HttpContext.Current?.Request?.QueryString[key];
         }
 
         /// <inheritdoc/>

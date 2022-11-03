@@ -11,10 +11,10 @@
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/type';
-@import "bootstrap/scss/images";
+@import 'bootstrap/scss/images';
 // @import "bootstrap/scss/code";
 @import 'bootstrap/scss/grid';
-@import "bootstrap/scss/tables";
+@import 'bootstrap/scss/tables';
 @import 'bootstrap/scss/forms';
 @import 'bootstrap/scss/buttons';
 @import 'bootstrap/scss/transitions';
@@ -73,6 +73,8 @@
 @import 'components/gift';
 @import 'components/table';
 @import 'components/list';
+@import 'components/accordion';
+@import 'components/cmb';
 
 // Custom helpers
 @import 'utils/helpers';

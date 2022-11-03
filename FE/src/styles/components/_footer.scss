@@ -17,4 +17,48 @@
     background-color: $color-gray-40;
     padding: 20px 0 8px;
   }
+
+  &--innosvet {
+    font-size: rem(16);
+    padding: 25px 0;
+    background-color: $color-gray-40;
+
+    .phone__wrapper {
+      gap: 1.25rem;
+      @include media-breakpoint-up(lg) {
+        margin-right: 30px;
+      }
+    }
+
+    .phone {
+      gap: 10px;
+      text-decoration: none;
+      transition: color $transition-duration ease;
+      .number {
+        // font-weight: 500;
+        font-size: 1.44rem;
+      }
+      &:hover {
+        color: $color-orange;
+      }
+    }
+
+    .footer__links {
+      display: inline-flex;
+      gap: 20px;
+    }
+
+    .footer__link {
+      text-decoration: none;
+      transition: color $transition-duration ease;
+      &:hover {
+        color: $color-orange;
+      }
+    }
+
+    .footer__links__icon {
+      margin-right: 6px;
+      color: $color-orange;
+    }
+  }
 }

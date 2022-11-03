@@ -1,0 +1,68 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS>X</BENEFITS>
+        <BENEFITS_CLOSE>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Způsob doručení: korespondenčně na zasílací adresu<br />
+                </p>
+            </body>
+        </BENEFITS_CLOSE>
+        <BENEFITS_NEXT_TZD>X</BENEFITS_NEXT_TZD>
+        <BENEFITS_NEXT_TZD_COUNT>1</BENEFITS_NEXT_TZD_COUNT>
+        <BENEFITS_NEXT_TZD_IMAGE>PKZ</BENEFITS_NEXT_TZD_IMAGE>
+        <BENEFITS_NEXT_TZD_INTRO>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Rozhodnutím zůstat u innogy získáte<br />
+                </p>
+            </body>
+        </BENEFITS_NEXT_TZD_INTRO>
+        <BENEFITS_NEXT_TZD_NAME>Poukázka Kaufland 100 Kč</BENEFITS_NEXT_TZD_NAME>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Plná moc<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD8BF03A429E3E0963</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_PRODUCT>STAVAJICI_PROD_EE</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>Stávající produkt EE</COMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Aviatiků 1498 / 14, 700 30 Ostrava-Jih - Hrabůvka</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ostrava-Jih</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Hrabůvka</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>700 30</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Aviatiků</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1498 / 14</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Aviatiků 1498 / 14, 700 30 Ostrava-Jih</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>16.11.1952</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ostrava-Jih</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Hrabůvka</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>milena.machanova@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Lubomír Novák</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>700 30</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Aviatiků</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1498 / 14</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>Korespondenčně</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>735 156 698</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Nováku                                            </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichh3aXVEAukFaPq3qRWLoAouNdwoF5dsqZZ9</PERSON_MMB_URL>
+        <PERSON_NUMBER>9511352324</PERSON_NUMBER>
+        <PERSON_PREMADR>Aviatiků 1498 / 14, 700 30 Ostrava-Jih</PERSON_PREMADR>
+        <PERSON_PREMCITY>Ostrava-Jih</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Hrabůvka</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400507152115</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300803146</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>700 30</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Aviatiků</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1498 / 14</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH></USER_ATTACH>
+    </parameters>
+</form>

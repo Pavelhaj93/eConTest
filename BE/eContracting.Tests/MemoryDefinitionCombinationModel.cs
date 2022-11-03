@@ -57,5 +57,10 @@ namespace eContracting.Tests
         public string OfferSelectedListLabel { get; set; }
         public IListCollectionModel OfferSelectedList { get; set; }
         public IRichTextModel MainTextThankYou2 { get; set; }
+        public ISimpleTextModel SummaryTitle { get; set; }
+        public IRichTextModel SummaryMainText { get; set; }
+        public ISimpleTextModel SummaryUnfinishedOfferTitle { get; set; }
+        public IRichTextModel SummaryUnfinishedOfferText { get; set; }
+        public Guid TemplateId { get; set; }
     }
 }

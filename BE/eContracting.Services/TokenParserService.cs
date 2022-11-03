@@ -11,20 +11,6 @@ namespace eContracting.Services
 {
     public class TokenParserService : ITokenParser
     {
-        public OfferTokenModel DecodeOfferToken(string token)
-        {
-            using (Aes.Create("OfferTokenModel"))
-            {
-                
-            }
-                throw new NotImplementedException();
-        }
-
-        public string Encode(OfferTokenModel token)
-        {
-            throw new NotImplementedException();
-        }
-
         public JwtSecurityToken GetJwtToken(string accessToken)
         {
             if (string.IsNullOrEmpty(accessToken))
