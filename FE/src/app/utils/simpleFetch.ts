@@ -1,3 +1,5 @@
+import { IGetCallMeBackResponse, IGetCallMeBackResponseSucceed } from '../types/CallMeBack'
+
 interface IJsonResponse {
   [index: string]: any
 }
@@ -44,4 +46,10 @@ export const simpleFetch = {
       .then(checkResponse)
       .then(parseJSON)
   },
+}
+
+export const isGetResponseSucceed = (
+  res: IGetCallMeBackResponse | undefined,
+): res is IGetCallMeBackResponseSucceed => {
+  return typeof res !== 'undefined' && res.succeed
 }

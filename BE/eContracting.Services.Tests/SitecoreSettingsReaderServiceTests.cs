@@ -869,7 +869,7 @@ namespace eContracting.Services.Tests
         {
             var mockStepB = new Mock<IStepModel>();
             mockStepB.SetupProperty(x => x.Name, "B");
-            mockStepB.SetupProperty(x => x.Path, "/sitecore/content/eCon/Settings/Steps/Step2");
+            mockStepB.SetupProperty(x => x.Path, "/sitecore/content/eCon/SettingsReader/Steps/Step2");
             var currentStep = mockStepB.Object;
             var parentPath = currentStep.Path.Substring(0, currentStep.Path.LastIndexOf('/'));
 
@@ -907,7 +907,7 @@ namespace eContracting.Services.Tests
             var mockStepB = new Mock<IStepModel>();
             mockStepB.SetupProperty(x => x.ID, Guid.NewGuid());
             mockStepB.SetupProperty(x => x.Name, "B");
-            mockStepB.SetupProperty(x => x.Path, "/sitecore/content/eCon/Settings/Steps/Step2");
+            mockStepB.SetupProperty(x => x.Path, "/sitecore/content/eCon/SettingsReader/Steps/Step2");
             mockStepB.SetupProperty(x => x.IsSelected, false);
             //mockStepB.SetupSet(x => x.IsSelected = true);
             var currentStep = mockStepB.Object;

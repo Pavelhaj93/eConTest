@@ -20,7 +20,7 @@ namespace eContracting.Services
         protected readonly ILogger Logger;
 
         /// <summary>
-        /// Settings, needed for database connection string
+        /// SettingsReader, needed for database connection string
         /// </summary>
         protected readonly ISettingsReaderService SettingsReaderService;
 
@@ -28,7 +28,7 @@ namespace eContracting.Services
         ///         Initializes a new instance of the <see cref="DbLoginFailedAttemptBlockerStore"/> class.
         /// </summary>
         /// <param name="logger">Logger</param>
-        /// <param name="settingsReaderService">Settings</param>
+        /// <param name="settingsReaderService">SettingsReader</param>
         public DbLoginFailedAttemptBlockerStore(ILogger logger,ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));

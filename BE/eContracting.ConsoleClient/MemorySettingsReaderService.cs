@@ -26,6 +26,14 @@ namespace eContracting.ConsoleClient
         public int CognitoMinSecondsToRefreshToken { get; }
         public int SubmitOfferDelay { get; } = 0;
         public int CancelOfferDelay { get; } = 0;
+        public Uri CrmUtilitiesUmc { get; }
+        public Uri CrmAuthService { get; }
+        public Uri CrmCognitoUrl { get; }
+        public Uri CrmAnonymousUrl { get; }
+        public string CrmAnonymousUser { get; }
+        public string CrmAnonymousPassword { get; }
+        public string SapApiGatewayId { get; }
+        public Uri SapApiGatewayUrl { get; }
 
         public IDefinitionCombinationModel[] GetAllDefinitions()
         {

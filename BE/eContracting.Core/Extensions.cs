@@ -72,7 +72,7 @@ namespace eContracting
 
             var value = source[key]?.Trim();
 
-            return !string.IsNullOrWhiteSpace(value);
+            return !string.IsNullOrEmpty(value);
         }
 
         public static double GetDoubleValue(this IDictionary<string, string> source, string key)

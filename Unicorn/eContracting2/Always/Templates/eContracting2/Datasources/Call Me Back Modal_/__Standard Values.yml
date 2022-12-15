@@ -36,13 +36,25 @@ Languages:
     - ID: "2789edc6-492f-418b-8aba-75e582de2d1f"
       Hint: ThankYouText
       Value: Zavoláme Vám
+    - ID: "463bcfe2-2496-420f-b93e-ce1dc258db77"
+      Hint: PreferredTimeLabel
+      Value: "Kdy vám máme zavolat?"
     - ID: "545479ad-38be-4099-a47b-a67ae7dec628"
       Hint: WhenWeCanCallYouBackLabel
       Value: "Kdy vám máme zavolat?"
+    - ID: "5754bb33-3488-4ea0-ab39-665e72bcbf85"
+      Hint: SettingsDescription
+      Value: "CMB RW-odvolani_ret2"
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\Admin
+    - ID: "6c29346b-75e4-4515-9289-0f173ecb81d4"
+      Hint: SettingsProcess
+      Value: CMB_ECON
+    - ID: "6e40e59b-f212-4c5c-9f65-d1edfea4af14"
+      Hint: SelectTimePlaceholder
+      Value: "Preferuji čas:"
     - ID: "7bf93276-18da-4bc3-a42f-f31a95ef966d"
       Hint: OpenDialogButtonLabel
       Value: Zavolejte mi
@@ -52,12 +64,27 @@ Languages:
     - ID: "8e0a9537-3f08-4cb1-b3b9-f46410b34fea"
       Hint: MyPhoneNumberLabel
       Value: Telefon
+    - ID: "93cf4bed-e7e3-4c6d-8682-03b66997b4a9"
+      Hint: SettingsExternalSystem
+      Value: econtracting
+    - ID: "9ef3a7fa-8f4c-4aaa-996c-e1a5c1fb70eb"
+      Hint: SettingsAllowedFileTypes
+      Value: .pdf,.png,.jpg,.jpeg,.tif,.tiff
+    - ID: "a162457e-3bd9-4503-8759-f278aef285a0"
+      Hint: ErrorSentFailed
+      Value: Selhalo odeslání požadavku na zpětné volání. Kontaktujte prosím zákaznickou linku 800 11 33 55.
+    - ID: "b04a3020-d65a-4305-a573-488d6dc7bd1b"
+      Hint: SettingsProcessType
+      Value: CMB53
     - ID: "c0a09ca6-9677-4422-831d-6a3e809be5cf"
       Hint: ErrorInvalidFile
-      Value: Soubor není ve správném formátu
+      Value: "Soubor {FILE} není ve správném formátu"
     - ID: "d027cec8-492a-43c1-9b65-5b0cc67c7fd3"
       Hint: AddNoteLabel
       Value: Přidat poznámku
+    - ID: "d4d6c147-a433-4ec1-8984-d46709d837c5"
+      Hint: SettingsMaxFileSize
+      Value: 5000000
     - ID: "db30f1e6-d2b1-4050-acfa-9727fa621416"
       Hint: ConfirmButtonLabel
       Value: Zavolejte mi
@@ -65,6 +92,9 @@ Languages:
       Hint: BottomNote
       Value: |
         <p style="text-align: center;">Ucelen&yacute; v&yacute;čet pr&aacute;v a povinnost&iacute; ve vztahu se zpracov&aacute;n&iacute;m osobn&iacute;ch &uacute;dajů a seznam zpracovatelů je zveřejněn na webov&eacute; str&aacute;nce <a rel="noopener noreferrer" href="https://www.innogy.cz/sluzby/ochrana-osobnich-udaju/" target="_blank">ochrana osobn&iacute;ch &uacute;dajů</a>.</p>
+    - ID: "f8463a62-0c35-48b2-b13f-7b8b924bd212"
+      Hint: ErrorDuplicateRequest
+      Value: Pro uvedené telefonní číslo již bylo požádáno o zpětné zavolání. Vyčkejte prosím na zavolání od operátora.
     - ID: "f86c2073-8802-447a-a83e-b81581d1f7b3"
       Hint: ThankYouButtonLabel
       Value: Zavřít

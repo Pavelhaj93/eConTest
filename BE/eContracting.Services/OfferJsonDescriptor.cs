@@ -192,7 +192,7 @@ namespace eContracting.Services
             model.Header = this.GetHeaderData(model, offer);
             model.ProductInfos = this.GetProductInfos(offer);
             model.Type = this.GetProductType(offer);
-            model.Header.Note = this.GetProductNote(model.Type);
+            //model.Header.Note = this.GetProductNote(model.Type);
             model.MiddleTexts = this.GetMiddleTexts(offer);
 
             if (model.MiddleTexts.Count() > 0 && offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
@@ -899,6 +899,11 @@ namespace eContracting.Services
             {
                 header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
                 header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
+
+                if (offer.TextParameters.HasValue("CALC_TOTAL_SAVE_TOOLTIP"))
+                {
+                    header.Price1Note = offer.TextParameters["CALC_TOTAL_SAVE_TOOLTIP"];
+                }
             }
             else
             {
@@ -911,6 +916,11 @@ namespace eContracting.Services
                 {
                     header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DESCRIPTION");
                     header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE") + " " + offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DISPLAY_UNIT");
+
+                    if (offer.TextParameters.HasValue("CALC_DEP_VALUE_TOOLTIP"))
+                    {
+                        header.Price1Note = offer.TextParameters["CALC_DEP_VALUE_TOOLTIP"];
+                    }
                 }
                 else
                 {
@@ -922,6 +932,11 @@ namespace eContracting.Services
             {
                 header.Price2Description = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DESCRIPTION");
                 header.Price2Value = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW") + " " + offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DISPLAY_UNIT");
+
+                if (offer.TextParameters.HasValue("CALC_FIN_REW_TOOLTIP"))
+                {
+                    header.Price2Note = offer.TextParameters["CALC_FIN_REW_TOOLTIP"];
+                }
             }
             else
             {

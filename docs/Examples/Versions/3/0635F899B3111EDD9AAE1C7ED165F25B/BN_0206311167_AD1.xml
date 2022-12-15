@@ -1,0 +1,92 @@
+<form>
+    <parameters>
+        <ADD_SERVICES></ADD_SERVICES>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EDD9AAE1C7ED158325B</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [elektřina Standard]<br />|Platnost nabídky do|: [06.12.2023]<br />|Délka fixace|: [Bez fixace - Smlouva na dobu neurčitou]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [Montáží měřidla ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>elektřina Standard</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>06.12.2023</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>Bez fixace - Smlouva na dobu neurčitou</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Montáží měřidla </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>E_STANDARD</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>elektřina Standard</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nižší cena silové elektřiny než u vašeho regionálního dodavatele]<br />|Druhé|: [smlouva bez závazku, lze ji kdykoliv vypovědět]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nižší cena silové elektřiny než u vašeho regionálního dodavatele</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>smlouva bez závazku, lze ji kdykoliv vypovědět</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY></NONCOMMODITY>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Černohorského J. 2186, 272 01 Kladno</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Kladno</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Kladno</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>272 01</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Černohorského J.</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>2186</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Černohorského J. 2186, 272 01 Kladno</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>12.02.1956</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Kladno</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Kladno</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>radka.jeziorska@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>František Kučera</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>272 01</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Černohorského J.</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>2186</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK></PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>+420 776 230 003</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážený pane Kučero                                            </PERSON_CUSTTITLELET>
+        <PERSON_MMB_URL>https://test.innogy.cz/innosvet/registrace?sc_camp=7C053243C9F240E396FE8CC67E4100A0&amp;sid=ichZR4Bc4S3FPrBUgxRgtj14agf2FEEbpHigm</PERSON_MMB_URL>
+        <PERSON_NUMBER>9510328675</PERSON_NUMBER>
+        <PERSON_PREMADR>Březinova 1985 / 13, 700 30 Ostrava-Jih</PERSON_PREMADR>
+        <PERSON_PREMCITY>Ostrava-Jih</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Zábřeh</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>859182400506815479</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EAN</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9302467710</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>700 30</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET>Březinova</PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>1985 / 13</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH>X</USER_ATTACH>
+        <USER_ATTACH_ED2_HELP>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    <b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vaše elektrického zařízení. Součástí zprávy musí být označení odběrného místa (u bytových domů vč. čísla bytu a podlaží).<br />
+                </p>
+            </body>
+        </USER_ATTACH_ED2_HELP>
+        <USER_ATTACH_EP2X_HELP>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    <b>Doklad o vlastnictví nemovitosti</b><br />Výpis z katastru nemovitostí, případně nájemní smlouva.<br />
+                </p>
+            </body>
+        </USER_ATTACH_EP2X_HELP>
+    </parameters>
+</form>

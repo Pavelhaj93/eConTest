@@ -390,5 +390,37 @@ namespace eContracting
 
             return input;
         }
+
+        public static string[] GetMimeTypesFromExtensions(string[] extensions)
+        {
+            var files = new List<string>();
+
+            if (extensions != null)
+            {
+                foreach (var extension in extensions)
+                {
+                    var ext = extension.Trim('.');
+                    var file = "file." + ext;
+                    files.Add(file);
+                }
+            }
+
+            return GetMimeTypesFromFiles(files.ToArray());
+        }
+
+        public static string[] GetMimeTypesFromFiles(string[] files)
+        {
+            var list = new List<string>();
+
+            if (files != null)
+            {
+                foreach (var file in files)
+                {
+                    list.Add(MimeMapping.GetMimeMapping(file));
+                }
+            }
+
+            return list.ToArray();
+        }
     }
 }

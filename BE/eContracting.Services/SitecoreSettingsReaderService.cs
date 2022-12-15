@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Configuration;
 using eContracting.Models;
 using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Fields;
@@ -92,6 +94,208 @@ namespace eContracting.Services
             get
             {
                 return Sitecore.Configuration.Settings.GetIntSetting("eContracting.CancelOfferDelay", 5);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Uri CrmUtilitiesUmc
+        {
+            get
+            {
+                var endpoint = Sitecore.Configuration.Settings.GetSetting("eContracting.CRM_UTILITIES_UMC");
+
+                if (!Uri.IsWellFormedUriString(endpoint, UriKind.Absolute))
+                {
+                    throw new EcontractingApplicationException("Setting 'eContracting.CRM_UTILITIES_UMC' is not well formed url");
+                }
+
+                return new Uri(endpoint);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Uri CrmAuthService
+        {
+            get
+            {
+                var endpoint = Sitecore.Configuration.Settings.GetSetting("eContracting.ZCRM_AUTH_SRV");
+
+                if (!Uri.IsWellFormedUriString(endpoint, UriKind.Absolute))
+                {
+                    throw new EcontractingApplicationException("Setting 'eContracting.ZCRM_AUTH_SRV' is not well formed url");
+                }
+
+                return new Uri(endpoint);
+            }
+        }
+
+        /// <inheritdoc/>
+        public string SapApiGatewayId
+        {
+            get
+            {
+                const string key = "ApiGateway.Api.Id";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                return value;
+            }
+        }
+
+        public Uri SapApiGatewayUrl
+        {
+            get
+            {
+                const string key = "CrmUmc.UrlApiGateway";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' is not well formed url");
+                }
+
+                return new Uri(value);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Uri CrmCognitoUrl
+        {
+            get
+            {
+                const string key = "CrmUmc.UrlApiGateway";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' is not well formed url");
+                }
+
+                return new Uri(value);
+            }
+        }
+
+        /// <inheritdoc/>
+        public Uri CrmAnonymousUrl
+        {
+            get
+            {
+                const string key = "CrmUmcAnonymUser.Url";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                if (!Uri.IsWellFormedUriString(value, UriKind.Absolute))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' is not well formed url");
+                }
+
+                return new Uri(value);
+            }
+        }
+
+        /// <inheritdoc/>
+        public string CrmAnonymousUser
+        {
+            get
+            {
+                const string key = "CrmUmcAnonymUser.User";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                   value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                return value;
+            }
+        }
+
+        /// <inheritdoc/>
+        public string CrmAnonymousPassword
+        {
+            get
+            {
+                const string key = "CrmUmcAnonymUser.Pass";
+                string value = null;
+
+                if (WebConfigurationManager.AppSettings.AllKeys.Contains(key))
+                {
+                    value = WebConfigurationManager.AppSettings[key];
+                }
+                else
+                {
+                    value = Sitecore.Configuration.Settings.GetSetting($"eContracting.{key}");
+                }
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new EcontractingApplicationException($"Configuration for AppSettings['{key}'] nor Sitecore setting 'eContracting.{key}' doesn't exist");
+                }
+
+                return value;
             }
         }
 

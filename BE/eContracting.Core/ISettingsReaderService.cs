@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using Glass.Mapper.Sc.Configuration.Attributes;
 using Glass.Mapper.Sc.Fields;
 
 namespace eContracting
@@ -43,6 +44,25 @@ namespace eContracting
         /// Gets delay in seconds after cancel process to SAP is done, so user wait for extra time.
         /// </summary>
         int CancelOfferDelay { get; }
+
+        /// <summary>
+        /// Gets endpoint url for <c>CRM_UTILITIES_UMC</c>.
+        /// </summary>
+        Uri CrmUtilitiesUmc { get; }
+
+        Uri CrmAuthService { get; }
+
+        Uri CrmCognitoUrl { get; }
+
+        Uri CrmAnonymousUrl { get; }
+
+        string CrmAnonymousUser { get; }
+
+        string CrmAnonymousPassword { get; }
+
+        string SapApiGatewayId { get; }
+
+        Uri SapApiGatewayUrl { get; }
 
         /// <summary>
         /// Gets <c>default</c> definition. Cannot be null.

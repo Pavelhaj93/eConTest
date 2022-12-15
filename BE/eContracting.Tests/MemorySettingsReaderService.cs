@@ -15,6 +15,12 @@ namespace eContracting.Tests
         public int CognitoMinSecondsToRefreshToken { get; }
         public int SubmitOfferDelay { get; } = 0;
         public int CancelOfferDelay { get; } = 0;
+        public Uri CrmUtilitiesUmc { get; }
+        public Uri CrmAuthService { get; }
+        public string CrmAnonymousUser { get; }
+        public string CrmAnonymousPassword { get; }
+        public string SapApiGatewayId { get; }
+        public string SapApiGatewayPassword { get; }
 
         public IDefinitionCombinationModel[] GetAllDefinitions()
         {

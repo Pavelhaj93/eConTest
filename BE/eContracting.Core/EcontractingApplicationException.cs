@@ -18,6 +18,14 @@ namespace eContracting
         /// <summary>
         /// Initializes a new instance of the <see cref="EcontractingApplicationException"/> class.
         /// </summary>
+        /// <param name="message">The error message.</param>
+        public EcontractingApplicationException(string message) : base(new ErrorModel("EAP", message))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EcontractingApplicationException"/> class.
+        /// </summary>
         /// <param name="error">The error.</param>
         public EcontractingApplicationException(ErrorModel error) : base(error)
         {

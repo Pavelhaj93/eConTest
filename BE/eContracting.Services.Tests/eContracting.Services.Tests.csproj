@@ -265,6 +265,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CallMeBackServiceLOCALTests.cs" />
     <Compile Include="CognitoAuthServiceTests.cs" />
     <Compile Include="FileAttributes.cs" />
     <Compile Include="OfferAttachmentParserServiceTests.cs" />

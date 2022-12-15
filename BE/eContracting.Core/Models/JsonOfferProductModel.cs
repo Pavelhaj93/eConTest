@@ -58,6 +58,9 @@ namespace eContracting.Models
             [JsonProperty("price1")]
             public string Price1Value { get; set; }
 
+            [JsonProperty("price1_note")]
+            public string Price1Note { get; set; }
+
             /// <summary>
             /// Gets or sest price description 2.
             /// </summary>
@@ -72,8 +75,8 @@ namespace eContracting.Models
             [JsonProperty("price2")]
             public string Price2Value { get; set; }
 
-            [JsonProperty("info")]
-            public string Note { get; set; } = "Tady bude ta nápověda";
+            [JsonProperty("price2_note")]
+            public string Price2Note { get; set; }
         }
 
         public class ProductInfoPrice

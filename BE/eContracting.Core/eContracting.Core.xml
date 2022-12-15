@@ -65,6 +65,12 @@
             </summary>
             <seealso cref="T:eContracting.EcontractingCodeException" />
         </member>
+        <member name="M:eContracting.EcontractingApplicationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.EcontractingApplicationException"/> class.
+            </summary>
+            <param name="message">The error message.</param>
+        </member>
         <member name="M:eContracting.EcontractingApplicationException.#ctor(eContracting.Models.ErrorModel)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.EcontractingApplicationException"/> class.
@@ -512,6 +518,11 @@
             <param name="search"></param>
             <returns></returns>
         </member>
+        <member name="P:eContracting.Models.CallMeBackModel.Errors">
+            <summary>
+            Gets array of all errors collected for this CMB.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.CognitoSettingsModel.CognitoBaseUrl">
             <summary>
             Base URL for Cognito service.
@@ -605,6 +616,12 @@
             <summary>
             Gets or sets the step.
             </summary>
+        </member>
+        <member name="P:eContracting.Models.ICallMeBackModalWindow.SettingsAllowedFileTypes">
+            <summary>
+            Gets extensions delimited with comman.
+            </summary>
+            <example>.pdf,.png,.jpg,.jpeg,.tif,.tiff</example>
         </member>
         <member name="T:eContracting.Models.IColorModel">
             <summary>
@@ -14964,6 +14981,11 @@
         <member name="P:eContracting.ISettingsReaderService.CancelOfferDelay">
             <summary>
             Gets delay in seconds after cancel process to SAP is done, so user wait for extra time.
+            </summary>
+        </member>
+        <member name="P:eContracting.ISettingsReaderService.CrmUtilitiesUmc">
+            <summary>
+            Gets endpoint url for <c>CRM_UTILITIES_UMC</c>.
             </summary>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinitionDefault">

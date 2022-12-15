@@ -4,6 +4,50 @@
         <name>eContracting.Services</name>
     </assembly>
     <members>
+        <member name="M:eContracting.Services.CallMeBackService.GetCsrfTokenAsAnonymous(eContracting.Models.CallMeBackModel)">
+            <summary>
+            Gets CSRF token for non Congnito logged in user.
+            </summary>
+            <remarks>
+                <para>Calling endpoint - <see cref="P:eContracting.ISettingsReaderService.CrmAnonymousUrl"/></para>
+                <para>Using username - <see cref="P:eContracting.ISettingsReaderService.CrmAnonymousUser"/></para>
+                <para>Using password - <see cref="P:eContracting.ISettingsReaderService.CrmAnonymousPassword"/></para>
+            </remarks>
+            <param name="model">Call me back data model.</param>
+            <returns>CSRF token | received cookies</returns>
+        </member>
+        <member name="M:eContracting.Services.CallMeBackService.GetCsrfTokenAsCognito(eContracting.Models.CallMeBackModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets CSRF token for Cognito logged in user.
+            </summary>
+            <remarks>
+                <para>Calling endpoint - <see cref="P:eContracting.ISettingsReaderService.CrmCognitoUrl"/></para>
+                <para>Using API ID - <see cref="P:eContracting.ISettingsReaderService.SapApiGatewayId"/></para>
+                <para>Using Bearer authorization with <see cref="P:eContracting.Models.OAuthTokensModel.AccessToken"/></para>
+            </remarks>
+            <param name="model">Call me back data model.</param>
+            <param name="userData">The user data.</param>
+            <returns>CSRF token | received cookies</returns>
+        </member>
+        <member name="T:eContracting.Services.LocalFakeSignService">
+            <summary>
+            Local / offline sign service to simulate signature.
+            </summary>
+            <example>
+            Patch file:
+            <code>
+              <configuration xmlns:patch="http://www.sitecore.net/xmlconfig/">
+                <sitecore>
+                  <services>
+                    <register serviceType="eContracting.ISignService, eContracting.Core">
+                      <patch:attribute name="implementationType">eContracting.Services.LocalFakeSignService, eContracting.Services</patch:attribute>
+                    </register>
+                  </services>
+                </sitecore>
+              </configuration>
+            </code>
+            </example>
+        </member>
         <member name="T:eContracting.Services.LocalOfferDataService">
             <summary>
               <para>Local / offline provider for offers. It only reads data, it's not updating them.</para>
@@ -280,7 +324,7 @@
         </member>
         <member name="F:eContracting.Services.DbLoginFailedAttemptBlockerStore.SettingsReaderService">
             <summary>
-            Settings, needed for database connection string
+            SettingsReader, needed for database connection string
             </summary>
         </member>
         <member name="M:eContracting.Services.DbLoginFailedAttemptBlockerStore.#ctor(eContracting.ILogger,eContracting.ISettingsReaderService)">
@@ -288,7 +332,7 @@
                     Initializes a new instance of the <see cref="T:eContracting.Services.DbLoginFailedAttemptBlockerStore"/> class.
             </summary>
             <param name="logger">Logger</param>
-            <param name="settingsReaderService">Settings</param>
+            <param name="settingsReaderService">SettingsReader</param>
         </member>
         <member name="M:eContracting.Services.DbLoginFailedAttemptBlockerStore.Add(eContracting.Models.LoginFailureModel)">
             <inheritdoc/>
@@ -1049,6 +1093,27 @@
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.CancelOfferDelay">
             <inheritdoc/>
             <remarks>Default value is 5 seconds.</remarks>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmUtilitiesUmc">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmAuthService">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.SapApiGatewayId">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmCognitoUrl">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmAnonymousUrl">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmAnonymousUser">
+            <inheritdoc/>
+        </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmAnonymousPassword">
+            <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.#ctor(Glass.Mapper.Sc.ISitecoreService,eContracting.IContextWrapper,eContracting.ILogger)">
             <summary>

@@ -658,11 +658,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (definition.SummaryCallMeBack != null)
             {
-                // shows button to open CMB
-                //viewModel.ShowCmb = true;
-                //viewModel.CmbGetUrl = viewModel.CmbGetUrl.Replace("{guid}", offer.Guid);
-                //viewModel.CmbPostUrl = viewModel.CmbPostUrl.Replace("{guid}", offer.Guid);
-                //viewModel["cmbBtn"] = definition.SummaryCallMeBack.OpenDialogButtonLabel;
+                //shows button to open CMB
+                viewModel.ShowCmb = true;
+                viewModel.CmbGetUrl = viewModel.CmbGetUrl.Replace("{guid}", offer.Guid);
+                viewModel.CmbPostUrl = viewModel.CmbPostUrl.Replace("{guid}", offer.Guid);
+                viewModel["cmbBtn"] = definition.SummaryCallMeBack.OpenDialogButtonLabel;
             }
 
             return viewModel;

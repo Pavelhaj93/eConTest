@@ -67,6 +67,20 @@ export const Summary: React.FC<View> = observer(
       }
     }, [store?.product?.middle_texts, store?.product?.middle_texts_help])
 
+    const renderPriceWithToolTip = (price: string, priceDescription: string, priceNote: string) => (
+      <div className="d-flex align-items-center">
+        <div className="d-flex flex-column flex-md-row align-items-center mb-0 mr-2">
+          <span className="mr-md-2">{priceDescription}</span>
+          <span className="font-weight-bold">{price}</span>
+        </div>
+        {priceNote && (
+          <Tooltip tooltipClassName="mb-2" iconColor={colors.white} name="question-mark" size={25}>
+            {priceNote}
+          </Tooltip>
+        )}
+      </div>
+    )
+
     return (
       <>
         {store.error && (
@@ -128,32 +142,16 @@ export const Summary: React.FC<View> = observer(
                       <h2 className="m-0">{store.product.header.name}</h2>
                       <div className="d-flex align-items-center">
                         <div className="d-flex flex-column align-items-center text-center mr-3">
-                          <div className="d-flex align-items-center mr-2">
-                            <div className="d-flex flex-column flex-md-row align-items-center mb-0">
-                              <span className="mr-md-2">
-                                {store.product.header.price1_description}
-                              </span>
-                              <span className="mr-md-2 font-weight-bold">
-                                {store.product.header.price1}
-                              </span>
-                            </div>
-                            {store.product.header.info && (
-                              <Tooltip
-                                tooltipClassName="mb-2"
-                                iconColor={colors.white}
-                                name="question-mark"
-                                size={25}
-                              >
-                                {store.product.header.info}
-                              </Tooltip>
-                            )}
-                          </div>
-                          <p className="d-flex flex-column flex-md-row align-items-center mt-2 mt-md-0 mb-0">
-                            <span className="mr-md-2">
-                              {store.product.header.price2_description}
-                            </span>
-                            <span className="font-weight-bold">{store.product.header.price2}</span>
-                          </p>
+                          {renderPriceWithToolTip(
+                            store.product.header.price1,
+                            store.product.header.price1_description,
+                            store.product.header.price1_note,
+                          )}
+                          {renderPriceWithToolTip(
+                            store.product.header.price2,
+                            store.product.header.price2_description,
+                            store.product.header.price2_note,
+                          )}
                         </div>
                         <Icon size={32} color="currentColor" name="chevron-down"></Icon>
                       </div>

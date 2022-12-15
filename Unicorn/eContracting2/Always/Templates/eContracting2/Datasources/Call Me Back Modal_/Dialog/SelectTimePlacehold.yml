@@ -1,8 +1,8 @@
 ﻿---
-ID: "545479ad-38be-4099-a47b-a67ae7dec628"
+ID: "6e40e59b-f212-4c5c-9f65-d1edfea4af14"
 Parent: "3ffa21b6-6430-4a85-8917-613b7a53d700"
 Template: "455a3e98-a627-4b40-8035-e683a0331ac7"
-Path: /sitecore/templates/eContracting2/Datasources/Call Me Back Modal Dialog/Dialog/WhenWeCanCallYouBackLabel
+Path: /sitecore/templates/eContracting2/Datasources/Call Me Back Modal Dialog/Dialog/SelectTimePlaceholder
 DB: master
 SharedFields:
 - ID: "ab162cc0-dc80-4abf-8871-998ee5d7ba32"
@@ -10,7 +10,7 @@ SharedFields:
   Value: "Single-Line Text"
 - ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
   Hint: __Sortorder
-  Value: 400
+  Value: 375
 Languages:
 - Language: cs
   Versions:
@@ -18,18 +18,22 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20221017T153930Z
+      Value: 20221107T082222Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
         sitecore\Admin
 - Language: en
+  Fields:
+  - ID: "19a69332-a23e-4e70-8d16-b2640cb24cc8"
+    Hint: Title
+    Value: "Preferovaný čas - výchozí hodnota jako popis"
   Versions:
   - Version: 1
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20221018T074904Z
+      Value: 20221107T081644Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |

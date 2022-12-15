@@ -6,8 +6,14 @@ using Newtonsoft.Json;
 
 namespace eContracting.Website.Areas.eContracting2.Models
 {
-    public class CallMeBackResponseViewModel
+    public class CallMeBackViewModel
     {
+        [JsonProperty("succeed")]
+        public bool Succeeded { get; set; }
+
+        [JsonProperty("error", NullValueHandling = NullValueHandling.Ignore)]
+        public string ErrorMessage { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 

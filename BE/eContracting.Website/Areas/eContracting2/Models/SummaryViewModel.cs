@@ -22,10 +22,10 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public readonly string KeepAliveUrl = "/api/econ/keepalive";
 
         [JsonProperty("getCallMeBackUrl")]
-        public string CmbGetUrl { get; set; } = "/api/econ/cmb?guid={guid}";
+        public string CmbGetUrl { get; set; } = "/api/econ/getscmb";
 
-        [JsonProperty("postCallMeBackUr")]
-        public string CmbPostUrl { get; set; } = "/api/econ/cmb?guid={guid}";
+        [JsonProperty("postCallMeBackUrl")]
+        public string CmbPostUrl { get; set; } = "/api/econ/sendscmb";
 
         [JsonProperty("offerUrl")]
         public string OfferPage { get; set; }

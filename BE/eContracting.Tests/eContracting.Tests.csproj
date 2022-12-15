@@ -221,7 +221,6 @@
     <Compile Include="MemoryDatabase.cs" />
     <Compile Include="MemoryEventLogger.cs" />
     <Compile Include="MemoryLogger.cs" />
-    <Compile Include="MemorySettingsReaderService.cs" />
     <Compile Include="MemoryTextService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

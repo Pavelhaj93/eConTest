@@ -328,7 +328,9 @@
     <Compile Include="Areas\eContracting2\Models\BaseAppConfigViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\BaseViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ButtonsViewModel.cs" />
-    <Compile Include="Areas\eContracting2\Models\CallMeBackResponseViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\CallMeBackSentViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\CallMeBackViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\CallMeBackSubmitModel.cs" />
     <Compile Include="Areas\eContracting2\Models\FooterViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadFileViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\GroupUploadViewModel.cs" />

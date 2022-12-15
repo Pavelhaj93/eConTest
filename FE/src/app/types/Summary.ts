@@ -29,7 +29,8 @@ export namespace SummaryResponse {
     price1: string
     price2_description: string
     price2: string
-    info: string
+    price1_note: string
+    price2_note: string
   }
 
   export interface InfoPrice {

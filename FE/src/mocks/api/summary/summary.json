@@ -22,7 +22,8 @@
       "price1": "2420 Kc/rok",
       "price2_description": "Rocni odmena",
       "price2": "50 Kc",
-      "info": "Tady bude ta napoveda"
+      "price1_note": "Tady bude ta napoveda 1",
+      "price2_note": "Tady bude ta napoveda 2"
     },
     "info_prices": [
       {

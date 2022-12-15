@@ -13,5 +13,15 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         [JsonProperty("value")]
         public string Value { get; set; }
+
+        public SelectionViewModel()
+        {
+        }
+
+        public SelectionViewModel(string label, string value)
+        {
+            this.Label = label;
+            this.Value = value;
+        }
     }
 }

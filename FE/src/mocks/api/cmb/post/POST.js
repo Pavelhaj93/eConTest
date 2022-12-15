@@ -18,7 +18,8 @@ module.exports = function (request, response) {
   } else {
     statusCode = 400
     jsonResponse = {
-      message: 'Something goes wrong. Refresh the page and try once more.',
+      error:
+        'Selhalo odeslání požadavku na zpětné volání. Kontaktujte prosím zákaznickou linku 800 11 33 55.',
     }
   }
 

@@ -17,9 +17,11 @@ using System.Web;
 using System.Web.Http;
 using System.Web.SessionState;
 using eContracting.Models;
+using eContracting.Services;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc;
 using Microsoft.Extensions.DependencyInjection;
+using PdfiumViewer;
 using Sitecore.Data.DataProviders.Sql.FastQuery;
 using Sitecore.DependencyInjection;
 using Sitecore.IO;
@@ -41,6 +43,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IEventLogger EventLogger;
         protected readonly ITextService TextService;
         protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
+        protected readonly ICallMeBackService CallMeBackService;
 
         private static Random KeepAliveRandomizer = new Random();
 
@@ -60,6 +63,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
+            this.CallMeBackService = ServiceLocator.ServiceProvider.GetRequiredService<ICallMeBackService>();
         }
 
         [ExcludeFromCodeCoverage]
@@ -76,7 +80,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IFileOptimizer fileOptimizer,
             IEventLogger eventLogger,
             ITextService textService,
-            ILoginFailedAttemptBlockerStore loginReportService)
+            ILoginFailedAttemptBlockerStore loginReportService,
+            ICallMeBackService callMeBackService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.SessionProvider = sessionProvider ?? throw new ArgumentNullException(nameof(sessionProvider));
@@ -91,6 +96,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.EventLogger = eventLogger ?? throw new ArgumentNullException(nameof(eventLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
+            this.CallMeBackService = callMeBackService ?? throw new ArgumentNullException(nameof(callMeBackService));
             // this.FileStorageRoot = HttpContext.Current.Server.MapPath("~/App_Data");
         }
 
@@ -168,7 +174,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Download requested file from an offer.
+        /// Download requested fileData from an offer.
         /// </summary>
         /// <param name="id">The identifier.</param>
         [HttpGet]
@@ -848,9 +854,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         [HttpOptions]
         [HttpGet]
-        public async Task<IHttpActionResult> Cmb()
+        public async Task<IHttpActionResult> GetSCmb()
         {
             string guid = this.GetGuid();
+            string sentErrorMessage = string.Empty;
 
             try
             {
@@ -864,30 +871,203 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 
                 if (definition.SummaryCallMeBack == null)
                 {
-                    return this.NotFound();
+                    var viewModel = new CallMeBackSentViewModel();
+                    viewModel.Succeeded = false;
+                    viewModel.ErrorMessage = "Dialog nenalezen";
+                    return this.Json(viewModel);
                 }
 
-                var model = new CallMeBackResponseViewModel();
+                sentErrorMessage = definition.SummaryCallMeBack.ErrorSentFailed;
+
+                var model = new CallMeBackViewModel();
+                model.Succeeded = true;
                 model.Title = definition.SummaryCallMeBack.Title;
                 model.Phone = offer.Xml.Content.Body.PHONE;
-                model.MaxFiles = 0;
-                model.MaxFileSize = 0;
-                model.AllowedFileTypes = new string[] { };
+                model.MaxFiles = 2;
+                model.MaxFileSize = definition.SummaryCallMeBack.SettingsMaxFileSize;
+                model.AllowedFileTypes = Utils.GetMimeTypesFromExtensions(definition.SummaryCallMeBack.SettingsAllowedFileTypes?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
 
                 if (definition.SummaryCallMeBack.Image != null)
                 {
                     model.Image = new ImageViewModel() { Url = definition.SummaryCallMeBack.Image.Src };
                 }
 
-                this.UpdateWorkingHours(model, definition.SummaryCallMeBack);
+                var times = this.CallMeBackService.GetAvailableTimes(definition.SummaryCallMeBack);
+
+                model.AllowedTimes = times.Select(x => new SelectionViewModel(x.Value, x.Key));
+
+                model.Labels["PHONE"] = definition.SummaryCallMeBack.MyPhoneNumberLabel;
+                model.Labels["TIME_LABEL"] = definition.SummaryCallMeBack.PreferredTimeLabel;
+                model.Labels["TIME_PLACEHOLDER"] = definition.SummaryCallMeBack.SelectTimePlaceholder;
+                model.Labels["NOTE"] = definition.SummaryCallMeBack.NoteLabel;
+                model.Labels["ADD_NOTE"] = definition.SummaryCallMeBack.AddNoteLabel;
+                model.Labels["ADD_FILE"] = definition.SummaryCallMeBack.AddAttachmentLabel;
+                model.Labels["INSERT_FILE"] = definition.SummaryCallMeBack.AddAnotherFileLabel;
+                model.Labels["REMOVE_FILE"] = "REMOVE_FILE";
+                model.Labels["FILES_NOTE"] = definition.SummaryCallMeBack.FilesNote;
+                model.Labels["SUBMIT_BUTTON"] = definition.SummaryCallMeBack.ConfirmButtonLabel;
+                model.Labels["CLOSE_BUTTON"] = definition.SummaryCallMeBack.CancelButtonLabel;
+                model.Labels["BOTTOM_TEXT"] = definition.SummaryCallMeBack.BottomNote;
+                model.Labels["FILE_SIZE_ERROR"] = definition.SummaryCallMeBack.ErrorTooBigFile;
+                model.Labels["VALIDATION_ERROR"] = "VALIDATION_ERROR";
+                return this.Json(model);
             }
             catch (Exception ex)
             {
                 this.Logger.Fatal(guid, ex);
-                return this.InternalServerError();
+
+                var viewModel = new CallMeBackSentViewModel();
+                viewModel.Succeeded = false;
+                viewModel.ErrorMessage = sentErrorMessage;
+                return this.Json(viewModel);
+            }
+        }
+
+        [HttpOptions]
+        [HttpPost]
+        public async Task<IHttpActionResult> SendSCmb()
+        {
+            string guid = this.GetGuid();
+            string sentErrorMessage = string.Empty;
+
+            try
+            {
+                if (this.Request.Method == HttpMethod.Options)
+                {
+                    return this.Ok();
+                }
+
+                if (!this.Request.Content.IsMimeMultipartContent())
+                {
+                    this.Logger.Info(null, $"CMB submit is not 'multipart/form-data' type. Please fix.");
+
+                    var viewModel = new CallMeBackSentViewModel();
+                    viewModel.Succeeded = false;
+                    viewModel.ErrorMessage = "Invalid content 'multipart/form-data' type";
+                    return this.Json(viewModel);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+                var definition = this.SettingsReaderService.GetDefinition(offer);
+
+                if (definition.SummaryCallMeBack == null)
+                {
+                    var viewModel = new CallMeBackSentViewModel();
+                    viewModel.Succeeded = false;
+                    viewModel.ErrorMessage = "Dialog nenalezen";
+                    return this.Json(viewModel);
+                }
+
+                sentErrorMessage = definition.SummaryCallMeBack.ErrorSentFailed;
+
+                string root = HttpContext.Current.Server.MapPath("~/App_Data");
+                var provider = new MultipartFormDataStreamProvider(root);
+                var multipartData = await this.Request.Content.ReadAsMultipartAsync(provider);
+                
+                var newCmb = new CallMeBackModel();
+                newCmb.OfferGuid = offer.Guid;
+                newCmb.Description = definition.SummaryCallMeBack.SettingsDescription;
+                newCmb.Process = definition.SummaryCallMeBack.SettingsProcess;
+                newCmb.ProcessType = definition.SummaryCallMeBack.SettingsProcessType;
+                newCmb.ExternalSystem = definition.SummaryCallMeBack.SettingsExternalSystem;
+                newCmb.Phone = multipartData.FormData["phone"];
+                newCmb.SelectedTime = multipartData.FormData["time"];
+                newCmb.Note = multipartData.FormData["note"];
+                newCmb.Partner = offer.Xml.Content.Body.PARTNER;
+                newCmb.EicEan = offer.Xml.Content.Body.EanOrAndEic;
+                newCmb.AllowedExtensions = definition.SummaryCallMeBack.SettingsAllowedFileTypes?.ToLowerInvariant().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) ?? new string[] { };
+                newCmb.RequestedUrl = multipartData.FormData["currentBrowserUrl"];
+
+                var files = new List<CallMeBackModel.File>();
+
+                if (multipartData.FileData?.Count > 0)
+                {
+                    for (int i = 0; i < multipartData.FileData.Count; i++)
+                    {
+                        var fileData = multipartData.FileData[i];
+                        var fileName = fileData.Headers.ContentDisposition.FileName.Trim('"');
+
+                        var localFile = new FileInfo(fileData.LocalFileName);
+
+                        if (localFile.Exists)
+                        {
+                            var originalFileName = fileData.Headers.ContentDisposition.FileName.Trim('"');
+
+                            if (!this.CallMeBackService.IsValidFileType(originalFileName, definition.SummaryCallMeBack))
+                            {
+                                var viewModel = new CallMeBackSentViewModel();
+                                viewModel.Succeeded = false;
+                                viewModel.ErrorMessage = Utils.GetReplacedTextTokens(definition.SummaryCallMeBack.ErrorInvalidFile, new Dictionary<string, string>() { { "FILE", originalFileName } });
+                                return this.Json(viewModel);
+                            }
+
+                            using (var stream = localFile.OpenRead())
+                            {
+                                using (var memoryStream = new MemoryStream())
+                                {
+                                    await stream.CopyToAsync(memoryStream);
+                                    var fileBytes = memoryStream.ToArray();
+                                    var mimeType = MimeMapping.GetMimeMapping(originalFileName);
+                                    
+                                    var extension = Path.GetExtension(originalFileName)?.TrimStart('.').ToLowerInvariant() ?? "txt";
+
+                                    if (!this.CallMeBackService.IsValidFileSize(fileBytes.Length, definition.SummaryCallMeBack))
+                                    {
+                                        var viewModel = new CallMeBackSentViewModel();
+                                        viewModel.Succeeded = false;
+                                        viewModel.ErrorMessage = Utils.GetReplacedTextTokens(definition.SummaryCallMeBack.ErrorTooBigFile, new Dictionary<string, string>() { { "FILE", originalFileName } });
+                                        return this.Json(viewModel);
+                                    }
+
+                                    var file = new CallMeBackModel.File();
+                                    file.Name = fileName;
+                                    file.Content = fileBytes;
+                                    file.MimeType = mimeType;
+
+                                    files.Add(file);
+                                }
+                            }
+                        }
+                    }
+
+                    if (files.Count > 0)
+                    {
+                        newCmb.Files = files.ToArray();
+                    }
+                }
+
+                var result = this.CallMeBackService.Send(newCmb, user, definition.SummaryCallMeBack);
+
+                if (result)
+                {
+                    var viewModel = new CallMeBackSentViewModel();
+                    viewModel.Succeeded = true;
+                    viewModel.Labels["TITLE"] = definition.SummaryCallMeBack.ThankYouTitle;
+                    viewModel.Labels["TEXT"] = definition.SummaryCallMeBack.ThankYouText;
+                    viewModel.Labels["CLOSE"] = definition.SummaryCallMeBack.ThankYouButtonLabel;
+
+                    return this.Json(viewModel);
+                }
+                else
+                {
+                    var viewModel = new CallMeBackSentViewModel();
+                    viewModel.Succeeded = false;
+                    viewModel.ErrorMessage = sentErrorMessage;
+
+                    return this.Json(viewModel);
+                }
             }
 
-            throw new NotImplementedException();
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+
+                var viewModel = new CallMeBackSentViewModel();
+                viewModel.Succeeded = false;
+                viewModel.ErrorMessage = sentErrorMessage;
+                return this.Json(viewModel);
+            }
         }
 
         [HttpGet]
@@ -1070,10 +1250,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Uploads file and returns actual group state.
+        /// Uploads fileData and returns actual group state.
         /// </summary>
         /// <param name="id">Group identifier.</param>
-        /// <returns><see cref="GroupUploadViewModel"/> with current status of uploaded files. Failed uploaded file is not presented.</returns>
+        /// <returns><see cref="GroupUploadViewModel"/> with current status of uploaded files. Failed uploaded fileData is not presented.</returns>
         protected async Task<IHttpActionResult> AddToUpload([FromUri] string id)
         {
             UploadGroupFileOperationResultModel internalOperationResult= new UploadGroupFileOperationResultModel();
@@ -1121,13 +1301,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (multipartData.FileData.Count < 1)
                 {
-                    return this.BadRequest("No file received");
+                    return this.BadRequest("No fileData received");
                 }
 
                 var groupSearchParams = new DbSearchParameters(id, guid, this.SessionProvider.GetId());
                 var group = this.UserFileCacheService.FindGroup(groupSearchParams);
 
-                // everytime there "should" be only one file
+                // everytime there "should" be only one fileData
                 for (int i = 0; i < multipartData.FileData.Count; i++)
                 {
                     var file = multipartData.FileData[i];
@@ -1215,10 +1395,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Deletes uploaded file from group and returns actual group state.
+        /// Deletes uploaded fileData from group and returns actual group state.
         /// </summary>
         /// <param name="groupId">The group identifier.</param>
-        /// <param name="fileId">The file identifier.</param>
+        /// <param name="fileId">The fileData identifier.</param>
         /// <returns><see cref="GroupUploadViewModel"/> with current status of related files.</returns>
         protected async Task<IHttpActionResult> DeleteFromUpload([FromUri] string id)
         {
@@ -1248,7 +1428,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (string.IsNullOrWhiteSpace(fileId))
                 {
-                    return this.BadRequest("Invalid file id");
+                    return this.BadRequest("Invalid fileData id");
                 }
 
                 var user = this.UserService.GetUser();
@@ -1274,7 +1454,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(guid, "An error occured when trying to remove a file from a group", ex);
+                this.Logger.Fatal(guid, "An error occured when trying to remove a fileData from a group", ex);
 
                 if (this.SettingsReaderService.ShowDebugMessages)
                 {
@@ -1368,7 +1548,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Converts PDF file to the PNG stream
+        /// Converts PDF fileData to the PNG stream
         /// </summary>
         /// <param name="memoryStream"></param>
         protected internal void PrintPdfToImage(MemoryStream pdfStream, MemoryStream imageStream)
@@ -1407,7 +1587,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 foreach (var image in files)
                 {
-                    //create a Bitmap from the file and add it to the list
+                    //create a Bitmap from the fileData and add it to the list
                     var bitmap = new Bitmap(image);
 
                     //update the size of the final bitmap
@@ -1541,58 +1721,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             return true;
-        }
-
-        protected SelectionViewModel UpdateWorkingHours(CallMeBackResponseViewModel model, ICallMeBackModalWindow cmb)
-        {
-            var currentDay = (DateTime.Now.DayOfWeek == 0) ? 7 : (int)DateTime.Now.DayOfWeek;
-            IWorkingDay workingDay = null;
-
-            if (currentDay == cmb.AvailabilityMonday.DayInWeek)
-            {
-                workingDay = cmb.AvailabilityMonday;
-            }
-            else if (currentDay == cmb.AvailabilityThuesday.DayInWeek)
-            {
-                workingDay = cmb.AvailabilityThuesday;
-            }
-            else if (currentDay == cmb.AvailabilityWednesday.DayInWeek)
-            {
-                workingDay = cmb.AvailabilityWednesday;
-            }
-            else if (currentDay == cmb.AvailabilityThursday.DayInWeek)
-            {
-                workingDay = cmb.AvailabilityThursday;
-            }
-            else if (currentDay == cmb.AvailabilityFriday.DayInWeek)
-            {
-                workingDay = cmb.AvailabilityFriday;
-            }
-            else
-            {
-                return null;
-            }
-
-            return null;
-        }
-
-        protected SelectionViewModel GetWorkingHours(IWorkingDay workingDay)
-        {
-            if (workingDay == null)
-            {
-                return null;
-            }
-
-            var model = new SelectionViewModel();
-
-            if (string.IsNullOrEmpty(workingDay.OperatorHoursFrom) && string.IsNullOrEmpty(workingDay.OperatorHoursTo))
-            {
-                model.Label = workingDay.OperatorHoursFrom + " - " + workingDay.OperatorHoursTo;
-                model.Value = model.Label;
-                return model;
-            }
-
-            return null;
         }
     }
 }
