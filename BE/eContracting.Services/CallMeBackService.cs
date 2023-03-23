@@ -488,7 +488,7 @@ namespace eContracting.Services
             var list = new List<CallMeBackAttributeDataModel>();
             list.Add(new CallMeBackAttributeDataModel("processtype", datasource.SettingsProcessType));
             list.Add(new CallMeBackAttributeDataModel("cmbid", datasource.ID.ToString()));
-            list.Add(new CallMeBackAttributeDataModel("url", cmb.RequestedUrl));
+            //list.Add(new CallMeBackAttributeDataModel("url", cmb.RequestedUrl));
             list.Add(new CallMeBackAttributeDataModel("pageTitle", datasource.Title));
             list.Add(new CallMeBackAttributeDataModel("preferredTime", cmb.SelectedTime));
             list.Add(new CallMeBackAttributeDataModel("callTime", callTime));
