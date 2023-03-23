@@ -53,6 +53,7 @@
     <Compile Include="Models\OfferAttachmentModelTests.cs" />
     <Compile Include="Models\OfferAttributeModelTests.cs" />
     <Compile Include="Models\OfferFileXmlModelTests.cs" />
+    <Compile Include="Models\OfferModelTests.cs" />
     <Compile Include="ServiceFactoryTests.cs" />
     <Compile Include="Storage\FileAttributeTests.cs" />
     <Compile Include="Storage\FileTests.cs" />

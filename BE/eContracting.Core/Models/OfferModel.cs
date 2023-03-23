@@ -316,9 +316,27 @@ namespace eContracting.Models
         {
             get
             {
-                if (this.TextParameters.HasValue("PERSON_MMB_URL"))
+                if (this.TextParameters.HasValue(Constants.OfferTextParameters.REGISTRATION_LINK))
                 {
-                    return this.TextParameters["PERSON_MMB_URL"];
+                    var value = this.TextParameters[Constants.OfferTextParameters.REGISTRATION_LINK];
+
+                    if (Uri.IsWellFormedUriString(value, UriKind.Absolute))
+                    {
+                        return value;
+                    }
+
+                    if (!value.StartsWith("http"))
+                    {
+                        value = value.TrimStart('/'); // is url starts with '//', for example: //test.innogy.cz
+                        value = "https://" + value;
+
+                        if (Uri.IsWellFormedUriString(value, UriKind.Absolute))
+                        {
+                            return value;
+                        }
+                    }
+
+                    return null;
                 }
 
                 return null;

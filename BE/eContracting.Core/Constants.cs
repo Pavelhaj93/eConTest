@@ -110,6 +110,11 @@ namespace eContracting
             public const int COUNTER = 100;
         }
 
+        public static class OfferTextParameters
+        {
+            public const string REGISTRATION_LINK = "PERSON_MMB_URL";
+        }
+
         public static class SitecorePaths
         {
             public const string LOGIN_TYPES = "/sitecore/content/eContracting2/Settings/LoginTypes";
