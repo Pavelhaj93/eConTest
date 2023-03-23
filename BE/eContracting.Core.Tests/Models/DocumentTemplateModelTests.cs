@@ -61,7 +61,7 @@ namespace eContracting.Core.Tests.Models
             string input = "Suspendisse aliquet at justo quis suscipit.";
             string key = "6c2b62bb9f33433ab76cbd7e6d674ede";
             string vector = "dd4f17ae3fe64821";
-            var output = Utils.AesEncrypt(input, key, vector);
+            var output = Utils.RijndaelEncrypt(input, key, vector);
 
             Assert.Equal("eezNXFmGYGq94/rkso9+3WZUeXAMWwAyOkQgYb15+msxI+DgxC7zhquaDMd3VVAE", output);
         }

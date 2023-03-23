@@ -286,6 +286,7 @@
     <Compile Include="EcontractingSignException.cs" />
     <Compile Include="ERROR_CODES.cs" />
     <Compile Include="EVENT_NAMES.cs" />
+    <Compile Include="IAuthService.cs" />
     <Compile Include="ICallMeBackService.cs" />
     <Compile Include="IDataCacheService.cs" />
     <Compile Include="IDataRequestCacheService.cs" />

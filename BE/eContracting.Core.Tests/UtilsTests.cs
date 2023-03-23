@@ -278,7 +278,7 @@ namespace eContracting.Core.Tests
             Assert.Equal(value ?? string.Empty, attrib.ATTRVAL);
         }
 
-        [Theory(DisplayName = "Remove style attribute from inner XML content")]
+        [Theory(DisplayName = "RemoveAuth style attribute from inner XML content")]
         [Trait("Utils", "ReplaceXmlAttributes")]
         [InlineData(" style=\"text-align: center;\"", "")]
         [InlineData("<p style=\"margin-top:0pt;margin-bottom:0pt\">", "<p>")]
@@ -353,6 +353,19 @@ namespace eContracting.Core.Tests
             var result = Utils.GetNonEmptyStringOrNull(input);
 
             Assert.Null(result);
+        }
+
+        [Fact]
+        public void AesEncrypt_Decrypts_And_Encrypts_Object()
+        {
+            var user = this.CreateTwoSecretsUser(this.CreateOffer());
+            var key = Guid.NewGuid().ToString("N");
+            var vector = Guid.NewGuid().ToString("N").Substring(0, 16);
+
+            var encrypted = Utils.AesEncrypt(user, key, vector);
+            var decrypter = Utils.AesDecrypt<UserCacheDataModel>(encrypted, key, vector);
+            
+            Assert.NotNull(decrypter);
         }
     }
 }

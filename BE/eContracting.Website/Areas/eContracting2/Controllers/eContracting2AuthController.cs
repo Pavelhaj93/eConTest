@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.ServiceModel;
@@ -13,6 +15,7 @@ using Glass.Mapper.Sc;
 using Glass.Mapper.Sc.Web;
 using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using Sitecore;
 using Sitecore.Data.Fields;
 using Sitecore.DependencyInjection;
@@ -97,6 +100,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
+                var renewSessionResult = this.RenewSession();
+
+                if (renewSessionResult != null)
+                {
+                    return renewSessionResult;
+                }
+
                 //var msg = Request.QueryString["error"];
 
                 if (!string.IsNullOrEmpty(this.SessionProvider.GetValue<string>(SESSION_ERROR_KEY)))
@@ -105,14 +115,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
                 }
 
-                var user = this.UserService.GetUser(); // Data were set in LayoutViewModel.Initialize()
-
-                if (user == null)
-                {
-                    user = new UserCacheDataModel();
-                    this.UserService.SaveUser(guid, user);
-                    this.Logger.Debug(guid, "User doesn't exist. New anonymous user created and saved.");
-                }
+                //if (this.UserService.IsAuthorizedFor())
 
                 var offer = this.OfferService.GetOffer(guid);
 
@@ -120,6 +123,20 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     this.Logger.Info(guid, "Offer doesn't exist (invalid guid)");
                     return this.GetLoginFailReturns(LOGIN_STATES.OFFER_NOT_FOUND, guid);
+                }
+
+                var user = this.UserService.GetUser(); // Data were set in LayoutViewModel.Initialize()
+
+                if (!this.UserService.TryAuthenticateUser(guid, user))
+                {
+                    this.UserService.Logout(guid, user);
+                }
+                else
+                {
+                    if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
+                    {
+                        return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid, true);
+                    }
                 }
 
                 var hideInnogyAccount = !offer.HasMcfu;
@@ -137,22 +154,22 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 if (!hideInnogyAccount && this.CanReadOfferWithoutLogin(user, offer))
                 {
-                    user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.COGNITO;
+                    user.SetAuth(offer.Guid, AUTH_METHODS.COGNITO);
                     var campaignCode = this.GetCampaignCode(offer);
                     this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
                     this.ClearFailedAttempts(guid, user, AUTH_RESULT_STATES.SUCCEEDED, null, campaignCode);
 
                     if (this.ContextWrapper.GetQueryValue("s") == "o" || offer.Version < 3)
                     {
-                        return this.Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+                        return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid, true);
                     }
 
-                    return this.Redirect(PAGE_LINK_TYPES.Summary, guid, null, true);
+                    return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid, true);
                 }
 
-                if (user.AuthorizedGuids.ContainsKey(guid))
+                if (user.IsAuthFor(guid))
                 {
-                    user.AuthorizedGuids.Remove(guid);
+                    user.RemoveAuth(guid);
                     this.Logger.Debug(guid, "Removing current guid as orphan from AuthorizedGuids");
                 }
 
@@ -276,7 +293,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                 this.UserService.Logout(guid);
                 var user = this.UserService.GetUser();
-
+                
                 var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
                 var offer = this.OfferService.GetOffer(guid);
                 var campaignCode = this.GetCampaignCode(offer);
@@ -299,17 +316,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(result, loginType, guid);
                 }
 
-                user.AuthorizedGuids[guid] = AUTH_METHODS.TWO_SECRETS;
+                user.SetAuth(guid, AUTH_METHODS.TWO_SECRETS);
                 this.UserService.Authenticate(guid, user); // overwrites current store user
+                this.Logger.Debug(guid, $"Logged user [POST]: {JsonConvert.SerializeObject(user, Formatting.Indented)}");
                 this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
                 this.ClearFailedAttempts(guid, user, result, loginType, campaignCode);
 
                 if (offer.Version < 3)
                 {
-                    return this.Redirect(PAGE_LINK_TYPES.Offer, guid);
+                    return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid);
                 }
 
-                return this.Redirect(PAGE_LINK_TYPES.Summary, guid);
+                return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid);
 
             }
             catch (AggregateException ex)
@@ -340,6 +358,92 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+        public ActionResult RenewSession()
+        {
+            var guid = this.GetGuid();
+            var state = this.ContextWrapper.GetQueryValue(Constants.QueryKeys.RENEW_SESSION);
+
+            if (state == null || state.Length == 0)
+            {
+                return null;
+            }
+
+            if (this.Request.Url.Query.Contains(Constants.QueryKeys.LOOP_PROTECTION))
+            {
+                this.Logger.Debug(guid, $"Renew session skipped - Loop protection activated.");
+            }
+
+            try
+            {
+                string COOKIE_NAME = "econtracting-check";
+                string AES_KEY = "2DCE45D005B34E6D928F593982891B8C";
+                string AES_VECTOR = "ABB7762F3ACF1C31";
+
+                if (state == "0")
+                {
+                    var user = this.UserService.GetUser();
+                    this.Logger.Debug(guid, $"Renew session - user: {JsonConvert.SerializeObject(user, Formatting.Indented)}");
+                    this.SessionProvider.RefreshSession();
+                    if (user.IsCognito)
+                    {
+                        user.Tokens = null;
+                        user.CognitoUser = null;
+                        this.Logger.Debug(guid, $"Renew session - Cognito data were deleted to handle cookie 4096 char length restrictions.");
+                    }                    
+                    var encryptedUser = Utils.AesEncrypt(user, AES_KEY, AES_VECTOR);
+                    this.ContextWrapper.SetCookie(new HttpCookie(COOKIE_NAME, encryptedUser) { Expires = DateTime.Now.AddMinutes(1) });
+                    var redirectUrl = Utils.SetQuery(this.Request.Url, Constants.QueryKeys.RENEW_SESSION, "1");
+                    this.Logger.Debug(guid, $"Renew session - {redirectUrl}");
+                    return this.View("/Areas/eContracting2/Views/LoginRedirect.cshtml", new LoginRedirectViewModel(redirectUrl, 100));                    
+                    //return this.Redirect(redirectUrl.ToString());
+                }
+
+                if (state == "1")
+                {
+                    var cookie = this.Request.Cookies[COOKIE_NAME];
+                    var decryptedUser = Utils.AesDecrypt<UserCacheDataModel>(cookie.Value, AES_KEY, AES_VECTOR);
+                    if (decryptedUser.IsCognitoGuid(guid))
+                    {
+                        if (!this.UserService.TryAuthenticateUser(guid, decryptedUser))
+                        {
+                            var redirectLogin = this.Redirect(PAGE_LINK_TYPES.Login, guid, null, true);                            
+                            var redirectLoginUrl = Utils.SetQuery(redirectLogin.Url, Constants.QueryKeys.LOOP_PROTECTION, "1");
+                            this.Logger.Debug(guid, $"Renew session - loop protection - {redirectLoginUrl}");
+                            return this.Redirect(redirectLoginUrl);
+                        }
+                    }
+                    this.Logger.Debug(guid, $"Renew session - decryptedUser: {JsonConvert.SerializeObject(decryptedUser, Formatting.Indented)}");
+                    cookie.Expires = DateTime.Now.AddDays(-1);
+                    this.UserService.Authenticate(guid, decryptedUser);
+                    var redirectUrl = this.Request.QueryString[Constants.QueryKeys.REDIRECT];
+                    redirectUrl = Utils.SetQuery(redirectUrl, Constants.QueryKeys.GUID, this.Request.QueryString[Constants.QueryKeys.GUID]);
+                    this.Logger.Debug(guid, $"Renew session: {redirectUrl}");
+                    return this.View("/Areas/eContracting2/Views/LoginRedirect.cshtml", new LoginRedirectViewModel(redirectUrl, 100));
+                    //return this.Redirect(redirectUrl);
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, "Problem with renewing session", ex);
+                var redirectUrl = this.Request.QueryString[Constants.QueryKeys.REDIRECT];
+                if (!redirectUrl.Contains(Constants.QueryKeys.LOOP_PROTECTION))
+                {
+                    redirectUrl = Utils.SetQuery(redirectUrl, Constants.QueryKeys.LOOP_PROTECTION, "1");
+                    this.Logger.Debug(guid, $"Renew session - loop protection - {redirectUrl}");
+                }                
+
+                if (!string.IsNullOrEmpty(redirectUrl))
+                {
+                    return this.Redirect(redirectUrl);
+                }
+
+                var url = Utils.RemoveQuery(this.Request.Url, Constants.QueryKeys.RENEW_SESSION);
+                return this.Redirect(url.ToString());
+            }
+        }
+
         [HttpGet]
         public ActionResult Logout()
         {
@@ -347,7 +451,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             try
             {
-                this.UserService.Logout(guid);
+                this.UserService.Logout(null);
+
+                this.SessionProvider.RefreshSession();
 
                 var redirectUrl = this.Request.QueryString.Get(Constants.QueryKeys.REDIRECT);
 
@@ -668,7 +774,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (state == LOGIN_STATES.OFFER_STATE_1)
             {
-                this.Logger.Warn(guid, $"Offer with state [1] will be ignored");
+                this.Logger.Warn(guid, $"Offer with renewSessionParameter [1] will be ignored");
                 return Redirect(PAGE_LINK_TYPES.WrongUrl, guid, Constants.ErrorCodes.OFFER_STATE_1);
             }
 

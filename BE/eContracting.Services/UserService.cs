@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Controllers;
+using System.Web.UI.HtmlControls;
 using eContracting.Models;
+using static Glass.Mapper.Sc.Global;
 
 namespace eContracting.Services
 {
@@ -65,9 +68,46 @@ namespace eContracting.Services
             this.SaveUser(guid, user);
 
             var log = new StringBuilder();
-            log.AppendLine("Successfully log-ged in via " + Enum.GetName(typeof(AUTH_METHODS), user.AuthorizedGuids.Last().Value));
+            log.AppendLine("Successfully log-ged in via " + Enum.GetName(typeof(AUTH_METHODS), user.GetAuthMethod(guid)));
             log.AppendLine(" - Browser agent: " + this.ContextWrapper.GetBrowserAgent());
             this.Logger.Info(guid, log.ToString());
+        }
+
+        public bool TryAuthenticateUser(string guid, UserCacheDataModel user)
+        {
+            var cookies = this.ContextWrapper.GetCookies();
+            var tokens = this.CognitoAuthService.GetTokens(cookies);
+
+            if (tokens == null)
+            {
+                return false;
+            }
+
+            if (user.IsCognito)
+            {
+                if (user.Tokens.AccessToken != tokens.AccessToken)
+                {
+                    this.Logger.Info(guid, "Request tokens don't match to user's tokens");
+                    this.Logout(guid, user);
+                    return false;
+                }
+            }
+
+            var verifiedUser = this.CognitoAuthService.GetVerifiedUser(tokens);
+
+            if (verifiedUser == null)
+            {
+                this.Logger.Info(guid, "Cognito tokens are not valid - cannot verify user");
+                this.Logout(guid, user);
+                return false;
+            }
+
+            user.Tokens = tokens;
+            user.CognitoUser = verifiedUser;
+            user.SetAuth(guid, AUTH_METHODS.COGNITO);
+            this.Authenticate(guid, user);
+            this.Logger.Debug(guid, $"Cognito data added to '{user}'");
+            return true;
         }
 
         /// <inheritdoc/>
@@ -109,22 +149,36 @@ namespace eContracting.Services
         {
             var user = this.GetUser();
 
-            if (user != null)
+            if (user == null)
             {
-                if (string.IsNullOrEmpty(guid))
-                {
-                    this.Abandon(null);
-                    this.Logger.Info(null, "User is completely logout due to missing guid");
-                }
-                else if (user.AuthorizedGuids.TryGetValue(guid, out AUTH_METHODS authType))
-                {
-                    this.Logout(guid, user, authType);
-                }
-                else
-                {
-                    this.Logger.Debug(guid, "User auth data not changed (guid not found in collection)");
-                }
+                return;
             }
+
+            if (string.IsNullOrEmpty(guid))
+            {
+                this.Abandon(null);
+                this.Logger.Info(null, "User is completely logout due to missing guid");
+                return;
+            }
+
+            if (!user.IsAuthFor(guid))
+            {
+                this.Logger.Debug(guid, "User auth data not changed (guid not found in collection)");
+                return;
+            }
+
+            var authMethod = user.GetAuthMethod(guid);
+
+            if (authMethod != AUTH_METHODS.NONE)
+            {
+                this.Logout(guid, user, authMethod);
+            }
+        }
+
+        public void Logout(string guid, UserCacheDataModel user)
+        {
+            user.ClearAuthData();
+            this.SaveUser(guid, user);
         }
 
         /// <inheritdoc/>
@@ -137,21 +191,21 @@ namespace eContracting.Services
 
             if (authMethod == AUTH_METHODS.TWO_SECRETS)
             {
-                user.AuthorizedGuids.Remove(guid);
+                user.RemoveAuth(guid);
                 //var guids = user.AuthorizedGuids.Where(x => x.Value == AUTH_METHODS.TWO_SECRETS).Select(x => x.Key).ToArray();
 
                 //foreach (var g in guids)
                 //{
-                //    user.AuthorizedGuids.Remove(g);
+                //    user.AuthorizedGuids.RemoveAuth(g);
                 //}
             }
             else
             {
-                var guids = user.AuthorizedGuids.Where(x => x.Value == authMethod).Select(x => x.Key).ToArray();
+                var guids = user.GetGuidsByAuthMethod(authMethod);
 
                 foreach (var g in guids)
                 {
-                    user.AuthorizedGuids.Remove(g);
+                    user.RemoveAuth(g);
                 }
 
                 user.Tokens = null;
@@ -187,7 +241,7 @@ namespace eContracting.Services
 
             this.Logger.Debug(null, "User doesn't exist, creating new one ...");
             var newUser = new UserCacheDataModel();
-            this.SaveUser(null, user);
+            this.SaveUser(null, newUser);
             return newUser;
         }
 
@@ -201,7 +255,7 @@ namespace eContracting.Services
                 return true;
             }
 
-            if (user.AuthorizedGuids.Count > 0)
+            if (user.GetAllAuthGuids().Length > 0)
             {
                 return true;
             }
@@ -220,7 +274,7 @@ namespace eContracting.Services
             var user = this.GetUser();
 
             //if (!user.Guids.Contains(guid))
-            if (!user.AuthorizedGuids.ContainsKey(guid))
+            if (!user.IsAuthFor(guid))
             {
                 this.Logger.Debug(guid, $"User is not authorized for current guid");
                 return false;
@@ -239,7 +293,7 @@ namespace eContracting.Services
                 return false;
             }
 
-            if (user.AuthorizedGuids.Count == 0 && !user.IsCognito)
+            if (user.GetAllAuthGuids().Length == 0 && !user.IsCognito)
             {
                 return false;
             }

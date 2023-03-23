@@ -1152,9 +1152,9 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var datasource = new Mock<IPageLoginModel>().Object;
             var user = this.CreateAnonymousUser(offer);
 
-            if (!user.AuthorizedGuids.ContainsKey(guid))
+            if (!user.IsAuthFor(guid))
             {
-                user.AuthorizedGuids.Add(guid, AUTH_METHODS.TWO_SECRETS);
+                user.SetAuth(guid, AUTH_METHODS.TWO_SECRETS);
             }
 
             var mockDefinition = new Mock<IDefinitionCombinationModel>();
@@ -1201,7 +1201,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                 var actionResult = (ViewResult)result;
                 var loginViewModel = actionResult.Model as LoginViewModel;
 
-                Assert.False(user.AuthorizedGuids.ContainsKey(guid));
+                Assert.False(user.IsAuthFor(guid));
             }
         }
 

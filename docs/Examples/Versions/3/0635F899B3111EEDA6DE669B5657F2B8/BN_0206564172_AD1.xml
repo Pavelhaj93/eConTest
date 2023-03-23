@@ -1,0 +1,154 @@
+<form>
+    <parameters>
+        <ADD_SERVICES>X</ADD_SERVICES>
+        <ADD_SERVICES_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Nesnižování záloh<br />
+                </p>
+            </body>
+        </ADD_SERVICES_ACCEPT_LABEL>
+        <ADD_SERVICES_ACCEPT_LABEL_GUID>0635F899B3111EEDA6DE66BC24AF72B8</ADD_SERVICES_ACCEPT_LABEL_GUID>
+        <ADD_SERVICES_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Platnost nabídky do|: [07.02.2023]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_OFFER_SUMMARY>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>Platnost nabídky do</ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME>
+        <ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>07.02.2023</ADD_SERVICES_OFFER_SUMMARY_ATRIB_VALUE>
+        <ADD_SERVICES_PRODUCT>NESNIZOVANI_ZALOH</ADD_SERVICES_PRODUCT>
+        <ADD_SERVICES_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie]<br />
+                </p>
+            </body>
+        </ADD_SERVICES_SALES_ARGUMENTS>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>První</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_NAME>
+        <ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie</ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE>
+        <BENEFITS></BENEFITS>
+        <COMMODITY>X</COMMODITY>
+        <COMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Smlouva / dodatek<br />
+                </p>
+            </body>
+        </COMMODITY_ACCEPT_LABEL>
+        <COMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEDA6DE669B564A32B8</COMMODITY_ACCEPT_LABEL_GUID>
+        <COMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Produkt|: [plyn Start 12]<br />|Platnost nabídky do|: [07.02.2023]<br />|Délka fixace|: [12 měsíců od účinnosti smlouvy]<br />|Platnost smlouvy|: [Dnem akceptace smlouvy zákazníkem]<br />|Předpokládaná účinnost smlouvy|: [Montáží měřidla ]<br />
+                </p>
+            </body>
+        </COMMODITY_OFFER_SUMMARY>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME>Produkt</COMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>Délka fixace</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>Platnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>Předpokládaná účinnost smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>plyn Start 12</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>07.02.2023</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>12 měsíců od účinnosti smlouvy</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>Dnem akceptace smlouvy zákazníkem</COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3>
+        <COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>Montáží měřidla </COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4>
+        <COMMODITY_PRODUCT>G_START12</COMMODITY_PRODUCT>
+        <COMMODITY_PRODUCT_DESC>plyn Start 12</COMMODITY_PRODUCT_DESC>
+        <COMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [nabídka pro ty, kteří se nechtějí vázat na delší období]<br />|Druhé|: [garantovaná cena po dobu 1 roku]<br />
+                </p>
+            </body>
+        </COMMODITY_SALES_ARGUMENTS>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</COMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>nabídka pro ty, kteří se nechtějí vázat na delší období</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>garantovaná cena po dobu 1 roku</COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY>X</NONCOMMODITY>
+        <NONCOMMODITY_ACCEPT_LABEL>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    Servis plynových spotřebičů<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ACCEPT_LABEL>
+        <NONCOMMODITY_ACCEPT_LABEL_GUID>0635F899B3111EEDA6DE66F2B4DE32B8</NONCOMMODITY_ACCEPT_LABEL_GUID>
+        <NONCOMMODITY_ADDRESS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Na adrese místa plnění|: [Čisovice, Čisovice 24, 252 04]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_ADDRESS>
+        <NONCOMMODITY_ADDRESS_ATRIB_NAME>Na adrese místa plnění</NONCOMMODITY_ADDRESS_ATRIB_NAME>
+        <NONCOMMODITY_ADDRESS_ATRIB_VALUE>Čisovice, Čisovice 24, 252 04</NONCOMMODITY_ADDRESS_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |Značka kotle|: [Kotel Viadrus]<br />|Platnost nabídky do|: [07.02.2023]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_OFFER_SUMMARY>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>Značka kotle</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>Platnost nabídky do</NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME_1>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>Kotel Viadrus</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE>
+        <NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>07.02.2023</NONCOMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1>
+        <NONCOMMODITY_PRODUCT>20000160</NONCOMMODITY_PRODUCT>
+        <NONCOMMODITY_PRODUCT_DESC>Poplatkování servisu plyn.zařízení (sps)</NONCOMMODITY_PRODUCT_DESC>
+        <NONCOMMODITY_SALES_ARGUMENTS>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    |První|: [Pravidelná roční údržba vašeho kotle.]<br />|Druhé|: [Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.]<br />|Třetí|: [Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.]<br />
+                </p>
+            </body>
+        </NONCOMMODITY_SALES_ARGUMENTS>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>První</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>Druhé</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>Třetí</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_NAME_2>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>Pravidelná roční údržba vašeho kotle.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>Profesionální péče zkušených techniků zajistí bezporuchový a bezpečný chod i nižší spotřebu.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_1>
+        <NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>Hlídáme za Vás termín další prohlídky a archivujeme veškerou servisní historii.</NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE_2>
+        <PERSON>X</PERSON>
+        <PERSON_COMPETITOR_NAME>Neznámý obchodník</PERSON_COMPETITOR_NAME>
+        <PERSON_CORADDRESS>Františka Hajdy 1230 / 10, 700 30 Ostrava - Hrabůvka</PERSON_CORADDRESS>
+        <PERSON_CORCITY>Ostrava</PERSON_CORCITY>
+        <PERSON_CORCITY_PART>Hrabůvka</PERSON_CORCITY_PART>
+        <PERSON_CORPOSTAL_CODE>700 30</PERSON_CORPOSTAL_CODE>
+        <PERSON_CORSTREET>Františka Hajdy</PERSON_CORSTREET>
+        <PERSON_CORSTREET_NUMBER>1230 / 10</PERSON_CORSTREET_NUMBER>
+        <PERSON_CUSTADDRESS>Františka Hajdy 1230 / 10, 700 30 Ostrava</PERSON_CUSTADDRESS>
+        <PERSON_CUSTBIRTHDATE>16.01.1986</PERSON_CUSTBIRTHDATE>
+        <PERSON_CUSTCITY>Ostrava</PERSON_CUSTCITY>
+        <PERSON_CUSTCITY_PART>Hrabůvka</PERSON_CUSTCITY_PART>
+        <PERSON_CUSTEMAIL>radka.jeziorska@innogy.cz</PERSON_CUSTEMAIL>
+        <PERSON_CUSTNAME>Ing. Radka Jeziorská</PERSON_CUSTNAME>
+        <PERSON_CUSTPOSTAL_CODE>700 30</PERSON_CUSTPOSTAL_CODE>
+        <PERSON_CUSTSTREET>Františka Hajdy</PERSON_CUSTSTREET>
+        <PERSON_CUSTSTREET_NUMBER>1230 / 10</PERSON_CUSTSTREET_NUMBER>
+        <PERSON_CUSTSZK>E-mail</PERSON_CUSTSZK>
+        <PERSON_CUSTTEL1>+420 776 230 003</PERSON_CUSTTEL1>
+        <PERSON_CUSTTITLELET>Vážená paní Jeziorská                                         </PERSON_CUSTTITLELET>
+        <PERSON_NUMBER>9610771802</PERSON_NUMBER>
+        <PERSON_PREMADR>Čisovice 24, 252 04 Čisovice</PERSON_PREMADR>
+        <PERSON_PREMCITY>Čisovice</PERSON_PREMCITY>
+        <PERSON_PREMCITY_PART>Čisovice</PERSON_PREMCITY_PART>
+        <PERSON_PREMEXT>27ZG200Z0111139Z</PERSON_PREMEXT>
+        <PERSON_PREMLABEL>EIC</PERSON_PREMLABEL>
+        <PERSON_PREMNUMBER>9300184944</PERSON_PREMNUMBER>
+        <PERSON_PREMPOSTAL_CODE>252 04</PERSON_PREMPOSTAL_CODE>
+        <PERSON_PREMSTREET></PERSON_PREMSTREET>
+        <PERSON_PREMSTREET_NUMBER>24</PERSON_PREMSTREET_NUMBER>
+        <USER_ATTACH>X</USER_ATTACH>
+        <USER_ATTACH_PL2_HELP>
+            <body xmlns="http://www.w3.org/1999/xhtml">
+                <p style="margin-top:0pt;margin-bottom:0pt">
+                    <b>Doklad o vlastnictví nemovitosti</b><br />Výpis z katastru nemovitostí, případně nájemní smlouva.<br />
+                </p>
+            </body>
+        </USER_ATTACH_PL2_HELP>
+    </parameters>
+</form>

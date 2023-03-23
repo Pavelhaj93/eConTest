@@ -289,6 +289,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuthService.cs" />
     <Compile Include="CallMeBackService.cs" />
     <Compile Include="CrmUtilitiesUmcService.cs" />
     <Compile Include="LocalFakeSignService.cs" />

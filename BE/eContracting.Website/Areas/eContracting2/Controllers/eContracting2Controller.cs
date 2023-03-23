@@ -534,11 +534,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
                     if (currentPage.TemplateId == Constants.TemplateIds.PageLogin.Guid)
                     {
-                        var twoSecretsGuid = user.AuthorizedGuids.FirstOrDefault(x => x.Value == AUTH_METHODS.TWO_SECRETS);
+                        var twoSecretsGuid = user.GetGuidsByAuthMethod(AUTH_METHODS.TWO_SECRETS).FirstOrDefault();
 
-                        if (!string.IsNullOrEmpty(twoSecretsGuid.Key))
+                        if (!string.IsNullOrEmpty(twoSecretsGuid))
                         {
-                            logoutGuid = twoSecretsGuid.Key;
+                            logoutGuid = twoSecretsGuid;
                         }
                     }
                 }
@@ -628,7 +628,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal SummaryViewModel GetSummaryViewModel(OfferModel offer, UserCacheDataModel user, IPageSummaryOfferModel datasource)
         {
-            var authType = user.AuthorizedGuids[offer.Guid];
+            var authType = user.GetAuthMethod(offer.Guid);
             var definition = this.SettingsService.GetDefinition(offer);
             this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
             var steps = this.GetSteps(user, offer, datasource, definition);
@@ -688,7 +688,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (offer.HasGDPR)
             {
-                var GDPRGuid = Utils.AesEncrypt(offer.GDPRKey, datasource.AesEncryptKey, datasource.AesEncryptVector);
+                var GDPRGuid = Utils.RijndaelEncrypt(offer.GDPRKey, datasource.AesEncryptKey, datasource.AesEncryptVector);
                 viewModel.GdprGuid = GDPRGuid;
                 viewModel.GdprUrl = datasource.GDPRUrl + "?hash=" + GDPRGuid + "&typ=g";
             }

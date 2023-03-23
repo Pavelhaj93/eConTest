@@ -102,6 +102,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return this.Redirect(url);
         }
 
+        protected internal RedirectResult RedirectWithNewSession(PAGE_LINK_TYPES pageType, string guid, bool includeUtm = false)
+        {
+            var redirectUrl = this.SettingsService.GetPageLink(pageType, guid);
+            
+            if (includeUtm)
+            {
+                var query = Utils.GetUtmQueryParams(this.ContextWrapper.GetQueryParams());
+                redirectUrl = Utils.SetQuery(redirectUrl, query);
+            }
+
+            var url = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Login, guid);
+            url = Utils.SetQuery(url, Constants.QueryKeys.RENEW_SESSION, "0");
+            url = Utils.SetQuery(url, Constants.QueryKeys.REDIRECT, redirectUrl);
+            this.Logger.Debug(guid, "Redirecting to: " + url);
+            return this.Redirect(url);
+        }
+
         protected internal bool CanRead(string guid)
         {
             return this.UserService.IsAuthorizedFor(guid);

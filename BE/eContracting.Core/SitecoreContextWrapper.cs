@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
@@ -93,6 +94,12 @@ namespace eContracting
         public NameValueCollection GetQueryParams()
         {
             return HttpContext.Current?.Request?.QueryString ?? new NameValueCollection();
+        }
+
+        /// <inheritdoc/>
+        public void SetCookie(HttpCookie cookie)
+        {
+            HttpContext.Current?.Response?.SetCookie(cookie);
         }
     }
 }

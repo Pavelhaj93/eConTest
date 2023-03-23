@@ -351,6 +351,8 @@ namespace eContracting
             public const string DO_NOT_AUTO_LOGIN = "dnat";
             public const string REDIRECT = "redirect";
             public const string GLOBAL_LOGOUT = "global";
+            public const string RENEW_SESSION = "renew-session";
+            public const string LOOP_PROTECTION = "lp";
         }
 
         public static class QueryValues

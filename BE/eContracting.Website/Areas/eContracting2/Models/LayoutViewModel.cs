@@ -115,7 +115,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     var isLoginPage = rendering.Item.TemplateID == Constants.TemplateIds.PageLogin;
 
                     // first try to initiliaze user
-                    this.InitializeUser(guid, rendering, isLoginPage);
+                    //this.InitializeUser(guid, rendering, isLoginPage);
                     // then user can be used to get offer
                     this.InitializeOffer(guid, rendering);
 
@@ -176,31 +176,31 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     this.UserService.RefreshAuthorizationIfNeeded(guid, user);
                 }
 
-                if (isLoginPage)
-                {
-                    if (!this.UserService.CanAuthenticate(guid))
-                    {
-                        this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] {user} cannot be authenticated");
-                        return;
-                    }
+                //if (isLoginPage)
+                //{
+                //    if (!this.UserService.CanAuthenticate(guid))
+                //    {
+                //        this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] {user} cannot be authenticated");
+                //        return;
+                //    }
 
-                    if (!this.UserService.IsAuthorizedFor(guid))
-                    {
-                        this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] User is not authorized for this guid, trying to udpate his data from context ..");
+                //    if (!this.UserService.IsAuthorizedFor(guid))
+                //    {
+                //        this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] User is not authorized for this guid, trying to udpate his data from context ..");
 
-                        if (this.UserService.TryUpdateUserFromContext(guid, user))
-                        {
-                            this.UserService.SaveUser(guid, user);
+                //        if (this.UserService.TryUpdateUserFromContext(guid, user))
+                //        {
+                //            this.UserService.SaveUser(guid, user);
 
-                            if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
-                            {
-                                user.AuthorizedGuids[guid] = AUTH_METHODS.COGNITO;
-                                this.UserService.Authenticate(guid, user);
-                                this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] User '{user}' has been authenticated");
-                            }
-                        }
-                    }
-                }
+                //            if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
+                //            {
+                //                user.SetAuth(guid, AUTH_METHODS.COGNITO);
+                //                this.UserService.Authenticate(guid, user);
+                //                this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] User '{user}' has been authenticated");
+                //            }
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             {

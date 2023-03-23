@@ -130,9 +130,9 @@ namespace eContracting.Services
                 return true;
             }
 
-            if (user.AuthorizedGuids.ContainsKey(guid))
+            if (user.IsAuthFor(guid))
             {
-                if (user.AuthorizedGuids[guid] != AUTH_METHODS.COGNITO)
+                if (!user.IsAuthFor(guid, AUTH_METHODS.COGNITO))
                 {
                     this.Logger.Debug(guid, $"'{user}' have Cognito data, but offer was authenticated not via {AUTH_METHODS.COGNITO}, can read offer");
                     return true;

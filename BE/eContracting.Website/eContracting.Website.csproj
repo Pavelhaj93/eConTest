@@ -339,6 +339,7 @@
     <Compile Include="Areas\eContracting2\Models\InfoBoxViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListItemViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ListViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\LoginRedirectViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\PageExpirationViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\MatrixSwitcherViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ProcessTypesSwitcherViewModel.cs" />
@@ -471,6 +472,7 @@
     <Content Include="Areas\eContracting2\Views\Shared\HeaderInnogy.cshtml" />
     <Content Include="Areas\eContracting2\Views\Edit\Header.cshtml" />
     <Content Include="Areas\eContracting2\Views\Summary.cshtml" />
+    <Content Include="Areas\eContracting2\Views\LoginRedirect.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

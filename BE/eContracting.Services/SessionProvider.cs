@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -12,6 +15,15 @@ namespace eContracting.Services
     [ExcludeFromCodeCoverage]
     public class SessionProvider : ISessionProvider
     {
+        protected readonly IRespApiService ApiService;
+        protected readonly ISettingsReaderService SettingReader;
+
+        public SessionProvider(IRespApiService apiService, ISettingsReaderService settingReader)
+        {
+            this.ApiService = apiService;
+            this.SettingReader = settingReader;
+        }
+
         /// <inheritdoc/>
         public string GetId()
         {
@@ -35,6 +47,7 @@ namespace eContracting.Services
             if (HttpContext.Current?.Session != null)
             {
                 HttpContext.Current.Session[key] = value;
+                Thread.Sleep(500);
             }
         }
 
@@ -62,5 +75,34 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
+        public void RefreshSession()
+        {
+            HttpContext.Current.Session.Clear();
+            HttpContext.Current.Session.RemoveAll();
+            HttpContext.Current.Session.Abandon();
+
+            var cookieName = this.GetSessionCookieName();
+            var cookie = HttpContext.Current.Request.Cookies.Get(cookieName);
+
+            if (cookie != null)
+            {
+                cookie.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Remove(cookieName);
+                HttpContext.Current.Response.Cookies.Set(cookie);
+            }
+        }
+
+        protected string GetSessionCookieName()
+        {
+            var configuration = ConfigurationManager.GetSection("system.web/sessionState") as System.Web.Configuration.SessionStateSection;
+
+            if (configuration != null)
+            {
+                return configuration.CookieName;
+            }
+
+            throw new ApplicationException("Cannot read session cookie name from the configuration");
+        }
     }
 }

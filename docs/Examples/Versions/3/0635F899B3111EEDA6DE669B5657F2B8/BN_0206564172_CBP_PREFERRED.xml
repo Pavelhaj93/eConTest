@@ -1,0 +1,110 @@
+<form>
+    <header>
+        <form_id>CRM111</form_id>
+        <verze_alc>01</verze_alc>
+        <template>CBP</template>
+        <template_source></template_source>
+        <kod_priloze></kod_priloze>
+        <pdf_box></pdf_box>
+    </header>
+    <parameters>
+        <CALC_BREAKER></CALC_BREAKER>
+        <CALC_CAP_PAY>986,05</CALC_CAP_PAY>
+        <CALC_CAP_PRICE>0,00</CALC_CAP_PRICE>
+        <CALC_CAP_PRICE_DESCRIPTION>Cena za rezervovanou kapacitu bez slevy</CALC_CAP_PRICE_DESCRIPTION>
+        <CALC_CAP_PRICE_DISC>0,00</CALC_CAP_PRICE_DISC>
+        <CALC_CAP_PRICE_DISC_DESCRIPTION>Cena za rezervovanou kapacitu se slevou</CALC_CAP_PRICE_DISC_DESCRIPTION>
+        <CALC_CAP_PRICE_DISC_DISPLAY_UNIT>Kč/m3</CALC_CAP_PRICE_DISC_DISPLAY_UNIT>
+        <CALC_CAP_PRICE_DISPLAY_UNIT>Kč/m3</CALC_CAP_PRICE_DISPLAY_UNIT>
+        <CALC_CAP_PRICE_VISIBILITY>S</CALC_CAP_PRICE_VISIBILITY>
+        <CALC_COLUMN_COUNT>1</CALC_COLUMN_COUNT>
+        <CALC_COMP_FIX>105,00</CALC_COMP_FIX>
+        <CALC_COMP_FIX_DESCRIPTION>Stálá platba</CALC_COMP_FIX_DESCRIPTION>
+        <CALC_COMP_FIX_DISPLAY_UNIT>Kč/měsíc</CALC_COMP_FIX_DISPLAY_UNIT>
+        <CALC_COMP_FIX_PRICE>105,00</CALC_COMP_FIX_PRICE>
+        <CALC_COMP_FIX_PRICE_DESCRIPTION>Stálá platba</CALC_COMP_FIX_PRICE_DESCRIPTION>
+        <CALC_COMP_FIX_PRICE_DISPLAY_UNIT>Kč/měsíc</CALC_COMP_FIX_PRICE_DISPLAY_UNIT>
+        <CALC_COMP_FIX_PRICE_VISIBILITY>S</CALC_COMP_FIX_PRICE_VISIBILITY>
+        <CALC_COMP_GAS>2 290,00</CALC_COMP_GAS>
+        <CALC_COMP_GAS_DESCRIPTION>Odebraný plyn</CALC_COMP_GAS_DESCRIPTION>
+        <CALC_COMP_GAS_DISPLAY_UNIT>Kč/MWh</CALC_COMP_GAS_DISPLAY_UNIT>
+        <CALC_COMP_GAS_PRICE>2 290,00</CALC_COMP_GAS_PRICE>
+        <CALC_COMP_GAS_PRICE_DESCRIPTION>Odebraný plyn</CALC_COMP_GAS_PRICE_DESCRIPTION>
+        <CALC_COMP_GAS_PRICE_DISPLAY_UNIT>Kč/MWh</CALC_COMP_GAS_PRICE_DISPLAY_UNIT>
+        <CALC_COMP_GAS_PRICE_VISIBILITY>S</CALC_COMP_GAS_PRICE_VISIBILITY>
+        <CALC_COMSUMPTION_GAS>0,11</CALC_COMSUMPTION_GAS>
+        <CALC_COMSUMPTION_GAS_DESCRIPTION>Předpokládaná roční spotřeba</CALC_COMSUMPTION_GAS_DESCRIPTION>
+        <CALC_COMSUMPTION_GAS_DISPLAY_UNIT>MWh</CALC_COMSUMPTION_GAS_DISPLAY_UNIT>
+        <CALC_COMSUMPTION_NT></CALC_COMSUMPTION_NT>
+        <CALC_COMSUMPTION_VT></CALC_COMSUMPTION_VT>
+        <CALC_COUNT_MONTH>12</CALC_COUNT_MONTH>
+        <CALC_CREATE_DATE>23.01.2023 08:55:45</CALC_CREATE_DATE>
+        <CALC_CUSTCATEGORY>Domácnosti</CALC_CUSTCATEGORY>
+        <CALC_CUSTTITLELET>Vážená paní Jeziorská</CALC_CUSTTITLELET>
+        <CALC_DEP_PER_M>X</CALC_DEP_PER_M>
+        <CALC_DEP_PER_M_DESCRIPTION>Orientační výše zálohy</CALC_DEP_PER_M_DESCRIPTION>
+        <CALC_DEP_PER_M_DISPLAY_UNIT>Kč</CALC_DEP_PER_M_DISPLAY_UNIT>
+        <CALC_DEP_PER_M_VISIBILITY>S</CALC_DEP_PER_M_VISIBILITY>
+        <CALC_DEP_PER_Q></CALC_DEP_PER_Q>
+        <CALC_DEP_VALUE>240,00</CALC_DEP_VALUE>
+        <CALC_DEP_VALUE_DESCRIPTION>Orientační výše zálohy</CALC_DEP_VALUE_DESCRIPTION>
+        <CALC_DEP_VALUE_DISPLAY_UNIT>Kč/měs.</CALC_DEP_VALUE_DISPLAY_UNIT>
+        <CALC_DEP_VALUE_TOOLTIP>Výše zálohy je pouze orientační, stanovená zjednodušeným výpočtem. Skutečnou výši zálohy obdržíte krátce po zahájení odběru. V závislosti na vývoji situace může být nižší nebo vyšší.</CALC_DEP_VALUE_TOOLTIP>
+        <CALC_DISCOUNT>0,00</CALC_DISCOUNT>
+        <CALC_DISCOUNT_SHOW></CALC_DISCOUNT_SHOW>
+        <CALC_DISTRIBUTOR>GasNet, s.r.o.</CALC_DISTRIBUTOR>
+        <CALC_DIS_PRICE_DATE>20220101</CALC_DIS_PRICE_DATE>
+        <CALC_DIVISION>Plyn</CALC_DIVISION>
+        <CALC_DR></CALC_DR>
+        <CALC_FIN_REW>0,00</CALC_FIN_REW>
+        <CALC_FIN_REW_DESCRIPTION>Roční odměna</CALC_FIN_REW_DESCRIPTION>
+        <CALC_FIN_REW_DISPLAY_UNIT>Kč</CALC_FIN_REW_DISPLAY_UNIT>
+        <CALC_FIN_REW_SHOW></CALC_FIN_REW_SHOW>
+        <CALC_FIX_BUS_PAY>1 524,60</CALC_FIX_BUS_PAY>
+        <CALC_FULL_PRICE>2 369,49</CALC_FULL_PRICE>
+        <CALC_FULL_PRICE_DPH>2 867,08</CALC_FULL_PRICE_DPH>
+        <CALC_GAS_DIS_PRICE>59,70</CALC_GAS_DIS_PRICE>
+        <CALC_GAS_OUT_PRICE>296,49</CALC_GAS_OUT_PRICE>
+        <CALC_MIDDLEMAN></CALC_MIDDLEMAN>
+        <CALC_MIDD_INVISIBLE></CALC_MIDD_INVISIBLE>
+        <CALC_ONE_PRODUCT_COMPARE>X</CALC_ONE_PRODUCT_COMPARE>
+        <CALC_POD_NO>0420000236</CALC_POD_NO>
+        <CALC_PRICE>1 821,09</CALC_PRICE>
+        <CALC_PROD_DESC>plyn Start 12</CALC_PROD_DESC>
+        <CALC_REGUL_ITEMS_PAY>0,24</CALC_REGUL_ITEMS_PAY>
+        <CALC_REGUL_PRICE>1 045,99</CALC_REGUL_PRICE>
+        <CALC_TOTAL_REWARDS></CALC_TOTAL_REWARDS>
+        <CALC_TOTAL_REWARDS_SHOW></CALC_TOTAL_REWARDS_SHOW>
+        <CALC_TOTAL_SAVE>0,00</CALC_TOTAL_SAVE>
+        <CALC_TOTAL_SAVE_DESCRIPTION>Úspora</CALC_TOTAL_SAVE_DESCRIPTION>
+        <CALC_TOTAL_SAVE_DISPLAY_UNIT>Kč/rok</CALC_TOTAL_SAVE_DISPLAY_UNIT>
+        <CALC_TOTAL_SAVE_SHOW></CALC_TOTAL_SAVE_SHOW>
+        <CALC_TOTAL_SAVE_VISIBILITY>S</CALC_TOTAL_SAVE_VISIBILITY>
+        <CALC_USER_EMAIL>radka.jeziorska@innogy.cz</CALC_USER_EMAIL>
+        <CALC_USER_NAME>Radka Jeziorská</CALC_USER_NAME>
+        <CALC_USER_TEL>+420730814234</CALC_USER_TEL>
+        <CALC_ZAL_MAX>720,00</CALC_ZAL_MAX>
+        <CALC_ZAL_MIN>190,00</CALC_ZAL_MIN>
+        <SA01_MIDDLE_ID>G_ST12_3</SA01_MIDDLE_ID>
+        <SA01_MIDDLE_TEXT>&lt;span style=&quot;font-size: 24px;&quot;&gt;Garantovan&amp;aacute; cena po dobu 12 měs&amp;iacute;ců&lt;/span&gt;</SA01_MIDDLE_TEXT>
+        <SA02_MIDDLE_ID>G_ST12_4</SA02_MIDDLE_ID>
+        <SA02_MIDDLE_TEXT>&lt;span style=&quot;font-size: 24px;&quot;&gt;Nab&amp;iacute;dka pro ty, co hledaj&amp;iacute; cenovou stabilitu&lt;/span&gt;</SA02_MIDDLE_TEXT>
+        <SA03_MIDDLE_ID>G_ST12_5</SA03_MIDDLE_ID>
+        <SA03_MIDDLE_TEXT>&lt;span style=&quot;font-size: 24px;&quot;&gt;Ochrana před v&amp;yacute;kyvy cen na trhu s&amp;nbsp;energiemi&lt;/span&gt;</SA03_MIDDLE_TEXT>
+        <SA04_MIDDLE_ID>GST12N_1</SA04_MIDDLE_ID>
+        <SA04_MIDDLE_TEXT>
+            &lt;p&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;Aktu&amp;aacute;lně platnou cenu &lt;strong&gt;plyn Start 12&lt;/strong&gt; si &lt;a rel=&quot;noopener noreferrer&quot; href=&quot;http://www.innogy.cz/ceniky/&quot; target=&quot;_blank&quot;&gt;vyhledejte v sekci cen&amp;iacute;ky&lt;/a&gt;.&lt;/span&gt;&lt;/p&gt;
+            &lt;p&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;Pokud se nechcete v&amp;aacute;zat na del&amp;scaron;&amp;iacute; časov&amp;eacute; obdob&amp;iacute; a chcete m&amp;iacute;t jistotu fixn&amp;iacute; ceny, &lt;strong&gt;Start 12&lt;/strong&gt; je t&amp;iacute;m prav&amp;yacute;m produktem pro V&amp;aacute;s.&lt;/span&gt;&lt;/p&gt;
+        </SA04_MIDDLE_TEXT>
+        <SA05_MIDDLE_ID>G_ST12_2</SA05_MIDDLE_ID>
+        <SA05_MIDDLE_TEXT>&lt;span style=&quot;font-size: 24px;&quot;&gt;&lt;strong&gt;Smlouva na dobu určitou na 12 měs&amp;iacute;ců s možnost&amp;iacute; automatick&amp;eacute;ho prodloužen&amp;iacute;. V&amp;iacute;ce na &lt;a href=&quot;https://test.innogy.cz/domacnosti/plyn/start12&quot; target=&quot;_blank&quot;&gt;detailu produktu&lt;/a&gt;.&lt;/strong&gt;&lt;/span&gt;</SA05_MIDDLE_TEXT>
+        <SA06_MIDDLE_ID>G_ST12_6</SA06_MIDDLE_ID>
+        <SA06_MIDDLE_TEXT>
+            &lt;p&gt;Platnost Smlouvy od data zah&amp;aacute;jen&amp;iacute; dod&amp;aacute;vky. &lt;/p&gt;
+            &lt;p&gt;Platnost Dodatku od jeho &amp;uacute;činnosti.&lt;/p&gt;
+        </SA06_MIDDLE_TEXT>
+        <SALESROLE1>předseda představenstva</SALESROLE1>
+        <SALESROLE2>člen představenstva</SALESROLE2>
+        <ADD_BARCODE>00</ADD_BARCODE>
+    </parameters>
+</form>

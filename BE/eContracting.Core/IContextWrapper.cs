@@ -77,5 +77,7 @@ namespace eContracting
         /// Gets query parameters from current request.
         /// </summary>
         NameValueCollection GetQueryParams();
+
+        void SetCookie(HttpCookie cookie);
     }
 }

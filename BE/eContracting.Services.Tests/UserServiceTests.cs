@@ -120,7 +120,7 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer();
             var user = this.CreateAnonymousUser(offer);
-            user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.TWO_SECRETS;
+            user.SetAuth(offer.Guid, AUTH_METHODS.TWO_SECRETS);
             var mockCognitoService = new Mock<ICognitoAuthService>();
             var mockSettingsService = new Mock<ISettingsReaderService>();
             var mockCacheService = new Mock<IDataSessionCacheService>();
@@ -193,7 +193,7 @@ namespace eContracting.Services.Tests
         {
             var guid = this.CreateGuid();
             var user = this.CreateAnonymousUser(this.CreateOffer());
-            user.AuthorizedGuids[guid] = AUTH_METHODS.TWO_SECRETS;
+            user.SetAuth(guid, AUTH_METHODS.TWO_SECRETS);
             var mockCognitoService = new Mock<ICognitoAuthService>();
             var mockSettingsService = new Mock<ISettingsReaderService>();
             var mockCacheService = new Mock<IDataSessionCacheService>();

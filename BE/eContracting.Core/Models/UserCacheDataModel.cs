@@ -26,14 +26,14 @@ namespace eContracting.Models
         public CognitoUserModel CognitoUser { get; set; }
 
         /// <summary>
-        /// Gets pairs of guids and how they were authenticated.
-        /// </summary>
-        public IDictionary<string, AUTH_METHODS> AuthorizedGuids { get; } = new Dictionary<string, AUTH_METHODS>();
-
-        /// <summary>
         /// Determinates is user has Cognito data.
         /// </summary>
         public bool IsCognito => this.CognitoUser != null;
+
+        /// <summary>
+        /// Gets pairs of guids and how they were authenticated.
+        /// </summary>
+        public IDictionary<string, AUTH_METHODS> AuthorizedGuids { get; } = new Dictionary<string, AUTH_METHODS>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCacheDataModel"/> class.
@@ -86,6 +86,51 @@ namespace eContracting.Models
             this.CognitoUser = null;
             this.Tokens = null;
             this.AuthorizedGuids.Clear();
+        }
+
+        public void SetAuth(string guid, AUTH_METHODS authMethod)
+        {
+            this.AuthorizedGuids[guid] = authMethod;
+        }
+
+        public bool IsAuthFor(string guid)
+        {
+            return this.AuthorizedGuids.ContainsKey(guid);
+        }
+
+        public bool IsAuthFor(string guid, AUTH_METHODS authMethod)
+        {
+            return this.AuthorizedGuids.ContainsKey(guid) && this.AuthorizedGuids[guid] == authMethod;
+        }
+
+        public AUTH_METHODS GetAuthMethod(string guid)
+        {
+            if (!this.AuthorizedGuids.ContainsKey(guid))
+            {
+                return AUTH_METHODS.NONE;
+            }
+
+            return this.AuthorizedGuids[guid];
+        }
+
+        public string[] GetGuidsByAuthMethod(AUTH_METHODS authMethod)
+        {
+            return this.AuthorizedGuids.Where(x => x.Value == authMethod).Select(x => x.Key).ToArray();
+        }
+
+        public string[] GetAllAuthGuids()
+        {
+            return this.AuthorizedGuids.Select(x => x.Key).ToArray();
+        }
+
+        public bool RemoveAuth(string guid)
+        {
+            if (!this.AuthorizedGuids.ContainsKey(guid))
+            {
+                return false;
+            }
+
+            return this.AuthorizedGuids.Remove(guid);
         }
 
         public override string ToString()

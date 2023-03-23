@@ -171,7 +171,7 @@ namespace eContracting.Services
                 stop.Start();
 
                 var log2 = new StringBuilder();
-                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_GET)} finished:");
+                log2.AppendLine($"Call to {nameof(ZCCH_CACHE_STATUS_SET)} finished:");
 
                 try
                 {

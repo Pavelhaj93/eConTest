@@ -47,7 +47,7 @@ namespace eContracting.Services
     ///     <ATTRVAL>20300101</ATTRVAL>
     ///   </ZCCH_ST_ATTRIB>
     /// </code>
-    /// Remove accepted date in <c>ZCCH_ST_ATTRIB.xml</c> - delete element <c>ZCCH_ST_ATTRIB</c> where <c>ATTRID</c> has value <c>ACCEPTED_AT</c>.
+    /// RemoveAuth accepted date in <c>ZCCH_ST_ATTRIB.xml</c> - delete element <c>ZCCH_ST_ATTRIB</c> where <c>ATTRID</c> has value <c>ACCEPTED_AT</c>.
     /// <code>
     ///   <ZCCH_ST_ATTRIB>
     ///     <ATTRID>ACCEPTED_AT</ATTRID>

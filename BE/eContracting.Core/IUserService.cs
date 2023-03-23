@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Http.Controllers;
 using eContracting.Models;
 
@@ -29,11 +30,14 @@ namespace eContracting
         /// <param name="user"></param>
         void Authenticate(string guid, UserCacheDataModel user);
 
+        bool TryAuthenticateUser(string guid, UserCacheDataModel user);
+
         /// <summary>
         /// Try to update <paramref name="user"/> auth data from current request.
         /// </summary>
         /// <param name="guid">The unique offer identifier.</param>
         /// <param name="user"></param>
+        [Obsolete("User instead 'TryAuthenticateUser'")]
         bool TryUpdateUserFromContext(string guid, UserCacheDataModel user);
 
         /// <summary>
@@ -41,6 +45,8 @@ namespace eContracting
         /// </summary>
         /// <param name="guid">The unique offer identifier.</param>
         void Logout(string guid);
+
+        void Logout(string guid, UserCacheDataModel user);
 
         /// <summary>
         /// Removes auth data from <paramref name="user"/> for specific <paramref name="authMethod"/>.

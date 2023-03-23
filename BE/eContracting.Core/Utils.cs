@@ -66,7 +66,7 @@ namespace eContracting
         }
 
         [ExcludeFromCodeCoverage]
-        public static string AesEncrypt(string input, string key, string vector)
+        public static string RijndaelEncrypt(string input, string key, string vector)
         {
             byte[] encrypted;
 
@@ -95,33 +95,71 @@ namespace eContracting
             return Convert.ToBase64String(encrypted);
         }
 
-        public static T AesDecrypt<T>(string input, string key, string vector)
+        /// <summary>
+        /// Encrypts <paramref name="input"/> with AES algorithm.
+        /// </summary>
+        /// <typeparam name="T">The type serializable with <see cref="JsonConvert.SerializeObject(object)"/></typeparam>
+        /// <param name="input">The object for encryption.</param>
+        /// <param name="key">The secret key for the symmetric algorithm.</param>
+        /// <param name="vector">The initialization vector (<see cref="System.Security.Cryptography.SymmetricAlgorithm.IV"/>) for the symmetric algorithm.</param>
+        /// <returns>Data in base 64 format.</returns>
+        public static string AesEncrypt<T>(T input, string key, string vector)
         {
-            using (var rijAlg = new RijndaelManaged())
-            {
-                rijAlg.Key = Encoding.UTF8.GetBytes(key);
-                rijAlg.IV = Encoding.UTF8.GetBytes(vector);
+            var data = JsonConvert.SerializeObject(input);
+            byte[] encrypted;
 
-                using (var encryptor = rijAlg.CreateEncryptor(rijAlg.Key, rijAlg.IV))
+            using (var aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = Encoding.UTF8.GetBytes(vector);
+
+                using (var encryptor = aes.CreateEncryptor(aes.Key, aes.IV))
                 {
                     using (var msEncrypt = new MemoryStream())
+                    {
+                        using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                        {
+                            using (var swEncrypt = new StreamWriter(csEncrypt))
+                            {
+                                swEncrypt.Write(data);
+                            }
+
+                            encrypted = msEncrypt.ToArray();
+                        }
+                    }
+                }
+            }
+
+            return Convert.ToBase64String(encrypted);
+        }
+
+        /// <summary>
+        /// Decrypts <paramref name="input"/> data with AES algorithm.
+        /// </summary>
+        /// <typeparam name="T">The type deserializable with <see cref="JsonConvert.DeserializeObject(string)"/></typeparam>
+        /// <param name="input">The data in base 64 format for encryption.</param>
+        /// <param name="key">The secret key for the symmetric algorithm.</param>
+        /// <param name="vector">The initialization vector (<see cref="System.Security.Cryptography.SymmetricAlgorithm.IV"/>) for the symmetric algorithm.</param>
+        /// <returns>Deserialized object.</returns>
+        public static T AesDecrypt<T>(string input, string key, string vector)
+        {
+            var data = Convert.FromBase64String(input);
+
+            using (var aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.IV = Encoding.UTF8.GetBytes(vector);
+
+                using (var encryptor = aes.CreateDecryptor(aes.Key, aes.IV))
+                {
+                    using (var msEncrypt = new MemoryStream(data))
                     {
                         using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Read))
                         {
                             using (var swEncrypt = new StreamReader(csEncrypt))
                             {
                                 var output = swEncrypt.ReadToEnd();
-
-                                var tt = typeof(T);
-
-                                if (tt == typeof(object))
-                                {
-                                    return JsonConvert.DeserializeObject<T>(output);
-                                }
-                                else
-                                {
-                                    return (T)(object)output;
-                                }
+                                return JsonConvert.DeserializeObject<T>(output);
                             }
                         }
                     }

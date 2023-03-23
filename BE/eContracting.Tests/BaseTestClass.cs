@@ -72,14 +72,14 @@ namespace eContracting.Tests
         public UserCacheDataModel CreateAnonymousUser(OfferModel offer)
         {
             var user = new UserCacheDataModel();
-            user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.NONE;
+            user.SetAuth(offer.Guid, AUTH_METHODS.NONE);
             return user;
         }
 
         public UserCacheDataModel CreateTwoSecretsUser(OfferModel offer)
         {
             var user = new UserCacheDataModel();
-            user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.TWO_SECRETS;
+            user.SetAuth(offer.Guid, AUTH_METHODS.TWO_SECRETS);
             return user;
         }
 
@@ -91,7 +91,7 @@ namespace eContracting.Tests
             var user = new UserCacheDataModel();
             user.Tokens = tokens;
             user.CognitoUser = cognito;
-            user.AuthorizedGuids[offer.Guid] = AUTH_METHODS.COGNITO;
+            user.SetAuth(offer.Guid, AUTH_METHODS.COGNITO);
             return user;
         }
 

@@ -52,5 +52,10 @@ namespace eContracting
         /// Destroys the session
         /// </summary>
         void Abandon();
+
+        /// <summary>
+        /// Clears and abandon current session - it also creates new session id.
+        /// </summary>
+        void RefreshSession();
     }
 }

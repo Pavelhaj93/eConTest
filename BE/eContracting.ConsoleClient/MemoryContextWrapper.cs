@@ -61,6 +61,21 @@ namespace eContracting.ConsoleClient
             return false;
         }
 
+        public void RefreshSession()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ResetSessionId()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCookie(HttpCookie cookie)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetDisplayMode(DisplayMode model)
         {
         }

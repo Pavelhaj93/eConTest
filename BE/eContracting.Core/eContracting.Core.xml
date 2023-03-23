@@ -399,6 +399,11 @@
             Destroys the session
             </summary>
         </member>
+        <member name="M:eContracting.ISessionProvider.RefreshSession">
+            <summary>
+            Clears and abandon current session - it also creates new session id.
+            </summary>
+        </member>
         <member name="T:eContracting.IStartup">
             <summary>
             Initialize the code in <see cref="M:eContracting.IStartup.Initialize"/> method when Sitecore stars (initialize pipeline).
@@ -1470,14 +1475,14 @@
             The Cognito user data.
             </summary>
         </member>
-        <member name="P:eContracting.Models.UserCacheDataModel.AuthorizedGuids">
-            <summary>
-            Gets pairs of guids and how they were authenticated.
-            </summary>
-        </member>
         <member name="P:eContracting.Models.UserCacheDataModel.IsCognito">
             <summary>
             Determinates is user has Cognito data.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.UserCacheDataModel.AuthorizedGuids">
+            <summary>
+            Gets pairs of guids and how they were authenticated.
             </summary>
         </member>
         <member name="M:eContracting.Models.UserCacheDataModel.#ctor">
@@ -15316,6 +15321,9 @@
         <member name="M:eContracting.SitecoreContextWrapper.GetQueryParams">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.SitecoreContextWrapper.SetCookie(System.Web.HttpCookie)">
+            <inheritdoc/>
+        </member>
         <member name="F:eContracting.Utils.RegexAttrStyle">
             <summary>
             Regular expression for HTML attribute ' style="..."'.
@@ -15332,6 +15340,26 @@
             </summary>
             <seealso cref="!:https://stackoverflow.com/questions/281640/how-do-i-get-a-human-readable-file-size-in-bytes-abbreviation-using-net"/>
             <param name="size">The size.</param>
+        </member>
+        <member name="M:eContracting.Utils.AesEncrypt``1(``0,System.String,System.String)">
+            <summary>
+            Encrypts <paramref name="input"/> with AES algorithm.
+            </summary>
+            <typeparam name="T">The type serializable with <see cref="M:Newtonsoft.Json.JsonConvert.SerializeObject(System.Object)"/></typeparam>
+            <param name="input">The object for encryption.</param>
+            <param name="key">The secret key for the symmetric algorithm.</param>
+            <param name="vector">The initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV"/>) for the symmetric algorithm.</param>
+            <returns>Data in base 64 format.</returns>
+        </member>
+        <member name="M:eContracting.Utils.AesDecrypt``1(System.String,System.String,System.String)">
+            <summary>
+            Decrypts <paramref name="input"/> data with AES algorithm.
+            </summary>
+            <typeparam name="T">The type deserializable with <see cref="M:Newtonsoft.Json.JsonConvert.DeserializeObject(System.String)"/></typeparam>
+            <param name="input">The data in base 64 format for encryption.</param>
+            <param name="key">The secret key for the symmetric algorithm.</param>
+            <param name="vector">The initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV"/>) for the symmetric algorithm.</param>
+            <returns>Deserialized object.</returns>
         </member>
         <member name="M:eContracting.Utils.SetQuery(System.Uri,System.String,System.String)">
             <summary>
