@@ -129,7 +129,7 @@ namespace eContracting.Models
         {
             get
             {
-                return this.Attributes.FirstOrDefault(x => x.Key == "KEY_GDPR")?.Value;
+                return this.Attributes.FirstOrDefault(x => x.Key == Constants.OfferAttributes.KEY_GDPR)?.Value;
             }
         }
 
@@ -141,7 +141,7 @@ namespace eContracting.Models
         {
             get
             {
-                return this.Attributes.FirstOrDefault(x => x.Key == "CAMPAIGN")?.Value;
+                return this.Attributes.FirstOrDefault(x => x.Key == Constants.OfferAttributes.CAMPAIGN)?.Value;
             }
         }
 
