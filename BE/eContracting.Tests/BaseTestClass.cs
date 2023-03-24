@@ -59,6 +59,16 @@ namespace eContracting.Tests
             return CreateOffer(this.CreateGuid(), isAccepted, version, state, "31.12.2021", null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <param name="isAccepted"></param>
+        /// <param name="version"></param>
+        /// <param name="state">Check <see cref="OfferModel.State"/></param>
+        /// <param name="validTo"></param>
+        /// <param name="attributes"></param>
+        /// <returns></returns>
         public OfferModel CreateOffer(string guid, bool isAccepted, int version, string state, string validTo, OfferAttributeModel[] attributes)
         {
             var offerXml = new OfferXmlModel();

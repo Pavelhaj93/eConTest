@@ -29,6 +29,8 @@ namespace eContracting
             public const string VALID_TO = "VALID_TO";
             public const string ZIDENTITYID = "ZIDENTITYID";
             public const string MCFU_REG_STAT = "MCFU_REG_STAT";
+            public const string KEY_GDPR = "KEY_GDPR";
+            public const string CAMPAIGN = "CAMPAIGN";
 
             /// <summary>
             /// Attribute to determinate if show prices (with value X) or not.
