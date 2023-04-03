@@ -134,8 +134,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 else
                 {
                     if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
-                    {
-                        return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid, true);
+                    {                        
+                        if (this.ContextWrapper.GetQueryValue("s") == "o" || offer.Version < 3)
+                        {
+                            return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid, true);
+                        }
+
+                        return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid, true);
                     }
                 }
 
