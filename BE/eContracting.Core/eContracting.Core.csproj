@@ -347,6 +347,7 @@
     <Compile Include="Models\JsonSectionAcceptanceBoxModel.cs" />
     <Compile Include="Models\JwtRefreshTokenModel.cs" />
     <Compile Include="Models\LoginFailureModel.cs" />
+    <Compile Include="Models\OffersContainerModel.cs" />
     <Compile Include="Models\OAuthTokensModel.cs" />
     <Compile Include="Models\OfferFileXmlModel.cs" />
     <Compile Include="Models\OfferSubmitDataModel.cs" />
