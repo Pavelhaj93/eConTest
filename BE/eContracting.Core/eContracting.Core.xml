@@ -1270,6 +1270,17 @@
             </summary>
             <example>innosvět</example>
         </member>
+        <member name="T:eContracting.Models.OffersContainerModel">
+            <summary>
+            Represents collection of <see cref="T:eContracting.Models.OfferModel"/>.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.OffersContainerModel.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Models.OffersContainerModel.#ctor(System.Collections.Generic.IEnumerable{eContracting.Models.OfferModel})">
+            <inheritdoc/>
+        </member>
         <member name="P:eContracting.Models.OAuthTokensModel.AccessToken">
             <summary>
             A valid user pool access token.
@@ -14903,6 +14914,13 @@
             <param name="user">The user.</param>
             <returns></returns>
         </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetSummary(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets summary infor for the <paramref name="offers"/>.
+            </summary>
+            <param name="offers">Collection of the offers.</param>
+            <param name="user">The user.</param>
+        </member>
         <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for not accepted offer.
@@ -14910,13 +14928,26 @@
             <param name="offer">The offer.</param>
             <param name="user">The user.</param>
         </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets prescription for not accepted <paramref name="offers"/>.
+            </summary>
+            <param name="offers">Collection of not accepted offers.</param>
+            <param name="user">The user.</param>
+        </member>
         <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for accepted offer.
             </summary>
             <param name="offer">The offer.</param>
-            /// <param name="user">The user.</param>
-            <returns></returns>
+            <param name="user">The user.</param>
+        </member>
+        <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets prescription for accepted <paramref name="offers"/>.
+            </summary>
+            <param name="offers">Collection of accepted offers.</param>
+            <param name="user">The user.</param>
         </member>
         <member name="T:eContracting.IOfferParserService">
             <summary>
@@ -15006,6 +15037,13 @@
             </summary>
             <param name="offer">The offer.</param>
             <returns>Definition or <see cref="T:System.ApplicationException"/> when not found.</returns>
+        </member>
+        <member name="M:eContracting.ISettingsReaderService.GetDefinition(eContracting.Models.OffersContainerModel)">
+            <summary>
+            Gets definition by <see cref="P:eContracting.Models.OfferModel.Process"/> and <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
+            </summary>
+            <param name="offer">Model with more offers.</param>
+            <returns>Definition for first offer in <see cref="T:eContracting.Models.OffersContainerModel"/> or <see cref="T:System.ApplicationException"/> when not found.</returns>
         </member>
         <member name="M:eContracting.ISettingsReaderService.GetDefinition(System.String,System.String)">
             <summary>

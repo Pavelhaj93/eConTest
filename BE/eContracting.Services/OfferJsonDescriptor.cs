@@ -73,6 +73,12 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public JsonOfferSummaryModel GetSummary(OffersContainerModel offers, UserCacheDataModel user)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user)
         {
             var attachments = this.ApiService.GetAttachments(offer, user);
@@ -80,10 +86,22 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public JsonOfferNotAcceptedModel GetNew(OffersContainerModel offers, UserCacheDataModel user)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
         public JsonOfferAcceptedModel GetAccepted(OfferModel offer, UserCacheDataModel user)
         {
             var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetAccepted(offer, attachments);
+        }
+
+        /// <inheritdoc/>
+        public JsonOfferAcceptedModel GetAccepted(OffersContainerModel offers, UserCacheDataModel user)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

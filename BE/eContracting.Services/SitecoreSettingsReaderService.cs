@@ -492,6 +492,24 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public IDefinitionCombinationModel GetDefinition(OffersContainerModel offer)
+        {
+            if (offer == null)
+            {
+                throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF-2", "Offers container is null, cannot retrieve matrix information."));
+            }
+
+            var firstOffer = offer.FirstOrDefault();
+
+            if (firstOffer == null)
+            {
+                throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF", "Offers container doesn't contain any offer, cannot retrieve matrix information."));
+            }
+
+            return this.GetDefinition(firstOffer);
+        }
+
+        /// <inheritdoc/>
         public IDefinitionCombinationModel GetDefinition(string process, string processType)
         {
             if (!string.IsNullOrEmpty(process) && !string.IsNullOrEmpty(processType))
