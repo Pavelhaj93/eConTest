@@ -417,7 +417,8 @@ namespace eContracting.Services
         protected internal CallMeBackDataModel GetCmbModel(CallMeBackModel model, ICallMeBackModalWindow datasource)
         {
             var zFiles = this.GetFiles(model, datasource);
-            var zParameters = this.GetParameters(model, datasource);
+            var callTime = this.GetCallTime(model);
+            var zParameters = this.GetParameters(model, datasource, callTime);            
 
             var zActivity = new CallMeBackDataModel();
             zActivity.Description = datasource.SettingsDescription;
@@ -425,6 +426,7 @@ namespace eContracting.Services
             zActivity.Note = model.Note;
             zActivity.Eicean = model.EicEan;
             zActivity.PhoneNumber = model.Phone;
+            zActivity.CallTime = callTime;
             zActivity.Process = model.Process;
             zActivity.ExternalSystem = model.ExternalSystem;
             zActivity.ExternalKey = String.Empty;
@@ -482,9 +484,8 @@ namespace eContracting.Services
             return files.ToArray();
         }
 
-        protected internal CallMeBackAttributeDataModel[] GetParameters(CallMeBackModel cmb, ICallMeBackModalWindow datasource)
+        protected internal CallMeBackAttributeDataModel[] GetParameters(CallMeBackModel cmb, ICallMeBackModalWindow datasource, string callTime)
         {
-            var callTime = this.GetCallTime(cmb);
             var list = new List<CallMeBackAttributeDataModel>();
             list.Add(new CallMeBackAttributeDataModel("processtype", datasource.SettingsProcessType));
             list.Add(new CallMeBackAttributeDataModel("cmbid", datasource.ID.ToString()));
@@ -618,6 +619,7 @@ namespace eContracting.Services
             public string Note { get; set; }
             public string Eicean { get; set; }
             public string PhoneNumber { get; set; }
+            public string CallTime { get; set; }
             public string Process { get; set; }
             public string ExternalSystem { get; set; }
             public string ExternalKey { get; set; }
