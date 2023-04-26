@@ -73,6 +73,8 @@ namespace eContracting
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
         OfferModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters);
 
+        OffersContainerModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters);
+
         /// <summary>
         /// Make offer <paramref name="guid"/> signed.
         /// </summary>

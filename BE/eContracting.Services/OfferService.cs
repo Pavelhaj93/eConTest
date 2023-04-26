@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Web.UI.WebControls;
 using System.Xml;
 using eContracting.Models;
 
@@ -222,6 +223,44 @@ namespace eContracting.Services
             }
 
             return this.GetOffer(response, includeTextParameters);
+        }
+
+        public OffersContainerModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters)
+        {
+            var offers = new OffersContainerModel();
+            var currentGuid = guid;
+            var isNextOffer = false;
+            var collectedGuids = new List<string>();
+
+            do
+            {
+                var offer = this.GetOffer(currentGuid, user, includeTextParameters);
+
+                if (offer == null)
+                {
+                    isNextOffer = false;
+                }
+                else
+                {
+                    offers.Add(offer);
+                    collectedGuids.Add(currentGuid);
+
+                    if (!string.IsNullOrEmpty(offer.SiblingGuid))
+                    {
+                        currentGuid = offer.SiblingGuid;
+                        isNextOffer = true;
+                    }
+
+                    if (collectedGuids.Contains(currentGuid))
+                    {
+                        // break infinite loop
+                        isNextOffer = false;
+                    }
+                }
+
+            } while(isNextOffer);
+
+            return offers;
         }
 
         /// <inheritdoc/>
