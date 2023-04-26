@@ -461,7 +461,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Get JSON model for non accepted offer.
+        /// Get JSON model for new offer page.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -549,7 +549,23 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         /// <summary>
-        /// Get JSON model for accepted offer.
+        /// Gets and sets offer state
+        /// </summary>
+        [HttpGet]
+        [HttpPost]
+        public async Task<IHttpActionResult> State()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet]
+        public async Task<IHttpActionResult> Uploads()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Get JSON model for accepted offer page.
         /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> Accepted()
@@ -612,6 +628,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+        /// <summary>
+        /// Get JSON model for summary page.
+        /// </summary>
         [HttpGet]
         public async Task<IHttpActionResult> Summary()
         {
