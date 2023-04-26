@@ -22,6 +22,12 @@ namespace eContracting.Models
         public string Guid { get; set; }
 
         /// <summary>
+        /// Gets or sets guid of sibling offer connected to this one.
+        /// </summary>
+        [XmlElement("PARALLEL_GUID")]
+        public string SiblingGuid { get; set; }
+
+        /// <summary>
         /// Gets or sets CAMPAIGN value.
         /// </summary>
         [XmlIgnore]

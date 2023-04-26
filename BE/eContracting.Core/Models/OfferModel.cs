@@ -40,7 +40,7 @@ namespace eContracting.Models
         public readonly int Version;
 
         /// <summary>
-        /// Gets or sets the unique GUID of this offer.
+        /// Gets the unique GUID of this offer.
         /// </summary>
         [JsonProperty("guid")]
         public string Guid
@@ -48,6 +48,17 @@ namespace eContracting.Models
             get
             {
                 return this.Header.CCHKEY;
+            }
+        }
+
+        /// <summary>
+        /// Gets guid of sibling offer to this one.
+        /// </summary>
+        public string SiblingGuid
+        {
+            get
+            {
+                return this.Xml.Content.Body.SiblingGuid;
             }
         }
 
