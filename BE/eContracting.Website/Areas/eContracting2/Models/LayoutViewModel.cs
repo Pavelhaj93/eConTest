@@ -40,6 +40,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         protected readonly IOfferService OfferService;
         protected readonly IUserService UserService;
         protected readonly IDataRequestCacheService RequestCacheService;
+        protected readonly IContextWrapper ContextWrapper;
         protected readonly ILogger Logger;
 
         public LayoutViewModel()
@@ -48,6 +49,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
             this.UserService = ServiceLocator.ServiceProvider.GetRequiredService<IUserService>();
             this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.RequestCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
+            this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.Logger = ServiceLocator.ServiceProvider.GetService<ILogger>();
         }
 
@@ -55,11 +57,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
             ISettingsReaderService settingsReader,
             IOfferService offerService,
             IUserService userService,
+            IContextWrapper contextWrapper,
             ILogger logger)
         {
             this.SettingsReader = settingsReader;
             this.OfferService = offerService;
             this.UserService = userService;
+            this.ContextWrapper = contextWrapper;
             this.Logger = logger;
         }
 
@@ -115,7 +119,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     var isLoginPage = rendering.Item.TemplateID == Constants.TemplateIds.PageLogin;
 
                     // first try to initiliaze user
-                    //this.InitializeUser(guid, rendering, isLoginPage);
+                    this.InitializeUser(guid, rendering, isLoginPage);
                     // then user can be used to get offer
                     this.InitializeOffer(guid, rendering);
 
@@ -164,17 +168,35 @@ namespace eContracting.Website.Areas.eContracting2.Models
         {
             try
             {
+                if (!string.IsNullOrEmpty(this.ContextWrapper.GetQueryValue(Constants.QueryKeys.RENEW_SESSION)))
+                {
+                    return;
+                }
+
                 var user = this.UserService.GetUser();
 
-                if (!this.UserService.IsUserValid(guid, user))
+                if (this.UserService.TryAuthenticateUser(guid, user))
                 {
-                    this.Logger.Info(guid, $"[{nameof(LayoutViewModel)}] {user} is not valid in current context, calling logout ...");
-                    this.UserService.Logout(guid, user, AUTH_METHODS.COGNITO);
+                    if (this.UserService.IsUserValid(guid, user))
+                    {
+                        this.UserService.RefreshAuthorizationIfNeeded(guid, user);
+                    }
+                    else
+                    {
+                        this.Logger.Info(guid, $"[{nameof(LayoutViewModel)}] {user} is not valid in current context, calling logout ...");
+                        this.UserService.Logout(guid, user, AUTH_METHODS.COGNITO);
+                    }
                 }
-                else
-                {
-                    this.UserService.RefreshAuthorizationIfNeeded(guid, user);
-                }
+
+                //if (!this.UserService.IsUserValid(guid, user))
+                //{
+                //    this.Logger.Info(guid, $"[{nameof(LayoutViewModel)}] {user} is not valid in current context, calling logout ...");
+                //    this.UserService.Logout(guid, user, AUTH_METHODS.COGNITO);
+                //}
+                //else
+                //{
+                //    this.UserService.RefreshAuthorizationIfNeeded(guid, user);
+                //}
 
                 //if (isLoginPage)
                 //{
