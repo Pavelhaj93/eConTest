@@ -100,6 +100,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.INVALID_GUID, guid);
                 }
 
+                // if is re-new session requested
                 var renewSessionResult = this.RenewSession();
 
                 if (renewSessionResult != null)
@@ -107,16 +108,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return renewSessionResult;
                 }
 
-                //var msg = Request.QueryString["error"];
-
                 if (!string.IsNullOrEmpty(this.SessionProvider.GetValue<string>(SESSION_ERROR_KEY)))
                 {
                     errorString = this.SessionProvider.GetValue<string>(SESSION_ERROR_KEY);
                     this.SessionProvider.Remove(SESSION_ERROR_KEY);    ////After error page refresh user will get general validation error message
                 }
 
-                //if (this.UserService.IsAuthorizedFor())
-
+                // gets offer as anonymous in case logged user cannot read it under his state
                 var offer = this.OfferService.GetOffer(guid);
 
                 if (offer == null)
@@ -125,41 +123,18 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetLoginFailReturns(LOGIN_STATES.OFFER_NOT_FOUND, guid);
                 }
 
-                var user = this.UserService.GetUser(); // Data were set in LayoutViewModel.Initialize()
-
-                if (!this.UserService.TryAuthenticateUser(guid, user))
-                {
-                    this.UserService.Logout(guid, user);
-                }
-                else
-                {
-                    if (this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX))
-                    {                        
-                        if (this.ContextWrapper.GetQueryValue("s") == "o" || offer.Version < 3)
-                        {
-                            return this.RedirectWithNewSession(PAGE_LINK_TYPES.Offer, guid, true);
-                        }
-
-                        return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid, true);
-                    }
-                }
-
-                var hideInnogyAccount = !offer.HasMcfu;
-                var showInnogyAccountHideInfo = user.IsCognito;
+                // Data were set in LayoutViewModel.Initialize()
+                // User could be logged in as Cognito
+                var user = this.UserService.GetUser();
+                // Only Cognito user may not be able to read it
                 var canReadOffer = this.OfferService.CanReadOffer(guid, user, OFFER_TYPES.QUOTPRX);
+                // User must be authorized for current guid
+                var isAuthorizedForOffer = this.UserService.IsAuthorized(user, guid);
+                // Do not allow auto login if Cognito logged-in
+                var stopAutoLogin = this.Request.QueryString[Constants.QueryKeys.DO_NOT_AUTO_LOGIN] == Constants.QueryValues.DO_NOT_AUTO_LOGIN_TRUE;
 
-                if (!canReadOffer)
+                if (isAuthorizedForOffer && canReadOffer && !stopAutoLogin)
                 {
-                    hideInnogyAccount = true;
-                }
-                else
-                {
-                    showInnogyAccountHideInfo = false;
-                }
-
-                if (!hideInnogyAccount && this.CanReadOfferWithoutLogin(user, offer))
-                {
-                    user.SetAuth(offer.Guid, AUTH_METHODS.COGNITO);
                     var campaignCode = this.GetCampaignCode(offer);
                     this.EventLogger.Add(this.SessionProvider.GetId(), guid, EVENT_NAMES.LOGIN);
                     this.ClearFailedAttempts(guid, user, AUTH_RESULT_STATES.SUCCEEDED, null, campaignCode);
@@ -172,11 +147,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid, true);
                 }
 
-                if (user.IsAuthFor(guid))
+                if (user.RemoveAuth(guid))
                 {
-                    user.RemoveAuth(guid);
                     this.Logger.Debug(guid, "Removing current guid as orphan from AuthorizedGuids");
                 }
+
+                // When Cognito cannot read the offer (hide innosvět login) and keep him on login page
+                var showInnogyAccount = canReadOffer && offer.HasMcfu;
+                var showInnogyAccountHideInfo = canReadOffer ? false : user.IsCognito;
 
                 // continue on login page
 
@@ -212,7 +190,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.Partner = offer.PartnerNumber;
                 viewModel.Zip1 = offer.PostNumber;
                 viewModel.Zip2 = offer.PostNumberConsumption;
-                viewModel.HideInnogyAccount = hideInnogyAccount;
+                viewModel.HideInnogyAccount = !showInnogyAccount;
                 viewModel.ShowInnogyAccountHideInfo = showInnogyAccountHideInfo;
 
                 if (!viewModel.HideInnogyAccount)
@@ -1008,7 +986,38 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return true;
         }
 
+        [Obsolete]
         protected internal bool CanReadOfferWithoutLogin(UserCacheDataModel user, OfferModel offer)
+        {
+            if (offer == null)
+            {
+                return false;
+            }
+
+            if (!this.UserService.IsAuthorized(user, offer.Guid))
+            {
+                return false;
+            }
+
+            if (!this.OfferService.CanReadOffer(offer.Guid, user, OFFER_TYPES.QUOTPRX))
+            {
+                return false;
+            }
+
+            if (!user.IsCognito)
+            {
+                return false;
+            }
+
+            if (this.Request.QueryString[Constants.QueryKeys.DO_NOT_AUTO_LOGIN] == Constants.QueryValues.DO_NOT_AUTO_LOGIN_TRUE)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        protected internal bool CanReadOfferWithoutLogin(UserCacheDataModel user, OffersModel offer)
         {
             if (offer == null)
             {
