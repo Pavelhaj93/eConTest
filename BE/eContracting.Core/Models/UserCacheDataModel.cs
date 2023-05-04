@@ -35,6 +35,8 @@ namespace eContracting.Models
         /// </summary>
         public IDictionary<string, AUTH_METHODS> AuthorizedGuids { get; } = new Dictionary<string, AUTH_METHODS>();
 
+        public bool IsAnonymous => this.AuthorizedGuids.Count == 0;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UserCacheDataModel"/> class.
         /// </summary>
@@ -129,6 +131,12 @@ namespace eContracting.Models
             {
                 return false;
             }
+            
+            if (this.AuthorizedGuids[guid] == AUTH_METHODS.COGNITO)
+            {
+                this.CognitoUser = null;
+                this.Tokens = null;
+            }
 
             return this.AuthorizedGuids.Remove(guid);
         }
@@ -140,7 +148,7 @@ namespace eContracting.Models
 
             if (this.AuthorizedGuids.Count == 0)
             {
-                builder.Append("No auth data.");
+                builder.Append("anonymous.");
             }
             else
             {

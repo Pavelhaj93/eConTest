@@ -34,6 +34,9 @@ namespace eContracting.Services
         /// </summary>
         protected readonly IServiceFactory ServiceFactory;
 
+        /// <summary>
+        /// The data service.
+        /// </summary>
         protected readonly IOfferDataService DataService;
 
         /// <summary>
@@ -51,6 +54,9 @@ namespace eContracting.Services
         /// </summary>
         protected readonly IContextWrapper Context;
 
+        /// <summary>
+        /// The cache service.
+        /// </summary>
         protected readonly IDataRequestCacheService CacheService;
 
         /// <summary>
@@ -179,15 +185,33 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public bool CanReadOffers(OffersModel offerModels, UserCacheDataModel user, OFFER_TYPES type)
+        {
+            return false;
+        }
+
+        /// <inheritdoc/>
         public OfferModel GetOffer(string guid)
         {
             return this.GetOffer(guid, null);
         }
 
         /// <inheritdoc/>
+        public OffersModel GetOffers(string guid)
+        {
+            return this.GetOffers(guid, null);
+        }
+
+        /// <inheritdoc/>
         public OfferModel GetOffer(string guid, UserCacheDataModel user)
         {
             return this.GetOffer(guid, user, true);
+        }
+
+        /// <inheritdoc/>
+        public OffersModel GetOffers(string guid, UserCacheDataModel user)
+        {
+            return this.GetOffers(guid, user, true);
         }
 
         /// <inheritdoc/>
@@ -225,15 +249,19 @@ namespace eContracting.Services
             return this.GetOffer(response, includeTextParameters);
         }
 
-        public OffersContainerModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters)
+        /// <inheritdoc/>
+        public OffersModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters)
         {
-            var offers = new OffersContainerModel();
+            var offers = new List<OfferModel>();
             var currentGuid = guid;
             var isNextOffer = false;
             var collectedGuids = new List<string>();
+            var maxIterations = 10;
+            var iterations = 0;
 
             do
             {
+                iterations++;
                 var offer = this.GetOffer(currentGuid, user, includeTextParameters);
 
                 if (offer == null)
@@ -258,9 +286,9 @@ namespace eContracting.Services
                     }
                 }
 
-            } while(isNextOffer);
+            } while(isNextOffer || iterations <= maxIterations);
 
-            return offers;
+            return new OffersModel(guid, offers);
         }
 
         /// <inheritdoc/>

@@ -383,6 +383,25 @@ namespace eContracting
             return result;
         }
 
+        /// <summary>
+        /// Merges <paramref name="additional"/> dictionary into <paramref name="target"/>.
+        /// </summary>
+        /// <remarks>If key exists in <paramref name="target"/>, it will be overwritten with key from <paramref name="additional"/>.</remarks>
+        /// <param name="target"></param>
+        /// <param name="additional"></param>
+        public static void Merge(IDictionary<string, string> target, IDictionary<string, string> additional)
+        {
+            target = target ?? new Dictionary<string, string>();
+
+            if (additional != null)
+            {
+                foreach (var key in additional.Keys)
+                {
+                    target.Add(key, additional[key]);
+                }
+            }
+        }
+
         public static T[] GetUpdated<T>(T[] array, T newItem)
         {
             var list = new List<T>(array);

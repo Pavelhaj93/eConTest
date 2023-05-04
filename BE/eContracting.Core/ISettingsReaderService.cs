@@ -82,8 +82,8 @@ namespace eContracting
         /// Gets definition by <see cref="OfferModel.Process"/> and <see cref="OfferModel.ProcessType"/> from '/sitecore/content/eContracting2/Definitions'.
         /// </summary>
         /// <param name="offer">Model with more offers.</param>
-        /// <returns>Definition for first offer in <see cref="OffersContainerModel"/> or <see cref="ApplicationException"/> when not found.</returns>
-        IDefinitionCombinationModel GetDefinition(OffersContainerModel offer);
+        /// <returns>Definition for first offer in <see cref="OffersModel"/> or <see cref="ApplicationException"/> when not found.</returns>
+        IDefinitionCombinationModel GetDefinition(OffersModel offer);
 
         /// <summary>
         /// Gets definition by <paramref name="process"/> and <paramref name="processType"/> from '/sitecore/content/eContracting2/Definitions'.

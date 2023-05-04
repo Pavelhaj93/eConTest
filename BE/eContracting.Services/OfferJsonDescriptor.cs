@@ -73,7 +73,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferSummaryModel GetSummary(OffersContainerModel offers, UserCacheDataModel user)
+        public JsonOfferSummaryModel GetSummary(OffersModel offers, UserCacheDataModel user)
         {
             throw new NotImplementedException();
         }
@@ -86,7 +86,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OffersContainerModel offers, UserCacheDataModel user)
+        public JsonOfferNotAcceptedModel GetNew(OffersModel offers, UserCacheDataModel user)
         {
             throw new NotImplementedException();
         }
@@ -99,7 +99,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferAcceptedModel GetAccepted(OffersContainerModel offers, UserCacheDataModel user)
+        public JsonOfferAcceptedModel GetAccepted(OffersModel offers, UserCacheDataModel user)
         {
             throw new NotImplementedException();
         }
