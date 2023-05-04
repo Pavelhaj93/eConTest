@@ -26,7 +26,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offers">Collection of the offers.</param>
         /// <param name="user">The user.</param>
-        JsonOfferSummaryModel GetSummary(OffersContainerModel offers, UserCacheDataModel user);
+        JsonOfferSummaryModel GetSummary(OffersModel offers, UserCacheDataModel user);
 
         /// <summary>
         /// Gets prescription for not accepted offer.
@@ -41,7 +41,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offers">Collection of not accepted offers.</param>
         /// <param name="user">The user.</param>
-        JsonOfferNotAcceptedModel GetNew(OffersContainerModel offers, UserCacheDataModel user);
+        JsonOfferNotAcceptedModel GetNew(OffersModel offers, UserCacheDataModel user);
 
         /// <summary>
         /// Gets prescription for accepted offer.
@@ -56,7 +56,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offers">Collection of accepted offers.</param>
         /// <param name="user">The user.</param>
-        JsonOfferAcceptedModel GetAccepted(OffersContainerModel offers, UserCacheDataModel user);
+        JsonOfferAcceptedModel GetAccepted(OffersModel offers, UserCacheDataModel user);
     }
 }
 

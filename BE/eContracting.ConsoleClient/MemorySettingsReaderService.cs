@@ -163,7 +163,7 @@ namespace eContracting.ConsoleClient
             return this.GetDefinition(offer.Process, offer.ProcessType);
         }
 
-        public IDefinitionCombinationModel GetDefinition(OffersContainerModel offer)
+        public IDefinitionCombinationModel GetDefinition(OffersModel offer)
         {
             throw new NotImplementedException();
         }

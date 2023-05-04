@@ -469,19 +469,19 @@
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OffersContainerModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetPersonalData(eContracting.Models.OfferModel)">
@@ -599,6 +599,11 @@
             The API service factory.
             </summary>
         </member>
+        <member name="F:eContracting.Services.OfferService.DataService">
+            <summary>
+            The data service.
+            </summary>
+        </member>
         <member name="F:eContracting.Services.OfferService.OfferParser">
             <summary>
             The offer parser.
@@ -612,6 +617,11 @@
         <member name="F:eContracting.Services.OfferService.Context">
             <summary>
             The context wrapper.
+            </summary>
+        </member>
+        <member name="F:eContracting.Services.OfferService.CacheService">
+            <summary>
+            The cache service.
             </summary>
         </member>
         <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferDataService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IDataRequestCacheService,eContracting.IContextWrapper)">
@@ -633,13 +643,25 @@
         <member name="M:eContracting.Services.OfferService.CanReadOffer(System.String,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferService.CanReadOffers(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetOffers(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.OfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.ReadOffer(System.String,eContracting.Models.UserCacheDataModel)">
@@ -1153,7 +1175,7 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OfferModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OffersContainerModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(eContracting.Models.OffersModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetDefinition(System.String,System.String)">

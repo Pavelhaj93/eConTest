@@ -47,5 +47,21 @@ namespace eContracting.Models
         /// Gets or sets birthday of offer owner - <see cref="OfferModel.Birthday"/>.
         /// </summary>
         string Birthday { get; }
+
+        /// <summary>
+        /// Gets partner number.
+        /// </summary>
+        /// <value>Contains only digits, or is empty.</value>
+        string PartnerNumber { get; }
+
+        /// <summary>
+        /// Gets post number where living.
+        /// </summary>
+        string PostNumber { get; }
+
+        /// <summary>
+        /// Gets post number when metering.
+        /// </summary>
+        string PostNumberConsumption { get; }
     }
 }

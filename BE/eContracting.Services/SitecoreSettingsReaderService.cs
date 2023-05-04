@@ -492,7 +492,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IDefinitionCombinationModel GetDefinition(OffersContainerModel offer)
+        public IDefinitionCombinationModel GetDefinition(OffersModel offer)
         {
             if (offer == null)
             {

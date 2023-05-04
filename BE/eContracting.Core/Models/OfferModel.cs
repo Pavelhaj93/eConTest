@@ -312,7 +312,7 @@ namespace eContracting.Models
         }
 
         /// <summary>
-        /// Determinates if user has attribute <see cref="Constants.OfferAttributes.MCFU_REG_STAT"/> or not.
+        /// Determinates if the offer has attribute <see cref="Constants.OfferAttributes.MCFU_REG_STAT"/> or not saying this offer is assigned to Cognito user.
         /// </summary>
         [JsonProperty("has_mcfu")]
         public bool HasMcfu
