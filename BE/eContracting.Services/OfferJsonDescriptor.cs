@@ -23,7 +23,7 @@ namespace eContracting.Services
         protected readonly ILogger Logger;
         protected readonly ITextService TextService;
         protected readonly ISitecoreService SitecoreService;
-        protected readonly IOfferService ApiService;
+        protected readonly IOfferService OfferService;
         protected readonly ISettingsReaderService SettingsReaderService;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace eContracting.Services
         /// <param name="logger">The logger.</param>
         /// <param name="textService">The text service.</param>
         /// <param name="sitecoreService">The context.</param>
-        /// <param name="apiService">The API service.</param>
+        /// <param name="offerService">The API service.</param>
         /// <param name="settingsReaderService">The settings reader service.</param>
         /// <exception cref="ArgumentNullException">
         /// logger
@@ -41,7 +41,7 @@ namespace eContracting.Services
         /// or
         /// context
         /// or
-        /// apiService
+        /// offerService
         /// or
         /// settingsReaderService
         /// </exception>
@@ -49,13 +49,13 @@ namespace eContracting.Services
             ILogger logger,
             ITextService textService,
             ISitecoreService sitecoreService,
-            IOfferService apiService,
+            IOfferService offerService,
             ISettingsReaderService settingsReaderService)
         {
             this.Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
             this.SitecoreService = sitecoreService ?? throw new ArgumentNullException(nameof(sitecoreService));
-            this.ApiService = apiService ?? throw new ArgumentNullException(nameof(apiService));
+            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
         }
 
@@ -75,14 +75,14 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user)
         {
-            var attachments = this.ApiService.GetAttachments(offer, user);
+            var attachments = this.OfferService.GetAttachments(offer, user);
             return this.GetNew(offer, attachments);
         }
 
         /// <inheritdoc/>
         public JsonOfferAcceptedModel GetAccepted(OffersModel offer, UserCacheDataModel user)
         {
-            var attachments = this.ApiService.GetAttachments(offer, user);
+            var attachments = this.OfferService.GetAttachments(offer, user);
             return this.GetAccepted(offer, attachments);
         }
 
