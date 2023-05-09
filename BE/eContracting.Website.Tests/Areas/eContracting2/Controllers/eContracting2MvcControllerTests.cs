@@ -27,7 +27,8 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                 ISettingsReaderService settingsReader,
                 ISessionProvider sessionProvider,
                 IDataRequestCacheService requestCacheService,
-                IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
+                IOfferService offerService,
+                IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, offerService, mvcContext)
             {
             }
         }
@@ -45,6 +46,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockUserService = new Mock<IUserService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -61,6 +63,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -84,6 +87,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             mockUserService.Setup(x => x.IsAuthorizedFor(offer.Guid)).Returns(true).Callback(() => { methodCalled = true; });
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -100,6 +104,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -126,6 +131,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(pageType, guid)).Returns(redirectUrl);
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -142,6 +148,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -169,6 +176,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             mockSettingsReader.Setup(x => x.GetPageLink(pageType, guid)).Returns(redirectUrl);
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -185,6 +193,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -198,7 +207,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
         public void GetProductName_Returns_Commodity_Product()
         {
             var offer = this.CreateOffer();
-            offer.TextParameters.Add("COMMODITY_PRODUCT", "OPTIMAL2_COMMODITY_PRODUCT");
+            offer.First().TextParameters.Add("COMMODITY_PRODUCT", "OPTIMAL2_COMMODITY_PRODUCT");
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + offer.Guid;
@@ -208,6 +217,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockUserService = new Mock<IUserService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -224,6 +234,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -237,7 +248,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
         public void GetProductName_Returns_NonCommodity_Product_When_Commodity_Product_Missing()
         {
             var offer = this.CreateOffer();
-            offer.TextParameters.Add("NONCOMMODITY_PRODUCT", "OPTIMAL2_NONCOMMODITY_PRODUCT");
+            offer.First().TextParameters.Add("NONCOMMODITY_PRODUCT", "OPTIMAL2_NONCOMMODITY_PRODUCT");
 
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + offer.Guid;
@@ -247,6 +258,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockUserService = new Mock<IUserService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -263,6 +275,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;
@@ -285,6 +298,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
             var mockUserService = new Mock<IUserService>();
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockOfferServce = new Mock<IOfferService>();
             var mockMvcContext = new Mock<IMvcContext>();
 
             using (var writter = new StringWriter())
@@ -301,6 +315,7 @@ namespace eContracting.Website.Tests.Areas.eContracting2.Controllers
                     mockSettingsReader.Object,
                     mockSessionProvider.Object,
                     mockRequestCacheService.Object,
+                    mockOfferServce.Object,
                     mockMvcContext.Object);
                 controller.ControllerContext = new ControllerContext();
                 controller.ControllerContext.HttpContext = httpContextWrapper;

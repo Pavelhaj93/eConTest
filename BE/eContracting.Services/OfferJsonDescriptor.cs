@@ -60,7 +60,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferSummaryModel GetSummary(OfferModel offer, UserCacheDataModel user)
+        public JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var model = new JsonOfferSummaryModel();
@@ -73,43 +73,26 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public JsonOfferSummaryModel GetSummary(OffersModel offers, UserCacheDataModel user)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OfferModel offer, UserCacheDataModel user)
+        public JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user)
         {
             var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetNew(offer, attachments);
         }
 
         /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OffersModel offers, UserCacheDataModel user)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public JsonOfferAcceptedModel GetAccepted(OfferModel offer, UserCacheDataModel user)
+        public JsonOfferAcceptedModel GetAccepted(OffersModel offer, UserCacheDataModel user)
         {
             var attachments = this.ApiService.GetAttachments(offer, user);
             return this.GetAccepted(offer, attachments);
         }
 
-        /// <inheritdoc/>
-        public JsonOfferAcceptedModel GetAccepted(OffersModel offers, UserCacheDataModel user)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <summary>
         /// Gets personal data.
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
-        protected internal JsonOfferPersonalDataModel GetPersonalData(OfferModel offer)
+        protected internal JsonOfferPersonalDataModel GetPersonalData(OffersModel offer)
         {
             if (!this.IsSectionChecked(offer.TextParameters, "PERSON"))
             {
@@ -199,7 +182,7 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="offer"></param>
         /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
-        protected internal JsonOfferProductModel GetProductData(OfferModel offer)
+        protected internal JsonOfferProductModel GetProductData(OffersModel offer)
         {
             if (!offer.ShowPrices)
             {
@@ -243,7 +226,7 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="offer"></param>
         /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
-        protected internal JsonOfferDistributorChangeModel GetDistributorChange(OfferModel offer)
+        protected internal JsonOfferDistributorChangeModel GetDistributorChange(OffersModel offer)
         {
             if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
             {
@@ -273,7 +256,7 @@ namespace eContracting.Services
         /// <param name="offer"></param>
         /// <param name="attachments"></param>
         /// <returns>Always returns the object.</returns>
-        protected internal JsonOfferAcceptedModel GetAccepted(OfferModel offer, OfferAttachmentModel[] attachments)
+        protected internal JsonOfferAcceptedModel GetAccepted(OffersModel offer, OfferAttachmentModel[] attachments)
         {
             var groups = new List<JsonFilesSectionModel>();
             var version = offer.Version;
@@ -297,7 +280,7 @@ namespace eContracting.Services
         /// <param name="offer"></param>
         /// <param name="attachments"></param>
         /// <returns>Always returns the object.</returns>
-        protected internal JsonOfferNotAcceptedModel GetNew(OfferModel offer, OfferAttachmentModel[] attachments)
+        protected internal JsonOfferNotAcceptedModel GetNew(OffersModel offer, OfferAttachmentModel[] attachments)
         {
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var productInfos = this.SettingsReaderService.GetAllProductInfos();
@@ -328,7 +311,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, IDefinitionCombinationModel definition, OfferModel offer)
+        protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, IDefinitionCombinationModel definition, OffersModel offer)
         {
             var list = new List<JsonFilesSectionModel>();
 
@@ -589,7 +572,7 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal JsonOfferDocumentsModel GetDocuments(OfferModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
+        protected internal JsonOfferDocumentsModel GetDocuments(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
         {
             if (files.Length == 0)
             {
@@ -613,7 +596,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition, productInfos);
             var sign = this.GetAcceptanceDocumentsSign(offer, files, definition, productInfos);
@@ -636,7 +619,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -670,7 +653,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == true).ToArray();
 
@@ -704,7 +687,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsUploadsModel GetUploads(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
+        protected internal JsonDocumentsUploadsModel GetUploads(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
         {
             var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
 
@@ -744,7 +727,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsOthersModel GetOther(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsOthersModel GetOther(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var products = this.GetOtherProducts(offer, files, definition, productInfos);
             var services = this.GetAdditionalServices(offer, files, definition, productInfos);
@@ -757,7 +740,7 @@ namespace eContracting.Services
             return new JsonDocumentsOthersModel(products, services);
         }
 
-        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "DSL" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
 
@@ -822,7 +805,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OfferModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
 
@@ -885,7 +868,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonAcceptanceDialogViewModel GetAcceptance(OfferModel offer, IDefinitionCombinationModel definition)
+        protected internal JsonAcceptanceDialogViewModel GetAcceptance(OffersModel offer, IDefinitionCombinationModel definition)
         {
             var acceptGuids = offer.TextParameters.Where(x => x.Key.Contains("_ACCEPT_LABEL_GUID")).ToArray();
 
@@ -908,7 +891,7 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal HeaderData GetHeaderData(JsonOfferProductModel model, OfferModel offer)
+        protected internal HeaderData GetHeaderData(JsonOfferProductModel model, OffersModel offer)
         {
             var header = new HeaderData();
             header.Name = offer.TextParameters.GetValueOrDefault("CALC_PROD_DESC");
@@ -970,7 +953,7 @@ namespace eContracting.Services
             return header;
         }
 
-        protected internal ProductInfoPrice[] GetProductInfos(OfferModel offer)
+        protected internal ProductInfoPrice[] GetProductInfos(OffersModel offer)
         {
             var infoPrices = new List<ProductInfoPrice>();
             var productType = string.Empty;
@@ -1083,14 +1066,14 @@ namespace eContracting.Services
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
-        protected internal string GetProductType(OfferModel offer)
+        protected internal string GetProductType(OffersModel offer)
         {
-            if (offer.Xml.Content.Body.EanOrAndEic.StartsWith("859182400"))
+            if (offer.EanOrAndEic.StartsWith("859182400"))
             {
                 return "E";
             }
 
-            if (offer.Xml.Content.Body.EanOrAndEic.StartsWith("27ZG"))
+            if (offer.EanOrAndEic.StartsWith("27ZG"))
             {
                 return "G";
             }
@@ -1186,7 +1169,7 @@ namespace eContracting.Services
             return null;
         }
 
-        protected internal string[] GetMiddleTexts(OfferModel offer)
+        protected internal string[] GetMiddleTexts(OffersModel offer)
         {
             var middleTexts = new List<string>();
 
@@ -1211,7 +1194,7 @@ namespace eContracting.Services
             return middleTexts.ToArray();
         }
 
-        protected internal string[] GetBenefits(OfferModel offer)
+        protected internal string[] GetBenefits(OffersModel offer)
         {
             var benefits = new List<string>();
 

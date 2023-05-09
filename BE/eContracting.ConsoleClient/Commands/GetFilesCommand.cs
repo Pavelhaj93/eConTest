@@ -45,9 +45,9 @@ namespace eContracting.ConsoleClient.Commands
             this.Console.WriteLine("Offer attachments:");
             var list1 = new List<FileModel>();
 
-            for (int i = 0; i < offer.Documents.Length; i++)
+            for (int i = 0; i < offer.First().Documents.Length; i++)
             {
-                list1.Add(new FileModel(offer.Documents[i].IdAttach, offer.Documents[i].Printed, offer.Documents[i].Description));
+                list1.Add(new FileModel(offer.First().Documents[i].IdAttach, offer.First().Documents[i].Printed, offer.First().Documents[i].Description));
             }
 
             this.Console.WriteLine(JsonConvert.SerializeObject(list1, Formatting.Indented));

@@ -94,7 +94,7 @@ namespace eContracting.Core.Tests.Models
 
             var offer = this.CreateOffer(Guid.NewGuid().ToString("B"), false, 3, "6", DateTime.Now.AddDays(1).ToString(), new[] { attribute });
 
-            var result = offer.McfuRegStat;
+            var result = offer.First().McfuRegStat;
 
             Assert.Equal(expectedValue, result);
         }
@@ -288,9 +288,9 @@ namespace eContracting.Core.Tests.Models
         public void RegistrationLink_Returns_Absolute_Url(string value, string expected)
         {
             var offer = this.CreateOffer();
-            offer.TextParameters[Constants.OfferTextParameters.REGISTRATION_LINK] = value;
+            offer.First().TextParameters[Constants.OfferTextParameters.REGISTRATION_LINK] = value;
 
-            var result = offer.RegistrationLink;
+            var result = offer.First().RegistrationLink;
 
             Assert.Equal(expected, result);
         }
@@ -304,7 +304,7 @@ namespace eContracting.Core.Tests.Models
             var offer = this.CreateOffer();
             offer.TextParameters[Constants.OfferTextParameters.REGISTRATION_LINK] = value;
 
-            var result = offer.RegistrationLink;
+            var result = offer.First().RegistrationLink;
 
             Assert.Null(result);
         }
@@ -319,7 +319,7 @@ namespace eContracting.Core.Tests.Models
                 offer.TextParameters.Remove(Constants.OfferTextParameters.REGISTRATION_LINK);
             }
 
-            var result = offer.RegistrationLink;
+            var result = offer.First().RegistrationLink;
 
             Assert.Null(result);
         }

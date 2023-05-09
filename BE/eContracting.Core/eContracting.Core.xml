@@ -1301,6 +1301,7 @@
             Gets version of the first offer in the collection.
             </summary>
             <value>Version of first offer in collection. If collection is empty, returns 0.</value>
+            <see cref="F:eContracting.Models.OfferModel.Version"/>
         </member>
         <member name="P:eContracting.Models.OffersModel.HasMcfu">
             <summary>
@@ -1313,7 +1314,130 @@
             Gets first guid from the collection.
             </summary>
         </member>
+        <member name="P:eContracting.Models.OffersModel.Guids">
+            <summary>
+            Gets all guids from <see cref="T:eContracting.Models.OfferModel"/>s.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.Process">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.Process"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.ProcessType">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.ProcessType"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.TextParameters">
+            <summary>
+            Gets merged text parameters from all <see cref="P:eContracting.Models.OfferModel.TextParameters"/>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.IsAccepted">
+            <summary>
+            Gets <c>true</c> if all <see cref="P:eContracting.Models.OfferModel.IsAccepted"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.IsExpired">
+            <summary>
+            Gets <c>true</c> if all <see cref="P:eContracting.Models.OfferModel.IsExpired"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.State">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.State"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.Birthday">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.Birthday"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.PartnerNumber">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.PartnerNumber"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.PostNumber">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.PostNumber"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.PostNumberConsumption">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.PostNumberConsumption"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.EanOrAndEic">
+            <summary>
+            Gets first EanOrAndEic from the collection.
+            </summary>
+            <see cref="P:eContracting.Models.OfferBodyXmlModel.EanOrAndEic"/>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.Phone">
+            <summary>
+            Gets first PHONE from the collection.
+            </summary>
+            <see cref="P:eContracting.Models.OfferBodyXmlModel.PHONE"/>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.CanBeCanceled">
+            <summary>
+            Gets <c>true</c> if any of <see cref="P:eContracting.Models.OfferModel.CanBeCanceled"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.IsCampaign">
+            <summary>
+            Gets <c>true</c> if any of <see cref="P:eContracting.Models.OfferModel.IsCampaign"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.Campaign">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.Campaign"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.CreatedAt">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.CreatedAt"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.GDPRKey">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.GDPRKey"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.HasGDPR">
+            <summary>
+            Gets <c>true</c> if any of <see cref="P:eContracting.Models.OfferModel.HasGDPR"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.GdprIdentity">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.GdprIdentity"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.ExpirationDate">
+            <summary>
+            Gets first <see cref="P:eContracting.Models.OfferModel.ExpirationDate"/> from the collection.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.ShowPrices">
+            <summary>
+            Gets <c>true</c> if all of <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> equals <c>true</c>, otherwise <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OffersModel.Documents">
+            <summary>
+            Gets all <see cref="P:eContracting.Models.OfferModel.Documents"/> from all offers.
+            </summary>
+        </member>
         <member name="M:eContracting.Models.OffersModel.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Models.OffersModel.#ctor(eContracting.Models.OfferModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Models.OffersModel.#ctor(System.Collections.Generic.IEnumerable{eContracting.Models.OfferModel})">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Models.OffersModel.#ctor(System.String,System.Collections.Generic.IEnumerable{eContracting.Models.OfferModel})">
@@ -2111,6 +2235,11 @@
             <param name="isAccepted">if set to <c>true</c> [is accepted].</param>
             <param name="textParameters">The text parameters.</param>
         </member>
+        <member name="T:eContracting.Models.OfferModel">
+            <summary>
+            Represents single offer.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferModel.Xml">
             <summary>
             Inner XML with content from SAP.
@@ -2125,6 +2254,7 @@
                     <item>1 - old offer without bus process type and with text parameters</item>
                     <item>2 - new offer MODELO_OFERTA = 01</item>
                     <item>3 - new offer MODELO_OFERTA = 02</item>
+                    <item>4 - new offer MODELO_OFERTA = 03</item>
                 </list>
             </remarks>
         </member>
@@ -14682,6 +14812,14 @@
             <param name="type">Type of the offer.</param>
             <returns></returns>
         </member>
+        <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets the files synchronous.
+            </summary>
+            <param name="offer">The offer with attachment templates.</param>
+            <param name="user">The user model.</param>
+            <returns>Files in array or null</returns>
+        </member>
         <member name="M:eContracting.IOfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets the files synchronous.
@@ -14697,14 +14835,13 @@
             <param name="guid">The unique offer identifier.</param>
             <returns>The offer or null.</returns>
         </member>
-        <member name="M:eContracting.IOfferService.GetOffers(System.String)">
-            <summary>
-            Gets collection of <see cref="T:eContracting.Models.OfferModel"/> initiated by given <paramref name="guid"/>.
-            </summary>
-            <param name="guid">The initial guid.</param>
-            <returns>Collection of the offers.</returns>
-        </member>
         <member name="M:eContracting.IOfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel)">
+             <summary>
+             Gets collection of <see cref="T:eContracting.Models.OfferModel"/> initiated by given <paramref name="guid"/>.
+             </summary>
+             <param name="guid">The initial guid.</param>
+             <returns>Collection of the offers.</returns>
+            OffersModel GetOffers(string guid);
             <summary>
             Gets the offer by <paramref name="guid"/> with text parameters synchronously.
             </summary>
@@ -14713,15 +14850,14 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets collection of <see cref="T:eContracting.Models.OfferModel"/> initiated by given <paramref name="guid"/> readable by <paramref name="user"/>.
-            </summary>
-            <param name="guid">The initial guid.</param>
-            <param name="user">The user model.</param>
-            <returns>Collection of the offers.</returns>
-        </member>
         <member name="M:eContracting.IOfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
+             <summary>
+             Gets collection of <see cref="T:eContracting.Models.OfferModel"/> initiated by given <paramref name="guid"/> readable by <paramref name="user"/>.
+             </summary>
+             <param name="guid">The initial guid.</param>
+             <param name="user">The user model.</param>
+             <returns>Collection of the offers.</returns>
+            OffersModel GetOffers(string guid, UserCacheDataModel user);
             <summary>
             Gets the offer by <paramref name="guid"/> asynchronously.
             </summary>
@@ -14731,7 +14867,7 @@
             <returns>The offer.</returns>
             <exception cref="T:System.AggregateException">When multiple issues happen in the process.</exception>
         </member>
-        <member name="M:eContracting.IOfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
+        <member name="M:eContracting.IOfferService.GetSingleOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
             <summary>
             Gets collection of <see cref="T:eContracting.Models.OfferModel"/> initiated by given <paramref name="guid"/> readable by <paramref name="user"/>.
             </summary>
@@ -14985,7 +15121,7 @@
             Creates prescription for JSON / API for not accepted offer and accepted offer.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetSummary(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.IOfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets summary infor for an offer.
             </summary>
@@ -14993,34 +15129,7 @@
             <param name="user">The user.</param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets summary infor for the <paramref name="offers"/>.
-            </summary>
-            <param name="offers">Collection of the offers.</param>
-            <param name="user">The user.</param>
-        </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets prescription for not accepted offer.
-            </summary>
-            <param name="offer">The offer.</param>
-            <param name="user">The user.</param>
-        </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets prescription for not accepted <paramref name="offers"/>.
-            </summary>
-            <param name="offers">Collection of not accepted offers.</param>
-            <param name="user">The user.</param>
-        </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets prescription for accepted offer.
-            </summary>
-            <param name="offer">The offer.</param>
-            <param name="user">The user.</param>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)" -->
         <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for accepted <paramref name="offers"/>.
@@ -15144,7 +15253,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.ISettingsReaderService.GetLoginTypes(eContracting.Models.OffersModel)">
             <summary>
             Gets available login types for <paramref name="offer"/> defined in <see cref="T:eContracting.Models.IDefinitionCombinationModel"/>.
             </summary>

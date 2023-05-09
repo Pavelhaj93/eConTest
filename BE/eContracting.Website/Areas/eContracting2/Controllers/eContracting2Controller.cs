@@ -20,7 +20,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     public class eContracting2Controller : eContracting2MvcController
     {
         protected readonly IDataSessionCacheService Cache;
-        protected readonly IOfferService OfferService;
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
 
@@ -32,10 +31,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
-            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
@@ -52,10 +51,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ITextService textService,
             ISessionProvider sessionProvider,
             IDataRequestCacheService dataRequestCacheService,
-            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, mvcContext)
+            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, offerService, mvcContext)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
-            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
         }
@@ -309,7 +307,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(PAGE_LINK_TYPES.Login, guid);
                 }
 
-                var data = this.RequestCacheService.GetOffer(guid);
+                var data = this.OfferService.GetOffer(guid);
 
                 if (data == null)
                 {
@@ -517,7 +515,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     authType = AUTH_METHODS.COGNITO;
                     var settings = this.SettingsService.GetCognitoSettings();
-                    var offer = this.RequestCacheService.GetOffer(guid);
+                    var offer = this.OfferService.GetOffer(guid);
                     viewModel.LogoUrl = offer != null ? Utils.SetQuery(settings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity) : settings.InnogyDashboardUrl;
                 }
                 else
@@ -596,7 +594,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public ActionResult AccountButtons()
         {
             var guid = this.GetGuid();
-            var offer = this.RequestCacheService.GetOffer(guid);
+            var offer = this.OfferService.GetOffer(guid);
             var settings = this.SettingsService.GetCognitoSettings();
             var datasource = this.MvcContext.GetDataSourceItem<IAccountButtonsModel>();
             var user = this.UserService.GetUser();
@@ -608,10 +606,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             if (viewModel.ShowRegistrationButtons)
             {
                 viewModel.ButtonLoginAccountUrl = Utils.SetQuery(settings.InnogyLoginUrl, Constants.QueryKeys.REDIRECT, settings.InnogyDashboardUrl);
+                var registrationLink = offer.FirstOrDefault()?.RegistrationLink;
 
-                if (!string.IsNullOrEmpty(offer.RegistrationLink))
+                if (!string.IsNullOrEmpty(registrationLink))
                 {
-                    viewModel.ButtonNewAccountUrl = offer.RegistrationLink;
+                    viewModel.ButtonNewAccountUrl = registrationLink;
                 }
                 else
                 {
@@ -626,7 +625,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/AccountButtons.cshtml", viewModel);
         }
 
-        protected internal SummaryViewModel GetSummaryViewModel(OfferModel offer, UserCacheDataModel user, IPageSummaryOfferModel datasource)
+        protected internal SummaryViewModel GetSummaryViewModel(OffersModel offer, UserCacheDataModel user, IPageSummaryOfferModel datasource)
         {
             var authType = user.GetAuthMethod(offer.Guid);
             var definition = this.SettingsService.GetDefinition(offer);
@@ -668,7 +667,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal OfferViewModel GetOfferViewModel(UserCacheDataModel user, OfferModel offer, IPageNewOfferModel datasource)
+        protected internal OfferViewModel GetOfferViewModel(UserCacheDataModel user, OffersModel offer, IPageNewOfferModel datasource)
         {
             var definition = this.SettingsService.GetDefinition(offer);
             this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
@@ -802,7 +801,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageNewOfferModel>();
 
-            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var data = this.OfferService.GetOffer(Constants.FakeOfferGuid);
             var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
 
             var steps = this.GetSteps(data, datasource);
@@ -842,7 +841,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return View("/Areas/eContracting2/Views/Edit/AcceptedOffer.cshtml", viewModel);
         }
 
-        protected internal ThankYouViewModel GetThankYouViewModel(OfferModel offer, UserCacheDataModel user)
+        protected internal ThankYouViewModel GetThankYouViewModel(OffersModel offer, UserCacheDataModel user)
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
             var definition = this.SettingsService.GetDefinition(offer);
@@ -872,7 +871,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetThankYouEditModel()
         {
-            var offer = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var offer = this.OfferService.GetOffer(Constants.FakeOfferGuid);
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
             var definition = this.SettingsService.GetDefinition(offer.Process, offer.ProcessType);
             var steps = this.GetSteps(offer, datasource);
@@ -934,7 +933,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
-        protected internal GoogleAnalyticsEvendDataModel GetGoogleEventData(OfferModel offer, IPageThankYouModel datasource, IDefinitionCombinationModel definition)
+        protected internal GoogleAnalyticsEvendDataModel GetGoogleEventData(OffersModel offer, IPageThankYouModel datasource, IDefinitionCombinationModel definition)
         {
             return this.GetGoogleEventData(
                 offer,

@@ -20,6 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly ISettingsReaderService SettingsService;
         protected readonly ISessionProvider SessionProvider;
         protected readonly IDataRequestCacheService RequestCacheService;
+        protected readonly IOfferService OfferService;
         protected readonly IMvcContext MvcContext;
 
         protected eContracting2MvcController(
@@ -29,6 +30,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ISettingsReaderService settingsReader,
             ISessionProvider sessionProvider,
             IDataRequestCacheService requestCacheService,
+            IOfferService offerService,
             IMvcContext mvcContext)
         {
             this.Logger = logger;
@@ -37,6 +39,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsService = settingsReader;
             this.SessionProvider = sessionProvider;
             this.RequestCacheService = requestCacheService;
+            this.OfferService = offerService;
             this.MvcContext = mvcContext;
         }
 
@@ -55,7 +58,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             url = Utils.RemoveQuery(url, Constants.QueryKeys.PROCESS_TYPE);
             var query = HttpUtility.ParseQueryString(url.Query);
 
-            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var data = this.OfferService.GetOffer(Constants.FakeOfferGuid);
             var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
             var defaultDefinition = this.SettingsService.GetDefinitionDefault();
             var allDefinitions = this.SettingsService.GetAllDefinitions();
@@ -125,7 +128,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         protected internal GoogleAnalyticsEvendDataModel GetGoogleEventData(
-            OfferModel offer,
+            OffersModel offer,
             string campaignLabel,
             string individualLabel,
             string electricityLabel,
@@ -145,7 +148,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var code = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
                 var commodity = string.Empty;
 
-                if (offer.Commodity.StartsWith(Constants.GTMElectricityIdentifier))
+                //TODO: Check GetGoogleEventData for multiple offers
+                if (offer.First().Commodity.StartsWith(Constants.GTMElectricityIdentifier))
                 {
                     commodity = electricityLabel;
                 }
@@ -178,10 +182,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return new GoogleAnalyticsEvendDataModel(eCat, eAct, eLab);
         }
 
-        protected internal string GetProductName(OfferModel offer)
+        protected internal string GetProductName(OffersModel offer)
         {
             var product = "UNKNOWN";
 
+            //TOOD: Check it for multiple offers
             if (offer.TextParameters.HasValue("COMMODITY_PRODUCT"))
             {
                 product = offer.TextParameters["COMMODITY_PRODUCT"];
@@ -221,12 +226,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return redirectUrl;
         }
 
-        protected internal IStepsModel GetSteps(OfferCacheDataModel offer, IBasePageWithStepsModel page)
+        protected internal IStepsModel GetSteps(OffersModel offer, IBasePageWithStepsModel page)
         {
-            return this.GetSteps(new UserCacheDataModel(), (OfferModel)null, page, null);
+            return this.GetSteps(new UserCacheDataModel(), (OffersModel)null, page, null);
         }
 
-        protected internal IStepsModel GetSteps(UserCacheDataModel user, OfferModel offer, IBasePageModel page, IDefinitionCombinationModel definition)
+        protected internal IStepsModel GetSteps(UserCacheDataModel user, OffersModel offer, IBasePageModel page, IDefinitionCombinationModel definition)
         {
             IStepsModel steps = null;
 

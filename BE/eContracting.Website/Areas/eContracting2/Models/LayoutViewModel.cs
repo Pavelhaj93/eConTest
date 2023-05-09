@@ -152,10 +152,14 @@ namespace eContracting.Website.Areas.eContracting2.Models
                     this.Logger.Info(guid, $"[{nameof(LayoutViewModel)}] Offer not found");
                     return;
                 }
+                else
+                {
+                    this.Logger.Info(guid, $"[{nameof(LayoutViewModel)}] Offers '{offer.Guids}' found");
+                }
 
-                var cacheData = new OfferCacheDataModel(offer);
-                this.RequestCacheService.SaveOffer(guid, cacheData);
-                this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] Offer data stored in cache");
+                //var cacheData = new OfferCacheDataModel(offer);
+                //this.RequestCacheService.SaveOffer(guid, cacheData);
+                //this.Logger.Debug(guid, $"[{nameof(LayoutViewModel)}] Offer data stored in cache");
             }
             catch (EndpointNotFoundException exception)
             {

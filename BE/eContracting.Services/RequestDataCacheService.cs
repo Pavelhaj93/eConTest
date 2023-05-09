@@ -20,12 +20,6 @@ namespace eContracting.Services
             return (T)value;
         }
 
-        public OfferCacheDataModel GetOffer(string guid)
-        {
-            var key = this.GetOfferCacheKey(guid);
-            return this.Get<OfferCacheDataModel>(key);
-        }
-
         public void Remove(string key)
         {
             HttpContext.Current.Items.Remove(key);

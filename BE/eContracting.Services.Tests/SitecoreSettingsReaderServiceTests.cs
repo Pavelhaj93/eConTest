@@ -355,8 +355,8 @@ namespace eContracting.Services.Tests
             var process = "XYZ";
             var processType = "123";
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = process;
-            offer.Xml.Content.Body.BusProcessType = processType;
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().Xml.Content.Body.BusProcessType = processType;
 
             var mockProcess = new Mock<IProcessModel>();
             mockProcess.SetupProperty(x => x.Code, process);
@@ -385,8 +385,8 @@ namespace eContracting.Services.Tests
         public void GetDefinition_Returns_Default_Definition_When_NotMatched_Offer()
         {
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = "XYZ";
-            offer.Xml.Content.Body.BusProcessType = "123";
+            offer.First().Xml.Content.Body.BusProcess = "XYZ";
+            offer.First().Xml.Content.Body.BusProcessType = "123";
 
             var mockProcess = new Mock<IProcessModel>();
             mockProcess.SetupProperty(x => x.Code, "ABCDED");
@@ -474,8 +474,8 @@ namespace eContracting.Services.Tests
             var processType = "123";
 
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = process;
-            offer.Xml.Content.Body.BusProcessType = processType;
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().Xml.Content.Body.BusProcessType = processType;
 
             var loginTypes = new List<ILoginTypeModel>();
             var mockLoginType1 = new Mock<ILoginTypeModel>();
@@ -536,8 +536,8 @@ namespace eContracting.Services.Tests
             }
 
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = process;
-            offer.Xml.Content.Body.BusProcessType = processType;
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().Xml.Content.Body.BusProcessType = processType;
 
             var mockProcess = new Mock<IProcessModel>();
             mockProcess.SetupProperty(x => x.Code, process);
@@ -580,8 +580,8 @@ namespace eContracting.Services.Tests
             mockLoginType3.SetupProperty(x => x.Name, "LT3");
             loginTypes.Add(mockLoginType3.Object);
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = process;
-            offer.Xml.Content.Body.BusProcessType = processType;
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().Xml.Content.Body.BusProcessType = processType;
 
             var mockProcessModel = new Mock<IProcessModel>();
             mockProcessModel.SetupProperty(x => x.Code, process);
@@ -620,8 +620,8 @@ namespace eContracting.Services.Tests
             var processType = "123";
 
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.BusProcess = process;
-            offer.Xml.Content.Body.BusProcessType = processType;
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().Xml.Content.Body.BusProcessType = processType;
 
             var loginTypes = new List<ILoginTypeModel>();
             var mockLoginType = new Mock<ILoginTypeModel>();

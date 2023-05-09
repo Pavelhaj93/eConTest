@@ -12,20 +12,20 @@ using eContracting.Services;
 
 namespace eContracting.ConsoleClient.Commands
 {
-    class AnalyzeOfferCommand : BaseCommand
+    class AnalyzeOffersCommand : BaseCommand
     {
         readonly IOfferDataService OfferDataService;
         readonly OfferService ApiService;
         readonly ILogger Logger;
         readonly OfferJsonDescriptor OfferDescriptor;
 
-        public AnalyzeOfferCommand(
+        public AnalyzeOffersCommand(
             IOfferDataService offerDataService,
             IOfferService apiService,
             IOfferJsonDescriptor offerDescriptor,
             ILogger logger,
             IConsole console)
-            : base("analyze", console)
+            : base("analyze2", console)
         {
             this.OfferDataService = offerDataService;
             this.ApiService = apiService as OfferService;
@@ -44,115 +44,127 @@ namespace eContracting.ConsoleClient.Commands
             using (new ConsoleLoggerSuspender(this.Logger, !debug))
             {
                 this.Console.WriteLine();
+                bool isNextOffer = false;
+                OffersModel offers = new OffersModel();
+                var attachments = new List<OfferAttachmentModel>();
 
-                var response = this.OfferDataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
-
-                if (response.Response.EV_RETCODE != 0)
+                do
                 {
-                    var error = response.Response.ET_RETURN.First();
+                    var response = this.OfferDataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
+
+                    if (response.Response.EV_RETCODE != 0)
+                    {
+                        var error = response.Response.ET_RETURN.First();
+
+                        this.Console.WriteLine();
+                        this.Console.WriteLineError(response.Response.ET_RETURN.First().MESSAGE);
+                        this.Console.WriteLineWarning(" - ID: " + error.ID);
+                        this.Console.WriteLineWarning(" - FIELD: " + error.FIELD);
+                        this.Console.WriteLineWarning(" - LOG_MSG_NO: " + error.LOG_MSG_NO);
+                        this.Console.WriteLineWarning(" - LOG_NO: " + error.LOG_NO);
+                        this.Console.WriteLineWarning(" - MESSAGE_V1: " + error.MESSAGE_V1);
+                        this.Console.WriteLineWarning(" - MESSAGE_V2: " + error.MESSAGE_V2);
+                        this.Console.WriteLineWarning(" - MESSAGE_V3: " + error.MESSAGE_V3);
+                        this.Console.WriteLineWarning(" - MESSAGE_V4: " + error.MESSAGE_V4);
+                        this.Console.WriteLineWarning(" - NUMBER: " + error.NUMBER);
+                        this.Console.WriteLineWarning(" - PARAMETER: " + error.PARAMETER);
+                        this.Console.WriteLineWarning(" - ROW: " + error.ROW);
+                        this.Console.WriteLineWarning(" - SYSTEM: " + error.SYSTEM);
+                        this.Console.WriteLineWarning(" - TYPE: " + error.TYPE);
+                        break;
+                    }
+
+                    this.Console.WriteLine("Header:");
+                    this.Console.WriteLine(" CCHKEY = " + response.Response.ES_HEADER.CCHKEY);
+                    this.Console.WriteLine(" CCHSTAT = " + response.Response.ES_HEADER.CCHSTAT);
+                    this.Console.WriteLine(" CCHTYPE = " + response.Response.ES_HEADER.CCHTYPE);
+                    this.Console.WriteLine();
+
+                    //this.Console.WriteLine("Attributes:");
+
+                    //for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
+                    //{
+                    //    var attr = response.Response.ET_ATTRIB[i];
+
+                    //    this.Console.WriteLine($" {attr.ATTRID} = {attr.ATTRVAL}");
+                    //}
+
+                    //this.Console.WriteLine();
+
+                    this.Console.WriteLine("Text files");
+
+                    for (int i = 0; i < response.Response.ET_FILES.Length; i++)
+                    {
+                        var file = response.Response.ET_FILES[i];
+                        this.Console.WriteLine(" - " + file.FILENAME);
+                    }
 
                     this.Console.WriteLine();
-                    this.Console.WriteLineError(response.Response.ET_RETURN.First().MESSAGE);
-                    this.Console.WriteLineWarning(" - ID: " + error.ID);
-                    this.Console.WriteLineWarning(" - FIELD: " + error.FIELD);
-                    this.Console.WriteLineWarning(" - LOG_MSG_NO: " + error.LOG_MSG_NO);
-                    this.Console.WriteLineWarning(" - LOG_NO: " + error.LOG_NO);
-                    this.Console.WriteLineWarning(" - MESSAGE_V1: " + error.MESSAGE_V1);
-                    this.Console.WriteLineWarning(" - MESSAGE_V2: " + error.MESSAGE_V2);
-                    this.Console.WriteLineWarning(" - MESSAGE_V3: " + error.MESSAGE_V3);
-                    this.Console.WriteLineWarning(" - MESSAGE_V4: " + error.MESSAGE_V4);
-                    this.Console.WriteLineWarning(" - NUMBER: " + error.NUMBER);
-                    this.Console.WriteLineWarning(" - PARAMETER: " + error.PARAMETER);
-                    this.Console.WriteLineWarning(" - ROW: " + error.ROW);
-                    this.Console.WriteLineWarning(" - SYSTEM: " + error.SYSTEM);
-                    this.Console.WriteLineWarning(" - TYPE: " + error.TYPE);
-                    return;
-                }
+                    var offer = this.ApiService.GetOffer(response, true);
 
-                this.Console.WriteLine("Header:");
-                this.Console.WriteLine(" CCHKEY = " + response.Response.ES_HEADER.CCHKEY);
-                this.Console.WriteLine(" CCHSTAT = " + response.Response.ES_HEADER.CCHSTAT);
-                this.Console.WriteLine(" CCHTYPE = " + response.Response.ES_HEADER.CCHTYPE);
-                this.Console.WriteLine();
+                    if (offer == null)
+                    {
+                        this.Console.WriteLineError("Offer not found");
+                        break;
+                    }
 
-                //this.Console.WriteLine("Attributes:");
+                    if (offer.Documents.Length == 0)
+                    {
+                        this.Console.WriteLineError("No attachment(s) found");
+                        isNextOffer = !string.IsNullOrEmpty(offer.SiblingGuid) && offers.Any(x => x.Guid == offer.Guid) == false;
+                        continue;
+                    }
 
-                //for (int i = 0; i < response.Response.ET_ATTRIB.Length; i++)
-                //{
-                //    var attr = response.Response.ET_ATTRIB[i];
-
-                //    this.Console.WriteLine($" {attr.ATTRID} = {attr.ATTRVAL}");
-                //}
-
-                //this.Console.WriteLine();
-
-                this.Console.WriteLine("Text files");
-
-                for (int i = 0; i < response.Response.ET_FILES.Length; i++)
-                {
-                    var file = response.Response.ET_FILES[i];
-                    this.Console.WriteLine(" - " + file.FILENAME);
-                }
-
-                this.Console.WriteLine();
-                var offer = this.ApiService.GetOffer(response, true);
-
-                if (offer == null)
-                {
-                    this.Console.WriteLineError("Offer not found");
-                    return;
-                }
-
-                if (offer.Documents.Length == 0)
-                {
-                    this.Console.WriteLineError("No attachment(s) found");
-                    return;
-                }
-
-                this.Console.WriteLine();
-                this.Console.WriteLine("Loading files ...");
-                this.Console.WriteLine();
-
-                var files = this.ApiService.GetFiles(offer.Guid, offer.IsAccepted);
-
-                if (files == null)
-                {
-                    this.Console.WriteLine("No files found");
-                    return;
-                }
-
-                //Utils.CompareIdAttach(this.Console, offer, files);
-
-                this.Console.WriteLine();
-
-                OfferAttachmentModel[] attachments = null;
-
-                try
-                {
-                    attachments = this.ApiService.GetAttachments(offer, files);
-                }
-                catch (Exception ex)
-                {
                     this.Console.WriteLine();
-                    this.Console.WriteLineError(ex.Message);
+                    this.Console.WriteLine("Loading files ...");
                     this.Console.WriteLine();
-                    return;
-                }
+
+                    var files = this.ApiService.GetFiles(offer.Guid, offer.IsAccepted);
+
+                    if (files == null)
+                    {
+                        this.Console.WriteLine("No files found");
+                        continue;
+                    }
+
+                    //Utils.CompareIdAttach(this.Console, offer, files);
+
+                    this.Console.WriteLine();
+
+                    try
+                    {
+                        var a = this.ApiService.GetAttachments(offer, files);
+
+                        if (a.Length > 0)
+                        {
+                            attachments.AddRange(a);
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                        this.Console.WriteLine();
+                        this.Console.WriteLineError(ex.Message);
+                        this.Console.WriteLine();
+                        break;
+                    }
+
+                } while (isNextOffer);
 
                 this.Console.WriteLine();
 
-                if (!offer.IsAccepted || asNew)
+                if (!offers.IsAccepted || asNew)
                 {
-                    this.PrintNewOffer(offer, attachments);
+                    this.PrintNewOffer(offers, attachments.ToArray());
                 }
                 else
                 {
-                    this.PrintAcceptedOffer(offer, attachments);
+                    this.PrintAcceptedOffer(offers, attachments.ToArray());
                 }
             }
         }
 
-        protected void PrintNewOffer(OfferModel offer, OfferAttachmentModel[] attachments)
+        protected void PrintNewOffer(OffersModel offer, OfferAttachmentModel[] attachments)
         {
             var model = this.OfferDescriptor.GetNew(new OffersModel(offer), attachments);
 
@@ -279,7 +291,7 @@ namespace eContracting.ConsoleClient.Commands
             }
         }
 
-        protected void PrintAcceptedOffer(OfferModel offer, OfferAttachmentModel[] attachments)
+        protected void PrintAcceptedOffer(OffersModel offer, OfferAttachmentModel[] attachments)
         {
             var model = this.OfferDescriptor.GetAccepted(new OffersModel(offer), attachments);
 

@@ -185,37 +185,66 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public bool CanReadOffers(OffersModel offerModels, UserCacheDataModel user, OFFER_TYPES type)
-        {
-            return false;
-        }
-
-        /// <inheritdoc/>
-        public OfferModel GetOffer(string guid)
+        public OffersModel GetOffer(string guid)
         {
             return this.GetOffer(guid, null);
         }
 
         /// <inheritdoc/>
-        public OffersModel GetOffers(string guid)
-        {
-            return this.GetOffers(guid, null);
-        }
-
-        /// <inheritdoc/>
-        public OfferModel GetOffer(string guid, UserCacheDataModel user)
+        public OffersModel GetOffer(string guid, UserCacheDataModel user)
         {
             return this.GetOffer(guid, user, true);
         }
 
         /// <inheritdoc/>
-        public OffersModel GetOffers(string guid, UserCacheDataModel user)
+        public OffersModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters)
         {
-            return this.GetOffers(guid, user, true);
+            var offers = new List<OfferModel>();
+            var currentGuid = guid;
+            var isNextOffer = false;
+            var collectedGuids = new List<string>();
+            var maxIterations = 10;
+            var iterations = 0;
+
+            do
+            {
+                iterations++;
+                var offer = this.GetSingleOffer(currentGuid, user, includeTextParameters);
+
+                if (offer == null)
+                {
+                    isNextOffer = false;
+                }
+                else
+                {
+                    offers.Add(offer);
+                    collectedGuids.Add(currentGuid);
+
+                    if (!string.IsNullOrEmpty(offer.SiblingGuid))
+                    {
+                        currentGuid = offer.SiblingGuid;
+                        isNextOffer = true;
+                    }
+
+                    if (collectedGuids.Contains(currentGuid))
+                    {
+                        // break infinite loop
+                        isNextOffer = false;
+                    }
+                }
+
+                if (iterations == maxIterations)
+                {
+                    isNextOffer = false;
+                }
+
+            } while (isNextOffer);
+
+            return new OffersModel(guid, offers);
         }
 
         /// <inheritdoc/>
-        public OfferModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters)
+        public OfferModel GetSingleOffer(string guid, UserCacheDataModel user, bool includeTextParameters)
         {
             if (user == null)
             {
@@ -247,48 +276,6 @@ namespace eContracting.Services
             }
 
             return this.GetOffer(response, includeTextParameters);
-        }
-
-        /// <inheritdoc/>
-        public OffersModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters)
-        {
-            var offers = new List<OfferModel>();
-            var currentGuid = guid;
-            var isNextOffer = false;
-            var collectedGuids = new List<string>();
-            var maxIterations = 10;
-            var iterations = 0;
-
-            do
-            {
-                iterations++;
-                var offer = this.GetOffer(currentGuid, user, includeTextParameters);
-
-                if (offer == null)
-                {
-                    isNextOffer = false;
-                }
-                else
-                {
-                    offers.Add(offer);
-                    collectedGuids.Add(currentGuid);
-
-                    if (!string.IsNullOrEmpty(offer.SiblingGuid))
-                    {
-                        currentGuid = offer.SiblingGuid;
-                        isNextOffer = true;
-                    }
-
-                    if (collectedGuids.Contains(currentGuid))
-                    {
-                        // break infinite loop
-                        isNextOffer = false;
-                    }
-                }
-
-            } while(isNextOffer || iterations <= maxIterations);
-
-            return new OffersModel(guid, offers);
         }
 
         /// <inheritdoc/>
@@ -344,6 +331,19 @@ namespace eContracting.Services
             return this.GetAttachments(offer, files);
         }
 
+        /// <inheritdoc/>
+        public OfferAttachmentModel[] GetAttachments(OffersModel offer, UserCacheDataModel user)
+        {
+            if (offer == null)
+            {
+                throw new ApplicationException("Offer is null");
+            }
+
+            bool isAccepted = offer.IsAccepted;
+            var files = this.GetFiles(offer.Guid, isAccepted);
+            return this.GetAttachments(offer, files);
+        }
+
         #endregion
 
         /// <summary>
@@ -388,6 +388,24 @@ namespace eContracting.Services
             var attachments = this.AttachmentParser.Parse(offer, files);
             this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
             return attachments;
+        }
+
+        protected internal OfferAttachmentModel[] GetAttachments(OffersModel offer, OfferFileXmlModel[] files)
+        {
+            var list = new List<OfferAttachmentModel>();
+
+            foreach (var o in offer)
+            {
+                var attachments = this.AttachmentParser.Parse(o, files);
+                this.Logger.LogFiles(attachments, offer.Guid, offer.IsAccepted);
+
+                if (attachments.Length > 0)
+                {
+                    list.AddRange(attachments);
+                }
+            }
+
+            return list.ToArray();
         }
 
         /// <summary>

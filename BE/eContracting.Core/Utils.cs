@@ -283,6 +283,21 @@ namespace eContracting
             return Utils.GetMd5(loginType.ID.ToString() + offer.Guid);
         }
 
+        public static string GetUniqueKey(ILoginTypeModel loginType, OffersModel offer)
+        {
+            if (loginType == null)
+            {
+                throw new ArgumentNullException(nameof(loginType));
+            }
+
+            if (offer == null)
+            {
+                throw new ArgumentNullException(nameof(offer));
+            }
+
+            return Utils.GetMd5(loginType.ID.ToString() + string.Join("|", offer.Guids));
+        }
+
         /// <summary>
         /// Gets the unique MD5 hash for template document.
         /// </summary>
@@ -397,9 +412,21 @@ namespace eContracting
             {
                 foreach (var key in additional.Keys)
                 {
-                    target.Add(key, additional[key]);
+                    target[key] = additional[key];
                 }
             }
+        }
+
+        public static IDictionary<string, string> Merge(IDictionary<string, string>[] dictionaries)
+        {
+            var final = new Dictionary<string, string>();
+
+            for (int i = 0; i < dictionaries.Length; i++)
+            {
+                Utils.Merge(final, dictionaries[i]);
+            }
+
+            return final;
         }
 
         public static T[] GetUpdated<T>(T[] array, T newItem)

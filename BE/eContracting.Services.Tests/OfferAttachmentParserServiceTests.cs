@@ -17,13 +17,13 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
             var guid = Guid.NewGuid().ToString("N");
             var offer = this.CreateOffer(guid);// new OfferModel(offerXmlModel, 2, offerHeader, new OfferAttributeModel[] { });
-            offer.Xml.Content.Body.BusProcess = "XYZ";
-            offer.Xml.Content.Body.BusProcessType = "123";
+            offer.First().Xml.Content.Body.BusProcess = "XYZ";
+            offer.First().Xml.Content.Body.BusProcessType = "123";
 
             var files = new List<OfferFileXmlModel>();
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.Parse(offer, files.ToArray());
+            var result = service.Parse(offer.First(), files.ToArray());
 
             Assert.Empty(result);
 
@@ -49,7 +49,7 @@ namespace eContracting.Services.Tests
             template.IdAttach = iddattach;
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetFileByTemplate(offer, template, new[] { new OfferFileXmlModel(file) });
+            var result = service.GetFileByTemplate(offer.First(), template, new[] { new OfferFileXmlModel(file) });
 
             Assert.NotNull(result);
         }
@@ -108,7 +108,7 @@ namespace eContracting.Services.Tests
             attachment.Product = data.correct.product;
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetFileByTemplate(offer, attachment, files.ToArray());
+            var result = service.GetFileByTemplate(offer.First(), attachment, files.ToArray());
 
             Assert.NotNull(result);
         }
@@ -131,7 +131,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferAttachmentParserService(logger);
 
-            Assert.Throws<EcontractingDataException>(() => { service.GetFileByTemplate(offer, template, new[] { new OfferFileXmlModel(file) }); });
+            Assert.Throws<EcontractingDataException>(() => { service.GetFileByTemplate(offer.First(), template, new[] { new OfferFileXmlModel(file) }); });
         }
 
         [Theory]
@@ -251,7 +251,7 @@ namespace eContracting.Services.Tests
             template.Group = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 1);
+            service.MakeCompatible(offer.First(), template, 1);
 
             Assert.Equal(Constants.OfferDefaults.GROUP, template.Group);
         }
@@ -267,7 +267,7 @@ namespace eContracting.Services.Tests
             template.Printed = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 0);
+            service.MakeCompatible(offer.First(), template, 0);
 
             Assert.Equal(Constants.FileAttributeValues.CHECK_VALUE, template.Printed);
             Assert.True(template.IsPrinted());
@@ -284,7 +284,7 @@ namespace eContracting.Services.Tests
             template.Printed = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 0);
+            service.MakeCompatible(offer.First(), template, 0);
 
             Assert.Null(template.Printed);
             Assert.False(template.IsPrinted());
@@ -302,7 +302,7 @@ namespace eContracting.Services.Tests
             template.ConsentType = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 0);
+            service.MakeCompatible(offer.First(), template, 0);
 
             Assert.Equal(Constants.FileAttributeValues.CONSENT_TYPE_S, template.ConsentType);
         }
@@ -318,7 +318,7 @@ namespace eContracting.Services.Tests
             template.ConsentType = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 0);
+            service.MakeCompatible(offer.First(), template, 0);
 
             Assert.Equal(Constants.FileAttributeValues.CONSENT_TYPE_S, template.ConsentType);
         }
@@ -334,7 +334,7 @@ namespace eContracting.Services.Tests
             template.ConsentType = null;
 
             var service = new OfferAttachmentParserService(logger);
-            service.MakeCompatible(offer, template, 2);
+            service.MakeCompatible(offer.First(), template, 2);
 
             Assert.Equal(Constants.FileAttributeValues.CONSENT_TYPE_P, template.ConsentType);
         }
@@ -394,7 +394,7 @@ namespace eContracting.Services.Tests
             attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "V03", Printed = Constants.FileAttributeValues.CHECK_VALUE });
             attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "EPS", Printed = Constants.FileAttributeValues.CHECK_VALUE });
             var offer = this.CreateOffer(2);
-            offer.Xml.Content.Body.Attachments = attachments.ToArray();
+            offer.First().Xml.Content.Body.Attachments = attachments.ToArray();
             var files = new List<OfferFileXmlModel>();
             files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V01" } }, FILENAME = "BN_0204840714_ZQ10__V01" }));
             files.Add(new OfferFileXmlModel(new ZCCH_ST_FILE() { ATTRIB = new ZCCH_ST_ATTRIB[] { new ZCCH_ST_ATTRIB() { ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "V02" } }, FILENAME = "BN_0204840714_ZQ10__V02" }));
@@ -403,7 +403,7 @@ namespace eContracting.Services.Tests
             var logger = new MemoryLogger();
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetAttachments(offer, files.ToArray());
+            var result = service.GetAttachments(offer.First(), files.ToArray());
 
             Assert.True(files.Count == result.Length);
         }
@@ -419,7 +419,7 @@ namespace eContracting.Services.Tests
             attachments.Add(xmlAttachment2);
             attachments.Add(xmlAttachment3);
             var offer = this.CreateOffer(2);
-            offer.Xml.Content.Body.Attachments = attachments.ToArray();
+            offer.First().Xml.Content.Body.Attachments = attachments.ToArray();
             var file1 = new ZCCH_ST_FILE()
             {
                 ATTRIB = new ZCCH_ST_ATTRIB[]
@@ -453,7 +453,7 @@ namespace eContracting.Services.Tests
             files.Add(new OfferFileXmlModel(file3));
             var logger = new MemoryLogger();
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetAttachments(offer, files.ToArray());
+            var result = service.GetAttachments(offer.First(), files.ToArray());
 
             Assert.Equal(xmlAttachment1.Description, result[0].FileName);
             Assert.Equal(xmlAttachment1.Product, result[0].Product);
@@ -520,11 +520,11 @@ namespace eContracting.Services.Tests
             attachment.Printed = "X";
             attachment.Description = "file.pdf";
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.Attachments = new[] { attachment };
+            offer.First().Xml.Content.Body.Attachments = new[] { attachment };
 
             var service = new OfferAttachmentParserService(logger);
 
-            Assert.Throws<EcontractingDataException>(() => { service.GetModel(offer, attachment, new[] { new OfferFileXmlModel(file) }); } );
+            Assert.Throws<EcontractingDataException>(() => { service.GetModel(offer.First(), attachment, new[] { new OfferFileXmlModel(file) }); } );
         }
 
         [Fact]
@@ -540,10 +540,10 @@ namespace eContracting.Services.Tests
             attachment.Printed = "X";
             attachment.Description = "file.pdf";
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.Attachments = new[] { attachment };
+            offer.First().Xml.Content.Body.Attachments = new[] { attachment };
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetModel(offer, attachment, new[] { new OfferFileXmlModel(file) });
+            var result = service.GetModel(offer.First(), attachment, new[] { new OfferFileXmlModel(file) });
 
             Assert.NotNull(result);
 
@@ -565,10 +565,10 @@ namespace eContracting.Services.Tests
             attachment.Printed = null; // this is important
             attachment.Description = "file.pdf";
             var offer = this.CreateOffer();
-            offer.Xml.Content.Body.Attachments = new[] { attachment };
+            offer.First().Xml.Content.Body.Attachments = new[] { attachment };
 
             var service = new OfferAttachmentParserService(logger);
-            var result = service.GetModel(offer, attachment, new[] { new OfferFileXmlModel(file) });
+            var result = service.GetModel(offer.First(), attachment, new[] { new OfferFileXmlModel(file) });
 
             Assert.NotNull(result);
 

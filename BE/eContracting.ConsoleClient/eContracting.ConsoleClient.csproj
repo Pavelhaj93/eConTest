@@ -246,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\AcceptOfferCommand.cs" />
+    <Compile Include="Commands\AnalyzeOffersCommand.cs" />
     <Compile Include="Commands\AnalyzeOfferCommand.cs" />
     <Compile Include="Commands\CognitoRefreshTokenCommand.cs" />
     <Compile Include="Commands\CompareIdAttachCommand.cs" />

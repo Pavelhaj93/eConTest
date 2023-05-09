@@ -29,7 +29,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         public ProcessTypesSwitcherViewModel()
         {
             var settingsReader = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
+            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             var data = cache.GetOffer(Constants.FakeOfferGuid);
 
             this.Process = data.Process;

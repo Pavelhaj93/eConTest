@@ -33,7 +33,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Obsolete]
         private const string salt = "228357";
 
-        protected readonly IOfferService OfferService;
         protected readonly IDataSessionCacheService SessionCacheService;
         protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
         protected readonly IEventLogger EventLogger;
@@ -49,9 +48,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
-            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
@@ -69,9 +68,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IMvcContext mvcContext,
             IEventLogger evetLogger,
             ITextService textService,
-            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
+            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, offerService, mvcContext)
         {
-            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
@@ -147,14 +145,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.RedirectWithNewSession(PAGE_LINK_TYPES.Summary, guid, true);
                 }
 
+                // When Cognito cannot read the offer (hide innosvět login) and keep him on login page
+                var showInnogyAccount = canReadOffer && offer.HasMcfu;
+                var showInnogyAccountHideInfo = canReadOffer ? false : user.IsCognito;
+
                 if (user.RemoveAuth(guid))
                 {
                     this.Logger.Debug(guid, "Removing current guid as orphan from AuthorizedGuids");
                 }
-
-                // When Cognito cannot read the offer (hide innosvět login) and keep him on login page
-                var showInnogyAccount = canReadOffer && offer.HasMcfu;
-                var showInnogyAccountHideInfo = canReadOffer ? false : user.IsCognito;
 
                 // continue on login page
 
@@ -262,7 +260,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 //if (!this.ModelState.IsValid)
                 //{
-                //    Log.Debug($"[{guid}] Invalid log-in data", this);
+                //    Log.Debug($"[{guid}] Invalid log-in offer", this);
                 //    //TODO: this.ReportLogin(reportDateOfBirth, reportAdditionalValue, authenticationModel.Key, guid, offerTypeIdentifier, generalError: true);
                 //    var url = Request.RawUrl.Contains("&error=validationError") ? this.Request.RawUrl : this.Request.RawUrl + "&error=validationError";
                 //    return Redirect(url);
@@ -371,7 +369,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     {
                         user.Tokens = null;
                         user.CognitoUser = null;
-                        this.Logger.Debug(guid, $"Renew session - Cognito data were deleted to handle cookie 4096 char length restrictions.");
+                        this.Logger.Debug(guid, $"Renew session - Cognito offer were deleted to handle cookie 4096 char length restrictions.");
                     }                    
                     var encryptedUser = Utils.AesEncrypt(user, AES_KEY, AES_VECTOR);
                     this.ContextWrapper.SetCookie(new HttpCookie(COOKIE_NAME, encryptedUser) { Expires = DateTime.Now.AddMinutes(1) });
@@ -473,7 +471,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
-            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var data = this.OfferService.GetOffer(Constants.FakeOfferGuid);
             var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
             var user = new UserCacheDataModel();
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
@@ -483,7 +481,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             fakeXml.Content.Body.BusProcess = definition.Process.Code;
             fakeXml.Content.Body.BusProcessType = definition.ProcessType.Code;
             var fakeAttr = new OfferAttributeModel[] { };
-            var fakeOffer = new OfferModel(fakeXml, 1, fakeHeader, true, false, DateTime.Now.AddDays(-1), fakeAttr);
+            var fakeOffer = new OffersModel(fakeHeader.CCHKEY, new[] { new OfferModel(fakeXml, 1, fakeHeader, true, false, DateTime.Now.AddDays(-1), fakeAttr) });
             var datasource = this.MvcContext.GetPageContextItem<IPageLoginModel>();
             var loginTypes = this.SettingsService.GetLoginTypes(fakeOffer);
             var choices = loginTypes.Select(x => this.GetChoiceViewModel(x, fakeOffer)).ToArray();
@@ -559,13 +557,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var guid = this.GetGuid();
             var dataSource = this.MvcContext.GetDataSourceItem<IRichTextModel>();
-            var data = this.RequestCacheService.GetOffer(guid);
+            var offer = this.OfferService.GetOffer(guid);
 
-            if (dataSource == null || data.IsAccepted)
+            if (dataSource == null || offer.IsAccepted)
             {
-                var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
+                var definition = this.SettingsService.GetDefinition(offer.Process, offer.ProcessType);
 
-                if (!data.IsAccepted)
+                if (!offer.IsAccepted)
                 {
                     dataSource = definition.MainTextLogin;
                 }
@@ -578,7 +576,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                         // but we dont want to AB test the MainTextLoginAccepted. 
                         // recognize if the placeholder name is something like /eContracting2Main/eContracting2-login_00_B (ends with 00_B) and if the offer is accepted, ignore the explicitely set datasource then
                         string placeholderName = Sitecore.Mvc.Presentation.RenderingContext.CurrentOrNull?.Rendering?.Placeholder ?? string.Empty;
-                        if (placeholderName.EndsWith($"{data.Process}_{data.ProcessType}"))
+                        if (placeholderName.EndsWith($"{offer.Process}_{offer.ProcessType}"))
                             dataSource = definition.MainTextLoginAccepted;
                     }
                     else
@@ -590,7 +588,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (this.ContextWrapper.IsNormalMode())
             {
-                dataSource.Text = Utils.GetReplacedTextTokens(dataSource.Text, data.TextParameters);
+                dataSource.Text = Utils.GetReplacedTextTokens(dataSource.Text, offer.TextParameters);
             }
 
             return View("/Areas/eContracting2/Views/LoginRichText.cshtml", dataSource);
@@ -707,7 +705,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return viewModel;
         }
 
-        protected internal LOGIN_STATES IsAbleToLogin(string guid, OfferModel offer, IPageLoginModel datasource)
+        protected internal LOGIN_STATES IsAbleToLogin(string guid, OffersModel offer, IPageLoginModel datasource)
         {
             if (string.IsNullOrEmpty(guid))
             {
@@ -828,7 +826,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return result;
         }
 
-        protected internal LoginChoiceViewModel GetChoiceViewModel(ILoginTypeModel model, OfferModel offer)
+        protected internal LoginChoiceViewModel GetChoiceViewModel(ILoginTypeModel model, OffersModel offer)
         {
             string key = Utils.GetUniqueKey(model, offer);
             var login = new LoginChoiceViewModel(model, key);
@@ -841,7 +839,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="offer">The offer.</param>
         /// <param name="key">The key.</param>
         /// <returns>Login type or null.</returns>
-        protected internal ILoginTypeModel GetLoginType(OfferModel offer, string key)
+        protected internal ILoginTypeModel GetLoginType(OffersModel offer, string key)
         {
             var loginTypes = this.SettingsService.GetAllLoginTypes();
 
@@ -865,7 +863,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <param name="birthDay">The birth day.</param>
         /// <param name="key">The key of login type.</param>
         /// <param name="value">The value by login type.</param>
-        protected internal AUTH_RESULT_STATES GetLoginState(OfferModel offer, ILoginTypeModel loginType, string birthDay, string key, string value)
+        protected internal AUTH_RESULT_STATES GetLoginState(OffersModel offer, ILoginTypeModel loginType, string birthDay, string key, string value)
         {
             #region Perform settings check
 
@@ -880,7 +878,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             // We can do it this way but it strongly depends on editor what he defines as 'loginType.Name'.
-            var originalValue = offer.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
+            var originalValue = offer.FirstOrDefault()?.GetValue(loginType.Key)?.Trim().Replace(" ", string.Empty);
 
             if (string.IsNullOrEmpty(originalValue))
             {
@@ -1047,13 +1045,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return true;
         }
 
-        protected internal string GetCampaignCode(OfferModel offer)
+        protected internal string GetCampaignCode(OffersModel offer)
         {
             string campaignCode = string.Empty;
+            var firstOffer = offer.FirstOrDefault();
 
-            if (offer != null)
+            if (firstOffer != null)
             {
-                campaignCode = offer.IsCampaign ? offer.Campaign : offer.CreatedAt;
+                campaignCode = firstOffer.IsCampaign ? firstOffer.Campaign : firstOffer.CreatedAt;
             }
             else
             {
@@ -1063,7 +1062,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             return campaignCode;
         }
 
-        protected internal GoogleAnalyticsEvendDataModel GetViewData(OfferModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
+        protected internal GoogleAnalyticsEvendDataModel GetViewData(OffersModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
         {
             return this.GetGoogleEventData(
                 offer,
@@ -1078,7 +1077,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             );
         }
 
-        protected internal GoogleAnalyticsEvendDataModel GetClickData(OfferModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
+        protected internal GoogleAnalyticsEvendDataModel GetClickData(OffersModel offer, IPageLoginModel datasource, IDefinitionCombinationModel definition)
         {
             return this.GetGoogleEventData(
                 offer,
