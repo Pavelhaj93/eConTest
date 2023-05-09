@@ -6,6 +6,7 @@ using System.Text;
 using System.Web.UI.WebControls;
 using System.Xml;
 using eContracting.Models;
+using Sitecore.Data.Templates;
 
 namespace eContracting.Services
 {
@@ -332,16 +333,31 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public OfferAttachmentModel[] GetAttachments(OffersModel offer, UserCacheDataModel user)
+        public OfferAttachmentModel[] GetAttachments(OffersModel offers, UserCacheDataModel user)
         {
-            if (offer == null)
+            if (offers == null)
             {
                 throw new ApplicationException("Offer is null");
             }
 
-            bool isAccepted = offer.IsAccepted;
-            var files = this.GetFiles(offer.Guid, isAccepted);
-            return this.GetAttachments(offer, files);
+            var result = new List<OfferAttachmentModel>();
+
+            foreach (var offer in offers)
+            {
+                bool isAccepted = offer.IsAccepted;
+                var files = this.GetFiles(offer.Guid, isAccepted);
+                var attachments = this.GetAttachments(offer, files);
+                result.AddRange(attachments);
+            }
+
+            return result.ToArray();
+        }
+
+        public string GetUniqueKey(OfferModel offer, OfferAttachmentModel attachment)
+        {
+            var data = offer.Guid + attachment.IdAttach + attachment.Group + attachment.Template + attachment.Product + attachment.Description;
+            var md5 = Utils.GetMd5(data);
+            return md5;
         }
 
         #endregion
@@ -725,5 +741,6 @@ namespace eContracting.Services
 
             return files.ToArray();
         }
+
     }
 }
