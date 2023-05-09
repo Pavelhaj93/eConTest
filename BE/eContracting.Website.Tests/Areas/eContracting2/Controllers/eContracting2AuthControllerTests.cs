@@ -112,7 +112,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                     eventLogger,
                     textService,
                     mockRequestCacheService.Object);
-            var result = controller.IsAbleToLogin(guid, (OfferModel)null, datasource);
+            var result = controller.IsAbleToLogin(guid, (OffersModel)null, datasource);
 
             Assert.Equal(LOGIN_STATES.OFFER_NOT_FOUND, result);
         }
@@ -200,7 +200,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var guid = Guid.NewGuid().ToString("N");
             var state = "3";
             var offer = this.CreateOffer(guid, true, 2, state);
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var logger = new MemoryLogger();
             var eventLogger = new MemoryEventLogger();
             var textService = new MemoryTextService();
@@ -238,12 +238,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginPageModel = new Mock<IPageLoginModel>().Object;
             loginPageModel.Step_Default = new Mock<IStepModel>().Object;
             var userCacheData = new UserCacheDataModel();
-            var offerCacheData = new OfferCacheDataModel(this.CreateOffer());
+            var offer = this.CreateOffer();
 
             var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offerCacheData.Process);
+            mockProcess.SetupProperty(x => x.Code, offer.Process);
             var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offerCacheData.ProcessType);
+            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
             var mockDefinition = new Mock<IDefinitionCombinationModel>();
             mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
             mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
@@ -256,11 +256,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
             var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offerCacheData.Process, offerCacheData.ProcessType)).Returns(definition);
+            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
@@ -304,12 +305,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginPageModel = new Mock<IPageLoginModel>().Object;
             loginPageModel.Step_Default = new Mock<IStepModel>().Object;
             var userCacheData = new UserCacheDataModel();
-            var offerCacheData = new OfferCacheDataModel(this.CreateOffer());
+            var offer = this.CreateOffer();
 
             var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offerCacheData.Process);
+            mockProcess.SetupProperty(x => x.Code, offer.Process);
             var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offerCacheData.ProcessType);
+            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
             var mockDefinition = new Mock<IDefinitionCombinationModel>();
             mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
             mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
@@ -322,11 +323,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
             mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
             var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offerCacheData.Process, offerCacheData.ProcessType)).Returns(definition);
+            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
@@ -439,7 +441,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(true);
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
+            mockOfferService.Setup(x => x.GetOffer(guid)).Returns((OffersModel)null);
             var mockSessionProvider = new Mock<ISessionProvider>();
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetUser()).Returns(user);
@@ -670,7 +672,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var guid = Guid.NewGuid().ToString("N");
             var state = "3";
             var offer = this.CreateOffer(guid, true, 2, state);
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var user = this.CreateAnonymousUser(offer);
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
@@ -742,7 +744,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var guid = this.CreateGuid();
             var state = "4";
             var offer = this.CreateOffer(guid, true, 2, state);
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -808,7 +810,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var guid = this.CreateGuid();
             var state = "4";
             var offer = this.CreateOffer(guid, true, 2, state);
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -875,7 +877,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.MCFU_REG_STAT, "12345"));
             var offer = this.CreateOffer(guid, false, 2, state, DateTime.Now.AddDays(1).ToString("dd.mm.yyyy"), attributes.ToArray());
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -942,7 +944,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.MCFU_REG_STAT, "12345"));
             var offer = this.CreateOffer(guid, false, 2, state, DateTime.Now.AddDays(1).ToString("dd.mm.yyyy"), attributes.ToArray());
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -1009,7 +1011,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.MCFU_REG_STAT, "12345"));
             var offer = this.CreateOffer(guid, false, 2, state, DateTime.Now.AddDays(1).ToString("dd.mm.yyyy"), attributes.ToArray());
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -1076,7 +1078,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.MCFU_REG_STAT, "12345"));
             var offer = this.CreateOffer(guid, false, 2, state, DateTime.Now.AddDays(1).ToString("dd.mm.yyyy"), attributes.ToArray());
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -1141,7 +1143,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var guid = this.CreateGuid();
             var state = "4";
             var offer = this.CreateOffer(guid, false, 2, state);
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -1213,8 +1215,8 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.MCFU_REG_STAT, "12345"));
             var offer = this.CreateOffer(guid, false, 2, state, DateTime.Now.AddDays(1).ToString("dd.mm.yyyy"), attributes.ToArray());
-            offer.Xml.Content.Body.BIRTHDT = "27.10.2020";
-            offer.Xml.Content.Body.EanOrAndEic = "8591824000";
+            offer.First().Xml.Content.Body.BIRTHDT = "27.10.2020";
+            offer.First().Xml.Content.Body.EanOrAndEic = "8591824000";
             var requestUrl = "http://localhost/login";
             var requestUrlQuery = "guid=" + guid;
             var loginPageModel = new Mock<IPageLoginModel>().Object;
@@ -1543,7 +1545,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
                     eventLogger,
                     textService,
                     mockRequestCacheService.Object);
-            Assert.Throws<ArgumentNullException>(() => { controller.GetChoiceViewModel(loginType, (OfferModel)null); });
+            Assert.Throws<ArgumentNullException>(() => { controller.GetChoiceViewModel(loginType, (OffersModel)null); });
         }
 
         [Fact]

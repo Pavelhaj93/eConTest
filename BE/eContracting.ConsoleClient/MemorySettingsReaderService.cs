@@ -227,12 +227,12 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public IEnumerable<ILoginTypeModel> GetLoginTypes(OfferModel offer)
+        public IEnumerable<ILoginTypeModel> GetLoginTypes(OffersModel offer)
         {
             throw new NotImplementedException();
         }
 
-        public IRichTextModel GetMainTextForLogin(OfferModel offer)
+        public IRichTextModel GetMainTextForLogin(OffersModel offer)
         {
             throw new NotImplementedException();
         }

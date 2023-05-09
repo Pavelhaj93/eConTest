@@ -203,8 +203,8 @@ namespace eContracting.Services.Tests
         {
             var offer = this.CreateOffer(version);
             var user = this.CreateAnonymousUser(offer);
-            offer.TextParameters.Add(nameKey, nameValue);
-            offer.TextParameters.Add(valueKey, valueValue);
+            offer.First().TextParameters.Add(nameKey, nameValue);
+            offer.First().TextParameters.Add(valueKey, valueValue);
 
             var mockSimpleText = new Mock<ISimpleTextModel>();
             mockSimpleText.SetupProperty(x => x.Text, "Perex");
@@ -300,7 +300,7 @@ namespace eContracting.Services.Tests
         public void GetNew_Calls_GetCommoditySalesArguments_In_Version_Greater_Than_1(int version, bool expectedArguments, string argKey, string argValue)
         {
             var offer = this.CreateOffer(version);
-            offer.TextParameters.Add(argKey, argValue);
+            offer.First().TextParameters.Add(argKey, argValue);
             var user = this.CreateAnonymousUser(offer);
 
             var mockSimpleText = new Mock<ISimpleTextModel>();
@@ -390,8 +390,8 @@ namespace eContracting.Services.Tests
                     value += "_" + i; // for example COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1
                 }
 
-                offer.TextParameters.Add(name, "Produkt");
-                offer.TextParameters.Add(value, "elektřina Garance 26");
+                offer.First().TextParameters.Add(name, "Produkt");
+                offer.First().TextParameters.Add(value, "elektřina Garance 26");
             }
 
             var user = this.CreateAnonymousUser(offer);
@@ -940,8 +940,8 @@ namespace eContracting.Services.Tests
             var expectedResult = "innogy Pojištění domácnosti";
 
             var offer = this.CreateOffer();
-            offer.TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL_GUID", "0635F899B3111EDD87A566959885DD77");
-            offer.TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL", expectedResult);
+            offer.First().TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL_GUID", "0635F899B3111EDD87A566959885DD77");
+            offer.First().TextParameters.Add("NONCOMMODITY_ACCEPT_LABEL", expectedResult);
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
@@ -1471,13 +1471,13 @@ namespace eContracting.Services.Tests
         public void GetProductInfos_Get_Only_For_CALC_COMP_GAS()
         {
             var offer = this.CreateOffer(3);
-            offer.TextParameters.Add("CALC_COMP_GAS", "2 500,00");
-            offer.TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
-            offer.TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_VISIBILITY", "S");
+            offer.First().TextParameters.Add("CALC_COMP_GAS", "2 500,00");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE_VISIBILITY", "S");
 
             var mockTextService = new Mock<ITextService>();
             mockTextService.Setup(x => x.FindByKey("CONSUMED_GAS")).Returns("Plyn");
@@ -1502,12 +1502,12 @@ namespace eContracting.Services.Tests
         public void GetProductInfos_Get_For_CALC_COMP_GAS_and_CALC_COMP_GAS_PRICE()
         {
             var offer = this.CreateOffer(3);
-            offer.TextParameters.Add("CALC_COMP_GAS", "2 500,00");
-            offer.TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
-            offer.TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
-            offer.TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
+            offer.First().TextParameters.Add("CALC_COMP_GAS", "2 500,00");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_DESCRIPTION", "Odebraný plyn");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_DISPLAY_UNIT", "Kč/MWh");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE", "2 555,00");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE_DESCRIPTION", "Odebraný plyn");
+            offer.First().TextParameters.Add("CALC_COMP_GAS_PRICE_DISPLAY_UNIT", "Kč/MWh");
             //offer.TextParameters.Add("CALC_COMP_GAS_PRICE_VISIBILITY", "S");
 
             var mockTextService = new Mock<ITextService>();
@@ -1679,10 +1679,10 @@ namespace eContracting.Services.Tests
         public void GetProductType_Returns_G(string xmlAttribute)
         {
             var offer = this.CreateOffer(3);
-            offer.Xml.Content.Body = new OfferBodyXmlModel();
-            offer.Xml.Content.Body.EanOrAndEic = "";
+            offer.First().Xml.Content.Body = new OfferBodyXmlModel();
+            offer.First().Xml.Content.Body.EanOrAndEic = "";
             //offer.TextParameters.Add(xmlAttribute + "_VISIBILITY", "S");
-            offer.TextParameters.Add(xmlAttribute, "100");
+            offer.First().TextParameters.Add(xmlAttribute, "100");
             var logger = new MemoryLogger();
             var textService = new Mock<ITextService>();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
@@ -1703,10 +1703,10 @@ namespace eContracting.Services.Tests
         public void GetProductType_Returns_E(string xmlAttribute)
         {
             var offer = this.CreateOffer(3);
-            offer.Xml.Content.Body = new OfferBodyXmlModel();
-            offer.Xml.Content.Body.EanOrAndEic = "";
+            offer.First().Xml.Content.Body = new OfferBodyXmlModel();
+            offer.First().Xml.Content.Body.EanOrAndEic = "";
             //offer.TextParameters.Add(xmlAttribute + "_VISIBILITY", "S");
-            offer.TextParameters.Add(xmlAttribute, "100");
+            offer.First().TextParameters.Add(xmlAttribute, "100");
             var logger = new MemoryLogger();
             var textService = new Mock<ITextService>();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
@@ -1728,8 +1728,8 @@ namespace eContracting.Services.Tests
         public void GetProductType_Returns_E_For_EXT_UI(string ean)
         {
             var offer = this.CreateOffer(3);
-            offer.Xml.Content.Body = new OfferBodyXmlModel();
-            offer.Xml.Content.Body.EanOrAndEic = ean; //27ZG500Z0253419Q
+            offer.First().Xml.Content.Body = new OfferBodyXmlModel();
+            offer.First().Xml.Content.Body.EanOrAndEic = ean; //27ZG500Z0253419Q
             var logger = new MemoryLogger();
             var textService = new Mock<ITextService>();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
@@ -1751,8 +1751,8 @@ namespace eContracting.Services.Tests
         public void GetProductType_Returns_G_For_EXT_UI(string eic)
         {
             var offer = this.CreateOffer(3);
-            offer.Xml.Content.Body = new OfferBodyXmlModel();
-            offer.Xml.Content.Body.EanOrAndEic = eic;
+            offer.First().Xml.Content.Body = new OfferBodyXmlModel();
+            offer.First().Xml.Content.Body.EanOrAndEic = eic;
             var logger = new MemoryLogger();
             var textService = new Mock<ITextService>();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();

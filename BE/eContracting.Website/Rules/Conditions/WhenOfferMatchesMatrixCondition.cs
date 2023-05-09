@@ -35,18 +35,18 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid MatrixItemGuid { get; set; }
 
-        protected readonly IDataRequestCacheService CacheService;
+        protected readonly IOfferService OfferService;
         protected readonly ISitecoreService SitecoreService;
 
         public WhenOfferMatchesMatrixCondition() : this(
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
         {
         }
 
-        public WhenOfferMatchesMatrixCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        public WhenOfferMatchesMatrixCondition(IOfferService cacheService, ISitecoreService sitecoreService)
         {
-            this.CacheService = cacheService;
+            this.OfferService = cacheService;
             this.SitecoreService = sitecoreService;
         }
 
@@ -60,7 +60,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
 
                 var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
-                var user = this.CacheService.GetOffer(guid);
+                var user = this.OfferService.GetOffer(guid);
 
                 if (user == null)
                 {

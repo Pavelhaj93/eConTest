@@ -56,7 +56,7 @@ namespace eContracting.ConsoleClient.Commands
             {
                 foreach (var attachment in attachmentsForSign)
                 {
-                    var signedAttachment = this.SignService.Sign(offer, attachment, signatureBytes);
+                    var signedAttachment = this.SignService.Sign(offer.First(), attachment, signatureBytes);
                     this.UserFileCache.SignedFiles.Add(new DbSignedFileModel() { Key = attachment.UniqueKey, File = new DbFileModel() { Content = signedAttachment.FileContent } });
                 }
             }
@@ -112,7 +112,7 @@ namespace eContracting.ConsoleClient.Commands
                 this.Console.WriteLine(acceptedFiles.Count + " other files");
             }
 
-            this.ApiService.AcceptOffer(offer, data, user, "FB057B3ED3E24872AF79CE1FD77BCA46");
+            this.ApiService.AcceptOffer(offer.First(), data, user, "FB057B3ED3E24872AF79CE1FD77BCA46");
         }
     }
 }

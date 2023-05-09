@@ -368,7 +368,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 }
 
                 var user = this.UserService.GetUser();
-                var offer = this.OfferService.GetOffer(guid, user);
+                var offer = this.OfferService.GetOffer(guid, user)?.FirstOrDefault(x => x.Guid == guid);
 
                 if (offer == null)
                 {
@@ -769,7 +769,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Invalid submit data");
                 }
 
-                var offer = this.OfferService.GetOffer(guid, user, false);
+                var offer = this.OfferService.GetSingleOffer(guid, user, false);
 
                 if (offer == null)
                 {
@@ -901,7 +901,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 var model = new CallMeBackViewModel();
                 model.Succeeded = true;
                 model.Title = definition.SummaryCallMeBack.Title;
-                model.Phone = offer.Xml.Content.Body.PHONE;
+                model.Phone = offer.Phone;
                 model.MaxFiles = 2;
                 model.MaxFileSize = definition.SummaryCallMeBack.SettingsMaxFileSize;
                 model.AllowedFileTypes = Utils.GetMimeTypesFromExtensions(definition.SummaryCallMeBack.SettingsAllowedFileTypes?.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries));
@@ -993,8 +993,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 newCmb.Phone = multipartData.FormData["phone"];
                 newCmb.SelectedTime = multipartData.FormData["time"];
                 newCmb.Note = multipartData.FormData["note"];
-                newCmb.Partner = offer.Xml.Content.Body.PARTNER;
-                newCmb.EicEan = offer.Xml.Content.Body.EanOrAndEic;
+                newCmb.Partner = offer.PartnerNumber;
+                newCmb.EicEan = offer.EanOrAndEic;
                 newCmb.AllowedExtensions = definition.SummaryCallMeBack.SettingsAllowedFileTypes?.ToLowerInvariant().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries) ?? new string[] { };
                 newCmb.RequestedUrl = multipartData.FormData["currentBrowserUrl"];
 

@@ -47,7 +47,7 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
-                if (offer.Documents.Length == 0)
+                if (offer.First().Documents.Length == 0)
                 {
                     this.Console.WriteLineError("No attachment(s) found");
                     return;
@@ -61,9 +61,9 @@ namespace eContracting.ConsoleClient.Commands
                     return;
                 }
 
-                this.AttachmentParserService.MakeCompatible(offer, files);
+                this.AttachmentParserService.MakeCompatible(offer.First(), files);
 
-                Utils.CompareIdAttach(this.Console, offer, files);
+                Utils.CompareIdAttach(this.Console, offer.First(), files);
             }
         }
     }

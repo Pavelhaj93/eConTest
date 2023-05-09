@@ -39,7 +39,13 @@ namespace eContracting
         /// <returns></returns>
         bool CanReadOffer(string guid, UserCacheDataModel user, OFFER_TYPES type);
 
-        bool CanReadOffers(OffersModel offerModels, UserCacheDataModel user, OFFER_TYPES type);
+        /// <summary>
+        /// Gets the files synchronous.
+        /// </summary>
+        /// <param name="offer">The offer with attachment templates.</param>
+        /// <param name="user">The user model.</param>
+        /// <returns>Files in array or null</returns>
+        OfferAttachmentModel[] GetAttachments(OffersModel offer, UserCacheDataModel user);
 
         /// <summary>
         /// Gets the files synchronous.
@@ -54,14 +60,14 @@ namespace eContracting
         /// </summary>
         /// <param name="guid">The unique offer identifier.</param>
         /// <returns>The offer or null.</returns>
-        OfferModel GetOffer(string guid);
+        OffersModel GetOffer(string guid);
 
         /// <summary>
         /// Gets collection of <see cref="OfferModel"/> initiated by given <paramref name="guid"/>.
         /// </summary>
         /// <param name="guid">The initial guid.</param>
         /// <returns>Collection of the offers.</returns>
-        OffersModel GetOffers(string guid);
+        ///OffersModel GetOffers(string guid);
 
         /// <summary>
         /// Gets the offer by <paramref name="guid"/> with text parameters synchronously.
@@ -70,7 +76,7 @@ namespace eContracting
         /// <param name="user">The user model.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
-        OfferModel GetOffer(string guid, UserCacheDataModel user);
+        OffersModel GetOffer(string guid, UserCacheDataModel user);
 
         /// <summary>
         /// Gets collection of <see cref="OfferModel"/> initiated by given <paramref name="guid"/> readable by <paramref name="user"/>.
@@ -78,7 +84,7 @@ namespace eContracting
         /// <param name="guid">The initial guid.</param>
         /// <param name="user">The user model.</param>
         /// <returns>Collection of the offers.</returns>
-        OffersModel GetOffers(string guid, UserCacheDataModel user);
+        ///OffersModel GetOffers(string guid, UserCacheDataModel user);
 
         /// <summary>
         /// Gets the offer by <paramref name="guid"/> asynchronously.
@@ -88,7 +94,7 @@ namespace eContracting
         /// <param name="user">The user model.</param>
         /// <returns>The offer.</returns>
         /// <exception cref="AggregateException">When multiple issues happen in the process.</exception>
-        OfferModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters);
+        OffersModel GetOffer(string guid, UserCacheDataModel user, bool includeTextParameters);
 
         /// <summary>
         /// Gets collection of <see cref="OfferModel"/> initiated by given <paramref name="guid"/> readable by <paramref name="user"/>.
@@ -97,7 +103,9 @@ namespace eContracting
         /// <param name="user">The user model.</param>
         /// <param name="includeTextParameters">When you need to get <see cref="OfferModel.TextParameters"/>.</param>
         /// <returns>Collection of the offers.</returns>
-        OffersModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters);
+        //OffersModel GetOffers(string guid, UserCacheDataModel user, bool includeTextParameters);
+
+        OfferModel GetSingleOffer(string guid, UserCacheDataModel user, bool includeTextParameters);
 
         /// <summary>
         /// Make offer <paramref name="guid"/> signed.

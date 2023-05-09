@@ -13,6 +13,9 @@ using Sitecore.Reflection.Emit;
 
 namespace eContracting.Models
 {
+    /// <summary>
+    /// Represents single offer.
+    /// </summary>
     [ExcludeFromCodeCoverage]
     public class OfferModel : IOfferDataModel
     {
@@ -34,6 +37,7 @@ namespace eContracting.Models
         ///         <item>1 - old offer without bus process type and with text parameters</item>
         ///         <item>2 - new offer MODELO_OFERTA = 01</item>
         ///         <item>3 - new offer MODELO_OFERTA = 02</item>
+        ///         <item>4 - new offer MODELO_OFERTA = 03</item>
         ///     </list>
         /// </remarks>
         [JsonProperty("version")]

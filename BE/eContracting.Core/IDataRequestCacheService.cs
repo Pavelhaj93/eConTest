@@ -11,6 +11,5 @@ namespace eContracting
     {
         void SaveOffer(string guid, OfferCacheDataModel data);
 
-        OfferCacheDataModel GetOffer(string guid);
     }
 }

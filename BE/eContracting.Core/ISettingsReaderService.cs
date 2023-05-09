@@ -110,7 +110,7 @@ namespace eContracting
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <returns>List of defined login types or if there is not defined any, one random login type from all of them.</returns>
-        IEnumerable<ILoginTypeModel> GetLoginTypes(OfferModel offer);
+        IEnumerable<ILoginTypeModel> GetLoginTypes(OffersModel offer);
 
         /// <summary>
         /// Gets all processes from '/sitecore/content/eContracting2/Settings/Processes'.
@@ -146,7 +146,7 @@ namespace eContracting
         SignApiServiceOptions GetSignApiServiceOptions();
 
         [Obsolete]
-        IRichTextModel GetMainTextForLogin(OfferModel offer);
+        IRichTextModel GetMainTextForLogin(OffersModel offer);
 
         /// <summary>
         /// Gets url from site settings.

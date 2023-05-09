@@ -466,46 +466,37 @@
             settingsReaderService
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetPersonalData(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetPersonalData(eContracting.Models.OffersModel)">
             <summary>
             Gets personal data.
             </summary>
             <param name="offer"></param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData(eContracting.Models.OffersModel)">
             <summary>
             Gets product data with all prices.
             </summary>
             <param name="offer"></param>
             <returns>Null when <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetDistributorChange(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetDistributorChange(eContracting.Models.OffersModel)">
             <summary>
             Gets data when user / offer changes a distributor (dismissal previous dealer).
             </summary>
             <param name="offer"></param>
             <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="P:eContracting.Models.OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel[])">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[])">
             <summary>
             Gets data for accepted offer.
             </summary>
@@ -513,7 +504,7 @@
             <param name="attachments"></param>
             <returns>Always returns the object.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OfferModel,eContracting.Models.OfferAttachmentModel[])">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[])">
             <summary>
             Gets data for new non-accepted offer.
             </summary>
@@ -544,7 +535,7 @@
             <param name="definition">The matrix combination.</param>
             <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductType(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductType(eContracting.Models.OffersModel)">
             <summary>
             Gets <c>G</c> for gas, <c>E</c> for electricity.
             </summary>
@@ -643,25 +634,16 @@
         <member name="M:eContracting.Services.OfferService.CanReadOffer(System.String,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.CanReadOffers(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel,eContracting.OFFER_TYPES)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String)">
-            <inheritdoc/>
-        </member>
-        <member name="M:eContracting.Services.OfferService.GetOffers(System.String)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel)">
-            <inheritdoc/>
-        </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.OfferService.GetOffers(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
+        <member name="M:eContracting.Services.OfferService.GetSingleOffer(System.String,eContracting.Models.UserCacheDataModel,System.Boolean)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.ReadOffer(System.String,eContracting.Models.UserCacheDataModel)">
@@ -674,6 +656,9 @@
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OfferModel,eContracting.Models.UserCacheDataModel)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.OfferService.GetAttachments(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferService.GetOffer(eContracting.Models.ResponseCacheGetModel,System.Boolean)">
@@ -1190,10 +1175,10 @@
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetAllProductInfos">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetLoginTypes(eContracting.Models.OffersModel)">
             <inheritdoc/>
         </member>
-        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Models.OfferModel)">
+        <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetMainTextForLogin(eContracting.Models.OffersModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.SitecoreSettingsReaderService.GetPageLink(eContracting.PAGE_LINK_TYPES)">

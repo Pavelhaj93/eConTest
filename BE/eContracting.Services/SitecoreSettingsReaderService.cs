@@ -555,7 +555,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ILoginTypeModel> GetLoginTypes(OfferModel offer)
+        public IEnumerable<ILoginTypeModel> GetLoginTypes(OffersModel offer)
         {
             var list = new List<ILoginTypeModel>();
             var definition = this.GetDefinition(offer);
@@ -582,7 +582,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
-        public IRichTextModel GetMainTextForLogin(OfferModel offer)
+        public IRichTextModel GetMainTextForLogin(OffersModel offer)
         {
             var definition = this.GetDefinition(offer);
             return offer.IsAccepted ? definition.MainTextLoginAccepted : definition.MainTextLogin;
