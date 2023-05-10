@@ -353,13 +353,6 @@ namespace eContracting.Services
             return result.ToArray();
         }
 
-        public string GetUniqueKey(OfferModel offer, OfferAttachmentModel attachment)
-        {
-            var data = offer.Guid + attachment.IdAttach + attachment.Group + attachment.Template + attachment.Product + attachment.Description;
-            var md5 = Utils.GetMd5(data);
-            return md5;
-        }
-
         #endregion
 
         /// <summary>

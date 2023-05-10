@@ -452,7 +452,7 @@
             <param name="logger">The logger.</param>
             <param name="textService">The text service.</param>
             <param name="sitecoreService">The context.</param>
-            <param name="apiService">The API service.</param>
+            <param name="offerService">The API service.</param>
             <param name="settingsReaderService">The settings reader service.</param>
             <exception cref="T:System.ArgumentNullException">
             logger
@@ -461,7 +461,7 @@
             or
             context
             or
-            apiService
+            offerService
             or
             settingsReaderService
             </exception>
@@ -995,7 +995,7 @@
             <returns>The file.</returns>
             <exception cref="T:System.NotSupportedException">Unknow offer version ({version})</exception>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(eContracting.Models.OfferFileXmlModel,System.Int32)">
+        <member name="M:eContracting.Services.OfferParserService.ProcessRootFile(System.String,eContracting.Models.OfferFileXmlModel,System.Int32)">
             <summary>
             Processes the root file.
             </summary>
@@ -1025,7 +1025,7 @@
             <param name="offerXmlModel"></param>
             <returns>If date not found, returns '<c>DateTime.Now.AddDays(-1)</c>' as default.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(eContracting.Models.OfferXmlModel,System.Int32)">
+        <member name="M:eContracting.Services.OfferParserService.MakeCompatible(System.String,eContracting.Models.OfferXmlModel,System.Int32)">
             <summary>
             Set missing required values in <paramref name="offerXml"/>.
             </summary>

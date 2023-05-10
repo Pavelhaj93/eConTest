@@ -208,15 +208,15 @@ namespace eContracting.Services
                 return null;
             }
 
-            if (!string.IsNullOrEmpty(model.Type))
-            {
-                var productsRoot = this.SitecoreService.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS);
+            //if (!string.IsNullOrEmpty(model.Type))
+            //{
+            //    var productsRoot = this.SitecoreService.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS);
 
-                if (productsRoot != null)
-                {
+            //    if (productsRoot != null)
+            //    {
                     
-                }
-            }
+            //    }
+            //}
 
             return model;
         }
