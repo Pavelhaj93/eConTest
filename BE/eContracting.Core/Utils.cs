@@ -306,7 +306,7 @@ namespace eContracting
         [ExcludeFromCodeCoverage]
         public static string GetUniqueKey(OfferAttachmentXmlModel template)
         {
-            var data = template.IdAttach + template.Group + template.Template + template.Product + template.Description;
+            var data = template.OfferGuid + template.IdAttach + template.Group + template.Template + template.Product + template.Description;
             return GetMd5(data);
         }
 

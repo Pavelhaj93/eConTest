@@ -216,7 +216,7 @@ namespace eContracting.Services
             var header = this.GetHeader(response.Response);
             var attributes = this.GetAttributes(response.Response);
             var rawXml = file.GetRawXml();
-            var result = this.ProcessRootFile(file, version);
+            var result = this.ProcessRootFile(response.Guid, file, version);
             var isAccepted = this.IsAccepted(response.Response);
             var expirationDate = this.GetExpirationDate(response.Response, result);
             var isExpired = this.IsExpired(response.Response, header, expirationDate);
@@ -289,13 +289,13 @@ namespace eContracting.Services
         /// <param name="version">Offer version.</param>
         /// <returns>Tuple with model and raw XML content.</returns>
         [ExcludeFromCodeCoverage]
-        protected internal OfferXmlModel ProcessRootFile(OfferFileXmlModel file, int version)
+        protected internal OfferXmlModel ProcessRootFile(string guid, OfferFileXmlModel file, int version)
         {
             using (var stream = new MemoryStream(file.File.FILECONTENT, false))
             {
                 var serializer = new XmlSerializer(typeof(OfferXmlModel), "http://www.sap.com/abapxml");
                 var offerXml = (OfferXmlModel)serializer.Deserialize(stream);
-                this.MakeCompatible(offerXml, version);
+                this.MakeCompatible(guid, offerXml, version);
                 //this.AddCustomUploadModelWhenNecessary(offerXml);
                 return offerXml;
             }
@@ -392,7 +392,7 @@ namespace eContracting.Services
         /// </remarks>
         /// <param name="offerXml">The offer XML.</param>
         /// <param name="version">Offer version.</param>
-        protected internal void MakeCompatible(OfferXmlModel offerXml, int version)
+        protected internal void MakeCompatible(string guid, OfferXmlModel offerXml, int version)
         {
             if (string.IsNullOrWhiteSpace(offerXml.Content.Body.BusProcess))
             {
@@ -420,12 +420,13 @@ namespace eContracting.Services
 
                 for (int i = 0; i < offerXml.Content.Body.Attachments.Length; i++)
                 {
-                    var d = offerXml.Content.Body.Attachments[i];
+                    var attachment = offerXml.Content.Body.Attachments[i];
+                    attachment.OfferGuid = guid;
 
                     // exclude AD1 template from the collection because it's prescription for file text parameters and but no real file exist for it
-                    if (d.IdAttach != Constants.FileAttributeValues.TEXT_PARAMETERS)
+                    if (attachment.IdAttach != Constants.FileAttributeValues.TEXT_PARAMETERS)
                     {
-                        list.Add(d);
+                        list.Add(attachment);
                     }
                 }
 

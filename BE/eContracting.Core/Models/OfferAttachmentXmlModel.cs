@@ -14,6 +14,10 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class OfferAttachmentXmlModel
     {
+        [XmlIgnore]
+        [JsonIgnore]
+        public string OfferGuid { get; set; }
+
         /// <summary>
         /// Gets or sets sequence number across all files.
         /// </summary>
