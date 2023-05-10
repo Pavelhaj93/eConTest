@@ -81,6 +81,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "MakeCompatible")]
         public void MakeCompatible_Set_Default_Value_00_For_BusProcess(string value)
         {
+            var guid = this.CreateGuid();
             var offerXml = new OfferXmlModel();
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
@@ -89,7 +90,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml, 1);
+            service.MakeCompatible(guid, offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS, offerXml.Content.Body.BusProcess);
         }
@@ -98,6 +99,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "MakeCompatible")]
         public void MakeCompatible_Set_Default_Value_A_For_BusProcessTyoe_When_Campaing_Missing()
         {
+            var guid = this.CreateGuid();
             var offerXml = new OfferXmlModel();
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
@@ -106,7 +108,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml, 1);
+            service.MakeCompatible(guid, offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_A, offerXml.Content.Body.BusProcessType);
         }
@@ -115,6 +117,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "MakeCompatible")]
         public void MakeCompatible_Set_Default_Value_B_For_BusProcessTyoe_When_Campaing_Set()
         {
+            var guid = this.CreateGuid();
             var offerXml = new OfferXmlModel();
             offerXml.Content = new OfferContentXmlModel();
             offerXml.Content.Body = new OfferBodyXmlModel();
@@ -123,7 +126,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml, 1);
+            service.MakeCompatible(guid, offerXml, 1);
 
             Assert.Equal(Constants.OfferDefaults.BUS_PROCESS_TYPE_B, offerXml.Content.Body.BusProcessType);
         }
@@ -132,6 +135,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "MakeCompatible")]
         public void MakeCompatible_Do_Not_Set_Value_For_BusProcess_When_Already_Exists()
         {
+            var guid = this.CreateGuid();
             var value = Guid.NewGuid().ToString("N");
             var offerXml = new OfferXmlModel();
             offerXml.Content = new OfferContentXmlModel();
@@ -141,7 +145,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml, 1);
+            service.MakeCompatible(guid, offerXml, 1);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcess);
         }
@@ -150,6 +154,7 @@ namespace eContracting.Services.Tests
         [Trait("Method", "MakeCompatible")]
         public void MakeCompatible_Do_Not_Set_Value_For_BusProcessType_When_Already_Exists()
         {
+            var guid = this.CreateGuid();
             var value = Guid.NewGuid().ToString("N");
             var offerXml = new OfferXmlModel();
             offerXml.Content = new OfferContentXmlModel();
@@ -159,7 +164,7 @@ namespace eContracting.Services.Tests
             var settingsService = new Mock<ISettingsReaderService>().Object;
 
             var service = new OfferParserService(settingsService, logger);
-            service.MakeCompatible(offerXml, 1);
+            service.MakeCompatible(guid, offerXml, 1);
 
             Assert.Equal(value, offerXml.Content.Body.BusProcessType);
         }
