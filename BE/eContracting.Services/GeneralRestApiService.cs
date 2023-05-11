@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,6 +18,7 @@ namespace eContracting.Services
     /// <summary>
     /// Represents REST API client to use only one instance of <see cref="HttpClient"/>.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class GeneralRestApiService : IRespApiService
     {
         protected static readonly HttpClient Client = new HttpClient();

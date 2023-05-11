@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Tests;
+using Sitecore.ApplicationCenter.Applications;
 using Xunit;
 
 namespace eContracting.Services.Tests
@@ -575,6 +576,28 @@ namespace eContracting.Services.Tests
             Assert.Null(result.MimeType);
             Assert.True(result.Attributes.Length == 0);
             Assert.Equal(attachment.Description, result.OriginalFileName);
+        }
+
+        [Fact]
+        public void Check_Throws_EcontractingDataException_If_Missing_File_Template()
+        {
+            var attachments = new List<OfferAttachmentXmlModel>();
+            attachments.Add(new OfferAttachmentXmlModel() { IdAttach = "AAA" });
+            var offer = this.CreateOffer().First();
+            offer.Xml.Content.Body.Attachments = attachments.ToArray();
+            var xmlFiles = new List<OfferFileXmlModel>();
+            xmlFiles.Add(
+                new OfferFileXmlModel(
+                    new ZCCH_ST_FILE()
+                    {
+                        ATTRIB = new[] {
+                            new ZCCH_ST_ATTRIB() {
+                                ATTRID = Constants.FileAttributes.TYPE, ATTRVAL = "BBB" } }
+                    }));
+            var logger = new MemoryLogger();
+            var service = new OfferAttachmentParserService(logger);
+
+            Assert.Throws<AggregateException>(() => service.Check(offer, xmlFiles.ToArray()));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -11,6 +12,7 @@ using eContracting.SignStamp;
 
 namespace eContracting.Services
 {
+    [ExcludeFromCodeCoverage]
     public class FileSignService : ISignService
     {
         /// <summary>

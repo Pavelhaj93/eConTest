@@ -16,6 +16,7 @@ using Moq;
 using Moq.Language.Flow;
 using Sitecore.Web;
 using Xunit;
+using static eContracting.Constants.TemplateFields;
 
 namespace eContracting.Services.Tests
 {
@@ -309,8 +310,8 @@ namespace eContracting.Services.Tests
         //[Fact]
         //public void GetCustomDatabaseConnectionString_Returns_Default_Connection_String()
         //{
-        //    var expected = "http://localhost/db";
-        //    System.Configuration.ConfigurationManager.ConnectionStrings.Add(new System.Configuration.ConnectionStringSettings(Constants.DatabaseContextConnectionStringName, expected));
+        //    var username = "http://localhost/db";
+        //    System.Configuration.ConfigurationManager.ConnectionStrings.Add(new System.Configuration.ConnectionStringSettings(Constants.DatabaseContextConnectionStringName, username));
 
         //    var mockSitecoreService = new Mock<ISitecoreContextExtended>();
         //    var mockContextWrapper = new Mock<IContextWrapper>();
@@ -319,7 +320,7 @@ namespace eContracting.Services.Tests
         //    var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
         //    var result = service.GetCustomDatabaseConnectionString();
 
-        //    Assert.Equal(expected, result);
+        //    Assert.Equal(username, result);
 
         //    System.Configuration.ConfigurationManager.ConnectionStrings.Clear();
         //}
@@ -958,6 +959,276 @@ namespace eContracting.Services.Tests
             var result = service.GetXmlNodeNamesExcludeHtml();
 
             Assert.Contains(result, x => x == expected);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Url_From_Site_Settings()
+        {
+            var expected = new Uri("https://localhost");
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServiceUrl).Returns(expected.ToString());
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUrl")).Returns("CONFIG-URL");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+            
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.Url);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Url_From_Configuration()
+        {
+            var expected = new Uri("https://localhost");
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServiceUrl).Returns("");
+            mockSiteSettings.SetupGet(x => x.SigningServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockSiteSettings.SetupGet(x => x.SigningServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUrl")).Returns(expected.ToString());
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.Url);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Password_From_Site_Settings()
+        {
+            var expected = "SUPER DUPER PASSWORD";
+            var password = Convert.ToBase64String(Encoding.UTF8.GetBytes(expected));
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServicePassword).Returns(password);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUrl")).Returns("https://localhost/sign");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.Password);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Password_From_Configuration()
+        {
+            var expected = "MY USER SECRET PASSWORD";
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServiceUrl).Returns("https://localhost");
+            mockSiteSettings.SetupGet(x => x.SigningServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            //mockSiteSettings.SetupGet(x => x.SigningServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(expected)));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.Password);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Username_From_Site_Settings()
+        {
+            var expected = "SUPER DUPER USERNAME";
+            var username = Convert.ToBase64String(Encoding.UTF8.GetBytes(expected));
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServiceUser).Returns(username);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUrl")).Returns("https://localhost/sign");
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.User);
+        }
+
+        [Fact]
+        public void GetSignApiServiceOptions_Uses_Username_From_Configuration()
+        {
+            var expected = "MY USER SECRET USERNAME";
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.SigningServiceUrl).Returns("https://localhost");
+            //mockSiteSettings.SetupGet(x => x.SigningServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockSiteSettings.SetupGet(x => x.SigningServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.SigningServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(expected)));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetSignApiServiceOptions();
+
+            Assert.Equal(expected, result.User);
+        }
+
+
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Url_From_Site_Settings()
+        {
+            var expected = new Uri("https://localhost");
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServiceUrl).Returns(expected.ToString());
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns("CONFIG-URL");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.Url);
+        }
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Url_From_Configuration()
+        {
+            var expected = new Uri("https://localhost");
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServiceUrl).Returns("");
+            mockSiteSettings.SetupGet(x => x.ServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockSiteSettings.SetupGet(x => x.ServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns(expected.ToString());
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.Url);
+        }
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Password_From_Site_Settings()
+        {
+            var expected = "SUPER DUPER PASSWORD";
+            var password = Convert.ToBase64String(Encoding.UTF8.GetBytes(expected));
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServicePassword).Returns(password);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns("https://localhost/sign");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.Password);
+        }
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Password_From_Configuration()
+        {
+            var expected = "MY USER SECRET PASSWORD";
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServiceUrl).Returns("https://localhost");
+            mockSiteSettings.SetupGet(x => x.ServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            //mockSiteSettings.SetupGet(x => x.ServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(expected)));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.Password);
+        }
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Username_From_Site_Settings()
+        {
+            var expected = "SUPER DUPER USERNAME";
+            var username = Convert.ToBase64String(Encoding.UTF8.GetBytes(expected));
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServiceUser).Returns(username);
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUrl")).Returns("https://localhost/sign");
+            //mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServicePassword")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.User);
+        }
+
+        [Fact]
+        public void GetApiServiceOptions_Uses_Username_From_Configuration()
+        {
+            var expected = "MY USER SECRET USERNAME";
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.ServiceUrl).Returns("https://localhost");
+            //mockSiteSettings.SetupGet(x => x.ServiceUser).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-USER")));
+            mockSiteSettings.SetupGet(x => x.ServicePassword).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes("CONFIG-PASSWORD")));
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<ISiteSettingsModel>("/")).Returns(mockSiteSettings.Object);
+            var logger = new MemoryLogger();
+
+            var mockContextWrapper = new Mock<IContextWrapper>();
+            mockContextWrapper.Setup(x => x.GetSiteRoot()).Returns("/");
+            mockContextWrapper.Setup(x => x.GetSetting("eContracting.ServiceUser")).Returns(Convert.ToBase64String(Encoding.UTF8.GetBytes(expected)));
+            var service = new SitecoreSettingsReaderService(mockSitecoreService.Object, mockContextWrapper.Object, logger);
+
+            var result = service.GetApiServiceOptions();
+
+            Assert.Equal(expected, result.User);
         }
     }
 }

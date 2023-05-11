@@ -291,7 +291,6 @@
   <ItemGroup>
     <Compile Include="AuthService.cs" />
     <Compile Include="CallMeBackService.cs" />
-    <Compile Include="CrmUtilitiesUmcService.cs" />
     <Compile Include="LocalFakeSignService.cs" />
     <Compile Include="LocalOfferDataService.cs" />
     <Compile Include="OfferDataSapService.cs" />

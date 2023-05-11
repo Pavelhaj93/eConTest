@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -8,7 +9,9 @@ using System.Threading.Tasks;
 using System.Xml;
 using eContracting.Models;
 using eContracting.Tests;
+using JSNLog.Infrastructure;
 using Moq;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace eContracting.Services.Tests
@@ -1764,6 +1767,609 @@ namespace eContracting.Services.Tests
             var result = service.GetProductType(offer);
 
             Assert.Equal("G", result);
+        }
+        
+        [Fact]
+        public void IsVisible_Returns_True_When_Key_Missing()
+        {
+            var textParameters = new Dictionary<string, string>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.IsVisible(textParameters, "CALC_COMP_FIX_PRICE");
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_COMP_FIX_PRICE")]
+        [InlineData("CALC_COMP_GAS_PRICE")]
+        [InlineData("CALC_FIN_REW")]
+        [InlineData("CALC_TOTAL_SAVE")]
+        public void IsVisible_Returns_True_When_Value_Is_Not_S(string key)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key + "_VISIBILITY", "");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.IsVisible(textParameters, key);
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_COMP_FIX_PRICE")]
+        [InlineData("CALC_COMP_GAS_PRICE")]
+        [InlineData("CALC_FIN_REW")]
+        [InlineData("CALC_TOTAL_SAVE")]
+        public void IsVisible_Returns_False_When_Value_Is_S(string key)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key + "_VISIBILITY", Constants.HIDDEN);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.IsVisible(textParameters, key);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_False_When_Key_Missing()
+        {
+            var textParameters = new Dictionary<string, string>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.HasValue(textParameters, "CALC_COMP_FIX_PRICE", 0.1);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void HasValue_Returns_False_When_Its_Not_Double()
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("PRICE", "10e");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.HasValue(textParameters, "PRICE", 0.1);
+
+            Assert.False(result);
+        }
+
+        [Theory]
+        [InlineData("0,09", 0.1)]
+        [InlineData("0.09", 0.1)]
+        public void HasValue_Returns_False_When_Value_Is_Less_Than_Minimum(string value, double minValue)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("PRICE", value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.HasValue(textParameters, "PRICE", minValue);
+
+            Assert.False(result);
+        }
+
+        [Theory]
+        [InlineData("0,1", 0.1)]
+        [InlineData("0.1", 0.1)]
+        [InlineData("1", 1.0)]
+        [InlineData("1.000001", 0.1)]
+        public void HasValue_Returns_True_When_Value_Match_Minimum_Value(string value, double minValue)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add("PRICE", value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.HasValue(textParameters, "PRICE", minValue);
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_TOTAL_SAVE", "0.1")]
+        [InlineData("CALC_TOTAL_SAVE", "0,2")]
+        [InlineData("CALC_TOTAL_SAVE", "10")]
+        [InlineData("CALC_TOTAL_SAVE", "0.1000001")]
+        public void CanDisplayPrice_Returns_True(string key, string value)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key, value);
+            textParameters.Add(key + "_VISIBILITY", "");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.CanDisplayPrice(textParameters, key);
+
+            Assert.True(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_COMP_FIX_PRICE")]
+        [InlineData("CALC_COMP_GAS_PRICE")]
+        [InlineData("CALC_FIN_REW")]
+        [InlineData("CALC_TOTAL_SAVE")]
+        public void CanDisplayPrice_Returns_False_When_Not_Visible(string key)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key + "_VISIBILITY", "S");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.CanDisplayPrice(textParameters, key);
+
+            Assert.False(result);
+        }
+
+        [Theory]
+        [InlineData("CALC_TOTAL_SAVE", "")]
+        [InlineData("CALC_TOTAL_SAVE", "a")]
+        [InlineData("CALC_TOTAL_SAVE", "0.09")]
+        [InlineData("CALC_TOTAL_SAVE", "0,09")]
+        [InlineData("CALC_TOTAL_SAVE", " ")]
+        public void CanDisplayPrice_Returns_False_When_Has_Not_Correct_Value(string key, string value)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key, value);
+            textParameters.Add(key + "_VISIBILITY", "");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.CanDisplayPrice(textParameters, key);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GetBenefits_Returns_Empty_Array_When_Empty_Text_Parameters()
+        {
+            var offer = this.CreateOffer();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetBenefits(offer);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetBenefits_Returns_Empty_Array_When_Offer_Null()
+        {
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetBenefits((OffersModel)null);
+
+            Assert.Empty(result);
+        }
+
+        [Theory]
+        [InlineData("SA01_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA02_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA03_MIDDLE_TEXT", "sadfdsaf")]
+        public void GetBenefits_Returns_One_Value(string key, string value)
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add(key, value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetBenefits(offer);
+
+            Assert.Contains(value, result);
+        }
+
+        [Theory]
+        [InlineData("SA00_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA04_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA05_MIDDLE_TEXT", "sadfdsaf")]
+        public void GetBenefits_Returns_Empty_Array_When_Keys_Not_Match(string key, string value)
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add(key, value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetBenefits(offer);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetDistributorChange_Returns_Null_When_Key_Missing()
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add("BLABLA", "EON");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetDistributorChange(offer);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData("00")]
+        [InlineData("02")]
+        [InlineData("03")]
+        [InlineData("04")]
+        [InlineData("05")]
+        [InlineData("06")]
+        [InlineData("07")]
+        [InlineData("08")]
+        public void GetDistributorChange_Returns_Null_When_Process_Not_Equals_01(string process)
+        {
+            var offer = this.CreateOffer();
+            offer.First().Xml.Content.Body.BusProcess = process;
+            offer.First().TextParameters.Add("PERSON_COMPETITOR_NAME", "EON");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetDistributorChange(offer);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetDistributorChange_Returns_Data()
+        {
+            var title = "Předchozí distributor";
+            var description = "Description";
+            var distributor = "ECON";
+            var offer = this.CreateOffer();
+            offer.First().Xml.Content.Body.BusProcess = "01";
+            offer.First().TextParameters.Add("PERSON_COMPETITOR_NAME", distributor);
+            var targetIdGuid = Guid.NewGuid();
+            var logger = new MemoryLogger();
+            var mockSiteSettings = new Mock<ISiteSettingsModel>();
+            mockSiteSettings.SetupGet(x => x.Summary).Returns(new Glass.Mapper.Sc.Fields.Link() { TargetId = targetIdGuid });
+            var mockPageSummaryOfferModel = new Mock<IPageSummaryOfferModel>();
+            mockPageSummaryOfferModel.SetupGet(x => x.DistributorChange_Title).Returns(title);
+            mockPageSummaryOfferModel.SetupGet(x => x.DistributorChange_Text).Returns(description);
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            mockSitecoreService.Setup(x => x.GetItem<IPageSummaryOfferModel>(targetIdGuid)).Returns(mockPageSummaryOfferModel.Object);
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+            mockSettingsReaderService.Setup(x => x.GetSiteSettings()).Returns(mockSiteSettings.Object);
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetDistributorChange(offer);
+
+            Assert.NotNull(result);
+
+            Assert.Equal(title, result.Title);
+            Assert.Equal(description, result.Description);
+            Assert.Equal(distributor, result.Name);
+        }
+
+        [Fact]
+        public void GetMiddleTexts_Returns_Empty_Array_When_Empty_Text_Parameters()
+        {
+            var offer = this.CreateOffer();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts(offer);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetMiddleTexts_Returns_Empty_Array_When_Offer_Null()
+        {
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts((OffersModel)null);
+
+            Assert.Empty(result);
+        }
+
+        [Theory]
+        [InlineData("SA04_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA05_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA06_MIDDLE_TEXT", "sadfdsaf")]
+        public void GetMiddleTexts_Returns_One_Value(string key, string value)
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add(key, value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts(offer);
+
+            Assert.Contains(value, result);
+        }
+
+        [Theory]
+        [InlineData("SA00_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA01_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA02_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA03_MIDDLE_TEXT", "sadfdsaf")]
+        public void GetMiddleTexts_Returns_Empty_Array_When_Keys_Not_Match(string key, string value)
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add(key, value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts(offer);
+
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public void GetMiddleTexts_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Missing()
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", "text");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts(offer);
+
+            Assert.Single(result);
+        }
+
+        [Theory]
+        [InlineData("SA04_MIDDLE_TEXT", "sadfdsaf")]
+        [InlineData("SA05_MIDDLE_TEXT", "sadfdsaf")]
+        public void GetMiddleTexts_Do_Not_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Exists(string key, string value)
+        {
+            var offer = this.CreateOffer();
+            offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", "text");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetMiddleTexts(offer);
+
+            Assert.Single(result);
+            Assert.DoesNotContain("SA06_MIDDLE_TEXT", result);
+        }
+
+        [Fact]
+        public void GetUploads_Returns_Null_When_No_Templates_With_IsPrinted_Equals_False()
+        {
+            var offer = this.CreateOffer();
+            var attachments = new List<OfferAttachmentModel>();
+            attachments.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Printed = "X" }, "application/pdf", "File.pdf", new OfferAttributeModel[] {}, new byte[] { }));
+            var mockDefinitionCombinationModel = new Mock<IDefinitionCombinationModel>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetUploads_Returns_Not_Null_With_File()
+        {
+            var offer = this.CreateOffer();
+            var attachments = new List<OfferAttachmentModel>();
+            attachments.Add(new OfferAttachmentModel(new OfferAttachmentXmlModel() { Printed = "", IdAttach = "XXX" }, "application/pdf", "File.pdf", new OfferAttributeModel[] { }, new byte[] { }));
+            var mockDefinitionCombinationModel = new Mock<IDefinitionCombinationModel>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+
+            Assert.NotNull(result);
+            Assert.Single(result.Types);
+        }
+
+        [Fact]
+        public void GetUploads_Returns_File_As_Mandatory()
+        {
+            var offer = this.CreateOffer();
+            var attachments = new List<OfferAttachmentModel>();
+            attachments.Add(new OfferAttachmentModel(
+                new OfferAttachmentXmlModel() { Printed = "", IdAttach = "XXX", Obligatory = Constants.FileAttributeValues.CHECK_VALUE },
+                "application/pdf",
+                "File.pdf",
+                new OfferAttributeModel[] { },
+                new byte[] { }));
+            var mockDefinitionCombinationModel = new Mock<IDefinitionCombinationModel>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+
+            Assert.NotNull(result);
+            Assert.Single(result.Types);
+        }
+
+        [Fact]
+        public void GetProductData_Returns_Null_When_ShowPrices_Equals_False()
+        {
+            var attributes = new List<OfferAttributeModel>();
+            attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.NO_PROD_CHNG, Constants.CHECKED));
+            var offer = this.CreateOffer(this.CreateGuid(), false, 3, "6", "20500101", attributes.ToArray());
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductData(offer);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetProductData_Returns_Null_When_ProductInfos_And_MiddleTexts_And_Benefits_Are_Empty()
+        {
+            var attributes = new List<OfferAttributeModel>();
+            var offer = this.CreateOffer(this.CreateGuid(), false, 3, "6", "20500101", attributes.ToArray());
+            offer.First().TextParameters.Add("CALC_TOTAL_SAVE", "1");
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductData(offer);
+
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public void GetProductData_Returns_Model_With_MiddleTextsHelp()
+        {
+            var expected = "middle text";
+            var attributes = new List<OfferAttributeModel>();
+            var offer = this.CreateOffer(this.CreateGuid(), false, 3, "6", "20500101", attributes.ToArray());
+            offer.First().TextParameters.Add("CALC_TOTAL_SAVE", "1");
+            offer.First().TextParameters.Add("SA04_MIDDLE_TEXT", "text");
+            offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", expected);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+
+            var result = service.GetProductData(offer);
+
+            Assert.Equal(expected, result.MiddleTextsHelp);
         }
     }
 }

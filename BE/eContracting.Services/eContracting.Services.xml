@@ -1122,6 +1122,9 @@
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.SapApiGatewayId">
             <inheritdoc/>
         </member>
+        <member name="P:eContracting.Services.SitecoreSettingsReaderService.SapApiGatewayUrl">
+            <inheritdoc/>
+        </member>
         <member name="P:eContracting.Services.SitecoreSettingsReaderService.CrmCognitoUrl">
             <inheritdoc/>
         </member>
