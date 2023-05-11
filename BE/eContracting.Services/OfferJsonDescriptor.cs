@@ -1068,14 +1068,17 @@ namespace eContracting.Services
         /// <returns></returns>
         protected internal string GetProductType(OffersModel offer)
         {
-            if (offer.EanOrAndEic.StartsWith("859182400"))
+            if (!string.IsNullOrEmpty(offer.EanOrAndEic))
             {
-                return "E";
-            }
+                if (offer.EanOrAndEic.StartsWith("859182400"))
+                {
+                    return "E";
+                }
 
-            if (offer.EanOrAndEic.StartsWith("27ZG"))
-            {
-                return "G";
+                if (offer.EanOrAndEic.StartsWith("27ZG"))
+                {
+                    return "G";
+                }
             }
 
             if (offer.TextParameters.ContainsKey("PERSON_PREMLABEL"))
@@ -1173,6 +1176,11 @@ namespace eContracting.Services
         {
             var middleTexts = new List<string>();
 
+            if (offer?.TextParameters == null)
+            {
+                return middleTexts.ToArray();
+            }
+
             if (offer.TextParameters.HasValue("SA04_MIDDLE_TEXT"))
             {
                 middleTexts.Add(offer.TextParameters["SA04_MIDDLE_TEXT"]);
@@ -1197,6 +1205,11 @@ namespace eContracting.Services
         protected internal string[] GetBenefits(OffersModel offer)
         {
             var benefits = new List<string>();
+
+            if (offer?.TextParameters == null)
+            {
+                return benefits.ToArray();
+            }
 
             if (offer.TextParameters.HasValue("SA01_MIDDLE_TEXT"))
             {

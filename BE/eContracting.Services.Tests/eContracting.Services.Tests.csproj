@@ -271,6 +271,7 @@
     <Compile Include="OfferAttachmentParserServiceTests.cs" />
     <Compile Include="OfferJsonDescriptorTests.cs" />
     <Compile Include="OfferParserServiceTests.cs" />
+    <Compile Include="OfferServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SitecoreSettingsReaderServiceTests.cs" />
     <Compile Include="TokenParserServiceTests.cs" />

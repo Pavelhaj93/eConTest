@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is false.</remarks>
+        [ExcludeFromCodeCoverage]
         public bool SaveFilesToDebugFolder
         {
             get
@@ -49,6 +51,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is false.</remarks>
+        [ExcludeFromCodeCoverage]
         public bool ShowDebugMessages
         {
             get
@@ -59,6 +62,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is 30 minutes.</remarks>
+        [ExcludeFromCodeCoverage]
         public int SessionTimeout
         {
             get
@@ -69,6 +73,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is 60 minutes.</remarks>
+        [ExcludeFromCodeCoverage]
         public int CognitoMinSecondsToRefreshToken
         {
             get
@@ -79,6 +84,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is 5 seconds.</remarks>
+        [ExcludeFromCodeCoverage]
         public int SubmitOfferDelay
         {
             get
@@ -89,6 +95,7 @@ namespace eContracting.Services
 
         /// <inheritdoc/>
         /// <remarks>Default value is 5 seconds.</remarks>
+        [ExcludeFromCodeCoverage]
         public int CancelOfferDelay
         {
             get
@@ -98,6 +105,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public Uri CrmUtilitiesUmc
         {
             get
@@ -114,6 +122,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public Uri CrmAuthService
         {
             get
@@ -130,6 +139,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public string SapApiGatewayId
         {
             get
@@ -155,6 +165,8 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public Uri SapApiGatewayUrl
         {
             get
@@ -186,6 +198,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public Uri CrmCognitoUrl
         {
             get
@@ -217,6 +230,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public Uri CrmAnonymousUrl
         {
             get
@@ -248,6 +262,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public string CrmAnonymousUser
         {
             get
@@ -274,6 +289,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public string CrmAnonymousPassword
         {
             get
@@ -669,6 +685,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public string GetCustomDatabaseConnectionString()
         {
             string name = Constants.DatabaseContextConnectionStringName;
@@ -706,6 +723,7 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public CognitoSettingsModel GetCognitoSettings()
         {
             var cognitoBaseUrl = Sitecore.Configuration.Settings.GetSetting("eContracting.Cognito.OAuth.BaseUrl");
