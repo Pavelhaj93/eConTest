@@ -17,6 +17,7 @@ namespace eContracting.Services.Tests
             var attributes = new List<OfferAttributeModel>();
             attributes.Add(new OfferAttributeModel(0, Constants.OfferAttributes.ZIDENTITYID, "yes"));
             var offer = this.CreateOffer(this.CreateGuid(), false, 3, "6", "21000101", attributes.ToArray()).First();
+            var response = new ResponseCacheGetModel(new ZCCH_CACHE_GETResponse());
             var offerSubmitModel = new OfferSubmitDataModel();
             var user = new UserCacheDataModel();
             var logger = new MemoryLogger();
@@ -24,6 +25,7 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             var mockServiceFactory = new Mock<IServiceFactory>();
             var mockOfferDataService = new Mock<IOfferDataService>();
+            mockOfferDataService.Setup(x => x.GetResponse(offer.Guid, OFFER_TYPES.QUOTPRX_PDF, "B")).Returns(response);
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
             var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();

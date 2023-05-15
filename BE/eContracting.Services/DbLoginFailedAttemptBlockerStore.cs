@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using eContracting.Models;
 using eContracting.Storage;
@@ -7,6 +8,7 @@ namespace eContracting.Services
 {
     /// <inheritdoc/>
     /// <seealso cref="eContracting.ILoginFailedAttemptBlockerStore" />
+    [ExcludeFromCodeCoverage]
     public class DbLoginFailedAttemptBlockerStore : ILoginFailedAttemptBlockerStore
     {
         /// <summary>

@@ -4,6 +4,11 @@
         <name>eContracting.Services</name>
     </assembly>
     <members>
+        <member name="T:eContracting.Services.AuthService">
+            <summary>
+            Not used
+            </summary>
+        </member>
         <member name="M:eContracting.Services.CallMeBackService.GetCsrfTokenAsAnonymous(eContracting.Models.CallMeBackModel)">
             <summary>
             Gets CSRF token for non Congnito logged in user.
@@ -211,7 +216,9 @@
             </summary>
         </member>
         <member name="T:eContracting.Services.TwoSecrectsAuthService">
-            <inheritdoc/>
+            <summary>
+            Not used
+            </summary>
         </member>
         <member name="F:eContracting.Services.TwoSecrectsAuthService.SettingsReader">
             <summary>
