@@ -2371,5 +2371,72 @@ namespace eContracting.Services.Tests
 
             Assert.Equal(expected, result.MiddleTextsHelp);
         }
+
+        [Theory]
+        [InlineData("PERSON")]
+        [InlineData("BENEFITS")]
+        public void IsSectionChecked_Returns_True_If_Value_Is_X(string key)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key, Constants.FileAttributeValues.CHECK_VALUE);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(
+                logger,
+                textService.Object,
+                mockSitecoreService.Object,
+                mockOfferService.Object,
+                mockSettingsReaderService.Object);
+
+            var result = service.IsSectionChecked(textParameters, key);
+        }
+
+        [Fact]
+        public void IsSectionChecked_Returns_False_When_Key_Doesnt_Exist()
+        {
+            var textParameters = new Dictionary<string, string>();
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(
+                logger,
+                textService.Object,
+                mockSitecoreService.Object,
+                mockOfferService.Object,
+                mockSettingsReaderService.Object);
+
+            var result = service.IsSectionChecked(textParameters, "DUMB_KEY");
+        }
+
+        [Theory]
+        [InlineData("PERSON", "")]
+        [InlineData("PERSON", " ")]
+        [InlineData("PERSON", "S")]
+        public void IsSectionChecked_Returns_False_When_Value_Is_Not_X(string key, string value)
+        {
+            var textParameters = new Dictionary<string, string>();
+            textParameters.Add(key, value);
+            var logger = new MemoryLogger();
+            var textService = new Mock<ITextService>();
+            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+            var mockOfferService = new Mock<IOfferService>();
+            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+
+            var service = new OfferJsonDescriptor(
+                logger,
+                textService.Object,
+                mockSitecoreService.Object,
+                mockOfferService.Object,
+                mockSettingsReaderService.Object);
+
+            var result = service.IsSectionChecked(textParameters, key);
+        }
     }
 }

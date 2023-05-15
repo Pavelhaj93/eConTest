@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,7 +11,10 @@ using eContracting.Models;
 
 namespace eContracting.Services
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Not used
+    /// </summary>
+    [ExcludeFromCodeCoverage]
     public class TwoSecrectsAuthService : ITwoSecrectsAuthService
     {
         public AUTH_METHODS AuthType { get; } = AUTH_METHODS.TWO_SECRETS;

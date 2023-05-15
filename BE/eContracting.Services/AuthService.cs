@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace eContracting.Services
 {
+    /// <summary>
+    /// Not used
+    /// </summary>
+    [ExcludeFromCodeCoverage]
     public class AuthService : IAuthService
     {
         protected const string ISSUER = "eContracting";

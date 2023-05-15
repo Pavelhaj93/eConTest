@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace eContracting.Services
     /// Database storage for log events.
     /// </summary>
     /// <seealso cref="eContracting.IEventLogger" />
+    [ExcludeFromCodeCoverage]
     public class DbEventLogger : IEventLogger
     {
         /// <summary>
