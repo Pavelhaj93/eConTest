@@ -1,6 +1,6 @@
 import { Accordion, Box, BoxHeading, Gift, Icon, CallMeBackModal, Tooltip } from '@components'
 import { useLabels } from '@hooks'
-import { View } from '@types'
+import { CommodityProductType, View } from '@types'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import { CallMeBackStore, SummaryStore } from '@stores'
 import { CallMeBackStoreContext } from '@context'
 import { removeLastElement } from '@utils'
 import { colors } from '@theme'
+import { closestIndexTo } from 'date-fns'
 
 export const Summary: React.FC<View> = observer(
   ({
@@ -61,11 +62,11 @@ export const Summary: React.FC<View> = observer(
       setCallMeBackModalOpen(true)
     }
 
-    useEffect(() => {
-      if (store?.product?.middle_texts_help) {
-        setLastProductMiddleTextElement(removeLastElement(store?.product?.middle_texts))
-      }
-    }, [store?.product?.middle_texts, store?.product?.middle_texts_help])
+    // useEffect(() => {
+    //   if (store?.product?.middle_texts_help) {
+    //     setLastProductMiddleTextElement(removeLastElement(store?.product?.middle_texts))
+    //   }
+    // }, [store?.product?.middle_texts, store?.product?.middle_texts_help])
 
     const renderPriceWithToolTip = (price: string, priceDescription: string, priceNote: string) => (
       <div className="d-flex align-items-center">
@@ -100,134 +101,153 @@ export const Summary: React.FC<View> = observer(
         >
           <>
             {/* Personal Details Box */}
-            {store.personalDetails && (
+            {store.contractualData && (
               <Box backgroundColor="gray-80">
-                <BoxHeading>{store.personalDetails.title}</BoxHeading>
-                <Row className="justify-content-center mx-0 mb-0">
-                  {store.personalDetails.data.map((col, idx) => (
-                    <Col as="ul" key={idx} xs={12} xl={4} className="my-3 px-2 list-unstyled">
-                      <li>{col.title}</li>
-                      {col.lines.map((line, i) => (
-                        <li className="font-weight-bold" key={i}>
-                          {line}
-                        </li>
-                      ))}
+                <BoxHeading>{store.contractualData.header.title}</BoxHeading>
+                <Row className="justify-content-center mx-0 mb-0 flex-row">
+                  <Col as="ul" xs={12} xl={4} className="my-3 px-2 list-unstyled">
+                    {store.contractualData?.body?.personalData?.map((item, index) => (
+                      <li key={index}>
+                        <li>{item.title}</li>
+                        {item.values.map((value, index) => (
+                          <li className="font-weight-bold" key={index}>
+                            {value}
+                          </li>
+                        ))}
+                      </li>
+                    ))}
+                  </Col>
+                  {store.contractualData?.body?.addresses?.map((item, index) => (
+                    <Col key={index} as="ul" xs={12} xl={4} className="my-3 px-2 list-unstyled">
+                      <>
+                        <li>{item.title}</li>
+                        {item.values.map((value, index) => (
+                          <li className="font-weight-bold" key={index}>
+                            {value}
+                          </li>
+                        ))}
+                      </>
                     </Col>
                   ))}
                 </Row>
-                {store.personalDetails.communication && (
+                {store.contractualData.body.contacts && (
                   <ul className="my-3 list-unstyled">
-                    <li>{store.personalDetails.communication.Title}</li>
-                    <li className="font-weight-bold">
-                      {store.personalDetails.communication.Value}
-                    </li>
+                    {store.contractualData.body.contacts.map((item, index) => (
+                      <li key={index}>
+                        <li>{item.title}</li>
+                        {item.values.map((value, index) => (
+                          <li key={index} className="font-weight-bold">
+                            {value}
+                          </li>
+                        ))}
+                      </li>
+                    ))}
                   </ul>
                 )}
               </Box>
             )}
             {/* Personal Details Box */}
             {/*Product Accordion */}
-
-            {store.product && (
-              <Accordion
-                isOpen={true}
-                header={
-                  <Box
-                    backgroundColor={
-                      store.product.type.toLowerCase() === 'g' ? 'blue' : 'purple-light'
-                    }
-                    className="accordion__button"
-                  >
-                    <div className="d-flex justify-content-between align-items-center">
-                      <h2 className="m-0">{store.product.header.name}</h2>
-                      <div className="d-flex align-items-center">
-                        <div className="d-flex flex-column align-items-center text-center mr-3">
-                          {renderPriceWithToolTip(
-                            store.product.header.price1,
-                            store.product.header.price1_description,
-                            store.product.header.price1_note,
-                          )}
-                          {renderPriceWithToolTip(
-                            store.product.header.price2,
-                            store.product.header.price2_description,
-                            store.product.header.price2_note,
-                          )}
+            {store.product &&
+              store.product.map((product, index) => (
+                <Accordion
+                  key={index}
+                  isOpen={true}
+                  header={
+                    <Box
+                      backgroundColor={
+                        product.header.type === CommodityProductType.GAS ? 'blue' : 'purple-light'
+                      }
+                      className="accordion__button"
+                    >
+                      <div className="d-flex justify-content-between align-items-center">
+                        <h2 className="m-0">{product.header.title}</h2>
+                        <div className="d-flex align-items-center">
+                          <div className="d-flex flex-column align-items-center text-center mr-3">
+                            {product.header.data?.map(price => {
+                              return (
+                                <>{renderPriceWithToolTip(price.value, price.title, price.value)}</>
+                              )
+                            })}
+                          </div>
+                          <Icon size={32} color="currentColor" name="chevron-down"></Icon>
                         </div>
-                        <Icon size={32} color="currentColor" name="chevron-down"></Icon>
                       </div>
-                    </div>
-                  </Box>
-                }
-              >
-                <div
-                  className={classNames({
-                    accordion__panel: true,
-                    'accordion__panel--blue': store.product.type.toLowerCase() === 'g',
-                  })}
+                    </Box>
+                  }
                 >
-                  <Row className="justify-content-center">
-                    {store.product.info_prices.map((item, i) => (
-                      <Col
-                        key={i}
-                        className="text-center text-sm"
-                        xs={12}
-                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                        md={12 / store.product!.info_prices.length}
-                      >
-                        <p className="font-weight-bold">{item.title}</p>
-                        <p className="text-xs line-through">{item.previous_price}</p>
-                        <p className="special font-weight-bold">
-                          <span className="text-m">{item.value}</span> {item.value_unit}
-                        </p>
-                      </Col>
-                    ))}
-                  </Row>
-                  {store.product.middle_texts.map((text, i) => (
-                    <div
-                      className="text-sm text-center mb-3 mt-0"
-                      key={i}
-                      dangerouslySetInnerHTML={{ __html: text }}
-                    />
-                  ))}
-                  {store?.product?.middle_texts_help && store.product.middle_texts.length > 0 && (
-                    <div className="d-flex justify-content-center align-items-baseline">
-                      {lastProductMiddleTextElement && (
-                        <div
-                          className="text-sm text-center mb-3 mt-0 mr-2"
-                          dangerouslySetInnerHTML={{
-                            __html: lastProductMiddleTextElement,
-                          }}
-                        />
-                      )}
-                      <Tooltip name="question-mark" size={25}>
-                        {store?.product?.middle_texts_help}
-                      </Tooltip>
-                    </div>
-                  )}
-                  <Row className="m-0 justify-content-center">
-                    {store.product.benefits.map((text, i) => (
-                      <Col
-                        className={classNames({
-                          'p-0 d-flex xl-justify-content-center align-items-center mb-3': true,
+                  <div
+                    className={classNames({
+                      accordion__panel: true,
+                      'accordion__panel--blue': product.header.type === CommodityProductType.GAS,
+                    })}
+                  >
+                    <Row className="justify-content-center flex-row">
+                      {product?.body?.prices?.map((item, i) => (
+                        <Col
+                          key={i}
+                          className="text-center text-sm"
+                          xs={12}
                           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                          'pr-3': i < store.product!.benefits.length - 1,
-                        })}
-                        xl={4}
+                          // TODO: Fix this
+                          md={12 / product.body.prices.length}
+                        >
+                          <p className="font-weight-bold">{item.unit}</p>
+                          <p className="text-xs line-through">{item.price2}</p>
+                          <p className="special font-weight-bold">
+                            <span className="text-m">{item.price}</span> {item.unit}
+                          </p>
+                        </Col>
+                      ))}
+                    </Row>
+                    {product?.body?.infos?.map((text, i) => (
+                      <div
+                        className="text-sm text-center mb-3 mt-0"
                         key={i}
-                      >
-                        <span className="special">
-                          <Icon name={'check-circle'} size={48} color="currentColor"></Icon>
-                        </span>
-                        <div
-                          className="text-sm text-left ml-3 mb-0"
-                          dangerouslySetInnerHTML={{ __html: text }}
-                        />
-                      </Col>
+                        dangerouslySetInnerHTML={{ __html: text.value }}
+                      />
                     ))}
-                  </Row>
-                </div>
-              </Accordion>
-            )}
+                    {/* // TODO: zjistit proc chybi middle text helps */}
+                    {/* {store?.product?.middle_texts_help && store.product.middle_texts.length > 0 && (
+                      <div className="d-flex justify-content-center align-items-baseline">
+                        {lastProductMiddleTextElement && (
+                          <div
+                            className="text-sm text-center mb-3 mt-0 mr-2"
+                            dangerouslySetInnerHTML={{
+                              __html: lastProductMiddleTextElement,
+                            }}
+                          />
+                        )}
+                        <Tooltip name="question-mark" size={25}>
+                          {store?.product?.middle_texts_help}
+                        </Tooltip>
+                      </div>
+                    )} */}
+                    <Row className="m-0 justify-content-center">
+                      {product?.body?.points?.map((text, i) => (
+                        <Col
+                          className={classNames({
+                            'p-0 d-flex xl-justify-content-center align-items-center mb-3': true,
+                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                            // TODO: Fix this
+                            'pr-3': i < product.body.points.length - 1,
+                          })}
+                          xl={4}
+                          key={i}
+                        >
+                          <span className="special">
+                            <Icon name={'check-circle'} size={48} color="currentColor"></Icon>
+                          </span>
+                          <div
+                            className="text-sm text-left ml-3 mb-0"
+                            dangerouslySetInnerHTML={{ __html: text.value }}
+                          />
+                        </Col>
+                      ))}
+                    </Row>
+                  </div>
+                </Accordion>
+              ))}
             {/*Product Accordion */}
             {/* Benefits accordion */}
             {store.benefits &&
@@ -240,7 +260,7 @@ export const Summary: React.FC<View> = observer(
                         backgroundColor="orange"
                         className="accordion__button font-weight-bold d-flex justify-content-between align-items-center"
                       >
-                        <h3 className="mb-0 pe-none">{benefit.title}</h3>
+                        <h3 className="mb-0 pe-none">{benefit.header.title}</h3>
                         <Icon
                           size={32}
                           color="currentColor"
@@ -251,15 +271,15 @@ export const Summary: React.FC<View> = observer(
                     }
                   >
                     <div className="accordion__panel accordion__panel--orange">
-                      {benefit.summary && (
+                      {benefit.body && (
                         <Row className="m-0">
                           <Col
                             xs={12}
                             className="accordion__divider d-flex flex-column align-items-center p-0 mb-4 pb-3"
                           >
-                            {benefit.summary.length > 0 && (
+                            {Object.values(benefit.body).length > 0 && (
                               <ul className="list-unstyled mb-0">
-                                {benefit.summary.map(({ title, value }, idx) => (
+                                {benefit.body.infos?.map(({ title, value }, idx) => (
                                   <li className="text-sm text-center mb-2" key={idx}>
                                     {title} {value}
                                   </li>
@@ -270,12 +290,12 @@ export const Summary: React.FC<View> = observer(
                         </Row>
                       )}
                       <Row className="m-0 justify-content-center">
-                        {benefit.params.map((param, i) => (
+                        {benefit.body.points?.map((point, i) => (
                           <Col
                             className={classNames({
                               'p-0 d-flex xl-justify-content-center align-items-center mb-3': true,
                               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                              'pr-3': i < benefit.params.length - 1,
+                              'pr-3': i < benefit.body.points.length - 1,
                             })}
                             xl={4}
                             key={i}
@@ -284,7 +304,7 @@ export const Summary: React.FC<View> = observer(
                               <Icon name={'check-circle'} size={48} color="currentColor"></Icon>
                             </span>
                             <div
-                              dangerouslySetInnerHTML={{ __html: param.value }}
+                              dangerouslySetInnerHTML={{ __html: point.value }}
                               className="text-sm text-left ml-3 mb-0"
                             ></div>
                           </Col>
@@ -294,10 +314,10 @@ export const Summary: React.FC<View> = observer(
                   </Accordion>
                 </div>
               ))}
-
             {/* Benefits accordion */}
             {/* Distributr change */}
-            {store.distributorChange && (
+            {/* TODO: zjistit proc v novem jsonu chybi distributorChange */}
+            {/* {store.distributorChange && (
               <Container className="mb-4">
                 <Row>
                   <Col className="m-auto px-0" xs={12} lg={10}>
@@ -314,10 +334,10 @@ export const Summary: React.FC<View> = observer(
                   </Col>
                 </Row>
               </Container>
-            )}
+            )} */}
             {/* Distributr change */}
             {/* gifts box */}
-            {store.gifts && (
+            {/* {store.gifts && (
               <Box backgroundColor="green">
                 <BoxHeading data-testid="giftBoxHeading">{store.gifts.title}</BoxHeading>
 
@@ -358,7 +378,7 @@ export const Summary: React.FC<View> = observer(
                   dangerouslySetInnerHTML={{ __html: store.gifts.note }}
                 />
               </Box>
-            )}
+            )} */}
             {/* gifts box */}
             {!store.isLoading && !store.error && (
               <>

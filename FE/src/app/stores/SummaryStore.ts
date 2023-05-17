@@ -1,4 +1,4 @@
-import { QueryParams } from '@types'
+import { QueryParams, ResponseItemType } from '@types'
 import { parseUrl } from '@utils'
 import { action, observable } from 'mobx'
 import { SumarryErrorResponse, SummaryResponse } from '../types/Summary'
@@ -19,19 +19,19 @@ export class SummaryStore {
   public forceReload = false
 
   @observable
-  public personalDetails: SummaryResponse.Personal | undefined = undefined
+  public contractualData: SummaryResponse.ResponseItem | undefined = undefined
 
   @observable
-  public distributorChange: SummaryResponse.DistributorChange | undefined = undefined
+  public distributorChange: SummaryResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public product: SummaryResponse.Product | undefined = undefined
+  public product: SummaryResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public benefits: SummaryResponse.Benefits[] | undefined = undefined
+  public benefits: SummaryResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public gifts: SummaryResponse.Gifts | undefined = undefined
+  public gifts: SummaryResponse.ResponseItem[] | undefined = undefined
 
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
@@ -82,11 +82,15 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      this.personalDetails = jsonResponse.personal
-      this.distributorChange = jsonResponse.distributor_change
-      this.product = jsonResponse.product
-      this.benefits = jsonResponse.benefits
-      this.gifts = jsonResponse.gifts
+      this.contractualData = jsonResponse.data.find(
+        d => d.type === ResponseItemType.contractualData,
+      )
+
+      this.product = jsonResponse.data.filter(d => d.type === ResponseItemType.product)
+
+      this.gifts = jsonResponse.data.filter(d => d.type === ResponseItemType.gift)
+
+      this.benefits = jsonResponse.data.filter(d => d.type === ResponseItemType.benefit)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))

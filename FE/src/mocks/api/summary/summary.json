@@ -1,102 +1,216 @@
 {
-  "personal": {
-    "title": "Smluvní údaje",
-    "data": [
+  "data": [
       {
-        "title": "Osobní údaje",
-        "lines": ["Tereza Tlachová", "milos.rezanina@innogy.cz", "774 647 560"]
+          "type": "contractualData",
+          "position": 1,
+          "header": {
+              "title": "Smluvní údaje"
+          },
+          "body": {
+              "personalData": [
+                  {
+                      "title": "Osobní údaje",
+                      "values": [
+                          "Hubert Dostál",
+                          "jarmila.janisova@innogy.cz",
+                          "606 773 704"
+                      ]
+                  }
+              ],
+              "addresses": [
+                  {
+                      "title": "Adresa trvalého bydliště",
+                      "values": [
+                          "V Lukách 232",
+                          "Rapotín",
+                          "788 13"
+                      ]
+                  },
+                  {
+                      "title": "Korespondenční adresa",
+                      "values": [
+                          "V Lukách 232",
+                          "Rapotín",
+                          "788 14"
+                      ]
+                  }
+              ],
+              "contacts": [
+                  {
+                      "title": "Sjednaný způsob komunikace",
+                      "values": [ "innosvět" ]
+                  }
+              ]
+          }
       },
       {
-        "title": "Adresa trvalého bydliště",
-        "lines": ["Hutník 1426", "Veselí nad Moravou", "698 01"]
+          "type": "benefit",
+          "position": 3,
+          "header": {
+              "title": "Nesnižování záloh"
+          },
+          "body": {
+              "infos": [
+                  {
+                      "title": "Platnost nabídky",
+                      "value": "20.10.2022"
+                  }
+              ],
+              "points": [
+                  {
+                      "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie"
+                  }
+              ]
+          }
       },
-      { "title": "Korespondenční adresa", "lines": ["Hutník 1426", "Veselí nad Moravou", "698 01"] }
-    ],
-    "communication": { "Title": "Sjednaný způsob komunikace", "Value": "Papírový tisk" }
-  },
-  "product": {
-    "type": "E",
-    "header": {
-      "name": "elektřina Start 15",
-      "price1_description": "Uspora",
-      "price1": "2420 Kc/rok",
-      "price2_description": "Rocni odmena",
-      "price2": "50 Kc",
-      "price1_note": "Tady bude ta napoveda 1",
-      "price2_note": "Tady bude ta napoveda 2"
-    },
-    "info_prices": [
       {
-        "title": "Stálá platba",
-        "previous_price": "79,00 Kč/měsíc",
-        "value": "79,00",
-        "value_unit": "Kč/měsíc"
-      }
-    ],
-    "middle_texts": [
-      "Plyn OPTIM prvni argument",
-      "Plyn OPTIM druhy argument"
-    ],
-    "middle_texts_help": "Plyn OPTIM treti argument",
-    "benefits": [
-      "Ele standardni prvni argument",
-      "Ele standardni druhy argument",
-      "Ele standardni treti argument"
-    ]
-  },
-  "benefits": [
-    {
-      "title": "Nesnižování záloh",
-      "params": [
-        { "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie" }
-      ]
-    },
-    {
-      "title": "iKARTA",
-      "params": [
-        {
-          "value": "innogy Karta pro všechny zákazníky innogy, kteří mají rádi film, lyžování nebo cestování"
-        },
-        { "value": "Získejte u vybraných partnerů slevu až 20 %" }
-      ]
-    },
-    {
-      "summary": [
-        { "title": "Služba", "value": "innogy Domácí asistence" },
-        { "title": "Varianta", "value": "Premium" },
-        { "title": "Platnost nabídky do", "value": "31.05.2022" }
-      ],
-      "title": "innogy Domácí asistence",
-      "params": [
-        { "value": "limit plnění až 10 000 Kč" },
-        { "value": "doprava hrazená v plné výši" },
-        { "value": "drobný spotřební materiál v ceně služby" },
-        { "value": "non-stop telefonická podpora" }
-      ]
-    },
-    {
-      "summary": [
-        { "title": "Produkt", "value": "elektřina Start 15" },
-        { "title": "Platnost nabídky do", "value": "31.05.2022" },
-        { "title": "Délka fixace", "value": "15 měsíců od účinnosti smlouvy" },
-        { "title": "Platnost smlouvy", "value": "Dnem akceptace smlouvy zákazníkem" },
-        { "title": "Předpokládaná účinnost smlouvy", "value": "26.11.2022" }
-      ],
-      "title": "Smlouva / dodatek",
-      "params": [
-        { "value": "naše ceny energií i smlouvy jsou závazné" },
-        { "value": "pevná cena silové elektřiny po dobu 15 měsíců" }
-      ]
-    }
-  ],
-  "gifts": {
-    "title": "Máme pro Vás nachystané dárky",
-    "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
-    "groups": [
+          "type": "benefit",
+          "position": 4,
+          "header": {
+              "title": "Servis plynových spotřebičů"
+          },
+          "body": {
+              "infos": [
+                  {
+                      "title": "Značka kotle",
+                      "value": "Kotel Viadrus"
+                  },
+                  {
+                      "title": "Platnost nabídky do",
+                      "value": "05.10.2022"
+                  }
+              ],
+              "points": [
+                  {
+                      "value": "Cena servisu rozdělena do měsíčních záloh"
+                  },
+                  {
+                      "value": "Zajištění technika v případě poruchy do dvou pracovních dnů"
+                  },
+                  {
+                      "value": "Servisní protokol jako standardní výstup každé servisní prohlídky"
+                  },
+                  {
+                      "value": "Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme"
+                  }
+              ]
+          }
+      },
       {
-        "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
-        "params": [{ "title": "Detektor", "icon": "DET", "count": 1 }]
+          "type": "product",
+          "position": 2,
+          "header": {
+              "title": "plyn Start 12",
+              "type": "G", 
+              "data": [
+                  {
+                      "type": "main", 
+                      "title": "Optimální výše zálohy",
+                      "value": "3 320,00 Kč/měs.",
+                      "note": "Výše zálohy je pouze orientační, stanovená zjednodušeným výpočtem. Skutečnou výši zálohy obdržíte krátce po zahájení odběru. V závislosti na vývoji situace může být nižší nebo vyšší."
+                  },
+                  {
+                      "type": "add", 
+                      "title": "Old price",
+                      "value": "302,50 Kč/měs.",
+                      "note": "Here could be some text but we never saw it"
+                  }
+              ]
+          },
+          "body": {
+              "prices": [
+                  {
+                      "title": "Odebraný plyn",
+                      "price": "3 105,00",
+                      "price2": null,
+                      "unit": "Kč/MWh"
+                  },
+                  {
+                      "title": "Stálá platba",
+                      "price": "125,00",
+                      "price2": null,
+                      "unit": "Kč/měsíc"
+                  }
+              ],
+              "infos": [
+                  {
+                      "value": "<span style=\"color: #999999;\">Pokud se nechcete vázat na delší časové období a chcete mít jistotu fixní ceny, Start 12 je tím pravým produktem pro Vás.</span>"
+                  },
+                  {
+                      "value": "jistota sjednané ceny po ‍dobu 12 ‍měsíců"
+                  }
+              ],
+              "points": [
+                  {
+                      "value": "s ‍možností automatického prodloužení vždy o ‍stejné období"
+                  },
+                  {
+                      "value": "Už se nemusíte obávat výkyvu cen plynu, pevně si je sjednáte na 12 měsíců dopředu."
+                  },
+                  {
+                      "value": "Držíme slovo a dodržujeme smlouvy"
+                  }
+              ]
+          }
+      },
+      {
+          "type": "gift",
+          "position": 5,
+          "header": {
+              "title": "Máme pro Vás nachystané dárky",
+              "note": "Způsob doručení korespondenčně na zasílací adresu"
+          },
+          "body": {
+              "groups": [
+                  {
+                      "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
+                      "params": [
+                          {
+                              "title": "Kuchařka",
+                              "icon": "KNI",
+                              "count": 1
+                          }
+                      ]
+                  },
+                  {
+                      "title": "Po zahájení dodávky na Vás čeká",
+                      "params": [
+                          {
+                              "title": "Detektor",
+                              "icon": "DET",
+                              "count": 1
+                          },
+                          {
+                              "title": "123x poukázka Kaufland 100 Kč",
+                              "icon": "PKZ",
+                              "count": 123
+                          },
+                          {
+                              "title": "1230 x poukázka Hornbach, 1000 Kč na vybavení zahrady",
+                              "icon": "PKZ",
+                              "count": 1230
+                          }
+                      ]
+                  },
+                  {
+                      "title": "Za přijetí nabídky za Vás čeká:",
+                      "params": [
+                          {
+                              "title": "10x LED žárovka",
+                              "icon": "LED",
+                              "count": 10
+                          },
+                          {
+                              "title": "20x detektor",
+                              "icon": "DET",
+                              "count": 20
+                          }
+                      ]
+                  }
+              ]
+          }
       }
-    ]
-  }
+  ]
 }
+
+
