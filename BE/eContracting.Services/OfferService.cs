@@ -569,7 +569,7 @@ namespace eContracting.Services
                 });
             }
 
-            if (user.HasAuth(AUTH_METHODS.COGNITO))
+            if (user.IsCognito)
             {
                 attributes.Add(new ZCCH_ST_ATTRIB()
                 {
