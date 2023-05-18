@@ -140,6 +140,7 @@
                         "value": "jistota sjednané ceny po ‍dobu 12 ‍měsíců"
                     }
                 ],
+                "infoHelp": "Cena i smlouva platná 12 měsíců",
                 "points": [
                     {
                         "value": "s ‍možností automatického prodloužení vždy o ‍stejné období"
