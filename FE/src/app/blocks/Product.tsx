@@ -8,17 +8,15 @@ import { CommodityProductType } from '@types'
 import { Tooltip } from '../components/Tooltip'
 import { colors } from '../theme/variables'
 import { Accordion } from '../components/Accordion'
-import { removeLastElement } from '../utils/strings'
-import { info } from 'console'
 
 interface ProductProps {
-  headerType: SummaryResponse.ResponseItem['header']['type'] | null
-  headerTitle: SummaryResponse.ResponseItem['header']['title'] | null
-  headerData: SummaryResponse.ResponseItem['header']['data'] | null
-  bodyPrices: SummaryResponse.ResponseItem['body']['prices'] | null
-  bodyInfos: SummaryResponse.ResponseItem['body']['infos'] | null
-  infoHelp: SummaryResponse.ResponseItem['body']['infoHelp'] | null
-  bodyPoints: SummaryResponse.ResponseItem['body']['points'] | null
+  headerType: SummaryResponse.ResponseItem['header']['type']
+  headerTitle: SummaryResponse.ResponseItem['header']['title']
+  headerData: SummaryResponse.ResponseItem['header']['data']
+  bodyPrices: SummaryResponse.ResponseItem['body']['prices']
+  bodyInfos: SummaryResponse.ResponseItem['body']['infos']
+  infoHelp: SummaryResponse.ResponseItem['body']['infoHelp']
+  bodyPoints: SummaryResponse.ResponseItem['body']['points']
 }
 
 const Product: FC<ProductProps> = ({
@@ -35,24 +33,10 @@ const Product: FC<ProductProps> = ({
   >(undefined)
 
   useEffect(() => {
-    if (infoHelp) {
-      setLastProductMiddleTextElement(removeLastElement(bodyInfos?.map(info => info.value ?? [])))
+    if (infoHelp && bodyInfos) {
+      setLastProductMiddleTextElement(bodyInfos[bodyInfos.length - 1].value)
     }
   }, [bodyInfos, infoHelp])
-
-  const renderPriceWithToolTip = (price: string, priceDescription: string, priceNote: string) => (
-    <div className="d-flex align-items-center">
-      <div className="d-flex flex-column flex-md-row align-items-center mb-0 mr-2">
-        <span className="mr-md-2">{priceDescription}</span>
-        <span className="font-weight-bold">{price}</span>
-      </div>
-      {priceNote && (
-        <Tooltip tooltipClassName="mb-2" iconColor={colors.white} name="question-mark" size={25}>
-          {priceNote}
-        </Tooltip>
-      )}
-    </div>
-  )
 
   return (
     <Accordion
@@ -66,8 +50,23 @@ const Product: FC<ProductProps> = ({
             <h2 className="m-0">{headerTitle}</h2>
             <div className="d-flex align-items-center">
               <div className="d-flex flex-column align-items-center text-center mr-3">
-                {headerData?.map(price => (
-                  <>{renderPriceWithToolTip(price.value, price.title, price.value)}</>
+                {headerData?.map((price, index) => (
+                  <div className="d-flex align-items-center" key={index}>
+                    <div className="d-flex flex-column flex-md-row align-items-center mb-0 mr-2">
+                      <span className="mr-md-2">{price.title}</span>
+                      <span className="font-weight-bold">{price.value}</span>
+                    </div>
+                    {price.note && (
+                      <Tooltip
+                        tooltipClassName="mb-2"
+                        iconColor={colors.white}
+                        name="question-mark"
+                        size={25}
+                      >
+                        {price.note}
+                      </Tooltip>
+                    )}
+                  </div>
                 ))}
               </div>
               <Icon size={32} color="currentColor" name="chevron-down"></Icon>
@@ -84,14 +83,7 @@ const Product: FC<ProductProps> = ({
       >
         <Row className="justify-content-center flex-row">
           {bodyPrices?.map((item, i) => (
-            <Col
-              key={i}
-              className="text-center text-sm"
-              xs={12}
-              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-              // TODO: Fix this
-              md={12 / bodyPrices.length}
-            >
+            <Col key={i} className="text-center text-sm" xs={12} md={12 / bodyPrices.length}>
               <p className="font-weight-bold">{item.unit}</p>
               <p className="text-xs line-through">{item.price2}</p>
               <p className="special font-weight-bold">
@@ -100,35 +92,41 @@ const Product: FC<ProductProps> = ({
             </Col>
           ))}
         </Row>
-        {bodyInfos?.map((text, i) => (
-          <div
-            className="text-sm text-center mb-3 mt-0"
-            key={i}
-            dangerouslySetInnerHTML={{ __html: text.value }}
-          />
-        ))}
+        {bodyInfos &&
+          !infoHelp &&
+          bodyInfos?.map((text, i) => (
+            <div
+              className="text-sm text-center mb-3 mt-0"
+              key={i}
+              dangerouslySetInnerHTML={{ __html: text.value }}
+            />
+          ))}
         {infoHelp && bodyInfos && bodyInfos?.length > 0 && (
-          <div className="d-flex justify-content-center align-items-baseline">
-            {lastProductMiddleTextElement && (
-              <div
-                className="text-sm text-center mb-3 mt-0 mr-2"
-                dangerouslySetInnerHTML={{
-                  __html: lastProductMiddleTextElement,
-                }}
-              />
-            )}
-            <Tooltip name="question-mark" size={25}>
-              {infoHelp}
-            </Tooltip>
-          </div>
+          <>
+            <div
+              className="text-sm text-center mb-3 mt-0"
+              dangerouslySetInnerHTML={{ __html: bodyInfos[0].value }}
+            />
+            <div className="d-flex justify-content-center align-items-baseline">
+              {lastProductMiddleTextElement && (
+                <div
+                  className="text-sm text-center mb-3 mt-0 mr-2"
+                  dangerouslySetInnerHTML={{
+                    __html: lastProductMiddleTextElement,
+                  }}
+                />
+              )}
+              <Tooltip name="question-mark" size={25}>
+                {infoHelp}
+              </Tooltip>
+            </div>
+          </>
         )}
         <Row className="m-0 justify-content-center">
           {bodyPoints?.map((text, i) => (
             <Col
               className={classNames({
                 'p-0 d-flex xl-justify-content-center align-items-center mb-3': true,
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                // TODO: Fix this
                 'pr-3': i < bodyPoints.length - 1,
               })}
               xl={4}

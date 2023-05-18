@@ -15,7 +15,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "prepush": "yarn lint && yarn test",
-    "clean:files": "node ./scripts/cleanUploadedFiles.js"
+    "clean:files": "node ./scripts/cleanUploadedFiles.js",
+    "nvm:start": "export NVM_DIR=\"$HOME/.nvm\" && [ -s \"$(brew --prefix)/opt/nvm/nvm.sh\" ] && . \"$(brew --prefix)/opt/nvm/nvm.sh\" && [ -s \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\" ] && . \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\""
   },
   "husky": {
     "hooks": {

@@ -1,15 +1,13 @@
 import { Icon, CallMeBackModal } from '@components'
 import { useLabels } from '@hooks'
-import { CommodityProductType, ResponseItemType, View } from '@types'
+import { ResponseItemType, View } from '@types'
 import classNames from 'classnames'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
-import { Alert, Button, Col, Container, Modal, Row } from 'react-bootstrap'
+import { Alert, Button, Modal } from 'react-bootstrap'
 import { CallMeBackStore, SummaryStore } from '@stores'
 import { CallMeBackStoreContext } from '@context'
-import { removeLastElement } from '@utils'
-import { colors } from '@theme'
-import { closestIndexTo } from 'date-fns'
+
 import ContractualData from '../blocks/ContractualData'
 import Product from '../blocks/Product'
 import Benefit from '../blocks/Benefit'
@@ -110,10 +108,25 @@ export const Summary: React.FC<View> = observer(
                 )
               }
               if (type === ResponseItemType.Benefit) {
-                return <Benefit key={item.position} benefitData={item} />
+                return (
+                  <Benefit
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    body={item.body}
+                    bodyInfos={item.body.infos}
+                    bodyPoints={item.body.points}
+                  />
+                )
               }
               if (type === ResponseItemType.Gift) {
-                return <GiftBlock key={item.position} giftData={item} />
+                return (
+                  <GiftBlock
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    bodyGroups={item.body.groups}
+                    headerNote={item.header.note}
+                  />
+                )
               }
               if (type === ResponseItemType.Competitor) {
                 return (

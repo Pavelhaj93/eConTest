@@ -7,10 +7,13 @@ import classNames from 'classnames'
 import { SummaryResponse } from '../types/Summary'
 
 interface BenefitProps {
-  benefitData: SummaryResponse.ResponseItem
+  headerTitle: SummaryResponse.ResponseItem['header']['title']
+  body: SummaryResponse.ResponseItem['body']
+  bodyInfos: SummaryResponse.ResponseItem['body']['infos']
+  bodyPoints: SummaryResponse.ResponseItem['body']['points']
 }
 
-const Benefit: FC<BenefitProps> = ({ benefitData }) => {
+const Benefit: FC<BenefitProps> = ({ headerTitle, body, bodyInfos, bodyPoints }) => {
   return (
     <div className="mb-4">
       <Accordion
@@ -20,21 +23,21 @@ const Benefit: FC<BenefitProps> = ({ benefitData }) => {
             backgroundColor="orange"
             className="accordion__button font-weight-bold d-flex justify-content-between align-items-center"
           >
-            <h3 className="mb-0 pe-none">{benefitData.header.title}</h3>
+            <h3 className="mb-0 pe-none">{headerTitle}</h3>
             <Icon size={32} color="currentColor" name="chevron-down" className="pe-none"></Icon>
           </Box>
         }
       >
         <div className="accordion__panel accordion__panel--orange">
-          {benefitData.body && (
+          {body && (
             <Row className="m-0">
               <Col
                 xs={12}
                 className="accordion__divider d-flex flex-column align-items-center p-0 mb-4 pb-3"
               >
-                {Object.values(benefitData.body).length > 0 && (
+                {Object.values(body).length > 0 && (
                   <ul className="list-unstyled mb-0">
-                    {benefitData.body.infos?.map(({ title, value }, idx) => (
+                    {bodyInfos?.map(({ title, value }, idx) => (
                       <li className="text-sm text-center mb-2" key={idx}>
                         {title} {value}
                       </li>
@@ -45,12 +48,12 @@ const Benefit: FC<BenefitProps> = ({ benefitData }) => {
             </Row>
           )}
           <Row className="m-0 justify-content-center">
-            {benefitData.body.points?.map((point, i) => (
+            {bodyPoints?.map((point, i) => (
               <Col
                 className={classNames({
                   'p-0 d-flex xl-justify-content-center align-items-center mb-3': true,
                   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  'pr-3': i < benefitData.body.points.length - 1,
+                  'pr-3': i < bodyPoints.length - 1,
                 })}
                 xl={4}
                 key={i}

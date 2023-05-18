@@ -5,16 +5,18 @@ import { SummaryResponse } from '../types/Summary'
 import { Gift } from '../components/Gift'
 
 interface GiftBlockProps {
-  giftData: SummaryResponse.ResponseItem
+  headerTitle: SummaryResponse.ResponseItem['header']['title']
+  bodyGroups: SummaryResponse.ResponseItem['body']['groups']
+  headerNote?: SummaryResponse.ResponseItem['header']['note']
 }
 
-const GiftBlock: FC<GiftBlockProps> = ({ giftData }) => {
+const GiftBlock: FC<GiftBlockProps> = ({ headerTitle, bodyGroups, headerNote }) => {
   return (
     <Box backgroundColor="green">
-      <BoxHeading data-testid="giftBoxHeading">{giftData.header.title}</BoxHeading>
+      <BoxHeading data-testid="giftBoxHeading">{headerTitle}</BoxHeading>
 
       <Row className="justify-content-xl-center">
-        {giftData.body.groups?.map(({ title, params }, idx) => (
+        {bodyGroups?.map(({ title, params }, idx) => (
           <Col
             key={idx}
             xs={12}
@@ -29,9 +31,7 @@ const GiftBlock: FC<GiftBlockProps> = ({ giftData }) => {
                 {params.map(({ title, icon, count }, idx) => (
                   <li key={idx} className="mb-3">
                     <Gift
-                      className={
-                        (giftData.body.groups?.length === 1 && 'justify-content-xl-center') || ''
-                      }
+                      className={(bodyGroups?.length === 1 && 'justify-content-xl-center') || ''}
                       type={icon}
                       title={`${count}x ${title}`}
                     />
@@ -43,10 +43,10 @@ const GiftBlock: FC<GiftBlockProps> = ({ giftData }) => {
         ))}
       </Row>
 
-      {giftData?.header?.note && (
+      {headerNote && (
         <div
           className="text-center editorial-content"
-          dangerouslySetInnerHTML={{ __html: giftData.header.note }}
+          dangerouslySetInnerHTML={{ __html: headerNote }}
         />
       )}
     </Box>
