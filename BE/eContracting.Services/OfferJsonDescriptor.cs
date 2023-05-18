@@ -7,9 +7,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Models.JsonDescriptor;
 using Glass.Mapper.Sc;
 using JSNLog.Infrastructure;
 using Sitecore.ApplicationCenter.Applications;
+using Sitecore.Publishing.Explanations;
 using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.StringExtensions;
 using Sitecore.Web;
@@ -72,6 +74,19 @@ namespace eContracting.Services
             return model;
         }
 
+        public ContainerModel GetSummary2(OffersModel offer, UserCacheDataModel user)
+        {
+            var container = new ContainerModel();
+            var contractualData = this.GetPersonalData2(offer);
+
+            if (contractualData != null)
+            {
+                container.Data.Add(contractualData);
+            }
+
+            return container;
+        }
+
         /// <inheritdoc/>
         public JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user)
         {
@@ -86,9 +101,8 @@ namespace eContracting.Services
             return this.GetAccepted(offer, attachments);
         }
 
-
         /// <summary>
-        /// Gets personal data.
+        /// Gets personal container.
         /// </summary>
         /// <param name="offer"></param>
         /// <returns></returns>
@@ -96,7 +110,7 @@ namespace eContracting.Services
         {
             if (!this.IsSectionChecked(offer.TextParameters, "PERSON"))
             {
-                this.Logger.Warn(offer.Guid, "Missing PERSON data in text parameters (<PERSON></PERSON>)");
+                this.Logger.Warn(offer.Guid, "Missing PERSON container in text parameters (<PERSON></PERSON>)");
                 return null;
             }
 
@@ -167,7 +181,7 @@ namespace eContracting.Services
 
             if (infos.Count == 0 && communicationMethod == null)
             {
-                this.Logger.Warn(offer.Guid, "No PERSON data gathered from text parameters");
+                this.Logger.Warn(offer.Guid, "No PERSON container gathered from text parameters");
                 return null;
             }
 
@@ -177,11 +191,82 @@ namespace eContracting.Services
             return model;
         }
 
+        protected internal IDataModel GetPersonalData2(OffersModel offer)
+        {
+            if (!this.IsSectionChecked(offer.TextParameters, "PERSON"))
+            {
+                this.Logger.Warn(offer.Guid, "Missing PERSON container in text parameters (<PERSON></PERSON>)");
+                return null;
+            }
+
+            var model = new ContractualDataModel();
+            var header = new ContractualDataHeaderModel();
+            header.Title = this.TextService.FindByKey("CONTRACTUAL_DATA");
+
+            var body = new ContractualDataBodyModel();
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTNAME"))
+            {
+                var data = new TitleAndValuesModel();
+                data.Title = this.TextService.FindByKey("PERSONAL_INFORMATION");
+                var values = new List<string>();
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTNAME"));
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTEMAIL"));
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTTEL1"));
+                data.Values = values;
+                body.PersonalData = new[] { data };
+            }
+
+            var addresses = new List<TitleAndValuesModel>();
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTADDRESS"))
+            {
+                var data = new TitleAndValuesModel();
+                data.Title = this.TextService.FindByKey("PERMANENT_ADDRESS");
+                var values = new List<string>();
+                var streetName = offer.TextParameters.HasValue("PERSON_CUSTSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY");
+                values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET_NUMBER"));
+                values.Add(offer.TextParameters["PERSON_CUSTCITY"]);
+
+                if (offer.TextParameters.HasValue("PERSON_CUSTCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY")))
+                {
+                    values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART"));
+                }
+
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTPOSTAL_CODE"));
+                data.Values = values;
+                addresses.Add(data);
+            }
+
+            if (offer.TextParameters.HasValue("PERSON_CORADDRESS"))
+            {
+                var data = new TitleAndValuesModel();
+                data.Title = this.TextService.FindByKey("MAILING_ADDRESS");
+                var values = new List<string>();
+                var streetName = offer.TextParameters.HasValue("PERSON_CORSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CORCITY");
+                values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET_NUMBER"));
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY"));
+
+                if (offer.TextParameters.HasValue("PERSON_CORCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CORCITY")))
+                {
+                    values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART"));
+                }
+
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORPOSTAL_CODE"));
+                data.Values = values;
+                addresses.Add(data);
+            }
+
+            body.Addresses = addresses;
+
+            return model;
+        }
+
         /// <summary>
-        /// Gets product data with all prices.
+        /// Gets product container with all prices.
         /// </summary>
         /// <param name="offer"></param>
-        /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
+        /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no container to display. Otherwise container object.</returns>
         protected internal JsonOfferProductModel GetProductData(OffersModel offer)
         {
             if (!offer.ShowPrices)
@@ -222,10 +307,10 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Gets data when user / offer changes a distributor (dismissal previous dealer).
+        /// Gets container when user / offer changes a distributor (dismissal previous dealer).
         /// </summary>
         /// <param name="offer"></param>
-        /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
+        /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise container object.</returns>
         protected internal JsonOfferDistributorChangeModel GetDistributorChange(OffersModel offer)
         {
             if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
@@ -251,7 +336,7 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Gets data for accepted offer.
+        /// Gets container for accepted offer.
         /// </summary>
         /// <param name="offer"></param>
         /// <param name="attachments"></param>
@@ -275,7 +360,7 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Gets data for new non-accepted offer.
+        /// Gets container for new non-accepted offer.
         /// </summary>
         /// <param name="offer"></param>
         /// <param name="attachments"></param>
@@ -299,7 +384,7 @@ namespace eContracting.Services
                 //    model.Gifts = this.GetGifts(offer.TextParameters, definition);
                 //}
 
-                // for version 3 data are picked up by GetSummary method
+                // for version 3 container are picked up by GetSummary method
                 if (offer.Version == 2)
                 {
                     model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
@@ -1419,7 +1504,7 @@ namespace eContracting.Services
 
         /// <summary>
         /// Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
-        /// If match found, a <see cref="JsonAcceptFileModel"/> is enriched with <see cref="IProductInfoModel"/> data.
+        /// If match found, a <see cref="JsonAcceptFileModel"/> is enriched with <see cref="IProductInfoModel"/> container.
         /// </summary>
         /// <param name="files">Collection of files in one group.</param>
         /// <param name="productInfos">Collection of all product information.</param>
@@ -1465,22 +1550,22 @@ namespace eContracting.Services
 
             //    if (filesArray.Length == 1)
             //    {
-            //        var info = productInfos.FirstOrDefault(x => x.Key == file.Product);
-            //        file.Note = info?.Note;
+            //        var data = productInfos.FirstOrDefault(x => x.Key == file.Product);
+            //        file.Note = data?.Note;
             //    }
             //    else if (i >= 1)
             //    {
             //        if (filesArray[i - 1].Product != file.Product)
             //        {
             //            var previousFile = filesArray[i - 1];
-            //            var info = productInfos.FirstOrDefault(x => x.Key == previousFile.Product);
-            //            previousFile.Note = info?.Note;
+            //            var data = productInfos.FirstOrDefault(x => x.Key == previousFile.Product);
+            //            previousFile.Note = data?.Note;
             //        }
 
             //        if (i == filesArray.Length - 1)
             //        {
-            //            var info = productInfos.FirstOrDefault(x => x.Key == file.Product);
-            //            file.Note = info?.Note;
+            //            var data = productInfos.FirstOrDefault(x => x.Key == file.Product);
+            //            file.Note = data?.Note;
             //        }
             //    }
             //}

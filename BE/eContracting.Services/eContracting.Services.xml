@@ -484,28 +484,28 @@
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetPersonalData(eContracting.Models.OffersModel)">
             <summary>
-            Gets personal data.
+            Gets personal container.
             </summary>
             <param name="offer"></param>
             <returns></returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData(eContracting.Models.OffersModel)">
             <summary>
-            Gets product data with all prices.
+            Gets product container with all prices.
             </summary>
             <param name="offer"></param>
-            <returns>Null when <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
+            <returns>Null when <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> == false OR there are no container to display. Otherwise container object.</returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetDistributorChange(eContracting.Models.OffersModel)">
             <summary>
-            Gets data when user / offer changes a distributor (dismissal previous dealer).
+            Gets container when user / offer changes a distributor (dismissal previous dealer).
             </summary>
             <param name="offer"></param>
-            <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="P:eContracting.Models.OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
+            <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="P:eContracting.Models.OfferModel.Process"/> not equals to <c>01</c>. Otherwise container object.</returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[])">
             <summary>
-            Gets data for accepted offer.
+            Gets container for accepted offer.
             </summary>
             <param name="offer"></param>
             <param name="attachments"></param>
@@ -513,7 +513,7 @@
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[])">
             <summary>
-            Gets data for new non-accepted offer.
+            Gets container for new non-accepted offer.
             </summary>
             <param name="offer"></param>
             <param name="attachments"></param>
@@ -559,7 +559,7 @@
         <member name="M:eContracting.Services.OfferJsonDescriptor.UpdateProductInfo(System.Collections.Generic.IEnumerable{eContracting.Models.JsonAcceptFileModel},eContracting.Models.IProductInfoModel[])">
             <summary>
             Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
-            If match found, a <see cref="T:eContracting.Models.JsonAcceptFileModel"/> is enriched with <see cref="T:eContracting.Models.IProductInfoModel"/> data.
+            If match found, a <see cref="T:eContracting.Models.JsonAcceptFileModel"/> is enriched with <see cref="T:eContracting.Models.IProductInfoModel"/> container.
             </summary>
             <param name="files">Collection of files in one group.</param>
             <param name="productInfos">Collection of all product information.</param>
