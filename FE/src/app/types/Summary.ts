@@ -31,9 +31,12 @@ export namespace SummaryResponse {
     addresses?: Address[]
     contacts?: Contact[]
     infos?: Info[]
+    infoHelp?: string
     points?: Point[]
     prices?: Price[]
     groups?: Group[]
+    name?: string
+    text?: string
   }
 
   export interface PersonalData {
@@ -54,6 +57,7 @@ export namespace SummaryResponse {
   export interface Info {
     title?: string
     value: string
+    note?: string
   }
 
   export interface Point {

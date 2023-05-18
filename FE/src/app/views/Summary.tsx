@@ -14,6 +14,7 @@ import ContractualData from '../blocks/ContractualData'
 import Product from '../blocks/Product'
 import Benefit from '../blocks/Benefit'
 import GiftBlock from '../blocks/GiftBlock'
+import DistributorChange from '../blocks/DistributorChange'
 
 export const Summary: React.FC<View> = observer(
   ({
@@ -43,9 +44,6 @@ export const Summary: React.FC<View> = observer(
 
     const [unfinishedOfferModalOpen, setUnfinishedOfferModalOpen] = useState<boolean>(false)
     const [callMeBackModalOpen, setCallMeBackModalOpen] = useState<boolean>(false)
-    const [lastProductMiddleTextElement, setLastProductMiddleTextElement] = useState<
-      string | undefined
-    >(undefined)
 
     useEffect(() => {
       store.fetchSummary(timeout)
@@ -65,12 +63,6 @@ export const Summary: React.FC<View> = observer(
       storeCallMeBack.fetchCallMeBackData()
       setCallMeBackModalOpen(true)
     }
-
-    // useEffect(() => {
-    //   if (store?.product?.middle_texts_help) {
-    //     setLastProductMiddleTextElement(removeLastElement(store?.product?.middle_texts))
-    //   }
-    // }, [store?.product?.middle_texts, store?.product?.middle_texts_help])
 
     return (
       <>
@@ -92,41 +84,49 @@ export const Summary: React.FC<View> = observer(
           <>
             {store.data?.map(item => {
               const { type } = item
-              if (type === ResponseItemType.contractualData) {
-                return <ContractualData key={item.position} contractualData={item} />
+              if (type === ResponseItemType.ContractualData) {
+                return (
+                  <ContractualData
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    bodyPersonalData={item.body.personalData}
+                    bodyAddresses={item.body.addresses}
+                    bodyContacts={item.body.contacts}
+                  />
+                )
               }
-              if (type === ResponseItemType.product) {
-                return <Product key={item.position} productData={item} />
+              if (type === ResponseItemType.Product) {
+                return (
+                  <Product
+                    key={item.position}
+                    headerType={item.header.type}
+                    headerTitle={item.header.title}
+                    headerData={item.header.data}
+                    bodyPrices={item.body.prices}
+                    bodyInfos={item.body.infos}
+                    infoHelp={item.body.infoHelp}
+                    bodyPoints={item.body.points}
+                  />
+                )
               }
-              if (type === ResponseItemType.benefit) {
+              if (type === ResponseItemType.Benefit) {
                 return <Benefit key={item.position} benefitData={item} />
               }
-              if (type === ResponseItemType.gift) {
+              if (type === ResponseItemType.Gift) {
                 return <GiftBlock key={item.position} giftData={item} />
+              }
+              if (type === ResponseItemType.Competitor) {
+                return (
+                  <DistributorChange
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    bodyName={item.body.name}
+                    bodyText={item.body.text}
+                  />
+                )
               }
             })}
 
-            {/* Distributr change */}
-            {/* {TODO: zjistit proc v novem jsonu chybi distributorChange} */}
-            {/* {store.distributorChange && (
-              <Container className="mb-4">
-                <Row>
-                  <Col className="m-auto px-0" xs={12} lg={10}>
-                    <h2 id="distributorChange" className="text-center">
-                      {store.distributorChange.title}
-                    </h2>
-                    <hr className="hr" />
-                    <h3 aria-labelledby="distributorChange" className="h4 text-center">
-                      {store.distributorChange.name}
-                    </h3>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: store.distributorChange.description }}
-                    />
-                  </Col>
-                </Row>
-              </Container>
-            )} */}
-            {/* Distributr change */}
             {!store.isLoading && !store.error && (
               <>
                 {/* Continue and CallMeBack buttons. */}

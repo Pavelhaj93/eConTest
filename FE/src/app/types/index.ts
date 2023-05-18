@@ -109,10 +109,11 @@ export interface QueryParams {
 }
 
 export enum ResponseItemType {
-  contractualData = 'contractualData',
-  product = 'product',
-  benefit = 'benefit',
-  gift = 'gift',
+  ContractualData = 'contractualData',
+  Product = 'product',
+  Benefit = 'benefit',
+  Gift = 'gift',
+  Competitor = 'competitor',
 }
 
 export enum OfferType {

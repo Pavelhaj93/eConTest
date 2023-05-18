@@ -1,216 +1,214 @@
 {
   "data": [
-      {
-          "type": "contractualData",
-          "position": 1,
-          "header": {
-              "title": "Smluvní údaje"
-          },
-          "body": {
-              "personalData": [
-                  {
-                      "title": "Osobní údaje",
-                      "values": [
-                          "Hubert Dostál",
-                          "jarmila.janisova@innogy.cz",
-                          "606 773 704"
-                      ]
-                  }
-              ],
-              "addresses": [
-                  {
-                      "title": "Adresa trvalého bydliště",
-                      "values": [
-                          "V Lukách 232",
-                          "Rapotín",
-                          "788 13"
-                      ]
-                  },
-                  {
-                      "title": "Korespondenční adresa",
-                      "values": [
-                          "V Lukách 232",
-                          "Rapotín",
-                          "788 14"
-                      ]
-                  }
-              ],
-              "contacts": [
-                  {
-                      "title": "Sjednaný způsob komunikace",
-                      "values": [ "innosvět" ]
-                  }
-              ]
-          }
+    {
+      "type": "contractualData",
+      "position": 1,
+      "header": {
+        "title": "Smluvní údaje"
       },
-      {
-          "type": "benefit",
-          "position": 3,
-          "header": {
-              "title": "Nesnižování záloh"
-          },
-          "body": {
-              "infos": [
-                  {
-                      "title": "Platnost nabídky",
-                      "value": "20.10.2022"
-                  }
-              ],
-              "points": [
-                  {
-                      "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie"
-                  }
-              ]
+      "body": {
+        "personalData": [
+          {
+            "title": "Osobní údaje",
+            "values": ["Hubert Dostál", "jarmila.janisova@innogy.cz", "606 773 704"]
           }
-      },
-      {
-          "type": "benefit",
-          "position": 4,
-          "header": {
-              "title": "Servis plynových spotřebičů"
+        ],
+        "addresses": [
+          {
+            "title": "Adresa trvalého bydliště",
+            "values": ["V Lukách 232", "Rapotín", "788 13"]
           },
-          "body": {
-              "infos": [
-                  {
-                      "title": "Značka kotle",
-                      "value": "Kotel Viadrus"
-                  },
-                  {
-                      "title": "Platnost nabídky do",
-                      "value": "05.10.2022"
-                  }
-              ],
-              "points": [
-                  {
-                      "value": "Cena servisu rozdělena do měsíčních záloh"
-                  },
-                  {
-                      "value": "Zajištění technika v případě poruchy do dvou pracovních dnů"
-                  },
-                  {
-                      "value": "Servisní protokol jako standardní výstup každé servisní prohlídky"
-                  },
-                  {
-                      "value": "Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme"
-                  }
-              ]
+          {
+            "title": "Korespondenční adresa",
+            "values": ["V Lukách 232", "Rapotín", "788 14"]
           }
-      },
-      {
-          "type": "product",
-          "position": 2,
-          "header": {
-              "title": "plyn Start 12",
-              "type": "G", 
-              "data": [
-                  {
-                      "type": "main", 
-                      "title": "Optimální výše zálohy",
-                      "value": "3 320,00 Kč/měs.",
-                      "note": "Výše zálohy je pouze orientační, stanovená zjednodušeným výpočtem. Skutečnou výši zálohy obdržíte krátce po zahájení odběru. V závislosti na vývoji situace může být nižší nebo vyšší."
-                  },
-                  {
-                      "type": "add", 
-                      "title": "Old price",
-                      "value": "302,50 Kč/měs.",
-                      "note": "Here could be some text but we never saw it"
-                  }
-              ]
-          },
-          "body": {
-              "prices": [
-                  {
-                      "title": "Odebraný plyn",
-                      "price": "3 105,00",
-                      "price2": null,
-                      "unit": "Kč/MWh"
-                  },
-                  {
-                      "title": "Stálá platba",
-                      "price": "125,00",
-                      "price2": null,
-                      "unit": "Kč/měsíc"
-                  }
-              ],
-              "infos": [
-                  {
-                      "value": "<span style=\"color: #999999;\">Pokud se nechcete vázat na delší časové období a chcete mít jistotu fixní ceny, Start 12 je tím pravým produktem pro Vás.</span>"
-                  },
-                  {
-                      "value": "jistota sjednané ceny po ‍dobu 12 ‍měsíců"
-                  }
-              ],
-              "points": [
-                  {
-                      "value": "s ‍možností automatického prodloužení vždy o ‍stejné období"
-                  },
-                  {
-                      "value": "Už se nemusíte obávat výkyvu cen plynu, pevně si je sjednáte na 12 měsíců dopředu."
-                  },
-                  {
-                      "value": "Držíme slovo a dodržujeme smlouvy"
-                  }
-              ]
+        ],
+        "contacts": [
+          {
+            "title": "Sjednaný způsob komunikace",
+            "values": ["innosvět"]
           }
-      },
-      {
-          "type": "gift",
-          "position": 5,
-          "header": {
-              "title": "Máme pro Vás nachystané dárky",
-              "note": "Způsob doručení korespondenčně na zasílací adresu"
-          },
-          "body": {
-              "groups": [
-                  {
-                      "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
-                      "params": [
-                          {
-                              "title": "Kuchařka",
-                              "icon": "KNI",
-                              "count": 1
-                          }
-                      ]
-                  },
-                  {
-                      "title": "Po zahájení dodávky na Vás čeká",
-                      "params": [
-                          {
-                              "title": "Detektor",
-                              "icon": "DET",
-                              "count": 1
-                          },
-                          {
-                              "title": "123x poukázka Kaufland 100 Kč",
-                              "icon": "PKZ",
-                              "count": 123
-                          },
-                          {
-                              "title": "1230 x poukázka Hornbach, 1000 Kč na vybavení zahrady",
-                              "icon": "PKZ",
-                              "count": 1230
-                          }
-                      ]
-                  },
-                  {
-                      "title": "Za přijetí nabídky za Vás čeká:",
-                      "params": [
-                          {
-                              "title": "10x LED žárovka",
-                              "icon": "LED",
-                              "count": 10
-                          },
-                          {
-                              "title": "20x detektor",
-                              "icon": "DET",
-                              "count": 20
-                          }
-                      ]
-                  }
-              ]
-          }
+        ]
       }
+    },
+    {
+      "type": "benefit",
+      "position": 3,
+      "header": {
+        "title": "Nesnižování záloh"
+      },
+      "body": {
+        "infos": [
+          {
+            "title": "Platnost nabídky",
+            "value": "20.10.2022"
+          }
+        ],
+        "points": [
+          {
+            "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie"
+          }
+        ]
+      }
+    },
+    {
+      "type": "benefit",
+      "position": 4,
+      "header": {
+        "title": "Servis plynových spotřebičů"
+      },
+      "body": {
+        "infos": [
+          {
+            "title": "Značka kotle",
+            "value": "Kotel Viadrus"
+          },
+          {
+            "title": "Platnost nabídky do",
+            "value": "05.10.2022"
+          }
+        ],
+        "points": [
+          {
+            "value": "Cena servisu rozdělena do měsíčních záloh"
+          },
+          {
+            "value": "Zajištění technika v případě poruchy do dvou pracovních dnů"
+          },
+          {
+            "value": "Servisní protokol jako standardní výstup každé servisní prohlídky"
+          },
+          {
+            "value": "Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme"
+          }
+        ]
+      }
+    },
+    {
+      "type": "product",
+      "position": 2,
+      "header": {
+        "title": "plyn Start 12",
+        "type": "G",
+        "data": [
+          {
+            "type": "main",
+            "title": "Optimální výše zálohy",
+            "value": "3 320,00 Kč/měs.",
+            "note": "Výše zálohy je pouze orientační, stanovená zjednodušeným výpočtem. Skutečnou výši zálohy obdržíte krátce po zahájení odběru. V závislosti na vývoji situace může být nižší nebo vyšší."
+          },
+          {
+            "type": "add",
+            "title": "Old price",
+            "value": "302,50 Kč/měs.",
+            "note": "Here could be some text but we never saw it"
+          }
+        ]
+      },
+      "body": {
+        "prices": [
+          {
+            "title": "Odebraný plyn",
+            "price": "3 105,00",
+            "price2": null,
+            "unit": "Kč/MWh"
+          },
+          {
+            "title": "Stálá platba",
+            "price": "125,00",
+            "price2": null,
+            "unit": "Kč/měsíc"
+          }
+        ],
+        "infos": [
+          {
+            "value": "<span style=\"color: #999999;\">Pokud se nechcete vázat na delší časové období a chcete mít jistotu fixní ceny, Start 12 je tím pravým produktem pro Vás.</span>"
+          },
+          {
+            "value": "jistota sjednané ceny po ‍dobu 12 ‍měsíců"
+          }
+        ],
+        "infoHelp": "Cena i smlouva platná 12 měsíců",
+        "points": [
+          {
+            "value": "s ‍možností automatického prodloužení vždy o ‍stejné období"
+          },
+          {
+            "value": "Už se nemusíte obávat výkyvu cen plynu, pevně si je sjednáte na 12 měsíců dopředu."
+          },
+          {
+            "value": "Držíme slovo a dodržujeme smlouvy"
+          }
+        ]
+      }
+    },
+    {
+      "type": "gift",
+      "position": 5,
+      "header": {
+        "title": "Máme pro Vás nachystané dárky",
+        "note": "Způsob doručení korespondenčně na zasílací adresu"
+      },
+      "body": {
+        "groups": [
+          {
+            "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
+            "params": [
+              {
+                "title": "Kuchařka",
+                "icon": "KNI",
+                "count": 1
+              }
+            ]
+          },
+          {
+            "title": "Po zahájení dodávky na Vás čeká",
+            "params": [
+              {
+                "title": "Detektor",
+                "icon": "DET",
+                "count": 1
+              },
+              {
+                "title": "123x poukázka Kaufland 100 Kč",
+                "icon": "PKZ",
+                "count": 123
+              },
+              {
+                "title": "1230 x poukázka Hornbach, 1000 Kč na vybavení zahrady",
+                "icon": "PKZ",
+                "count": 1230
+              }
+            ]
+          },
+          {
+            "title": "Za přijetí nabídky za Vás čeká:",
+            "params": [
+              {
+                "title": "10x LED žárovka",
+                "icon": "LED",
+                "count": 10
+              },
+              {
+                "title": "20x detektor",
+                "icon": "DET",
+                "count": 20
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "type": "competitor",
+      "position": 6,
+      "header": {
+        "title": "Níže je uveden obchodník, kterému innogy zašle výpověď"
+      },
+      "body": {
+        "name": "Neznámý obchodník",
+        "text": "V případě, že jste podepsal smlouvu více obchodníkům, obchodník je neznámý nebo je uveden nesprávně, klikněte prosím na tlačítko Zavolejte mi a využijte pomoc našich specialistů. Ti s vámi zajistí vše potřebné, abychom mohli vypovědět nově podepsanou smlouvu.\nV opačném případě by došlo pouze k odvolání výpovědi u innogy a nová konkurenční smlouva zůstane platná."
+      }
+    }
   ]
 }
-
-

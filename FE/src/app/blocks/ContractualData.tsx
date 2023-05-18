@@ -4,16 +4,24 @@ import { Col, Row } from 'react-bootstrap'
 import { SummaryResponse } from '@types'
 
 interface ContractualDataProps {
-  contractualData: SummaryResponse.ResponseItem
+  headerTitle: SummaryResponse.ResponseItem['header']['title']
+  bodyPersonalData: SummaryResponse.ResponseItem['body']['personalData']
+  bodyAddresses: SummaryResponse.ResponseItem['body']['addresses']
+  bodyContacts: SummaryResponse.ResponseItem['body']['contacts']
 }
 
-const ContractualData: FC<ContractualDataProps> = ({ contractualData }) => {
+const ContractualData: FC<ContractualDataProps> = ({
+  headerTitle,
+  bodyPersonalData,
+  bodyAddresses,
+  bodyContacts,
+}) => {
   return (
     <Box backgroundColor="gray-80">
-      <BoxHeading>{contractualData.header.title}</BoxHeading>
+      <BoxHeading>{headerTitle}</BoxHeading>
       <Row className="justify-content-center mx-0 mb-0 flex-row">
         <Col as="ul" xs={12} xl={4} className="my-3 px-2 list-unstyled">
-          {contractualData?.body?.personalData?.map((item, index) => (
+          {bodyPersonalData?.map((item, index) => (
             <div key={index}>
               <li>{item.title}</li>
               {item.values.map((value, index) => (
@@ -24,7 +32,7 @@ const ContractualData: FC<ContractualDataProps> = ({ contractualData }) => {
             </div>
           ))}
         </Col>
-        {contractualData?.body?.addresses?.map((item, index) => (
+        {bodyAddresses?.map((item, index) => (
           <Col key={index} as="ul" xs={12} xl={4} className="my-3 px-2 list-unstyled">
             <>
               <li>{item.title}</li>
@@ -37,9 +45,9 @@ const ContractualData: FC<ContractualDataProps> = ({ contractualData }) => {
           </Col>
         ))}
       </Row>
-      {contractualData.body.contacts && (
+      {bodyContacts && (
         <ul className="my-3 list-unstyled">
-          {contractualData.body.contacts.map((item, index) => (
+          {bodyContacts.map((item, index) => (
             <div key={index}>
               <li>{item.title}</li>
               {item.values.map((value, index) => (
