@@ -11,6 +11,7 @@ using eContracting.Models.JsonDescriptor;
 using Glass.Mapper.Sc;
 using JSNLog.Infrastructure;
 using Sitecore.ApplicationCenter.Applications;
+using Sitecore.Pipelines.RenderField;
 using Sitecore.Publishing.Explanations;
 using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.StringExtensions;
@@ -82,6 +83,11 @@ namespace eContracting.Services
             if (contractualData != null)
             {
                 container.Data.Add(contractualData);
+            }
+            var benefitData = this.GetAllSalesArguments2(offer.TextParameters, false); // ToDo: when GetProductData2 developed do ekvivalent of this condition model.Product != null
+            foreach (var benefit in benefitData)
+            {
+                container.Data.Add(benefit);
             }
 
             return container;
@@ -539,6 +545,37 @@ namespace eContracting.Services
             if (!excludeCommodity)
             {
                 var commodities = this.GetSalesArgumentsWithPrefix(textParameters, "COMMODITY");
+
+                if (commodities.Any())
+                {
+                    list.AddRange(commodities);
+                }
+            }
+
+            return list;
+        }
+
+        protected internal IEnumerable<IDataModel> GetAllSalesArguments2(IDictionary<string, string> textParameters, bool excludeCommodity)
+        {
+            var list = new List<IDataModel>();
+
+            var addServices = this.GetSalesArgumentsWithPrefix2(textParameters, "ADD_SERVICES");
+
+            if (addServices.Any())
+            {
+                list.AddRange(addServices);
+            }
+
+            var nonCommodities = this.GetSalesArgumentsWithPrefix2(textParameters, "NONCOMMODITY");
+
+            if (nonCommodities.Any())
+            {
+                list.AddRange(nonCommodities);
+            }
+
+            if (!excludeCommodity)
+            {
+                var commodities = this.GetSalesArgumentsWithPrefix2(textParameters, "COMMODITY");
 
                 if (commodities.Any())
                 {
@@ -1485,6 +1522,85 @@ namespace eContracting.Services
 
             return list;
         }
+
+        protected internal IEnumerable<IDataModel> GetSalesArgumentsWithPrefix2(IDictionary<string, string> textParameters, string prefix)
+        {
+            var list2 = new List<IDataModel>();
+
+            if (!this.IsSectionChecked(textParameters, prefix))
+            {
+                return list2;
+            }
+
+            var regex = new Regex($"^{prefix}_ACCEPT_LABEL(_[0-9])?$");
+            var labels = textParameters.Where(x => regex.Match(x.Key).Success);
+
+            if (!labels.Any())
+            {
+                return list2;
+            }
+
+            foreach (var label in labels)
+            {
+                var model2 = new BenefitDataModel();
+                var header = new BenefitDataHeaderModel();
+                header.Title = Utils.StripHtml(label.Value);
+                model2.Header = header;
+
+                var body = new BenefitDataBodyModel();
+                body.Infos = GetInfos(label, textParameters);
+                body.Points = GetPoints(label, textParameters);
+                model2.Body = body;
+
+                if (body.Infos?.Count() > 0 || body.Points?.Count() > 0)
+                {
+                    list2.Add(model2);
+                }
+            }            
+
+            return list2;
+        }
+
+        protected internal IEnumerable<TitleAndValueModel> GetInfos(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
+        {
+            var parameterName = label.Key.Replace("_ACCEPT_LABEL", "_OFFER_SUMMARY") + "_ATRIB_NAME";
+            var parameterNames = textParameters.Where(x => x.Key.StartsWith(parameterName));
+
+            if (parameterNames.Any())
+            {
+                var infos = new List<TitleAndValueModel>();
+
+                foreach (var item in parameterNames)
+                {
+                    var name = item.Value;
+                    var value = textParameters[item.Key.Replace("_ATRIB_NAME", "_ATRIB_VALUE")];
+                    infos.Add(new TitleAndValueModel(name, value));
+                }
+
+                return infos;
+            }
+            return null;
+        }
+
+        protected internal IEnumerable<ValueModel> GetPoints(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
+        {
+            var attributeName = label.Key.Replace("_ACCEPT_LABEL", "_SALES_ARGUMENTS") + "_ATRIB_VALUE";
+            var saleArgumentValues = textParameters.Where(x => x.Key.StartsWith(attributeName));
+
+            if (saleArgumentValues.Any())
+            {
+                var points = new List<ValueModel>();
+
+                foreach (var item in saleArgumentValues)
+                {
+                    points.Add(new ValueModel(item.Value));
+                }
+
+                return points;
+            }
+            return null;
+        }
+
 
         protected internal bool HasValue(IDictionary<string, string> textParameters, string key, double minValue)
         {

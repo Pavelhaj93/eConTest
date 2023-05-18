@@ -7,20 +7,16 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class TitleAndValueModel
+    public class ValueModel
     {
-        [JsonProperty("title")]
-        public string Title { get; set; }
-
         [JsonProperty("value")]
         public string Value { get; set; }
 
-        public TitleAndValueModel()
+        public ValueModel()
         { }
 
-        public TitleAndValueModel(string title, string value)
+        public ValueModel(string value)
         {
-            this.Title = title;
             this.Value = value;
         }
     }
