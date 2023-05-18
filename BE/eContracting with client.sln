@@ -93,8 +93,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3", "3", "{9B3A1E80-9A02-43
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RESTApi", "RESTApi", "{4B384459-B078-411D-A290-74A5242BB047}"
 	ProjectSection(SolutionItems) = preProject
+		..\docs\API\documents_v1.json = ..\docs\API\documents_v1.json
+		..\docs\API\documents_v2.json = ..\docs\API\documents_v2.json
 		..\docs\API\not_accepted_offer.json = ..\docs\API\not_accepted_offer.json
 		..\docs\API\summary.json = ..\docs\API\summary.json
+		..\docs\API\summary_v1.json = ..\docs\API\summary_v1.json
+		..\docs\API\summary_v2.json = ..\docs\API\summary_v2.json
+		..\docs\API\uploads_v2.json = ..\docs\API\uploads_v2.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0635F899B3111EECB9E654A6B5989648", "0635F899B3111EECB9E654A6B5989648", "{0637556C-8DF4-4268-B71B-33808A9B2BCB}"
@@ -224,7 +229,7 @@ Global
 		{0637556C-8DF4-4268-B71B-33808A9B2BCB} = {9B3A1E80-9A02-4336-A2C9-33292B268A2A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8;packages\EnterpriseLibrary.TransientFaultHandling.Caching.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Data.6.0.1304.1\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.ServiceBus.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.WindowsAzure.Storage.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.TransientFaultHandling.Configuration.6.0.1304.0\lib\NET45
+		SolutionGuid = {AAD52D96-AB96-4035-9EFD-37081E62158B}
 	EndGlobalSection
 EndGlobal

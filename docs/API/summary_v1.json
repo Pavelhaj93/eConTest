@@ -1,0 +1,145 @@
+{
+    "personal": {
+        "title": "Smluvní údaje",
+        "data": [
+            {
+                "title": "Osobní údaje",
+                "lines": [
+                    "Hubert Dostál",
+                    "jarmila.janisova@innogy.cz",
+                    "606 773 704"
+                ]
+            },
+            {
+                "title": "Adresa trvalého bydliště",
+                "lines": [
+                    "V Lukách 232",
+                    "Rapotín",
+                    "788 13"
+                ]
+            },
+            {
+                "title": "Korespondenční adresa",
+                "lines": [
+                    "V Lukách 232",
+                    "Rapotín",
+                    "788 14"
+                ]
+            }
+        ],
+        "communication": {
+            "Title": "Sjednaný způsob komunikace",
+            "Value": "innosvět"
+        }
+    },
+    "product": {
+        "type": "G",
+        "header": {
+            "name": "plyn Start 12",
+            "price1_description": "Optimální výše zálohy",
+            "price1": "3 320,00 Kč/měs.",
+            "price1_note": null,
+            "price2_description": null,
+            "price2": null,
+            "price2_note": null
+        },
+        "info_prices": [
+            {
+                "title": "Odebraný plyn",
+                "previous_price": null,
+                "value": "3 105,00",
+                "value_unit": "Kč/MWh"
+            },
+            {
+                "title": "Stálá platba",
+                "previous_price": null,
+                "value": "125,00",
+                "value_unit": "Kč/měsíc"
+            }
+        ],
+        "middle_texts": [
+            "<span style=\"color: #999999;\">Pokud se nechcete vázat na delší časové období a chcete mít jistotu fixní ceny, Start 12 je tím pravým produktem pro Vás.</span>",
+            "jistota sjednané ceny po ‍dobu 12 ‍měsíců"
+        ],
+        "middle_texts_help": "Cena i smlouva platná 12 měsíců",
+        "benefits": [
+            "s ‍možností automatického prodloužení vždy o ‍stejné období",
+            "Už se nemusíte obávat výkyvu cen plynu, pevně si je sjednáte na 12 měsíců dopředu.",
+            "Držíme slovo a dodržujeme smlouvy"
+        ]
+    },
+    "distributor_change": {
+        "title": "Níže je uveden obchodník, kterému innogy zašle výpověď",
+        "name": "Neznámý obchodník",
+        "description": "V případě, že jste podepsal smlouvu více obchodníkům, obchodník je neznámý nebo je uveden nesprávně, klikněte prosím na tlačítko Zavolejte mi a využijte pomoc našich specialistů. Ti s vámi zajistí vše potřebné, abychom mohli vypovědět nově podepsanou smlouvu.\nV opačném případě by došlo pouze k odvolání výpovědi u innogy a nová konkurenční smlouva zůstane platná."
+    },
+    "benefits": [
+        {
+            "summary": [
+                {
+                    "title": "Platnost nabídky do",
+                    "value": "20.10.2022"
+                }
+            ],
+            "title": "Nesnižování záloh",
+            "params": [
+                {
+                    "value": "Služba na míru pro zákazníky, kteří si nepřejí snižovat své zálohy na energie"
+                }
+            ]
+        },
+        {
+            "summary": [
+                {
+                    "title": "Značka kotle:",
+                    "value": "Kotel Brőtje"
+                },
+                {
+                    "title": "Platnost nabídky do",
+                    "value": "05.10.2022"
+                }
+            ],
+            "title": "Servis plynových spotřebičů",
+            "params": [
+                {
+                    "value": "Cena servisu rozdělena do měsíčních záloh"
+                },
+                {
+                    "value": "Zajištění technika v případě poruchy do dvou pracovních dnů"
+                },
+                {
+                    "value": "Servisní protokol jako standardní výstup každé servisní prohlídky"
+                },
+                {
+                    "value": "Termín pravidelné prohlídky hlídáme za Vás a sami se připomeneme"
+                }
+            ]
+        }
+    ],
+    "gifts": {
+        "title": "Máme pro Vás nachystané dárky",
+        "note": "<p>\r\n                    Způsob doručení: korespondenčně na zasílací adresu<br /></p>",
+        "groups": [
+            {
+                "title": "Věříme, že Vás nabídka zaujala a jejím přijetím od nás získáte",
+                "params": [
+                    {
+                        "title": "Kuchařka",
+                        "icon": "KNI",
+                        "count": 1
+                    }
+                ]
+            },
+            {
+                "title": "Po zahájení dodávky na Vás čeká",
+                "params": [
+                    {
+                        "title": "Detektor",
+                        "icon": "DET",
+                        "count": 1
+                    }
+                ]
+            }
+        ]
+    }
+}
