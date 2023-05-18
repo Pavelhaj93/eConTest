@@ -1,4 +1,4 @@
-import { CommodityProductType, ResponseItemType } from '@types'
+import { CommodityProductType, GiftType, ResponseItemType } from '@types'
 
 export namespace SummaryResponse {
   export interface RootObject {
@@ -74,7 +74,7 @@ export namespace SummaryResponse {
 
   export interface Param {
     title: string
-    icon: string
+    icon: GiftType
     count: number
   }
 }

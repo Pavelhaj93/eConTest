@@ -19,19 +19,10 @@ export class SummaryStore {
   public forceReload = false
 
   @observable
-  public contractualData: SummaryResponse.ResponseItem | undefined = undefined
+  public data: SummaryResponse.ResponseItem[] | undefined = undefined
 
-  @observable
-  public distributorChange: SummaryResponse.ResponseItem[] | undefined = undefined
-
-  @observable
-  public product: SummaryResponse.ResponseItem[] | undefined = undefined
-
-  @observable
-  public benefits: SummaryResponse.ResponseItem[] | undefined = undefined
-
-  @observable
-  public gifts: SummaryResponse.ResponseItem[] | undefined = undefined
+  // @observable
+  // public contractualData: SummaryResponse.ResponseItem[] | undefined = undefined
 
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
@@ -82,15 +73,10 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      this.contractualData = jsonResponse.data.find(
-        d => d.type === ResponseItemType.contractualData,
-      )
-
-      this.product = jsonResponse.data.filter(d => d.type === ResponseItemType.product)
-
-      this.gifts = jsonResponse.data.filter(d => d.type === ResponseItemType.gift)
-
-      this.benefits = jsonResponse.data.filter(d => d.type === ResponseItemType.benefit)
+      this.data = jsonResponse.data.sort((a, b) => a.position - b.position)
+      // this.contractualData = jsonResponse.data.filter(
+      //   item => item.type === ResponseItemType.contractualData,
+      // )
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))
