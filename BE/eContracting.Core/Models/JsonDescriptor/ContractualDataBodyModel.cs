@@ -14,5 +14,8 @@ namespace eContracting.Models.JsonDescriptor
 
         [JsonProperty("addresses")]
         public IEnumerable<TitleAndValuesModel> Addresses { get; set; }
+
+        [JsonProperty("contacts")]
+        public IEnumerable<TitleAndValuesModel> Contacts { get; set; }
     }
 }

@@ -317,5 +317,13 @@ namespace eContracting
         {
             return steps?.Steps?.Any(x => x.IsSelected) ?? false;
         }
+
+        public static void AddIfNotNull<T>(this IList<T> list, T item)
+        {
+            if (list != null && item != null)
+            {
+                list.Add(item);
+            }
+        }
     }
 }

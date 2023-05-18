@@ -204,62 +204,113 @@ namespace eContracting.Services
             header.Title = this.TextService.FindByKey("CONTRACTUAL_DATA");
 
             var body = new ContractualDataBodyModel();
+            var personalData = this.GetPersonalInfo(offer);
 
-            if (offer.TextParameters.HasValue("PERSON_CUSTNAME"))
+            if (personalData != null)
             {
-                var data = new TitleAndValuesModel();
-                data.Title = this.TextService.FindByKey("PERSONAL_INFORMATION");
-                var values = new List<string>();
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTNAME"));
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTEMAIL"));
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTTEL1"));
-                data.Values = values;
-                body.PersonalData = new[] { data };
+                body.PersonalData = new[] { personalData };
             }
 
             var addresses = new List<TitleAndValuesModel>();
+            addresses.AddIfNotNull(this.GetPersonalCustomAddress(offer));
+            addresses.AddIfNotNull(this.GetPersonalCoreAddress(offer));
 
-            if (offer.TextParameters.HasValue("PERSON_CUSTADDRESS"))
+            if (addresses.Count > 0)
             {
-                var data = new TitleAndValuesModel();
-                data.Title = this.TextService.FindByKey("PERMANENT_ADDRESS");
-                var values = new List<string>();
-                var streetName = offer.TextParameters.HasValue("PERSON_CUSTSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY");
-                values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET_NUMBER"));
-                values.Add(offer.TextParameters["PERSON_CUSTCITY"]);
-
-                if (offer.TextParameters.HasValue("PERSON_CUSTCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY")))
-                {
-                    values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART"));
-                }
-
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTPOSTAL_CODE"));
-                data.Values = values;
-                addresses.Add(data);
+                body.Addresses = addresses;
             }
 
-            if (offer.TextParameters.HasValue("PERSON_CORADDRESS"))
+            var contact = this.GetPersonalCommunicationMethod(offer);
+
+            if (contact != null)
             {
-                var data = new TitleAndValuesModel();
-                data.Title = this.TextService.FindByKey("MAILING_ADDRESS");
-                var values = new List<string>();
-                var streetName = offer.TextParameters.HasValue("PERSON_CORSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CORCITY");
-                values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET_NUMBER"));
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY"));
-
-                if (offer.TextParameters.HasValue("PERSON_CORCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CORCITY")))
-                {
-                    values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART"));
-                }
-
-                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORPOSTAL_CODE"));
-                data.Values = values;
-                addresses.Add(data);
+                body.Contacts = new[] { contact };
             }
 
-            body.Addresses = addresses;
+            if (body.PersonalData == null && body.Addresses == null && body.Contacts == null)
+            {
+                this.Logger.Warn(offer.Guid, "No PERSON container gathered from text parameters");
+                return null;
+            }
 
             return model;
+        }
+
+        protected internal TitleAndValuesModel GetPersonalInfo(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_CUSTNAME"))
+            {
+                return null;
+            }
+
+            var data = new TitleAndValuesModel();
+            data.Title = this.TextService.FindByKey("PERSONAL_INFORMATION");
+            var values = new List<string>();
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTNAME"));
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTEMAIL"));
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTTEL1"));
+            data.Values = values;
+            return data;
+        }
+
+        protected internal TitleAndValuesModel GetPersonalCustomAddress(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_CUSTADDRESS"))
+            {
+                return null;
+            }
+
+            var data = new TitleAndValuesModel();
+            data.Title = this.TextService.FindByKey("PERMANENT_ADDRESS");
+            var values = new List<string>();
+            var streetName = offer.TextParameters.HasValue("PERSON_CUSTSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY");
+            values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CUSTSTREET_NUMBER"));
+            values.Add(offer.TextParameters["PERSON_CUSTCITY"]);
+
+            if (offer.TextParameters.HasValue("PERSON_CUSTCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY")))
+            {
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTCITY_PART"));
+            }
+
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CUSTPOSTAL_CODE"));
+            data.Values = values;
+            return data;
+        }
+
+        protected internal TitleAndValuesModel GetPersonalCoreAddress(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_CORADDRESS"))
+            {
+                return null;
+            }
+            var data = new TitleAndValuesModel();
+            data.Title = this.TextService.FindByKey("MAILING_ADDRESS");
+            var values = new List<string>();
+            var streetName = offer.TextParameters.HasValue("PERSON_CORSTREET") ? offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET") : offer.TextParameters.GetValueOrDefault("PERSON_CORCITY");
+            values.Add(streetName + " " + offer.TextParameters.GetValueOrDefault("PERSON_CORSTREET_NUMBER"));
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY"));
+
+            if (offer.TextParameters.HasValue("PERSON_CORCITY_PART") && (offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART") != offer.TextParameters.GetValueOrDefault("PERSON_CORCITY")))
+            {
+                values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORCITY_PART"));
+            }
+
+            values.Add(offer.TextParameters.GetValueOrDefault("PERSON_CORPOSTAL_CODE"));
+            data.Values = values;
+            return data;
+        }
+
+        protected internal TitleAndValuesModel GetPersonalCommunicationMethod(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_CUSTSZK"))
+            {
+                return null;
+            }
+
+            var data = new TitleAndValuesModel();
+            data.Title = this.TextService.FindByKey("AGREED_WAY_OF_COMMUNICATION");
+            data.Values = new[] { offer.TextParameters.GetValueOrDefault("PERSON_CUSTSZK") };
+            return data;
         }
 
         /// <summary>
