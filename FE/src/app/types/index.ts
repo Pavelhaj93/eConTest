@@ -2,6 +2,7 @@ import { Choice, GaEventClickData } from './Authentication'
 
 export * from './Offer'
 export * from './Authentication'
+export * from './Summary'
 
 export type AppConfig = {
   guid: string
@@ -105,4 +106,28 @@ export type Supplier = {
 }
 export interface QueryParams {
   [key: string]: string
+}
+
+export enum ResponseItemType {
+  ContractualData = 'contractualData',
+  Product = 'product',
+  Benefit = 'benefit',
+  Gift = 'gift',
+  Competitor = 'competitor',
+}
+
+export enum OfferType {
+  NEW = 'NEW',
+  ACCEPTED = 'ACCEPTED',
+}
+
+export enum GiftType {
+  LED = 'LED',
+  DET = 'DET',
+  PKZ = 'PKZ',
+}
+
+export enum CommodityProductType {
+  ELECTRICITY = 'E',
+  GAS = 'G',
 }

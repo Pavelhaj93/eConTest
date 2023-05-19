@@ -1,92 +1,85 @@
-import { GiftType } from '@types'
+import { CommodityProductType, GiftType, ResponseItemType } from '@types'
 
 export namespace SummaryResponse {
-  export interface Datum {
+  export interface RootObject {
+    data: ResponseItem[]
+  }
+
+  export interface ResponseItem {
+    type: ResponseItemType
+    position: number
+    header: ResponseItemHeader
+    body: ResponseItemBody
+  }
+
+  export interface ResponseItemHeader {
     title: string
-    lines: string[]
+    type?: CommodityProductType
+    data?: HeaderData[]
+    note?: string
   }
 
-  export interface Communication {
-    Title: string
-    Value: string
-  }
-
-  export interface Personal {
-    title: string
-    data: Datum[]
-    communication: Communication
-  }
-
-  export interface DistributorChange {
-    title: string
-    name: string
-    description: string
-  }
-
-  export interface Header {
-    name: string
-    price1_description: string
-    price1: string
-    price2_description: string
-    price2: string
-    price1_note: string
-    price2_note: string
-  }
-
-  export interface InfoPrice {
-    title: string
-    previous_price: string
-    value: string
-    value_unit: string
-  }
-
-  export interface Product {
-    header: Header
-    info_prices: InfoPrice[]
-    middle_texts: string[]
-    middle_texts_help: string
-    benefits: string[]
-    type: 'G' | 'E'
-  }
-
-  export interface Param {
-    value: string
-  }
-
-  export interface Benefits {
-    title: string
-    params: Param[]
-    commodityProductType: string
-    summary: BenefitSummary[]
-  }
-
-  export interface BenefitSummary {
+  export interface HeaderData {
+    type: string
     title: string
     value: string
+    note?: string
   }
-  export interface Param2 {
+
+  export interface ResponseItemBody {
+    personalData?: PersonalData[]
+    addresses?: Address[]
+    contacts?: Contact[]
+    infos?: Info[]
+    infoHelp?: string
+    points?: Point[]
+    prices?: Price[]
+    groups?: Group[]
+    name?: string
+    text?: string
+  }
+
+  export interface PersonalData {
     title: string
-    icon: GiftType
-    count: number
+    values: string[]
+  }
+
+  export interface Address {
+    title: string
+    values: string[]
+  }
+
+  export interface Contact {
+    title: string
+    values: string[]
+  }
+
+  export interface Info {
+    title?: string
+    value: string
+    note?: string
+  }
+
+  export interface Point {
+    value: string
+  }
+
+  export interface Price {
+    title: string
+    price: string
+    price2: string | null
+    unit: string
   }
 
   export interface Group {
     title: string
-    params: Param2[]
+    params: Param[]
   }
 
-  export interface Gifts {
+  export interface Param {
     title: string
-    note: string
-    groups: Group[]
-  }
-
-  export interface RootObject {
-    personal: Personal
-    distributor_change: DistributorChange
-    product: Product
-    benefits: Benefits[]
-    gifts: Gifts
+    icon: GiftType
+    count: number
   }
 }
 

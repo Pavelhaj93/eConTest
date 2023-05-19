@@ -15,7 +15,8 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "prepush": "yarn lint && yarn test",
-    "clean:files": "node ./scripts/cleanUploadedFiles.js"
+    "clean:files": "node ./scripts/cleanUploadedFiles.js",
+    "nvm:start": "export NVM_DIR=\"$HOME/.nvm\" && [ -s \"$(brew --prefix)/opt/nvm/nvm.sh\" ] && . \"$(brew --prefix)/opt/nvm/nvm.sh\" && [ -s \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\" ] && . \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\""
   },
   "husky": {
     "hooks": {
@@ -29,14 +30,15 @@
     "date-fns": "^2.15.0",
     "mobx": "^4.15.7",
     "mobx-react-lite": "2.2.2",
+    "nvm": "^0.0.4",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-datepicker": "^3.3.0",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^7.3.4",
     "react-media": "^1.10.0",
     "react-signature-pad-wrapper": "^1.3.0",
-    "what-input": "^5.2.10",
-    "react-hook-form": "^7.3.4"
+    "what-input": "^5.2.10"
   },
   "devDependencies": {
     "@babel/core": "^7.11.1",
@@ -56,7 +58,6 @@
     "@typescript-eslint/parser": "^4.6.0",
     "autoprefixer": "^9.8.6",
     "awesome-typescript-loader": "^5.2.1",
-    "canvas": "^2.6.1",
     "clean-webpack-plugin": "^3.0.0",
     "connect-api-mocker": "^1.9.0",
     "copy-webpack-plugin": "^6.0.3",

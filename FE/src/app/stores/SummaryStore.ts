@@ -19,19 +19,7 @@ export class SummaryStore {
   public forceReload = false
 
   @observable
-  public personalDetails: SummaryResponse.Personal | undefined = undefined
-
-  @observable
-  public distributorChange: SummaryResponse.DistributorChange | undefined = undefined
-
-  @observable
-  public product: SummaryResponse.Product | undefined = undefined
-
-  @observable
-  public benefits: SummaryResponse.Benefits[] | undefined = undefined
-
-  @observable
-  public gifts: SummaryResponse.Gifts | undefined = undefined
+  public data: SummaryResponse.ResponseItem[] | undefined = undefined
 
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
@@ -82,11 +70,8 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      this.personalDetails = jsonResponse.personal
-      this.distributorChange = jsonResponse.distributor_change
-      this.product = jsonResponse.product
-      this.benefits = jsonResponse.benefits
-      this.gifts = jsonResponse.gifts
+      const sortedData = jsonResponse.data.sort((a, b) => a.position - b.position)
+      this.data = sortedData
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))

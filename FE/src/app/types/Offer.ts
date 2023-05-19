@@ -1,18 +1,4 @@
-export enum OfferType {
-  NEW = 'NEW',
-  ACCEPTED = 'ACCEPTED',
-}
-
-export enum GiftType {
-  LED = 'LED',
-  DET = 'DET',
-  PKZ = 'PKZ',
-}
-
-export enum CommodityProductType {
-  ELECTRICITY = 'E',
-  GAS = 'G',
-}
+import { CommodityProductType, GiftType } from '@types'
 
 export type SectionInfo = {
   text: string
