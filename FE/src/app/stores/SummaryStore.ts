@@ -21,9 +21,6 @@ export class SummaryStore {
   @observable
   public data: SummaryResponse.ResponseItem[] | undefined = undefined
 
-  // @observable
-  // public contractualData: SummaryResponse.ResponseItem[] | undefined = undefined
-
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
     this.errorPageUrl = errorPageUrl
@@ -73,10 +70,8 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      this.data = jsonResponse.data.sort((a, b) => a.position - b.position)
-      // this.contractualData = jsonResponse.data.filter(
-      //   item => item.type === ResponseItemType.contractualData,
-      // )
+      const sortedData = jsonResponse.data.sort((a, b) => a.position - b.position)
+      this.data = sortedData
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))
