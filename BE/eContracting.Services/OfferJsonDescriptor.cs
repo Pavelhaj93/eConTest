@@ -216,6 +216,7 @@ namespace eContracting.Services
             var model = new ContractualDataModel();
             var header = new ContractualDataHeaderModel();
             header.Title = this.TextService.FindByKey("CONTRACTUAL_DATA");
+            model.Header = header;
 
             var body = new ContractualDataBodyModel();
             var personalData = this.GetPersonalInfo(offer);
@@ -246,6 +247,7 @@ namespace eContracting.Services
                 this.Logger.Warn(offer.Guid, "No PERSON container gathered from text parameters");
                 return null;
             }
+            model.Body = body; 
 
             return model;
         }

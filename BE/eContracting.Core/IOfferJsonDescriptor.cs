@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using eContracting.Models;
+using eContracting.Models.JsonDescriptor;
 
 namespace eContracting
 {
@@ -20,6 +21,14 @@ namespace eContracting
         /// <returns></returns>
         [Obsolete]
         JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user);
+
+        /// <summary>
+        /// Gets summary infor for an offer.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>        
+        ContainerModel GetSummary2(OffersModel offer, UserCacheDataModel user);
 
         /// <sum
         /// <summary>

@@ -656,7 +656,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.StatusCode(HttpStatusCode.NoContent);
                 }
 
-                var model = this.OfferJsonDescriptor.GetSummary(offer, user);
+                var model = this.OfferJsonDescriptor.GetSummary2(offer, user);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)
