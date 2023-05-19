@@ -339,6 +339,9 @@
     <Compile Include="Models\IStepsModel.cs" />
     <Compile Include="Models\CancelOfferViewModel.cs" />
     <Compile Include="Models\IWorkingDay.cs" />
+    <Compile Include="Models\JsonDescriptor\ProductDataBodyModel.cs" />
+    <Compile Include="Models\JsonDescriptor\ProductDataHeaderModel.cs" />
+    <Compile Include="Models\JsonDescriptor\ProductDataModel.cs" />
     <Compile Include="Models\JsonDescriptor\BenefitDataModel.cs" />
     <Compile Include="Models\JsonDescriptor\ContainerModel.cs" />
     <Compile Include="Models\JsonDescriptor\BenefitDataBodyModel.cs" />
@@ -349,6 +352,8 @@
     <Compile Include="Models\JsonDescriptor\IDataBodyModel.cs" />
     <Compile Include="Models\JsonDescriptor\IDataModel.cs" />
     <Compile Include="Models\JsonDescriptor\IDataHeaderModel.cs" />
+    <Compile Include="Models\JsonDescriptor\ProductDataPricesModel.cs" />
+    <Compile Include="Models\JsonDescriptor\ProductsDataDataModel.cs" />
     <Compile Include="Models\JsonDescriptor\TitleAndValueModel.cs" />
     <Compile Include="Models\JsonDescriptor\ValueModel.cs" />
     <Compile Include="Models\JsonDescriptor\TitleAndValuesModel.cs" />

@@ -84,12 +84,19 @@ namespace eContracting.Services
             {
                 container.Data.Add(contractualData);
             }
-            var benefitData = this.GetAllSalesArguments2(offer.TextParameters, false); // ToDo: when GetProductData2 developed do ekvivalent of this condition model.Product != null
+            
+            var productData = this.GetProductData2(offer);
+            if (productData != null)
+            {
+                container.Data.Add(productData);
+            }
+
+            bool excludeCommodity = productData != null;
+            var benefitData = this.GetBenefitsData(offer.TextParameters, excludeCommodity);
             foreach (var benefit in benefitData)
             {
                 container.Data.Add(benefit);
             }
-
             return container;
         }
 
@@ -349,20 +356,37 @@ namespace eContracting.Services
             if (!model.ProductInfos.Any() && !model.MiddleTexts.Any() && !model.Benefits.Any())
             {
                 return null;
-            }
-
-            //if (!string.IsNullOrEmpty(model.Type))
-            //{
-            //    var productsRoot = this.SitecoreService.GetItem<IProductInfoRootModel>(Constants.SitecorePaths.PRODUCT_INFOS);
-
-            //    if (productsRoot != null)
-            //    {
-                    
-            //    }
-            //}
+            }            
 
             return model;
         }
+
+        protected internal IDataModel GetProductData2(OffersModel offer)
+        {
+            if (!offer.ShowPrices)
+            {
+                return null;
+            }
+
+            var model = new ProductDataModel();
+            model.Header = this.GetProductDataHeader(offer);            
+            model.Body = GetProductDataBody(offer);
+            return model;
+        }
+
+        private ProductDataBodyModel GetProductDataBody(OffersModel offer)
+        {
+            var body = new ProductDataBodyModel();
+            body.Prices = this.GetProductPrices(offer);
+            body.Infos = this.GetProductDataInfos(offer);
+            if (body.Infos.Count() > 0 && offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
+            {
+                body.InfoHelp = offer.TextParameters["SA06_MIDDLE_TEXT"];
+            }
+            body.Points = this.GetProductDataPoints(offer);
+            return body;
+        }
+
 
         /// <summary>
         /// Gets container when user / offer changes a distributor (dismissal previous dealer).
@@ -556,7 +580,7 @@ namespace eContracting.Services
             return list;
         }
 
-        protected internal IEnumerable<IDataModel> GetAllSalesArguments2(IDictionary<string, string> textParameters, bool excludeCommodity)
+        protected internal IEnumerable<IDataModel> GetBenefitsData(IDictionary<string, string> textParameters, bool excludeCommodity)
         {
             var list = new List<IDataModel>();
 
@@ -1127,6 +1151,173 @@ namespace eContracting.Services
             return header;
         }
 
+        protected internal ProductDataHeaderModel GetProductDataHeader(OffersModel offer)
+        {
+            var header = new ProductDataHeaderModel();
+            header.Title = offer.TextParameters.GetValueOrDefault("CALC_PROD_DESC");
+            header.Type = this.GetProductType(offer);
+
+            var data = new List<ProductsDataDataModel>();
+            var mainData = new ProductsDataDataModel(); // price 1
+            var addData = new ProductsDataDataModel(); // price 2
+
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_TOTAL_SAVE"))
+            {
+                mainData.Type = "main";
+                mainData.Title = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
+                mainData.Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
+
+                if (offer.TextParameters.HasValue("CALC_TOTAL_SAVE_TOOLTIP"))
+                {
+                    mainData.Note = offer.TextParameters["CALC_TOTAL_SAVE_TOOLTIP"];
+                }
+            }
+            else
+            {
+                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE_SHOW' is 'X' but 'CALC_TOTAL_SAVE' has no price");
+            }
+            if (string.IsNullOrEmpty(mainData.Value))
+            {
+                if (this.CanDisplayPrice(offer.TextParameters, "CALC_DEP_VALUE"))
+                {
+                    mainData.Title = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DESCRIPTION");
+                    mainData.Value = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE") + " " + offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DISPLAY_UNIT");
+
+                    if (offer.TextParameters.HasValue("CALC_DEP_VALUE_TOOLTIP"))
+                    {
+                        mainData.Note = offer.TextParameters["CALC_DEP_VALUE_TOOLTIP"];
+                    }
+                }
+                else
+                {
+                    this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE' and 'CALC_DEP_VALUE' is missing / empty.");
+                }
+            }
+            data.Add(mainData);
+
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_FIN_REW"))
+            {
+                addData.Type = "add";
+                addData.Title = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DESCRIPTION");
+                addData.Value = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW") + " " + offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DISPLAY_UNIT");
+
+                if (offer.TextParameters.HasValue("CALC_FIN_REW_TOOLTIP"))
+                {
+                    addData.Note = offer.TextParameters["CALC_FIN_REW_TOOLTIP"];
+                }
+            }
+            else
+            {
+                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_FIN_REW_SHOW' is 'X' but 'CALC_FIN_REW' has no price");
+            }
+
+            data.Add(addData);
+
+            header.Data = data;
+            return header;
+        }
+
+        protected internal IEnumerable<ProductDataPricesModel> GetProductPrices(OffersModel offer)
+        {
+            var prices = new List<ProductDataPricesModel>();            
+            
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_GAS"))
+            {
+                var price = new ProductDataPricesModel();               
+                price.Title = this.TextService.FindByKey("CONSUMED_GAS");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_GAS", "CALC_COMP_GAS_PRICE"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);                
+            }
+            else if (this.CanDisplayPrice(offer.TextParameters, "CALC_CAP_PRICE"))
+            {
+                var price = new ProductDataPricesModel();
+                price.Title = this.TextService.FindByKey("ANNUAL_PRICE_FOR_RESERVED_CAPACITY");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_CAP_PRICE", "CALC_CAP_PRICE_DISC"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC") + " " + offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);                
+            }
+
+            // gas
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_FIX"))
+            {
+                var price = new ProductDataPricesModel();
+                price.Title = this.TextService.FindByKey("STANDING_PAYMENT");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_FIX", "CALC_COMP_FIX_PRICE"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);                
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_VT"))
+            {
+                var price = new ProductDataPricesModel();
+                price.Title = this.TextService.FindByKey("HIGH_TARIFF");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_VT", "CALC_COMP_VT_PRICE"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);                
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_NT"))
+            {
+                var price = new ProductDataPricesModel();
+                price.Title = this.TextService.FindByKey("LOW_TARIFF");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_NT", "CALC_COMP_NT_PRICE"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);                
+            }
+
+            // electricity
+            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_KC"))
+            {
+                var price = new ProductDataPricesModel();
+                price.Title = this.TextService.FindByKey("STANDING_PAYMENT");
+                price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC");
+                price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_DISPLAY_UNIT");
+
+                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_KC", "CALC_COMP_KC_PRICE"))
+                {
+                    price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE_DISPLAY_UNIT");
+                }
+
+                prices.Add(price);
+            }
+
+            return prices;
+        }
+
         protected internal ProductInfoPrice[] GetProductInfos(OffersModel offer)
         {
             var infoPrices = new List<ProductInfoPrice>();
@@ -1376,6 +1567,36 @@ namespace eContracting.Services
             return middleTexts.ToArray();
         }
 
+        protected internal IEnumerable<ValueModel> GetProductDataInfos(OffersModel offer)
+        {
+            var infos = new List<ValueModel>();            
+
+            if (offer?.TextParameters == null)
+            {
+                return infos;
+            }
+
+            if (offer.TextParameters.HasValue("SA04_MIDDLE_TEXT"))
+            {
+                infos.Add(new ValueModel(offer.TextParameters["SA04_MIDDLE_TEXT"]));                
+            }
+
+            if (offer.TextParameters.HasValue("SA05_MIDDLE_TEXT"))
+            {
+                infos.Add(new ValueModel(offer.TextParameters["SA05_MIDDLE_TEXT"]));                
+            }
+
+            if (offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
+            {
+                if (infos.Count == 0)
+                {
+                    infos.Add(new ValueModel(offer.TextParameters["SA06_MIDDLE_TEXT"]));                    
+                }
+            }
+
+            return infos;
+        }
+
         protected internal string[] GetBenefits(OffersModel offer)
         {
             var benefits = new List<string>();
@@ -1401,6 +1622,34 @@ namespace eContracting.Services
             }
 
             return benefits.ToArray();
+        }
+
+        protected internal IEnumerable<ValueModel> GetProductDataPoints(OffersModel offer)
+        {
+            var points = new List<ValueModel>();
+
+
+            if (offer?.TextParameters == null)
+            {
+                return points;
+            }
+
+            if (offer.TextParameters.HasValue("SA01_MIDDLE_TEXT"))
+            {
+                points.Add(new ValueModel(offer.TextParameters["SA01_MIDDLE_TEXT"]));                
+            }
+
+            if (offer.TextParameters.HasValue("SA02_MIDDLE_TEXT"))
+            {
+                points.Add(new ValueModel(offer.TextParameters["SA02_MIDDLE_TEXT"]));                
+            }
+
+            if (offer.TextParameters.HasValue("SA03_MIDDLE_TEXT"))
+            {
+                points.Add(new ValueModel(offer.TextParameters["SA03_MIDDLE_TEXT"]));                
+            }
+
+            return points;
         }
 
         protected internal string GetEnumPairValue(string key, IDictionary<string, string> textParameters)
@@ -1549,8 +1798,8 @@ namespace eContracting.Services
                 model2.Header = header;
 
                 var body = new BenefitDataBodyModel();
-                body.Infos = GetInfos(label, textParameters);
-                body.Points = GetPoints(label, textParameters);
+                body.Infos = GetAttributesSummary(label, textParameters);
+                body.Points = GetSalesArguments(label, textParameters);
                 model2.Body = body;
 
                 if (body.Infos?.Count() > 0 || body.Points?.Count() > 0)
@@ -1562,7 +1811,7 @@ namespace eContracting.Services
             return list2;
         }
 
-        protected internal IEnumerable<TitleAndValueModel> GetInfos(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
+        protected internal IEnumerable<TitleAndValueModel> GetAttributesSummary(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
         {
             var parameterName = label.Key.Replace("_ACCEPT_LABEL", "_OFFER_SUMMARY") + "_ATRIB_NAME";
             var parameterNames = textParameters.Where(x => x.Key.StartsWith(parameterName));
@@ -1583,7 +1832,7 @@ namespace eContracting.Services
             return null;
         }
 
-        protected internal IEnumerable<ValueModel> GetPoints(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
+        protected internal IEnumerable<ValueModel> GetSalesArguments(KeyValuePair<string, string> label, IDictionary<string, string> textParameters)
         {
             var attributeName = label.Key.Replace("_ACCEPT_LABEL", "_SALES_ARGUMENTS") + "_ATRIB_VALUE";
             var saleArgumentValues = textParameters.Where(x => x.Key.StartsWith(attributeName));
