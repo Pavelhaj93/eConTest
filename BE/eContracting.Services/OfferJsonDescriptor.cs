@@ -75,7 +75,6 @@ namespace eContracting.Services
             return model;
         }
 
-<<<<<<< HEAD
         public ContainerModel GetSummary2(OffersModel offer, UserCacheDataModel user)
         {
             var container = new ContainerModel();
@@ -97,11 +96,6 @@ namespace eContracting.Services
         /// <inheritdoc/>
         public JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user)
         {
-=======
-        /// <inheritdoc/>
-        public JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user)
-        {
->>>>>>> feature/pinn_r1_summary_FE
             var attachments = this.OfferService.GetAttachments(offer, user);
             return this.GetNew(offer, attachments);
         }
@@ -330,11 +324,7 @@ namespace eContracting.Services
         /// Gets product container with all prices.
         /// </summary>
         /// <param name="offer"></param>
-<<<<<<< HEAD
         /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no container to display. Otherwise container object.</returns>
-=======
-        /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no data to display. Otherwise data object.</returns>
->>>>>>> feature/pinn_r1_summary_FE
         protected internal JsonOfferProductModel GetProductData(OffersModel offer)
         {
             if (!offer.ShowPrices)
@@ -378,11 +368,7 @@ namespace eContracting.Services
         /// Gets container when user / offer changes a distributor (dismissal previous dealer).
         /// </summary>
         /// <param name="offer"></param>
-<<<<<<< HEAD
         /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise container object.</returns>
-=======
-        /// <returns>Null when text parameter <c>PERSON_COMPETITOR_NAME</c> is missing OR <see cref="OfferModel.Process"/> not equals to <c>01</c>. Otherwise data object.</returns>
->>>>>>> feature/pinn_r1_summary_FE
         protected internal JsonOfferDistributorChangeModel GetDistributorChange(OffersModel offer)
         {
             if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
