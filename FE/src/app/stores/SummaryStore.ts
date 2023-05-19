@@ -1,4 +1,4 @@
-import { QueryParams, ResponseItemType } from '@types'
+import { QueryParams } from '@types'
 import { parseUrl } from '@utils'
 import { action, observable } from 'mobx'
 import { SumarryErrorResponse, SummaryResponse } from '../types/Summary'

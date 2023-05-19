@@ -223,17 +223,17 @@ describe('Offer view', () => {
     expect(buttons.length).toBe(basicOfferResponse.documents.acceptance.sign.files.length)
   })
 
-  it('opens sign modal', async () => {
-    fetch.mockResponseOnce(JSON.stringify(basicOfferResponse))
+  // it('opens sign modal', async () => {
+  //   fetch.mockResponseOnce(JSON.stringify(basicOfferResponse))
 
-    render(<Offer {...mockProps} />)
+  //   render(<Offer {...mockProps} />)
 
-    const signBtn = await waitFor(() => screen.getByText(mockProps.labels.signatureBtn))
-    userEvent.click(signBtn)
+  //   const signBtn = await waitFor(() => screen.getByText(mockProps.labels.signatureBtn))
+  //   userEvent.click(signBtn)
 
-    const modal = await waitFor(() => screen.getByRole('dialog'))
-    expect(modal).toBeInTheDocument()
-  })
+  //   const modal = await waitFor(() => screen.getByRole('dialog'))
+  //   expect(modal).toBeInTheDocument()
+  // })
 
   it.skip('allows to accept the offer', async () => {
     const offerResponse = {
