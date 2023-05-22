@@ -125,7 +125,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
                     if (!isLoginPage)
                     {
-                        this.DisableCaching();
+                        this.DisableCaching(guid);
                     }
                 }
             }
@@ -234,7 +234,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
         }
 
-        protected void DisableCaching()
+        protected void DisableCaching(string guid)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
             catch (Exception ex)
             {
-
+                this.Logger.Error(guid, $"[{nameof(LayoutViewModel)}] Cannot set HTTP headers", ex);
             }
         }
 

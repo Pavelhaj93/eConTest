@@ -110,7 +110,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Files()
+        public IHttpActionResult Files()
         {
             string guid = this.GetGuid();
 
@@ -178,7 +178,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         [HttpGet]
-        public async Task<IHttpActionResult> File([FromUri] string id)
+        public IHttpActionResult File([FromUri] string id)
         {
             var guid = this.GetGuid();
 
@@ -260,7 +260,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Thumbnail([FromUri] string id)
+        public IHttpActionResult Thumbnail([FromUri] string id)
         {
             string guid = this.GetGuid();
 
@@ -553,13 +553,13 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         [HttpGet]
         [HttpPost]
-        public async Task<IHttpActionResult> State()
+        public IHttpActionResult State()
         {
             throw new NotImplementedException();
         }
 
         [HttpGet]
-        public async Task<IHttpActionResult> Uploads()
+        public IHttpActionResult Uploads()
         {
             throw new NotImplementedException();
         }
@@ -568,7 +568,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Get JSON model for accepted offer page.
         /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> Accepted()
+        public IHttpActionResult Accepted()
         {
             string guid = this.GetGuid();
 
@@ -632,7 +632,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Get JSON model for summary page.
         /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> Summary()
+        public IHttpActionResult Summary()
         {
             string guid = this.GetGuid();
 
@@ -729,7 +729,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             if (this.Request.Method == HttpMethod.Get)
             {
-                return await this.GetUpload(id);
+                return this.GetUpload(id);
             }
 
             return this.Ok();
@@ -810,7 +810,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// <returns></returns>
         [HttpOptions]
         [HttpGet]
-        public async Task<IHttpActionResult> Cancel()
+        public IHttpActionResult Cancel()
         {
             string guid = this.GetGuid();
 
@@ -873,7 +873,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         [HttpOptions]
         [HttpGet]
-        public async Task<IHttpActionResult> GetSCmb()
+        public IHttpActionResult GetSCmb()
         {
             string guid = this.GetGuid();
             string sentErrorMessage = string.Empty;
@@ -1220,7 +1220,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns><see cref="GroupUploadViewModel"/> with current status of the group.</returns>
-        protected async Task<IHttpActionResult> GetUpload([FromUri] string id)
+        protected IHttpActionResult GetUpload([FromUri] string id)
         {
             string guid = this.GetGuid();
 
@@ -1490,7 +1490,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> DeleteOldFiles(string mode)
+        public IHttpActionResult DeleteOldFiles(string mode)
         {
             bool previewOnly = mode != "delete";
             List<string> outputMsgs = new List<string>();
@@ -1499,13 +1499,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.BadRequest("Cleanup not enabled through api endpont. Check EnableCleanupApiTrigger field.");
 
             var cleanupFilesOlderThanDays = SettingsReaderService.GetSiteSettings().CleanupFilesOlderThanDays;
-            if (cleanupFilesOlderThanDays == null || cleanupFilesOlderThanDays <= 0)
+            
+            if (cleanupFilesOlderThanDays <= 0)
             {
                 return this.BadRequest("Invalid value of CleanupFilesOlderThanDays field. Positive number expected, 1 or bigger recommended.");
             }
 
             var filesSearchParams = new DbSearchParameters(DateTime.UtcNow.AddDays(-1 * cleanupFilesOlderThanDays));
             var groupsToDelete = this.UserFileCacheService.FindGroups(filesSearchParams);
+            
             if (groupsToDelete != null && groupsToDelete.Any())
             {
                 foreach (var group in groupsToDelete)
@@ -1519,7 +1521,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     }
                 }
             }
+
             var signedFilesToDelete = this.UserFileCacheService.FindSignedFiles(filesSearchParams);
+            
             if (signedFilesToDelete != null && signedFilesToDelete.Any())
             {
                 foreach (var signedFile in signedFilesToDelete)
@@ -1527,12 +1531,14 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     string msg = $"{(previewOnly ? "Would delete" : "Deleted")} obsolete SignedFile {signedFile.Key} for offer {signedFile.Guid}, session { signedFile.SessionId}, created at {signedFile.CreateDate}";
                     outputMsgs.Add(msg);
                     Sitecore.Diagnostics.Log.Info(msg, this);
+                    
                     if (!previewOnly)
                     {
                         this.UserFileCacheService.RemoveSignedFile(new DbSearchParameters(signedFile.Key, signedFile.Guid, signedFile.SessionId));
                     }
                 }
             }
+
             return this.Ok(outputMsgs);
         }
 
@@ -1540,7 +1546,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         /// Delete obsolete files from database that have not been disposed correctly at the end of a session
         /// </summary>
         [HttpGet]
-        public async Task<IHttpActionResult> DeleteOldLogs(string mode)
+        public IHttpActionResult DeleteOldLogs(string mode)
         {
             bool previewOnly = mode != "delete";
             List<string> outputMsgs = new List<string>();
@@ -1549,7 +1555,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 return this.BadRequest("Cleanup not enabled through api endpont. Check EnableCleanupApiTrigger field.");
 
             var cleanupLogsOlderThanDays = SettingsReaderService.GetSiteSettings().CleanupLogsOlderThanDays;
-            if (cleanupLogsOlderThanDays == null || cleanupLogsOlderThanDays <= 0)
+            
+            if (cleanupLogsOlderThanDays <= 0)
             {
                 return this.BadRequest("Invalid value of CleanupLogsOlderThanDays field. Positive number expected, 1 or bigger recommended.");
             }

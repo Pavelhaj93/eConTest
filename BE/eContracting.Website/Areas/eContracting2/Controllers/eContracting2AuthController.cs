@@ -943,7 +943,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             {
                 return Regex.IsMatch(value, loginType.ValidationRegex);
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }

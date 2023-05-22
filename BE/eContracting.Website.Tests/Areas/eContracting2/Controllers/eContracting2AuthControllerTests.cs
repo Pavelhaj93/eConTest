@@ -233,138 +233,138 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
         }
 
         //[Fact]
-        public void Login_Get_Returns_PreviewView_When_In_Preview_Mode()
-        {
-            var loginPageModel = new Mock<IPageLoginModel>().Object;
-            loginPageModel.Step_Default = new Mock<IStepModel>().Object;
-            var userCacheData = new UserCacheDataModel();
-            var offer = this.CreateOffer();
+        //public void Login_Get_Returns_PreviewView_When_In_Preview_Mode()
+        //{
+        //    var loginPageModel = new Mock<IPageLoginModel>().Object;
+        //    loginPageModel.Step_Default = new Mock<IStepModel>().Object;
+        //    var userCacheData = new UserCacheDataModel();
+        //    var offer = this.CreateOffer();
 
-            var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offer.Process);
-            var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
-            var mockDefinition = new Mock<IDefinitionCombinationModel>();
-            mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
-            mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
-            var definition = mockDefinition.Object;
+        //    var mockProcess = new Mock<IProcessModel>();
+        //    mockProcess.SetupProperty(x => x.Code, offer.Process);
+        //    var mockProcessType = new Mock<IProcessTypeModel>();
+        //    mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
+        //    var mockDefinition = new Mock<IDefinitionCombinationModel>();
+        //    mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
+        //    mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
+        //    var definition = mockDefinition.Object;
 
-            var logger = new MemoryLogger();
-            var eventLogger = new MemoryEventLogger();
-            var textService = new MemoryTextService();
-            var mockContextWrapper = new Mock<IContextWrapper>();
-            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
-            mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
-            var mockSessionProvider = new Mock<ISessionProvider>();
-            var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
-            var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
-            mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
-            mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
-            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
-            var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+        //    var logger = new MemoryLogger();
+        //    var eventLogger = new MemoryEventLogger();
+        //    var textService = new MemoryTextService();
+        //    var mockContextWrapper = new Mock<IContextWrapper>();
+        //    mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
+        //    mockContextWrapper.Setup(x => x.IsEditMode()).Returns(false);
+        //    var mockOfferService = new Mock<IOfferService>();
+        //    mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
+        //    var mockSessionProvider = new Mock<ISessionProvider>();
+        //    var mockUserService = new Mock<IUserService>();
+        //    mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
+        //    var mockSettingsReader = new Mock<ISettingsReaderService>();
+        //    mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
+        //    mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
+        //    mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
+        //    var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+        //    var mockMvcContext = new Mock<IMvcContext>();
+        //    mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
+        //    var mockRequestCacheService = new Mock<IDataRequestCacheService>();
 
-            using (var writter = new StringWriter())
-            {
-                var httpRequest = new HttpRequest("", "http://localhost", "");
-                var httpResponse = new HttpResponse(writter);
-                var httpContext = new HttpContext(httpRequest, httpResponse);
-                var httpContextWrapper = new HttpContextWrapper(httpContext);
+        //    using (var writter = new StringWriter())
+        //    {
+        //        var httpRequest = new HttpRequest("", "http://localhost", "");
+        //        var httpResponse = new HttpResponse(writter);
+        //        var httpContext = new HttpContext(httpRequest, httpResponse);
+        //        var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(
-                    logger,
-                    mockContextWrapper.Object,
-                    mockOfferService.Object,
-                    mockSessionProvider.Object,
-                    mockUserService.Object,
-                    mockSettingsReader.Object,
-                    mockLoginReportService.Object,
-                    mockMvcContext.Object,
-                    eventLogger,
-                    textService,
-                    mockRequestCacheService.Object);
-                controller.ControllerContext = new ControllerContext();
-                controller.ControllerContext.HttpContext = httpContextWrapper;
-                var result = controller.Login();
+        //        var controller = new eContracting2AuthController(
+        //            logger,
+        //            mockContextWrapper.Object,
+        //            mockOfferService.Object,
+        //            mockSessionProvider.Object,
+        //            mockUserService.Object,
+        //            mockSettingsReader.Object,
+        //            mockLoginReportService.Object,
+        //            mockMvcContext.Object,
+        //            eventLogger,
+        //            textService,
+        //            mockRequestCacheService.Object);
+        //        controller.ControllerContext = new ControllerContext();
+        //        controller.ControllerContext.HttpContext = httpContextWrapper;
+        //        var result = controller.Login();
 
-                Assert.IsType<ViewResult>(result);
-                var actionResult = (ViewResult)result;
+        //        Assert.IsType<ViewResult>(result);
+        //        var actionResult = (ViewResult)result;
 
-                Assert.Equal("/Areas/eContracting2/Views/Preview/Login.cshtml", actionResult.ViewName);
-            }
-        }
+        //        Assert.Equal("/Areas/eContracting2/Views/Preview/Login.cshtml", actionResult.ViewName);
+        //    }
+        //}
 
         //[Fact]
-        public void Login_Get_Returns_EditView_When_In_Editing_Mode()
-        {
-            var loginPageModel = new Mock<IPageLoginModel>().Object;
-            loginPageModel.Step_Default = new Mock<IStepModel>().Object;
-            var userCacheData = new UserCacheDataModel();
-            var offer = this.CreateOffer();
+        //public void Login_Get_Returns_EditView_When_In_Editing_Mode()
+        //{
+        //    var loginPageModel = new Mock<IPageLoginModel>().Object;
+        //    loginPageModel.Step_Default = new Mock<IStepModel>().Object;
+        //    var userCacheData = new UserCacheDataModel();
+        //    var offer = this.CreateOffer();
 
-            var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offer.Process);
-            var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
-            var mockDefinition = new Mock<IDefinitionCombinationModel>();
-            mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
-            mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
-            var definition = mockDefinition.Object;
+        //    var mockProcess = new Mock<IProcessModel>();
+        //    mockProcess.SetupProperty(x => x.Code, offer.Process);
+        //    var mockProcessType = new Mock<IProcessTypeModel>();
+        //    mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
+        //    var mockDefinition = new Mock<IDefinitionCombinationModel>();
+        //    mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
+        //    mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
+        //    var definition = mockDefinition.Object;
 
-            var logger = new MemoryLogger();
-            var eventLogger = new MemoryEventLogger();
-            var textService = new MemoryTextService();
-            var mockContextWrapper = new Mock<IContextWrapper>();
-            mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
-            mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
-            var mockSessionProvider = new Mock<ISessionProvider>();
-            var mockUserService = new Mock<IUserService>();
-            mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
-            var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
-            mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
-            mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
-            var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
-            var mockMvcContext = new Mock<IMvcContext>();
-            mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+        //    var logger = new MemoryLogger();
+        //    var eventLogger = new MemoryEventLogger();
+        //    var textService = new MemoryTextService();
+        //    var mockContextWrapper = new Mock<IContextWrapper>();
+        //    mockContextWrapper.Setup(x => x.IsNormalMode()).Returns(false);
+        //    mockContextWrapper.Setup(x => x.IsEditMode()).Returns(true);
+        //    var mockOfferService = new Mock<IOfferService>();
+        //    mockOfferService.Setup(x => x.GetOffer(offer.Guid)).Returns(offer);
+        //    var mockSessionProvider = new Mock<ISessionProvider>();
+        //    var mockUserService = new Mock<IUserService>();
+        //    mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
+        //    var mockSettingsReader = new Mock<ISettingsReaderService>();
+        //    mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
+        //    mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
+        //    mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
+        //    var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
+        //    var mockMvcContext = new Mock<IMvcContext>();
+        //    mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
+        //    var mockRequestCacheService = new Mock<IDataRequestCacheService>();
 
-            using (var writter = new StringWriter())
-            {
-                var httpRequest = new HttpRequest("", "http://localhost", "");
-                var httpResponse = new HttpResponse(writter);
-                var httpContext = new HttpContext(httpRequest, httpResponse);
-                var httpContextWrapper = new HttpContextWrapper(httpContext);
+        //    using (var writter = new StringWriter())
+        //    {
+        //        var httpRequest = new HttpRequest("", "http://localhost", "");
+        //        var httpResponse = new HttpResponse(writter);
+        //        var httpContext = new HttpContext(httpRequest, httpResponse);
+        //        var httpContextWrapper = new HttpContextWrapper(httpContext);
 
-                var controller = new eContracting2AuthController(
-                    logger,
-                    mockContextWrapper.Object,
-                    mockOfferService.Object,
-                    mockSessionProvider.Object,
-                    mockUserService.Object,
-                    mockSettingsReader.Object,
-                    mockLoginReportService.Object,
-                    mockMvcContext.Object,
-                    eventLogger,
-                    textService,
-                    mockRequestCacheService.Object);
-                controller.ControllerContext = new ControllerContext();
-                controller.ControllerContext.HttpContext = httpContextWrapper;
-                var result = controller.Login();
+        //        var controller = new eContracting2AuthController(
+        //            logger,
+        //            mockContextWrapper.Object,
+        //            mockOfferService.Object,
+        //            mockSessionProvider.Object,
+        //            mockUserService.Object,
+        //            mockSettingsReader.Object,
+        //            mockLoginReportService.Object,
+        //            mockMvcContext.Object,
+        //            eventLogger,
+        //            textService,
+        //            mockRequestCacheService.Object);
+        //        controller.ControllerContext = new ControllerContext();
+        //        controller.ControllerContext.HttpContext = httpContextWrapper;
+        //        var result = controller.Login();
 
-                Assert.IsType<ViewResult>(result);
-                var actionResult = (ViewResult)result;
+        //        Assert.IsType<ViewResult>(result);
+        //        var actionResult = (ViewResult)result;
 
-                Assert.Equal("/Areas/eContracting2/Views/Edit/Login.cshtml", actionResult.ViewName);
-            }
-        }
+        //        Assert.Equal("/Areas/eContracting2/Views/Edit/Login.cshtml", actionResult.ViewName);
+        //    }
+        //}
 
         [Fact]
         [Trait("eContracting2AuthController", "Login")]
