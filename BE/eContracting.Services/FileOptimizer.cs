@@ -279,7 +279,7 @@ namespace eContracting.Services
                 // zapis file do pdfka v groupe
                 try
                 {
-                    AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+                    this.AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
                 }
                 catch (InvalidOperationException invex)
                 {
@@ -298,7 +298,7 @@ namespace eContracting.Services
                 // ulozim vyslednou podobu OriginalFiles (pridany novy soubor k tem predchazejicim)
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
 
-                CompressGroup(group, outputPdfDocument, this.GroupResultingFileSizeLimit);
+                this.CompressGroup(group, outputPdfDocument, this.GroupResultingFileSizeLimit);
 
 
                 // pokud i po pokusu o kompresi vysledny soubor presahuje limit, odstran tenhle posledni nahrany soubor
@@ -315,7 +315,7 @@ namespace eContracting.Services
                     result.IsSuccess = true;
                 }
                 result.DbUploadGroupFileModel = group;
-                return result;
+                return await Task.FromResult(result);
             }
         }
 
