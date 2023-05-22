@@ -582,7 +582,7 @@ namespace eContracting.Services
                 }
             }
 
-            return list;
+            return await Task.FromResult(list);
         }
 
         protected async Task<(File, IEnumerable<FileAttribute>)> SaveAsync(DatabaseContext context, DbContextTransaction transaction, DbFileModel file)
