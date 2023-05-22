@@ -32,8 +32,31 @@
             }
         },
         {
-            "type": "docsCheck",
+            "type": "benefit",
             "position": 2,
+            "header": {
+                "title": "Výhody zvoleného produktu"
+            },
+            "body": {
+                "points": [
+                    {
+                        "value": "naše ceny energií i smlouvy jsou závazné"
+                    },
+                    {
+                        "value": "garance cenového snížení v průběhu trvání smlouvy"
+                    },
+                    {
+                        "value": "pevná cena silové elektřiny po dobu 30 měsíců"
+                    },
+                    {
+                        "value": "v základním období trvání smlouvy je spotřeba zajištěna nákupem záruk původu z obnovitelných zdrojů"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "docsCheck",
+            "position": 3,
             "header": {
                 "title": "" //
             },
@@ -128,7 +151,7 @@
         },
         {
             "type": "docsSign",
-            "position": 3,
+            "position": 4,
             "header": {
                 "title": "Dokumenty k podpisu" // není to v původním JSON, ale nový vzhled s tím počítá
             },
@@ -160,7 +183,7 @@
         },
         {
             "type": "docsCheck",
-            "position": 4,
+            "position": 5,
             "header": {
                 "title": "Doplňkové služby"
             },
@@ -191,7 +214,7 @@
         },
         {
             "type": "docsCheck",
-            "position": 5,
+            "position": 6,
             "header": {
                 "title": "Ostatní služby"
             },
