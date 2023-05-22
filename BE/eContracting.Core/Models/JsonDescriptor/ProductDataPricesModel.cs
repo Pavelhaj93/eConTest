@@ -18,7 +18,7 @@ namespace eContracting.Models.JsonDescriptor
         [JsonProperty("price2")]
         public string Price2 { get; set; }
 
-        [JsonProperty("Unit")]
+        [JsonProperty("unit")]
         public string Unit { get; set; }
     }
 }

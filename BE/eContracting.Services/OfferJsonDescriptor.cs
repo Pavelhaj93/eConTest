@@ -97,6 +97,13 @@ namespace eContracting.Services
             {
                 container.Data.Add(benefit);
             }
+
+            var competitorData = this.GetCompetitorData(offer);
+            if (competitorData != null)
+            {
+                container.Data.Add(competitorData);
+            }
+
             return container;
         }
 
@@ -416,6 +423,34 @@ namespace eContracting.Services
             model.Title = summaryPage.DistributorChange_Title;
             model.Name = offer.TextParameters["PERSON_COMPETITOR_NAME"];
             model.Description = summaryPage.DistributorChange_Text;
+            return model;
+        }
+
+        protected internal CompetitorDataModel GetCompetitorData(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME doesn't exist");
+                return null;
+            }
+
+            if (offer.Process != "01")
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME exists, but is hidden because BUS_PROCESS != 01");
+                return null;
+            }
+
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var summaryPageId = siteSettings.Summary.TargetId;
+            var summaryPage = this.SitecoreService.GetItem<IPageSummaryOfferModel>(summaryPageId);
+            var model = new CompetitorDataModel();
+            var header = new CompetitorDataHeaderModel();
+            header.Title = summaryPage.DistributorChange_Title;
+            model.Header = header;
+            var body = new CompetitorDataBodyModel();
+            body.Name = offer.TextParameters["PERSON_COMPETITOR_NAME"];
+            body.Text = summaryPage.DistributorChange_Text;
+            model.Body = body;
             return model;
         }
 
