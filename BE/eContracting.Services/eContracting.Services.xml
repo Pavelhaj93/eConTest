@@ -357,7 +357,7 @@
             <inheritdoc/>
             <seealso cref="T:eContracting.IFileOptimizer" />
         </member>
-        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.ISitecoreContext,eContracting.IOfferService,eContracting.IUserService,eContracting.ISettingsReaderService)">
+        <member name="M:eContracting.Services.FileOptimizer.#ctor(eContracting.ILogger,Glass.Mapper.Sc.Web.IRequestContext,eContracting.IOfferService,eContracting.IUserService,eContracting.ISettingsReaderService)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.FileOptimizer"/> class.
             </summary>
@@ -379,6 +379,9 @@
             </exception>
         </member>
         <member name="M:eContracting.Services.FileOptimizer.AddAsync(eContracting.Models.DbUploadGroupFileModel,System.String,System.String,System.String,System.Byte[],System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:eContracting.Services.FileOptimizer.IsOfferTotalFilesSizeInLimitAsync(System.Int32)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.FileOptimizer.EnforceOfferTotalFilesSizeAsync(System.Collections.Generic.List{eContracting.Models.DbUploadGroupFileModel},eContracting.Models.DbUploadGroupFileModel,System.String)">

@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 using System.Web;
 using Sitecore.DependencyInjection;
 using Sitecore.Data.Serialization.Exceptions;
+using Glass.Mapper.Sc.Web;
 
 namespace eContracting.Services
 {
@@ -23,7 +24,7 @@ namespace eContracting.Services
     public class FileOptimizer : IFileOptimizer
     {
         protected readonly ILogger Logger;
-        protected readonly ISitecoreContext Context;
+        protected readonly IRequestContext Context;
         protected readonly IOfferService ApiService;
         protected readonly IUserService AuthService;
         protected readonly ISettingsReaderService SettingsReaderService;
@@ -119,7 +120,7 @@ namespace eContracting.Services
         /// </exception>
         public FileOptimizer(
             ILogger logger,
-            ISitecoreContext context,
+            IRequestContext context,
             IOfferService apiService,
             IUserService authService,
             ISettingsReaderService settingsReaderService)
@@ -165,9 +166,11 @@ namespace eContracting.Services
             }
         }
 
+        /// <inheritdoc/>
         public async Task<bool> IsOfferTotalFilesSizeInLimitAsync(int actualTotalSize)
         {
-            return actualTotalSize <= this.TotalResultingFilesSizeLimit;
+            var result = actualTotalSize <= this.TotalResultingFilesSizeLimit;
+            return await Task.FromResult(result);
         }
 
         /// <inheritdoc/>
@@ -193,7 +196,7 @@ namespace eContracting.Services
                 }
             }
 
-            return result;
+            return await Task.FromResult(result);
         }
 
         protected internal async Task<UploadGroupFileOperationResultModel> ProcessFilesAsync(DbUploadGroupFileModel group, PdfDocument outputPdfDocument, string fileId, string name, byte[] content, string groupKey)
@@ -230,6 +233,7 @@ namespace eContracting.Services
                                         }
                                         catch (Exception imgSaveEx)
                                         {
+                                            this.Logger.Error(null, "[FileOptimizer] Cannot save an image in original format / codec. Trying to save it as jpeg.", imgSaveEx);
                                             // u nekterych obrazku nefgunguje ukladani v jejich originalnim formatu/kodeku, tak zkus ulozit jako jpeg
                                             var encoderParameters = new EncoderParameters(1);
                                             encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
@@ -248,6 +252,7 @@ namespace eContracting.Services
                         }
                         catch (ArgumentException argex)
                         {
+                            this.Logger.Error(null, "[FileOptimizer] Unrecognized format", argex);
                             result.IsSuccess = false;
                             result.ErrorModel = ERROR_CODES.UploadedFileUnrecognizedFormat();
                             return result;
@@ -274,7 +279,7 @@ namespace eContracting.Services
                 // zapis file do pdfka v groupe
                 try
                 {
-                    AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
+                    this.AddFileToOutputPdfDocument(outputPdfDocument, fileByteContent, name);
                 }
                 catch (InvalidOperationException invex)
                 {
@@ -293,7 +298,7 @@ namespace eContracting.Services
                 // ulozim vyslednou podobu OriginalFiles (pridany novy soubor k tem predchazejicim)
                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
 
-                CompressGroup(group, outputPdfDocument, this.GroupResultingFileSizeLimit);
+                this.CompressGroup(group, outputPdfDocument, this.GroupResultingFileSizeLimit);
 
 
                 // pokud i po pokusu o kompresi vysledny soubor presahuje limit, odstran tenhle posledni nahrany soubor
@@ -310,7 +315,7 @@ namespace eContracting.Services
                     result.IsSuccess = true;
                 }
                 result.DbUploadGroupFileModel = group;
-                return result;
+                return await Task.FromResult(result);
             }
         }
 
@@ -409,7 +414,7 @@ namespace eContracting.Services
 
                                 foreach (var fileInGroup in group.OriginalFiles)
                                 {
-                                    AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
+                                    this.AddFileToOutputPdfDocument(outputPdfDocument, fileInGroup.Content, fileInGroup.FileName);
                                 }
 
                                 this.SaveOutputPdfDocumentToGroup(group, outputPdfDocument);
@@ -420,7 +425,7 @@ namespace eContracting.Services
                 }
             }
 
-            return group;
+            return await Task.FromResult(group);
         }
 
         protected internal void AddFileToOutputPdfDocument(PdfDocument outputPdfDocument, byte[] fileByteContent, string name)

@@ -533,20 +533,20 @@ namespace eContracting.Services.Tests
 
         //[Theory]
         //[InlineData("0635F899B3111EED8C8B323695B46453")]
-        public void LoadLocalOffer(string guid)
-        {
-            var dataService = new LocalOfferDataService();
-            dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
-            dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
-        }
+        //public void LoadLocalOffer(string guid)
+        //{
+        //    var dataService = new LocalOfferDataService();
+        //    dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
+        //    dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
+        //}
 
         //[Theory]
         //[InlineData("0635F899B3111EED8C8B323695B46453")]
-        public void LoadLocalFiles(string guid)
-        {
-            var dataService = new LocalOfferDataService();
-            dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
-            dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX_PDF);
-        }
+        //public void LoadLocalFiles(string guid)
+        //{
+        //    var dataService = new LocalOfferDataService();
+        //    dataService.LocalFolder = "c:\\Repos\\DevOps\\InnogyCZ\\eContracting\\docs\\Examples\\Versions\\3\\";
+        //    dataService.GetResponse(guid, OFFER_TYPES.QUOTPRX_PDF);
+        //}
     }
 }

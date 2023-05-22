@@ -78,62 +78,62 @@ namespace eContracting.Website.Tests.Rules.Conditions
         }
 
         //[Fact]
-        public void Execute_Returns_False_When_Process_Doesnt_Exist()
-        {
-            var guid = this.CreateGuid();
-            var processId = this.CreateGuid();
-            var processGuid = new Guid(processId);
-            var offer = this.CreateOffer(guid);
-            var processItem = new Mock<IProcessModel>().Object;
-            var ruleContext = new RuleContext();
-            ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
+        //public void Execute_Returns_False_When_Process_Doesnt_Exist()
+        //{
+        //    var guid = this.CreateGuid();
+        //    var processId = this.CreateGuid();
+        //    var processGuid = new Guid(processId);
+        //    var offer = this.CreateOffer(guid);
+        //    var processItem = new Mock<IProcessModel>().Object;
+        //    var ruleContext = new RuleContext();
+        //    ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
 
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
-            var mockSitecoreService = new Mock<ISitecoreService>();
-            mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid)).Returns(processItem);
-            var mockContextWrapper = new Mock<IContextWrapper>();
-            mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
+        //    var mockOfferService = new Mock<IOfferService>();
+        //    mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
+        //    var mockSitecoreService = new Mock<ISitecoreService>();
+        //    mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid)).Returns(processItem);
+        //    var mockContextWrapper = new Mock<IContextWrapper>();
+        //    mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
 
-            var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
-                mockOfferService.Object,
-                mockSitecoreService.Object,
-                mockContextWrapper.Object);
-            rule.ProcessItemGuidPublic = processGuid;
-            var result = rule.ExecutePublic(ruleContext);
+        //    var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
+        //        mockOfferService.Object,
+        //        mockSitecoreService.Object,
+        //        mockContextWrapper.Object);
+        //    rule.ProcessItemGuidPublic = processGuid;
+        //    var result = rule.ExecutePublic(ruleContext);
 
-            Assert.False(result);
-        }
+        //    Assert.False(result);
+        //}
 
         //[Fact]
-        public void Execute_Returns_False_When_Process_Doesnt_Match_With_Offer()
-        {
-            var guid = this.CreateGuid();
-            var processId = this.CreateGuid();
-            var processGuid = new Guid(processId);
-            var offer = this.CreateOffer(guid);
-            offer.First().Xml.Content.Body.BusProcess = "XYZ";
-            var processItem = new Mock<IProcessModel>().Object;
-            processItem.Code = "INVALID";
-            var ruleContext = new RuleContext();
-            ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
-            Action<GetItemByIdBuilder> action = (builder) => { };
+        //public void Execute_Returns_False_When_Process_Doesnt_Match_With_Offer()
+        //{
+        //    var guid = this.CreateGuid();
+        //    var processId = this.CreateGuid();
+        //    var processGuid = new Guid(processId);
+        //    var offer = this.CreateOffer(guid);
+        //    offer.First().Xml.Content.Body.BusProcess = "XYZ";
+        //    var processItem = new Mock<IProcessModel>().Object;
+        //    processItem.Code = "INVALID";
+        //    var ruleContext = new RuleContext();
+        //    ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
+        //    Action<GetItemByIdBuilder> action = (builder) => { };
 
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
-            var mockSitecoreService = new Mock<ISitecoreService>();
-            mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid, action)).Returns(processItem);
-            var mockContextWrapper = new Mock<IContextWrapper>();
-            mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
+        //    var mockOfferService = new Mock<IOfferService>();
+        //    mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
+        //    var mockSitecoreService = new Mock<ISitecoreService>();
+        //    mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid, action)).Returns(processItem);
+        //    var mockContextWrapper = new Mock<IContextWrapper>();
+        //    mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
 
-            var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
-                mockOfferService.Object,
-                mockSitecoreService.Object,
-                mockContextWrapper.Object);
-            rule.ProcessItemGuidPublic = processGuid;
-            var result = rule.ExecutePublic(ruleContext);
+        //    var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
+        //        mockOfferService.Object,
+        //        mockSitecoreService.Object,
+        //        mockContextWrapper.Object);
+        //    rule.ProcessItemGuidPublic = processGuid;
+        //    var result = rule.ExecutePublic(ruleContext);
 
-            Assert.False(result);
-        }
+        //    Assert.False(result);
+        //}
     }
 }

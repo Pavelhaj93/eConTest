@@ -19,7 +19,6 @@ namespace eContracting
         /// <param name="offer">The offer.</param>
         /// <param name="user">The user.</param>
         /// <returns></returns>
-        [Obsolete]
         JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user);
 
         /// <summary>
@@ -36,7 +35,6 @@ namespace eContracting
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <param name="user">The user.</param>
-        [Obsolete]
         JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user);
 
         /// <summary>

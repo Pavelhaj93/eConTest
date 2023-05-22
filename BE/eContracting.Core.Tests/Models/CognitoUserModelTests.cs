@@ -34,6 +34,7 @@ namespace eContracting.Core.Tests.Models
             Assert.Equal(username, model.Username);
         }
 
+        [Fact]
         public void When_Constructed_With_UserData_All_Properties_Are_Correctly_Set()
         {
             var userData = new CognitoUserDataModel();
@@ -53,7 +54,7 @@ namespace eContracting.Core.Tests.Models
 
             Assert.Equal(userData.UserAttributes.First(x => x.Name == "sub").Value, model.Sub);
             Assert.Contains(userData.UserAttributes.First(x => x.Name == "custom:segment").Value, model.CustomSegments);
-            Assert.Equal(userData.UserAttributes.First(x => x.Name == "email_verified").Value, model.Email);
+            Assert.Equal(userData.UserAttributes.First(x => x.Name == "email_verified").Value, model.EmailVerified ? "true" : "false");
             Assert.Equal(userData.UserAttributes.First(x => x.Name == "preferred_username").Value, model.PreferredUsername);
             Assert.Equal(userData.UserAttributes.First(x => x.Name == "given_name").Value, model.GivenName);
             Assert.Equal(userData.UserAttributes.First(x => x.Name == "family_name").Value, model.FamilyName);

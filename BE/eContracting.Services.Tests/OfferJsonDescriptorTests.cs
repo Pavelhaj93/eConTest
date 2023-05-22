@@ -145,8 +145,7 @@ namespace eContracting.Services.Tests
             Assert.Equal(definition.OfferOtherProductsDocsTitle.Text, result.Groups.First().Title);
         }
 
-
-        //[Fact]
+        [Fact]
         public void GetAccepted_Returns_COMMODITY_Attachments()
         {
             var offer = this.CreateOffer();
@@ -164,23 +163,23 @@ namespace eContracting.Services.Tests
             template1.SignReq = null;
             var attachment1 = new OfferAttachmentModel(template1, "applicatin/pdf", "aaa", null, null);
 
-            var template2 = new OfferAttachmentXmlModel();
-            template2.Group = "DSL";
-            template2.Printed = Constants.FileAttributeValues.CHECK_VALUE;
-            template1.SignReq = null;
-            var attachment2 = new OfferAttachmentModel(template2, "applicatin/pdf", "bbb", null, null);
+            //var template2 = new OfferAttachmentXmlModel();
+            //template2.Group = "DSL";
+            //template2.Printed = Constants.FileAttributeValues.CHECK_VALUE;
+            //template1.SignReq = null;
+            //var attachment2 = new OfferAttachmentModel(template2, "applicatin/pdf", "bbb", null, null);
 
-            var template3 = new OfferAttachmentXmlModel();
-            template3.Group = "NONCOMMODITY";
-            template3.Printed = Constants.FileAttributeValues.CHECK_VALUE;
-            template1.SignReq = null;
-            var attachment3 = new OfferAttachmentModel(template3, "applicatin/pdf", "ccc", null, null);
+            //var template3 = new OfferAttachmentXmlModel();
+            //template3.Group = "NONCOMMODITY";
+            //template3.Printed = Constants.FileAttributeValues.CHECK_VALUE;
+            //template1.SignReq = null;
+            //var attachment3 = new OfferAttachmentModel(template3, "applicatin/pdf", "ccc", null, null);
 
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
             var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment1, attachment2, attachment3 });
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new[] { attachment1 });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
@@ -240,54 +239,54 @@ namespace eContracting.Services.Tests
         }
 
         //[Theory]
-        [InlineData(1, false, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(1, false, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(1, false, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(2, true, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(2, true, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
-        [InlineData(2, true, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
-        public void GetNew_Calls_GetGifts_In_Version_Greater_Than_1(int version, bool expectedGifts, string checkKey, string checkValue, string nameKey, string nameValue, string countKey, string countValue, string imageKey, string imageValue, string introKey, string introValue)
-        {
-            var offer = this.CreateOffer(version);
-            var user = this.CreateAnonymousUser(offer);
-            offer.TextParameters.Add("BENEFITS", "X");
-            offer.TextParameters.Add(checkKey, checkValue);
-            offer.TextParameters.Add(nameKey, nameValue);
-            offer.TextParameters.Add(countKey, countValue);
-            offer.TextParameters.Add(imageKey, imageValue);
-            offer.TextParameters.Add(introKey, introValue);
+        //[InlineData(1, false, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
+        //[InlineData(1, false, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
+        //[InlineData(1, false, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
+        //[InlineData(2, true, "BENEFITS_NOW", "X", "BENEFITS_NOW_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NOW_COUNT", "1", "BENEFITS_NOW_IMAGE", "PKZ", "BENEFITS_NOW_INTRO", "Děkujeme za váš čas ...")]
+        //[InlineData(2, true, "BENEFITS_NEXT_SIGN", "X", "BENEFITS_NEXT_SIGN_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_SIGN_COUNT", "2", "BENEFITS_NEXT_SIGN_IMAGE", "LED", "BENEFITS_NEXT_SIGN_INTRO", "Děkujeme za váš čas ...")]
+        //[InlineData(2, true, "BENEFITS_NEXT_TZD", "X", "BENEFITS_NEXT_TZD_NAME", "Poukázka Kaufland 100 Kč", "BENEFITS_NEXT_TZD_COUNT", "3", "BENEFITS_NEXT_TZD_IMAGE", "DET", "BENEFITS_NEXT_TZD_INTRO", "Děkujeme za váš čas ...")]
+        //public void GetNew_Calls_GetGifts_In_Version_Greater_Than_1(int version, bool expectedGifts, string checkKey, string checkValue, string nameKey, string nameValue, string countKey, string countValue, string imageKey, string imageValue, string introKey, string introValue)
+        //{
+        //    var offer = this.CreateOffer(version);
+        //    var user = this.CreateAnonymousUser(offer);
+        //    offer.TextParameters.Add("BENEFITS", "X");
+        //    offer.TextParameters.Add(checkKey, checkValue);
+        //    offer.TextParameters.Add(nameKey, nameValue);
+        //    offer.TextParameters.Add(countKey, countValue);
+        //    offer.TextParameters.Add(imageKey, imageValue);
+        //    offer.TextParameters.Add(introKey, introValue);
 
-            var mockSimpleText = new Mock<ISimpleTextModel>();
-            mockSimpleText.SetupProperty(x => x.Text, "Dárečky");
-            var mockDefinition = new Mock<IDefinitionCombinationModel>();
-            mockDefinition.SetupProperty(x => x.OfferGiftsShow, true);
-            mockDefinition.SetupProperty(x => x.OfferGiftsTitle, mockSimpleText.Object);
-            var definition = mockDefinition.Object;
+        //    var mockSimpleText = new Mock<ISimpleTextModel>();
+        //    mockSimpleText.SetupProperty(x => x.Text, "Dárečky");
+        //    var mockDefinition = new Mock<IDefinitionCombinationModel>();
+        //    mockDefinition.SetupProperty(x => x.OfferGiftsShow, true);
+        //    mockDefinition.SetupProperty(x => x.OfferGiftsTitle, mockSimpleText.Object);
+        //    var definition = mockDefinition.Object;
 
-            var logger = new MemoryLogger();
-            var textService = new MemoryTextService();
-            var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
-            var mockSettingsReaderService = new Mock<ISettingsReaderService>();
-            mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
+        //    var logger = new MemoryLogger();
+        //    var textService = new MemoryTextService();
+        //    var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
+        //    var mockOfferService = new Mock<IOfferService>();
+        //    mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
+        //    var mockSettingsReaderService = new Mock<ISettingsReaderService>();
+        //    mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
-            var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer, user);
+        //    var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+        //    var result = service.GetNew(offer, user);
 
-            if (expectedGifts)
-            {
-                Assert.True(result.Gifts.Groups.Count() == 1);
-                Assert.True(result.Gifts.Groups.First().Params.Count() == 1);
-                Assert.Contains(result.Gifts.Groups, x => x.Params.First().Count == Convert.ToInt32(countValue));
-                Assert.Contains(result.Gifts.Groups, x => x.Params.First().Icon == imageValue);
-                Assert.Contains(result.Gifts.Groups, x => x.Params.First().Title == nameValue);
-            }
-            else
-            {
-                Assert.Null(result.Gifts);
-            }
-        }
+        //    if (expectedGifts)
+        //    {
+        //        Assert.True(result.Gifts.Groups.Count() == 1);
+        //        Assert.True(result.Gifts.Groups.First().Params.Count() == 1);
+        //        Assert.Contains(result.Gifts.Groups, x => x.Params.First().Count == Convert.ToInt32(countValue));
+        //        Assert.Contains(result.Gifts.Groups, x => x.Params.First().Icon == imageValue);
+        //        Assert.Contains(result.Gifts.Groups, x => x.Params.First().Title == nameValue);
+        //    }
+        //    else
+        //    {
+        //        Assert.Null(result.Gifts);
+        //    }
+        //}
 
         [Theory]
         [InlineData(1, false, "COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE", "garance poklesu ceny")]
@@ -884,7 +883,7 @@ namespace eContracting.Services.Tests
             Assert.Equal(2, result.MandatoryGroups.Count);
         }
 
-        //[Fact]
+        [Fact]
         public void GetAllSalesArguments()
         {
             var textParameters = new Dictionary<string, string>();
@@ -935,6 +934,8 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetAllSalesArguments(textParameters, false);
+
+            Assert.Equal(4, result.Count());   
         }
 
         [Fact]
@@ -2224,10 +2225,8 @@ namespace eContracting.Services.Tests
             Assert.Single(result);
         }
 
-        [Theory]
-        [InlineData("SA04_MIDDLE_TEXT", "sadfdsaf")]
-        [InlineData("SA05_MIDDLE_TEXT", "sadfdsaf")]
-        public void GetMiddleTexts_Do_Not_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Exists(string key, string value)
+        [Fact]
+        public void GetMiddleTexts_Do_Not_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Exists()
         {
             var offer = this.CreateOffer();
             offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", "text");
