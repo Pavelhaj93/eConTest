@@ -24,6 +24,24 @@
             }
         ]
     },
+    "benefits": {
+        "title": "Výhody zvoleného produktu",
+        "params": [
+            {
+                "value": "naše ceny energií i smlouvy jsou závazné"
+            },
+            {
+                "value": "garance cenového snížení v průběhu trvání smlouvy"
+            },
+            {
+                "value": "pevná cena silové elektřiny po dobu 30 měsíců"
+            },
+            {
+                "value": "v základním období trvání smlouvy je spotřeba zajištěna nákupem záruk původu z obnovitelných zdrojů"
+            }
+        ],
+        "commodityProductType": "G"
+    },
     "documents": {
         "description": "",
         "acceptance": {
