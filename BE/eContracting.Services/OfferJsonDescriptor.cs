@@ -84,7 +84,7 @@ namespace eContracting.Services
             {
                 container.Data.Add(contractualData);
             }
-            
+
             var productData = this.GetProductData2(offer);
             if (productData != null)
             {
@@ -97,6 +97,20 @@ namespace eContracting.Services
             {
                 container.Data.Add(benefit);
             }
+
+            var competitorData = this.GetCompetitorData(offer);
+            if (competitorData != null)
+            {
+                container.Data.Add(competitorData);
+            }
+
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var giftData = this.GetGifts2(offer.TextParameters, definition);
+            if (giftData != null)
+            {
+                container.Data.Add(giftData);
+            }
+
             return container;
         }
 
@@ -419,6 +433,34 @@ namespace eContracting.Services
             return model;
         }
 
+        protected internal CompetitorDataModel GetCompetitorData(OffersModel offer)
+        {
+            if (!offer.TextParameters.HasValue("PERSON_COMPETITOR_NAME"))
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME doesn't exist");
+                return null;
+            }
+
+            if (offer.Process != "01")
+            {
+                this.Logger.Debug(offer.Guid, "Value PERSON_COMPETITOR_NAME exists, but is hidden because BUS_PROCESS != 01");
+                return null;
+            }
+
+            var siteSettings = this.SettingsReaderService.GetSiteSettings();
+            var summaryPageId = siteSettings.Summary.TargetId;
+            var summaryPage = this.SitecoreService.GetItem<IPageSummaryOfferModel>(summaryPageId);
+            var model = new CompetitorDataModel();
+            var header = new CompetitorDataHeaderModel();
+            header.Title = summaryPage.DistributorChange_Title;
+            model.Header = header;
+            var body = new CompetitorDataBodyModel();
+            body.Name = offer.TextParameters["PERSON_COMPETITOR_NAME"];
+            body.Text = summaryPage.DistributorChange_Text;
+            model.Body = body;
+            return model;
+        }
+
         /// <summary>
         /// Gets container for accepted offer.
         /// </summary>
@@ -707,6 +749,49 @@ namespace eContracting.Services
             return model;
         }
 
+        protected internal GiftDataModel GetGifts2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
+        {
+            if (!this.IsSectionChecked(textParameters, "BENEFITS"))
+            {
+                return null;
+            }
+                        
+            var keys = new[] { "BENEFITS_NOW", "BENEFITS_NEXT_SIGN", "BENEFITS_NEXT_TZD" };
+            var groups = new List<GiftDataGroupModel>();
+
+
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var k = keys[i];
+                var g = this.GetGiftDataGroupModel(k, textParameters);
+
+                if (g != null)
+                {
+                    groups.Add(g);
+                }
+            }
+
+            if (groups.Count == 0)
+            {
+                return null;
+            }
+
+            var model = new GiftDataModel();
+            var modelHeader = new GiftDataHeaderModel();
+            modelHeader.Title = definition.OfferGiftsTitle?.Text.Trim();
+
+            if (textParameters.HasValue("BENEFITS_CLOSE"))
+            {
+                modelHeader.Note = textParameters["BENEFITS_CLOSE"];
+            }
+            model.Header = modelHeader;
+            var modelBody = new GiftDataBodyModel();
+            modelBody.Groups = groups;
+            model.Body = modelBody;
+
+            return model;
+        }
+
         protected internal JsonBenefitsGroupModel GetBenefitGroup(string key, IDictionary<string, string> textParameters)
         {
             string keyIntro = key + "_INTRO";
@@ -766,6 +851,70 @@ namespace eContracting.Services
                 }
 
                 list.Add(benefit);
+            }
+
+            group.Params = list;
+            return group;
+        }
+
+        protected internal GiftDataGroupModel GetGiftDataGroupModel(string key, IDictionary<string, string> textParameters)
+        {
+            string keyIntro = key + "_INTRO";
+            string keyCount = key + "_COUNT";
+            string keyImage = key + "_IMAGE";
+            string keyName = key + "_NAME";
+
+            if (!this.IsSectionChecked(textParameters, key))
+            {
+                return null;
+            }
+
+            var keys = textParameters.Keys.Where(x => x.StartsWith(key)).ToArray();
+
+            var group = new GiftDataGroupModel();
+
+            if (keys.Contains(keyIntro))
+            {
+                group.Title = textParameters[keyIntro];
+            }
+
+            var list = new List<GiftDataParamsModel>();
+            var names = textParameters.Keys.Where(x => x.StartsWith(keyName)).ToArray();
+
+            for (int i = 0; i < names.Length; i++)
+            { 
+                var paramsModel = new GiftDataParamsModel();
+                var nameKey = names[i];
+
+                if (textParameters.TryGetValue(nameKey, out string nameValue))
+                {
+                    paramsModel.Title = nameValue;
+                }
+
+                var iconKey = keys.FirstOrDefault(x => x == nameKey.Replace(keyName, keyImage));
+
+                if (!string.IsNullOrEmpty(iconKey))
+                {
+                    if (textParameters.TryGetValue(iconKey, out string iconValue))
+                    {
+                        paramsModel.Icon = iconValue;
+                    }
+                }
+
+                var countKey = keys.FirstOrDefault(x => x == nameKey.Replace(keyName, keyCount));
+
+                if (!string.IsNullOrEmpty(countKey))
+                {
+                    if (textParameters.TryGetValue(countKey, out string countValue))
+                    {
+                        if (int.TryParse(countValue, out int c))
+                        {
+                            paramsModel.Count = c;
+                        }
+                    }
+                }
+
+                list.Add(paramsModel);
             }
 
             group.Params = list;

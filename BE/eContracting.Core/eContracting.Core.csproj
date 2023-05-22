@@ -339,6 +339,14 @@
     <Compile Include="Models\IStepsModel.cs" />
     <Compile Include="Models\CancelOfferViewModel.cs" />
     <Compile Include="Models\IWorkingDay.cs" />
+    <Compile Include="Models\JsonDescriptor\CompetitorDataBodyModel.cs" />
+    <Compile Include="Models\JsonDescriptor\CompetitorDataHeaderModel.cs" />
+    <Compile Include="Models\JsonDescriptor\CompetitorDataModel.cs" />
+    <Compile Include="Models\JsonDescriptor\GiftDataBodyModel.cs" />
+    <Compile Include="Models\JsonDescriptor\GiftDataGroupModel.cs" />
+    <Compile Include="Models\JsonDescriptor\GiftDataHeaderModel.cs" />
+    <Compile Include="Models\JsonDescriptor\GiftDataModel.cs" />
+    <Compile Include="Models\JsonDescriptor\GiftDataParamsModel.cs" />
     <Compile Include="Models\JsonDescriptor\ProductDataBodyModel.cs" />
     <Compile Include="Models\JsonDescriptor\ProductDataHeaderModel.cs" />
     <Compile Include="Models\JsonDescriptor\ProductDataModel.cs" />

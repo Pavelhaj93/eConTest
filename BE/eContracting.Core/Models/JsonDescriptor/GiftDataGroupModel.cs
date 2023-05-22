@@ -7,18 +7,13 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class ProductDataPricesModel
+    public class GiftDataGroupModel
     {
         [JsonProperty("title")]
         public string Title { get; set; }
 
-        [JsonProperty("price")]
-        public string Price { get; set; }
+        [JsonProperty("params")]
+        public IEnumerable<GiftDataParamsModel> Params { get; set; }
 
-        [JsonProperty("price2")]
-        public string Price2 { get; set; }
-
-        [JsonProperty("unit")]
-        public string Unit { get; set; }
     }
 }
