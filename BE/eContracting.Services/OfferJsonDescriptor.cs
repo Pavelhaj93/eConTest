@@ -1460,7 +1460,7 @@ namespace eContracting.Services
                 var price = new ProductDataPricesModel();
                 price.Title = this.TextService.FindByKey("STANDING_PAYMENT");
                 price.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC");
-                price.Price2 = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_DISPLAY_UNIT");
+                price.Unit = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_DISPLAY_UNIT");
 
                 if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_KC", "CALC_COMP_KC_PRICE"))
                 {
