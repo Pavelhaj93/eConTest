@@ -1,320 +1,295 @@
 {
-  "perex": {
-    "title": "Stručný přehled Vaší nabídky",
-    "params": [
-      {
-        "title": "Produkt",
-        "value": "Relax"
+  "data": [
+    {
+      "type": "perex",
+      "position": 1,
+      "header": {
+        "title": "Stručný přehled Vaší nabídky"
       },
-      {
-        "title": "Platnost nabídky do",
-        "value": "24 měsíců"
-      },
-      {
-        "title": "Délka fixace",
-        "value": "24 měsíců od platnosti smlouvy"
-      },
-      {
-        "title": "Předpokládaná účinnost smlouvy",
-        "value": "01.10.2020"
-      }
-    ]
-  },
-  "benefits": {
-    "commodityProductType": "E",
-    "title": "Zvoleným produktem získáte",
-    "params": [
-      {
-        "value": "Garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy"
-      },
-      {
-        "value": "Ve druhém i třetím roce garance dalšího cenového snížení"
-      },
-      {
-        "value": "Férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy"
-      }
-    ]
-  },
-  "gifts": {
-    "title": "Máme pro Vás nachystané dárky",
-    "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
-    "groups": [
-      {
-        "title": "Za čas věnovaný naší nabídce od nás jako pozornost získáváte:",
+      "body": {
         "params": [
           {
-            "title": "LED žárovka",
-            "icon": "LED",
-            "count": 100
-          },
-          {
-            "title": "detektor",
-            "icon": "DET",
-            "count": 20
-          },
-          {
-            "title": "poukázka Kaufland 10 Kč",
-            "icon": "PKZ",
-            "count": 1
-          }
-        ]
-      },
-      {
-        "title": "Za přijetí nabídky za Vás čeká:",
-        "params": [
-          {
-            "title": "LED žárovka",
-            "icon": "LED",
-            "count": 10
-          },
-          {
-            "title": "detektor",
-            "icon": "DET",
-            "count": 20
-          },
-          {
-            "title": "poukázka Hornbach, 1000 Kč na vybavení zahrady",
-            "icon": "PKZ",
-            "count": 1230
-          }
-        ]
-      },
-      {
-        "title": "Po zahájení dodávky na Vás čeká:",
-        "params": [
-          {
-            "title": "LED žárovka",
-            "icon": "LED",
-            "count": 10
-          },
-          {
-            "title": "detektor",
-            "icon": "DET",
-            "count": 2
-          },
-          {
-            "title": "poukázka Kaufland 100 Kč",
-            "icon": "PKZ",
-            "count": 123
-          }
-        ]
-      }
-    ]
-  },
-  "documents": {
-    "acceptance": {
-      "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
-      "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
-      "accept": {
-        "title": "Dodatek a přidružené dokumenty",
-        "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
-        "mandatoryGroups": ["06D969E88C3C1EDB8BD27598F0B3C7D8"],
-        "params": [
-          {
-            "title": "Vaše adresa",
-            "value": "Ledčice 178, 277 08 Ledčice"
-          },
-          {
-            "title": "EAN",
-            "value": "RRI329212"
-          }
-        ],
-        "files": [
-          {
-            "label": "Informace pro zákazníka - spotřebitele",
-            "prefix": "Souhlasím s",
-            "key": "e1c9a5ce583743e6928ee4df91862a91",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Dodatek",
-            "prefix": "Jsem poučen o",
-            "key": "8e0ed4754f99464eb2d0155c140a2541",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Ceník",
-            "prefix": "Jsem poučen o",
-            "key": "76868bd607804b9ca6bc5248f99726d3",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Ceník služeb",
-            "prefix": "Jsem poučen o",
-            "key": "2304df60d07448818c8b0b8c074d82a8",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Obchodní podmínky",
-            "prefix": "Jsem poučen o",
-            "key": "ee68d1a1da63434a9c91643d6b8504cf",
-            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          }
-        ]
-      },
-      "sign": {
-        "title": "Plná moc",
-        "subTitle": "<p>Plnou moc potřebujeme pro zaji&scaron;těn&iacute; pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>",
-        "mandatoryGroups": ["06D969E88C3C1EDB8BD27637116827D8"],
-        "files": [
-          {
-            "label": "Plná moc",
-            "prefix": "Jsem poučen o",
-            "key": "5e40683abb1441f5a0ec99425c2c6908",
-            "group": "06D969E88C3C1EDB8BD27637116827D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          }
-        ]
-      },
-      "sectionInfo": {
-        "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
-        "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
-        "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-      }
-    },
-    "uploads": {
-      "title": "Povinné dokumenty k nahrání",
-      "note": "<p>Celkem <strong>max. 25 MB</strong>. Povolen&eacute; typy souborů: <strong>JPEG, JPG, PNG, PDF</strong>. V&iacute;ce dokumentů lze poslat v zazipovan&eacute;m souboru.",
-      "types": [
-        {
-          "id": "352a1b9154364a52a5c7d709e9366ccf",
-          "title": "Dokument prokazující vztah k nemovitosti",
-          "info": "<p><b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vaše elektrického zařízení. Součástí zprávy musí být označení odběrného místa (u bytových domů vč. čísla bytu a podlaží).<br /></p>",
-          "mandatory": true
-        },
-        {
-          "id": "79d947f21ccb4e3bacd9d2ad3a0a1820",
-          "title": "Roční vyúčtování (fakturace)",
-          "info": "Prostě to tam nahraj a na nic se neptej",
-          "mandatory": true
-        },
-        {
-          "id": "d199d71ecad3426b986c3a1d9850a85c",
-          "title": "Přiložit další dokumenty navíc (volitelné)",
-          "info": "Jestli to tam nechceš dávat, tak nemusíš",
-          "mandatory": false
-        }
-      ]
-    },
-    "other": {
-      "products": {
-        "title": "Ostatní produkty",
-        "subTitle": "Stručný přehled Vaší nabídky",
-        "params": [
-          {
-            "title": "Služba",
-            "value": "innogy Pojistění domácnosti"
-          },
-          {
-            "title": "Varianta",
-            "value": "Basic"
+            "title": "Produkt",
+            "value": "plyn Start 12"
           },
           {
             "title": "Platnost nabídky do",
-            "value": "01.10.2020"
+            "value": "05.10.2022"
+          },
+          {
+            "title": "Délka fixace",
+            "value": "12 měsíců od účinnosti smlouvy"
+          },
+          {
+            "title": "Platnost smlouvy",
+            "value": "Dnem akceptace smlouvy zákazníkem"
+          },
+          {
+            "title": "Předpokládaná účinnost smlouvy",
+            "value": "09.10.2022"
           }
-        ],
-        "arguments": [
-          {
-            "value": "Pojištění domácnosti"
-          },
-          {
-            "value": "Pojištění odpovědnosti"
-          },
-          {
-            "value": "Asistenční služby"
-          }
-        ],
-        "subTitle2": "Přihláška a přidružené dokumenty",
-        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
-        "mandatoryGroups": [],
-        "files": [
-          {
-            "label": "Pojištění - Informační dokument 1",
-            "prefix": "Jsem poučen o",
-            "key": "729a1d7ba5ce48298b848a3d732f45cd",
-            "group": "06D969E88C3C1EDB8BD27637117787D8",
-            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-          },
-          {
-            "label": "Pojištění - Informační dokument 2",
-            "key": "b72e43e72c094a47bbc6767274d0b4a5",
-            "prefix": "Jsem poučen o",
-            "group": "06D969E88C3C1EDB8BD27637117787D8",
-            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-          },
-          {
-            "label": "Pojištění - Informační dokument 3",
-            "key": "2894f4d3c1d14ea4ba4e7ce907b8a449",
-            "prefix": "Jsem poučen o",
-            "group": "06D969E88C3C1EDB8BD27637117787D8"
-          }
-        ],
-        "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>",
-        "sectionInfo": {
-          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
-          "title": "Ostatní produkty",
-          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-        }
-      },
-      "services": {
-        "title": "Doplňkové služby",
-        "subTitle": "Stručný přehled Vaší nabídky",
-        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
-        "arguments": [],
-        "params": [],
-        "mandatoryGroups": [],
-        "files": [
-          {
-            "label": "Dohoda o sjednání doplňkové služby investor",
-            "key": "9658576e88f1458da13db8f2034476d8",
-            "group": "2780ca707bbb4eb58645135d17fea86a",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Žádost o nesnižování zálohových plateb",
-            "key": "cc6d047821044adc86b6c811d6cecb0b",
-            "group": "06D969E88C3C1EDB8BD27637116D07D8",
-            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
-          },
-          {
-            "label": "Smlouva o využívání innogy Karty",
-            "key": "c371d67295ab41e8bc64818c45a10a0f",
-            "group": "8784531c0fcc4aa28a92b5a847d7eeff"
-          }
-        ],
-        "sectionInfo": {
-          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
-          "title": "Doplňkové služby",
-          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-        }
+        ]
       }
     },
-    "description": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
-  },
-  "acceptance": {
-    "params": [
-      {
-        "title": "Investor",
-        "group": "06D969E88C3C1EDB8BD27637116827D8"
+    {
+      "type": "benefit",
+      "position": 2,
+      "header": {
+        "title": "Výhody zvoleného produktu"
       },
-      {
-        "title": "Nesnižování záloh",
-        "group": "06D969E88C3C1EDB8BD27637116D07D8"
-      },
-      {
-        "title": "Smlouva dodatek",
-        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
-      },
-      {
-        "title": "innogy Pojištění domácnosti",
-        "group": "06D969E88C3C1EDB8BD27637117787D8"
+      "body": {
+        "points": [
+          {
+            "value": "naše ceny energií i smlouvy jsou závazné"
+          },
+          {
+            "value": "garance cenového snížení v průběhu trvání smlouvy"
+          },
+          {
+            "value": "pevná cena silové elektřiny po dobu 30 měsíců"
+          },
+          {
+            "value": "v základním období trvání smlouvy je spotřeba zajištěna nákupem záruk původu z obnovitelných zdrojů"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "type": "docsCheck",
+      "position": 3,
+      "header": {
+        "title": ""
+      },
+      "body": {
+        "head": {
+          "title": "Dokumenty k elektronické akceptaci Vaší smlouvy",
+          "params": [
+            {
+              "title": "Na adrese místa spotřeby",
+              "value": "Sobotní 736, 691 42 Valtice"
+            },
+            {
+              "title": "EIC",
+              "value": "27ZG600Z0414883V"
+            }
+          ],
+          "text": "<p>Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.</p>\n<p>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.</p>"
+        },
+        "text": null,
+        "docs": {
+          "title": "Smlouva a přidružené dokumenty",
+          "params": null,
+          "text": null,
+          "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
+          "files": [
+            {
+              "key": "9D84515F7BD67F987011878FD0E9DCB1",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Informace pro zákazníka – spotřebitele",
+              "note": null,
+              "prefix": "Souhlasím s",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 1
+            },
+            {
+              "key": "1588852AACD6AABB2795488FF6039B8C",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Smlouva o sdružených službách dodávky plynu",
+              "note": null,
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 2
+            },
+            {
+              "key": "1DD58C9CD8109A5AABE3415E01FF4842",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Ceník",
+              "note": null,
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 4
+            },
+            {
+              "key": "F48CE2AEF4ED1C52D42504F68F66DD29",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Ceník služeb",
+              "note": null,
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 5
+            },
+            {
+              "key": "4B1770D545BD73151EA656AA0FD1B1D9",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Obchodní podmínky",
+              "note": null,
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 6
+            },
+            {
+              "key": "EFEB578CC0241BBEEAA3CC78D4FD5BC5",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Potvrzení o přiznání individuální slevy",
+              "note": "",
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": false,
+              "idx": 17
+            }
+          ]
+        },
+        "note": null
+      }
+    },
+    {
+      "type": "docsSign",
+      "position": 4,
+      "header": {
+        "title": "Dokumenty k podpisu"
+      },
+      "body": {
+        "head": null,
+        "text": null,
+        "docs": {
+          "title": "Plná moc",
+          "params": null,
+          "text": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>",
+          "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
+          "files": [
+            {
+              "key": "EEFCB55B021DA472D361BD2E894BBDD9",
+              "group": "0635F899B3111EED8E9B07EF632D3EC9",
+              "label": "Plná moc",
+              "note": "",
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": true,
+              "idx": 3
+            }
+          ]
+        },
+        "note": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu"
+      }
+    },
+    {
+      "type": "docsCheck",
+      "position": 5,
+      "header": {
+        "title": "Doplňkové služby"
+      },
+      "body": {
+        "head": null,
+        "text": null,
+        "docs": {
+          "title": "Dokument(y) k elektronické akceptaci služby",
+          "params": null,
+          "text": "<p>Nunc eu ante nec ipsum porttitor ultricies sed non velit. Suspendisse potenti. Ut placerat, enim ac luctus gravida, quam urna pulvinar urna, in placerat libero est viverra tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris mollis sapien nisi, eu blandit dui commodo quis. Donec eget lobortis urna. Pellentesque mollis sapien sed eros suscipit, nec elementum nulla maximus.</p>",
+          "mandatoryGroups": [],
+          "files": [
+            {
+              "key": "176635D0264E5B165AD3AC031A10760F",
+              "group": "0635F899B3111EED8E9B080756ABDEC9",
+              "label": "Žádost o nesnižování zálohových plateb",
+              "note": "",
+              "prefix": "Souhlasím s",
+              "mime": "application/pdf",
+              "mandatory": false,
+              "idx": 0
+            }
+          ]
+        },
+        "note": null
+      }
+    },
+    {
+      "type": "docsCheck",
+      "position": 6,
+      "header": {
+        "title": "Ostatní služby"
+      },
+      "body": {
+        "head": {
+          "title": "Dokumenty k elektronické akceptaci",
+          "params": [
+            {
+              "title": "Na adrese místa plnění",
+              "value": "Valtice, Sobotní 736, 691 42"
+            }
+          ],
+          "text": null
+        },
+        "text": "<p>Aliquam non purus quis risus commodo aliquet et at turpis. Pellentesque venenatis mollis neque, nec porta ex condimentum ut. Sed ornare quis libero in semper. Duis pulvinar commodo ultrices. Mauris vitae mauris at tortor vulputate malesuada. Pellentesque sodales fringilla ante, dignissim cursus urna gravida laoreet.</p>",
+        "docs": {
+          "title": "Smlouva a přidružené dokumenty",
+          "params": null,
+          "text": null,
+          "mandatoryGroups": [],
+          "files": [
+            {
+              "key": "03404EF116EEBEAFC73834F2A9E970A3",
+              "group": "0635F899B3111EED8E9B088AFB7E1EC9",
+              "label": "Smlouva o zajištění služby servis plynových spotřebičů",
+              "note": null,
+              "prefix": "Souhlasím s",
+              "mime": "application/pdf",
+              "mandatory": false,
+              "idx": 10
+            },
+            {
+              "key": "6EBBDE95F969EA605E942CDC7DDBC649",
+              "group": "0635F899B3111EED8E9B088AFB7E1EC9",
+              "label": "Informace pro zákazníka – spotřebitele",
+              "note": null,
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": false,
+              "idx": 11
+            },
+            {
+              "key": "06B90A42E65985F9ACF9F4F32E69CC68",
+              "group": "0635F899B3111EED8E9B088AFB7E1EC9",
+              "label": "Ceník",
+              "note": "",
+              "prefix": "Jsem poučen o",
+              "mime": "application/pdf",
+              "mandatory": false,
+              "idx": 15
+            }
+          ]
+        },
+        "note": "<span>S bl&iacute;ž&iacute;c&iacute;m se term&iacute;nem pravideln&eacute; prohl&iacute;dky v&aacute;s budeme každ&yacute; rok kontaktovat. Nezapomeňte n&aacute;s informovat, pokud změn&iacute;te telefonn&iacute; č&iacute;slo nebo e-mail.</span>"
+      }
+    },
+    {
+      "type": "confirm",
+      "position": 10,
+      "header": {
+        "title": "Potvrzení nabídky"
+      },
+      "body": {
+        "head": null,
+        "text": "Stisknutím tlačítka Akceptuji potvrdíte souhlas se zahájením dodávky u innogy.",
+        "params": [
+          {
+            "title": "Nesnižování záloh",
+            "group": "0635F899B3111EED8E9B080756ABDEC9"
+          },
+          {
+            "title": "Smlouva",
+            "group": "0635F899B3111EED8E9B07EF632D3EC9"
+          },
+          {
+            "title": "Servis plynových spotřebičů",
+            "group": "0635F899B3111EED8E9B088AFB7E1EC9"
+          }
+        ]
+      }
+    }
+  ]
 }

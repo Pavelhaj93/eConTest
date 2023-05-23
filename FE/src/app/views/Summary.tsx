@@ -80,7 +80,7 @@ export const Summary: React.FC<View> = observer(
           })}
         >
           <>
-            {store.data?.map(item => {
+            {store.concatedSortedData?.map(item => {
               const { type } = item
               if (type === ResponseItemType.ContractualData) {
                 return (

@@ -1,169 +1,84 @@
-import { CommodityProductType, GiftType } from '@types'
+export namespace NewOfferResponseCopy {
+  export interface RootObject {
+    data: ResponseItem[]
+  }
 
-export type SectionInfo = {
-  text: string
-  title: string
-  note: string
-}
-
-export type OfferDocument = {
-  label: string
-  prefix: string
-  key: string
-  /** Common key "accepted" is used for both accepted and signed documents. */
-  accepted: boolean
-  mime: string
-  group: string
-  note: string
-}
-
-export type Group = {
-  title: string
-  files: OfferDocument[]
-}
-
-export type AcceptedOfferResponse = {
-  groups: Group[]
-}
-
-export type UploadType = {
-  id: string
-  title: string
-  info: string
-  mandatory: boolean
-  size: number
-}
-
-export type OfferParams<T> = Array<T>
-
-export type OfferBox = {
-  title: string
-  params: OfferParams<{
+  export interface ResponseItem {
+    type: ResponseItemType
+    position: number
+    header: Header
+    body: Body
+  }
+  export interface Body {
+    params?: Param[]
+    head?: Header | null
+    text: string | null
+    docs?: Docs
+    note: string | null
+    points: Point[]
+  }
+  export interface Param {
     title: string
     value: string
-  }>
-}
-
-export type BenefitsBox = OfferBox & {
-  commodityProductType?: CommodityProductType | null
-}
-
-export type GiftsBox = {
-  title: string
-  note: string
-  groups: Array<{
-    title: string
-    params: OfferParams<{
-      title: string
-      icon: GiftType
-      count: number
-    }>
-  }>
-}
-
-export type AcceptanceDocuments = {
-  title: string
-  text: string
-  accept?: {
-    title: string
-    subTitle: string
-    mandatoryGroups: string[]
-    files: OfferDocument[]
-  } | null
-  sign?: {
-    title: string
-    subTitle: string
-    mandatoryGroups: string[]
-    files: OfferDocument[]
-  } | null
-  /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
-  sectionInfo: SectionInfo
-}
-
-export type UploadDocuments = {
-  title: string
-  note: string
-  types: UploadType[]
-}
-
-export type OtherDocuments = {
-  products?: {
-    title: string
-    subTitle: string
-    params: OfferParams<{
-      title: string
-      value: string
-    }>
-    arguments: Array<{ value: string }>
-    subTitle2: string
-    mandatoryGroups: string[]
-    files: OfferDocument[]
-    note: string
-    text: string
-    /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
-    sectionInfo: SectionInfo
   }
-  services?: {
+
+  export interface Header {
     title: string
-    subTitle?: string | null
-    params: OfferParams<{
-      title: string
-      value: string
-    }>
+    params: Param[]
     text: string
-    arguments: Array<{ value: string }>
-    subTitle2?: string | null
+  }
+
+  export interface Docs {
+    title: string
+    params: any[] | null
+    text: string | null
     mandatoryGroups: string[]
-    files: OfferDocument[]
-    note?: string
-    /** Object sectionInfo currently will be using like main source for data (title, text, note). But still we kept original source like fallback. When BE confirmed that we can go with only sectionInfo, should be removed fallback and unused original properties. */
-    sectionInfo: SectionInfo
+    files: File[]
+  }
+
+  export interface Point {
+    value: string
+  }
+
+  export interface File {
+    key: string
+    group: string
+    label: string
+    note: string | null
+    prefix: string
+    mime: string
+    mandatory: boolean
+    idx: number
+    checked: boolean
+  }
+
+  export enum ResponseItemType {
+    Perex = 'perex',
+    Benefit = 'benefit',
+    DocsCheck = 'docsCheck',
+    DocsSign = 'docsSign',
+    Confirm = 'confirm',
   }
 }
 
-export type OfferDocuments = {
-  acceptance?: AcceptanceDocuments | null
-  uploads?: UploadDocuments | null
-  other?: OtherDocuments | null
-  description?: string | ''
-}
+// export type UploadDocumentResponseCopy = {
+//   /** Category / group ID. */
+//   id: string
+//   /** Total size of all uploaded documents in current group. */
+//   size: number
+//   /** Array of all files that were successfully uploaded. */
+//   files: OfferDocument[]
+// }
 
-export type AcceptanceGroup = {
-  title: string
-  group: string
-  accepted: boolean
-}
+// export type UploadDocumentPromiseCopy = {
+//   uploaded: boolean
+//   Message?: string
+// }
 
-export type Acceptance = {
-  params: OfferParams<AcceptanceGroup>
-}
-
-export type NewOfferResponse = {
-  perex?: OfferBox
-  benefits?: BenefitsBox
-  gifts?: GiftsBox
-  documents: OfferDocuments
-  acceptance: Acceptance
-}
-
-export type UploadDocumentResponse = {
-  /** Category / group ID. */
-  id: string
-  /** Total size of all uploaded documents in current group. */
-  size: number
-  /** Array of all files that were successfully uploaded. */
-  files: OfferDocument[]
-}
-
-export type UploadDocumentPromise = {
-  uploaded: boolean
-  Message?: string
-}
-
-type ErrorResponse = {
+type ErrorResponseCopy = {
   Message: string
 }
 
-export type OfferErrorResponse = ErrorResponse
+export type OfferErrorResponse = ErrorResponseCopy
 
-export type UploadDocumentErrorResponse = ErrorResponse
+// export type UploadDocumentErrorResponse = ErrorResponseCopy

@@ -1,8 +1,8 @@
 import { Choice, GaEventClickData } from './Authentication'
 
-export * from './Offer'
 export * from './Authentication'
 export * from './Summary'
+export * from './Offer'
 
 export type AppConfig = {
   guid: string

@@ -15,8 +15,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "prepush": "yarn lint && yarn test",
-    "clean:files": "node ./scripts/cleanUploadedFiles.js",
-    "nvm:start": "export NVM_DIR=\"$HOME/.nvm\" && [ -s \"$(brew --prefix)/opt/nvm/nvm.sh\" ] && . \"$(brew --prefix)/opt/nvm/nvm.sh\" && [ -s \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\" ] && . \"$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm\""
+    "clean:files": "node ./scripts/cleanUploadedFiles.js"
   },
   "husky": {
     "hooks": {
@@ -30,7 +29,6 @@
     "date-fns": "^2.15.0",
     "mobx": "^4.15.7",
     "mobx-react-lite": "2.2.2",
-    "nvm": "^0.0.4",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-datepicker": "^3.3.0",

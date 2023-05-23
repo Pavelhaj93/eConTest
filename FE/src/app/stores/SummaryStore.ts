@@ -1,6 +1,6 @@
 import { QueryParams } from '@types'
 import { parseUrl } from '@utils'
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { SumarryErrorResponse, SummaryResponse } from '../types/Summary'
 
 export class SummaryStore {
@@ -20,6 +20,32 @@ export class SummaryStore {
 
   @observable
   public data: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public contractualData: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public products: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public gifts: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public benefits: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public competitor: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @computed
+  public get concatedSortedData(): SummaryResponse.ResponseItem[] {
+    return [
+      ...(this.contractualData || []),
+      ...(this.products || []),
+      ...(this.gifts || []),
+      ...(this.benefits || []),
+      ...(this.competitor || []),
+    ].sort((a, b) => a.position - b.position)
+  }
 
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
@@ -70,8 +96,13 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      const sortedData = jsonResponse.data.sort((a, b) => a.position - b.position)
-      this.data = sortedData
+      this.data = jsonResponse.data.sort((a, b) => a.position - b.position)
+
+      this.benefits = this.data.filter(item => item.type === 'benefit')
+      this.contractualData = this.data.filter(item => item.type === 'contractualData')
+      this.products = this.data.filter(item => item.type === 'product')
+      this.gifts = this.data.filter(item => item.type === 'gift')
+      this.competitor = this.data.filter(item => item.type === 'competitor')
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))
