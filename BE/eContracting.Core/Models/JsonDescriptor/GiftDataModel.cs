@@ -8,7 +8,7 @@ namespace eContracting.Models.JsonDescriptor
 {
     public class GiftDataModel : IDataModel
     {
-        public string Type { get; } = "benefit";
+        public string Type { get; } = "gift";
 
         public int Position { get; set; }
         public IDataHeaderModel Header { get; set; }

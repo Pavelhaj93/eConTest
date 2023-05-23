@@ -86,6 +86,7 @@ namespace eContracting.Services
             }
 
             var productData = this.GetProductData2(offer);
+
             if (productData != null)
             {
                 container.Data.Add(productData);
@@ -93,12 +94,14 @@ namespace eContracting.Services
 
             bool excludeCommodity = productData != null;
             var benefitData = this.GetBenefitsData(offer.TextParameters, excludeCommodity);
+
             foreach (var benefit in benefitData)
             {
                 container.Data.Add(benefit);
             }
 
             var competitorData = this.GetCompetitorData(offer);
+
             if (competitorData != null)
             {
                 container.Data.Add(competitorData);
@@ -106,6 +109,7 @@ namespace eContracting.Services
 
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var giftData = this.GetGifts2(offer.TextParameters, definition);
+
             if (giftData != null)
             {
                 container.Data.Add(giftData);
