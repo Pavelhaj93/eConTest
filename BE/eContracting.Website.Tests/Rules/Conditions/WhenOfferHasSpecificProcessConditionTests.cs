@@ -24,7 +24,7 @@ namespace eContracting.Website.Tests.Rules.Conditions
                 set { this.ProcessItemGuid = value; }
             }
 
-            public WhenOfferHasSpecificProcessConditionImpl(IDataRequestCacheService cacheService, ISitecoreService sitecoreService, IContextWrapper contextWrapper) : base(cacheService, sitecoreService, contextWrapper)
+            public WhenOfferHasSpecificProcessConditionImpl(IRequestDataCacheService cacheService, ISitecoreService sitecoreService, IOfferService offerService, IContextWrapper contextWrapper) : base(cacheService, sitecoreService, offerService, contextWrapper)
             {
             }
 
@@ -37,14 +37,16 @@ namespace eContracting.Website.Tests.Rules.Conditions
         [Fact]
         public void Execute_Returns_False_When_ProcessItemGuid_Is_Empty()
         {
-            var mockRequestCache = new Mock<IDataRequestCacheService>();
+            var mockRequestCache = new Mock<IRequestDataCacheService>();
             var mockSitecoreService = new Mock<ISitecoreService>();
+            var mockOfferService = new Mock<IOfferService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var ruleContext = new RuleContext();
 
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
                 mockRequestCache.Object,
                 mockSitecoreService.Object,
+                mockOfferService.Object,
                 mockContextWrapper.Object);
             rule.ProcessId = Guid.Empty.ToString("N").ToUpperInvariant();
             var result = rule.ExecutePublic(ruleContext);
@@ -57,9 +59,11 @@ namespace eContracting.Website.Tests.Rules.Conditions
         {
             var guid = this.CreateGuid();
             var offer = this.CreateOffer(guid);
-            var mockRequestCache = new Mock<IDataRequestCacheService>();
-            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns((OfferCacheDataModel)null);
+            var mockRequestCache = new Mock<IRequestDataCacheService>();
+            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockSitecoreService = new Mock<ISitecoreService>();
+            var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(guid)).Returns((OfferModel)null);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
             var ruleContext = new RuleContext();
@@ -67,6 +71,7 @@ namespace eContracting.Website.Tests.Rules.Conditions
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
                 mockRequestCache.Object,
                 mockSitecoreService.Object,
+                mockOfferService.Object,
                 mockContextWrapper.Object);
             rule.ProcessId = this.CreateGuid();
             var result = rule.ExecutePublic(ruleContext);
@@ -82,20 +87,22 @@ namespace eContracting.Website.Tests.Rules.Conditions
             var processGuid = new Guid(processId);
             var offer = this.CreateOffer(guid);
             var processItem = new Mock<IProcessModel>().Object;
-            var cachedOffer = new OfferCacheDataModel(offer);
             var ruleContext = new RuleContext();
             ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
 
-            var mockRequestCache = new Mock<IDataRequestCacheService>();
-            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns(cachedOffer);
+            var mockRequestCache = new Mock<IRequestDataCacheService>();
+            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockSitecoreService = new Mock<ISitecoreService>();
             mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid)).Returns(processItem);
+            var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
 
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
                 mockRequestCache.Object,
                 mockSitecoreService.Object,
+                mockOfferService.Object,
                 mockContextWrapper.Object);
             rule.ProcessItemGuidPublic = processGuid;
             var result = rule.ExecutePublic(ruleContext);
@@ -111,23 +118,25 @@ namespace eContracting.Website.Tests.Rules.Conditions
             var processGuid = new Guid(processId);
             var offer = this.CreateOffer(guid);
             offer.Xml.Content.Body.BusProcess = "XYZ";
-            var cachedOffer = new OfferCacheDataModel(offer);
             var processItem = new Mock<IProcessModel>().Object;
             processItem.Code = "INVALID";
             var ruleContext = new RuleContext();
             ruleContext.Item = this.CreateItem(new Sitecore.Data.ID(processId));
             Action<GetItemByIdBuilder> action = (builder) => { };
 
-            var mockRequestCache = new Mock<IDataRequestCacheService>();
-            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns(cachedOffer);
+            var mockRequestCache = new Mock<IRequestDataCacheService>();
+            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockSitecoreService = new Mock<ISitecoreService>();
             mockSitecoreService.Setup(x => x.GetItem<IProcessModel>(processGuid, action)).Returns(processItem);
+            var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(guid)).Returns(offer);
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
 
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
                 mockRequestCache.Object,
                 mockSitecoreService.Object,
+                mockOfferService.Object,
                 mockContextWrapper.Object);
             rule.ProcessItemGuidPublic = processGuid;
             var result = rule.ExecutePublic(ruleContext);

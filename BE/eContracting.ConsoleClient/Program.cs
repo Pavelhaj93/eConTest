@@ -41,7 +41,7 @@ namespace eContracting.ConsoleClient
                     services.AddScoped<ISettingsReaderService, MemorySettingsReaderService>();
                     services.AddScoped<IOfferParserService, OfferParserService>();
                     services.AddScoped<IOfferAttachmentParserService, OfferAttachmentParserService>();
-                    services.AddScoped<IDataRequestCacheService, MemoryDataCacheService>();
+                    services.AddScoped<IRequestDataCacheService, MemoryDataCacheService>();
                     services.AddScoped<IDataSessionCacheService, MemoryDataCacheService>();
                     services.AddScoped<IUserFileCacheService, MemoryUserFileCacheService>();
                     services.AddScoped<ITextService, MemoryTextService>();

@@ -52,8 +52,8 @@ namespace eContracting.Rules.Conditions
             }
 
             var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
-            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
-            var offer = cache.GetOffer(guid);
+            var service = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
+            var offer = service.GetOffer(guid);
 
             if (offer == null)
             {

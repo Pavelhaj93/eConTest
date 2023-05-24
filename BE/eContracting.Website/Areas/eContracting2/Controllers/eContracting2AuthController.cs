@@ -48,7 +48,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
@@ -69,7 +69,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IMvcContext mvcContext,
             IEventLogger evetLogger,
             ITextService textService,
-            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
+            IRequestDataCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
         {
             this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
@@ -495,8 +495,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
-            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
-            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
+            var processCode = this.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = this.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+            var offerVersion = 3;
+            var definition = this.SettingsService.GetDefinition(processCode, processTypeCode);
             var user = new UserCacheDataModel();
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fakeXml = new OfferXmlModel();
@@ -581,7 +583,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         {
             var guid = this.GetGuid();
             var dataSource = this.MvcContext.GetDataSourceItem<IRichTextModel>();
-            var data = this.RequestCacheService.GetOffer(guid);
+            var data = this.OfferService.GetOffer(guid);
 
             if (dataSource == null || data.IsAccepted)
             {

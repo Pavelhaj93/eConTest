@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Web.UI.Design.WebControls;
 using System.Xml;
 using eContracting.Models;
+using Sitecore.Data.Validators.ItemValidators;
 
 namespace eContracting.Services
 {
@@ -50,7 +52,7 @@ namespace eContracting.Services
         /// </summary>
         protected readonly IContextWrapper Context;
 
-        protected readonly IDataRequestCacheService CacheService;
+        protected readonly IRequestDataCacheService CacheService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferService"/> class.
@@ -71,7 +73,7 @@ namespace eContracting.Services
             IOfferDataService offerDataService,
             IOfferParserService offerParser,
             IOfferAttachmentParserService offerAttachmentParser,
-            IDataRequestCacheService cacheService,
+            IRequestDataCacheService cacheService,
             IContextWrapper contextWrapper)
         {
             this.Logger = logger;
@@ -140,7 +142,19 @@ namespace eContracting.Services
             }
 
             var userId = user.CognitoUser?.PreferredUsername;
-            var response = this.DataService.UserAccessCheck(guid, userId, type);
+            var cacheKey = this.GetUserCheckCacheKey(guid, userId, type);
+            var response = this.CacheService.Get<ResponseAccessCheckModel>(cacheKey);
+
+            if (response != null)
+            {
+                this.Logger.Info(guid, "Can read info response loaded from the cache.");
+            }
+            else
+            {
+                response = this.DataService.UserAccessCheck(guid, userId, type);
+                this.CacheService.Set(cacheKey, response);
+                this.Logger.Info(guid, "Can read info response stored into the cache.");
+            }
 
             // this happens when user is not logged in
             if (response == null)
@@ -207,6 +221,15 @@ namespace eContracting.Services
                 }
             }
 
+            var cacheKey = this.GetOfferCacheKey(guid, user, includeTextParameters);
+            var cachedOffer = this.CacheService.Get<OfferModel>(cacheKey);
+
+            if (cachedOffer != null)
+            {
+                this.Logger.Info(cachedOffer.Guid, "Offer data loaded from the cache.");
+                return cachedOffer;
+            }
+
             var response = this.DataService.GetResponse(guid, OFFER_TYPES.QUOTPRX);
 
             if (response == null)
@@ -221,7 +244,10 @@ namespace eContracting.Services
                 return null;
             }
 
-            return this.GetOffer(response, includeTextParameters);
+            var offer = this.GetOffer(response, includeTextParameters);
+            this.CacheService.Set(cacheKey, offer);
+            this.Logger.Info(guid, "Offer data stored into the cache.");
+            return offer;
         }
 
         /// <inheritdoc/>
@@ -639,6 +665,29 @@ namespace eContracting.Services
             }
 
             return files.ToArray();
+        }
+
+        protected internal string GetOfferCacheKey(string guid, UserCacheDataModel user, bool includeTextParameters)
+        {
+            var builder = new StringBuilder();
+            builder.Append($"guid={guid}");
+            
+            if (user != null)
+            {
+                builder.Append($"&user={user.Id}");
+            }
+
+            builder.Append($"&includeTextParameters={includeTextParameters}");
+            return builder.ToString();
+        }
+
+        protected internal string GetUserCheckCacheKey(string guid, string userId, OFFER_TYPES type)
+        {
+            var builder = new StringBuilder();
+            builder.Append($"guid={guid}");
+            builder.Append($"userId={userId}");
+            builder.Append($"offerType={Enum.GetName(typeof(OFFER_TYPES), type)}");
+            return builder.ToString();
         }
     }
 }

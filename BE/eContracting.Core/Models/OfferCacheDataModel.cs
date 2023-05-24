@@ -12,6 +12,7 @@ namespace eContracting.Models
     /// </summary>
     [Serializable]
     [ExcludeFromCodeCoverage]
+    [Obsolete("Use OfferModel instead", true)]
     public class OfferCacheDataModel
     {
         /// <summary>

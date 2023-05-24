@@ -44,22 +44,28 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid ProcessTypeItemGuid { get; set; }
 
-        protected readonly IDataRequestCacheService CacheService;
+        protected readonly IRequestDataCacheService CacheService;
         protected readonly ISitecoreService SitecoreService;
+        protected readonly IOfferService OfferService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WhenOfferHasSpecificProcessTypeCondition{T}"/> class.
         /// </summary>
         public WhenOfferHasSpecificProcessTypeCondition() : this(
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>())
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>())
         {
         }
 
-        public WhenOfferHasSpecificProcessTypeCondition(IDataRequestCacheService cacheService, ISitecoreService sitecoreService)
+        public WhenOfferHasSpecificProcessTypeCondition(
+            IRequestDataCacheService cacheService,
+            ISitecoreService sitecoreService,
+            IOfferService offerService)
         {
             this.CacheService = cacheService;
             this.SitecoreService = sitecoreService;
+            this.OfferService = offerService;
         }
 
         /// <summary>
@@ -80,7 +86,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
 
                 var guid = HttpContext.Current.Request.QueryString[Constants.QueryKeys.GUID];
-                var user = this.CacheService.GetOffer(guid);
+                var user = this.OfferService.GetOffer(guid);
 
                 if (user == null)
                 {

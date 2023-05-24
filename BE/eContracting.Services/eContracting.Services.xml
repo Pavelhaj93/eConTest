@@ -184,6 +184,9 @@
         <member name="M:eContracting.Services.UserService.GetUser">
             <inheritdoc/>
         </member>
+        <member name="M:eContracting.Services.UserService.UserExists">
+            <inheritdoc/>
+        </member>
         <member name="M:eContracting.Services.UserService.IsAuthorized">
             <inheritdoc/>
         </member>
@@ -605,7 +608,7 @@
             The context wrapper.
             </summary>
         </member>
-        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferDataService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IDataRequestCacheService,eContracting.IContextWrapper)">
+        <member name="M:eContracting.Services.OfferService.#ctor(eContracting.ILogger,eContracting.IUserFileCacheService,eContracting.ISettingsReaderService,eContracting.IServiceFactory,eContracting.IOfferDataService,eContracting.IOfferParserService,eContracting.IOfferAttachmentParserService,eContracting.IRequestDataCacheService,eContracting.IContextWrapper)">
             <summary>
             Initializes a new instance of the <see cref="T:eContracting.Services.OfferService"/> class.
             </summary>

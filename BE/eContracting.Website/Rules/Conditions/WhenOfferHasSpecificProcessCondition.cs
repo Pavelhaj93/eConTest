@@ -40,25 +40,29 @@ namespace eContracting.Website.Rules.Conditions
 
         protected Guid ProcessItemGuid { get; set; }
 
-        protected readonly IDataRequestCacheService CacheService;
+        protected readonly IRequestDataCacheService CacheService;
         protected readonly ISitecoreService SitecoreService;
+        protected readonly IOfferService OfferService;
         protected readonly IContextWrapper ContextWrapper;
 
         [ExcludeFromCodeCoverage]
         public WhenOfferHasSpecificProcessCondition() : this(
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISitecoreService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>())
         {
         }
 
         public WhenOfferHasSpecificProcessCondition(
-            IDataRequestCacheService cacheService,
+            IRequestDataCacheService cacheService,
             ISitecoreService sitecoreService,
+            IOfferService offer,
             IContextWrapper contextWrapper)
         {
             this.CacheService = cacheService;
             this.SitecoreService = sitecoreService;
+            this.OfferService = offer;
             this.ContextWrapper = contextWrapper;
         }
 
@@ -80,7 +84,7 @@ namespace eContracting.Website.Rules.Conditions
                 }
                 
                 var guid = this.ContextWrapper.GetQueryValue(Constants.QueryKeys.GUID);
-                var offer = this.CacheService.GetOffer(guid);
+                var offer = this.OfferService.GetOffer(guid);
 
                 if (offer == null)
                 {

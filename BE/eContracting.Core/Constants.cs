@@ -336,7 +336,7 @@ namespace eContracting
         {
             public const string OFFER_IDENTIFIER = "eContracting.OFFER_IDENTIFIER";
             public const string USER_DATA = "eContracting.USER_DATA";
-            public const string OFFER_DATA = "eContracting.OFFER_DATA";
+            public const string OFFER_DATA = "eContracting=OFFER_DATA";
         }
 
         public static class QueryKeys

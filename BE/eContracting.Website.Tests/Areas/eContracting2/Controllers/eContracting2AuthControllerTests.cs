@@ -61,7 +61,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(false);
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -98,7 +98,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -136,7 +136,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -174,7 +174,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -213,7 +213,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -238,12 +238,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginPageModel = new Mock<IPageLoginModel>().Object;
             loginPageModel.Step_Default = new Mock<IStepModel>().Object;
             var userCacheData = new UserCacheDataModel();
-            var offerCacheData = new OfferCacheDataModel(this.CreateOffer());
+            var offer = this.CreateOffer();
 
             var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offerCacheData.Process);
+            mockProcess.SetupProperty(x => x.Code, offer.Process);
             var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offerCacheData.ProcessType);
+            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
             var mockDefinition = new Mock<IDefinitionCombinationModel>();
             mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
             mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
@@ -260,13 +260,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offerCacheData.Process, offerCacheData.ProcessType)).Returns(definition);
+            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -304,12 +304,12 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var loginPageModel = new Mock<IPageLoginModel>().Object;
             loginPageModel.Step_Default = new Mock<IStepModel>().Object;
             var userCacheData = new UserCacheDataModel();
-            var offerCacheData = new OfferCacheDataModel(this.CreateOffer());
+            var offer = this.CreateOffer();
 
             var mockProcess = new Mock<IProcessModel>();
-            mockProcess.SetupProperty(x => x.Code, offerCacheData.Process);
+            mockProcess.SetupProperty(x => x.Code, offer.Process);
             var mockProcessType = new Mock<IProcessTypeModel>();
-            mockProcessType.SetupProperty(x => x.Code, offerCacheData.ProcessType);
+            mockProcessType.SetupProperty(x => x.Code, offer.ProcessType);
             var mockDefinition = new Mock<IDefinitionCombinationModel>();
             mockDefinition.SetupProperty(x => x.Process, mockProcess.Object);
             mockDefinition.SetupProperty(x => x.ProcessType, mockProcessType.Object);
@@ -326,13 +326,13 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockUserService = new Mock<IUserService>();
             mockUserService.Setup(x => x.GetUser()).Returns(userCacheData);
             var mockSettingsReader = new Mock<ISettingsReaderService>();
-            mockSettingsReader.Setup(x => x.GetDefinition(offerCacheData.Process, offerCacheData.ProcessType)).Returns(definition);
+            mockSettingsReader.Setup(x => x.GetDefinition(offer.Process, offer.ProcessType)).Returns(definition);
             mockSettingsReader.Setup(x => x.GetAllLoginTypes()).Returns(new ILoginTypeModel[] { });
             mockSettingsReader.Setup(x => x.GetSteps(loginPageModel.Step_Default)).Returns(new IStepModel[] { });
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -388,7 +388,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -449,7 +449,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -508,7 +508,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(offer.Guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(false);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -569,7 +569,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(offer.Guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(loginPageModel);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -630,7 +630,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(offer.Guid, loginPageModel.MaxFailedAttempts, loginPageModel.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -700,7 +700,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -768,7 +768,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -835,7 +835,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -902,7 +902,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -969,7 +969,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1036,7 +1036,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1103,7 +1103,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1174,7 +1174,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1257,7 +1257,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockLoginReportService.Setup(x => x.IsAllowed(guid, datasource.MaxFailedAttempts, datasource.GetDelayAfterFailedAttemptsTimeSpan())).Returns(true);
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(datasource);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1316,7 +1316,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             mockSettingsReader.Setup(x => x.GetPageLink(PAGE_LINK_TYPES.SystemError, guid)).Returns(redirectUrl);
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1378,7 +1378,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1440,7 +1440,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
             mockMvcContext.Setup(x => x.GetPageContextItem<IPageLoginModel>()).Returns(new Mock<IPageLoginModel>().Object);
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             using (var writter = new StringWriter())
             {
@@ -1496,7 +1496,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -1529,7 +1529,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -1562,7 +1562,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -1597,7 +1597,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,
@@ -1633,7 +1633,7 @@ namespace eContracting.Website.Tests.Areas.eContracting.Controllers
             var mockSettingsReader = new Mock<ISettingsReaderService>();
             var mockLoginReportService = new Mock<ILoginFailedAttemptBlockerStore>();
             var mockMvcContext = new Mock<IMvcContext>();
-            var mockRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockRequestCacheService = new Mock<IRequestDataCacheService>();
 
             var controller = new eContracting2AuthController(
                     logger,

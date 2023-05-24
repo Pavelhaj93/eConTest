@@ -295,7 +295,7 @@
     <Compile Include="LocalFakeSignService.cs" />
     <Compile Include="LocalOfferDataService.cs" />
     <Compile Include="OfferDataSapService.cs" />
-    <Compile Include="RequestDataCacheService.cs" />
+    <Compile Include="HttpRequestDataCacheService.cs" />
     <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

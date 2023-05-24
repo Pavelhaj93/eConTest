@@ -31,7 +31,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
@@ -51,7 +51,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IUserFileCacheService userFileCache,
             ITextService textService,
             ISessionProvider sessionProvider,
-            IDataRequestCacheService dataRequestCacheService,
+            IRequestDataCacheService dataRequestCacheService,
             IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, mvcContext)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
@@ -297,6 +297,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.GetExpirationEditModel();
                 }
 
+                //TODO: var user = this.UserService.GetUser();
+
                 if (!this.UserService.IsAuthorizedFor(guid))
                 {
                     this.Logger.Debug(guid, $"Not authorized");
@@ -309,7 +311,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return Redirect(PAGE_LINK_TYPES.Login, guid);
                 }
 
-                var data = this.RequestCacheService.GetOffer(guid);
+                var data = this.OfferService.GetOffer(guid);
 
                 if (data == null)
                 {
@@ -517,7 +519,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     authType = AUTH_METHODS.COGNITO;
                     var settings = this.SettingsService.GetCognitoSettings();
-                    var offer = this.RequestCacheService.GetOffer(guid);
+                    var offer = this.OfferService.GetOffer(guid);
                     viewModel.LogoUrl = offer != null ? Utils.SetQuery(settings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity) : settings.InnogyDashboardUrl;
                 }
                 else
@@ -596,7 +598,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         public ActionResult AccountButtons()
         {
             var guid = this.GetGuid();
-            var offer = this.RequestCacheService.GetOffer(guid);
+            var offer = this.OfferService.GetOffer(guid);
             var settings = this.SettingsService.GetCognitoSettings();
             var datasource = this.MvcContext.GetDataSourceItem<IAccountButtonsModel>();
             var user = this.UserService.GetUser();
@@ -801,11 +803,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected internal ActionResult GetOfferEditView()
         {
             var datasource = this.MvcContext.GetPageContextItem<IPageNewOfferModel>();
+            var processCode = this.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = this.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+            var offerVersion = 3;
+            var definition = this.SettingsService.GetDefinition(processCode, processTypeCode);
 
-            var data = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
-            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
-
-            var steps = this.GetSteps(data, datasource);
+            var steps = this.GetSteps(Constants.FakeOfferGuid, offerVersion, null, datasource, definition);
             var siteSettings = this.SettingsService.GetSiteSettings();
             var viewModel = new OfferViewModel(siteSettings, Constants.FakeOfferGuid);
             viewModel.Version = 3;
@@ -872,10 +875,12 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         protected internal ActionResult GetThankYouEditModel()
         {
-            var offer = this.RequestCacheService.GetOffer(Constants.FakeOfferGuid);
+            var processCode = this.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = this.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+            var offerVersion = 3;
             var datasource = this.MvcContext.GetPageContextItem<IPageThankYouModel>();
-            var definition = this.SettingsService.GetDefinition(offer.Process, offer.ProcessType);
-            var steps = this.GetSteps(offer, datasource);
+            var definition = this.SettingsService.GetDefinition(processCode, processTypeCode);
+            var steps = this.GetSteps(Constants.FakeOfferGuid, offerVersion, null, datasource, definition);
             var viewModel = new ThankYouViewModel(datasource, new StepsViewModel(steps));
             viewModel.MainText = definition.MainTextThankYou.Text;
 

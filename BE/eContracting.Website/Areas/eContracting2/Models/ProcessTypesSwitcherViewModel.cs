@@ -28,12 +28,12 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         public ProcessTypesSwitcherViewModel()
         {
+            var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
             var settingsReader = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
-            var cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
-            var data = cache.GetOffer(Constants.FakeOfferGuid);
 
-            this.Process = data.Process;
-            this.ProcessType = data.ProcessType;
+            this.Process = processCode;
+            this.ProcessType = processTypeCode;
             this.Processes = settingsReader.GetAllProcesses().ToArray();
             this.ProcessTypes = settingsReader.GetAllProcessTypes().ToArray();
             this.Query = HttpContext.Current.Request.QueryString;

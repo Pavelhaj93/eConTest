@@ -177,6 +177,11 @@
             </summary>
             <param name="key">The key.</param>
         </member>
+        <member name="T:eContracting.IRequestDataCacheService">
+            <summary>
+            Cache service using HTTP
+            </summary>
+        </member>
         <member name="T:eContracting.IUserService">
             <summary>
             Represents user storage and authentication / authorization service.
@@ -259,6 +264,11 @@
             Gets the current user data or new anonymous.
             </summary>
             <returns>Always returns the instance.</returns>
+        </member>
+        <member name="M:eContracting.IUserService.UserExists">
+            <summary>
+            Determinates if a user is stored or not.
+            </summary>
         </member>
         <member name="M:eContracting.IUserService.RefreshAuthorizationIfNeeded(System.String,eContracting.Models.UserCacheDataModel)">
             <summary>
@@ -2162,12 +2172,12 @@
             Determinates if user can cancel the offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferModel.Attributes">
+        <member name="P:eContracting.Models.OfferModel.Attributes">
             <summary>
             Attributes from the offer.
             </summary>
         </member>
-        <member name="F:eContracting.Models.OfferModel.Header">
+        <member name="P:eContracting.Models.OfferModel.Header">
             <summary>
             Header values from the offer.
             </summary>

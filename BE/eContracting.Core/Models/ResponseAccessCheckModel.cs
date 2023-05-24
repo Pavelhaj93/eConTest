@@ -9,6 +9,7 @@ using eContracting.Services;
 namespace eContracting.Models
 {
     [ExcludeFromCodeCoverage]
+    [Serializable]
     public class ResponseAccessCheckModel
     {
         /// <summary>

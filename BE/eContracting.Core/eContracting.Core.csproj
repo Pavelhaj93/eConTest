@@ -289,7 +289,7 @@
     <Compile Include="IAuthService.cs" />
     <Compile Include="ICallMeBackService.cs" />
     <Compile Include="IDataCacheService.cs" />
-    <Compile Include="IDataRequestCacheService.cs" />
+    <Compile Include="IRequestDataCacheService.cs" />
     <Compile Include="IOfferDataService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="ICognitoAuthService.cs" />

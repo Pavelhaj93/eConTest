@@ -14,6 +14,7 @@ using Sitecore.Reflection.Emit;
 namespace eContracting.Models
 {
     [ExcludeFromCodeCoverage]
+    [Serializable]
     public class OfferModel : IOfferDataModel
     {
         /// <summary>
@@ -368,16 +369,16 @@ namespace eContracting.Models
         /// Attributes from the offer.
         /// </summary>
         [JsonIgnore]
-        public readonly OfferAttributeModel[] Attributes;
+        public OfferAttributeModel[] Attributes { get; private set; }
 
         /// <summary>
         /// Header values from the offer.
         /// </summary>
         [JsonProperty("header")]
-        protected readonly OfferHeaderModel Header;
+        protected OfferHeaderModel Header { get; private set; }
 
         [JsonIgnore]
-        public readonly IDictionary<string, string> RawContent = new Dictionary<string, string>();
+        public IDictionary<string, string> RawContent { get; } = new Dictionary<string, string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OfferModel"/> class.
