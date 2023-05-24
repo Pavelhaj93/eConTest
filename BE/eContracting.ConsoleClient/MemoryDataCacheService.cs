@@ -7,14 +7,14 @@ using eContracting.Models;
 
 namespace eContracting.ConsoleClient
 {
-    class MemoryDataCacheService : IDataRequestCacheService, IDataSessionCacheService
+    class MemoryDataCacheService : IRequestDataCacheService, IDataSessionCacheService
     {
         public T Get<T>(string key)
         {
             throw new NotImplementedException();
         }
 
-        public OfferCacheDataModel GetOffer(string guid)
+        public OfferModel GetOffer(string guid)
         {
             throw new NotImplementedException();
         }
@@ -24,7 +24,7 @@ namespace eContracting.ConsoleClient
             throw new NotImplementedException();
         }
 
-        public void SaveOffer(string guid, OfferCacheDataModel data)
+        public void SaveOffer(string guid, OfferModel data)
         {
             throw new NotImplementedException();
         }

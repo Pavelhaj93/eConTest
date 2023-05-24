@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using eContracting.Models;
 using eContracting.Website.Areas.eContracting2.Models;
 using Glass.Mapper.Sc.Web.Mvc;
+using Sitecore.ApplicationCenter.Applications;
 using Sitecore.Data;
 using static eContracting.Website.Areas.eContracting2.Models.MatrixSwitcherViewModel;
 
@@ -19,8 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         protected readonly IUserService UserService;
         protected readonly ISettingsReaderService SettingsService;
         protected readonly ISessionProvider SessionProvider;
-        protected readonly IDataRequestCacheService RequestCacheService;
-        protected readonly IOfferService OfferService;
+        protected readonly IRequestDataCacheService RequestCacheService;
         protected readonly IMvcContext MvcContext;
 
         protected eContracting2MvcController(
@@ -29,8 +29,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IUserService userService,
             ISettingsReaderService settingsReader,
             ISessionProvider sessionProvider,
-            IDataRequestCacheService requestCacheService,
-            IOfferService offerService,
+            IRequestDataCacheService requestCacheService,
             IMvcContext mvcContext)
         {
             this.Logger = logger;
@@ -39,7 +38,6 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             this.SettingsService = settingsReader;
             this.SessionProvider = sessionProvider;
             this.RequestCacheService = requestCacheService;
-            this.OfferService = offerService;
             this.MvcContext = mvcContext;
         }
 
@@ -53,13 +51,16 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             var isPreview = this.ContextWrapper.IsPreviewMode();
 
+            var processCode = this.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = this.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+            var offerVersion = 3;
+
             var url = this.Request.Url;
             url = Utils.RemoveQuery(url, Constants.QueryKeys.PROCESS);
             url = Utils.RemoveQuery(url, Constants.QueryKeys.PROCESS_TYPE);
             var query = HttpUtility.ParseQueryString(url.Query);
 
-            var data = this.OfferService.GetOffer(Constants.FakeOfferGuid);
-            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
+            var definition = this.SettingsService.GetDefinition(processCode, processTypeCode);
             var defaultDefinition = this.SettingsService.GetDefinitionDefault();
             var allDefinitions = this.SettingsService.GetAllDefinitions();
 

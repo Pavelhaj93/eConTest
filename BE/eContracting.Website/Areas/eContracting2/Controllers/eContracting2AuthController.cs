@@ -33,6 +33,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [Obsolete]
         private const string salt = "228357";
 
+        protected readonly IOfferService OfferService;
         protected readonly IDataSessionCacheService SessionCacheService;
         protected readonly ILoginFailedAttemptBlockerStore LoginReportService;
         protected readonly IEventLogger EventLogger;
@@ -47,10 +48,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
+            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.LoginReportService = ServiceLocator.ServiceProvider.GetRequiredService<ILoginFailedAttemptBlockerStore>();
             this.EventLogger = ServiceLocator.ServiceProvider.GetRequiredService<IEventLogger>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
@@ -68,8 +69,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IMvcContext mvcContext,
             IEventLogger evetLogger,
             ITextService textService,
-            IDataRequestCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, offerService, mvcContext)
+            IRequestDataCacheService requestCacheService) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, requestCacheService, mvcContext)
         {
+            this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.LoginReportService = loginReportService ?? throw new ArgumentNullException(nameof(loginReportService));
             this.EventLogger = evetLogger ?? throw new ArgumentNullException(nameof(evetLogger));
             this.TextService = textService ?? throw new ArgumentNullException(nameof(textService));
@@ -471,8 +473,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
         private ActionResult LoginEdit()
         {
-            var data = this.OfferService.GetOffer(Constants.FakeOfferGuid);
-            var definition = this.SettingsService.GetDefinition(data.Process, data.ProcessType);
+            var processCode = this.Request.QueryString[Constants.QueryKeys.PROCESS];
+            var processTypeCode = this.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
+            var offerVersion = 3;
+            var definition = this.SettingsService.GetDefinition(processCode, processTypeCode);
             var user = new UserCacheDataModel();
             var fakeHeader = new OfferHeaderModel("XX", Guid.NewGuid().ToString("N"), "3", "");
             var fakeXml = new OfferXmlModel();

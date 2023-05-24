@@ -28,7 +28,7 @@ namespace eContracting.Services.Tests
             mockOfferDataService.Setup(x => x.GetResponse(offer.Guid, OFFER_TYPES.QUOTPRX_PDF, "B")).Returns(response);
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns("127.0.0.0");
 
@@ -64,7 +64,7 @@ namespace eContracting.Services.Tests
             var mockOfferDataService = new Mock<IOfferDataService>();
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns("127.0.0.0");
 
@@ -105,7 +105,7 @@ namespace eContracting.Services.Tests
             var mockOfferDataService = new Mock<IOfferDataService>();
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns(expected);
 
@@ -142,7 +142,7 @@ namespace eContracting.Services.Tests
             var mockOfferDataService = new Mock<IOfferDataService>();
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns("127.0.0.0");
 
@@ -180,7 +180,7 @@ namespace eContracting.Services.Tests
             var mockOfferDataService = new Mock<IOfferDataService>();
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns("127.0.0.0");
 
@@ -217,7 +217,7 @@ namespace eContracting.Services.Tests
             var mockOfferDataService = new Mock<IOfferDataService>();
             var mockOfferParserService = new Mock<IOfferParserService>();
             var mockOfferAttachmentParserService = new Mock<IOfferAttachmentParserService>();
-            var mockDataRequestCacheService = new Mock<IDataRequestCacheService>();
+            var mockDataRequestCacheService = new Mock<IRequestDataCacheService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetIpAddress()).Returns("127.0.0.0");
 

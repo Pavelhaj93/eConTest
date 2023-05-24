@@ -39,7 +39,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
         protected readonly ISettingsReaderService SettingsReader;
         protected readonly IOfferService OfferService;
         protected readonly IUserService UserService;
-        protected readonly IDataRequestCacheService RequestCacheService;
+        protected readonly IRequestDataCacheService RequestCacheService;
         protected readonly IContextWrapper ContextWrapper;
         protected readonly ILogger Logger;
 
@@ -48,7 +48,6 @@ namespace eContracting.Website.Areas.eContracting2.Models
             this.SettingsReader = ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>();
             this.UserService = ServiceLocator.ServiceProvider.GetRequiredService<IUserService>();
             this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
-            this.RequestCacheService = ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>();
             this.ContextWrapper = ServiceLocator.ServiceProvider.GetRequiredService<IContextWrapper>();
             this.Logger = ServiceLocator.ServiceProvider.GetService<ILogger>();
         }
@@ -99,29 +98,14 @@ namespace eContracting.Website.Areas.eContracting2.Models
                 //this.PageMetaTitle = Sitecore.Context.Item["PageTitle"] + (this.ErrorCodeDescription != null ? " - " + this.ErrorCodeDescription : "");
                 this.PageMetaTitle = Sitecore.Context.Item["PageTitle"];
 
-                if (!Sitecore.Context.PageMode.IsNormal)
-                {
-                    var processCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS];
-                    var processTypeCode = HttpContext.Current.Request.QueryString[Constants.QueryKeys.PROCESS_TYPE];
-
-                    if (string.IsNullOrEmpty(processCode) || string.IsNullOrEmpty(processTypeCode))
-                    {
-                        var defaultDefinition = this.SettingsReader.GetDefinitionDefault();
-                        processCode = defaultDefinition.Process.Code;
-                        processTypeCode = defaultDefinition.ProcessType.Code;
-                    }
-
-                    var data = new OfferCacheDataModel(processCode, processTypeCode);
-                    this.RequestCacheService.SaveOffer(Constants.FakeOfferGuid, data);
-                }
-                else if (HttpContext.Current.Request.HttpMethod == HttpMethod.Get.Method)
+                if (Sitecore.Context.PageMode.IsNormal && HttpContext.Current.Request.HttpMethod == HttpMethod.Get.Method)
                 {
                     var isLoginPage = rendering.Item.TemplateID == Constants.TemplateIds.PageLogin;
 
                     // first try to initiliaze user
                     this.InitializeUser(guid, rendering, isLoginPage);
                     // then user can be used to get offer
-                    this.InitializeOffer(guid, rendering);
+                    this.InitializeOffer(guid, rendering, isLoginPage);
 
                     if (!isLoginPage)
                     {
@@ -131,11 +115,11 @@ namespace eContracting.Website.Areas.eContracting2.Models
             }
             catch (Exception ex)
             {
-                this.Logger?.Error($"[{nameof(LayoutViewModel)}] Preparing layout model failed", ex);
+                this.Logger?.Error($"{nameof(LayoutViewModel)}", "Preparing layout model failed", ex);
             }
         }
 
-        protected void InitializeOffer(string guid, Rendering rendering)
+        protected void InitializeOffer(string guid, Rendering rendering, bool isLoginPage)
         {
             if (string.IsNullOrEmpty(guid))
             {

@@ -15,7 +15,7 @@ namespace eContracting.ConsoleClient
 {
     class OfferServiceExtended : OfferService
     {
-        public OfferServiceExtended(ILogger logger, IUserFileCacheService userFileCache, ISettingsReaderService settingsReaderService, IServiceFactory factory, IOfferDataService offerDataService, IOfferParserService offerParser, IOfferAttachmentParserService offerAttachmentParser, IDataRequestCacheService cacheService, IContextWrapper contextWrapper) : base(logger, userFileCache, settingsReaderService, factory, offerDataService, offerParser, offerAttachmentParser, cacheService, contextWrapper)
+        public OfferServiceExtended(ILogger logger, IUserFileCacheService userFileCache, ISettingsReaderService settingsReaderService, IServiceFactory factory, IOfferDataService offerDataService, IOfferParserService offerParser, IOfferAttachmentParserService offerAttachmentParser, IRequestDataCacheService cacheService, IContextWrapper contextWrapper) : base(logger, userFileCache, settingsReaderService, factory, offerDataService, offerParser, offerAttachmentParser, cacheService, contextWrapper)
         {
         }
 

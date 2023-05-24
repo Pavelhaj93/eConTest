@@ -94,6 +94,11 @@ namespace eContracting
         UserCacheDataModel GetUser();
 
         /// <summary>
+        /// Determinates if a user is stored or not.
+        /// </summary>
+        bool UserExists();
+
+        /// <summary>
         /// Refreshes authorization data if it's necessary.
         /// </summary>
         /// <param name="user">Cache model with user data.</param>

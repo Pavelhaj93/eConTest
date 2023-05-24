@@ -15,6 +15,8 @@ namespace eContracting.Models
     [ExcludeFromCodeCoverage]
     public class UserCacheDataModel
     {
+        public readonly string Id;
+
         /// <summary>
         /// The authorization rokens.
         /// </summary>
@@ -43,6 +45,7 @@ namespace eContracting.Models
         /// <remarks>Creates anonymous instance of the user.</remarks>
         public UserCacheDataModel()
         {
+            this.Id = Guid.NewGuid().ToString("N");
         }
 
         /// <summary>

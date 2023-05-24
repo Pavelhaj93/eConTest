@@ -246,6 +246,13 @@ namespace eContracting.Services
         }
 
         /// <inheritdoc/>
+        public bool UserExists()
+        {
+            var user = this.Cache.Get<UserCacheDataModel>(Constants.CacheKeys.USER_DATA);
+            return user != null;
+        }
+
+        /// <inheritdoc/>
         public bool IsAuthorized()
         {
             var user = this.GetUser();

@@ -20,6 +20,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
     public class eContracting2Controller : eContracting2MvcController
     {
         protected readonly IDataSessionCacheService Cache;
+        protected readonly IOfferService OfferService;
         protected readonly IUserFileCacheService UserFileCache;
         protected readonly ITextService TextService;
 
@@ -30,11 +31,11 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             ServiceLocator.ServiceProvider.GetRequiredService<IUserService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISettingsReaderService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<ISessionProvider>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IDataRequestCacheService>(),
-            ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>(),
+            ServiceLocator.ServiceProvider.GetRequiredService<IRequestDataCacheService>(),
             ServiceLocator.ServiceProvider.GetRequiredService<IMvcContext>())
         {
             this.Cache = ServiceLocator.ServiceProvider.GetRequiredService<IDataSessionCacheService>();
+            this.OfferService = ServiceLocator.ServiceProvider.GetRequiredService<IOfferService>();
             this.UserFileCache = ServiceLocator.ServiceProvider.GetRequiredService<IUserFileCacheService>();
             this.TextService = ServiceLocator.ServiceProvider.GetRequiredService<ITextService>();
         }
@@ -50,8 +51,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             IUserFileCacheService userFileCache,
             ITextService textService,
             ISessionProvider sessionProvider,
-            IDataRequestCacheService dataRequestCacheService,
-            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, offerService, mvcContext)
+            IRequestDataCacheService dataRequestCacheService,
+            IMvcContext mvcContext) : base(logger, contextWrapper, userService, settingsReader, sessionProvider, dataRequestCacheService, mvcContext)
         {
             this.Cache = cache ?? throw new ArgumentNullException(nameof(cache));
             this.UserFileCache = userFileCache ?? throw new ArgumentNullException(nameof(userFileCache));
@@ -294,6 +295,8 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 {
                     return this.GetExpirationEditModel();
                 }
+
+                //TODO: var user = this.UserService.GetUser();
 
                 if (!this.UserService.IsAuthorizedFor(guid))
                 {

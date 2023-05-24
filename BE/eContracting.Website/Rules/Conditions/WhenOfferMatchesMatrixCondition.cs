@@ -44,9 +44,9 @@ namespace eContracting.Website.Rules.Conditions
         {
         }
 
-        public WhenOfferMatchesMatrixCondition(IOfferService cacheService, ISitecoreService sitecoreService)
+        public WhenOfferMatchesMatrixCondition(IOfferService offerService, ISitecoreService sitecoreService)
         {
-            this.OfferService = cacheService;
+            this.OfferService = offerService;
             this.SitecoreService = sitecoreService;
         }
 

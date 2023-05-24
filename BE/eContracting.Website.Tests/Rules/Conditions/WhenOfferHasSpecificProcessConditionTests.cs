@@ -40,13 +40,13 @@ namespace eContracting.Website.Tests.Rules.Conditions
         [Fact]
         public void Execute_Returns_False_When_ProcessItemGuid_Is_Empty()
         {
-            var mockRequestCache = new Mock<IOfferService>();
             var mockSitecoreService = new Mock<ISitecoreService>();
+            var mockOfferService = new Mock<IOfferService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             var ruleContext = new RuleContext();
 
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
-                mockRequestCache.Object,
+                mockOfferService.Object,
                 mockSitecoreService.Object,
                 mockContextWrapper.Object);
             rule.ProcessId = Guid.Empty.ToString("N").ToUpperInvariant();
@@ -60,15 +60,15 @@ namespace eContracting.Website.Tests.Rules.Conditions
         {
             var guid = this.CreateGuid();
             var offer = this.CreateOffer(guid);
-            var mockRequestCache = new Mock<IOfferService>();
-            mockRequestCache.Setup(x => x.GetOffer(guid)).Returns((OffersModel)null);
+            var mockOfferService = new Mock<IOfferService>();
+            mockOfferService.Setup(x => x.GetOffer(guid)).Returns((OffersModel)null);
             var mockSitecoreService = new Mock<ISitecoreService>();
             var mockContextWrapper = new Mock<IContextWrapper>();
             mockContextWrapper.Setup(x => x.GetQueryValue(Constants.QueryKeys.GUID)).Returns(guid);
             var ruleContext = new RuleContext();
 
             var rule = new WhenOfferHasSpecificProcessConditionImpl<RuleContext>(
-                mockRequestCache.Object,
+                mockOfferService.Object,
                 mockSitecoreService.Object,
                 mockContextWrapper.Object);
             rule.ProcessId = this.CreateGuid();

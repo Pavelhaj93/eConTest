@@ -53,11 +53,11 @@ namespace eContracting.Website.Rules.Conditions
         }
 
         public WhenOfferHasSpecificProcessCondition(
-            IOfferService cacheService,
+            IOfferService offerService,
             ISitecoreService sitecoreService,
             IContextWrapper contextWrapper)
         {
-            this.OfferService = cacheService;
+            this.OfferService = offerService;
             this.SitecoreService = sitecoreService;
             this.ContextWrapper = contextWrapper;
         }
