@@ -104,6 +104,11 @@ export type Supplier = {
   label: string
   value: string
 }
+
+export type Suppliers = {
+  label: string
+  items: Supplier[]
+}
 export interface QueryParams {
   [key: string]: string
 }
@@ -130,4 +135,9 @@ export enum GiftType {
 export enum CommodityProductType {
   ELECTRICITY = 'E',
   GAS = 'G',
+}
+
+export type CancelDialog = {
+  cancelOfferUrl: string
+  redirectUrl: string
 }

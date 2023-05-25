@@ -1,38 +1,20 @@
-import React, {
-  useEffect,
-  useState,
-  useCallback,
-  useRef,
-  FormEvent,
-  useMemo,
-  Fragment,
-} from 'react'
-import { CommodityProductType, NewOfferResponseCopy, OfferType, View } from '@types'
+import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
+import { NewOfferResponseCopy, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
-import { Alert, Button, Col, Form, Row, Table } from 'react-bootstrap'
+import { Alert, Button } from 'react-bootstrap'
 import classNames from 'classnames'
-import Media from 'react-media'
-import {
-  Box,
-  BoxHeading,
-  ConfirmationModal,
-  UnfinishedOfferModal,
-  DocumentLink,
-  FileUpload,
-  FormCheckWrapper,
-  Gift,
-  Icon,
-  SignatureModal,
-  SignButton,
-  UploadZone,
-} from '@components'
-import { breakpoints, colors } from '@theme'
+
+import { ConfirmationModal, UnfinishedOfferModal, SignatureModal } from '@components'
+
 import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { isIE11, parseUrl } from '@utils'
 import Perex from '../blocks/Perex'
 import Benefit from '../blocks/Benefit'
+import DocsCheck from '../blocks/DocsCheck'
+import DocsSign from '../blocks/DocsSign'
+import Confirm from '../blocks/Confirm'
 
 type SignatureModalType = {
   id: string
@@ -53,8 +35,6 @@ export const Offer: React.FC<View> = observer(
     uploadFileUrl,
     removeFileUrl,
     errorPageUrl,
-    allowedContentTypes,
-    maxFileSize,
     maxGroupFileSize,
     acceptOfferUrl,
     thankYouPageUrl,
@@ -135,19 +115,6 @@ export const Offer: React.FC<View> = observer(
       }
     }, [store])
 
-    const renderInfoElement = (value: string | undefined, className?: string) =>
-      value && (
-        <div className={classNames('text-center mt-4', className)}>
-          <Icon
-            name="info-circle"
-            size={40}
-            color={colors.gray100}
-            className="d-block mx-auto mb-3"
-          />
-          <div className="editorial-content" dangerouslySetInnerHTML={{ __html: value }} />
-        </div>
-      )
-
     return (
       <OfferStoreContext.Provider value={store}>
         {/* error state */}
@@ -177,234 +144,79 @@ export const Offer: React.FC<View> = observer(
           {/* summary / perex box */}
           {store.concatedSortedData?.map(item => {
             const { type } = item
-            if (type === NewOfferResponseCopy.ResponseItemType.Perex) {
-              return (
-                <Perex
-                  key={item.position}
-                  headerTitle={item.header.title}
-                  bodyParams={item.body.params}
-                />
-              )
-            }
-            if (type === NewOfferResponseCopy.ResponseItemType.Benefit) {
-              return (
-                <Benefit
-                  key={item.position}
-                  headerTitle={item.header.title}
-                  body={item.body}
-                  bodyPoints={item.body.points}
-                />
-              )
-            }
-            if (type === NewOfferResponseCopy.ResponseItemType.DocsCheck) {
-              return (
-                <Fragment key={item.position}>
-                  <Box>
-                    <BoxHeading>{item.body.head?.title || item.header.title}</BoxHeading>
-                    {item.body.head?.params && (
-                      <div
-                        className="editorial-content text-center"
-                        dangerouslySetInnerHTML={{
-                          __html: item.body.head.params
-                            .map(param => param.title + ' ' + param.value)
-                            .join(' '),
-                        }}
-                      />
-                    )}
-                  </Box>
-                  {/* TODO: bylo tu jeste store.documents.description  zkontrolovat jestli to nechybi */}
-                  {item.body.head?.text && (
-                    <div
-                      className="py-1 px-3 editorial-content text-center mb-4"
-                      dangerouslySetInnerHTML={{
-                        __html: item.body.head.text || '',
-                      }}
-                    />
-                  )}
-                  <Box data-testid="boxDocumentsToBeAccepted">
-                    {store.docGroupsToBeChecked.length > 0 && (
-                      <>
-                        <BoxHeading>{item.body.docs?.title}</BoxHeading>
-                        <div
-                          className="my-4 text-center editorial-content"
-                          dangerouslySetInnerHTML={{
-                            __html: item.body.docs?.text ?? '',
-                          }}
-                        />
-                        <div className="mb-2">
-                          <Button
-                            variant="link"
-                            onClick={() => store.checkDocumentsGroup(item?.body?.docs?.files ?? [])}
-                            aria-pressed={store.allDocumentsAreChecked}
-                          >
-                            {t('acceptAll')}
-                          </Button>
-                        </div>
-                        {item.body.docs?.files.map(({ key, prefix, accepted, label, note }) => (
-                          <>
-                            <FormCheckWrapper
-                              key={key}
-                              type="checkbox"
-                              name="acceptedDocuments"
-                              id={`document-${key}`}
-                              value={key}
-                              checked={accepted}
-                              onChange={() => store.checkDocument(key)}
-                            >
-                              <Form.Check.Label>
-                                <span className="mr-1">{prefix}</span>
-                                <DocumentLink
-                                  url={parseUrl(`${getFileUrl}/${key}`, { guid })}
-                                  label={label}
-                                  onClick={handleDownload}
-                                />
-                              </Form.Check.Label>
-                            </FormCheckWrapper>
-                            {/* info text */}
-                            {note && renderInfoElement(note, 'mb-5')}
-                          </>
-                        ))}
-                      </>
-                    )}
-                  </Box>
-                </Fragment>
-              )
-            }
-            if (type === NewOfferResponseCopy.ResponseItemType.DocsSign) {
-              return (
-                <Fragment key={item.position}>
-                  {store.docGroupsToBeSigned.length > 0 && (
-                    <>
-                      <BoxHeading>{item.header.title}</BoxHeading>
-                      <div
-                        className="editorial-content text-center my-4"
-                        dangerouslySetInnerHTML={{
-                          __html: item.body.docs?.text ?? '',
-                        }}
-                      />
-                      {item.body.docs?.files.map(({ key, prefix, label, accepted, note }) => (
-                        <>
-                          <div key={key} className="form-item-wrapper mb-3">
-                            <div className="like-custom-control-label">
-                              {accepted && (
-                                <Icon
-                                  name="check-circle"
-                                  size={36}
-                                  color={colors.green}
-                                  className="form-item-wrapper__icon mr-2"
-                                />
-                              )}
-                              <span>
-                                {prefix}{' '}
-                                <DocumentLink
-                                  url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
-                                    guid,
-                                  })}
-                                  label={label}
-                                  onClick={handleDownload}
-                                  noIcon
-                                />
-                              </span>
-                              <SignButton
-                                className="d-none d-sm-block"
-                                signed={accepted}
-                                onClick={() => openSignatureModal(key)}
-                                labelSign={t('signatureBtn')}
-                                labelEdit={t('signatureEditBtn')}
-                                descriptionId={'signBtnDescription'}
-                                showLabelEdit={false}
-                              />
-                            </div>
-                            <Media query={{ maxWidth: breakpoints.smMax }}>
-                              {matches =>
-                                matches && (
-                                  <SignButton
-                                    className="btn-block-mobile mt-3"
-                                    signed={accepted}
-                                    onClick={() => openSignatureModal(key)}
-                                    labelSign={t('signatureBtn')}
-                                    labelEdit={t('signatureEditBtn')}
-                                    descriptionId={'signBtnDescription'}
-                                    showLabelEdit={true}
-                                  />
-                                )
-                              }
-                            </Media>
-                          </div>
-                          {/* info text */}
-                          {note && renderInfoElement(note, 'mb-4')}
-                        </>
-                      ))}
-                      <div
-                        id="signBtnDescription"
-                        className="editorial-content text-muted small"
-                        dangerouslySetInnerHTML={{
-                          __html: t('signatureNote'),
-                        }}
-                        aria-hidden="true"
-                      />
-                    </>
-                  )}
-                </Fragment>
-              )
-            }
-            if (type === NewOfferResponseCopy.ResponseItemType.Confirm) {
-              return (
-                <div
-                  key={item.position}
-                  className={classNames({
-                    'd-none': (!store.isLoading && store.error) || !store.offerFetched,
-                  })}
-                >
-                  <h2 className="mt-5 text-center">{t('acceptOfferTitle')}</h2>
-                  <Box>
-                    {suppliers && (
-                      <Form.Group>
-                        <Form.Label htmlFor="supplier">{suppliers.label}</Form.Label>
-                        <Form.Control
-                          as="select"
-                          id="supplier"
-                          value={store.supplier}
-                          onChange={event => store.selectSupplier(event.target.value)}
-                        >
-                          {[{ label: '', value: '' }, ...suppliers.items].map(
-                            ({ label, value }, idx) => (
-                              <option key={idx} value={value}>
-                                {label}
-                              </option>
-                            ),
-                          )}
-                        </Form.Control>
-                      </Form.Group>
-                    )}
-                    <div className="text-center">
-                      <div
-                        className="editorial-content mb-3"
-                        dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
-                      />
-                      <Button
-                        variant="secondary"
-                        type="submit"
-                        onClick={() => setConfirmationModal(true)}
-                        disabled={!store.isOfferReadyToAccept}
-                      >
-                        {t('submitBtn')}
-                      </Button>
-                      {/* If a user wants to start again, the following button will be visible */}
-                      {cancelDialog && (
-                        <Button
-                          className="ml-3"
-                          variant="outline-primary"
-                          type="submit"
-                          onClick={() => store.setIsUnfinishedOfferModalOpen(true)}
-                        >
-                          {t('startOver')}
-                        </Button>
-                      )}
-                    </div>
-                  </Box>
-                </div>
-              )
+            switch (type) {
+              case NewOfferResponseCopy.ResponseItemType.Perex: {
+                return (
+                  <Perex
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    bodyParams={item.body.params}
+                  />
+                )
+              }
+              case NewOfferResponseCopy.ResponseItemType.Benefit: {
+                return (
+                  <Benefit
+                    key={item.position}
+                    headerTitle={item.header.title}
+                    body={item.body}
+                    bodyPoints={item.body.points}
+                  />
+                )
+              }
+              case NewOfferResponseCopy.ResponseItemType.DocsCheck: {
+                return (
+                  <DocsCheck
+                    key={item.position}
+                    t={t}
+                    headTitle={item.body.head?.title || item.header.title}
+                    headParams={item.body.head?.params || []}
+                    headText={item.body.head?.text || ''}
+                    docGroupsToBeChecked={store.docGroupsToBeChecked}
+                    allDocumentsAreChecked={store.allDocumentsAreChecked}
+                    checkDocumentsGroup={store.checkDocumentsGroup}
+                    checkDocument={store.checkDocument}
+                    docsTitle={item.body.docs?.title || ''}
+                    docsFiles={item.body.docs?.files || []}
+                    docsText={item.body.docs?.text || ''}
+                    handleDownload={handleDownload}
+                    getFileUrl={getFileUrl}
+                    guid={guid}
+                  />
+                )
+              }
+              case NewOfferResponseCopy.ResponseItemType.DocsSign: {
+                return (
+                  <DocsSign
+                    t={t}
+                    docGroupsToBeSigned={store.docGroupsToBeSigned}
+                    headerTitle={item.header.title}
+                    docsText={item.body.docs?.text || ''}
+                    docsFiles={item.body.docs?.files || []}
+                    getFileUrl={getFileUrl}
+                    guid={guid}
+                    handleDownload={handleDownload}
+                    openSignatureModal={openSignatureModal}
+                  />
+                )
+              }
+              case NewOfferResponseCopy.ResponseItemType.Confirm: {
+                return (
+                  <Confirm
+                    t={t}
+                    isLoading={store.isLoading}
+                    error={store.error}
+                    offerFetched={store.offerFetched}
+                    suppliers={suppliers}
+                    supplier={store.supplier}
+                    selectSupplier={store.selectSupplier}
+                    setConfirmationModal={setConfirmationModal}
+                    isOfferReadyToAccept={store.isOfferReadyToAccept}
+                    setIsUnfinishedOfferModalOpen={store.setIsUnfinishedOfferModalOpen}
+                    cancelDialog={cancelDialog}
+                  />
+                )
+              }
             }
           })}
         </form>
