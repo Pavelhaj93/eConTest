@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
-import { NewOfferResponseCopy, OfferType, View } from '@types'
+import { NewOfferResponse, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button } from 'react-bootstrap'
@@ -41,7 +41,7 @@ export const Offer: React.FC<View> = observer(
     sessionExpiredPageUrl,
     backToOfferUrl,
     suppliers,
-    version = 3,
+    // version = 3,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl, guid))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -145,7 +145,7 @@ export const Offer: React.FC<View> = observer(
           {store.concatedSortedData?.map(item => {
             const { type } = item
             switch (type) {
-              case NewOfferResponseCopy.ResponseItemType.Perex: {
+              case NewOfferResponse.ResponseItemType.Perex: {
                 return (
                   <Perex
                     key={item.position}
@@ -154,7 +154,7 @@ export const Offer: React.FC<View> = observer(
                   />
                 )
               }
-              case NewOfferResponseCopy.ResponseItemType.Benefit: {
+              case NewOfferResponse.ResponseItemType.Benefit: {
                 return (
                   <Benefit
                     key={item.position}
@@ -164,7 +164,7 @@ export const Offer: React.FC<View> = observer(
                   />
                 )
               }
-              case NewOfferResponseCopy.ResponseItemType.DocsCheck: {
+              case NewOfferResponse.ResponseItemType.DocsCheck: {
                 return (
                   <DocsCheck
                     key={item.position}
@@ -172,10 +172,6 @@ export const Offer: React.FC<View> = observer(
                     headTitle={item.body.head?.title || item.header.title}
                     headParams={item.body.head?.params || []}
                     headText={item.body.head?.text || ''}
-                    docGroupsToBeChecked={store.docGroupsToBeChecked}
-                    allDocumentsAreChecked={store.allDocumentsAreChecked}
-                    checkDocumentsGroup={store.checkDocumentsGroup}
-                    checkDocument={store.checkDocument}
                     docsTitle={item.body.docs?.title || ''}
                     docsFiles={item.body.docs?.files || []}
                     docsText={item.body.docs?.text || ''}
@@ -185,11 +181,10 @@ export const Offer: React.FC<View> = observer(
                   />
                 )
               }
-              case NewOfferResponseCopy.ResponseItemType.DocsSign: {
+              case NewOfferResponse.ResponseItemType.DocsSign: {
                 return (
                   <DocsSign
                     t={t}
-                    docGroupsToBeSigned={store.docGroupsToBeSigned}
                     headerTitle={item.header.title}
                     docsText={item.body.docs?.text || ''}
                     docsFiles={item.body.docs?.files || []}
@@ -200,19 +195,12 @@ export const Offer: React.FC<View> = observer(
                   />
                 )
               }
-              case NewOfferResponseCopy.ResponseItemType.Confirm: {
+              case NewOfferResponse.ResponseItemType.Confirm: {
                 return (
                   <Confirm
                     t={t}
-                    isLoading={store.isLoading}
-                    error={store.error}
-                    offerFetched={store.offerFetched}
                     suppliers={suppliers}
-                    supplier={store.supplier}
-                    selectSupplier={store.selectSupplier}
                     setConfirmationModal={setConfirmationModal}
-                    isOfferReadyToAccept={store.isOfferReadyToAccept}
-                    setIsUnfinishedOfferModalOpen={store.setIsUnfinishedOfferModalOpen}
                     cancelDialog={cancelDialog}
                   />
                 )

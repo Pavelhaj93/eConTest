@@ -1,4 +1,10 @@
-import { NewOfferResponseCopy, OfferErrorResponse, OfferType, QueryParams } from '@types'
+import {
+  AcceptedOfferResponse,
+  NewOfferResponse,
+  OfferErrorResponse,
+  OfferType,
+  QueryParams,
+} from '@types'
 import { action, computed, observable } from 'mobx'
 import { parseUrl } from '../utils/strings'
 
@@ -15,8 +21,8 @@ export class OfferStore {
   private globalQueryParams: QueryParams
   private type: OfferType
 
-  //TODO: will be in accepted offer
-  // @observable documentGroups: Group[] = []
+  @observable
+  public acceptedDocumentGroups: AcceptedOfferResponse.Group[] = []
 
   @observable
   public error = false
@@ -49,19 +55,19 @@ export class OfferStore {
   public isUnfinishedOfferModalOpen = false
 
   @observable
-  public perex: NewOfferResponseCopy.ResponseItem[] | undefined = undefined
+  public perex: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public benefits: NewOfferResponseCopy.ResponseItem[] | undefined = undefined
+  public benefits: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public docsCheck: NewOfferResponseCopy.ResponseItem[] | undefined = undefined
+  public docsCheck: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public docsSign: NewOfferResponseCopy.ResponseItem[] | undefined = undefined
+  public docsSign: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public confirm: NewOfferResponseCopy.ResponseItem | undefined = undefined
+  public confirm: NewOfferResponse.ResponseItem | undefined = undefined
 
   constructor(type: OfferType, offerUrl: string, guid: string) {
     this.type = type
@@ -69,8 +75,11 @@ export class OfferStore {
     this.offerUrl = offerUrl
   }
 
+  /**
+   * Returns all data from the offer response and sorts them by position.
+   */
   @computed
-  public get concatedSortedData(): NewOfferResponseCopy.ResponseItem[] {
+  public get concatedSortedData(): NewOfferResponse.ResponseItem[] {
     return [
       ...(this.perex || []),
       ...(this.benefits || []),
@@ -80,29 +89,44 @@ export class OfferStore {
     ].sort((a, b) => a.position - b.position)
   }
 
+  /**
+   * Returns true if the offer has been fetched.
+   * The offer is fetched if at least one response item is present.
+   * @returns {boolean}
+   */
   @computed public get offerFetched(): boolean {
     return Boolean(Object.keys(this.docsCheck?.concat(this.docsSign ?? []) ?? {}).length)
   }
 
-  //TODO: fix TS
+  /**
+   * Returns array of file arrays from all docCheck groups.
+   */
   @computed
-  public get docGroupsToBeSigned(): NewOfferResponseCopy.File[][] {
-    return this.docsSign?.map(item => item.body.docs?.files).flat() ?? []
+  public get docGroupsToBeChecked(): NewOfferResponse.File[][] {
+    return this.docsCheck?.map(item => item.body.docs?.files) ?? []
   }
 
-  //TODO: fix TS
+  /**
+   * Returns array of file arrays from all docSign groups.
+   */
   @computed
-  public get docGroupsToBeChecked(): NewOfferResponseCopy.File[][] {
-    return this.docsCheck?.map(item => item.body.docs?.files).flat() ?? []
+  public get docGroupsToBeSigned(): NewOfferResponse.File[][] {
+    return this.docsSign?.map(item => item.body.docs?.files) ?? []
   }
 
+  /**
+   * Filter docGroupsToBeChecked based on their mandatory status.
+   */
   @computed
-  public get mandatoryDocumentsToBeChecked(): (NewOfferResponseCopy.File | undefined)[] {
+  public get mandatoryDocumentsToBeChecked(): (NewOfferResponse.File | undefined)[] {
     return this.filterMandatoryDocuments(this.docGroupsToBeChecked)
   }
 
+  /**
+   * Filter docGroupsToBeSigned based on their mandatory status.
+   */
   @computed
-  public get mandatoryDocumentsToBeSigned(): (NewOfferResponseCopy.File | undefined)[] {
+  public get mandatoryDocumentsToBeSigned(): (NewOfferResponse.File | undefined)[] {
     return this.filterMandatoryDocuments(this.docGroupsToBeSigned)
   }
 
@@ -119,6 +143,9 @@ export class OfferStore {
     return this.supplier !== ''
   }
 
+  /**
+   * Returns true if all mandatory documents have been accepted.
+   */
   @computed
   public get allDocumentsAreChecked(): boolean {
     if (!this.docGroupsToBeChecked.length) return true
@@ -126,6 +153,9 @@ export class OfferStore {
     return this.mandatoryDocumentsToBeChecked.every(file => file?.accepted)
   }
 
+  /**
+   * Returns true if all mandatory documents have been signed.
+   */
   @computed
   public get allDocumentsAreSigned(): boolean {
     if (!this.docGroupsToBeSigned.length) return true
@@ -133,6 +163,14 @@ export class OfferStore {
     return this.mandatoryDocumentsToBeSigned.every(file => file?.accepted)
   }
 
+  /**
+   * Returns true if the offer is ready to be accepted.
+   * The offer is ready to be accepted if:
+   * - the offer has been fetched
+   * - all mandatory documents are checked
+   * - all mandatory documents are signed
+   * - the supplier is selected
+   */
   @computed
   public get isOfferReadyToAccept(): boolean {
     if (!this.offerFetched) return false
@@ -140,7 +178,11 @@ export class OfferStore {
     return this.allDocumentsAreChecked && this.allDocumentsAreSigned && this.isSupplierSelected
   }
 
-  @computed public get acceptanceGroups(): NewOfferResponseCopy.AcceptanceGroup[] | undefined {
+  /**
+   * Return groups of documents that are accepted and these groups are used in confirmation modal.
+   * If all documents in a group are accepted, the group is accepted.
+   */
+  @computed public get acceptanceGroups(): NewOfferResponse.AcceptanceGroup[] | undefined {
     const groups = this.confirm?.body.params?.map(({ title, group }) => {
       const docs = this.getDocumentGroup(group)
       const groupAccepted = docs?.every(d => d.accepted)
@@ -155,6 +197,10 @@ export class OfferStore {
     return groups
   }
 
+  /**
+   * Returns true if the offer is dirty.
+   * The offer is dirty if at least one document was accepted or signed.
+   */
   @computed
   public get isOfferDirty(): boolean {
     // if at least one document was accepted => the offer is dirty
@@ -165,29 +211,47 @@ export class OfferStore {
     return false
   }
 
-  public getDocumentGroup(group: NewOfferResponseCopy.Param['group']): NewOfferResponseCopy.File[] {
+  /**
+   * This method is used to filter groups of documents based on the current group string.
+   * @param group - group of documents
+   * @returns filtered documents
+   */
+  public getDocumentGroup(group: NewOfferResponse.Param['group']): NewOfferResponse.File[] {
     return this.getAllDocuments().filter(document => document.group === group)
   }
 
+  /**
+   * This method is used to getDocument from documents as an input which can be either documentsToBeChecked or documentsToBeSigned.
+   * @param key - key of the document
+   * @param documents - documents to be checked or signed
+   * @returns document or undefined
+   */
   public getDocument(
     key: string,
-    documents: NewOfferResponseCopy.File[][],
-  ): NewOfferResponseCopy.File | undefined {
+    documents: NewOfferResponse.File[][],
+  ): NewOfferResponse.File | undefined {
     return documents
       .map(docGroup => docGroup?.find(file => file.key === key))
       .find(doc => doc !== undefined)
   }
 
-  public getAllDocuments(): NewOfferResponseCopy.File[] {
+  /**
+   * This method is used to concat files from docGroupsToBeChecked and docGroupsToBeSigned.
+   * @returns all files
+   */
+  public getAllDocuments(): NewOfferResponse.File[] {
     return [
       ...this.docGroupsToBeChecked.map(docGroup => docGroup?.map(files => files).flat()).flat(),
       ...this.docGroupsToBeSigned.map(docGroup => docGroup?.map(files => files).flat()).flat(),
     ]
   }
 
-  public filterMandatoryDocuments(
-    documents: NewOfferResponseCopy.File[][],
-  ): NewOfferResponseCopy.File[] {
+  /**
+   * This method is used to filter mandatory documents from docGroupsToBeChecked or docGroupsToBeSigned.
+   * @param documents - documents to be checked or signed
+   * @returns mandatory documents
+   */
+  public filterMandatoryDocuments(documents: NewOfferResponse.File[][]): NewOfferResponse.File[] {
     return documents
       .map(docGroup => docGroup?.map(files => files).flat())
       .flat()
@@ -204,7 +268,7 @@ export class OfferStore {
    *
    * https://alexhisen.gitbook.io/mobx-recipes/use-extendobservable-sparingly
    */
-  private enrichDocuments(files: NewOfferResponseCopy.File[]) {
+  private enrichDocuments(files: NewOfferResponse.File[]) {
     return files.map(file => ({
       ...file,
       accepted: false,
@@ -244,12 +308,20 @@ export class OfferStore {
     })
   }
 
+  /**
+   * This action first uses getDocument from documentsToBeChecked and then check it or uncheck it based on the current state.
+   * @param key - key of the document
+   */
   @action public checkDocument(key: string): void {
     const document = this.getDocument(key, this.docGroupsToBeChecked)
     document && (document.accepted = !document.accepted)
   }
 
-  @action public checkDocumentsGroup(files: NewOfferResponseCopy.File[]): void {
+  /**
+   * This action accepts files group and then checks all documents in that group or uncheck them based on the current state.
+   * @param files - files to be checked
+   */
+  @action public checkDocumentsGroup(files: NewOfferResponse.File[]): void {
     if (!files.length) return
 
     // if at least one document which isn't checked is found,
@@ -260,6 +332,9 @@ export class OfferStore {
     files.forEach(file => (file.accepted = !allChecked))
   }
 
+  /**
+   * This action accept argument of a supplier in confirm modal and then set the state of supplier.
+   */
   @action public selectSupplier(supplier: string): void {
     this.supplier = supplier
   }
@@ -344,53 +419,62 @@ export class OfferStore {
 
       let jsonResponse
 
-      if (OfferType.NEW) {
-        jsonResponse = await (response.json() as Promise<NewOfferResponseCopy.RootObject>)
+      switch (this.type) {
+        case OfferType.NEW:
+          {
+            jsonResponse = await (response.json() as Promise<NewOfferResponse.RootObject>)
 
-        // this.documents = this.enrichDocumentsResponse(jsonResponse.documents)
-        this.perex = jsonResponse.data.filter(
-          item => item.type === NewOfferResponseCopy.ResponseItemType.Perex,
-        )
-        this.benefits = jsonResponse.data.filter(
-          item => item.type === NewOfferResponseCopy.ResponseItemType.Benefit,
-        )
+            // 1. filter out items by type and assign them to the corresponding properties of the store object
+            // enrich documents with `accepted` key and set it to false by default (see `enrichDocuments` method)
+            // - this is needed for MobX to observe the changes of this key and trigger rerender in React component when the key is changed
+            this.perex = jsonResponse.data.filter(
+              item => item.type === NewOfferResponse.ResponseItemType.Perex,
+            )
+            this.benefits = jsonResponse.data.filter(
+              item => item.type === NewOfferResponse.ResponseItemType.Benefit,
+            )
 
-        this.docsCheck = jsonResponse.data
-          .filter(item => item.type === NewOfferResponseCopy.ResponseItemType.DocsCheck)
-          .map(item => ({
-            ...item,
-            body: {
-              ...item.body,
-              docs: {
-                ...item.body.docs,
-                files: this.enrichDocuments(item.body.docs?.files ?? []),
-              },
-            },
-          }))
+            this.docsCheck = jsonResponse.data
+              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck)
+              .map(item => ({
+                ...item,
+                body: {
+                  ...item.body,
+                  docs: {
+                    ...item.body.docs,
+                    files: this.enrichDocuments(item.body.docs?.files ?? []),
+                  },
+                },
+              }))
 
-        this.docsSign = jsonResponse.data
-          .filter(item => item.type === NewOfferResponseCopy.ResponseItemType.DocsSign)
-          .map(item => ({
-            ...item,
-            body: {
-              ...item.body,
-              docs: {
-                ...item.body.docs,
-                files: this.enrichDocuments(item.body.docs?.files ?? []),
-              },
-            },
-          }))
+            this.docsSign = jsonResponse.data
+              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsSign)
+              .map(item => ({
+                ...item,
+                body: {
+                  ...item.body,
+                  docs: {
+                    ...item.body.docs,
+                    files: this.enrichDocuments(item.body.docs?.files ?? []),
+                  },
+                },
+              }))
 
-        this.confirm = jsonResponse.data.find(
-          item => item.type === NewOfferResponseCopy.ResponseItemType.Confirm,
-        )
+            this.confirm = jsonResponse.data.find(
+              item => item.type === NewOfferResponse.ResponseItemType.Confirm,
+            )
+          }
+          break
+
+        case OfferType.ACCEPTED:
+          jsonResponse = await (response.json() as Promise<AcceptedOfferResponse.RootObject>)
+
+          this.acceptedDocumentGroups = jsonResponse.groups
+          break
+
+        default:
+          break
       }
-
-      // case OfferType.ACCEPTED:
-      //   jsonResponse = await (response.json() as Promise<AcceptedOfferResponse>)
-
-      //   this.documentGroups = jsonResponse.groups
-      //   break
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))
@@ -401,19 +485,26 @@ export class OfferStore {
   }
 
   /**
-   * Returns array of keys of all accepted documents.
-   * @param documents - an array of `OfferDocument` items.
+   * Return array of all documents that are to be checked.
    */
-
-  public getAllToBeCheckedDocuments(): NewOfferResponseCopy.File[] {
+  public getAllToBeCheckedDocuments(): NewOfferResponse.File[] {
     return this.docGroupsToBeChecked.map(docGroup => docGroup?.map(files => files).flat()).flat()
   }
 
-  public getAllToBeSignedDocuments(): NewOfferResponseCopy.File[] {
+  /**
+   * Return array of all documents that are to be signed.
+   */
+  public getAllToBeSignedDocuments(): NewOfferResponse.File[] {
     return this.docGroupsToBeSigned.map(docGroup => docGroup?.map(files => files).flat()).flat()
   }
 
-  private getAcceptedKeys(documents: NewOfferResponseCopy.File[]): string[] {
+  /**
+   * Return array of keys from documents that are passed in the argument.
+   * It is necessary to pass the keys to the backend when accepting the offer.
+   * @param documents - array of documents
+   * @returns array of keys
+   */
+  private getAcceptedKeys(documents: NewOfferResponse.File[]): string[] {
     return documents.filter(d => d.accepted).map(d => d.key)
   }
 

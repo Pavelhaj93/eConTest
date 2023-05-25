@@ -82,61 +82,63 @@ export const Summary: React.FC<View> = observer(
           <>
             {store.concatedSortedData?.map(item => {
               const { type } = item
-              if (type === ResponseItemType.ContractualData) {
-                return (
-                  <ContractualData
-                    key={item.position}
-                    headerTitle={item.header.title}
-                    bodyPersonalData={item.body.personalData}
-                    bodyAddresses={item.body.addresses}
-                    bodyContacts={item.body.contacts}
-                  />
-                )
-              }
-              if (type === ResponseItemType.Product) {
-                return (
-                  <Product
-                    key={item.position}
-                    headerType={item.header.type}
-                    headerTitle={item.header.title}
-                    headerData={item.header.data}
-                    bodyPrices={item.body.prices}
-                    bodyInfos={item.body.infos}
-                    infoHelp={item.body.infoHelp}
-                    bodyPoints={item.body.points}
-                  />
-                )
-              }
-              if (type === ResponseItemType.Benefit) {
-                return (
-                  <Benefit
-                    key={item.position}
-                    headerTitle={item.header.title}
-                    body={item.body}
-                    bodyInfos={item.body.infos}
-                    bodyPoints={item.body.points}
-                  />
-                )
-              }
-              if (type === ResponseItemType.Gift) {
-                return (
-                  <GiftBlock
-                    key={item.position}
-                    headerTitle={item.header.title}
-                    bodyGroups={item.body.groups}
-                    headerNote={item.header.note}
-                  />
-                )
-              }
-              if (type === ResponseItemType.Competitor) {
-                return (
-                  <DistributorChange
-                    key={item.position}
-                    headerTitle={item.header.title}
-                    bodyName={item.body.name}
-                    bodyText={item.body.text}
-                  />
-                )
+              switch (type) {
+                case ResponseItemType.ContractualData: {
+                  return (
+                    <ContractualData
+                      key={item.position}
+                      headerTitle={item.header.title}
+                      bodyPersonalData={item.body.personalData}
+                      bodyAddresses={item.body.addresses}
+                      bodyContacts={item.body.contacts}
+                    />
+                  )
+                }
+                case ResponseItemType.Product: {
+                  return (
+                    <Product
+                      key={item.position}
+                      headerType={item.header.type}
+                      headerTitle={item.header.title}
+                      headerData={item.header.data}
+                      bodyPrices={item.body.prices}
+                      bodyInfos={item.body.infos}
+                      infoHelp={item.body.infoHelp}
+                      bodyPoints={item.body.points}
+                    />
+                  )
+                }
+                case ResponseItemType.Benefit: {
+                  return (
+                    <Benefit
+                      key={item.position}
+                      headerTitle={item.header.title}
+                      body={item.body}
+                      bodyInfos={item.body.infos}
+                      bodyPoints={item.body.points}
+                    />
+                  )
+                }
+                case ResponseItemType.Gift: {
+                  return (
+                    <GiftBlock
+                      key={item.position}
+                      headerTitle={item.header.title}
+                      bodyGroups={item.body.groups}
+                      headerNote={item.header.note}
+                    />
+                  )
+                }
+                case ResponseItemType.Competitor: {
+                  return (
+                    <DistributorChange
+                      key={item.position}
+                      headerTitle={item.header.title}
+                      bodyName={item.body.name}
+                      bodyText={item.body.text}
+                    />
+                  )
+                }
               }
             })}
 

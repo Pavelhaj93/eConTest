@@ -1,11 +1,11 @@
 import React, { FC } from 'react'
-import { NewOfferResponseCopy } from '../types/Offer'
+import { NewOfferResponse } from '../types/Offer'
 import { Box, BoxHeading } from '../components/Box'
 import { Table } from 'react-bootstrap'
 
 interface PerexProps {
-  headerTitle: NewOfferResponseCopy.Header['title']
-  bodyParams: NewOfferResponseCopy.Body['params']
+  headerTitle: NewOfferResponse.Header['title']
+  bodyParams: NewOfferResponse.Body['params']
 }
 
 const Perex: FC<PerexProps> = ({ headerTitle, bodyParams }) => {

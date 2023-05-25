@@ -1,4 +1,4 @@
-export namespace NewOfferResponseCopy {
+export namespace NewOfferResponse {
   export interface RootObject {
     data: ResponseItem[]
   }
@@ -13,7 +13,7 @@ export namespace NewOfferResponseCopy {
     params?: Param[]
     head?: Header | null
     text: string | null
-    docs?: Docs
+    docs: Docs
     note: string | null
     points: Point[]
   }
@@ -50,7 +50,7 @@ export namespace NewOfferResponseCopy {
     mime: string
     mandatory: boolean
     idx: number
-    accepted: boolean
+    accepted?: boolean
   }
 
   export enum ResponseItemType {
@@ -68,24 +68,19 @@ export namespace NewOfferResponseCopy {
   }
 }
 
-// export type UploadDocumentResponseCopy = {
-//   /** Category / group ID. */
-//   id: string
-//   /** Total size of all uploaded documents in current group. */
-//   size: number
-//   /** Array of all files that were successfully uploaded. */
-//   files: OfferDocument[]
-// }
+export namespace AcceptedOfferResponse {
+  export interface RootObject {
+    groups: Group[]
+  }
 
-// export type UploadDocumentPromiseCopy = {
-//   uploaded: boolean
-//   Message?: string
-// }
+  export type Group = {
+    title: string
+    files: File[]
+  }
+}
 
 type ErrorResponseCopy = {
   Message: string
 }
 
 export type OfferErrorResponse = ErrorResponseCopy
-
-// export type UploadDocumentErrorResponse = ErrorResponseCopy
