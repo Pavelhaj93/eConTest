@@ -589,9 +589,7 @@ export class OfferStoreOld {
   ): Promise<boolean> {
     const document = this.getDocument(key)
 
-    if (!document) {
-      return false
-    }
+    if (!document) return false
 
     this.isSigning = true
     this.signError = false

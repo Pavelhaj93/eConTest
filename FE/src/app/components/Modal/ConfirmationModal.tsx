@@ -71,7 +71,7 @@ export const ConfirmationModal: React.FC<Props> = observer(
             className="justify-content-center list-unstyled mb-0 mt-3"
             aria-label={t('acceptanceModalSummary')}
           >
-            {store.acceptanceGroups.map(({ group, title, accepted }) => (
+            {store.acceptanceGroups?.map(({ group, title, accepted }) => (
               <Col key={group} as="li" xs={6} lg={4} className="mb-4 text-center">
                 <Icon
                   name={accepted ? 'check-circle' : 'cross-circle'}

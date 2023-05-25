@@ -19,7 +19,8 @@ export namespace NewOfferResponseCopy {
   }
   export interface Param {
     title: string
-    value: string
+    value?: string
+    group: string
   }
 
   export interface Header {
@@ -49,7 +50,7 @@ export namespace NewOfferResponseCopy {
     mime: string
     mandatory: boolean
     idx: number
-    checked: boolean
+    accepted: boolean
   }
 
   export enum ResponseItemType {
@@ -58,6 +59,12 @@ export namespace NewOfferResponseCopy {
     DocsCheck = 'docsCheck',
     DocsSign = 'docsSign',
     Confirm = 'confirm',
+  }
+
+  export type AcceptanceGroup = {
+    title: string
+    group: string
+    accepted: boolean
   }
 }
 

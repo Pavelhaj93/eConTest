@@ -72,10 +72,6 @@ export const Offer: React.FC<View> = observer(
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)
 
-    useEffect(() => {
-      console.log('allDocumentsAreAccepted', store.allDocumentsAreAccepted)
-    }, [store.allDocumentsAreAccepted])
-
     // keep session alive
     useKeepAlive(30 * 1000, keepAliveUrl ? parseUrl(keepAliveUrl, { guid }) : keepAliveUrl)
 
@@ -112,17 +108,17 @@ export const Offer: React.FC<View> = observer(
     }, [])
 
     // show warning to user when trying to refresh or leave the page once he did some changes
-    // useUnload(ev => {
-    //   if (
-    //     store.isOfferDirty &&
-    //     !store.isAccepting &&
-    //     !store.forceReload &&
-    //     !store.isUnfinishedOfferModalOpen
-    //   ) {
-    //     ev.preventDefault()
-    //     ev.returnValue = ''
-    //   }
-    // })
+    useUnload(ev => {
+      if (
+        store.isOfferDirty &&
+        !store.isAccepting &&
+        !store.forceReload &&
+        !store.isUnfinishedOfferModalOpen
+      ) {
+        ev.preventDefault()
+        ev.returnValue = ''
+      }
+    })
 
     const openSignatureModal = useCallback((id: string) => {
       setSignatureModalProps({
@@ -179,17 +175,21 @@ export const Offer: React.FC<View> = observer(
           onSubmit={(ev: FormEvent) => ev.preventDefault()}
         >
           {/* summary / perex box */}
-          {store.concatedSortedData?.map((item, index) => {
+          {store.concatedSortedData?.map(item => {
             const { type } = item
             if (type === NewOfferResponseCopy.ResponseItemType.Perex) {
               return (
-                <Perex key={index} headerTitle={item.header.title} bodyParams={item.body.params} />
+                <Perex
+                  key={item.position}
+                  headerTitle={item.header.title}
+                  bodyParams={item.body.params}
+                />
               )
             }
             if (type === NewOfferResponseCopy.ResponseItemType.Benefit) {
               return (
                 <Benefit
-                  key={index}
+                  key={item.position}
                   headerTitle={item.header.title}
                   body={item.body}
                   bodyPoints={item.body.points}
@@ -198,7 +198,7 @@ export const Offer: React.FC<View> = observer(
             }
             if (type === NewOfferResponseCopy.ResponseItemType.DocsCheck) {
               return (
-                <Fragment key={index}>
+                <Fragment key={item.position}>
                   <Box>
                     <BoxHeading>{item.body.head?.title || item.header.title}</BoxHeading>
                     {item.body.head?.params && (
@@ -222,7 +222,7 @@ export const Offer: React.FC<View> = observer(
                     />
                   )}
                   <Box data-testid="boxDocumentsToBeAccepted">
-                    {store.documentsToBeChecked.length > 0 && (
+                    {store.docGroupsToBeChecked.length > 0 && (
                       <>
                         <BoxHeading>{item.body.docs?.title}</BoxHeading>
                         <div
@@ -235,12 +235,12 @@ export const Offer: React.FC<View> = observer(
                           <Button
                             variant="link"
                             onClick={() => store.checkDocumentsGroup(item?.body?.docs?.files ?? [])}
-                            aria-pressed={store.allDocumentsAreAccepted}
+                            aria-pressed={store.allDocumentsAreChecked}
                           >
                             {t('acceptAll')}
                           </Button>
                         </div>
-                        {item.body.docs?.files.map(({ key, prefix, checked, label, note }) => (
+                        {item.body.docs?.files.map(({ key, prefix, accepted, label, note }) => (
                           <>
                             <FormCheckWrapper
                               key={key}
@@ -248,7 +248,7 @@ export const Offer: React.FC<View> = observer(
                               name="acceptedDocuments"
                               id={`document-${key}`}
                               value={key}
-                              checked={checked}
+                              checked={accepted}
                               onChange={() => store.checkDocument(key)}
                             >
                               <Form.Check.Label>
@@ -261,7 +261,7 @@ export const Offer: React.FC<View> = observer(
                               </Form.Check.Label>
                             </FormCheckWrapper>
                             {/* info text */}
-                            {/* {renderInfoElement(note, 'mb-5')} */}
+                            {note && renderInfoElement(note, 'mb-5')}
                           </>
                         ))}
                       </>
@@ -270,9 +270,145 @@ export const Offer: React.FC<View> = observer(
                 </Fragment>
               )
             }
+            if (type === NewOfferResponseCopy.ResponseItemType.DocsSign) {
+              return (
+                <Fragment key={item.position}>
+                  {store.docGroupsToBeSigned.length > 0 && (
+                    <>
+                      <BoxHeading>{item.header.title}</BoxHeading>
+                      <div
+                        className="editorial-content text-center my-4"
+                        dangerouslySetInnerHTML={{
+                          __html: item.body.docs?.text ?? '',
+                        }}
+                      />
+                      {item.body.docs?.files.map(({ key, prefix, label, accepted, note }) => (
+                        <>
+                          <div key={key} className="form-item-wrapper mb-3">
+                            <div className="like-custom-control-label">
+                              {accepted && (
+                                <Icon
+                                  name="check-circle"
+                                  size={36}
+                                  color={colors.green}
+                                  className="form-item-wrapper__icon mr-2"
+                                />
+                              )}
+                              <span>
+                                {prefix}{' '}
+                                <DocumentLink
+                                  url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
+                                    guid,
+                                  })}
+                                  label={label}
+                                  onClick={handleDownload}
+                                  noIcon
+                                />
+                              </span>
+                              <SignButton
+                                className="d-none d-sm-block"
+                                signed={accepted}
+                                onClick={() => openSignatureModal(key)}
+                                labelSign={t('signatureBtn')}
+                                labelEdit={t('signatureEditBtn')}
+                                descriptionId={'signBtnDescription'}
+                                showLabelEdit={false}
+                              />
+                            </div>
+                            <Media query={{ maxWidth: breakpoints.smMax }}>
+                              {matches =>
+                                matches && (
+                                  <SignButton
+                                    className="btn-block-mobile mt-3"
+                                    signed={accepted}
+                                    onClick={() => openSignatureModal(key)}
+                                    labelSign={t('signatureBtn')}
+                                    labelEdit={t('signatureEditBtn')}
+                                    descriptionId={'signBtnDescription'}
+                                    showLabelEdit={true}
+                                  />
+                                )
+                              }
+                            </Media>
+                          </div>
+                          {/* info text */}
+                          {note && renderInfoElement(note, 'mb-4')}
+                        </>
+                      ))}
+                      <div
+                        id="signBtnDescription"
+                        className="editorial-content text-muted small"
+                        dangerouslySetInnerHTML={{
+                          __html: t('signatureNote'),
+                        }}
+                        aria-hidden="true"
+                      />
+                    </>
+                  )}
+                </Fragment>
+              )
+            }
+            if (type === NewOfferResponseCopy.ResponseItemType.Confirm) {
+              return (
+                <div
+                  key={item.position}
+                  className={classNames({
+                    'd-none': (!store.isLoading && store.error) || !store.offerFetched,
+                  })}
+                >
+                  <h2 className="mt-5 text-center">{t('acceptOfferTitle')}</h2>
+                  <Box>
+                    {suppliers && (
+                      <Form.Group>
+                        <Form.Label htmlFor="supplier">{suppliers.label}</Form.Label>
+                        <Form.Control
+                          as="select"
+                          id="supplier"
+                          value={store.supplier}
+                          onChange={event => store.selectSupplier(event.target.value)}
+                        >
+                          {[{ label: '', value: '' }, ...suppliers.items].map(
+                            ({ label, value }, idx) => (
+                              <option key={idx} value={value}>
+                                {label}
+                              </option>
+                            ),
+                          )}
+                        </Form.Control>
+                      </Form.Group>
+                    )}
+                    <div className="text-center">
+                      <div
+                        className="editorial-content mb-3"
+                        dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
+                      />
+                      <Button
+                        variant="secondary"
+                        type="submit"
+                        onClick={() => setConfirmationModal(true)}
+                        disabled={!store.isOfferReadyToAccept}
+                      >
+                        {t('submitBtn')}
+                      </Button>
+                      {/* If a user wants to start again, the following button will be visible */}
+                      {cancelDialog && (
+                        <Button
+                          className="ml-3"
+                          variant="outline-primary"
+                          type="submit"
+                          onClick={() => store.setIsUnfinishedOfferModalOpen(true)}
+                        >
+                          {t('startOver')}
+                        </Button>
+                      )}
+                    </div>
+                  </Box>
+                </div>
+              )
+            }
           })}
         </form>
-        {/* {backToOfferUrl && (
+        {backToOfferUrl && (
           <Button
             variant="link"
             className="underline text-black m-auto w-content d-flex"
@@ -304,7 +440,7 @@ export const Offer: React.FC<View> = observer(
           onClose={() => store.setIsUnfinishedOfferModalOpen(false)}
           redirectUrl={cancelDialog?.redirectUrl ?? ''}
           labels={labels}
-        /> */}
+        />
       </OfferStoreContext.Provider>
     )
   },
