@@ -81,10 +81,10 @@ export class OfferStore {
   @computed
   public get concatedSortedData(): NewOfferResponse.ResponseItem[] {
     return [
-      ...(this.perex || []),
-      ...(this.benefits || []),
-      ...(this.docsCheck || []),
-      ...(this.docsSign || []),
+      ...(this.perex ?? []),
+      ...(this.benefits ?? []),
+      ...(this.docsCheck ?? []),
+      ...(this.docsSign ?? []),
       ...(this.confirm ? [this.confirm] : []),
     ].sort((a, b) => a.position - b.position)
   }
@@ -387,13 +387,13 @@ export class OfferStore {
       if (timeoutMs) {
         controller = new AbortController()
         fetchTimeout = setTimeout(() => {
-          controller && controller.abort()
+          controller?.abort()
         }, timeoutMs)
       }
 
       const response = await fetch(parseUrl(this.offerUrl, this.globalQueryParams), {
         headers: { Accept: 'application/json' },
-        signal: controller?.signal || null,
+        signal: controller?.signal ?? null,
       })
 
       fetchTimeout && clearTimeout(fetchTimeout)

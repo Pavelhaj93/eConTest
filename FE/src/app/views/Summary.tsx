@@ -203,7 +203,7 @@ export const Summary: React.FC<View> = observer(
                   <CallMeBackModal
                     show={callMeBackModalOpen}
                     onClose={() => setCallMeBackModalOpen(false)}
-                    postCallMeBackUrl={postCallMeBackUrl || ''}
+                    postCallMeBackUrl={postCallMeBackUrl ?? ''}
                   />
                 </CallMeBackStoreContext.Provider>
 

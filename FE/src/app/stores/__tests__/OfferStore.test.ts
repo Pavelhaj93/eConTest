@@ -1,8 +1,8 @@
 import { OfferType } from '@types'
 import fetch from 'jest-fetch-mock'
-import mockDocumentGroups from '../../mocks/api/offer/accepted/documents.json'
+import mockDocumentGroups from '../../../mocks/api/offer/accepted/documents.json'
 
-import { OfferStore } from './'
+import { OfferStore } from '..'
 
 describe('Accepted offer', () => {
   it('should have zero documents after init', () => {
@@ -148,7 +148,7 @@ describe('Offer with documents for acceptance', () => {
     await store.fetchOffer()
 
     const doc = store.getDocument('doc1', store.docGroupsToBeChecked)
-    doc !== undefined ? (doc.accepted = true) : null
+    if (doc !== undefined) doc.accepted = true
 
     expect(store.isOfferDirty).toBe(true)
   })
