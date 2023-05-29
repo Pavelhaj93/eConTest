@@ -1,0 +1,38 @@
+{{> html-header }}
+{{> header }}
+
+{{#> layout}}
+  {{#> steps}}
+    {{> step content="Nabídka" }}
+    {{> step content="Vložení dokumentů" active=true }}
+    {{> step content="Přečtení a potvrzení dokumentů"}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
+  
+  {{> app}}
+{{/ layout}}
+
+<script>
+  var appConfig = {
+    guid: "0635F899B3111EDC9BC4A505A628FCED",
+    view: 'Upload',
+    uploadUrl: '/api/upload',
+    timeout: 0,
+    unfinishedOfferTimeout: 0,
+    getSummaryUrl: '/api/summary',
+    errorPageUrl: '/error',
+    authUrl: '/authentication.html',
+    offerUrl: '/offer.html',
+    getCallMeBackUrl: '/api/cmb/get',
+    postCallMeBackUrl: '/api/cmb/post',
+    allowedContentTypes: ['image/png', 'image/jpeg', 'application/pdf'],
+    maxFileSize: 3695293,
+    maxGroupFileSize: 1048576,
+    labels: {
+     
+    },
+    showCmbModal: true
+  };
+</script>
+
+{{> footer }}

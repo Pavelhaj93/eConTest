@@ -1,0 +1,76 @@
+{
+  "data": [
+    {
+      "type": "docsUpload",
+      "position": 1,
+      "header": {
+        "title": "Vložení dokumentů"
+      },
+      "body": {
+        "docs": {
+          "title": "Povinné dokumenty k nahrání",
+          "text": null,
+          "note": "",
+          "files": [
+            {
+              "id": "8453EFD06A16DE9640CB6488CC50E8E0",
+              "title": "Dokument prokazující vztah k nemovitosti",
+              "info": "<p><b>Doklad o vlastnictví nemovitosti</b><br />Výpis z katastru nemovitostí, případně nájemní smlouva.<br /></p>",
+              "mandatory": true,
+              "idx": 0
+            },
+            {
+              "id": "E0589C83857CB279D07C21D06CFFA2BD",
+              "title": "Ostatní",
+              "info": null,
+              "mandatory": true,
+              "idx": 0
+            },
+            {
+              "id": "418101DCAC82747D88A03CB0F636FF69",
+              "title": "A co dál",
+              "info": null,
+              "mandatory": true,
+              "idx": 0
+            },
+            {
+              "id": "DE4C87CE012CCB5366F800DB4644359B",
+              "title": "Revizní zpráva",
+              "info": "<p><b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vaše elektrického zařízení. Součástí zprávy musí být označení odběrného místa (u bytových domů vč. čísla bytu a podlaží).<br /></p>",
+              "mandatory": true,
+              "idx": 0
+            }
+          ]
+        }
+      }
+    },
+    {
+      "type": "docsUpload",
+      "position": 2,
+      "header": null,
+      "body": {
+        "docs": {
+          "title": "Nepovinné dokumenty k nahrání",
+          "text": null,
+          "note": "",
+          "files": [
+            {
+              "id": "24D9745ED221E7CD3F723C662DD94F01",
+              "title": "Výpočet tepelných ztrát",
+              "info": null,
+              "mandatory": false,
+              "idx": 0
+            },
+            {
+              "id": "B92130E2F046AEF73C581565D75F88C9",
+              "title": "Dokument prokazující vztah k nemovitosti",
+              "info": "<p><b>Doklad o vlastnictví nemovitosti</b><br />Výpis z katastru nemovitostí, případně nájemní smlouva.<br /></p>",
+              "mandatory": false,
+              "idx": 0
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

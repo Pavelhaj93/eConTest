@@ -1,15 +1,45 @@
-import { NewOfferResponse } from './Offer'
+import { ErrorResponse, ResponseItemType } from '@types'
 
-export type UploadDocumentResponse = {
-  /** Category / group ID. */
-  id: string
-  /** Total size of all uploaded documents in current group. */
-  size: number
-  /** Array of all files that were successfully uploaded. */
-  files: NewOfferResponse.File[]
+export namespace UploadDocumentsResponse {
+  export interface RootObject {
+    data: ResponseItem[]
+  }
+
+  export interface ResponseItem {
+    type: ResponseItemType
+    position: number
+    header: Header | null
+    body: Body
+  }
+
+  export interface Header {
+    title: string
+  }
+
+  export interface Body {
+    docs: Docs
+  }
+
+  export interface Docs {
+    title: string
+    text: string | null
+    note: string
+    files: File[]
+  }
+
+  export interface File {
+    id: string
+    title: string
+    info: string | null
+    mandatory: boolean
+    idx: number
+    size: number
+  }
 }
 
 export type UploadDocumentPromise = {
   uploaded: boolean
   Message?: string
 }
+
+export type UploadDocumentErrorResponse = ErrorResponse
