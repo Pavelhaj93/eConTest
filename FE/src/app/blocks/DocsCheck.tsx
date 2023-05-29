@@ -11,6 +11,7 @@ import { observer } from 'mobx-react-lite'
 
 interface DocsCheckProps {
   t: ReturnType<typeof useLabels>
+  headerTitle: NewOfferResponse.Header['title']
   headTitle: NewOfferResponse.Header['title']
   headParams: NewOfferResponse.Header['params']
   headText: NewOfferResponse.Header['text']
@@ -25,6 +26,7 @@ interface DocsCheckProps {
 const DocsCheck: FC<DocsCheckProps> = observer(
   ({
     t,
+    headerTitle,
     headTitle,
     headParams,
     headText,
@@ -43,17 +45,22 @@ const DocsCheck: FC<DocsCheckProps> = observer(
 
     return (
       <Fragment>
-        <Box>
-          <BoxHeading>{headTitle}</BoxHeading>
-          {headParams && (
-            <div
-              className="editorial-content text-center"
-              dangerouslySetInnerHTML={{
-                __html: headParams.map(param => param.title + ' ' + param.value).join(' '),
-              }}
-            />
-          )}
-        </Box>
+        {headerTitle && <h2 className="mt-5 text-center">{headerTitle}</h2>}
+        {headTitle && (
+          <Box>
+            <BoxHeading>{headTitle}</BoxHeading>
+            <Box>
+              {headParams && (
+                <div
+                  className="editorial-content text-center"
+                  dangerouslySetInnerHTML={{
+                    __html: headParams.map(param => param.title + ' ' + param.value).join(' <br>'),
+                  }}
+                />
+              )}
+            </Box>
+          </Box>
+        )}
         {/* TODO: bylo tu jeste store.documents.description  zkontrolovat jestli to nechybi */}
         {headText && (
           <div

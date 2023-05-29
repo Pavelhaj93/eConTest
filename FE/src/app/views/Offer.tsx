@@ -141,7 +141,6 @@ export const Offer: React.FC<View> = observer(
           })}
           onSubmit={(ev: FormEvent) => ev.preventDefault()}
         >
-          {/* summary / perex box */}
           {store.concatedSortedData?.map(item => {
             const { type } = item
             switch (type) {
@@ -169,7 +168,8 @@ export const Offer: React.FC<View> = observer(
                   <DocsCheck
                     key={item.position}
                     t={t}
-                    headTitle={item.body.head?.title || item.header.title}
+                    headerTitle={item.header.title}
+                    headTitle={item.body.head?.title || ''}
                     headParams={item.body.head?.params || []}
                     headText={item.body.head?.text || ''}
                     docsTitle={item.body.docs?.title || ''}
@@ -186,6 +186,7 @@ export const Offer: React.FC<View> = observer(
                   <DocsSign
                     t={t}
                     headerTitle={item.header.title}
+                    docsTitle={item.body.docs?.title || ''}
                     docsText={item.body.docs?.text || ''}
                     docsFiles={item.body.docs?.files || []}
                     getFileUrl={getFileUrl}

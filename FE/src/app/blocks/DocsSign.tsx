@@ -13,8 +13,8 @@ import { observer } from 'mobx-react-lite'
 
 interface DocsSignProps {
   t: ReturnType<typeof useLabels>
-
   headerTitle: NewOfferResponse.Header['title']
+  docsTitle: NewOfferResponse.Docs['title']
   docsText: NewOfferResponse.Docs['text']
   docsFiles: NewOfferResponse.Docs['files']
   getFileUrl: string | undefined
@@ -24,16 +24,7 @@ interface DocsSignProps {
 }
 
 const DocsSign: FC<DocsSignProps> = observer(
-  ({
-    t,
-    headerTitle,
-    docsText,
-    docsFiles,
-    getFileUrl,
-    guid,
-    handleDownload,
-    openSignatureModal,
-  }) => {
+  ({ t, docsTitle, docsText, docsFiles, getFileUrl, guid, handleDownload, openSignatureModal }) => {
     const store = useContext(OfferStoreContext)
 
     if (!(store instanceof OfferStore)) {
@@ -44,7 +35,7 @@ const DocsSign: FC<DocsSignProps> = observer(
       <Fragment>
         {store.docGroupsToBeSigned.length > 0 && (
           <Box>
-            <BoxHeading>{headerTitle}</BoxHeading>
+            <BoxHeading>{docsTitle}</BoxHeading>
             <div
               className="editorial-content text-center my-4"
               dangerouslySetInnerHTML={{
