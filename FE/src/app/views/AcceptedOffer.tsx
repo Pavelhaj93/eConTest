@@ -31,15 +31,15 @@ export const AcceptedOffer: React.FC<View> = observer(
           </Alert>
         )}
 
-        {/* <Box
+        <Box
           className={classNames({
             loading: store.isLoading || !store.acceptanceGroups?.length,
             'd-none': store.error, // hide the whole box if there is an error
           })}
         >
-          {store.acceptanceGroups && store.acceptanceGroups.length > 0 && (
+          {store.acceptedDocumentGroups && store.acceptedDocumentGroups.length > 0 && (
             <Fragment>
-              {store.acceptanceGroups.map(({ title, files }, idx) => (
+              {store.acceptedDocumentGroups.map(({ title, files }, idx) => (
                 <Fragment key={idx}>
                   <BoxHeading id={`heading${idx}`}>{title}</BoxHeading>
                   <ul className="list-unstyled" aria-labelledby={`heading${idx}`}>
@@ -59,7 +59,7 @@ export const AcceptedOffer: React.FC<View> = observer(
               ))}
             </Fragment>
           )}
-        </Box> */}
+        </Box>
       </Fragment>
     )
   },

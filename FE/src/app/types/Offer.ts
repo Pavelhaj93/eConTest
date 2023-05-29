@@ -70,12 +70,12 @@ export namespace NewOfferResponse {
 
 export namespace AcceptedOfferResponse {
   export interface RootObject {
-    groups: Group[]
+    groups: AcceptedGroup[]
   }
 
-  export type Group = {
+  export type AcceptedGroup = {
     title: string
-    files: File[]
+    files: NewOfferResponse.File[]
   }
 }
 

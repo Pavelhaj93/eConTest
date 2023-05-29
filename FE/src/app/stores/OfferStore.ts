@@ -22,7 +22,7 @@ export class OfferStore {
   private type: OfferType
 
   @observable
-  public acceptedDocumentGroups: AcceptedOfferResponse.Group[] = []
+  public acceptedDocumentGroups: AcceptedOfferResponse.AcceptedGroup[] = []
 
   @observable
   public error = false

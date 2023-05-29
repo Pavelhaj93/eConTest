@@ -76,7 +76,7 @@ const DocsSign: FC<DocsSignProps> = observer(
                     </span>
                     <SignButton
                       className="d-none d-sm-block"
-                      signed={accepted}
+                      signed={accepted ? accepted : false}
                       onClick={() => openSignatureModal(key)}
                       labelSign={t('signatureBtn')}
                       labelEdit={t('signatureEditBtn')}
@@ -89,7 +89,7 @@ const DocsSign: FC<DocsSignProps> = observer(
                       matches && (
                         <SignButton
                           className="btn-block-mobile mt-3"
-                          signed={accepted}
+                          signed={accepted ? accepted : false}
                           onClick={() => openSignatureModal(key)}
                           labelSign={t('signatureBtn')}
                           labelEdit={t('signatureEditBtn')}
