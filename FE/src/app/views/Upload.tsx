@@ -4,14 +4,39 @@ import { parseUrl } from '@utils'
 import { observer } from 'mobx-react-lite'
 import React, { FC, Fragment, useEffect, useState } from 'react'
 import { UploadStore } from '../stores/UploadStore'
-import { Alert } from 'react-bootstrap'
+import { Alert, Button } from 'react-bootstrap'
 import classNames from 'classnames'
 import { Box, FileUpload, UploadZone } from '@components'
 
 export const Upload: FC<View> = observer(
-  ({ uploadUrl, guid, labels, keepAliveUrl, timeout, allowedContentTypes, maxFileSize }) => {
+  ({
+    offerUrl,
+    uploadUrl,
+    guid,
+    labels,
+    keepAliveUrl,
+    timeout,
+    allowedContentTypes,
+    maxFileSize,
+    uploadFileUrl,
+    removeFileUrl,
+    maxGroupFileSize,
+  }) => {
     const [store] = useState(() => new UploadStore(uploadUrl, guid))
     const t = useLabels(labels)
+
+    // set correct upload document URL if provided
+    if (uploadFileUrl) {
+      store.uploadDocumentUrl = uploadFileUrl
+    }
+
+    if (removeFileUrl) {
+      store.removeDocumentUrl = removeFileUrl
+    }
+
+    if (maxGroupFileSize) {
+      store.maxUploadGroupSize = maxGroupFileSize
+    }
 
     useEffect(() => {
       store.fetchUploads(timeout)
@@ -82,10 +107,19 @@ export const Upload: FC<View> = observer(
                   className="small text-muted editorial-content"
                   dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
                 />
-                {/* <p className="small text-muted">Dokumenty označené * jsou povinné.</p> */}
               </Box>
             </>
           ))}
+          <div className="text-center">
+            <Button
+              className="ml-3"
+              variant="primary"
+              href={offerUrl}
+              disabled={!store.isUploadFinished}
+            >
+              {t('continueBtn')}
+            </Button>
+          </div>
         </div>
       </Fragment>
     )

@@ -41,19 +41,19 @@ export class UploadStore {
     this.globalQueryParams = { guid }
   }
 
-  // @computed public get uploadGroupSizeExceeded(): boolean {
-  //   if (this.maxUploadGroupSize === 0) {
-  //     return false
-  //   }
-  //   // sum sizes from all upload groups
-  //   const totalSize =
-  //     this.uploadResponseItems
-  //       ?.map(uploadGroup => uploadGroup.body.docs.files)
-  //       .flat()
-  //       .reduce((acc, file) => acc + file.size, 0) ?? 0
+  @computed public get uploadGroupSizeExceeded(): boolean {
+    if (this.maxUploadGroupSize === 0) {
+      return false
+    }
+    // sum sizes from all upload groups
+    const totalSize =
+      this.uploadResponseItems
+        ?.map(uploadGroup => uploadGroup.body.docs.files)
+        .flat()
+        .reduce((acc, file) => acc + file.size, 0) ?? 0
 
-  //   return totalSize >= this.maxUploadGroupSize
-  // }
+    return totalSize >= this.maxUploadGroupSize
+  }
 
   @computed public get isOfferDirty(): boolean {
     // if at least one document was uploaded (or is uploading) => the offer is dirty
@@ -62,6 +62,43 @@ export class UploadStore {
     }
 
     return false
+  }
+
+  @computed public get isUploadFinished(): boolean {
+    // if there are no upload groups => nothing to validate
+    if (!this.uploadResponseItems?.length) {
+      return true
+    }
+
+    let allUploaded = true
+
+    console.log(this.error)
+
+    console.log(
+      this.uploadResponseItems
+        .map(uploadGroup => uploadGroup.body.docs.files)
+        .map(file => file.filter(file => file.mandatory))
+        .flat(),
+    )
+
+    // iterate over all mandatory uploadGroups
+    this.uploadResponseItems
+      .map(uploadGroup => uploadGroup.body.docs.files)
+      .map(file => file.filter(file => file.mandatory))
+      .flat()
+      .forEach(doc => {
+        // if all mandatory documents are uploaded => the upload is finished
+        if (!this.userDocuments[doc.id]?.length) {
+          allUploaded = false
+        }
+
+        // if all documents are stil untouched or uploading or have error => group is not finished
+        if (this.userDocuments[doc.id]?.some(doc => !doc.touched || doc.uploading || doc.error)) {
+          allUploaded = false
+        }
+      })
+
+    return allUploaded
   }
 
   private enrichUploadDocuments(documents: UploadDocumentsResponse.File[]) {
@@ -78,12 +115,12 @@ export class UploadStore {
   }
 
   /**
-   * Get user document by its id and category.
+   * Get user document by its id and categoryid.
    * @param id - document id
-   * @param category - category name
+   * @param categoryId - categoryId
    */
-  public getUserDocument(id: string, category: string): UserDocument | undefined {
-    return this.userDocuments[category]?.find(document => document.key === id)
+  public getUserDocument(id: string, categoryId: string): UserDocument | undefined {
+    return this.userDocuments[categoryId]?.find(document => document.key === id)
   }
 
   @action public async fetchUploads(timeoutMs?: number): Promise<void> {
@@ -92,7 +129,6 @@ export class UploadStore {
     try {
       let fetchTimeout: NodeJS.Timeout | number | null = null
       let controller: AbortController | null = null
-
       // if timeoutMs is present => cancel the fetch request after this value
       if (timeoutMs) {
         controller = new AbortController()
@@ -155,7 +191,7 @@ export class UploadStore {
    */
   public async uploadDocument(
     document: UserDocument,
-    category: string,
+    categoryId: string,
   ): Promise<UploadDocumentPromise> {
     const formData = new FormData()
     const { file } = document
@@ -170,7 +206,7 @@ export class UploadStore {
 
     try {
       const response = await fetch(
-        parseUrl(`${this.uploadDocumentUrl}/${category}`, this.globalQueryParams),
+        parseUrl(`${this.uploadDocumentUrl}/${categoryId}`, this.globalQueryParams),
         {
           method: 'POST',
           headers: { Accept: 'application/json' },
@@ -201,7 +237,7 @@ export class UploadStore {
       }
 
       const { size } = await response.json()
-      // this.setUploadGroupSize(category, size)
+      this.setUploadGroupSize(categoryId, size)
 
       return Promise.resolve({ uploaded: true })
     } catch (error) {
@@ -222,18 +258,18 @@ export class UploadStore {
   }
 
   /**
-   * Remove user document by its key and category.
+   * Remove user document by its key and categoryId.
    * @param document - `UserDocument`
-   * @param category - category name
+   * @param categoryId - categoryId
    */
-  @action public async removeUserDocument(key: string, category: string): Promise<void> {
-    if (!this.userDocuments[category]) {
+  @action public async removeUserDocument(key: string, categoryId: string): Promise<void> {
+    if (!this.userDocuments[categoryId]) {
       return
     }
 
-    const document = this.getUserDocument(key, category)
+    const document = this.getUserDocument(key, categoryId)
 
-    this.userDocuments[category] = this.userDocuments[category].filter(doc => doc.key !== key)
+    this.userDocuments[categoryId] = this.userDocuments[categoryId].filter(doc => doc.key !== key)
 
     // if document is still uploading or was rejected => do not send the request
     if (!document || document.uploading || document.error) {
@@ -242,7 +278,7 @@ export class UploadStore {
 
     // if document has been successfully uploaded => sends a request to remove it
     const response = await fetch(
-      parseUrl(`${this.removeDocumentUrl}/${category}`, { ...this.globalQueryParams, f: key }),
+      parseUrl(`${this.removeDocumentUrl}/${categoryId}`, { ...this.globalQueryParams, f: key }),
       {
         method: 'DELETE',
         headers: { Accept: 'application/json' },
@@ -254,10 +290,10 @@ export class UploadStore {
     }
 
     const { size } = await response.json()
-    // this.setUploadGroupSize(category, size)
+    this.setUploadGroupSize(categoryId, size)
   }
 
-  @action public addUserFiles(files: CustomFile[], category: string): void {
+  @action public addUserFiles(files: CustomFile[], categoryId: string): void {
     // remap files to the `UserDocument` shape
     const newDocuments = files.map(({ file, error }) => {
       if (error) {
@@ -267,26 +303,26 @@ export class UploadStore {
       return new UserDocument(file, generateId())
     })
 
-    // if category does not exist yet => create one
-    if (!this.userDocuments[category]) {
-      this.userDocuments[category] = []
+    // if categoryId does not exist yet => create one
+    if (!this.userDocuments[categoryId]) {
+      this.userDocuments[categoryId] = []
     }
 
-    // spread existing documents within the category and add new ones
+    // spread existing documents within the categoryId and add new ones
     this.userDocuments = {
       ...this.userDocuments, // this spread is needed for trigger rerender in React component
-      [category]: [...this.userDocuments[category], ...newDocuments],
+      [categoryId]: [...this.userDocuments[categoryId], ...newDocuments],
     }
   }
 
-  // @action private setUploadGroupSize(id: string, size: number): void {
-  //   const group = this.uploadResponseItems
-  //     ?.map?.(item => item.body.docs.files)
-  //     .flat()
-  //     .find(file => file.id === id)
+  @action private setUploadGroupSize(id: string, size: number): void {
+    const group = this.uploadResponseItems
+      ?.map?.(item => item.body.docs.files)
+      .flat()
+      .find(file => file.id === id)
 
-  //   if (!group) return
+    if (!group) return
 
-  //   group.size = size
-  // }
+    group.size = size
+  }
 }
