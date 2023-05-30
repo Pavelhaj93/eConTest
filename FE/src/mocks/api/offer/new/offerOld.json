@@ -1,0 +1,320 @@
+{
+  "perex": {
+    "title": "Stručný přehled Vaší nabídky",
+    "params": [
+      {
+        "title": "Produkt",
+        "value": "Relax"
+      },
+      {
+        "title": "Platnost nabídky do",
+        "value": "24 měsíců"
+      },
+      {
+        "title": "Délka fixace",
+        "value": "24 měsíců od platnosti smlouvy"
+      },
+      {
+        "title": "Předpokládaná účinnost smlouvy",
+        "value": "01.10.2020"
+      }
+    ]
+  },
+  "benefits": {
+    "commodityProductType": "E",
+    "title": "Zvoleným produktem získáte",
+    "params": [
+      {
+        "value": "Garance poklesu ceny - v prvním roce nižší cena za odebraný plyn než u produktové řady plyn Standard v okamžiku sjednání smlouvy"
+      },
+      {
+        "value": "Ve druhém i třetím roce garance dalšího cenového snížení"
+      },
+      {
+        "value": "Férová nabídka - předem známá neměnná výše ceny za odebraný plyn pro každý ze tří roků trvání smlouvy"
+      }
+    ]
+  },
+  "gifts": {
+    "title": "Máme pro Vás nachystané dárky",
+    "note": "<p>\nZpůsob doručení: korespondenčně na zasílací adresu<br /></p>",
+    "groups": [
+      {
+        "title": "Za čas věnovaný naší nabídce od nás jako pozornost získáváte:",
+        "params": [
+          {
+            "title": "LED žárovka",
+            "icon": "LED",
+            "count": 100
+          },
+          {
+            "title": "detektor",
+            "icon": "DET",
+            "count": 20
+          },
+          {
+            "title": "poukázka Kaufland 10 Kč",
+            "icon": "PKZ",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "title": "Za přijetí nabídky za Vás čeká:",
+        "params": [
+          {
+            "title": "LED žárovka",
+            "icon": "LED",
+            "count": 10
+          },
+          {
+            "title": "detektor",
+            "icon": "DET",
+            "count": 20
+          },
+          {
+            "title": "poukázka Hornbach, 1000 Kč na vybavení zahrady",
+            "icon": "PKZ",
+            "count": 1230
+          }
+        ]
+      },
+      {
+        "title": "Po zahájení dodávky na Vás čeká:",
+        "params": [
+          {
+            "title": "LED žárovka",
+            "icon": "LED",
+            "count": 10
+          },
+          {
+            "title": "detektor",
+            "icon": "DET",
+            "count": 2
+          },
+          {
+            "title": "poukázka Kaufland 100 Kč",
+            "icon": "PKZ",
+            "count": 123
+          }
+        ]
+      }
+    ]
+  },
+  "documents": {
+    "acceptance": {
+      "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
+      "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+      "accept": {
+        "title": "Dodatek a přidružené dokumenty",
+        "subTitle": "<p>Dokument(y) si přečtěte a potvrďte zatržen&iacute;m</p>",
+        "mandatoryGroups": ["06D969E88C3C1EDB8BD27598F0B3C7D8"],
+        "params": [
+          {
+            "title": "Vaše adresa",
+            "value": "Ledčice 178, 277 08 Ledčice"
+          },
+          {
+            "title": "EAN",
+            "value": "RRI329212"
+          }
+        ],
+        "files": [
+          {
+            "label": "Informace pro zákazníka - spotřebitele",
+            "prefix": "Souhlasím s",
+            "key": "e1c9a5ce583743e6928ee4df91862a91",
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Dodatek",
+            "prefix": "Jsem poučen o",
+            "key": "8e0ed4754f99464eb2d0155c140a2541",
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Ceník",
+            "prefix": "Jsem poučen o",
+            "key": "76868bd607804b9ca6bc5248f99726d3",
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Ceník služeb",
+            "prefix": "Jsem poučen o",
+            "key": "2304df60d07448818c8b0b8c074d82a8",
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Obchodní podmínky",
+            "prefix": "Jsem poučen o",
+            "key": "ee68d1a1da63434a9c91643d6b8504cf",
+            "group": "06D969E88C3C1EDB8BD27598F0B3C7D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          }
+        ]
+      },
+      "sign": {
+        "title": "Plná moc",
+        "subTitle": "<p>Plnou moc potřebujeme pro zaji&scaron;těn&iacute; pokračov&aacute;n&iacute; dod&aacute;vky u innogy.</p>",
+        "mandatoryGroups": ["06D969E88C3C1EDB8BD27637116827D8"],
+        "files": [
+          {
+            "label": "Plná moc",
+            "prefix": "Jsem poučen o",
+            "key": "5e40683abb1441f5a0ec99425c2c6908",
+            "group": "06D969E88C3C1EDB8BD27637116827D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          }
+        ]
+      },
+      "sectionInfo": {
+        "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+        "title": "Dokumenty k elektronické akceptaci Vaši smlouvy",
+        "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+      }
+    },
+    "uploads": {
+      "title": "Povinné dokumenty k nahrání",
+      "note": "<p>Celkem <strong>max. 25 MB</strong>. Povolen&eacute; typy souborů: <strong>JPEG, JPG, PNG, PDF</strong>. V&iacute;ce dokumentů lze poslat v zazipovan&eacute;m souboru.",
+      "types": [
+        {
+          "id": "352a1b9154364a52a5c7d709e9366ccf",
+          "title": "Dokument prokazující vztah k nemovitosti",
+          "info": "<p><b>Revizní zpráva</b><br />Zpráva, kterou vystavil revizní technik pro vaše elektrického zařízení. Součástí zprávy musí být označení odběrného místa (u bytových domů vč. čísla bytu a podlaží).<br /></p>",
+          "mandatory": true
+        },
+        {
+          "id": "79d947f21ccb4e3bacd9d2ad3a0a1820",
+          "title": "Roční vyúčtování (fakturace)",
+          "info": "Prostě to tam nahraj a na nic se neptej",
+          "mandatory": true
+        },
+        {
+          "id": "d199d71ecad3426b986c3a1d9850a85c",
+          "title": "Přiložit další dokumenty navíc (volitelné)",
+          "info": "Jestli to tam nechceš dávat, tak nemusíš",
+          "mandatory": false
+        }
+      ]
+    },
+    "other": {
+      "products": {
+        "title": "Ostatní produkty",
+        "subTitle": "Stručný přehled Vaší nabídky",
+        "params": [
+          {
+            "title": "Služba",
+            "value": "innogy Pojistění domácnosti"
+          },
+          {
+            "title": "Varianta",
+            "value": "Basic"
+          },
+          {
+            "title": "Platnost nabídky do",
+            "value": "01.10.2020"
+          }
+        ],
+        "arguments": [
+          {
+            "value": "Pojištění domácnosti"
+          },
+          {
+            "value": "Pojištění odpovědnosti"
+          },
+          {
+            "value": "Asistenční služby"
+          }
+        ],
+        "subTitle2": "Přihláška a přidružené dokumenty",
+        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
+        "mandatoryGroups": [],
+        "files": [
+          {
+            "label": "Pojištění - Informační dokument 1",
+            "prefix": "Jsem poučen o",
+            "key": "729a1d7ba5ce48298b848a3d732f45cd",
+            "group": "06D969E88C3C1EDB8BD27637117787D8",
+            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+          },
+          {
+            "label": "Pojištění - Informační dokument 2",
+            "key": "b72e43e72c094a47bbc6767274d0b4a5",
+            "prefix": "Jsem poučen o",
+            "group": "06D969E88C3C1EDB8BD27637117787D8",
+            "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+          },
+          {
+            "label": "Pojištění - Informační dokument 3",
+            "key": "2894f4d3c1d14ea4ba4e7ce907b8a449",
+            "prefix": "Jsem poučen o",
+            "group": "06D969E88C3C1EDB8BD27637117787D8"
+          }
+        ],
+        "note": "<p>Po ověřen&iacute; Va&scaron;&iacute; Přihl&aacute;&scaron;ky na straně Pojistitele obdrž&iacute;te, před požadovan&yacute;m datem poč&aacute;tku poji&scaron;těn&iacute;, informaci o jeho souhlasu (či nesouhlasu) s Va&scaron;&iacute;m poji&scaron;těn&iacute;m.</p>",
+        "sectionInfo": {
+          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+          "title": "Ostatní produkty",
+          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+        }
+      },
+      "services": {
+        "title": "Doplňkové služby",
+        "subTitle": "Stručný přehled Vaší nabídky",
+        "text": "Dokument(y) si přečtěte a potvrďte zatržen&iacute;m.",
+        "arguments": [],
+        "params": [],
+        "mandatoryGroups": [],
+        "files": [
+          {
+            "label": "Dohoda o sjednání doplňkové služby investor",
+            "key": "9658576e88f1458da13db8f2034476d8",
+            "group": "2780ca707bbb4eb58645135d17fea86a",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Žádost o nesnižování zálohových plateb",
+            "key": "cc6d047821044adc86b6c811d6cecb0b",
+            "group": "06D969E88C3C1EDB8BD27637116D07D8",
+            "note": "Po prijeti Vami podepsane dohody, zpracujeme Vas pozadavek a zasleme vam predpis pro platbu predplatneho."
+          },
+          {
+            "label": "Smlouva o využívání innogy Karty",
+            "key": "c371d67295ab41e8bc64818c45a10a0f",
+            "group": "8784531c0fcc4aa28a92b5a847d7eeff"
+          }
+        ],
+        "sectionInfo": {
+          "text": "<p>Va&scaron;e adresa: {PERSON_PREMADR}<br />\n{PERSON_PREMLABEL}: {PERSON_PREMEXT}</p>",
+          "title": "Doplňkové služby",
+          "note": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+        }
+      }
+    },
+    "description": "Přečtěte si prosím všechny dokumenty a zatržením potvrdte jejich přečtení. Nakonec klikněte na tlačítko Akceptuji. Poté budou všechny dokumenty odeslány do innogy a není třeba je dále zasílat jinou formou."
+  },
+  "acceptance": {
+    "params": [
+      {
+        "title": "Investor",
+        "group": "06D969E88C3C1EDB8BD27637116827D8"
+      },
+      {
+        "title": "Nesnižování záloh",
+        "group": "06D969E88C3C1EDB8BD27637116D07D8"
+      },
+      {
+        "title": "Smlouva dodatek",
+        "group": "06D969E88C3C1EDB8BD27598F0B3C7D8"
+      },
+      {
+        "title": "innogy Pojištění domácnosti",
+        "group": "06D969E88C3C1EDB8BD27637117787D8"
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { QueryParams } from '@types'
+import { CommodityProductType, QueryParams } from '@types'
 
 export const generateId = (): string => Math.random().toString(36).slice(2)
 
@@ -47,3 +47,14 @@ export const parseUrl = (url: string, params: QueryParams): string => {
 
 /* Remove last element from array of strings. */
 export const removeLastElement = (array: string[]): string | undefined => array.pop()
+
+export const getColorByCommodityType = (commodityType: CommodityProductType): string => {
+  switch (commodityType) {
+    case CommodityProductType.ELECTRICITY:
+      return 'purple-light'
+    case CommodityProductType.GAS:
+      return 'blue'
+    default:
+      return 'purple-light'
+  }
+}

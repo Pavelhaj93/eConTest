@@ -5,11 +5,12 @@ import { Icon } from '../components/Icon'
 import { Col, Row } from 'react-bootstrap'
 import classNames from 'classnames'
 import { SummaryResponse } from '../types/Summary'
+import { NewOfferResponse } from '../types/Offer'
 
 interface BenefitProps {
   headerTitle: SummaryResponse.ResponseItem['header']['title']
-  body: SummaryResponse.ResponseItem['body']
-  bodyInfos: SummaryResponse.ResponseItem['body']['infos']
+  body: SummaryResponse.ResponseItem['body'] | NewOfferResponse.ResponseItem['body']
+  bodyInfos?: SummaryResponse.ResponseItem['body']['infos']
   bodyPoints: SummaryResponse.ResponseItem['body']['points']
 }
 

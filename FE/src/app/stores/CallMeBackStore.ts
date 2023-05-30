@@ -227,7 +227,7 @@ export class CallMeBackStore {
       this.setError(true)
       this.isSuccess = false
       // eslint-disable-next-line no-console
-      console.error(error.toString())
+      console.error(String(error))
       return false
     } finally {
       this.isLoading = false

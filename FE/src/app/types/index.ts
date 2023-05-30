@@ -1,8 +1,9 @@
 import { Choice, GaEventClickData } from './Authentication'
 
-export * from './Offer'
 export * from './Authentication'
 export * from './Summary'
+export * from './Offer'
+export * from './Upload'
 
 export type AppConfig = {
   guid: string
@@ -104,6 +105,11 @@ export type Supplier = {
   label: string
   value: string
 }
+
+export type Suppliers = {
+  label: string
+  items: Supplier[]
+}
 export interface QueryParams {
   [key: string]: string
 }
@@ -130,4 +136,9 @@ export enum GiftType {
 export enum CommodityProductType {
   ELECTRICITY = 'E',
   GAS = 'G',
+}
+
+export type CancelDialog = {
+  cancelOfferUrl: string
+  redirectUrl: string
 }

@@ -7,40 +7,17 @@ For maximum compatibility with IE11, older version of MobX is used.
 ## Setup
 
 1. Install [Node.js](https://nodejs.org) (v12.22.0). (instructions how to install older version below)
-2. Install [Yarn](https://yarnpkg.com) with - npm install --global yarn. 
+2. Install [Yarn](https://yarnpkg.com) with - npm install --global yarn.
 
-## How to install older version of Node.js (v12.22.0)
+## How to install older version of Node.js with NVM (v12.22.0)
 
-1. MacOS
-To install nvm, which is a node version manager, on your Mac, the best way is to use the Brew installer. If you don't have Brew installed, simply type "npm install brew" to install it. Once you have Brew, follow these steps to install nvm and the desired version:
+- The best way how to set an older version of Node.js is to install NVM which is a node-version-manager on your PC. You can find instructions how to install this package on https://github.com/nvm-sh/nvm/blob/master/README.md
+- NVM is a version manager for node.js, designed to be installed per-user, and invoked per-shell. nvm works on any POSIX-compliant shell (sh, dash, ksh, zsh, bash), in particular on these platforms: unix, macOS, and windows WSL.
+- The desired version of node is saved in .nvmrc file
+- After installing of NVM you can set the required node version with these simple steps
 
-- brew install nvm
-- export NVM_DIR="$HOME/.nvm"
-  [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && . "$(brew --prefix)/opt/nvm/nvm.sh" # This loads nvm
-  [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && . "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-- nvm (initiate nvm)
-- nvm install 12.22.0 (install your desired version of Node)
-- nvm use 12.22.0 (switch to the installed version of Node)
-
-Now you are using Node v12.22.0. You can double-check it with either of the following commands:
-
-- nvm list (to see the version of Node you have installed on your machine and the default one)
-OR
-- node -v
-
-2. Windows
-To begin, you need to install nvm on your machine. You can find the installation instructions at https://github.com/coreybutler/nvm-windows#installation--upgrades.
-After installing nvm, open Powershell as an Administrator or use Git Bash. Follow these steps to install version 12.22.0:
-
-- nvm (initiate nvm)
-- nvm install 12.22.0
-- nvm use 12.22.0
-
-Now you are using Node v12.22.0. You can double-check it with either of the following commands:
-
-- nvm list (to see the version of Node you have installed on your machine and the default one)
-OR
-- node -v
+- nvm install 12.22.0 (or the desired node version)
+- nvm use (this will load the node version from the .nvmrc file)
 
 ## Installation
 

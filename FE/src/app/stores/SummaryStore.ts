@@ -1,6 +1,6 @@
 import { QueryParams } from '@types'
 import { parseUrl } from '@utils'
-import { action, observable } from 'mobx'
+import { action, computed, observable } from 'mobx'
 import { SumarryErrorResponse, SummaryResponse } from '../types/Summary'
 
 export class SummaryStore {
@@ -21,6 +21,32 @@ export class SummaryStore {
   @observable
   public data: SummaryResponse.ResponseItem[] | undefined = undefined
 
+  @observable
+  public contractualData: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public products: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public gifts: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public benefits: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @observable
+  public competitor: SummaryResponse.ResponseItem[] | undefined = undefined
+
+  @computed
+  public get concatedSortedData(): SummaryResponse.ResponseItem[] {
+    return [
+      ...(this.contractualData ?? []),
+      ...(this.products ?? []),
+      ...(this.gifts ?? []),
+      ...(this.benefits ?? []),
+      ...(this.competitor ?? []),
+    ].sort((a, b) => a.position - b.position)
+  }
+
   constructor(guid: string, public summaryUrl: string, public errorPageUrl: string) {
     this.summaryUrl = summaryUrl
     this.errorPageUrl = errorPageUrl
@@ -38,13 +64,13 @@ export class SummaryStore {
       if (timeoutMs) {
         controller = new AbortController()
         fetchTimeout = setTimeout(() => {
-          controller && controller.abort()
+          controller?.abort()
         }, timeoutMs)
       }
 
       const response = await fetch(parseUrl(this.summaryUrl, this.globalQueryParams), {
         headers: { Accept: 'application/json' },
-        signal: controller?.signal || null,
+        signal: controller?.signal ?? null,
       })
 
       fetchTimeout && clearTimeout(fetchTimeout)
@@ -70,8 +96,11 @@ export class SummaryStore {
 
       const jsonResponse = await (response.json() as Promise<SummaryResponse.RootObject>)
 
-      const sortedData = jsonResponse.data.sort((a, b) => a.position - b.position)
-      this.data = sortedData
+      this.benefits = jsonResponse.data.filter(item => item.type === 'benefit')
+      this.contractualData = jsonResponse.data.filter(item => item.type === 'contractualData')
+      this.products = jsonResponse.data.filter(item => item.type === 'product')
+      this.gifts = jsonResponse.data.filter(item => item.type === 'gift')
+      this.competitor = jsonResponse.data.filter(item => item.type === 'competitor')
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(String(error))
