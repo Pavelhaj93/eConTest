@@ -1,3 +1,5 @@
+import { ErrorResponse } from '@types'
+
 export namespace NewOfferResponse {
   export interface RootObject {
     data: ResponseItem[]
@@ -79,8 +81,4 @@ export namespace AcceptedOfferResponse {
   }
 }
 
-type ErrorResponseCopy = {
-  Message: string
-}
-
-export type OfferErrorResponse = ErrorResponseCopy
+export type OfferErrorResponse = ErrorResponse

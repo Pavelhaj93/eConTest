@@ -46,7 +46,7 @@ export const Upload: FC<View> = observer(
                   <div key={categoryId} className="mb-5">
                     <UploadZone
                       label={title}
-                      labelTooltip={info}
+                      labelTooltip={info ?? ''}
                       labels={labels}
                       allowedContentTypes={allowedContentTypes}
                       maxFileSize={maxFileSize}

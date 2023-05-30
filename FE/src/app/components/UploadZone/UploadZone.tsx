@@ -9,7 +9,7 @@ type Props = {
   maxFileSize?: number
   onFilesAccepted?: (files: CustomFile[]) => void
   label?: string
-  labelTooltip: string | null
+  labelTooltip: string
   disabled?: boolean
 }
 
