@@ -10,13 +10,10 @@ import { parseUrl } from '../utils/strings'
 
 export class OfferStore {
   public offerUrl = ''
-  public uploadDocumentUrl = ''
-  public removeDocumentUrl = ''
   public errorPageUrl = ''
   public sessionExpiredPageUrl = ''
   public acceptOfferUrl = ''
   public cancelOfferUrl = ''
-  public maxUploadGroupSize = 0
   public isSupplierMandatory = false
   private globalQueryParams: QueryParams
   private type: OfferType
@@ -184,12 +181,24 @@ export class OfferStore {
    */
   @computed public get acceptanceGroups(): NewOfferResponse.AcceptanceGroup[] | undefined {
     const groups = this.confirm?.body.params?.map(({ title, group }) => {
-      const docs = this.getDocumentGroup(group)
-      const groupAccepted = docs?.every(d => d.accepted)
+      const docsGroup = this.getDocumentGroup(group)
+
+      // first find if there are some mandatory documents in the group
+      const groupHasMandatory = docsGroup?.some(doc => doc.mandatory)
+
+      let groupAccepted
+
+      // if there are some mandatory documents in the group, then all of them must be accepted
+      if (groupHasMandatory) {
+        groupAccepted = docsGroup.filter(doc => doc.mandatory).every(doc => doc.accepted)
+      } else {
+        // if there are no mandatory documents in the group, then all of them must be accepted
+        groupAccepted = docsGroup.every(doc => doc.accepted)
+      }
 
       return {
         title,
-        group: group,
+        group,
         accepted: groupAccepted,
       }
     })

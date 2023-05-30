@@ -19,7 +19,7 @@ interface DocsCheckProps {
   docsFiles: NewOfferResponse.Docs['files']
   docsText: NewOfferResponse.Docs['text']
   handleDownload: () => void
-  getFileUrl: string | undefined
+  getFileUrl: string
   guid: string
 }
 
@@ -54,7 +54,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
                 <div
                   className="editorial-content text-center"
                   dangerouslySetInnerHTML={{
-                    __html: headParams.map(param => param.title + ' ' + param.value).join(' <br>'),
+                    __html: headParams.map(param => `${param.title} ${param.value}`).join(' <br>'),
                   }}
                 />
               )}

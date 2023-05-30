@@ -11,8 +11,8 @@ import { Button, Form } from 'react-bootstrap'
 interface ConfirmProps {
   t: ReturnType<typeof useLabels>
   setConfirmationModal: (value: boolean) => void
-  suppliers: Suppliers | undefined
-  cancelDialog: CancelDialog | undefined
+  suppliers?: Suppliers
+  cancelDialog?: CancelDialog
 }
 
 const Confirm: FC<ConfirmProps> = observer(

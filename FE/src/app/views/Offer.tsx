@@ -32,16 +32,12 @@ export const Offer: React.FC<View> = observer(
     thumbnailUrl,
     signFileUrl,
     timeout,
-    uploadFileUrl,
-    removeFileUrl,
     errorPageUrl,
-    maxGroupFileSize,
     acceptOfferUrl,
     thankYouPageUrl,
     sessionExpiredPageUrl,
     backToOfferUrl,
     suppliers,
-    // version = 3,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl, guid))
     const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
@@ -59,19 +55,6 @@ export const Offer: React.FC<View> = observer(
       store.errorPageUrl = errorPageUrl
       store.sessionExpiredPageUrl = sessionExpiredPageUrl
       store.fetchOffer(timeout)
-
-      // set correct upload document URL if provided
-      if (uploadFileUrl) {
-        store.uploadDocumentUrl = uploadFileUrl
-      }
-
-      if (removeFileUrl) {
-        store.removeDocumentUrl = removeFileUrl
-      }
-
-      if (maxGroupFileSize) {
-        store.maxUploadGroupSize = maxGroupFileSize
-      }
 
       if (acceptOfferUrl) {
         store.acceptOfferUrl = acceptOfferUrl
@@ -169,14 +152,14 @@ export const Offer: React.FC<View> = observer(
                     key={item.position}
                     t={t}
                     headerTitle={item.header.title}
-                    headTitle={item.body.head?.title || ''}
-                    headParams={item.body.head?.params || []}
-                    headText={item.body.head?.text || ''}
-                    docsTitle={item.body.docs?.title || ''}
-                    docsFiles={item.body.docs?.files || []}
-                    docsText={item.body.docs?.text || ''}
+                    headTitle={item.body.head?.title ?? ''}
+                    headParams={item.body.head?.params ?? []}
+                    headText={item.body.head?.text ?? ''}
+                    docsTitle={item.body.docs?.title ?? ''}
+                    docsFiles={item.body.docs?.files ?? []}
+                    docsText={item.body.docs?.text ?? ''}
                     handleDownload={handleDownload}
-                    getFileUrl={getFileUrl}
+                    getFileUrl={getFileUrl ?? ''}
                     guid={guid}
                   />
                 )
@@ -186,10 +169,10 @@ export const Offer: React.FC<View> = observer(
                   <DocsSign
                     t={t}
                     headerTitle={item.header.title}
-                    docsTitle={item.body.docs?.title || ''}
-                    docsText={item.body.docs?.text || ''}
-                    docsFiles={item.body.docs?.files || []}
-                    getFileUrl={getFileUrl}
+                    docsTitle={item.body.docs?.title ?? ''}
+                    docsText={item.body.docs?.text ?? ''}
+                    docsFiles={item.body.docs?.files ?? []}
+                    getFileUrl={getFileUrl ?? ''}
                     guid={guid}
                     handleDownload={handleDownload}
                     openSignatureModal={openSignatureModal}

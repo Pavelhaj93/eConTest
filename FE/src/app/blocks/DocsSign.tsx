@@ -17,7 +17,7 @@ interface DocsSignProps {
   docsTitle: NewOfferResponse.Docs['title']
   docsText: NewOfferResponse.Docs['text']
   docsFiles: NewOfferResponse.Docs['files']
-  getFileUrl: string | undefined
+  getFileUrl: string
   guid: string
   handleDownload: () => void
   openSignatureModal: (key: string) => void
