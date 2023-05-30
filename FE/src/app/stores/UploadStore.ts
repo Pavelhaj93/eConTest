@@ -41,19 +41,19 @@ export class UploadStore {
     this.globalQueryParams = { guid }
   }
 
-  @computed public get uploadGroupSizeExceeded(): boolean {
-    if (this.maxUploadGroupSize === 0) {
-      return false
-    }
-    // sum sizes from all upload groups
-    const totalSize =
-      this.uploadResponseItems
-        ?.map(uploadGroup => uploadGroup.body.docs.files)
-        .flat()
-        .reduce((acc, file) => acc + file.size, 0) ?? 0
+  // @computed public get uploadGroupSizeExceeded(): boolean {
+  //   if (this.maxUploadGroupSize === 0) {
+  //     return false
+  //   }
+  //   // sum sizes from all upload groups
+  //   const totalSize =
+  //     this.uploadResponseItems
+  //       ?.map(uploadGroup => uploadGroup.body.docs.files)
+  //       .flat()
+  //       .reduce((acc, file) => acc + file.size, 0) ?? 0
 
-    return totalSize >= this.maxUploadGroupSize
-  }
+  //   return totalSize >= this.maxUploadGroupSize
+  // }
 
   @computed public get isOfferDirty(): boolean {
     // if at least one document was uploaded (or is uploading) => the offer is dirty
@@ -201,7 +201,7 @@ export class UploadStore {
       }
 
       const { size } = await response.json()
-      this.setUploadGroupSize(category, size)
+      // this.setUploadGroupSize(category, size)
 
       return Promise.resolve({ uploaded: true })
     } catch (error) {
@@ -254,7 +254,7 @@ export class UploadStore {
     }
 
     const { size } = await response.json()
-    this.setUploadGroupSize(category, size)
+    // this.setUploadGroupSize(category, size)
   }
 
   @action public addUserFiles(files: CustomFile[], category: string): void {
@@ -279,14 +279,14 @@ export class UploadStore {
     }
   }
 
-  @action private setUploadGroupSize(id: string, size: number): void {
-    const group = this.uploadResponseItems
-      ?.map?.(item => item.body.docs.files)
-      .flat()
-      .find(file => file.id === id)
+  // @action private setUploadGroupSize(id: string, size: number): void {
+  //   const group = this.uploadResponseItems
+  //     ?.map?.(item => item.body.docs.files)
+  //     .flat()
+  //     .find(file => file.id === id)
 
-    if (!group) return
+  //   if (!group) return
 
-    group.size = size
-  }
+  //   group.size = size
+  // }
 }
