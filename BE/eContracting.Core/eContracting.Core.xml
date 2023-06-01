@@ -1178,6 +1178,24 @@
             Represents folder with defined steps.
             </summary>
         </member>
+        <member name="F:eContracting.Models.JsonDescriptor.FileDataModel.XmlAttributes">
+            <summary>
+            Gets all XML template file attributes as collection.
+            </summary>
+            <see cref="P:eContracting.Models.OfferAttachmentXmlModel.XmlTemplateAttributes"/>
+        </member>
+        <member name="M:eContracting.Models.JsonDescriptor.FileDataModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonAcceptFileModel"/> class.
+            </summary>
+        </member>
+        <member name="M:eContracting.Models.JsonDescriptor.FileDataModel.#ctor(eContracting.Models.OfferAttachmentModel)">
+            <summary>
+            Initializes a new instance of the <see cref="T:eContracting.Models.JsonDescriptor.FileDataModel"/> class.
+            </summary>
+            <param name="attachment">The attachment.</param>
+            <exception cref="T:System.ArgumentNullException">attachment</exception>
+        </member>
         <member name="P:eContracting.Models.JsonOfferDistributorChangeModel.Title">
             <summary>
             Gets or sets the title.

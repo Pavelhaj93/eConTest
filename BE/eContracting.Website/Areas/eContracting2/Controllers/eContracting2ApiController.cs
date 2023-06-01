@@ -500,7 +500,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                     return this.BadRequest("Offer is already accepted");
                 }
 
-                var model = this.OfferJsonDescriptor.GetNew(offer, user);
+                var model = this.OfferJsonDescriptor.GetNew2(offer, user);
                 return this.Json(model);
             }
             catch (EndpointNotFoundException ex)

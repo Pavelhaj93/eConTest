@@ -525,6 +525,14 @@
             <param name="attachments"></param>
             <returns>Always returns the object.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew2(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[])">
+            <summary>
+            Gets container for new non-accepted offer.
+            </summary>
+            <param name="offer"></param>
+            <param name="attachments"></param>
+            <returns>Always returns the object.</returns>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetAllSalesArguments(System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)">
             <summary>
             Gets all sales arguments.
@@ -548,6 +556,16 @@
             <param name="definition">The matrix combination.</param>
             <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetUploads2(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[],eContracting.Models.IDefinitionCombinationModel,System.Boolean)">
+            <summary>
+            Returns <see cref="T:eContracting.Models.JsonDescriptor.UploadDataModel"/> for mandatory and optional files
+            </summary>
+            <param name="offer"></param>
+            <param name="files"></param>
+            <param name="definition"></param>
+            <param name="returnMandatoryFiles">if true <see cref="T:eContracting.Models.JsonDescriptor.UploadDataModel"/> containing mandatory files is returned if false <see cref="T:eContracting.Models.JsonDescriptor.UploadDataModel"/> containing optional files</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductType(eContracting.Models.OffersModel)">
             <summary>
             Gets <c>G</c> for gas, <c>E</c> for electricity.
@@ -570,7 +588,23 @@
             <param name="files">Collection of files in one group.</param>
             <param name="productInfos">Collection of all product information.</param>
         </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.UpdateProductInfo2(System.Collections.Generic.IEnumerable{eContracting.Models.JsonDescriptor.FileDataModel},eContracting.Models.IProductInfoModel[])">
+            <summary>
+            Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
+            If match found, a <see cref="T:eContracting.Models.JsonDescriptor.FileDataModel"/> is enriched with <see cref="T:eContracting.Models.IProductInfoModel"/> container.
+            </summary>
+            <param name="files">Collection of files in one group.</param>
+            <param name="productInfos">Collection of all product information.</param>
+        </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetMatchedProductInfo(eContracting.Models.JsonAcceptFileModel,eContracting.Models.IProductInfoModel[])">
+            <summary>
+            Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
+            </summary>
+            <param name="file">A file to find match with <see cref="T:eContracting.Models.IProductInfoModel"/>.</param>
+            <param name="productInfos">Collection of all product information.</param>
+            <returns>If match found, returns <see cref="T:eContracting.Models.IProductInfoModel"/>, otherwise null.</returns>
+        </member>
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetMatchedProductInfo2(eContracting.Models.JsonDescriptor.FileDataModel,eContracting.Models.IProductInfoModel[])">
             <summary>
             Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
             </summary>

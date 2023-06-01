@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class CompetitorDataHeaderModel : IDataHeaderModel
+    public class TitleDataHeaderModel : IDataHeaderModel
     {
         public string Title { get; set; }
-    }    
+    }
 }

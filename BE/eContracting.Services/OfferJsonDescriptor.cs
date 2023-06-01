@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using eContracting.Models;
 using eContracting.Models.JsonDescriptor;
+using Glass.Mapper;
 using Glass.Mapper.Sc;
 using JSNLog.Infrastructure;
 using Sitecore.ApplicationCenter.Applications;
@@ -16,6 +17,7 @@ using Sitecore.Publishing.Explanations;
 using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.StringExtensions;
 using Sitecore.Web;
+using Sitecore.Web.UI.HtmlControls;
 using static eContracting.Models.JsonOfferPersonalDataModel;
 using static eContracting.Models.JsonOfferProductModel;
 
@@ -61,7 +63,7 @@ namespace eContracting.Services
             this.OfferService = offerService ?? throw new ArgumentNullException(nameof(offerService));
             this.SettingsReaderService = settingsReaderService ?? throw new ArgumentNullException(nameof(settingsReaderService));
         }
-
+                        
         /// <inheritdoc/>
         public JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user)
         {
@@ -123,6 +125,12 @@ namespace eContracting.Services
         {
             var attachments = this.OfferService.GetAttachments(offer, user);
             return this.GetNew(offer, attachments);
+        }
+
+        public ContainerModel GetNew2(OffersModel offer, UserCacheDataModel user)
+        {
+            var attachments = this.OfferService.GetAttachments(offer, user);
+            return this.GetNew2(offer, attachments);
         }
 
         /// <inheritdoc/>
@@ -232,7 +240,7 @@ namespace eContracting.Services
             }
 
             var model = new ContractualDataModel();
-            var header = new ContractualDataHeaderModel();
+            var header = new TitleDataHeaderModel();
             header.Title = this.TextService.FindByKey("CONTRACTUAL_DATA");
             model.Header = header;
 
@@ -455,7 +463,7 @@ namespace eContracting.Services
             var summaryPageId = siteSettings.Summary.TargetId;
             var summaryPage = this.SitecoreService.GetItem<IPageSummaryOfferModel>(summaryPageId);
             var model = new CompetitorDataModel();
-            var header = new CompetitorDataHeaderModel();
+            var header = new TitleDataHeaderModel();
             header.Title = summaryPage.DistributorChange_Title;
             model.Header = header;
             var body = new CompetitorDataBodyModel();
@@ -526,6 +534,86 @@ namespace eContracting.Services
             return model;
         }
 
+        /// <summary>
+        /// Gets container for new non-accepted offer.
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <param name="attachments"></param>
+        /// <returns>Always returns the object.</returns>
+        protected internal ContainerModel GetNew2(OffersModel offer, OfferAttachmentModel[] attachments)
+        {
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+            var productInfos = this.SettingsReaderService.GetAllProductInfos();
+            
+            var container = new ContainerModel();
+            
+            if(offer.Version > 1)
+            {
+                if (definition.OfferPerexShow)
+                {
+                    var perexData = this.GetPerex2(offer.TextParameters, definition);
+
+                    if (perexData != null)
+                    {
+                        container.Data.Add(perexData);
+                    }
+                }
+
+                if (offer.Version == 2)
+                {
+                    var benefitData = this.GetCommoditySalesArguments2(offer.TextParameters, definition);
+                    if (benefitData != null)
+                    {
+                        container.Data.Add(benefitData);
+                    }
+                }
+            }
+                        
+            var docsAcceptanceData = this.GetDocumentsAcceptance2(offer, definition, productInfos, attachments);
+            if (docsAcceptanceData != null)
+            {
+                container.Data.Add(docsAcceptanceData);            
+            }            
+            var docsSignData = this.GetDocumentsSign2(offer, definition, productInfos, attachments);            
+            if (docsSignData != null)
+            {
+                container.Data.Add(docsSignData);
+            }
+            
+            var docsOtherServices = this.GetOtherProducts2(offer, attachments, definition, productInfos); 
+            
+            if (docsOtherServices != null)
+            {
+                container.Data.Add(docsOtherServices);
+            }
+
+            var docsAdditionalServices = this.GetAdditionalServices2(offer, attachments, definition, productInfos);
+            if (docsAdditionalServices != null)
+            {
+                container.Data.Add(docsAdditionalServices);
+            }
+
+            var returnMandatory = true;
+            var  mandatoryUploads = this.GetUploads2(offer, attachments, definition, returnMandatory);
+            if (mandatoryUploads != null)
+            {
+                container.Data.Add(mandatoryUploads);
+            }
+
+            returnMandatory = false;
+            var optionalUploads = this.GetUploads2(offer, attachments, definition, returnMandatory);
+            if (optionalUploads != null)
+            {
+                container.Data.Add(optionalUploads);
+            }
+
+            //ToDo: ("type": "confirm")
+            //model.AcceptanceDialog = this.GetAcceptance(offer, definition);
+
+            return container;
+        }
+
+
         protected internal IEnumerable<JsonFilesSectionModel> GetSection(string groupName, IEnumerable<OfferAttachmentModel> attachments, IDefinitionCombinationModel definition, OffersModel offer)
         {
             var list = new List<JsonFilesSectionModel>();
@@ -590,6 +678,43 @@ namespace eContracting.Services
             }
 
             return null;
+        }
+
+        protected internal PerexDataModel GetPerex2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
+        {
+            var parameters = new List<TitleAndValueModel>();
+            var keys = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_NAME")).ToArray();
+            var values = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE")).ToArray();
+
+
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var key = keys[i];
+                var title = textParameters[key];
+                var value = this.GetEnumPairValue(key, textParameters);
+
+                if (value != null)
+                {
+                    parameters.Add(new TitleAndValueModel(title, value));
+                }
+            }
+
+            if (parameters.Count > 0)
+            {
+                var model = new PerexDataModel();
+                
+                var header = new TitleDataHeaderModel();
+                header.Title = definition.OfferPerexTitle?.Text.Trim();
+                model.Header = header;
+
+                var body = new PerexBodyModel();
+                body.Params = parameters;
+                model.Body = body;
+                
+                return model;
+            }
+
+            return null;                        
         }
 
         /// <summary>
@@ -690,6 +815,27 @@ namespace eContracting.Services
                         model.CommodityProductType = "E";
                 }
             }
+
+            return model;
+        }
+
+        protected internal BenefitDataModel GetCommoditySalesArguments2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
+        {
+            var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
+            
+            if (values.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new BenefitDataModel();
+            var header = new TitleDataHeaderModel();
+            header.Title = definition.OfferBenefitsTitle?.Text.Trim();
+            model.Header = header;
+
+            var body = new BenefitDataBodyModel();
+            body.Points = values.Select(x => new ValueModel(x));
+            model.Body = body;           
 
             return model;
         }
@@ -949,6 +1095,72 @@ namespace eContracting.Services
             return model;
         }
 
+        protected internal DocumentDataModel GetDocumentsAcceptance2(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
+        {
+            var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.COMMODITY && x.IsPrinted == true && x.IsSignReq == false).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new DocumentDataModel();
+            model.Type = "docsCheck";
+            var header = new TitleDataHeaderModel();
+            header.Title = ""; // ToDo: Documenty k podpisu - doesn't exist in original JSON but requested in new design
+            model.Header = header;
+
+            var body = new DocumentDataBodyModel();            
+
+            var bodyHead = new DocumentDataBodyHeadModel();
+            bodyHead.Title = definition.OfferDocumentsForElectronicAcceptanceTitle?.Text.Trim();
+            bodyHead.Params = null;
+            bodyHead.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForElectronicAcceptanceText?.Text, offer.TextParameters);
+            body.Head = bodyHead;
+
+            body.Text = null; // není rich text mezi šedými bloky
+                        
+            body.Docs = this.GetDocsDataModel(offer, definition, productInfos, selectedFiles, false, Constants.OfferGroups.COMMODITY);
+
+            body.Note = null; // ToDo
+
+            model.Body = body;
+            return model;
+        }
+
+        protected internal DocumentDataModel GetDocumentsSign2(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
+        {
+            var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.COMMODITY && x.IsPrinted == true && x.IsSignReq == true).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new DocumentDataModel();
+            model.Type = "docsSign";
+            var header = new TitleDataHeaderModel();
+            header.Title = ""; // ToDo: Documenty k podpisu - doesn't exist in original JSON but requested in new design
+            model.Header = header;
+
+            var body = new DocumentDataBodyModel();
+
+            var bodyHead = new DocumentDataBodyHeadModel();
+            bodyHead.Title = definition.OfferDocumentsForSignTitle?.Text.Trim();
+            bodyHead.Params = null;
+            bodyHead.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForSignText?.Text, offer.TextParameters);
+            body.Head = bodyHead;
+
+            body.Text = null; // není rich text mezi šedými bloky
+
+            body.Docs = this.GetDocsDataModel(offer, definition, productInfos, selectedFiles, true, Constants.OfferGroups.COMMODITY);
+
+            body.Note = null; // ToDo
+
+            model.Body = body;
+            return model;
+        }
+
         protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition, productInfos);
@@ -1004,6 +1216,55 @@ namespace eContracting.Services
 
             model.Files = list;
             return model;
+        }
+
+        private DocsDataModel GetDocsDataModel(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] selectedFiles, bool isSignReq, string group)
+        {
+            var model = new DocsDataModel();            
+            if (group == Constants.OfferGroups.COMMODITY && !isSignReq) //Acceptance
+            {
+                model.Title = definition.OfferDocumentsForAcceptanceTitle?.Text.Trim();
+                model.Params = null; // ToDo: Check this                
+                model.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForAcceptanceText?.Text, offer.TextParameters);
+            }
+            if (group == Constants.OfferGroups.COMMODITY) // Signed
+            {
+                model.Title = isSignReq ? definition.OfferDocumentsForSignTitle?.Text.Trim() : definition.OfferDocumentsForAcceptanceTitle?.Text.Trim();
+                model.Params = null; 
+                model.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForSignText?.Text, offer.TextParameters);
+            }
+            else if (group == Constants.OfferGroups.NONCOMMODITY)
+            {
+                model.Title = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsTitle?.Text.Trim(), offer.TextParameters);
+                model.Params = null; 
+                model.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryText?.Text, offer.TextParameters);
+            }
+            else // DSL
+            {
+                model.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsTitle?.Text.Trim(), offer.TextParameters);
+                model.Params = null; 
+                model.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsText?.Text.Trim(), offer.TextParameters);
+            }
+            
+            var list = new List<FileDataModel>();
+
+            for (int i = 0; i < selectedFiles.Length; i++)
+            {
+                var selectedFile = selectedFiles[i];
+                var file = new FileDataModel(selectedFile);
+                file.Prefix = this.GetFileLabelPrefix(selectedFile);
+                list.Add(file);
+
+                if (file.Mandatory)
+                {
+                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
+                }
+            }
+
+            this.UpdateProductInfo2(list, productInfos);
+
+            model.Files = list;
+            return model;            
         }
 
         protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
@@ -1077,6 +1338,62 @@ namespace eContracting.Services
             model.Title = Utils.GetReplacedTextTokens(definition.OfferUploadsTitle?.Text.Trim(), offer.TextParameters);
             model.Note = Utils.GetReplacedTextTokens(definition.OfferUploadsNote?.Text.Trim(), offer.TextParameters);
             model.Types = list;
+            return model;
+        }
+
+        /// <summary>
+        /// Returns <see cref="UploadDataModel"/> for mandatory and optional files
+        /// </summary>
+        /// <param name="offer"></param>
+        /// <param name="files"></param>
+        /// <param name="definition"></param>
+        /// <param name="returnMandatoryFiles">if true <see cref="UploadDataModel"/> containing mandatory files is returned if false <see cref="UploadDataModel"/> containing optional files</param>
+        /// <returns></returns>
+        protected internal UploadDataModel GetUploads2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, bool returnMandatoryFiles)
+        {
+            var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
+
+            if (fileTemplates.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new UploadDataModel();
+            model.Type = "upload";
+            var header = new TitleDataHeaderModel();
+            header.Title = ""; // ToDo: Solve Upload title
+            model.Header = header;
+
+            var body = new UploadDataBodyModel();
+
+            var docsModel = new UploadDataDocsModel();
+            
+            var list = new List<JsonUploadTemplateModel>();
+
+            for (int i = 0; i < fileTemplates.Length; i++)
+            {
+                var template = fileTemplates[i];
+                var file = new JsonUploadTemplateModel(template);
+                file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
+
+                if (file.Mandatory && returnMandatoryFiles)
+                {                    
+                    list.Add(file); // mandatory
+                }
+                else if (!file.Mandatory && !returnMandatoryFiles)
+                {
+                    list.Add(file); // optional
+                }
+            }
+
+            docsModel.Title = Utils.GetReplacedTextTokens(definition.OfferUploadsTitle?.Text.Trim(), offer.TextParameters);
+            docsModel.Text = null; // ToDo: Check this
+            docsModel.Note = Utils.GetReplacedTextTokens(definition.OfferUploadsNote?.Text.Trim(), offer.TextParameters); // ToDo: Check this
+            docsModel.Files = list;
+
+            body.Docs = docsModel;
+
+            model.Body = body;
             return model;
         }
 
@@ -1158,6 +1475,84 @@ namespace eContracting.Services
             return model;
         }
 
+        protected internal DocumentDataModel GetAdditionalServices2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        {
+            var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.DSL && x.IsPrinted == true && x.IsSignReq == false).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+
+            var model = new DocumentDataModel();
+            model.Type = "docsCheck";
+            var header = new TitleDataHeaderModel();
+            header.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesTitle?.Text.Trim(), offer.TextParameters);            
+            model.Header = header;
+
+            var body = new DocumentDataBodyModel();
+
+            var bodyHead = new DocumentDataBodyHeadModel();
+            bodyHead.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryTitle?.Text, offer.TextParameters);
+            bodyHead.Params = null;
+            bodyHead.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryText?.Text, offer.TextParameters);
+            body.Head = bodyHead;
+
+            #region DocsDataModel
+            //var docsModel = new DocsDataModel();
+            //docsModel.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsTitle?.Text.Trim(), offer.TextParameters); 
+            //docsModel.Params = null; // ToDo: Check this
+            //docsModel.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsText?.Text.Trim(), offer.TextParameters);
+
+            //var list = new List<FileDataModel>();
+
+            //for (int i = 0; i < selectedFiles.Length; i++)
+            //{
+            //    var selectedFile = selectedFiles[i];
+            //    var file = new FileDataModel(selectedFile);
+            //    file.Prefix = this.GetFileLabelPrefix(selectedFile);
+
+            //    if (file.Mandatory)
+            //    {
+            //        docsModel.MandatoryGroups.Add(selectedFile.GroupGuid);
+            //    }
+
+            //    list.Add(file);
+            //}
+
+            //this.UpdateProductInfo2(list, productInfos);
+
+            //var parameters = new List<TitleAndValueModel>();
+            //var salesArguments = new List<JsonArgumentModel>();
+            //if (offer.Version < 3)
+            //{
+            //    foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
+            //    {
+            //        var key = item.Value;
+            //        var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+            //        parameters.Add(new TitleAndValueModel(key, value));
+            //    }
+
+            //    foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
+            //    {
+            //        salesArguments.Add(new JsonArgumentModel(item.Value));
+            //    }
+            //}
+
+            //docsModel.Files = list;
+            //docsModel.Params = parameters;
+
+            //body.Docs = docsModel;
+            #endregion
+
+            body.Docs = this.GetDocsDataModel(offer, definition, productInfos, selectedFiles, false, Constants.OfferGroups.DSL);
+
+            body.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesNote?.Text.Trim(), offer.TextParameters);
+
+            model.Body = body;
+            return model;
+        }
+
         protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
@@ -1218,6 +1613,81 @@ namespace eContracting.Services
             model.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsText?.Text.Trim(), offer.TextParameters);
             model.Files = list;
 
+            return model;
+        }
+
+        protected internal DocumentDataModel GetOtherProducts2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
+        {
+            var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.NONCOMMODITY && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
+
+            if (selectedFiles.Length == 0)
+            {
+                return null;
+            }
+            
+            var model = new DocumentDataModel();
+            model.Type = "docsCheck";
+            var header = new TitleDataHeaderModel();
+            header.Title = Utils.GetReplacedTextTokens(definition.OfferOtherProductsTitle?.Text.Trim(), offer.TextParameters);
+            model.Header = header;
+
+            var body = new DocumentDataBodyModel();
+            
+            var bodyHead = new DocumentDataBodyHeadModel();
+            bodyHead.Title = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryTitle?.Text, offer.TextParameters);
+            bodyHead.Params = null;
+            bodyHead.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryText?.Text, offer.TextParameters);
+            body.Head = bodyHead;
+
+            #region DocsDataModel
+            //var docsModel = new DocsDataModel();
+            //docsModel.Title = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsTitle?.Text.Trim(), offer.TextParameters);
+            //docsModel.Params = null; // ToDo: Check this
+            //docsModel.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryText?.Text, offer.TextParameters); //ToDo: Check this
+
+            //var list = new List<FileDataModel>();
+
+            //for (int i = 0; i < selectedFiles.Length; i++)
+            //{
+            //    var selectedFile = selectedFiles[i];
+            //    var file = new FileDataModel(selectedFile);
+            //    file.Prefix = this.GetFileLabelPrefix(selectedFile);
+            //    list.Add(file);
+
+            //    if (file.Mandatory)
+            //    {
+            //        docsModel.MandatoryGroups.Add(selectedFile.GroupGuid);
+            //    }
+            //}
+
+            //this.UpdateProductInfo2(list, productInfos);
+
+            //var parameters = new List<TitleAndValueModel>();
+            //var salesArguments = new List<JsonArgumentModel>();
+            //if (offer.Version < 3)
+            //{
+            //    foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
+            //    {
+            //        var key = item.Value;
+            //        var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
+            //        parameters.Add(new TitleAndValueModel(key, value));
+            //    }
+
+            //    foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
+            //    {
+            //        salesArguments.Add(new JsonArgumentModel(item.Value));
+            //    }
+            //}
+
+            //docsModel.Files = list;
+            //docsModel.Params = parameters;
+            #endregion
+
+            body.Docs = this.GetDocsDataModel(offer, definition, productInfos, selectedFiles, false, Constants.OfferGroups.NONCOMMODITY);
+
+            body.Note = Utils.GetReplacedTextTokens(definition.OfferOtherProductsNote?.Text.Trim(), offer.TextParameters);
+
+            model.Body = body;
             return model;
         }
 
@@ -1948,11 +2418,11 @@ namespace eContracting.Services
             foreach (var label in labels)
             {
                 var model2 = new BenefitDataModel();
-                var header = new BenefitDataHeaderModel();
+                var header = new TitleDataHeaderModel();
                 header.Title = Utils.StripHtml(label.Value);
                 model2.Header = header;
 
-                var body = new BenefitDataBodyModel();
+                var body = new SummaryBenefitDataBodyModel();
                 body.Infos = GetAttributesSummary(label, textParameters);
                 body.Points = GetSalesArguments(label, textParameters);
                 model2.Body = body;
@@ -2144,6 +2614,46 @@ namespace eContracting.Services
         }
 
         /// <summary>
+        /// Go through <paramref name="files"/> and finding match with <paramref name="productInfos"/>.
+        /// If match found, a <see cref="FileDataModel"/> is enriched with <see cref="IProductInfoModel"/> container.
+        /// </summary>
+        /// <param name="files">Collection of files in one group.</param>
+        /// <param name="productInfos">Collection of all product information.</param>
+        protected internal void UpdateProductInfo2(IEnumerable<FileDataModel> files, IProductInfoModel[] productInfos)
+        {
+            if (!(files?.Any() ?? false))
+            {
+                return;
+            }
+
+            var filesArray = files.ToArray();
+
+            for (int i = 0; i < filesArray.Length; i++)
+            {
+                var file = filesArray[i];
+                var productInfo = this.GetMatchedProductInfo2(file, productInfos);
+
+                if (productInfo != null)
+                {
+                    var note = productInfo.Note;
+                    file.Note = note;
+                    file.MatchedProductInfo = productInfo;
+
+                    if (i > 0)
+                    {
+                        var previousFile = filesArray[i - 1];
+
+                        if (file.MatchedProductInfo == productInfo && previousFile.Note == note)
+                        {
+                            previousFile.Note = null;
+                            previousFile.MatchedProductInfo = null;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
         /// </summary>
         /// <param name="file">A file to find match with <see cref="IProductInfoModel"/>.</param>
@@ -2195,5 +2705,66 @@ namespace eContracting.Services
 
             return mostMatchesProductInfoKeys;
         }
+
+        /// <summary>
+        /// Finds match in <paramref name="file"/> attributes and <paramref name="productInfos"/>.
+        /// </summary>
+        /// <param name="file">A file to find match with <see cref="IProductInfoModel"/>.</param>
+        /// <param name="productInfos">Collection of all product information.</param>
+        /// <returns>If match found, returns <see cref="IProductInfoModel"/>, otherwise null.</returns>
+        protected internal IProductInfoModel GetMatchedProductInfo2(FileDataModel file, IProductInfoModel[] productInfos)
+        {
+            var matchedProductInfos = new List<KeyValuePair<IProductInfoModel, string[]>>();
+
+            foreach (var productInfo in productInfos)
+            {
+                int matches = 0;
+                var matchesKeys = new List<string>();
+                var attributes = productInfo.XmlAttributes;
+
+                foreach (var key in attributes.AllKeys)
+                {
+                    var value = attributes[key];
+
+                    if (value == "-" || value == "–")
+                    {
+                        value = string.Empty;
+                    }
+
+                    if (file.XmlAttributes.ContainsKey(key) && file.XmlAttributes[key] == value)
+                    {
+                        matches++;
+                        matchesKeys.Add(key);
+                    }
+                }
+
+                if (matches == productInfo.XmlAttributes.Count)
+                {
+                    matchedProductInfos.Add(new KeyValuePair<IProductInfoModel, string[]>(productInfo, matchesKeys.ToArray()));
+                }
+            }
+
+            if (matchedProductInfos.Count == 0)
+            {
+                return null;
+            }
+
+            if (matchedProductInfos.Count == 1)
+            {
+                return matchedProductInfos.First().Key;
+            }
+
+            var mostMatchesProductInfoKeys = matchedProductInfos.OrderByDescending(x => x.Value.Length).First().Key;
+
+            return mostMatchesProductInfoKeys;
+        }
+    }
+
+    // ToDo: Delete if it is not necessary
+    public enum OfferDocumentType
+    {
+        DocsCheck,
+        DocsSign,
+        DocsUpload
     }
 }
