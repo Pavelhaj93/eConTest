@@ -1,4 +1,4 @@
-import { useKeepAlive, useLabels } from '@hooks'
+import { useKeepAlive, useLabels, useUnload } from '@hooks'
 import { View } from '@types'
 import { parseUrl } from '@utils'
 import { observer } from 'mobx-react-lite'
@@ -7,6 +7,7 @@ import { UploadStore } from '../stores/UploadStore'
 import { Alert, Button } from 'react-bootstrap'
 import classNames from 'classnames'
 import { Box, FileUpload, UploadZone } from '@components'
+import { computed } from 'mobx'
 
 export const Upload: FC<View> = observer(
   ({
@@ -38,6 +39,14 @@ export const Upload: FC<View> = observer(
       store.maxUploadGroupSize = maxGroupFileSize
     }
 
+    // show warning to user when trying to refresh or leave the page once he did some changes
+    useUnload(ev => {
+      if (store.isDirty && !store.forceReload) {
+        ev.preventDefault()
+        ev.returnValue = ''
+      }
+    })
+
     useEffect(() => {
       store.fetchUploads(timeout)
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -63,7 +72,7 @@ export const Upload: FC<View> = observer(
           })}
         >
           {store.uploadResponseItems?.map(item => (
-            <>
+            <Fragment key={item.position}>
               <h1 className="mt-5 text-center">{item.header?.title}</h1>
               <Box>
                 <h2 className="text-center">{item.body.docs.title}</h2>
@@ -76,8 +85,9 @@ export const Upload: FC<View> = observer(
                       allowedContentTypes={allowedContentTypes}
                       maxFileSize={maxFileSize}
                       onFilesAccepted={files => store.addUserFiles(files, categoryId)}
-                      disabled={store.uploadGroupSizeExceeded}
+                      disabled={computed(() => store.uploadGroupSizeExceeded(item.position)).get()}
                     />
+
                     {/* custom uploaded documents */}
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
@@ -108,7 +118,7 @@ export const Upload: FC<View> = observer(
                   dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
                 />
               </Box>
-            </>
+            </Fragment>
           ))}
           <div className="text-center">
             <Button

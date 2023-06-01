@@ -1,5 +1,3 @@
-// const { generateId } = require('../../../strings')
-
 /**
  * Mock upload document response by returning 200 or 400 HTTP status code.
  * Also simulate a short delay.

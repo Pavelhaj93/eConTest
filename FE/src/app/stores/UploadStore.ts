@@ -41,21 +41,11 @@ export class UploadStore {
     this.globalQueryParams = { guid }
   }
 
-  @computed public get uploadGroupSizeExceeded(): boolean {
-    if (this.maxUploadGroupSize === 0) {
-      return false
-    }
-    // sum sizes from all upload groups
-    const totalSize =
-      this.uploadResponseItems
-        ?.map(uploadGroup => uploadGroup.body.docs.files)
-        .flat()
-        .reduce((acc, file) => acc + file.size, 0) ?? 0
-
-    return totalSize >= this.maxUploadGroupSize
-  }
-
-  @computed public get isOfferDirty(): boolean {
+  /**
+   * Returns true if at least one document was uploaded (or is uploading)
+   * @returns boolean
+   */
+  @computed public get isDirty(): boolean {
     // if at least one document was uploaded (or is uploading) => the offer is dirty
     if (Object.values(this.userDocuments).some(docs => docs.length)) {
       return true
@@ -64,6 +54,10 @@ export class UploadStore {
     return false
   }
 
+  /**
+   * Returns true if all mandatory documents are uploaded so the upload is finished and client can continue to the acceptance page
+   * @returns boolean
+   */
   @computed public get isUploadFinished(): boolean {
     // if there are no upload groups => nothing to validate
     if (!this.uploadResponseItems?.length) {
@@ -71,15 +65,6 @@ export class UploadStore {
     }
 
     let allUploaded = true
-
-    console.log(this.error)
-
-    console.log(
-      this.uploadResponseItems
-        .map(uploadGroup => uploadGroup.body.docs.files)
-        .map(file => file.filter(file => file.mandatory))
-        .flat(),
-    )
 
     // iterate over all mandatory uploadGroups
     this.uploadResponseItems
@@ -101,6 +86,9 @@ export class UploadStore {
     return allUploaded
   }
 
+  /**
+   * Enriches the uploadResponse items with size
+   */
   private enrichUploadDocuments(documents: UploadDocumentsResponse.File[]) {
     return documents.map(document => ({
       ...document,
@@ -108,6 +96,10 @@ export class UploadStore {
     }))
   }
 
+  /**
+   * Cancel uploading of the document.
+   * @param document - document to cancel
+   */
   public cancelUploadDocument(document: UserDocument): void {
     if (document.controller) {
       document.controller.abort()
@@ -316,13 +308,44 @@ export class UploadStore {
   }
 
   @action private setUploadGroupSize(id: string, size: number): void {
-    const group = this.uploadResponseItems
-      ?.map?.(item => item.body.docs.files)
-      .flat()
-      .find(file => file.id === id)
+    const group =
+      this.uploadResponseItems?.map?.(item => item.body.docs.files).flat()?.length &&
+      this.uploadResponseItems
+        ?.map(item => item.body.docs.files)
+        .flat()
+        .find(file => file.id === id)
 
     if (!group) return
 
     group.size = size
+  }
+
+  /**
+   * gets item from upload documents response by its position
+   * @param position - position of the item
+   * @returns `UploadDocumentsResponse.ResponseItem`
+   */
+  public getItemByPosition(
+    position: UploadDocumentsResponse.ResponseItem['position'],
+  ): UploadDocumentsResponse.ResponseItem | undefined {
+    return this.uploadResponseItems?.find(item => item.position === position)
+  }
+
+  /**
+   * Returns true if upload group size exceeded
+   * @param position - position of the item
+   * @returns `boolean`
+   * */
+  uploadGroupSizeExceeded(position: UploadDocumentsResponse.ResponseItem['position']): boolean {
+    if (this.maxUploadGroupSize === 0) {
+      return false
+    }
+    // find group by its position and sum sizes from all upload documents of the group
+    const totalSize = this.getItemByPosition(position)?.body.docs.files.reduce(
+      (acc, file) => acc + file.size,
+      0,
+    )
+
+    return totalSize !== undefined && totalSize >= this.maxUploadGroupSize
   }
 }

@@ -35,7 +35,7 @@ export class RelativeURL {
  */
 export const parseUrl = (url: string, params: QueryParams): string => {
   // Regular expression that matches strings, that are absolute urls.
-  const r = new RegExp('^(?:[a-z]+:)?//', 'i')
+  const r = /^(?:[a-z]+:)?\/\//i
   const isAbsoluteUrl = r.test(url)
 
   const { origin, pathname, search } = isAbsoluteUrl ? new URL(url) : new RelativeURL(url)

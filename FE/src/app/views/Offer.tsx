@@ -167,6 +167,7 @@ export const Offer: React.FC<View> = observer(
               case NewOfferResponse.ResponseItemType.DocsSign: {
                 return (
                   <DocsSign
+                    key={item.position}
                     t={t}
                     headerTitle={item.header.title}
                     docsTitle={item.body.docs?.title ?? ''}
@@ -182,6 +183,7 @@ export const Offer: React.FC<View> = observer(
               case NewOfferResponse.ResponseItemType.Confirm: {
                 return (
                   <Confirm
+                    key={item.position}
                     t={t}
                     suppliers={suppliers}
                     setConfirmationModal={setConfirmationModal}

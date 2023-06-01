@@ -33,12 +33,6 @@ export const FileUpload: React.FC<Props> = ({
   const t = useLabels(labels)
 
   useEffect(() => {
-    {
-      console.log('error', error)
-    }
-  }, [error])
-
-  useEffect(() => {
     async function uploadFile(file: File) {
       if (uploadHandler) {
         await uploadHandler(file)
