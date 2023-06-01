@@ -26,6 +26,9 @@ namespace eContracting.Models
         [JsonIgnore]
         public readonly OfferXmlModel Xml;
 
+        /// <summary>
+        /// Gets all text parameters.
+        /// </summary>
         [JsonIgnore]
         //[JsonProperty("parameters")]
         public IDictionary<string, string> TextParameters { get; } = new Dictionary<string, string>();
@@ -73,6 +76,9 @@ namespace eContracting.Models
         [JsonProperty("accepted")]
         public bool IsAccepted { get; }
 
+        /// <summary>
+        /// Gets expiration date.
+        /// </summary>
         [JsonProperty("expiration_date")]
         public DateTime ExpirationDate { get; }
 
@@ -173,6 +179,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Determinates if <see cref="Campaign"/> has any value or not.
+        /// </summary>
         [JsonProperty("isCampaign")]
         public bool IsCampaign
         {
@@ -207,6 +216,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets documents templates for all file types including uploads.
+        /// </summary>
         [JsonProperty("templates")]
         public OfferAttachmentXmlModel[] Documents
         {
@@ -216,6 +228,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets birthday for login screen.
+        /// </summary>
         [JsonProperty("birthdate")]
         public string Birthday
         {
@@ -225,6 +240,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets partner number (OP) for login screen.
+        /// </summary>
         [JsonProperty("pn")]
         public string PartnerNumber
         {
@@ -234,6 +252,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets post number of comsumption place (PSČ místa spotřeby) for login screen.
+        /// </summary>
         [JsonProperty("zip2")]
         public string PostNumberConsumption
         {
@@ -243,6 +264,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets post number (PSČ trvalého bydliště) for login screen.
+        /// </summary>
         [JsonProperty("zip")]
         public string PostNumber
         {
@@ -255,6 +279,18 @@ namespace eContracting.Models
         /// <summary>
         /// Gets value of BUS_PROCESS.
         /// </summary>
+        /// <remarks>
+        ///     Relevant info is stored in Sitecore in <c>/sitecore/content/eContracting2/Settings/Processes</c>.
+        ///     BUS_PROCESS works together with BUS_TYPE combination.
+        ///     <list type="bullet">
+        ///         <item>00 - Refix</item>
+        ///         <item>01 - Retence/LastCall</item>
+        ///         <item>02 - Akvizice</item>
+        ///         <item>03 - 8003</item>
+        ///         <item>04 - BNR</item>
+        ///         <item>05 - DPI</item>
+        ///     </list>
+        /// </remarks>
         [JsonProperty("process")]
         public string Process
         {
@@ -267,6 +303,26 @@ namespace eContracting.Models
         /// <summary>
         /// Gets value of BUS_TYPE.
         /// </summary>
+        /// <remarks>
+        ///     Relevant info is stored in Sitecore in <c>/sitecore/content/eContracting2/Settings/ProcessType</c>.
+        ///     BUS_TYPE works together with BUS_PROCESS combination.
+        ///     <list type="bullet">
+        ///         <item>A - Individuální</item>
+        ///         <item>B - Kampaň</item>
+        ///         <item>C - SBN (Sdružená BN) + DSL</item>
+        ///         <item>D - NC - Pojištění</item>
+        ///         <item>E - NC - Senzor</item>
+        ///         <item>F - NC - SPS</item>
+        ///         <item>G - DSL - Investor</item>
+        ///         <item>H - DSL - NSZ</item>
+        ///         <item>I - DSL - iKarta</item>
+        ///         <item>J - SBN - Pojištění</item>
+        ///         <item>K - SBN - Senzor</item>
+        ///         <item>L - SBN - SPS</item>
+        ///         <item>M - NC - Asistence</item>
+        ///         <item>N - SBN - Asistence</item>
+        ///     </list>
+        /// </remarks>
         [JsonProperty("process_type")]
         public string ProcessType
         {
@@ -276,6 +332,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Determinates if any document in <see cref="Documents"/> has <see cref="OfferAttachmentXmlModel.AddInfo"/> value 'x'.
+        /// </summary>
         [JsonProperty("has_voucher")]
         public bool OfferHasVoucher
         {
@@ -328,6 +387,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Gets registration link from <see cref="TextParameters"/> under key <see cref="Constants.OfferTextParameters.REGISTRATION_LINK"/>.
+        /// </summary>
         public string RegistrationLink
         {
             get
@@ -371,6 +433,9 @@ namespace eContracting.Models
             }
         }
 
+        /// <summary>
+        /// Determinates if any <see cref="Attributes"/> as key equals to <see cref="Constants.OfferAttributes.NO_PROD_CHNG"/> and value to <see cref="Constants.CHECKED"/>.
+        /// </summary>
         [JsonProperty("show_prices")]
         public bool ShowPrices
         {
@@ -392,6 +457,9 @@ namespace eContracting.Models
         [JsonProperty("header")]
         protected OfferHeaderModel Header { get; private set; }
 
+        /// <summary>
+        /// Gets raw XML content of core file.
+        /// </summary>
         [JsonIgnore]
         public IDictionary<string, string> RawContent { get; } = new Dictionary<string, string>();
 

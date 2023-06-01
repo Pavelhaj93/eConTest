@@ -2255,6 +2255,11 @@
             Inner XML with content from SAP.
             </summary>
         </member>
+        <member name="P:eContracting.Models.OfferModel.TextParameters">
+            <summary>
+            Gets all text parameters.
+            </summary>
+        </member>
         <member name="F:eContracting.Models.OfferModel.Version">
             <summary>
             Gets the version of the offer.
@@ -2281,6 +2286,11 @@
         <member name="P:eContracting.Models.OfferModel.IsAccepted">
             <summary>
             Gets or sets flag if offer is accepted.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.ExpirationDate">
+            <summary>
+            Gets expiration date.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferModel.IsExpired">
@@ -2318,6 +2328,11 @@
             Gets the commodity (EAN or EIC).
             </summary>
         </member>
+        <member name="P:eContracting.Models.OfferModel.IsCampaign">
+            <summary>
+            Determinates if <see cref="P:eContracting.Models.OfferModel.Campaign"/> has any value or not.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferModel.State">
             <summary>
             Gets or sets State.
@@ -2336,14 +2351,76 @@
                 </list>
             </remarks>
         </member>
+        <member name="P:eContracting.Models.OfferModel.Documents">
+            <summary>
+            Gets documents templates for all file types including uploads.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.Birthday">
+            <summary>
+            Gets birthday for login screen.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.PartnerNumber">
+            <summary>
+            Gets partner number (OP) for login screen.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.PostNumberConsumption">
+            <summary>
+            Gets post number of comsumption place (PSČ místa spotřeby) for login screen.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.PostNumber">
+            <summary>
+            Gets post number (PSČ trvalého bydliště) for login screen.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferModel.Process">
             <summary>
             Gets value of BUS_PROCESS.
             </summary>
+            <remarks>
+                Relevant info is stored in Sitecore in <c>/sitecore/content/eContracting2/Settings/Processes</c>.
+                BUS_PROCESS works together with BUS_TYPE combination.
+                <list type="bullet">
+                    <item>00 - Refix</item>
+                    <item>01 - Retence/LastCall</item>
+                    <item>02 - Akvizice</item>
+                    <item>03 - 8003</item>
+                    <item>04 - BNR</item>
+                    <item>05 - DPI</item>
+                </list>
+            </remarks>
         </member>
         <member name="P:eContracting.Models.OfferModel.ProcessType">
             <summary>
             Gets value of BUS_TYPE.
+            </summary>
+            <remarks>
+                Relevant info is stored in Sitecore in <c>/sitecore/content/eContracting2/Settings/ProcessType</c>.
+                BUS_TYPE works together with BUS_PROCESS combination.
+                <list type="bullet">
+                    <item>A - Individuální</item>
+                    <item>B - Kampaň</item>
+                    <item>C - SBN (Sdružená BN) + DSL</item>
+                    <item>D - NC - Pojištění</item>
+                    <item>E - NC - Senzor</item>
+                    <item>F - NC - SPS</item>
+                    <item>G - DSL - Investor</item>
+                    <item>H - DSL - NSZ</item>
+                    <item>I - DSL - iKarta</item>
+                    <item>J - SBN - Pojištění</item>
+                    <item>K - SBN - Senzor</item>
+                    <item>L - SBN - SPS</item>
+                    <item>M - NC - Asistence</item>
+                    <item>N - SBN - Asistence</item>
+                </list>
+            </remarks>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.OfferHasVoucher">
+            <summary>
+            Determinates if any document in <see cref="P:eContracting.Models.OfferModel.Documents"/> has <see cref="P:eContracting.Models.OfferAttachmentXmlModel.AddInfo"/> value 'x'.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferModel.GdprIdentity">
@@ -2363,9 +2440,19 @@
             Determinates if the offer has attribute <see cref="F:eContracting.Constants.OfferAttributes.MCFU_REG_STAT"/> or not saying this offer is assigned to Cognito user.
             </summary>
         </member>
+        <member name="P:eContracting.Models.OfferModel.RegistrationLink">
+            <summary>
+            Gets registration link from <see cref="P:eContracting.Models.OfferModel.TextParameters"/> under key <see cref="F:eContracting.Constants.OfferTextParameters.REGISTRATION_LINK"/>.
+            </summary>
+        </member>
         <member name="P:eContracting.Models.OfferModel.CanBeCanceled">
             <summary>
             Determinates if user can cancel the offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.ShowPrices">
+            <summary>
+            Determinates if any <see cref="P:eContracting.Models.OfferModel.Attributes"/> as key equals to <see cref="F:eContracting.Constants.OfferAttributes.NO_PROD_CHNG"/> and value to <see cref="F:eContracting.Constants.CHECKED"/>.
             </summary>
         </member>
         <member name="P:eContracting.Models.OfferModel.Attributes">
@@ -2376,6 +2463,11 @@
         <member name="P:eContracting.Models.OfferModel.Header">
             <summary>
             Header values from the offer.
+            </summary>
+        </member>
+        <member name="P:eContracting.Models.OfferModel.RawContent">
+            <summary>
+            Gets raw XML content of core file.
             </summary>
         </member>
         <member name="M:eContracting.Models.OfferModel.#ctor(eContracting.Models.OfferXmlModel,System.Int32,eContracting.Models.OfferHeaderModel,System.Boolean,System.Boolean,System.DateTime,eContracting.Models.OfferAttributeModel[])">
