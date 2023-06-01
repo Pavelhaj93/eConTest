@@ -68,6 +68,13 @@ namespace eContracting
             public const string GROUP = "COMMODITY";
         }
 
+        public static class OfferGroups
+        {
+            public const string COMMODITY = "COMMODITY";
+            public const string NONCOMMODITY = "NONCOMMODITY";
+            public const string DSL = "DSL";
+        }
+
         public static class FileAttributes
         {
             public const string LABEL = "LINK_LABEL";

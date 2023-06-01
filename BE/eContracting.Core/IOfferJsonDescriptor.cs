@@ -36,6 +36,7 @@ namespace eContracting
         /// <param name="offer">The offer.</param>
         /// <param name="user">The user.</param>
         JsonOfferNotAcceptedModel GetNew(OffersModel offer, UserCacheDataModel user);
+        ContainerModel GetNew2(OffersModel offer, UserCacheDataModel user);
 
         /// <summary>
         /// Gets prescription for accepted <paramref name="offers"/>.

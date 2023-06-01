@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class ContractualDataHeaderModel : IDataHeaderModel
+    public class UploadDataBodyModel : IDataBodyModel
     {
-        public string Title { get; set; }
+        [JsonProperty("docs")]
+        public UploadDataDocsModel Docs {get; set;}
     }
 }
