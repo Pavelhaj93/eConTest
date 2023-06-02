@@ -8,7 +8,7 @@ export * from './Upload'
 export type AppConfig = {
   guid: string
   view: string
-
+  uploadUrl: string
   offerUrl: string
   cancelDialog?: {
     cancelOfferUrl: string
@@ -141,4 +141,8 @@ export enum CommodityProductType {
 export type CancelDialog = {
   cancelOfferUrl: string
   redirectUrl: string
+}
+
+export type ErrorResponse = {
+  Message: string
 }
