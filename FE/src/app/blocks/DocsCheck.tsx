@@ -13,8 +13,8 @@ interface DocsCheckProps {
   t: ReturnType<typeof useLabels>
   headerTitle: NewOfferResponse.Header['title']
   headTitle: NewOfferResponse.Header['title']
-  headParams: NewOfferResponse.Header['params']
   headText: NewOfferResponse.Header['text']
+  bodyText: NewOfferResponse.Body['text']
   docsTitle: NewOfferResponse.Docs['title']
   docsFiles: NewOfferResponse.Docs['files']
   docsText: NewOfferResponse.Docs['text']
@@ -28,7 +28,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
     t,
     headerTitle,
     headTitle,
-    headParams,
+    bodyText,
     headText,
     docsTitle,
     docsFiles,
@@ -49,24 +49,23 @@ const DocsCheck: FC<DocsCheckProps> = observer(
         {headTitle && (
           <Box>
             <BoxHeading>{headTitle}</BoxHeading>
-            <Box>
-              {headParams && (
+            {headText && (
+              <Box>
                 <div
                   className="editorial-content text-center"
                   dangerouslySetInnerHTML={{
-                    __html: headParams.map(param => `${param.title} ${param.value}`).join(' <br>'),
+                    __html: headText,
                   }}
                 />
-              )}
-            </Box>
+              </Box>
+            )}
           </Box>
         )}
-        {/* TODO: bylo tu jeste store.documents.description  zkontrolovat jestli to nechybi */}
-        {headText && (
+        {bodyText && (
           <div
             className="py-1 px-3 editorial-content text-center mb-4"
             dangerouslySetInnerHTML={{
-              __html: headText || '',
+              __html: bodyText,
             }}
           />
         )}
@@ -74,12 +73,14 @@ const DocsCheck: FC<DocsCheckProps> = observer(
           {store.docGroupsToBeChecked.length > 0 && (
             <>
               <BoxHeading>{docsTitle}</BoxHeading>
-              <div
-                className="my-4 text-center editorial-content"
-                dangerouslySetInnerHTML={{
-                  __html: docsText ?? '',
-                }}
-              />
+              {docsText && (
+                <div
+                  className="my-4 text-center editorial-content"
+                  dangerouslySetInnerHTML={{
+                    __html: docsText,
+                  }}
+                />
+              )}
               <div className="mb-2">
                 <Button
                   variant="link"

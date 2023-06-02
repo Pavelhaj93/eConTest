@@ -27,7 +27,6 @@ export namespace NewOfferResponse {
 
   export interface Header {
     title: string
-    params: Param[]
     text: string
   }
 
