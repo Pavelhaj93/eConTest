@@ -63,19 +63,9 @@
       "body": {
         "head": {
           "title": "Dokumenty k elektronické akceptaci Vaší smlouvy",
-          "params": [
-            {
-              "title": "Na adrese místa spotřeby",
-              "value": "Sobotní 736, 691 42 Valtice"
-            },
-            {
-              "title": "EIC",
-              "value": "27ZG600Z0414883V"
-            }
-          ],
-          "text": "<p>Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.</p>\n<p>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.</p>"
+          "text": "<p><strong><span>Na adrese m&iacute;sta spotřeby:</span></strong>&nbsp;Brněnská 311, Říčany, 664 82</p>\n<p><strong>\nEIC</strong>: 27ZG600Z00377368</p>"
         },
-        "text": null,
+        "text": "<p>Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.</p>\n<p>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.</p>",
         "docs": {
           "title": "Smlouva a přidružené dokumenty",
           "params": null,
@@ -216,13 +206,7 @@
       "body": {
         "head": {
           "title": "Dokumenty k elektronické akceptaci",
-          "params": [
-            {
-              "title": "Na adrese místa plnění",
-              "value": "Valtice, Sobotní 736, 691 42"
-            }
-          ],
-          "text": null
+          "text": "<p><strong><span>Na adrese m&iacute;sta spotřeby:</span></strong>&nbsp;Brněnská 311, Říčany, 664 82</p>\n<p><strong>\nEIC</strong>: 27ZG600Z00377368</p>"
         },
         "text": "<p>Aliquam non purus quis risus commodo aliquet et at turpis. Pellentesque venenatis mollis neque, nec porta ex condimentum ut. Sed ornare quis libero in semper. Duis pulvinar commodo ultrices. Mauris vitae mauris at tortor vulputate malesuada. Pellentesque sodales fringilla ante, dignissim cursus urna gravida laoreet.</p>",
         "docs": {
