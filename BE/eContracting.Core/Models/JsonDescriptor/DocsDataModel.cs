@@ -23,9 +23,6 @@ namespace eContracting.Models.JsonDescriptor
 
         [JsonProperty("files")]
         public IEnumerable<FileDataModel> Files { get; set; }
-
-        [JsonProperty("types")]
-        public IEnumerable<JsonUploadTemplateModel> Types { get; set; } // ToDo: Temporary solution
     }
 }
 
