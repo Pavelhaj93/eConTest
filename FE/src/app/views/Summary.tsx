@@ -18,7 +18,7 @@ export const Summary: React.FC<View> = observer(
   ({
     getSummaryUrl,
     errorPageUrl,
-    uploadUrl,
+    nextUrl,
     authUrl,
     labels,
     timeout,
@@ -146,7 +146,7 @@ export const Summary: React.FC<View> = observer(
               <>
                 {/* Continue and CallMeBack buttons. */}
                 <div className="d-flex flex-column flex-md-row flex-wrap  justify-content-center">
-                  <Button variant="primary" href={uploadUrl}>
+                  <Button variant="primary" href={nextUrl}>
                     {t('continueBtn')}
                   </Button>
                   {showCmbModal && (

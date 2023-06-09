@@ -10,7 +10,7 @@
         "docs": {
           "title": "Povinné dokumenty k nahrání",
           "text": null,
-          "note": "",
+          "note": "Celkem <strong>MAX 25 MB. Povolené typy souborů: <strong>JPEG, PNG, PDF.</strong>",
           "files": [
             {
               "id": "8453EFD06A16DE9640CB6488CC50E8E0",
@@ -52,7 +52,7 @@
         "docs": {
           "title": "Nepovinné dokumenty k nahrání",
           "text": null,
-          "note": "",
+          "note": "Celkem <strong>MAX 25 MB. Povolené typy souborů: <strong>JPEG, PNG, PDF.</strong>",
           "files": [
             {
               "id": "24D9745ED221E7CD3F723C662DD94F01",

@@ -149,7 +149,7 @@
         "docs": {
           "title": "Plná moc",
           "params": null,
-          "text": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>",
+          "text": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu",
           "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
           "files": [
             {
@@ -164,7 +164,7 @@
             }
           ]
         },
-        "note": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu"
+        "note": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>"
       }
     },
     {

@@ -11,7 +11,7 @@ import { computed } from 'mobx'
 
 export const Upload: FC<View> = observer(
   ({
-    offerUrl,
+    nextUrl,
     uploadUrl,
     guid,
     labels,
@@ -87,6 +87,10 @@ export const Upload: FC<View> = observer(
                       onFilesAccepted={files => store.addUserFiles(files, categoryId)}
                       disabled={computed(() => store.uploadGroupSizeExceeded(item.position)).get()}
                     />
+                    <div
+                      className="small text-muted editorial-content"
+                      dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
+                    />
 
                     {/* custom uploaded documents */}
                     {store.userDocuments[categoryId]?.length > 0 && (
@@ -113,10 +117,6 @@ export const Upload: FC<View> = observer(
                     {/* /custom uploaded documents */}
                   </div>
                 ))}
-                <div
-                  className="small text-muted editorial-content"
-                  dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
-                />
               </Box>
             </Fragment>
           ))}
@@ -124,7 +124,7 @@ export const Upload: FC<View> = observer(
             <Button
               className="ml-3"
               variant="primary"
-              href={offerUrl}
+              href={nextUrl}
               disabled={!store.isUploadFinished}
             >
               {t('continueBtn')}
