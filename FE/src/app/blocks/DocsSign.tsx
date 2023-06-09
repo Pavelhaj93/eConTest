@@ -17,6 +17,7 @@ interface DocsSignProps {
   docsTitle: NewOfferResponse.Docs['title']
   docsText: NewOfferResponse.Docs['text']
   docsFiles: NewOfferResponse.Docs['files']
+  bodyNote: NewOfferResponse.Body['note']
   getFileUrl: string
   guid: string
   handleDownload: () => void
@@ -24,7 +25,17 @@ interface DocsSignProps {
 }
 
 const DocsSign: FC<DocsSignProps> = observer(
-  ({ t, docsTitle, docsText, docsFiles, getFileUrl, guid, handleDownload, openSignatureModal }) => {
+  ({
+    t,
+    docsTitle,
+    docsText,
+    docsFiles,
+    bodyNote,
+    getFileUrl,
+    guid,
+    handleDownload,
+    openSignatureModal,
+  }) => {
     const store = useContext(OfferStoreContext)
 
     if (!(store instanceof OfferStore)) {
@@ -33,78 +44,70 @@ const DocsSign: FC<DocsSignProps> = observer(
 
     return (
       <Fragment>
-        {store.docGroupsToBeSigned.length > 0 && (
-          <Box>
-            <BoxHeading>{docsTitle}</BoxHeading>
+        <Box>
+          {docsTitle && <BoxHeading>{docsTitle}</BoxHeading>}
+          {docsText && (
             <div
               className="editorial-content text-center my-4"
               dangerouslySetInnerHTML={{
                 __html: docsText ?? '',
               }}
             />
-            {docsFiles.map(({ key, prefix, label, accepted, note }) => (
-              <>
-                <div key={key} className="form-item-wrapper mb-3">
-                  <div className="like-custom-control-label">
-                    {accepted && (
-                      <Icon
-                        name="check-circle"
-                        size={36}
-                        color={colors.green}
-                        className="form-item-wrapper__icon mr-2"
-                      />
-                    )}
-                    <span>
-                      {prefix}{' '}
-                      <DocumentLink
-                        url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
-                          guid,
-                        })}
-                        label={label}
-                        onClick={handleDownload}
-                        noIcon
-                      />
-                    </span>
-                    <SignButton
-                      className="d-none d-sm-block"
-                      signed={accepted ? accepted : false}
-                      onClick={() => openSignatureModal(key)}
-                      labelSign={t('signatureBtn')}
-                      labelEdit={t('signatureEditBtn')}
-                      descriptionId={'signBtnDescription'}
-                      showLabelEdit={false}
+          )}
+          {docsFiles.map(({ key, prefix, label, accepted }) => (
+            <>
+              <div key={key} className="form-item-wrapper mb-3">
+                <div className="like-custom-control-label">
+                  {accepted && (
+                    <Icon
+                      name="check-circle"
+                      size={36}
+                      color={colors.green}
+                      className="form-item-wrapper__icon mr-2"
                     />
-                  </div>
-                  <Media query={{ maxWidth: breakpoints.smMax }}>
-                    {(matches: any) =>
-                      matches && (
-                        <SignButton
-                          className="btn-block-mobile mt-3"
-                          signed={accepted ? accepted : false}
-                          onClick={() => openSignatureModal(key)}
-                          labelSign={t('signatureBtn')}
-                          labelEdit={t('signatureEditBtn')}
-                          descriptionId={'signBtnDescription'}
-                          showLabelEdit={true}
-                        />
-                      )
-                    }
-                  </Media>
+                  )}
+                  <span>
+                    {prefix}{' '}
+                    <DocumentLink
+                      url={parseUrl(`${getFileUrl}/${key}?t=${new Date().getTime()}`, {
+                        guid,
+                      })}
+                      label={label}
+                      onClick={handleDownload}
+                      noIcon
+                    />
+                  </span>
+                  <SignButton
+                    className="d-none d-sm-block"
+                    signed={accepted ? accepted : false}
+                    onClick={() => openSignatureModal(key)}
+                    labelSign={t('signatureBtn')}
+                    labelEdit={t('signatureEditBtn')}
+                    descriptionId={'signBtnDescription'}
+                    showLabelEdit={false}
+                  />
                 </div>
-                {/* info text */}
-                {note && <InfoElement value={note} className="mb-4" />}
-              </>
-            ))}
-            <div
-              id="signBtnDescription"
-              className="editorial-content text-muted small"
-              dangerouslySetInnerHTML={{
-                __html: t('signatureNote'),
-              }}
-              aria-hidden="true"
-            />
-          </Box>
-        )}
+                <Media query={{ maxWidth: breakpoints.smMax }}>
+                  {(matches: any) =>
+                    matches && (
+                      <SignButton
+                        className="btn-block-mobile mt-3"
+                        signed={accepted ? accepted : false}
+                        onClick={() => openSignatureModal(key)}
+                        labelSign={t('signatureBtn')}
+                        labelEdit={t('signatureEditBtn')}
+                        descriptionId={'signBtnDescription'}
+                        showLabelEdit={true}
+                      />
+                    )
+                  }
+                </Media>
+              </div>
+              {/* info text */}
+            </>
+          ))}
+          {bodyNote && <InfoElement value={bodyNote} className="mb-4" />}
+        </Box>
       </Fragment>
     )
   },

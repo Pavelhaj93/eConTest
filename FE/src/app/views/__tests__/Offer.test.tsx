@@ -7,6 +7,8 @@ import { Offer } from '../'
 const mockProps = {
   guid: '0635F899B3111EDC9BC4A505A628FCED',
   view: 'Offer',
+  nextUrl: '',
+  backUrl: '',
   offerUrl: '',
   uploadUrl: '',
   errorPageUrl: '',

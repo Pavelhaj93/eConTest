@@ -8,6 +8,8 @@ export * from './Upload'
 export type AppConfig = {
   guid: string
   view: string
+  nextUrl: string
+  backUrl: string
   uploadUrl: string
   offerUrl: string
   cancelDialog?: {

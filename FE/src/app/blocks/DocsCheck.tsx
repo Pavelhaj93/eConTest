@@ -18,6 +18,7 @@ interface DocsCheckProps {
   docsTitle: NewOfferResponse.Docs['title']
   docsFiles: NewOfferResponse.Docs['files']
   docsText: NewOfferResponse.Docs['text']
+  bodyNote: NewOfferResponse.Body['note']
   handleDownload: () => void
   getFileUrl: string
   guid: string
@@ -33,6 +34,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
     docsTitle,
     docsFiles,
     docsText,
+    bodyNote,
     handleDownload,
     getFileUrl,
     guid,
@@ -114,6 +116,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
                   {note && <InfoElement value={note} className="mb-5" />}
                 </>
               ))}
+              {bodyNote && <InfoElement value={bodyNote} className="mb-5" />}
             </>
           )}
         </Box>
