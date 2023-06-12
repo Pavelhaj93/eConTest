@@ -39,6 +39,14 @@ namespace eContracting
         ContainerModel GetNew2(OffersModel offer, UserCacheDataModel user);
 
         /// <summary>
+        /// Gets upload file data for the upload page.
+        /// </summary>
+        /// <param name="offer">The offer.</param>
+        /// <param name="user">The user.</param>
+        /// <returns></returns>
+        ContainerModel GetUploads(OffersModel offer, UserCacheDataModel user);
+
+        /// <summary>
         /// Gets prescription for accepted <paramref name="offers"/>.
         /// </summary>
         /// <param name="offers">Collection of accepted offers.</param>

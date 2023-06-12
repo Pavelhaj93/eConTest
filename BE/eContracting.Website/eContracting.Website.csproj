@@ -352,6 +352,7 @@
     <Compile Include="Areas\eContracting2\Models\OfferViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SingDataViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\StepsViewModel.cs" />
+    <Compile Include="Areas\eContracting2\Models\UploadViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\SummaryViewModel.cs" />
     <Compile Include="Areas\eContracting2\Models\ThankYouViewModel.cs" />
     <Compile Include="AssetsHtmlHelper.cs" />
@@ -473,6 +474,7 @@
     <Content Include="Areas\eContracting2\Views\Edit\Header.cshtml" />
     <Content Include="Areas\eContracting2\Views\Summary.cshtml" />
     <Content Include="Areas\eContracting2\Views\LoginRedirect.cshtml" />
+    <Content Include="Areas\eContracting2\Views\Upload.cshtml" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

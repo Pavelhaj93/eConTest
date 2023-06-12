@@ -15258,6 +15258,14 @@
             <returns></returns>        
         </member>
         <!-- Badly formed XML comment ignored for member "M:eContracting.IOfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)" -->
+        <member name="M:eContracting.IOfferJsonDescriptor.GetUploads(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
+            <summary>
+            Gets upload file data for the upload page.
+            </summary>
+            <param name="offer">The offer.</param>
+            <param name="user">The user.</param>
+            <returns></returns>
+        </member>
         <member name="M:eContracting.IOfferJsonDescriptor.GetAccepted(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <summary>
             Gets prescription for accepted <paramref name="offers"/>.
@@ -15585,6 +15593,11 @@
         <member name="F:eContracting.PAGE_LINK_TYPES.Logout">
             <summary>
             Logout page.
+            </summary>
+        </member>
+        <member name="F:eContracting.PAGE_LINK_TYPES.Upload">
+            <summary>
+            Upload page.
             </summary>
         </member>
         <member name="T:eContracting.Rules.Conditions.WhenOfferHasSpecificProcessCondition`1">

@@ -33,6 +33,9 @@ namespace eContracting.Models
         [SitecoreField("Offer", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link Offer { get; set; }
 
+        [SitecoreField("Upload", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
+        Link Upload { get; set; }
+
         [SitecoreField("ExpiredOffer", UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl)]
         Link ExpiredOffer { get; set; }
 

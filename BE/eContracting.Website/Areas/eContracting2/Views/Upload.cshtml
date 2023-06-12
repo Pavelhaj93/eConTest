@@ -1,0 +1,20 @@
+﻿@using System.Linq
+@using Glass.Mapper.Sc.Web.Mvc
+@using eContracting.Website.Areas.eContracting2.Models
+@model UploadViewModel
+
+<div class="row">
+    <div class="col-12">
+        @Html.Partial("/Areas/eContracting2/Views/Shared/Steps.cshtml", Model.Steps)
+        <div class="text-center mb-5">
+            <h1 class="h3 mb-0">@Model.PageTitle</h1>
+            <div>@Html.Raw(Model.MainText)</div>
+        </div>
+        <h2 class="text-center h3">Upload</h2>
+        <div id="app"></div>
+    </div>
+</div>
+
+<script>
+  var appConfig = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented));
+</script>

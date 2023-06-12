@@ -615,6 +615,8 @@ namespace eContracting.Services
                     return settings.Summary.Url;
                 case PAGE_LINK_TYPES.Offer:
                     return settings.Offer.Url;
+                case PAGE_LINK_TYPES.Upload:
+                    return settings.Upload.Url;
                 case PAGE_LINK_TYPES.SessionExpired:
                     return settings.SessionExpired.Url;
                 case PAGE_LINK_TYPES.UserBlocked:

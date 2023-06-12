@@ -137,6 +137,86 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
         }
 
+        
+        [HttpGet]
+        public ActionResult Upload()
+        {
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (!this.UserService.IsAuthorizedFor(guid))
+                {
+                    this.Logger.Debug(guid, $"Not authorized");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                if (!this.CanRead(guid))
+                {
+                    this.Logger.Debug(null, $"Session expired");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+
+                if (offer == null)
+                {
+                    this.Logger.Debug(guid, "Offer not loaded (doesn't exist or invalid user)");
+                    return Redirect(PAGE_LINK_TYPES.Login, guid);
+                }
+
+                if (offer.IsAccepted)
+                {
+                    this.Logger.Debug(guid, $"Offer already accepted");
+                    return Redirect(PAGE_LINK_TYPES.AcceptedOffer, guid, null, true);
+                }
+
+                if (offer.IsExpired)
+                {
+                    this.Logger.Debug(guid, $"Offer expired");
+                    return Redirect(PAGE_LINK_TYPES.OfferExpired, guid, null, true);
+                }
+
+                this.OfferService.SignInOffer(guid, user);
+
+                try
+                {
+                    this.UserFileCache.Clear(new DbSearchParameters(null, guid, null));
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(guid, "Cannot clear user file cache", ex);
+                }
+
+                if (offer.Version < 3)
+                {
+                    return Redirect(PAGE_LINK_TYPES.Offer, guid, null, true);
+                }
+
+                var datasource = this.MvcContext.GetPageContextItem<IPageUploadOfferModel>();
+                var viewModel = this.GetUploadViewModel(offer, user, datasource);
+                return this.View("/Areas/eContracting2/Views/Upload.cshtml", viewModel);
+            }
+            catch (EcontractingApplicationException ex)
+            {
+                if (ex.Error.Code == "OF-SIO-CSS")
+                {
+                    this.Logger.Error(guid, $"Offer was not signed in ({Constants.ErrorCodes.OFFER_NOT_SIGNED})", ex); // ToDo: Is it relevant here?
+                    return Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_NOT_SIGNED);
+                }
+
+                this.Logger.Fatal(guid, ex);
+                return Redirect(PAGE_LINK_TYPES.SystemError, guid, ex.Error.Code);
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Error(guid, $"Error when displaying offer (upload page).", ex);
+                return this.Redirect(PAGE_LINK_TYPES.SystemError, guid, Constants.ErrorCodes.OFFER_EXCEPTION);
+            }        
+        }
+
+
         /// <summary>
         /// Rendering view for offer.
         /// </summary>
@@ -646,6 +726,19 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
             viewModel["continueBtn"] = datasource.ButtonContinueLabel;
 
+            var attachments = this.OfferService.GetAttachments(offer, user);
+            var fileUploads = attachments.Where(x => x.IsPrinted == false).ToArray();
+            var containsUploads = fileUploads.Length > 0;
+            if (containsUploads)
+            {
+                viewModel.NextUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Upload, offer.Guid);
+            }
+            else
+            {
+                viewModel.NextUrl = viewModel.OfferPage;
+            }
+            viewModel.BackUrl = viewModel.LoginPage;
+
             if (datasource.ModalWindowUnfinishedOffer != null)
             {
                 viewModel["unfinishedOfferSummary"] = datasource.ModalWindowUnfinishedOffer.Title;
@@ -656,6 +749,102 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             else
             {
                 this.Logger.Fatal(offer.Guid, "Missing 'Nedokončená nabídka' dialog on summary page");
+            }
+
+            if (definition.SummaryCallMeBack != null)
+            {
+                //shows button to open CMB
+                viewModel.ShowCmb = true;
+                viewModel.CmbGetUrl = viewModel.CmbGetUrl.Replace("{guid}", offer.Guid);
+                viewModel.CmbPostUrl = viewModel.CmbPostUrl.Replace("{guid}", offer.Guid);
+                viewModel["cmbBtn"] = definition.SummaryCallMeBack.OpenDialogButtonLabel;
+            }
+
+            return viewModel;
+        }
+
+        protected internal UploadViewModel GetUploadViewModel(OffersModel offer, UserCacheDataModel user, IPageUploadOfferModel datasource)
+        {
+            var authType = user.GetAuthMethod(offer.Guid);
+            var definition = this.SettingsService.GetDefinition(offer);
+            this.Logger.Info(offer.Guid, "Matrix used: " + definition.Path);
+            var steps = this.GetSteps(user, offer, datasource, definition);
+            var siteSettings = this.SettingsService.GetSiteSettings();
+            var viewModel = new UploadViewModel(siteSettings, offer.Guid);
+            viewModel.Version = offer.Version;
+            viewModel.Steps = new StepsViewModel(steps);
+            viewModel.OfferPage = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Offer, offer.Guid);
+            viewModel.LoginPage = this.GetLogoutUrl(authType, offer.Guid);
+            viewModel.PageTitle = definition.SummaryTitle?.Text;
+            viewModel.MainText = Utils.GetReplacedTextTokens(definition.SummaryMainText?.Text, offer.TextParameters, offer.ExpirationDate);
+
+            viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList();
+            viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
+            viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;            
+
+            viewModel.NextUrl = viewModel.OfferPage;
+            viewModel.BackUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Summary, offer.Guid);
+
+            viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
+            viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
+            viewModel["removeFile"] = this.TextService.FindByKey("REMOVE_DOCUMENT");
+            viewModel["fileSize"] = this.TextService.FindByKey("DOCUMENT_SIZE");
+            viewModel["selectedFiles"] = this.TextService.FindByKey("SELECTED_DOCUMENTS");
+            viewModel["rejectedFiles"] = this.TextService.FindByKey("WRONG_DOCUMENTS");
+            viewModel["uploadFile"] = this.TextService.FindByKey("UPLOAD_DOCUMENT");
+            viewModel["captureFile"] = this.TextService.FindByKey("PHOTO_&_UPLOAD");
+            viewModel["invalidFileTypeError"] = this.TextService.FindByKey("INVALID_DOCUMENT_FORMAT", new Dictionary<string, string>() { { "fileTypes", siteSettings.AllowedDocumentTypesDescription } });
+            viewModel["fileExceedSizeError"] = this.TextService.FindByKey("DOCUMENT_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.SingleUploadFileSizeLimitKBytes * 1024) } });
+            //ToDo check: viewModel["fileExceedGroupSizeError"] = this.TextService.FindByKey("DOCUMENTS_TOO_BIG", new Dictionary<string, string>() { { "maxSize", Utils.GetReadableFileSize(siteSettings.GroupResultingFileSizeLimitKBytes * 1024) } });
+            
+            // This is part of JSON - Note
+            //var strAllowedContentTypes = viewModel.AllowedContentTypes != null ? string.Join(", ", viewModel.AllowedContentTypes) : "";            
+            //viewModel["uploadFileRules"] = $"ToDo: Celkem <strong> max {siteSettings.SingleUploadFileSizeLimitKBytes} MB. </strong> Povolené typy souborů: <strong>{strAllowedContentTypes}</strong>"; // ToDo: Take text from sitecore
+
+            viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
+            viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
+            viewModel["continueBtn"] = datasource.ButtonContinueLabel;
+
+            
+
+            if (datasource.ModalWindowUnfinishedOffer != null)
+            {
+                viewModel["unfinishedOfferSummary"] = datasource.ModalWindowUnfinishedOffer.Title;
+                viewModel["unfinishedOfferTextSummary"] = datasource.ModalWindowUnfinishedOffer.Text;
+                viewModel["continueInOfferSummary"] = datasource.ModalWindowUnfinishedOffer.ConfirmButtonLabel;
+                viewModel["quitOfferSummary"] = datasource.ModalWindowUnfinishedOffer.CancelButtonLabel;
+            }
+            else
+            {
+                this.Logger.Fatal(offer.Guid, "Missing 'Nedokončená nabídka' dialog on summary page");
+            }
+
+            if (offer.CanBeCanceled)
+            {
+                //if (datasource.ModalWindowCancelOffer == null)
+                //{
+                //    this.Logger.Fatal(offer.Guid, $"Missing 'Zrušení nabídky' on offer page");
+                //}
+                //else
+                //{
+                    viewModel["startOver"] = "ToDo startOver"; //datasource.StartAgainLinkLabel;
+                    viewModel["unfinishedOffer"] = "ToDo unfinishedOffer"; //datasource.ModalWindowCancelOffer.Title;
+                    viewModel["unfinishedOfferText"] = "ToDo unfinishedOfferText"; //datasource.ModalWindowCancelOffer.Text;
+                    viewModel["continueInOffer"] = "ToDo continueInOffer"; // datasource.ModalWindowCancelOffer.CancelButtonLabel;
+                    viewModel["quitOffer"] = "ToDo quitOffer"; //datasource.ModalWindowCancelOffer.ConfirmButtonLabel;
+                    //viewModel.CancelDialog = new CancelOfferViewModel();
+
+                    //if (user.IsCognito)
+                    //{
+                    //    var cognitoSettings = this.SettingsService.GetCognitoSettings();
+                    //    viewModel.CancelDialog.RedirectUrl = Utils.SetQuery(cognitoSettings.InnogyDashboardUrl, Constants.QueryKeys.IDENTITY, offer.GdprIdentity);
+                    //}
+                    //else
+                    //{
+                    //    viewModel.CancelDialog.RedirectUrl = this.GetLogoutUrl(AUTH_METHODS.TWO_SECRETS, offer.Guid);
+                    //}
+                //}
             }
 
             if (definition.SummaryCallMeBack != null)

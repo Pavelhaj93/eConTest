@@ -556,7 +556,7 @@
             <param name="definition">The matrix combination.</param>
             <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetUploads2(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[],eContracting.Models.IDefinitionCombinationModel,System.Boolean)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetUploadDataModel2(eContracting.Models.OffersModel,eContracting.Models.OfferAttachmentModel[],eContracting.Models.IDefinitionCombinationModel,System.Boolean)">
             <summary>
             Returns <see cref="T:eContracting.Models.JsonDescriptor.UploadDataModel"/> for mandatory and optional files
             </summary>

@@ -1,0 +1,52 @@
+﻿---
+ID: "a931a018-b3a6-4ff3-a690-4254a1b8ea19"
+Parent: "2f0d37f8-91a3-4686-9db3-dbf67d010fb5"
+Template: "2f0d37f8-91a3-4686-9db3-dbf67d010fb5"
+Path: /sitecore/templates/eContracting2/Pages/Upload/__Standard Values
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: Applications/32x32/document_out.png
+- ID: "ba3f86a2-4a1c-4d78-b63d-91c2779c1b5e"
+  Hint: __Sortorder
+  Value: 400
+Languages:
+- Language: cs
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "04bf00db-f5fb-41f7-8ab7-22408372a981"
+      Hint: __Final Renderings
+      Type: Layout
+      Value: |
+        <r xmlns:p="p" xmlns:s="s"
+          p:p="1">
+          <d
+            id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}">
+            <r
+              uid="{437A4673-E8D3-4B5F-996D-1F22C332BF18}"
+              p:after="r[@uid='{0B8EA37E-00C7-47C9-9562-C070E573E9A0}']"
+              s:ds=""
+              s:id="{1CDD21A7-E213-4148-A972-B7C62AFCD20E}"
+              s:par=""
+              s:ph="eContracting2Main"
+              s:ccb="Clear on publish" />
+            <r
+              uid="{1F951A91-EBBA-4F44-8AC8-7319772D5BB2}"
+              p:after="*[1=2]" />
+          </d>
+        </r>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20220509T120809Z
+    - ID: "51de3eb0-da1b-4af7-8be6-30bc6b739433"
+      Hint: ButtonContinueLabel
+      Value: Pokračovat
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "a2b8abdd-d8aa-49f4-b3dd-27fea3f7da6e"
+      Hint: PageTitle
+      Value: Upload

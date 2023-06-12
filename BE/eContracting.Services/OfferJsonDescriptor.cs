@@ -14,6 +14,7 @@ using JSNLog.Infrastructure;
 using Sitecore.ApplicationCenter.Applications;
 using Sitecore.Pipelines.RenderField;
 using Sitecore.Publishing.Explanations;
+using Sitecore.Security.Accounts;
 using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.StringExtensions;
 using Sitecore.Web;
@@ -594,14 +595,14 @@ namespace eContracting.Services
             }
 
             var returnMandatory = true;
-            var  mandatoryUploads = this.GetUploads2(offer, attachments, definition, returnMandatory);
+            var  mandatoryUploads = this.GetUploadDataModel2(offer, attachments, definition, returnMandatory);
             if (mandatoryUploads != null)
             {
                 container.Data.Add(mandatoryUploads);
             }
 
             returnMandatory = false;
-            var optionalUploads = this.GetUploads2(offer, attachments, definition, returnMandatory);
+            var optionalUploads = this.GetUploadDataModel2(offer, attachments, definition, returnMandatory);
             if (optionalUploads != null)
             {
                 container.Data.Add(optionalUploads);
@@ -609,6 +610,30 @@ namespace eContracting.Services
 
             //ToDo: ("type": "confirm")
             //model.AcceptanceDialog = this.GetAcceptance(offer, definition);
+
+            return container;
+        }
+
+        public ContainerModel GetUploads(OffersModel offer, UserCacheDataModel user)
+        {
+            var attachments = this.OfferService.GetAttachments(offer, user);
+            var definition = this.SettingsReaderService.GetDefinition(offer);
+
+            var container = new ContainerModel();
+            
+            var returnMandatory = true;
+            var mandatoryUploads = this.GetUploadDataModel2(offer, attachments, definition, returnMandatory);
+            if (mandatoryUploads != null && ((UploadDataBodyModel)mandatoryUploads.Body).Docs?.Files?.Count() > 0)
+            {
+                container.Data.Add(mandatoryUploads);
+            }
+
+            returnMandatory = false;
+            var optionalUploads = this.GetUploadDataModel2(offer, attachments, definition, returnMandatory);
+            if (optionalUploads != null && ((UploadDataBodyModel)optionalUploads.Body).Docs?.Files?.Count() > 0)
+            {
+                container.Data.Add(optionalUploads);
+            }            
 
             return container;
         }
@@ -1354,7 +1379,7 @@ namespace eContracting.Services
         /// <param name="definition"></param>
         /// <param name="returnMandatoryFiles">if true <see cref="UploadDataModel"/> containing mandatory files is returned if false <see cref="UploadDataModel"/> containing optional files</param>
         /// <returns></returns>
-        protected internal UploadDataModel GetUploads2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, bool returnMandatoryFiles)
+        protected internal UploadDataModel GetUploadDataModel2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, bool returnMandatoryFiles)
         {
             var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
 
@@ -1397,6 +1422,7 @@ namespace eContracting.Services
             }
 
             docsModel.Title = Utils.GetReplacedTextTokens(definition.OfferUploadsTitle?.Text.Trim(), offer.TextParameters);
+            docsModel.Title = docsModel.Title?.Replace("Povinné", "Nepovinné"); // ToDo: Temporary solution - New Sitecore text needed
             docsModel.Text = null; // ToDo: Check this
             docsModel.Note = Utils.GetReplacedTextTokens(definition.OfferUploadsNote?.Text.Trim(), offer.TextParameters); // ToDo: Check this
             docsModel.Files = list;

@@ -334,6 +334,7 @@
     <Compile Include="Models\IOfferDataModel.cs" />
     <Compile Include="Models\IPageSummaryOfferModel.cs" />
     <Compile Include="Models\IModalDialogSimpleModel.cs" />
+    <Compile Include="Models\IPageUploadOfferModel.cs" />
     <Compile Include="Models\IProductInfoModel.cs" />
     <Compile Include="Models\IProductInfoRootModel.cs" />
     <Compile Include="Models\IStepsModel.cs" />

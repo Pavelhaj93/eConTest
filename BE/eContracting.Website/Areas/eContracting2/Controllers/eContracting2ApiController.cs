@@ -561,7 +561,74 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
         [HttpGet]
         public IHttpActionResult Uploads()
         {
-            throw new NotImplementedException();
+            string guid = this.GetGuid();
+
+            try
+            {
+                if (!this.CanRead(guid))
+                {
+                    return this.StatusCode(HttpStatusCode.Unauthorized);
+                }
+
+                if (!this.IsValidGuid(guid))
+                {
+                    return this.InvalidGuid(guid);
+                }
+
+                var user = this.UserService.GetUser();
+                var offer = this.OfferService.GetOffer(guid, user);
+
+                if (offer == null)
+                {
+                    return this.StatusCode(HttpStatusCode.NoContent);
+                }
+
+                var model = this.OfferJsonDescriptor.GetUploads(offer, user);
+                return this.Json(model);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(ex);
+                }
+                else
+                {
+                    return this.InternalServerError();
+                }
+            }
+            catch (EcontractingDataException ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                var message = this.TextService.Error(ex.Error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.Logger.Fatal(guid, ex);
+                var error = ERROR_CODES.UNKNOWN;
+
+                var message = this.TextService.Error(error);
+
+                if (this.SettingsReaderService.ShowDebugMessages)
+                {
+                    return this.InternalServerError(message, ex);
+                }
+                else
+                {
+                    return this.InternalServerError(message);
+                }
+            }
         }
 
         /// <summary>

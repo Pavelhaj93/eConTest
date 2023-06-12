@@ -58,6 +58,11 @@ namespace eContracting
         /// <summary>
         /// Logout page.
         /// </summary>
-        Logout
+        Logout,
+
+        /// <summary>
+        /// Upload page.
+        /// </summary>
+        Upload
     }
 }
