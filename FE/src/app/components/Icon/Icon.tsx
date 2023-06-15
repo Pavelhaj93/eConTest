@@ -37,10 +37,43 @@ import '@icons/voucher-100.svg'
 
 import React from 'react'
 
-export type IconName =  'arrow-next' | 'arrow-right' | 'arrow-right-up' | 'bubble-info' | 'bulb' | 'calendar' | 'check' | 'check-circle' | 'chevron-down' | 'clock' | 'close' | 'cross-circle' | 'edit' | 'email' | 'exclamation-mark-circle' | 'gift' | 'info-circle' | 'info-inversed-circle' | 'innogy_logo' | 'key' | 'leaf-circle' | 'logo' | 'number-one-circle' | 'number-two-circle' | 'pdf' | 'phone' | 'photo-circle' | 'plus-circle' | 'power-on-off' | 'question-mark' | 'refresh' | 'speaker-circle' | 'voucher-100'
+export type IconName =
+  | 'arrow-next'
+  | 'arrow-right'
+  | 'arrow-right-up'
+  | 'bubble-info'
+  | 'bulb'
+  | 'calendar'
+  | 'check'
+  | 'check-circle'
+  | 'chevron-down'
+  | 'clock'
+  | 'close'
+  | 'cross-circle'
+  | 'edit'
+  | 'email'
+  | 'exclamation-mark-circle'
+  | 'gift'
+  | 'info-circle'
+  | 'info-inversed-circle'
+  | 'innogy_logo'
+  | 'key'
+  | 'leaf-circle'
+  | 'logo'
+  | 'number-one-circle'
+  | 'number-two-circle'
+  | 'pdf'
+  | 'phone'
+  | 'photo-circle'
+  | 'plus-circle'
+  | 'power-on-off'
+  | 'question-mark'
+  | 'refresh'
+  | 'speaker-circle'
+  | 'voucher-100'
 
 type IconProps = {
-  name: IconName,
+  name: IconName
   /** Set a color for the icon. Hex format is required. */
   color?: string
   /** Size is used for both width and height. */
@@ -51,9 +84,20 @@ type IconProps = {
   height?: number
   /** If the icon should have its own specific class or classes. */
   className?: string
+  /** If the icon should have a stroke. */
+  stroke?: string
 }
 
-export const Icon: React.FC<IconProps> = ({ name, size, width, height, className, color = '#000000', ...rest }) => {
+export const Icon: React.FC<IconProps> = ({
+  name,
+  size,
+  width,
+  height,
+  className,
+  color = '#000000',
+  stroke,
+  ...rest
+}) => {
   return (
     <svg
       width={size || width}
@@ -64,6 +108,7 @@ export const Icon: React.FC<IconProps> = ({ name, size, width, height, className
       aria-hidden="true"
       fill={color}
       {...rest}
+      stroke={stroke}
     >
       <use xlinkHref={`#${name}`} />
     </svg>

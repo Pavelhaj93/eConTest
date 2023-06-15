@@ -1,5 +1,7 @@
 .list-steps {
   $number-size: 50px;
+  margin: 0 auto;
+  max-width: 650px;
 
   @include list-unstyled;
   counter-reset: steps-counter;
@@ -11,6 +13,7 @@
     color: $color-gray-60;
     text-align: center;
     position: relative;
+    font-size: 1rem;
 
     // number
     &::before {
@@ -27,19 +30,20 @@
       border-radius: 50%;
       position: relative;
       z-index: 2;
+      font-size: 1.5rem;
     }
 
     // line
     &::after {
       content: '';
       display: block;
-      width: calc(94% - #{$number-size});
+      width: calc(57% - #{$number-size});
       height: 1px;
       // border is used instead of background color due to zoom issue in IE 11
       border-bottom: 1px solid $color-gray-60;
       position: absolute;
-      top: ($number-size / 2);
-      left: calc(-47% + #{$number-size / 2});
+      top: ($number-size / 2) + 5px;
+      left: calc(-30% + #{$number-size / 2});
       z-index: 1;
     }
 
@@ -53,5 +57,10 @@
   &__item--active {
     color: $color-orange;
     font-weight: $font-weight-medium;
+
+    &::before {
+      background-color: $primary;
+      color: $color-white;
+    }
   }
 }

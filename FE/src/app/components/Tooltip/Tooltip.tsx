@@ -13,6 +13,7 @@ type TooltipProps = {
   size?: number
   name?: IconName
   iconColor?: string
+  stroke?: string
   tooltipClassName?: string
 }
 
@@ -24,6 +25,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   size = 30,
   name = 'info-inversed-circle',
   iconColor = colors.orange,
+  stroke,
   tooltipClassName,
 }) => (
   <OverlayTrigger
@@ -48,7 +50,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           __html: children as string,
         }}
       />
-      <Icon name={name} size={size} color={iconColor} className="icon-tooltip" />
+      <Icon name={name} size={size} color={iconColor} stroke={stroke} className="icon-tooltip" />
     </div>
   </OverlayTrigger>
 )

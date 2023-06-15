@@ -153,7 +153,11 @@ export const FileDropZone: React.FC<Props> = ({
           >
             {label}
           </span>{' '}
-          {labelTooltip && <Tooltip>{labelTooltip}</Tooltip>}
+          {labelTooltip && (
+            <Tooltip size={20} iconColor="transparent" stroke={colors.orange}>
+              {labelTooltip}
+            </Tooltip>
+          )}
         </div>
       )
     }
@@ -240,12 +244,13 @@ export const FileDropZone: React.FC<Props> = ({
         onDrop={handleDrop}
         onDragEnter={handleDragEnter}
       >
-        {helpText && <p>{helpText}</p>}
+        {helpText && <p className="dropzone__helpText">{helpText}</p>}
         <Button
           id={`selectFile_${buttonId.current}`}
           variant="primary"
           onClick={openFileDialog}
           disabled={disabled}
+          className="dropzone__button"
         >
           {selectFileLabel}
         </Button>

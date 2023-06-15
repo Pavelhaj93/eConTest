@@ -74,8 +74,8 @@ export const Upload: FC<View> = observer(
           {store.uploadResponseItems?.map(item => (
             <Fragment key={item.position}>
               <h1 className="mt-5 text-center">{item.header?.title}</h1>
-              <Box>
-                <h2 className="text-center">{item.body.docs.title}</h2>
+              <Box className="box__upload">
+                <h2 className="text-center mb-4">{item.body.docs.title}</h2>
                 {item.body.docs.files.map(({ id: categoryId, info, title }) => (
                   <div key={categoryId} className="mb-5">
                     <UploadZone
@@ -115,6 +115,10 @@ export const Upload: FC<View> = observer(
                       </ul>
                     )}
                     {/* /custom uploaded documents */}
+                    <div
+                      className="text-left ml-1 text-muted"
+                      dangerouslySetInnerHTML={{ __html: t('uploadFileRules') }}
+                    />
                   </div>
                 ))}
               </Box>
