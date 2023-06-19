@@ -92,7 +92,7 @@ export const Upload: FC<View> = observer(
                       dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
                     />
 
-                    {/* custom uploaded documents */}
+                    {/* uploaded documents by user*/}
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
                         {store.userDocuments[categoryId].map(document => (
@@ -114,7 +114,7 @@ export const Upload: FC<View> = observer(
                         ))}
                       </ul>
                     )}
-                    {/* /custom uploaded documents */}
+                    {/*  uploaded documents by user */}
                     <div
                       className="text-left ml-1 text-muted"
                       dangerouslySetInnerHTML={{ __html: t('uploadFileRules') }}
