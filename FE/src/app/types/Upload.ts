@@ -34,6 +34,7 @@ export namespace UploadDocumentsResponse {
     mandatory: boolean
     idx: number
     size: number
+    name: string | null
   }
 }
 
@@ -43,3 +44,14 @@ export type UploadDocumentPromise = {
 }
 
 export type UploadDocumentErrorResponse = ErrorResponse
+
+export type StoredUploadFile = {
+  key: string
+  name: string
+  size: number
+}
+
+export type StoredUploadFileGroup = {
+  categoryId: string
+  files: StoredUploadFile[]
+}

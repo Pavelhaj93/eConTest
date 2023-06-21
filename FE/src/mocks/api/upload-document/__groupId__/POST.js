@@ -31,7 +31,7 @@ module.exports = function (request, response) {
   } else {
     statusCode = 400
     jsonResponse = {
-      Message: 'Uploaded files size limit exceeded.',
+      Message: 'Uploaded files size limit exceeded. Mocked response error message',
     }
   }
 

@@ -7,11 +7,11 @@ import { UploadStore } from '../stores/UploadStore'
 import { Alert, Button } from 'react-bootstrap'
 import classNames from 'classnames'
 import { Box, FileUpload, UploadZone } from '@components'
-import { computed } from 'mobx'
+import { computed, toJS } from 'mobx'
 
 export const Upload: FC<View> = observer(
   ({
-    nextUrl,
+    offerUrl,
     uploadUrl,
     guid,
     labels,
@@ -39,13 +39,21 @@ export const Upload: FC<View> = observer(
       store.maxUploadGroupSize = maxGroupFileSize
     }
 
-    // show warning to user when trying to refresh or leave the page once he did some changes
-    useUnload(ev => {
-      if (store.isDirty && !store.forceReload) {
-        ev.preventDefault()
-        ev.returnValue = ''
-      }
-    })
+    useEffect(() => {
+      console.log('uploadResponseItems', toJS(store.uploadResponseItems))
+    }, [store.uploadResponseItems])
+
+    useEffect(() => {
+      console.log('userDocuments', toJS(store.userDocuments))
+    }, [store.userDocuments])
+
+    // // show warning to user when trying to refresh or leave the page once he did some changes
+    // useUnload(ev => {
+    //   if (store.isDirty && !store.forceReload) {
+    //     ev.preventDefault()
+    //     ev.returnValue = ''
+    //   }
+    // })
 
     useEffect(() => {
       store.fetchUploads(timeout)
@@ -87,18 +95,17 @@ export const Upload: FC<View> = observer(
                       onFilesAccepted={files => store.addUserFiles(files, categoryId)}
                       disabled={computed(() => store.uploadGroupSizeExceeded(item.position)).get()}
                     />
-                    <div
-                      className="small text-muted editorial-content"
-                      dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
-                    />
-
+                    {console.log(
+                      'computed',
+                      computed(() => store.uploadGroupSizeExceeded(item.position)).get(),
+                    )}
                     {/* uploaded documents by user*/}
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
                         {store.userDocuments[categoryId].map(document => (
                           <li key={document.key} className={classNames({ shake: document.error })}>
                             <FileUpload
-                              file={document.file}
+                              file={document.file as File}
                               labels={labels}
                               onRemove={() => {
                                 store.cancelUploadDocument(document)
@@ -121,6 +128,10 @@ export const Upload: FC<View> = observer(
                     />
                   </div>
                 ))}
+                <div
+                  className="small text-muted editorial-content"
+                  dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
+                />
               </Box>
             </Fragment>
           ))}
@@ -128,7 +139,7 @@ export const Upload: FC<View> = observer(
             <Button
               className="ml-3"
               variant="primary"
-              href={nextUrl}
+              href={offerUrl}
               disabled={!store.isUploadFinished}
             >
               {t('continueBtn')}

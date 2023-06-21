@@ -1,6 +1,8 @@
 import {
   CustomFile,
   QueryParams,
+  StoredUploadFile,
+  StoredUploadFileGroup,
   UploadDocumentErrorResponse,
   UploadDocumentPromise,
   UploadDocumentsResponse,
@@ -13,13 +15,28 @@ export class UploadStore {
   private globalQueryParams: QueryParams
   public uploadDocumentUrl = ''
   public removeDocumentUrl = ''
-  public maxUploadGroupSize = 0
+  public maxUploadGroupSize = 25000000
   public uploadUrl = ''
   public errorPageUrl = ''
   public sessionExpiredPageUrl = ''
 
+  // first we check if there are any userDocuments in localStorage
+  storedUserDocuments = JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
+
+  // if there are any userDocuments in localStorage => we create an observable object from them else we return empty object
   @observable
-  public userDocuments: Record<string, UserDocument[]> = {}
+  public userDocuments: Record<string, UserDocument[]> =
+    this.storedUserDocuments
+      .map((group: StoredUploadFileGroup) => {
+        return {
+          [group.categoryId]: group.files.map((file: StoredUploadFile) => {
+            return new UserDocument(file, file.key)
+          }),
+        }
+      })
+      .reduce((acc: Record<string, UserDocument[]>, curr: Record<string, UserDocument[]>) => {
+        return { ...acc, ...curr }
+      }, {}) ?? {}
 
   @observable
   public uploadResponseItems: UploadDocumentsResponse.ResponseItem[] | undefined = undefined
@@ -90,9 +107,19 @@ export class UploadStore {
    * Enriches the uploadResponse items with size
    */
   private enrichUploadDocuments(documents: UploadDocumentsResponse.File[]) {
+    // first check if there are any documents to enrich in localStorage
+    const storedUploadedFiles = JSON.parse(
+      localStorage.getItem('uploadedFiles') ?? '[]',
+    ) as StoredUploadFileGroup[]
+
+    // enrich the documents with size and files, the size in this case is the sum of all files regarding one document category
     return documents.map(document => ({
       ...document,
-      size: 0,
+      size:
+        storedUploadedFiles
+          .find(item => item.categoryId === document.id)
+          ?.files.reduce((acc, file) => acc + file.size, 0) ?? 0,
+      files: storedUploadedFiles.find(item => item.categoryId === document.id)?.files ?? [],
     }))
   }
 
@@ -187,6 +214,7 @@ export class UploadStore {
   ): Promise<UploadDocumentPromise> {
     const formData = new FormData()
     const { file } = document
+
     formData.append('file', file, file.name)
     formData.append('key', document.key)
 
@@ -231,6 +259,30 @@ export class UploadStore {
       const { size } = await response.json()
       this.setUploadGroupSize(categoryId, size)
 
+      // if upload was successful => update the document state in localStorage
+      // get list of uploaded documents from localStorage
+      const storedUploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
+      // find the category in the list
+      const storedExistingCategory = storedUploadedFiles.find(
+        (item: StoredUploadFileGroup) => item.categoryId === categoryId,
+      )
+      // if category exists => add the document to the list of files
+      if (storedExistingCategory) {
+        storedExistingCategory.files = [
+          ...storedExistingCategory.files,
+          { key: document.key, name: document.file.name, size: document.file.size },
+        ]
+        // if category doesn't exist => create a new one
+      } else {
+        storedUploadedFiles.push({
+          categoryId,
+          files: [{ key: document.key, name: document.file.name, size: document.file.size }],
+        })
+      }
+      // update the list of uploaded documents in localStorage
+      const updatedDocuments = [...storedUploadedFiles]
+      localStorage.setItem('uploadedFiles', JSON.stringify(updatedDocuments))
+
       return Promise.resolve({ uploaded: true })
     } catch (error) {
       let message = undefined
@@ -258,6 +310,32 @@ export class UploadStore {
     if (!this.userDocuments[categoryId]) {
       return
     }
+
+    // remove document from localStorage
+    // get list of uploaded documents from localStorage
+    const storedUploadedFiles = JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
+    // find the category in the list
+    const findCategory = storedUploadedFiles.find(
+      (item: StoredUploadFileGroup) => item.categoryId === categoryId,
+    )
+
+    // if category exists => remove the document from the list of files
+    const filterFiles = findCategory?.files.filter((item: StoredUploadFile) => item.key !== key)
+
+    // map through all categories and update the list of files for the current category
+    const updatedUploadedFiles = storedUploadedFiles.map((item: StoredUploadFileGroup) => {
+      if (findCategory) {
+        return {
+          ...item,
+          files: filterFiles,
+        }
+      }
+      // if category doesn't exist => return the category as is
+      return item
+    })
+
+    // update the list of uploaded documents in localStorage
+    localStorage.setItem('uploadedFiles', JSON.stringify(updatedUploadedFiles))
 
     const document = this.getUserDocument(key, categoryId)
 
@@ -345,6 +423,11 @@ export class UploadStore {
       (acc, file) => acc + file.size,
       0,
     )
+
+    console.log('totalSize', totalSize)
+    console.log('itemPosition', position)
+    console.log('this.maxUploadGroupSize', this.maxUploadGroupSize)
+    console.log('totalSize >= this.maxUploadGroupSize', totalSize >= this.maxUploadGroupSize)
 
     return totalSize !== undefined && totalSize >= this.maxUploadGroupSize
   }

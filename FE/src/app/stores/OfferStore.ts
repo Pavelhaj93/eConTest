@@ -277,10 +277,21 @@ export class OfferStore {
    *
    * https://alexhisen.gitbook.io/mobx-recipes/use-extendobservable-sparingly
    */
-  private enrichDocuments(files: NewOfferResponse.File[]) {
+  private enrichToBeCheckedDocuments(files: NewOfferResponse.File[]) {
+    const storedKeys = localStorage.getItem('checkedDocuments')
+
     return files.map(file => ({
       ...file,
-      accepted: false,
+      accepted: storedKeys?.includes(file.key), // check if the document was accepted
+    }))
+  }
+
+  private enrichToBeSignedDocuments(files: NewOfferResponse.File[]) {
+    const storedSignatures = localStorage.getItem('signedDocuments')
+
+    return files.map(file => ({
+      ...file,
+      accepted: storedSignatures?.includes(file.key), // check if the document was signed
     }))
   }
 
@@ -324,6 +335,16 @@ export class OfferStore {
   @action public checkDocument(key: string): void {
     const document = this.getDocument(key, this.docGroupsToBeChecked)
     document && (document.accepted = !document.accepted)
+
+    const storedKeys = JSON.parse(localStorage.getItem('checkedDocuments') ?? '[]')
+    const updatedKeys = storedKeys.filter((k: string) => k !== key) // if key is already present, remove it
+
+    // if document is checked, add it to the list of checked documents
+    if (document?.accepted) {
+      updatedKeys.push(key)
+    }
+
+    localStorage.setItem('checkedDocuments', JSON.stringify(updatedKeys))
   }
 
   /**
@@ -368,8 +389,17 @@ export class OfferStore {
     let signed = false
 
     await this.signDocumentRequest(key, signature, signFileUrl)
+
       .then(() => {
         document.accepted = true
+
+        // retrieve all signed documents from localStorage
+        const storedSignatureKeys = JSON.parse(localStorage.getItem('signedDocuments') ?? '[]')
+        const updatedSignatureKeys = [...storedSignatureKeys, key] // add key to array of signed documents
+
+        // set new array of signed documents to localStorage
+        localStorage.setItem('signedDocuments', JSON.stringify(updatedSignatureKeys))
+
         signed = true
       })
       .catch(() => {
@@ -451,7 +481,7 @@ export class OfferStore {
                   ...item.body,
                   docs: {
                     ...item.body.docs,
-                    files: this.enrichDocuments(item.body.docs?.files ?? []),
+                    files: this.enrichToBeCheckedDocuments(item.body.docs?.files ?? []),
                   },
                 },
               }))
@@ -464,7 +494,7 @@ export class OfferStore {
                   ...item.body,
                   docs: {
                     ...item.body.docs,
-                    files: this.enrichDocuments(item.body.docs?.files ?? []),
+                    files: this.enrichToBeSignedDocuments(item.body.docs?.files ?? []),
                   },
                 },
               }))

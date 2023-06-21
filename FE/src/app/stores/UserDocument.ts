@@ -1,12 +1,12 @@
 import { observable } from 'mobx'
-import { FileError } from '@types'
+import { FileError, StoredUploadFile } from '@types'
 
 export class UserDocument {
   @observable
   public key: string
 
   @observable
-  public file: File
+  public file: File | StoredUploadFile
 
   @observable
   public touched: boolean
@@ -21,7 +21,7 @@ export class UserDocument {
   public controller: AbortController | undefined
 
   constructor(
-    file: File,
+    file: File | StoredUploadFile,
     key: string,
     touched?: boolean,
     error?: string,
