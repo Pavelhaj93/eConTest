@@ -94,8 +94,8 @@ export class UploadStore {
           allUploaded = false
         }
 
-        // if all documents are stil untouched or uploading or have error => group is not finished
-        if (this.userDocuments[doc.id]?.some(doc => !doc.touched || doc.uploading || doc.error)) {
+        // if all documents are or uploading or have error => group is not finished
+        if (this.userDocuments[doc.id]?.some(doc => doc.uploading || doc.error)) {
           allUploaded = false
         }
       })
@@ -423,11 +423,6 @@ export class UploadStore {
       (acc, file) => acc + file.size,
       0,
     )
-
-    console.log('totalSize', totalSize)
-    console.log('itemPosition', position)
-    console.log('this.maxUploadGroupSize', this.maxUploadGroupSize)
-    console.log('totalSize >= this.maxUploadGroupSize', totalSize >= this.maxUploadGroupSize)
 
     return totalSize !== undefined && totalSize >= this.maxUploadGroupSize
   }

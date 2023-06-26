@@ -44,6 +44,7 @@ export const Offer: React.FC<View> = observer(
       id: '',
       show: false,
     })
+
     const [confirmationModal, setConfirmationModal] = useState<boolean>(false)
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)

@@ -4,6 +4,8 @@ import {
   OfferErrorResponse,
   OfferType,
   QueryParams,
+  StoredUploadFile,
+  StoredUploadFileGroup,
 } from '@types'
 import { action, computed, observable } from 'mobx'
 import { parseUrl } from '../utils/strings'
@@ -65,6 +67,9 @@ export class OfferStore {
 
   @observable
   public confirm: NewOfferResponse.ResponseItem | undefined = undefined
+
+  @observable
+  public storedUploads = JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
 
   constructor(type: OfferType, offerUrl: string, guid: string) {
     this.type = type
@@ -334,9 +339,12 @@ export class OfferStore {
    */
   @action public checkDocument(key: string): void {
     const document = this.getDocument(key, this.docGroupsToBeChecked)
-    document && (document.accepted = !document.accepted)
+    if (!document) return
+    document.accepted = !document.accepted
 
+    // get all checked documents from localStorage
     const storedKeys = JSON.parse(localStorage.getItem('checkedDocuments') ?? '[]')
+    // remove the key from the list of checked documents
     const updatedKeys = storedKeys.filter((k: string) => k !== key) // if key is already present, remove it
 
     // if document is checked, add it to the list of checked documents
@@ -344,6 +352,7 @@ export class OfferStore {
       updatedKeys.push(key)
     }
 
+    // update the list of checked documents in localStorage
     localStorage.setItem('checkedDocuments', JSON.stringify(updatedKeys))
   }
 
@@ -356,10 +365,23 @@ export class OfferStore {
 
     // if at least one document which isn't checked is found,
     // mark the whole group of documents as checked
-    const allChecked = !files.find(document => !document.accepted)
+    const allChecked = files.every(file => file.accepted)
 
     // then just update the `checked` flag of each document
     files.forEach(file => (file.accepted = !allChecked))
+
+    // get all checked documents from localStorage
+    const storedKeys = JSON.parse(localStorage.getItem('checkedDocuments') ?? '[]')
+    // remove all keys from the list of checked documents
+    const updatedKeys = storedKeys.filter((k: string) => !files.map(file => file.key).includes(k)) // remove all keys from the group
+
+    // if at least one document is checked, add all keys from the group
+    if (!allChecked) {
+      updatedKeys.push(...files.map(file => file.key))
+    }
+
+    // update the list of checked documents in localStorage
+    localStorage.setItem('checkedDocuments', JSON.stringify(updatedKeys))
   }
 
   /**
@@ -547,17 +569,21 @@ export class OfferStore {
     return documents.filter(d => d.accepted).map(d => d.key)
   }
 
-  private getUploadedKeys() {
-    const storedUploads = JSON.parse(localStorage.getItem('uploads') ?? '[]')
-
+  private getUploadedKeys(
+    storedUploads: StoredUploadFileGroup[],
+  ): { categoryId: string; keys: string[] }[] {
     const modifiedUplaods = storedUploads.map((upload: any) => ({
       categoryId: upload.categoryId,
-      files: upload.files.map((file: any) => ({
-        key: file.key,
-      })),
+      keys: upload.files.map((file: StoredUploadFile) => file.key),
     }))
 
     return modifiedUplaods
+  }
+
+  private async clearLocalStorage(): Promise<void> {
+    localStorage.removeItem('checkedDocuments')
+    localStorage.removeItem('signedDocuments')
+    localStorage.removeItem('uploadedFiles')
   }
 
   /**
@@ -572,7 +598,7 @@ export class OfferStore {
     const data = {
       accepted: this.getAcceptedKeys(this.getAllToBeCheckedDocuments()),
       signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()),
-      uploaded: this.getUploadedKeys(),
+      uploaded: this.getUploadedKeys(this.storedUploads),
       supplier: this.supplier ? this.supplier : null,
     }
 
@@ -590,6 +616,8 @@ export class OfferStore {
       if (!response.ok) {
         throw new Error(`FAILED TO ACCEPT OFFER - ${response.statusText}`)
       }
+
+      await this.clearLocalStorage()
 
       return true
     } catch (error) {
@@ -614,6 +642,8 @@ export class OfferStore {
       if (!response.ok) {
         throw new Error(`FAILED TO CANCEL OFFER - ${response.statusText}`)
       }
+
+      await this.clearLocalStorage()
 
       return true
     } catch (error) {
