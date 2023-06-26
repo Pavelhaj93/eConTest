@@ -479,7 +479,7 @@
             settingsReaderService
             </exception>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetSummary2(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <inheritdoc/>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetNew(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
@@ -495,12 +495,12 @@
             <param name="offer"></param>
             <returns></returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData(eContracting.Models.OffersModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetProductData2(eContracting.Models.OffersModel)">
             <summary>
             Gets product container with all prices.
             </summary>
             <param name="offer"></param>
-            <returns>Null when <see cref="P:eContracting.Models.OfferModel.ShowPrices"/> == false OR there are no container to display. Otherwise container object.</returns>
+            <returns></returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetDistributorChange(eContracting.Models.OffersModel)">
             <summary>
@@ -533,11 +533,12 @@
             <param name="attachments"></param>
             <returns>Always returns the object.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetAllSalesArguments(System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetBenefitsData(System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean)">
             <summary>
-            Gets all sales arguments.
+            Gets all benefits data (former sales arguments).
             </summary>
             <param name="textParameters">Text parameters.</param>
+            <param name="excludeCommodity">if true commodity aren't returned</param>
             <returns>All sales arguments or empty array.</returns>
         </member>
         <member name="M:eContracting.Services.OfferJsonDescriptor.GetCommoditySalesArguments(System.Collections.Generic.IDictionary{System.String,System.String},eContracting.Models.IDefinitionCombinationModel)">
@@ -548,7 +549,7 @@
             <param name="definition">The matrix definition.</param>
             <returns>All sales arguments or null.</returns>
         </member>
-        <member name="M:eContracting.Services.OfferJsonDescriptor.GetGifts(System.Collections.Generic.IDictionary{System.String,System.String},eContracting.Models.IDefinitionCombinationModel)">
+        <member name="M:eContracting.Services.OfferJsonDescriptor.GetGifts2(System.Collections.Generic.IDictionary{System.String,System.String},eContracting.Models.IDefinitionCombinationModel)">
             <summary>
             Gets gifts from <c>BENEFITS</c> parameters.
             </summary>

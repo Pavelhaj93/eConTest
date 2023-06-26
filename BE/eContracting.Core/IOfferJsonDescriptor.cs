@@ -14,15 +14,7 @@ namespace eContracting
     public interface IOfferJsonDescriptor
     {
         /// <summary>
-        /// Gets summary infor for an offer.
-        /// </summary>
-        /// <param name="offer">The offer.</param>
-        /// <param name="user">The user.</param>
-        /// <returns></returns>
-        JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user);
-
-        /// <summary>
-        /// Gets summary infor for an offer.
+        /// Gets summary info for an offer.
         /// </summary>
         /// <param name="offer">The offer.</param>
         /// <param name="user">The user.</param>

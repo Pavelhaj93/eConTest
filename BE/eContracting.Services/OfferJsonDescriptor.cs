@@ -66,18 +66,6 @@ namespace eContracting.Services
         }
                         
         /// <inheritdoc/>
-        public JsonOfferSummaryModel GetSummary(OffersModel offer, UserCacheDataModel user)
-        {
-            var definition = this.SettingsReaderService.GetDefinition(offer);
-            var model = new JsonOfferSummaryModel();
-            model.User = this.GetPersonalData(offer);
-            model.DistributorChange = this.GetDistributorChange(offer);
-            model.Product = this.GetProductData(offer);
-            model.Gifts = this.GetGifts(offer.TextParameters, definition);
-            model.SalesArguments = this.GetAllSalesArguments(offer.TextParameters, model.Product != null);
-            return model;
-        }
-
         public ContainerModel GetSummary2(OffersModel offer, UserCacheDataModel user)
         {
             var container = new ContainerModel();
@@ -360,36 +348,7 @@ namespace eContracting.Services
         /// Gets product container with all prices.
         /// </summary>
         /// <param name="offer"></param>
-        /// <returns>Null when <see cref="OfferModel.ShowPrices"/> == false OR there are no container to display. Otherwise container object.</returns>
-        protected internal JsonOfferProductModel GetProductData(OffersModel offer)
-        {
-            if (!offer.ShowPrices)
-            {
-                return null;
-            }
-
-            var model = new JsonOfferProductModel();
-            model.Header = this.GetHeaderData(model, offer);
-            model.ProductInfos = this.GetProductInfos(offer);
-            model.Type = this.GetProductType(offer);
-            //model.Header.Note = this.GetProductNote(model.Type);
-            model.MiddleTexts = this.GetMiddleTexts(offer);
-
-            if (model.MiddleTexts.Count() > 0 && offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
-            {
-                model.MiddleTextsHelp = offer.TextParameters["SA06_MIDDLE_TEXT"];
-            }
-
-            model.Benefits = this.GetBenefits(offer);
-
-            if (!model.ProductInfos.Any() && !model.MiddleTexts.Any() && !model.Benefits.Any())
-            {
-                return null;
-            }            
-
-            return model;
-        }
-
+        /// <returns></returns>
         protected internal IDataModel GetProductData2(OffersModel offer)
         {
             if (!offer.ShowPrices)
@@ -400,6 +359,10 @@ namespace eContracting.Services
             var model = new ProductDataModel();
             model.Header = this.GetProductDataHeader(offer);            
             model.Body = GetProductDataBody(offer);
+            if (model.Body == null)
+            { 
+                return null; 
+            }
             return model;
         }
 
@@ -413,6 +376,12 @@ namespace eContracting.Services
                 body.InfoHelp = offer.TextParameters["SA06_MIDDLE_TEXT"];
             }
             body.Points = this.GetProductDataPoints(offer);
+
+            if (!body.Prices.Any() && !body.Infos.Any() && !body.Points.Any())
+            {
+                return null;
+            }
+
             return body;
         }
 
@@ -745,41 +714,11 @@ namespace eContracting.Services
         }
 
         /// <summary>
-        /// Gets all sales arguments.
+        /// Gets all benefits data (former sales arguments).
         /// </summary>
         /// <param name="textParameters">Text parameters.</param>
+        /// <param name="excludeCommodity">if true commodity aren't returned</param>
         /// <returns>All sales arguments or empty array.</returns>
-        protected internal IEnumerable<JsonSalesArgumentsModel> GetAllSalesArguments(IDictionary<string, string> textParameters, bool excludeCommodity)
-        {
-            var list = new List<JsonSalesArgumentsModel>();
-
-            var addServices = this.GetSalesArgumentsWithPrefix(textParameters, "ADD_SERVICES");
-
-            if (addServices.Any())
-            {
-                list.AddRange(addServices);
-            }
-
-            var nonCommodities = this.GetSalesArgumentsWithPrefix(textParameters, "NONCOMMODITY");
-
-            if (nonCommodities.Any())
-            {
-                list.AddRange(nonCommodities);
-            }
-
-            if (!excludeCommodity)
-            {
-                var commodities = this.GetSalesArgumentsWithPrefix(textParameters, "COMMODITY");
-
-                if (commodities.Any())
-                {
-                    list.AddRange(commodities);
-                }
-            }
-
-            return list;
-        }
-
         protected internal IEnumerable<IDataModel> GetBenefitsData(IDictionary<string, string> textParameters, bool excludeCommodity)
         {
             var list = new List<IDataModel>();
@@ -891,44 +830,6 @@ namespace eContracting.Services
         /// <param name="textParameters">Text parameters.</param>
         /// <param name="definition">The matrix combination.</param>
         /// <returns>Gets group of gifts or null if not <c>BENEFITS</c> found.</returns>
-        protected internal JsonAllBenefitsModel GetGifts(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
-        {
-            if (!this.IsSectionChecked(textParameters, "BENEFITS"))
-            {
-                return null;
-            }
-
-            var keys = new[] { "BENEFITS_NOW", "BENEFITS_NEXT_SIGN", "BENEFITS_NEXT_TZD" };
-            var groups = new List<JsonBenefitsGroupModel>();
-
-            for (int i = 0; i < keys.Length; i++)
-            {
-                var k = keys[i];
-                var g = this.GetBenefitGroup(k, textParameters);
-
-                if (g != null)
-                {
-                    groups.Add(g);
-                }
-            }
-
-            if (groups.Count == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonAllBenefitsModel();
-            model.Title = definition.OfferGiftsTitle?.Text.Trim();
-
-            if (textParameters.HasValue("BENEFITS_CLOSE"))
-            {
-                model.Note = textParameters["BENEFITS_CLOSE"];
-            }
-
-            model.Groups = groups;
-            return model;
-        }
-
         protected internal GiftDataModel GetGifts2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             if (!this.IsSectionChecked(textParameters, "BENEFITS"))
@@ -1662,69 +1563,7 @@ namespace eContracting.Services
             model.Parameters = list;
             return model;
         }
-
-        protected internal HeaderData GetHeaderData(JsonOfferProductModel model, OffersModel offer)
-        {
-            var header = new HeaderData();
-            header.Name = offer.TextParameters.GetValueOrDefault("CALC_PROD_DESC");
-
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_TOTAL_SAVE"))
-            {
-                header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
-                header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
-
-                if (offer.TextParameters.HasValue("CALC_TOTAL_SAVE_TOOLTIP"))
-                {
-                    header.Price1Note = offer.TextParameters["CALC_TOTAL_SAVE_TOOLTIP"];
-                }
-            }
-            else
-            {
-                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE_SHOW' is 'X' but 'CALC_TOTAL_SAVE' has no price");
-            }
-
-            if (string.IsNullOrEmpty(header.Price1Value)/* && this.IsSectionChecked(offer.TextParameters, "CALC_DEP_VALUE_SHOW")*/)
-            {
-                if (this.CanDisplayPrice(offer.TextParameters, "CALC_DEP_VALUE"))
-                {
-                    header.Price1Description = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DESCRIPTION");
-                    header.Price1Value = offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE") + " " + offer.TextParameters.GetValueOrDefault("CALC_DEP_VALUE_DISPLAY_UNIT");
-
-                    if (offer.TextParameters.HasValue("CALC_DEP_VALUE_TOOLTIP"))
-                    {
-                        header.Price1Note = offer.TextParameters["CALC_DEP_VALUE_TOOLTIP"];
-                    }
-                }
-                else
-                {
-                    this.Logger.Warn(offer.Guid, "Text parameter 'CALC_TOTAL_SAVE' and 'CALC_DEP_VALUE' is missing / empty.");
-                }
-            }
-
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_FIN_REW"))
-            {
-                header.Price2Description = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DESCRIPTION");
-                header.Price2Value = offer.TextParameters.GetValueOrDefault("CALC_FIN_REW") + " " + offer.TextParameters.GetValueOrDefault("CALC_FIN_REW_DISPLAY_UNIT");
-
-                if (offer.TextParameters.HasValue("CALC_FIN_REW_TOOLTIP"))
-                {
-                    header.Price2Note = offer.TextParameters["CALC_FIN_REW_TOOLTIP"];
-                }
-            }
-            else
-            {
-                this.Logger.Warn(offer.Guid, "Text parameter 'CALC_FIN_REW_SHOW' is 'X' but 'CALC_FIN_REW' has no price");
-            }
-
-            //if (offer.TextParameters.HasValue("CALC_TOTAL_SAVE", 0.1))
-            //{
-            //    header.Price2Description = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DESCRIPTION");
-            //    header.Price2Value = offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE") + " " + offer.TextParameters.GetValueOrDefault("CALC_TOTAL_SAVE_DISPLAY_UNIT");
-            //}
-
-            return header;
-        }
-
+        
         protected internal ProductDataHeaderModel GetProductDataHeader(OffersModel offer)
         {
             var header = new ProductDataHeaderModel();
@@ -1892,114 +1731,6 @@ namespace eContracting.Services
             return prices;
         }
 
-        protected internal ProductInfoPrice[] GetProductInfos(OffersModel offer)
-        {
-            var infoPrices = new List<ProductInfoPrice>();
-            var productType = string.Empty;
-
-            // gas
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_GAS"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("CONSUMED_GAS");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_GAS", "CALC_COMP_GAS_PRICE"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_GAS_PRICE_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "G";
-            }
-            else if (this.CanDisplayPrice(offer.TextParameters, "CALC_CAP_PRICE"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("ANNUAL_PRICE_FOR_RESERVED_CAPACITY");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_CAP_PRICE", "CALC_CAP_PRICE_DISC"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC") + " " + offer.TextParameters.GetValueOrDefault("CALC_CAP_PRICE_DISC_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "G";
-            }
-
-            // gas
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_FIX"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("STANDING_PAYMENT");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_FIX", "CALC_COMP_FIX_PRICE"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_FIX_PRICE_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "G";
-            }
-
-            // electricity
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_VT"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("HIGH_TARIFF");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_VT", "CALC_COMP_VT_PRICE"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_VT_PRICE_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "E";
-            }
-
-            // electricity
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_NT"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("LOW_TARIFF");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_NT", "CALC_COMP_NT_PRICE"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_NT_PRICE_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "E";
-            }
-
-            // electricity
-            if (this.CanDisplayPrice(offer.TextParameters, "CALC_COMP_KC"))
-            {
-                var infoPrice = new ProductInfoPrice();
-                infoPrice.Title = this.TextService.FindByKey("STANDING_PAYMENT");
-                infoPrice.Price = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC");
-                infoPrice.PriceUnit = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_DISPLAY_UNIT");
-
-                if (this.CanDisplayPreviousPrice(offer.TextParameters, "CALC_COMP_KC", "CALC_COMP_KC_PRICE"))
-                {
-                    infoPrice.PreviousPrice = offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE") + " " + offer.TextParameters.GetValueOrDefault("CALC_COMP_KC_PRICE_DISPLAY_UNIT");
-                }
-
-                infoPrices.Add(infoPrice);
-                productType = "E";
-            }
-
-            return infoPrices.ToArray();
-        }
-
         /// <summary>
         /// Gets <c>G</c> for gas, <c>E</c> for electricity.
         /// </summary>
@@ -2111,36 +1842,6 @@ namespace eContracting.Services
             return null;
         }
 
-        protected internal string[] GetMiddleTexts(OffersModel offer)
-        {
-            var middleTexts = new List<string>();
-
-            if (offer?.TextParameters == null)
-            {
-                return middleTexts.ToArray();
-            }
-
-            if (offer.TextParameters.HasValue("SA04_MIDDLE_TEXT"))
-            {
-                middleTexts.Add(offer.TextParameters["SA04_MIDDLE_TEXT"]);
-            }
-
-            if (offer.TextParameters.HasValue("SA05_MIDDLE_TEXT"))
-            {
-                middleTexts.Add(offer.TextParameters["SA05_MIDDLE_TEXT"]);
-            }
-
-            if (offer.TextParameters.HasValue("SA06_MIDDLE_TEXT"))
-            {
-                if (middleTexts.Count == 0)
-                {
-                    middleTexts.Add(offer.TextParameters["SA06_MIDDLE_TEXT"]);
-                }
-            }
-
-            return middleTexts.ToArray();
-        }
-
         protected internal IEnumerable<ValueModel> GetProductDataInfos(OffersModel offer)
         {
             var infos = new List<ValueModel>();            
@@ -2169,33 +1870,6 @@ namespace eContracting.Services
             }
 
             return infos;
-        }
-
-        protected internal string[] GetBenefits(OffersModel offer)
-        {
-            var benefits = new List<string>();
-
-            if (offer?.TextParameters == null)
-            {
-                return benefits.ToArray();
-            }
-
-            if (offer.TextParameters.HasValue("SA01_MIDDLE_TEXT"))
-            {
-                benefits.Add(offer.TextParameters["SA01_MIDDLE_TEXT"]);
-            }
-
-            if (offer.TextParameters.HasValue("SA02_MIDDLE_TEXT"))
-            {
-                benefits.Add(offer.TextParameters["SA02_MIDDLE_TEXT"]);
-            }
-
-            if (offer.TextParameters.HasValue("SA03_MIDDLE_TEXT"))
-            {
-                benefits.Add(offer.TextParameters["SA03_MIDDLE_TEXT"]);
-            }
-
-            return benefits.ToArray();
         }
 
         protected internal IEnumerable<ValueModel> GetProductDataPoints(OffersModel offer)

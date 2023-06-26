@@ -41,7 +41,7 @@ namespace eContracting.ConsoleClient.Commands
                 return;
             }
 
-            var json = this.JsonDescriptor.GetSummary(offer, user);
+            var json = this.JsonDescriptor.GetSummary2(offer, user);
             this.Console.WriteLine(JsonConvert.SerializeObject(json, Formatting.Indented));
         }
     }

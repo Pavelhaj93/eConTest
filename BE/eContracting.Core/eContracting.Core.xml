@@ -15241,17 +15241,9 @@
             Creates prescription for JSON / API for not accepted offer and accepted offer.
             </summary>
         </member>
-        <member name="M:eContracting.IOfferJsonDescriptor.GetSummary(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
-            <summary>
-            Gets summary infor for an offer.
-            </summary>
-            <param name="offer">The offer.</param>
-            <param name="user">The user.</param>
-            <returns></returns>
-        </member>
         <member name="M:eContracting.IOfferJsonDescriptor.GetSummary2(eContracting.Models.OffersModel,eContracting.Models.UserCacheDataModel)">
             <summary>
-            Gets summary infor for an offer.
+            Gets summary info for an offer.
             </summary>
             <param name="offer">The offer.</param>
             <param name="user">The user.</param>

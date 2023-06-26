@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using eContracting.Models;
+using eContracting.Models.JsonDescriptor;
 using eContracting.Tests;
 using JSNLog.Infrastructure;
 using Moq;
@@ -438,7 +439,7 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetGifts(offer.TextParameters, definition);
+            var result = service.GetGifts2(offer.TextParameters, definition);
 
             Assert.Null(result);
         }
@@ -469,9 +470,9 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetGifts(textParameters, definition);
+            var result = service.GetGifts2(textParameters, definition);
 
-            Assert.Equal(expected, result.Note);
+            Assert.Equal(expected, ((GiftDataHeaderModel)result.Header).Note);
         }
 
         [Theory(DisplayName = "Skip BENEFITS section when not equals X")]
@@ -884,7 +885,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
-        public void GetAllSalesArguments()
+        public void GetAllSalesArguments_aka_GetBenefitsData_Test()
         {
             var textParameters = new Dictionary<string, string>();
             textParameters.Add("ADD_SERVICES", "X");
@@ -933,7 +934,7 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetAllSalesArguments(textParameters, false);
+            var result = service.GetBenefitsData(textParameters, false);
 
             Assert.Equal(4, result.Count());   
         }
@@ -1472,7 +1473,7 @@ namespace eContracting.Services.Tests
         }
 
         [Fact]
-        public void GetProductInfos_Get_Only_For_CALC_COMP_GAS()
+        public void GetProductPrices_Get_Only_For_CALC_COMP_GAS()
         {
             var offer = this.CreateOffer(3);
             offer.First().TextParameters.Add("CALC_COMP_GAS", "2 500,00");
@@ -1494,12 +1495,12 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetProductInfos(offer);
+            var result = service.GetProductPrices(offer);
 
             Assert.Single(result);
-            Assert.Equal("2 500,00", result[0].Price);
-            Assert.Equal("Kč/MWh", result[0].PriceUnit);
-            Assert.True(string.IsNullOrEmpty(result[0].PreviousPrice));
+            Assert.Equal("2 500,00", result.FirstOrDefault().Price);
+            Assert.Equal("Kč/MWh", result.FirstOrDefault().Unit);
+            Assert.True(string.IsNullOrEmpty(result.FirstOrDefault().Price2));
         }
 
         [Fact]
@@ -1525,12 +1526,12 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetProductInfos(offer);
+            var result = service.GetProductPrices(offer);
 
             Assert.Single(result);
-            Assert.Equal("2 500,00", result[0].Price);
-            Assert.Equal("Kč/MWh", result[0].PriceUnit);
-            Assert.Equal("2 555,00 Kč/MWh", result[0].PreviousPrice);
+            Assert.Equal("2 500,00", result.FirstOrDefault().Price);
+            Assert.Equal("Kč/MWh", result.FirstOrDefault().Unit);
+            Assert.Equal("2 555,00 Kč/MWh", result.FirstOrDefault().Price2);
         }
 
         [Fact]
@@ -1989,7 +1990,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetBenefits(offer);
+            var result = service.GetProductDataPoints(offer);
 
             Assert.Empty(result);
         }
@@ -2005,7 +2006,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetBenefits((OffersModel)null);
+            var result = service.GetProductDataPoints((OffersModel)null);
 
             Assert.Empty(result);
         }
@@ -2026,9 +2027,9 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetBenefits(offer);
-
-            Assert.Contains(value, result);
+            var result = service.GetProductDataPoints(offer);
+                        
+            Assert.Contains(result, x => x.Value == value);
         }
 
         [Theory]
@@ -2047,7 +2048,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetBenefits(offer);
+            var result = service.GetProductDataPoints(offer);
 
             Assert.Empty(result);
         }
@@ -2065,7 +2066,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetDistributorChange(offer);
+            var result = service.GetCompetitorData(offer);
 
             Assert.Null(result);
         }
@@ -2092,7 +2093,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetDistributorChange(offer);
+            var result = service.GetCompetitorData(offer);
 
             Assert.Null(result);
         }
@@ -2122,13 +2123,13 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetDistributorChange(offer);
+            var result = service.GetCompetitorData(offer);
 
             Assert.NotNull(result);
 
-            Assert.Equal(title, result.Title);
-            Assert.Equal(description, result.Description);
-            Assert.Equal(distributor, result.Name);
+            Assert.Equal(title, result.Header.Title);
+            Assert.Equal(description, ((CompetitorDataBodyModel)result.Body).Text);
+            Assert.Equal(distributor, ((CompetitorDataBodyModel)result.Body).Name);
         }
 
         [Fact]
@@ -2143,13 +2144,13 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts(offer);
+            var result = service.GetProductDataInfos(offer);
 
             Assert.Empty(result);
         }
 
         [Fact]
-        public void GetMiddleTexts_Returns_Empty_Array_When_Offer_Null()
+        public void GetProductDataInfos_Returns_Empty_Array_When_Offer_Null()
         {
             var logger = new MemoryLogger();
             var textService = new Mock<ITextService>();
@@ -2159,7 +2160,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts((OffersModel)null);
+            var result = service.GetProductDataInfos((OffersModel)null);
 
             Assert.Empty(result);
         }
@@ -2168,7 +2169,7 @@ namespace eContracting.Services.Tests
         [InlineData("SA04_MIDDLE_TEXT", "sadfdsaf")]
         [InlineData("SA05_MIDDLE_TEXT", "sadfdsaf")]
         [InlineData("SA06_MIDDLE_TEXT", "sadfdsaf")]
-        public void GetMiddleTexts_Returns_One_Value(string key, string value)
+        public void GetProductDataInfos_Returns_One_Value(string key, string value)
         {
             var offer = this.CreateOffer();
             offer.First().TextParameters.Add(key, value);
@@ -2180,9 +2181,9 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts(offer);
+            var result = service.GetProductDataInfos(offer);
 
-            Assert.Contains(value, result);
+            Assert.Contains(result, x => x.Value.Contains(value));
         }
 
         [Theory]
@@ -2190,7 +2191,7 @@ namespace eContracting.Services.Tests
         [InlineData("SA01_MIDDLE_TEXT", "sadfdsaf")]
         [InlineData("SA02_MIDDLE_TEXT", "sadfdsaf")]
         [InlineData("SA03_MIDDLE_TEXT", "sadfdsaf")]
-        public void GetMiddleTexts_Returns_Empty_Array_When_Keys_Not_Match(string key, string value)
+        public void GetProductDataInfos_Returns_Empty_Array_When_Keys_Not_Match(string key, string value)
         {
             var offer = this.CreateOffer();
             offer.First().TextParameters.Add(key, value);
@@ -2202,13 +2203,13 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts(offer);
+            var result = service.GetProductDataInfos(offer);
 
             Assert.Empty(result);
         }
 
         [Fact]
-        public void GetMiddleTexts_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Missing()
+        public void GetProductDataInfos()
         {
             var offer = this.CreateOffer();
             offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", "text");
@@ -2220,13 +2221,13 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts(offer);
+            var result = service.GetProductDataInfos(offer);
 
             Assert.Single(result);
         }
 
         [Fact]
-        public void GetMiddleTexts_Do_Not_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Exists()
+        public void GetProductDataInfos_Do_Not_Returns_SA06_MIDDLE_TEXT_Only_When_Other_Exists()
         {
             var offer = this.CreateOffer();
             offer.First().TextParameters.Add("SA06_MIDDLE_TEXT", "text");
@@ -2238,10 +2239,10 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetMiddleTexts(offer);
+            var result = service.GetProductDataInfos(offer);
 
             Assert.Single(result);
-            Assert.DoesNotContain("SA06_MIDDLE_TEXT", result);
+            Assert.DoesNotContain(result, x => x.Value.Contains("SA06_MIDDLE_TEXT"));            
         }
 
         [Fact]
@@ -2325,7 +2326,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetProductData(offer);
+            var result = service.GetProductData2(offer);
 
             Assert.Null(result);
         }
@@ -2344,7 +2345,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetProductData(offer);
+            var result = service.GetProductData2(offer);
 
             Assert.Null(result);
         }
@@ -2366,9 +2367,9 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetProductData(offer);
+            var result = service.GetProductData2(offer);
 
-            Assert.Equal(expected, result.MiddleTextsHelp);
+            Assert.Equal(expected, ((ProductDataBodyModel)result.Body).InfoHelp);
         }
 
         [Theory]

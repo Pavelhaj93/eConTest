@@ -15,7 +15,7 @@ namespace eContracting.Models.JsonDescriptor
         [JsonProperty("infos")]
         public IEnumerable<ValueModel> Infos { get; set; }
 
-        [JsonProperty("infoHelp")]
+        [JsonProperty("infoHelp", NullValueHandling = NullValueHandling.Ignore)]
         public string InfoHelp { get; set; }
 
         [JsonProperty("points")]
