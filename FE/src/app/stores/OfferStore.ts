@@ -547,6 +547,19 @@ export class OfferStore {
     return documents.filter(d => d.accepted).map(d => d.key)
   }
 
+  private getUploadedKeys() {
+    const storedUploads = JSON.parse(localStorage.getItem('uploads') ?? '[]')
+
+    const modifiedUplaods = storedUploads.map((upload: any) => ({
+      categoryId: upload.categoryId,
+      files: upload.files.map((file: any) => ({
+        key: file.key,
+      })),
+    }))
+
+    return modifiedUplaods
+  }
+
   /**
    * Performs an ajax request to `acceptOfferUrl`.
    * @returns Promise<boolean> - true if offer was successfully accepted, false otherwise.
@@ -559,6 +572,7 @@ export class OfferStore {
     const data = {
       accepted: this.getAcceptedKeys(this.getAllToBeCheckedDocuments()),
       signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()),
+      uploaded: this.getUploadedKeys(),
       supplier: this.supplier ? this.supplier : null,
     }
 
