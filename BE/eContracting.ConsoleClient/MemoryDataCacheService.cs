@@ -1,37 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using eContracting.Models;
+﻿using eContracting.Models;
 
 namespace eContracting.ConsoleClient
 {
+    // Used by console client - no cache needed 
     class MemoryDataCacheService : IRequestDataCacheService, IDataSessionCacheService
     {
         public T Get<T>(string key)
         {
-            throw new NotImplementedException();
+            return default(T);            
         }
 
         public OfferModel GetOffer(string guid)
         {
-            throw new NotImplementedException();
+            return this.Get<OfferModel>(guid);
         }
 
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+            // No cache needed for console client
         }
 
         public void SaveOffer(string guid, OfferModel data)
         {
-            throw new NotImplementedException();
+            // No cache needed for console client
         }
 
         public void Set<T>(string key, T data)
         {
-            throw new NotImplementedException();
+            // No cache needed for console client
         }
     }
 }

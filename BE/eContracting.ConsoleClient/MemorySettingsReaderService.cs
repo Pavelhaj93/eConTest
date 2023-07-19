@@ -165,7 +165,19 @@ namespace eContracting.ConsoleClient
 
         public IDefinitionCombinationModel GetDefinition(OffersModel offer)
         {
-            throw new NotImplementedException();
+            if (offer == null)
+            {
+                throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF-2", "Offers container is null, cannot retrieve matrix information."));
+            }
+
+            var firstOffer = offer.FirstOrDefault();
+
+            if (firstOffer == null)
+            {
+                throw new EcontractingDataException(new ErrorModel("SETTING-GET-DEF", "Offers container doesn't contain any offer, cannot retrieve matrix information."));
+            }
+
+            return this.GetDefinition(firstOffer);            
         }
 
         public IDefinitionCombinationModel GetDefinition(string process, string processType)

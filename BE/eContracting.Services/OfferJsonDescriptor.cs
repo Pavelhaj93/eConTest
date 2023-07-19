@@ -475,15 +475,17 @@ namespace eContracting.Services
         /// <returns>Always returns the object.</returns>
         protected internal JsonOfferNotAcceptedModel GetNew(OffersModel offer, OfferAttachmentModel[] attachments)
         {
+            // ToDo: Delete this after AnalyzeOfferCommand is rewritten
+            
             var definition = this.SettingsReaderService.GetDefinition(offer);
-            var productInfos = this.SettingsReaderService.GetAllProductInfos();
+            //var productInfos = this.SettingsReaderService.GetAllProductInfos();
             var model = new JsonOfferNotAcceptedModel();
 
             if (offer.Version > 1)
             {
                 if (definition.OfferPerexShow)
                 {
-                    model.Perex = this.GetPerex(offer.TextParameters, definition);
+                    //model.Perex = this.GetPerex(offer.TextParameters, definition);
                 }
 
                 // disabled by https://jira.innogy.cz/browse/TRUNW-475
@@ -493,14 +495,15 @@ namespace eContracting.Services
                 //}
 
                 // for version 3 container are picked up by GetSummary method
-                if (offer.Version == 2)
-                {
-                    model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
-                }
+                //if (offer.Version == 2)
+                //{
+                //    model.SalesArguments = this.GetCommoditySalesArguments(offer.TextParameters, definition);
+                //}
             }
 
-            model.Documents = this.GetDocuments(offer, definition, productInfos, attachments);
-            model.AcceptanceDialog = this.GetAcceptance(offer, definition);
+            //model.Documents = this.GetDocuments(offer, definition, productInfos, attachments);
+            
+            model.AcceptanceDialog = this.GetAcceptance(offer, definition); //ToDo: Implement Acceptance dialogue to the new JSON structure
             return model;
         }
 
@@ -645,35 +648,6 @@ namespace eContracting.Services
             return list;
         }
 
-        protected internal JsonOfferPerexModel GetPerex(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
-        {
-            var parameters = new List<JsonParamModel>();
-            var keys = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_NAME")).ToArray();
-            var values = textParameters.Keys.Where(x => x.StartsWith("COMMODITY_OFFER_SUMMARY_ATRIB_VALUE")).ToArray();
-
-            for (int i = 0; i < keys.Length; i++)
-            {
-                var key = keys[i];
-                var title = textParameters[key];
-                var value = this.GetEnumPairValue(key, textParameters);
-
-                if (value != null)
-                {
-                    parameters.Add(new JsonParamModel(title, value));
-                }
-            }
-
-            if (parameters.Count > 0)
-            {
-                var model = new JsonOfferPerexModel();
-                model.Title = definition.OfferPerexTitle?.Text.Trim();
-                model.Parameters = parameters.ToArray();
-                return model;
-            }
-
-            return null;
-        }
-
         protected internal PerexDataModel GetPerex2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
         {
             var parameters = new List<TitleAndValueModel>();
@@ -750,6 +724,8 @@ namespace eContracting.Services
             return list;
         }
 
+
+        //ToDo: Temporarily kept for potentional use in new perex, so that FE can distinguish where to render for two commodities.
         /// <summary>
         /// Gets sales arguments from <c>_SALES_ARGUMENTS_</c> text parameters.
         /// </summary>
@@ -806,21 +782,6 @@ namespace eContracting.Services
             body.Points = values.Select(x => new ValueModel(x));
             model.Body = body;           
 
-            return model;
-        }
-
-        protected internal JsonSalesArgumentsModel GetAdditionalServiceSalesArguments(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
-        {
-            var values = textParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
-
-            if (values.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonSalesArgumentsModel();
-            model.Title = definition.OfferBenefitsTitle.Text;
-            model.Arguments = values.Select(x => new JsonArgumentModel(x)).ToArray();
             return model;
         }
 
@@ -1002,30 +963,6 @@ namespace eContracting.Services
             return group;
         }
 
-        protected internal JsonOfferDocumentsModel GetDocuments(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
-        {
-            if (files.Length == 0)
-            {
-                return null;
-            }
-
-            var acceptance = this.GetDocumentsAcceptance(offer, files, definition, productInfos);
-            var uploads = this.GetUploads(offer, files, definition);
-            var other = this.GetOther(offer, files, definition, productInfos);
-
-            if (acceptance == null && uploads == null && other == null)
-            {
-                return null;
-            }
-
-            var model = new JsonOfferDocumentsModel();
-            model.Description = definition.OfferDocumentsDescription?.Text;
-            model.Acceptance = acceptance;
-            model.Uploads = uploads;
-            model.Other = other;
-            return model;
-        }
-
         protected internal DocumentDataModel GetDocumentsAcceptance2(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] files)
         {
             var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.COMMODITY && x.IsPrinted == true && x.IsSignReq == false).ToArray();
@@ -1092,63 +1029,6 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsAcceptanceModel GetDocumentsAcceptance(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var accept = this.GetAcceptanceDocumentsAccept(offer, files, definition, productInfos);
-            var sign = this.GetAcceptanceDocumentsSign(offer, files, definition, productInfos);
-
-            if (accept == null && sign == null)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsAcceptanceModel();
-            model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
-            model.AcceptanceInfoBox.Title = definition.OfferDocumentsForElectronicAcceptanceTitle?.Text.Trim();
-            model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForElectronicAcceptanceText?.Text, offer.TextParameters);
-            model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferDocumentsDescription?.Text, offer.TextParameters);
-            model.Title = model.AcceptanceInfoBox.Title;
-            model.Text = model.AcceptanceInfoBox.Text;
-            model.Accept = accept;
-            model.Sign = sign;
-
-            return model;
-        }
-
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsAccept(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
-
-            if (selectedFiles.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferDocumentsForAcceptanceTitle?.Text.Trim();
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferDocumentsForAcceptanceText?.Text, offer.TextParameters);
-
-            var list = new List<JsonAcceptFileModel>();
-
-            for (int i = 0; i < selectedFiles.Length; i++)
-            {
-                var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel(selectedFile);
-                file.Prefix = this.GetFileLabelPrefix(selectedFile);
-                list.Add(file);
-
-                if (file.Mandatory)
-                {
-                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
-                }
-            }
-
-            this.UpdateProductInfo(list, productInfos);
-
-            model.Files = list;
-            return model;
-        }
-
         private DocsDataModel GetDocsDataModel(OffersModel offer, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos, OfferAttachmentModel[] selectedFiles, bool isSignReq, string group)
         {
             var model = new DocsDataModel();            
@@ -1196,80 +1076,6 @@ namespace eContracting.Services
 
             model.Files = list;
             return model;            
-        }
-
-        protected internal JsonDocumentsAcceptModel GetAcceptanceDocumentsSign(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var selectedFiles = files.Where(x => x.Group == "COMMODITY" && x.IsPrinted == true && x.IsSignReq == true).ToArray();
-
-            if (selectedFiles.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsAcceptModel();
-            model.Title = definition.OfferDocumentsForSignTitle?.Text.Trim();
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferDocumentsForSignText?.Text, offer.TextParameters);
-            model.Note = null; //TODO: create text
-            var list = new List<JsonAcceptFileModel>();
-
-            for (int i = 0; i < selectedFiles.Length; i++)
-            {
-                var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel(selectedFile);
-                file.Prefix = this.GetFileLabelPrefix(selectedFile);
-                list.Add(file);
-
-                if (file.Mandatory)
-                {
-                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
-                }
-            }
-
-            this.UpdateProductInfo(list, productInfos);
-
-            model.Files = list;
-            return model;
-        }
-
-        protected internal JsonDocumentsUploadsModel GetUploads(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition)
-        {
-            var fileTemplates = files.Where(x => x.IsPrinted == false).ToArray();
-
-            if (fileTemplates.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsUploadsModel();
-            var list = new List<JsonUploadTemplateModel>();
-
-            for (int i = 0; i < fileTemplates.Length; i++)
-            {
-                var template = fileTemplates[i];
-                var file = new JsonUploadTemplateModel(template);
-                file.Info = this.GetTemplateHelp(template.IdAttach, offer.TextParameters);
-
-                if (file.Mandatory)
-                {
-                    model.MandatoryGroups.Add(template.GroupGuid);
-                }
-
-                list.Add(file);
-            }
-
-            // logic moved to OfferParserService
-            //var customFile = new JsonUploadTemplateModel();
-            //customFile.GroupId = Utils.GetUniqueKeyForCustomUpload(offer);
-            //customFile.Title = definition.OfferUploadsExtraText.Text;
-            //customFile.Info = definition.OfferUploadsExtraHelp.Text;
-            //customFile.Mandatory = false;
-            //list.Add(customFile);
-
-            model.Title = Utils.GetReplacedTextTokens(definition.OfferUploadsTitle?.Text.Trim(), offer.TextParameters);
-            model.Note = Utils.GetReplacedTextTokens(definition.OfferUploadsNote?.Text.Trim(), offer.TextParameters);
-            model.Types = list;
-            return model;
         }
 
         /// <summary>
@@ -1334,84 +1140,6 @@ namespace eContracting.Services
             return model;
         }
 
-        protected internal JsonDocumentsOthersModel GetOther(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var products = this.GetOtherProducts(offer, files, definition, productInfos);
-            var services = this.GetAdditionalServices(offer, files, definition, productInfos);
-
-            if (products == null && services == null)
-            {
-                return null;
-            }
-
-            return new JsonDocumentsOthersModel(products, services);
-        }
-
-        protected internal JsonDocumentsAdditionalServicesModel GetAdditionalServices(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var selectedFiles = files.Where(x => x.Group == "DSL" && x.IsPrinted == true && x.IsSignReq == false).ToArray();
-
-            if (selectedFiles.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsAdditionalServicesModel();
-            var list = new List<JsonAcceptFileModel>();
-
-            for (int i = 0; i < selectedFiles.Length; i++)
-            {
-                var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel(selectedFile);
-                file.Prefix = this.GetFileLabelPrefix(selectedFile);
-
-                if (file.Mandatory)
-                {
-                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
-                }
-
-                list.Add(file);
-            }
-
-            this.UpdateProductInfo(list, productInfos);
-
-            var parameters = new List<JsonParamModel>();
-            var salesArguments = new List<JsonArgumentModel>();
-
-            if (offer.Version < 3)
-            {
-                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_OFFER_SUMMARY_ATRIB_NAME")))
-                {
-                    var key = item.Value;
-                    var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
-                    parameters.Add(new JsonParamModel(key, value));
-                }
-
-                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("ADD_SERVICES_SALES_ARGUMENTS_ATRIB_VALUE")))
-                {
-                    salesArguments.Add(new JsonArgumentModel(item.Value));
-                }
-            }
-
-            if (definition.OfferAdditionalServicesDescription != null)
-            {
-                model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
-                model.AcceptanceInfoBox.Title = definition.OfferAdditionalServicesTitle?.Text.Trim();
-                model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryText?.Text, offer.TextParameters);
-                model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDescription?.Text, offer.TextParameters);
-            }
-
-            model.Title = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesTitle?.Text.Trim(), offer.TextParameters);
-            model.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesNote?.Text.Trim(), offer.TextParameters);
-            model.SalesArguments = salesArguments;
-            model.Params = parameters;
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesSummaryTitle?.Text.Trim(), offer.TextParameters);
-            model.SubTitle2 = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsTitle?.Text.Trim(), offer.TextParameters);
-            model.Text = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesDocsText?.Text.Trim(), offer.TextParameters);
-            model.Files = list;
-            return model;
-        }
-
         protected internal DocumentDataModel GetAdditionalServices2(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
         {
             var selectedFiles = files.Where(x => x.Group == Constants.OfferGroups.DSL && x.IsPrinted == true && x.IsSignReq == false).ToArray();
@@ -1442,69 +1170,6 @@ namespace eContracting.Services
             body.Note = Utils.GetReplacedTextTokens(definition.OfferAdditionalServicesNote?.Text.Trim(), offer.TextParameters);
 
             model.Body = body;
-            return model;
-        }
-
-        protected internal JsonDocumentsOtherProductsModel GetOtherProducts(OffersModel offer, OfferAttachmentModel[] files, IDefinitionCombinationModel definition, IProductInfoModel[] productInfos)
-        {
-            var selectedFiles = files.Where(x => x.Group == "NONCOMMODITY" && x.IsPrinted == true && x.IsSignReq == false && x.IsObligatory == false).ToArray();
-
-            if (selectedFiles.Length == 0)
-            {
-                return null;
-            }
-
-            var model = new JsonDocumentsOtherProductsModel();
-            var list = new List<JsonAcceptFileModel>();
-
-            for (int i = 0; i < selectedFiles.Length; i++)
-            {
-                var selectedFile = selectedFiles[i];
-                var file = new JsonAcceptFileModel(selectedFile);
-                file.Prefix = this.GetFileLabelPrefix(selectedFile);
-
-                if (file.Mandatory)
-                {
-                    model.MandatoryGroups.Add(selectedFile.GroupGuid);
-                }
-
-                list.Add(file);
-            }
-
-            this.UpdateProductInfo(list, productInfos);
-
-            var parameters = new List<JsonParamModel>();
-            var salesArguments = new List<JsonArgumentModel>();
-
-            if (offer.Version < 3)
-            {
-                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_OFFER_SUMMARY_ATRIB_NAME")))
-                {
-                    var key = item.Value;
-                    var value = this.GetEnumPairValue(item.Key, offer.TextParameters);
-                    parameters.Add(new JsonParamModel(key, value));
-                }
-
-                foreach (var item in offer.TextParameters.Where(x => x.Key.StartsWith("NONCOMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")))
-                {
-                    salesArguments.Add(new JsonArgumentModel(item.Value));
-                }
-            }
-
-            model.AcceptanceInfoBox = new JsonSectionAcceptanceBoxModel();
-            model.AcceptanceInfoBox.Title = definition.OfferOtherProductsTitle?.Text.Trim();
-            model.AcceptanceInfoBox.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryText?.Text, offer.TextParameters);
-            model.AcceptanceInfoBox.Note = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDescription?.Text, offer.TextParameters);
-            model.Title = Utils.GetReplacedTextTokens(model.AcceptanceInfoBox.Title, offer.TextParameters);
-            model.Description = Utils.GetReplacedTextTokens(model.AcceptanceInfoBox.Note, offer.TextParameters);
-            model.Note = Utils.GetReplacedTextTokens(definition.OfferOtherProductsNote?.Text.Trim(), offer.TextParameters);
-            model.SalesArguments = salesArguments;
-            model.Params = parameters;
-            model.SubTitle = Utils.GetReplacedTextTokens(definition.OfferOtherProductsSummaryTitle.Text, offer.TextParameters);
-            model.SubTitle2 = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsTitle?.Text.Trim(), offer.TextParameters);
-            model.Text = Utils.GetReplacedTextTokens(definition.OfferOtherProductsDocsText?.Text.Trim(), offer.TextParameters);
-            model.Files = list;
-
             return model;
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Linq;
 using Sitecore.Data;
 
@@ -367,6 +368,12 @@ namespace eContracting
         public static class QueryValues
         {
             public const string DO_NOT_AUTO_LOGIN_TRUE = "1";
+        }
+
+        public static class JsonDocumentDataModelType
+        {
+            public const string DOCS_SIGN = "docsSign";
+            public const string DOCS_CHECK = "docsCheck";
         }
     }
 }

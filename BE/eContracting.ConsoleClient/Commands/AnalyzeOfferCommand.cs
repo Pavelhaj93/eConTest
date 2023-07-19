@@ -154,7 +154,7 @@ namespace eContracting.ConsoleClient.Commands
 
         protected void PrintNewOffer(OfferModel offer, OfferAttachmentModel[] attachments)
         {
-            var model = this.OfferDescriptor.GetNew(new OffersModel(offer), attachments);
+            var model = this.OfferDescriptor.GetNew(new OffersModel(offer), attachments); // ToDo: Replace to new JSON structure
 
             if (model.Perex != null)
             {

@@ -42,17 +42,21 @@ namespace eContracting.ConsoleClient.Commands
                 return;
             }
 
-            var json = this.JsonDescriptor.GetNew(offer, user);
+            //var json = this.JsonDescriptor.GetNew(offer, user);
+            var json = this.JsonDescriptor.GetNew2(offer, user);
 
             if (part == "perex")
             {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.Perex, Formatting.Indented));
+                var perex = json.Data.Where(x => x.Type == "perex");
+                this.Console.WriteLine(JsonConvert.SerializeObject(perex, Formatting.Indented));
             }
             else if (part == "benefits")
             {
-                this.Console.WriteLine(JsonConvert.SerializeObject(json.SalesArguments, Formatting.Indented));
+                var salesArguments = json.Data.Where(x => x.Type == "benefit");
+                this.Console.WriteLine(JsonConvert.SerializeObject(salesArguments, Formatting.Indented));
             }
-            else if (part == "gifts")
+            // ToDo: Finalize GetOfferJsonCommand
+            /*else if (part == "gifts")
             {
                 this.Console.WriteLine(JsonConvert.SerializeObject(json.Gifts, Formatting.Indented));
             }
@@ -67,7 +71,7 @@ namespace eContracting.ConsoleClient.Commands
             else
             {
                 this.Console.WriteLine(JsonConvert.SerializeObject(json, Formatting.Indented));
-            }
+            }*/
         }
     }
 }

@@ -225,17 +225,22 @@ namespace eContracting.Services.Tests
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer, user);
+            var result = service.GetNew2(offer, user);
 
             if (expectedPerex)
             {
-                Assert.True(result.Perex.Parameters.Length == 1);
-                Assert.Contains(result.Perex.Parameters, x => x.Title == offer.TextParameters[nameKey]);
-                Assert.Contains(result.Perex.Parameters, x => x.Value == offer.TextParameters[valueKey]);
+                Assert.NotNull(result);
+                Assert.NotEmpty(result.Data);
+                var perex = result.Data.Where(x => x.Type == "perex");
+                Assert.True(perex.Count() == 1);
+                var body = (PerexBodyModel)perex.First().Body;
+                Assert.True(body.Params.Count() == 1);
+                Assert.Contains(body.Params, x => x.Title == offer.TextParameters[nameKey]);
+                Assert.Contains(body.Params, x => x.Value == offer.TextParameters[valueKey]);
             }
             else
             {
-                Assert.Null(result.Perex);
+                Assert.Null(result.Data.Where(x => x.Type == "perex"));
             }
         }
 
@@ -321,16 +326,23 @@ namespace eContracting.Services.Tests
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetNew(offer, user);
+            var result = service.GetNew2(offer, user);
 
             if (expectedArguments)
             {
-                Assert.True(result.SalesArguments.Arguments.Count() == 1);
-                Assert.Contains(result.SalesArguments.Arguments, x => x.Value == argValue);
+
+                Assert.NotNull(result);
+                Assert.NotEmpty(result.Data);
+                var salesArguments = result.Data.Where(x => x.Type == "benefit");
+                Assert.True(salesArguments.Count() == 1);
+
+                var body = (BenefitDataBodyModel)salesArguments.First().Body;
+                Assert.True(body.Points.Count() == 1);
+                Assert.Contains(body.Points, x => x.Value == argValue);
             }
             else
             {
-                Assert.Null(result.SalesArguments);
+                Assert.Null(result.Data.Where(x => x.Type == "benefit"));
             }
         }
 
@@ -348,7 +360,7 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetPerex(offer.TextParameters, null);
+            var result = service.GetPerex2(offer.TextParameters, null);
 
             Assert.Null(result);
         }
@@ -369,7 +381,7 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetPerex(offer.TextParameters, null);
+            var result = service.GetPerex2(offer.TextParameters, null);
 
             Assert.Null(result);
         }
@@ -413,9 +425,9 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
-            var result = service.GetPerex(offer.TextParameters, definition);
+            var result = service.GetPerex2(offer.TextParameters, definition);
 
-            Assert.Equal(count, result.Parameters.Length);
+            Assert.Equal(count, ((PerexBodyModel)result.Body).Params.Count());
         }
 
         [Fact]
@@ -827,9 +839,12 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetOtherProducts(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
+            var result = service.GetOtherProducts2(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
 
-            Assert.Equal(3, result.Files.Count());
+            var body = (DocumentDataBodyModel)result.Body;
+
+            Assert.NotNull(body);
+            Assert.Equal(3, body.Docs.Files.Count());
         }
 
         [Fact]
@@ -879,9 +894,12 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetOtherProducts(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
+            var result = service.GetOtherProducts2(offer, files.ToArray(), mockDefinition.Object, productInfos.ToArray());
 
-            Assert.Equal(2, result.MandatoryGroups.Count);
+            var body = (DocumentDataBodyModel)result.Body;
+
+            Assert.NotNull(body);
+            Assert.Equal(2, body.Docs.MandatoryGroups.Count);
         }
 
         [Fact]
@@ -2260,7 +2278,7 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+            var result = service.GetUploadDataModel2(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object, true);
 
             Assert.Null(result);
         }
@@ -2280,10 +2298,14 @@ namespace eContracting.Services.Tests
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
 
-            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+            var mandatoryFile = false;
+            var result = service.GetUploadDataModel2(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object, mandatoryFile);
+
+            UploadDataBodyModel body = (UploadDataBodyModel)result.Body;            
 
             Assert.NotNull(result);
-            Assert.Single(result.Types);
+            Assert.NotNull(body);
+            Assert.Single(body.Docs.Files);
         }
 
         [Fact]
@@ -2305,11 +2327,14 @@ namespace eContracting.Services.Tests
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
 
             var service = new OfferJsonDescriptor(logger, textService.Object, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
+            var mandatoryFile = true;
+            var result = service.GetUploadDataModel2(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object, mandatoryFile);
 
-            var result = service.GetUploads(offer, attachments.ToArray(), mockDefinitionCombinationModel.Object);
+            UploadDataBodyModel body = (UploadDataBodyModel)result.Body;
 
             Assert.NotNull(result);
-            Assert.Single(result.Types);
+            Assert.NotNull(body);
+            Assert.Single(body.Docs.Files);
         }
 
         [Fact]

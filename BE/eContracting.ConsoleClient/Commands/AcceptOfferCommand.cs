@@ -7,6 +7,7 @@ using Consinloop;
 using Consinloop.Abstractions;
 using Consinloop.Attributes;
 using eContracting.Models;
+using eContracting.Models.JsonDescriptor;
 using eContracting.Services;
 
 namespace eContracting.ConsoleClient.Commands
@@ -61,17 +62,25 @@ namespace eContracting.ConsoleClient.Commands
                 }
             }
 
-            var json = this.JsonDescriptor.GetNew(offer, attachments);
+            var json = this.JsonDescriptor.GetNew2(offer, attachments);
 
             var data = new OfferSubmitDataModel();
 
             var signFiles = new List<string>();
 
-            if (json.Documents.Acceptance?.Sign?.Files?.Any() ?? false)
+            var signedDataModels = json.Data.Where(x => x.Type == Constants.JsonDocumentDataModelType.DOCS_SIGN);
+            if (signedDataModels.Any())
             {
-                foreach (var file in json.Documents.Acceptance.Sign.Files)
+                foreach(var signedDataModel in signedDataModels)
                 {
-                    signFiles.Add(file.Key);
+                    var bodyModel = (DocumentDataBodyModel)((DocumentDataModel)signedDataModels).Body;
+                    if (bodyModel.Docs.Files.Any())
+                    {
+                        foreach (var file in bodyModel.Docs.Files)
+                        {
+                            signFiles.Add(file.Key);
+                        }
+                    }
                 }
             }
 
@@ -82,35 +91,27 @@ namespace eContracting.ConsoleClient.Commands
             }
 
             var acceptedFiles = new List<string>();
-
-            if (json.Documents.Acceptance?.Accept?.Files?.Any() ?? false)
+            var acceptedDataModels = json.Data.Where(x => x.Type == Constants.JsonDocumentDataModelType.DOCS_CHECK);
+            if (acceptedDataModels.Any())
             {
-                acceptedFiles.AddRange(json.Documents.Acceptance.Accept.Files.Select(x => x.Key));
-            }
+                foreach( var acceptedDataModel in acceptedDataModels)
+                {
+                    var bodyModel = (DocumentDataBodyModel)((DocumentDataModel)acceptedDataModel).Body;
+                    if (bodyModel.Docs.Files.Any())
+                    {
+                        foreach (var file in bodyModel.Docs.Files)
+                        {
+                            acceptedFiles.Add(file.Key);
+                        }
+                    }
+                }
+            }            
 
             if (acceptedFiles.Count > 0)
             {
-                data.Accepted = acceptedFiles;
-                this.Console.WriteLine(acceptedFiles.Count + " accepted files");
-            }
-
-            var otherFiles = new List<string>();
-
-            if (json.Documents.Other?.AdditionalServices?.Files?.Any() ?? false)
-            {
-                otherFiles.AddRange(json.Documents.Other.AdditionalServices.Files.Select(x => x.Key));
-            }
-
-            if (json.Documents.Other?.OtherProducts?.Files?.Any() ?? false)
-            {
-                otherFiles.AddRange(json.Documents.Other.OtherProducts.Files.Select(x => x.Key));
-            }
-
-            if (otherFiles.Count > 0)
-            {
-                data.Other = otherFiles;
-                this.Console.WriteLine(acceptedFiles.Count + " other files");
-            }
+                data.Accepted = acceptedFiles;                
+                this.Console.WriteLine(acceptedFiles.Count + " checked files (accepted files + other files)"); // accepted files + doplnkove sluzby + ostatni sluzby
+            }            
 
             this.ApiService.AcceptOffer(offer.First(), data, user, "FB057B3ED3E24872AF79CE1FD77BCA46");
         }
