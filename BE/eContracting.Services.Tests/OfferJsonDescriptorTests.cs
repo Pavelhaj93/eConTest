@@ -240,7 +240,7 @@ namespace eContracting.Services.Tests
             }
             else
             {
-                Assert.Null(result.Data.Where(x => x.Type == "perex"));
+                Assert.Empty(result.Data.Where(x => x.Type == "perex"));
             }
         }
 
@@ -342,7 +342,7 @@ namespace eContracting.Services.Tests
             }
             else
             {
-                Assert.Null(result.Data.Where(x => x.Type == "benefit"));
+                Assert.Empty(result.Data.Where(x => x.Type == "benefit"));
             }
         }
 
