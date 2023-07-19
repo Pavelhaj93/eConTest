@@ -1,4 +1,4 @@
-import { Box, BoxHeading, DocumentLink, Icon, SignButton } from '@components'
+import { Box, BoxHeader, BoxHeading, DocumentLink, Icon, SignButton } from '@components'
 import { breakpoints, colors } from '@theme'
 import React, { FC, Fragment, useContext } from 'react'
 
@@ -21,12 +21,13 @@ interface DocsSignProps {
   getFileUrl: string
   guid: string
   handleDownload: () => void
-  openSignatureModal: (key: string) => void
+  onOpenSignatureModal: (key: string) => void
 }
 
 const DocsSign: FC<DocsSignProps> = observer(
   ({
     t,
+    headerTitle,
     docsTitle,
     docsText,
     docsFiles,
@@ -34,7 +35,7 @@ const DocsSign: FC<DocsSignProps> = observer(
     getFileUrl,
     guid,
     handleDownload,
-    openSignatureModal,
+    onOpenSignatureModal,
   }) => {
     const store = useContext(OfferStoreContext)
 
@@ -43,17 +44,20 @@ const DocsSign: FC<DocsSignProps> = observer(
     }
 
     return (
-      <Fragment>
+      <>
+        {headerTitle && (
+          <BoxHeader>
+            <h2 className="text-center text-white">{headerTitle}</h2>
+          </BoxHeader>
+        )}
         <Box>
-          {docsTitle && <BoxHeading>{docsTitle}</BoxHeading>}
-          {docsText && (
-            <div
-              className="editorial-content text-center my-4"
-              dangerouslySetInnerHTML={{
-                __html: docsText ?? '',
-              }}
-            />
-          )}
+          <h3 className="text-center">{docsTitle}</h3>
+          <div
+            className="editorial-content text-center my-4"
+            dangerouslySetInnerHTML={{
+              __html: bodyNote ?? '',
+            }}
+          />
           {docsFiles.map(({ key, prefix, label, accepted }) => (
             <>
               <div key={key} className="form-item-wrapper mb-3">
@@ -66,6 +70,7 @@ const DocsSign: FC<DocsSignProps> = observer(
                       className="form-item-wrapper__icon mr-2"
                     />
                   )}
+
                   <span>
                     {prefix}{' '}
                     <DocumentLink
@@ -80,7 +85,7 @@ const DocsSign: FC<DocsSignProps> = observer(
                   <SignButton
                     className="d-none d-sm-block"
                     signed={accepted ? accepted : false}
-                    onClick={() => openSignatureModal(key)}
+                    onClick={() => onOpenSignatureModal(key)}
                     labelSign={t('signatureBtn')}
                     labelEdit={t('signatureEditBtn')}
                     descriptionId={'signBtnDescription'}
@@ -93,7 +98,7 @@ const DocsSign: FC<DocsSignProps> = observer(
                       <SignButton
                         className="btn-block-mobile mt-3"
                         signed={accepted ? accepted : false}
-                        onClick={() => openSignatureModal(key)}
+                        onClick={() => onOpenSignatureModal(key)}
                         labelSign={t('signatureBtn')}
                         labelEdit={t('signatureEditBtn')}
                         descriptionId={'signBtnDescription'}
@@ -104,11 +109,11 @@ const DocsSign: FC<DocsSignProps> = observer(
                 </Media>
               </div>
               {/* info text */}
+              {bodyNote && <InfoElement value={bodyNote} className="mb-4" />}
             </>
           ))}
-          {bodyNote && <InfoElement value={bodyNote} className="mb-4" />}
         </Box>
-      </Fragment>
+      </>
     )
   },
 )

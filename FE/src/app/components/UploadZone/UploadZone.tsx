@@ -25,8 +25,6 @@ export const UploadZone: React.FC<Props> = ({
   const [rejectedFiles, setRejectedFiles] = useState<CustomFile[]>([])
   const t = useLabels(labels)
 
-  console.log('disabled', disabled)
-
   return (
     <>
       <FileDropZone

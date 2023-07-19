@@ -155,7 +155,7 @@ export const SignatureModal: React.FC<Props> = observer(
             {/* within the second mobile step or on desktop, show the `Confirm` button */}
             {showSignaturePad && (
               <Button
-                variant="secondary"
+                variant="primary"
                 onClick={handleSubmit}
                 disabled={store.isSigning || !hasSignature}
               >

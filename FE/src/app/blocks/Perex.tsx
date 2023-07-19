@@ -10,7 +10,7 @@ interface PerexProps {
 
 const Perex: FC<PerexProps> = ({ headerTitle, bodyParams }) => {
   return (
-    <Box backgroundColor="gray-80">
+    <Box backgroundColor="gray-80" className="mb-2">
       <BoxHeading>{headerTitle}</BoxHeading>
       {bodyParams && bodyParams.length > 0 && (
         <Table size="sm" borderless data-testid="summaryTable" className="table-two-columns">

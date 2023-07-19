@@ -47,11 +47,10 @@ export type UploadDocumentErrorResponse = ErrorResponse
 
 export type StoredUploadFile = {
   key: string
-  name: string
-  size: number
+  file: File
 }
 
 export type StoredUploadFileGroup = {
   categoryId: string
-  files: StoredUploadFile[]
+  userDocuments: StoredUploadFile[]
 }

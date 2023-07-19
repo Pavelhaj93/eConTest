@@ -58,3 +58,14 @@ export const getColorByCommodityType = (commodityType: CommodityProductType): st
       return 'purple-light'
   }
 }
+
+export const getDocsHeaderTitle = (commodityType: CommodityProductType): string => {
+  switch (commodityType) {
+    case CommodityProductType.ELECTRICITY:
+      return 'Elektřina'
+    case CommodityProductType.GAS:
+      return 'Plyn'
+    default:
+      return 'Komodita'
+  }
+}

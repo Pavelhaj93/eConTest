@@ -39,8 +39,7 @@ export const FileUpload: React.FC<Props> = ({
       }
     }
 
-    // ensure that the uploadFile function is called only once and not when the component received file from localStorage with name and size just to show it on FE
-    if (file && file.type && file.lastModified && shouldUploadImmediately) {
+    if (file && shouldUploadImmediately) {
       uploadFile(file)
     }
   }, [file, shouldUploadImmediately, uploadHandler])

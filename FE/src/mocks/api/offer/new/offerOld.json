@@ -1,55 +1,62 @@
 {
   "data": [
     {
-      "type": "docsCheck-E",
+      "type": "perex",
       "position": 1,
+      "header": {
+        "title": "Stručný přehled Vaší nabídky"
+      },
+      "body": {
+        "params": [
+          {
+            "title": "Produkt",
+            "value": "plyn Start 12"
+          },
+          {
+            "title": "Platnost nabídky do",
+            "value": "05.10.2022"
+          },
+          {
+            "title": "Délka fixace",
+            "value": "12 měsíců od účinnosti smlouvy"
+          },
+          {
+            "title": "Platnost smlouvy",
+            "value": "Dnem akceptace smlouvy zákazníkem"
+          },
+          {
+            "title": "Předpokládaná účinnost smlouvy",
+            "value": "09.10.2022"
+          }
+        ]
+      }
+    },
+    {
+      "type": "docsCheck",
+      "position": 3,
       "header": {
         "title": ""
       },
       "body": {
         "head": {
           "title": "Dokumenty k elektronické akceptaci Vaší smlouvy",
-          "text": "Na adrese místa spotřeby Hackerova 575/10\n Praha - Bohnice, 18100"
-        },
-        "text": "Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.\n<br></br>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.",
-        "docs": {
-          "perex": {
-            "header": {
-              "title": "Stručný přehled Vaší nabídky"
-            },
-            "body": {
-              "params": [
-                {
-                  "title": "Produkt",
-                  "value": "Elektřina Start 12"
-                },
-                {
-                  "title": "Platnost nabídky do",
-                  "value": "05.10.2022"
-                },
-                {
-                  "title": "Délka fixace",
-                  "value": "12 měsíců od účinnosti smlouvy"
-                },
-                {
-                  "title": "Platnost smlouvy",
-                  "value": "Dnem akceptace smlouvy zákazníkem"
-                },
-                {
-                  "title": "Předpokládaná účinnost smlouvy",
-                  "value": "09.10.2022"
-                }
-              ]
-            }
-          },
-          "title": "Smlouva a přidružené dokumenty",
-          "text": "Dokumenty si přečtěte a potvrďte zatržením.",
           "params": [
             {
-              "title": "EAN:",
-              "value": "89XXXXXXXXXXXXXXX"
+              "title": "Na adrese místa spotřeby",
+              "value": "Sobotní 736, 691 42 Valtice"
+            },
+            {
+              "title": "EIC",
+              "value": "27ZG600Z0414883V"
             }
           ],
+          "text": "<p>Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.</p>\n<p>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.</p>"
+        },
+        "text": null,
+        "docs": {
+          "title": "Smlouva a přidružené dokumenty",
+          "params": null,
+          "text": null,
           "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
           "files": [
             {
@@ -118,122 +125,8 @@
       }
     },
     {
-      "type": "docsCheck-G",
-      "position": 2,
-      "header": {
-        "title": ""
-      },
-      "body": {
-        "head": null,
-        "text": "",
-        "docs": {
-          "perex": {
-            "header": {
-              "title": "Stručný přehled Vaší nabídky"
-            },
-            "body": {
-              "params": [
-                {
-                  "title": "Produkt",
-                  "value": "plyn Start 12"
-                },
-                {
-                  "title": "Platnost nabídky do",
-                  "value": "05.10.2022"
-                },
-                {
-                  "title": "Délka fixace",
-                  "value": "12 měsíců od účinnosti smlouvy"
-                },
-                {
-                  "title": "Platnost smlouvy",
-                  "value": "Dnem akceptace smlouvy zákazníkem"
-                },
-                {
-                  "title": "Předpokládaná účinnost smlouvy",
-                  "value": "09.10.2022"
-                }
-              ]
-            }
-          },
-          "title": "Smlouva a přidružené dokumenty",
-          "text": "Dokumenty si přečtěte a potvrďte zatržením.",
-          "params": [
-            {
-              "title": "EIC:",
-              "value": "89XXXXXXXXXXXXXXX"
-            }
-          ],
-          "mandatoryGroups": ["newGroup"],
-          "files": [
-            {
-              "key": "key1",
-              "group": "newGroup",
-              "label": "Informace pro zákazníka – spotřebitele",
-              "note": null,
-              "prefix": "Souhlasím s",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 1
-            },
-            {
-              "key": "key2",
-              "group": "newGroup",
-              "label": "Smlouva o sdružených službách dodávky plynu",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 2
-            },
-            {
-              "key": "key3",
-              "group": "newGroup",
-              "label": "Ceník",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 4
-            },
-            {
-              "key": "key4",
-              "group": "newGroup",
-              "label": "Ceník služeb",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 5
-            },
-            {
-              "key": "key5",
-              "group": "newGroup",
-              "label": "Obchodní podmínky",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 6
-            },
-            {
-              "key": "key6",
-              "group": "newGroup",
-              "label": "Potvrzení o přiznání individuální slevy",
-              "note": "",
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": false,
-              "idx": 17
-            }
-          ]
-        },
-        "note": null
-      }
-    },
-    {
       "type": "docsSign",
-      "position": 3,
+      "position": 4,
       "header": {
         "title": "Dokumenty k podpisu"
       },
@@ -243,13 +136,13 @@
         "docs": {
           "title": "Plná moc",
           "params": null,
-          "text": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu",
+          "text": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>",
           "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
           "files": [
             {
               "key": "EEFCB55B021DA472D361BD2E894BBDD9",
               "group": "0635F899B3111EED8E9B07EF632D3EC9",
-              "label": "Plná moc (Plyn)",
+              "label": "Plná moc",
               "note": "",
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
@@ -258,12 +151,12 @@
             }
           ]
         },
-        "note": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>"
+        "note": "Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu"
       }
     },
     {
       "type": "docsCheck",
-      "position": 4,
+      "position": 5,
       "header": {
         "title": "Doplňkové služby"
       },
@@ -271,9 +164,9 @@
         "head": null,
         "text": null,
         "docs": {
-          "title": "Dokumenty k elektronické akceptaci služby",
+          "title": "Dokument(y) k elektronické akceptaci služby",
           "params": null,
-          "text": "Dokumenty si přečtěte a potvrďte zatržením.",
+          "text": "<p>Nunc eu ante nec ipsum porttitor ultricies sed non velit. Suspendisse potenti. Ut placerat, enim ac luctus gravida, quam urna pulvinar urna, in placerat libero est viverra tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Mauris mollis sapien nisi, eu blandit dui commodo quis. Donec eget lobortis urna. Pellentesque mollis sapien sed eros suscipit, nec elementum nulla maximus.</p>",
           "mandatoryGroups": [],
           "files": [
             {
@@ -293,20 +186,26 @@
     },
     {
       "type": "docsCheck",
-      "position": 5,
+      "position": 6,
       "header": {
         "title": "Ostatní služby"
       },
       "body": {
         "head": {
           "title": "Dokumenty k elektronické akceptaci",
-          "text": "<p><strong><span>Na adrese m&iacute;sta spotřeby:</span></strong>&nbsp;Brněnská 311, Říčany, 664 82</p>\n"
+          "params": [
+            {
+              "title": "Na adrese místa plnění",
+              "value": "Valtice, Sobotní 736, 691 42"
+            }
+          ],
+          "text": null
         },
-        "text": "<p>Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.</p>\n<p>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.</p>",
+        "text": "<p>Aliquam non purus quis risus commodo aliquet et at turpis. Pellentesque venenatis mollis neque, nec porta ex condimentum ut. Sed ornare quis libero in semper. Duis pulvinar commodo ultrices. Mauris vitae mauris at tortor vulputate malesuada. Pellentesque sodales fringilla ante, dignissim cursus urna gravida laoreet.</p>",
         "docs": {
           "title": "Smlouva a přidružené dokumenty",
           "params": null,
-          "text": "Dokumenty si přečtěte a potvrďte zatržením",
+          "text": null,
           "mandatoryGroups": [],
           "files": [
             {
@@ -346,7 +245,7 @@
     },
     {
       "type": "confirm",
-      "position": 6,
+      "position": 10,
       "header": {
         "title": "Potvrzení nabídky"
       },
@@ -359,12 +258,8 @@
             "group": "0635F899B3111EED8E9B080756ABDEC9"
           },
           {
-            "title": "Smlouva Elektrina",
+            "title": "Smlouva",
             "group": "0635F899B3111EED8E9B07EF632D3EC9"
-          },
-          {
-            "title": "Smlouva plyn",
-            "group": "newGroup"
           },
           {
             "title": "Servis plynových spotřebičů",

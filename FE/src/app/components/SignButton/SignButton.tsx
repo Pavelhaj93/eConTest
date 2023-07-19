@@ -25,7 +25,7 @@ export const SignButton: React.FC<SignButtonProps> = ({
 }) => (
   <>
     <Button
-      variant={signed ? 'primary' : 'secondary'}
+      variant="primary"
       className={classNames(
         {
           'btn-icon': signed && !showLabelEdit,

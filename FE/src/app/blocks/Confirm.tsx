@@ -1,4 +1,4 @@
-import { Box } from '@components'
+import { Box, BoxHeader } from '@components'
 import { OfferStoreContext } from '@context'
 import { useLabels } from '@hooks'
 import { OfferStore } from '@stores'
@@ -10,13 +10,15 @@ import { Button, Form } from 'react-bootstrap'
 
 interface ConfirmProps {
   t: ReturnType<typeof useLabels>
+  headerTitle: string
+  bodyText: string
   setConfirmationModal: (value: boolean) => void
   suppliers?: Suppliers
   cancelDialog?: CancelDialog
 }
 
 const Confirm: FC<ConfirmProps> = observer(
-  ({ t, suppliers, setConfirmationModal, cancelDialog }) => {
+  ({ t, suppliers, setConfirmationModal, headerTitle, bodyText, cancelDialog }) => {
     const store = useContext(OfferStoreContext)
 
     if (!(store instanceof OfferStore)) {
@@ -29,7 +31,11 @@ const Confirm: FC<ConfirmProps> = observer(
           'd-none': (!store.isLoading && store.error) || !store.offerFetched,
         })}
       >
-        <h2 className="mt-5 text-center">{t('acceptOfferTitle')}</h2>
+        {headerTitle && (
+          <BoxHeader>
+            <h2 className="text-center text-white">{t('acceptOfferTitle')}</h2>
+          </BoxHeader>
+        )}
         <Box>
           {suppliers && (
             <Form.Group>
@@ -51,27 +57,16 @@ const Confirm: FC<ConfirmProps> = observer(
           <div className="text-center">
             <div
               className="editorial-content mb-3"
-              dangerouslySetInnerHTML={{ __html: t('acceptOfferHelptext') }}
+              dangerouslySetInnerHTML={{ __html: bodyText }}
             />
             <Button
-              variant="secondary"
+              variant="primary"
               type="submit"
               onClick={() => setConfirmationModal(true)}
               disabled={!store.isOfferReadyToAccept}
             >
               {t('submitBtn')}
             </Button>
-            {/* If a user wants to start again, the following button will be visible */}
-            {cancelDialog && (
-              <Button
-                className="ml-3"
-                variant="outline-primary"
-                type="submit"
-                onClick={() => store.setIsUnfinishedOfferModalOpen(true)}
-              >
-                {t('startOver')}
-              </Button>
-            )}
           </div>
         </Box>
       </div>

@@ -5,12 +5,10 @@
 body {
   font-family: $font-main, $font-fallback;
   font-size: $font-size-base;
+  font-weight: 500;
 
-  @include media-breakpoint-up(sm) {
-    font-size: rem(20);
-  }
   @include media-breakpoint-up(md) {
-    font-size: rem(22);
+    font-size: rem(18);
   }
 }
 

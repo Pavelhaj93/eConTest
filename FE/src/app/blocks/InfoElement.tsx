@@ -12,14 +12,14 @@ const InfoElement: FC<InfoElementProps> = ({ value, className }) => {
   return (
     <Fragment>
       {value && (
-        <div className={classNames('text-center mt-4', className)}>
-          <Icon
-            name="info-circle"
-            size={40}
-            color={colors.gray100}
-            className="d-block mx-auto mb-3"
+        <div className={classNames('text-center mt-4 d-flex flex-row', className)}>
+          <div className="mr-2">
+            <Icon name="info-circle" size={16.5} color={colors.gray100} className="mx-1 mb-1" />
+          </div>
+          <div
+            className="editorial-content text-muted small align-self-center"
+            dangerouslySetInnerHTML={{ __html: value }}
           />
-          <div className="editorial-content" dangerouslySetInnerHTML={{ __html: value }} />
         </div>
       )}
     </Fragment>

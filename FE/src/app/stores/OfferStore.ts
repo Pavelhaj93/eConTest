@@ -57,9 +57,6 @@ export class OfferStore {
   public perex: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
-  public benefits: NewOfferResponse.ResponseItem[] | undefined = undefined
-
-  @observable
   public docsCheck: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
@@ -83,8 +80,6 @@ export class OfferStore {
   @computed
   public get concatedSortedData(): NewOfferResponse.ResponseItem[] {
     return [
-      ...(this.perex ?? []),
-      ...(this.benefits ?? []),
       ...(this.docsCheck ?? []),
       ...(this.docsSign ?? []),
       ...(this.confirm ? [this.confirm] : []),
@@ -488,15 +483,14 @@ export class OfferStore {
             // 1. filter out items by type and assign them to the corresponding properties of the store object
             // enrich documents with `accepted` key and set it to false by default (see `enrichDocuments` method)
             // - this is needed for MobX to observe the changes of this key and trigger rerender in React component when the key is changed
-            this.perex = jsonResponse.data.filter(
-              item => item.type === NewOfferResponse.ResponseItemType.Perex,
-            )
-            this.benefits = jsonResponse.data.filter(
-              item => item.type === NewOfferResponse.ResponseItemType.Benefit,
-            )
 
             this.docsCheck = jsonResponse.data
-              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck)
+              .filter(
+                item =>
+                  item.type === NewOfferResponse.ResponseItemType.DocsCheckG ||
+                  item.type === NewOfferResponse.ResponseItemType.DocsCheckE ||
+                  item.type === NewOfferResponse.ResponseItemType.DocsCheck,
+              )
               .map(item => ({
                 ...item,
                 body: {

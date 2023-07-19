@@ -18,7 +18,6 @@ export const Summary: React.FC<View> = observer(
   ({
     getSummaryUrl,
     errorPageUrl,
-    nextUrl,
     authUrl,
     labels,
     timeout,
@@ -27,6 +26,7 @@ export const Summary: React.FC<View> = observer(
     getCallMeBackUrl,
     postCallMeBackUrl,
     showCmbModal,
+    nextUrl,
   }) => {
     const t = useLabels(labels)
     /* Summary store. */

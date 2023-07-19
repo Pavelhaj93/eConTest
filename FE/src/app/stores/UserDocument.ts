@@ -6,7 +6,7 @@ export class UserDocument {
   public key: string
 
   @observable
-  public file: File | StoredUploadFile
+  public file: File
 
   @observable
   public touched: boolean
@@ -21,7 +21,7 @@ export class UserDocument {
   public controller: AbortController | undefined
 
   constructor(
-    file: File | StoredUploadFile,
+    file: File,
     key: string,
     touched?: boolean,
     error?: string,

@@ -20,23 +20,25 @@ export class UploadStore {
   public errorPageUrl = ''
   public sessionExpiredPageUrl = ''
 
-  // first we check if there are any userDocuments in localStorage
-  storedUserDocuments = JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
-
   // if there are any userDocuments in localStorage => we create an observable object from them else we return empty object
   @observable
   public userDocuments: Record<string, UserDocument[]> =
-    this.storedUserDocuments
-      .map((group: StoredUploadFileGroup) => {
+    // first we check if there are any userDocuments in localStorage
+    JSON.parse(localStorage.getItem('uploadedFiles') ?? '[]')
+      .map((group: { categoryId: string; key: string; userDocuments: UserDocument[] }) => {
         return {
-          [group.categoryId]: group.files.map((file: StoredUploadFile) => {
-            return new UserDocument(file, file.key)
+          [group.categoryId]: group.userDocuments.map((userDocument: UserDocument) => {
+            return new UserDocument(userDocument.file, userDocument.key)
           }),
         }
       })
-      .reduce((acc: Record<string, UserDocument[]>, curr: Record<string, UserDocument[]>) => {
-        return { ...acc, ...curr }
-      }, {}) ?? {}
+      .reduce(
+        (acc: Record<string, UserDocument>, curr: Record<string, UserDocument>) => ({
+          ...acc,
+          ...curr,
+        }),
+        {},
+      ) ?? {}
 
   @observable
   public uploadResponseItems: UploadDocumentsResponse.ResponseItem[] | undefined = undefined
@@ -118,8 +120,8 @@ export class UploadStore {
       size:
         storedUploadedFiles
           .find(item => item.categoryId === document.id)
-          ?.files.reduce((acc, file) => acc + file.size, 0) ?? 0,
-      files: storedUploadedFiles.find(item => item.categoryId === document.id)?.files ?? [],
+          ?.userDocuments.reduce((acc, userDocument) => acc + userDocument.file.size, 0) ?? 0,
+      files: storedUploadedFiles.find(item => item.categoryId === document.id)?.userDocuments ?? [],
     }))
   }
 
@@ -215,6 +217,8 @@ export class UploadStore {
     const formData = new FormData()
     const { file } = document
 
+    console.log('uploading document', document)
+
     formData.append('file', file, file.name)
     formData.append('key', document.key)
 
@@ -268,15 +272,31 @@ export class UploadStore {
       )
       // if category exists => add the document to the list of files
       if (storedExistingCategory) {
-        storedExistingCategory.files = [
-          ...storedExistingCategory.files,
-          { key: document.key, name: document.file.name, size: document.file.size },
+        storedExistingCategory.userDocuments = [
+          ...storedExistingCategory.userDocuments,
+          {
+            key: document.key,
+            file: {
+              name: document.file.name,
+              size: document.file.size,
+              lastModified: document.file.lastModified,
+            },
+          },
         ]
         // if category doesn't exist => create a new one
       } else {
         storedUploadedFiles.push({
           categoryId,
-          files: [{ key: document.key, name: document.file.name, size: document.file.size }],
+          userDocuments: [
+            {
+              key: document.key,
+              file: {
+                name: document.file.name,
+                size: document.file.size,
+                lastModified: document.file.lastModified,
+              },
+            },
+          ],
         })
       }
       // update the list of uploaded documents in localStorage
@@ -320,14 +340,16 @@ export class UploadStore {
     )
 
     // if category exists => remove the document from the list of files
-    const filterFiles = findCategory?.files.filter((item: StoredUploadFile) => item.key !== key)
+    const filterFiles = findCategory?.userDocuments.filter(
+      (item: StoredUploadFile) => item.key !== key,
+    )
 
     // map through all categories and update the list of files for the current category
     const updatedUploadedFiles = storedUploadedFiles.map((item: StoredUploadFileGroup) => {
       if (findCategory) {
         return {
           ...item,
-          files: filterFiles,
+          userDocuments: filterFiles,
         }
       }
       // if category doesn't exist => return the category as is

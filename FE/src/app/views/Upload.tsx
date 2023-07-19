@@ -1,4 +1,4 @@
-import { useKeepAlive, useLabels, useUnload } from '@hooks'
+import { useKeepAlive, useLabels } from '@hooks'
 import { View } from '@types'
 import { parseUrl } from '@utils'
 import { observer } from 'mobx-react-lite'
@@ -7,11 +7,10 @@ import { UploadStore } from '../stores/UploadStore'
 import { Alert, Button } from 'react-bootstrap'
 import classNames from 'classnames'
 import { Box, FileUpload, UploadZone } from '@components'
-import { computed, toJS } from 'mobx'
+import { computed } from 'mobx'
 
 export const Upload: FC<View> = observer(
   ({
-    offerUrl,
     uploadUrl,
     guid,
     labels,
@@ -22,6 +21,8 @@ export const Upload: FC<View> = observer(
     uploadFileUrl,
     removeFileUrl,
     maxGroupFileSize,
+    backUrl,
+    nextUrl,
   }) => {
     const [store] = useState(() => new UploadStore(uploadUrl, guid))
     const t = useLabels(labels)
@@ -38,22 +39,6 @@ export const Upload: FC<View> = observer(
     if (maxGroupFileSize) {
       store.maxUploadGroupSize = maxGroupFileSize
     }
-
-    useEffect(() => {
-      console.log('uploadResponseItems', toJS(store.uploadResponseItems))
-    }, [store.uploadResponseItems])
-
-    useEffect(() => {
-      console.log('userDocuments', toJS(store.userDocuments))
-    }, [store.userDocuments])
-
-    // // show warning to user when trying to refresh or leave the page once he did some changes
-    // useUnload(ev => {
-    //   if (store.isDirty && !store.forceReload) {
-    //     ev.preventDefault()
-    //     ev.returnValue = ''
-    //   }
-    // })
 
     useEffect(() => {
       store.fetchUploads(timeout)
@@ -95,17 +80,13 @@ export const Upload: FC<View> = observer(
                       onFilesAccepted={files => store.addUserFiles(files, categoryId)}
                       disabled={computed(() => store.uploadGroupSizeExceeded(item.position)).get()}
                     />
-                    {console.log(
-                      'computed',
-                      computed(() => store.uploadGroupSizeExceeded(item.position)).get(),
-                    )}
                     {/* uploaded documents by user*/}
                     {store.userDocuments[categoryId]?.length > 0 && (
                       <ul aria-label={t('selectedFiles')} className="list-unstyled">
                         {store.userDocuments[categoryId].map(document => (
                           <li key={document.key} className={classNames({ shake: document.error })}>
                             <FileUpload
-                              file={document.file as File}
+                              file={document.file}
                               labels={labels}
                               onRemove={() => {
                                 store.cancelUploadDocument(document)
@@ -135,17 +116,27 @@ export const Upload: FC<View> = observer(
               </Box>
             </Fragment>
           ))}
-          <div className="text-center">
-            <Button
-              className="ml-3"
-              variant="primary"
-              href={offerUrl}
-              disabled={!store.isUploadFinished}
-            >
+          <div className="text-center mb-3">
+            {!store.isUploadFinished && (
+              <div
+                className="text-center mb-2"
+                dangerouslySetInnerHTML={{ __html: t('beforeContinue') }}
+              />
+            )}
+            <Button variant="primary" href={nextUrl} disabled={!store.isUploadFinished}>
               {t('continueBtn')}
             </Button>
           </div>
         </div>
+        {backUrl && (
+          <Button
+            variant="link"
+            className="underline text-primary m-auto w-content d-flex text-center"
+            href={backUrl}
+          >
+            {t('backToSummary')}
+          </Button>
+        )}
       </Fragment>
     )
   },

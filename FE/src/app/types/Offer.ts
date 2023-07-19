@@ -1,4 +1,4 @@
-import { ErrorResponse } from '@types'
+import { CommodityProductType, ErrorResponse } from '@types'
 
 export namespace NewOfferResponse {
   export interface RootObject {
@@ -28,10 +28,13 @@ export namespace NewOfferResponse {
   export interface Header {
     title: string
     text: string
+    type?: CommodityProductType
   }
 
   export interface Docs {
+    perex: { header: Header; body: Body } | null
     title: string
+    header: Header | null
     params: any[] | null
     text: string | null
     mandatoryGroups: string[]
@@ -55,9 +58,9 @@ export namespace NewOfferResponse {
   }
 
   export enum ResponseItemType {
-    Perex = 'perex',
-    Benefit = 'benefit',
     DocsCheck = 'docsCheck',
+    DocsCheckG = 'docsCheck-G',
+    DocsCheckE = 'docsCheck-E',
     DocsSign = 'docsSign',
     Confirm = 'confirm',
   }

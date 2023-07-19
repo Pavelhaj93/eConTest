@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
-import { NewOfferResponse, OfferType, View } from '@types'
+import { CommodityProductType, NewOfferResponse, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button } from 'react-bootstrap'
@@ -7,19 +7,13 @@ import classNames from 'classnames'
 
 import { ConfirmationModal, UnfinishedOfferModal, SignatureModal } from '@components'
 
-import { useKeepAlive, useLabels, useUnload } from '@hooks'
+import { useKeepAlive, useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
 import { isIE11, parseUrl } from '@utils'
-import Perex from '../blocks/Perex'
-import Benefit from '../blocks/Benefit'
+
 import DocsCheck from '../blocks/DocsCheck'
 import DocsSign from '../blocks/DocsSign'
 import Confirm from '../blocks/Confirm'
-
-type SignatureModalType = {
-  id: string
-  show: boolean
-}
 
 export const Offer: React.FC<View> = observer(
   ({
@@ -36,15 +30,12 @@ export const Offer: React.FC<View> = observer(
     acceptOfferUrl,
     thankYouPageUrl,
     sessionExpiredPageUrl,
-    backToOfferUrl,
     suppliers,
+    backUrl,
+    nextUrl,
   }) => {
     const [store] = useState(() => new OfferStore(OfferType.NEW, offerUrl, guid))
-    const [signatureModalProps, setSignatureModalProps] = useState<SignatureModalType>({
-      id: '',
-      show: false,
-    })
-
+    const [openSignatureModal, setOpenSignatureModal] = useState<string | null>(null)
     const [confirmationModal, setConfirmationModal] = useState<boolean>(false)
     const t = useLabels(labels)
     const formRef = useRef<HTMLFormElement>(null)
@@ -72,24 +63,17 @@ export const Offer: React.FC<View> = observer(
     }, [])
 
     // show warning to user when trying to refresh or leave the page once he did some changes
-    useUnload(ev => {
-      if (
-        store.isOfferDirty &&
-        !store.isAccepting &&
-        !store.forceReload &&
-        !store.isUnfinishedOfferModalOpen
-      ) {
-        ev.preventDefault()
-        ev.returnValue = ''
-      }
-    })
-
-    const openSignatureModal = useCallback((id: string) => {
-      setSignatureModalProps({
-        id,
-        show: true,
-      })
-    }, [])
+    // useUnload(ev => {
+    //   if (
+    //     store.isOfferDirty &&
+    //     !store.isAccepting &&
+    //     !store.forceReload &&
+    //     !store.isUnfinishedOfferModalOpen
+    //   ) {
+    //     ev.preventDefault()
+    //     ev.returnValue = ''
+    //   }
+    // })
 
     // Since IE11 doesn't support a `download` attribute on link, here I manually change the `forceReload`
     // property so browser can refresh and download the file.
@@ -128,22 +112,25 @@ export const Offer: React.FC<View> = observer(
           {store.concatedSortedData?.map(item => {
             const { type } = item
             switch (type) {
-              case NewOfferResponse.ResponseItemType.Perex: {
+              case NewOfferResponse.ResponseItemType.DocsCheckE: {
                 return (
-                  <Perex
+                  <DocsCheck
                     key={item.position}
+                    t={t}
+                    type={CommodityProductType.ELECTRICITY}
                     headerTitle={item.header.title}
-                    bodyParams={item.body.params}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.Benefit: {
-                return (
-                  <Benefit
-                    key={item.position}
-                    headerTitle={item.header.title}
-                    body={item.body}
-                    bodyPoints={item.body.points}
+                    headTitle={item.body.head?.title ?? ''}
+                    headText={item.body.head?.text ?? ''}
+                    bodyText={item.body.text ?? ''}
+                    docsPerex={item.body.docs.perex}
+                    docsTitle={item.body.docs?.title ?? ''}
+                    docsFiles={item.body.docs?.files ?? []}
+                    docsText={item.body.docs?.text ?? ''}
+                    docsParams={item.body.docs?.params ?? []}
+                    bodyNote={item.body.note ?? ''}
+                    handleDownload={handleDownload}
+                    getFileUrl={getFileUrl ?? ''}
+                    guid={guid}
                   />
                 )
               }
@@ -159,6 +146,7 @@ export const Offer: React.FC<View> = observer(
                     docsTitle={item.body.docs?.title ?? ''}
                     docsFiles={item.body.docs?.files ?? []}
                     docsText={item.body.docs?.text ?? ''}
+                    docsParams={item.body.docs?.params ?? []}
                     bodyNote={item.body.note ?? ''}
                     handleDownload={handleDownload}
                     getFileUrl={getFileUrl ?? ''}
@@ -175,11 +163,11 @@ export const Offer: React.FC<View> = observer(
                     docsTitle={item.body.docs?.title ?? ''}
                     docsText={item.body.docs?.text ?? ''}
                     docsFiles={item.body.docs?.files ?? []}
-                    bodyNote={item.body.note ?? ''}
                     getFileUrl={getFileUrl ?? ''}
+                    bodyNote={item.body.note ?? ''}
                     guid={guid}
                     handleDownload={handleDownload}
-                    openSignatureModal={openSignatureModal}
+                    onOpenSignatureModal={setOpenSignatureModal}
                   />
                 )
               }
@@ -188,6 +176,8 @@ export const Offer: React.FC<View> = observer(
                   <Confirm
                     key={item.position}
                     t={t}
+                    headerTitle={item.header.title ?? ''}
+                    bodyText={item.body.text ?? ''}
                     suppliers={suppliers}
                     setConfirmationModal={setConfirmationModal}
                     cancelDialog={cancelDialog}
@@ -197,18 +187,20 @@ export const Offer: React.FC<View> = observer(
             }
           })}
         </form>
-        {backToOfferUrl && (
+
+        {backUrl && (
           <Button
             variant="link"
-            className="underline text-black m-auto w-content d-flex"
-            href={backToOfferUrl}
+            className="underline text-primary m-auto w-content d-flex"
+            href={backUrl}
           >
-            {t('backToOffer', 'Zpět na nabídku')}
+            {t('backToUpload', 'Zpět na nahrání dokumentů')}
           </Button>
         )}
         <SignatureModal
-          {...signatureModalProps}
-          onClose={() => setSignatureModalProps({ show: false, id: '' })}
+          id={openSignatureModal ?? ''}
+          show={!!openSignatureModal}
+          onClose={() => setOpenSignatureModal(null)}
           labels={labels}
           thumbnailUrl={thumbnailUrl ?? ''}
           signFileUrl={signFileUrl ?? ''}

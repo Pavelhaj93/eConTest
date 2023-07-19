@@ -12,6 +12,11 @@ type BoxHeadingProps = {
   className?: string
 }
 
+type BoxHeaderProps = {
+  backgroundColor?: string
+  className?: string
+}
+
 export const Box: React.FC<BoxProps> = ({
   children,
   className,
@@ -27,4 +32,19 @@ export const BoxHeading: React.FC<BoxHeadingProps> = ({ children, className, ...
   <h3 className={classNames('box__heading', className)} {...rest}>
     {children}
   </h3>
+)
+
+export const BoxHeader: React.FC<BoxHeaderProps> = ({
+  children,
+  className,
+  backgroundColor = 'gray-90',
+  ...rest
+}) => (
+  <div
+    className={classNames('box box__header', `bg--${backgroundColor}`, className)}
+    {...rest}
+    style={{ height: '65px', marginBottom: '5px', borderRadius: '3px' }}
+  >
+    {children}
+  </div>
 )
