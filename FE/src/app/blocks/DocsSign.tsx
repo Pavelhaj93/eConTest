@@ -1,4 +1,4 @@
-import { Box, BoxHeader, BoxHeading, DocumentLink, Icon, SignButton } from '@components'
+import { Box, BoxHeader, DocumentLink, Icon, SignButton } from '@components'
 import { breakpoints, colors } from '@theme'
 import React, { FC, Fragment, useContext } from 'react'
 
@@ -15,7 +15,6 @@ interface DocsSignProps {
   t: ReturnType<typeof useLabels>
   headerTitle: NewOfferResponse.Header['title']
   docsTitle: NewOfferResponse.Docs['title']
-  docsText: NewOfferResponse.Docs['text']
   docsFiles: NewOfferResponse.Docs['files']
   bodyNote: NewOfferResponse.Body['note']
   getFileUrl: string
@@ -29,7 +28,6 @@ const DocsSign: FC<DocsSignProps> = observer(
     t,
     headerTitle,
     docsTitle,
-    docsText,
     docsFiles,
     bodyNote,
     getFileUrl,

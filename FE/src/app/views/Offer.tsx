@@ -161,7 +161,6 @@ export const Offer: React.FC<View> = observer(
                     t={t}
                     headerTitle={item.header.title}
                     docsTitle={item.body.docs?.title ?? ''}
-                    docsText={item.body.docs?.text ?? ''}
                     docsFiles={item.body.docs?.files ?? []}
                     getFileUrl={getFileUrl ?? ''}
                     bodyNote={item.body.note ?? ''}

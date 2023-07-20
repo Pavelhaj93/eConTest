@@ -1,4 +1,4 @@
-import { Box, BoxHeader, BoxHeading, DocumentLink, FormCheckWrapper, Icon } from '@components'
+import { Box, BoxHeader, DocumentLink, FormCheckWrapper, Icon } from '@components'
 import { useLabels } from '@hooks'
 import { CommodityProductType, NewOfferResponse } from '@types'
 import { parseUrl } from '@utils'

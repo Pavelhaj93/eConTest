@@ -1,5 +1,5 @@
 import { observable } from 'mobx'
-import { FileError, StoredUploadFile } from '@types'
+import { FileError } from '@types'
 
 export class UserDocument {
   @observable

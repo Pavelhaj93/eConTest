@@ -217,8 +217,6 @@ export class UploadStore {
     const formData = new FormData()
     const { file } = document
 
-    console.log('uploading document', document)
-
     formData.append('file', file, file.name)
     formData.append('key', document.key)
 
