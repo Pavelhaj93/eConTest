@@ -14,7 +14,7 @@ const InfoElement: FC<InfoElementProps> = ({ value, className }) => {
       {value && (
         <div className={classNames('text-center mt-4 d-flex flex-row', className)}>
           <div className="mr-2">
-            <Icon name="info-circle" size={16.5} color={colors.gray100} className="mx-1 mb-1" />
+            <Icon name="info-circle" size={18} color={colors.gray100} className="mx-1 mb-1" />
           </div>
           <div
             className="editorial-content text-muted small align-self-center"

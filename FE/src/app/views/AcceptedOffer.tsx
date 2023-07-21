@@ -31,6 +31,9 @@ export const AcceptedOffer: React.FC<View> = observer(
           </Alert>
         )}
 
+        {console.log('store.isLoading', store.isLoading)}
+        {console.log('store.acceptanceGroups', store.acceptanceGroups)}
+
         <Box
           className={classNames({
             loading: store.isLoading || !store.acceptanceGroups?.length,

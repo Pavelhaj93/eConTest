@@ -1,4 +1,5 @@
 import { CommodityProductType, QueryParams } from '@types'
+import { useLabels } from '../hooks/useLabels'
 
 export const generateId = (): string => Math.random().toString(36).slice(2)
 
@@ -59,12 +60,15 @@ export const getColorByCommodityType = (commodityType: CommodityProductType): st
   }
 }
 
-export const getDocsHeaderTitle = (commodityType: CommodityProductType): string => {
+export const getCommodityTitle = (
+  commodityType: CommodityProductType,
+  t: ReturnType<typeof useLabels>,
+): string => {
   switch (commodityType) {
     case CommodityProductType.ELECTRICITY:
-      return 'Elektřina'
+      return t('electricityTitle')
     case CommodityProductType.GAS:
-      return 'Plyn'
+      return t('gasTitle')
     default:
       return 'Komodita'
   }

@@ -9,7 +9,7 @@ import { ConfirmationModal, UnfinishedOfferModal, SignatureModal } from '@compon
 
 import { useKeepAlive, useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
-import { isIE11, parseUrl } from '@utils'
+import { getColorByCommodityType, isIE11, parseUrl } from '@utils'
 
 import DocsCheck from '../blocks/DocsCheck'
 import DocsSign from '../blocks/DocsSign'
@@ -28,7 +28,6 @@ export const Offer: React.FC<View> = observer(
     timeout,
     errorPageUrl,
     acceptOfferUrl,
-    thankYouPageUrl,
     sessionExpiredPageUrl,
     suppliers,
     backUrl,
@@ -215,7 +214,7 @@ export const Offer: React.FC<View> = observer(
             className="underline text-primary m-auto w-content d-flex"
             href={backUrl}
           >
-            {t('backToUpload', 'Zpět na nahrání dokumentů')}
+            {t('backLabel', 'Zpět na nahrání dokumentů')}
           </Button>
         )}
         <SignatureModal
@@ -232,7 +231,7 @@ export const Offer: React.FC<View> = observer(
           show={confirmationModal && !store.isUnfinishedOfferModalOpen}
           onClose={() => setConfirmationModal(false)}
           labels={labels}
-          thankYouPageUrl={thankYouPageUrl}
+          thankYouPageUrl={nextUrl ?? ''}
           cancelDialog={!!cancelDialog}
           openUnfinishedModal={() => store.setIsUnfinishedOfferModalOpen(true)}
         />

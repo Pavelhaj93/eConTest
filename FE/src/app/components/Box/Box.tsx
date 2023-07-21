@@ -40,11 +40,7 @@ export const BoxHeader: React.FC<BoxHeaderProps> = ({
   backgroundColor = 'gray-90',
   ...rest
 }) => (
-  <div
-    className={classNames('box box__header', `bg--${backgroundColor}`, className)}
-    {...rest}
-    style={{ height: '65px', marginBottom: '5px', borderRadius: '3px' }}
-  >
+  <div className={classNames('box box__header', `bg--${backgroundColor}`, className)} {...rest}>
     {children}
   </div>
 )

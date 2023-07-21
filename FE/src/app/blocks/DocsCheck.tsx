@@ -8,7 +8,7 @@ import InfoElement from './InfoElement'
 import { OfferStoreContext } from '@context'
 import { OfferStore } from '@stores'
 import { observer } from 'mobx-react-lite'
-import { getColorByCommodityType, getDocsHeaderTitle } from '../utils/strings'
+import { getColorByCommodityType, getCommodityTitle } from '../utils/strings'
 import Perex from './Perex'
 
 interface DocsCheckProps {
@@ -86,7 +86,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
         {type && (
           <BoxHeader backgroundColor={getColorByCommodityType(type)}>
             <Icon name={type} width={30} />
-            <h2 className="text-center text-white ml-3">{getDocsHeaderTitle(type)}</h2>
+            <h2 className="text-center text-white ml-3">{getCommodityTitle(type, t)}</h2>
           </BoxHeader>
         )}
         {docsPerex && (

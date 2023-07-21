@@ -566,12 +566,12 @@ export class OfferStore {
   private getUploadedKeys(
     storedUploads: StoredUploadFileGroup[],
   ): { categoryId: string; keys: string[] }[] {
-    const modifiedUplaods = storedUploads.map((upload: any) => ({
+    const modifiedUploads = storedUploads.map((upload: any) => ({
       categoryId: upload.categoryId,
       keys: upload.files.map((file: StoredUploadFile) => file.key),
     }))
 
-    return modifiedUplaods
+    return modifiedUploads
   }
 
   private async clearLocalStorage(): Promise<void> {
