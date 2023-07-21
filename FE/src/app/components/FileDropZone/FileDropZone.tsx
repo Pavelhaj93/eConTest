@@ -90,9 +90,9 @@ export const FileDropZone: React.FC<Props> = ({
         }
       })
 
-      onFilesChanged && onFilesChanged(allFiles)
-      onFilesAccepted && onFilesAccepted(acceptedFiles)
-      onFilesRejected && onFilesRejected(rejectedFiles)
+      onFilesChanged?.(allFiles)
+      onFilesAccepted?.(acceptedFiles)
+      onFilesRejected?.(rejectedFiles)
     },
     [accept, maxFileSize, onFilesAccepted, onFilesRejected, onFilesChanged],
   )

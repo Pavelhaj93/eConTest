@@ -9,7 +9,7 @@ import { ConfirmationModal, UnfinishedOfferModal, SignatureModal } from '@compon
 
 import { useKeepAlive, useLabels } from '@hooks'
 import { OfferStoreContext } from '@context'
-import { getColorByCommodityType, isIE11, parseUrl } from '@utils'
+import {  isIE11, parseUrl } from '@utils'
 
 import DocsCheck from '../blocks/DocsCheck'
 import DocsSign from '../blocks/DocsSign'
@@ -231,7 +231,7 @@ export const Offer: React.FC<View> = observer(
           show={confirmationModal && !store.isUnfinishedOfferModalOpen}
           onClose={() => setConfirmationModal(false)}
           labels={labels}
-          thankYouPageUrl={nextUrl ?? ''}
+          nextUrl={nextUrl ?? ''}
           cancelDialog={!!cancelDialog}
           openUnfinishedModal={() => store.setIsUnfinishedOfferModalOpen(true)}
         />

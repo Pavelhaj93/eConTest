@@ -11,7 +11,7 @@ const mockProps = {
   offerUrl: '/api/documents',
   uploadUrl: 'api/upload',
   errorPageUrl: '/error',
-  thankYouPageUrl: '',
+  nextUrl: '',
   sessionExpiredPageUrl: '',
   formAction: '/authentication.html',
   choices: [
@@ -44,7 +44,7 @@ const mockPropsSingleChoice = {
   offerUrl: '/api/documents',
   uploadUrl: '/api/upload',
   errorPageUrl: '/error',
-  thankYouPageUrl: '',
+  nextUrl: '',
   sessionExpiredPageUrl: '',
   formAction: '/authentication.html',
   choices: [

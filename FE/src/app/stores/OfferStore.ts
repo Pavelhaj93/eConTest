@@ -104,6 +104,24 @@ export class OfferStore {
   }
 
   /**
+   * Returns array of file arrays from all docCheck groups which are related to commodities. So type docsCheck-G and docsCheck-E
+   * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
+   */
+  @computed
+  public get productDocGroupsToBeChecked(): NewOfferResponse.File[][] {
+    return this.docsCheck?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheckE || NewOfferResponse.ResponseItemType.DocsCheckG ).map(item => item.body.docs.files) ?? []
+  }
+
+  /**
+   * Returns array of file arrays from all docCheck groups which are related to other services. So just pure type of docsCheck
+   * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
+   */
+  @computed
+  public get otherDocGroupsToBeChecked(): NewOfferResponse.File[][] {
+    return this.docsCheck?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck).map(item => item.body.docs.files) ?? []
+  }
+
+  /**
    * Returns array of file arrays from all docSign groups.
    */
   @computed
@@ -546,6 +564,22 @@ export class OfferStore {
     return this.docGroupsToBeChecked.map(docGroup => docGroup?.map(files => files).flat()).flat()
   }
 
+   /**
+   * Return array of all documents that are to be checked related to Products
+   * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
+   */
+  public getAllToBeCheckedProductDocuments(): NewOfferResponse.File[] {
+    return this.productDocGroupsToBeChecked.map(docGroup => docGroup.map(files => files).flat()).flat()
+  }
+
+  /**
+   * Return array of all documents that are to be checked related to other services
+   * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
+   */
+  public getAllToBeCheckedOtherDocuments(): NewOfferResponse.File[] {
+    return this.otherDocGroupsToBeChecked.map(docGroup => docGroup.map(files => files).flat()).flat()
+  }
+
   /**
    * Return array of all documents that are to be signed.
    */
@@ -568,12 +602,15 @@ export class OfferStore {
   ): { categoryId: string; keys: string[] }[] {
     const modifiedUploads = storedUploads.map((upload: any) => ({
       categoryId: upload.categoryId,
-      keys: upload.files.map((file: StoredUploadFile) => file.key),
+      keys: upload.userDocuments.map((file: StoredUploadFile) => file.key),
     }))
 
     return modifiedUploads
   }
 
+  /**
+  * clear whole localStorage from saved progress of the current offer
+  */
   private async clearLocalStorage(): Promise<void> {
     localStorage.removeItem('checkedDocuments')
     localStorage.removeItem('signedDocuments')
@@ -590,9 +627,12 @@ export class OfferStore {
     }
 
     const data = {
-      accepted: this.getAcceptedKeys(this.getAllToBeCheckedDocuments()),
+      accepted: this.getAcceptedKeys(this.getAllToBeCheckedProductDocuments()),
       signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()),
       uploaded: this.getUploadedKeys(this.storedUploads),
+      other: [
+        this.getAcceptedKeys(this.getAllToBeCheckedOtherDocuments())
+      ],
       supplier: this.supplier ? this.supplier : null,
     }
 

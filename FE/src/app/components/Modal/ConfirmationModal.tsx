@@ -13,12 +13,12 @@ type Props = {
   labels: Record<string, any>
   onClose: () => void
   openUnfinishedModal?: () => void
-  thankYouPageUrl: string
+  nextUrl: string
   cancelDialog?: boolean
 }
 
 export const ConfirmationModal: React.FC<Props> = observer(
-  ({ show, labels, onClose, thankYouPageUrl, cancelDialog, openUnfinishedModal }) => {
+  ({ show, labels, onClose, nextUrl, cancelDialog, openUnfinishedModal }) => {
     const [error, setError] = useState(false)
     const t = useLabels(labels)
     const store = useContext(OfferStoreContext)
@@ -45,11 +45,11 @@ export const ConfirmationModal: React.FC<Props> = observer(
       const accepted = await store.acceptOffer()
 
       if (accepted) {
-        window.location.href = thankYouPageUrl
+        window.location.href = nextUrl
       } else {
         setError(true)
       }
-    }, [store, thankYouPageUrl])
+    }, [store, nextUrl])
 
     return (
       <Modal size="lg" show={show} onHide={onClose}>

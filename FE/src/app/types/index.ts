@@ -40,7 +40,6 @@ export type AppConfig = {
   authUrl?: string
   acceptOfferUrl?: string
   keepAliveUrl?: string
-  thankYouPageUrl: string
   sessionExpiredPageUrl: string
   getSummaryUrl?: string
   backToOfferUrl?: string

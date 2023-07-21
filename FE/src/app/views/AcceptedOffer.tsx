@@ -31,12 +31,9 @@ export const AcceptedOffer: React.FC<View> = observer(
           </Alert>
         )}
 
-        {console.log('store.isLoading', store.isLoading)}
-        {console.log('store.acceptanceGroups', store.acceptanceGroups)}
-
         <Box
           className={classNames({
-            loading: store.isLoading || !store.acceptanceGroups?.length,
+            loading: store.isLoading || !store.acceptedDocumentGroups?.length,
             'd-none': store.error, // hide the whole box if there is an error
           })}
         >

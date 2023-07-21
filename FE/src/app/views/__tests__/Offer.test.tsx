@@ -12,7 +12,7 @@ const mockProps = {
   offerUrl: '',
   uploadUrl: '',
   errorPageUrl: '',
-  thankYouPageUrl: '',
+  nextUrl: '',
   sessionExpiredPageUrl: '',
   getFileUrl: '',
   getFileForSignUrl: '',

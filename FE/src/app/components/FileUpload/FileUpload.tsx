@@ -32,9 +32,11 @@ export const FileUpload: React.FC<Props> = ({
 }) => {
   const t = useLabels(labels)
 
+
   useEffect(() => {
     async function uploadFile(file: File) {
-      if (uploadHandler) {
+      // file.type assures that the uploadHandler will be called only when new file is uploaded not when its loaded from localStorage, because localStorage item doesnt have file.type
+      if (uploadHandler && file.type) {
         await uploadHandler(file)
       }
     }
