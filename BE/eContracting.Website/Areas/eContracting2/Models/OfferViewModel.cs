@@ -50,9 +50,13 @@ namespace eContracting.Website.Areas.eContracting2.Models
         #endregion
 
         #region Urls
+        
 
-        [JsonProperty("thankYouPageUrl")]
-        public string ThankYouPage { get; set; }
+        [JsonProperty("nextUrl")]
+        public string NextUrl { get; set; }
+
+        [JsonProperty("backUrl")]
+        public string BackUrl { get; set; }
 
         [JsonProperty("sessionExpiredPageUrl")]
         public string SessionExpiredPage { get; set; }
@@ -73,10 +77,7 @@ namespace eContracting.Website.Areas.eContracting2.Models
 
         [JsonProperty("maxAllFilesSize")]
         public int MaxAllFilesSize { get; set; }
-
-        [JsonProperty("backToOfferUrl", DefaultValueHandling = DefaultValueHandling.Ignore, NullValueHandling = NullValueHandling.Ignore)]
-        public string BackToSummary { get; set; }
-
+        
         public IDefinitionCombinationModel Definition { get; set; }
 
         [JsonProperty("suppliers")]

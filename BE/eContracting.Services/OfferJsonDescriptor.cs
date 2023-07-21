@@ -19,6 +19,7 @@ using Sitecore.Shell.Applications.ContentEditor;
 using Sitecore.StringExtensions;
 using Sitecore.Web;
 using Sitecore.Web.UI.HtmlControls;
+using static eContracting.Constants;
 using static eContracting.Models.JsonOfferPersonalDataModel;
 using static eContracting.Models.JsonOfferProductModel;
 
@@ -518,30 +519,19 @@ namespace eContracting.Services
             var definition = this.SettingsReaderService.GetDefinition(offer);
             var productInfos = this.SettingsReaderService.GetAllProductInfos();
             
-            var container = new ContainerModel();
+            var container = new ContainerModel();          
             
-            if(offer.Version > 1)
+            // perex moved to docsCheck section
+
+            if (offer.Version == 2)
             {
-                if (definition.OfferPerexShow)
+                var benefitData = this.GetCommoditySalesArguments2(offer.TextParameters, definition);
+                if (benefitData != null)
                 {
-                    var perexData = this.GetPerex2(offer.TextParameters, definition);
-
-                    if (perexData != null)
-                    {
-                        container.Data.Add(perexData);
-                    }
-                }
-
-                if (offer.Version == 2)
-                {
-                    var benefitData = this.GetCommoditySalesArguments2(offer.TextParameters, definition);
-                    if (benefitData != null)
-                    {
-                        container.Data.Add(benefitData);
-                    }
+                    container.Data.Add(benefitData);
                 }
             }
-                        
+                                    
             var docsAcceptanceData = this.GetDocumentsAcceptance2(offer, definition, productInfos, attachments);
             if (docsAcceptanceData != null)
             {
@@ -669,9 +659,7 @@ namespace eContracting.Services
 
             if (parameters.Count > 0)
             {
-                var model = new PerexDataModel();
-
-                model.Position = 1; // ToDo: Solve order
+                var model = new PerexDataModel();                
 
                 var header = new TitleDataHeaderModel();
                 header.Title = definition.OfferPerexTitle?.Text.Trim();
@@ -759,6 +747,59 @@ namespace eContracting.Services
             }
 
             return model;
+        }
+
+        protected internal string GetCommodityProductType(IDictionary<string, string> textParameters)
+        {
+            var values = textParameters.Where(x => x.Key.StartsWith("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE")).Select(x => x.Value).ToArray();
+
+            if (values.Length == 0)
+            {
+                return null;
+            }
+            
+            var commodityProductTypeAttribute = textParameters.FirstOrDefault(x => x.Key.StartsWith("COMMODITY_PRODUCT"));
+            if (!commodityProductTypeAttribute.Equals(default(KeyValuePair<string, string>)))
+            {
+                string commodityProductTypeAttributeValue = commodityProductTypeAttribute.Value;
+                if (!string.IsNullOrEmpty(commodityProductTypeAttributeValue))
+                {
+                    if (commodityProductTypeAttributeValue.StartsWith("G_"))
+                        return CommodityProductType.GAS;
+                    else if (commodityProductTypeAttributeValue.StartsWith("E_") || commodityProductTypeAttributeValue.StartsWith("EE_") || commodityProductTypeAttributeValue.EndsWith("_EE") || commodityProductTypeAttributeValue.EndsWith("_E"))
+                        return CommodityProductType.ELECTRICITY;
+                }
+            }
+
+            return null;
+        }
+
+        protected internal string GetDocsCheckTypeByCommodity(string commodity)
+        {
+            if (!string.IsNullOrEmpty(commodity))
+            {
+                if (commodity == CommodityProductType.GAS)
+                    return JsonDocumentDataModelType.DOCS_CHECK_G;
+                if (commodity == CommodityProductType.ELECTRICITY)
+                    return JsonDocumentDataModelType.DOCS_CHECK_E;
+                if (commodity == "EG")
+                    return JsonDocumentDataModelType.DOCS_CHECK_E_G;
+            }
+            return string.Empty;
+        }
+
+        protected internal string GetDocsSignTypeByCommodity(string commodity)
+        {
+            if (!string.IsNullOrEmpty(commodity))
+            {
+                if (commodity == CommodityProductType.GAS)
+                    return JsonDocumentDataModelType.DOCS_SIGN_G;
+                if (commodity == CommodityProductType.ELECTRICITY)
+                    return JsonDocumentDataModelType.DOCS_SIGN_E;
+                if (commodity == "EG")
+                    return JsonDocumentDataModelType.DOCS_SIGN_E_G;
+            }
+            return string.Empty;
         }
 
         protected internal BenefitDataModel GetCommoditySalesArguments2(IDictionary<string, string> textParameters, IDefinitionCombinationModel definition)
@@ -973,7 +1014,10 @@ namespace eContracting.Services
             }
 
             var model = new DocumentDataModel();
-            model.Type = "docsCheck";
+            
+            var commodityProductType = GetCommodityProductType(offer.TextParameters);
+            model.Type = GetDocsCheckTypeByCommodity(commodityProductType); // docsCheck-E  |  docsCheck-G  |  docsCheck-E/G
+
             model.Position = 3; // ToDo: Solve order
             var header = new TitleDataHeaderModel();
             header.Title = "header -> Title"; // ToDo: Documenty k podpisu - doesn't exist in original JSON but requested in new design
@@ -1007,7 +1051,17 @@ namespace eContracting.Services
 
             var model = new DocumentDataModel();
             model.Position = 4; // ToDo: Solve order
-            model.Type = "docsSign";
+            
+            if (offer.Process != "06") // ToDo: Check BUS_PROCESS - if odhlaska == "06"
+            { 
+                model.Type = "docsSign"; 
+            }
+            else
+            {
+                var commodityProductType = GetCommodityProductType(offer.TextParameters);
+                model.Type = GetDocsSignTypeByCommodity(commodityProductType); // docsSign-E  |  docsSign-G  |  docsSign-E/G
+            }
+            
             var header = new TitleDataHeaderModel();
             header.Title = "header -> Title"; // ToDo: Documenty k podpisu - doesn't exist in original JSON but requested in new design
             model.Header = header;
@@ -1034,8 +1088,35 @@ namespace eContracting.Services
             var model = new DocsDataModel();            
             if (group == Constants.OfferGroups.COMMODITY && !isSignReq) //Acceptance
             {
+                //perex
+                if (offer.Version > 1)
+                {
+                    if (definition.OfferPerexShow)
+                    {
+                        var perexData = this.GetPerex2(offer.TextParameters, definition);
+
+                        if (perexData != null)
+                        {
+                            model.Perex = perexData;
+                        }
+                    }
+                }
+                    
                 model.Title = definition.OfferDocumentsForAcceptanceTitle?.Text.Trim();
-                model.Params = null; // ToDo: Check this                
+
+                var eicEanLabel = offer.TextParameters.GetValueOrDefault("PERSON_PREMLABEL");
+                var eicEanValue = offer.TextParameters.GetValueOrDefault("PERSON_PREMEXT");
+                var parameters = new List<TitleAndValueModel>();
+                if (eicEanLabel != null && eicEanValue != null)
+                {
+                    parameters.Add(new TitleAndValueModel(eicEanLabel, eicEanValue));
+                }
+                else
+                {
+                    parameters = null;
+                }
+                model.Params = parameters;
+                
                 model.Text = Utils.GetReplacedTextTokens(definition.OfferDocumentsForAcceptanceText?.Text, offer.TextParameters);
             }
             else if (group == Constants.OfferGroups.COMMODITY) // Signed

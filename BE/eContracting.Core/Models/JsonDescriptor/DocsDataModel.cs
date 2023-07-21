@@ -9,6 +9,9 @@ namespace eContracting.Models.JsonDescriptor
 {
     public class DocsDataModel
     {
+        [JsonProperty("perex", NullValueHandling = NullValueHandling.Ignore)]
+        public PerexDataModel Perex { get; set; }
+
         [JsonProperty("title")]
         public string Title { get; set; }
 

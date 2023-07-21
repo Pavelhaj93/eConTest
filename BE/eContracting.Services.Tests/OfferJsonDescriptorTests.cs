@@ -196,7 +196,7 @@ namespace eContracting.Services.Tests
         [InlineData(1, false, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1", "Platnost nabídky do", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1", "23.12.2020")]
         [InlineData(1, false, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2", "Délka fixace", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2", "24 měsíců od platnosti smlouvy")]
         [InlineData(1, false, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_3", "Platnost smlouvy", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_3", "Dnem podpisusmlouvy zákazníkem")]
-        [InlineData(1, false, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4", "Předpokládaná účinnost smlouvy", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4", "Zatím neurčeno")]
+        [InlineData(1, false, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4", "Předpokládaná účinnost smlouvy", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4", "Zatím neurčeno")]        
         [InlineData(2, true, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME", "Produkt", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE", "elektřina Garance 24")]
         [InlineData(2, true, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_1", "Platnost nabídky do", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_1", "23.12.2020")]
         [InlineData(2, true, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_2", "Délka fixace", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_2", "24 měsíců od platnosti smlouvy")]
@@ -204,10 +204,14 @@ namespace eContracting.Services.Tests
         [InlineData(2, true, "COMMODITY_OFFER_SUMMARY_ATRIB_NAME_4", "Předpokládaná účinnost smlouvy", "COMMODITY_OFFER_SUMMARY_ATRIB_VALUE_4", "Zatím neurčeno")]
         public void GetNew_Calls_GetPerex_In_Version_Greater_Than_1(int version, bool expectedPerex, string nameKey, string nameValue, string valueKey, string valueValue)
         {
+            // Assign
             var offer = this.CreateOffer(version);
             var user = this.CreateAnonymousUser(offer);
             offer.First().TextParameters.Add(nameKey, nameValue);
             offer.First().TextParameters.Add(valueKey, valueValue);
+
+            offer.First().TextParameters.Add("COMMODITY_SALES_ARGUMENTS_ATRIB_VALUE", "naše ceny energií i smlouvy jsou závazné");
+            offer.First().TextParameters.Add("COMMODITY_PRODUCT", "E_START15");
 
             var mockSimpleText = new Mock<ISimpleTextModel>();
             mockSimpleText.SetupProperty(x => x.Text, "Perex");
@@ -216,31 +220,43 @@ namespace eContracting.Services.Tests
             mockDefinition.SetupProperty(x => x.OfferPerexTitle, mockSimpleText.Object);
             var definition = mockDefinition.Object;
 
+            var template1 = new OfferAttachmentXmlModel();
+            template1.Group = "COMMODITY";
+            template1.Printed = Constants.FileAttributeValues.CHECK_VALUE;
+            template1.SignReq = null;            
+            var attachment1 = new OfferAttachmentModel(template1, "applicatin/pdf", "aaa", null, null);
+
             var logger = new MemoryLogger();
             var textService = new MemoryTextService();
             var mockSitecoreService = new Mock<ISitecoreServiceExtended>();
-            var mockOfferService = new Mock<IOfferService>();
-            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { });
+            var mockOfferService = new Mock<IOfferService>();                        
+            mockOfferService.Setup(x => x.GetAttachments(offer, user)).Returns(new OfferAttachmentModel[] { attachment1 });
             var mockSettingsReaderService = new Mock<ISettingsReaderService>();
             mockSettingsReaderService.Setup(x => x.GetDefinition(offer)).Returns(definition);
 
+            // Act
             var service = new OfferJsonDescriptor(logger, textService, mockSitecoreService.Object, mockOfferService.Object, mockSettingsReaderService.Object);
             var result = service.GetNew2(offer, user);
 
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotEmpty(result.Data);
+            var data = result.Data.FirstOrDefault(x => x.Type == "docsCheck-E");
+            var body = ((DocumentDataModel)data).Body;
+            Assert.NotNull(body);
+            var docs = ((DocumentDataBodyModel)body).Docs;
+            Assert.NotNull(docs);            
+
             if (expectedPerex)
-            {
-                Assert.NotNull(result);
-                Assert.NotEmpty(result.Data);
-                var perex = result.Data.Where(x => x.Type == "perex");
-                Assert.True(perex.Count() == 1);
-                var body = (PerexBodyModel)perex.First().Body;
-                Assert.True(body.Params.Count() == 1);
-                Assert.Contains(body.Params, x => x.Title == offer.TextParameters[nameKey]);
-                Assert.Contains(body.Params, x => x.Value == offer.TextParameters[valueKey]);
+            {                         
+                Assert.NotNull(docs.Perex.Body);
+                Assert.True(docs.Perex.Body.Params.Count() == 1);
+                Assert.Contains(docs.Perex.Body.Params, x => x.Title == offer.TextParameters[nameKey]);
+                Assert.Contains(docs.Perex.Body.Params, x => x.Value == offer.TextParameters[valueKey]);
             }
             else
-            {
-                Assert.Empty(result.Data.Where(x => x.Type == "perex"));
+            {                
+                Assert.Null(docs.Perex);
             }
         }
 

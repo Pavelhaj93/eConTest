@@ -785,6 +785,7 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
 
             viewModel.NextUrl = viewModel.OfferPage;
             viewModel.BackUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Summary, offer.Guid);
+            viewModel["backToSummary"] = "Zpět na nabídku"; //ToDo: Load backToSummary from Sitecore
 
             viewModel["selectFile"] = this.TextService.FindByKey("SELECT_DOCUMENT");
             viewModel["selectFileHelpText"] = this.TextService.FindByKey("DRAG_&_DROP") + " " + this.TextService.FindByKey("OR");
@@ -873,8 +874,21 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList();
             viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
             viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
-            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
-            viewModel.ThankYouPage = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.ThankYou, offer.Guid);
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;            
+            viewModel.NextUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.ThankYou, offer.Guid);
+
+            var attachments = this.OfferService.GetAttachments(offer, user);
+            var fileUploads = attachments.Where(x => x.IsPrinted == false).ToArray();
+            var containsUploads = fileUploads.Length > 0;
+            if (containsUploads)
+            {
+                viewModel.BackUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Upload, offer.Guid);
+            }
+            else
+            {
+                viewModel.BackUrl = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Summary, offer.Guid);
+            }            
+
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
 
             if (offer.HasGDPR)
@@ -889,6 +903,9 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
                 viewModel.List = new ListViewModel(definition.OfferSelectedList);
                 viewModel.List.Label = definition.OfferSelectedListLabel;
             }
+
+            viewModel["gasTitle"] = "Plyn"; // ToDo: Load gasTitle from Sitecore
+            viewModel["electricityTitle"] = "Elektřina"; // ToDo: Load electricityTitle from Sitecore
 
             viewModel["appUnavailableTitle"] = siteSettings.ApplicationUnavailableTitle;
             viewModel["appUnavailableText"] = siteSettings.ApplicationUnavailableText;
@@ -952,9 +969,15 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             }
 
             if (offer.Version >= 3)
-            {
-                viewModel.BackToSummary = this.SettingsService.GetPageLink(PAGE_LINK_TYPES.Summary, offer.Guid);
-                viewModel["backToOffer"] = datasource.BackToSummaryLinkLabel;
+            {                   
+                if (containsUploads)
+                {
+                    viewModel["backLabel"] = "Zpět na nahrání dokumentů"; //ToDo: Get label from Sitecore
+                }
+                else
+                {
+                    viewModel["backLabel"] = datasource.BackToSummaryLinkLabel; // "Zpět na nabídku"
+                }
             }
 
             if (offer.CanBeCanceled)
@@ -1007,8 +1030,10 @@ namespace eContracting.Website.Areas.eContracting2.Controllers
             viewModel.AllowedContentTypes = siteSettings.AllowedDocumentTypesList();
             viewModel.MaxFileSize = siteSettings.SingleUploadFileSizeLimitKBytes * 1024;
             viewModel.MaxGroupFileSize = siteSettings.GroupResultingFileSizeLimitKBytes * 1024;
-            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;
-            viewModel.ThankYouPage = siteSettings.ThankYou.Url;
+            viewModel.MaxAllFilesSize = siteSettings.TotalResultingFilesSizeLimitKBytes * 1024;            
+            viewModel.NextUrl = siteSettings.ThankYou.Url;            
+            viewModel.BackUrl = siteSettings.Summary.Url; //ToDo: How to implement to dynamically return Summary or Upload?
+
             viewModel.SessionExpiredPage = siteSettings.SessionExpired.Url;
 
             if (this.ContextWrapper.IsEditMode())

@@ -373,7 +373,18 @@ namespace eContracting
         public static class JsonDocumentDataModelType
         {
             public const string DOCS_SIGN = "docsSign";
-            public const string DOCS_CHECK = "docsCheck";
+            public const string DOCS_SIGN_E = "docsSign-E";
+            public const string DOCS_SIGN_G = "docsSign-G";
+            public const string DOCS_SIGN_E_G = "docsSign-E/G";
+            public const string DOCS_CHECK_E = "docsCheck-E";
+            public const string DOCS_CHECK_G = "docsCheck-G";
+            public const string DOCS_CHECK_E_G = "docsCheck-E/G";
+        }
+
+        public static class CommodityProductType
+        {
+            public const string GAS = "G";
+            public const string ELECTRICITY = "E";
         }
     }
 }

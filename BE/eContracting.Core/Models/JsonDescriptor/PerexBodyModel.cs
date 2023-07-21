@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class PerexBodyModel : IDataBodyModel
+    public class PerexBodyModel
     {
         [JsonProperty("params")]
         public IEnumerable<TitleAndValueModel> Params { get; set; }

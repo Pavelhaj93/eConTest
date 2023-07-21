@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace eContracting.Models.JsonDescriptor
 {
-    public class PerexDataModel : IDataModel
+    public class PerexDataModel
     {
-        public string Type { get; } = "perex";
-
-        public int Position { get; set; }
+        [JsonProperty("header")]
         public IDataHeaderModel Header { get; set; }
-        public IDataBodyModel Body { get; set; }
+        
+        [JsonProperty("body")]
+        public PerexBodyModel Body { get; set; }
     }
 }

@@ -91,7 +91,10 @@ namespace eContracting.ConsoleClient.Commands
             }
 
             var acceptedFiles = new List<string>();
-            var acceptedDataModels = json.Data.Where(x => x.Type == Constants.JsonDocumentDataModelType.DOCS_CHECK);
+            var acceptedDataModels = json.Data.Where(
+                x => x.Type == Constants.JsonDocumentDataModelType.DOCS_CHECK_E 
+                || x.Type == Constants.JsonDocumentDataModelType.DOCS_CHECK_G 
+                || x.Type == Constants.JsonDocumentDataModelType.DOCS_CHECK_E_G);
             if (acceptedDataModels.Any())
             {
                 foreach( var acceptedDataModel in acceptedDataModels)
