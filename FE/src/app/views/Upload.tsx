@@ -67,7 +67,7 @@ export const Upload: FC<View> = observer(
           {store.uploadResponseItems?.map(item => (
             <Fragment key={item.position}>
               <h1 className="mt-5 text-center">{item.header?.title}</h1>
-              <Box className="box__upload">
+              <Box className="box__upload mb-4">
                 <h2 className="text-center mb-4">{item.body.docs.title}</h2>
                 {item.body.docs.files.map(({ id: categoryId, info, title }) => (
                   <div key={categoryId} className="mb-5">
