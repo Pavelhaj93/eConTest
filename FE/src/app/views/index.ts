@@ -3,3 +3,6 @@ export * from './AcceptedOffer'
 export * from './Summary'
 export * from './Offer'
 export * from './Upload'
+
+export * from './OfferGas';
+export * from './OfferEle';

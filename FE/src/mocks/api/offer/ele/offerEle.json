@@ -53,7 +53,7 @@
           "mandatoryGroups": ["0635F899B3111EED8E9B07EF632D3EC9"],
           "files": [
             {
-              "key": "9D84515F7BD67F987011878FD0E9DCB",
+              "key": "9D84515F7BD67F987011878FD0E9DCB1",
               "group": "0635F899B3111EED8E9B07EF632D3EC9",
               "label": "Informace pro zákazníka – spotřebitele",
               "note": null,
@@ -118,122 +118,8 @@
       }
     },
     {
-      "type": "docsCheck-G",
-      "position": 2,
-      "header": {
-        "title": ""
-      },
-      "body": {
-        "head": null,
-        "text": "",
-        "docs": {
-          "perex": {
-            "header": {
-              "title": "Stručný přehled Vaší nabídky"
-            },
-            "body": {
-              "params": [
-                {
-                  "title": "Produkt",
-                  "value": "plyn Start 12"
-                },
-                {
-                  "title": "Platnost nabídky do",
-                  "value": "05.10.2022"
-                },
-                {
-                  "title": "Délka fixace",
-                  "value": "12 měsíců od účinnosti smlouvy"
-                },
-                {
-                  "title": "Platnost smlouvy",
-                  "value": "Dnem akceptace smlouvy zákazníkem"
-                },
-                {
-                  "title": "Předpokládaná účinnost smlouvy",
-                  "value": "09.10.2022"
-                }
-              ]
-            }
-          },
-          "title": "Smlouva a přidružené dokumenty",
-          "text": "Dokumenty si přečtěte a potvrďte zatržením.",
-          "params": [
-            {
-              "title": "EIC:",
-              "value": "89XXXXXXXXXXXXXXX"
-            }
-          ],
-          "mandatoryGroups": ["newGroup"],
-          "files": [
-            {
-              "key": "key1",
-              "group": "newGroup",
-              "label": "Informace pro zákazníka – spotřebitele",
-              "note": null,
-              "prefix": "Souhlasím s",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 1
-            },
-            {
-              "key": "key2",
-              "group": "newGroup",
-              "label": "Smlouva o sdružených službách dodávky plynu",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 2
-            },
-            {
-              "key": "key3",
-              "group": "newGroup",
-              "label": "Ceník",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 4
-            },
-            {
-              "key": "key4",
-              "group": "newGroup",
-              "label": "Ceník služeb",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 5
-            },
-            {
-              "key": "key5",
-              "group": "newGroup",
-              "label": "Obchodní podmínky",
-              "note": null,
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": true,
-              "idx": 6
-            },
-            {
-              "key": "key6",
-              "group": "newGroup",
-              "label": "Potvrzení o přiznání individuální slevy",
-              "note": "",
-              "prefix": "Jsem poučen o",
-              "mime": "application/pdf",
-              "mandatory": false,
-              "idx": 17
-            }
-          ]
-        },
-        "note": null
-      }
-    },
-    {
       "type": "docsSign",
-      "position": 3,
+      "position": 2,
       "header": {
         "title": "Dokumenty k podpisu"
       },
@@ -263,7 +149,7 @@
     },
     {
       "type": "docsCheck",
-      "position": 4,
+      "position": 3,
       "header": {
         "title": "Doplňkové služby"
       },
@@ -293,7 +179,7 @@
     },
     {
       "type": "docsCheck",
-      "position": 5,
+      "position": 4,
       "header": {
         "title": "Ostatní služby"
       },
@@ -346,7 +232,7 @@
     },
     {
       "type": "confirm",
-      "position": 6,
+      "position": 5,
       "header": {
         "title": "Potvrzení nabídky"
       },
@@ -357,10 +243,6 @@
           {
             "title": "Nesnižování záloh",
             "group": "0635F899B3111EED8E9B080756ABDEC9"
-          },
-          {
-            "title": "Smlouva Elektrina",
-            "group": "0635F899B3111EED8E9B07EF632D3EC9"
           },
           {
             "title": "Smlouva plyn",

@@ -1,0 +1,93 @@
+{{> html-header }}
+{{> header }}
+
+{{#> layout}}
+  {{#> steps}}
+    {{> step content="Ověření údajů"}}
+    {{> step content="Vložení dokumentů" }}
+    {{> step content="Přečtení a potvrzení dokumentů" active=true}}
+    {{> step content="Hotovo"}}
+  {{/ steps}}
+  <div class="text-center">
+    <h1>Projděte si všechny detaily</h1>
+    <p>Všechny dokumenty si pročtěte a poté potvrďte</p>
+  </div>
+
+  {{> app}}
+{{/ layout}}
+
+<script>
+  var appConfig = {
+    guid: "0635F899B3111EDC9BC4A505A628FCED",
+    view: 'OfferEle',
+    offerUrl: '/api/offer/ele',
+    nextUrl: 'thank-you.html',
+    backUrl: 'upload.html',
+    cancelDialog: {
+      cancelOfferUrl: '/api/offer/cancel',
+      redirectUrl: '/',
+    },
+    timeout: 0,
+    formAction: 'offer.html',
+    getFileUrl: '/api/document-image',
+    thumbnailUrl: '/api/document-image',
+    signFileUrl: '/api/sign-document',
+    errorPageUrl: '/error',
+    acceptOfferUrl: '/api/offer/accept',
+    keepAliveUrl: '/api/keepalive',
+    sessionExpiredPageUrl: '/session-expired.html',
+    backToOfferUrl: '/offer.html',
+    suppliers: {
+      label: 'Aktuální dodavatel',
+      items: [
+        { label: 'Bohemia Energy', value: '123' },
+        { label: 'PRE', value: '456' },
+        { label: 'Kolibřík s.r.o.', value: '789' },
+      ]
+    },
+    labels: {
+      appUnavailableTitle: 'Nedostupnost aplikace',
+      appUnavailableText: '<p>Omlouváme se Vám za nedostupnost aplikace. Příčinou může být právě probíhající odstávka. Prosím opakujte akci později.</p>',
+      acceptAll: 'Označit vše',
+      acceptOfferTitle: 'Potvrzení nabídky',
+      acceptOfferHelptext: '<p>Stisknutím tlačítka Akceptuji potvrdíte souhlas s přechodem na novou smlouvu Relax u innogy.</p>',
+      gasTitle: 'Plyn', 
+      backLabel: "Zpět na nahrání dokumentů",
+      electricityTitle: 'Elektřina', 
+      submitBtn: 'Akceptovat',
+      signatureBtn: 'Podepsat',
+      signatureEditBtn: 'Upravit podpis',
+      signatureModalTitle: 'Podepsat dokument',
+      signatureModalText: 'Podepište se prosím níže:',
+      signatureModalConfirm: 'Potvrdit',
+      signatureModalClear: 'Smazat',
+      signatureModalError: 'Dokument se nepodařilo podepsat, zkuste to prosím znova.',
+      signatureModalThumbnailAlt: 'Náhled dokumentu k podepsání',
+      signatureModalSign: 'Podepsat',
+      signatureModalClose: 'Zavřít',
+      signaturePadAlt: 'Zde je podpisová plocha pro váš podpis',
+      signatureNote: 'Podepište snadno myší přímo ve Vašem prohlížeči nebo prstem v tabletu',
+      acceptanceModalTitle: 'Potvrzení akceptace',
+      acceptanceModalText: '<p style=\"text-align: center;\">Po konečn&yacute; a z&aacute;vazn&yacute; projev Va&scaron;&iacute; vůle, pros&iacute;m, stiskněte tlač&iacute;tko \"Potvrdit\".</p>\n<p style=\"text-align: center;\">Pokud si přejete vr&aacute;tit se zpět, stiskněte tlač&iacute;tko \"Storno\".</p>',
+      acceptanceModalAccept: 'Potvrdit',
+      acceptanceModalCancel: 'Storno',
+      acceptanceModalError: 'Nabídku se nepodařilo akceptovat, zkuste to prosím znova.',
+      acceptanceModalSummary: 'Souhrn nabídky, produktů a služeb',
+      modalClose: 'Zavřít dialog',
+      productBenefits: 'Výhody služby',
+      accepted: 'Akceptováno',
+      notAccepted: 'Neakceptováno',
+      startOver: 'Začít znovu',
+      unfinishedOffer: 'Nedokončená nabídka',
+      unfinishedOfferText: 'Vážený zákazníku, opravdu chcete stornovat celou nabídku a ponechat vaši smlouvu ve výpovědi?',
+      continueInOffer: "Zavřít",
+      quitOffer: "Potvrdit",
+      cancelOffer: "Anulovat nabidku",
+      
+    },
+    version: 3
+  };
+</script>
+
+{{> footer }}
+
