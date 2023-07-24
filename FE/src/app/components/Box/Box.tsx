@@ -23,7 +23,7 @@ export const Box: React.FC<BoxProps> = ({
   backgroundColor = 'gray-10',
   ...rest
 }) => (
-  <div className={classNames('box', 'mb-4', `bg--${backgroundColor}`, className)} {...rest}>
+  <div className={classNames('box', `bg--${backgroundColor}`, className)} {...rest}>
     {children}
   </div>
 )

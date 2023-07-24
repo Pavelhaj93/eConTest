@@ -61,7 +61,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
           </BoxHeader>
         )}
         {headTitle && (
-          <Box>
+          <Box className="mb-4">
             <h3 className="text-center font-weight-bolder">{headTitle}</h3>
             {headText && (
               <div
@@ -92,7 +92,7 @@ const DocsCheck: FC<DocsCheckProps> = observer(
         {docsPerex && (
           <Perex headerTitle={docsPerex.header.title} bodyParams={docsPerex.body.params} />
         )}
-        <Box data-testid="boxDocumentsToBeAccepted">
+        <Box data-testid="boxDocumentsToBeAccepted" className="mb-4">
           <h3 className="text-center">{docsTitle}</h3>
           {docsText && (
             <div

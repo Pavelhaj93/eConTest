@@ -48,7 +48,7 @@ const DocsSign: FC<DocsSignProps> = observer(
             <h2 className="text-center text-white">{headerTitle}</h2>
           </BoxHeader>
         )}
-        <Box>
+        <Box className="mb-4">
           <h3 className="text-center">{docsTitle}</h3>
           <div
             className="editorial-content text-center my-4"
