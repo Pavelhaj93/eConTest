@@ -109,10 +109,6 @@ export const Upload: FC<View> = observer(
                     />
                   </div>
                 ))}
-                <div
-                  className="small text-muted editorial-content"
-                  dangerouslySetInnerHTML={{ __html: item.body.docs.note }}
-                />
               </Box>
             </Fragment>
           ))}

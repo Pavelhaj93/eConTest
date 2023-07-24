@@ -12,7 +12,7 @@ interface GiftBlockProps {
 
 const GiftBlock: FC<GiftBlockProps> = ({ headerTitle, bodyGroups, headerNote }) => {
   return (
-    <Box backgroundColor="green">
+    <Box backgroundColor="green" className="mb-4">
       <BoxHeading data-testid="giftBoxHeading">{headerTitle}</BoxHeading>
 
       <Row className="justify-content-xl-center">

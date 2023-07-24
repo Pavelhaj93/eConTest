@@ -17,7 +17,7 @@ const ContractualData: FC<ContractualDataProps> = ({
   bodyContacts,
 }) => {
   return (
-    <Box backgroundColor="gray-80">
+    <Box backgroundColor="gray-80" className="mb-4">
       <BoxHeading>{headerTitle}</BoxHeading>
       <Row className="justify-content-center mx-0 mb-0 flex-row">
         <Col as="ul" xs={12} xl={4} className="my-3 px-2 list-unstyled">
