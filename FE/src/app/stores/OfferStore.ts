@@ -54,6 +54,9 @@ export class OfferStore {
   public isUnfinishedOfferModalOpen = false
 
   @observable
+  public consumption: NewOfferResponse.ResponseItem | undefined = undefined
+
+  @observable
   public perex: NewOfferResponse.ResponseItem[] | undefined = undefined
 
   @observable
@@ -80,6 +83,7 @@ export class OfferStore {
   @computed
   public get concatedSortedData(): NewOfferResponse.ResponseItem[] {
     return [
+      ...(this.consumption ? [this.consumption] : []),
       ...(this.docsCheck ?? []),
       ...(this.docsSign ?? []),
       ...(this.confirm ? [this.confirm] : []),
@@ -109,7 +113,15 @@ export class OfferStore {
    */
   @computed
   public get productDocGroupsToBeChecked(): NewOfferResponse.File[][] {
-    return this.docsCheck?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheckE || NewOfferResponse.ResponseItemType.DocsCheckG ).map(item => item.body.docs.files) ?? []
+    return (
+      this.docsCheck
+        ?.filter(
+          item =>
+            item.type === NewOfferResponse.ResponseItemType.DocsCheckE ||
+            NewOfferResponse.ResponseItemType.DocsCheckG,
+        )
+        .map(item => item.body.docs.files) ?? []
+    )
   }
 
   /**
@@ -118,7 +130,11 @@ export class OfferStore {
    */
   @computed
   public get otherDocGroupsToBeChecked(): NewOfferResponse.File[][] {
-    return this.docsCheck?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck).map(item => item.body.docs.files) ?? []
+    return (
+      this.docsCheck
+        ?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck)
+        .map(item => item.body.docs.files) ?? []
+    )
   }
 
   /**
@@ -502,6 +518,10 @@ export class OfferStore {
             // enrich documents with `accepted` key and set it to false by default (see `enrichDocuments` method)
             // - this is needed for MobX to observe the changes of this key and trigger rerender in React component when the key is changed
 
+            this.consumption = jsonResponse.data.find(
+              item => item.type === NewOfferResponse.ResponseItemType.Consumption,
+            )
+
             this.docsCheck = jsonResponse.data
               .filter(
                 item =>
@@ -521,7 +541,13 @@ export class OfferStore {
               }))
 
             this.docsSign = jsonResponse.data
-              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsSign)
+              .filter(
+                item =>
+                  item.type === NewOfferResponse.ResponseItemType.DocsSign ||
+                  item.type === NewOfferResponse.ResponseItemType.DocsSignG ||
+                  item.type === NewOfferResponse.ResponseItemType.DocsSignE ||
+                  item.type === NewOfferResponse.ResponseItemType.DocsSignEG,
+              )
               .map(item => ({
                 ...item,
                 body: {
@@ -564,12 +590,14 @@ export class OfferStore {
     return this.docGroupsToBeChecked.map(docGroup => docGroup?.map(files => files).flat()).flat()
   }
 
-   /**
+  /**
    * Return array of all documents that are to be checked related to Products
    * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
    */
   public getAllToBeCheckedProductDocuments(): NewOfferResponse.File[] {
-    return this.productDocGroupsToBeChecked.map(docGroup => docGroup.map(files => files).flat()).flat()
+    return this.productDocGroupsToBeChecked
+      .map(docGroup => docGroup.map(files => files).flat())
+      .flat()
   }
 
   /**
@@ -577,7 +605,9 @@ export class OfferStore {
    * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
    */
   public getAllToBeCheckedOtherDocuments(): NewOfferResponse.File[] {
-    return this.otherDocGroupsToBeChecked.map(docGroup => docGroup.map(files => files).flat()).flat()
+    return this.otherDocGroupsToBeChecked
+      .map(docGroup => docGroup.map(files => files).flat())
+      .flat()
   }
 
   /**
@@ -609,8 +639,8 @@ export class OfferStore {
   }
 
   /**
-  * clear whole localStorage from saved progress of the current offer
-  */
+   * clear whole localStorage from saved progress of the current offer
+   */
   private async clearLocalStorage(): Promise<void> {
     localStorage.removeItem('checkedDocuments')
     localStorage.removeItem('signedDocuments')
@@ -630,9 +660,7 @@ export class OfferStore {
       accepted: this.getAcceptedKeys(this.getAllToBeCheckedProductDocuments()),
       signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()),
       uploaded: this.getUploadedKeys(this.storedUploads),
-      other: [
-        this.getAcceptedKeys(this.getAllToBeCheckedOtherDocuments())
-      ],
+      other: [this.getAcceptedKeys(this.getAllToBeCheckedOtherDocuments())],
       supplier: this.supplier ? this.supplier : null,
     }
 

@@ -9,7 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
   TooltipUI()
 })
 
-import { Authentication, Offer, AcceptedOffer, Summary, Upload, OfferGas, OfferEle } from '@views'
+import {
+  Authentication,
+  Offer,
+  AcceptedOffer,
+  Summary,
+  Upload,
+  OfferGas,
+  OfferEle,
+  OdhlaskaGas,
+  OdhlaskaEle,
+  OdhlaskaBoth,
+} from '@views'
 
 type Views = {
   [index: string]: React.FC<ViewType>
@@ -37,6 +48,9 @@ const App: React.FC = () => {
     Upload,
     OfferGas,
     OfferEle,
+    OdhlaskaEle,
+    OdhlaskaGas,
+    OdhlaskaBoth,
   }
 
   const View = views[config.view]

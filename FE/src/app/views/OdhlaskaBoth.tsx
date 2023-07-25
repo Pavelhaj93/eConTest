@@ -16,7 +16,7 @@ import DocsSign from '../blocks/DocsSign'
 import Confirm from '../blocks/Confirm'
 import Consumption from '../blocks/Consumption'
 
-export const Offer: React.FC<View> = observer(
+export const OdhlaskaBoth: React.FC<View> = observer(
   ({
     guid,
     offerUrl,

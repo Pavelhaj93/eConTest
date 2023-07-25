@@ -53,6 +53,7 @@ export type IconName =
   | 'close'
   | 'cross-circle'
   | 'E'
+  | 'B'
   | 'edit'
   | 'email'
   | 'exclamation-mark-circle'

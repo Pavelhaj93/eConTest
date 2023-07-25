@@ -63,6 +63,10 @@ export namespace NewOfferResponse {
     DocsCheckE = 'docsCheck-E',
     DocsSign = 'docsSign',
     Confirm = 'confirm',
+    Consumption = 'consumption',
+    DocsSignG = 'docsSign-G',
+    DocsSignE = 'docsSign-E',
+    DocsSignEG = 'docsSign-E/G',
   }
 
   export type AcceptanceGroup = {

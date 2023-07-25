@@ -126,6 +126,7 @@ export enum ResponseItemType {
 export enum OfferType {
   NEW = 'NEW',
   ACCEPTED = 'ACCEPTED',
+  MOCK = 'MOCK',
 }
 
 export enum GiftType {
@@ -137,6 +138,7 @@ export enum GiftType {
 export enum CommodityProductType {
   ELECTRICITY = 'E',
   GAS = 'G',
+  BOTH = 'B',
 }
 
 export type CancelDialog = {

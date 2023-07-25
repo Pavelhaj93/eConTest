@@ -1,0 +1,77 @@
+{
+    "data": [
+        {
+            "type": "consumption",
+            "position": 1,
+            "body": {
+                "head": {
+                    "title": "Místo spotřeby",
+                    "text": "<p style=\"text-align: center\">Hackerova: 575/10<br />Praha - Bohnice<br />181 00</p><p style=\"text-align: center\">EAN: 989743592374502</p>"
+                }
+            }
+        },
+        {
+            "type": "docsSign-E/G",
+            "position": 2,
+            "header": {
+                "title": "" 
+            },
+            "body": {
+                "head": null,
+                "text": null,
+                "docs": {
+                    "title": "Dokumenty k podpisu",
+                    "params": null,
+                    "text": "<p>Plnou moc potřebujeme pro zah&aacute;jen&iacute; dod&aacute;vky u innogy.&nbsp;</p>",
+                    "mandatoryGroups": [
+                        "0635F899B3111EED8E9B07EF632D3EC9",
+                        "7FB3A23973F04F77B40D34280D56681C"
+                    ],
+                    "files": [
+                        {
+                            "key": "EEFCB55B021DA472D361BD2E894BBDD9",
+                            "group": "0635F899B3111EED8E9B07EF632D3EC9",
+                            "label": "Plná moc",
+                            "note": "",
+                            "prefix": "Jsem poučen o",
+                            "mime": "application/pdf",
+                            "mandatory": true,
+                            "idx": 0
+                        },
+                        {
+                            "key": "8EE2E36D87AC41AFA45A20E4693BF476",
+                            "group": "7FB3A23973F04F77B40D34280D56681C",
+                            "label": "Návrhu na ukončení",
+                            "note": "",
+                            "prefix": "Jsem poučen o",
+                            "mime": "application/pdf",
+                            "mandatory": true,
+                            "idx": 1
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "confirm", 
+            "position": 3,
+            "header": {
+                "title": "Potvrzení nabídky"
+            },
+            "body": {
+                "head": null,
+                "text": "Stisknutím tlačítka Akceptuji potvrdíte souhlas s odhlášením odběrového místa.",
+                "params": [
+                    {
+                        "title": "Plná moc",
+                        "group": "0635F899B3111EED8E9B07EF632D3EC9"
+                    },
+                    {
+                        "title": "Návrhu na ukončení",
+                        "group": "7FB3A23973F04F77B40D34280D56681C"
+                    }
+                ]
+            }
+        }
+    ]
+}

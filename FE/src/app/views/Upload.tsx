@@ -122,17 +122,17 @@ export const Upload: FC<View> = observer(
             <Button variant="primary" href={nextUrl} disabled={!store.isUploadFinished}>
               {t('continueBtn')}
             </Button>
+            {backUrl && (
+              <Button
+                variant="link"
+                className="underline text-primary m-auto w-content d-flex text-center"
+                href={backUrl}
+              >
+                {t('backToSummary')}
+              </Button>
+            )}
           </div>
         </div>
-        {backUrl && (
-          <Button
-            variant="link"
-            className="underline text-primary m-auto w-content d-flex text-center"
-            href={backUrl}
-          >
-            {t('backToSummary')}
-          </Button>
-        )}
       </Fragment>
     )
   },

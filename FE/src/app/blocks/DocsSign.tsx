@@ -3,8 +3,8 @@ import { breakpoints, colors } from '@theme'
 import React, { FC, Fragment, useContext } from 'react'
 
 import InfoElement from './InfoElement'
-import { NewOfferResponse } from '@types'
-import { parseUrl } from '@utils'
+import { CommodityProductType, NewOfferResponse } from '@types'
+import { getColorByCommodityType, getCommodityTitle, parseUrl } from '@utils'
 import { useLabels } from '@hooks'
 import Media from 'react-media'
 import { OfferStoreContext } from '@context'
@@ -13,6 +13,7 @@ import { observer } from 'mobx-react-lite'
 
 interface DocsSignProps {
   t: ReturnType<typeof useLabels>
+  type?: CommodityProductType
   headerTitle: NewOfferResponse.Header['title']
   docsTitle: NewOfferResponse.Docs['title']
   docsFiles: NewOfferResponse.Docs['files']
@@ -26,6 +27,7 @@ interface DocsSignProps {
 const DocsSign: FC<DocsSignProps> = observer(
   ({
     t,
+    type,
     headerTitle,
     docsTitle,
     docsFiles,
@@ -43,12 +45,51 @@ const DocsSign: FC<DocsSignProps> = observer(
 
     return (
       <>
-        {headerTitle && (
+        {headerTitle && !type && (
           <BoxHeader>
             <h2 className="text-center text-white">{headerTitle}</h2>
           </BoxHeader>
         )}
+        {type === CommodityProductType.GAS && (
+          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.GAS)}>
+            <Icon name={type} width={30} />
+            <h2 className="text-center text-white ml-3">
+              {getCommodityTitle(CommodityProductType.GAS, t)}
+            </h2>
+          </BoxHeader>
+        )}
+        {type === CommodityProductType.ELECTRICITY && (
+          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.ELECTRICITY)}>
+            <Icon name={type} width={30} />
+            <h2 className="text-center text-white ml-3">
+              {getCommodityTitle(CommodityProductType.ELECTRICITY, t)}
+            </h2>
+          </BoxHeader>
+        )}
+        {type === CommodityProductType.BOTH && (
+          <div className="d-flex">
+            <BoxHeader
+              backgroundColor={getColorByCommodityType(CommodityProductType.ELECTRICITY)}
+              className="w-50 mr-2 mb-3"
+            >
+              <Icon name={CommodityProductType.ELECTRICITY} width={30} />
+              <h2 className="text-center text-white ml-3">
+                {getCommodityTitle(CommodityProductType.ELECTRICITY, t)}
+              </h2>
+            </BoxHeader>
+            <BoxHeader
+              backgroundColor={getColorByCommodityType(CommodityProductType.GAS)}
+              className="w-50 ml-2 mb-3"
+            >
+              <Icon name={CommodityProductType.GAS} width={30} />
+              <h2 className="text-center text-white ml-3">
+                {getCommodityTitle(CommodityProductType.GAS, t)}
+              </h2>
+            </BoxHeader>
+          </div>
+        )}
         <Box className="mb-4">
+          {type && headerTitle && <h2 className="text-center">{headerTitle}</h2>}
           <h3 className="text-center">{docsTitle}</h3>
           <div
             className="editorial-content text-center my-4"

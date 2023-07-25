@@ -59,6 +59,7 @@ const Confirm: FC<ConfirmProps> = observer(
               className="editorial-content mb-3"
               dangerouslySetInnerHTML={{ __html: bodyText }}
             />
+            {!suppliers && <div className="mb-5"></div>}
             <Button
               variant="primary"
               type="submit"
