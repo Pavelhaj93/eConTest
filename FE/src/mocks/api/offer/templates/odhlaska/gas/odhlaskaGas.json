@@ -11,10 +11,12 @@
             }
         },
         {
-            "type": "docsSign-E",
+            "type": "docsSign",
             "position": 2,
             "header": {
-                "title": "" 
+                "title": ["Plyn"],
+                "type": ["G"]
+               
             },
             "body": {
                 "head": null,

@@ -1,5 +1,6 @@
 import {
   AcceptedOfferResponse,
+  CommodityProductType,
   NewOfferResponse,
   OfferErrorResponse,
   OfferType,
@@ -108,7 +109,7 @@ export class OfferStore {
   }
 
   /**
-   * Returns array of file arrays from all docCheck groups which are related to commodities. So type docsCheck-G and docsCheck-E
+   * Returns array of file arrays from all docCheck groups which are related to commodities. So type of docsCheck is either GAS or ELECTRICITY
    * Just for acceptOffer API purposes. there is a need to separate product documents and documents which are related to other services
    */
   @computed
@@ -117,8 +118,9 @@ export class OfferStore {
       this.docsCheck
         ?.filter(
           item =>
-            item.type === NewOfferResponse.ResponseItemType.DocsCheckE ||
-            NewOfferResponse.ResponseItemType.DocsCheckG,
+            (item.type === NewOfferResponse.ResponseItemType.DocsCheck &&
+              item.header.type?.includes(CommodityProductType.GAS)) ??
+            item.header.type?.includes(CommodityProductType.ELECTRICITY),
         )
         .map(item => item.body.docs.files) ?? []
     )
@@ -132,7 +134,9 @@ export class OfferStore {
   public get otherDocGroupsToBeChecked(): NewOfferResponse.File[][] {
     return (
       this.docsCheck
-        ?.filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck)
+        ?.filter(
+          item => item.type === NewOfferResponse.ResponseItemType.DocsCheck && !item.header.type,
+        )
         .map(item => item.body.docs.files) ?? []
     )
   }
@@ -523,12 +527,7 @@ export class OfferStore {
             )
 
             this.docsCheck = jsonResponse.data
-              .filter(
-                item =>
-                  item.type === NewOfferResponse.ResponseItemType.DocsCheckG ||
-                  item.type === NewOfferResponse.ResponseItemType.DocsCheckE ||
-                  item.type === NewOfferResponse.ResponseItemType.DocsCheck,
-              )
+              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsCheck)
               .map(item => ({
                 ...item,
                 body: {
@@ -541,13 +540,7 @@ export class OfferStore {
               }))
 
             this.docsSign = jsonResponse.data
-              .filter(
-                item =>
-                  item.type === NewOfferResponse.ResponseItemType.DocsSign ||
-                  item.type === NewOfferResponse.ResponseItemType.DocsSignG ||
-                  item.type === NewOfferResponse.ResponseItemType.DocsSignE ||
-                  item.type === NewOfferResponse.ResponseItemType.DocsSignEG,
-              )
+              .filter(item => item.type === NewOfferResponse.ResponseItemType.DocsSign)
               .map(item => ({
                 ...item,
                 body: {
@@ -657,11 +650,11 @@ export class OfferStore {
     }
 
     const data = {
-      accepted: this.getAcceptedKeys(this.getAllToBeCheckedProductDocuments()),
-      signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()),
-      uploaded: this.getUploadedKeys(this.storedUploads),
-      other: [this.getAcceptedKeys(this.getAllToBeCheckedOtherDocuments())],
-      supplier: this.supplier ? this.supplier : null,
+      accepted: this.getAcceptedKeys(this.getAllToBeCheckedProductDocuments()), // docsCheck with commodity
+      signed: this.getAcceptedKeys(this.getAllToBeSignedDocuments()), // all docsSigns
+      uploaded: this.getUploadedKeys(this.storedUploads), // all uploads
+      other: [this.getAcceptedKeys(this.getAllToBeCheckedOtherDocuments())], // docsCheck without commodity
+      supplier: this.supplier ? this.supplier : null, // supplier
     }
 
     this.isAccepting = true

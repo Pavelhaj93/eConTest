@@ -1,6 +1,6 @@
 import { Box, BoxHeader, DocumentLink, Icon, SignButton } from '@components'
 import { breakpoints, colors } from '@theme'
-import React, { FC, Fragment, useContext } from 'react'
+import React, { FC, useContext } from 'react'
 
 import InfoElement from './InfoElement'
 import { CommodityProductType, NewOfferResponse } from '@types'
@@ -13,8 +13,7 @@ import { observer } from 'mobx-react-lite'
 
 interface DocsSignProps {
   t: ReturnType<typeof useLabels>
-  type?: CommodityProductType
-  headerTitle: NewOfferResponse.Header['title']
+  header: NewOfferResponse.Header
   docsTitle: NewOfferResponse.Docs['title']
   docsFiles: NewOfferResponse.Docs['files']
   bodyNote: NewOfferResponse.Body['note']
@@ -27,8 +26,7 @@ interface DocsSignProps {
 const DocsSign: FC<DocsSignProps> = observer(
   ({
     t,
-    type,
-    headerTitle,
+    header,
     docsTitle,
     docsFiles,
     bodyNote,
@@ -43,53 +41,58 @@ const DocsSign: FC<DocsSignProps> = observer(
       return null
     }
 
-    return (
-      <>
-        {headerTitle && !type && (
-          <BoxHeader>
-            <h2 className="text-center text-white">{headerTitle}</h2>
-          </BoxHeader>
-        )}
-        {type === CommodityProductType.GAS && (
-          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.GAS)}>
-            <Icon name={type} width={30} />
-            <h2 className="text-center text-white ml-3">
-              {getCommodityTitle(CommodityProductType.GAS, t)}
-            </h2>
-          </BoxHeader>
-        )}
-        {type === CommodityProductType.ELECTRICITY && (
-          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.ELECTRICITY)}>
-            <Icon name={type} width={30} />
-            <h2 className="text-center text-white ml-3">
-              {getCommodityTitle(CommodityProductType.ELECTRICITY, t)}
-            </h2>
-          </BoxHeader>
-        )}
-        {type === CommodityProductType.BOTH && (
+    const renderHeader = (header: NewOfferResponse.Header) => {
+      if (
+        header.type?.includes(CommodityProductType.ELECTRICITY) &&
+        header.type?.includes(CommodityProductType.GAS)
+      ) {
+        return (
           <div className="d-flex">
             <BoxHeader
               backgroundColor={getColorByCommodityType(CommodityProductType.ELECTRICITY)}
               className="w-50 mr-2 mb-3"
             >
               <Icon name={CommodityProductType.ELECTRICITY} width={30} />
-              <h2 className="text-center text-white ml-3">
-                {getCommodityTitle(CommodityProductType.ELECTRICITY, t)}
-              </h2>
+              <h2 className="text-center text-white ml-3">{header.title[0]}</h2>
             </BoxHeader>
             <BoxHeader
               backgroundColor={getColorByCommodityType(CommodityProductType.GAS)}
               className="w-50 ml-2 mb-3"
             >
               <Icon name={CommodityProductType.GAS} width={30} />
-              <h2 className="text-center text-white ml-3">
-                {getCommodityTitle(CommodityProductType.GAS, t)}
-              </h2>
+              <h2 className="text-center text-white ml-3">{header.title[1]}</h2>
             </BoxHeader>
           </div>
+        )
+      } else if (header.type?.includes(CommodityProductType.GAS)) {
+        return (
+          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.GAS)}>
+            <Icon name={'G'} width={30} />
+            <h2 className="text-center text-white ml-3">{header.title[0] ?? 'Komodita'}</h2>
+          </BoxHeader>
+        )
+      } else if (header.type?.includes(CommodityProductType.ELECTRICITY)) {
+        return (
+          <BoxHeader backgroundColor={getColorByCommodityType(CommodityProductType.ELECTRICITY)}>
+            <Icon name={'E'} width={30} />
+            <h2 className="text-center text-white ml-3">{header.title[1] ?? 'Komodita'}</h2>
+          </BoxHeader>
+        )
+      }
+
+      return null
+    }
+
+    return (
+      <>
+        {renderHeader(header)}
+        {header.title && !header.type && (
+          <BoxHeader>
+            <h2 className="text-center text-white">{header.title}</h2>
+          </BoxHeader>
         )}
+
         <Box className="mb-4">
-          {type && headerTitle && <h2 className="text-center">{headerTitle}</h2>}
           <h3 className="text-center">{docsTitle}</h3>
           <div
             className="editorial-content text-center my-4"

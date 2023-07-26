@@ -1,10 +1,11 @@
 {
   "data": [
     {
-      "type": "docsCheck-G",
+      "type": "docsCheck",
       "position": 1,
       "header": {
-        "title": ""
+        "title": "Plyn",
+        "type": ["G"]
       },
       "body": {
         "head": {

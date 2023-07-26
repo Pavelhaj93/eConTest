@@ -121,56 +121,13 @@ export const OdhlaskaGas: React.FC<View> = observer(
                   />
                 )
               }
-              case NewOfferResponse.ResponseItemType.DocsCheckE: {
-                return (
-                  <DocsCheck
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.ELECTRICITY}
-                    headerTitle={item.header.title}
-                    headTitle={item.body.head?.title ?? ''}
-                    headText={item.body.head?.text ?? ''}
-                    bodyText={item.body.text ?? ''}
-                    docsPerex={item.body.docs.perex}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    docsText={item.body.docs?.text ?? ''}
-                    docsParams={item.body.docs?.params ?? []}
-                    bodyNote={item.body.note ?? ''}
-                    handleDownload={handleDownload}
-                    getFileUrl={getFileUrl ?? ''}
-                    guid={guid}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.DocsCheckG: {
-                return (
-                  <DocsCheck
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.GAS}
-                    headerTitle={item.header.title}
-                    headTitle={item.body.head?.title ?? ''}
-                    headText={item.body.head?.text ?? ''}
-                    bodyText={item.body.text ?? ''}
-                    docsPerex={item.body.docs.perex}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    docsText={item.body.docs?.text ?? ''}
-                    docsParams={item.body.docs?.params ?? []}
-                    bodyNote={item.body.note ?? ''}
-                    handleDownload={handleDownload}
-                    getFileUrl={getFileUrl ?? ''}
-                    guid={guid}
-                  />
-                )
-              }
+
               case NewOfferResponse.ResponseItemType.DocsCheck: {
                 return (
                   <DocsCheck
                     key={item.position}
                     t={t}
-                    headerTitle={item.header.title}
+                    header={item.header}
                     headTitle={item.body.head?.title ?? ''}
                     headText={item.body.head?.text ?? ''}
                     bodyText={item.body.text ?? ''}
@@ -190,58 +147,7 @@ export const OdhlaskaGas: React.FC<View> = observer(
                   <DocsSign
                     key={item.position}
                     t={t}
-                    headerTitle={item.header.title}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    getFileUrl={getFileUrl ?? ''}
-                    bodyNote={item.body.note ?? ''}
-                    guid={guid}
-                    handleDownload={handleDownload}
-                    onOpenSignatureModal={setOpenSignatureModal}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.DocsSignE: {
-                return (
-                  <DocsSign
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.ELECTRICITY}
-                    headerTitle={item.header.title}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    getFileUrl={getFileUrl ?? ''}
-                    bodyNote={item.body.note ?? ''}
-                    guid={guid}
-                    handleDownload={handleDownload}
-                    onOpenSignatureModal={setOpenSignatureModal}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.DocsSignG: {
-                return (
-                  <DocsSign
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.GAS}
-                    headerTitle={item.header.title}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    getFileUrl={getFileUrl ?? ''}
-                    bodyNote={item.body.note ?? ''}
-                    guid={guid}
-                    handleDownload={handleDownload}
-                    onOpenSignatureModal={setOpenSignatureModal}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.DocsSignEG: {
-                return (
-                  <DocsSign
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.BOTH}
-                    headerTitle={item.header.title}
+                    header={item.header}
                     docsTitle={item.body.docs?.title ?? ''}
                     docsFiles={item.body.docs?.files ?? []}
                     getFileUrl={getFileUrl ?? ''}

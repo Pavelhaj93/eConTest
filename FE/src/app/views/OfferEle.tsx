@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
-import { CommodityProductType, NewOfferResponse, OfferType, View } from '@types'
+import { NewOfferResponse, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button } from 'react-bootstrap'
@@ -14,6 +14,7 @@ import { isIE11, parseUrl } from '@utils'
 import DocsCheck from '../blocks/DocsCheck'
 import DocsSign from '../blocks/DocsSign'
 import Confirm from '../blocks/Confirm'
+import Consumption from '../blocks/Consumption'
 
 export const OfferEle: React.FC<View> = observer(
   ({
@@ -111,47 +112,12 @@ export const OfferEle: React.FC<View> = observer(
           {store.concatedSortedData?.map(item => {
             const { type } = item
             switch (type) {
-              case NewOfferResponse.ResponseItemType.DocsCheckE: {
+              case NewOfferResponse.ResponseItemType.Consumption: {
                 return (
-                  <DocsCheck
+                  <Consumption
                     key={item.position}
-                    t={t}
-                    type={CommodityProductType.ELECTRICITY}
-                    headerTitle={item.header.title}
                     headTitle={item.body.head?.title ?? ''}
                     headText={item.body.head?.text ?? ''}
-                    bodyText={item.body.text ?? ''}
-                    docsPerex={item.body.docs.perex}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    docsText={item.body.docs?.text ?? ''}
-                    docsParams={item.body.docs?.params ?? []}
-                    bodyNote={item.body.note ?? ''}
-                    handleDownload={handleDownload}
-                    getFileUrl={getFileUrl ?? ''}
-                    guid={guid}
-                  />
-                )
-              }
-              case NewOfferResponse.ResponseItemType.DocsCheckG: {
-                return (
-                  <DocsCheck
-                    key={item.position}
-                    t={t}
-                    type={CommodityProductType.GAS}
-                    headerTitle={item.header.title}
-                    headTitle={item.body.head?.title ?? ''}
-                    headText={item.body.head?.text ?? ''}
-                    bodyText={item.body.text ?? ''}
-                    docsPerex={item.body.docs.perex}
-                    docsTitle={item.body.docs?.title ?? ''}
-                    docsFiles={item.body.docs?.files ?? []}
-                    docsText={item.body.docs?.text ?? ''}
-                    docsParams={item.body.docs?.params ?? []}
-                    bodyNote={item.body.note ?? ''}
-                    handleDownload={handleDownload}
-                    getFileUrl={getFileUrl ?? ''}
-                    guid={guid}
                   />
                 )
               }
@@ -160,7 +126,7 @@ export const OfferEle: React.FC<View> = observer(
                   <DocsCheck
                     key={item.position}
                     t={t}
-                    headerTitle={item.header.title}
+                    header={item.header}
                     headTitle={item.body.head?.title ?? ''}
                     headText={item.body.head?.text ?? ''}
                     bodyText={item.body.text ?? ''}
@@ -180,7 +146,7 @@ export const OfferEle: React.FC<View> = observer(
                   <DocsSign
                     key={item.position}
                     t={t}
-                    headerTitle={item.header.title}
+                    header={item.header}
                     docsTitle={item.body.docs?.title ?? ''}
                     docsFiles={item.body.docs?.files ?? []}
                     getFileUrl={getFileUrl ?? ''}

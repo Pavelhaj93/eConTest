@@ -1,10 +1,11 @@
 {
   "data": [
     {
-      "type": "docsCheck-E",
+      "type": "docsCheck",
       "position": 1,
       "header": {
-        "title": ""
+        "title": "Elektřina",
+        "type": ["E"]
       },
       "body": {
         "head": {
@@ -135,7 +136,7 @@
             {
               "key": "EEFCB55B021DA472D361BD2E894BBDD9",
               "group": "0635F899B3111EED8E9B07EF632D3EC9",
-              "label": "Plná moc (Plyn)",
+              "label": "Plná moc (Elektřina)",
               "note": "",
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",

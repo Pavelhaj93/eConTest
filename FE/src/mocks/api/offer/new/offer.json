@@ -1,10 +1,11 @@
 {
   "data": [
     {
-      "type": "docsCheck-E",
+      "type": "docsCheck",
       "position": 1,
       "header": {
-        "title": ""
+        "title": "Elektřina",
+        "type": ["E"]
       },
       "body": {
         "head": {
@@ -13,6 +14,7 @@
         },
         "text": "Přečtěte si pros&iacute;m v&scaron;echny dokumenty a zatržen&iacute;m potvrďte jejich přečten&iacute;. Nakonec klikněte na tlač&iacute;tko Akceptuji.\n<br></br>Posl&eacute;ze budou v&scaron;echny dokumenty odesl&aacute;ny do innogy a nen&iacute; třeba je d&aacute;le zas&iacute;lat jinou formou.",
         "docs": {
+
           "perex": {
             "header": {
               "title": "Stručný přehled Vaší nabídky"
@@ -60,7 +62,8 @@
               "prefix": "Souhlasím s",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 1
+              "idx": 1,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "1588852AACD6AABB2795488FF6039B8C",
@@ -70,7 +73,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 2
+              "idx": 2,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "1DD58C9CD8109A5AABE3415E01FF4842",
@@ -80,7 +84,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 4
+              "idx": 4,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "F48CE2AEF4ED1C52D42504F68F66DD29",
@@ -90,7 +95,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 5
+              "idx": 5,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "4B1770D545BD73151EA656AA0FD1B1D9",
@@ -100,7 +106,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 6
+              "idx": 6,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "EFEB578CC0241BBEEAA3CC78D4FD5BC5",
@@ -110,7 +117,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 17
+              "idx": 17,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             }
           ]
         },
@@ -118,10 +126,11 @@
       }
     },
     {
-      "type": "docsCheck-G",
+      "type": "docsCheck",
       "position": 2,
       "header": {
-        "title": ""
+        "title": "Plyn",
+        "type": ["G"]
       },
       "body": {
         "head": null,
@@ -174,7 +183,8 @@
               "prefix": "Souhlasím s",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 1
+              "idx": 1,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             },
             {
               "key": "key2",
@@ -184,7 +194,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 2
+              "idx": 2,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             },
             {
               "key": "key3",
@@ -194,7 +205,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 4
+              "idx": 4,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             },
             {
               "key": "key4",
@@ -204,7 +216,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 5
+              "idx": 5,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             },
             {
               "key": "key5",
@@ -214,7 +227,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 6
+              "idx": 6,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             },
             {
               "key": "key6",
@@ -224,7 +238,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 17
+              "idx": 17,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             }
           ]
         },
@@ -254,7 +269,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": true,
-              "idx": 3
+              "idx": 3,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             }
           ]
         },
@@ -284,7 +300,8 @@
               "prefix": "Souhlasím s",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 0
+              "idx": 0,
+              "guid": "1B6A521FC905E2C28D06D183B95F8E11"
             }
           ]
         },
@@ -317,7 +334,8 @@
               "prefix": "Souhlasím s",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 10
+              "idx": 10,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "6EBBDE95F969EA605E942CDC7DDBC649",
@@ -327,7 +345,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 11
+              "idx": 11,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             },
             {
               "key": "06B90A42E65985F9ACF9F4F32E69CC68",
@@ -337,7 +356,8 @@
               "prefix": "Jsem poučen o",
               "mime": "application/pdf",
               "mandatory": false,
-              "idx": 15
+              "idx": 15,
+              "guid": "0635F899B3111EDC9BC4A505A628FCED"
             }
           ]
         },

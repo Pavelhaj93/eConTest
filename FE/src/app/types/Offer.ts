@@ -28,7 +28,7 @@ export namespace NewOfferResponse {
   export interface Header {
     title: string
     text: string
-    type?: CommodityProductType
+    type?: CommodityProductType | CommodityProductType[]
   }
 
   export interface Docs {
@@ -59,8 +59,6 @@ export namespace NewOfferResponse {
 
   export enum ResponseItemType {
     DocsCheck = 'docsCheck',
-    DocsCheckG = 'docsCheck-G',
-    DocsCheckE = 'docsCheck-E',
     DocsSign = 'docsSign',
     Confirm = 'confirm',
     Consumption = 'consumption',

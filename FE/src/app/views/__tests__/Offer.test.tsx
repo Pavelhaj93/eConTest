@@ -25,10 +25,11 @@ const mockProps = {
 const basicOfferResponse = {
   data: [
     {
-      type: 'docsCheck-E',
+      type: 'docsCheck',
       position: 1,
       header: {
-        title: '',
+        title: 'Elektřina',
+        type: ['E'],
       },
       body: {
         head: {
@@ -143,10 +144,11 @@ const basicOfferResponse = {
       },
     },
     {
-      type: 'docsCheck-G',
+      type: 'docsCheck',
       position: 2,
       header: {
-        title: '',
+        title: 'Plyn',
+        type: ['G'],
       },
       body: {
         head: null,

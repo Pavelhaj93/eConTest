@@ -11,10 +11,11 @@
             }
         },
         {
-            "type": "docsSign-E",
+            "type": "docsSign",
             "position": 2,
             "header": {
-                "title": "" 
+                "title": ["Elektřina"],
+                "type": ["E"] 
             },
             "body": {
                 "head": null,
