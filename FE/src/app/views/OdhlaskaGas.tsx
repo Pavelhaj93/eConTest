@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useRef, FormEvent } from 'react'
-import { CommodityProductType, NewOfferResponse, OfferType, View } from '@types'
+import { NewOfferResponse, OfferType, View } from '@types'
 import { observer } from 'mobx-react-lite'
 import { OfferStore } from '@stores'
 import { Alert, Button } from 'react-bootstrap'

@@ -105,8 +105,8 @@ export const Icon: React.FC<IconProps> = ({
 }) => {
   return (
     <svg
-      width={size || width}
-      height={size || height}
+      width={size ?? width}
+      height={size ?? height}
       className={`icon ${className ? className : ''}`}
       preserveAspectRatio="none"
       focusable={false}

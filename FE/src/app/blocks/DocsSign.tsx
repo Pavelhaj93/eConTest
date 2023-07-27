@@ -4,7 +4,7 @@ import React, { FC, useContext } from 'react'
 
 import InfoElement from './InfoElement'
 import { CommodityProductType, NewOfferResponse } from '@types'
-import { getColorByCommodityType, getCommodityTitle, parseUrl } from '@utils'
+import { getColorByCommodityType, parseUrl } from '@utils'
 import { useLabels } from '@hooks'
 import Media from 'react-media'
 import { OfferStoreContext } from '@context'
