@@ -68,6 +68,11 @@ export default merge(baseConfig, {
           to: './gfx/',
           context: './src/icons/',
         },
+        {
+          from: './mocks/**/*',
+          to: './',
+          context: './src/',
+        }
       ],
     }),
 
