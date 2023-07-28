@@ -14,6 +14,10 @@ interface BenefitProps {
   bodyPoints: SummaryResponse.ResponseItem['body']['points']
 }
 
+function test() {
+  console.log('test')
+}
+
 const Benefit: FC<BenefitProps> = ({ headerTitle, body, bodyInfos, bodyPoints }) => {
   return (
     <div className="mb-4">
